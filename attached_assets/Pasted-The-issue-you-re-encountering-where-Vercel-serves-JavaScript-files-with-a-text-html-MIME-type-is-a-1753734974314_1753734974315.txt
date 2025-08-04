@@ -1,0 +1,146 @@
+The issue you're encountering, where Vercel serves JavaScript files with a text/html MIME type, is a common problem often tied to misconfigured routing or caching in Vercel's deployment setup. Based on the provided curl -I output and the additional diagnostics, here’s a focused analysis and actionable steps to resolve the issue:
+
+Problem Analysis
+HTTP Response Details:
+content-type: text/html; charset=utf-8: Vercel is serving an HTML file (likely index.html) instead of the expected JavaScript file (index-CWH0ADpq.js).
+content-disposition: inline; filename="index.html": Confirms the server is explicitly returning index.html.
+x-vercel-cache: HIT and age: 576: Indicates a cached response, roughly 10 minutes old, suggesting the cache is serving stale or incorrect content.
+The wc -c and ls -la commands imply you're verifying the file's existence and size locally, which is correct, but the issue lies in Vercel’s routing or caching behavior.
+Root Cause: The JavaScript file request is being rewritten or redirected to index.html, likely due to a catch-all route in your vercel.json or a default Single Page Application (SPA) configuration. This causes Vercel to serve index.html for requests to static assets, resulting in the wrong MIME type (text/html instead of application/javascript).
+Common Causes:
+Misconfigured vercel.json: A catch-all rewrite rule (e.g., "source": "/(.*)") may be overriding requests for static assets.
+Cache Misconfiguration: Vercel’s cache is serving stale or incorrect responses, possibly due to improper cache invalidation.
+Build Output Issues: The build process might not be correctly placing assets in the expected directory, or the asset paths in index.html are incorrect.
+Framework-Specific Issues: If using a framework like Vite, React, or Next.js, the build configuration (e.g., publicPath or base) might be misaligned with Vercel’s expectations.
+Steps to Resolve
+Here’s a step-by-step approach to fix the issue, based on the diagnostics and common solutions from similar cases:
+
+Verify and Update vercel.json:
+Check your vercel.json for a catch-all rewrite rule. A common configuration for SPAs looks like this:
+json
+
+
+
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+This rule causes all requests, including those for .js files, to serve index.html. To fix this, ensure static assets are served correctly by adding specific routes for them before the catch-all rule.
+Update your vercel.json to include headers for JavaScript files and prioritize static asset serving:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+This ensures that requests to /assets/*.js are served with the correct MIME type and not rewritten to index.html.reddit.com
+Invalidate Vercel Cache:
+Since x-vercel-cache: HIT indicates a cached response, you need to clear the cache:
+Go to your Vercel dashboard, navigate to the project, and select the "Deployments" tab.
+Redeploy the project to invalidate the cache, or use Vercel’s CLI:
+bash
+
+
+
+
+vercel --prod
+Alternatively, add a Cache-Control header to prevent caching during debugging:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
+Verify Asset Paths:
+Your curl -s "https://www.wizqo.com/" | grep -E "index-.*\.js" | head -1 command suggests you’re checking if the JavaScript file is referenced correctly in index.html. Ensure the script tag in index.html points to the correct path:
+html
+
+
+
+<script type="module" src="/assets/index-CWH0ADpq.js"></script>
+If the path is incorrect (e.g., missing /assets/ or a typo), the browser may request a non-existent file, causing Vercel to fall back to index.html.
+Verify the file exists in the dist/public/assets/ directory of your build output (as confirmed by ls -la dist/public/assets/index-CWH0ADpq.js).
+Check Framework Build Configuration:
+If using Vite, ensure the base configuration in vite.config.js matches your deployment structure:
+javascript
+
+
+
+
+export default {
+  base: '/', // Adjust if serving from a subdirectory, e.g., '/public/'
+}
+Incorrect base settings can cause asset paths to resolve incorrectly, leading to 404s or HTML fallbacks.medium.com
+Test the JavaScript File Directly:
+Run curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js again after updating vercel.json and redeploying. You should see:
+text
+
+
+
+HTTP/2 200
+content-type: application/javascript
+If it still returns text/html, double-check the vercel.json syntax and ensure the file exists at the specified path in the build output.
+Debug with Browser Network Tab:
+Open the browser’s DevTools, go to the Network tab, and load the page.
+Look for the request to index-CWH0ADpq.js. If it returns a 404 or index.html, the issue is likely in the vercel.json rewrites or the build output paths.
+Fallback: Manual MIME Type Fix for Windows/IIS:
+If your local development environment or deployment pipeline involves Windows/IIS, ensure the .js MIME type is correctly set to application/javascript. This is less likely for Vercel but worth checking if you’re testing locally:
+bash
+
+
+
+
+REG ADD HKCU\Software\Classes\.js /v "Content Type" /t REG_SZ /d "application/javascript" /f
+stackoverflow.com
+Contact Vercel Support:
+If the issue persists after trying the above, it may be a Vercel-specific bug or a misconfiguration in their edge network. Share the deployment URL, vercel.json, and the curl -I output with Vercel support for further investigation.
+Additional Notes
+Clear Browser Cache: After fixing the server-side issue, clear your browser cache or test in an incognito window to avoid stale client-side responses.
+Check Build Output: Ensure your build process (e.g., Vite, Webpack) correctly generates assets in dist/public/assets/. If the assets are missing or in a different directory, update your build configuration.
+Recent Solutions: The issue aligns with discussions on Reddit and Stack Overflow, where adding explicit headers and prioritizing static asset routes in vercel.json resolved similar MIME type errors.reddit.comcommunity.vercel.com
+Next Steps
+Update your vercel.json with the suggested configuration.
+Redeploy using vercel --prod to clear the cache.
+Test with curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js to confirm the Content-Type is application/javascript.
+If the issue persists, share your vercel.json and the output of curl -I again for further debugging.
+This should resolve the MIME type issue. Let me know if you need help with specific configurations or further diagnostics!

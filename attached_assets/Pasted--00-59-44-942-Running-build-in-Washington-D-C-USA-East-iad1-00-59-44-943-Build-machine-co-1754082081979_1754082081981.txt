@@ -1,0 +1,51 @@
+[00:59:44.942] Running build in Washington, D.C., USA (East) – iad1
+[00:59:44.943] Build machine configuration: 2 cores, 8 GB
+[00:59:44.969] Cloning github.com/wizqo2024/HobbyPlanGen (Branch: main, Commit: 13426ad)
+[00:59:45.138] Previous build caches not available
+[00:59:45.515] Cloning completed: 546.000ms
+[00:59:47.378] Running "vercel build"
+[00:59:47.859] Vercel CLI 44.6.4
+[00:59:48.426] > Installing Builder: @vercel/node@3.0.0
+[00:59:58.996] Running "install" command: `npm install`...
+[01:00:49.885] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[01:00:49.940] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[01:00:50.562] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[01:00:56.808] 
+[01:00:56.808] added 546 packages, and audited 547 packages in 58s
+[01:00:56.808] 
+[01:00:56.809] 75 packages are looking for funding
+[01:00:56.809]   run `npm fund` for details
+[01:00:56.836] 
+[01:00:56.837] 5 moderate severity vulnerabilities
+[01:00:56.837] 
+[01:00:56.837] To address all issues (including breaking changes), run:
+[01:00:56.837]   npm audit fix --force
+[01:00:56.838] 
+[01:00:56.838] Run `npm audit` for details.
+[01:00:57.111] 
+[01:00:57.113] > rest-express@1.0.0 build
+[01:00:57.117] > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+[01:00:57.117] 
+[01:00:57.366] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[01:00:57.420] transforming...
+[01:01:01.641] [32m✓[39m 1703 modules transformed.
+[01:01:01.969] [1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+[01:01:01.970] (!) /vercel/path0/client/src/services/hobbyPlanService.ts is dynamically imported by /vercel/path0/client/src/pages/DashboardPage.tsx but also statically imported by /vercel/path0/client/src/components/SplitPlanInterface.tsx, /vercel/path0/client/src/pages/DashboardPage.tsx, dynamic import will not move module into another chunk.
+[01:01:01.970] [39m
+[01:01:01.970] rendering chunks...
+[01:01:01.991] computing gzip size...
+[01:01:02.007] [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.52 kB[22m[1m[22m[2m │ gzip:   0.81 kB[22m
+[01:01:02.007] [2m../dist/public/[22m[2massets/[22m[35mindex-H3-MqpHo.css  [39m[1m[2m 90.38 kB[22m[1m[22m[2m │ gzip:  14.04 kB[22m
+[01:01:02.007] [2m../dist/public/[22m[2massets/[22m[36mindex-bWRL13D9.js   [39m[1m[33m512.63 kB[39m[22m[2m │ gzip: 144.89 kB[22m
+[01:01:02.007] [33m
+[01:01:02.008] (!) Some chunks are larger than 500 kB after minification. Consider:
+[01:01:02.008] - Using dynamic import() to code-split the application
+[01:01:02.008] - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+[01:01:02.008] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[01:01:02.009] [32m✓ built in 4.62s[39m
+[01:01:02.051] 
+[01:01:02.051]   dist/index.js  59.5kb
+[01:01:02.051] 
+[01:01:02.051] ⚡ Done in 8ms
+[01:01:02.092] Error: Found invalid Node.js Version: "22.x". Please set Node.js Version to 18.x in your Project Settings to use Node.js 18.
+[01:01:02.092] Learn More: http://vercel.link/node-version

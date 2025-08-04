@@ -1,0 +1,303 @@
+The issue persists where Vercel’s CDN is serving a cached version of both the main page and the JavaScript file (index-G9WQI6ms.js) with a text/html MIME type, and the main page is still requesting the outdated index-G9WQI6ms.js instead of the newly deployed index-CWH0ADpq.js. This points to two core problems:
+
+Vercel’s aggressive CDN caching is serving stale content, ignoring the updated deployment.
+Asset hash mismatch in index.html, where the main page references an old JavaScript file (index-G9WQI6ms.js) instead of the new one (index-CWH0ADpq.js).
+Given you’re using Vite and deploying from GitHub, let’s address both the caching issue and the asset mismatch with a targeted approach, ensuring the correct files are served with proper MIME types.
+
+Problem Analysis
+Caching Issue:
+Your curl -I output previously showed x-vercel-cache: HIT with age: 576, indicating Vercel’s CDN is serving cached responses.
+Despite multiple deployments, the CDN hasn’t updated to the new build, suggesting cache invalidation isn’t occurring.
+Asset Mismatch:
+The main page (index.html) references index-G9WQI6ms.js, but your latest build includes index-CWH0ADpq.js.
+This mismatch likely stems from an outdated index.html being served (cached) or an incorrect build process failing to update asset references.
+Vercel Routing:
+The vercel.json from the previous response should enforce application/javascript for .js files, but the cached HTML response suggests the rewrite rules aren’t being applied to new requests.
+Solution
+We’ll tackle the caching issue, ensure the correct index.html and JavaScript files are served, and verify Vite’s build output. Here’s a step-by-step plan:
+
+Force Clear Vercel CDN Cache:
+Vercel’s CDN caching is likely the primary issue. To bypass or clear it:
+Manual Redeployment:
+In the Vercel dashboard, go to your project > “Deployments” > select the latest deployment > click “Redeploy” to force a fresh build.
+Alternatively, use the Vercel CLI locally (or in a GitHub Action):
+bash
+
+
+
+
+vercel --prod --force
+The --force flag ensures a new build, bypassing cached artifacts.
+Purge Cache via API (if CLI is set up):
+Install Vercel CLI locally if not already done:
+bash
+
+
+
+
+npm install -g vercel
+Run:
+bash
+
+
+
+
+vercel cache clear
+Redeploy:
+bash
+
+
+
+
+vercel --prod
+Temporary No-Cache Headers:
+Update vercel.json to disable caching for debugging:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+Commit and push this vercel.json to GitHub:
+bash
+
+
+
+
+git add vercel.json
+git commit -m "Add no-cache headers to bypass CDN"
+git push origin main
+Redeploy to apply the new configuration.
+Fix Asset Mismatch in index.html:
+The main page requesting index-G9WQI6ms.js instead of index-CWH0ADpq.js indicates an outdated index.html. Verify Vite’s build output:
+Run the build locally or in your GitHub workflow:
+bash
+
+
+
+
+npm run build
+Check dist/index.html for the correct script tag:
+bash
+
+
+
+
+cat dist/index.html | grep index-CWH0ADpq.js
+Expected output:
+text
+
+
+
+<script type="module" src="/assets/index-CWH0ADpq.js"></script>
+If it still references index-G9WQI6ms.js, the build cache or Vite configuration is stale. Clear Vite’s cache:
+bash
+
+
+
+
+rm -rf node_modules/.vite
+npm run build
+Ensure vite.config.js is correctly set:
+javascript
+
+
+
+
+// vite.config.js
+export default {
+  base: '/', // Matches deployment root
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
+  }
+}
+Commit and push any changes to vite.config.js:
+bash
+
+
+
+
+git add vite.config.js
+git commit -m "Update Vite config for correct asset paths"
+git push origin main
+Verify Build Output in GitHub:
+Ensure the dist/ folder, including dist/assets/index-CWH0ADpq.js, is included in the GitHub repository or generated during Vercel’s build step.
+Check your .gitignore to confirm dist/ isn’t ignored:
+bash
+
+
+
+
+cat .gitignore
+If dist/ is listed, remove it or ensure Vercel’s build command generates it.
+Verify your package.json build script:
+json
+
+
+
+{
+  "scripts": {
+    "build": "vite build"
+  }
+}
+Test Deployment:
+After redeploying, test the JavaScript file and main page:
+bash
+
+
+
+
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+curl -I https://www.wizqo.com/
+Expected output for the JavaScript file:
+text
+
+
+
+HTTP/2 200
+content-type: application/javascript
+cache-control: no-cache, no-store, must-revalidate
+Check index.html:
+bash
+
+
+
+
+curl -s https://www.wizqo.com/ | grep index-CWH0ADpq.js
+Expected output:
+text
+
+
+
+<script type="module" src="/assets/index-CWH0ADpq.js"></script>
+If the wrong file (index-G9WQI6ms.js) is still referenced, the cached index.html is being served.
+Check Vercel Build Settings:
+In the Vercel dashboard > project “Settings” > “General”:
+Build Command: vite build
+Output Directory: dist
+Root Directory: / (or the directory containing dist/ and vercel.json)
+If using a GitHub Action, verify .github/workflows/vercel.yml:
+yaml
+
+
+
+name: Deploy to Vercel
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run build
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+Browser Testing:
+Open https://www.wizqo.com in an incognito window.
+In DevTools (Network tab), verify:
+index-CWH0ADpq.js loads with Content-Type: application/javascript.
+No 404s or redirects for the JavaScript file.
+index.html references the correct script.
+If the Issue Persists
+Debugging Commands:
+Run and share the output:
+bash
+
+
+
+
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+curl -s https://www.wizqo.com/ | grep index-CWH0ADpq.js
+ls -la dist/assets/
+Share:
+vite.config.js
+package.json build script
+Vercel deployment logs (from the dashboard)
+Purge Edge Cache:
+If Vercel’s CLI cache clear doesn’t work, contact Vercel support to request a manual CDN cache purge.
+Provide:
+Deployment URL
+vercel.json content
+curl -I outputs
+Build logs
+Check for Domain Issues:
+If www.wizqo.com is a custom domain, ensure it’s correctly configured in Vercel’s “Domains” settings and that DNS (e.g., CNAME) points to Vercel’s servers.
+Fallback: Deploy to a New Vercel Project:
+Create a new Vercel project and link it to the same GitHub repository to rule out project-specific cache corruption:
+Import the repository in Vercel.
+Set build settings (vite build, dist output).
+Deploy and test the new URL.
+Additional Notes
+Vite Asset Hashing: Vite’s hashed filenames (index-CWH0ADpq.js) change with each build. Ensure index.html is regenerated with each deployment to reference the latest hashes.
+CDN Behavior: Vercel’s CDN may take time to propagate cache invalidation. The no-cache headers in vercel.json should help during debugging.
+GitHub Workflow: Ensure your GitHub Action or Vercel build step runs npm run build to generate fresh assets.
+Next Steps
+Update vercel.json with no-cache headers and push to GitHub.
+Clear Vite’s cache (rm -rf node_modules/.vite) and rebuild locally.
+Redeploy with vercel --prod --force or via the Vercel dashboard.
+Test with curl -I and browser DevTools.
+If the issue persists, share the debugging outputs listed above.

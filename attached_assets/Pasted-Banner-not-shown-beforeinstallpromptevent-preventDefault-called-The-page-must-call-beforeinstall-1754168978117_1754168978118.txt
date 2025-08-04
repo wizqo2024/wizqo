@@ -1,0 +1,87 @@
+Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+23Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+_app-b6b5f109f17183de.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-b6b5f109f17183de.js:1:132261)
+    at _app-b6b5f109f17183de.js:28:58884
+    at r (_app-b6b5f109f17183de.js:28:43219)
+    at _app-b6b5f109f17183de.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-b6b5f109f17183de.js:28:43112)
+    at Object.next (_app-b6b5f109f17183de.js:28:43229)
+    at v (_app-b6b5f109f17183de.js:23:5666)
+    at y (_app-b6b5f109f17183de.js:23:6188)
+    at t.next (_app-b6b5f109f17183de.js:23:6689)
+    at _app-b6b5f109f17183de.js:15:109835
+    at Array.forEach (<anonymous>)
+    at n (_app-b6b5f109f17183de.js:15:109804)
+    at Object.next (_app-b6b5f109f17183de.js:28:44340)
+    at v (_app-b6b5f109f17183de.js:23:5666)
+    at y (_app-b6b5f109f17183de.js:23:6188)
+    at t.next (_app-b6b5f109f17183de.js:23:6689)
+    at Object.onNext [as next] (_app-b6b5f109f17183de.js:40:250945)
+    at v (_app-b6b5f109f17183de.js:23:5666)
+    at y (_app-b6b5f109f17183de.js:23:6188)
+    at t.next (_app-b6b5f109f17183de.js:23:6689)
+    at Object.next (_app-b6b5f109f17183de.js:40:250067)
+    at v (_app-b6b5f109f17183de.js:23:5666)
+    at y (_app-b6b5f109f17183de.js:23:6188)
+    at t.next (_app-b6b5f109f17183de.js:23:6689)
+    at _app-b6b5f109f17183de.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-b6b5f109f17183de.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-b6b5f109f17183de.js:40:246849)
+    at v (_app-b6b5f109f17183de.js:23:5666)
+    at y (_app-b6b5f109f17183de.js:23:6188)
+    at t.next (_app-b6b5f109f17183de.js:23:6689)
+    at _app-b6b5f109f17183de.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message

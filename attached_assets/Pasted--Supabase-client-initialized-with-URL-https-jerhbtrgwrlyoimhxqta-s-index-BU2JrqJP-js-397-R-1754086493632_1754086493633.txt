@@ -1,0 +1,188 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: 
+index-BU2JrqJP.js:52 🔑 Initial session: none
+index-BU2JrqJP.js:52 🔄 Auth context state change: INITIAL_SESSION none
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+/api/generate-plan:1 
+            
+            
+           Failed to load resource: the server responded with a status of 500 ()Understand this error
+index-BU2JrqJP.js:397 Error generating plan: Error: HTTP error! status: 500
+    at a (index-BU2JrqJP.js:397:73434)
+    at async X (index-BU2JrqJP.js:193:2136)
+    at async se (index-BU2JrqJP.js:193:3644)
+a @ index-BU2JrqJP.js:397Understand this error
+index-BU2JrqJP.js:193 🎯 Setting plan data in SplitPlanInterface: Guitar
+index-BU2JrqJP.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Guitar",
+  "title": "Learn guitar in 7 Days",
+  "overview": "Master the art of guitar in just 7 days! This AI-powered plan will take you from beginner to confident practitioner with hands-on exercises and expert guidance.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day 1: guitar Fundamentals",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises.",
+      "explanation": "Day 1 focuses on building your foundation in guitar with practical exercises.",
+      "howTo": [
+        "Start with basic guitar concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "guitar Day 1 Tutorial",
+          "link": "https://youtube.com/watch?v=guitar-day-1"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "ewJNyS9pe-Y",
+      "videoTitle": "guitar Day 1 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Day 2: guitar Fundamentals",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises.",
+      "explanation": "Day 2 focuses on building your foundation in guitar with practical exercises.",
+      "howTo": [
+        "Start with basic guitar concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "guitar Day 2 Tutorial",
+          "link": "https://youtube.com/watch?v=guitar-day-2"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B2234?tag=wizqo-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "ewJNyS9pe-Y",
+      "videoTitle": "guitar Day 2 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Day 3: guitar Fundamentals",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises.",
+      "explanation": "Day 3 focuses on building your foundation in guitar with practical exercises.",
+      "howTo": [
+        "Start with basic guitar concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "guitar Day 3 Tutorial",
+          "link": "https://youtube.com/watch?v=guitar-day-3"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B3234?tag=wizqo-20",
+          "price": "$29.99"
+        }
+      ],
+      "youtubeVideoId": "ewJNyS9pe-Y",
+      "videoTitle": "guitar Day 3 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 4,
+      "title": "Day 4: guitar Fundamentals",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises.",
+      "explanation": "Day 4 focuses on building your foundation in guitar with practical exercises.",
+      "howTo": [
+        "Start with basic guitar concepts",
+        "Practice fundamental techniques",
+  
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: ewJNyS9pe-Y
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+index-BU2JrqJP.js:199 🐛 Video Title: guitar Day 1 Tutorial
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754086468470-ne6jdz925 Guitar
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+index-BU2JrqJP.js:199 🐛 Video Title: guitar Day 1 Tutorial
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+index-BU2JrqJP.js:199 🐛 Video Title: guitar Day 1 Tutorial
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+index-BU2JrqJP.js:199 🐛 Video Title: guitar Day 1 Tutorial
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object

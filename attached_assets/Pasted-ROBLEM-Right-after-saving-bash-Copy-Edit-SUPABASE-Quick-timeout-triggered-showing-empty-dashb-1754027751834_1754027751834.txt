@@ -1,0 +1,86 @@
+ROBLEM
+Right after saving:
+
+bash
+Copy
+Edit
+📖 SUPABASE: Quick timeout triggered, showing empty dashboard
+➡️ Fetching user plans from Supabase is failing — likely due to a timeout or broken query.
+
+🔧 FIX THIS: Supabase Data Retrieval Is Timing Out
+🔍 Likely Causes:
+🔁 You're using a short client-side timeout when querying:
+
+ts
+Copy
+Edit
+const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 3000);
+const { data, error } = await supabase
+  .from('plans')
+  .select('*')
+  .eq('user_id', userId)
+  .abortSignal(controller.signal);
+If that looks familiar — 3s might be too short for cold Supabase instances.
+
+🔐 Row-Level Security (RLS) might block the query even if saving works.
+
+🗃️ Table has many rows and you're not using pagination or indexing.
+
+✅ Recommended Fix Steps
+Step 1: 🔄 Increase Timeout Duration (Frontend)
+Try 10s instead of 3s:
+
+ts
+Copy
+Edit
+const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 10000);
+
+const { data, error } = await supabase
+  .from('plans')
+  .select('*')
+  .eq('user_id', userId)
+  .abortSignal(controller.signal);
+clearTimeout(timeout);
+Step 2: 🧪 Test Query Without Timeout
+Test this in the browser console or local dev:
+
+ts
+Copy
+Edit
+const { data, error } = await supabase
+  .from('plans')
+  .select('*')
+  .eq('user_id', '773c3f18-025a-432d-ae3d-fa13be3faef8');
+
+console.log({ data, error });
+If that returns results — your fetch works, the timeout was just too short.
+
+Step 3: 🔐 Confirm RLS Policy for Reading
+If you're using Row-Level Security, make sure your select policy allows reading:
+
+sql
+Copy
+Edit
+create policy "Users can read their own plans"
+on plans
+for select
+using (auth.uid() = user_id);
+Run that in Supabase SQL Editor if you haven’t already.
+
+Step 4: ⚡ Add Index to user_id
+In SQL editor:
+
+sql
+Copy
+Edit
+create index if not exists idx_user_id on plans(user_id);
+This improves fetch speed significantly when querying by user.
+
+🧠 Summary
+✅ Goal	Status
+Save plan to Supabase	✅ Success
+Save progress (mark day complete)	✅ Success
+Fetch plans on dashboard	❌ Fails due to timeout
+Fixes to apply	🔁 Increase timeout, check RLS, add index

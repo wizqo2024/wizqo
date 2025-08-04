@@ -1,0 +1,159 @@
+[LaunchDarkly] LaunchDarkly client initialized
+/usage:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+21Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'battery'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+_app-4a8ba4289f8c8026.js:13 task queue exceeded allotted deadline by 41ms
+(anonymous) @ _app-4a8ba4289f8c8026.js:13Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: coding
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 Saving plan to database for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📝 API SERVICE: Creating hobby plan for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 hobby: coding
+Console.js:61 🔍 IMMEDIATE STORING plan for navigation (SplitPlanInterface): plan-1753880719379-pdy02doj8 coding
+84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/api/hobby-plans:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)Understand this error
+Console.js:61 Error saving plan to database: Error: Failed to create hobby plan: Internal Server Error
+    at Object.createHobbyPlan (api-service.ts:19:13)
+    at async HobbyPlanService.savePlan (hobbyPlanService.ts:75:31)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:347:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:377:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error saving surprise plan to Supabase: Error: Failed to create hobby plan: Internal Server Error
+    at Object.createHobbyPlan (api-service.ts:19:13)
+    at async HobbyPlanService.savePlan (hobbyPlanService.ts:75:31)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:347:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:377:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 📝 DATABASE SAVE: Guest user detected - progress not saved
+Mt.forEach.n.<computed> @ Console.js:61Understand this warning
+2Console.js:61 Warning: Encountered two children with the same key, `1753880722233`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+    at div
+    at div
+    at div
+    at div
+    at SplitPlanInterface (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/components/SplitPlanInterface.tsx:31:38)
+    at div
+    at App (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/App.tsx?v=h9fbwBQUQwnNeptyblSYM:30:43)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 📝 DATABASE SAVE: Guest user detected - progress not saved
+Mt.forEach.n.<computed> @ Console.js:61Understand this warning
+3Console.js:61 Warning: Encountered two children with the same key, `1753880722233`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+    at div
+    at div
+    at div
+    at div
+    at SplitPlanInterface (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/components/SplitPlanInterface.tsx:31:38)
+    at div
+    at App (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/App.tsx?v=h9fbwBQUQwnNeptyblSYM:30:43)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Warning: Encountered two children with the same key, `1753880726396`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+    at div
+    at div
+    at div
+    at div
+    at SplitPlanInterface (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/components/SplitPlanInterface.tsx:31:38)
+    at div
+    at App (https://84946fc3-bb4d-484c-a817-50868a18d63f-00-jgab4c5gngyj.picard.replit.dev/src/App.tsx?v=h9fbwBQUQwnNeptyblSYM:30:43)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: Auth still loading, waiting...
+Console.js:61 Initial session: Object
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 API SERVICE: User found, fetching plans and progress
+Console.js:61 📖 API SERVICE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 API SERVICE: Fetching hobby plans for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 API SERVICE: User found, fetching plans and progress
+Console.js:61 📖 API SERVICE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 API SERVICE: Fetching hobby plans for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 API SERVICE: Found 0 plans
+Console.js:61 📖 API SERVICE: Plans result: 0 plans
+Console.js:61 📖 API SERVICE: Fetching user progress for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 API SERVICE: Found 0 plans
+Console.js:61 📖 API SERVICE: Plans result: 0 plans
+Console.js:61 📖 API SERVICE: Fetching user progress for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 API SERVICE: Found 0 progress entries
+Console.js:61 📖 API SERVICE: Progress result: 0 progress entries
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 📖 API SERVICE: Found 0 progress entries
+Console.js:61 📖 API SERVICE: Progress result: 0 progress entries

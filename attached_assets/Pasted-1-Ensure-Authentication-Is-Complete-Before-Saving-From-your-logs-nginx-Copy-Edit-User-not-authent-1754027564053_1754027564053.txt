@@ -1,0 +1,134 @@
+1. Ensure Authentication Is Complete Before Saving
+From your logs:
+
+nginx
+Copy
+Edit
+User not authenticated or no plan ID - progress not saved
+This means you're trying to save before the user is fully signed in or before you've assigned a planId.
+
+Fix:
+Make sure your save logic runs only after:
+
+ts
+Copy
+Edit
+const user = supabase.auth.getUser();
+if (user && planId) {
+  // Proceed with save
+}
+✅ 2. Avoid Supabase Save Timeouts
+This error:
+
+pgsql
+Copy
+Edit
+Supabase save operation timed out after 5 seconds
+Likely means:
+
+You're saving too much data at once.
+
+Or your Supabase database is slow due to RLS or indexing issues.
+
+Fixes:
+
+Chunk large data:
+
+ts
+Copy
+Edit
+// Split long array of days
+for (const day of plan.days) {
+  await supabase.from('plan_days').insert({...day, plan_id});
+}
+Use upserts for updates:
+
+ts
+Copy
+Edit
+await supabase
+  .from('plans')
+  .upsert({ id: planId, ...planData });
+Index columns you frequently filter/sort on (e.g. user_id, plan_id).
+
+Simplify RLS if you’re using complex policies. These can slow down inserts.
+
+✅ 3. Example Save Flow (Full Plan)
+Here’s a recommended save structure for a plan like yours:
+
+Supabase tables (minimum):
+users: stores user profile info
+
+plans: stores plan metadata
+
+plan_days: stores per-day breakdown
+
+Sample Code:
+ts
+Copy
+Edit
+const savePlanToSupabase = async (userId, plan) => {
+  const supabase = createClient();
+
+  // Save plan metadata
+  const { data: planInsert, error: planError } = await supabase
+    .from('plans')
+    .upsert({
+      id: plan.id, // Or use Supabase-generated ID
+      user_id: userId,
+      hobby: plan.hobby,
+      title: plan.title,
+      overview: plan.overview,
+      total_days: plan.totalDays,
+      difficulty: plan.difficulty,
+    });
+
+  if (planError) throw planError;
+
+  // Save each plan day
+  const dayInserts = plan.days.map((day) => ({
+    plan_id: plan.id,
+    day: day.day,
+    title: day.title,
+    main_task: day.mainTask,
+    explanation: day.explanation,
+    how_to: day.howTo,
+    checklist: day.checklist,
+    tips: day.tips,
+    mistakes: day.mistakesToAvoid,
+    free_resources: day.freeResources,
+    affiliate_products: day.affiliateProducts,
+  }));
+
+  const { error: dayError } = await supabase
+    .from('plan_days')
+    .upsert(dayInserts);
+
+  if (dayError) throw dayError;
+
+  return { success: true };
+};
+🔐 Bonus: Simple RLS Example for plans
+In Supabase SQL Editor:
+
+sql
+Copy
+Edit
+-- Enable RLS
+alter table plans enable row level security;
+
+-- Add policy
+create policy "Users can insert/select/update their own plans"
+on plans
+for all
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+✅ Final Checklist
+✅	Task
+🔒	Ensure user is authenticated (use supabase.auth.getUser())
+🆔	Generate or pass a unique planId
+🧩	Break large plan data into metadata + days
+🔄	Use upsert() instead of insert() for updates
+🧪	Test saving small plans first to verify
+⚙️	Optimize RLS if performance is bad
+🧾	Use indexes on user_id, plan_id for faster saves/queries

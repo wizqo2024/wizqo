@@ -1,0 +1,79 @@
+Confirm vercel.json configuration (minimal example)
+Make sure your vercel.json file explicitly sets headers for JS assets, for example:
+
+json
+Copy
+Edit
+{
+  "headers": [
+    {
+      "source": "/assets/(.*).js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript" }
+      ]
+    }
+  ],
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
+2. Double-check package.json scripts
+Add or confirm this:
+
+json
+Copy
+Edit
+"scripts": {
+  "build": "your-build-command",
+  "vercel-build": "npm run build"
+}
+The vercel-build script ensures Vercel runs the build properly.
+
+3. Asset paths and deployment output
+Confirm your build outputs static JS and CSS into /dist/public/assets/.
+
+Confirm that your distDir in vercel.json is "dist/public" as you have it.
+
+Check that in production, the app tries to load JS files from /assets/ (relative paths can break this).
+
+4. Clear old locks & push latest config via shell
+In your Shell tab, run exactly:
+
+bash
+Copy
+Edit
+rm -f .git/index.lock
+git add .
+git commit -m "Finalize Vercel MIME fix and production config" --author="wizqo <wizqo2024@gmail.com>"
+git push origin main
+5. Alternative deployment method
+If git push or Vercel web deployment is flaky, try deploying directly from the shell:
+
+bash
+Copy
+Edit
+npm install -g vercel
+vercel login
+vercel --prod
+6. Debugging MIME type in browser devtools
+In the browser network tab, look at the JavaScript file requests:
+
+Are URLs correct? (no 404 or redirects)
+
+What is the Content-Type header?
+
+If text/html, open the response preview — is it an error page or HTML fallback?
+
+7. Temporary workaround: Rename assets or change path
+Sometimes the framework build might produce files with .js extensions but routes or static serving config on Vercel might serve them wrongly.
+
+Try:
+
+Hosting the assets in a /static/ folder instead of /assets/
+
+Adjusting routes accordingly

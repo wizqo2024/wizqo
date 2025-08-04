@@ -1,0 +1,90 @@
+Generate a detailed, motivating, and experience-level-appropriate 7-day learning plan for the hobby: [HOBBY].
+
+User Details (fill all or specify defaults):
+- Experience level: [Beginner / Intermediate / Pro] (If unspecified, default to Beginner)
+- Time commitment per day: [e.g., 30–60 minutes] (If unspecified, default to 30–60 minutes)
+- Goal: [User’s main goal with the hobby] (If goal is unrealistic for 7 days, adjust to a realistic milestone)
+- Available tools/resources: [List of tools or materials user has] (If insufficient for hobby, suggest affordable/free alternatives)
+
+Instructions:
+
+1. Overview (3-4 sentences):
+- Write a warm, encouraging introduction tailored to the user’s experience level and goal.
+- Beginner tone: Friendly, simple language, focusing on fundamentals and confidence building.
+- Intermediate tone: Motivating and growth-oriented, emphasizing skill improvement.
+- Pro tone: Professional, insightful, emphasizing mastery and advanced techniques.
+- Clearly state what the user will achieve in 7 days and how this plan supports their goal.
+
+2. Daily Mini-Lessons (Day 1 to Day 7):
+For each day, create a comprehensive, engaging lesson with word counts:
+- Beginner: 300–400 words total
+- Intermediate: 400–500 words total
+- Pro: 500–600 words total
+
+Each day’s lesson must include the following clearly marked sections with consistent emojis:
+
+🎯 **Main Task:**  
+- A clear, actionable, step-by-step task appropriate for the user’s experience level.  
+- Explain how to do it in detail, especially for research or discovery tasks (e.g., how to find safe camping spots using specific websites/apps, or how to identify good practice resources).
+
+📚 **Explanation & Why:**  
+- Explain the importance of the task, its role in the learning journey, and how it connects with prior/future tasks.
+
+🔍 **How to Find / Do / Use (if applicable):**  
+- Provide explicit instructions on how to complete the task, where to find needed information or resources, and stepwise tips for best results.  
+- Include reputable platforms, tools, or apps.
+
+📋 **Detailed Checklist (if applicable):**  
+- A comprehensive list of all tools, gear, materials, or preparation items needed for that day’s task or project.  
+- Each item should include a brief explanation of why it’s necessary.
+
+⚠️ **Common Mistakes to Avoid:**  
+- List 1–3 common mistakes specifically tailored to the user’s experience level.  
+- Offer concrete advice on how to avoid them.
+
+💡 **Tips for Success:**  
+- Provide 2–3 practical, easy-to-implement tips.  
+- Tone these tips appropriately:  
+   - Beginner: foundational and encouraging tips  
+   - Intermediate: optimization and improvement tips  
+   - Pro: advanced hacks and mastery advice
+
+🔗 **Free Resource:**  
+- Recommend one reputable, high-quality, and currently active free resource such as a YouTube tutorial, article, or online course.  
+- Prefer sources from well-known platforms or experts relevant to the hobby. Provide a clickable link.
+
+🛒 **Affiliate Link:**  
+- Provide one relevant affiliate product link using placeholders. Alternate between:  
+   - Amazon: https://amazon.com/dp/[ID]?tag=wizqo-20  
+   - Partner (choose based on hobby):  
+     - Outdoor hobbies: REI (https://rei.com/product/[ID]?assoc=wizqo)  
+     - Crafts: Michaels (https://michaels.com/product/[ID]?assoc=wizqo)  
+     - Generic fallback: Walmart (https://walmart.com/ip/[ID]?affp1=wizqo)
+
+3. Progression and Connection:  
+- Each day’s lesson must build on previous days’ learning, reinforcing skills and preparing for the final Day 7 achievement.
+
+4. Tone and Style:  
+- Use a warm, friendly, conversational tone that matches the user’s experience level without jargon or overwhelm.  
+- Write in short paragraphs and use bullet points for clarity.
+
+5. Day 1 Closing:  
+- End Day 1 with:  
+🎉 Excited for tomorrow? Log in to continue your journey and unlock Day 2!
+
+6. Day 2 to Day 6 Closing:  
+- End each day with motivational, tailored lines such as:  
+🎉 Ready for Day [X+1]? Keep going and unlock the next step!
+
+7. Day 7 Closing:  
+- Conclude with an encouraging wrap-up summarizing their achievement and suggesting next steps or resources for continued growth.
+
+8. Formatting:  
+- Use clear headings for Overview, Day 1 through Day 7.  
+- Use emojis consistently as section headers.
+
+9. If Hobby is Unclear or Invalid:  
+- Suggest 3 beginner-friendly hobbies with a 1-sentence description each to help the user choose, for example:  
+   - Painting: Learn how to express creativity with colors and brushes.  
+   - Coding: Start building simple programs and apps from scratch.  
+   - Gardening: Grow plants and improve your outdoor space step-by-step.

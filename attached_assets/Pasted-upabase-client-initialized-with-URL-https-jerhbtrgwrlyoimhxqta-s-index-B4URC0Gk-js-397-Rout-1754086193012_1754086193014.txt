@@ -1,0 +1,189 @@
+upabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-B4URC0Gk.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-B4URC0Gk.js:182 🔄 Initializing messages state with welcome message
+index-B4URC0Gk.js:52 🔑 Initial session: none
+index-B4URC0Gk.js:52 🔄 Auth context state change: INITIAL_SESSION none
+index-B4URC0Gk.js:397 🔧 Route change detected - pathname: / hash: #/
+index-B4URC0Gk.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-B4URC0Gk.js:182 🔄 Initializing messages state with welcome message
+/api/generate-plan:1 
+            
+            
+           Failed to load resource: the server responded with a status of 500 ()Understand this error
+index-B4URC0Gk.js:397 Error generating plan: Error: HTTP error! status: 500
+    at a (index-B4URC0Gk.js:397:73434)
+    at async X (index-B4URC0Gk.js:193:2136)
+    at async se (index-B4URC0Gk.js:193:3644)
+a @ index-B4URC0Gk.js:397Understand this error
+index-B4URC0Gk.js:193 🎯 Setting plan data in SplitPlanInterface: Drawing
+index-B4URC0Gk.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Drawing",
+  "title": "Learn drawing in 7 Days",
+  "overview": "Master the art of drawing in just 7 days! This AI-powered plan will take you from beginner to confident practitioner with hands-on exercises and expert guidance.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day 1: drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises.",
+      "explanation": "Day 1 focuses on building your foundation in drawing with practical exercises.",
+      "howTo": [
+        "Start with basic drawing concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "drawing Day 1 Tutorial",
+          "link": "https://youtube.com/watch?v=drawing-day-1"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "F5bqcsbdKQM",
+      "videoTitle": "drawing Day 1 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Day 2: drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises.",
+      "explanation": "Day 2 focuses on building your foundation in drawing with practical exercises.",
+      "howTo": [
+        "Start with basic drawing concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "drawing Day 2 Tutorial",
+          "link": "https://youtube.com/watch?v=drawing-day-2"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B2234?tag=wizqo-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "F5bqcsbdKQM",
+      "videoTitle": "drawing Day 2 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Day 3: drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises.",
+      "explanation": "Day 3 focuses on building your foundation in drawing with practical exercises.",
+      "howTo": [
+        "Start with basic drawing concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "drawing Day 3 Tutorial",
+          "link": "https://youtube.com/watch?v=drawing-day-3"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B3234?tag=wizqo-20",
+          "price": "$29.99"
+        }
+      ],
+      "youtubeVideoId": "F5bqcsbdKQM",
+      "videoTitle": "drawing Day 3 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 4,
+      "title": "Day 4: drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises.",
+      "explanation": "Day 4 focuses on building your foundation in drawing with practical exercises.",
+      "howTo": [
+        "Start with basic drawing concepts",
+        "Pract
+index-B4URC0Gk.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-B4URC0Gk.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-B4URC0Gk.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-B4URC0Gk.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: F5bqcsbdKQM
+index-B4URC0Gk.js:199 🐛 Debug YouTube Video ID: F5bqcsbdKQM
+index-B4URC0Gk.js:199 🐛 Video Title: drawing Day 1 Tutorial
+index-B4URC0Gk.js:199 🐛 Debug Common Mistakes: Array(3)
+index-B4URC0Gk.js:199 🐛 Full current day data: Object
+index-B4URC0Gk.js:184 🔍 Direct Supabase session check: plan-1754086108902-ogigg6xe8 Drawing
+index-B4URC0Gk.js:199 🐛 Debug YouTube Video ID: F5bqcsbdKQM
+index-B4URC0Gk.js:199 🐛 Video Title: drawing Day 1 Tutorial
+index-B4URC0Gk.js:199 🐛 Debug Common Mistakes: Array(3)
+index-B4URC0Gk.js:199 🐛 Full current day data: Object
+index-B4URC0Gk.js:199 🐛 Debug YouTube Video ID: F5bqcsbdKQM
+index-B4URC0Gk.js:199 🐛 Video Title: drawing Day 1 Tutorial
+index-B4URC0Gk.js:199 🐛 Debug Common Mistakes: Array(3)
+index-B4URC0Gk.js:199 🐛 Full current day data: Object
+index-B4URC0Gk.js:199 🐛 Debug YouTube Video ID: F5bqcsbdKQM
+index-B4URC0Gk.js:199 🐛 Video Title: drawing Day 1 Tutorial
+index-B4URC0Gk.js:199 🐛 Debug Common Mistakes: Array(3)
+index-B4URC0Gk.js:199 🐛 Full current day data: Object

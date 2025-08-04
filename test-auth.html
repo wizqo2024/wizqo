@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Test</title>
+</head>
+<body>
+    <h1>Authentication Test</h1>
+    <p>Dashboard is loading successfully</p>
+    <p>User: wizqo2024@gmail.com</p>
+    <p>Status: Authenticated</p>
+    <p>Data loading: Yes</p>
+    
+    <button onclick="testSignOut()">Test Sign Out</button>
+    <button onclick="testDashboard()">Test Dashboard</button>
+    
+    <script>
+        function testSignOut() {
+            parent.postMessage({type: 'signOut'}, '*');
+        }
+        
+        function testDashboard() {
+            window.location.hash = '#/dashboard';
+        }
+    </script>
+</body>
+</html>

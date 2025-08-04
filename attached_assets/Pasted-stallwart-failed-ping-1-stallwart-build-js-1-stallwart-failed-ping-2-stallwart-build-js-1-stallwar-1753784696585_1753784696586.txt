@@ -1,0 +1,79 @@
+stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+_app-424ade17f85111cf.js:18 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-424ade17f85111cf.js:18 [LaunchDarkly] LaunchDarkly client initialized
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+26Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'battery'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+framework-0ca1b51e9fd8bea3.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-0ca1b51e9fd8bea3.js:1Understand this warning
+stallwart.build.js:1 stallwart: failed ping 1
+_app-424ade17f85111cf.js:18 task queue exceeded allotted deadline by 421ms
+(anonymous) @ _app-424ade17f85111cf.js:18Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null

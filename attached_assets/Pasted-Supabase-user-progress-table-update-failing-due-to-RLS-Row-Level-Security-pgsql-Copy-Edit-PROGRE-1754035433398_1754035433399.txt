@@ -1,0 +1,53 @@
+Supabase user_progress table update failing due to RLS (Row-Level Security)
+pgsql
+Copy
+Edit
+❌ PROGRESS: Failed to update progress: 401 {"code":"42501","message":"new row violates row-level security policy for table \"user_progress\""}
+This means that your Supabase table user_progress has row-level security enabled, but your policy is not allowing the insert or update operation.
+
+✅ Here's how to fix it:
+Go to your Supabase project.
+
+Navigate to Table Editor → user_progress → Row Level Security.
+
+Ensure Row-Level Security (RLS) is enabled (it is, based on the error).
+
+Add or update a policy to allow insert/update for authenticated users. Here's a basic example you can try:
+
+✅ Policy: Allow insert/update for the authenticated user
+sql
+Copy
+Edit
+-- INSERT policy
+CREATE POLICY "Allow insert for authenticated users"
+ON user_progress
+FOR INSERT
+TO authenticated
+USING (
+  auth.uid() = user_id
+);
+
+-- UPDATE policy
+CREATE POLICY "Allow update for authenticated users"
+ON user_progress
+FOR UPDATE
+TO authenticated
+USING (
+  auth.uid() = user_id
+);
+Make sure the table has a user_id column that matches the currently logged-in user's auth.uid().
+
+🧪 After applying the policies:
+Retry marking the day as complete.
+
+If still broken, check the Supabase logs or inspect the network tab for any additional clues.
+
+❓ Bonus: What about the other warnings?
+These are non-blocking browser console warnings and can be safely ignored unless you're trying to clean up all noise:
+
+Type	Message	Fix
+Unrecognized feature	Various browser features like ambient-light-sensor, etc.	Harmless, can be ignored or removed from your Feature-Policy or Permissions-Policy headers.
+Refused to frame	CSP violation for embedding Google	Adjust your Content-Security-Policy if you need to frame external pages (not recommended for Google).
+allow-downloads-without-user-activation	Invalid sandbox flag	Remove or update this attribute in any <iframe> sandbox usage.
+ERR_CERT_AUTHORITY_INVALID	Custom proxy URL certs are invalid	Use a certificate from a valid CA or access via a secure domain.
+

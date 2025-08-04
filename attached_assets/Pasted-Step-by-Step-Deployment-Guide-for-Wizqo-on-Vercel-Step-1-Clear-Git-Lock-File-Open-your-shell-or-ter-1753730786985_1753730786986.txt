@@ -1,0 +1,105 @@
+Step-by-Step Deployment Guide for Wizqo on Vercel
+Step 1: Clear Git Lock File
+Open your shell or terminal in your project root and run:
+
+bash
+Copy
+Edit
+rm -f .git/index.lock
+Step 2: Stage All Project Files
+Add all changes to git staging:
+
+bash
+Copy
+Edit
+git add .
+Step 3: Commit Your Changes
+Commit with a detailed message and author info:
+
+bash
+Copy
+Edit
+git commit -m "chore: enable Vercel deployment with proper MIME handling
+Add to package.json scripts:
+  \"vercel-build\": \"npm run build\"
+- Adds 'vercel-build' script for framework detection
+- Updates vercel.json for MIME and routing fixes
+- Resolves white screen by correcting Content-Type headers" --author="wizqo <wizqo2024@gmail.com>"
+Step 4: Push to GitHub
+Push your changes to the main branch (or your active branch) to trigger Vercel deployment:
+
+bash
+Copy
+Edit
+git push origin main
+Alternative Step 4: Deploy Directly Using Vercel CLI
+If you want to deploy without pushing to GitHub, you can:
+
+Install Vercel CLI if not installed:
+
+bash
+Copy
+Edit
+npm install -g vercel
+Login to Vercel:
+
+bash
+Copy
+Edit
+vercel login
+Deploy to production:
+
+bash
+Copy
+Edit
+vercel --prod
+Step 5: Verify Deployment
+Open https://www.wizqo.com/ in your browser
+
+Open Developer Tools → Network tab
+
+Filter requests by .js
+
+Confirm the JavaScript files return status 200 and Content-Type: application/javascript
+
+Confirm the app loads without errors and all features work (AI plans, authentication, YouTube integration, dashboard)
+
+Your vercel.json should look like this:
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/public"
+      }
+    },
+    {
+      "src": "server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/server/index.ts" },
+    { "src": "/(.*)", "dest": "/dist/public/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*).js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript" }
+      ]
+    },
+    {
+      "source": "/assets/(.*).css",
+      "headers": [
+        { "key": "Content-Type", "value": "text/css" }
+      ]
+    }
+  ]
+}

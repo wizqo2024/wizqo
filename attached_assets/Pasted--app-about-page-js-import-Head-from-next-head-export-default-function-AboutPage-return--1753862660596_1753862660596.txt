@@ -1,0 +1,72 @@
+// app/about/page.js
+import Head from 'next/head';
+
+export default function AboutPage() {
+  return (
+    <>
+      <Head>
+        <title>About Wizqo | AI-Powered 7-Day Hobby Learning Platform</title>
+        <meta
+          name="description"
+          content="Learn about Wizqo's mission to help you discover new hobbies with personalized AI-powered 7-day learning plans. Designed for creatives, professionals, and curious minds."
+        />
+        <meta property="og:title" content="About Wizqo | AI-Powered Hobby Learning" />
+        <meta
+          property="og:description"
+          content="Discover how Wizqo helps you start and stick with new hobbies using personalized, AI-driven 7-day learning plans."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.wizqo.com/about" />
+        <meta property="og:image" content="https://www.wizqo.com/og-image.jpg" /> {/* Optional: Replace with your actual image URL */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Wizqo" />
+        <meta
+          name="twitter:description"
+          content="Wizqo helps people discover and master hobbies in just 7 days with AI-powered learning plans."
+        />
+        <meta name="twitter:image" content="https://www.wizqo.com/og-image.jpg" /> {/* Optional */}
+      </Head>
+
+      <main className="max-w-4xl mx-auto px-6 py-12 text-gray-900">
+        <h1 className="text-4xl font-bold mb-4">About Wizqo</h1>
+
+        <p className="text-lg mb-6 text-gray-700">
+          Wizqo is your personal AI-powered learning companion, helping you discover and master new hobbies in just 7 days.
+          Whether you’re exploring photography, coding, music, writing, or design — our platform guides you with a step-by-step plan tailored just for you.
+        </p>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-2">🚀 Our Mission</h2>
+        <p className="mb-4 text-gray-700">
+          We believe everyone has the potential to be creative, curious, and skilled — they just need the right start. Wizqo removes the overwhelm and replaces it with a smart, supportive, and structured journey.
+        </p>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-2">💡 What Makes Wizqo Different?</h2>
+        <ul className="list-disc pl-6 text-gray-700 space-y-2">
+          <li>7-day learning plans customized by AI</li>
+          <li>Micro-commitments that fit your busy schedule</li>
+          <li>Real-time support and personalized suggestions</li>
+          <li>Designed to help you stay consistent — and actually finish</li>
+        </ul>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-2">🌍 Who We Help</h2>
+        <p className="mb-4 text-gray-700">
+          From students trying something new, to busy professionals seeking balance, to retirees reigniting a lifelong passion — Wizqo is here to help anyone start and stick with a hobby they love.
+        </p>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-2">🤖 Powered by AI, Driven by Passion</h2>
+        <p className="mb-8 text-gray-700">
+          Our smart system continuously learns from your behavior, adapting the experience to keep it fun, frictionless, and effective.
+          We combine the power of artificial intelligence with human-centered design — so learning a new skill never feels lonely or hard again.
+        </p>
+
+        <p className="text-base text-gray-600">
+          Ready to find your next passion?{' '}
+          <a href="/blog" className="text-blue-600 hover:underline">
+            Check out our latest blog posts
+          </a>{' '}
+          and get started today.
+        </p>
+      </main>
+    </>
+  );
+}

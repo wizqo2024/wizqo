@@ -1,0 +1,135 @@
+The service worker navigation preload request was cancelled before 'preloadResponse' settled. If you intend to use 'preloadResponse', use waitUntil() or respondWith() to wait for the promise to settle.Understand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+_app-9a81c81fb1a2430b.js:13 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-9a81c81fb1a2430b.js:13 [LaunchDarkly] LaunchDarkly client initialized
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+6Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'battery'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 Navigation: handleSignOut called
+Console.js:61 🚪 Signing out user
+Console.js:61 Auth form submitted: Object
+Console.js:61 Attempting sign-in...
+jerhbtrgwrlyoimhxqta.supabase.co/auth/v1/token?grant_type=password:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+Console.js:61 Sign-in result: Object
+Console.js:61 Sign-in error: AuthApiError: Invalid login credentials
+    at handleError2 (@supabase_supabase-js.js?v=4d007a34:4616:9)
+    at async _handleRequest2 (@supabase_supabase-js.js?v=4d007a34:4657:5)
+    at async _request (@supabase_supabase-js.js?v=4d007a34:4641:16)
+    at async SupabaseAuthClient.signInWithPassword (@supabase_supabase-js.js?v=4d007a34:5442:15)
+    at async signIn (AuthContext.tsx:89:29)
+    at async handleSubmit (AuthModal.tsx:56:33)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Auth error: AuthApiError: Invalid login credentials
+    at handleError2 (@supabase_supabase-js.js?v=4d007a34:4616:9)
+    at async _handleRequest2 (@supabase_supabase-js.js?v=4d007a34:4657:5)
+    at async _request (@supabase_supabase-js.js?v=4d007a34:4641:16)
+    at async SupabaseAuthClient.signInWithPassword (@supabase_supabase-js.js?v=4d007a34:5442:15)
+    at async signIn (AuthContext.tsx:89:29)
+    at async handleSubmit (AuthModal.tsx:56:33)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error details - code: invalid_credentials message: Invalid login credentials
+Console.js:61 Auth form submitted: Object
+Console.js:61 Attempting sign-in...
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8

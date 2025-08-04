@@ -1,0 +1,136 @@
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'battery'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 1
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: drawing
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 Saving plan to Supabase for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 IMMEDIATE STORING plan for navigation (SplitPlanInterface): plan-1753874148001-a0pw9lrb2 drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=*:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+Console.js:61 Error saving plan: Object
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error saving surprise plan to Supabase: Object
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 💾 Guest progress saved (complete): guest_progress_drawing Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: Auth still loading, waiting...
+Console.js:61 Initial session: Object
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: User found, fetching plans
+Console.js:61 Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: User found, fetching plans
+Console.js:61 Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=*&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&order=created_at.desc:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+Console.js:61 Supabase table not found, checking localStorage for plans
+Mt.forEach.n.<computed> @ Console.js:61Understand this warning
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_progress?select=*&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=*&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&order=created_at.desc:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+Console.js:61 Progress error: Object
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Fetched plans: 0
+Console.js:61 Fetched progress: 0
+Console.js:61 🎯 Dashboard setting plans: Array(0)
+Console.js:61 🎯 Dashboard setting progress: null
+Console.js:61 Supabase table not found, checking localStorage for plans
+Mt.forEach.n.<computed> @ Console.js:61Understand this warning
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_progress?select=*&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+Console.js:61 Progress error: Object
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Fetched plans: 0
+Console.js:61 Fetched progress: 0
+Console.js:61 🎯 Dashboard setting plans: Array(0)
+Console.js:61 🎯 Dashboard setting progress: null

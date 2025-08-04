@@ -1,0 +1,165 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-D6v493u0.js:402 🔧 Route change detected - pathname: / hash: 
+index-D6v493u0.js:187 Auth form submitted: Object
+index-D6v493u0.js:187 Attempting sign-in...
+index-D6v493u0.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-D6v493u0.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:187 🔐 User authenticated, auto-closing modal
+index-D6v493u0.js:402 🔧 Route change detected - pathname: / hash: #/dashboard
+index-D6v493u0.js:402 DashboardPage: useEffect triggered Object
+index-D6v493u0.js:402 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-D6v493u0.js:402 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:402 📖 SUPABASE: Starting plans query via direct API...
+index-D6v493u0.js:402 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+index-D6v493u0.js:402 📖 SUPABASE: Starting progress query with session storage fallback...
+index-D6v493u0.js:187 📖 SUPABASE: Starting progress query via direct API...
+index-D6v493u0.js:187 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-D6v493u0.js:187 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:187 📝 PROGRESS: SessionStorage has 0 total items
+index-D6v493u0.js:187 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-D6v493u0.js:187 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-D6v493u0.js:402 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-D6v493u0.js:402 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:402 📖 SUPABASE: All data fetched, setting loading to false
+index-D6v493u0.js:402 🔄 Continue plan clicked with PLAN ID: 3b87f46c-d650-4236-b8df-8843f85b7024 Learn Yoga in 7 Days
+index-D6v493u0.js:402 ✅ Plan data stored with ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:402 🚀 Continue Plan - Navigating to plan route with stored data
+index-D6v493u0.js:402 🔧 Route change detected - pathname: / hash: #/plan
+index-D6v493u0.js:402 🔄 Restoring plan from currentPlanData: Yoga
+index-D6v493u0.js:402 ✅ Using plan data from state: Yoga
+index-D6v493u0.js:189 🔄 Initializing with existing plan data: Yoga
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Input plan structure: Object
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Output plan days count: 7
+index-D6v493u0.js:189 🔧 Applied field mapping fix to initial plan data
+index-D6v493u0.js:189 🎯 Setting plan ID from initial data: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:189 🎯 Found stored plan ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:189 🔍 User authenticated, looking for plan ID for hobby: Yoga
+index-D6v493u0.js:189 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:189 🔍 Using direct API to find plans for hobby: Yoga
+index-D6v493u0.js:189 🔄 Initializing with existing plan data: Yoga
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Input plan structure: Object
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Output plan days count: 7
+index-D6v493u0.js:189 🔧 Applied field mapping fix to initial plan data
+index-D6v493u0.js:198 🔍 User authenticated, searching for existing plan ID...
+index-D6v493u0.js:198 📍 Database-only progress tracking - no localStorage used
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:189 🔍 Direct Supabase session check: plan-1754209608020-rfndvsbs2 Yoga
+index-D6v493u0.js:189 🔍 Direct API query result: Object
+index-D6v493u0.js:189 🔍 All user plans: Array(2)
+index-D6v493u0.js:189 🔍 Filtered plans for hobby: Array(0)
+index-D6v493u0.js:189 🚨 No plans found for hobby: Yoga
+index-D6v493u0.js:189 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Yoga
+index-D6v493u0.js:204 📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:187 📝 PROGRESS: Completing day 1 for plan: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:187 📝 PROGRESS: Updated completed days: Array(1)
+index-D6v493u0.js:187 📝 PROGRESS: Updating progress via API for plan: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:187 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-D6v493u0.js:187 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-D6v493u0.js:204 📝 DATABASE SAVE: Successfully saved progress to database
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: wQ4yGe7kP7o
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 2
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 📝 DATABASE SAVE: Marking day COMPLETE via API: 2 for plan ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:187 📝 PROGRESS: Completing day 2 for plan: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:187 📝 PROGRESS: Found existing session progress: Array(2)
+index-D6v493u0.js:187 📝 PROGRESS: Updated completed days: Array(2)
+index-D6v493u0.js:187 📝 PROGRESS: Updating progress via API for plan: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: wQ4yGe7kP7o
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 2
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:187 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-D6v493u0.js:187 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-D6v493u0.js:204 📝 DATABASE SAVE: Successfully saved progress to database
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: wQ4yGe7kP7o
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 2
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: wQ4yGe7kP7o
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 2
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: wQ4yGe7kP7o
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 2
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:402 🔧 Route change detected - pathname: / hash: #/dashboard
+index-D6v493u0.js:402 DashboardPage: useEffect triggered Object
+index-D6v493u0.js:402 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-D6v493u0.js:402 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:402 📖 SUPABASE: Starting plans query via direct API...
+index-D6v493u0.js:402 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+index-D6v493u0.js:402 📖 SUPABASE: Starting progress query with session storage fallback...
+index-D6v493u0.js:187 📖 SUPABASE: Starting progress query via direct API...
+index-D6v493u0.js:187 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-D6v493u0.js:187 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:187 📝 PROGRESS: SessionStorage has 5 total items
+index-D6v493u0.js:187 📝 PROGRESS: Checking key: activePlanData
+index-D6v493u0.js:187 📝 PROGRESS: Checking key: currentPlanData
+index-D6v493u0.js:187 📝 PROGRESS: Checking key: activePlanId
+index-D6v493u0.js:187 📝 PROGRESS: Checking key: currentPlanId
+index-D6v493u0.js:187 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:187 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_3b87f46c-d650-4236-b8df-8843f85b7024 Object
+index-D6v493u0.js:187 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-D6v493u0.js:187 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-D6v493u0.js:187 📝 PROGRESS: Adding 1 session storage progress entries
+index-D6v493u0.js:402 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-D6v493u0.js:402 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:402 📖 SUPABASE: All data fetched, setting loading to false
+index-D6v493u0.js:402 🎯 Dashboard calculating progress: Object
+index-D6v493u0.js:402 🔄 Continue plan clicked with PLAN ID: 3b87f46c-d650-4236-b8df-8843f85b7024 Learn Yoga in 7 Days
+index-D6v493u0.js:402 ✅ Plan data stored with ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:402 🚀 Continue Plan - Navigating to plan route with stored data
+index-D6v493u0.js:402 🔧 Route change detected - pathname: / hash: #/plan
+index-D6v493u0.js:402 🔄 Restoring plan from currentPlanData: Yoga
+index-D6v493u0.js:402 ✅ Using plan data from state: Yoga
+index-D6v493u0.js:189 🔄 Initializing with existing plan data: Yoga
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Input plan structure: Object
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Output plan days count: 7
+index-D6v493u0.js:189 🔧 Applied field mapping fix to initial plan data
+index-D6v493u0.js:189 🎯 Setting plan ID from initial data: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:189 🎯 Found stored plan ID: 3b87f46c-d650-4236-b8df-8843f85b7024
+index-D6v493u0.js:189 🔍 User authenticated, looking for plan ID for hobby: Yoga
+index-D6v493u0.js:189 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-D6v493u0.js:189 🔍 Using direct API to find plans for hobby: Yoga
+index-D6v493u0.js:189 🔄 Initializing with existing plan data: Yoga
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Input plan structure: Object
+index-D6v493u0.js:187 🔧 fixPlanDataFields - Output plan days count: 7
+index-D6v493u0.js:189 🔧 Applied field mapping fix to initial plan data
+index-D6v493u0.js:198 🔍 User authenticated, searching for existing plan ID...
+index-D6v493u0.js:198 📍 Database-only progress tracking - no localStorage used
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object
+index-D6v493u0.js:189 🔍 Direct Supabase session check: plan-1754209616618-orqv8o35a Yoga
+index-D6v493u0.js:189 🔍 Direct API query result: Object
+index-D6v493u0.js:189 🔍 All user plans: Array(2)
+index-D6v493u0.js:189 🔍 Filtered plans for hobby: Array(0)
+index-D6v493u0.js:189 🚨 No plans found for hobby: Yoga
+index-D6v493u0.js:189 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Yoga
+index-D6v493u0.js:204 🐛 Debug YouTube Video ID: jtYZDrYL634
+index-D6v493u0.js:204 🐛 Video Title: Yoga - Day 1
+index-D6v493u0.js:204 🐛 Debug Common Mistakes: Array(3)
+index-D6v493u0.js:204 🐛 Full current day data: Object

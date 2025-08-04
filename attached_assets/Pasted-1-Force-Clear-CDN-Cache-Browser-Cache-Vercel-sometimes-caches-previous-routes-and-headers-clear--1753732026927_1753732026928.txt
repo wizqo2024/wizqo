@@ -1,0 +1,85 @@
+1. Force Clear CDN Cache / Browser Cache
+Vercel sometimes caches previous routes and headers; clear cache in the Vercel dashboard under your project > Settings > Cache or redeploy forcing cache busting.
+
+Hard refresh your browser or test in incognito mode.
+
+2. Double-check the Route Order in vercel.json
+Routes in Vercel are matched top-down. Ensure that the static asset route comes before the fallback route:
+
+json
+Copy
+Edit
+"routes": [
+  { "handle": "filesystem" },
+  { "src": "/api/(.*)", "dest": "/server/index.ts" },
+  { "src": "/assets/(.*)", "dest": "/dist/public/assets/$1" },  <-- This must be BEFORE the fallback
+  { "src": "/(.*)", "dest": "/dist/public/index.html" }       <-- Catch-all fallback last
+]
+If the /assets/(.*) route is after the fallback, the fallback will intercept requests for JS files and return index.html.
+
+3. Verify Build Output Location
+Confirm your build outputs assets inside the folder exactly matching your routing rule, e.g.:
+
+Are your JS files at /dist/public/assets/index-G9WQI6ms.js?
+
+If they’re in a different folder or have a different path prefix, adjust the routes accordingly.
+
+4. Add Debugging Headers Temporarily
+To help debug, you can add a custom header in vercel.json for JS files, e.g.:
+
+json
+Copy
+Edit
+"headers": [
+  {
+    "source": "/assets/(.*).js",
+    "headers": [
+      { "key": "Content-Type", "value": "application/javascript" },
+      { "key": "X-Debug-Asset", "value": "served-js-file" }
+    ]
+  },
+  ...
+]
+Then check the headers via curl to see if these custom headers appear or if fallback is serving the HTML instead.
+
+5. Test Direct Asset URL Access
+Run:
+
+bash
+Copy
+Edit
+curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js
+If you get a content-disposition: inline; filename="index.html" header, then the fallback route handled it, meaning the static route didn’t match.
+
+6. Try Explicit Static Directory Route
+If your assets are under dist/public/assets, try adding this route as well:
+
+json
+Copy
+Edit
+{ "src": "/(.*)", "dest": "/dist/public/$1" }
+Above the fallback route but below the API route. Or alternatively, use handle: filesystem which should already do this.
+
+7. Redeploy After Changes
+Make sure to commit and push your changes to trigger a clean redeploy:
+
+bash
+Copy
+Edit
+git add vercel.json
+git commit -m "fix: reorder routes for assets to fix MIME serving issue"
+git push origin main
+8. Check for Framework Detection Issues
+Sometimes Vercel needs the vercel-build script in package.json and correct build outputs to identify static assets correctly.
+
+Summary
+Ensure /assets/(.*) route is before fallback
+
+Verify assets path and match routes accordingly
+
+Clear caches and redeploy
+
+Test asset URLs with curl to verify Content-Type
+
+Add debug headers if needed
+

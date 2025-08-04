@@ -1,0 +1,101 @@
+[LaunchDarkly] LaunchDarkly client initialized
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+8Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+framework-9bfc368571c1b99b.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9bfc368571c1b99b.js:1Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'battery'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'layout-animations'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'navigation-override'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'oversized-images'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Unrecognized feature: 'unsized-media'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar1dk%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 🔄 Restoring plan from currentPlanData: gardening
+Console.js:61 ✅ Using plan data from state: gardening
+Console.js:61 🔄 Initializing with existing plan data: gardening
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🎯 Setting plan ID from initial data: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd
+Console.js:61 🎯 Found stored plan ID: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Direct Supabase session check: plan-1754166222448-pre8kwpr1 gardening
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 ⚠️ Missing hobby in plan data: Object
+Console.js:61 ⚠️ Plan data keys: Array(11)
+Console.js:61 ⚠️ Plan data hobby field: gardening
+Console.js:61 ⚠️ Plan data title field: Learn gardening in 7 Days
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query via direct API...
+Console.js:61 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+Console.js:61 📖 SUPABASE: Starting progress query with session storage fallback...
+Console.js:61 📖 SUPABASE: Starting progress query via direct API...
+Console.js:61 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+Console.js:61 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📝 PROGRESS: SessionStorage has 5 total items
+Console.js:61 📝 PROGRESS: Checking key: activePlanData
+Console.js:61 📝 PROGRESS: Checking key: currentPlanData
+Console.js:61 📝 PROGRESS: Checking key: activePlanId
+Console.js:61 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_0dee11c4-9ac5-4e09-b38a-a2993c8bddbd
+Console.js:61 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_0dee11c4-9ac5-4e09-b38a-a2993c8bddbd Object
+Console.js:61 📝 PROGRESS: Checking key: currentPlanId
+Console.js:61 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+Console.js:61 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+Console.js:61 📝 PROGRESS: Adding 1 session storage progress entries
+Console.js:61 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+Console.js:61 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: All data fetched, setting loading to false
+Console.js:61 🎯 Dashboard calculating progress: Object
+Console.js:61 🔄 Continue plan clicked with PLAN ID: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd Learn gardening in 7 Days
+Console.js:61 ✅ Plan data stored with ID: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd
+Console.js:61 🔄 Continue plan clicked with PLAN ID: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd Learn gardening in 7 Days
+Console.js:61 ✅ Plan data stored with ID: 0dee11c4-9ac5-4e09-b38a-a2993c8bddbd

@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /privacy
+Disallow: /terms
+Disallow: /cookies
+
+Allow: /
+
+Sitemap: https://www.wizqo.com/sitemap.xml
