@@ -3,7 +3,7 @@ import { WizqoLogo } from './WizqoLogo';
 
 // Social media configuration - easy to update
 const SOCIAL_LINKS = {
-  linkedin: 'https://www.linkedin.com/in/wizqoai2024',
+  linkedin: 'https://www.linkedin.com/company/wizqo-hobbies/',
   instagram: null // Will be updated when provided
 };
 
