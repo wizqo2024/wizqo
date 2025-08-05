@@ -5,11 +5,12 @@ import { getTargetedYouTubeVideo, getVideoDetails } from './videoSelection.js';
 import { getBestVideoForDay } from './youtubeService.js';
 import { validateHobby, getVideosForHobby, suggestAlternativeHobbies } from './hobbyValidator.js';
 import { storage } from './storage.js';
+import { supabaseStorage } from './supabase-storage';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
 import { z } from 'zod';
 
 console.log('📖 API: Database storage initialized for all operations');
-console.log('🚀 REPLIT MODE: Using PostgreSQL database with Drizzle ORM');
+console.log('🚀 SUPABASE MODE: Using Supabase PostgreSQL database');
 
 // Fixed plan data field mapping function
 function fixPlanDataFields(plan: any) {
@@ -514,7 +515,7 @@ Please provide a helpful response:`;
       const { userId } = req.params;
       console.log('📖 API: Fetching hobby plans for user:', userId);
       
-      const plans = await storage.getHobbyPlans(userId);
+      const plans = await supabaseStorage.getHobbyPlans(userId);
       console.log('📖 API: Found', plans.length, 'plans');
       res.json(plans);
     } catch (error) {
@@ -539,7 +540,7 @@ Please provide a helpful response:`;
         planData: plan_data
       });
       
-      const plan = await storage.createHobbyPlan(validatedData);
+      const plan = await supabaseStorage.createHobbyPlan(validatedData);
       console.log('📝 DATABASE: Created plan with ID:', plan.id);
       res.json(plan);
     } catch (error) {
@@ -558,7 +559,7 @@ Please provide a helpful response:`;
       const { userId } = req.params;
       console.log('📖 API: Fetching user progress for:', userId);
       
-      const progress = await storage.getUserProgress(userId);
+      const progress = await supabaseStorage.getUserProgress(userId);
       console.log('📖 API: Found', progress.length, 'progress entries');
       res.json(progress);
     } catch (error) {
@@ -581,7 +582,7 @@ Please provide a helpful response:`;
         unlockedDays: unlocked_days
       });
       
-      const progress = await storage.createOrUpdateUserProgress(validatedData);
+      const progress = await supabaseStorage.createOrUpdateUserProgress(validatedData);
       console.log('📝 DATABASE: Updated progress for plan:', plan_id);
       res.json(progress);
     } catch (error) {
@@ -597,21 +598,21 @@ Please provide a helpful response:`;
   // Database independence health check
   app.get('/api/health/database', async (req, res) => {
     try {
-      // Test database connection
-      const result = await storage.getUserProfile('test');
+      // Test Supabase database connection
+      const result = await supabaseStorage.getUserProfile('test');
       const isHealthy = true;
       if (isHealthy) {
         res.json({ 
           status: 'healthy', 
-          database: 'postgresql',
-          independent: false,
-          message: 'Database is connected and running on Replit PostgreSQL' 
+          database: 'supabase',
+          independent: true,
+          message: 'Database is connected and running on Supabase PostgreSQL' 
         });
       } else {
         res.status(500).json({ 
           status: 'unhealthy', 
-          database: 'postgresql',
-          independent: false,
+          database: 'supabase',
+          independent: true,
           message: 'Database connection failed' 
         });
       }
@@ -632,11 +633,11 @@ Please provide a helpful response:`;
       
       // Since you have existing data in Replit, but want to use Supabase for independence
       // This endpoint helps verify the migration is complete
-      const userProfileExists = await storage.getUserProfile('773c3f18-025a-432d-ae3d-fa13be3faef8');
+      const userProfileExists = await supabaseStorage.getUserProfile('773c3f18-025a-432d-ae3d-fa13be3faef8');
       
       if (!userProfileExists) {
-        // Create user profile in PostgreSQL 
-        await storage.createUserProfile({
+        // Create user profile in Supabase
+        await supabaseStorage.createUserProfile({
           id: '773c3f18-025a-432d-ae3d-fa13be3faef8',
           email: 'wizqo2024@gmail.com',
           username: 'wizqo',
