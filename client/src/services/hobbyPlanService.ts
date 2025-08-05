@@ -1,4 +1,4 @@
-// Migrated to use backend API instead of direct Supabase calls
+import { supabase } from '../lib/supabase'
 
 export class HobbyPlanService {
   // Check if plan already exists for this hobby
@@ -6,9 +6,10 @@ export class HobbyPlanService {
     try {
       console.log('🔍 CHECKING: Looking for existing plan for hobby:', hobby, 'user:', userId)
       
-      const response = await fetch(`/api/hobby-plans/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data&order=created_at.desc`, {
         method: 'GET',
         headers: {
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
           'Content-Type': 'application/json'
         }
       })

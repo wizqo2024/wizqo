@@ -1,22 +1,25 @@
-// Legacy file - Supabase client has been replaced with PostgreSQL backend API
-console.log('✅ Using PostgreSQL backend API instead of Supabase client')
+import { createClient } from '@supabase/supabase-js'
 
-// Mock supabase object for compatibility during migration
-export const supabase = {
-  auth: {
-    getSession: () => Promise.resolve({ data: { session: null }, error: null }),
-    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-    signInWithPassword: () => Promise.resolve({ data: null, error: { message: 'Auth moved to backend' } }),
-    signUp: () => Promise.resolve({ data: null, error: { message: 'Auth moved to backend' } }),
-    signInWithOAuth: () => Promise.resolve({ data: null, error: { message: 'Auth moved to backend' } }),
-    signOut: () => Promise.resolve({ error: null })
-  },
-  from: () => ({
-    select: () => ({ single: () => Promise.resolve({ data: null, error: { message: 'Use backend API' } }) }),
-    insert: () => ({ select: () => Promise.resolve({ data: null, error: { message: 'Use backend API' } }) }),
-    upsert: () => ({ select: () => Promise.resolve({ data: null, error: { message: 'Use backend API' } }) })
-  })
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('Supabase environment variables not found - please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY')
+} else {
+  console.log('✅ Supabase client initialized with URL:', supabaseUrl?.substring(0, 30) + '...')
 }
+
+export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '', {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+  realtime: {
+    params: {
+      eventsPerSecond: 10,
+    },
+  },
+})
 
 // Supabase Database Types
 export interface Database {

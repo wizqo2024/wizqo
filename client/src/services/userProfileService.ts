@@ -1,4 +1,4 @@
-// Migrated to use backend API instead of direct Supabase calls
+import { supabase } from '@/lib/supabase';
 
 export interface UserProfile {
   id: string;
@@ -37,28 +37,26 @@ class UserProfileService {
     try {
       console.log('🔧 Creating/updating user profile for:', userId);
       
-      // Use backend API instead of direct Supabase
-      const response = await fetch('/api/user-profiles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          id: userId,
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .upsert({
+          user_id: userId,
           email: userData.email,
-          username: userData.full_name,
-          avatarUrl: userData.avatar_url
+          full_name: userData.full_name,
+          avatar_url: userData.avatar_url,
+          last_active_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id'
         })
-      });
+        .select()
+        .single();
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        console.error('❌ Error creating/updating profile:', response.statusText);
-        throw new Error(data.error || 'Failed to create/update profile');
+      if (error) {
+        console.error('❌ Error creating/updating profile:', error);
+        throw error;
       }
 
-      console.log('✅ User profile created/updated successfully');
+      console.log('✅ Profile created/updated successfully:', data);
       return data;
     } catch (error) {
       console.error('❌ UserProfileService createOrUpdateProfile error:', error);
@@ -70,12 +68,11 @@ class UserProfileService {
     try {
       console.log('📖 Fetching user profile for:', userId);
       
-      const response = await fetch(`/api/user-profiles/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
 
       if (error) {
         if (error.code === 'PGRST116') {
