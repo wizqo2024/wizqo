@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+// Migrated to use backend API instead of direct Supabase calls
 
 export interface UserProfile {
   id: string;
@@ -37,26 +37,28 @@ class UserProfileService {
     try {
       console.log('🔧 Creating/updating user profile for:', userId);
       
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .upsert({
-          user_id: userId,
+      // Use backend API instead of direct Supabase
+      const response = await fetch('/api/user-profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: userId,
           email: userData.email,
-          full_name: userData.full_name,
-          avatar_url: userData.avatar_url,
-          last_active_at: new Date().toISOString()
-        }, {
-          onConflict: 'user_id'
+          username: userData.full_name,
+          avatarUrl: userData.avatar_url
         })
-        .select()
-        .single();
+      });
 
-      if (error) {
-        console.error('❌ Error creating/updating profile:', error);
-        throw error;
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error('❌ Error creating/updating profile:', response.statusText);
+        throw new Error(data.error || 'Failed to create/update profile');
       }
 
-      console.log('✅ Profile created/updated successfully:', data);
+      console.log('✅ User profile created/updated successfully');
       return data;
     } catch (error) {
       console.error('❌ UserProfileService createOrUpdateProfile error:', error);
@@ -68,11 +70,12 @@ class UserProfileService {
     try {
       console.log('📖 Fetching user profile for:', userId);
       
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
+      const response = await fetch(`/api/user-profiles/${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
       if (error) {
         if (error.code === 'PGRST116') {
