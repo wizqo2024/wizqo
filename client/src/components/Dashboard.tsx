@@ -286,26 +286,30 @@ Learn any hobby in 7 days at https://wizqo.com`;
       'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
       research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
       cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
-      swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop'
+      swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop',
+      ukulele: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
+      embroidery: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop'
     };
     
     // First try exact match
     if (images[normalizedHobby]) {
-      console.log(`🎨 Dashboard EXACT MATCH found: ${normalizedHobby} -> ${images[normalizedHobby]}`);
-      return images[normalizedHobby];
+      const imageUrl = `${images[normalizedHobby]}&t=${Date.now()}`;
+      console.log(`🎨 Dashboard EXACT MATCH found: ${normalizedHobby} -> ${imageUrl}`);
+      return imageUrl;
     }
     
     // Then try partial match for compound hobbies
     for (const [key, image] of Object.entries(images)) {
       if (normalizedHobby.includes(key) || key.includes(normalizedHobby)) {
-        console.log(`🎨 Dashboard PARTIAL MATCH found: ${normalizedHobby} matches ${key} -> ${image}`);
-        return image;
+        const imageUrl = `${image}&t=${Date.now()}`;
+        console.log(`🎨 Dashboard PARTIAL MATCH found: ${normalizedHobby} matches ${key} -> ${imageUrl}`);
+        return imageUrl;
       }
     }
     
     console.log(`🎨 Dashboard NO MATCH for "${normalizedHobby}", using fallback`);
-    // Default fallback
-    return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
+    // Default fallback with cache busting
+    return `https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=${Date.now()}`;
   };
 
   const getStatusColor = (status: string): string => {

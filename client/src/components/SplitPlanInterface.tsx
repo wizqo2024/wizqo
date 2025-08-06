@@ -40,7 +40,9 @@ const getHobbyImage = (hobby: string): string => {
     'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
     research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
     cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
-    swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop'
+    swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop',
+    ukulele: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
+    embroidery: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop'
   };
   
   // First try exact match
