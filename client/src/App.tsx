@@ -385,13 +385,17 @@ export default function App() {
 
       const planData = await response.json();
       
-      // Convert backend data to frontend format
+      console.log('🔧 CRITICAL FIX - Backend planData received:', JSON.stringify(planData.days[0], null, 2));
+      console.log('🔧 CRITICAL FIX - First day youtubeVideoId from backend:', planData.days[0]?.youtubeVideoId);
+      console.log('🔧 CRITICAL FIX - First day videoId from backend:', planData.days[0]?.videoId);
+      
+      // Convert backend data to frontend format - PRESERVE ALL VIDEO FIELDS
       return {
         hobby: planData.hobby || hobby,
-        title: `Learn ${planData.hobby || hobby} in 7 Days`,
-        overview: planData.description || `Master ${planData.hobby || hobby} in 7 days with this personalized plan.`,
-        difficulty: 'beginner',
-        totalDays: 7,
+        title: planData.title || `Learn ${planData.hobby || hobby} in 7 Days`,
+        overview: planData.overview || planData.description || `Master ${planData.hobby || hobby} in 7 days with this personalized plan.`,
+        difficulty: planData.difficulty || 'beginner',
+        totalDays: planData.totalDays || 7,
         days: planData.days.map((day: any) => ({
           day: day.day,
           title: day.title,
@@ -400,9 +404,15 @@ export default function App() {
           howTo: day.howTo || [],
           checklist: day.checklist || [],
           tips: day.tips || [],
-          mistakesToAvoid: day.mistakesToAvoid || [],
+          mistakesToAvoid: day.mistakesToAvoid || day.commonMistakes || [],
           freeResources: day.freeResources || [],
-          affiliateProducts: day.affiliateProducts || []
+          affiliateProducts: day.affiliateProducts || [],
+          // *** CRITICAL FIX: PRESERVE ALL VIDEO FIELDS FROM BACKEND ***
+          youtubeVideoId: day.youtubeVideoId || day.videoId,
+          videoId: day.videoId || day.youtubeVideoId,
+          videoTitle: day.videoTitle,
+          estimatedTime: day.estimatedTime,
+          skillLevel: day.skillLevel
         }))
       };
     } catch (error) {
