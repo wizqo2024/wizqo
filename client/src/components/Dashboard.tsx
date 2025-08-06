@@ -34,23 +34,25 @@ export default function Dashboard() {
   
   // Social sharing function with all platforms
   const openShareModal = (plan: HobbyPlan) => {
-    const shareText = `🎉 I just completed my 7-day ${plan.hobby} learning journey! 
+    const shareText = `🎉 I just completed my 7-day ${plan.hobby.toUpperCase()} learning journey! 
     
 ✅ Mastered ${plan.hobby} fundamentals in just 7 days
 📚 Completed all ${plan.totalDays} daily lessons
 🚀 Ready for the next challenge!
 
-#7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth`;
+#7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth #Wizqo
+
+Learn any hobby in 7 days at https://wizqo.com`;
 
     const shareUrl = `https://wizqo.com`;
     const imageUrl = getHobbyImage(plan.hobby);
     
     const platforms = {
-      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
-      instagram: shareText + '\n\n' + shareUrl, // Copy to clipboard for Instagram
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl + '\n\nSee my achievement: ' + imageUrl)}`
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`🎉 Completed 7-Day ${plan.hobby.toUpperCase()} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
+      instagram: shareText, // Copy to clipboard for Instagram
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText)}`
     };
 
     setShareData({ platforms, plan, text: shareText, image: imageUrl });
