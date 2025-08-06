@@ -100,8 +100,8 @@ const fixPlanDataFields = (plan: any) => {
               'Skipping practice time or cutting sessions short',
               'Not taking notes or tracking your improvement'
             ],
-      // CRITICAL: Preserve unique YouTube video IDs from backend
-      youtubeVideoId: day.youtubeVideoId || day.videoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]),
+      // CRITICAL: Preserve unique YouTube video IDs from backend - never override with undefined
+      youtubeVideoId: day.youtubeVideoId || day.videoId || undefined,
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`,
       // Preserve all other backend fields
       estimatedTime: day.estimatedTime,
@@ -765,6 +765,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const plan = await onGeneratePlan(randomHobby, surpriseAnswers);
       console.log('🎯 Setting plan data in SplitPlanInterface:', plan.hobby);
       console.log('🐛 Raw plan data received in setPlanData:', JSON.stringify(plan, null, 2));
+      console.log('🐛 First day YouTube video ID before fixPlanDataFields:', plan?.days?.[0]?.youtubeVideoId);
       
       // Fix field mapping for frontend display
       const correctedPlanData = fixPlanDataFields(plan);
