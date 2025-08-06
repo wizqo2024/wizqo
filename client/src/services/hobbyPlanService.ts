@@ -4,9 +4,9 @@ export class HobbyPlanService {
   // Check if plan already exists for this hobby
   async checkExistingPlan(hobby: string, userId: string): Promise<any> {
     try {
-      console.log('🔍 CHECKING: Looking for existing plan for hobby:', hobby, 'user:', userId)
+      console.log('🔍 DUPLICATE CHECK: Looking for existing plan for hobby:', hobby, 'user:', userId)
       
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data&order=created_at.desc`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name&order=created_at.desc`, {
         method: 'GET',
         headers: {
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
@@ -16,22 +16,57 @@ export class HobbyPlanService {
 
       if (response.ok) {
         const allPlans = await response.json()
-        // Filter for the specific hobby by extracting from title
-        const existingPlans = allPlans?.filter((p: any) => {
-          if (p.title) {
-            const titleMatch = p.title.match(/Learn (\w+) in/i)
-            const planHobby = titleMatch ? titleMatch[1].toLowerCase() : ''
-            return planHobby === hobby.toLowerCase()
+        console.log('🔍 DUPLICATE CHECK: Found', allPlans.length, 'total plans')
+        
+        // Multiple ways to detect existing hobby plan
+        const searchHobby = hobby.toLowerCase().trim()
+        
+        const existingPlan = allPlans.find((plan: any) => {
+          // Check hobby_name field
+          if (plan.hobby_name?.toLowerCase().trim() === searchHobby) {
+            console.log('🚨 DUPLICATE FOUND via hobby_name:', plan.hobby_name)
+            return true
           }
+          
+          // Check plan_data.hobby field
+          if (plan.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
+            console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', plan.plan_data.hobby)
+            return true
+          }
+          
+          // Check title pattern "Learn [hobby] in" or "Master [hobby]"
+          if (plan.title) {
+            const titleLower = plan.title.toLowerCase()
+            const titleMatch = titleLower.match(/(?:learn|master)\s+(\w+)\s+(?:in|7-day|hobby)/i)
+            if (titleMatch) {
+              const planHobby = titleMatch[1].toLowerCase()
+              if (planHobby === searchHobby) {
+                console.log('🚨 DUPLICATE FOUND via title pattern:', plan.title)
+                return true
+              }
+            }
+            
+            // Also check if title contains exact hobby name
+            if (titleLower.includes(searchHobby)) {
+              console.log('🚨 DUPLICATE FOUND via title contains:', plan.title)
+              return true
+            }
+          }
+          
           return false
-        }) || []
+        })
 
-        console.log('🔍 CHECKING: Found', existingPlans.length, 'existing plans for hobby:', hobby)
-        return existingPlans.length > 0 ? existingPlans[0] : null
+        if (existingPlan) {
+          console.log('🚨 DUPLICATE DETECTED: Found existing plan:', existingPlan.title)
+          return existingPlan
+        }
+        
+        console.log('✅ DUPLICATE CHECK: No existing plan found for', hobby)
+        return null
       }
       return null
     } catch (error) {
-      console.error('❌ CHECKING ERROR: Failed to check existing plans:', error)
+      console.error('❌ DUPLICATE CHECK ERROR: Failed to check existing plans:', error)
       return null
     }
   }
