@@ -51,10 +51,12 @@ function getYouTubeVideos(hobby: string): string[] {
     coding: ["UB1O30fR-EE", "hdI2bqOjy3c", "t_ispmWmdjY", "W6NZfCO5SIk", "c8aAYU5m4jM", "9Yf36xdLp2A", "rfscVS0vtbw"],
     photography: ["B9FzVhw8_bY", "DJ_DIYDqWGY", "pwmJRx0eJiQ", "R8MzHddV-Z0", "mKY4gUEjAVs", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"],
     painting: ["7BDKWT3pI_A", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "pMC0Cx3Uk5g", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk"],
-    yoga: ["R7CJ8NGFV4A", "xQgP8N7jCrE", "Vg5FeCTzB6w", "h8TKF2_p7qU", "mKY4gUEjAVs", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"]
+    yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "Vg5FeCTzB6w", "h8TKF2_p7qU", "AaF2lpO2IHY", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"]
   };
   
-  return videos[hobby.toLowerCase()] || videos.guitar;
+  // REPLACE BROKEN VIDEO ID "On2LgxqJlMU" with working cooking videos
+  const hobbyVideos = videos[hobby.toLowerCase()] || videos.cooking;
+  return hobbyVideos;
 }
 
 // Smart contextual response generator for chat fallback

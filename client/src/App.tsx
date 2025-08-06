@@ -355,7 +355,7 @@ export default function App() {
           link: `https://amazon.com/s?k=${encodeURIComponent(hobby)}+beginner+kit&tag=wizqohobby-20`,
           price: `$${19 + i * 5}.99`
         }],
-        youtubeVideoId: 'On2LgxqJlMU',
+        youtubeVideoId: 'rtR63-ecUNo', // FIXED: Replace broken video with working cooking tutorial
         videoTitle: `${hobby} Day ${i + 1} Tutorial`,
         estimatedTime: '30-60 minutes',
         skillLevel: 'beginner'

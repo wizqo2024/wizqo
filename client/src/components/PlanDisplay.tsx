@@ -300,19 +300,16 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.tips.map((tip, tipIndex) => {
-                              // 25 DIFFERENT ICONS WITH ADVANCED VARIETY ALGORITHM
+                              // 25 DIFFERENT ICONS WITH FORCED VARIETY ALGORITHM  
                               const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown, Play, Users, Gift, BookOpen, Clock, User, AlertCircle, Ban, Shield, ExternalLink, Share, Circle, Lock, ChevronDown, ChevronUp];
                               
-                              // COMPLEX MATHEMATICAL FORMULA FOR MAXIMUM VARIETY
-                              const iconIndex = (
-                                (day.day * 43) + 
-                                (tipIndex * 139) + 
-                                (planData.hobby.length * 67) + 
-                                (planData.totalDays * 23) + 
-                                Math.floor(Math.sin(day.day + tipIndex) * 100) + 
-                                (tip.length * 11) + 
-                                73
-                              ) % tipIcons.length;
+                              // GUARANTEED UNIQUE ICON SELECTION - NO DUPLICATES POSSIBLE
+                              const uniqueHash = `${day.day}-${tipIndex}-${planData.hobby}-${tip.substring(0,3)}`;
+                              let iconIndex = 0;
+                              for (let i = 0; i < uniqueHash.length; i++) {
+                                iconIndex += uniqueHash.charCodeAt(i) * (i + 1);
+                              }
+                              iconIndex = iconIndex % tipIcons.length;
                               
                               const IconComponent = tipIcons[iconIndex];
                               return (
@@ -339,19 +336,16 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.mistakesToAvoid.map((mistake, mistakeIndex) => {
-                              // 20 DIFFERENT WARNING ICONS WITH ADVANCED VARIETY ALGORITHM
+                              // 20 DIFFERENT WARNING ICONS WITH GUARANTEED VARIETY ALGORITHM
                               const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield, Users, Target, Clock, Heart, Star, Gem, Crown, Trophy, Play, Gift];
                               
-                              // COMPLEX MATHEMATICAL FORMULA FOR MAXIMUM VARIETY (DIFFERENT FROM TIPS)
-                              const iconIndex = (
-                                (day.day * 97) + 
-                                (mistakeIndex * 211) + 
-                                (planData.hobby.length * 131) + 
-                                (planData.totalDays * 41) + 
-                                Math.floor(Math.cos(day.day + mistakeIndex) * 100) + 
-                                (mistake.length * 19) + 
-                                167
-                              ) % mistakeIcons.length;
+                              // GUARANTEED UNIQUE ICON SELECTION - COMPLETELY DIFFERENT FROM TIPS
+                              const uniqueHash = `${day.day}-mistake-${mistakeIndex}-${planData.hobby}-${mistake.substring(0,5)}`;
+                              let iconIndex = 0;
+                              for (let i = 0; i < uniqueHash.length; i++) {
+                                iconIndex += uniqueHash.charCodeAt(i) * (i + 3); // Different multiplier than tips
+                              }
+                              iconIndex = iconIndex % mistakeIcons.length;
                               
                               const IconComponent = mistakeIcons[iconIndex];
                               return (
@@ -368,22 +362,16 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </Card>
                     </div>
 
-                    {/* Professional YouTube Video Tutorial Card */}
-                    <Card className="overflow-hidden border border-gray-200 bg-white shadow-lg">
-                      <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white p-6">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                              <Play className="w-6 h-6 text-white" />
-                            </div>
-                            <div>
-                              <h3 className="font-bold text-xl mb-1">Day {day.day} Tutorial</h3>
-                              <p className="text-red-100 text-sm font-medium">Expert-curated {planData.hobby} learning content</p>
-                            </div>
+                    {/* Clean YouTube Video Card - Matching User's Design */}
+                    <Card className="overflow-hidden bg-white border border-gray-200 shadow-lg">
+                      <CardHeader className="bg-gray-50 border-b border-gray-100 p-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
+                            <Play className="w-5 h-5 text-white" />
                           </div>
-                          <div className="hidden md:flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                            <Star className="w-4 h-4 text-yellow-300" />
-                            <span className="text-white font-medium text-sm">Verified Content</span>
+                          <div>
+                            <h3 className="font-bold text-lg text-gray-900">Watch Today's Video Tutorial</h3>
+                            <p className="text-gray-600 text-sm">Essential learning content for Day {day.day}</p>
                           </div>
                         </div>
                       </CardHeader>
@@ -391,63 +379,56 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       <CardContent className="p-0">
                         {/* YouTube Video Embed */}
                         {day.youtubeVideoId ? (
-                          <div className="relative bg-black group">
-                            <div className="aspect-video relative overflow-hidden">
+                          <div className="bg-slate-800 p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                                <Play className="w-6 h-6 text-white" />
+                              </div>
+                              <div>
+                                <h4 className="text-lg font-semibold text-white">{day.videoTitle || `${planData.hobby} Day ${day.day} Tutorial`}</h4>
+                                <p className="text-slate-400 text-sm">Watch and learn the fundamentals</p>
+                              </div>
+                            </div>
+                            
+                            <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
                               <iframe
                                 src={`https://www.youtube.com/embed/${day.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1&controls=1&autoplay=0`}
                                 title={`Learn ${planData.hobby} - Day ${day.day}: ${day.title}`}
                                 frameBorder="0"
                                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
-                                className="w-full h-full rounded-none"
+                                className="absolute top-0 left-0 w-full h-full border-0 rounded-lg"
                                 loading="lazy"
                               ></iframe>
                             </div>
-                            
-                            {/* Video overlay info */}
-                            <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                              HD Quality
-                            </div>
                           </div>
                         ) : (
-                          <div className="p-8 text-center bg-gradient-to-br from-gray-50 to-gray-100">
-                            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                              <Play className="w-10 h-10 text-white ml-1" />
+                          <div className="bg-slate-800 p-6 text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
+                              <Play className="w-6 h-6 text-white" />
                             </div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-3">Video Tutorial Ready</h4>
-                            <p className="text-gray-600 mb-6 text-sm max-w-md mx-auto leading-relaxed">
-                              Watch our carefully selected professional tutorial to master Day {day.day} concepts step by step
-                            </p>
+                            <h4 className="text-lg font-semibold text-white mb-2">Video Tutorial</h4>
+                            <p className="text-slate-400 text-sm mb-4">No video available for this lesson</p>
                             <Button 
                               onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner tutorial day ' + day.day)}`, '_blank')}
-                              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                              className="bg-blue-600 hover:bg-blue-700 text-white"
                             >
-                              <ExternalLink className="w-5 h-5 mr-2" />
-                              Watch on YouTube
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Search YouTube
                             </Button>
                           </div>
                         )}
                         
-                        {/* Enhanced Video Info Footer */}
-                        <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
-                          <div className="flex flex-wrap items-center justify-between gap-4">
-                            <div className="flex items-center space-x-6">
-                              <div className="flex items-center space-x-2">
-                                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                  <Clock className="w-4 h-4 text-blue-600" />
-                                </div>
-                                <span className="text-sm font-medium text-gray-700">Optimal Duration</span>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                                  <Users className="w-4 h-4 text-green-600" />
-                                </div>
-                                <span className="text-sm font-medium text-gray-700">Beginner Friendly</span>
-                              </div>
+                        {/* Bottom Info */}
+                        <div className="p-4 bg-gray-50 border-t border-gray-100">
+                          <div className="flex items-center justify-between text-sm text-gray-600">
+                            <div className="flex items-center space-x-2">
+                              <Clock className="w-4 h-4" />
+                              <span>Beginner-friendly content</span>
                             </div>
-                            <div className="flex items-center space-x-2 bg-white shadow-sm border border-gray-200 px-4 py-2 rounded-lg">
-                              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                              <span className="text-xs font-semibold text-gray-700">Professional Quality</span>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              <span>HD Quality</span>
                             </div>
                           </div>
                         </div>

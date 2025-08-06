@@ -271,7 +271,7 @@ export function getTargetedYouTubeVideo(
       console.log(`📹 Using beginner fallback for ${hobby} ${skillLevel}, day ${actualDayNumber}: ${beginnerVideos[videoIndex].title}`);
       return beginnerVideos[videoIndex].videoId;
     }
-    return "On2LgxqJlMU"; // Working cooking tutorial
+    return "rtR63-ecUNo"; // Working cooking tutorial - FIXED BROKEN VIDEO ID
   }
   
   // Select video based on day progression

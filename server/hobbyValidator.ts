@@ -39,7 +39,7 @@ const hobbyKeywords = {
 // Generic video fallbacks for unsupported hobbies
 const genericVideoDatabase = {
   beginner: [
-    { videoId: "On2LgxqJlMU", title: "Getting Started - Beginner Basics", description: "Fundamental concepts and first steps" },
+    { videoId: "rtR63-ecUNo", title: "Getting Started - Beginner Basics", description: "Fundamental concepts and first steps" },
     { videoId: "EHhHPkb8SXs", title: "Essential Tools and Setup", description: "What you need to get started" },
     { videoId: "lTBoW6iKavc", title: "First Practice Session", description: "Your first hands-on experience" },
     { videoId: "sxJRiYqCkWk", title: "Building Good Habits", description: "Creating a consistent practice routine" },
