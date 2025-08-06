@@ -434,7 +434,16 @@ export function BlogPage() {
                 if (paragraph.includes('Ready to') || paragraph.includes('Stop waiting') || paragraph.includes('Let AI do') || paragraph.includes('Don\'t wait')) {
                   return (
                     <div key={index} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
-                      <p className="text-lg font-semibold text-slate-900">{paragraph}</p>
+                      <p className="text-lg font-semibold text-slate-900 mb-4">{paragraph}</p>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.hash = '#/generate';
+                        }}
+                        className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+                      >
+                        Generate My Plan
+                      </button>
                     </div>
                   );
                 }
@@ -509,7 +518,15 @@ export function BlogPage() {
                   <span className="text-sm ml-1">(4.9)</span>
                 </div>
               </div>
-
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.hash = '#/generate';
+                }}
+                className="bg-white text-purple-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-lg font-medium hover:bg-gray-50 transition-colors w-full sm:w-auto border border-purple-200 hover:border-purple-300"
+              >
+                Generate My Plan →
+              </button>
             </article>
 
             {/* Other Posts - Clean List Style */}
