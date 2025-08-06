@@ -37,6 +37,16 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
+  console.log('🚨 PLANDISPLAY COMPONENT IS RENDERING 🚨');
+  console.log('Plan data received:', planData?.hobby);
+  
+  // Set plan data when component renders
+  React.useEffect(() => {
+    if (planData) {
+      console.log('🔍 Plan data loaded:', planData.hobby);
+    }
+  }, [planData]);
+  
   const { user, isSignedIn } = useAuth();
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
@@ -44,18 +54,36 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
+  
+  const [userProgress, setUserProgress] = useState<any>(null);
+  
+  // Debug: Check if planData is actually available
+  console.log('🔍 PlanDisplay state check:', { 
+    hasPlanData: !!planData, 
+    planTitle: planData?.title,
+    planHobby: planData?.hobby 
+  });
 
   const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
   const isDayUnlocked = (dayNumber: number) => dayNumber === 1 || isDayCompleted(dayNumber - 1);
 
-  // Initialize plan on mount
+  // Load user progress and save plan when component mounts
   useEffect(() => {
     const initializePlan = async () => {
+      // Generate a unique plan ID for this plan
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       setCurrentPlanId(planId);
       
+      // Store plan ID for navigation
+      console.log('🔍 Setting current plan ID for navigation:', planId, planData?.hobby);
+      
       if (isSignedIn && user && planData) {
+        console.log('User authenticated, saving surprise plan to Supabase...');
+        
         try {
+          console.log('Saving plan to Supabase for user:', user.id);
+          
+          // Save the plan to database
           const savedPlan = await hobbyPlanService.savePlan({
             hobby: planData.hobby,
             title: planData.title,
@@ -63,16 +91,26 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
             plan_data: planData
           }, user.id);
 
+          console.log('Plan saved successfully:', savedPlan);
           setCurrentPlanId(savedPlan?.id?.toString());
-          await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-        } catch (error) {
-          console.error('Error saving plan:', error);
+
+          // Initialize progress tracking
+          const progressData = await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
+          console.log('Progress initialized:', progressData);
+          setUserProgress(progressData);
+
+        } catch (error: any) {
+          console.error('Error saving surprise plan to Supabase:', error);
+          // Don't show error to user for plan saving, they can still use it
         }
       }
     };
 
     if (planData) {
+      console.log('🔧 Running initializePlan for:', planData.hobby);
       initializePlan();
+    } else {
+      console.log('❌ No planData available for initialization');
     }
   }, [isSignedIn, user, planData]);
 
@@ -81,34 +119,74 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
 
     try {
       setIsSavingProgress(true);
+      console.log('Toggling day completion for day:', dayNumber);
 
       if (isDayCompleted(dayNumber)) {
         // Mark as incomplete
         const newCompletedDays = completedDays.filter(d => d !== dayNumber);
         setCompletedDays(newCompletedDays);
+        console.log('Marking day as incomplete, new completed days:', newCompletedDays);
+
+        // Save to database via API if authenticated
+        if (isAuthenticated && user && currentPlanId) {
+          try {
+            console.log('Saving progress to database (incomplete)...');
+            await hobbyPlanService.updateProgress(user.id, currentPlanId.toString(), {
+              completed_days: newCompletedDays,
+              current_day: Math.max(1, Math.min(...newCompletedDays) || 1),
+              unlocked_days: [1, ...newCompletedDays.map(d => d + 1)].filter(d => d <= 7)
+            });
+            console.log('Progress saved to database successfully');
+          } catch (error) {
+            console.error('Database save error:', error);
+            toast({
+              title: "Error",
+              description: "Failed to save progress. Please try again.",
+              variant: "destructive"
+            });
+          }
+        } else {
+          console.log('Guest user - progress not saved to database');
+        }
       } else {
         // Mark as complete
         const newCompletedDays = [...completedDays, dayNumber];
         setCompletedDays(newCompletedDays);
+        console.log('Marking day as complete, new completed days:', newCompletedDays);
 
-        if (isSignedIn && user && currentPlanId) {
-          await hobbyPlanService.completeDay(user.id, currentPlanId.toString(), dayNumber);
-          toast({
-            title: "Progress Saved!",
-            description: `Day ${dayNumber} completed and synced to your account.`,
-          });
+        // Save to database via API if authenticated
+        if (isAuthenticated && user && currentPlanId) {
+          try {
+            console.log('Saving progress to database (complete)...');
+            await hobbyPlanService.completeDay(user.id, currentPlanId.toString(), dayNumber);
+            
+            console.log('Progress saved to database successfully');
+            toast({
+              title: "Progress Saved!",
+              description: `Day ${dayNumber} completed and synced to your account.`,
+            });
+          } catch (error) {
+            console.error('Database save error:', error);
+            toast({
+              title: "Error",
+              description: "Failed to save progress. Please try again.",
+              variant: "destructive"
+            });
+          }
         } else {
+          console.log('Guest user - progress not saved to database');
           toast({
             title: "Day Completed!",
             description: `Day ${dayNumber} completed. Sign up to save your progress.`,
           });
         }
         
+        // Show auth modal after completing Day 1 for non-authenticated users
         if (dayNumber === 1 && !isSignedIn) {
           setShowAuthModal(true);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving progress:', error);
       toast({
         title: "Error",
@@ -150,6 +228,24 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
               Learn {planData.hobby} in 7 Days
             </h1>
+            
+            <button 
+              onClick={() => setShowAuthModal(true)}
+              style={{
+                backgroundColor: '#ff0000',
+                color: '#ffffff',
+                padding: '15px 30px',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                border: '3px solid #000000',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginBottom: '20px'
+              }}
+            >
+              TEST MODAL NOW
+            </button>
+
             <p className="text-slate-600">
               AI-powered learning plan customized for your beginner level. Each day builds upon the previous, taking you from complete beginner to confident practitioner with hands-on exercises and expert guidance.
             </p>
@@ -421,7 +517,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <h4 className="font-semibold text-indigo-900">Today's Checklist</h4>
                         </div>
-                        <p className="text-indigo-800 text-sm mb-4">Basic {planData.hobby} materials and tools</p>
+                        <p className="text-indigo-800 text-sm mb-4">Basic knitting materials and tools</p>
                         <div className="space-y-3">
                           {day.checklist.map((item, index) => (
                             <label key={index} className="flex items-start space-x-3 cursor-pointer group">
@@ -539,6 +635,33 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
           })}
         </div>
 
+                    {/* Complete Day Button */}
+                    {status === 'unlocked' && !isDayCompleted(day.day) && (
+                      <div className="text-center">
+                        <Button 
+                          onClick={() => toggleDayCompletion(day.day)}
+                          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3"
+                        >
+                          ✅ Mark Day {day.day} as Complete
+                        </Button>
+                      </div>
+                    )}
+
+                    {status === 'completed' && (
+                      <div className="text-center bg-green-50 rounded-lg py-4">
+                        <div className="flex items-center justify-center space-x-2 text-green-700">
+                          <CheckCircle className="w-5 h-5" />
+                          <span className="font-semibold">Day {day.day} Complete! 🎉</span>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+
         {/* Authentication prompt for progress tracking */}
         {!isSignedIn && completedDays.includes(1) && !localStorage.getItem('skipAuthPrompt') && (
           <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
@@ -559,9 +682,10 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setShowAuthModal(false);
-                  localStorage.setItem('skipAuthPrompt', 'true');
-                }}
+                setShowAuthModal(false);
+                // Hide the auth prompt permanently for this session
+                localStorage.setItem('skipAuthPrompt', 'true');
+              }}
                 className="text-gray-600 border-gray-300"
               >
                 Continue Without Saving
@@ -569,13 +693,12 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
             </div>
           </div>
         )}
-      </div>
 
-      {/* Auth Modal */}
-      <SimpleAuthModal 
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-      />
+        <SimpleAuthModal 
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+        />
+      </div>
     </div>
   );
 }
