@@ -976,7 +976,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsTyping(false);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     
     const userInput = currentInput.trim();
@@ -992,11 +992,108 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     
     // Handle hobby input if we're in hobby selection step
     if (currentStep === 'hobby') {
-      const validation = validateAndProcessHobby(userInput);
-      
-      if (validation.isValid && validation.detectedHobbies) {
-        if (validation.detectedHobbies.length === 1) {
-          // Single hobby detected - process directly without duplicate message
+      // Use DeepSeek AI for intelligent hobby validation
+      try {
+        const response = await fetch('/api/validate-hobby', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ hobby: userInput.trim() })
+        });
+
+        if (response.ok) {
+          const validation = await response.json();
+          
+          if (validation.isValid) {
+            const finalHobby = validation.correctedHobby || userInput.toLowerCase().trim();
+            setSelectedHobby(finalHobby);
+            setCurrentStep('experience');
+            
+            let message = `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is really fun to learn.`;
+            
+            if (validation.correctedHobby) {
+              message += `\n\n(I corrected the spelling for you)`;
+            }
+            
+            message += `\n\nWhat's your experience level?`;
+            
+            const experienceOptions = [
+              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+            ];
+            
+            addAIMessage(message, experienceOptions);
+          } else {
+            let errorMessage = `I'm not sure "${userInput}" is a hobby I can help with right now.`;
+            
+            if (validation.suggestions && validation.suggestions.length > 0) {
+              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
+              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
+                value: suggestion,
+                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
+                description: `Learn ${suggestion}`
+              }));
+              
+              addAIMessage(errorMessage, hobbyOptions);
+            } else {
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.', [
+                { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+                { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+                { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+                { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+                { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+                { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
+              ]);
+            }
+          }
+        } else {
+          // Fallback to old validation if API fails
+          const validation = validateAndProcessHobby(userInput);
+          
+          if (validation.isValid && validation.detectedHobbies) {
+            if (validation.detectedHobbies.length === 1) {
+              // Single hobby detected - process directly
+              const hobby = validation.detectedHobbies[0];
+              setSelectedHobby(hobby);
+              setCurrentStep('experience');
+              
+              const experienceOptions = [
+                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+                { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+              ];
+              
+              addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+            } else {
+              // Multiple hobbies detected
+              const hobbyOptions = validation.detectedHobbies.map(h => ({
+                value: h,
+                label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
+                description: `Focus on ${h} first`
+              }));
+              
+              addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
+            }
+          } else {
+            // Invalid hobby - use fallback suggestions
+            addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+              { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+              { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+              { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+              { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+              { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+              { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+            ]);
+          }
+        }
+      } catch (error) {
+        console.error('Error validating hobby with DeepSeek API:', error);
+        // Fallback to old validation if API completely fails
+        const validation = validateAndProcessHobby(userInput);
+        
+        if (validation.isValid && validation.detectedHobbies) {
           const hobby = validation.detectedHobbies[0];
           setSelectedHobby(hobby);
           setCurrentStep('experience');
@@ -1009,69 +1106,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           
           addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
         } else {
-          // Multiple hobbies detected - show selection buttons
-          const hobbyOptions = validation.detectedHobbies.map(h => ({
-            value: h,
-            label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
-            description: `Focus on ${h} first`
-          }));
-          
-          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
-        }
-      } else {
-        // Invalid hobby or suggestions needed
-        if (validation.suggestions) {
-          const suggestionOptions = validation.suggestions.map(s => ({
-            value: s.toLowerCase().replace(/[^\w]/g, ''),
-            label: s,
-            description: 'Explore this category'
-          }));
-          
-          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions);
-        } else {
-          // CRITICAL FIX: Reject common invalid inputs like greetings
-          const invalidInputs = [
-            'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'bye', 'ok', 'okay', 'yes', 'no', 'maybe',
-            'what', 'how', 'when', 'where', 'why', 'who', 
-            'test', 'testing', 'example', 'sample',
-            'nothing', 'none', 'anything', 'something',
-            'help', 'please', 'thank you', 'thanks'
-          ];
-          
-          if (invalidInputs.includes(userInput.toLowerCase()) || userInput.length < 3) {
-            addAIMessage(
-              `I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`,
-              [
-                { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
-                { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
-                { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
-                { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
-                { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
-                { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
-              ]
-            );
-            return;
-          }
-          
-          // Accept reasonable hobby input after validation
-          const reasonablePattern = /^[a-zA-Z\s-]{3,30}$/;
-          if (reasonablePattern.test(userInput)) {
-            const hobby = userInput.toLowerCase();
-            setSelectedHobby(hobby);
-            setCurrentStep('experience');
-            
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-            
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
-          } else {
-            addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
-          }
+          addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+            { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+            { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+            { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+            { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+            { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+            { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+          ]);
         }
       }
+      return;
     } else {
       // General chat response for other steps
       setTimeout(() => {
