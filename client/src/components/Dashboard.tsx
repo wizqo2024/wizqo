@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Play, MoreHorizontal } from "lucide-react";
+import { Calendar, Clock, Play, MoreHorizontal, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
@@ -27,6 +27,7 @@ export default function Dashboard() {
   const { user } = useAuth();
   const [hobbyPlans, setHobbyPlans] = useState<HobbyPlan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -83,25 +84,49 @@ export default function Dashboard() {
         
         const progressEntry = progressData.find(p => p.plan_id === plan.id);
         
+        // Check session storage for progress fallback
+        let completedDays = progressEntry?.completed_days || [];
+        let currentDay = progressEntry?.current_day || 1;
+        
+        // Fallback to session storage if no database progress
+        if (!progressEntry) {
+          const sessionKey = `progress_${plan.id}`;
+          const sessionProgress = sessionStorage.getItem(sessionKey);
+          if (sessionProgress) {
+            try {
+              const parsed = JSON.parse(sessionProgress);
+              completedDays = parsed.completedDays || [];
+              currentDay = parsed.currentDay || 1;
+            } catch (e) {
+              console.log('Could not parse session progress for', plan.id);
+            }
+          }
+        }
+        
         allPlans.set(plan.id, {
           id: plan.id,
           hobby: hobbyName,
           title: plan.title,
-          progress: progressEntry ? Math.round((progressEntry.completed_days.length / 7) * 100) : 0,
+          progress: Math.round((completedDays.length / 7) * 100),
           totalDays: 7,
-          currentDay: progressEntry ? progressEntry.current_day : 1,
+          currentDay: currentDay,
           category: getCategoryForHobby(hobbyName),
           startDate: plan.created_at,
           expectedEndDate: new Date(new Date(plan.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          status: progressEntry && progressEntry.completed_days.length >= 7 ? 'completed' : 'in_progress',
+          status: completedDays.length >= 7 ? 'completed' : 'in_progress',
           planData: planData
         });
       });
       
-      // Add recent plans from localStorage if not already in Supabase
+      // Add recent plans from localStorage if not already in Supabase (avoid duplicates)
       recentPlans.forEach(planData => {
         const planId = `local-${planData.hobby}-${Date.now()}`;
-        if (!Array.from(allPlans.values()).some(p => p.hobby === planData.hobby)) {
+        // Check for duplicates by hobby name
+        const isDuplicate = Array.from(allPlans.values()).some(p => 
+          p.hobby.toLowerCase() === planData.hobby.toLowerCase()
+        );
+        
+        if (!isDuplicate) {
           allPlans.set(planId, {
             id: planId,
             hobby: planData.hobby,
@@ -143,7 +168,44 @@ export default function Dashboard() {
       coding: 'Technology',
       programming: 'Technology'
     };
-    return categories[hobby] || 'General';
+    return categories[hobby.toLowerCase()] || 'General';
+  };
+
+  const deletePlan = async (planId: string) => {
+    if (!confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {
+      return;
+    }
+    
+    setDeletingPlan(planId);
+    try {
+      // Delete from Supabase if it's a real plan (not local)
+      if (!planId.startsWith('local-') && user?.id) {
+        const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
+          method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to delete plan from database');
+        }
+      }
+      
+      // Remove from local state
+      setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
+      
+      // Clean up localStorage
+      const keys = Object.keys(localStorage);
+      for (const key of keys) {
+        if (key.includes(planId) || (key.startsWith('hobbyPlan_') && localStorage.getItem(key)?.includes(planId))) {
+          localStorage.removeItem(key);
+        }
+      }
+      
+    } catch (error) {
+      console.error('Error deleting plan:', error);
+      alert('Failed to delete plan. Please try again.');
+    } finally {
+      setDeletingPlan(null);
+    }
   };
 
   const getHobbyImage = (hobby: string): string => {
@@ -328,15 +390,21 @@ export default function Dashboard() {
                   <Progress value={plan.progress} className="h-2" />
                 </div>
 
-                {/* Dates */}
-                <div className="flex items-center text-sm text-gray-600 mb-4">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
-                </div>
-                
-                <div className="flex items-center text-sm text-gray-600 mb-6">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>{format(new Date(plan.expectedEndDate), 'MMM d, yyyy')}</span>
+                {/* Dates - only show start date */}
+                <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => deletePlan(plan.id)}
+                    disabled={deletingPlan === plan.id}
+                    className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
 
                 {/* Action Button */}

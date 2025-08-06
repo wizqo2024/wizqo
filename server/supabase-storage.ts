@@ -126,6 +126,32 @@ export class SupabaseBackendStorage implements SupabaseStorage {
     }
     return data;
   }
+
+  async deleteHobbyPlan(planId: string, userId: string): Promise<void> {
+    const { error } = await supabaseAdmin
+      .from('hobby_plans')
+      .delete()
+      .eq('id', planId)
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Error deleting hobby plan:', error);
+      throw error;
+    }
+  }
+
+  async deleteUserProgress(planId: string, userId: string): Promise<void> {
+    const { error } = await supabaseAdmin
+      .from('user_progress')
+      .delete()
+      .eq('plan_id', planId)
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Error deleting user progress:', error);
+      throw error;
+    }
+  }
 }
 
 export const supabaseStorage = new SupabaseBackendStorage();

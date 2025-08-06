@@ -592,6 +592,32 @@ Please provide a helpful response:`;
     }
   });
 
+  // Delete a hobby plan
+  app.delete('/api/hobby-plans/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { user_id } = req.query;
+      
+      if (!user_id) {
+        return res.status(400).json({ error: 'user_id is required' });
+      }
+      
+      console.log('🗑️ API: Deleting hobby plan', id, 'for user:', user_id);
+      
+      // Delete progress records first
+      await supabaseStorage.deleteUserProgress(id, user_id as string);
+      
+      // Delete the hobby plan
+      await supabaseStorage.deleteHobbyPlan(id, user_id as string);
+      
+      console.log('🗑️ API: Successfully deleted hobby plan', id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('🗑️ API: Error deleting hobby plan:', error);
+      res.status(500).json({ error: 'Failed to delete hobby plan' });
+    }
+  });
+
   // User progress tracking endpoints
   app.get('/api/user-progress/:userId', async (req, res) => {
     try {
