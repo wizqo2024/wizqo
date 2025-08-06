@@ -204,6 +204,18 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
     ]
   },
 
+  camping: {
+    1: [
+      { id: 'Vp4BFKjWAkk', title: 'Camping Basics for Beginners', duration: '15', verified: true, lastChecked: '2025-01-06' },
+      { id: 'BDYWr9yNsZ4', title: 'Essential Camping Gear Setup', duration: '12', verified: true, lastChecked: '2025-01-06' },
+      { id: 'dQw4w9WgXcQ', title: 'Campsite Selection Tips', duration: '3', verified: true, lastChecked: '2025-01-06' }
+    ],
+    2: [
+      { id: 'v7AYKMP6rOE', title: 'Setting Up Your First Tent', duration: '18', verified: true, lastChecked: '2025-01-06' },
+      { id: 'COp7BR_Dvps', title: 'Camping Safety Essentials', duration: '20', verified: true, lastChecked: '2025-01-06' }
+    ]
+  },
+
   // Add foraging videos
   foraging: {
     1: [
