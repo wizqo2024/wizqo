@@ -105,7 +105,8 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       'coding', 'programming', 'web design',
       'woodworking', 'pottery', 'jewelry making',
       'origami', 'calligraphy', 'lettering',
-      'fitness', 'running', 'cycling', 'swimming'
+      'fitness', 'running', 'cycling', 'swimming',
+      'history research', 'research', 'history', 'genealogy', 'archival research'
     ];
 
     const input = userInput.toLowerCase().trim();

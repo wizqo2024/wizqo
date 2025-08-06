@@ -33,7 +33,9 @@ const hobbyKeywords = {
   // Business & Finance
   business: ['business', 'entrepreneurship', 'marketing', 'investing', 'finance', 'economics'],
   // Home & Lifestyle
-  organization: ['organization', 'decluttering', 'minimalism', 'home improvement', 'interior design']
+  organization: ['organization', 'decluttering', 'minimalism', 'home improvement', 'interior design'],
+  // Research & Academic
+  research: ['research', 'academic research', 'data research', 'market research', 'science research', 'history research', 'historical research', 'genealogy research', 'archival research', 'history', 'genealogy']
 };
 
 // Generic video fallbacks for unsupported hobbies
@@ -145,12 +147,22 @@ export function validateHobby(hobbyInput: string): {
 } {
   const input = hobbyInput.toLowerCase().trim();
   
-  // Special validation for Quran and Islamic studies - always accept these
+  // Special validation for specific hobby types - always accept these
   if (['quran', 'quran recitation', 'quran reading', 'islamic studies', 'tajweed', 'arabic quran', 'koran', 'holy quran'].includes(input)) {
     return {
       isValid: true,
       normalizedHobby: 'quran',
       category: 'religious',
+      hasVideoSupport: false, // Will use generic fallback videos
+      suggestions: []
+    };
+  }
+
+  if (['history research', 'historical research', 'research', 'genealogy research', 'archival research', 'history', 'genealogy'].includes(input)) {
+    return {
+      isValid: true,
+      normalizedHobby: 'history research',
+      category: 'research',
       hasVideoSupport: false, // Will use generic fallback videos
       suggestions: []
     };

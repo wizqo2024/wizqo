@@ -1636,6 +1636,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                              planData.hobby === 'baking' ? '🧁' :
                              planData.hobby === 'knitting' ? '🧶' :
                              planData.hobby === 'pottery' ? '🏺' :
+                             planData.hobby.toLowerCase().includes('history') ? '📚' :
                              '🎯'}
                           </div>
                           
@@ -1700,6 +1701,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 planData?.hobby?.toLowerCase() === 'baking' ? '#F59E0B, #D97706' :
                                 planData?.hobby?.toLowerCase() === 'knitting' ? '#8B5CF6, #7C3AED' :
                                 planData?.hobby?.toLowerCase() === 'pottery' ? '#A3A3A3, #737373' :
+                                planData?.hobby?.toLowerCase().includes('history') ? '#8B5CF6, #7C3AED' :
                                 '#3B82F6, #1D4ED8'})`
                           }}
                         >
@@ -1725,6 +1727,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                  planData?.hobby?.toLowerCase() === 'baking' ? '🧁' :
                                  planData?.hobby?.toLowerCase() === 'knitting' ? '🧶' :
                                  planData?.hobby?.toLowerCase() === 'pottery' ? '🏺' :
+                                 planData?.hobby?.toLowerCase().includes('history') ? '📚' :
                                  '🎯'}
                               </div>
                               <h2 className="text-2xl md:text-3xl font-bold">Today's Learning Goal</h2>
