@@ -137,7 +137,7 @@ Return ONLY a JSON object with this exact structure:
   "days": [
     {
       "day": 1,
-      "title": "Day title",
+      "title": "Just the activity name without 'Day X:' prefix",
       "mainTask": "Main learning objective for the day",
       "explanation": "Why this day matters and what you'll accomplish",
       "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
