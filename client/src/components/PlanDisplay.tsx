@@ -291,103 +291,65 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </CardContent>
                     </Card>
 
-                    {/* Tips and Mistakes Grid */}
-                    <div className="grid lg:grid-cols-2 gap-4">
-                      {/* Tips for Success */}
-                      <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-l-green-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                              <CheckCircle className="w-3 h-3 text-white" />
-                            </div>
-                            <h4 className="font-semibold text-green-900">Tips for Success</h4>
+                    {/* Clean Success Tips Section */}
+                    <Card className="bg-white border border-gray-200 shadow-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                            <Star className="w-4 h-4 text-white" />
                           </div>
-                          <ul className="space-y-2">
-                            {day.tips.map((tip, tipIndex) => {
-                              // 25 DIFFERENT ICONS WITH FORCED VARIETY ALGORITHM  
-                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown, Play, Users, Gift, BookOpen, Clock, User, AlertCircle, Ban, Shield, ExternalLink, Share, Circle, Lock, ChevronDown, ChevronUp];
-                              
-                              // FORCED SEQUENTIAL ICON SELECTION - GUARANTEED DIFFERENT EVERY TIME
-                              const globalTipIndex = (day.day - 1) * 3 + tipIndex; // Each day gets 3 different icons
-                              const iconIndex = globalTipIndex % tipIcons.length;
-                              console.log(`🔍 TIP ICON Day ${day.day} Tip ${tipIndex}: globalIndex=${globalTipIndex}, iconIndex=${iconIndex}, icon=${tipIcons[iconIndex].name}`);
-                              
-                              const IconComponent = tipIcons[iconIndex];
-                              return (
-                                <li key={tipIndex} className="flex items-start space-x-3 text-sm text-green-800">
-                                  <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                    <IconComponent className="w-3 h-3 text-green-600" />
-                                  </div>
-                                  <span className="leading-relaxed">{tip}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </CardContent>
-                      </Card>
-
-                      {/* Avoid These Mistakes */}
-                      <Card className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-l-red-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                              <AlertTriangle className="w-3 h-3 text-white" />
+                          <h3 className="text-lg font-semibold text-gray-900">Success Tips</h3>
+                        </div>
+                        <div className="space-y-3">
+                          {day.tips.map((tip, index) => (
+                            <div key={index} className="flex items-start space-x-3">
+                              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <Lightbulb className="w-3 h-3 text-green-600" />
+                              </div>
+                              <p className="text-gray-700 text-sm leading-relaxed">{tip}</p>
                             </div>
-                            <h4 className="font-semibold text-red-900">Avoid These Mistakes</h4>
-                          </div>
-                          <ul className="space-y-2">
-                            {day.mistakesToAvoid.map((mistake, mistakeIndex) => {
-                              // 20 DIFFERENT WARNING ICONS WITH GUARANTEED VARIETY ALGORITHM
-                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield, Users, Target, Clock, Heart, Star, Gem, Crown, Trophy, Play, Gift];
-                              
-                              // FORCED SEQUENTIAL ICON SELECTION - OFFSET FROM TIPS TO AVOID OVERLAP
-                              const globalMistakeIndex = (day.day - 1) * 3 + mistakeIndex + 50; // +50 offset from tips
-                              const iconIndex = globalMistakeIndex % mistakeIcons.length;
-                              console.log(`🔍 MISTAKE ICON Day ${day.day} Mistake ${mistakeIndex}: globalIndex=${globalMistakeIndex}, iconIndex=${iconIndex}, icon=${mistakeIcons[iconIndex].name}`);
-                              
-                              const IconComponent = mistakeIcons[iconIndex];
-                              return (
-                                <li key={mistakeIndex} className="flex items-start space-x-3 text-sm text-red-800">
-                                  <div className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                    <IconComponent className="w-3 h-3 text-red-600" />
-                                  </div>
-                                  <span className="leading-relaxed">{mistake}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
 
-                    {/* Clean YouTube Video Card - Matching User's Design */}
-                    <Card className="overflow-hidden bg-white border border-gray-200 shadow-lg">
-                      <CardHeader className="bg-gray-50 border-b border-gray-100 p-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
-                            <Play className="w-5 h-5 text-white" />
+                    {/* Clean Mistakes Section */}
+                    <Card className="bg-white border border-gray-200 shadow-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                            <AlertTriangle className="w-4 h-4 text-white" />
+                          </div>
+                          <h3 className="text-lg font-semibold text-gray-900">Avoid These Mistakes</h3>
+                        </div>
+                        <div className="space-y-3">
+                          {day.mistakesToAvoid.map((mistake, index) => (
+                            <div key={index} className="flex items-start space-x-3">
+                              <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <X className="w-3 h-3 text-red-600" />
+                              </div>
+                              <p className="text-gray-700 text-sm leading-relaxed">{mistake}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Clean Video Tutorial Section */}
+                    <Card className="bg-white border border-gray-200 shadow-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <Play className="w-4 h-4 text-white" />
                           </div>
                           <div>
-                            <h3 className="font-bold text-lg text-gray-900">Watch Today's Video Tutorial</h3>
-                            <p className="text-gray-600 text-sm">Essential learning content for Day {day.day}</p>
+                            <h3 className="text-lg font-semibold text-gray-900">Video Tutorial</h3>
+                            <p className="text-sm text-gray-500">{day.videoTitle || 'Watch and learn the fundamentals'}</p>
                           </div>
                         </div>
-                      </CardHeader>
-                      
-                      <CardContent className="p-0">
-                        {/* YouTube Video Embed */}
+                        
                         {day.youtubeVideoId ? (
-                          <div className="bg-slate-800 p-6">
-                            <div className="flex items-center gap-3 mb-4">
-                              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <Play className="w-6 h-6 text-white" />
-                              </div>
-                              <div>
-                                <h4 className="text-lg font-semibold text-white">{day.videoTitle || `${planData.hobby} Day ${day.day} Tutorial`}</h4>
-                                <p className="text-slate-400 text-sm">Watch and learn the fundamentals</p>
-                              </div>
-                            </div>
-                            
+                          <div className="bg-gray-50 rounded-lg p-4">
                             <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
                               <iframe
                                 src={`https://www.youtube.com/embed/${day.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1&controls=1&autoplay=0`}
@@ -401,35 +363,20 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                             </div>
                           </div>
                         ) : (
-                          <div className="bg-slate-800 p-6 text-center">
-                            <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
+                          <div className="bg-gray-50 rounded-lg p-8 text-center">
+                            <div className="w-12 h-12 mx-auto mb-4 bg-blue-500 rounded-lg flex items-center justify-center">
                               <Play className="w-6 h-6 text-white" />
                             </div>
-                            <h4 className="text-lg font-semibold text-white mb-2">Video Tutorial</h4>
-                            <p className="text-slate-400 text-sm mb-4">No video available for this lesson</p>
+                            <p className="text-gray-600 mb-4">Video tutorial unavailable</p>
                             <Button 
-                              onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner tutorial day ' + day.day)}`, '_blank')}
-                              className="bg-blue-600 hover:bg-blue-700 text-white"
+                              onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner tutorial')}`, '_blank')}
+                              className="bg-blue-500 hover:bg-blue-600 text-white"
                             >
                               <ExternalLink className="w-4 h-4 mr-2" />
                               Search YouTube
                             </Button>
                           </div>
                         )}
-                        
-                        {/* Bottom Info */}
-                        <div className="p-4 bg-gray-50 border-t border-gray-100">
-                          <div className="flex items-center justify-between text-sm text-gray-600">
-                            <div className="flex items-center space-x-2">
-                              <Clock className="w-4 h-4" />
-                              <span>Beginner-friendly content</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                              <span>HD Quality</span>
-                            </div>
-                          </div>
-                        </div>
                       </CardContent>
                     </Card>
 
