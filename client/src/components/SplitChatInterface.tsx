@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UnifiedNavigation } from './UnifiedNavigation';
+import { useAuth } from '@/context/AuthContext';
+import { hobbyPlanService } from '@/services/hobbyPlanService';
+import { useToast } from '@/hooks/use-toast';
 
 interface QuizAnswers {
   experience: string;
@@ -34,6 +37,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   const [isGenerating, setIsGenerating] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth();
+  const { toast } = useToast();
 
   const hobbyOptions = [
     { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
@@ -43,8 +48,22 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
     { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
     { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+    { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
     { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
   ];
+
+  const getRandomHobby = () => {
+    const randomHobbies = [
+      'photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 
+      'painting', 'dance', 'woodworking', 'piano', 'singing', 'drums', 'violin', 
+      'ukulele', 'running', 'weightlifting', 'swimming', 'cycling', 'baking', 
+      'writing', 'journaling', 'chess', 'hiking', 'camping', 'fishing', 'crafting', 
+      'knitting', 'pottery', 'calligraphy', 'martial arts', 'rock climbing', 
+      'jewelry making', 'origami', 'wine tasting', 'coffee brewing', 'mixology',
+      'blogging', 'storytelling', 'poetry', 'creative writing', 'board games'
+    ];
+    return randomHobbies[Math.floor(Math.random() * randomHobbies.length)];
+  };
 
   // Frontend hobby validation function
   const validateHobby = (input: string): { isValid: boolean; normalizedHobby: string; suggestions?: string[] } => {
@@ -142,7 +161,10 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     }, 1000);
   };
 
-  const handleHobbySelect = (hobby: string) => {
+  const handleHobbySelect = async (hobby: string) => {
+    // Handle "Surprise Me!" with random selection
+    const finalHobby = hobby === 'surprise' ? getRandomHobby() : hobby;
+    
     // Validate hobby selection to prevent invalid inputs from being processed
     if (hobby !== 'surprise' && !hobbyOptions.some(h => h.value === hobby)) {
       const validation = validateHobby(hobby);
@@ -167,12 +189,41 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       }
     }
 
-    addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
-    setSelectedHobby(hobby === 'surprise' ? 'photography' : hobby);
+    // Check for duplicate plan if user is signed in
+    if (user) {
+      try {
+        const existingPlan = await hobbyPlanService.checkExistingPlan(finalHobby, user.id);
+        if (existingPlan) {
+          addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
+          addAIMessage(
+            `You already have a learning plan for ${finalHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
+            hobbyOptions.filter(h => h.value !== 'surprise' && h.value !== finalHobby).slice(0, 6).map(h => ({
+              value: h.value,
+              label: h.label,
+              description: h.description
+            }))
+          );
+          
+          toast({
+            title: "Plan already exists",
+            description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
+            variant: "default"
+          });
+          
+          return;
+        }
+      } catch (error) {
+        console.error('Error checking for existing plan:', error);
+        // Continue with plan generation if check fails
+      }
+    }
+
+    addUserMessage(hobby === 'surprise' ? `Surprise me! (${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)})` : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
+    setSelectedHobby(finalHobby);
     setCurrentStep('experience');
     
     addAIMessage(
-      `Great choice! ${hobby === 'surprise' ? 'I\'ll surprise you with photography' : hobbyOptions.find(h => h.value === hobby)?.label || hobby} sounds exciting. 🎯\n\nTo create the perfect learning plan for you, what's your current experience level?`,
+      `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} sounds exciting. 🎯\n\nTo create the perfect learning plan for you, what's your current experience level?`,
       [
         { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
