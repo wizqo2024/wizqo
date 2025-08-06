@@ -91,7 +91,7 @@ export async function searchYouTubeVideos(
       `type=video&` +
       `key=${youtubeApiKey}&` +
       `order=relevance&` +
-      `publishedAfter=2019-01-01T00:00:00Z&` +
+      `publishedAfter=2018-01-01T00:00:00Z&` +
       `videoDuration=medium&` +
       `videoEmbeddable=true&` +
       `videoSyndicated=true&` +
@@ -135,18 +135,18 @@ export async function searchYouTubeVideos(
       const duration = video.contentDetails.duration;
       const title = video.snippet.title.toLowerCase();
       const publishDate = new Date(video.snippet.publishedAt);
-      const cutoffDate = new Date('2018-01-01');
+      const cutoffDate = new Date('2018-01-01T00:00:00Z'); // Exclude videos before 2018
       const durationMinutes = parseDuration(duration);
       
       // Enhanced quality filters with strict relevance checking
       const isRecentEnough = publishDate >= cutoffDate;
-      const isShortEnough = durationMinutes <= 45 && durationMinutes >= 4; // 4-45 minutes as requested
+      const isCorrectDuration = durationMinutes <= 45 && durationMinutes >= 3; // 3-45 minutes as requested
       const isRelevant = isVideoRelevantToDay(video.snippet.title, hobby, dayNumber);
       const isNotLive = video.snippet.liveBroadcastContent !== 'live';
       const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // 5000+ views requirement
       const notUsedBefore = !usedVideoIds.has(video.id);
       
-      if (isRecentEnough && isShortEnough && isRelevant && isNotLive && hasGoodStats && notUsedBefore) {
+      if (isRecentEnough && isCorrectDuration && isRelevant && isNotLive && hasGoodStats && notUsedBefore) {
         // Test video availability
         const isWorking = await isVideoWorking(video.id);
         if (isWorking) {
@@ -161,13 +161,15 @@ export async function searchYouTubeVideos(
           // Track used videos to prevent duplicates
           usedVideoIds.add(video.id);
           
-          console.log(`✅ High-quality video selected: ${video.snippet.title} (${durationMinutes}min, ${parseInt(video.statistics?.viewCount || '0')} views)`);
+          const yearPublished = publishDate.getFullYear();
+          console.log(`✅ High-quality video selected: ${video.snippet.title} (${durationMinutes}min, ${parseInt(video.statistics?.viewCount || '0')} views, ${yearPublished})`);
         } else {
           console.log(`🚫 Video not accessible: ${video.snippet.title}`);
         }
       } else {
         const viewCount = parseInt(video.statistics?.viewCount || '0');
-        console.log(`❌ Filtered out: ${video.snippet.title} (${durationMinutes}min, ${viewCount} views, relevant: ${isRelevant})`);
+        const yearPublished = publishDate.getFullYear();
+        console.log(`❌ Filtered out: ${video.snippet.title} (${durationMinutes}min, ${viewCount} views, ${yearPublished}, relevant: ${isRelevant})`);
       }
     }
 

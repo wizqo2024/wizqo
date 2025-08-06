@@ -14,7 +14,7 @@ Our platform uses a 100% YouTube API video selection system to provide high-qual
   - `videoDuration=medium` (4-45 minutes)
   - `videoEmbeddable=true`
   - `videoSyndicated=true`
-  - `publishedAfter=2019-01-01` (recent quality content)
+  - `publishedAfter=2018-01-01` (excludes old outdated content)
   - `order=relevance`
   - **Minimum 5000+ views requirement**
 
@@ -41,13 +41,13 @@ const searchTerms = [
 ```
 
 **Strict Quality Filters Applied**:
-1. **Duration**: 4-45 minutes (no videos under 4 minutes or over 45 minutes)
+1. **Duration**: 3-45 minutes (no videos under 3 minutes or over 45 minutes)
 2. **Views**: Minimum 5000+ views for quality assurance
 3. **Relevance**: Advanced day-specific content matching
 4. **Working Status**: Real-time verification of video accessibility
 5. **Educational Content**: Must contain tutorial/educational keywords
 6. **Non-Repetitive**: Tracks used videos to prevent duplicates
-7. **Recent Content**: Published after 2019 for current techniques
+7. **Recent Content**: Published after 2018 (excludes old outdated content)
 
 ## Video Integration Process
 
