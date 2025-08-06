@@ -326,7 +326,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </div>
                       <div>
                         <CardTitle className="text-lg">
-                          Day {day.day}: {day.title}
+                          {day.title.startsWith('Day ') ? day.title : `Day ${day.day}: ${day.title}`}
                         </CardTitle>
                         <p className="text-sm text-slate-600 flex items-center mt-1">
                           <Clock className="w-4 h-4 mr-1" />
@@ -482,7 +482,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           <div className="w-6 h-6 bg-slate-600 rounded-full flex items-center justify-center">
                             <Play className="w-3 h-3 text-white" />
                           </div>
-                          <h4 className="font-semibold text-slate-900">Day {day.day}: {day.title} - Step by Step Tutorial</h4>
+                          <h4 className="font-semibold text-slate-900">{day.title.startsWith('Day ') ? day.title : `Day ${day.day}: ${day.title}`} - Step by Step Tutorial</h4>
                         </div>
                         <p className="text-slate-700 text-sm mb-4 leading-relaxed">
                           This tutorial opens in an optimized learning environment designed to minimize distractions and maximize focus. Our platform provides the best possible learning experience with enhanced video quality and interactive features.
