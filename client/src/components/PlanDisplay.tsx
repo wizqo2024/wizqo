@@ -18,6 +18,7 @@ interface Day {
   checklist: string[];
   tips: string[];
   mistakesToAvoid: string[];
+  youtubeVideoId?: string;
   freeResources: { title: string; link: string }[];
   affiliateProducts: { title: string; link: string; price: string }[];
 }
@@ -37,7 +38,7 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [expandedDay, setExpandedDay] = useState<number | null>(1);
@@ -54,7 +55,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       setCurrentPlanId(planId);
       
-      if (isAuthenticated && user && planData) {
+      if (user && planData) {
         try {
           const savedPlan = await hobbyPlanService.savePlan({
             hobby: planData.hobby,
@@ -74,7 +75,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
     if (planData) {
       initializePlan();
     }
-  }, [isAuthenticated, user, planData]);
+  }, [user, planData]);
 
   const toggleDayCompletion = async (dayNumber: number) => {
     if (isSavingProgress) return;
@@ -91,7 +92,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
         const newCompletedDays = [...completedDays, dayNumber];
         setCompletedDays(newCompletedDays);
 
-        if (isAuthenticated && user && currentPlanId) {
+        if (user && currentPlanId) {
           await hobbyPlanService.completeDay(user.id, currentPlanId.toString(), dayNumber);
           toast({
             title: "Progress Saved!",
@@ -104,7 +105,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
           });
         }
         
-        if (dayNumber === 1 && !isAuthenticated) {
+        if (dayNumber === 1 && !user) {
           setShowAuthModal(true);
         }
       }
@@ -341,81 +342,89 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </Card>
                     </div>
 
-                    {/* YouTube Video Tutorial Card */}
-                    <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white overflow-hidden">
-                      <CardContent className="p-0 relative">
-                        <div className="absolute top-3 left-3 z-10">
-                          <div className="flex items-center space-x-2">
-                            <div className="px-2 py-1 bg-red-600 rounded-full text-xs font-medium">
-                              YouTube Tutorial
+                    {/* Professional YouTube Video Tutorial Card */}
+                    <Card className="overflow-hidden border border-gray-200 bg-white shadow-lg">
+                      <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                              <Play className="w-4 h-4 text-white" />
                             </div>
-                            <div className="px-2 py-1 bg-yellow-500 text-black rounded-full text-xs font-medium flex items-center space-x-1">
-                              <Star className="w-3 h-3" />
-                              <span>Expert Selected</span>
+                            <div>
+                              <h3 className="font-semibold text-lg">Day {day.day} Video Tutorial</h3>
+                              <p className="text-red-100 text-sm">Expert-curated content for {planData.hobby}</p>
                             </div>
                           </div>
+                          <div className="flex items-center space-x-1 bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-medium">
+                            <Star className="w-3 h-3" />
+                            <span>Premium</span>
+                          </div>
                         </div>
-                        
+                      </CardHeader>
+                      
+                      <CardContent className="p-0">
                         {/* YouTube Video Embed */}
                         {day.youtubeVideoId ? (
-                          <div className="relative">
+                          <div className="relative bg-gray-900">
                             <div className="aspect-video">
                               <iframe
-                                src={`https://www.youtube.com/embed/${day.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
-                                title={`${planData.hobby} Day ${day.day} Tutorial`}
+                                src={`https://www.youtube.com/embed/${day.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1&controls=1`}
+                                title={`Learn ${planData.hobby} - Day ${day.day}: ${day.title}`}
                                 frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
-                                className="w-full h-full rounded-t-lg"
+                                className="w-full h-full"
+                                loading="lazy"
                               ></iframe>
                             </div>
                           </div>
                         ) : (
-                          <div className="p-6 pt-16 text-center">
-                            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
-                              <Play className="w-10 h-10 text-white ml-1" />
+                          <div className="p-8 text-center bg-gray-50">
+                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4">
+                              <Play className="w-8 h-8 text-white ml-0.5" />
                             </div>
-                            
-                            <h3 className="text-xl font-bold mb-2">Video Tutorial Coming Soon</h3>
-                            <p className="text-slate-300 mb-6 text-sm leading-relaxed max-w-md mx-auto">
-                              We're preparing an expert-selected tutorial for Day {day.day} of your {planData.hobby} journey
+                            <h4 className="text-lg font-semibold text-gray-900 mb-2">Video Tutorial Available</h4>
+                            <p className="text-gray-600 mb-4 text-sm">
+                              Watch our carefully selected tutorial for Day {day.day}
                             </p>
-                            
                             <Button 
-                              onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner day ' + day.day + ' tutorial')}`, '_blank')}
-                              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                              onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner tutorial day ' + day.day)}`, '_blank')}
+                              className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
                             >
                               <ExternalLink className="w-4 h-4 mr-2" />
-                              Search YouTube
+                              Find on YouTube
                             </Button>
                           </div>
                         )}
                         
-                        <div className="p-4 bg-slate-900">
-                          <div className="flex items-center justify-between text-xs text-slate-400">
-                            <div className="flex items-center space-x-2">
-                              <Clock className="w-3 h-3" />
-                              <span>15-30 min</span>
+                        {/* Video Info Footer */}
+                        <div className="p-4 bg-gray-50 border-t border-gray-100">
+                          <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-gray-600">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex items-center space-x-1">
+                                <Clock className="w-4 h-4 text-gray-400" />
+                                <span>Perfect Length</span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Users className="w-4 h-4 text-gray-400" />
+                                <span>Beginner Friendly</span>
+                              </div>
                             </div>
-                            <div className="flex items-center space-x-2">
-                              <Users className="w-3 h-3" />
-                              <span>Beginner Level</span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <CheckCircle className="w-3 h-3" />
-                              <span>HD Quality</span>
+                            <div className="flex items-center space-x-1 text-green-600">
+                              <CheckCircle className="w-4 h-4" />
+                              <span className="font-medium">Quality Verified</span>
                             </div>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
 
-                    {/* Video Tutorial Description */}
-                    <Card className="bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200">
+                    {/* Additional Learning Resources */}
+                    <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-l-blue-500">
                       <CardContent className="p-4">
                         <div className="flex items-center space-x-2 mb-3">
-                          <div className="w-6 h-6 bg-slate-600 rounded-full flex items-center justify-center">
-                            <Play className="w-3 h-3 text-white" />
+                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                            <BookOpen className="w-3 h-3 text-white" />
                           </div>
                           <h4 className="font-semibold text-slate-900">Day {day.day}: {day.title} - Step by Step Tutorial</h4>
                         </div>
@@ -571,7 +580,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
         </div>
 
         {/* Authentication prompt for progress tracking */}
-        {!isAuthenticated && completedDays.includes(1) && !localStorage.getItem('skipAuthPrompt') && (
+        {!user && completedDays.includes(1) && !localStorage.getItem('skipAuthPrompt') && (
           <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
             <div className="flex items-center space-x-3 mb-4">
               <User className="w-6 h-6 text-purple-600" />
