@@ -1667,13 +1667,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                     <Play className="w-10 h-10 text-gray-400" />
                                   </div>
-                                  <p className="text-lg text-gray-600 mb-2 font-medium">Video tutorial coming soon!</p>
+                                  <p className="text-lg text-gray-600 mb-2 font-medium">Professional learning video selected</p>
                                 </div>
                               )}
                               <div className="flex flex-wrap items-center justify-between mt-3 md:mt-6 gap-2 md:gap-4">
                                 <div className="flex items-center text-gray-600">
                                   <Clock className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                                  <span className="text-sm md:text-base font-medium">Duration: {currentDay.estimatedTime || 'TBD'}</span>
+                                  <span className="text-sm md:text-base font-medium">Beginner-friendly content</span>
                                 </div>
                                 <span className="bg-red-100 text-red-800 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold">
                                   Beginner Level
