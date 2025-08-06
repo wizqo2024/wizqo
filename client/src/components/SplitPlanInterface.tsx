@@ -1658,7 +1658,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                           </section>
                       
-                          {/* Video Tutorial Section - Minimal Clean Design */}
+                          {/* Video Tutorial Section - Ultra Clean Design */}
                           <section className="bg-slate-800 rounded-xl p-6">
                             <div className="text-center mb-4">
                               <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
@@ -1673,19 +1673,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               console.log('🐛 Video Title:', currentDay.videoTitle);
                               return currentDay.youtubeVideoId;
                             })() ? (
-                              <div className="bg-slate-700 rounded-xl p-4">
-                                <div className="flex items-center mb-3">
-                                  <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center mr-3">
-                                    <Play className="w-5 h-5 text-white" />
-                                  </div>
-                                  <div>
-                                    <h4 className="text-white font-medium">{currentDay.videoTitle || 'Tutorial Video'}</h4>
-                                    <p className="text-gray-400 text-sm">Watch and learn the fundamentals</p>
-                                  </div>
-                                </div>
+                              <div className="bg-slate-700 rounded-xl p-1">
                                 <YouTubeEmbed 
                                   videoId={currentDay.youtubeVideoId}
-                                  title={currentDay.videoTitle || `${currentDay.title || 'Tutorial'} Tutorial`}
+                                  title=""
                                   className="rounded-lg overflow-hidden w-full"
                                 />
                               </div>
