@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Play, MoreHorizontal } from "lucide-react";
 import { format } from "date-fns";
+import { UnifiedNavigation } from './UnifiedNavigation';
 
 interface HobbyPlan {
   id: string;
@@ -202,70 +203,10 @@ export default function Dashboard() {
 
   return (
     <div>
-      {/* Use the same navigation as home page */}
-      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <button 
-                onClick={() => window.location.hash = '#/'}
-                className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-              >
-                Wizqo
-              </button>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <button 
-                onClick={() => window.location.hash = '#/'}
-                className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                Home
-              </button>
-              <button 
-                onClick={() => window.location.hash = '#/generate'}
-                className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                Generate
-              </button>
-              <button 
-                onClick={() => window.location.hash = '#/dashboard'}
-                className="text-blue-600 dark:text-blue-400 font-semibold border-b-2 border-blue-600 dark:border-blue-400 pb-1"
-              >
-                Dashboard
-              </button>
-              <button 
-                onClick={() => window.location.hash = '#/about'}
-                className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                About
-              </button>
-              <button 
-                onClick={() => window.location.hash = '#/blog'}
-                className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                Blog
-              </button>
-            </div>
+      {/* Use the exact same navigation as home page */}
+      <UnifiedNavigation currentPage="dashboard" />
 
-            <div className="flex items-center space-x-4">
-              {user && (
-                <div className="text-sm text-gray-600 dark:text-gray-300 hidden sm:block">
-                  {user.email}
-                </div>
-              )}
-              <Button 
-                onClick={() => window.location.hash = '#/generate'}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl px-6 py-2 rounded-full"
-              >
-                New Plan
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container mx-auto px-4 py-8 mt-20">
+      <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
