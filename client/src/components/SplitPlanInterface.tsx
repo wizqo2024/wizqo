@@ -152,6 +152,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
+  const [isChatMinimized, setIsChatMinimized] = useState(false);
   
   // Window resize listener for responsive layout
   useEffect(() => {
@@ -768,6 +769,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔧 CORRECTED plan data - first day youtubeVideoId:', correctedPlanData.days[0].youtubeVideoId);
       
       setPlanData(correctedPlanData);
+      // Minimize chat after plan generation
+      setIsChatMinimized(true);
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -868,6 +871,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
         setPlanData(fixedStandardPlan);
+        // Minimize chat after plan generation
+        setIsChatMinimized(true);
         
         // Save plan to Supabase if user is authenticated
         console.log('🔍 AUTH CHECK: user object:', user);
@@ -1304,16 +1309,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }}
       >
         {/* Chat Interface - Mobile: Top, Desktop: Left */}
-        <div 
-          className="bg-white border-gray-300 flex flex-col shrink-0"
-          style={{
-            width: isDesktop ? '40%' : '100%',
-            height: isDesktop ? 'calc(100vh - 64px)' : window.innerWidth >= 768 ? '320px' : '256px',
-            borderBottom: isDesktop ? 'none' : '2px solid #d1d5db',
-            borderRight: isDesktop ? '2px solid #d1d5db' : 'none',
-            backgroundColor: '#ffffff'
-          }}
-        >
+        {!isChatMinimized && (
+          <div 
+            className="bg-white border-gray-300 flex flex-col shrink-0"
+            style={{
+              width: isDesktop ? '40%' : '100%',
+              height: isDesktop ? 'calc(100vh - 64px)' : window.innerWidth >= 768 ? '320px' : '256px',
+              borderBottom: isDesktop ? 'none' : '2px solid #d1d5db',
+              borderRight: isDesktop ? '2px solid #d1d5db' : 'none',
+              backgroundColor: '#ffffff'
+            }}
+          >
           <div className="p-3 lg:p-4 border-b border-gray-200 shrink-0">
             <h2 className="text-sm lg:text-lg font-semibold text-gray-900">Learning Assistant</h2>
             <p className="text-xs lg:text-sm text-gray-600">Ask me anything about your plan</p>
@@ -1387,12 +1393,39 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             </div>
           </div>
         </div>
+        )}
+
+        {/* Chat Toggle Button (when minimized and plan exists) */}
+        {isChatMinimized && planData && (
+          <div className="fixed bottom-4 right-4 z-50">
+            <Button
+              onClick={() => setIsChatMinimized(false)}
+              className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </Button>
+          </div>
+        )}
+
+        {/* Chat Minimize Button (when chat is visible and plan exists) */}
+        {!isChatMinimized && planData && (
+          <div className="absolute top-2 right-2 z-10">
+            <Button
+              onClick={() => setIsChatMinimized(true)}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
 
         {/* Plan Display - Mobile: Bottom, Desktop: Right */}
         <div 
           className="flex-1 overflow-y-auto"
           style={{
-            width: isDesktop ? '60%' : '100%',
+            width: (isDesktop && !isChatMinimized) ? '60%' : '100%',
             height: isDesktop ? 'calc(100vh - 64px)' : 'auto',
             backgroundColor: '#f9fafb'
           }}
