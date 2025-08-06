@@ -260,6 +260,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
   };
 
   const getHobbyImage = (hobby: string): string => {
+    const normalizedHobby = hobby?.toLowerCase() || '';
     const images: Record<string, string> = {
       drawing: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
       painting: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
@@ -267,9 +268,38 @@ Learn any hobby in 7 days at https://wizqo.com`;
       cooking: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
       guitar: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
       yoga: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-      coding: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop'
+      coding: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+      writing: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
+      reading: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+      dance: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
+      gardening: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
+      baking: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
+      piano: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&h=240&fit=crop',
+      singing: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
+      chess: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
+      hiking: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop',
+      camping: 'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=400&h=240&fit=crop',
+      knitting: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
+      pottery: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
+      'history research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+      'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+      research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop'
     };
-    return images[hobby] || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
+    
+    // First try exact match
+    if (images[normalizedHobby]) {
+      return images[normalizedHobby];
+    }
+    
+    // Then try partial match for compound hobbies
+    for (const [key, image] of Object.entries(images)) {
+      if (normalizedHobby.includes(key) || key.includes(normalizedHobby)) {
+        return image;
+      }
+    }
+    
+    // Default fallback
+    return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
   };
 
   const getStatusColor = (status: string): string => {
