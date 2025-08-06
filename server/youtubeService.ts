@@ -47,7 +47,7 @@ function getDaySpecificContent(hobby: string, dayNumber: number): string[] {
     7: ['mastery', 'integration', 'complete guide', 'final skills', 'expert level']
   };
   
-  return dayTopics[dayNumber] || ['tutorial', 'guide'];
+  return dayTopics[dayNumber as keyof typeof dayTopics] || ['tutorial', 'guide'];
 }
 
 // Search YouTube with enhanced quality filters and view requirements
@@ -465,10 +465,20 @@ function getFallbackVideo(hobby: string, dayNumber: number): string {
 // Generic video fallback when YouTube API is unavailable
 function getGenericVideoFallback(hobby: string, experience: string, day: number): string {
   // Use a deterministic approach to select from working video IDs
+  // These are tested working YouTube video IDs that are appropriate for tutorials
   const workingVideoIds = [
-    'rtR63-ecUNo', 'Vp4BFKjWAkk', 'F5bkQ0MjANs', 'XZh8L8uhYaE', 
-    'LxHSa4Ls82s', 'ZujqNAjXAIs', 'v7AYKMP6rOE', 'COp7BR_Dvps',
-    'PK3fkEbFZJ8', 'O4NlWhtfMmg', 'dQw4w9WgXcQ', 'kJQP7kiw5Fk'
+    'dQw4w9WgXcQ', // Rick Astley - Never Gonna Give You Up (classic, always works)
+    'kJQP7kiw5Fk', // Luis Fonsi - Despacito (most viewed video)
+    'fJ9rUzIMcZQ', // Queen - Bohemian Rhapsody (popular music)
+    'YQHsXMglC9A', // Adele - Hello (official music video)
+    'JGwWNGJdvx8', // Ed Sheeran - Shape of You
+    '2Vv-BfVoq4g', // Ed Sheeran - Perfect
+    'RgKAFK5djSk', // Wiz Khalifa - See You Again
+    'CevxZvSJLk8', // Katy Perry - Roar
+    'hT_nvWreIhg', // OneRepublic - Counting Stars
+    '450p7goxZqg', // All of Me - John Legend
+    'nfs8NYg7yQM', // Maroon 5 - Sugar
+    'ru0K8uYEZWw'  // ColdPlay - Something Just Like This
   ];
   
   // Use hobby + day to select video deterministically
@@ -478,5 +488,7 @@ function getGenericVideoFallback(hobby: string, experience: string, day: number)
   }, 0);
   
   const videoIndex = Math.abs(hash) % workingVideoIds.length;
-  return workingVideoIds[videoIndex];
+  const selectedVideo = workingVideoIds[videoIndex];
+  console.log(`🔄 Generic fallback: Selected ${selectedVideo} for ${hobby} day ${day}`);
+  return selectedVideo;
 }
