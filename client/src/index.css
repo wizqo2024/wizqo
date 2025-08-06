@@ -2,6 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile-First Responsive Improvements */
+@layer base {
+  * {
+    /* Better touch targets for mobile */
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
+  
+  html {
+    /* Prevent horizontal scroll on mobile */
+    @apply overflow-x-hidden;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    /* Prevent horizontal scroll and improve mobile experience */
+    @apply overflow-x-hidden;
+    /* Better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Mobile-optimized line clamping */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Better mobile card hover states */
+  .mobile-card {
+    @apply transition-all duration-300 ease-out;
+    @apply active:scale-95 sm:hover:scale-105;
+  }
+  
+  /* Mobile-friendly button states */
+  .mobile-button {
+    @apply active:scale-95 transition-transform duration-150;
+    @apply min-h-[44px] min-w-[44px]; /* WCAG AA touch target size */
+  }
+  
+  /* Responsive text sizes */
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-base {
+    @apply text-sm sm:text-base;
+  }
+  
+  .text-responsive-lg {
+    @apply text-base sm:text-lg;
+  }
+  
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl;
+  }
+}
+
+@layer utilities {
+  /* Safe area insets for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Mobile-optimized shadows */
+  .shadow-mobile {
+    @apply shadow-sm sm:shadow-md;
+  }
+  
+  /* Responsive spacing utilities */
+  .spacing-mobile {
+    @apply p-3 sm:p-4 lg:p-6;
+  }
+  
+  /* Mobile-first grid improvements */
+  .grid-mobile-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+  
+  /* Better focus states for accessibility */
+  .focus-mobile {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply dark:focus:ring-blue-400 dark:focus:ring-offset-gray-900;
+  }
+}
+
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(222.2, 84%, 4.9%);

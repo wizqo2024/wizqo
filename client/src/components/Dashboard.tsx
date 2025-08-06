@@ -308,216 +308,247 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      {/* Use the exact same navigation as home page */}
-      <UnifiedNavigation currentPage="dashboard" />
+    <>
+      {/* SEO Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Personal Learning Dashboard",
+          "description": "Track your personalized 7-day hobby learning plans and celebrate achievements",
+          "url": "https://wizqo.com/dashboard",
+          "mainEntity": {
+            "@type": "Course",
+            "name": "7-Day Hobby Learning Plans",
+            "description": "Personalized learning journeys for various hobbies"
+          }
+        })}
+      </script>
 
-      <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
-        <p className="text-gray-600">Track your progress across all your hobby learning journeys</p>
-      </div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900">
+        <UnifiedNavigation currentPage="dashboard" />
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                <Play className="h-6 w-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{hobbyPlans.filter(p => p.status === 'in_progress').length}</p>
-                <p className="text-sm text-gray-600">Active Plans</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                <Calendar className="h-6 w-6 text-green-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{hobbyPlans.filter(p => p.status === 'completed').length}</p>
-                <p className="text-sm text-gray-600">Completed</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                <Clock className="h-6 w-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{hobbyPlans.reduce((acc, plan) => acc + plan.currentDay, 0)}</p>
-                <p className="text-sm text-gray-600">Days Learned</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
-                <Calendar className="h-6 w-6 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{Math.round(hobbyPlans.reduce((acc, plan) => acc + plan.progress, 0) / hobbyPlans.length) || 0}%</p>
-                <p className="text-sm text-gray-600">Avg Progress</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+        <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl" role="main">
+        {/* SEO Header */}
+        <header className="mb-6 sm:mb-8">
+          <div className="text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 sm:mb-3">
+              My Learning Dashboard
+            </h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto sm:mx-0">
+              Track your progress across all your hobby learning journeys. Complete 7-day challenges and celebrate your achievements.
+            </p>
+          </div>
+        </header>
 
-      {/* Hobby Plans Grid */}
-      {hobbyPlans.length === 0 ? (
-        <div className="text-center py-12">
-          <h3 className="text-xl font-semibold mb-4">No Learning Plans Yet</h3>
-          <p className="text-gray-600 mb-6">Start your first 7-day hobby learning journey today!</p>
-          <Button onClick={() => window.location.hash = '#/generate'}>
-            Create Your First Plan
-          </Button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {hobbyPlans.map((plan) => (
-            <Card key={plan.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              {/* Plan Image */}
-              <div className="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
-                <img 
-                  src={getHobbyImage(plan.hobby)} 
-                  alt={plan.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback to gradient background if image fails
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-
-                <div className="absolute top-4 left-4">
-                  <Badge className={`${getStatusColor(plan.status)} text-white`}>
-                    {getStatusText(plan.status)}
-                  </Badge>
-                </div>
-              </div>
-
-              <CardContent className="p-6">
-                {/* Plan Title */}
-                <h3 className="font-semibold text-lg mb-2">{plan.title}</h3>
-                
-                {/* Category and Duration */}
-                <div className="flex items-center text-sm text-gray-600 mb-4">
-                  <span>{plan.category}</span>
-                  <span className="mx-2">•</span>
-                  <span>{plan.totalDays} days</span>
-                </div>
-
-                {/* Progress */}
-                <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium">Progress</span>
-                    <span className="text-sm font-bold">{plan.progress}%</span>
+          {/* Mobile-Optimized Stats Cards */}
+          <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8" aria-label="Learning Statistics">
+            <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-700 rounded-full flex items-center justify-center">
+                    <Play className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-blue-600 dark:text-blue-300" />
                   </div>
-                  <Progress value={plan.progress} className="h-2" />
-                </div>
-
-                {/* Dates - only show start date */}
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
+                  <div className="text-center sm:text-left">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                      {hobbyPlans.filter(p => p.status === 'in_progress').length}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Active Plans</p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => deletePlan(plan.id)}
-                    disabled={deletingPlan === plan.id}
-                    className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
                 </div>
+              </CardContent>
+            </Card>
+          
+            <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800 dark:to-green-700 rounded-full flex items-center justify-center">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-green-600 dark:text-green-300" />
+                  </div>
+                  <div className="text-center sm:text-left">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                      {hobbyPlans.filter(p => p.status === 'completed').length}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Completed</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-800 dark:to-purple-700 rounded-full flex items-center justify-center">
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-purple-600 dark:text-purple-300" />
+                  </div>
+                  <div className="text-center sm:text-left">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                      {hobbyPlans.reduce((acc, plan) => acc + plan.currentDay, 0)}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Days Learned</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-800 dark:to-orange-700 rounded-full flex items-center justify-center">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-orange-600 dark:text-orange-300" />
+                  </div>
+                  <div className="text-center sm:text-left">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                      {Math.round(hobbyPlans.reduce((acc, plan) => acc + plan.progress, 0) / hobbyPlans.length) || 0}%
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Avg Progress</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
 
-                {/* Social Sharing Button for Completed Plans */}
-                {plan.status === 'completed' && (
-                  <div className="mb-4">
-                    <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg">
-                      <div className="bg-white dark:bg-gray-900 rounded-[6px] p-4">
-                        <div className="flex items-center justify-center space-x-2 mb-3">
-                          <Trophy className="h-5 w-5 text-yellow-500" />
-                          <span className="text-sm font-semibold text-green-600 dark:text-green-400">
-                            Challenge Completed! 🎉
-                          </span>
-                        </div>
-                        <div className="flex space-x-2">
-                          <Button
-                            size="sm"
-                            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white"
-                            onClick={() => {
-                              const platforms = shareAchievement(plan);
-                              window.open(platforms.twitter, '_blank');
-                            }}
-                          >
-                            <Share2 className="h-4 w-4 mr-1" />
-                            Twitter
-                          </Button>
-                          <Button
-                            size="sm"
-                            className="flex-1 bg-blue-700 hover:bg-blue-800 text-white"
-                            onClick={() => {
-                              const platforms = shareAchievement(plan);
-                              window.open(platforms.facebook, '_blank');
-                            }}
-                          >
-                            <ExternalLink className="h-4 w-4 mr-1" />
-                            Facebook
-                          </Button>
-                          <Button
-                            size="sm"
-                            className="flex-1 bg-green-500 hover:bg-green-600 text-white"
-                            onClick={() => {
-                              const platforms = shareAchievement(plan);
-                              window.open(platforms.whatsapp, '_blank');
-                            }}
-                          >
-                            <Share2 className="h-4 w-4 mr-1" />
-                            WhatsApp
-                          </Button>
-                        </div>
-                      </div>
+          {/* Hobby Plans Grid */}
+          {hobbyPlans.length === 0 ? (
+            <div className="text-center py-12">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">No Learning Plans Yet</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">Start your first 7-day hobby learning journey today!</p>
+              <Button onClick={() => window.location.hash = '#/generate'} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                Create Your First Plan
+              </Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+              {hobbyPlans.map((plan) => (
+                <Card key={plan.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white dark:bg-gray-800">
+                  {/* Plan Image */}
+                  <div className="relative h-40 sm:h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+                    <img 
+                      src={getHobbyImage(plan.hobby)} 
+                      alt={plan.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to gradient background if image fails
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                      <Badge className={`${getStatusColor(plan.status)} text-white text-xs sm:text-sm font-medium`}>
+                        {getStatusText(plan.status)}
+                      </Badge>
                     </div>
                   </div>
-                )}
 
-                {/* Action Button */}
-                <Button 
-                  onClick={() => {
-                    // Store plan data for navigation
-                    if (plan.planData) {
-                      sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
-                    }
-                    window.location.hash = '#/plan';
-                  }}
-                  className="w-full" 
-                  variant={plan.status === 'completed' ? 'outline' : 'default'}
-                >
-                  {plan.status === 'completed' ? 'View Plan' : 'Continue Learning'}
-                </Button>
+                  <CardContent className="p-4 sm:p-6">
+                    {/* Plan Title */}
+                    <h3 className="font-semibold text-base sm:text-lg mb-2 text-gray-900 dark:text-white line-clamp-2">{plan.title}</h3>
+                    
+                    {/* Category and Duration */}
+                    <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4">
+                      <span className="font-medium">{plan.category}</span>
+                      <span className="mx-2">•</span>
+                      <span>{plan.totalDays} days</span>
+                    </div>
+
+                    {/* Progress */}
+                    <div className="mb-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">Progress</span>
+                        <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">{plan.progress}%</span>
+                      </div>
+                      <Progress value={plan.progress} className="h-2 bg-gray-200 dark:bg-gray-700" />
+                    </div>
+
+                    {/* Dates - only show start date */}
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-6">
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                        <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => deletePlan(plan.id)}
+                        disabled={deletingPlan === plan.id}
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 p-1 h-auto"
+                      >
+                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                      </Button>
+                    </div>
+
+                    {/* Social Sharing Button for Completed Plans */}
+                    {plan.status === 'completed' && (
+                      <div className="mb-4">
+                        <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg">
+                          <div className="bg-white dark:bg-gray-800 rounded-[6px] p-3 sm:p-4">
+                            <div className="flex items-center justify-center space-x-2 mb-3">
+                              <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
+                              <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">
+                                Challenge Completed! 🎉
+                              </span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                              <Button
+                                size="sm"
+                                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-xs sm:text-sm py-2"
+                                onClick={() => {
+                                  const platforms = shareAchievement(plan);
+                                  window.open(platforms.twitter, '_blank');
+                                }}
+                              >
+                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                                Twitter
+                              </Button>
+                              <Button
+                                size="sm"
+                                className="flex-1 bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm py-2"
+                                onClick={() => {
+                                  const platforms = shareAchievement(plan);
+                                  window.open(platforms.facebook, '_blank');
+                                }}
+                              >
+                                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                                Facebook
+                              </Button>
+                              <Button
+                                size="sm"
+                                className="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm py-2"
+                                onClick={() => {
+                                  const platforms = shareAchievement(plan);
+                                  window.open(platforms.whatsapp, '_blank');
+                                }}
+                              >
+                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                                WhatsApp
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Action Button */}
+                    <Button 
+                      onClick={() => {
+                        // Store plan data for navigation
+                        if (plan.planData) {
+                          sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
+                        }
+                        window.location.hash = '#/plan';
+                      }}
+                      className="w-full text-sm sm:text-base py-2 sm:py-3" 
+                      variant={plan.status === 'completed' ? 'outline' : 'default'}
+                    >
+                      {plan.status === 'completed' ? 'View Plan' : 'Continue Learning'}
+                    </Button>
               </CardContent>
             </Card>
           ))}
         </div>
       )}
+        </main>
       </div>
-    </div>
+    </>
   );
 }
