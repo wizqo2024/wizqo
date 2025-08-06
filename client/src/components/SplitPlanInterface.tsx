@@ -1658,15 +1658,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                           </section>
                       
-                          {/* Video Tutorial Section */}
-                          <section className="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-xl p-4 md:p-8">
-                            <div className="flex items-center mb-4 md:mb-6">
-                              <div className="bg-red-500 rounded-full p-1.5 md:p-2 mr-3 md:mr-4">
-                                <span className="text-white text-base md:text-xl">📺</span>
+                          {/* Video Tutorial Section - Clean Dark Design */}
+                          <section className="bg-gray-800 rounded-xl p-6 md:p-8">
+                            <div className="text-center mb-6">
+                              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
+                                <BookOpen className="w-6 h-6 text-white" />
                               </div>
-                              <h3 className="text-lg md:text-2xl font-bold text-gray-900">Watch Today's Video Tutorial</h3>
+                              <h3 className="text-xl font-semibold text-white mb-2">{currentDay.videoTitle || `${currentDay.title} Tutorial`}</h3>
+                              <p className="text-gray-300 text-sm">Welcome to your first lesson! We'll cover the basic fundamentals and get you started on your learning journey.</p>
                             </div>
-                            <div className="bg-white rounded-xl p-3 md:p-6 shadow-sm">
+                            <div className="bg-black rounded-lg p-1 mb-4">
                               {(() => {
                                 console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
                                 console.log('🐛 Video Title:', currentDay.videoTitle);
@@ -1675,42 +1676,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 <YouTubeEmbed 
                                   videoId={currentDay.youtubeVideoId}
                                   title={currentDay.videoTitle || `${currentDay.title || 'Tutorial'} Tutorial`}
-                                  className="mb-3 md:mb-4 rounded-lg md:rounded-xl overflow-hidden"
+                                  className="rounded-lg overflow-hidden w-full"
                                 />
-                              ) : currentDay.youtubeSearchUrl ? (
-                                <div className="text-center p-8">
-                                  <div className="bg-red-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                                    <Play className="w-10 h-10 text-red-600" />
-                                  </div>
-                                  <h4 className="text-xl font-bold text-gray-900 mb-2">{currentDay.videoTitle}</h4>
-                                  <p className="text-gray-600 mb-6">Find the perfect tutorial for this lesson</p>
-                                  <a 
-                                    href={currentDay.youtubeSearchUrl} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-3 bg-gradient-to-r from-red-600 to-pink-600 text-white px-6 py-3 rounded-xl hover:from-red-700 hover:to-pink-700 transition-all transform hover:scale-105 font-semibold shadow-lg"
-                                  >
-                                    <ExternalLink className="w-5 h-5" />
-                                    Search YouTube Tutorials
-                                  </a>
-                                </div>
                               ) : (
-                                <div className="text-center p-8">
-                                  <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                                    <Play className="w-10 h-10 text-gray-400" />
+                                <div className="text-center py-8">
+                                  <div className="bg-gray-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <Play className="w-8 h-8 text-gray-300" />
                                   </div>
-                                  <p className="text-lg text-gray-600 mb-2 font-medium">Professional learning video selected</p>
+                                  <p className="text-gray-400 text-sm">Professional learning video selected</p>
                                 </div>
                               )}
-                              <div className="flex flex-wrap items-center justify-between mt-3 md:mt-6 gap-2 md:gap-4">
-                                <div className="flex items-center text-gray-600">
-                                  <Clock className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                                  <span className="text-sm md:text-base font-medium">Beginner-friendly content</span>
-                                </div>
-                                <span className="bg-red-100 text-red-800 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold">
-                                  Beginner Level
-                                </span>
-                              </div>
                             </div>
                           </section>
 
