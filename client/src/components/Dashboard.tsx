@@ -277,8 +277,10 @@ Learn any hobby in 7 days at https://wizqo.com`;
         return techImages[hash % techImages.length];
       }
       
-      // Creative arts
-      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo')) {
+      // Creative arts and crafts
+      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo') || 
+          hobbyName.includes('craft') || hobbyName.includes('embroidery') || hobbyName.includes('knit') || hobbyName.includes('sew') || 
+          hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood')) {
         const creativeImages = [
           'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
