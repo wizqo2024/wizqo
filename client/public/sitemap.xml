@@ -7,7 +7,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://www.wizqo.com/</loc>
-        <lastmod>2025-08-01</lastmod>
+        <lastmod>2025-01-06</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -15,7 +15,7 @@
     <!-- Generate/Learn Page -->
     <url>
         <loc>https://www.wizqo.com/#/generate</loc>
-        <lastmod>2025-08-01</lastmod>
+        <lastmod>2025-01-06</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -23,7 +23,7 @@
     <!-- Blog Main Page -->
     <url>
         <loc>https://www.wizqo.com/#/blog</loc>
-        <lastmod>2025-08-01</lastmod>
+        <lastmod>2025-01-06</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
