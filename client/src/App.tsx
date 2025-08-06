@@ -363,8 +363,8 @@ export default function App() {
     };
   };
 
-  // Plan generation using backend API
-  const generatePlanWithAI = async (hobby: string, answers: QuizAnswers): Promise<PlanData> => {
+  // Plan generation using backend API with duplicate detection
+  const generatePlanWithAI = async (hobby: string, answers: QuizAnswers, userId?: string, force?: boolean): Promise<PlanData> => {
     try {
       const response = await fetch('/api/generate-plan', {
         method: 'POST',
@@ -373,6 +373,8 @@ export default function App() {
         },
         body: JSON.stringify({
           hobby,
+          userId, // Pass userId for server-side duplicate detection
+          force, // Pass force flag to bypass duplicate detection
           experience: answers.experience,
           timeAvailable: answers.timeAvailable,
           goal: answers.goal
@@ -380,6 +382,14 @@ export default function App() {
       });
 
       if (!response.ok) {
+        if (response.status === 409) {
+          // Handle duplicate plan response
+          const errorData = await response.json();
+          if (errorData.error && errorData.error.includes('duplicate')) {
+            // Create a friendly error response that includes the existing plan if available
+            throw new Error(`DUPLICATE_PLAN:${JSON.stringify(errorData)}`);
+          }
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -417,7 +427,17 @@ export default function App() {
       };
     } catch (error) {
       console.error('Error generating plan:', error);
-      // Return fallback plan if API fails
+      
+      // Handle duplicate plan errors specially
+      if (error instanceof Error && error.message.startsWith('DUPLICATE_PLAN:')) {
+        const errorData = JSON.parse(error.message.replace('DUPLICATE_PLAN:', ''));
+        // Re-throw with structured data for UI handling
+        const duplicateError = new Error('DUPLICATE_PLAN') as any;
+        duplicateError.duplicateData = errorData;
+        throw duplicateError;
+      }
+      
+      // Return fallback plan if API fails for other reasons
       return getFallbackPlan(hobby, answers);
     }
   };
