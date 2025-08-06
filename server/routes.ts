@@ -361,7 +361,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
         `Progress tracking system ready for Day ${dayNumber}`
       ],
       tips: dailyTips[i],
-      commonMistakes: dailyMistakes[i],
+      mistakesToAvoid: dailyMistakes[i],
       freeResources: [],
       affiliateProducts: [{
         ...getHobbyProduct(hobby, dayNumber)
@@ -382,7 +382,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     days: days
   };
   
-  console.log('🔍 FALLBACK PLAN GENERATED - First day commonMistakes:', plan.days[0].commonMistakes);
+  console.log('🔍 FALLBACK PLAN GENERATED - First day mistakesToAvoid:', plan.days[0].mistakesToAvoid);
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
   console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
   
@@ -567,7 +567,7 @@ Please provide a helpful response:`;
     try {
       const { user_id, hobby, title, overview, plan_data } = req.body;
       console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
-      console.log('🔍 DEBUG: Plan data being saved - first day commonMistakes:', plan_data?.days?.[0]?.commonMistakes);
+      console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
       console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
       
       // Validate the request data
