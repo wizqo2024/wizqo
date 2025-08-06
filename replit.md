@@ -112,3 +112,4 @@ The application follows a full-stack architecture with clear separation between 
 - **Accessibility**: WCAG AA compliant touch targets, focus states, screen reader improvements
 - **Mobile UI**: Responsive text sizing, safe area insets, mobile-optimized shadows and spacing
 - **Plan Overview Redesign (January 2025)**: Complete card-based layout redesign with Main Task, Why This Matters, Tips for Success, Avoid These Mistakes, Video Tutorial, Today's Checklist, and Free Resources sections - mobile responsive with beautiful gradients
+- **Fixed Hobby Images (January 2025)**: Added specific image mappings for "video editing" and "game development" to ensure unique, distinct images in both dashboard and plan view. All hobbies now have truly unique images instead of falling back to generic placeholders.
