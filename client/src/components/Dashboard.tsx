@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
   
-  // Social sharing function
+  // Social sharing function with image
   const shareAchievement = (plan: HobbyPlan) => {
     const shareText = `🎉 I just completed my 7-day ${plan.hobby} learning journey! 
     
@@ -40,16 +40,16 @@ export default function Dashboard() {
 #7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth`;
 
     const shareUrl = `https://wizqo.com`;
+    const imageUrl = getHobbyImage(plan.hobby); // Use the same image from the card
     
-    // Create sharing URLs for different platforms
+    // Create sharing URLs for different platforms with image
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}&picture=${encodeURIComponent(imageUrl)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}&source=${encodeURIComponent(imageUrl)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl + '\n\nSee my achievement: ' + imageUrl)}`
     };
 
-    // Open a modal or dropdown with sharing options
     return platforms;
   };
 
@@ -481,46 +481,46 @@ export default function Dashboard() {
                     {plan.status === 'completed' && (
                       <div className="mb-4">
                         <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg">
-                          <div className="bg-white dark:bg-gray-800 rounded-[6px] p-3 sm:p-4">
+                          <div className="bg-white dark:bg-gray-800 rounded-[6px] p-3 overflow-hidden">
                             <div className="flex items-center justify-center space-x-2 mb-3">
                               <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
                               <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">
                                 Challenge Completed! 🎉
                               </span>
                             </div>
-                            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                               <Button
                                 size="sm"
-                                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-xs sm:text-sm py-2"
+                                className="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
                                 onClick={() => {
                                   const platforms = shareAchievement(plan);
                                   window.open(platforms.twitter, '_blank');
                                 }}
                               >
-                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                                Twitter
+                                <Share2 className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">Twitter</span>
                               </Button>
                               <Button
                                 size="sm"
-                                className="flex-1 bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm py-2"
+                                className="w-full bg-blue-700 hover:bg-blue-800 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
                                 onClick={() => {
                                   const platforms = shareAchievement(plan);
                                   window.open(platforms.facebook, '_blank');
                                 }}
                               >
-                                <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                                Facebook
+                                <ExternalLink className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">Facebook</span>
                               </Button>
                               <Button
                                 size="sm"
-                                className="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm py-2"
+                                className="w-full bg-green-500 hover:bg-green-600 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
                                 onClick={() => {
                                   const platforms = shareAchievement(plan);
                                   window.open(platforms.whatsapp, '_blank');
                                 }}
                               >
-                                <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                                WhatsApp
+                                <Share2 className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">WhatsApp</span>
                               </Button>
                             </div>
                           </div>
