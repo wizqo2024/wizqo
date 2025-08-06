@@ -288,7 +288,14 @@ Learn any hobby in 7 days at https://wizqo.com`;
       cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
       swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop',
       ukulele: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-      embroidery: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop'
+      embroidery: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
+      'cake decorating': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
+      'app development': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+      woodworking: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
+      jewelry: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop',
+      calligraphy: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
+      meditation: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+      origami: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop'
     };
     
     // First try exact match
