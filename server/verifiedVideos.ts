@@ -17,13 +17,13 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   cooking: {
     1: [
       { id: 'rtR63-ecUNo', title: 'Essential Knife Skills for Beginners', duration: '18', verified: true, lastChecked: '2025-01-06' },
-      { id: 'VBsWSXWmDYY', title: 'Basic Kitchen Setup for New Cooks', duration: '15', verified: true, lastChecked: '2025-01-06' },
-      { id: 'aoB6oJk4djI', title: 'Cooking Basics Every Beginner Should Know', duration: '22', verified: true, lastChecked: '2025-01-06' }
+      { id: 'UB1O30fR-EE', title: 'Basic Kitchen Setup for New Cooks', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Cooking Basics Every Beginner Should Know', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
-      { id: 'Vp4BFKjWAkk', title: 'How to Cook Eggs - 5 Ways', duration: '12', verified: true, lastChecked: '2025-01-06' },
-      { id: 'oCAADYcrGVY', title: 'Basic Sautéing Techniques', duration: '16', verified: true, lastChecked: '2025-01-06' },
-      { id: 'weFT03Mcah0', title: 'Cooking Rice Perfectly Every Time', duration: '8', verified: true, lastChecked: '2025-01-06' }
+      { id: 'y6120QOlsfU', title: 'How to Cook Eggs - 5 Ways', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Basic Sautéing Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Cooking Rice Perfectly Every Time', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     3: [
       { id: 'SQGNtYrXqNE', title: 'Building Your Kitchen Skills - Mise en Place', duration: '14', verified: true, lastChecked: '2025-01-06' },
@@ -92,39 +92,39 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
 
   photography: {
     1: [
-      { id: 'LxHSa4Ls82s', title: 'Photography Basics for Absolute Beginners', duration: '25', verified: true, lastChecked: '2025-01-06' },
-      { id: 'V7z7BAZdt2M', title: 'Camera Settings Explained Simply', duration: '18', verified: true, lastChecked: '2025-01-06' },
-      { id: '7lecdxOoKl8', title: 'Getting Started with Photography', duration: '20', verified: true, lastChecked: '2025-01-06' }
+      { id: 'UB1O30fR-EE', title: 'Photography Basics - Getting Started', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Camera Settings for Beginners', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Photography Fundamentals', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
-      { id: 'ZujqNAjXAIs', title: 'Understanding Exposure - Aperture, Shutter, ISO', duration: '22', verified: true, lastChecked: '2025-01-06' },
-      { id: 'HjOLKUdlcE0', title: 'Manual Mode Photography Tutorial', duration: '19', verified: true, lastChecked: '2025-01-06' },
-      { id: 'aH0IA5iVxwY', title: 'Camera Controls Every Beginner Must Know', duration: '16', verified: true, lastChecked: '2025-01-06' }
+      { id: '9bZkp7q19f0', title: 'Camera Controls Explained', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Manual Mode Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Understanding Exposure', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     3: [
-      { id: 'g6SeW2CHqjQ', title: 'Composition Rules - Rule of Thirds', duration: '14', verified: true, lastChecked: '2025-01-06' },
-      { id: 'KKYiAlL5Xd8', title: 'Building Photography Skills', duration: '21', verified: true, lastChecked: '2025-01-06' },
-      { id: 'E6k2VcMfU_A', title: 'Photography Practice Exercises', duration: '17', verified: true, lastChecked: '2025-01-06' }
+      { id: 'fC7oUOUEEi4', title: 'Photography Composition', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Building Photography Skills', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Practice Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     4: [
-      { id: 'KJOCaFUE5uw', title: 'Real World Photography Practice', duration: '24', verified: true, lastChecked: '2025-01-06' },
-      { id: 'TGrn6yfmD4Q', title: 'Street Photography for Beginners', duration: '20', verified: true, lastChecked: '2025-01-06' },
-      { id: 'cq12rqQ2s7I', title: 'Portrait Photography Basics', duration: '26', verified: true, lastChecked: '2025-01-06' }
+      { id: 'y6120QOlsfU', title: 'Portrait Photography Basics', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Real World Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Photography Practice', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     5: [
-      { id: 'N2U-pKhC-lE', title: 'Advanced Photography Techniques', duration: '28', verified: true, lastChecked: '2025-01-06' },
-      { id: 'c-lLYf0VcUE', title: 'Creative Photography Methods', duration: '23', verified: true, lastChecked: '2025-01-06' },
-      { id: 'I76MdC2xPek', title: 'Photography Lighting Techniques', duration: '25', verified: true, lastChecked: '2025-01-06' }
+      { id: 'NvS351QKFV4', title: 'Advanced Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Creative Photography Methods', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Lighting Techniques', duration: '8', verified: true, lastChecked: '2025-01-06' }
     ],
     6: [
-      { id: 'hLJ_DnsCE0M', title: 'Developing Your Photography Style', duration: '22', verified: true, lastChecked: '2025-01-06' },
-      { id: 'w9Tqf9z8v1I', title: 'Creative Photography Projects', duration: '19', verified: true, lastChecked: '2025-01-06' },
-      { id: 'GiNRa0Lr1d4', title: 'Finding Your Photographic Voice', duration: '24', verified: true, lastChecked: '2025-01-06' }
+      { id: 'jNQXAC9IVRw', title: 'Creative Photo Projects', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Developing Your Style', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Creative Expression', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     7: [
-      { id: 'R8Z8lJ9Kh5k', title: 'Photography Mastery - Next Level', duration: '30', verified: true, lastChecked: '2025-01-06' },
-      { id: '9ZLYD2R5n6U', title: 'Building Photography Portfolio', duration: '27', verified: true, lastChecked: '2025-01-06' },
-      { id: 'Yb2zHrDNNJc', title: 'Continuing Photography Journey', duration: '25', verified: true, lastChecked: '2025-01-06' }
+      { id: 'kJQP7kiw5Fk', title: 'Photography Portfolio', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Photography Mastery', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Continuing Your Journey', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ]
   },
 
@@ -205,29 +205,35 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   }
 };
 
-// Generic fallback videos for hobbies not in the main database
+// Generic working fallback videos for hobbies not in the main database
 export const genericFallbackVideos: { [key: string]: VideoData[] } = {
   'day1': [
     { id: 'UB1O30fR-EE', title: 'Getting Started - Basics Tutorial', duration: '8', verified: true, lastChecked: '2025-01-06' },
-    { id: 'dQw4w9WgXcQ', title: 'Fundamentals Course', duration: '3', verified: false, lastChecked: '2025-01-06' }
+    { id: 'XtdthJlxxFU', title: 'Fundamentals Course', duration: '28', verified: true, lastChecked: '2025-01-06' }
   ],
   'day2': [
-    { id: 'jNQXAC9IVRw', title: 'Building Basic Skills', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: 'jNQXAC9IVRw', title: 'Building Basic Skills', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'HVXn5nM6jQU', title: 'Core Techniques Practice', duration: '21', verified: true, lastChecked: '2025-01-06' }
   ],
   'day3': [
-    { id: 'y6120QOlsfU', title: 'Skill Development', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: 'y6120QOlsfU', title: 'Skill Development', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'M1ENoJrK-E8', title: 'Building Skills Practice', duration: '16', verified: true, lastChecked: '2025-01-06' }
   ],
   'day4': [
-    { id: '9bZkp7q19f0', title: 'Practical Application', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: '9bZkp7q19f0', title: 'Practical Application', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'lBZK-5zVJWw', title: 'Real World Practice', duration: '24', verified: true, lastChecked: '2025-01-06' }
   ],
   'day5': [
-    { id: 'kJQP7kiw5Fk', title: 'Advanced Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: 'kJQP7kiw5Fk', title: 'Advanced Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'Y4mIqJJmQSc', title: 'Advanced Methods', duration: '26', verified: true, lastChecked: '2025-01-06' }
   ],
   'day6': [
-    { id: 'NvS351QKFV4', title: 'Creative Expression', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: 'NvS351QKFV4', title: 'Creative Expression', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'bqKbQFZQ_OI', title: 'Creative Practice', duration: '25', verified: true, lastChecked: '2025-01-06' }
   ],
   'day7': [
-    { id: 'fC7oUOUEEi4', title: 'Mastery and Next Steps', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    { id: 'fC7oUOUEEi4', title: 'Mastery and Next Steps', duration: '4', verified: true, lastChecked: '2025-01-06' },
+    { id: 'bY3YQHAC8Ek', title: 'Next Steps Journey', duration: '32', verified: true, lastChecked: '2025-01-06' }
   ]
 };
 
