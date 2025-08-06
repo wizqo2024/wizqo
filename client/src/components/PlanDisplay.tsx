@@ -301,14 +301,18 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           <h3 className="text-lg font-semibold text-gray-900">Success Tips</h3>
                         </div>
                         <div className="space-y-3">
-                          {day.tips.map((tip, index) => (
-                            <div key={index} className="flex items-start space-x-3">
-                              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <Lightbulb className="w-3 h-3 text-green-600" />
+                          {day.tips.map((tip, index) => {
+                            const tipIcons = [Star, Lightbulb, Target, CheckCircle, Trophy];
+                            const IconComponent = tipIcons[index % tipIcons.length];
+                            return (
+                              <div key={index} className="flex items-start space-x-3">
+                                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                  <IconComponent className="w-3 h-3 text-green-600" />
+                                </div>
+                                <p className="text-gray-700 text-sm leading-relaxed">{tip}</p>
                               </div>
-                              <p className="text-gray-700 text-sm leading-relaxed">{tip}</p>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </CardContent>
                     </Card>
@@ -323,14 +327,18 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           <h3 className="text-lg font-semibold text-gray-900">Avoid These Mistakes</h3>
                         </div>
                         <div className="space-y-3">
-                          {day.mistakesToAvoid.map((mistake, index) => (
-                            <div key={index} className="flex items-start space-x-3">
-                              <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <X className="w-3 h-3 text-red-600" />
+                          {day.mistakesToAvoid.map((mistake, index) => {
+                            const mistakeIcons = [X, AlertTriangle, Ban, StopCircle, XCircle];
+                            const IconComponent = mistakeIcons[index % mistakeIcons.length];
+                            return (
+                              <div key={index} className="flex items-start space-x-3">
+                                <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                  <IconComponent className="w-3 h-3 text-red-600" />
+                                </div>
+                                <p className="text-gray-700 text-sm leading-relaxed">{mistake}</p>
                               </div>
-                              <p className="text-gray-700 text-sm leading-relaxed">{mistake}</p>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </CardContent>
                     </Card>
