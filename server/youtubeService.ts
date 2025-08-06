@@ -174,6 +174,22 @@ export async function getBestVideoForDay(
     return verifiedVideo.id;
   }
   
+  // For unsupported hobbies, use generic educational videos
+  if (!verifiedVideo) {
+    const genericFallbacks = [
+      "fC7oUOUEEi4", // Educational content
+      "UB1O30fR-EE", // Tutorial video
+      "ewMksAbPdas", // Learning guide
+      "TMdqJIHb04Y", // Skills video
+      "cOzCQSh_-vY", // Practice guide
+      "SiJ7rjK5Wdg", // Advanced techniques
+      "oKFfSzxJy2Y"  // Mastery content
+    ];
+    const fallbackId = genericFallbacks[Math.min(dayNumber - 1, genericFallbacks.length - 1)];
+    console.log(`📚 Using generic educational video for ${hobby} day ${dayNumber}: ${fallbackId}`);
+    return fallbackId;
+  }
+  
   // For day 1, reset used videos to start fresh
   if (dayNumber === 1) {
     resetUsedVideos();

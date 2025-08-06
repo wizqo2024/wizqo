@@ -352,6 +352,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       dayTitle, 
       `${dayTopic.task} - Day ${dayNumber}`
     );
+    console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
     const videoDetails = getVideoDetails(hobby, experience, dayNumber);
     
     days.push({
