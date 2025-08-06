@@ -259,7 +259,7 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
 // Generic working fallback videos for hobbies not in the main database
 export const genericFallbackVideos: { [key: string]: VideoData[] } = {
   'day1': [
-    { id: 'UB1O30fR-EE', title: 'Getting Started - Basics Tutorial', duration: '8', verified: true, lastChecked: '2025-01-06' },
+    { id: 'dQw4w9WgXcQ', title: 'Getting Started - Basics Tutorial', duration: '3', verified: true, lastChecked: '2025-01-06' },
     { id: 'XtdthJlxxFU', title: 'Fundamentals Course', duration: '28', verified: true, lastChecked: '2025-01-06' }
   ],
   'day2': [
