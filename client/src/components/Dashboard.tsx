@@ -606,31 +606,13 @@ Learn any hobby in 7 days at https://wizqo.com`;
               {/* Facebook */}
               <Button
                 className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12"
-                onClick={async () => {
-                  // Copy Facebook text and show instructions
-                  const facebookText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
-
-✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
-📚 Completed all 7 daily lessons
-🚀 Ready for the next challenge!
-
-#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
-
-Learn any hobby in 7 days at https://wizqo.com`;
+                onClick={() => {
+                  const shareUrl = 'https://wizqo.com';
+                  const facebookText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo`;
                   
-                  try {
-                    await navigator.clipboard.writeText(facebookText);
-                    alert('Facebook post copied to clipboard! Open Facebook and paste it as your status update.');
-                  } catch (err) {
-                    // Fallback
-                    const textArea = document.createElement('textarea');
-                    textArea.value = facebookText;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    alert('Facebook post copied to clipboard! Open Facebook and paste it as your status update.');
-                  }
+                  // Facebook sharing with quote parameter
+                  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(facebookText)}`;
+                  window.open(facebookUrl, '_blank', 'width=600,height=400');
                   setShowShareModal(false);
                 }}
               >
@@ -648,29 +630,13 @@ Learn any hobby in 7 days at https://wizqo.com`;
               {/* LinkedIn */}
               <Button
                 className="w-full bg-blue-800 hover:bg-blue-900 text-white justify-start h-12"
-                onClick={async () => {
-                  const linkedinText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
-
-✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
-📚 Completed all 7 daily lessons
-🚀 Ready for the next challenge!
-
-#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
-
-Learn any hobby in 7 days at https://wizqo.com`;
+                onClick={() => {
+                  const shareUrl = 'https://wizqo.com';
+                  const linkedinText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo`;
                   
-                  try {
-                    await navigator.clipboard.writeText(linkedinText);
-                    alert('LinkedIn post copied to clipboard! Open LinkedIn and paste it as a new post.');
-                  } catch (err) {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = linkedinText;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    alert('LinkedIn post copied to clipboard! Open LinkedIn and paste it as a new post.');
-                  }
+                  // LinkedIn sharing with summary parameter
+                  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&summary=${encodeURIComponent(linkedinText)}`;
+                  window.open(linkedinUrl, '_blank', 'width=600,height=400');
                   setShowShareModal(false);
                 }}
               >
