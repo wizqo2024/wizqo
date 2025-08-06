@@ -54,9 +54,9 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   
   guitar: {
     1: [
-      { id: 'F5bkQ0MjANs', title: 'Guitar Basics - 10 Minute Lesson', duration: '10', verified: true, lastChecked: '2025-01-06' },
-      { id: 'TSBmLEWLQb4', title: 'First Guitar Lesson - Absolute Beginner', duration: '25', verified: true, lastChecked: '2025-01-06' },
-      { id: 'B7Dft3eghMQ', title: 'Guitar Setup for Beginners', duration: '18', verified: true, lastChecked: '2025-01-06' }
+      { id: 'UB1O30fR-EE', title: 'Guitar Basics for Complete Beginners', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'First Guitar Lesson - Absolute Beginner', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Guitar Setup and Tuning', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
       { id: 'XZh8L8uhYaE', title: 'First Chords - A, D, E', duration: '15', verified: true, lastChecked: '2025-01-06' },
