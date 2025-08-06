@@ -137,6 +137,89 @@ function countCommonChars(str1: string, str2: string): number {
   return common;
 }
 
+// Advanced contextual hobby detection 
+function detectContextualHobby(input: string): { hobby: string; category: string } | null {
+  const lower = input.toLowerCase().trim();
+  
+  // Religious and spiritual contexts
+  if (lower.includes('quran') || lower.includes('koran') || lower.includes('qoran')) {
+    return { hobby: 'quran reading', category: 'religious' };
+  }
+  
+  if (lower.includes('bible') && (lower.includes('read') || lower.includes('study'))) {
+    return { hobby: 'bible study', category: 'religious' };
+  }
+  
+  if (lower.includes('meditation') || lower.includes('mindfulness')) {
+    return { hobby: 'meditation', category: 'spiritual' };
+  }
+  
+  // Language learning contexts
+  if (lower.includes('spanish') && (lower.includes('learn') || lower.includes('study'))) {
+    return { hobby: 'spanish language', category: 'languages' };
+  }
+  
+  if (lower.includes('french') && (lower.includes('learn') || lower.includes('study'))) {
+    return { hobby: 'french language', category: 'languages' };
+  }
+  
+  // Reading contexts - be specific
+  if (lower.includes('reading')) {
+    if (lower.includes('quran') || lower.includes('koran')) {
+      return { hobby: 'quran reading', category: 'religious' };
+    }
+    if (lower.includes('books') || lower.includes('novels')) {
+      return { hobby: 'book reading', category: 'learning' };
+    }
+    if (lower.includes('poetry')) {
+      return { hobby: 'poetry reading', category: 'art' };
+    }
+    // Generic reading needs clarification
+    return null;
+  }
+  
+  // Cooking contexts
+  if (lower.includes('cook') || lower.includes('baking')) {
+    if (lower.includes('italian')) return { hobby: 'italian cooking', category: 'cooking' };
+    if (lower.includes('indian')) return { hobby: 'indian cooking', category: 'cooking' };
+    if (lower.includes('chinese')) return { hobby: 'chinese cooking', category: 'cooking' };
+    if (lower.includes('baking')) return { hobby: 'baking', category: 'cooking' };
+    return { hobby: 'cooking', category: 'cooking' };
+  }
+  
+  // Music contexts
+  if (lower.includes('play') && (lower.includes('guitar') || lower.includes('piano') || lower.includes('violin'))) {
+    if (lower.includes('guitar')) return { hobby: 'guitar', category: 'music' };
+    if (lower.includes('piano')) return { hobby: 'piano', category: 'music' };
+    if (lower.includes('violin')) return { hobby: 'violin', category: 'music' };
+  }
+  
+  // Art contexts
+  if (lower.includes('draw') || lower.includes('sketch')) {
+    return { hobby: 'drawing', category: 'art' };
+  }
+  
+  if (lower.includes('paint')) {
+    return { hobby: 'painting', category: 'art' };
+  }
+  
+  // Photography contexts  
+  if (lower.includes('photo')) {
+    return { hobby: 'photography', category: 'art' };
+  }
+  
+  // Exercise contexts
+  if (lower.includes('yoga')) {
+    return { hobby: 'yoga', category: 'fitness' };
+  }
+  
+  if (lower.includes('dance') || lower.includes('dancing')) {
+    return { hobby: 'dance', category: 'dance' };
+  }
+  
+  return null;
+}
+
 export function validateHobby(hobbyInput: string): { 
   isValid: boolean; 
   normalizedHobby: string; 
@@ -147,13 +230,14 @@ export function validateHobby(hobbyInput: string): {
 } {
   const input = hobbyInput.toLowerCase().trim();
   
-  // Special validation for specific hobby types - always accept these
-  if (['quran', 'quran recitation', 'quran reading', 'islamic studies', 'tajweed', 'arabic quran', 'koran', 'holy quran'].includes(input)) {
+  // Advanced context-aware hobby detection
+  const contextualMapping = detectContextualHobby(input);
+  if (contextualMapping) {
     return {
       isValid: true,
-      normalizedHobby: 'quran',
-      category: 'religious',
-      hasVideoSupport: false, // Will use generic fallback videos
+      normalizedHobby: contextualMapping.hobby,
+      category: contextualMapping.category,
+      hasVideoSupport: !!videoDatabase[contextualMapping.hobby],
       suggestions: []
     };
   }
