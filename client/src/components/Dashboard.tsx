@@ -607,12 +607,22 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <Button
                 className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12"
                 onClick={() => {
-                  const shareUrl = 'https://wizqo.com';
-                  const facebookText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo`;
+                  const achievementText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo Learn any hobby in 7 days at https://wizqo.com`;
                   
-                  // Facebook sharing with quote parameter
-                  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(facebookText)}`;
-                  window.open(facebookUrl, '_blank', 'width=600,height=400');
+                  // Try native Web Share API first, fallback to Facebook sharing
+                  if (navigator.share) {
+                    navigator.share({
+                      title: `🎉 Completed 7-Day ${shareData.plan.hobby.toUpperCase()} Challenge!`,
+                      text: achievementText,
+                      url: 'https://wizqo.com'
+                    }).catch(() => {
+                      // Fallback to Facebook URL
+                      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&t=${encodeURIComponent(achievementText)}`, '_blank', 'width=600,height=400');
+                    });
+                  } else {
+                    // Direct Facebook sharing without quote parameter (often ignored)
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&t=${encodeURIComponent(achievementText)}`, '_blank', 'width=600,height=400');
+                  }
                   setShowShareModal(false);
                 }}
               >
@@ -631,12 +641,26 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <Button
                 className="w-full bg-blue-800 hover:bg-blue-900 text-white justify-start h-12"
                 onClick={() => {
-                  const shareUrl = 'https://wizqo.com';
-                  const linkedinText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo`;
+                  const achievementText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo Learn any hobby in 7 days at https://wizqo.com`;
                   
-                  // LinkedIn sharing with summary parameter
-                  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&summary=${encodeURIComponent(linkedinText)}`;
-                  window.open(linkedinUrl, '_blank', 'width=600,height=400');
+                  // Try native Web Share API first
+                  if (navigator.share) {
+                    navigator.share({
+                      title: `🎉 Completed 7-Day ${shareData.plan.hobby.toUpperCase()} Challenge!`,
+                      text: achievementText,
+                      url: 'https://wizqo.com'
+                    }).catch(() => {
+                      // Fallback: open LinkedIn and copy text
+                      window.open('https://www.linkedin.com/feed/', '_blank');
+                      navigator.clipboard.writeText(achievementText);
+                      alert('LinkedIn opened! The achievement text has been copied to your clipboard - paste it in your new post.');
+                    });
+                  } else {
+                    // Fallback: open LinkedIn and copy text
+                    window.open('https://www.linkedin.com/feed/', '_blank');
+                    navigator.clipboard.writeText(achievementText);
+                    alert('LinkedIn opened! The achievement text has been copied to your clipboard - paste it in your new post.');
+                  }
                   setShowShareModal(false);
                 }}
               >
