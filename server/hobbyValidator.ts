@@ -1,41 +1,86 @@
 // Dynamic hobby validation and support system
 import { videoDatabase } from './videoSelection';
 
-// Comprehensive hobby list - supports 100+ hobbies
+// Comprehensive 500+ hobby list from user's complete collection
 const validHobbies = [
-  // Creative Arts & Crafts
-  'knitting', 'crocheting', 'embroidery', 'calligraphy', 'quilling', 'origami', 'macramé', 'upcycling',
-  'watercolor painting', 'diamond painting', 'pour painting', 'pottery', 'scrapbooking', 'soap making',
-  'candle making', 'leather crafting', 'jewelry making', 'street art', 'digital art', 'mug painting',
-  'nail art', 'floral arranging', 'miniature model building', 'bullet journaling', 'creative writing',
-  'songwriting', 'acting', 'improv comedy', 'urban sketching', 'cosplay', 'vintage collecting',
+  // Creative Arts & Crafts (50)
+  'painting', 'watercolor', 'acrylic', 'oil painting', 'drawing', 'sketching', 'digital art', 'sculpture', 'pottery', 'ceramics',
+  'jewelry making', 'beadwork', 'knitting', 'crocheting', 'embroidery', 'cross-stitch', 'quilting', 'sewing', 'fashion design', 'costume design',
+  'woodworking', 'woodcarving', 'furniture making', 'metalworking', 'blacksmithing', 'glassblowing', 'stained glass', 'mosaic art', 'origami', 'paper crafts',
+  'scrapbooking', 'card making', 'bookbinding', 'calligraphy', 'hand lettering', 'printmaking', 'screen printing', 'soap making', 'candle making', 'leatherworking',
+  'basketweaving', 'macrame', 'tie-dyeing', 'batik', 'fabric painting', 'decoupage', 'resin art', 'wire wrapping', 'stone painting', 'sand art',
   
-  // Outdoor & Nature
-  'gardening', 'urban farming', 'foraging', 'bird watching', 'stargazing', 'geocaching', 'hiking',
-  'camping', 'rock climbing', 'kayaking', 'stand-up paddleboarding', 'wild swimming', 'orienteering',
-  'beachcombing', 'metal detecting', 'beekeeping', 'aquascaping', 'terrarium building', 'hydroponics',
-  'urban exploration', 'astrophotography', 'insect collecting', 'mushroom growing',
+  // Music & Performance (40)
+  'playing piano', 'piano', 'playing guitar', 'guitar', 'playing violin', 'violin', 'playing drums', 'drums', 'playing flute', 'flute',
+  'playing saxophone', 'saxophone', 'playing trumpet', 'trumpet', 'playing bass guitar', 'bass guitar', 'playing harmonica', 'harmonica', 'playing ukulele', 'ukulele',
+  'playing banjo', 'banjo', 'playing accordion', 'accordion', 'singing', 'songwriting', 'music composition', 'music production', 'dj-ing', 'beatboxing',
+  'rapping', 'dancing', 'ballet', 'hip-hop', 'ballroom', 'salsa', 'swing', 'tap', 'acting', 'theater',
+  'stand-up comedy', 'improv comedy', 'voice acting', 'puppeteering', 'magic tricks', 'juggling', 'mime', 'storytelling', 'poetry recitation', 'opera singing',
   
-  // Fitness & Movement
-  'parkour', 'rollerblading', 'skateboarding', 'disc golf', 'archery', 'fencing', 'tai chi', 'yoga',
-  'pilates', 'aerial silks', 'hula hooping', 'jump rope', 'krav maga', 'boxing', 'capoeira', 'dance',
-  'hip-hop', 'ballroom dancing',
+  // Sports & Physical Activities (70)
+  'running', 'jogging', 'walking', 'hiking', 'rock climbing', 'mountain climbing', 'bouldering', 'swimming', 'diving', 'surfing',
+  'skateboarding', 'snowboarding', 'skiing', 'ice skating', 'roller skating', 'cycling', 'mountain biking', 'bmx riding', 'motorcycling', 'tennis',
+  'badminton', 'table tennis', 'squash', 'racquetball', 'basketball', 'football', 'soccer', 'baseball', 'softball', 'volleyball',
+  'hockey', 'field hockey', 'cricket', 'rugby', 'golf', 'bowling', 'pool', 'billiards', 'darts', 'archery',
+  'shooting sports', 'karate', 'taekwondo', 'judo', 'boxing', 'wrestling', 'fencing', 'gymnastics', 'yoga', 'pilates',
+  'weightlifting', 'bodybuilding', 'crossfit', 'calisthenics', 'parkour', 'horseback riding', 'polo', 'sailing', 'kayaking', 'canoeing',
+  'rowing', 'fishing', 'fly fishing', 'ice fishing', 'hunting', 'camping', 'backpacking', 'geocaching', 'orienteering', 'triathlon',
   
-  // Games & Puzzles
-  'chess', 'board gaming', 'puzzle solving', 'escape rooms', 'speedcubing', 'magic tricks', 'larping',
-  'trivia', 'quiz games', 'debate',
+  // Collecting & Hobbies (50)
+  'coin collecting', 'stamp collecting', 'postcard collecting', 'book collecting', 'comic book collecting', 'trading card collecting', 'action figure collecting', 'doll collecting', 'toy collecting', 'antique collecting',
+  'vintage item collecting', 'record collecting', 'cd collecting', 'movie collecting', 'art collecting', 'jewelry collecting', 'watch collecting', 'mineral collecting', 'rock collecting', 'fossil collecting',
+  'seashell collecting', 'butterfly collecting', 'insect collecting', 'plant collecting', 'seed collecting', 'bottle collecting', 'can collecting', 'badge collecting', 'pin collecting', 'patch collecting',
+  'magnet collecting', 'spoon collecting', 'thimble collecting', 'keychain collecting', 'snow globe collecting', 'miniature collecting', 'model train collecting', 'car model collecting', 'airplane model collecting', 'ship model collecting',
+  'sports memorabilia collecting', 'celebrity memorabilia collecting', 'historical artifact collecting', 'currency collecting', 'ticket stub collecting', 'menu collecting', 'matchbook collecting', 'lighter collecting', 'perfume bottle collecting', 'salt and pepper shaker collecting',
   
-  // Technology
-  'coding', 'robotics', '3d printing', 'drone flying', 'virtual reality gaming', 'augmented reality exploration',
-  'podcasting', 'vlogging', 'streaming', 'retro gaming', 'ethical hacking', 'digital nomadism',
+  // Games & Puzzles (40)
+  'chess', 'checkers', 'backgammon', 'scrabble', 'monopoly', 'risk', 'settlers of catan', 'dungeons & dragons', 'board game collecting', 'poker',
+  'bridge', 'blackjack', 'magic: the gathering', 'video gaming', 'retro gaming', 'mobile gaming', 'puzzle solving', 'jigsaw puzzles', 'crossword puzzles', 'sudoku',
+  'word searches', 'logic puzzles', 'rubik\'s cube', 'brain teasers', 'trivia', 'quiz competitions', 'escape rooms', 'treasure hunts', 'scavenger hunts', 'riddles',
+  'mazes', 'number puzzles', 'pattern puzzles', '3d puzzles', 'mechanical puzzles', 'online gaming', 'game development', 'game design', 'speedcubing', 'puzzle competitions',
   
-  // Culinary
-  'cooking', 'baking', 'mixology', 'fermenting', 'cheese making', 'home brewing', 'food photography',
-  'kombucha brewing',
+  // Technology & Digital (30)
+  'computer programming', 'coding', 'web development', 'app development', 'game development', '3d modeling', 'animation', 'video editing', 'photo editing', 'graphic design',
+  'digital photography', 'drone flying', 'robotics', 'electronics', 'circuit building', 'arduino projects', 'raspberry pi projects', '3d printing', 'virtual reality', 'augmented reality',
+  'cryptocurrency', 'blockchain technology', 'artificial intelligence', 'machine learning', 'data science', 'cybersecurity', 'networking', 'system administration', 'tech blogging', 'podcast production',
   
-  // Wellness & Learning
-  'astronomy', 'genealogy', 'language learning', 'cryptography', 'philosophy reading', 'book club',
-  'pen palling', 'journaling', 'meditation', 'sound bathing', 'volunteering', 'letterboxing'
+  // Science & Nature (40)
+  'astronomy', 'stargazing', 'astrophotography', 'telescope making', 'meteorology', 'weather tracking', 'storm chasing', 'geology', 'mineralogy', 'paleontology',
+  'archaeology', 'anthropology', 'biology', 'botany', 'zoology', 'entomology', 'ornithology', 'marine biology', 'ecology', 'environmental science',
+  'chemistry experiments', 'physics experiments', 'microscopy', 'laboratory work', 'scientific research', 'nature photography', 'wildlife photography', 'birdwatching', 'animal tracking', 'nature journaling',
+  'herbarium making', 'gardening', 'organic gardening', 'hydroponics', 'greenhouse management', 'landscaping', 'tree identification', 'flower arranging', 'beekeeping', 'mushroom hunting',
+  
+  // Literature & Writing (30)
+  'creative writing', 'novel writing', 'short story writing', 'poetry writing', 'screenwriting', 'playwriting', 'journalism', 'blogging', 'technical writing', 'copywriting',
+  'content creation', 'editing', 'proofreading', 'translation', 'book reviewing', 'literary criticism', 'reading', 'book clubs', 'library volunteering', 'storytelling',
+  'memoir writing', 'biography writing', 'travel writing', 'food writing', 'sports writing', 'science writing', 'historical writing', 'fan fiction', 'letter writing', 'diary keeping',
+  
+  // Food & Cooking (30)
+  'cooking', 'baking', 'pastry making', 'bread making', 'cake decorating', 'chocolate making', 'candy making', 'ice cream making', 'cheese making', 'wine making',
+  'beer brewing', 'cocktail mixing', 'coffee roasting', 'tea blending', 'spice grinding', 'preserve making', 'canning', 'smoking meats', 'barbecuing', 'grilling',
+  'food photography', 'food styling', 'menu planning', 'restaurant reviewing', 'food blogging', 'nutrition study', 'diet planning', 'foraging', 'urban farming', 'herb gardening',
+  
+  // Travel & Culture (25)
+  'traveling', 'backpacking', 'road trips', 'train travel', 'cruise travel', 'adventure travel', 'cultural immersion', 'language learning', 'cultural exchange', 'photography travel',
+  'food tourism', 'wine tourism', 'historical site visiting', 'museum visiting', 'art gallery visiting', 'festival attending', 'concert attending', 'theater attending', 'sports event attending', 'local culture study',
+  'traditional craft learning', 'cultural dance learning', 'local music appreciation', 'street art exploration', 'architecture appreciation',
+  
+  // Health & Wellness (25)
+  'meditation', 'mindfulness', 'breathing exercises', 'tai chi', 'qigong', 'reiki', 'massage therapy', 'aromatherapy', 'herbalism', 'nutrition study',
+  'fitness training', 'personal training', 'coaching others', 'health coaching', 'life coaching', 'therapy practice', 'counseling', 'support group leading', 'volunteer work', 'community service',
+  'charity work', 'fundraising', 'event organizing', 'social activism', 'environmental activism',
+  
+  // Business & Finance (25)
+  'entrepreneurship', 'business planning', 'investing', 'stock trading', 'real estate', 'property management', 'marketing', 'sales', 'public relations', 'event planning',
+  'project management', 'leadership development', 'team building', 'networking', 'public speaking', 'presentation skills', 'negotiation', 'consulting', 'coaching', 'mentoring',
+  'teaching', 'tutoring', 'training others', 'workshop leading', 'seminar hosting',
+  
+  // Unique & Unusual (45+)
+  'origami', 'balloon twisting', 'face painting', 'henna art', 'nail art', 'hair styling', 'makeup artistry', 'special effects makeup', 'costume making', 'prop making',
+  'set design', 'stage management', 'event coordination', 'party planning', 'wedding planning', 'interior design', 'home decorating', 'room organizing', 'journaling', 'bullet journaling',
+  'minimalism', 'tiny house building', 'van life', 'off-grid living', 'survival skills', 'bushcraft', 'primitive skills', 'fire making', 'knot tying', 'rope climbing',
+  'tree climbing', 'cave exploration', 'metal detecting', 'treasure hunting', 'ghost hunting', 'paranormal investigation', 'urban exploration', 'abandoned place photography', 'street performance', 'busking',
+  'flash mob organizing', 'social media influence', 'vlogging', 'streaming', 'podcasting', 'voice over work', 'radio broadcasting'
 ];
 
 // Common hobby keywords and variations for fuzzy matching

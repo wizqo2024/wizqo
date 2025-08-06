@@ -611,7 +611,7 @@ Please provide a helpful response:`;
 
       const cleanHobby = hobby.replace(/["']/g, '').trim();
       console.log('🔍 Validating hobby:', cleanHobby);
-      const validation = hobbyValidator.validateHobby(cleanHobby);
+      const validation = await hobbyValidator.validateHobby(cleanHobby);
       console.log('🔍 Server validation result:', validation);
       
       // Ensure proper response format for frontend
