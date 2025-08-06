@@ -1011,16 +1011,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsTyping(false);
   };
 
-  // Define different icons for tips and mistakes
-  const getTipIcon = (index: number) => {
-    const icons = [Star, Lightbulb, Target, CheckCircle, Trophy];
-    return icons[index % icons.length];
-  };
 
-  const getMistakeIcon = (index: number) => {
-    const icons = [X, AlertTriangle, Ban, StopCircle, XCircle];
-    return icons[index % icons.length];
-  };
 
   const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
@@ -1757,8 +1748,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                             <div className="space-y-2">
                               {currentDay.tips && currentDay.tips.length > 0 ? currentDay.tips.map((tip, index) => {
-                                const IconComponent = getTipIcon(index);
-                                console.log(`TIP ${index}: Using ${IconComponent.name} icon`);
+                                const iconMap = [Star, Lightbulb, Target, CheckCircle, Trophy];
+                                const IconComponent = iconMap[index % iconMap.length];
+                                console.log(`TIP ${index}: Using icon at index ${index % iconMap.length}`);
                                 return (
                                   <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
                                     <div className="flex items-start">
@@ -1791,8 +1783,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 console.log('🐛 Full current day data:', currentDay);
                                 return currentDay.commonMistakes && currentDay.commonMistakes.length > 0;
                               })() ? currentDay.commonMistakes.map((mistake: string, index: number) => {
-                                const IconComponent = getMistakeIcon(index);
-                                console.log(`MISTAKE ${index}: Using ${IconComponent.name} icon`);
+                                const iconMap = [X, AlertTriangle, Ban, StopCircle, XCircle];
+                                const IconComponent = iconMap[index % iconMap.length];
+                                console.log(`MISTAKE ${index}: Using icon at index ${index % iconMap.length}`);
                                 return (
                                   <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
                                     <div className="flex items-start">
