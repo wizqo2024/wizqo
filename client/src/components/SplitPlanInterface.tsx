@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { UnifiedNavigation } from './UnifiedNavigation';
-import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, Send, Play, MessageCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, Send, Play, MessageCircle, Star, Lightbulb, Target, Trophy, X, AlertTriangle, Ban, StopCircle, XCircle } from 'lucide-react';
 import { YouTubeEmbed } from './YouTubeEmbed';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
@@ -1011,6 +1011,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsTyping(false);
   };
 
+  // Define different icons for tips and mistakes
+  const getTipIcon = (index: number) => {
+    const icons = [Star, Lightbulb, Target, CheckCircle, Trophy];
+    return icons[index % icons.length];
+  };
+
+  const getMistakeIcon = (index: number) => {
+    const icons = [X, AlertTriangle, Ban, StopCircle, XCircle];
+    return icons[index % icons.length];
+  };
+
   const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     
@@ -1745,16 +1756,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <h3 className="text-lg md:text-xl font-bold text-amber-900">Success Tips</h3>
                             </div>
                             <div className="space-y-2">
-                              {currentDay.tips && currentDay.tips.length > 0 ? currentDay.tips.map((tip, index) => (
-                                <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
-                                  <div className="flex items-start">
-                                    <div className="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                                      <span className="text-amber-600 text-xs">💡</span>
+                              {currentDay.tips && currentDay.tips.length > 0 ? currentDay.tips.map((tip, index) => {
+                                const IconComponent = getTipIcon(index);
+                                console.log(`TIP ${index}: Using ${IconComponent.name} icon`);
+                                return (
+                                  <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="flex items-start">
+                                      <div className="bg-green-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <IconComponent className="w-3 h-3 text-green-600" />
+                                      </div>
+                                      <p className="text-gray-800 text-sm font-medium leading-relaxed">{tip}</p>
                                     </div>
-                                    <p className="text-gray-800 text-sm font-medium leading-relaxed">{tip}</p>
                                   </div>
-                                </div>
-                              )) : (
+                                );
+                              }) : (
                                 <div className="bg-white rounded-lg p-3 shadow-sm text-center">
                                   <p className="text-gray-600 text-sm">No tips available for this day.</p>
                                 </div>
@@ -1775,16 +1790,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 console.log('🐛 Debug Common Mistakes:', currentDay.commonMistakes);
                                 console.log('🐛 Full current day data:', currentDay);
                                 return currentDay.commonMistakes && currentDay.commonMistakes.length > 0;
-                              })() ? currentDay.commonMistakes.map((mistake: string, index: number) => (
-                                <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
-                                  <div className="flex items-start">
-                                    <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                                      <span className="text-red-600 text-xs">⚠️</span>
+                              })() ? currentDay.commonMistakes.map((mistake: string, index: number) => {
+                                const IconComponent = getMistakeIcon(index);
+                                console.log(`MISTAKE ${index}: Using ${IconComponent.name} icon`);
+                                return (
+                                  <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
+                                    <div className="flex items-start">
+                                      <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                                        <IconComponent className="w-3 h-3 text-red-600" />
+                                      </div>
+                                      <p className="text-gray-800 text-sm font-medium leading-relaxed">{mistake}</p>
                                     </div>
-                                    <p className="text-gray-800 text-sm font-medium leading-relaxed">{mistake}</p>
                                   </div>
-                                </div>
-                              )) : (
+                                );
+                              }) : (
                                 <div className="bg-white rounded-lg p-3 shadow-sm text-center">
                                   <p className="text-gray-600 text-sm">No common mistakes listed for this day.</p>
                                 </div>
