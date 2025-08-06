@@ -35,12 +35,27 @@ async function isVideoWorking(videoId: string): Promise<boolean> {
   }
 }
 
-// Search YouTube with quality filters
+// Get day-specific content topics for targeted search
+function getDaySpecificContent(hobby: string, dayNumber: number): string[] {
+  const dayTopics = {
+    1: ['basics', 'fundamentals', 'getting started', 'setup', 'introduction', 'beginner guide'],
+    2: ['first steps', 'basic techniques', 'simple exercises', 'practice', 'foundation'],
+    3: ['building skills', 'intermediate', 'core techniques', 'development', 'progress'],
+    4: ['practical application', 'real practice', 'hands-on', 'implementation', 'working'],
+    5: ['advanced techniques', 'skills improvement', 'next level', 'mastering', 'expert'],
+    6: ['creative exploration', 'personal style', 'experimentation', 'advanced projects'],
+    7: ['mastery', 'integration', 'complete guide', 'final skills', 'expert level']
+  };
+  
+  return dayTopics[dayNumber] || ['tutorial', 'guide'];
+}
+
+// Search YouTube with enhanced quality filters and view requirements
 export async function searchYouTubeVideos(
   hobby: string,
   experience: string,
   dayNumber: number,
-  maxResults: number = 10
+  maxResults: number = 25
 ): Promise<YouTubeVideo[]> {
   const youtubeApiKey = process.env.YOUTUBE_API_KEY;
   
@@ -50,18 +65,25 @@ export async function searchYouTubeVideos(
   }
 
   try {
-    // Create targeted search query
+    // Create highly targeted search query with day-specific content
+    const dayContent = getDaySpecificContent(hobby, dayNumber);
+    const experienceLevel = experience === 'beginner' ? 'beginner' : experience;
+    
     const searchTerms = [
       hobby,
-      experience === 'beginner' ? 'beginner tutorial' : `${experience} tutorial`,
-      dayNumber === 1 ? 'basics fundamentals' : `lesson ${dayNumber}`,
-      '2024 2023 2022 2021 2020 2019' // Prefer recent videos
+      `${experienceLevel} tutorial`,
+      dayContent[0], // Primary day topic
+      dayContent[1], // Secondary day topic
+      'how to',
+      '2024 2023 2022 2021' // Recent content priority
     ];
     
     const searchQuery = searchTerms.join(' ');
     const encodedQuery = encodeURIComponent(searchQuery);
 
-    // Search for videos (published after 2018, medium duration)
+    console.log(`🔍 YouTube Search Day ${dayNumber}: "${searchQuery}"`);
+
+    // Enhanced search with strict quality parameters
     const searchUrl = `https://www.googleapis.com/youtube/v3/search?` +
       `part=snippet&` +
       `maxResults=${maxResults}&` +
@@ -69,9 +91,10 @@ export async function searchYouTubeVideos(
       `type=video&` +
       `key=${youtubeApiKey}&` +
       `order=relevance&` +
-      `publishedAfter=2018-01-01T00:00:00Z&` +
+      `publishedAfter=2019-01-01T00:00:00Z&` +
       `videoDuration=medium&` +
       `videoEmbeddable=true&` +
+      `videoSyndicated=true&` +
       `regionCode=US&` +
       `relevanceLanguage=en`;
 
@@ -115,14 +138,15 @@ export async function searchYouTubeVideos(
       const cutoffDate = new Date('2018-01-01');
       const durationMinutes = parseDuration(duration);
       
-      // Apply all quality filters
+      // Enhanced quality filters with strict relevance checking
       const isRecentEnough = publishDate >= cutoffDate;
-      const isShortEnough = durationMinutes <= 45 && durationMinutes >= 3; // 3-45 minutes
-      const isRelevant = title.includes(hobby) || title.includes('tutorial') || title.includes('learn') || title.includes('how to');
+      const isShortEnough = durationMinutes <= 45 && durationMinutes >= 4; // 4-45 minutes as requested
+      const isRelevant = isVideoRelevantToDay(video.snippet.title, hobby, dayNumber);
       const isNotLive = video.snippet.liveBroadcastContent !== 'live';
-      const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // At least 5k views as requested
+      const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // 5000+ views requirement
+      const notUsedBefore = !usedVideoIds.has(video.id);
       
-      if (isRecentEnough && isShortEnough && isRelevant && isNotLive && hasGoodStats) {
+      if (isRecentEnough && isShortEnough && isRelevant && isNotLive && hasGoodStats && notUsedBefore) {
         // Test video availability
         const isWorking = await isVideoWorking(video.id);
         if (isWorking) {
@@ -134,12 +158,16 @@ export async function searchYouTubeVideos(
             channelTitle: video.snippet.channelTitle
           });
           
-          console.log(`✅ Quality video found: ${video.snippet.title} (${durationMinutes}min)`);
+          // Track used videos to prevent duplicates
+          usedVideoIds.add(video.id);
+          
+          console.log(`✅ High-quality video selected: ${video.snippet.title} (${durationMinutes}min, ${parseInt(video.statistics?.viewCount || '0')} views)`);
         } else {
-          console.log(`🚫 Video not working: ${video.snippet.title}`);
+          console.log(`🚫 Video not accessible: ${video.snippet.title}`);
         }
       } else {
-        console.log(`❌ Filtered out: ${video.snippet.title} (${durationMinutes}min, ${publishDate.getFullYear()})`);
+        const viewCount = parseInt(video.statistics?.viewCount || '0');
+        console.log(`❌ Filtered out: ${video.snippet.title} (${durationMinutes}min, ${viewCount} views, relevant: ${isRelevant})`);
       }
     }
 
@@ -151,12 +179,63 @@ export async function searchYouTubeVideos(
   }
 }
 
+// Enhanced relevance checker for day-specific content
+function isVideoRelevantToDay(title: string, hobby: string, dayNumber: number): boolean {
+  const lowerTitle = title.toLowerCase();
+  const lowerHobby = hobby.toLowerCase();
+  
+  // Must contain hobby or related terms
+  const hobbyWords = [lowerHobby, ...getHobbyRelatedTerms(lowerHobby)];
+  const hasHobbyTerm = hobbyWords.some(term => lowerTitle.includes(term));
+  
+  if (!hasHobbyTerm) {
+    console.log(`❌ Video not relevant - missing hobby terms: "${title}"`);
+    return false;
+  }
+  
+  // Check for day-specific content relevance
+  const dayContent = getDaySpecificContent(hobby, dayNumber);
+  const hasRelevantContent = dayContent.some(topic => lowerTitle.includes(topic));
+  
+  // Educational indicators
+  const educationalTerms = ['tutorial', 'guide', 'how to', 'learn', 'beginner', 'complete', 'course', 'lesson', 'training'];
+  const hasEducationalTerm = educationalTerms.some(term => lowerTitle.includes(term));
+  
+  // Exclude non-educational content
+  const excludeTerms = ['reaction', 'review', 'unboxing', 'vlog', 'compilation', 'funny', 'fail', 'prank', 'challenge'];
+  const hasExcludedTerm = excludeTerms.some(term => lowerTitle.includes(term));
+  
+  const isRelevant = hasRelevantContent && hasEducationalTerm && !hasExcludedTerm;
+  
+  if (!isRelevant) {
+    console.log(`❌ Video not relevant for day ${dayNumber}: "${title}"`);
+  }
+  
+  return isRelevant;
+}
+
+// Get hobby-related search terms for better matching
+function getHobbyRelatedTerms(hobby: string): string[] {
+  const relatedTerms: { [key: string]: string[] } = {
+    'guitar': ['guitar', 'acoustic', 'electric', 'chord', 'strum', 'pick', 'fret'],
+    'cooking': ['cooking', 'recipe', 'chef', 'kitchen', 'food', 'culinary', 'baking'],
+    'photography': ['photography', 'camera', 'photo', 'lens', 'portrait', 'landscape'],
+    'yoga': ['yoga', 'pose', 'asana', 'meditation', 'mindfulness', 'stretching'],
+    'drawing': ['drawing', 'sketch', 'art', 'pencil', 'illustration', 'design'],
+    'swimming': ['swimming', 'swim', 'pool', 'stroke', 'freestyle', 'technique'],
+    'dance': ['dance', 'dancing', 'choreography', 'movement', 'rhythm'],
+    'quran reading': ['quran', 'quran reading', 'islamic', 'recitation', 'tajweed']
+  };
+  
+  return relatedTerms[hobby] || [hobby];
+}
+
 // Reset used video tracking for new plan
 export function resetUsedVideos() {
   usedVideoIds.clear();
 }
 
-// Get best video for specific day and hobby with content matching
+// 100% YouTube API Video Selection with Strict Quality Requirements
 export async function getBestVideoForDay(
   hobby: string,
   experience: string,
@@ -164,82 +243,39 @@ export async function getBestVideoForDay(
   dayTitle?: string,
   mainTask?: string
 ): Promise<string> {
-  console.log(`🎥 YouTube API: Searching for ${hobby} ${experience} day ${dayNumber} - "${dayTitle}"`);
+  console.log(`🎥 100% YouTube API: Searching for ${hobby} ${experience} day ${dayNumber} - "${dayTitle}"`);
   
-  // First try to get verified video for this hobby and day
-  const verifiedVideo = getRandomVerifiedVideo(hobby.toLowerCase(), dayNumber, usedVideoIds);
-  if (verifiedVideo && verifiedVideo.verified && parseInt(verifiedVideo.duration) <= 45) {
-    console.log(`✅ Using verified video for ${hobby} day ${dayNumber}:`, verifiedVideo.title, `(${verifiedVideo.duration}min)`);
-    usedVideoIds.add(verifiedVideo.id);
-    return verifiedVideo.id;
-  }
-  
-  // For unsupported hobbies, use generic educational videos
-  if (!verifiedVideo) {
-    const genericFallbacks = [
-      "fC7oUOUEEi4", // Educational content
-      "UB1O30fR-EE", // Tutorial video
-      "ewMksAbPdas", // Learning guide
-      "TMdqJIHb04Y", // Skills video
-      "cOzCQSh_-vY", // Practice guide
-      "SiJ7rjK5Wdg", // Advanced techniques
-      "oKFfSzxJy2Y"  // Mastery content
-    ];
-    const fallbackId = genericFallbacks[Math.min(dayNumber - 1, genericFallbacks.length - 1)];
-    console.log(`📚 Using generic educational video for ${hobby} day ${dayNumber}: ${fallbackId}`);
-    return fallbackId;
-  }
-  
-  // For day 1, reset used videos to start fresh
+  // For day 1, reset used videos to start fresh plan
   if (dayNumber === 1) {
     resetUsedVideos();
   }
   
-  // If we couldn't get a verified video, continue with API search
-  if (!verifiedVideo) {
-    console.log(`📚 No verified video for ${hobby}, trying API search for day ${dayNumber}`);
+  // Use YouTube API with enhanced quality filters
+  console.log(`🔍 YouTube API search for day ${dayNumber}: ${hobby} ${experience}`);
+  const apiVideos = await searchYouTubeVideos(hobby, experience, dayNumber, 30);
+  
+  if (apiVideos.length > 0) {
+    // Select the highest quality video (first result after filtering)
+    const selectedVideo = apiVideos[0];
+    console.log(`✅ Selected high-quality YouTube video for ${hobby} day ${dayNumber}: "${selectedVideo.title}" (${selectedVideo.duration}min)`);
+    usedVideoIds.add(selectedVideo.videoId);
+    return selectedVideo.videoId;
   }
   
-  // Create more specific search based on day content
-  const searchTerms = [];
-  if (dayTitle) {
-    // Extract key concepts from day title
-    const titleWords = dayTitle.toLowerCase().split(' ').filter(word => 
-      word.length > 3 && !['day', 'the', 'and', 'for', 'with', 'your'].includes(word)
-    );
-    searchTerms.push(...titleWords);
+  // If no videos found with strict criteria, try broader search
+  console.log(`🔄 No videos found with strict criteria, trying broader search for ${hobby} day ${dayNumber}`);
+  const broaderVideos = await searchYouTubeVideos(hobby, 'tutorial', dayNumber, 30);
+  
+  if (broaderVideos.length > 0) {
+    const selectedVideo = broaderVideos[0];
+    console.log(`✅ Selected broader YouTube video for ${hobby} day ${dayNumber}: "${selectedVideo.title}" (${selectedVideo.duration}min)`);
+    usedVideoIds.add(selectedVideo.videoId);
+    return selectedVideo.videoId;
   }
   
-  if (mainTask) {
-    // Extract key concepts from main task
-    const taskWords = mainTask.toLowerCase().split(' ').filter(word => 
-      word.length > 3 && !['learn', 'practice', 'complete', 'exercise', 'technique'].includes(word)
-    );
-    searchTerms.push(...taskWords);
-  }
-  
-  // Create targeted search query
-  const specificQuery = [hobby, experience, 'tutorial', ...searchTerms.slice(0, 3)].join(' ');
-  console.log(`🔍 Specific search: "${specificQuery}"`);
-  
-  const videos = await searchYouTubeVideosWithCustomQuery(specificQuery, 25); // Increase results for better uniqueness
-  
-  if (videos.length === 0) {
-    console.log('🔄 No specific videos found, trying general search');
-    const generalVideos = await searchYouTubeVideos(hobby, experience, dayNumber, 25);
-    if (generalVideos.length === 0) {
-      console.log('🔄 No API videos found, using verified fallback');
-      const fallbackVideo = getVerifiedVideo(hobby.toLowerCase(), dayNumber);
-      if (fallbackVideo) {
-        console.log(`✅ Using verified fallback for ${hobby} day ${dayNumber}:`, fallbackVideo.title);
-        return fallbackVideo.id;
-      }
-      return getFallbackVideo(hobby, dayNumber);
-    }
-    return selectBestVideo(generalVideos, hobby, dayTitle, mainTask, dayNumber);
-  }
-
-  return selectBestVideo(videos, hobby, dayTitle, mainTask, dayNumber);
+  // Final fallback: Only if YouTube API completely fails
+  console.log(`❌ YouTube API failed to find any videos for ${hobby} day ${dayNumber}. This requires a valid YOUTUBE_API_KEY.`);
+  throw new Error(`No YouTube videos found for ${hobby} day ${dayNumber}. Please ensure YOUTUBE_API_KEY is valid and has sufficient quota.`);
 }
 
 // Search YouTube with custom query
