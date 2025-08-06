@@ -1,0 +1,286 @@
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, Clock, Play, MoreHorizontal } from "lucide-react";
+import { format } from "date-fns";
+
+interface HobbyPlan {
+  id: string;
+  hobby: string;
+  title: string;
+  progress: number;
+  totalDays: number;
+  currentDay: number;
+  category: string;
+  startDate: string;
+  expectedEndDate: string;
+  status: 'in_progress' | 'completed' | 'paused';
+  image?: string;
+}
+
+export default function Dashboard() {
+  const { user } = useAuth();
+  const [hobbyPlans, setHobbyPlans] = useState<HobbyPlan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      loadUserPlans();
+    }
+  }, [user]);
+
+  const loadUserPlans = async () => {
+    try {
+      // Load user's hobby plans from database
+      const response = await fetch(`/api/user-progress/${user?.id}`);
+      if (response.ok) {
+        const progressData = await response.json();
+        
+        // Transform progress data into hobby plans
+        const plans: HobbyPlan[] = progressData.map((progress: any) => ({
+          id: progress.plan_id,
+          hobby: progress.plan_id.split('-')[2] || 'Unknown',
+          title: `7-Day ${progress.plan_id.split('-')[2]?.charAt(0).toUpperCase()}${progress.plan_id.split('-')[2]?.slice(1)} Basics`,
+          progress: Math.round((progress.completed_days.length / 7) * 100),
+          totalDays: 7,
+          currentDay: progress.current_day,
+          category: getCategoryForHobby(progress.plan_id.split('-')[2] || ''),
+          startDate: progress.created_at,
+          expectedEndDate: new Date(new Date(progress.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          status: progress.completed_days.length >= 7 ? 'completed' : 'in_progress'
+        }));
+        
+        setHobbyPlans(plans);
+      }
+    } catch (error) {
+      console.error('Error loading user plans:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCategoryForHobby = (hobby: string): string => {
+    const categories: Record<string, string> = {
+      drawing: 'Arts & Creativity',
+      painting: 'Arts & Creativity',
+      photography: 'Arts & Creativity',
+      cooking: 'Culinary',
+      baking: 'Culinary',
+      guitar: 'Music',
+      piano: 'Music',
+      yoga: 'Fitness & Wellness',
+      dance: 'Fitness & Wellness',
+      coding: 'Technology',
+      programming: 'Technology'
+    };
+    return categories[hobby] || 'General';
+  };
+
+  const getHobbyImage = (hobby: string): string => {
+    const images: Record<string, string> = {
+      drawing: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
+      painting: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
+      photography: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
+      cooking: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
+      guitar: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
+      yoga: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+      coding: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop'
+    };
+    return images[hobby] || 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
+  };
+
+  const getStatusColor = (status: string): string => {
+    switch (status) {
+      case 'completed': return 'bg-green-500';
+      case 'in_progress': return 'bg-blue-500';
+      case 'paused': return 'bg-yellow-500';
+      default: return 'bg-gray-500';
+    }
+  };
+
+  const getStatusText = (status: string): string => {
+    switch (status) {
+      case 'completed': return 'Completed';
+      case 'in_progress': return 'In Progress';
+      case 'paused': return 'Paused';
+      default: return 'Unknown';
+    }
+  };
+
+  if (!user) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h2>
+          <p className="text-gray-600 mb-6">Sign in to view your hobby learning progress and continue your 7-day journeys.</p>
+          <Button onClick={() => window.location.hash = '#/login'}>
+            Sign In
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">
+          <p>Loading your learning dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
+        <p className="text-gray-600">Track your progress across all your hobby learning journeys</p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <Play className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{hobbyPlans.filter(p => p.status === 'in_progress').length}</p>
+                <p className="text-sm text-gray-600">Active Plans</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <Calendar className="h-6 w-6 text-green-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{hobbyPlans.filter(p => p.status === 'completed').length}</p>
+                <p className="text-sm text-gray-600">Completed</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <Clock className="h-6 w-6 text-purple-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{hobbyPlans.reduce((acc, plan) => acc + plan.currentDay, 0)}</p>
+                <p className="text-sm text-gray-600">Days Learned</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                <Calendar className="h-6 w-6 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{Math.round(hobbyPlans.reduce((acc, plan) => acc + plan.progress, 0) / hobbyPlans.length) || 0}%</p>
+                <p className="text-sm text-gray-600">Avg Progress</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Hobby Plans Grid */}
+      {hobbyPlans.length === 0 ? (
+        <div className="text-center py-12">
+          <h3 className="text-xl font-semibold mb-4">No Learning Plans Yet</h3>
+          <p className="text-gray-600 mb-6">Start your first 7-day hobby learning journey today!</p>
+          <Button onClick={() => window.location.hash = '#/generate'}>
+            Create Your First Plan
+          </Button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {hobbyPlans.map((plan) => (
+            <Card key={plan.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              {/* Plan Image */}
+              <div className="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
+                <img 
+                  src={getHobbyImage(plan.hobby)} 
+                  alt={plan.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to gradient background if image fails
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+                <div className="absolute top-4 right-4">
+                  <Button variant="ghost" size="sm" className="bg-white/20 hover:bg-white/30">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="absolute top-4 left-4">
+                  <Badge className={`${getStatusColor(plan.status)} text-white`}>
+                    {getStatusText(plan.status)}
+                  </Badge>
+                </div>
+              </div>
+
+              <CardContent className="p-6">
+                {/* Plan Title */}
+                <h3 className="font-semibold text-lg mb-2">{plan.title}</h3>
+                
+                {/* Category and Duration */}
+                <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <span>{plan.category}</span>
+                  <span className="mx-2">•</span>
+                  <span>{plan.totalDays} days</span>
+                </div>
+
+                {/* Progress */}
+                <div className="mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium">Progress</span>
+                    <span className="text-sm font-bold">{plan.progress}%</span>
+                  </div>
+                  <Progress value={plan.progress} className="h-2" />
+                </div>
+
+                {/* Dates */}
+                <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <Calendar className="h-4 w-4 mr-1" />
+                  <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
+                </div>
+                
+                <div className="flex items-center text-sm text-gray-600 mb-6">
+                  <Clock className="h-4 w-4 mr-1" />
+                  <span>{format(new Date(plan.expectedEndDate), 'MMM d, yyyy')}</span>
+                </div>
+
+                {/* Action Button */}
+                <Button 
+                  onClick={() => window.location.hash = `#/plan?id=${plan.id}`}
+                  className="w-full" 
+                  variant={plan.status === 'completed' ? 'outline' : 'default'}
+                >
+                  {plan.status === 'completed' ? 'View Plan' : 'Continue Learning'}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
