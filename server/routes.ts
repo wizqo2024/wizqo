@@ -64,6 +64,36 @@ function generateContextualResponse(question: string, planData: any, hobbyContex
   const q = question.toLowerCase().trim();
   const hobby = planData?.hobby || hobbyContext || 'hobby';
   
+  // Skills improvement questions
+  if (q.includes('improve') || q.includes('better') || q.includes('skill') || q.includes('advance')) {
+    if (hobby.toLowerCase().includes('video') || hobby.toLowerCase().includes('editing')) {
+      return `Here's how to improve your video editing skills progressively:
+
+**Foundation (Days 1-2):**
+• Master basic cuts, transitions, and timeline navigation
+• Learn keyboard shortcuts for faster workflow
+• Practice color correction and audio sync
+
+**Intermediate (Days 3-5):**  
+• Advanced effects and color grading techniques
+• Audio mixing and sound design principles
+• Storytelling through pacing and rhythm
+
+**Advanced (Days 6-7):**
+• Professional color grading workflows
+• Motion graphics and title animations
+• Portfolio development and client presentation
+
+**Daily Practice Tips:**
+• Edit different types of content (vlogs, commercials, stories)
+• Study professional work and reverse-engineer techniques
+• Join online communities for feedback and inspiration
+• Practice with raw footage daily, even 15-30 minutes
+
+Your 7-day plan covers all these progressively - each day builds on the previous!`;
+    }
+  }
+
   // Tips requests
   if (q.includes('tip') || q.includes('advice') || q.includes('suggestion')) {
     if (planData?.days && planData.days.length > 0) {
