@@ -518,15 +518,6 @@ export function BlogPage() {
                   <span className="text-sm ml-1">(4.9)</span>
                 </div>
               </div>
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.location.hash = '#/generate';
-                }}
-                className="bg-white text-purple-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-lg font-medium hover:bg-gray-50 transition-colors w-full sm:w-auto border border-purple-200 hover:border-purple-300"
-              >
-                Generate My Plan →
-              </button>
             </article>
 
             {/* Other Posts - Clean List Style */}
