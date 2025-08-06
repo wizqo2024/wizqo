@@ -37,7 +37,7 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
-  const { user, isSignedIn } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [expandedDay, setExpandedDay] = useState<number | null>(1);
@@ -54,7 +54,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       setCurrentPlanId(planId);
       
-      if (isSignedIn && user && planData) {
+      if (isAuthenticated && user && planData) {
         try {
           const savedPlan = await hobbyPlanService.savePlan({
             hobby: planData.hobby,
@@ -74,7 +74,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
     if (planData) {
       initializePlan();
     }
-  }, [isSignedIn, user, planData]);
+  }, [isAuthenticated, user, planData]);
 
   const toggleDayCompletion = async (dayNumber: number) => {
     if (isSavingProgress) return;
@@ -91,7 +91,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
         const newCompletedDays = [...completedDays, dayNumber];
         setCompletedDays(newCompletedDays);
 
-        if (isSignedIn && user && currentPlanId) {
+        if (isAuthenticated && user && currentPlanId) {
           await hobbyPlanService.completeDay(user.id, currentPlanId.toString(), dayNumber);
           toast({
             title: "Progress Saved!",
@@ -104,7 +104,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
           });
         }
         
-        if (dayNumber === 1 && !isSignedIn) {
+        if (dayNumber === 1 && !isAuthenticated) {
           setShowAuthModal(true);
         }
       }
@@ -329,46 +329,65 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </Card>
                     </div>
 
-                    {/* Video Tutorial Card */}
+                    {/* YouTube Video Tutorial Card */}
                     <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white overflow-hidden">
                       <CardContent className="p-0 relative">
                         <div className="absolute top-3 left-3 z-10">
                           <div className="flex items-center space-x-2">
-                            <div className="px-2 py-1 bg-blue-600 rounded-full text-xs font-medium">
-                              Wizqo Learning Experience
+                            <div className="px-2 py-1 bg-red-600 rounded-full text-xs font-medium">
+                              YouTube Tutorial
                             </div>
                             <div className="px-2 py-1 bg-yellow-500 text-black rounded-full text-xs font-medium flex items-center space-x-1">
                               <Star className="w-3 h-3" />
-                              <span>Premium Content</span>
+                              <span>Expert Selected</span>
                             </div>
                           </div>
                         </div>
                         
-                        <div className="p-6 pt-16 text-center">
-                          <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
-                            <Play className="w-10 h-10 text-white ml-1" />
+                        {/* YouTube Video Embed */}
+                        {day.youtubeVideoId ? (
+                          <div className="relative">
+                            <div className="aspect-video">
+                              <iframe
+                                src={`https://www.youtube.com/embed/${day.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
+                                title={`${planData.hobby} Day ${day.day} Tutorial`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="w-full h-full rounded-t-lg"
+                              ></iframe>
+                            </div>
                           </div>
-                          
-                          <h3 className="text-xl font-bold mb-2">Interactive Learning Session</h3>
-                          <p className="text-slate-300 mb-6 text-sm leading-relaxed max-w-md mx-auto">
-                            Access your personalized tutorial in our optimized learning environment
-                          </p>
-                          
-                          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
-                            <Play className="w-4 h-4 mr-2" />
-                            Start Learning Session
-                          </Button>
-                        </div>
+                        ) : (
+                          <div className="p-6 pt-16 text-center">
+                            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
+                              <Play className="w-10 h-10 text-white ml-1" />
+                            </div>
+                            
+                            <h3 className="text-xl font-bold mb-2">Video Tutorial Coming Soon</h3>
+                            <p className="text-slate-300 mb-6 text-sm leading-relaxed max-w-md mx-auto">
+                              We're preparing an expert-selected tutorial for Day {day.day} of your {planData.hobby} journey
+                            </p>
+                            
+                            <Button 
+                              onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(planData.hobby + ' beginner day ' + day.day + ' tutorial')}`, '_blank')}
+                              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Search YouTube
+                            </Button>
+                          </div>
+                        )}
                         
-                        <div className="absolute bottom-3 left-3 right-3">
+                        <div className="p-4 bg-slate-900">
                           <div className="flex items-center justify-between text-xs text-slate-400">
                             <div className="flex items-center space-x-2">
                               <Clock className="w-3 h-3" />
-                              <span>Self-Paced</span>
+                              <span>15-30 min</span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <Users className="w-3 h-3" />
-                              <span>Expert Guided</span>
+                              <span>Beginner Level</span>
                             </div>
                             <div className="flex items-center space-x-2">
                               <CheckCircle className="w-3 h-3" />
@@ -540,7 +559,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
         </div>
 
         {/* Authentication prompt for progress tracking */}
-        {!isSignedIn && completedDays.includes(1) && !localStorage.getItem('skipAuthPrompt') && (
+        {!isAuthenticated && completedDays.includes(1) && !localStorage.getItem('skipAuthPrompt') && (
           <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
             <div className="flex items-center space-x-3 mb-4">
               <User className="w-6 h-6 text-purple-600" />
