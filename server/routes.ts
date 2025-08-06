@@ -4,6 +4,7 @@ import { sendContactEmail } from './email.js';
 import { getTargetedYouTubeVideo, getVideoDetails } from './videoSelection.js';
 import { getBestVideoForDay } from './youtubeService.js';
 import { validateHobby, getVideosForHobby, suggestAlternativeHobbies } from './hobbyValidator.js';
+import { hobbyValidator } from './deepseekValidation.js';
 import { storage } from './storage.js';
 import { supabaseStorage } from './supabase-storage';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
@@ -405,18 +406,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Validate hobby input
-      const validation = validateHobby(hobby);
+      // Use DeepSeek for intelligent hobby validation
+      console.log('🔍 Validating hobby with DeepSeek:', hobby);
+      const validation = await hobbyValidator.validateHobby(hobby);
+      
       if (!validation.isValid) {
-        const suggestions = suggestAlternativeHobbies(hobby);
         return res.status(400).json({
-          error: `I didn't quite catch that hobby. Could you be more specific?`,
-          suggestions: suggestions,
-          message: `Try something like: ${suggestions.slice(0, 3).join(', ')}`
+          error: `I'm not sure "${hobby}" is a hobby I can help with right now.`,
+          suggestions: validation.suggestions || ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance'],
+          message: validation.reasoning || 'Please try one of these popular hobbies instead.',
+          invalidHobby: hobby
         });
       }
       
-      const normalizedHobby = validation.normalizedHobby;
+      const normalizedHobby = validation.correctedHobby || hobby;
       const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
       res.json(plan);
     } catch (error) {
@@ -506,6 +509,25 @@ Please provide a helpful response:`;
       const { question, planData, hobbyContext } = req.body;
       const fallbackResponse = generateContextualResponse(question, planData, hobbyContext);
       res.json({ response: fallbackResponse });
+    }
+  });
+
+  // New endpoint for direct hobby validation
+  app.post('/api/validate-hobby', async (req, res) => {
+    try {
+      const { hobby } = req.body;
+      
+      if (!hobby) {
+        return res.status(400).json({ error: 'Hobby is required' });
+      }
+
+      console.log('🔍 Validating hobby:', hobby);
+      const validation = await hobbyValidator.validateHobby(hobby);
+      
+      res.json(validation);
+    } catch (error) {
+      console.error('Hobby validation error:', error);
+      res.status(500).json({ error: 'Failed to validate hobby' });
     }
   });
 

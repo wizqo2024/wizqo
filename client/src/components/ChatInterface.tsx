@@ -362,29 +362,105 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     }
   };
 
-  const handleTextInput = () => {
+  const handleTextInput = async () => {
     if (!currentInput.trim()) return;
     
     if (currentStep === 'hobby') {
-      const validation = validateHobby(currentInput);
-      
-      if (validation.isValid) {
-        const finalHobby = validation.suggestion || currentInput.toLowerCase().trim();
-        addUserMessage(currentInput);
-        setSelectedHobby(finalHobby);
-        setCurrentStep('experience');
+      // Use DeepSeek AI for intelligent hobby validation
+      try {
+        const response = await fetch('/api/validate-hobby', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ hobby: currentInput.trim() })
+        });
+
+        if (response.ok) {
+          const validation = await response.json();
+          
+          if (validation.isValid) {
+            const finalHobby = validation.correctedHobby || currentInput.toLowerCase().trim();
+            addUserMessage(currentInput);
+            setSelectedHobby(finalHobby);
+            setCurrentStep('experience');
+            
+            let message = `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯`;
+            
+            if (validation.correctedHobby) {
+              message += `\n\n(I corrected the spelling for you)`;
+            }
+            
+            message += `\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`;
+            
+            addAIMessage(message, [
+              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+              { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
+            ]);
+          } else {
+            addUserMessage(currentInput);
+            let errorMessage = `I'm not sure "${currentInput}" is a hobby I can help with right now.`;
+            
+            if (validation.suggestions && validation.suggestions.length > 0) {
+              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
+              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
+                value: suggestion,
+                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
+                description: `Learn ${suggestion}`
+              }));
+              
+              addAIMessage(errorMessage, hobbyOptions);
+            } else {
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.');
+            }
+          }
+        } else {
+          // Fallback to simple validation if API fails
+          const validation = validateHobby(currentInput);
+          
+          if (validation.isValid) {
+            const finalHobby = validation.suggestion || currentInput.toLowerCase().trim();
+            addUserMessage(currentInput);
+            setSelectedHobby(finalHobby);
+            setCurrentStep('experience');
+            
+            addAIMessage(
+              `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
+              [
+                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+                { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
+              ]
+            );
+          } else {
+            addUserMessage(currentInput);
+            addAIMessage(validation.suggestion!, validation.options);
+          }
+        }
+      } catch (error) {
+        console.error('Error validating hobby:', error);
+        // Fallback to basic validation
+        const validation = validateHobby(currentInput);
         
-        addAIMessage(
-          `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
-          [
-            { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-            { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-            { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-          ]
-        );
-      } else {
-        addUserMessage(currentInput);
-        addAIMessage(validation.suggestion!, validation.options);
+        if (validation.isValid) {
+          const finalHobby = validation.suggestion || currentInput.toLowerCase().trim();
+          addUserMessage(currentInput);
+          setSelectedHobby(finalHobby);
+          setCurrentStep('experience');
+          
+          addAIMessage(
+            `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
+            [
+              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+              { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
+            ]
+          );
+        } else {
+          addUserMessage(currentInput);
+          addAIMessage(validation.suggestion!, validation.options);
+        }
       }
     }
     
