@@ -1658,9 +1658,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                           </section>
                       
-                          {/* Video Tutorial Section - Ultra Clean Design */}
+                          {/* Video Tutorial Section - Single Unified Box */}
                           <section className="bg-slate-800 rounded-xl p-6">
-                            <div className="text-center mb-4">
+                            {/* Header Section */}
+                            <div className="text-center mb-6">
                               <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
                                 <BookOpen className="w-6 h-6 text-white" />
                               </div>
@@ -1668,20 +1669,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <p className="text-gray-300 text-sm">Welcome to your first lesson! We'll cover the basic fundamentals and get you started on your learning journey.</p>
                             </div>
                             
+                            {/* Play Button Section */}
+                            <div className="flex items-center mb-4">
+                              <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center mr-3">
+                                <Play className="w-5 h-5 text-white" />
+                              </div>
+                              <p className="text-white text-lg">Watch and learn the fundamentals</p>
+                            </div>
+                            
+                            {/* Video Section */}
                             {(() => {
                               console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
                               console.log('🐛 Video Title:', currentDay.videoTitle);
                               return currentDay.youtubeVideoId;
                             })() ? (
-                              <div className="bg-slate-700 rounded-xl p-1">
-                                <YouTubeEmbed 
-                                  videoId={currentDay.youtubeVideoId}
-                                  title=""
-                                  className="rounded-lg overflow-hidden w-full"
-                                />
-                              </div>
+                              <YouTubeEmbed 
+                                videoId={currentDay.youtubeVideoId}
+                                title=""
+                                className="rounded-lg overflow-hidden w-full"
+                              />
                             ) : (
-                              <div className="bg-slate-700 rounded-xl p-8 text-center">
+                              <div className="text-center py-8">
                                 <div className="bg-gray-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                                   <Play className="w-8 h-8 text-gray-300" />
                                 </div>
