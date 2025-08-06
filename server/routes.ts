@@ -342,7 +342,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   for (let i = 0; i < 7; i++) {
     const dayNumber = i + 1;
     const dayTopic = dailyTopics[i];
-    const dayTitle = `Day ${dayNumber}: ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} ${dayTopic.focus}`;
+    const dayTitle = `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} ${dayTopic.focus}`;
     
     // Use YouTube API for quality video selection
     const targetedVideoId = await getBestVideoForDay(
@@ -363,7 +363,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     
     days.push({
       day: dayNumber,
-      title: dayTitle,
+      title: `Day ${dayNumber}: ${dayTitle}`,
       mainTask: `${dayTopic.task} with focused practice and hands-on learning.`,
       explanation: `Day ${dayNumber} focuses on ${dayTopic.focus.toLowerCase()} in ${hobby}. You'll work on ${dayTopic.skills} while building on everything you've learned so far.`,
       howTo: [
