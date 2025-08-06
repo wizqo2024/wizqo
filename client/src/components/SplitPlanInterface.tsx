@@ -1658,28 +1658,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                           </section>
                       
-                          {/* Video Tutorial Section - SINGLE UNIFIED CONTAINER */}
-                          <section className="bg-slate-800 rounded-xl p-6 space-y-4">
-                            <div className="text-center">
-                              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-3">
-                                <BookOpen className="w-6 h-6 text-white" />
-                              </div>
-                              <h3 className="text-xl font-semibold text-white mb-2">Introduction to {currentDay.title?.split(' ')[0] || 'Learning'}</h3>
-                              <p className="text-gray-300 text-sm mb-4">Welcome to your first lesson! We'll cover the basic fundamentals and get you started on your learning journey.</p>
-                            </div>
+                          {/* Video Tutorial Section - Simple */}
+                          <section className="bg-slate-800 rounded-xl p-6">
+                            <h3 className="text-lg font-semibold text-white mb-4">Video Tutorial</h3>
                             
                             {(() => {
                               console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
                               console.log('🐛 Video Title:', currentDay.videoTitle);
                               return currentDay.youtubeVideoId;
                             })() ? (
-                              <div className="w-full">
-                                <YouTubeEmbed 
-                                  videoId={currentDay.youtubeVideoId}
-                                  title=""
-                                  className="w-full rounded-lg"
-                                />
-                              </div>
+                              <YouTubeEmbed 
+                                videoId={currentDay.youtubeVideoId}
+                                title=""
+                                className="w-full"
+                              />
                             ) : (
                               <div className="text-center py-6">
                                 <div className="bg-gray-600 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
