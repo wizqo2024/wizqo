@@ -261,6 +261,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const getHobbyImage = (hobby: string): string => {
     const normalizedHobby = hobby?.toLowerCase() || '';
+    console.log(`🎨 Dashboard getHobbyImage called with: "${hobby}" -> normalized: "${normalizedHobby}"`);
     const images: Record<string, string> = {
       drawing: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
       painting: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
@@ -283,21 +284,26 @@ Learn any hobby in 7 days at https://wizqo.com`;
       pottery: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
       'history research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
       'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop'
+      research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+      cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
+      swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop'
     };
     
     // First try exact match
     if (images[normalizedHobby]) {
+      console.log(`🎨 Dashboard EXACT MATCH found: ${normalizedHobby} -> ${images[normalizedHobby]}`);
       return images[normalizedHobby];
     }
     
     // Then try partial match for compound hobbies
     for (const [key, image] of Object.entries(images)) {
       if (normalizedHobby.includes(key) || key.includes(normalizedHobby)) {
+        console.log(`🎨 Dashboard PARTIAL MATCH found: ${normalizedHobby} matches ${key} -> ${image}`);
         return image;
       }
     }
     
+    console.log(`🎨 Dashboard NO MATCH for "${normalizedHobby}", using fallback`);
     // Default fallback
     return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
   };

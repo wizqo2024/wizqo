@@ -39,6 +39,7 @@ const getHobbyImage = (hobby: string): string => {
     'history research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
     'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
     research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+    cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
     swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop'
   };
   
