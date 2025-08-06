@@ -610,9 +610,20 @@ Please provide a helpful response:`;
       }
 
       console.log('🔍 Validating hobby:', hobby);
-      const validation = await hobbyValidator.validateHobby(hobby);
+      const validation = hobbyValidator.validateHobby(hobby);
+      console.log('🔍 Server validation result:', validation);
       
-      res.json(validation);
+      // Ensure proper response format for frontend
+      const response = {
+        isValid: validation.isValid,
+        correctedHobby: validation.normalizedHobby, // Key mapping fix
+        originalHobby: hobby,
+        suggestions: validation.suggestions || [],
+        category: validation.category
+      };
+      
+      console.log('🔍 Sending response to frontend:', response);
+      res.json(response);
     } catch (error) {
       console.error('Hobby validation error:', error);
       res.status(500).json({ error: 'Failed to validate hobby' });
