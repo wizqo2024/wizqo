@@ -609,15 +609,16 @@ Please provide a helpful response:`;
         return res.status(400).json({ error: 'Hobby is required' });
       }
 
-      console.log('🔍 Validating hobby:', hobby);
-      const validation = hobbyValidator.validateHobby(hobby);
+      const cleanHobby = hobby.replace(/["']/g, '').trim();
+      console.log('🔍 Validating hobby:', cleanHobby);
+      const validation = hobbyValidator.validateHobby(cleanHobby);
       console.log('🔍 Server validation result:', validation);
       
       // Ensure proper response format for frontend
       const response = {
         isValid: validation.isValid,
         correctedHobby: validation.normalizedHobby, // Key mapping fix
-        originalHobby: hobby,
+        originalHobby: cleanHobby,
         suggestions: validation.suggestions || [],
         category: validation.category
       };

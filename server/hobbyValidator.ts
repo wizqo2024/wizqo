@@ -217,6 +217,24 @@ function detectContextualHobby(input: string): { hobby: string; category: string
     return { hobby: 'dance', category: 'dance' };
   }
   
+  // Swimming contexts
+  if (lower.includes('swimming') || lower.includes('swim')) {
+    return { hobby: 'swimming', category: 'fitness' };
+  }
+  
+  // Specific hobby detection for common patterns
+  if (lower.includes('learn') || lower.includes('study')) {
+    // Extract the main subject after learn/study
+    const words = lower.split(' ');
+    const learnIndex = words.findIndex(w => w.includes('learn') || w.includes('study'));
+    if (learnIndex >= 0 && learnIndex < words.length - 1) {
+      const subject = words.slice(learnIndex + 1).join(' ');
+      if (subject.length > 2) {
+        return { hobby: subject, category: 'learning' };
+      }
+    }
+  }
+  
   return null;
 }
 
@@ -233,6 +251,7 @@ export function validateHobby(hobbyInput: string): {
   // Advanced context-aware hobby detection
   const contextualMapping = detectContextualHobby(input);
   if (contextualMapping) {
+    console.log('🎯 Contextual mapping found:', contextualMapping);
     return {
       isValid: true,
       normalizedHobby: contextualMapping.hobby,
@@ -253,14 +272,14 @@ export function validateHobby(hobbyInput: string): {
   }
   
   // Only reject completely nonsensical inputs
-  const badInputs = ['bye', 'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'ok', 'okay', 'yes', 'no', 'maybe', 'test', 'testing', '', 'null', 'undefined', 'admin', 'root'];
+  const badInputs = ['bye', 'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'ok', 'okay', 'yes', 'no', 'maybe', 'test', 'testing', '', 'null', 'undefined', 'admin', 'root', 'cool', 'nice', 'good', 'bad'];
   if (badInputs.includes(input) || input.length < 2) {
     return { 
       isValid: false, 
       normalizedHobby: '', 
       category: null, 
       hasVideoSupport: false,
-      suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'quran']
+      suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'quran reading', 'swimming']
     };
   }
 
