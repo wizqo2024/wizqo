@@ -271,7 +271,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
         musicImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
         
         // Arts & Crafts
-        arts: ['drawing', 'painting', 'pottery', 'sculpture', 'calligraphy', 'origami', 'embroidery', 'knitting', 'jewelry', 'woodworking'],
+        arts: ['drawing', 'painting', 'pottery', 'sculpture', 'calligraphy', 'origami', 'embroidery', 'knitting', 'jewelry', 'woodworking', 'crochet', 'sewing', 'quilting', 'crafts'],
         artsImage: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
         
         // Cooking & Food
