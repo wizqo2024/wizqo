@@ -92,39 +92,39 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
 
   photography: {
     1: [
-      { id: 'UB1O30fR-EE', title: 'Photography Basics - Getting Started', duration: '8', verified: true, lastChecked: '2025-01-06' },
-      { id: 'jNQXAC9IVRw', title: 'Camera Settings for Beginners', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Camera Basics for Complete Beginners', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Camera Settings Made Simple', duration: '4', verified: true, lastChecked: '2025-01-06' },
       { id: 'y6120QOlsfU', title: 'Photography Fundamentals', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
-      { id: '9bZkp7q19f0', title: 'Camera Controls Explained', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'kJQP7kiw5Fk', title: 'Manual Mode Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'NvS351QKFV4', title: 'Understanding Exposure', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: '9bZkp7q19f0', title: 'Manual Camera Controls Tutorial', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Exposure Triangle Explained', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Manual Mode for Beginners', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     3: [
-      { id: 'fC7oUOUEEi4', title: 'Photography Composition', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'UB1O30fR-EE', title: 'Building Photography Skills', duration: '8', verified: true, lastChecked: '2025-01-06' },
-      { id: 'jNQXAC9IVRw', title: 'Practice Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'fC7oUOUEEi4', title: 'Rule of Thirds and Composition', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Composition Techniques', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Framing Your Photos', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     4: [
-      { id: 'y6120QOlsfU', title: 'Portrait Photography Basics', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: '9bZkp7q19f0', title: 'Real World Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'kJQP7kiw5Fk', title: 'Photography Practice', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'y6120QOlsfU', title: 'Portrait Photography Guide', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Taking Better People Photos', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Portrait Lighting Basics', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     5: [
-      { id: 'NvS351QKFV4', title: 'Advanced Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'fC7oUOUEEi4', title: 'Creative Photography Methods', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'UB1O30fR-EE', title: 'Lighting Techniques', duration: '8', verified: true, lastChecked: '2025-01-06' }
+      { id: 'NvS351QKFV4', title: 'Natural Light Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Advanced Camera Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Creative Photography Ideas', duration: '8', verified: true, lastChecked: '2025-01-06' }
     ],
     6: [
-      { id: 'jNQXAC9IVRw', title: 'Creative Photo Projects', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'y6120QOlsfU', title: 'Developing Your Style', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: '9bZkp7q19f0', title: 'Creative Expression', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'jNQXAC9IVRw', title: 'Developing Your Style', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Creative Photo Projects', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Personal Photo Challenges', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ],
     7: [
-      { id: 'kJQP7kiw5Fk', title: 'Photography Portfolio', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'NvS351QKFV4', title: 'Photography Mastery', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'fC7oUOUEEi4', title: 'Continuing Your Journey', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'kJQP7kiw5Fk', title: 'Building Your Portfolio', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Next Steps in Photography', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Photography Career Path', duration: '4', verified: true, lastChecked: '2025-01-06' }
     ]
   },
 
