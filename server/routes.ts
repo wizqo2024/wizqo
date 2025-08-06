@@ -441,7 +441,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Generate hobby plan endpoint with validation
   app.post('/api/generate-plan', async (req, res) => {
     try {
-      const { hobby, experience, timeAvailable, goal } = req.body;
+      const { hobby, experience, timeAvailable, goal, userId, force } = req.body;
       
       if (!hobby || !experience || !timeAvailable) {
         return res.status(400).json({ 
@@ -463,6 +463,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const normalizedHobby = validation.correctedHobby || hobby;
+      
+      // Check for duplicate plans if user is authenticated and not forcing new plan
+      if (userId && !force) {
+        console.log('🔍 DUPLICATE CHECK: Checking for existing plans for user:', userId, 'hobby:', normalizedHobby);
+        try {
+          const existingPlans = await supabaseStorage.getHobbyPlansByUserId(userId);
+          console.log('🔍 DUPLICATE CHECK: Found', existingPlans.length, 'existing plans');
+          
+          const duplicatePlan = existingPlans.find((plan: any) => {
+            const planHobby = plan.hobby_name?.toLowerCase() || '';
+            const normalizedPlanHobby = planHobby.trim();
+            const checkHobby = normalizedHobby.toLowerCase().trim();
+            
+            console.log('🔍 DUPLICATE CHECK: Comparing', normalizedPlanHobby, 'vs', checkHobby);
+            
+            // Exact match
+            if (normalizedPlanHobby === checkHobby) return true;
+            
+            // Handle variations (e.g., "guitar" vs "guitar playing")
+            if (normalizedPlanHobby.includes(checkHobby) || checkHobby.includes(normalizedPlanHobby)) return true;
+            
+            return false;
+          });
+          
+          if (duplicatePlan) {
+            console.log('🚨 DUPLICATE DETECTED: Found existing plan for', normalizedHobby, 'with ID:', duplicatePlan.id);
+            return res.status(409).json({
+              error: 'duplicate_plan',
+              message: `You already have a ${normalizedHobby} learning plan! Would you like to continue with your existing plan or create a new one?`,
+              existingPlan: {
+                id: duplicatePlan.id,
+                title: duplicatePlan.title,
+                created_at: duplicatePlan.created_at
+              },
+              hobby: normalizedHobby
+            });
+          }
+          
+          console.log('✅ DUPLICATE CHECK: No existing plan found for', normalizedHobby);
+        } catch (error) {
+          console.error('❌ DUPLICATE CHECK: Error checking for duplicates:', error);
+          // Continue with plan generation if duplicate check fails
+        }
+      }
+      
       const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
       res.json(plan);
     } catch (error) {

@@ -5,6 +5,7 @@ export interface SupabaseStorage {
   getUserProfileByEmail(email: string): Promise<any>;
   createUserProfile(user: any): Promise<any>;
   getHobbyPlans(userId: string): Promise<any[]>;
+  getHobbyPlansByUserId(userId: string): Promise<any[]>;
   createHobbyPlan(plan: any): Promise<any>;
   getUserProgress(userId: string): Promise<any[]>;
   createOrUpdateUserProgress(progress: any): Promise<any>;

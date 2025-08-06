@@ -970,7 +970,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsGenerating(true);
 
     try {
-      const plan = await onGeneratePlan(randomHobby, surpriseAnswers);
+      const plan = await onGeneratePlan(randomHobby, surpriseAnswers, user?.id);
       console.log('🎯 Setting plan data in SplitPlanInterface:', plan.hobby);
       console.log('🐛 Raw plan data received in setPlanData:', JSON.stringify(plan, null, 2));
       console.log('🐛 First day YouTube video ID before fixPlanDataFields:', plan?.days?.[0]?.youtubeVideoId);
@@ -1026,7 +1026,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
     } catch (error) {
       console.error('Error generating plan:', error);
-      addAIMessage("I had trouble generating your plan. Let me try a different approach!", undefined, 500);
+      
+      // Handle duplicate plan errors with friendly UI
+      if (error instanceof Error && error.message === 'DUPLICATE_PLAN') {
+        const duplicateData = (error as any).duplicateData;
+        console.log('🚨 DUPLICATE PLAN detected for surprise:', duplicateData);
+        
+        addAIMessage(
+          `I see you already have a ${randomHobby} plan! 🎯\n\nWould you like me to:\n• Show your existing plan\n• Try a different surprise hobby\n• Generate the same hobby with new content?`,
+          [
+            { value: 'show_existing', label: 'Show My Existing Plan', description: 'View your current plan' },
+            { value: 'try_different', label: 'Try Different Hobby', description: 'Get a new surprise hobby' },
+            { value: 'generate_anyway', label: 'Create New Version', description: 'Generate fresh content for same hobby' }
+          ]
+        );
+      } else {
+        addAIMessage("I had trouble generating your plan. Let me try a different approach!", undefined, 500);
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -1035,6 +1051,73 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const handleOptionSelect = async (value: string, label: string) => {
     if (value === 'surprise') {
       await handleSurpriseMe();
+      return;
+    }
+
+    // Handle duplicate plan response options
+    if (value === 'show_existing' || value === 'view_existing') {
+      addUserMessage(label);
+      addAIMessage("Redirecting you to your existing plan...");
+      // Navigate to dashboard or load existing plan
+      window.location.hash = '#/dashboard';
+      return;
+    }
+
+    if (value === 'try_different' || value === 'try_different_hobby') {
+      addUserMessage(label);
+      // Reset to hobby selection
+      setCurrentStep('hobby');
+      setSelectedHobby('');
+      setQuizAnswers({ experience: '', timeAvailable: '', goal: '' });
+      addAIMessage("Great choice! Let's find you a different hobby to explore. What would you like to learn?", [
+        { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let me pick something exciting for you' },
+        { value: 'cooking', label: 'Cooking', description: 'Learn delicious recipes and techniques' },
+        { value: 'drawing', label: 'Drawing', description: 'Express yourself through art' },
+        { value: 'guitar', label: 'Guitar', description: 'Play your favorite songs' },
+        { value: 'photography', label: 'Photography', description: 'Capture beautiful moments' },
+        { value: 'yoga', label: 'Yoga', description: 'Find peace and flexibility' }
+      ]);
+      return;
+    }
+
+    if (value === 'generate_anyway' || value === 'create_new') {
+      addUserMessage(label);
+      setCurrentStep('generating');
+      setIsGenerating(true);
+      addAIMessage(`Creating a fresh ${selectedHobby} plan with new content... ✨`);
+      
+      try {
+        // Force generate new plan by bypassing duplicate check
+        const plan = await onGeneratePlan(selectedHobby, quizAnswers, user?.id, true); // Add force flag
+        const fixedPlan = fixPlanDataFields(plan);
+        setPlanData(fixedPlan);
+        
+        // Save new plan
+        if (user?.id) {
+          try {
+            const savedPlan = await hobbyPlanService.savePlan({
+              hobby: selectedHobby,
+              title: plan.title,
+              overview: plan.overview,
+              plan_data: plan
+            }, user.id);
+            setCurrentPlanId(savedPlan.id.toString());
+            await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
+            addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 This version has different content and approach. Ask me any questions!`);
+          } catch (saveError) {
+            addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 Ask me any questions about this new version!`);
+          }
+        } else {
+          addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 Sign up to save multiple plans!`);
+        }
+        setCurrentStep('plan');
+      } catch (error) {
+        console.error('Error generating fresh plan:', error);
+        addAIMessage("I had trouble creating a fresh plan. Let me try again!");
+        setCurrentStep('goal');
+      } finally {
+        setIsGenerating(false);
+      }
       return;
     }
 
@@ -1087,7 +1170,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers, user?.id);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
@@ -1159,7 +1242,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }
       } catch (error) {
         console.error('Error generating plan:', error);
-        addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
+        
+        // Handle duplicate plan errors with friendly UI and options
+        if (error instanceof Error && error.message === 'DUPLICATE_PLAN') {
+          const duplicateData = (error as any).duplicateData;
+          console.log('🚨 DUPLICATE PLAN detected:', duplicateData);
+          
+          addAIMessage(
+            `I notice you already have a ${selectedHobby} learning plan! 🎯\n\nWhat would you like to do?`,
+            [
+              { value: 'view_existing', label: 'View My Current Plan', description: 'See your existing plan and continue learning' },
+              { value: 'create_new', label: 'Create Fresh Plan', description: 'Generate new content with different approach' },
+              { value: 'try_different_hobby', label: 'Try Different Hobby', description: 'Pick a completely different hobby to learn' }
+            ]
+          );
+          
+          // Reset to goal step so user can make a choice
+          setCurrentStep('goal');
+        } else {
+          addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
+        }
       } finally {
         setIsGenerating(false);
       }
