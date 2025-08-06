@@ -7,7 +7,7 @@ import { SimpleAuthModal } from './SimpleAuthModal';
 import { useAuth } from '@/hooks/useAuth';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, User, Target, Lightbulb, AlertTriangle, Star, Play, Users, Gift } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, User, Target, Lightbulb, AlertTriangle, Star, Play, Users, Gift, Zap, Heart, TrendingUp, X, AlertCircle, Ban } from 'lucide-react';
 
 interface Day {
   day: number;
@@ -298,12 +298,18 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                             <h4 className="font-semibold text-green-900">Tips for Success</h4>
                           </div>
                           <ul className="space-y-2">
-                            {day.tips.map((tip, index) => (
-                              <li key={index} className="flex items-start space-x-2 text-sm text-green-800">
-                                <span className="text-green-500 mt-1 flex-shrink-0">•</span>
-                                <span className="leading-relaxed">{tip}</span>
-                              </li>
-                            ))}
+                            {day.tips.map((tip, index) => {
+                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle];
+                              const IconComponent = tipIcons[index % tipIcons.length];
+                              return (
+                                <li key={index} className="flex items-start space-x-3 text-sm text-green-800">
+                                  <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                    <IconComponent className="w-3 h-3 text-green-600" />
+                                  </div>
+                                  <span className="leading-relaxed">{tip}</span>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </CardContent>
                       </Card>
@@ -318,12 +324,18 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                             <h4 className="font-semibold text-red-900">Avoid These Mistakes</h4>
                           </div>
                           <ul className="space-y-2">
-                            {day.mistakesToAvoid.map((mistake, index) => (
-                              <li key={index} className="flex items-start space-x-2 text-sm text-red-800">
-                                <span className="text-red-500 mt-1 flex-shrink-0">•</span>
-                                <span className="leading-relaxed">{mistake}</span>
-                              </li>
-                            ))}
+                            {day.mistakesToAvoid.map((mistake, index) => {
+                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock];
+                              const IconComponent = mistakeIcons[index % mistakeIcons.length];
+                              return (
+                                <li key={index} className="flex items-start space-x-3 text-sm text-red-800">
+                                  <div className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                    <IconComponent className="w-3 h-3 text-red-600" />
+                                  </div>
+                                  <span className="leading-relaxed">{mistake}</span>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </CardContent>
                       </Card>

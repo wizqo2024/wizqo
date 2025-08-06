@@ -1339,7 +1339,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     {message.content}
                   </div>
                   
-                  {message.options && currentStep !== 'plan' && (
+                  {message.options && currentStep !== 'plan' && !planData && (
                     <div className="mt-1 lg:mt-2 flex flex-wrap gap-1">
                       {message.options.map((option) => (
                         <button
