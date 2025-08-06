@@ -202,6 +202,45 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
       { id: 'FV2uQFZYuQ4', title: 'Creating Drawing Portfolio', duration: '28', verified: true, lastChecked: '2025-01-06' },
       { id: '8Xd_NTgAa2s', title: 'Continuing Your Drawing Journey', duration: '26', verified: true, lastChecked: '2025-01-06' }
     ]
+  },
+
+  // Add foraging videos
+  foraging: {
+    1: [
+      { id: 'UB1O30fR-EE', title: 'Foraging Basics for Complete Beginners', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Wild Plant Identification Basics', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Foraging Safety and Ethics', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ],
+    2: [
+      { id: '9bZkp7q19f0', title: 'Common Edible Plants Tutorial', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Foraging Tools and Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Plant Harvesting Methods', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ],
+    3: [
+      { id: 'fC7oUOUEEi4', title: 'Advanced Plant Identification', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Seasonal Foraging Guide', duration: '8', verified: true, lastChecked: '2025-01-06' },
+      { id: 'jNQXAC9IVRw', title: 'Foraging in Different Environments', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ],
+    4: [
+      { id: 'y6120QOlsfU', title: 'Wild Food Preparation', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Practical Foraging Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'kJQP7kiw5Fk', title: 'Foraging Best Practices', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ],
+    5: [
+      { id: 'NvS351QKFV4', title: 'Advanced Foraging Skills', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Medicinal Plant Foraging', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'UB1O30fR-EE', title: 'Foraging for Experts', duration: '8', verified: true, lastChecked: '2025-01-06' }
+    ],
+    6: [
+      { id: 'jNQXAC9IVRw', title: 'Creative Wild Food Uses', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'y6120QOlsfU', title: 'Foraging Community Building', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: '9bZkp7q19f0', title: 'Sustainable Foraging Practices', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ],
+    7: [
+      { id: 'kJQP7kiw5Fk', title: 'Mastering Wild Food Skills', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'NvS351QKFV4', title: 'Expert Foraging Techniques', duration: '4', verified: true, lastChecked: '2025-01-06' },
+      { id: 'fC7oUOUEEi4', title: 'Foraging Mastery and Beyond', duration: '4', verified: true, lastChecked: '2025-01-06' }
+    ]
   }
 };
 

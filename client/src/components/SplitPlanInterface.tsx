@@ -1589,11 +1589,62 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   <Card className="overflow-hidden">
                     <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
                       <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
-                            Day {currentDay.day}: {currentDay.title}
-                          </CardTitle>
-                          <p className="text-sm text-gray-600 mt-1">Main Focus</p>
+                        <div className="flex items-center space-x-4">
+                          {/* Achievement Image */}
+                          <div 
+                            className="w-12 h-12 lg:w-16 lg:h-16 rounded-lg flex items-center justify-center text-lg lg:text-2xl font-bold text-white shadow-lg flex-shrink-0"
+                            style={{
+                              background: `linear-gradient(135deg, 
+                                ${planData.hobby === 'photography' ? '#3B82F6, #1D4ED8' : 
+                                  planData.hobby === 'guitar' ? '#F59E0B, #D97706' :
+                                  planData.hobby === 'cooking' ? '#EF4444, #DC2626' :
+                                  planData.hobby === 'drawing' ? '#8B5CF6, #7C3AED' :
+                                  planData.hobby === 'yoga' ? '#10B981, #059669' :
+                                  planData.hobby === 'gardening' ? '#22C55E, #16A34A' :
+                                  planData.hobby === 'coding' ? '#6366F1, #4F46E5' :
+                                  planData.hobby === 'dance' ? '#EC4899, #DB2777' :
+                                  planData.hobby === 'foraging' ? '#22C55E, #16A34A' :
+                                  planData.hobby === 'hiking' ? '#8B5A2B, #6B4423' :
+                                  planData.hobby === 'camping' ? '#059669, #047857' :
+                                  planData.hobby === 'chess' ? '#374151, #1F2937' :
+                                  planData.hobby === 'writing' ? '#7C3AED, #5B21B6' :
+                                  planData.hobby === 'reading' ? '#DC2626, #B91C1C' :
+                                  planData.hobby === 'piano' ? '#1F2937, #111827' :
+                                  planData.hobby === 'singing' ? '#EC4899, #DB2777' :
+                                  planData.hobby === 'baking' ? '#F59E0B, #D97706' :
+                                  planData.hobby === 'knitting' ? '#8B5CF6, #7C3AED' :
+                                  planData.hobby === 'pottery' ? '#A3A3A3, #737373' :
+                                  '#6B7280, #4B5563'})`
+                            }}
+                          >
+                            {planData.hobby === 'photography' ? '📸' : 
+                             planData.hobby === 'guitar' ? '🎸' :
+                             planData.hobby === 'cooking' ? '👨‍🍳' :
+                             planData.hobby === 'drawing' ? '🎨' :
+                             planData.hobby === 'yoga' ? '🧘' :
+                             planData.hobby === 'gardening' ? '🌱' :
+                             planData.hobby === 'coding' ? '💻' :
+                             planData.hobby === 'dance' ? '💃' :
+                             planData.hobby === 'foraging' ? '🌿' :
+                             planData.hobby === 'hiking' ? '🥾' :
+                             planData.hobby === 'camping' ? '🏕️' :
+                             planData.hobby === 'chess' ? '♟️' :
+                             planData.hobby === 'writing' ? '✍️' :
+                             planData.hobby === 'reading' ? '📚' :
+                             planData.hobby === 'piano' ? '🎹' :
+                             planData.hobby === 'singing' ? '🎤' :
+                             planData.hobby === 'baking' ? '🧁' :
+                             planData.hobby === 'knitting' ? '🧶' :
+                             planData.hobby === 'pottery' ? '🏺' :
+                             '🎯'}
+                          </div>
+                          
+                          <div>
+                            <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
+                              Day {currentDay.day}: {currentDay.title}
+                            </CardTitle>
+                            <p className="text-sm text-gray-600 mt-1">Today's Learning Goal</p>
+                          </div>
                         </div>
                         <button
                           onClick={() => toggleDayCompletion(selectedDay)}
