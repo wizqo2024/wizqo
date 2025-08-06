@@ -357,6 +357,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     // Final verification: If we still get the problematic video, use a proper fallback
     const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
     console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
+    console.log(`🔧 VIDEO REPLACEMENT: ${targetedVideoId} -> ${finalVideoId}`);
     
     const videoDetails = getVideoDetails(hobby, experience, dayNumber);
     
