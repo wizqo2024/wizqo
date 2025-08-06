@@ -19,6 +19,7 @@ interface HobbyPlan {
   expectedEndDate: string;
   status: 'in_progress' | 'completed' | 'paused';
   image?: string;
+  planData?: any;
 }
 
 export default function Dashboard() {
@@ -34,27 +35,92 @@ export default function Dashboard() {
 
   const loadUserPlans = async () => {
     try {
-      // Load user's hobby plans from database
-      const response = await fetch(`/api/user-progress/${user?.id}`);
-      if (response.ok) {
-        const progressData = await response.json();
-        
-        // Transform progress data into hobby plans
-        const plans: HobbyPlan[] = progressData.map((progress: any) => ({
-          id: progress.plan_id,
-          hobby: progress.plan_id.split('-')[2] || 'Unknown',
-          title: `7-Day ${progress.plan_id.split('-')[2]?.charAt(0).toUpperCase()}${progress.plan_id.split('-')[2]?.slice(1)} Basics`,
-          progress: Math.round((progress.completed_days.length / 7) * 100),
-          totalDays: 7,
-          currentDay: progress.current_day,
-          category: getCategoryForHobby(progress.plan_id.split('-')[2] || ''),
-          startDate: progress.created_at,
-          expectedEndDate: new Date(new Date(progress.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          status: progress.completed_days.length >= 7 ? 'completed' : 'in_progress'
-        }));
-        
-        setHobbyPlans(plans);
+      console.log('📋 Loading user plans for:', user?.id);
+      
+      // First, load saved plans from Supabase
+      const plansResponse = await fetch(`/api/hobby-plans?user_id=${user?.id}`);
+      let savedPlans: any[] = [];
+      
+      if (plansResponse.ok) {
+        savedPlans = await plansResponse.json();
+        console.log('📋 Found saved plans:', savedPlans.length);
       }
+      
+      // Then load progress data  
+      const progressResponse = await fetch(`/api/user-progress/${user?.id}`);
+      let progressData: any[] = [];
+      
+      if (progressResponse.ok) {
+        progressData = await progressResponse.json();
+        console.log('📋 Found progress entries:', progressData.length);
+      }
+      
+      // Also check localStorage for recent plans
+      const recentPlans = [];
+      const keys = Object.keys(localStorage);
+      for (const key of keys) {
+        if (key.startsWith('hobbyPlan_') || key === 'lastViewedPlanData') {
+          try {
+            const planData = JSON.parse(localStorage.getItem(key) || '{}');
+            if (planData && planData.hobby && planData.title) {
+              recentPlans.push(planData);
+            }
+          } catch (e) {
+            console.log('Could not parse plan from localStorage:', key);
+          }
+        }
+      }
+      console.log('📋 Found localStorage plans:', recentPlans.length);
+      
+      // Combine all plan sources
+      const allPlans = new Map();
+      
+      // Add saved plans from Supabase
+      savedPlans.forEach(plan => {
+        const hobbyName = plan.hobby_name || plan.hobby;
+        const planData = plan.plan_data;
+        
+        const progressEntry = progressData.find(p => p.plan_id === plan.id);
+        
+        allPlans.set(plan.id, {
+          id: plan.id,
+          hobby: hobbyName,
+          title: plan.title,
+          progress: progressEntry ? Math.round((progressEntry.completed_days.length / 7) * 100) : 0,
+          totalDays: 7,
+          currentDay: progressEntry ? progressEntry.current_day : 1,
+          category: getCategoryForHobby(hobbyName),
+          startDate: plan.created_at,
+          expectedEndDate: new Date(new Date(plan.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          status: progressEntry && progressEntry.completed_days.length >= 7 ? 'completed' : 'in_progress',
+          planData: planData
+        });
+      });
+      
+      // Add recent plans from localStorage if not already in Supabase
+      recentPlans.forEach(planData => {
+        const planId = `local-${planData.hobby}-${Date.now()}`;
+        if (!Array.from(allPlans.values()).some(p => p.hobby === planData.hobby)) {
+          allPlans.set(planId, {
+            id: planId,
+            hobby: planData.hobby,
+            title: planData.title,
+            progress: 0,
+            totalDays: 7,
+            currentDay: 1,
+            category: getCategoryForHobby(planData.hobby),
+            startDate: new Date().toISOString(),
+            expectedEndDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            status: 'in_progress' as const,
+            planData: planData
+          });
+        }
+      });
+      
+      const finalPlans = Array.from(allPlans.values());
+      console.log('📋 Total plans loaded:', finalPlans.length);
+      setHobbyPlans(finalPlans);
+      
     } catch (error) {
       console.error('Error loading user plans:', error);
     } finally {
@@ -135,7 +201,58 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div>
+      {/* Navigation */}
+      <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-8">
+              <button 
+                onClick={() => window.location.hash = '#/'}
+                className="text-xl font-bold text-blue-600 hover:text-blue-700"
+              >
+                Wizqo
+              </button>
+              <div className="hidden md:flex space-x-6">
+                <button 
+                  onClick={() => window.location.hash = '#/generate'}
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                >
+                  Generate Plan
+                </button>
+                <button 
+                  onClick={() => window.location.hash = '#/dashboard'}
+                  className="text-blue-600 font-medium"
+                >
+                  Dashboard
+                </button>
+                <button 
+                  onClick={() => window.location.hash = '#/about'}
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                >
+                  About
+                </button>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              {user && (
+                <div className="text-sm text-gray-600 dark:text-gray-300">
+                  {user.email}
+                </div>
+              )}
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => window.location.hash = '#/generate'}
+              >
+                New Plan
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
@@ -270,7 +387,13 @@ export default function Dashboard() {
 
                 {/* Action Button */}
                 <Button 
-                  onClick={() => window.location.hash = `#/plan?id=${plan.id}`}
+                  onClick={() => {
+                    // Store plan data for navigation
+                    if (plan.planData) {
+                      sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
+                    }
+                    window.location.hash = '#/plan';
+                  }}
                   className="w-full" 
                   variant={plan.status === 'completed' ? 'outline' : 'default'}
                 >
@@ -281,6 +404,7 @@ export default function Dashboard() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

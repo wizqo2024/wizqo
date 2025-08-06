@@ -60,7 +60,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
     return data;
   }
 
-  async getHobbyPlans(userId: string): Promise<any[]> {
+  async getHobbyPlansByUserId(userId: string): Promise<any[]> {
     const { data, error } = await supabaseAdmin
       .from('hobby_plans')
       .select('*')

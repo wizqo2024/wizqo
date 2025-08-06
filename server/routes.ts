@@ -532,14 +532,31 @@ Please provide a helpful response:`;
   });
 
   // Database-backed hobby plans endpoints
+  app.get('/api/hobby-plans', async (req, res) => {
+    try {
+      const { user_id } = req.query;
+      if (!user_id) {
+        return res.status(400).json({ error: 'user_id is required' });
+      }
+      
+      console.log('📖 API: Fetching hobby plans for user:', user_id);
+      const plans = await supabaseStorage.getHobbyPlansByUserId(user_id as string);
+      console.log('📖 API: Found', plans?.length || 0, 'hobby plans');
+      res.json(plans || []);
+    } catch (error) {
+      console.error('Error fetching hobby plans:', error);
+      res.status(500).json({ error: 'Failed to fetch hobby plans' });
+    }
+  });
+
   app.get('/api/hobby-plans/:userId', async (req, res) => {
     try {
       const { userId } = req.params;
       console.log('📖 API: Fetching hobby plans for user:', userId);
       
-      const plans = await supabaseStorage.getHobbyPlans(userId);
-      console.log('📖 API: Found', plans.length, 'plans');
-      res.json(plans);
+      const plans = await supabaseStorage.getHobbyPlansByUserId(userId);
+      console.log('📖 API: Found', plans?.length || 0, 'plans');
+      res.json(plans || []);
     } catch (error) {
       console.error('📖 API: Error fetching hobby plans:', error);
       res.status(500).json({ error: 'Failed to fetch hobby plans' });
