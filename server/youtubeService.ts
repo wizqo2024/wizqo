@@ -195,6 +195,11 @@ export async function getBestVideoForDay(
     resetUsedVideos();
   }
   
+  // If we couldn't get a verified video, continue with API search
+  if (!verifiedVideo) {
+    console.log(`📚 No verified video for ${hobby}, trying API search for day ${dayNumber}`);
+  }
+  
   // Create more specific search based on day content
   const searchTerms = [];
   if (dayTitle) {

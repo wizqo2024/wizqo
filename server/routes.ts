@@ -353,6 +353,11 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       `${dayTopic.task} - Day ${dayNumber}`
     );
     console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
+    
+    // Final verification: If we still get the problematic video, use a proper fallback
+    const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
+    console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
+    
     const videoDetails = getVideoDetails(hobby, experience, dayNumber);
     
     days.push({
@@ -380,8 +385,8 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       affiliateProducts: [{
         ...getHobbyProduct(hobby, dayNumber)
       }],
-      youtubeVideoId: targetedVideoId,
-      videoId: targetedVideoId, // Also add videoId for backwards compatibility
+      youtubeVideoId: finalVideoId,
+      videoId: finalVideoId, // Also add videoId for backwards compatibility
       videoTitle: videoDetails?.title || `${hobby} - ${dayNumber}`,
       estimatedTime: timeAvailable,
       skillLevel: experience
@@ -400,6 +405,15 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   console.log('🔍 FALLBACK PLAN GENERATED - First day mistakesToAvoid:', plan.days[0].mistakesToAvoid);
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
   console.log('🔍 FALLBACK PLAN GENERATED - First day videoId:', plan.days[0].videoId);
+  
+  // CRITICAL FIX: Apply video verification to final plan
+  for (let i = 0; i < plan.days.length; i++) {
+    if (plan.days[i].youtubeVideoId === 'dQw4w9WgXcQ') {
+      plan.days[i].youtubeVideoId = 'fC7oUOUEEi4'; // Educational content fallback
+      plan.days[i].videoId = 'fC7oUOUEEi4';
+      console.log(`🔧 FIXED: Replaced problematic video ID in day ${i + 1} with educational content`);
+    }
+  }
   console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
   
   // Debug: Log complete first day structure
