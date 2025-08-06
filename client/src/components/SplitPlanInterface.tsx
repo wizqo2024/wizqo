@@ -1681,50 +1681,50 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           className="text-white p-8 md:p-12"
                           style={{
                             background: `linear-gradient(135deg, 
-                              ${planData?.hobby === 'photography' ? '#3B82F6, #1D4ED8' : 
-                                planData?.hobby === 'guitar' ? '#F59E0B, #D97706' :
-                                planData?.hobby === 'cooking' ? '#EF4444, #DC2626' :
-                                planData?.hobby === 'drawing' ? '#8B5CF6, #7C3AED' :
-                                planData?.hobby === 'yoga' ? '#10B981, #059669' :
-                                planData?.hobby === 'gardening' ? '#22C55E, #16A34A' :
-                                planData?.hobby === 'coding' ? '#6366F1, #4F46E5' :
-                                planData?.hobby === 'dance' ? '#EC4899, #DB2777' :
-                                planData?.hobby === 'foraging' ? '#22C55E, #16A34A' :
-                                planData?.hobby === 'hiking' ? '#8B5A2B, #6B4423' :
-                                planData?.hobby === 'camping' ? '#059669, #047857' :
-                                planData?.hobby === 'chess' ? '#374151, #1F2937' :
-                                planData?.hobby === 'writing' ? '#7C3AED, #5B21B6' :
-                                planData?.hobby === 'reading' ? '#DC2626, #B91C1C' :
-                                planData?.hobby === 'piano' ? '#1F2937, #111827' :
-                                planData?.hobby === 'singing' ? '#EC4899, #DB2777' :
-                                planData?.hobby === 'baking' ? '#F59E0B, #D97706' :
-                                planData?.hobby === 'knitting' ? '#8B5CF6, #7C3AED' :
-                                planData?.hobby === 'pottery' ? '#A3A3A3, #737373' :
+                              ${planData?.hobby?.toLowerCase() === 'photography' ? '#3B82F6, #1D4ED8' : 
+                                planData?.hobby?.toLowerCase() === 'guitar' ? '#F59E0B, #D97706' :
+                                planData?.hobby?.toLowerCase() === 'cooking' ? '#EF4444, #DC2626' :
+                                planData?.hobby?.toLowerCase() === 'drawing' ? '#8B5CF6, #7C3AED' :
+                                planData?.hobby?.toLowerCase() === 'yoga' ? '#10B981, #059669' :
+                                planData?.hobby?.toLowerCase() === 'gardening' ? '#22C55E, #16A34A' :
+                                planData?.hobby?.toLowerCase() === 'coding' ? '#6366F1, #4F46E5' :
+                                planData?.hobby?.toLowerCase() === 'dance' ? '#EC4899, #DB2777' :
+                                planData?.hobby?.toLowerCase() === 'foraging' ? '#22C55E, #16A34A' :
+                                planData?.hobby?.toLowerCase() === 'hiking' ? '#8B5A2B, #6B4423' :
+                                planData?.hobby?.toLowerCase() === 'camping' ? '#059669, #047857' :
+                                planData?.hobby?.toLowerCase() === 'chess' ? '#374151, #1F2937' :
+                                planData?.hobby?.toLowerCase() === 'writing' ? '#7C3AED, #5B21B6' :
+                                planData?.hobby?.toLowerCase() === 'reading' ? '#DC2626, #B91C1C' :
+                                planData?.hobby?.toLowerCase() === 'piano' ? '#1F2937, #111827' :
+                                planData?.hobby?.toLowerCase() === 'singing' ? '#EC4899, #DB2777' :
+                                planData?.hobby?.toLowerCase() === 'baking' ? '#F59E0B, #D97706' :
+                                planData?.hobby?.toLowerCase() === 'knitting' ? '#8B5CF6, #7C3AED' :
+                                planData?.hobby?.toLowerCase() === 'pottery' ? '#A3A3A3, #737373' :
                                 '#3B82F6, #1D4ED8'})`
                           }}
                         >
                           <div className="max-w-4xl">
                             <div className="flex items-center mb-4">
                               <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 mr-4 flex items-center justify-center text-3xl shadow-lg">
-                                {planData?.hobby === 'photography' ? '📸' : 
-                                 planData?.hobby === 'guitar' ? '🎸' :
-                                 planData?.hobby === 'cooking' ? '👨‍🍳' :
-                                 planData?.hobby === 'drawing' ? '🎨' :
-                                 planData?.hobby === 'yoga' ? '🧘' :
-                                 planData?.hobby === 'gardening' ? '🌱' :
-                                 planData?.hobby === 'coding' ? '💻' :
-                                 planData?.hobby === 'dance' ? '💃' :
-                                 planData?.hobby === 'foraging' ? '🌿' :
-                                 planData?.hobby === 'hiking' ? '🥾' :
-                                 planData?.hobby === 'camping' ? '🏕️' :
-                                 planData?.hobby === 'chess' ? '♟️' :
-                                 planData?.hobby === 'writing' ? '✍️' :
-                                 planData?.hobby === 'reading' ? '📚' :
-                                 planData?.hobby === 'piano' ? '🎹' :
-                                 planData?.hobby === 'singing' ? '🎤' :
-                                 planData?.hobby === 'baking' ? '🧁' :
-                                 planData?.hobby === 'knitting' ? '🧶' :
-                                 planData?.hobby === 'pottery' ? '🏺' :
+                                {planData?.hobby?.toLowerCase() === 'photography' ? '📸' : 
+                                 planData?.hobby?.toLowerCase() === 'guitar' ? '🎸' :
+                                 planData?.hobby?.toLowerCase() === 'cooking' ? '👨‍🍳' :
+                                 planData?.hobby?.toLowerCase() === 'drawing' ? '🎨' :
+                                 planData?.hobby?.toLowerCase() === 'yoga' ? '🧘' :
+                                 planData?.hobby?.toLowerCase() === 'gardening' ? '🌱' :
+                                 planData?.hobby?.toLowerCase() === 'coding' ? '💻' :
+                                 planData?.hobby?.toLowerCase() === 'dance' ? '💃' :
+                                 planData?.hobby?.toLowerCase() === 'foraging' ? '🌿' :
+                                 planData?.hobby?.toLowerCase() === 'hiking' ? '🥾' :
+                                 planData?.hobby?.toLowerCase() === 'camping' ? '🏕️' :
+                                 planData?.hobby?.toLowerCase() === 'chess' ? '♟️' :
+                                 planData?.hobby?.toLowerCase() === 'writing' ? '✍️' :
+                                 planData?.hobby?.toLowerCase() === 'reading' ? '📚' :
+                                 planData?.hobby?.toLowerCase() === 'piano' ? '🎹' :
+                                 planData?.hobby?.toLowerCase() === 'singing' ? '🎤' :
+                                 planData?.hobby?.toLowerCase() === 'baking' ? '🧁' :
+                                 planData?.hobby?.toLowerCase() === 'knitting' ? '🧶' :
+                                 planData?.hobby?.toLowerCase() === 'pottery' ? '🏺' :
                                  '🎯'}
                               </div>
                               <h2 className="text-2xl md:text-3xl font-bold">Today's Learning Goal</h2>
