@@ -405,17 +405,21 @@ function selectBestVideo(
 
 // Fallback videos for when API fails - Updated with working video IDs
 function getFallbackVideo(hobby: string, dayNumber: number): string {
-  const fallbackVideos: { [key: string]: string[] } = {
+  // CRITICAL: Never return the problematic video ID
+  const cleanFallbackVideos: { [key: string]: string[] } = {
     guitar: ["F5bkQ0MjANs", "BCWKDrPkCg0", "D9ioyEvdggk", "zrJURZbkgPs", "nY7GnAq6Znw", "Vxqr68V1Clo", "VeHdQ6aEbOA"],
-    yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "AaF2lpO2IHY", "hJbRpHZr_d0", "1vYSFPy2-Z8", "g_tea8ZNk5A", "cUBcS8wWlKI"],
-    cooking: ["dQw4w9WgXcQ", "EHhHPkb8SXs", "lTBoW6iKavc", "sxJRiYqCkWk", "5AyOB-LJ7H4", "bCerf7NJOlE", "lDflB-DdiJo"],
+    yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "AaF2lpO2IHY", "hJbRpHZr_d0", "1vYSFPy2-Z8", "g_tea8ZNk5A", "cUBcS8wWlKaI"],
+    cooking: ["BDYWr9yNsZ4", "EHhHPkb8SXs", "lTBoW6iKavc", "sxJRiYqCkWk", "5AyOB-LJ7H4", "bCerf7NJOlE", "lDflB-DdiJo"],
     drawing: ["ewMksAbPdas", "TMdqJIHb04Y", "cOzCQSh_-vY", "SiJ7rjK5Wdg", "oKFfSzxJy2Y", "7BDKWT3pI_A", "1umSnh48XQo"],
     coding: ["UB1O30fR-EE", "hdI2bqOjy3c", "zOjov-2OZ0E", "kqtD5dpn9C8", "c8aAYU5m4jM", "9Yf36xdLp2A", "rfscVS0vtbw"],
     photography: ["B9FzVhw8_bY", "DJ_DIYDqWGY", "7ZVyNjVK-fU", "R8MzHddV-Z0", "mKY4gUEjAVs", "L_O-E5F-pSM", "C7ZqMqDb5Fk"],
-    painting: ["ZDqpKpqyLIk", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "ewMksAbPdas", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk"],
-    dance: ["3jWRrafhO7M", "UBMk30rjy0o", "dQw4w9WgXcQ", "bNgEO8JrGnw", "7Qe7wKjH7lA", "xFrGuyw1V8s", "9bZkp7q19f0"]
+    painting: ["ZDqpKpqyLIk", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "ewMksAbPdas", "TMdqJIHb04Y", "S0SxlqltDBo", "wgDNDOKnArk"],
+    dance: ["3jWRrafhO7M", "UBMk30rjy0o", "fC7oUOUEEi4", "bNgEO8JrGnw", "7Qe7wKjH7lA", "xFrGuyw1V8s", "9bZkp7q19f0"],
+    writing: ["fC7oUOUEEi4", "UB1O30fR-EE", "ewMksAbPdas", "TMdqJIHb04Y", "cOzCQSh_-vY", "SiJ7rjK5Wdg", "oKFfSzxJy2Y"]
   };
   
-  const videos = fallbackVideos[hobby.toLowerCase()] || fallbackVideos.guitar;
-  return videos[Math.min(dayNumber - 1, videos.length - 1)];
+  const videos = cleanFallbackVideos[hobby.toLowerCase()] || cleanFallbackVideos.guitar;
+  const selectedVideo = videos[Math.min(dayNumber - 1, videos.length - 1)];
+  console.log(`🔧 getFallbackVideo: Selected ${selectedVideo} for ${hobby} day ${dayNumber}`);
+  return selectedVideo;
 }
