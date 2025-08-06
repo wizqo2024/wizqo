@@ -97,17 +97,21 @@ export default function Dashboard() {
               const parsed = JSON.parse(sessionProgress);
               completedDays = parsed.completedDays || [];
               currentDay = parsed.currentDay || 1;
+              console.log(`📊 Progress loaded from session for ${plan.id}:`, completedDays.length, 'days completed');
             } catch (e) {
               console.log('Could not parse session progress for', plan.id);
             }
           }
         }
         
+        const progressPercent = Math.round((completedDays.length / 7) * 100);
+        console.log(`📊 Plan ${plan.id} progress: ${progressPercent}% (${completedDays.length}/7 days)`);
+        
         allPlans.set(plan.id, {
           id: plan.id,
           hobby: hobbyName,
           title: plan.title,
-          progress: Math.round((completedDays.length / 7) * 100),
+          progress: progressPercent,
           totalDays: 7,
           currentDay: currentDay,
           category: getCategoryForHobby(hobbyName),
@@ -358,11 +362,7 @@ export default function Dashboard() {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
                 />
-                <div className="absolute top-4 right-4">
-                  <Button variant="ghost" size="sm" className="bg-white/20 hover:bg-white/30">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </div>
+
                 <div className="absolute top-4 left-4">
                   <Badge className={`${getStatusColor(plan.status)} text-white`}>
                     {getStatusText(plan.status)}
