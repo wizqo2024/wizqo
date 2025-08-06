@@ -71,6 +71,15 @@ const fixPlanDataFields = (plan: any) => {
   // Extract days array from various possible nested structures
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   
+  console.log('🔍 fixPlanDataFields - Examining data structure:');
+  console.log('🔍 plan.days length:', plan.days?.length || 0);
+  console.log('🔍 plan.plan_data?.days length:', plan.plan_data?.days?.length || 0);
+  console.log('🔍 plan.plan_data?.plan_data?.days length:', plan.plan_data?.plan_data?.days?.length || 0);
+  console.log('🔍 First day youtubeVideoId from different paths:');
+  console.log('🔍   plan.days?.[0]?.youtubeVideoId:', plan.days?.[0]?.youtubeVideoId);
+  console.log('🔍   plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
+  console.log('🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId);
+  
   console.log('🔧 fixPlanDataFields - Input plan structure:', {
     hasDays: !!plan.days,
     hasPlanData: !!plan.plan_data,
@@ -766,6 +775,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🎯 Setting plan data in SplitPlanInterface:', plan.hobby);
       console.log('🐛 Raw plan data received in setPlanData:', JSON.stringify(plan, null, 2));
       console.log('🐛 First day YouTube video ID before fixPlanDataFields:', plan?.days?.[0]?.youtubeVideoId);
+      
+      // If no YouTube video ID, check nested structures
+      if (!plan?.days?.[0]?.youtubeVideoId) {
+        console.log('🔍 Checking nested plan structure for YouTube video ID...');
+        console.log('🔍 plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
+        console.log('🔍 plan.days?.[0]?.freeResources:', plan.days?.[0]?.freeResources);
+      }
       
       // Fix field mapping for frontend display
       const correctedPlanData = fixPlanDataFields(plan);
