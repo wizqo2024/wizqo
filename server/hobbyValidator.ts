@@ -26,6 +26,8 @@ const hobbyKeywords = {
   writing: ['writing', 'creative writing', 'poetry', 'storytelling', 'blogging', 'journalism'],
   // Learning & Academic
   languages: ['language', 'spanish', 'french', 'german', 'italian', 'chinese', 'japanese', 'english'],
+  // Spiritual & Religious
+  religious: ['quran', 'quran recitation', 'quran reading', 'islamic studies', 'arabic', 'tajweed', 'hadith', 'prayer', 'meditation'],
   // Games & Entertainment
   gaming: ['gaming', 'video games', 'board games', 'chess', 'poker', 'game development'],
   // Business & Finance
@@ -143,6 +145,17 @@ export function validateHobby(hobbyInput: string): {
 } {
   const input = hobbyInput.toLowerCase().trim();
   
+  // Special validation for Quran and Islamic studies - always accept these
+  if (['quran', 'quran recitation', 'quran reading', 'islamic studies', 'tajweed', 'arabic quran', 'koran', 'holy quran'].includes(input)) {
+    return {
+      isValid: true,
+      normalizedHobby: 'quran',
+      category: 'religious',
+      hasVideoSupport: false, // Will use generic fallback videos
+      suggestions: []
+    };
+  }
+  
   // Only reject completely nonsensical inputs
   const badInputs = ['bye', 'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'ok', 'okay', 'yes', 'no', 'maybe', 'test', 'testing', '', 'null', 'undefined', 'admin', 'root'];
   if (badInputs.includes(input) || input.length < 2) {
@@ -151,7 +164,7 @@ export function validateHobby(hobbyInput: string): {
       normalizedHobby: '', 
       category: null, 
       hasVideoSupport: false,
-      suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance']
+      suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'quran']
     };
   }
 
