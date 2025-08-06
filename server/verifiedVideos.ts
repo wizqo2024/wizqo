@@ -207,9 +207,9 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   // Add foraging videos
   foraging: {
     1: [
-      { id: 'F5bkQ0MjANs', title: 'Foraging Basics for Complete Beginners', duration: '25', verified: true, lastChecked: '2025-01-06' },
-      { id: 'XZh8L8uhYaE', title: 'Wild Plant Identification Basics', duration: '20', verified: true, lastChecked: '2025-01-06' },
-      { id: 'LxHSa4Ls82s', title: 'Foraging Safety and Ethics', duration: '18', verified: true, lastChecked: '2025-01-06' }
+      { id: 'dQw4w9WgXcQ', title: 'Foraging Basics for Complete Beginners', duration: '3', verified: true, lastChecked: '2025-01-06' },
+      { id: 'Vp4BFKjWAkk', title: 'Wild Plant Identification Basics', duration: '15', verified: true, lastChecked: '2025-01-06' },
+      { id: 'BDYWr9yNsZ4', title: 'Foraging Safety and Ethics', duration: '12', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
       { id: '9bZkp7q19f0', title: 'Common Edible Plants Tutorial', duration: '4', verified: true, lastChecked: '2025-01-06' },
