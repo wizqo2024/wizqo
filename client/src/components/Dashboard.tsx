@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Play, MoreHorizontal, Trash2, Share2, Trophy, ExternalLink } from "lucide-react";
+import { Calendar, Clock, Play, MoreHorizontal, Trash2, Share2, Trophy, ExternalLink, X } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
@@ -28,9 +28,11 @@ export default function Dashboard() {
   const [hobbyPlans, setHobbyPlans] = useState<HobbyPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareData, setShareData] = useState<any>(null);
   
-  // Social sharing function with image
-  const shareAchievement = (plan: HobbyPlan) => {
+  // Social sharing function with all platforms
+  const openShareModal = (plan: HobbyPlan) => {
     const shareText = `🎉 I just completed my 7-day ${plan.hobby} learning journey! 
     
 ✅ Mastered ${plan.hobby} fundamentals in just 7 days
@@ -40,17 +42,18 @@ export default function Dashboard() {
 #7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth`;
 
     const shareUrl = `https://wizqo.com`;
-    const imageUrl = getHobbyImage(plan.hobby); // Use the same image from the card
+    const imageUrl = getHobbyImage(plan.hobby);
     
-    // Create sharing URLs for different platforms with image
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}&picture=${encodeURIComponent(imageUrl)}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}&source=${encodeURIComponent(imageUrl)}`,
+      instagram: `https://www.instagram.com/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl + '\n\nSee my achievement: ' + imageUrl)}`
     };
 
-    return platforms;
+    setShareData({ platforms, plan, text: shareText, image: imageUrl });
+    setShowShareModal(true);
   };
 
   useEffect(() => {
@@ -488,41 +491,14 @@ export default function Dashboard() {
                                 Challenge Completed! 🎉
                               </span>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                              <Button
-                                size="sm"
-                                className="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
-                                onClick={() => {
-                                  const platforms = shareAchievement(plan);
-                                  window.open(platforms.twitter, '_blank');
-                                }}
-                              >
-                                <Share2 className="h-3 w-3 mr-1 flex-shrink-0" />
-                                <span className="truncate">Twitter</span>
-                              </Button>
-                              <Button
-                                size="sm"
-                                className="w-full bg-blue-700 hover:bg-blue-800 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
-                                onClick={() => {
-                                  const platforms = shareAchievement(plan);
-                                  window.open(platforms.facebook, '_blank');
-                                }}
-                              >
-                                <ExternalLink className="h-3 w-3 mr-1 flex-shrink-0" />
-                                <span className="truncate">Facebook</span>
-                              </Button>
-                              <Button
-                                size="sm"
-                                className="w-full bg-green-500 hover:bg-green-600 text-white text-xs py-2 px-2 flex items-center justify-center min-h-[36px]"
-                                onClick={() => {
-                                  const platforms = shareAchievement(plan);
-                                  window.open(platforms.whatsapp, '_blank');
-                                }}
-                              >
-                                <Share2 className="h-3 w-3 mr-1 flex-shrink-0" />
-                                <span className="truncate">WhatsApp</span>
-                              </Button>
-                            </div>
+                            <Button
+                              size="sm"
+                              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-sm py-2 px-4 flex items-center justify-center min-h-[44px] font-medium"
+                              onClick={() => openShareModal(plan)}
+                            >
+                              <Share2 className="h-4 w-4 mr-2 flex-shrink-0" />
+                              Share Achievement
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -545,6 +521,159 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Share Achievement Modal */}
+      {showShareModal && shareData && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-2">
+                <Trophy className="h-6 w-6 text-yellow-500" />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Share Your Achievement
+                </h3>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowShareModal(false)}
+                className="h-8 w-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Achievement Preview */}
+            <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-[6px] p-4 text-center">
+                <img 
+                  src={shareData.image} 
+                  alt={shareData.plan.hobby}
+                  className="w-16 h-16 mx-auto rounded-full mb-3 object-cover"
+                />
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                  {shareData.plan.hobby} Challenge Complete! 🎉
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  7 days • {shareData.plan.totalDays} lessons completed
+                </p>
+              </div>
+            </div>
+
+            {/* Social Media Buttons */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                Share on social media:
+              </h4>
+              
+              {/* Twitter */}
+              <Button
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white justify-start h-12"
+                onClick={() => {
+                  window.open(shareData.platforms.twitter, '_blank');
+                  setShowShareModal(false);
+                }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Share2 className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Twitter</div>
+                    <div className="text-xs opacity-90">Share with your followers</div>
+                  </div>
+                </div>
+              </Button>
+
+              {/* Facebook */}
+              <Button
+                className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12"
+                onClick={() => {
+                  window.open(shareData.platforms.facebook, '_blank');
+                  setShowShareModal(false);
+                }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <ExternalLink className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Facebook</div>
+                    <div className="text-xs opacity-90">Post to your timeline</div>
+                  </div>
+                </div>
+              </Button>
+
+              {/* LinkedIn */}
+              <Button
+                className="w-full bg-blue-800 hover:bg-blue-900 text-white justify-start h-12"
+                onClick={() => {
+                  window.open(shareData.platforms.linkedin, '_blank');
+                  setShowShareModal(false);
+                }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Share2 className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">LinkedIn</div>
+                    <div className="text-xs opacity-90">Share with professionals</div>
+                  </div>
+                </div>
+              </Button>
+
+              {/* Instagram */}
+              <Button
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white justify-start h-12"
+                onClick={() => {
+                  window.open(shareData.platforms.instagram, '_blank');
+                  setShowShareModal(false);
+                }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Share2 className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">Instagram</div>
+                    <div className="text-xs opacity-90">Share your story</div>
+                  </div>
+                </div>
+              </Button>
+
+              {/* WhatsApp */}
+              <Button
+                className="w-full bg-green-500 hover:bg-green-600 text-white justify-start h-12"
+                onClick={() => {
+                  window.open(shareData.platforms.whatsapp, '_blank');
+                  setShowShareModal(false);
+                }}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Share2 className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">WhatsApp</div>
+                    <div className="text-xs opacity-90">Send to friends</div>
+                  </div>
+                </div>
+              </Button>
+            </div>
+
+            {/* Cancel Button */}
+            <Button
+              variant="outline"
+              className="w-full mt-4 h-10"
+              onClick={() => setShowShareModal(false)}
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
       )}
         </main>
