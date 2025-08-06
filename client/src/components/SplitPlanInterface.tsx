@@ -2080,28 +2080,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <h3 className="text-lg md:text-xl font-bold text-blue-900">Resources</h3>
                             </div>
                             <div className="space-y-3">
-                              {/* Free Resources - Compact */}
-                              {currentDay.freeResources && currentDay.freeResources.length > 0 && (
-                                currentDay.freeResources.map((resource, index) => (
-                                  <a
-                                    key={index}
-                                    href={resource.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block bg-white border border-blue-200 rounded-lg p-3 hover:bg-blue-50 hover:border-blue-300 hover:shadow-md transition-all group"
-                                  >
-                                    <div className="flex items-center">
-                                      <div className="bg-blue-100 rounded-full p-1.5 mr-3 group-hover:bg-blue-200 transition-colors flex-shrink-0">
-                                        <ExternalLink className="w-4 h-4 text-blue-600" />
-                                      </div>
-                                      <div className="min-w-0 flex-1">
-                                        <h5 className="font-medium text-blue-700 group-hover:text-blue-800 text-sm leading-tight truncate">{resource.title}</h5>
-                                        <p className="text-xs text-blue-600 mt-0.5">Free tutorial</p>
-                                      </div>
-                                    </div>
-                                  </a>
-                                ))
-                              )}
+                              {/* USER PREFERENCE: Only affiliate links, no free tutorials */}
                             
                               {/* Recommended Tools - Compact, No Pricing */}
                               {currentDay.affiliateProducts && currentDay.affiliateProducts.length > 0 && (
