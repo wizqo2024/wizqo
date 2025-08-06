@@ -1332,16 +1332,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
         if (response.ok) {
           const validation = await response.json();
+          console.log('🔍 Frontend received validation response:', validation);
+          console.log('🔍 Original input:', userInput);
+          console.log('🔍 Corrected hobby:', validation.correctedHobby);
           
           if (validation.isValid) {
             const finalHobby = validation.correctedHobby || userInput.toLowerCase().trim();
             setSelectedHobby(finalHobby);
             setCurrentStep('experience');
             
-            let message = `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is really fun to learn.`;
+            let message = `Perfect! I understand you want to learn ${finalHobby}. This is an excellent choice!`;
             
-            if (validation.correctedHobby) {
-              message += `\n\n(I corrected the spelling for you)`;
+            if (validation.correctedHobby && validation.correctedHobby !== userInput.toLowerCase().trim()) {
+              message += `\n\n(I detected the specific hobby from your input)`;
             }
             
             message += `\n\nWhat's your experience level?`;
