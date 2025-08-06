@@ -1658,35 +1658,45 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                           </section>
                       
-                          {/* Video Tutorial Section - Clean Dark Design */}
-                          <section className="bg-gray-800 rounded-xl p-6 md:p-8">
-                            <div className="text-center mb-6">
+                          {/* Video Tutorial Section - Minimal Clean Design */}
+                          <section className="bg-slate-800 rounded-xl p-6">
+                            <div className="text-center mb-4">
                               <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
                                 <BookOpen className="w-6 h-6 text-white" />
                               </div>
                               <h3 className="text-xl font-semibold text-white mb-2">Introduction to {currentDay.title?.split(' ')[0] || 'Learning'}</h3>
                               <p className="text-gray-300 text-sm">Welcome to your first lesson! We'll cover the basic fundamentals and get you started on your learning journey.</p>
                             </div>
-                            <div className="bg-black rounded-lg p-1 mb-4">
-                              {(() => {
-                                console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
-                                console.log('🐛 Video Title:', currentDay.videoTitle);
-                                return currentDay.youtubeVideoId;
-                              })() ? (
+                            
+                            {(() => {
+                              console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
+                              console.log('🐛 Video Title:', currentDay.videoTitle);
+                              return currentDay.youtubeVideoId;
+                            })() ? (
+                              <div className="bg-slate-700 rounded-xl p-4">
+                                <div className="flex items-center mb-3">
+                                  <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center mr-3">
+                                    <Play className="w-5 h-5 text-white" />
+                                  </div>
+                                  <div>
+                                    <h4 className="text-white font-medium">{currentDay.videoTitle || 'Tutorial Video'}</h4>
+                                    <p className="text-gray-400 text-sm">Watch and learn the fundamentals</p>
+                                  </div>
+                                </div>
                                 <YouTubeEmbed 
                                   videoId={currentDay.youtubeVideoId}
                                   title={currentDay.videoTitle || `${currentDay.title || 'Tutorial'} Tutorial`}
                                   className="rounded-lg overflow-hidden w-full"
                                 />
-                              ) : (
-                                <div className="text-center py-8">
-                                  <div className="bg-gray-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                                    <Play className="w-8 h-8 text-gray-300" />
-                                  </div>
-                                  <p className="text-gray-400 text-sm">Professional learning video selected</p>
+                              </div>
+                            ) : (
+                              <div className="bg-slate-700 rounded-xl p-8 text-center">
+                                <div className="bg-gray-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                  <Play className="w-8 h-8 text-gray-300" />
                                 </div>
-                              )}
-                            </div>
+                                <p className="text-gray-400">Professional learning video selected</p>
+                              </div>
+                            )}
                           </section>
 
                           {/* What You Need - Mobile Optimized */}
