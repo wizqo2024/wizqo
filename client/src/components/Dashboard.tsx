@@ -261,161 +261,71 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const getHobbyImage = (hobby: string): string => {
     const normalizedHobby = hobby?.toLowerCase() || '';
-    console.log(`🎨 Dashboard getHobbyImage called with: "${hobby}" -> normalized: "${normalizedHobby}"`);
+    console.log(`🎨 Dashboard AUTO-IMAGE: "${hobby}" -> category-based generation`);
     
-    // Comprehensive hobby-specific image mapping
-    const getImageByHobby = (hobbyName: string): string => {
-      // First check for exact hobby matches with unique images
-      const specificHobbies: Record<string, string> = {
-        // Music - Each instrument gets unique image
-        'guitar': 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
-        'piano': 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&h=240&fit=crop',
-        'drums': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-        'violin': 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&h=240&fit=crop',
-        'singing': 'https://images.unsplash.com/photo-1515378791036-0648a814c963?w=400&h=240&fit=crop',
-        'ukulele': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-        
-        // Arts & Crafts - Each craft gets unique image
-        'drawing': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-        'painting': 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
-        'pottery': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
-        'sculpture': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
-        'woodworking': 'https://images.unsplash.com/photo-1609890518597-2c13b5a5e5e5?w=400&h=240&fit=crop',
-        'jewelry': 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop',
-        'jewelry making': 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop',
-        'knitting': 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
-        'crochet': 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
-        'embroidery': 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
-        'calligraphy': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
-        'origami': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
-        
-        // Cooking & Food - Each type gets unique image
-        'cooking': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
-        'baking': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
-        'cake decorating': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
-        'grilling': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=240&fit=crop',
-        
-        // Technology - Each field gets unique image
-        'coding': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-        'programming': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-        'app development': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=240&fit=crop',
-        'web development': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-        'game development': 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop',
-        'video editing': 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
-        
-        // Fitness & Wellness - Each practice gets unique image
-        'yoga': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-        'meditation': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
-        'pilates': 'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
-        'running': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-        
-        // Sports & Outdoor - Each activity gets unique image
-        'cycling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
-        'swimming': 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop',
-        'hiking': 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop',
-        'camping': 'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=400&h=240&fit=crop',
-        'climbing': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
-        
-        // Reading & Learning - Each type gets unique image
-        'reading': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-        'writing': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
-        'research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-        'history': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-        'quran reading': 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&h=240&fit=crop',
-        'language learning': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
-        
-        // Games & Strategy - Each game gets unique image
-        'chess': 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
-        'poker': 'https://images.unsplash.com/photo-1541278107931-e006523892df?w=400&h=240&fit=crop',
-        'board games': 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
-        
-        // Dance & Movement - Each style gets unique image
-        'dance': 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
-        'ballet': 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
-        
-        // Photography & Visual - Each medium gets unique image
-        'photography': 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
-        'videography': 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=240&fit=crop',
-        'film': 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=240&fit=crop',
-        
-        // Gardening & Nature - Each type gets unique image
-        'gardening': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
-        'plants': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
-        'flowers': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop'
-      };
-      
-      // Check for exact match first
-      if (specificHobbies[hobbyName]) {
-        console.log(`🎨 Dashboard EXACT HOBBY MATCH: "${hobbyName}" -> specific image`);
-        return specificHobbies[hobbyName];
+    // Automated categorization and image selection
+    const getImageByCategory = (hobbyName: string): string => {
+      // Technology hobbies
+      if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech') || hobbyName.includes('edit')) {
+        const techImages = [
+          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return techImages[hash % techImages.length];
       }
       
-      // Check for partial matches (e.g., "app development" contains "app")
-      for (const [hobbyKey, image] of Object.entries(specificHobbies)) {
-        if (hobbyName.includes(hobbyKey) || hobbyKey.includes(hobbyName)) {
-          console.log(`🎨 Dashboard PARTIAL HOBBY MATCH: "${hobbyName}" matches "${hobbyKey}"`);
-          return image;
-        }
+      // Creative arts
+      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo')) {
+        const creativeImages = [
+          'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return creativeImages[hash % creativeImages.length];
       }
       
-      // Fallback to category-based matching
-      const categories = {
-        music: ['guitar', 'piano', 'drums', 'violin', 'singing', 'ukulele', 'bass', 'flute', 'saxophone', 'trumpet'],
-        musicImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-        
-        arts: ['drawing', 'painting', 'pottery', 'sculpture', 'calligraphy', 'origami', 'embroidery', 'knitting', 'jewelry', 'woodworking', 'crochet', 'sewing', 'quilting', 'crafts'],
-        artsImage: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-        
-        cooking: ['cooking', 'baking', 'cake decorating', 'pastry', 'grilling', 'wine', 'cocktail', 'bread'],
-        cookingImage: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
-        
-        tech: ['coding', 'programming', 'app development', 'web development', 'software', 'javascript', 'python', 'ai'],
-        techImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-        
-        fitness: ['yoga', 'meditation', 'pilates', 'running', 'weightlifting', 'crossfit', 'stretching'],
-        fitnessImage: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-        
-        sports: ['cycling', 'swimming', 'hiking', 'camping', 'climbing', 'surfing', 'skiing', 'basketball', 'soccer'],
-        sportsImage: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop',
-        
-        learning: ['reading', 'writing', 'research', 'history', 'language', 'studying', 'books'],
-        learningImage: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-        
-        games: ['chess', 'poker', 'board games', 'puzzles', 'sudoku'],
-        gamesImage: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
-        
-        dance: ['dance', 'ballet', 'salsa', 'hip hop', 'ballroom'],
-        danceImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
-        
-        visual: ['photography', 'videography', 'film', 'photo editing'],
-        visualImage: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
-        
-        nature: ['gardening', 'plants', 'flowers', 'herbs', 'vegetables'],
-        natureImage: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop'
-      };
-      
-      // Check each category for keyword matches
-      for (const category of Object.keys(categories)) {
-        if (category.endsWith('Image')) continue;
-        
-        const keywords = categories[category as keyof typeof categories] as string[];
-        const imageKey = `${category}Image` as keyof typeof categories;
-        
-        for (const keyword of keywords) {
-          if (hobbyName.includes(keyword) || keyword.includes(hobbyName)) {
-            console.log(`🎨 Dashboard CATEGORY MATCH: "${hobbyName}" matches category "${category}" via keyword "${keyword}"`);
-            return categories[imageKey] as string;
-          }
-        }
+      // Culinary
+      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
+        const culinaryImages = [
+          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return culinaryImages[hash % culinaryImages.length];
       }
       
-      console.log(`🎨 Dashboard NO MATCH for "${hobbyName}", using creative fallback`);
-      // Creative fallback - use a general learning/creativity image
-      return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
+      // Fitness
+      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport')) {
+        const fitnessImages = [
+          'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return fitnessImages[hash % fitnessImages.length];
+      }
+      
+      // Default learning category
+      const learningImages = [
+        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop'
+      ];
+      const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      return learningImages[hash % learningImages.length];
     };
     
-    const baseImage = getImageByHobby(normalizedHobby);
-    const finalImage = `${baseImage}&t=${Date.now()}`;
+    const selectedImage = getImageByCategory(normalizedHobby);
+    console.log(`🎨 Dashboard AUTO-GENERATED: "${hobby}" -> unique category-based image`);
+    
+    const timestamp = Math.floor(Date.now() / (1000 * 60 * 60));
+    const finalImage = `${selectedImage}&t=${timestamp}`;
     console.log(`🎨 Dashboard FINAL IMAGE: ${finalImage}`);
     return finalImage;
   };
