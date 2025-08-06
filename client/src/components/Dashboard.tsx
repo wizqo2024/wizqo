@@ -277,10 +277,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
         return techImages[hash % techImages.length];
       }
       
-      // Creative arts and crafts
+      // Creative arts and crafts - comprehensive coverage
       if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo') || 
           hobbyName.includes('craft') || hobbyName.includes('embroidery') || hobbyName.includes('knit') || hobbyName.includes('sew') || 
-          hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood')) {
+          hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood') ||
+          hobbyName.includes('crochet') || hobbyName.includes('calligraphy') || hobbyName.includes('quill') || hobbyName.includes('origami') ||
+          hobbyName.includes('macramé') || hobbyName.includes('upcycl') || hobbyName.includes('watercolor') || hobbyName.includes('diamond') ||
+          hobbyName.includes('pour') || hobbyName.includes('scrapbook') || hobbyName.includes('soap') || hobbyName.includes('leather') ||
+          hobbyName.includes('street') || hobbyName.includes('digital') || hobbyName.includes('mug') || hobbyName.includes('nail') ||
+          hobbyName.includes('floral') || hobbyName.includes('miniature') || hobbyName.includes('bullet') || hobbyName.includes('writing') ||
+          hobbyName.includes('song') || hobbyName.includes('acting') || hobbyName.includes('improv') || hobbyName.includes('comedy') ||
+          hobbyName.includes('sketch') || hobbyName.includes('cosplay') || hobbyName.includes('vintage') || hobbyName.includes('collect')) {
         const creativeImages = [
           'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
@@ -291,8 +298,10 @@ Learn any hobby in 7 days at https://wizqo.com`;
         return creativeImages[hash % creativeImages.length];
       }
       
-      // Culinary
-      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
+      // Culinary and food - comprehensive coverage
+      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food') ||
+          hobbyName.includes('mixology') || hobbyName.includes('ferment') || hobbyName.includes('cheese') ||
+          hobbyName.includes('brew') || hobbyName.includes('kombucha') || hobbyName.includes('drink')) {
         const culinaryImages = [
           'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
@@ -302,8 +311,12 @@ Learn any hobby in 7 days at https://wizqo.com`;
         return culinaryImages[hash % culinaryImages.length];
       }
       
-      // Fitness
-      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport')) {
+      // Fitness and movement - comprehensive coverage
+      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport') ||
+          hobbyName.includes('pilates') || hobbyName.includes('aerial') || hobbyName.includes('hula') || hobbyName.includes('jump') ||
+          hobbyName.includes('krav') || hobbyName.includes('boxing') || hobbyName.includes('capoeira') || hobbyName.includes('dance') ||
+          hobbyName.includes('tai chi') || hobbyName.includes('martial') || hobbyName.includes('climb') || hobbyName.includes('parkour') ||
+          hobbyName.includes('rollerblade') || hobbyName.includes('skateboard') || hobbyName.includes('fencing') || hobbyName.includes('archery')) {
         const fitnessImages = [
           'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
@@ -313,6 +326,68 @@ Learn any hobby in 7 days at https://wizqo.com`;
         return fitnessImages[hash % fitnessImages.length];
       }
       
+      // Outdoor and nature activities
+      if (hobbyName.includes('garden') || hobbyName.includes('farm') || hobbyName.includes('forag') || 
+          hobbyName.includes('bird') || hobbyName.includes('star') || hobbyName.includes('geocach') ||
+          hobbyName.includes('hik') || hobbyName.includes('camp') || hobbyName.includes('kayak') ||
+          hobbyName.includes('paddleboard') || hobbyName.includes('swim') || hobbyName.includes('orient') ||
+          hobbyName.includes('beach') || hobbyName.includes('metal detect') || hobbyName.includes('aquascape') ||
+          hobbyName.includes('terrarium') || hobbyName.includes('hydroponic') || hobbyName.includes('beekeep') ||
+          hobbyName.includes('mushroom') || hobbyName.includes('urban explor') || hobbyName.includes('astrophoto') ||
+          hobbyName.includes('insect')) {
+        const outdoorImages = [
+          'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return outdoorImages[hash % outdoorImages.length];
+      }
+
+      // Games and puzzles
+      if (hobbyName.includes('chess') || hobbyName.includes('board') || hobbyName.includes('puzzle') ||
+          hobbyName.includes('escape') || hobbyName.includes('speedcub') || hobbyName.includes('magic') ||
+          hobbyName.includes('trivia') || hobbyName.includes('quiz') || hobbyName.includes('debate') ||
+          hobbyName.includes('gaming') || hobbyName.includes('retro') || hobbyName.includes('larp') ||
+          hobbyName.includes('disc golf')) {
+        const gameImages = [
+          'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1541278107931-e006523892df?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return gameImages[hash % gameImages.length];
+      }
+
+      // Technology and digital - expanded
+      if (hobbyName.includes('robot') || hobbyName.includes('3d print') || hobbyName.includes('drone') ||
+          hobbyName.includes('virtual reality') || hobbyName.includes('augmented') || hobbyName.includes('podcast') ||
+          hobbyName.includes('vlog') || hobbyName.includes('stream') || hobbyName.includes('ethical hack') ||
+          hobbyName.includes('digital nomad')) {
+        const advancedTechImages = [
+          'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return advancedTechImages[hash % advancedTechImages.length];
+      }
+
+      // Wellness and mindfulness
+      if (hobbyName.includes('meditat') || hobbyName.includes('sound bath') || hobbyName.includes('journal') ||
+          hobbyName.includes('volunteer') || hobbyName.includes('philosophy') || hobbyName.includes('book club') ||
+          hobbyName.includes('pen pal') || hobbyName.includes('genealogy') || hobbyName.includes('astronomy') ||
+          hobbyName.includes('language learn') || hobbyName.includes('cryptography')) {
+        const wellnessImages = [
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1499728603263-13726abce5ce?w=400&h=240&fit=crop'
+        ];
+        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return wellnessImages[hash % wellnessImages.length];
+      }
+
       // Default learning category
       const learningImages = [
         'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',

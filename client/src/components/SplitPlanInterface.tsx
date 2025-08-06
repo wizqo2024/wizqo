@@ -32,10 +32,17 @@ const getHobbyImage = (hobby: string): string => {
       return techImages[hash % techImages.length];
     }
     
-    // Creative arts and crafts
+    // Creative arts and crafts - comprehensive coverage
     if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo') || 
         hobbyName.includes('craft') || hobbyName.includes('embroidery') || hobbyName.includes('knit') || hobbyName.includes('sew') || 
-        hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood')) {
+        hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood') ||
+        hobbyName.includes('crochet') || hobbyName.includes('calligraphy') || hobbyName.includes('quill') || hobbyName.includes('origami') ||
+        hobbyName.includes('macramé') || hobbyName.includes('upcycl') || hobbyName.includes('watercolor') || hobbyName.includes('diamond') ||
+        hobbyName.includes('pour') || hobbyName.includes('scrapbook') || hobbyName.includes('soap') || hobbyName.includes('leather') ||
+        hobbyName.includes('street') || hobbyName.includes('digital') || hobbyName.includes('mug') || hobbyName.includes('nail') ||
+        hobbyName.includes('floral') || hobbyName.includes('miniature') || hobbyName.includes('bullet') || hobbyName.includes('writing') ||
+        hobbyName.includes('song') || hobbyName.includes('acting') || hobbyName.includes('improv') || hobbyName.includes('comedy') ||
+        hobbyName.includes('sketch') || hobbyName.includes('cosplay') || hobbyName.includes('vintage') || hobbyName.includes('collect')) {
       const creativeImages = [
         'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
@@ -48,8 +55,10 @@ const getHobbyImage = (hobby: string): string => {
       return creativeImages[hash % creativeImages.length];
     }
     
-    // Culinary
-    if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
+    // Culinary and food - comprehensive coverage
+    if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food') ||
+        hobbyName.includes('mixology') || hobbyName.includes('ferment') || hobbyName.includes('cheese') ||
+        hobbyName.includes('brew') || hobbyName.includes('kombucha') || hobbyName.includes('drink')) {
       const culinaryImages = [
         'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
@@ -59,8 +68,12 @@ const getHobbyImage = (hobby: string): string => {
       return culinaryImages[hash % culinaryImages.length];
     }
     
-    // Fitness
-    if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport')) {
+    // Fitness and movement - comprehensive coverage
+    if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport') ||
+        hobbyName.includes('pilates') || hobbyName.includes('aerial') || hobbyName.includes('hula') || hobbyName.includes('jump') ||
+        hobbyName.includes('krav') || hobbyName.includes('boxing') || hobbyName.includes('capoeira') || hobbyName.includes('dance') ||
+        hobbyName.includes('tai chi') || hobbyName.includes('martial') || hobbyName.includes('climb') || hobbyName.includes('parkour') ||
+        hobbyName.includes('rollerblade') || hobbyName.includes('skateboard') || hobbyName.includes('fencing') || hobbyName.includes('archery')) {
       const fitnessImages = [
         'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
