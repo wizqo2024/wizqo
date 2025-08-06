@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Play, MoreHorizontal, Trash2 } from "lucide-react";
+import { Calendar, Clock, Play, MoreHorizontal, Trash2, Share2, Trophy, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
@@ -28,6 +28,30 @@ export default function Dashboard() {
   const [hobbyPlans, setHobbyPlans] = useState<HobbyPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
+  
+  // Social sharing function
+  const shareAchievement = (plan: HobbyPlan) => {
+    const shareText = `🎉 I just completed my 7-day ${plan.hobby} learning journey! 
+    
+✅ Mastered ${plan.hobby} fundamentals in just 7 days
+📚 Completed all ${plan.totalDays} daily lessons
+🚀 Ready for the next challenge!
+
+#7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth`;
+
+    const shareUrl = `https://wizqo.com`;
+    
+    // Create sharing URLs for different platforms
+    const platforms = {
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`
+    };
+
+    // Open a modal or dropdown with sharing options
+    return platforms;
+  };
 
   useEffect(() => {
     if (user) {
@@ -422,6 +446,57 @@ export default function Dashboard() {
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
+
+                {/* Social Sharing Button for Completed Plans */}
+                {plan.status === 'completed' && (
+                  <div className="mb-4">
+                    <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg">
+                      <div className="bg-white dark:bg-gray-900 rounded-[6px] p-4">
+                        <div className="flex items-center justify-center space-x-2 mb-3">
+                          <Trophy className="h-5 w-5 text-yellow-500" />
+                          <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                            Challenge Completed! 🎉
+                          </span>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button
+                            size="sm"
+                            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white"
+                            onClick={() => {
+                              const platforms = shareAchievement(plan);
+                              window.open(platforms.twitter, '_blank');
+                            }}
+                          >
+                            <Share2 className="h-4 w-4 mr-1" />
+                            Twitter
+                          </Button>
+                          <Button
+                            size="sm"
+                            className="flex-1 bg-blue-700 hover:bg-blue-800 text-white"
+                            onClick={() => {
+                              const platforms = shareAchievement(plan);
+                              window.open(platforms.facebook, '_blank');
+                            }}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-1" />
+                            Facebook
+                          </Button>
+                          <Button
+                            size="sm"
+                            className="flex-1 bg-green-500 hover:bg-green-600 text-white"
+                            onClick={() => {
+                              const platforms = shareAchievement(plan);
+                              window.open(platforms.whatsapp, '_blank');
+                            }}
+                          >
+                            <Share2 className="h-4 w-4 mr-1" />
+                            WhatsApp
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Action Button */}
                 <Button 
