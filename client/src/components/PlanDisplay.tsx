@@ -7,7 +7,7 @@ import { SimpleAuthModal } from './SimpleAuthModal';
 import { useAuth } from '@/hooks/useAuth';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, User, Target, Lightbulb, AlertTriangle, Star, Play, Users, Gift, Zap, Heart, TrendingUp, X, AlertCircle, Ban } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, User, Target, Lightbulb, AlertTriangle, Star, Play, Users, Gift, Zap, Heart, TrendingUp, X, AlertCircle, Ban, Trophy, Gem, Crown, StopCircle, XCircle, Slash, Shield } from 'lucide-react';
 
 interface Day {
   day: number;
@@ -300,8 +300,8 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.tips.map((tip, tipIndex) => {
-                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle];
-                              const IconComponent = tipIcons[(day.day * 7 + tipIndex * 11 + 3) % tipIcons.length];
+                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown];
+                              const IconComponent = tipIcons[(day.day * 13 + tipIndex * 17 + planData.totalDays * 7 + 5) % tipIcons.length];
                               return (
                                 <li key={tipIndex} className="flex items-start space-x-3 text-sm text-green-800">
                                   <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
@@ -326,8 +326,8 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.mistakesToAvoid.map((mistake, mistakeIndex) => {
-                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock];
-                              const IconComponent = mistakeIcons[(day.day * 5 + mistakeIndex * 7 + 2) % mistakeIcons.length];
+                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield];
+                              const IconComponent = mistakeIcons[(day.day * 11 + mistakeIndex * 19 + planData.totalDays * 3 + 7) % mistakeIcons.length];
                               return (
                                 <li key={mistakeIndex} className="flex items-start space-x-3 text-sm text-red-800">
                                   <div className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">

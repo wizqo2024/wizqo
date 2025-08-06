@@ -372,6 +372,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
         ...getHobbyProduct(hobby, dayNumber)
       }],
       youtubeVideoId: targetedVideoId,
+      videoId: targetedVideoId, // Also add videoId for backwards compatibility
       videoTitle: videoDetails?.title || `${hobby} - ${dayNumber}`,
       estimatedTime: timeAvailable,
       skillLevel: experience
@@ -389,7 +390,11 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   
   console.log('🔍 FALLBACK PLAN GENERATED - First day mistakesToAvoid:', plan.days[0].mistakesToAvoid);
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
+  console.log('🔍 FALLBACK PLAN GENERATED - First day videoId:', plan.days[0].videoId);
   console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
+  
+  // Debug: Log complete first day structure
+  console.log('🔍 COMPLETE FIRST DAY DATA:', JSON.stringify(plan.days[0], null, 2));
   
   return plan;
 }
