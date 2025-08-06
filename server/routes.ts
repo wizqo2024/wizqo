@@ -647,10 +647,10 @@ Please provide a helpful response:`;
       // Ensure proper response format for frontend
       const response = {
         isValid: validation.isValid,
-        correctedHobby: validation.normalizedHobby, // Key mapping fix
+        correctedHobby: validation.correctedHobby, // Use correct property name
         originalHobby: cleanHobby,
         suggestions: validation.suggestions || [],
-        category: validation.category
+        reasoning: validation.reasoning
       };
       
       console.log('🔍 Sending response to frontend:', response);
