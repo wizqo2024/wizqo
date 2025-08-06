@@ -90,16 +90,32 @@ export default function Dashboard() {
         
         // Fallback to session storage if no database progress
         if (!progressEntry) {
-          const sessionKey = `progress_${plan.id}`;
-          const sessionProgress = sessionStorage.getItem(sessionKey);
-          if (sessionProgress) {
-            try {
-              const parsed = JSON.parse(sessionProgress);
-              completedDays = parsed.completedDays || [];
-              currentDay = parsed.currentDay || 1;
-              console.log(`📊 Progress loaded from session for ${plan.id}:`, completedDays.length, 'days completed');
-            } catch (e) {
-              console.log('Could not parse session progress for', plan.id);
+          // Use the correct session storage key format from hobbyPlanService
+          const userId = user?.id || 'anonymous';
+          const possibleKeys = [
+            `progress_${userId}_${plan.id}`,  // hobbyPlanService format
+            `progress_${plan.id}`,
+            `progress_${hobbyName}`,
+            `hobbyProgress_${plan.id}`,
+            `${hobbyName}_progress`
+          ];
+          
+          console.log(`🔍 Searching for progress with userId: ${userId}, planId: ${plan.id}`);
+          
+          for (const sessionKey of possibleKeys) {
+            const sessionProgress = sessionStorage.getItem(sessionKey);
+            if (sessionProgress) {
+              try {
+                const parsed = JSON.parse(sessionProgress);
+                if (parsed.completedDays || parsed.completed_days) {
+                  completedDays = parsed.completedDays || parsed.completed_days || [];
+                  currentDay = parsed.currentDay || parsed.current_day || 1;
+                  console.log(`📊 Progress loaded from session key ${sessionKey} for ${plan.id}:`, completedDays.length, 'days completed');
+                  break;
+                }
+              } catch (e) {
+                console.log('Could not parse session progress for key:', sessionKey);
+              }
             }
           }
         }
