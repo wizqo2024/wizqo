@@ -1664,7 +1664,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
                                 <BookOpen className="w-6 h-6 text-white" />
                               </div>
-                              <h3 className="text-xl font-semibold text-white mb-2">{currentDay.videoTitle || `${currentDay.title} Tutorial`}</h3>
+                              <h3 className="text-xl font-semibold text-white mb-2">Introduction to {currentDay.title?.split(' ')[0] || 'Learning'}</h3>
                               <p className="text-gray-300 text-sm">Welcome to your first lesson! We'll cover the basic fundamentals and get you started on your learning journey.</p>
                             </div>
                             <div className="bg-black rounded-lg p-1 mb-4">
