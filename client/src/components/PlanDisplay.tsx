@@ -304,8 +304,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           {day.tips.map((tip, index) => {
                             const tipIcons = [Star, Lightbulb, Target, CheckCircle, Trophy];
                             const IconComponent = tipIcons[index % tipIcons.length];
+                            console.log(`TIP ${index}: Using ${IconComponent.name} icon`);
                             return (
-                              <div key={index} className="flex items-start space-x-3">
+                              <div key={`tip-${index}-${IconComponent.name}`} className="flex items-start space-x-3">
                                 <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
                                   <IconComponent className="w-3 h-3 text-green-600" />
                                 </div>
@@ -330,8 +331,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           {day.mistakesToAvoid.map((mistake, index) => {
                             const mistakeIcons = [X, AlertTriangle, Ban, StopCircle, XCircle];
                             const IconComponent = mistakeIcons[index % mistakeIcons.length];
+                            console.log(`MISTAKE ${index}: Using ${IconComponent.name} icon`);
                             return (
-                              <div key={index} className="flex items-start space-x-3">
+                              <div key={`mistake-${index}-${IconComponent.name}`} className="flex items-start space-x-3">
                                 <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
                                   <IconComponent className="w-3 h-3 text-red-600" />
                                 </div>
@@ -512,4 +514,4 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
       />
     </div>
   );
-}
+}// Force refresh
