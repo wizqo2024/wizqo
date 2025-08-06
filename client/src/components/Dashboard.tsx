@@ -30,6 +30,7 @@ export default function Dashboard() {
   const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareData, setShareData] = useState<any>(null);
+  const [showCopyToast, setShowCopyToast] = useState(false);
   
   // Social sharing function with all platforms
   const openShareModal = (plan: HobbyPlan) => {
@@ -46,9 +47,9 @@ export default function Dashboard() {
     
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}&picture=${encodeURIComponent(imageUrl)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}&source=${encodeURIComponent(imageUrl)}`,
-      instagram: `https://www.instagram.com/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`Completed 7-Day ${plan.hobby} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
+      instagram: shareText + '\n\n' + shareUrl, // Copy to clipboard for Instagram
       whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + shareUrl + '\n\nSee my achievement: ' + imageUrl)}`
     };
 
@@ -629,8 +630,22 @@ export default function Dashboard() {
               {/* Instagram */}
               <Button
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white justify-start h-12"
-                onClick={() => {
-                  window.open(shareData.platforms.instagram, '_blank');
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(shareData.platforms.instagram);
+                    setShowCopyToast(true);
+                    setTimeout(() => setShowCopyToast(false), 3000);
+                  } catch (err) {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = shareData.platforms.instagram;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    setShowCopyToast(true);
+                    setTimeout(() => setShowCopyToast(false), 3000);
+                  }
                   setShowShareModal(false);
                 }}
               >
@@ -640,7 +655,7 @@ export default function Dashboard() {
                   </div>
                   <div className="text-left">
                     <div className="font-medium">Instagram</div>
-                    <div className="text-xs opacity-90">Share your story</div>
+                    <div className="text-xs opacity-90">Copy text to share</div>
                   </div>
                 </div>
               </Button>
@@ -674,6 +689,19 @@ export default function Dashboard() {
               Cancel
             </Button>
           </div>
+        </div>
+      )}
+
+      {/* Copy Success Toast */}
+      {showCopyToast && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-right duration-300">
+          <div className="flex items-center space-x-2">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="font-medium">Copied to clipboard!</span>
+          </div>
+          <div className="text-xs mt-1 opacity-90">Open Instagram and paste it in your story</div>
         </div>
       )}
         </main>
