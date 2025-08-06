@@ -380,147 +380,72 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                       </CardContent>
                     </Card>
 
-                    {/* Additional Learning Resources */}
-                    <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-l-blue-500">
-                      <CardContent className="p-4">
-                        <div className="flex items-center space-x-2 mb-3">
-                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                            <BookOpen className="w-3 h-3 text-white" />
-                          </div>
-                          <h4 className="font-semibold text-slate-900">Day {day.day}: {day.title} - Step by Step Tutorial</h4>
-                        </div>
-                        <p className="text-slate-700 text-sm mb-4 leading-relaxed">
-                          This tutorial opens in an optimized learning environment designed to minimize distractions and maximize focus. Our platform provides the best possible learning experience with enhanced video quality and interactive features.
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3 text-xs">
-                          <div className="flex items-center space-x-1 text-slate-600">
-                            <CheckCircle className="w-3 h-3 text-blue-500" />
-                            <span>HD Quality</span>
-                          </div>
-                          <div className="flex items-center space-x-1 text-slate-600">
-                            <CheckCircle className="w-3 h-3 text-green-500" />
-                            <span>Step by Step</span>
-                          </div>
-                          <div className="flex items-center space-x-1 text-slate-600">
-                            <CheckCircle className="w-3 h-3 text-purple-500" />
-                            <span>Beginner Friendly</span>
-                          </div>
-                          <div className="flex items-center space-x-1 text-slate-600">
-                            <CheckCircle className="w-3 h-3 text-yellow-500" />
-                            <span>Interactive</span>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
 
-                    {/* Today's Checklist Card */}
-                    <Card className="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-l-indigo-500">
-                      <CardContent className="p-4">
-                        <div className="flex items-center space-x-2 mb-4">
-                          <div className="w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center">
-                            <BookOpen className="w-3 h-3 text-white" />
+
+                    {/* Clean Checklist Section */}
+                    <Card className="bg-white border border-gray-200 shadow-sm">
+                      <CardContent className="p-6">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                            <CheckCircle className="w-4 h-4 text-white" />
                           </div>
-                          <h4 className="font-semibold text-indigo-900">Today's Checklist</h4>
+                          <h3 className="text-lg font-semibold text-gray-900">Today's Checklist</h3>
                         </div>
-                        <p className="text-indigo-800 text-sm mb-4">Basic {planData.hobby} materials and tools</p>
                         <div className="space-y-3">
                           {day.checklist.map((item, index) => (
-                            <label key={index} className="flex items-start space-x-3 cursor-pointer group">
-                              <input 
-                                type="checkbox" 
-                                className="w-4 h-4 text-indigo-500 rounded border-2 border-indigo-300 focus:ring-indigo-500 focus:ring-2 mt-0.5 flex-shrink-0"
-                              />
-                              <span className="text-sm text-indigo-800 leading-relaxed group-hover:text-indigo-900 transition-colors">
-                                {item}
-                              </span>
-                            </label>
+                            <div key={index} className="flex items-start space-x-3">
+                              <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <Circle className="w-3 h-3 text-purple-600" />
+                              </div>
+                              <p className="text-gray-700 text-sm leading-relaxed">{item}</p>
+                            </div>
                           ))}
                         </div>
                       </CardContent>
                     </Card>
 
-                    {/* Free Resources and Recommended Tools */}
-                    <div className="grid lg:grid-cols-2 gap-4">
-                      {/* Free Resource */}
-                      <Card className="bg-gradient-to-r from-teal-50 to-cyan-50 border-l-4 border-l-teal-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
-                              <Gift className="w-3 h-3 text-white" />
+                    {/* Clean Resources Section */}
+                    {day.affiliateProducts && day.affiliateProducts.length > 0 && (
+                      <Card className="bg-white border border-gray-200 shadow-sm">
+                        <CardContent className="p-6">
+                          <div className="flex items-center space-x-3 mb-4">
+                            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                              <Star className="w-4 h-4 text-white" />
                             </div>
-                            <h4 className="font-semibold text-teal-900">Free Resource</h4>
+                            <h3 className="text-lg font-semibold text-gray-900">Recommended Tool</h3>
                           </div>
-                          {day.freeResources.map((resource, index) => (
-                            <div key={index} className="mb-3 last:mb-0">
-                              <div className="flex items-start space-x-2">
-                                <ExternalLink className="w-4 h-4 text-teal-600 mt-0.5 flex-shrink-0" />
-                                <div>
+                          <div className="space-y-3">
+                            {day.affiliateProducts.map((product, index) => (
+                              <div key={index} className="flex items-start space-x-3">
+                                <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                  <ExternalLink className="w-3 h-3 text-orange-600" />
+                                </div>
+                                <div className="flex-1">
                                   <a 
-                                    href={resource.link} 
+                                    href={product.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="text-sm font-medium text-teal-800 hover:text-teal-900 underline"
+                                    className="text-sm font-medium text-gray-900 hover:text-orange-600 underline"
                                   >
-                                    {resource.title}
+                                    {product.title}
                                   </a>
-                                  <p className="text-xs text-teal-700 mt-1">
-                                    High-quality free resource to supplement your learning
-                                  </p>
+                                  <p className="text-xs text-gray-600 mt-1">{product.price}</p>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                        </CardContent>
-                      </Card>
-
-                      {/* Recommended Tool */}
-                      <Card className="bg-gradient-to-r from-orange-50 to-amber-50 border-l-4 border-l-orange-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                              <Star className="w-3 h-3 text-white" />
-                            </div>
-                            <h4 className="font-semibold text-orange-900">Recommended Tool</h4>
+                            ))}
                           </div>
-                          {day.affiliateProducts.map((product, index) => (
-                            <div key={index} className="mb-3 last:mb-0">
-                              <div className="flex items-start justify-between">
-                                <div className="flex items-start space-x-2 flex-1">
-                                  <ExternalLink className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
-                                  <div className="flex-1">
-                                    <a 
-                                      href={product.link} 
-                                      target="_blank" 
-                                      rel="noopener noreferrer"
-                                      className="text-sm font-medium text-orange-800 hover:text-orange-900 underline block"
-                                    >
-                                      {product.title}
-                                    </a>
-                                    <p className="text-xs text-orange-700 mt-1">
-                                      Professional-grade tool recommended for best results
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="ml-3 flex-shrink-0">
-                                  <span className="text-xs font-bold text-orange-900 bg-orange-100 px-2 py-1 rounded-full">
-                                    {product.price}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
                         </CardContent>
                       </Card>
-                    </div>
+                    )}
 
-                    {/* Complete Day Button */}
+                    {/* Clean Complete Button */}
                     {status === 'unlocked' && !isDayCompleted(day.day) && (
                       <div className="text-center">
                         <Button 
                           onClick={() => toggleDayCompletion(day.day)}
-                          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3"
+                          className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg"
                         >
-                          ✅ Mark Day {day.day} as Complete
+                          Mark Day {day.day} Complete
                         </Button>
                       </div>
                     )}
