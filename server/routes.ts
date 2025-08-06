@@ -208,7 +208,7 @@ Make each day build progressively on the previous day. Include practical, action
         youtubeVideoId: targetedVideoId,
         videoId: targetedVideoId, // Also add videoId for compatibility
         videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
-        freeResources: [],
+        freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
         affiliateProducts: [{
           ...getHobbyProduct(hobby, day.day)
         }]
@@ -382,7 +382,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       ],
       tips: dailyTips[i],
       mistakesToAvoid: dailyMistakes[i],
-      freeResources: [],
+      freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
       affiliateProducts: [{
         ...getHobbyProduct(hobby, dayNumber)
       }],

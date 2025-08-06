@@ -10,6 +10,7 @@ Preferred communication style: Simple, everyday language.
 GitHub account: wizqo2024@gmail.com (configured for deployment).
 Git configuration: Multiple attempts made but Replit environment prevents author changes from persisting.
 Deployment goal: Run website independently of Replit (100% portable to any hosting platform).
+Resources preference: Only affiliate links in resources section, no free tutorials (updated January 2025).
 
 ## System Architecture
 
