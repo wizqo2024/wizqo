@@ -1,7 +1,44 @@
 // Dynamic hobby validation and support system
 import { videoDatabase } from './videoSelection';
 
-// Common hobby keywords and variations
+// Comprehensive hobby list - supports 100+ hobbies
+const validHobbies = [
+  // Creative Arts & Crafts
+  'knitting', 'crocheting', 'embroidery', 'calligraphy', 'quilling', 'origami', 'macramé', 'upcycling',
+  'watercolor painting', 'diamond painting', 'pour painting', 'pottery', 'scrapbooking', 'soap making',
+  'candle making', 'leather crafting', 'jewelry making', 'street art', 'digital art', 'mug painting',
+  'nail art', 'floral arranging', 'miniature model building', 'bullet journaling', 'creative writing',
+  'songwriting', 'acting', 'improv comedy', 'urban sketching', 'cosplay', 'vintage collecting',
+  
+  // Outdoor & Nature
+  'gardening', 'urban farming', 'foraging', 'bird watching', 'stargazing', 'geocaching', 'hiking',
+  'camping', 'rock climbing', 'kayaking', 'stand-up paddleboarding', 'wild swimming', 'orienteering',
+  'beachcombing', 'metal detecting', 'beekeeping', 'aquascaping', 'terrarium building', 'hydroponics',
+  'urban exploration', 'astrophotography', 'insect collecting', 'mushroom growing',
+  
+  // Fitness & Movement
+  'parkour', 'rollerblading', 'skateboarding', 'disc golf', 'archery', 'fencing', 'tai chi', 'yoga',
+  'pilates', 'aerial silks', 'hula hooping', 'jump rope', 'krav maga', 'boxing', 'capoeira', 'dance',
+  'hip-hop', 'ballroom dancing',
+  
+  // Games & Puzzles
+  'chess', 'board gaming', 'puzzle solving', 'escape rooms', 'speedcubing', 'magic tricks', 'larping',
+  'trivia', 'quiz games', 'debate',
+  
+  // Technology
+  'coding', 'robotics', '3d printing', 'drone flying', 'virtual reality gaming', 'augmented reality exploration',
+  'podcasting', 'vlogging', 'streaming', 'retro gaming', 'ethical hacking', 'digital nomadism',
+  
+  // Culinary
+  'cooking', 'baking', 'mixology', 'fermenting', 'cheese making', 'home brewing', 'food photography',
+  'kombucha brewing',
+  
+  // Wellness & Learning
+  'astronomy', 'genealogy', 'language learning', 'cryptography', 'philosophy reading', 'book club',
+  'pen palling', 'journaling', 'meditation', 'sound bathing', 'volunteering', 'letterboxing'
+];
+
+// Common hobby keywords and variations for fuzzy matching
 const hobbyKeywords = {
   // Music
   music: ['music', 'guitar', 'piano', 'violin', 'drums', 'singing', 'bass', 'keyboard', 'ukulele'],
@@ -69,9 +106,35 @@ const genericVideoDatabase = {
   ]
 };
 
+// Enhanced hobby validation with comprehensive list
+function isValidHobby(input: string): boolean {
+  const lowerInput = input.toLowerCase().trim();
+  
+  // Check against comprehensive hobby list
+  return validHobbies.some(hobby => 
+    hobby.toLowerCase() === lowerInput ||
+    lowerInput.includes(hobby.toLowerCase()) ||
+    hobby.toLowerCase().includes(lowerInput)
+  );
+}
+
 // Smart hobby detection function
 function detectBestHobbyMatch(input: string): string | null {
   const lowerInput = input.toLowerCase().trim();
+  
+  // First check if it's in our comprehensive list
+  const exactMatch = validHobbies.find(hobby => hobby.toLowerCase() === lowerInput);
+  if (exactMatch) {
+    return exactMatch;
+  }
+  
+  // Check for partial matches in comprehensive list
+  const partialMatch = validHobbies.find(hobby => 
+    hobby.toLowerCase().includes(lowerInput) && lowerInput.length >= 3
+  );
+  if (partialMatch) {
+    return partialMatch;
+  }
   
   // Direct matches first
   if (videoDatabase[lowerInput]) {
@@ -238,6 +301,42 @@ function detectContextualHobby(input: string): { hobby: string; category: string
   return null;
 }
 
+// Helper function to find category for hobby
+function findCategoryForHobby(hobby: string): string {
+  const lowerHobby = hobby.toLowerCase();
+  
+  // Creative Arts & Crafts
+  const creativeArts = ['knitting', 'crocheting', 'embroidery', 'calligraphy', 'quilling', 'origami', 'macramé', 'upcycling', 'watercolor painting', 'diamond painting', 'pour painting', 'pottery', 'scrapbooking', 'soap making', 'candle making', 'leather crafting', 'jewelry making', 'street art', 'digital art', 'mug painting', 'nail art', 'floral arranging', 'miniature model building', 'bullet journaling', 'creative writing', 'songwriting', 'acting', 'improv comedy', 'urban sketching', 'cosplay', 'vintage collecting'];
+  
+  // Outdoor & Nature
+  const outdoor = ['gardening', 'urban farming', 'foraging', 'bird watching', 'stargazing', 'geocaching', 'hiking', 'camping', 'rock climbing', 'kayaking', 'stand-up paddleboarding', 'wild swimming', 'orienteering', 'beachcombing', 'metal detecting', 'beekeeping', 'aquascaping', 'terrarium building', 'hydroponics', 'urban exploration', 'astrophotography', 'insect collecting', 'mushroom growing'];
+  
+  // Fitness & Movement
+  const fitness = ['parkour', 'rollerblading', 'skateboarding', 'disc golf', 'archery', 'fencing', 'tai chi', 'yoga', 'pilates', 'aerial silks', 'hula hooping', 'jump rope', 'krav maga', 'boxing', 'capoeira', 'dance', 'hip-hop', 'ballroom dancing'];
+  
+  // Games & Puzzles
+  const games = ['chess', 'board gaming', 'puzzle solving', 'escape rooms', 'speedcubing', 'magic tricks', 'larping', 'trivia', 'quiz games', 'debate'];
+  
+  // Technology
+  const tech = ['coding', 'robotics', '3d printing', 'drone flying', 'virtual reality gaming', 'augmented reality exploration', 'podcasting', 'vlogging', 'streaming', 'retro gaming', 'ethical hacking', 'digital nomadism'];
+  
+  // Culinary
+  const culinary = ['cooking', 'baking', 'mixology', 'fermenting', 'cheese making', 'home brewing', 'food photography', 'kombucha brewing'];
+  
+  // Wellness & Learning
+  const wellness = ['astronomy', 'genealogy', 'language learning', 'cryptography', 'philosophy reading', 'book club', 'pen palling', 'journaling', 'meditation', 'sound bathing', 'volunteering', 'letterboxing'];
+  
+  if (creativeArts.includes(lowerHobby)) return 'Creative Arts';
+  if (outdoor.includes(lowerHobby)) return 'Outdoor/Nature';
+  if (fitness.includes(lowerHobby)) return 'Fitness';
+  if (games.includes(lowerHobby)) return 'Games/Puzzles';
+  if (tech.includes(lowerHobby)) return 'Technology';
+  if (culinary.includes(lowerHobby)) return 'Culinary';
+  if (wellness.includes(lowerHobby)) return 'Wellness';
+  
+  return 'general';
+}
+
 export function validateHobby(hobbyInput: string): { 
   isValid: boolean; 
   normalizedHobby: string; 
@@ -247,6 +346,20 @@ export function validateHobby(hobbyInput: string): {
   suggestions?: string[];
 } {
   const input = hobbyInput.toLowerCase().trim();
+  
+  // Check against comprehensive hobby list first
+  if (isValidHobby(input)) {
+    const exactMatch = validHobbies.find(hobby => hobby.toLowerCase() === input);
+    if (exactMatch) {
+      return {
+        isValid: true,
+        normalizedHobby: exactMatch,
+        category: findCategoryForHobby(exactMatch),
+        hasVideoSupport: !!videoDatabase[exactMatch],
+        suggestions: []
+      };
+    }
+  }
   
   // Advanced context-aware hobby detection
   const contextualMapping = detectContextualHobby(input);
@@ -320,14 +433,7 @@ export function validateHobby(hobbyInput: string): {
   };
 }
 
-function findCategoryForHobby(hobby: string): string | null {
-  for (const [category, keywords] of Object.entries(hobbyKeywords)) {
-    if (keywords.includes(hobby)) {
-      return category;
-    }
-  }
-  return null;
-}
+
 
 export function getVideosForHobby(hobby: string, experience: string): any[] {
   // First check if hobby exists in curated database
