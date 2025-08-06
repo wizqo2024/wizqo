@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { userProfileService } from '@/services/userProfileService';
+import { useToast } from '@/hooks/use-toast';
 
 interface AuthContextType {
   user: User | null;
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     let mounted = true;
@@ -61,6 +63,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (event === 'SIGNED_IN' && session?.user) {
         console.log('🔧 Creating/updating user profile for:', session.user.id);
         
+        // Show success notification
+        setTimeout(() => {
+          toast({
+            title: "Welcome back!",
+            description: "You've been successfully signed in.",
+          });
+        }, 500);
+        
         // Create profile in background without redirecting
         try {
           await userProfileService.createOrUpdateProfile(session.user.id, {
@@ -79,6 +89,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log('✅ User signed out event - clearing state');
         setUser(null);
         setSession(null);
+        
+        // Show sign out notification
+        toast({
+          title: "Signed out",
+          description: "You've been successfully signed out.",
+        });
       }
     });
 

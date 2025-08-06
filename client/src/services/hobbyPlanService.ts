@@ -54,7 +54,7 @@ export class HobbyPlanService {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 2000)
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans`, {
+      const saveResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,15 +74,15 @@ export class HobbyPlanService {
       })
 
       clearTimeout(timeoutId)
-      console.log('💾 SUPABASE SAVE: Fetch completed with status:', response.status)
+      console.log('💾 SUPABASE SAVE: Fetch completed with status:', saveResponse.status)
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error('💾 SUPABASE SAVE: HTTP Error:', response.status, errorText)
-        throw new Error(`HTTP ${response.status}: ${errorText}`)
+      if (!saveResponse.ok) {
+        const errorText = await saveResponse.text()
+        console.error('💾 SUPABASE SAVE: HTTP Error:', saveResponse.status, errorText)
+        throw new Error(`HTTP ${saveResponse.status}: ${errorText}`)
       }
 
-      const result = await response.json()
+      const result = await saveResponse.json()
       console.log('✅ SUPABASE SAVE SUCCESS: Plan saved successfully:', result[0])
       return result[0]
 
@@ -337,15 +337,6 @@ export class HobbyPlanService {
       sessionStorage.setItem(sessionKey, JSON.stringify(progressData))
       console.log('✅ PROGRESS: Day completed successfully (saved to session storage)')
       return progressData
-
-      if (response.ok) {
-        console.log('✅ PROGRESS: Progress updated successfully in database')
-        return progressData
-      } else {
-        const errorText = await response.text()
-        console.error('❌ PROGRESS: Failed to update progress:', response.status, errorText)
-        throw new Error(`HTTP ${response.status}: ${errorText}`)
-      }
     } catch (error) {
       console.error('Error updating progress:', error)
       throw error
@@ -395,7 +386,7 @@ export class HobbyPlanService {
       }
       
       // Sort completed days to maintain proper order
-      completedDays.sort((a, b) => a - b)
+      completedDays.sort((a: number, b: number) => a - b)
       console.log('📝 PROGRESS: Updated completed days:', completedDays)
 
       // Update progress with accumulated completed days

@@ -293,7 +293,14 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   };
 
   const getRandomHobby = () => {
-    const randomHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'painting', 'dancing', 'woodworking'];
+    const randomHobbies = [
+      'photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 
+      'painting', 'dancing', 'woodworking', 'piano', 'singing', 'drums', 'violin', 
+      'ukulele', 'running', 'weightlifting', 'swimming', 'cycling', 'baking', 
+      'writing', 'journaling', 'chess', 'hiking', 'camping', 'fishing', 'crafting', 
+      'knitting', 'pottery', 'calligraphy', 'martial arts', 'rock climbing', 
+      'jewelry making', 'origami', 'wine tasting', 'coffee brewing'
+    ];
     return randomHobbies[Math.floor(Math.random() * randomHobbies.length)];
   };
 
