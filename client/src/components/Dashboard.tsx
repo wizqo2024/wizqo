@@ -35,9 +35,9 @@ export default function Dashboard() {
   // Social sharing function with all platforms
   const openShareModal = (plan: HobbyPlan) => {
     const shareText = `🎉 I just completed my 7-day ${plan.hobby.toUpperCase()} learning journey! 
-    
+
 ✅ Mastered ${plan.hobby} fundamentals in just 7 days
-📚 Completed all ${plan.totalDays} daily lessons
+📚 Completed all ${plan.totalDays} daily lessons  
 🚀 Ready for the next challenge!
 
 #7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth #Wizqo
@@ -47,10 +47,11 @@ Learn any hobby in 7 days at https://wizqo.com`;
     const shareUrl = `https://wizqo.com`;
     const imageUrl = getHobbyImage(plan.hobby);
     
+    // Create simple text-only sharing URLs that prioritize the message
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(`🎉 Completed 7-Day ${plan.hobby.toUpperCase()} Challenge!`)}&summary=${encodeURIComponent(shareText)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&quote=${encodeURIComponent(shareText)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://wizqo.com')}&title=${encodeURIComponent('🎉 Completed 7-Day ' + plan.hobby.toUpperCase() + ' Challenge!')}&summary=${encodeURIComponent(shareText)}`,
       instagram: shareText, // Copy to clipboard for Instagram
       whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText)}`
     };
@@ -576,7 +577,18 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <Button
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white justify-start h-12"
                 onClick={() => {
-                  window.open(shareData.platforms.twitter, '_blank');
+                  // Force Twitter to use the text by opening with proper encoding
+                  const twitterText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
+
+✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
+📚 Completed all 7 daily lessons
+🚀 Ready for the next challenge!
+
+#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
+
+Learn any hobby in 7 days at https://wizqo.com`;
+                  
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`, '_blank');
                   setShowShareModal(false);
                 }}
               >
@@ -594,8 +606,31 @@ Learn any hobby in 7 days at https://wizqo.com`;
               {/* Facebook */}
               <Button
                 className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12"
-                onClick={() => {
-                  window.open(shareData.platforms.facebook, '_blank');
+                onClick={async () => {
+                  // Copy Facebook text and show instructions
+                  const facebookText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
+
+✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
+📚 Completed all 7 daily lessons
+🚀 Ready for the next challenge!
+
+#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
+
+Learn any hobby in 7 days at https://wizqo.com`;
+                  
+                  try {
+                    await navigator.clipboard.writeText(facebookText);
+                    alert('Facebook post copied to clipboard! Open Facebook and paste it as your status update.');
+                  } catch (err) {
+                    // Fallback
+                    const textArea = document.createElement('textarea');
+                    textArea.value = facebookText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Facebook post copied to clipboard! Open Facebook and paste it as your status update.');
+                  }
                   setShowShareModal(false);
                 }}
               >
@@ -613,8 +648,29 @@ Learn any hobby in 7 days at https://wizqo.com`;
               {/* LinkedIn */}
               <Button
                 className="w-full bg-blue-800 hover:bg-blue-900 text-white justify-start h-12"
-                onClick={() => {
-                  window.open(shareData.platforms.linkedin, '_blank');
+                onClick={async () => {
+                  const linkedinText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
+
+✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
+📚 Completed all 7 daily lessons
+🚀 Ready for the next challenge!
+
+#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
+
+Learn any hobby in 7 days at https://wizqo.com`;
+                  
+                  try {
+                    await navigator.clipboard.writeText(linkedinText);
+                    alert('LinkedIn post copied to clipboard! Open LinkedIn and paste it as a new post.');
+                  } catch (err) {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = linkedinText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('LinkedIn post copied to clipboard! Open LinkedIn and paste it as a new post.');
+                  }
                   setShowShareModal(false);
                 }}
               >
@@ -666,7 +722,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <Button
                 className="w-full bg-green-500 hover:bg-green-600 text-white justify-start h-12"
                 onClick={() => {
-                  window.open(shareData.platforms.whatsapp, '_blank');
+                  const whatsappText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
+
+✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
+📚 Completed all 7 daily lessons
+🚀 Ready for the next challenge!
+
+#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
+
+Learn any hobby in 7 days at https://wizqo.com`;
+                  
+                  window.open(`https://wa.me/?text=${encodeURIComponent(whatsappText)}`, '_blank');
                   setShowShareModal(false);
                 }}
               >
