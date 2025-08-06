@@ -15,7 +15,7 @@ interface VideoDatabase {
 export const videoDatabase: VideoDatabase = {
   guitar: {
     beginner: [
-      { videoId: "BCWKDrPkCg0", title: "Guitar Basics - 10 Minute Lesson", description: "Quick intro to holding guitar and first chords" },
+      { videoId: "F5bkQ0MjANs", title: "Guitar Basics - 10 Minute Lesson", description: "Quick intro to holding guitar and first chords" },
       { videoId: "tQU2OtZagS4", title: "3 Easy Guitar Chords - 5 Minutes", description: "Learn G, C, D chords fast" },
       { videoId: "esTNkJaG6Y0", title: "Simple Strumming Pattern - 8 Minutes", description: "Basic down-up strumming technique" },
       { videoId: "dW8A6sQYoKA", title: "Finger Exercises - 6 Minutes", description: "Quick finger strength and dexterity" },

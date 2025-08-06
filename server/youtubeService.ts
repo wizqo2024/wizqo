@@ -371,7 +371,7 @@ function selectBestVideo(
 // Fallback videos for when API fails - Updated with working video IDs
 function getFallbackVideo(hobby: string, dayNumber: number): string {
   const fallbackVideos: { [key: string]: string[] } = {
-    guitar: ["Qq5lk4qZYUs", "F5bkQ0MjANs", "D9ioyEvdggk", "zrJURZbkgPs", "nY7GnAq6Znw", "Vxqr68V1Clo", "VeHdQ6aEbOA"],
+    guitar: ["F5bkQ0MjANs", "BCWKDrPkCg0", "D9ioyEvdggk", "zrJURZbkgPs", "nY7GnAq6Znw", "Vxqr68V1Clo", "VeHdQ6aEbOA"],
     yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "AaF2lpO2IHY", "hJbRpHZr_d0", "1vYSFPy2-Z8", "g_tea8ZNk5A", "cUBcS8wWlKI"],
     cooking: ["rtR63-ecUNo", "EHhHPkb8SXs", "lTBoW6iKavc", "sxJRiYqCkWk", "5AyOB-LJ7H4", "bCerf7NJOlE", "lDflB-DdiJo"],
     drawing: ["ewMksAbPdas", "TMdqJIHb04Y", "cOzCQSh_-vY", "SiJ7rjK5Wdg", "oKFfSzxJy2Y", "7BDKWT3pI_A", "1umSnh48XQo"],
