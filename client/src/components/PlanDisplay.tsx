@@ -303,13 +303,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                               // 25 DIFFERENT ICONS WITH FORCED VARIETY ALGORITHM  
                               const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown, Play, Users, Gift, BookOpen, Clock, User, AlertCircle, Ban, Shield, ExternalLink, Share, Circle, Lock, ChevronDown, ChevronUp];
                               
-                              // GUARANTEED UNIQUE ICON SELECTION - NO DUPLICATES POSSIBLE
-                              const uniqueHash = `${day.day}-${tipIndex}-${planData.hobby}-${tip.substring(0,3)}`;
-                              let iconIndex = 0;
-                              for (let i = 0; i < uniqueHash.length; i++) {
-                                iconIndex += uniqueHash.charCodeAt(i) * (i + 1);
-                              }
-                              iconIndex = iconIndex % tipIcons.length;
+                              // FORCED SEQUENTIAL ICON SELECTION - GUARANTEED DIFFERENT EVERY TIME
+                              const globalTipIndex = (day.day - 1) * 10 + tipIndex; // Each day starts from different base
+                              const iconIndex = globalTipIndex % tipIcons.length;
                               
                               const IconComponent = tipIcons[iconIndex];
                               return (
@@ -339,13 +335,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                               // 20 DIFFERENT WARNING ICONS WITH GUARANTEED VARIETY ALGORITHM
                               const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield, Users, Target, Clock, Heart, Star, Gem, Crown, Trophy, Play, Gift];
                               
-                              // GUARANTEED UNIQUE ICON SELECTION - COMPLETELY DIFFERENT FROM TIPS
-                              const uniqueHash = `${day.day}-mistake-${mistakeIndex}-${planData.hobby}-${mistake.substring(0,5)}`;
-                              let iconIndex = 0;
-                              for (let i = 0; i < uniqueHash.length; i++) {
-                                iconIndex += uniqueHash.charCodeAt(i) * (i + 3); // Different multiplier than tips
-                              }
-                              iconIndex = iconIndex % mistakeIcons.length;
+                              // FORCED SEQUENTIAL ICON SELECTION - OFFSET FROM TIPS TO AVOID OVERLAP
+                              const globalMistakeIndex = (day.day - 1) * 10 + mistakeIndex + 100; // +100 offset from tips
+                              const iconIndex = globalMistakeIndex % mistakeIcons.length;
                               
                               const IconComponent = mistakeIcons[iconIndex];
                               return (

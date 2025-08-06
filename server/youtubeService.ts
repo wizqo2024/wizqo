@@ -374,10 +374,10 @@ function getFallbackVideo(hobby: string, dayNumber: number): string {
     guitar: ["Qq5lk4qZYUs", "F5bkQ0MjANs", "D9ioyEvdggk", "zrJURZbkgPs", "nY7GnAq6Znw", "Vxqr68V1Clo", "VeHdQ6aEbOA"],
     yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "AaF2lpO2IHY", "hJbRpHZr_d0", "1vYSFPy2-Z8", "g_tea8ZNk5A", "cUBcS8wWlKI"],
     cooking: ["rtR63-ecUNo", "EHhHPkb8SXs", "lTBoW6iKavc", "sxJRiYqCkWk", "5AyOB-LJ7H4", "bCerf7NJOlE", "lDflB-DdiJo"],
-    drawing: ["pMC0Cx3Uk5g", "TMdqJIHb04Y", "cOzCQSh_-vY", "SiJ7rjK5Wdg", "oKFfSzxJy2Y", "7BDKWT3pI_A", "1umSnh48XQo"],
+    drawing: ["ewMksAbPdas", "TMdqJIHb04Y", "cOzCQSh_-vY", "SiJ7rjK5Wdg", "oKFfSzxJy2Y", "7BDKWT3pI_A", "1umSnh48XQo"],
     coding: ["UB1O30fR-EE", "hdI2bqOjy3c", "zOjov-2OZ0E", "kqtD5dpn9C8", "c8aAYU5m4jM", "9Yf36xdLp2A", "rfscVS0vtbw"],
     photography: ["B9FzVhw8_bY", "DJ_DIYDqWGY", "7ZVyNjVK-fU", "R8MzHddV-Z0", "mKY4gUEjAVs", "L_O-E5F-pSM", "C7ZqMqDb5Fk"],
-    painting: ["ZDqpKpqyLIk", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "pMC0Cx3Uk5g", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk"],
+    painting: ["ZDqpKpqyLIk", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "ewMksAbPdas", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk"],
     dance: ["3jWRrafhO7M", "UBMk30rjy0o", "dQw4w9WgXcQ", "bNgEO8JrGnw", "7Qe7wKjH7lA", "xFrGuyw1V8s", "9bZkp7q19f0"]
   };
   

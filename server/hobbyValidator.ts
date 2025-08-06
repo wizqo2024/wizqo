@@ -39,7 +39,7 @@ const hobbyKeywords = {
 // Generic video fallbacks for unsupported hobbies
 const genericVideoDatabase = {
   beginner: [
-    { videoId: "rtR63-ecUNo", title: "Getting Started - Beginner Basics", description: "Fundamental concepts and first steps" },
+    { videoId: "ewMksAbPdas", title: "Getting Started - Beginner Basics", description: "Fundamental concepts and first steps" },
     { videoId: "EHhHPkb8SXs", title: "Essential Tools and Setup", description: "What you need to get started" },
     { videoId: "lTBoW6iKavc", title: "First Practice Session", description: "Your first hands-on experience" },
     { videoId: "sxJRiYqCkWk", title: "Building Good Habits", description: "Creating a consistent practice routine" },
@@ -48,7 +48,7 @@ const genericVideoDatabase = {
     { videoId: "lDflB-DdiJo", title: "Next Steps Forward", description: "Planning your continued learning" }
   ],
   some: [
-    { videoId: "pMC0Cx3Uk5g", title: "Intermediate Techniques", description: "Building on your foundation" },
+    { videoId: "ewMksAbPdas", title: "Intermediate Techniques", description: "Building on your foundation" },
     { videoId: "TMdqJIHb04Y", title: "Advanced Practice Methods", description: "More challenging exercises" },
     { videoId: "cOzCQSh_-vY", title: "Problem Solving Skills", description: "Overcoming common challenges" },
     { videoId: "SiJ7rjK5Wdg", title: "Creative Applications", description: "Applying skills in new ways" },

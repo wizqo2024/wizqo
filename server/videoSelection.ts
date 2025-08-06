@@ -64,7 +64,7 @@ export const videoDatabase: VideoDatabase = {
   },
   drawing: {
     beginner: [
-      { videoId: "pMC0Cx3Uk5g", title: "Drawing Fundamentals for Beginners", description: "Basic drawing concepts, tools, and techniques" },
+      { videoId: "ewMksAbPdas", title: "Drawing Fundamentals for Beginners", description: "Basic drawing concepts, tools, and techniques" },
       { videoId: "ewMksAbPdas", title: "Basic Shapes and Form Construction", description: "Learn to see and draw basic geometric forms" },
       { videoId: "S0SxlqltDBo", title: "Shading and Light Techniques", description: "Understanding light, shadow, and basic shading" },
       { videoId: "wgDNDOKnArk", title: "Drawing Realistic Objects", description: "Step-by-step guide to drawing everyday objects" },
@@ -271,7 +271,7 @@ export function getTargetedYouTubeVideo(
       console.log(`📹 Using beginner fallback for ${hobby} ${skillLevel}, day ${actualDayNumber}: ${beginnerVideos[videoIndex].title}`);
       return beginnerVideos[videoIndex].videoId;
     }
-    return "rtR63-ecUNo"; // Working cooking tutorial - FIXED BROKEN VIDEO ID
+    return "ewMksAbPdas"; // Working drawing tutorial - FIXED BROKEN VIDEO ID
   }
   
   // Select video based on day progression
