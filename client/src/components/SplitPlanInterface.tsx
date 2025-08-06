@@ -237,7 +237,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
   ];
 
-  const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding'];
+  const surpriseHobbies = [
+    // Creative Arts
+    'photography', 'drawing', 'painting', 'digital art', 'calligraphy', 'pottery', 'jewelry making', 'sculpture',
+    
+    // Music & Performance
+    'guitar', 'piano', 'ukulele', 'singing', 'violin', 'drums', 'harmonica', 'dance', 'theater',
+    
+    // Culinary Arts
+    'cooking', 'baking', 'wine tasting', 'coffee brewing', 'bread making', 'cake decorating',
+    
+    // Physical & Wellness
+    'yoga', 'meditation', 'tai chi', 'martial arts', 'rock climbing', 'swimming', 'running', 'cycling',
+    
+    // Technical & Digital
+    'coding', 'web design', 'video editing', 'app development', 'robotics', '3d printing', 'game development',
+    
+    // Nature & Outdoor
+    'gardening', 'hiking', 'bird watching', 'astronomy', 'fishing', 'camping', 'foraging',
+    
+    // Crafts & Making
+    'knitting', 'sewing', 'woodworking', 'leather crafting', 'soap making', 'candle making', 'embroidery',
+    
+    // Learning & Culture
+    'chess', 'language learning', 'reading', 'writing', 'history research', 'genealogy'
+  ];
   const surpriseAnswers: QuizAnswers = {
     experience: 'beginner',
     timeAvailable: '1 hour',
