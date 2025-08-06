@@ -1,5 +1,6 @@
-// YouTube API Service with quality filters
+// YouTube API Service with quality filters and verified video fallbacks
 import fetch from 'node-fetch';
+import { getRandomVerifiedVideo, getVerifiedVideo } from './verifiedVideos';
 
 // Track used video IDs to prevent duplicates within a plan
 const usedVideoIds = new Set<string>();
@@ -165,6 +166,14 @@ export async function getBestVideoForDay(
 ): Promise<string> {
   console.log(`🎥 YouTube API: Searching for ${hobby} ${experience} day ${dayNumber} - "${dayTitle}"`);
   
+  // First try to get verified video for this hobby and day
+  const verifiedVideo = getRandomVerifiedVideo(hobby.toLowerCase(), dayNumber, usedVideoIds);
+  if (verifiedVideo && verifiedVideo.verified && parseInt(verifiedVideo.duration) <= 45) {
+    console.log(`✅ Using verified video for ${hobby} day ${dayNumber}:`, verifiedVideo.title, `(${verifiedVideo.duration}min)`);
+    usedVideoIds.add(verifiedVideo.id);
+    return verifiedVideo.id;
+  }
+  
   // For day 1, reset used videos to start fresh
   if (dayNumber === 1) {
     resetUsedVideos();
@@ -198,7 +207,12 @@ export async function getBestVideoForDay(
     console.log('🔄 No specific videos found, trying general search');
     const generalVideos = await searchYouTubeVideos(hobby, experience, dayNumber, 25);
     if (generalVideos.length === 0) {
-      console.log('🔄 No API videos found, using fallback');
+      console.log('🔄 No API videos found, using verified fallback');
+      const fallbackVideo = getVerifiedVideo(hobby.toLowerCase(), dayNumber);
+      if (fallbackVideo) {
+        console.log(`✅ Using verified fallback for ${hobby} day ${dayNumber}:`, fallbackVideo.title);
+        return fallbackVideo.id;
+      }
       return getFallbackVideo(hobby, dayNumber);
     }
     return selectBestVideo(generalVideos, hobby, dayTitle, mainTask, dayNumber);

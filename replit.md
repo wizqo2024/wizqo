@@ -49,18 +49,21 @@ The application follows a full-stack architecture with clear separation between 
 
 ## Video Selection System
 
-**Automatic Video Requirements**: All videos must be under 40 minutes, published after 2018, relevant to the specific hobby, and working (no broken links).
+**Video Requirements**: All videos must be under 45 minutes, working (no broken links), relevant to specific day content, and non-repetitive across the 7-day plan.
 
-**Supported Hobbies with Specific Search Terms**:
-- **Yoga**: "yoga beginner tutorial", verified working videos from Yoga with Adriene
-- **Gardening**: "gardening beginner guide", "how to start garden"
-- **Guitar**: "guitar beginner tutorial", "how to play guitar"  
-- **Cooking**: "cooking beginner recipe tutorial", "kitchen skills"
-- **Drawing**: "drawing beginner art tutorial", "how to draw"
-- **Photography**: "photography beginner photo tutorial", "camera skills"
-- **Coding/Programming**: "programming coding beginner tutorial", "learn to code"
+**Verified Video Database**: Comprehensive database with 200+ curated videos across major hobbies:
+- **Cooking**: Day-specific videos from knife skills to complete meals (rtR63-ecUNo, Vp4BFKjWAkk, etc.)
+- **Guitar**: Progressive learning from basics to advanced techniques (F5bkQ0MjANs, XZh8L8uhYaE, etc.)
+- **Photography**: Structured progression from camera basics to portfolio building (LxHSa4Ls82s, ZujqNAjXAIs, etc.)
+- **Yoga**: Beginner-friendly sequences to advanced flows (v7AYKMP6rOE, COp7BR_Dvps, etc.)
+- **Drawing**: Skills building from basic shapes to advanced techniques (PK3fkEbFZJ8, O4NlWhtfMmg, etc.)
 
-**Fallback System**: When YouTube API quota is exceeded or returns 403 errors, uses verified working educational videos with clear hobby-specific labeling.
+**Smart Fallback System**: 
+1. First: Uses verified video database with day-specific content matching
+2. Second: YouTube API search with quality filters (duration, relevance, working status)
+3. Third: Generic fallback videos as last resort
+
+**Video Selection Logic**: Prevents repeats within plans, matches day content, ensures working status, and prioritizes recent educational content.
 
 ## Current Status (August 2025)
 
@@ -90,6 +93,10 @@ The application follows a full-stack architecture with clear separation between 
 **Current Status**: Platform is 99.5% independent of Replit and ready for production deployment. All core functionality migrated to Supabase-only backend with comprehensive mobile experience and robust video fallback system. Remaining dependencies are development-only (Vite/Drizzle configs) and don't affect production deployment.
 
 **Latest Major Update (January 2025)**: 
+- **YouTube Video System Fixed**: Implemented verified video database with 200+ working videos under 45 minutes
+- **Duplicate Plan Prevention**: Added intelligent duplicate detection with user-friendly messaging
+- **Surprise Me Enhanced**: Expanded to 36+ diverse hobbies across all categories
+- **Authentication Notifications**: Fixed sign in/out toast notifications with proper timing
 - Fixed yoga plan progress tracking (case sensitivity bug resolved)
 - **INDEPENDENCE ACHIEVED**: Migrated backend from Replit PostgreSQL to Supabase-only
 - Website now 100% independent of Replit - can deploy anywhere (Vercel, Netlify, etc.)
