@@ -18,6 +18,11 @@ const getHobbyImage = (hobby: string): string => {
   const normalizedHobby = hobby?.toLowerCase() || '';
   console.log(`🎨 Plan getHobbyImage called with: "${hobby}" -> normalized: "${normalizedHobby}"`);
   
+  // Debug: Show what values we're working with
+  if (!hobby || hobby === '') {
+    console.log(`🚨 Plan getHobbyImage: EMPTY HOBBY VALUE - no image will be selected correctly`);
+  }
+  
   // Smart categorization system for any hobby
   const getImageByCategory = (hobbyName: string): string => {
     const categories = {
@@ -1761,7 +1766,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         <div 
                           className="text-white p-8 md:p-12 relative overflow-hidden"
                           style={{
-                            backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(${getHobbyImage(planData?.hobby || '')})`,
+                            backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(${getHobbyImage(planData?.hobby || initialPlanData?.hobby || selectedHobby || '')})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat'
