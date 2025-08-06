@@ -9,8 +9,16 @@ interface YouTubeEmbedProps {
 export function YouTubeEmbed({ videoId, title = "Tutorial Video", className = "" }: YouTubeEmbedProps) {
   if (!videoId) {
     return (
-      <div className={`relative w-full ${className} bg-gray-100 dark:bg-gray-800 rounded-lg p-4 md:p-8 text-center`}>
-        <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base">No video available</p>
+      <div className={`relative w-full ${className}`}>
+        <div className="bg-slate-800 dark:bg-slate-900 rounded-xl p-6 text-center border border-slate-700">
+          <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-white mb-2">Video Tutorial</h3>
+          <p className="text-slate-400 text-sm">No video available for this lesson</p>
+        </div>
       </div>
     );
   }
@@ -19,26 +27,38 @@ export function YouTubeEmbed({ videoId, title = "Tutorial Video", className = ""
 
   return (
     <div className={`relative w-full ${className}`}>
-      <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
-        <iframe
-          src={embedUrl}
-          title={title}
-          className="absolute top-0 left-0 w-full h-full border-0 rounded-lg"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          loading="lazy"
-          onError={(e) => {
-            console.error('YouTube video failed to load:', videoId, e);
-            console.log('Full embed URL:', embedUrl);
-          }}
-          onLoad={() => {
-            console.log('✅ YouTube video loaded successfully:', videoId);
-          }}
-        />
+      {/* Clean card design matching the image */}
+      <div className="bg-slate-800 dark:bg-slate-900 rounded-xl p-6 border border-slate-700">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white">{title}</h3>
+            <p className="text-slate-400 text-sm">Watch and learn the fundamentals</p>
+          </div>
+        </div>
+        
+        <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
+          <iframe
+            src={embedUrl}
+            title={title}
+            className="absolute top-0 left-0 w-full h-full border-0 rounded-lg"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+            onError={(e) => {
+              console.error('YouTube video failed to load:', videoId, e);
+              console.log('Full embed URL:', embedUrl);
+            }}
+            onLoad={() => {
+              console.log('✅ YouTube video loaded successfully:', videoId);
+            }}
+          />
+        </div>
       </div>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center px-2">
-        {title}
-      </p>
     </div>
   );
 }

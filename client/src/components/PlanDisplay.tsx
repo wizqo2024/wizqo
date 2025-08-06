@@ -300,8 +300,21 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.tips.map((tip, tipIndex) => {
-                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown];
-                              const IconComponent = tipIcons[(day.day * 13 + tipIndex * 17 + planData.totalDays * 7 + 5) % tipIcons.length];
+                              // 25 DIFFERENT ICONS WITH ADVANCED VARIETY ALGORITHM
+                              const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown, Play, Users, Gift, BookOpen, Clock, User, AlertCircle, Ban, Shield, ExternalLink, Share, Circle, Lock, ChevronDown, ChevronUp];
+                              
+                              // COMPLEX MATHEMATICAL FORMULA FOR MAXIMUM VARIETY
+                              const iconIndex = (
+                                (day.day * 43) + 
+                                (tipIndex * 139) + 
+                                (planData.hobby.length * 67) + 
+                                (planData.totalDays * 23) + 
+                                Math.floor(Math.sin(day.day + tipIndex) * 100) + 
+                                (tip.length * 11) + 
+                                73
+                              ) % tipIcons.length;
+                              
+                              const IconComponent = tipIcons[iconIndex];
                               return (
                                 <li key={tipIndex} className="flex items-start space-x-3 text-sm text-green-800">
                                   <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
@@ -326,8 +339,21 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                           </div>
                           <ul className="space-y-2">
                             {day.mistakesToAvoid.map((mistake, mistakeIndex) => {
-                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield];
-                              const IconComponent = mistakeIcons[(day.day * 11 + mistakeIndex * 19 + planData.totalDays * 3 + 7) % mistakeIcons.length];
+                              // 20 DIFFERENT WARNING ICONS WITH ADVANCED VARIETY ALGORITHM
+                              const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield, Users, Target, Clock, Heart, Star, Gem, Crown, Trophy, Play, Gift];
+                              
+                              // COMPLEX MATHEMATICAL FORMULA FOR MAXIMUM VARIETY (DIFFERENT FROM TIPS)
+                              const iconIndex = (
+                                (day.day * 97) + 
+                                (mistakeIndex * 211) + 
+                                (planData.hobby.length * 131) + 
+                                (planData.totalDays * 41) + 
+                                Math.floor(Math.cos(day.day + mistakeIndex) * 100) + 
+                                (mistake.length * 19) + 
+                                167
+                              ) % mistakeIcons.length;
+                              
+                              const IconComponent = mistakeIcons[iconIndex];
                               return (
                                 <li key={mistakeIndex} className="flex items-start space-x-3 text-sm text-red-800">
                                   <div className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
