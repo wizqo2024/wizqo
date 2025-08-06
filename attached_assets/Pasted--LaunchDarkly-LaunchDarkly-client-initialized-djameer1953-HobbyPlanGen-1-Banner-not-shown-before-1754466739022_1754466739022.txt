@@ -1,0 +1,235 @@
+[LaunchDarkly] LaunchDarkly client initialized
+/@djameer1953/HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+47Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-dd942f0276655939.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'battery'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+HobbyPlanGen:1 Access to fetch at 'https://sp.replit.com/v1/t' from origin 'https://replit.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+sp.replit.com/v1/t:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: cooking
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "cooking",
+  "title": "Learn cooking in 7 Days",
+  "overview": "Master cooking in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Cooking Basics & Setup - 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in cooking. You'll work on basic concepts and terminology while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basic concepts and terminology fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical cooking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Cooking equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly set up your practice space",
+        "Focus on understanding why, not just how",
+        "Start slow and build confidence gradually"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through setup without proper preparation",
+        "Skipping basic safety or preparation steps",
+        "Not taking time to understand the fundamentals"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Chef's Knife 8 Inch",
+          "link": "https://www.amazon.com/s?k=chef+knife+8+inch&tag=wizqohobby-20",
+          "price": "$29.99"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Cooking Core Techniques - 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in cooking. You'll work on core techniques and proper form while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques and proper form fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical cooking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Cooking equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Quality practice beats quantity every time",
+        "Focus on proper technique before speed",
+        "Use a mirror or recording to check your form"
+      ],
+      "mistakesToAvoid": [
+        "Using incorrect technique from the start",
+        "Practicing bad habits that are hard to break later",
+        "Ignoring proper form for speed"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Bamboo Cutting Board",
+          "link": "https://www.amazon.com/s?k=bamboo+cutting+board&tag=wizqohobby-20",
+          "price": "$16.99"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Cooking Building Skills - 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in cooking. You'll work on coordination and skill-building exercises while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with coordination and skill-building exercises fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical cooking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Cooking equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Break complex skills into smaller parts",
+        "Celebrate small improvements each day",
+        "Be patient with your learning process"
+      ],
+      "mistakesToAvoid": [
+        "Practicing without focus or clear goals",
+        "Not breaking down complex movements into parts",
+        "Expecting immediate perfection"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Measuring Cups and Spoons Set",
+          "link": "https://www.amazon.com/s?k=measuring+cups+spoons+set&t
+Console.js:61 🐛 First day YouTube video ID before fixPlanDataFields: undefined
+Console.js:61 🔍 Checking nested plan structure for YouTube video ID...
+Console.js:61 🔍 plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 plan.days?.[0]?.freeResources: Array(0)
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: undefined
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: undefined
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 CHECKING: Looking for existing plan for hobby: cooking user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: cooking - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 Direct Supabase session check: plan-1754466725437-g4rh5dcf8 cooking
+Console.js:61 🔍 CHECKING: Found 0 existing plans for hobby: cooking
+Console.js:61 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+Console.js:61 💾 SUPABASE SAVE: Fetch completed with status: 201
+Console.js:61 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+Console.js:61 ✅ Plan saved successfully, setting plan ID: 689ac13a-554d-48e1-a75e-573b18b3f71b
+Console.js:61 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: cooking - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: cooking - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: cooking - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: cooking - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object

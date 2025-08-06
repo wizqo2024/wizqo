@@ -77,8 +77,17 @@ const fixPlanDataFields = (plan: any) => {
   console.log('🔍 plan.plan_data?.plan_data?.days length:', plan.plan_data?.plan_data?.days?.length || 0);
   console.log('🔍 First day youtubeVideoId from different paths:');
   console.log('🔍   plan.days?.[0]?.youtubeVideoId:', plan.days?.[0]?.youtubeVideoId);
+  console.log('🔍   plan.days?.[0]?.videoId:', plan.days?.[0]?.videoId);
   console.log('🔍   plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
   console.log('🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId);
+  
+  // LOG COMPLETE FIRST DAY TO SEE ALL FIELDS
+  if (plan.days?.[0]) {
+    console.log('🔍 COMPLETE FIRST DAY FRONTEND DATA:', JSON.stringify(plan.days[0], null, 2));
+    console.log('🔍 FRONTEND - All keys in first day:', Object.keys(plan.days[0]));
+    console.log('🔍 FRONTEND - youtubeVideoId value type:', typeof plan.days[0].youtubeVideoId);
+    console.log('🔍 FRONTEND - videoId value type:', typeof plan.days[0].videoId);
+  }
   
   console.log('🔧 fixPlanDataFields - Input plan structure:', {
     hasDays: !!plan.days,
@@ -110,7 +119,8 @@ const fixPlanDataFields = (plan: any) => {
               'Not taking notes or tracking your improvement'
             ],
       // CRITICAL: Preserve unique YouTube video IDs from backend - never override with undefined
-      youtubeVideoId: day.youtubeVideoId || day.videoId || undefined,
+      youtubeVideoId: day.youtubeVideoId || day.videoId || day.video_id || undefined,
+      videoId: day.videoId || day.youtubeVideoId || day.video_id || undefined,
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`,
       // Preserve all other backend fields
       estimatedTime: day.estimatedTime,

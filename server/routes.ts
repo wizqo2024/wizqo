@@ -204,6 +204,7 @@ Make each day build progressively on the previous day. Include practical, action
           `Not taking notes or tracking your improvement`
         ],
         youtubeVideoId: targetedVideoId,
+        videoId: targetedVideoId, // Also add videoId for compatibility
         videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
         freeResources: [],
         affiliateProducts: [{
@@ -212,6 +213,11 @@ Make each day build progressively on the previous day. Include practical, action
       };
     }));
 
+    // Debug: Log AI plan response structure
+    console.log('🔍 AI PLAN GENERATED - First day youtubeVideoId:', aiPlan.days[0].youtubeVideoId);
+    console.log('🔍 AI PLAN GENERATED - First day videoId:', aiPlan.days[0].videoId);
+    console.log('🔍 AI PLAN COMPLETE FIRST DAY:', JSON.stringify(aiPlan.days[0], null, 2));
+    
     // Ensure hobby field and correct difficulty mapping are included in the response
     aiPlan.hobby = hobby;
     aiPlan.difficulty = experience === 'some' ? 'intermediate' : experience;
@@ -395,6 +401,15 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   
   // Debug: Log complete first day structure
   console.log('🔍 COMPLETE FIRST DAY DATA:', JSON.stringify(plan.days[0], null, 2));
+  
+  // Final debug: Log complete plan response structure
+  console.log('🔍 FINAL PLAN RESPONSE STRUCTURE:', {
+    hobby: plan.hobby,
+    totalDays: plan.totalDays,
+    firstDayKeys: Object.keys(plan.days[0]),
+    firstDayVideoId: plan.days[0].youtubeVideoId,
+    firstDayVideoIdAlt: plan.days[0].videoId
+  });
   
   return plan;
 }
