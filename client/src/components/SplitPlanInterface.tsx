@@ -769,8 +769,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔧 CORRECTED plan data - first day youtubeVideoId:', correctedPlanData.days[0].youtubeVideoId);
       
       setPlanData(correctedPlanData);
-      // Minimize chat after plan generation
-      setIsChatMinimized(true);
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -871,8 +869,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
         setPlanData(fixedStandardPlan);
-        // Minimize chat after plan generation
-        setIsChatMinimized(true);
         
         // Save plan to Supabase if user is authenticated
         console.log('🔍 AUTH CHECK: user object:', user);
@@ -902,7 +898,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               await loadProgressFromDatabase(savedPlan.id);
             }, 500); // Small delay to ensure progress is initialized
             
-            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Need help with anything? Just ask!`);
+            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Ask me any questions about your plan!`);
             
             // CRITICAL FIX: Set step to 'plan' after plan generation for proper chat handling
             setCurrentStep('plan');
@@ -925,7 +921,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
             }
             
-            addAIMessage(errorMessage + ' Need help with anything? Just ask!');
+            addAIMessage(errorMessage + ' Ask me any questions about your plan!');
             
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling  
             setCurrentStep('plan');
@@ -933,7 +929,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } else {
           console.log('❌ AUTH CHECK: User not authenticated - cannot save plan');
           console.log('❌ AUTH CHECK: user object:', user);
-          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Need help with anything? Just ask!`);
+          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Ask me any questions about your plan!`);
           
           // CRITICAL FIX: Set step to 'plan' for non-authenticated users too
           setCurrentStep('plan');
@@ -1343,7 +1339,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     {message.content}
                   </div>
                   
-                  {message.options && (
+                  {message.options && currentStep !== 'plan' && (
                     <div className="mt-1 lg:mt-2 flex flex-wrap gap-1">
                       {message.options.map((option) => (
                         <button

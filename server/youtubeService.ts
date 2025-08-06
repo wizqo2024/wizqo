@@ -1,6 +1,9 @@
 // YouTube API Service with quality filters
 import fetch from 'node-fetch';
 
+// Track used video IDs to prevent duplicates within a plan
+const usedVideoIds = new Set<string>();
+
 interface YouTubeVideo {
   videoId: string;
   title: string;
@@ -116,7 +119,7 @@ export async function searchYouTubeVideos(
       const isShortEnough = durationMinutes <= 45 && durationMinutes >= 3; // 3-45 minutes
       const isRelevant = title.includes(hobby) || title.includes('tutorial') || title.includes('learn') || title.includes('how to');
       const isNotLive = video.snippet.liveBroadcastContent !== 'live';
-      const hasGoodStats = parseInt(video.statistics?.viewCount || '0') > 1000; // At least 1k views
+      const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // At least 5k views as requested
       
       if (isRecentEnough && isShortEnough && isRelevant && isNotLive && hasGoodStats) {
         // Test video availability
@@ -147,6 +150,11 @@ export async function searchYouTubeVideos(
   }
 }
 
+// Reset used video tracking for new plan
+export function resetUsedVideos() {
+  usedVideoIds.clear();
+}
+
 // Get best video for specific day and hobby with content matching
 export async function getBestVideoForDay(
   hobby: string,
@@ -156,6 +164,11 @@ export async function getBestVideoForDay(
   mainTask?: string
 ): Promise<string> {
   console.log(`🎥 YouTube API: Searching for ${hobby} ${experience} day ${dayNumber} - "${dayTitle}"`);
+  
+  // For day 1, reset used videos to start fresh
+  if (dayNumber === 1) {
+    resetUsedVideos();
+  }
   
   // Create more specific search based on day content
   const searchTerms = [];
@@ -179,19 +192,19 @@ export async function getBestVideoForDay(
   const specificQuery = [hobby, experience, 'tutorial', ...searchTerms.slice(0, 3)].join(' ');
   console.log(`🔍 Specific search: "${specificQuery}"`);
   
-  const videos = await searchYouTubeVideosWithCustomQuery(specificQuery, 15);
+  const videos = await searchYouTubeVideosWithCustomQuery(specificQuery, 25); // Increase results for better uniqueness
   
   if (videos.length === 0) {
     console.log('🔄 No specific videos found, trying general search');
-    const generalVideos = await searchYouTubeVideos(hobby, experience, dayNumber, 15);
+    const generalVideos = await searchYouTubeVideos(hobby, experience, dayNumber, 25);
     if (generalVideos.length === 0) {
       console.log('🔄 No API videos found, using fallback');
       return getFallbackVideo(hobby, dayNumber);
     }
-    return selectBestVideo(generalVideos, hobby, dayTitle, mainTask);
+    return selectBestVideo(generalVideos, hobby, dayTitle, mainTask, dayNumber);
   }
 
-  return selectBestVideo(videos, hobby, dayTitle, mainTask);
+  return selectBestVideo(videos, hobby, dayTitle, mainTask, dayNumber);
 }
 
 // Search YouTube with custom query
@@ -253,7 +266,7 @@ async function searchYouTubeVideosWithCustomQuery(
       const duration = video.contentDetails.duration;
       const durationMinutes = parseDuration(duration);
       
-      if (durationMinutes <= 45 && durationMinutes >= 3) {
+      if (durationMinutes <= 45 && durationMinutes >= 3 && parseInt(video.statistics?.viewCount || '0') >= 5000) {
         const isWorking = await isVideoWorking(video.id);
         if (isWorking) {
           qualityVideos.push({
@@ -280,14 +293,26 @@ function selectBestVideo(
   videos: YouTubeVideo[],
   hobby: string,
   dayTitle?: string,
-  mainTask?: string
+  mainTask?: string,
+  dayNumber?: number
 ): string {
   if (videos.length === 0) {
-    return getFallbackVideo(hobby, 1);
+    return getFallbackVideo(hobby, dayNumber || 1);
+  }
+
+  // Filter out already used videos
+  const availableVideos = videos.filter(video => !usedVideoIds.has(video.videoId));
+  
+  if (availableVideos.length === 0) {
+    console.log('⚠️ All videos already used, expanding search');
+    // If all videos are used, use the original list but log this
+    const fallbackVideo = videos[0].videoId;
+    console.log(`🔄 Using fallback video due to duplicates: ${fallbackVideo}`);
+    return fallbackVideo;
   }
 
   // Score videos based on relevance to day content
-  const scoredVideos = videos.map(video => {
+  const scoredVideos = availableVideos.map(video => {
     let score = 0;
     const title = video.title.toLowerCase();
     const duration = parseDuration(video.duration);
@@ -335,7 +360,11 @@ function selectBestVideo(
   scoredVideos.sort((a, b) => b.score - a.score);
   const bestVideo = scoredVideos[0];
   
+  // Add the selected video to used list
+  usedVideoIds.add(bestVideo.videoId);
+  
   console.log(`🏆 Best video selected: ${bestVideo.title} (Score: ${bestVideo.score})`);
+  console.log(`📝 Added to used videos list. Total used: ${usedVideoIds.size}`);
   return bestVideo.videoId;
 }
 
