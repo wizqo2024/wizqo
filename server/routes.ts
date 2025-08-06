@@ -32,7 +32,12 @@ function fixPlanDataFields(plan: any) {
               "Rushing through exercises without understanding concepts",
               "Skipping practice time or cutting sessions short", 
               "Not taking notes or tracking your improvement"
-            ]
+            ],
+      // Preserve ALL YouTube video fields from the original plan
+      youtubeVideoId: day.youtubeVideoId || day.videoId,
+      videoTitle: day.videoTitle,
+      estimatedTime: day.estimatedTime,
+      skillLevel: day.skillLevel
     }))
   };
 }

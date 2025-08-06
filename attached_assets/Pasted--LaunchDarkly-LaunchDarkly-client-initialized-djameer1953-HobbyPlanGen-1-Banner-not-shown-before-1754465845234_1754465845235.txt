@@ -1,0 +1,223 @@
+[LaunchDarkly] LaunchDarkly client initialized
+/@djameer1953/HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+41Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-dd942f0276655939.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'battery'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+HobbyPlanGen:1 Access to fetch at 'https://sp.replit.com/v1/t' from origin 'https://replit.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+sp.replit.com/v1/t:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: yoga
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "yoga",
+  "title": "Learn yoga in 7 Days",
+  "overview": "Master yoga in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Yoga Basics & Setup - 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in yoga. You'll work on basic concepts and terminology while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basic concepts and terminology fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical yoga scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Yoga equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly set up your practice space",
+        "Focus on understanding why, not just how",
+        "Start slow and build confidence gradually"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through setup without proper preparation",
+        "Skipping basic safety or preparation steps",
+        "Not taking time to understand the fundamentals"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Yoga Starter Kit Day 1",
+          "link": "https://www.amazon.com/s?k=yoga+starter+kit&tag=wizqohobby-20",
+          "price": "$24.99"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Yoga Core Techniques - 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in yoga. You'll work on core techniques and proper form while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques and proper form fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical yoga scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Yoga equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Quality practice beats quantity every time",
+        "Focus on proper technique before speed",
+        "Use a mirror or recording to check your form"
+      ],
+      "mistakesToAvoid": [
+        "Using incorrect technique from the start",
+        "Practicing bad habits that are hard to break later",
+        "Ignoring proper form for speed"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Yoga Practice Tools Day 2",
+          "link": "https://www.amazon.com/s?k=yoga+practice+tools&tag=wizqohobby-20",
+          "price": "$19.99"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Yoga Building Skills - 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in yoga. You'll work on coordination and skill-building exercises while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with coordination and skill-building exercises fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical yoga scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Yoga equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Break complex skills into smaller parts",
+        "Celebrate small improvements each day",
+        "Be patient with your learning process"
+      ],
+      "mistakesToAvoid": [
+        "Practicing without focus or clear goals",
+        "Not breaking down complex movements into parts",
+        "Expecting immediate perfection"
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Yoga Learning Guide Day 3",
+          "link": "https://www.amazon.com/s?k=yoga+learning+guide&tag=wizqohobby-20",
+          "price": "$15.99"
+  
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: undefined
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: undefined
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 CHECKING: Looking for existing plan for hobby: yoga user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 Direct Supabase session check: plan-1754465817587-in9n2hwb4 yoga
+Console.js:61 🔍 CHECKING: Found 1 existing plans for hobby: yoga
+Console.js:61 ⚠️ DUPLICATE PLAN: Plan already exists for hobby: yoga
+Console.js:61 ❌ SUPABASE SAVE ERROR: Failed to save plan: Error: You already have a learning plan for yoga. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:49:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:784:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:815:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error saving surprise plan to Supabase: Error: You already have a learning plan for yoga. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:49:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:784:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:815:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
