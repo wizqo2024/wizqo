@@ -19,6 +19,10 @@ interface Day {
   tips: string[];
   mistakesToAvoid: string[];
   youtubeVideoId?: string;
+  videoId?: string;
+  videoTitle?: string;
+  estimatedTime?: string;
+  skillLevel?: string;
   freeResources: { title: string; link: string }[];
   affiliateProducts: { title: string; link: string; price: string }[];
 }
@@ -304,8 +308,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                               const tipIcons = [Star, Zap, Heart, TrendingUp, Target, CheckCircle, Lightbulb, Trophy, Gem, Crown, Play, Users, Gift, BookOpen, Clock, User, AlertCircle, Ban, Shield, ExternalLink, Share, Circle, Lock, ChevronDown, ChevronUp];
                               
                               // FORCED SEQUENTIAL ICON SELECTION - GUARANTEED DIFFERENT EVERY TIME
-                              const globalTipIndex = (day.day - 1) * 10 + tipIndex; // Each day starts from different base
+                              const globalTipIndex = (day.day - 1) * 3 + tipIndex; // Each day gets 3 different icons
                               const iconIndex = globalTipIndex % tipIcons.length;
+                              console.log(`🔍 TIP ICON Day ${day.day} Tip ${tipIndex}: globalIndex=${globalTipIndex}, iconIndex=${iconIndex}, icon=${tipIcons[iconIndex].name}`);
                               
                               const IconComponent = tipIcons[iconIndex];
                               return (
@@ -336,8 +341,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                               const mistakeIcons = [X, Ban, AlertCircle, AlertTriangle, Circle, Lock, StopCircle, XCircle, Slash, Shield, Users, Target, Clock, Heart, Star, Gem, Crown, Trophy, Play, Gift];
                               
                               // FORCED SEQUENTIAL ICON SELECTION - OFFSET FROM TIPS TO AVOID OVERLAP
-                              const globalMistakeIndex = (day.day - 1) * 10 + mistakeIndex + 100; // +100 offset from tips
+                              const globalMistakeIndex = (day.day - 1) * 3 + mistakeIndex + 50; // +50 offset from tips
                               const iconIndex = globalMistakeIndex % mistakeIcons.length;
+                              console.log(`🔍 MISTAKE ICON Day ${day.day} Mistake ${mistakeIndex}: globalIndex=${globalMistakeIndex}, iconIndex=${iconIndex}, icon=${mistakeIcons[iconIndex].name}`);
                               
                               const IconComponent = mistakeIcons[iconIndex];
                               return (
