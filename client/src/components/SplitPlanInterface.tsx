@@ -1837,7 +1837,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           
                           <div>
                             <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
-                              Day {currentDay.day}: {currentDay.title}
+                              {currentDay.title.startsWith('Day ') ? currentDay.title : `Day ${currentDay.day}: ${currentDay.title}`}
                             </CardTitle>
                             <p className="text-sm text-gray-600 mt-1">Today's Learning Goal</p>
                           </div>
