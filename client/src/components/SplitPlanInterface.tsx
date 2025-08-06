@@ -100,7 +100,8 @@ const fixPlanDataFields = (plan: any) => {
               'Skipping practice time or cutting sessions short',
               'Not taking notes or tracking your improvement'
             ],
-      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]) || 'UB1O30fR-EE',
+      // CRITICAL: Preserve unique YouTube video IDs from backend - no fallback override
+      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]),
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
     }))
   };
