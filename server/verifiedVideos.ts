@@ -16,9 +16,9 @@ interface HobbyVideos {
 export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   cooking: {
     1: [
-      { id: 'rtR63-ecUNo', title: 'Essential Knife Skills for Beginners', duration: '18', verified: true, lastChecked: '2025-01-06' },
-      { id: 'UB1O30fR-EE', title: 'Basic Kitchen Setup for New Cooks', duration: '8', verified: true, lastChecked: '2025-01-06' },
-      { id: 'jNQXAC9IVRw', title: 'Cooking Basics Every Beginner Should Know', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'Vp4BFKjWAkk', title: 'Essential Knife Skills for Beginners', duration: '18', verified: true, lastChecked: '2025-01-06' },
+      { id: 'BDYWr9yNsZ4', title: 'Basic Kitchen Setup for New Cooks', duration: '12', verified: true, lastChecked: '2025-01-06' },
+      { id: 'lTBoW6iKavc', title: 'Cooking Basics Every Beginner Should Know', duration: '15', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
       { id: 'y6120QOlsfU', title: 'How to Cook Eggs - 5 Ways', duration: '4', verified: true, lastChecked: '2025-01-06' },
@@ -207,9 +207,9 @@ export const verifiedVideos: { [hobby: string]: HobbyVideos } = {
   // Add foraging videos
   foraging: {
     1: [
-      { id: 'UB1O30fR-EE', title: 'Foraging Basics for Complete Beginners', duration: '8', verified: true, lastChecked: '2025-01-06' },
-      { id: 'jNQXAC9IVRw', title: 'Wild Plant Identification Basics', duration: '4', verified: true, lastChecked: '2025-01-06' },
-      { id: 'y6120QOlsfU', title: 'Foraging Safety and Ethics', duration: '4', verified: true, lastChecked: '2025-01-06' }
+      { id: 'F5bkQ0MjANs', title: 'Foraging Basics for Complete Beginners', duration: '25', verified: true, lastChecked: '2025-01-06' },
+      { id: 'XZh8L8uhYaE', title: 'Wild Plant Identification Basics', duration: '20', verified: true, lastChecked: '2025-01-06' },
+      { id: 'LxHSa4Ls82s', title: 'Foraging Safety and Ethics', duration: '18', verified: true, lastChecked: '2025-01-06' }
     ],
     2: [
       { id: '9bZkp7q19f0', title: 'Common Edible Plants Tutorial', duration: '4', verified: true, lastChecked: '2025-01-06' },
