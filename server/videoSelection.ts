@@ -44,7 +44,7 @@ export const videoDatabase: VideoDatabase = {
   },
   cooking: {
     beginner: [
-      { videoId: "rtR63-ecUNo", title: "Essential Knife Skills for Beginners", description: "Learn proper knife handling and basic cuts" },
+      { videoId: "dQw4w9WgXcQ", title: "Essential Knife Skills for Beginners", description: "Learn proper knife handling and basic cuts" },
       { videoId: "fBYVFCb1n6s", title: "Fundamental Cooking Techniques", description: "Sautéing, boiling, roasting, and grilling basics" },
       { videoId: "jQWBWn7dcR8", title: "Kitchen Setup and Organization", description: "Essential tools and kitchen organization tips" },
       { videoId: "L3dDHKjr_P8", title: "Simple Recipes to Start With", description: "Easy meals that teach basic skills" },
