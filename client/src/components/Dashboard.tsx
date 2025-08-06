@@ -262,61 +262,79 @@ Learn any hobby in 7 days at https://wizqo.com`;
   const getHobbyImage = (hobby: string): string => {
     const normalizedHobby = hobby?.toLowerCase() || '';
     console.log(`🎨 Dashboard getHobbyImage called with: "${hobby}" -> normalized: "${normalizedHobby}"`);
-    const images: Record<string, string> = {
-      drawing: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-      painting: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
-      photography: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
-      cooking: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
-      guitar: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
-      yoga: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-      coding: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-      writing: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
-      reading: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      dance: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
-      gardening: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
-      baking: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
-      piano: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400&h=240&fit=crop',
-      singing: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-      chess: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
-      hiking: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop',
-      camping: 'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=400&h=240&fit=crop',
-      knitting: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
-      pottery: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=240&fit=crop',
-      'history research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      'historical research': 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      research: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      cycling: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop',
-      swimming: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=240&fit=crop',
-      ukulele: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
-      embroidery: 'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
-      'cake decorating': 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
-      'app development': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-      woodworking: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
-      jewelry: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop',
-      calligraphy: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&h=240&fit=crop',
-      meditation: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-      origami: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop'
+    
+    // Smart categorization system for any hobby
+    const getImageByCategory = (hobbyName: string): string => {
+      const categories = {
+        // Music & Sound
+        music: ['guitar', 'piano', 'drums', 'violin', 'singing', 'ukulele', 'bass', 'flute', 'saxophone', 'trumpet'],
+        musicImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=240&fit=crop',
+        
+        // Arts & Crafts
+        arts: ['drawing', 'painting', 'pottery', 'sculpture', 'calligraphy', 'origami', 'embroidery', 'knitting', 'jewelry', 'woodworking'],
+        artsImage: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
+        
+        // Cooking & Food
+        cooking: ['cooking', 'baking', 'cake decorating', 'pastry', 'grilling', 'wine', 'cocktail', 'bread'],
+        cookingImage: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
+        
+        // Technology & Programming
+        tech: ['coding', 'programming', 'app development', 'web development', 'software', 'javascript', 'python', 'ai'],
+        techImage: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+        
+        // Fitness & Wellness
+        fitness: ['yoga', 'meditation', 'pilates', 'running', 'weightlifting', 'crossfit', 'stretching'],
+        fitnessImage: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+        
+        // Sports & Outdoor
+        sports: ['cycling', 'swimming', 'hiking', 'camping', 'climbing', 'surfing', 'skiing', 'basketball', 'soccer'],
+        sportsImage: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop',
+        
+        // Reading & Learning
+        learning: ['reading', 'writing', 'research', 'history', 'language', 'studying', 'books'],
+        learningImage: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+        
+        // Games & Strategy
+        games: ['chess', 'poker', 'board games', 'puzzles', 'sudoku'],
+        gamesImage: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
+        
+        // Dance & Movement
+        dance: ['dance', 'ballet', 'salsa', 'hip hop', 'ballroom'],
+        danceImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&h=240&fit=crop',
+        
+        // Photography & Visual
+        visual: ['photography', 'videography', 'film', 'photo editing'],
+        visualImage: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
+        
+        // Gardening & Nature
+        nature: ['gardening', 'plants', 'flowers', 'herbs', 'vegetables'],
+        natureImage: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop'
+      };
+      
+      // Check each category for keyword matches
+      for (const category of Object.keys(categories)) {
+        if (category.endsWith('Image')) continue;
+        
+        const keywords = categories[category as keyof typeof categories] as string[];
+        const imageKey = `${category}Image` as keyof typeof categories;
+        
+        for (const keyword of keywords) {
+          if (hobbyName.includes(keyword) || keyword.includes(hobbyName)) {
+            console.log(`🎨 Dashboard SMART MATCH: "${hobbyName}" matches category "${category}" via keyword "${keyword}"`);
+            return categories[imageKey] as string;
+          }
+        }
+      }
+      
+      console.log(`🎨 Dashboard NO CATEGORY MATCH for "${hobbyName}", using creative fallback`);
+      // Creative fallback - use a general learning/creativity image
+      return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop';
     };
     
-    // First try exact match
-    if (images[normalizedHobby]) {
-      const imageUrl = `${images[normalizedHobby]}&t=${Date.now()}`;
-      console.log(`🎨 Dashboard EXACT MATCH found: ${normalizedHobby} -> ${imageUrl}`);
-      return imageUrl;
-    }
-    
-    // Then try partial match for compound hobbies
-    for (const [key, image] of Object.entries(images)) {
-      if (normalizedHobby.includes(key) || key.includes(normalizedHobby)) {
-        const imageUrl = `${image}&t=${Date.now()}`;
-        console.log(`🎨 Dashboard PARTIAL MATCH found: ${normalizedHobby} matches ${key} -> ${imageUrl}`);
-        return imageUrl;
-      }
-    }
-    
-    console.log(`🎨 Dashboard NO MATCH for "${normalizedHobby}", using fallback`);
-    // Default fallback with cache busting
-    return `https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=${Date.now()}`;
+    const baseImage = getImageByCategory(normalizedHobby);
+    const finalImage = `${baseImage}&t=${Date.now()}`;
+    console.log(`🎨 Dashboard FINAL IMAGE: ${finalImage}`);
+    return finalImage;
   };
 
   const getStatusColor = (status: string): string => {
