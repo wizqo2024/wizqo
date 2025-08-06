@@ -1,66 +1,53 @@
 # YouTube Video System for 7-Day Hobby Plans
 
 ## Overview
-Our platform uses a sophisticated 3-tier video selection system to provide high-quality, relevant educational content for each day of the 7-day hobby learning plans.
+Our platform uses a 100% YouTube API video selection system to provide high-quality, relevant educational content for each day of the 7-day hobby learning plans. All videos are sourced directly from YouTube with strict quality and relevance requirements.
 
 ## Video Selection Strategy
 
-### Tier 1: Verified Video Database (Primary)
-- **Location**: `server/verifiedVideos.ts`
-- **Content**: 200+ manually curated and verified videos
-- **Organization**: Organized by hobby and day (1-7)
-- **Quality Standards**:
-  - All videos under 45 minutes
-  - Educational focus
-  - Working links (regularly verified)
-  - Day-specific content progression
-  - Non-repetitive across the 7-day plan
-
-**Example Structure**:
-```typescript
-cooking: {
-  1: [
-    { id: 'Vp4BFKjWAkk', title: 'Essential Knife Skills for Beginners', duration: '18', verified: true },
-    { id: 'BDYWr9yNsZ4', title: 'Basic Kitchen Setup for New Cooks', duration: '12', verified: true }
-  ],
-  2: [
-    { id: 'y6120QOlsfU', title: 'How to Cook Eggs - 5 Ways', duration: '4', verified: true }
-  ]
-}
-```
-
-### Tier 2: YouTube API Search (Secondary)
+### 100% YouTube API Search (Primary and Only)
 - **Location**: `server/youtubeService.ts`
-- **Purpose**: Dynamic search when verified videos unavailable
+- **Purpose**: Real-time dynamic search for the highest quality videos
 - **API Key**: Requires `YOUTUBE_API_KEY` environment variable
-- **Search Parameters**:
-  - `maxResults=10`
-  - `videoDuration=medium` (4-20 minutes)
+- **Enhanced Search Parameters**:
+  - `maxResults=25-30` (increased for better selection)
+  - `videoDuration=medium` (4-45 minutes)
   - `videoEmbeddable=true`
-  - `publishedAfter=2018-01-01` (recent content)
+  - `videoSyndicated=true`
+  - `publishedAfter=2019-01-01` (recent quality content)
   - `order=relevance`
+  - **Minimum 5000+ views requirement**
 
-**Search Query Construction**:
+**Day-Specific Search Query Construction**:
 ```typescript
+const dayTopics = {
+  1: ['basics', 'fundamentals', 'getting started', 'setup', 'introduction'],
+  2: ['first steps', 'basic techniques', 'simple exercises', 'practice'],
+  3: ['building skills', 'intermediate', 'core techniques', 'development'],
+  4: ['practical application', 'real practice', 'hands-on', 'implementation'],
+  5: ['advanced techniques', 'skills improvement', 'next level', 'mastering'],
+  6: ['creative exploration', 'personal style', 'experimentation'],
+  7: ['mastery', 'integration', 'complete guide', 'final skills']
+};
+
 const searchTerms = [
   hobby,
-  experience === 'beginner' ? 'beginner tutorial' : `${experience} tutorial`,
-  dayNumber === 1 ? 'basics fundamentals' : `lesson ${dayNumber}`,
-  '2024 2023 2022 2021' // Prefer recent videos
+  `${experience} tutorial`,
+  dayContent[0], // Primary day topic
+  dayContent[1], // Secondary day topic
+  'how to',
+  '2024 2023 2022 2021' // Recent content priority
 ];
 ```
 
-**Quality Filters Applied**:
-1. Duration check (under 45 minutes)
-2. Working link verification
-3. Duplicate prevention within plan
-4. Educational content relevance
-
-### Tier 3: Generic Fallback (Last Resort)
-- **Location**: `server/hobbyValidator.ts`
-- **Purpose**: Guaranteed video availability
-- **Content**: Generic educational videos with hobby-specific titles
-- **Usage**: When API quota exceeded or no relevant videos found
+**Strict Quality Filters Applied**:
+1. **Duration**: 4-45 minutes (no videos under 4 minutes or over 45 minutes)
+2. **Views**: Minimum 5000+ views for quality assurance
+3. **Relevance**: Advanced day-specific content matching
+4. **Working Status**: Real-time verification of video accessibility
+5. **Educational Content**: Must contain tutorial/educational keywords
+6. **Non-Repetitive**: Tracks used videos to prevent duplicates
+7. **Recent Content**: Published after 2019 for current techniques
 
 ## Video Integration Process
 
