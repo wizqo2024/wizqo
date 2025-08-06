@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { UnifiedNavigation } from './UnifiedNavigation';
 import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, Send, Play, MessageCircle } from 'lucide-react';
 import { YouTubeEmbed } from './YouTubeEmbed';
+import { CleanPlanDisplay } from './CleanPlanDisplay';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '@/hooks/useAuth';
@@ -71,6 +72,24 @@ const fixPlanDataFields = (plan: any) => {
   // Extract days array from various possible nested structures
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   
+  console.log('🔍 fixPlanDataFields - Examining data structure:');
+  console.log('🔍 plan.days length:', plan.days?.length || 0);
+  console.log('🔍 plan.plan_data?.days length:', plan.plan_data?.days?.length || 0);
+  console.log('🔍 plan.plan_data?.plan_data?.days length:', plan.plan_data?.plan_data?.days?.length || 0);
+  console.log('🔍 First day youtubeVideoId from different paths:');
+  console.log('🔍   plan.days?.[0]?.youtubeVideoId:', plan.days?.[0]?.youtubeVideoId);
+  console.log('🔍   plan.days?.[0]?.videoId:', plan.days?.[0]?.videoId);
+  console.log('🔍   plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
+  console.log('🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId);
+  
+  // LOG COMPLETE FIRST DAY TO SEE ALL FIELDS
+  if (plan.days?.[0]) {
+    console.log('🔍 COMPLETE FIRST DAY FRONTEND DATA:', JSON.stringify(plan.days[0], null, 2));
+    console.log('🔍 FRONTEND - All keys in first day:', Object.keys(plan.days[0]));
+    console.log('🔍 FRONTEND - youtubeVideoId value type:', typeof plan.days[0].youtubeVideoId);
+    console.log('🔍 FRONTEND - videoId value type:', typeof plan.days[0].videoId);
+  }
+  
   console.log('🔧 fixPlanDataFields - Input plan structure:', {
     hasDays: !!plan.days,
     hasPlanData: !!plan.plan_data,
@@ -100,8 +119,13 @@ const fixPlanDataFields = (plan: any) => {
               'Skipping practice time or cutting sessions short',
               'Not taking notes or tracking your improvement'
             ],
-      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]) || 'On2LgxqJlMU',
-      videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
+      // CRITICAL: Preserve unique YouTube video IDs from backend - never override with undefined
+      youtubeVideoId: day.youtubeVideoId || day.videoId || day.video_id || undefined,
+      videoId: day.videoId || day.youtubeVideoId || day.video_id || undefined,
+      videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`,
+      // Preserve all other backend fields
+      estimatedTime: day.estimatedTime,
+      skillLevel: day.skillLevel
     }))
   };
   
@@ -151,6 +175,30 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
+  const [isChatMinimized, setIsChatMinimized] = useState(false);
+  
+  // Window resize listener for responsive layout
+  useEffect(() => {
+    const handleResize = () => {
+      // Use only browser window measurements, not physical screen size
+      const innerWidth = window.innerWidth || 0;
+      const clientWidth = document.documentElement.clientWidth || 0;
+      
+      // Use the smaller of the two measurements to be conservative
+      const effectiveWidth = Math.min(innerWidth, clientWidth);
+      const isLikelyDesktop = effectiveWidth >= 768;
+      
+      // console.log('📱 Inner:', innerWidth, 'Client:', clientWidth, 'Effective:', effectiveWidth, 'Desktop:', isLikelyDesktop);
+      setIsDesktop(isLikelyDesktop);
+    };
+    
+    // Initial check
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Store plan data for dashboard navigation when plan is generated
   useEffect(() => {
@@ -248,11 +296,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               if (p.title) {
                 const titleMatch = p.title.match(/Learn (\w+) in/i);
                 const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
-                return extractedHobby === initialPlanData.hobby;
+                return extractedHobby === initialPlanData.hobby.toLowerCase();
               }
               return false;
             }) || [];
             console.log('🔍 Filtered plans for hobby:', supabasePlans?.map((p: any) => ({ id: p.id, title: p.title })));
+            console.log('🔍 Search comparison - extractedHobby vs initialPlanData.hobby:', { 
+              searchTerm: initialPlanData.hobby.toLowerCase(),
+              foundTitles: allPlans?.map((p: any) => p.title),
+              matchedPlans: supabasePlans?.length || 0 
+            });
             
             if (supabasePlans && supabasePlans.length > 0) {
               const mostRecentPlan = supabasePlans[0];
@@ -295,6 +348,37 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             } else {
               console.log('🚨 No plans found for hobby:', initialPlanData.hobby);
               console.log('🚨 Query details - User ID:', user.id, 'Hobby:', initialPlanData.hobby);
+              console.log('🚨 Available plan titles:', allPlans?.map((p: any) => p.title));
+              console.log('🚨 This indicates a plan lookup issue - checking if plan exists with different title format');
+              
+              // Fallback: try broader search patterns
+              const fallbackPlans = allPlans?.filter((p: any) => {
+                if (p.title) {
+                  const hobbyInTitle = p.title.toLowerCase().includes(initialPlanData.hobby.toLowerCase());
+                  return hobbyInTitle;
+                }
+                return false;
+              }) || [];
+              
+              if (fallbackPlans.length > 0) {
+                console.log('🔧 FALLBACK SUCCESS: Found plan with broader search:', fallbackPlans[0].title);
+                const fallbackPlan = fallbackPlans[0];
+                setCurrentPlanId(fallbackPlan.id.toString());
+                
+                // Load progress for fallback plan
+                const sessionKey = `progress_${user.id}_${fallbackPlan.id}`;
+                const sessionProgress = sessionStorage.getItem(sessionKey);
+                if (sessionProgress) {
+                  try {
+                    const progress = JSON.parse(sessionProgress);
+                    console.log('📖 Restored progress from session (fallback):', progress.completed_days);
+                    setCompletedDays(progress.completed_days || []);
+                    setSelectedDay(progress.current_day || 1);
+                  } catch (e) {
+                    console.error('Failed to parse session progress');
+                  }
+                }
+              }
             }
           } else {
             const errorText = await response.text();
@@ -586,50 +670,69 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Enhanced hobby validation and processing
   const validateAndProcessHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
-    const hobbies = ['painting', 'drawing', 'coding', 'programming', 'guitar', 'music', 'photography', 'cooking', 'baking', 'yoga', 'reading', 'writing', 'journaling', 'gardening', 'crafting'];
-    const synonymMap: Record<string, string> = {
-      'sketching': 'drawing',
-      'art': 'drawing', 
-      'dev': 'coding',
-      'development': 'coding',
-      'software': 'coding',
-      'instrument': 'guitar',
-      'camera': 'photography',
-      'photo': 'photography',
-      'chef': 'cooking',
-      'recipes': 'cooking',
-      'diary': 'journaling',
-      'journal': 'journaling',
-      'blogging': 'writing',
-      'blog': 'writing',
-      'creative writing': 'writing',
-      'poetry': 'writing',
-      'storytelling': 'writing'
-    };
-
-    const words = input.toLowerCase().split(/[\s,&]+/).filter(w => w.length > 2);
-    const detectedHobbies: string[] = [];
+    const trimmedInput = input.toLowerCase().trim();
     
-    words.forEach(word => {
-      if (hobbies.includes(word)) {
-        detectedHobbies.push(word);
-      } else if (synonymMap[word]) {
-        detectedHobbies.push(synonymMap[word]);
-      }
-    });
-
-    // Check for vague inputs
-    const vagueTerms = ['fun', 'interesting', 'creative', 'cool', 'nice', 'good'];
-    if (vagueTerms.some(term => input.toLowerCase().includes(term))) {
+    // Only reject completely nonsensical inputs (matching backend logic)
+    const badInputs = ['bye', 'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'ok', 'okay', 'yes', 'no', 'maybe', 'test', 'testing', '', 'null', 'undefined', 'admin', 'root'];
+    
+    if (badInputs.includes(trimmedInput) || trimmedInput.length < 2) {
       return {
         isValid: false,
-        suggestions: ['🎨 Arts (painting, drawing)', '🎮 Games', '🏃 Outdoor Activities']
+        suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance']
       };
     }
-
+    
+    // Expanded hobby detection with smart matching
+    const hobbyKeywords = {
+      music: ['music', 'guitar', 'piano', 'violin', 'drums', 'singing', 'bass', 'keyboard', 'ukulele'],
+      art: ['drawing', 'painting', 'sketching', 'art', 'illustration', 'digital art', 'watercolor', 'acrylic'],
+      dance: ['dance', 'dancing', 'ballet', 'hip hop', 'salsa', 'ballroom', 'contemporary', 'jazz dance'],
+      fitness: ['yoga', 'pilates', 'workout', 'fitness', 'exercise', 'gym', 'strength training', 'cardio'],
+      sports: ['tennis', 'basketball', 'soccer', 'football', 'volleyball', 'swimming', 'running', 'cycling'],
+      cooking: ['cooking', 'baking', 'culinary', 'chef', 'cuisine', 'recipes', 'food preparation'],
+      crafts: ['knitting', 'sewing', 'crochet', 'embroidery', 'quilting', 'needlework', 'crafting'],
+      coding: ['coding', 'programming', 'web development', 'app development', 'software', 'javascript', 'python'],
+      gardening: ['gardening', 'horticulture', 'plants', 'farming', 'landscaping', 'greenhouse'],
+      photography: ['photography', 'photo', 'camera', 'portrait', 'landscape photography', 'digital photography'],
+      writing: ['writing', 'creative writing', 'poetry', 'storytelling', 'blogging', 'journalism'],
+      languages: ['language', 'spanish', 'french', 'german', 'italian', 'chinese', 'japanese', 'english'],
+      gaming: ['gaming', 'video games', 'board games', 'chess', 'poker', 'game development']
+    };
+    
+    // Smart hobby detection
+    const detectedHobbies: string[] = [];
+    
+    for (const [category, keywords] of Object.entries(hobbyKeywords)) {
+      for (const keyword of keywords) {
+        if (trimmedInput === keyword || 
+            trimmedInput.includes(keyword) || 
+            (keyword.includes(trimmedInput) && trimmedInput.length >= 3)) {
+          if (!detectedHobbies.includes(keyword)) {
+            detectedHobbies.push(keyword);
+          }
+        }
+      }
+    }
+    
+    if (detectedHobbies.length > 0) {
+      return {
+        isValid: true,
+        detectedHobbies: detectedHobbies
+      };
+    }
+    
+    // Accept reasonable-looking inputs (let backend handle detailed validation)
+    const reasonablePattern = /^[a-zA-Z\s-]{3,30}$/;
+    if (reasonablePattern.test(trimmedInput)) {
+      return {
+        isValid: true,
+        detectedHobbies: [trimmedInput]
+      };
+    }
+    
     return {
-      isValid: detectedHobbies.length > 0,
-      detectedHobbies: Array.from(new Set(detectedHobbies)) // Remove duplicates
+      isValid: false,
+      suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance']
     };
   };
 
@@ -682,6 +785,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const plan = await onGeneratePlan(randomHobby, surpriseAnswers);
       console.log('🎯 Setting plan data in SplitPlanInterface:', plan.hobby);
       console.log('🐛 Raw plan data received in setPlanData:', JSON.stringify(plan, null, 2));
+      console.log('🐛 First day YouTube video ID before fixPlanDataFields:', plan?.days?.[0]?.youtubeVideoId);
+      console.log('🐛 CRITICAL - Raw plan first day has keys:', Object.keys(plan?.days?.[0] || {}));
+      console.log('🐛 CRITICAL - Raw plan first day youtubeVideoId type:', typeof plan?.days?.[0]?.youtubeVideoId);
+      console.log('🐛 CRITICAL - Raw plan first day videoId type:', typeof plan?.days?.[0]?.videoId);
+      
+      // If no YouTube video ID, check nested structures
+      if (!plan?.days?.[0]?.youtubeVideoId) {
+        console.log('🔍 Checking nested plan structure for YouTube video ID...');
+        console.log('🔍 plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
+        console.log('🔍 plan.days?.[0]?.freeResources:', plan.days?.[0]?.freeResources);
+      }
       
       // Fix field mapping for frontend display
       const correctedPlanData = fixPlanDataFields(plan);
@@ -819,7 +933,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               await loadProgressFromDatabase(savedPlan.id);
             }, 500); // Small delay to ensure progress is initialized
             
-            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Need help with anything? Just ask!`);
+            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Ask me any questions about your plan!`);
             
             // CRITICAL FIX: Set step to 'plan' after plan generation for proper chat handling
             setCurrentStep('plan');
@@ -842,7 +956,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
             }
             
-            addAIMessage(errorMessage + ' Need help with anything? Just ask!');
+            addAIMessage(errorMessage + ' Ask me any questions about your plan!');
             
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling  
             setCurrentStep('plan');
@@ -850,7 +964,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } else {
           console.log('❌ AUTH CHECK: User not authenticated - cannot save plan');
           console.log('❌ AUTH CHECK: user object:', user);
-          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Need help with anything? Just ask!`);
+          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Ask me any questions about your plan!`);
           
           // CRITICAL FIX: Set step to 'plan' for non-authenticated users too
           setCurrentStep('plan');
@@ -898,7 +1012,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsTyping(false);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     
     const userInput = currentInput.trim();
@@ -914,11 +1028,108 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     
     // Handle hobby input if we're in hobby selection step
     if (currentStep === 'hobby') {
-      const validation = validateAndProcessHobby(userInput);
-      
-      if (validation.isValid && validation.detectedHobbies) {
-        if (validation.detectedHobbies.length === 1) {
-          // Single hobby detected - process directly without duplicate message
+      // Use DeepSeek AI for intelligent hobby validation
+      try {
+        const response = await fetch('/api/validate-hobby', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ hobby: userInput.trim() })
+        });
+
+        if (response.ok) {
+          const validation = await response.json();
+          
+          if (validation.isValid) {
+            const finalHobby = validation.correctedHobby || userInput.toLowerCase().trim();
+            setSelectedHobby(finalHobby);
+            setCurrentStep('experience');
+            
+            let message = `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is really fun to learn.`;
+            
+            if (validation.correctedHobby) {
+              message += `\n\n(I corrected the spelling for you)`;
+            }
+            
+            message += `\n\nWhat's your experience level?`;
+            
+            const experienceOptions = [
+              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+            ];
+            
+            addAIMessage(message, experienceOptions);
+          } else {
+            let errorMessage = `I'm not sure "${userInput}" is a hobby I can help with right now.`;
+            
+            if (validation.suggestions && validation.suggestions.length > 0) {
+              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
+              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
+                value: suggestion,
+                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
+                description: `Learn ${suggestion}`
+              }));
+              
+              addAIMessage(errorMessage, hobbyOptions);
+            } else {
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.', [
+                { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+                { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+                { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+                { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+                { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+                { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
+              ]);
+            }
+          }
+        } else {
+          // Fallback to old validation if API fails
+          const validation = validateAndProcessHobby(userInput);
+          
+          if (validation.isValid && validation.detectedHobbies) {
+            if (validation.detectedHobbies.length === 1) {
+              // Single hobby detected - process directly
+              const hobby = validation.detectedHobbies[0];
+              setSelectedHobby(hobby);
+              setCurrentStep('experience');
+              
+              const experienceOptions = [
+                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+                { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+              ];
+              
+              addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+            } else {
+              // Multiple hobbies detected
+              const hobbyOptions = validation.detectedHobbies.map(h => ({
+                value: h,
+                label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
+                description: `Focus on ${h} first`
+              }));
+              
+              addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
+            }
+          } else {
+            // Invalid hobby - use fallback suggestions
+            addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+              { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+              { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+              { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+              { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+              { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+              { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+            ]);
+          }
+        }
+      } catch (error) {
+        console.error('Error validating hobby with DeepSeek API:', error);
+        // Fallback to old validation if API completely fails
+        const validation = validateAndProcessHobby(userInput);
+        
+        if (validation.isValid && validation.detectedHobbies) {
           const hobby = validation.detectedHobbies[0];
           setSelectedHobby(hobby);
           setCurrentStep('experience');
@@ -931,45 +1142,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           
           addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
         } else {
-          // Multiple hobbies detected - show selection buttons
-          const hobbyOptions = validation.detectedHobbies.map(h => ({
-            value: h,
-            label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
-            description: `Focus on ${h} first`
-          }));
-          
-          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
-        }
-      } else {
-        // Invalid hobby or suggestions needed
-        if (validation.suggestions) {
-          const suggestionOptions = validation.suggestions.map(s => ({
-            value: s.toLowerCase().replace(/[^\w]/g, ''),
-            label: s,
-            description: 'Explore this category'
-          }));
-          
-          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions);
-        } else {
-          // Accept any reasonable hobby input and let backend validate - process directly
-          const reasonablePattern = /^[a-zA-Z\s-]{2,30}$/;
-          if (reasonablePattern.test(userInput)) {
-            const hobby = userInput.toLowerCase();
-            setSelectedHobby(hobby);
-            setCurrentStep('experience');
-            
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-            
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
-          } else {
-            addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
-          }
+          addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+            { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+            { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+            { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+            { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+            { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+            { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+          ]);
         }
       }
+      return;
     } else {
       // General chat response for other steps
       setTimeout(() => {
@@ -1150,39 +1333,54 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         currentPage={planData ? "plan" : "generate"}
       />
 
-      <div className="flex flex-col min-h-[calc(100vh-64px)]">
-        {/* Chat Interface - Always on top */}
-        <div className="w-full bg-white border-b-2 border-gray-300 flex flex-col h-64 md:h-80">
-          <div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
-            <h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
-            <p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
+      <div 
+        className="flex min-h-[calc(100vh-64px)]" 
+        style={{ 
+          flexDirection: isDesktop ? 'row' : 'column'
+        }}
+      >
+        {/* Chat Interface - Mobile: Top, Desktop: Left */}
+        {!isChatMinimized && (
+          <div 
+            className="bg-white border-gray-300 flex flex-col shrink-0"
+            style={{
+              width: isDesktop ? '40%' : '100%',
+              height: isDesktop ? 'calc(100vh - 64px)' : window.innerWidth >= 768 ? '320px' : '256px',
+              borderBottom: isDesktop ? 'none' : '2px solid #d1d5db',
+              borderRight: isDesktop ? '2px solid #d1d5db' : 'none',
+              backgroundColor: '#ffffff'
+            }}
+          >
+          <div className="p-3 lg:p-4 border-b border-gray-200 shrink-0">
+            <h2 className="text-sm lg:text-lg font-semibold text-gray-900">Learning Assistant</h2>
+            <p className="text-xs lg:text-sm text-gray-600">Ask me anything about your plan</p>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-3 lg:p-6 space-y-3 lg:space-y-6 max-h-[calc(33vh-120px)] lg:max-h-[calc(100vh-200px)]">
+          <div className="flex-1 overflow-y-auto p-3 lg:p-4 space-y-2 lg:space-y-3">
             {messages.length === 0 && (
-              <div className="text-center text-gray-500 p-4">
-                <p>Loading conversation...</p>
+              <div className="text-center text-gray-500 p-2">
+                <p className="text-xs md:text-sm">Chat is ready! Ask me anything.</p>
               </div>
             )}
             {messages.map((message, index) => (
               <div key={`${message.id}-${index}`} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] rounded-2xl px-3 py-3 lg:px-5 lg:py-4 shadow-sm ${
+                <div className={`max-w-[85%] rounded-lg px-2 lg:px-3 py-1.5 lg:py-2 shadow-sm ${
                   message.sender === 'user' 
                     ? 'bg-blue-600 text-white' 
                     : 'bg-white text-gray-900 border border-gray-200'
                 }`}>
-                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed font-medium">
+                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed">
                     {message.content}
                   </div>
                   
-                  {message.options && (
-                    <div className="mt-4 flex flex-wrap gap-2">
+                  {message.options && currentStep !== 'plan' && !planData && (
+                    <div className="mt-1 lg:mt-2 flex flex-wrap gap-1">
                       {message.options.map((option) => (
                         <button
                           key={option.value}
                           onClick={() => handleOptionSelect(option.value, option.label)}
-                          className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
+                          className="px-2 py-0.5 lg:py-1 text-xs lg:text-sm text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 transition-colors"
                           disabled={isGenerating}
                         >
                           {option.label}
@@ -1196,11 +1394,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm">
+                <div className="bg-white border border-gray-200 rounded-lg px-2 md:px-3 py-1.5 md:py-2 shadow-sm">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
@@ -1210,237 +1408,71 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           </div>
 
           {/* Chat Input */}
-          <div className="p-3 lg:p-6 border-t border-gray-200 bg-gray-50">
-            <div className="flex space-x-2 lg:space-x-3">
+          <div className="p-3 lg:p-4 border-t border-gray-200 bg-gray-50 shrink-0">
+            <div className="flex space-x-2">
               <Input
                 ref={inputRef}
                 value={currentInput}
                 onChange={(e) => setCurrentInput(e.target.value)}
                 placeholder="Ask me anything..."
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-sm"
+                className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs lg:text-sm h-8 lg:h-10"
               />
-              <Button onClick={handleSendMessage} size="sm" className="px-3 lg:px-4">
+              <Button onClick={handleSendMessage} size="sm" className="px-2 lg:px-3 h-8 lg:h-10">
                 <Send className="w-3 h-3 lg:w-4 lg:h-4" />
               </Button>
             </div>
           </div>
         </div>
+        )}
 
-            <div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
-              <h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
-              <p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
-            </div>
-
-            {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2 md:space-y-3">
-              {messages.length === 0 && (
-                <div className="text-center text-gray-500 p-2">
-                  <p className="text-xs md:text-sm">Chat is ready! Ask me anything.</p>
-                </div>
-              )}
-              {messages.map((message, index) => (
-                <div key={`${message.id}-${index}`} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] rounded-lg px-2 md:px-3 py-1.5 md:py-2 shadow-sm ${
-                    message.sender === 'user' 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-white text-gray-900 border border-gray-200'
-                  }`}>
-                    <div className="whitespace-pre-wrap text-xs md:text-sm leading-relaxed">
-                      {message.content}
-                    </div>
-                    
-                    {message.options && (
-                      <div className="mt-1 md:mt-2 flex flex-wrap gap-1">
-                        {message.options.map((option) => (
-                          <button
-                            key={option.value}
-                            onClick={() => handleOptionSelect(option.value, option.label)}
-                            className="px-2 py-0.5 md:py-1 text-xs md:text-sm text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 transition-colors"
-                            disabled={isGenerating}
-                          >
-                            {option.label}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-              
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-white border border-gray-200 rounded-lg px-2 md:px-3 py-1.5 md:py-2 shadow-sm">
-                    <div className="flex space-x-1">
-                      <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-1 h-1 md:w-1.5 md:h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Chat Input */}
-            <div className="p-3 md:p-4 border-t border-gray-200 bg-gray-50 shrink-0">
-              <div className="flex space-x-2">
-                <Input
-                  ref={inputRef}
-                  value={currentInput}
-                  onChange={(e) => setCurrentInput(e.target.value)}
-                  placeholder="Ask me anything..."
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10"
-                />
-                <Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10">
-                  <Send className="w-3 h-3 md:w-4 md:h-4" />
-                </Button>
-              </div>
-            </div>
+        {/* Chat Toggle Button (when minimized and plan exists) */}
+        {isChatMinimized && planData && (
+          <div className="fixed bottom-4 right-4 z-50">
+            <Button
+              onClick={() => setIsChatMinimized(false)}
+              className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </Button>
           </div>
-        </div>
+        )}
 
-        {/* Plan Display - Takes remaining space */}
-        <div className="w-full flex-1 overflow-y-auto bg-gray-50">
+        {/* Chat Minimize Button (when chat is visible and plan exists) */}
+        {!isChatMinimized && planData && (
+          <div className="absolute top-2 right-2 z-10">
+            <Button
+              onClick={() => setIsChatMinimized(true)}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
+
+        {/* Plan Display - Mobile: Bottom, Desktop: Right */}
+        <div 
+          className="flex-1 overflow-y-auto"
+          style={{
+            width: (isDesktop && !isChatMinimized) ? '60%' : '100%',
+            height: isDesktop ? 'calc(100vh - 64px)' : 'auto',
+            backgroundColor: '#f9fafb'
+          }}
+        >
           {planData && planData.days ? (
-            <div className="p-4 lg:p-6">
-              {/* Header */}
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
-                    <div className="flex items-center space-x-2 lg:space-x-4 mt-2">
-                      <span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {planData.difficulty}
-                      </span>
-                      <span className="text-xs lg:text-sm text-gray-600 flex items-center">
-                        <Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
-                        {planData.totalDays} days
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Progress */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Progress</span>
-                    <span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
-                  </div>
-                  <Progress value={progressPercentage} className="h-2" />
-                </div>
-
-                {/* Overview */}
-                <Card className="mb-6">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <BookOpen className="w-5 h-5 mr-2" />
-                      Overview
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-700 leading-relaxed">{planData.overview}</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Day Selection Buttons */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Day</h3>
-                <div className="flex flex-wrap gap-2">
-                  {Array.from({ length: planData?.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
-                    const status = getDayStatus(dayNum);
-                    const isSelected = selectedDay === dayNum;
-                    
-                    return (
-                      <button
-                        key={dayNum}
-                        onClick={() => {
-                          if (dayNum > 1 && !user) {
-                            setShowAuthModal(true);
-                          } else {
-                            setSelectedDay(dayNum);
-                          }
-                        }}
-                        disabled={false}
-                        className={`w-12 h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
-                          isSelected 
-                            ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300' 
-                            : status === 'completed' 
-                              ? 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200' 
-                              : status === 'unlocked' 
-                                ? 'bg-gray-100 text-gray-700 border-2 border-gray-300 hover:bg-gray-200' 
-                                : 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
-                        }`}
-                      >
-                        {dayNum}
-                        {status === 'completed' && (
-                          <CheckCircle className="w-3 h-3 text-green-600 absolute -top-1 -right-1 bg-white rounded-full" />
-                        )}
-                        {status === 'locked' && (
-                          <Lock className="w-3 h-3 text-gray-400 absolute -top-1 -right-1 bg-white rounded-full" />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Selected Day Content */}
-              {(() => {
-                const currentDay = planData?.days?.find((day: any) => day.day === selectedDay);
-                const status = getDayStatus(selectedDay);
-                
-                if (!currentDay || status === 'locked' || !planData?.days) {
-                  return (
-                    <Card className="p-8 text-center">
-                      <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
-                      <p className="text-gray-600">Complete previous days to unlock this content.</p>
-                    </Card>
-                  );
-                }
-
-                return (
-                  <Card className="overflow-hidden">
-                    <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
-                            Day {currentDay.day}: {currentDay.title}
-                          </CardTitle>
-                          <p className="text-sm text-gray-600 mt-1">Main Focus</p>
-                        </div>
-                        <button
-                          onClick={() => toggleDayCompletion(selectedDay)}
-                          disabled={selectedDay > 1 && !user && status !== 'completed'}
-                          className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-sm border transition-colors ${
-                            selectedDay > 1 && !user && status !== 'completed'
-                              ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
-                              : 'bg-white hover:bg-gray-50'
-                          }`}
-                        >
-                          {status === 'completed' ? (
-                            <>
-                              <CheckCircle className="w-5 h-5 text-green-600" />
-                              <span className="text-sm font-medium text-green-700">Completed</span>
-                            </>
-                          ) : selectedDay > 1 && !user ? (
-                            <>
-                              <Lock className="w-5 h-5 text-gray-400" />
-                              <span className="text-sm font-medium text-gray-400">Login to Complete</span>
-                            </>
-                          ) : (
-                            <>
-                              <Circle className="w-5 h-5 text-blue-600" />
-                              <span className="text-sm font-medium text-blue-700">Mark Complete</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </CardHeader>
+            <CleanPlanDisplay 
+              planData={planData}
+              currentDay={selectedDay}
+              completedDays={completedDays}
+              onDayComplete={toggleDayCompletion}
+            />
+          ) : (
+            <div className="p-4 lg:p-6 text-center">
+              <p className="text-gray-600">Generate a plan to see your learning path here!</p>
+            </div>
+        </div>
                     
                     <CardContent className="p-0">
                         {/* Hero Section with Main Task */}
@@ -1541,13 +1573,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                     <Play className="w-10 h-10 text-gray-400" />
                                   </div>
-                                  <p className="text-lg text-gray-600 mb-2 font-medium">Video tutorial coming soon!</p>
+                                  <p className="text-lg text-gray-600 mb-2 font-medium">Professional learning video selected</p>
                                 </div>
                               )}
                               <div className="flex flex-wrap items-center justify-between mt-3 md:mt-6 gap-2 md:gap-4">
                                 <div className="flex items-center text-gray-600">
                                   <Clock className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                                  <span className="text-sm md:text-base font-medium">Duration: {currentDay.estimatedTime || 'TBD'}</span>
+                                  <span className="text-sm md:text-base font-medium">Beginner-friendly content</span>
                                 </div>
                                 <span className="bg-red-100 text-red-800 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold">
                                   Beginner Level
