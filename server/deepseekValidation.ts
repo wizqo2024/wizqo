@@ -7,24 +7,35 @@ interface ValidationResponse {
   reasoning?: string;
 }
 
-export class DeepSeekHobbyValidator {
-  private apiKey: string;
-  private baseUrl = 'https://api.deepseek.com/v1/chat/completions';
+export class OpenRouterHobbyValidator {
+  private openRouterKey: string;
+  private deepSeekKey: string;
+  private baseUrl: string;
 
   constructor() {
-    this.apiKey = process.env.DEEPSEEK_API_KEY || '';
-    if (!this.apiKey) {
-      console.warn('⚠️ DeepSeek API key not found - hobby validation will be limited');
+    this.openRouterKey = process.env.OPENROUTER_API_KEY || '';
+    this.deepSeekKey = process.env.DEEPSEEK_API_KEY || '';
+    
+    // Prefer OpenRouter, fallback to DeepSeek
+    if (this.openRouterKey) {
+      this.baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
+    } else {
+      this.baseUrl = 'https://api.deepseek.com/v1/chat/completions';
+    }
+    
+    if (!this.openRouterKey && !this.deepSeekKey) {
+      console.warn('⚠️ No AI API key found - hobby validation will be limited');
     }
   }
 
   async validateHobby(userInput: string): Promise<ValidationResponse> {
-    if (!this.apiKey) {
+    const apiKey = this.openRouterKey || this.deepSeekKey;
+    if (!apiKey) {
       return this.fallbackValidation(userInput);
     }
 
     try {
-      console.log('🔍 DeepSeek: Validating hobby input:', userInput);
+      console.log(`🔍 ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Validating hobby input:`, userInput);
 
       const prompt = `You are a hobby and activity expert. Analyze this user input and determine if it's a valid hobby or activity that someone can learn in 7 days.
 
@@ -44,14 +55,22 @@ Invalid inputs include: nonsense words, inappropriate content, overly complex ac
 For misspellings, provide the corrected spelling in correctedHobby.
 For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
 
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      };
+      
+      // Add OpenRouter specific headers if using OpenRouter
+      if (this.openRouterKey) {
+        headers['HTTP-Referer'] = 'https://wizqo.com';
+        headers['X-Title'] = 'Wizqo Hobby Learning Platform';
+      }
+      
       const response = await fetch(this.baseUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
+        headers,
         body: JSON.stringify({
-          model: 'deepseek-chat',
+          model: this.openRouterKey ? 'deepseek/deepseek-chat' : 'deepseek-chat',
           messages: [
             {
               role: 'user',
@@ -64,7 +83,7 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       });
 
       if (!response.ok) {
-        console.error('DeepSeek API error:', response.status, response.statusText);
+        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} API error:`, response.status, response.statusText);
         return this.fallbackValidation(userInput);
       }
 
@@ -72,21 +91,21 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       const content = data.choices?.[0]?.message?.content;
 
       if (!content) {
-        console.error('DeepSeek: No content in response');
+        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: No content in response`);
         return this.fallbackValidation(userInput);
       }
 
       try {
         const result = JSON.parse(content) as ValidationResponse;
-        console.log('✅ DeepSeek validation result:', result);
+        console.log(`✅ ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation result:`, result);
         return result;
       } catch (parseError) {
-        console.error('DeepSeek: Failed to parse JSON response:', parseError);
+        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Failed to parse JSON response:`, parseError);
         return this.fallbackValidation(userInput);
       }
 
     } catch (error) {
-      console.error('DeepSeek validation error:', error);
+      console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation error:`, error);
       return this.fallbackValidation(userInput);
     }
   }
@@ -183,4 +202,4 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
   }
 }
 
-export const hobbyValidator = new DeepSeekHobbyValidator();
+export const hobbyValidator = new OpenRouterHobbyValidator();
