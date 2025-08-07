@@ -433,6 +433,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         title: "Guitar Fundamentals and Setup",
         mainTask: "Learn proper guitar posture, basic chord shapes, and essential techniques for building a solid foundation in guitar playing.",
         explanation: "Day 1 establishes the fundamental building blocks of guitar playing. You'll learn proper posture to prevent injury, understand basic guitar anatomy, and master your first chord shapes. This foundation is crucial for everything that follows in your guitar journey.",
+        timeAllocation: "45-60 minutes total",
+        equipment: [
+          "🎸 Acoustic or electric guitar",
+          "📱 Guitar tuner (app or physical)",
+          "🎼 Guitar pick (medium thickness)",
+          "🪑 Comfortable chair without arms",
+          "📚 Music stand or tablet holder"
+        ],
+        materials: [
+          "📝 Notebook for practice notes",
+          "✏️ Pencil for marking chord diagrams",
+          "📋 Guitar chord chart (printable)",
+          "⏱️ Timer or metronome app"
+        ],
+        detailedSteps: [
+          {
+            step: "Guitar Setup & Tuning",
+            time: "10 minutes",
+            description: "🎵 Ensure your guitar is properly tuned using a tuner app. Check that all strings are secure and the guitar is clean. Adjust your chair height so your feet are flat on the floor and the guitar rests comfortably."
+          },
+          {
+            step: "Proper Posture Training",
+            time: "15 minutes", 
+            description: "🪑 Sit with back straight, guitar resting on your right leg (if right-handed). Keep shoulders relaxed, left hand thumb behind the neck, not wrapped around. Practice holding position for 2-minute intervals."
+          },
+          {
+            step: "Basic Chord Formation",
+            time: "20 minutes",
+            description: "🎯 Learn G major chord placement: 3rd fret low E string, 2nd fret A string, 3rd fret high E string. Practice pressing down firmly, checking each string rings clearly. Hold for 30 seconds, release, repeat 10 times."
+          }
+        ],
+        progressMilestones: [
+          "🎵 Can tune guitar independently using tuner",
+          "🪑 Maintains proper posture for 5+ minutes comfortably", 
+          "🎯 Forms G major chord with clear sound on all strings",
+          "🔄 Transitions between relaxed and playing position smoothly"
+        ],
         howTo: [
           "Set up proper sitting and standing posture with guitar positioned correctly against your body",
           "Learn to hold the pick properly and practice basic down strokes on open strings",
@@ -449,16 +486,16 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
           "15-30 minute focused practice session scheduled"
         ],
         tips: [
-          "Keep your fretting hand thumb behind the neck, not wrapped around",
-          "Press strings firmly but don't over-squeeze - find the minimum pressure needed",
-          "Start with slow, clean chord changes rather than fast, sloppy ones",
-          "Take breaks if your fingers hurt - building calluses takes time"
+          "🎯 Keep your fretting hand thumb behind the neck, not wrapped around",
+          "💪 Press strings firmly but don't over-squeeze - find the minimum pressure needed",
+          "🐌 Start with slow, clean chord changes rather than fast, sloppy ones",
+          "⏰ Take breaks if your fingers hurt - building calluses takes time"
         ],
         mistakesToAvoid: [
-          "Holding the guitar neck like a baseball bat with thumb wrapped around",
-          "Pressing too hard on strings causing hand fatigue and poor tone",
-          "Rushing through chord changes without ensuring clean notes",
-          "Practicing with an untuned guitar - this trains your ear incorrectly"
+          "⚠️ Holding the guitar neck like a baseball bat with thumb wrapped around",
+          "💥 Pressing too hard on strings causing hand fatigue and poor tone",
+          "🏃 Rushing through chord changes without ensuring clean notes",
+          "🎵 Practicing with an untuned guitar - this trains your ear incorrectly"
         ]
       },
       {
