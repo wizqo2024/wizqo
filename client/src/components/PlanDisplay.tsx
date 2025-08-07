@@ -43,7 +43,7 @@ interface PlanDisplayProps {
   setShowAuthModal: (show: boolean) => void;
 }
 
-export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayProps) {
+export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayProps) {
   const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1]));
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const { toast } = useToast();
@@ -205,7 +205,7 @@ export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDi
                       <h3 className="text-lg font-semibold text-gray-900">Step-by-Step Instructions</h3>
                     </div>
                     
-                    {day.detailedSteps ? (
+                    {day.detailedSteps && day.detailedSteps.length > 0 ? (
                       <div className="space-y-6">
                         {day.detailedSteps.map((step, index) => (
                           <div key={index} className="relative">
@@ -221,7 +221,7 @@ export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDi
                                 <p className="text-gray-700 leading-relaxed">{step.description}</p>
                               </div>
                             </div>
-                            {index < day.detailedSteps.length - 1 && (
+                            {index < (day.detailedSteps?.length || 0) - 1 && (
                               <div className="ml-4 mt-3 mb-3">
                                 <ArrowRight className="w-4 h-4 text-gray-400" />
                               </div>
