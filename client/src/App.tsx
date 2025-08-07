@@ -259,11 +259,11 @@ export default function App() {
       }
     };
 
-    // TEMPORARY FIX: Disable hashchange listener that was interfering with plan display
-    // window.addEventListener('hashchange', handleRouteChange);
+    // Re-enable hashchange listener but prevent interference with plan display
+    window.addEventListener('hashchange', handleRouteChange);
     handleRouteChange();
 
-    // return () => window.removeEventListener('hashchange', handleRouteChange);
+    return () => window.removeEventListener('hashchange', handleRouteChange);
   }, []);
 
   // Navigation helpers
