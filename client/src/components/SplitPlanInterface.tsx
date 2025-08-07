@@ -1064,9 +1064,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     // Handle duplicate plan response options
     if (value === 'show_existing' || value === 'view_existing') {
       addUserMessage(label);
-      addAIMessage("Redirecting you to your existing plan...");
-      // Navigate to dashboard or load existing plan
-      window.location.hash = '#/dashboard';
+      addAIMessage("Let me show you your existing plan right here!");
+      // FIXED: Instead of navigating away, just keep the user on the current plan
+      console.log('🔍 User wants to view existing plan - staying on current interface');
       return;
     }
 
@@ -1621,21 +1621,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       <UnifiedNavigation 
         showBackButton={true} 
         onBackClick={() => {
-          console.log('🔙 BACK NAVIGATION: User clicked back button');
+          console.log('🔙 BACK NAVIGATION: User manually clicked back button');
           console.log('🔙 BACK NAVIGATION: planData exists:', !!planData, 'user exists:', !!user);
           
-          // When navigating back from a generated plan, go to dashboard if user is logged in
-          if (planData && user) {
-            console.log('🔙 BACK NAVIGATION: Storing plan state and going to dashboard');
-            // Store the current plan state for potential return
-            sessionStorage.setItem('activePlanData', JSON.stringify(planData));
-            sessionStorage.setItem('fromGeneratedPlan', 'true');
-            window.location.hash = '#/dashboard';
-          } else {
-            console.log('🔙 BACK NAVIGATION: Using default back behavior');
-            // Default back behavior for non-authenticated users or no plan
-            onNavigateBack();
-          }
+          // FIXED: Always use default back behavior to prevent automatic navigation
+          // The dashboard redirect was causing plans to disappear after generation
+          console.log('🔙 BACK NAVIGATION: Using default back behavior (no auto-redirect)');
+          onNavigateBack();
         }}
         currentPage={planData ? "plan" : "generate"}
       />
