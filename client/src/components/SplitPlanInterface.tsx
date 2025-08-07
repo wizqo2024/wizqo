@@ -1009,11 +1009,28 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         exists: !!correctedPlanData,
         hasDays: !!correctedPlanData?.days,
         daysLength: correctedPlanData?.days?.length,
-        title: correctedPlanData?.title
+        title: correctedPlanData?.title,
+        isArray: Array.isArray(correctedPlanData?.days),
+        firstDay: correctedPlanData?.days?.[0]
       });
       
       console.log('🔍 PLAN DEBUG: About to set plan data and step to plan');
-      setPlanData(correctedPlanData);
+      
+      // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
+      const finalPlanData = {
+        ...correctedPlanData,
+        // Guarantee days is always an array
+        days: Array.isArray(correctedPlanData?.days) ? correctedPlanData.days : []
+      };
+      
+      console.log('🔍 PLAN DEBUG: Final plan data validation:', {
+        hasDays: !!finalPlanData.days,
+        daysLength: finalPlanData.days.length,
+        isArray: Array.isArray(finalPlanData.days),
+        renderCondition: !!(finalPlanData && finalPlanData.days && finalPlanData.days.length > 0)
+      });
+      
+      setPlanData(finalPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
       
@@ -1127,11 +1144,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           exists: !!fixedPlan,
           hasDays: !!fixedPlan?.days,
           daysLength: fixedPlan?.days?.length,
-          title: fixedPlan?.title
+          title: fixedPlan?.title,
+          isArray: Array.isArray(fixedPlan?.days)
         });
         
         console.log('🔍 AI SUGGESTION DEBUG: About to set plan data and step to plan');
-        setPlanData(fixedPlan);
+        
+        // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
+        const finalAISuggestionPlan = {
+          ...fixedPlan,
+          // Guarantee days is always an array
+          days: Array.isArray(fixedPlan?.days) ? fixedPlan.days : []
+        };
+        
+        console.log('🔍 AI SUGGESTION DEBUG: Final plan validation:', {
+          renderCondition: !!(finalAISuggestionPlan && finalAISuggestionPlan.days && finalAISuggestionPlan.days.length > 0)
+        });
+        
+        setPlanData(finalAISuggestionPlan);
         setCurrentStep('plan'); // Show the plan after generation
         
         // Prevent any navigation for the next few seconds to ensure plan displays
@@ -1197,7 +1227,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         // Force generate new plan by bypassing duplicate check
         const plan = await onGeneratePlan(selectedHobby, quizAnswers);
         const fixedPlan = fixPlanDataFields(plan);
-        setPlanData(fixedPlan);
+        
+        // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
+        const finalGenerateAnywayPlan = {
+          ...fixedPlan,
+          // Guarantee days is always an array
+          days: Array.isArray(fixedPlan?.days) ? fixedPlan.days : []
+        };
+        
+        console.log('🔍 GENERATE ANYWAY DEBUG: Final plan validation:', {
+          renderCondition: !!(finalGenerateAnywayPlan && finalGenerateAnywayPlan.days && finalGenerateAnywayPlan.days.length > 0)
+        });
+        
+        setPlanData(finalGenerateAnywayPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save new plan
@@ -1282,7 +1324,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
-        setPlanData(fixedStandardPlan);
+        
+        // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
+        const finalStandardPlan = {
+          ...fixedStandardPlan,
+          // Guarantee days is always an array
+          days: Array.isArray(fixedStandardPlan?.days) ? fixedStandardPlan.days : []
+        };
+        
+        console.log('🔍 STANDARD PLAN DEBUG: Final plan validation:', {
+          renderCondition: !!(finalStandardPlan && finalStandardPlan.days && finalStandardPlan.days.length > 0)
+        });
+        
+        setPlanData(finalStandardPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save plan to Supabase if user is authenticated
@@ -1862,7 +1916,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
-{(planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0) ? (
+          {/* DEBUG: Plan data structure logging */}
+          {console.log('🔍 RENDER DEBUG: planData exists:', !!planData)}
+          {console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days)}
+          {console.log('🔍 RENDER DEBUG: planData.days length:', planData?.days?.length)}
+          {console.log('🔍 RENDER DEBUG: planData.days is array:', Array.isArray(planData?.days))}
+          {console.log('🔍 RENDER DEBUG: planData structure:', planData ? Object.keys(planData) : 'none')}
+          {console.log('🔍 RENDER DEBUG: first day data:', planData?.days?.[0])}
+
+{(planData && planData.days && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
