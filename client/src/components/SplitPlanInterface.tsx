@@ -383,65 +383,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [initialPlanData]);
 
-  // Auto-load user's most recent plan when component initializes
-  useEffect(() => {
-    const loadMostRecentPlan = async () => {
-      // Only load if no initial plan data and user is authenticated
-      if (!initialPlanData && user?.id) {
-        console.log('🔄 AUTO-LOAD: Checking for user\'s most recent plan...');
-        
-        try {
-          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${user.id}&select=*&order=created_at.desc&limit=1`, {
-            headers: {
-              'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-            }
-          });
-
-          if (response.ok) {
-            const plans = await response.json();
-            if (plans && plans.length > 0) {
-              const mostRecentPlan = plans[0];
-              console.log('🔄 AUTO-LOAD: Found recent plan:', mostRecentPlan.title);
-              
-              // FIXED: Don't auto-load old plan, instead offer choice to user
-              const welcomeMessage: ChatMessage = {
-                id: Date.now().toString(),
-                sender: 'ai',
-                content: `Welcome back! 👋\n\nI found your previous learning plan: "${mostRecentPlan.title}"\n\nWould you like to continue where you left off, or start something new?`,
-                options: [
-                  { value: 'continue_plan', label: 'Continue Previous Plan', description: 'Resume your progress' },
-                  { value: 'start_fresh', label: 'Start Something New', description: 'Create a new learning plan' }
-                ],
-                timestamp: new Date()
-              };
-              setMessages([welcomeMessage]);
-              
-              // Store the previous plan data for potential loading
-              sessionStorage.setItem('previousPlanData', JSON.stringify({
-                id: mostRecentPlan.id,
-                hobby: mostRecentPlan.hobby_name || mostRecentPlan.plan_data?.hobby,
-                title: mostRecentPlan.title,
-                overview: mostRecentPlan.overview,
-                difficulty: mostRecentPlan.difficulty,
-                totalDays: mostRecentPlan.total_days,
-                days: mostRecentPlan.plan_data?.plan_data?.days || mostRecentPlan.plan_data?.days || []
-              }));
-            } else {
-              console.log('🔄 AUTO-LOAD: No recent plans found');
-            }
-          }
-        } catch (error) {
-          console.error('🔄 AUTO-LOAD: Error loading recent plan:', error);
-        }
-      }
-    };
-
-    // Only run if user is loaded and component is fully initialized
-    if (user !== undefined) {
-      loadMostRecentPlan();
-    }
-  }, [user, initialPlanData]);
+  // DISABLED: No more auto-loading of old plans to prevent confusion
+  // Users start fresh every time - they can access old plans via dashboard if needed
 
   // Separate effect to handle authentication and plan ID detection
   useEffect(() => {
