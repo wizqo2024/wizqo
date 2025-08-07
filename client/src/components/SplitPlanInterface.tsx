@@ -383,6 +383,85 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [initialPlanData]);
 
+  // Auto-load user's most recent plan when component initializes
+  useEffect(() => {
+    const loadMostRecentPlan = async () => {
+      // Only load if no initial plan data and user is authenticated
+      if (!initialPlanData && user?.id) {
+        console.log('🔄 AUTO-LOAD: Checking for user\'s most recent plan...');
+        
+        try {
+          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${user.id}&select=*&order=created_at.desc&limit=1`, {
+            headers: {
+              'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            }
+          });
+
+          if (response.ok) {
+            const plans = await response.json();
+            if (plans && plans.length > 0) {
+              const mostRecentPlan = plans[0];
+              console.log('🔄 AUTO-LOAD: Found recent plan:', mostRecentPlan.title);
+              
+              // Convert Supabase plan to our format
+              const planData = {
+                id: mostRecentPlan.id,
+                hobby: mostRecentPlan.hobby_name || mostRecentPlan.plan_data?.hobby,
+                title: mostRecentPlan.title,
+                overview: mostRecentPlan.overview,
+                difficulty: mostRecentPlan.difficulty,
+                totalDays: mostRecentPlan.total_days,
+                days: mostRecentPlan.plan_data?.days || []
+              };
+              
+              const fixedAutoLoadPlan = fixPlanDataFields(planData);
+              console.log('🔄 AUTO-LOAD: Setting plan data automatically');
+              setPlanData(fixedAutoLoadPlan);
+              setCurrentPlanId(mostRecentPlan.id.toString());
+              setRenderKey(prev => prev + 1); // Force React re-render
+              
+              // Load progress
+              const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
+                headers: {
+                  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+                }
+              });
+
+              if (progressResponse.ok) {
+                const progressData = await progressResponse.json();
+                if (progressData && progressData.length > 0) {
+                  const progress = progressData[0];
+                  setCompletedDays(progress.completed_days || []);
+                  setSelectedDay(progress.current_day || 1);
+                }
+              }
+
+              // Initialize chat for returning user
+              const welcomeMessage: ChatMessage = {
+                id: Date.now().toString(),
+                sender: 'ai',
+                content: `Welcome back to your ${planData.hobby} learning plan! 🌟\n\nI can see you were working on this plan. Your progress has been saved and you can continue where you left off.\n\nHow can I help you today?`,
+                timestamp: new Date()
+              };
+              setMessages([welcomeMessage]);
+            } else {
+              console.log('🔄 AUTO-LOAD: No recent plans found');
+            }
+          }
+        } catch (error) {
+          console.error('🔄 AUTO-LOAD: Error loading recent plan:', error);
+        }
+      }
+    };
+
+    // Only run if user is loaded and component is fully initialized
+    if (user !== undefined) {
+      loadMostRecentPlan();
+    }
+  }, [user, initialPlanData]);
+
   // Separate effect to handle authentication and plan ID detection
   useEffect(() => {
     if (user && initialPlanData && initialPlanData.hobby && !currentPlanId) {
