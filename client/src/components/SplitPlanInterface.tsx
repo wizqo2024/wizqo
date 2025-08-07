@@ -1741,7 +1741,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }}
       >
         {/* Chat Interface - Mobile: Top, Desktop: Left */}
-        {!isChatMinimized && !planData && (
+        {!isChatMinimized && (
           <div 
             className="bg-white border-gray-300 flex flex-col shrink-0"
             style={{
@@ -1862,19 +1862,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
-{(() => {
-          console.log('🔍 RENDER DEBUG: Evaluating plan display condition');
-          console.log('🔍 RENDER DEBUG: planData exists:', !!planData);
-          console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days);
-          console.log('🔍 RENDER DEBUG: is array:', Array.isArray(planData?.days));
-          console.log('🔍 RENDER DEBUG: length > 0:', (planData?.days?.length || 0) > 0);
-          console.log('🔍 RENDER DEBUG: actual length:', planData?.days?.length);
-          console.log('🔍 RENDER DEBUG: currentStep:', currentStep);
-          
-          const shouldShowPlan = planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0;
-          console.log('🔍 RENDER DEBUG: final condition result:', shouldShowPlan);
-          return shouldShowPlan;
-        })() ? (
+{(planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
