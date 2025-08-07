@@ -407,6 +407,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     if (user && initialPlanData && initialPlanData.hobby && !currentPlanId) {
       // Check if this is a freshly generated plan (has session marker)
       const sessionPlanMarker = sessionStorage.getItem('freshPlanGenerated');
+      console.log('🔍 Checking for fresh plan marker:', sessionPlanMarker ? 'FOUND' : 'NOT FOUND');
+      
       if (sessionPlanMarker) {
         console.log('🎯 Fresh plan detected - using generated plan data directly, not querying database');
         // Don't query database for old plans, just use the fresh plan
