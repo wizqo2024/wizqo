@@ -64,7 +64,7 @@ export class OpenRouterHobbyValidator {
 
       const prompt = `You are a hobby and activity expert. Analyze this user input and determine if it's a valid hobby or activity that someone can learn in 7 days.
 
-SAFETY FIRST: Immediately reject any input related to violence, weapons, explosives, illegal activities, drugs, harm to others or self, or any dangerous/harmful content. Only approve safe, positive learning activities.
+SAFETY FIRST: Immediately reject any input related to violence, weapons, explosives, illegal activities, drugs, harm to others or self, sexual content, adult entertainment, or any dangerous/harmful/inappropriate content. Only approve safe, positive learning activities.
 
 User input: "${userInput}"
 
@@ -80,13 +80,14 @@ Valid hobbies are safe, learnable activities like: guitar, cooking, drawing, yog
 
 Invalid inputs include: 
 - Dangerous/harmful activities (weapons, violence, illegal substances, etc.)
+- Sexual or adult content
 - Inappropriate content
 - Overly complex activities  
 - Nonsense words
 - Things that aren't hobbies
 
 For misspellings of valid hobbies, provide the corrected spelling in correctedHobby.
-For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies instead.`;
+For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legitimate hobbies instead.`;
 
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -181,7 +182,15 @@ For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies i
       
       // Illegal activities
       'smuggling', 'trafficking', 'blackmail', 'extortion', 'kidnapping',
-      'identity theft', 'money laundering', 'tax evasion'
+      'identity theft', 'money laundering', 'tax evasion',
+      
+      // Sexual & inappropriate content
+      'sex', 'sexual', 'porn', 'pornography', 'erotic', 'adult content', 'xxx',
+      'masturbation', 'orgasm', 'fetish', 'bdsm', 'kink', 'nude', 'nudity',
+      'strip', 'stripping', 'escort', 'prostitution', 'brothel', 'sexual acts',
+      'intimate', 'seduction', 'sexual pleasure', 'sexual techniques', 'foreplay',
+      'sexual positions', 'adult entertainment', 'sexual fantasy', 'sexual roleplay',
+      'sexting', 'sexual harassment', 'sexual abuse', 'sexual assault'
     ];
     
     // Check if input contains any dangerous keywords
@@ -199,7 +208,12 @@ For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies i
       /making (bombs?|explosives?|weapons?)/, // "making bombs/weapons"
       /create (poison|virus|malware)/, // "create poison/virus"
       /(illegal|criminal|unlawful) (activity|activities)/, // "illegal activities"
-      /dangerous (experiments?|chemicals?)/ // "dangerous experiments"
+      /dangerous (experiments?|chemicals?)/, // "dangerous experiments"
+      /(sexual|erotic|adult) (content|activities?|entertainment)/, // "sexual content/activities"
+      /(sex|sexual) (techniques?|positions?|acts?)/, // "sex techniques/positions"
+      /(porn|pornography|adult) (making|creation|production)/, // "porn making/creation"
+      /(intimate|sexual) (photography|videos?)/, // "intimate photography/videos"
+      /adult (content|entertainment|activities?)/ // "adult content/entertainment"
     ];
     
     const matchesSuspiciousPattern = suspiciousPatterns.some(pattern => {
