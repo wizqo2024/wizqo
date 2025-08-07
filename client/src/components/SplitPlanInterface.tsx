@@ -265,6 +265,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
   const [isChatMinimized, setIsChatMinimized] = useState(false);
+  const [renderKey, setRenderKey] = useState(0); // Force re-render key
   
   // Window resize listener for responsive layout
   useEffect(() => {
@@ -364,6 +365,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const fixedPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
       setPlanData(fixedPlanData);
+      setRenderKey(prev => prev + 1); // Force React re-render
       
       // CRITICAL FIX: Set plan ID from initial plan data if available
       if (initialPlanData.id || initialPlanData.planId) {
@@ -926,9 +928,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔍 PLAN DEBUG: About to set plan data and step to plan');
       setPlanData(correctedPlanData);
       setCurrentStep('plan'); // Show the plan after generation
+      setRenderKey(prev => prev + 1); // Force React re-render
       
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
+      
+      // Force a re-render check immediately after state update
+      setTimeout(() => {
+        console.log('🔍 PLAN DEBUG: Force re-render check - planData exists:', !!correctedPlanData);
+        console.log('🔍 PLAN DEBUG: Force re-render check - days array:', !!correctedPlanData?.days);
+        console.log('🔍 PLAN DEBUG: Force re-render check - days length:', correctedPlanData?.days?.length);
+        console.log('🔍 PLAN DEBUG: Force re-render check - currentStep:', 'plan');
+        console.log('🔍 PLAN DEBUG: Force re-render check - should show plan:', 
+          !!(correctedPlanData && correctedPlanData.days && Array.isArray(correctedPlanData.days) && correctedPlanData.days.length > 0));
+      }, 100);
       
       // Prevent any navigation for the next few seconds to ensure plan displays
       const preventNavigation = (e: BeforeUnloadEvent) => {
@@ -1098,6 +1111,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const plan = await onGeneratePlan(selectedHobby, quizAnswers);
         const fixedPlan = fixPlanDataFields(plan);
         setPlanData(fixedPlan);
+        setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save new plan
         if (user?.id) {
@@ -1182,6 +1196,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
         setPlanData(fixedStandardPlan);
+        setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save plan to Supabase if user is authenticated
         console.log('🔍 AUTH CHECK: user object:', user);
@@ -1617,7 +1632,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const progressPercentage = planData ? (completedDays.length / planData.totalDays) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div key={renderKey} className="min-h-screen bg-slate-50">
       <UnifiedNavigation 
         showBackButton={true} 
         onBackClick={() => {
