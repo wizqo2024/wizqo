@@ -64,6 +64,8 @@ export class OpenRouterHobbyValidator {
 
       const prompt = `You are a hobby and activity expert. Analyze this user input and determine if it's a valid hobby or activity that someone can learn in 7 days.
 
+SAFETY FIRST: Immediately reject any input related to violence, weapons, explosives, illegal activities, drugs, harm to others or self, or any dangerous/harmful content. Only approve safe, positive learning activities.
+
 User input: "${userInput}"
 
 Respond with JSON only:
@@ -74,11 +76,17 @@ Respond with JSON only:
   "reasoning": "brief explanation"
 }
 
-Valid hobbies are learnable activities like: guitar, cooking, drawing, yoga, photography, knitting, gardening, etc.
-Invalid inputs include: nonsense words, inappropriate content, overly complex activities, or things that aren't hobbies.
+Valid hobbies are safe, learnable activities like: guitar, cooking, drawing, yoga, photography, knitting, gardening, reading, writing, crafts, sports, music, etc.
 
-For misspellings, provide the corrected spelling in correctedHobby.
-For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
+Invalid inputs include: 
+- Dangerous/harmful activities (weapons, violence, illegal substances, etc.)
+- Inappropriate content
+- Overly complex activities  
+- Nonsense words
+- Things that aren't hobbies
+
+For misspellings of valid hobbies, provide the corrected spelling in correctedHobby.
+For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies instead.`;
 
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
