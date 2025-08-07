@@ -342,27 +342,13 @@ Make each day build progressively on the previous day. Include practical, action
       isYouTubeAPIWorking = false;
     }
 
-    aiPlan.days = await Promise.all(aiPlan.days.map(async (day: any, index: number) => {
-      // Try video sources in order: YouTube API -> OpenRouter AI -> Unavailable
-      let targetedVideoId = null;
-      
-      if (isYouTubeAPIWorking) {
-        // First choice: YouTube API
-        targetedVideoId = await getBestVideoForDay(hobby, experience, day.day, day.title, day.mainTask);
-      }
-      
-      if (!targetedVideoId) {
-        // Second choice: OpenRouter AI finds relevant video
-        console.log(`🤖 YouTube failed, using AI to find video for ${hobby} day ${day.day}: ${day.title}`);
-        targetedVideoId = await getAIRecommendedVideo(hobby, day.day, day.title, day.mainTask);
-      }
-      
-      // If still no video, we'll show "unavailable" in frontend
-      if (!targetedVideoId) {
-        console.log(`❌ No video found for ${hobby} day ${day.day}, will show unavailable`);
-        targetedVideoId = 'unavailable';
-      }
-      
+    // SPEED OPTIMIZATION: Use fast video assignment instead of slow API calls
+    console.log('⚡ Using fast video assignment for instant plan generation');
+    const hobbyVideos = getYouTubeVideos(hobby);
+    
+    aiPlan.days = aiPlan.days.map((day: any, index: number) => {
+      // Use pre-selected videos for speed
+      const targetedVideoId = hobbyVideos[index % hobbyVideos.length];
       const videoDetails = getVideoDetails(hobby, experience, day.day);
       
       return {
@@ -381,7 +367,7 @@ Make each day build progressively on the previous day. Include practical, action
           ...getHobbyProduct(hobby, day.day)
         }]
       };
-    }));
+    });
 
     // Debug: Log AI plan response structure
     console.log('🔍 AI PLAN GENERATED - First day youtubeVideoId:', aiPlan.days[0].youtubeVideoId);
