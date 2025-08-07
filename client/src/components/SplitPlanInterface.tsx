@@ -1760,29 +1760,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
-          {/* Debug Panel - Remove after fixing */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="fixed top-16 right-4 bg-yellow-100 border border-yellow-300 p-3 rounded-lg text-xs max-w-xs z-50 shadow-lg">
-              <div className="font-bold mb-2 text-yellow-800">Debug Panel</div>
-              <div><span className="font-semibold">Current Step:</span> {currentStep}</div>
-              <div><span className="font-semibold">Plan Data Exists:</span> {planData ? 'Yes' : 'No'}</div>
-              <div><span className="font-semibold">Plan Has Days:</span> {planData?.days ? 'Yes' : 'No'}</div>
-              <div><span className="font-semibold">Days Count:</span> {planData?.days?.length || 0}</div>
-              <div><span className="font-semibold">Plan Title:</span> {planData?.title || 'None'}</div>
-            </div>
-          )}
-          {(() => {
-            console.log('🚨 RENDER DEBUG:', {
-              planDataExists: !!planData,
-              planDataHasDays: !!planData?.days,
-              daysLength: planData?.days?.length,
-              currentStep,
-              planTitle: planData?.title,
-              showingPlan: (planData && planData.days && planData.days.length > 0)
-            });
-            // CRITICAL FIX: More robust check for plan data
-            return (planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0);
-          })() ? (
+(planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
