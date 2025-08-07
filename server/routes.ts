@@ -221,9 +221,14 @@ Make each day build progressively on the previous day. Include practical, action
       headers['X-Title'] = 'Wizqo Hobby Learning Platform';
     }
     
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers,
+      signal: controller.signal,
       body: JSON.stringify({
         model: openRouterKey ? 'deepseek/deepseek-chat' : 'deepseek-chat',
         messages: [
@@ -236,6 +241,8 @@ Make each day build progressively on the previous day. Include practical, action
         temperature: 0.7
       })
     });
+    
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status}`);
