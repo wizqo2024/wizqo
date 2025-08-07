@@ -1639,7 +1639,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }}
       >
         {/* Chat Interface - Mobile: Top, Desktop: Left */}
-        {!isChatMinimized && (
+        {!isChatMinimized && !planData && (
           <div 
             className="bg-white border-gray-300 flex flex-col shrink-0"
             style={{
