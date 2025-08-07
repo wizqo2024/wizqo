@@ -1,0 +1,1544 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-CaH9-3ku.js:478 🔧 Found existing plan in localStorage for generate route: Dance
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:219 🔄 Initializing with existing plan data: Dance
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Dance Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in dance. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical dance scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Dance equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Dance Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Dance Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Dance Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:219 🔧 Applied field mapping fix to initial plan data
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-CaH9-3ku.js:219 🔍 Direct Supabase session check: plan-1754564561230-pcprx356q Dance
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 ✅ YouTube video loaded successfully: v7AYKMP6rOE
+index-CaH9-3ku.js:217 Auth form submitted: Object
+index-CaH9-3ku.js:217 Attempting sign-in...
+index-CaH9-3ku.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-CaH9-3ku.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 🔐 User authenticated, auto-closing modal
+index-CaH9-3ku.js:219 🔍 Checking for fresh plan marker: NOT FOUND
+index-CaH9-3ku.js:219 🔍 User authenticated, looking for plan ID for existing hobby: Dance
+index-CaH9-3ku.js:219 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:219 🔍 Using direct API to find plans for hobby: Dance
+index-CaH9-3ku.js:219 🔍 Direct API query result: Object
+index-CaH9-3ku.js:219 🔍 All user plans: Array(14)
+index-CaH9-3ku.js:219 🔍 Filtered plans for hobby: Array(1)
+index-CaH9-3ku.js:219 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+index-CaH9-3ku.js:219 🎯 Found plan via auth context: 70ad8723-770a-455a-b571-90773607b451 for title: Master Dance in 7 Days
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Progress query result: Object
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/dashboard
+index-CaH9-3ku.js:462 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+/api/hobby-plans?user_id=773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+/api/user-progress/773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-CaH9-3ku.js:462 📋 Found localStorage plans: 1
+index-CaH9-3ku.js:462 📋 Total plans loaded: 1
+index-CaH9-3ku.js:462 🎨 Dashboard AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:462 🎨 Dashboard AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:462 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-CaH9-3ku.js:478 🔧 Found existing plan in session storage for generate route: Dance
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:219 🔄 Initializing with existing plan data: Dance
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Dance Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in dance. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical dance scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Dance equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Dance Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Dance Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Dance Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:219 🔧 Applied field mapping fix to initial plan data
+index-CaH9-3ku.js:219 🔍 Checking for fresh plan marker: NOT FOUND
+index-CaH9-3ku.js:219 🔍 User authenticated, looking for plan ID for existing hobby: Dance
+index-CaH9-3ku.js:219 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:219 🔍 Using direct API to find plans for hobby: Dance
+index-CaH9-3ku.js:219 🔄 Initializing with existing plan data: Dance
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Dance Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in dance. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical dance scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Dance equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Dance Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Dance Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Dance Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:219 🔧 Applied field mapping fix to initial plan data
+index-CaH9-3ku.js:219 🧹 Clearing any stale plan markers for old plan
+index-CaH9-3ku.js:228 🔍 User authenticated, searching for existing plan ID...
+index-CaH9-3ku.js:228 📍 Database-only progress tracking - no localStorage used
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-CaH9-3ku.js:219 🔍 Direct Supabase session check: plan-1754564574921-kosjbnls4 Dance
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Direct API query result: Object
+index-CaH9-3ku.js:219 🔍 All user plans: Array(14)
+index-CaH9-3ku.js:219 🔍 Filtered plans for hobby: Array(1)
+index-CaH9-3ku.js:219 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+index-CaH9-3ku.js:219 🎯 Found plan via auth context: 70ad8723-770a-455a-b571-90773607b451 for title: Master Dance in 7 Days
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Dance Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Dance" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Dance" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Dance Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Progress query result: Object
+index-CaH9-3ku.js:217 ✅ YouTube video loaded successfully: v7AYKMP6rOE
+index-CaH9-3ku.js:237 🔄 Starting new plan - clearing all data
+index-CaH9-3ku.js:239 ✅ Successfully reset to fresh start
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/dashboard
+index-CaH9-3ku.js:462 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+/api/hobby-plans?user_id=773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+/api/user-progress/773c3f18-025a-432d-ae3d-fa13be3faef8:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-CaH9-3ku.js:462 📋 Found localStorage plans: 0
+index-CaH9-3ku.js:462 📋 Total plans loaded: 0
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-CaH9-3ku.js:217 🔄 Starting completely fresh - no existing plans found
+index-CaH9-3ku.js:217 🔄 Initializing messages state with welcome message
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Running Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in running. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical running scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Running equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Running Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Running Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoTitle": "Running Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - First day youtubeVideoId from backend: v7AYKMP6rOE
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - First day videoId from backend: undefined
+index-CaH9-3ku.js:478 🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface
+index-CaH9-3ku.js:228 🎯 Setting plan data in SplitPlanInterface: Running
+index-CaH9-3ku.js:228 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Running",
+  "title": "Master Running in 7 Days",
+  "overview": "A comprehensive running learning plan tailored for beginner learners",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Running Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in running. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical running scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Running equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Running Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Running Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "v7AYKMP6rOE",
+      "videoId": "v7AYKMP6rOE",
+      "videoTitle": "Running Tutorial - Basics & Setup",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Running Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in running. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical running scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Running equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Running Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=oBu-pQG6sTY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Running Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "oBu-pQG6sTY",
+      "videoId": "oBu-pQG6sTY",
+      "videoTitle": "Running Tutorial - Core Techniques",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Running Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in running. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical running scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Running equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused buil
+index-CaH9-3ku.js:228 🐛 First day YouTube video ID before fixPlanDataFields: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day videoId type: string
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Running Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in running. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical running scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Running equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Running Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Running Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Running Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:228 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-CaH9-3ku.js:228 🔧 CORRECTED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: correctedPlanData structure: Object
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: About to set plan data and step to plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Final plan data validation: Object
+index-CaH9-3ku.js:228 🧹 Cleared old cached plan data
+index-CaH9-3ku.js:228 🎯 Marked plan as freshly generated BEFORE setPlanData
+index-CaH9-3ku.js:228 ✅ PLAN STORED: Plan data saved to storage and state
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: planData should have days: true
+index-CaH9-3ku.js:228 Saving surprise plan to Supabase for authenticated user...
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Running Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in running. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical running scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Running equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Running Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Running Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Running Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:228 🔧 FIXED plan data - first day commonMistakes: Array(3)
+index-CaH9-3ku.js:228 🔧 FIXED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Plan data: Object
+index-CaH9-3ku.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: running user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-CaH9-3ku.js:219 🔍 Direct Supabase session check: plan-1754564582918-2ix2p6cea Running
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored planData exists: true
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored days array: true
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored days length: 7
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - currentStep should be: plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - should show plan: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 🔍 DUPLICATE CHECK: Found 14 total plans
+index-CaH9-3ku.js:217 ✅ DUPLICATE CHECK: No existing plan found for running
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Fetch completed with status: 201
+index-CaH9-3ku.js:217 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+index-CaH9-3ku.js:228 ✅ Plan saved successfully, setting plan ID: 05973ee8-aed0-4492-89de-dcf95130bac4
+index-CaH9-3ku.js:217 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Running Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Running" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Running" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Running Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 ✅ YouTube video loaded successfully: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Navigation protection disabled after plan generation
+index-CaH9-3ku.js:237 🔄 Starting new plan - clearing all data
+index-CaH9-3ku.js:239 ✅ Successfully reset to fresh start
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Harmonica Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical harmonica scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Harmonica equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Harmonica Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Harmonica Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoTitle": "Harmonica Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - First day youtubeVideoId from backend: v7AYKMP6rOE
+index-CaH9-3ku.js:478 🔧 CRITICAL FIX - First day videoId from backend: undefined
+index-CaH9-3ku.js:478 🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface
+index-CaH9-3ku.js:228 🎯 Setting plan data in SplitPlanInterface: Harmonica
+index-CaH9-3ku.js:228 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Harmonica",
+  "title": "Master Harmonica in 7 Days",
+  "overview": "A comprehensive harmonica learning plan tailored for beginner learners",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Harmonica Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical harmonica scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Harmonica equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Harmonica Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Harmonica Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "v7AYKMP6rOE",
+      "videoId": "v7AYKMP6rOE",
+      "videoTitle": "Harmonica Tutorial - Basics & Setup",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Harmonica Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical harmonica scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Harmonica equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Harmonica Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=oBu-pQG6sTY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Harmonica Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "oBu-pQG6sTY",
+      "videoId": "oBu-pQG6sTY",
+      "videoTitle": "Harmonica Tutorial - Core Techniques",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Harmonica Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical harmonica scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Harmonica equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials avail
+index-CaH9-3ku.js:228 🐛 First day YouTube video ID before fixPlanDataFields: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+index-CaH9-3ku.js:228 🐛 CRITICAL - Raw plan first day videoId type: string
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Harmonica Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical harmonica scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Harmonica equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Harmonica Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Harmonica Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Harmonica Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:228 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-CaH9-3ku.js:228 🔧 CORRECTED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: correctedPlanData structure: Object
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: About to set plan data and step to plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Final plan data validation: Object
+index-CaH9-3ku.js:228 🧹 Cleared old cached plan data
+index-CaH9-3ku.js:228 🎯 Marked plan as freshly generated BEFORE setPlanData
+index-CaH9-3ku.js:228 ✅ PLAN STORED: Plan data saved to storage and state
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: planData should have days: true
+index-CaH9-3ku.js:228 Saving surprise plan to Supabase for authenticated user...
+index-CaH9-3ku.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-CaH9-3ku.js:217 🔍 plan.days length: 7
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-CaH9-3ku.js:217 🔍 First day youtubeVideoId from different paths:
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-CaH9-3ku.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Harmonica Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in harmonica. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical harmonica scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Harmonica equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Harmonica Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Harmonica Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Harmonica Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-CaH9-3ku.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-CaH9-3ku.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-CaH9-3ku.js:217 🔍 FRONTEND - videoId value type: string
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-CaH9-3ku.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-CaH9-3ku.js:228 🔧 FIXED plan data - first day commonMistakes: Array(3)
+index-CaH9-3ku.js:228 🔧 FIXED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Plan data: Object
+index-CaH9-3ku.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: harmonica user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-CaH9-3ku.js:219 🔍 Direct Supabase session check: plan-1754564590857-ti3n04z6o Harmonica
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored planData exists: true
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored days array: true
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - stored days length: 7
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - currentStep should be: plan
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Force re-render check - should show plan: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 🔍 DUPLICATE CHECK: Found 15 total plans
+index-CaH9-3ku.js:217 ✅ DUPLICATE CHECK: No existing plan found for harmonica
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+index-CaH9-3ku.js:217 💾 SUPABASE SAVE: Fetch completed with status: 201
+index-CaH9-3ku.js:217 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+index-CaH9-3ku.js:228 ✅ Plan saved successfully, setting plan ID: 10e396c4-19e0-49ca-92ed-36365b8ad52f
+index-CaH9-3ku.js:217 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
+index-CaH9-3ku.js:217 ✅ YouTube video loaded successfully: v7AYKMP6rOE
+index-CaH9-3ku.js:228 🔍 PLAN DEBUG: Navigation protection disabled after plan generation
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: true
+index-CaH9-3ku.js:255 🔍 DEBUG: selectedDay: 1
+index-CaH9-3ku.js:255 🔍 DEBUG: planData.days length: 7
+index-CaH9-3ku.js:255 🔍 DEBUG: currentDay found: true Harmonica Basics & Setup - Day 1
+index-CaH9-3ku.js:255 🔍 DEBUG: day status: unlocked
+index-CaH9-3ku.js:217 🎨 Plan AUTO-IMAGE: "Harmonica" -> category-based generation
+index-CaH9-3ku.js:217 🎨 Plan AUTO-GENERATED: "Harmonica" -> unique category-based image
+index-CaH9-3ku.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487379
+index-CaH9-3ku.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-CaH9-3ku.js:256 🐛 Video Title: Harmonica Tutorial - Basics & Setup
+index-CaH9-3ku.js:256 TIP 0: Using icon at index 0
+index-CaH9-3ku.js:256 TIP 1: Using icon at index 1
+index-CaH9-3ku.js:256 TIP 2: Using icon at index 2
+index-CaH9-3ku.js:256 TIP 3: Using icon at index 3
+index-CaH9-3ku.js:256 🐛 Debug Common Mistakes: Array(3)
+index-CaH9-3ku.js:256 🐛 Full current day data: Object
+index-CaH9-3ku.js:256 MISTAKE 0: Using icon at index 0
+index-CaH9-3ku.js:256 MISTAKE 1: Using icon at index 1
+index-CaH9-3ku.js:256 MISTAKE 2: Using icon at index 2
