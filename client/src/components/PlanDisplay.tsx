@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Play, Star, Lightbulb, Target, Trophy, X, AlertTriangle, Ban } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Play, Star, Lightbulb, Target, Trophy, X, AlertTriangle, Ban, Clock, Package, BookOpen, Zap, Award, ArrowRight } from 'lucide-react';
 
 interface Day {
   day: number;
@@ -19,6 +19,11 @@ interface Day {
   videoTitle?: string;
   estimatedTime?: string;
   skillLevel?: string;
+  timeAllocation?: string;
+  equipment?: string[];
+  materials?: string[];
+  detailedSteps?: { step: string; time: string; description: string }[];
+  progressMilestones?: string[];
   freeResources: { title: string; link: string }[];
   affiliateProducts: { title: string; link: string; price: string }[];
 }
@@ -128,45 +133,142 @@ export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDi
 
               {/* Day Content */}
               {isExpanded && (
-                <CardContent className="space-y-6">
-                  {/* Explanation */}
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <p className="text-gray-700">{day.explanation}</p>
+                <CardContent className="space-y-8 max-w-none">
+                  {/* Time Allocation & Overview */}
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                          <Clock className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-blue-900">Today's Focus</h3>
+                          <p className="text-sm text-blue-700">{day.timeAllocation || day.estimatedTime || '30-45 minutes'}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-sm font-medium text-blue-700">Day {day.day}</span>
+                        <p className="text-xs text-blue-600">{day.skillLevel || 'Beginner'}</p>
+                      </div>
+                    </div>
+                    <div className="prose prose-blue max-w-none">
+                      <p className="text-blue-800 leading-relaxed text-base">{day.explanation}</p>
+                    </div>
                   </div>
 
-                  {/* How To Steps */}
+                  {/* Equipment & Materials */}
+                  {(day.equipment || day.materials) && (
+                    <div className="bg-white border border-gray-200 rounded-lg p-6">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                          <Package className="w-4 h-4 text-white" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900">What You'll Need</h3>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {day.equipment && (
+                          <div>
+                            <h4 className="text-sm font-medium text-purple-700 mb-2">🎯 Equipment</h4>
+                            <ul className="space-y-2">
+                              {day.equipment.map((item, index) => (
+                                <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
+                                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {day.materials && (
+                          <div>
+                            <h4 className="text-sm font-medium text-indigo-700 mb-2">📋 Materials</h4>
+                            <ul className="space-y-2">
+                              {day.materials.map((item, index) => (
+                                <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
+                                  <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Detailed Steps */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">How to Complete This Day</h3>
-                    <ol className="space-y-2">
-                      {day.howTo.map((step, index) => (
-                        <li key={index} className="flex items-start space-x-3">
-                          <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0 mt-0.5">
-                            {index + 1}
-                          </span>
-                          <span className="text-gray-700">{step}</span>
-                        </li>
-                      ))}
-                    </ol>
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                        <BookOpen className="w-4 h-4 text-white" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900">Step-by-Step Instructions</h3>
+                    </div>
+                    
+                    {day.detailedSteps ? (
+                      <div className="space-y-6">
+                        {day.detailedSteps.map((step, index) => (
+                          <div key={index} className="relative">
+                            <div className="flex items-start space-x-4">
+                              <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                {index + 1}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between mb-2">
+                                  <h4 className="font-semibold text-gray-900">{step.step}</h4>
+                                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">{step.time}</span>
+                                </div>
+                                <p className="text-gray-700 leading-relaxed">{step.description}</p>
+                              </div>
+                            </div>
+                            {index < day.detailedSteps.length - 1 && (
+                              <div className="ml-4 mt-3 mb-3">
+                                <ArrowRight className="w-4 h-4 text-gray-400" />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <ol className="space-y-4">
+                        {day.howTo.map((step, index) => (
+                          <li key={index} className="flex items-start space-x-4">
+                            <span className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                              {index + 1}
+                            </span>
+                            <div className="flex-1">
+                              <p className="text-gray-700 leading-relaxed">{step}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
                   </div>
 
                   {/* Success Tips */}
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                        <Star className="w-4 h-4 text-white" />
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900">Success Tips</h3>
+                      <div>
+                        <h3 className="text-lg font-semibold text-green-900">💡 Pro Tips for Success</h3>
+                        <p className="text-sm text-green-700">Expert insights to accelerate your learning</p>
+                      </div>
                     </div>
-                    <div className="space-y-3">
+                    <div className="grid gap-4">
                       {day.tips.map((tip, index) => {
                         const IconComponent = getTipIcon(index);
-                        console.log(`TIP ${index}: Using ${IconComponent.name} icon`);
                         return (
-                          <div key={index} className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                              <IconComponent className="w-3 h-3 text-green-600" />
+                          <div key={index} className="bg-white rounded-lg p-4 border border-green-200 hover:border-green-300 transition-colors">
+                            <div className="flex items-start space-x-3">
+                              <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <IconComponent className="w-4 h-4 text-white" />
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-gray-800 leading-relaxed font-medium">{tip}</p>
+                              </div>
                             </div>
-                            <p className="text-gray-700 text-sm">{tip}</p>
                           </div>
                         );
                       })}
@@ -174,23 +276,29 @@ export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDi
                   </div>
 
                   {/* Avoid These Mistakes */}
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
-                        <AlertTriangle className="w-4 h-4 text-white" />
+                  <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
+                        <AlertTriangle className="w-5 h-5 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900">Avoid These Mistakes</h3>
+                      <div>
+                        <h3 className="text-lg font-semibold text-red-900">⚠️ Common Pitfalls to Avoid</h3>
+                        <p className="text-sm text-red-700">Learn from others' mistakes to save time</p>
+                      </div>
                     </div>
-                    <div className="space-y-3">
+                    <div className="grid gap-4">
                       {day.mistakesToAvoid.map((mistake, index) => {
                         const IconComponent = getMistakeIcon(index);
-                        console.log(`MISTAKE ${index}: Using ${IconComponent.name} icon`);
                         return (
-                          <div key={index} className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                              <IconComponent className="w-3 h-3 text-red-600" />
+                          <div key={index} className="bg-white rounded-lg p-4 border border-red-200 hover:border-red-300 transition-colors">
+                            <div className="flex items-start space-x-3">
+                              <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                <IconComponent className="w-4 h-4 text-white" />
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-gray-800 leading-relaxed font-medium">{mistake}</p>
+                              </div>
                             </div>
-                            <p className="text-gray-700 text-sm">{mistake}</p>
                           </div>
                         );
                       })}
@@ -224,14 +332,47 @@ export default function PlanDisplay({ planData, user, setShowAuthModal }: PlanDi
                     </div>
                   )}
 
-                  {/* Checklist */}
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Today's Checklist</h3>
-                    <div className="space-y-2">
+                  {/* Progress Milestones */}
+                  {day.progressMilestones && (
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                          <Award className="w-4 h-4 text-white" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-yellow-900">🎯 Progress Milestones</h3>
+                      </div>
+                      <div className="space-y-3">
+                        {day.progressMilestones.map((milestone, index) => (
+                          <div key={index} className="flex items-center space-x-3 bg-white rounded-lg p-3 border border-yellow-200">
+                            <div className="w-6 h-6 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center text-sm font-bold">
+                              {index + 1}
+                            </div>
+                            <span className="text-gray-800 font-medium">{milestone}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Interactive Checklist */}
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-blue-900">✅ Today's Action Items</h3>
+                        <p className="text-sm text-blue-700">Check off each item as you complete it</p>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
                       {day.checklist.map((item, index) => (
-                        <label key={index} className="flex items-start space-x-3 cursor-pointer">
-                          <input type="checkbox" className="w-4 h-4 text-blue-500 rounded mt-0.5" />
-                          <span className="text-gray-700 text-sm">{item}</span>
+                        <label key={index} className="flex items-start space-x-3 cursor-pointer group hover:bg-white hover:shadow-sm rounded-lg p-3 transition-all">
+                          <input 
+                            type="checkbox" 
+                            className="w-5 h-5 text-blue-500 rounded mt-0.5 focus:ring-blue-500 focus:ring-2" 
+                          />
+                          <span className="text-gray-800 leading-relaxed group-hover:text-blue-900 transition-colors font-medium">{item}</span>
                         </label>
                       ))}
                     </div>
