@@ -404,8 +404,21 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               const mostRecentPlan = plans[0];
               console.log('🔄 AUTO-LOAD: Found recent plan:', mostRecentPlan.title);
               
-              // Convert Supabase plan to our format - FIXED nested structure
-              const planData = {
+              // FIXED: Don't auto-load old plan, instead offer choice to user
+              const welcomeMessage: ChatMessage = {
+                id: Date.now().toString(),
+                sender: 'ai',
+                content: `Welcome back! 👋\n\nI found your previous learning plan: "${mostRecentPlan.title}"\n\nWould you like to continue where you left off, or start something new?`,
+                options: [
+                  { value: 'continue_plan', label: 'Continue Previous Plan', description: 'Resume your progress' },
+                  { value: 'start_fresh', label: 'Start Something New', description: 'Create a new learning plan' }
+                ],
+                timestamp: new Date()
+              };
+              setMessages([welcomeMessage]);
+              
+              // Store the previous plan data for potential loading
+              sessionStorage.setItem('previousPlanData', JSON.stringify({
                 id: mostRecentPlan.id,
                 hobby: mostRecentPlan.hobby_name || mostRecentPlan.plan_data?.hobby,
                 title: mostRecentPlan.title,
@@ -413,47 +426,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 difficulty: mostRecentPlan.difficulty,
                 totalDays: mostRecentPlan.total_days,
                 days: mostRecentPlan.plan_data?.plan_data?.days || mostRecentPlan.plan_data?.days || []
-              };
-              
-              console.log('🔧 AUTO-LOAD: Extracted days count:', planData.days.length);
-              console.log('🔧 AUTO-LOAD: Raw plan_data structure:', {
-                hasPlanData: !!mostRecentPlan.plan_data,
-                hasDays: !!mostRecentPlan.plan_data?.days,
-                hasNestedDays: !!mostRecentPlan.plan_data?.plan_data?.days,
-                extractedDaysLength: planData.days.length
-              });
-              
-              const fixedAutoLoadPlan = fixPlanDataFields(planData);
-              console.log('🔄 AUTO-LOAD: Setting plan data automatically');
-              setPlanData(fixedAutoLoadPlan);
-              setCurrentPlanId(mostRecentPlan.id.toString());
-              setRenderKey(prev => prev + 1); // Force React re-render
-              
-              // Load progress
-              const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
-                headers: {
-                  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-                }
-              });
-
-              if (progressResponse.ok) {
-                const progressData = await progressResponse.json();
-                if (progressData && progressData.length > 0) {
-                  const progress = progressData[0];
-                  setCompletedDays(progress.completed_days || []);
-                  setSelectedDay(progress.current_day || 1);
-                }
-              }
-
-              // Initialize chat for returning user
-              const welcomeMessage: ChatMessage = {
-                id: Date.now().toString(),
-                sender: 'ai',
-                content: `Welcome back to your ${planData.hobby} learning plan! 🌟\n\nI can see you were working on this plan. Your progress has been saved and you can continue where you left off.\n\nHow can I help you today?`,
-                timestamp: new Date()
-              };
-              setMessages([welcomeMessage]);
+              }));
             } else {
               console.log('🔄 AUTO-LOAD: No recent plans found');
             }
@@ -1188,6 +1161,75 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     
     if (value === 'surprise') {
       await handleSurpriseMe();
+      return;
+    }
+    
+    // Handle continuing previous plan or starting fresh
+    if (value === 'continue_plan') {
+      addUserMessage(label);
+      const previousPlanDataStr = sessionStorage.getItem('previousPlanData');
+      if (previousPlanDataStr) {
+        try {
+          const previousPlanData = JSON.parse(previousPlanDataStr);
+          const fixedPreviousPlan = fixPlanDataFields(previousPlanData);
+          
+          // Load the previous plan
+          const finalPreviousPlan = {
+            ...fixedPreviousPlan,
+            days: Array.isArray(fixedPreviousPlan?.days) ? fixedPreviousPlan.days : []
+          };
+          
+          setPlanData(finalPreviousPlan);
+          setCurrentPlanId(previousPlanData.id.toString());
+          setRenderKey(prev => prev + 1);
+          
+          // Load progress
+          if (user?.id && previousPlanData.id) {
+            try {
+              const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${previousPlanData.id}&user_id=eq.${user.id}`, {
+                headers: {
+                  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+                }
+              });
+              
+              if (progressResponse.ok) {
+                const progressData = await progressResponse.json();
+                if (progressData && progressData.length > 0) {
+                  const progress = progressData[0];
+                  setCompletedDays(progress.completed_days || []);
+                  setSelectedDay(progress.current_day || 1);
+                }
+              }
+            } catch (error) {
+              console.error('Error loading progress:', error);
+            }
+          }
+          
+          addAIMessage(`Great! Your ${previousPlanData.hobby} plan is back! 🎉 You can continue where you left off. Ask me anything about your plan!`);
+        } catch (error) {
+          console.error('Error loading previous plan:', error);
+          addAIMessage("Sorry, I had trouble loading your previous plan. Let's start fresh! What would you like to learn?");
+        }
+      }
+      return;
+    }
+    
+    if (value === 'start_fresh') {
+      addUserMessage(label);
+      // Clear any stored plan data
+      sessionStorage.removeItem('previousPlanData');
+      addAIMessage("Perfect! Let's create a brand new learning plan for you. What hobby would you like to learn?", [
+        { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
+        { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
+        { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
+        { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
+        { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
+        { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
+        { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+        { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
+        { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+      ]);
       return;
     }
 
