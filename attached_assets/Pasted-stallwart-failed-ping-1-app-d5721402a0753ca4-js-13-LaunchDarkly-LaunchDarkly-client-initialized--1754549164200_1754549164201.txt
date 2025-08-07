@@ -1,0 +1,542 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+12Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 1
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:13 onClick is deprecated, please use onPress
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+aaf2d9cf-69cf-40d0-a87d-02c7aaade006-00-6hsp6dkpodyz.picard.replit.dev/api/generate-plan:1  Failed to load resource: the server responded with a status of 400 (Bad Request)Understand this error
+Console.js:61 Error generating plan: Error: HTTP error! status: 400
+    at generatePlanWithAI (App.tsx:393:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:897:20)
+    at async handleOptionSelect (SplitPlanInterface.tsx:977:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: Robotics
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Robotics",
+  "title": "Learn robotics in 7 Days",
+  "overview": "Master the art of robotics in just 7 days! This AI-powered plan will take you from beginner to confident practitioner with hands-on exercises and expert guidance.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day 1: robotics Fundamentals",
+      "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+      "explanation": "Day 1 focuses on building your foundation in robotics with practical exercises.",
+      "howTo": [
+        "Start with basic robotics concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "robotics Day 1 Tutorial",
+          "link": "https://youtube.com/watch?v=robotics-day-1"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Robotics Essential Kit - Day 1",
+          "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "rtR63-ecUNo",
+      "videoTitle": "robotics Day 1 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Day 2: robotics Fundamentals",
+      "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+      "explanation": "Day 2 focuses on building your foundation in robotics with practical exercises.",
+      "howTo": [
+        "Start with basic robotics concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "robotics Day 2 Tutorial",
+          "link": "https://youtube.com/watch?v=robotics-day-2"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Robotics Essential Kit - Day 2",
+          "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "rtR63-ecUNo",
+      "videoTitle": "robotics Day 2 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Day 3: robotics Fundamentals",
+      "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+      "explanation": "Day 3 focuses on building your foundation in robotics with practical exercises.",
+      "howTo": [
+        "Start with basic robotics concepts",
+        "Practice fundamental techniques",
+        "Complete hands-on exercises",
+        "Review and refine your skills"
+      ],
+      "checklist": [
+        "Understand today's core concepts",
+        "Complete all practice exercises",
+        "Review progress and notes",
+        "Prepare for tomorrow's lesson"
+      ],
+      "tips": [
+        "Take your time with each exercise",
+        "Don't be afraid to repeat difficult parts",
+        "Keep practicing regularly"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises",
+        "Skipping practice time",
+        "Not taking notes"
+      ],
+      "freeResources": [
+        {
+          "title": "robotics Day 3 Tutorial",
+          "link": "https://youtube.com/watch?v=robotics-day-3"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Robotics Essential Kit - Day 3",
+          "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+          "price": "$29.99"
+        }
+      ],
+      "youtubeVideoId": "rtR63-ecUNo",
+      "videoTitle": "robotics Day 3 Tutorial",
+      "estimatedTime": "30-60 minutes",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 4,
+      "title": "Day 4: robotics Fundamentals",
+      "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+      "explanation": "Day 4 focuses on building your foun
+Console.js:61 🐛 First day YouTube video ID before fixPlanDataFields: rtR63-ecUNo
+Console.js:61 🐛 CRITICAL - Raw plan first day has keys: Array(14)
+Console.js:61 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+Console.js:61 🐛 CRITICAL - Raw plan first day videoId type: undefined
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: undefined
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: robotics Fundamentals",
+  "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in robotics with practical exercises.",
+  "howTo": [
+    "Start with basic robotics concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "robotics Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=robotics-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Robotics Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "robotics Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(14)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: undefined
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: rtR63-ecUNo
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: undefined
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: robotics Fundamentals",
+  "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in robotics with practical exercises.",
+  "howTo": [
+    "Start with basic robotics concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "robotics Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=robotics-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Robotics Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "robotics Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(14)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: undefined
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: rtR63-ecUNo
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: robotics user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct Supabase session check: plan-1754548897370-3uh7yaxky Robotics
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 DUPLICATE CHECK: Found 0 total plans
+Console.js:61 ✅ DUPLICATE CHECK: No existing plan found for robotics
+Console.js:61 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+Console.js:61 💾 SUPABASE SAVE: Fetch completed with status: 201
+Console.js:61 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+Console.js:61 ✅ Plan saved successfully, setting plan ID: 123a93ae-f980-4f62-8f31-eaa69b770305
+Console.js:61 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message

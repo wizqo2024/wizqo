@@ -340,7 +340,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     'yoga', 'meditation', 'tai chi', 'martial arts', 'rock climbing', 'swimming', 'running', 'cycling',
     
     // Technical & Digital
-    'coding', 'web design', 'video editing', 'app development', 'robotics', '3d printing', 'game development',
+    'coding', 'web design', 'video editing', 'electronics tinkering', 'programming basics', 'model building', 'digital photography',
     
     // Nature & Outdoor
     'gardening', 'hiking', 'bird watching', 'astronomy', 'fishing', 'camping', 'foraging',
