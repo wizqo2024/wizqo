@@ -139,13 +139,17 @@ Your 7-day plan covers all these progressively - each day builds on the previous
   return `I'm here to help with your ${hobby} learning plan! You can ask me about:\n• Getting started with Day 1\n• Daily activities and techniques\n• Equipment and setup\n• Practice tips and techniques\n• Time management\n• Progress tracking\n\nWhat aspect of your ${hobby} learning would you like help with?`;
 }
 
-// DeepSeek AI integration for dynamic plan generation
+// OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  const deepSeekKey = process.env.DEEPSEEK_API_KEY;
   const youtubeApiKey = process.env.YOUTUBE_API_KEY;
   
+  // Prefer OpenRouter if available, fallback to DeepSeek
+  const apiKey = openRouterKey || deepSeekKey;
+  
   if (!apiKey) {
-    console.log('⚠️ No DeepSeek API key found, using fallback plan generation');
+    console.log('⚠️ No AI API key found, using fallback plan generation');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
@@ -182,14 +186,27 @@ Return ONLY a JSON object with this exact structure:
 
 Make each day build progressively on the previous day. Include practical, actionable steps.`;
 
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    // Use OpenRouter API if available, otherwise use DeepSeek
+    const apiUrl = openRouterKey 
+      ? 'https://openrouter.ai/api/v1/chat/completions'
+      : 'https://api.deepseek.com/v1/chat/completions';
+    
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    
+    // Add OpenRouter specific headers if using OpenRouter
+    if (openRouterKey) {
+      headers['HTTP-Referer'] = 'https://wizqo.com';
+      headers['X-Title'] = 'Wizqo Hobby Learning Platform';
+    }
+    
+    const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
+      headers,
       body: JSON.stringify({
-        model: 'deepseek-chat',
+        model: openRouterKey ? 'deepseek/deepseek-chat' : 'deepseek-chat',
         messages: [
           {
             role: 'user',
@@ -263,7 +280,7 @@ Make each day build progressively on the previous day. Include practical, action
     return aiPlan;
 
   } catch (error) {
-    console.error('DeepSeek API error:', error);
+    console.error(`AI API error (${openRouterKey ? 'OpenRouter' : 'DeepSeek'}):`, error);
     console.log('⚠️ DeepSeek API failed, using fallback plan generation');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
