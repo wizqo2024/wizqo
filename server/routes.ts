@@ -10,8 +10,6 @@ import { supabaseStorage } from './supabase-storage';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
 import { z } from 'zod';
 
-console.log('📖 API: Database storage initialized for all operations');
-console.log('🚀 SUPABASE MODE: Using Supabase PostgreSQL database');
 
 // Fixed plan data field mapping function
 function fixPlanDataFields(plan: any) {
@@ -168,7 +166,6 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
   const apiKey = openRouterKey || deepSeekKey;
   
   if (!apiKey) {
-    console.log('⚠️ No AI API key found, using fallback plan generation');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
@@ -224,7 +221,6 @@ Make each day build progressively on the previous day. Include practical, action
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
-      console.log('⚠️ AI API request timed out after 30 seconds, aborting...');
       controller.abort();
     }, 30000); // 30 second timeout
     
@@ -294,9 +290,6 @@ Make each day build progressively on the previous day. Include practical, action
     }));
 
     // Debug: Log AI plan response structure
-    console.log('🔍 AI PLAN GENERATED - First day youtubeVideoId:', aiPlan.days[0].youtubeVideoId);
-    console.log('🔍 AI PLAN GENERATED - First day videoId:', aiPlan.days[0].videoId);
-    console.log('🔍 AI PLAN COMPLETE FIRST DAY:', JSON.stringify(aiPlan.days[0], null, 2));
     
     // Ensure hobby field and correct difficulty mapping are included in the response
     aiPlan.hobby = hobby;
@@ -316,9 +309,7 @@ Make each day build progressively on the previous day. Include practical, action
     
     // Check if it's a timeout/abort error
     if (error.name === 'AbortError') {
-      console.log('⚠️ AI API request timed out after 30 seconds, using fallback plan generation');
     } else {
-      console.log('⚠️ AI API failed, using fallback plan generation');
     }
     
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
@@ -409,12 +400,9 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       dayPlan.title, 
       dayPlan.mainTask
     );
-    console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
     
     // Final verification: If we still get the problematic video, use a proper fallback
     const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
-    console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
-    console.log(`🔧 VIDEO REPLACEMENT: ${targetedVideoId} -> ${finalVideoId}`);
     
     const videoDetails = getVideoDetails(hobby, experience, dayNumber);
     
@@ -454,25 +442,18 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     days: days
   };
   
-  console.log('🔍 FALLBACK PLAN GENERATED - First day mistakesToAvoid:', plan.days[0].mistakesToAvoid);
-  console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
-  console.log('🔍 FALLBACK PLAN GENERATED - First day videoId:', plan.days[0].videoId);
   
   // CRITICAL FIX: Apply video verification to final plan
   for (let i = 0; i < plan.days.length; i++) {
     if (plan.days[i].youtubeVideoId === 'dQw4w9WgXcQ') {
       plan.days[i].youtubeVideoId = 'fC7oUOUEEi4'; // Educational content fallback
       plan.days[i].videoId = 'fC7oUOUEEi4';
-      console.log(`🔧 FIXED: Replaced problematic video ID in day ${i + 1} with educational content`);
     }
   }
-  console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
   
   // Debug: Log complete first day structure
-  console.log('🔍 COMPLETE FIRST DAY DATA:', JSON.stringify(plan.days[0], null, 2));
   
   // Final debug: Log complete plan response structure
-  console.log('🔍 FINAL PLAN RESPONSE STRUCTURE:', {
     hobby: plan.hobby,
     totalDays: plan.totalDays,
     firstDayKeys: Object.keys(plan.days[0]),
@@ -1862,7 +1843,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Use DeepSeek for intelligent hobby validation
-      console.log('🔍 Validating hobby with DeepSeek:', hobby);
       const validation = await hobbyValidator.validateHobby(hobby);
       
       if (!validation.isValid) {
@@ -1878,17 +1858,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Check for duplicate plans if user is authenticated and not forcing new plan
       if (userId && !force) {
-        console.log('🔍 DUPLICATE CHECK: Checking for existing plans for user:', userId, 'hobby:', normalizedHobby);
         try {
           const existingPlans = await supabaseStorage.getHobbyPlansByUserId(userId);
-          console.log('🔍 DUPLICATE CHECK: Found', existingPlans.length, 'existing plans');
           
           const duplicatePlan = existingPlans.find((plan: any) => {
             const planHobby = plan.hobby_name?.toLowerCase() || '';
             const normalizedPlanHobby = planHobby.trim();
             const checkHobby = normalizedHobby.toLowerCase().trim();
             
-            console.log('🔍 DUPLICATE CHECK: Comparing', normalizedPlanHobby, 'vs', checkHobby);
             
             // Exact match
             if (normalizedPlanHobby === checkHobby) return true;
@@ -1900,7 +1877,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
           
           if (duplicatePlan) {
-            console.log('🚨 DUPLICATE DETECTED: Found existing plan for', normalizedHobby, 'with ID:', duplicatePlan.id);
             return res.status(409).json({
               error: 'duplicate_plan',
               message: `You already have a ${normalizedHobby} learning plan! Would you like to continue with your existing plan or create a new one?`,
@@ -1913,7 +1889,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
           }
           
-          console.log('✅ DUPLICATE CHECK: No existing plan found for', normalizedHobby);
         } catch (error) {
           console.error('❌ DUPLICATE CHECK: Error checking for duplicates:', error);
           // Continue with plan generation if duplicate check fails
@@ -2022,9 +1997,7 @@ Please provide a helpful response:`;
       }
 
       const cleanHobby = hobby.replace(/["']/g, '').trim();
-      console.log('🔍 Validating hobby:', cleanHobby);
       const validation = await hobbyValidator.validateHobby(cleanHobby);
-      console.log('🔍 Server validation result:', validation);
       
       // Ensure proper response format for frontend
       const response = {
@@ -2035,7 +2008,6 @@ Please provide a helpful response:`;
         reasoning: validation.reasoning
       };
       
-      console.log('🔍 Sending response to frontend:', response);
       res.json(response);
     } catch (error) {
       console.error('Hobby validation error:', error);
@@ -2051,9 +2023,7 @@ Please provide a helpful response:`;
         return res.status(400).json({ error: 'user_id is required' });
       }
       
-      console.log('📖 API: Fetching hobby plans for user:', user_id);
       const plans = await supabaseStorage.getHobbyPlansByUserId(user_id as string);
-      console.log('📖 API: Found', plans?.length || 0, 'hobby plans');
       res.json(plans || []);
     } catch (error) {
       console.error('Error fetching hobby plans:', error);
@@ -2064,10 +2034,8 @@ Please provide a helpful response:`;
   app.get('/api/hobby-plans/:userId', async (req, res) => {
     try {
       const { userId } = req.params;
-      console.log('📖 API: Fetching hobby plans for user:', userId);
       
       const plans = await supabaseStorage.getHobbyPlansByUserId(userId);
-      console.log('📖 API: Found', plans?.length || 0, 'plans');
       res.json(plans || []);
     } catch (error) {
       console.error('📖 API: Error fetching hobby plans:', error);
@@ -2078,9 +2046,6 @@ Please provide a helpful response:`;
   app.post('/api/hobby-plans', async (req, res) => {
     try {
       const { user_id, hobby, title, overview, plan_data } = req.body;
-      console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
-      console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
-      console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
       
       // Validate the request data
       const validatedData = insertHobbyPlanSchema.parse({
@@ -2092,7 +2057,6 @@ Please provide a helpful response:`;
       });
       
       const plan = await supabaseStorage.createHobbyPlan(validatedData);
-      console.log('📝 DATABASE: Created plan with ID:', plan.id);
       res.json(plan);
     } catch (error) {
       console.error('📝 API: Error creating hobby plan:', error);
@@ -2114,7 +2078,6 @@ Please provide a helpful response:`;
         return res.status(400).json({ error: 'user_id is required' });
       }
       
-      console.log('🗑️ API: Deleting hobby plan', id, 'for user:', user_id);
       
       // Delete progress records first
       await supabaseStorage.deleteUserProgress(id, user_id as string);
@@ -2122,7 +2085,6 @@ Please provide a helpful response:`;
       // Delete the hobby plan
       await supabaseStorage.deleteHobbyPlan(id, user_id as string);
       
-      console.log('🗑️ API: Successfully deleted hobby plan', id);
       res.json({ success: true });
     } catch (error) {
       console.error('🗑️ API: Error deleting hobby plan:', error);
@@ -2134,10 +2096,8 @@ Please provide a helpful response:`;
   app.get('/api/user-progress/:userId', async (req, res) => {
     try {
       const { userId } = req.params;
-      console.log('📖 API: Fetching user progress for:', userId);
       
       const progress = await supabaseStorage.getUserProgress(userId);
-      console.log('📖 API: Found', progress.length, 'progress entries');
       res.json(progress);
     } catch (error) {
       console.error('📖 API: Error fetching user progress:', error);
@@ -2148,7 +2108,6 @@ Please provide a helpful response:`;
   app.post('/api/user-progress', async (req, res) => {
     try {
       const { user_id, plan_id, completed_days, current_day, unlocked_days } = req.body;
-      console.log('📝 DATABASE: Creating/updating user progress for:', user_id, 'plan:', plan_id);
       
       // Validate the request data
       const validatedData = insertUserProgressSchema.parse({
@@ -2160,7 +2119,6 @@ Please provide a helpful response:`;
       });
       
       const progress = await supabaseStorage.createOrUpdateUserProgress(validatedData);
-      console.log('📝 DATABASE: Updated progress for plan:', plan_id);
       res.json(progress);
     } catch (error) {
       console.error('📝 API: Error updating user progress:', error);
@@ -2206,7 +2164,6 @@ Please provide a helpful response:`;
   // Data migration endpoint (migrate from Replit to Supabase)
   app.post('/api/migrate-data', async (req, res) => {
     try {
-      console.log('🔄 Starting data migration from Replit to Supabase...');
       
       // Since you have existing data in Replit, but want to use Supabase for independence
       // This endpoint helps verify the migration is complete
@@ -2220,7 +2177,6 @@ Please provide a helpful response:`;
           username: 'wizqo',
           avatarUrl: 'https://lh3.googleusercontent.com/a/ACg8ocKnN7jbvoRIp_6hG3lLS-WzLaT7TJ9NonxjjT1rW_T91eo5OA=s96-c'
         });
-        console.log('✅ User profile migrated to Supabase');
       }
       
       res.json({ 
