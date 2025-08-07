@@ -11,6 +11,8 @@ export class OpenRouterHobbyValidator {
   private openRouterKey: string;
   private deepSeekKey: string;
   private baseUrl: string;
+  private validationCache: Map<string, { result: ValidationResponse; timestamp: number }> = new Map();
+  private cacheExpiryMs = 5 * 60 * 1000; // 5 minutes cache
 
   constructor() {
     this.openRouterKey = process.env.OPENROUTER_API_KEY || '';
@@ -29,6 +31,15 @@ export class OpenRouterHobbyValidator {
   }
 
   async validateHobby(userInput: string): Promise<ValidationResponse> {
+    const cacheKey = userInput.toLowerCase().trim();
+    
+    // Check cache first for consistency
+    const cached = this.validationCache.get(cacheKey);
+    if (cached && (Date.now() - cached.timestamp) < this.cacheExpiryMs) {
+      console.log(`📋 Using cached validation for: ${userInput}`);
+      return cached.result;
+    }
+    
     const apiKey = this.openRouterKey || this.deepSeekKey;
     if (!apiKey) {
       return this.fallbackValidation(userInput);
@@ -100,6 +111,13 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
         const cleanedContent = this.cleanJsonResponse(content);
         const result = JSON.parse(cleanedContent) as ValidationResponse;
         console.log(`✅ ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation result:`, result);
+        
+        // Cache the result for consistency
+        this.validationCache.set(cacheKey, {
+          result,
+          timestamp: Date.now()
+        });
+        
         return result;
       } catch (parseError) {
         console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Failed to parse JSON response:`, parseError);

@@ -1,0 +1,426 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+13Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 1
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:13 onClick is deprecated, please use onPress
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509
+t @ _app-d5721402a0753ca4.js:1
+(anonymous) @ _app-d5721402a0753ca4.js:28
+r @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+then @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:15
+n @ _app-d5721402a0753ca4.js:15
+next @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+onNext @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40
+(anonymous) @ _app-d5721402a0753ca4.js:40
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔍 Frontend received validation response: Object
+Console.js:61 🔍 Original input: robotics
+Console.js:61 🔍 Corrected hobby: 
+Console.js:61 🔥 GENERATING PLAN FOR: robotics Object
+aaf2d9cf-69cf-40d0-a87d-02c7aaade006-00-6hsp6dkpodyz.picard.replit.dev/api/generate-plan:1  Failed to load resource: the server responded with a status of 400 (Bad Request)Understand this error
+Console.js:61 Error generating plan: Error: HTTP error! status: 400
+    at generatePlanWithAI (App.tsx:393:15)
+    at async handleOptionSelect (SplitPlanInterface.tsx:888:22)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🔥 PLAN GENERATED: Object
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: undefined
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: robotics Fundamentals",
+  "mainTask": "Learn essential robotics techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in robotics with practical exercises.",
+  "howTo": [
+    "Start with basic robotics concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "robotics Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=robotics-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Robotics Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=robotics+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "robotics Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(14)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: undefined
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to standard plan
+Console.js:61 🔍 AUTH CHECK: user object: Object
+Console.js:61 🔍 AUTH CHECK: user?.id: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 AUTH CHECK: Boolean(user?.id): true
+Console.js:61 🔄 PLAN SAVE: Starting Supabase save for authenticated user...
+Console.js:61 🔄 PLAN SAVE: User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: robotics user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct Supabase session check: plan-1754549369338-fp1ivo48u Robotics
+Console.js:61 🔍 DUPLICATE CHECK: Found 2 total plans
+Console.js:61 🚨 DUPLICATE FOUND via hobby_name: robotics
+Console.js:61 🚨 DUPLICATE DETECTED: Found existing plan: Learn robotics in 7 Days
+Console.js:61 ⚠️ DUPLICATE PLAN: Plan already exists for hobby: robotics
+Console.js:61 ❌ SUPABASE SAVE ERROR: Failed to save plan: Error: You already have a learning plan for robotics. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:84:15)
+    at async handleOptionSelect (SplitPlanInterface.tsx:900:31)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🚨 PLAN SAVE FAILED: Error: You already have a learning plan for robotics. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:84:15)
+    at async handleOptionSelect (SplitPlanInterface.tsx:900:31)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🚨 PLAN SAVE FAILED Details: {}
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🎨 Plan AUTO-IMAGE: "Robotics" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Robotics" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487374
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: robotics Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📋 Found saved plans: 2
+Console.js:61 📋 Found progress entries: 0
+Console.js:61 📋 Found localStorage plans: 1
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: 523057af-4201-487b-b883-af7435f45212
+Console.js:61 📊 Plan 523057af-4201-487b-b883-af7435f45212 progress: 0% (0/7 days)
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: 123a93ae-f980-4f62-8f31-eaa69b770305
+Console.js:61 📊 Plan 123a93ae-f980-4f62-8f31-eaa69b770305 progress: 0% (0/7 days)
+Console.js:61 📋 Total plans loaded: 2
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487374
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "robotics" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "robotics" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop&t=487374
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487374
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "robotics" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "robotics" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop&t=487374
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "robotics" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "robotics" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop&t=487374
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "robotics" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "robotics" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop&t=487374
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔍 Frontend received validation response: Object
+Console.js:61 🔍 Original input: robotics
+Console.js:61 🔍 Corrected hobby: 
+Console.js:61 🔥 GENERATING PLAN FOR: robotics Object
