@@ -158,6 +158,79 @@ function cleanJsonResponse(content: string): string {
   return cleaned.trim();
 }
 
+// Use OpenRouter AI to find relevant videos when YouTube API fails
+async function getAIRecommendedVideo(hobby: string, dayNumber: number, dayTitle: string, mainTask: string): Promise<string | null> {
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  
+  if (!openRouterKey) {
+    console.log('⚠️ No OpenRouter API key for video search');
+    return null;
+  }
+
+  try {
+    const prompt = `Find a YouTube video for learning ${hobby}. 
+
+Specific topic for Day ${dayNumber}: ${dayTitle}
+Main task: ${mainTask}
+
+Return ONLY a JSON object with this structure:
+{
+  "videoId": "YouTube_video_ID_here",
+  "title": "Video title",
+  "reasoning": "Why this video fits the topic"
+}
+
+IMPORTANT: 
+- Only return real, working YouTube video IDs
+- Make sure the video is relevant to the specific day topic
+- Prefer beginner-friendly tutorial videos under 45 minutes
+- Return null if you cannot find a suitable video`;
+
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${openRouterKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': process.env.VITE_SUPABASE_URL || 'http://localhost:5000',
+        'X-Title': 'Wizqo Hobby Learning'
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 200
+      })
+    });
+
+    if (!response.ok) {
+      console.log(`⚠️ OpenRouter video search failed: ${response.status}`);
+      return null;
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content;
+    
+    if (!content) {
+      console.log('⚠️ No content from OpenRouter video search');
+      return null;
+    }
+
+    // Parse AI response
+    const cleanedContent = cleanJsonResponse(content);
+    const videoData = JSON.parse(cleanedContent);
+    
+    if (videoData.videoId && videoData.videoId !== 'null') {
+      console.log(`✅ AI found video for ${hobby} day ${dayNumber}: ${videoData.title} (${videoData.videoId})`);
+      return videoData.videoId;
+    }
+    
+    return null;
+    
+  } catch (error) {
+    console.log(`❌ Error in AI video search:`, error);
+    return null;
+  }
+}
+
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const openRouterKey = process.env.OPENROUTER_API_KEY;
@@ -281,10 +354,25 @@ Make each day build progressively on the previous day. Include practical, action
     }
 
     aiPlan.days = await Promise.all(aiPlan.days.map(async (day: any, index: number) => {
-      // Use fast fallback when API is down, otherwise use full search
-      const targetedVideoId = isYouTubeAPIWorking 
-        ? await getBestVideoForDay(hobby, experience, day.day, day.title, day.mainTask)
-        : getGenericVideoFallback(hobby, experience, day.day);
+      // Try video sources in order: YouTube API -> OpenRouter AI -> Unavailable
+      let targetedVideoId = null;
+      
+      if (isYouTubeAPIWorking) {
+        // First choice: YouTube API
+        targetedVideoId = await getBestVideoForDay(hobby, experience, day.day, day.title, day.mainTask);
+      }
+      
+      if (!targetedVideoId) {
+        // Second choice: OpenRouter AI finds relevant video
+        console.log(`🤖 YouTube failed, using AI to find video for ${hobby} day ${day.day}: ${day.title}`);
+        targetedVideoId = await getAIRecommendedVideo(hobby, day.day, day.title, day.mainTask);
+      }
+      
+      // If still no video, we'll show "unavailable" in frontend
+      if (!targetedVideoId) {
+        console.log(`❌ No video found for ${hobby} day ${day.day}, will show unavailable`);
+        targetedVideoId = 'unavailable';
+      }
       
       const videoDetails = getVideoDetails(hobby, experience, day.day);
       

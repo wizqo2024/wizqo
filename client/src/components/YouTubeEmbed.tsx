@@ -7,17 +7,29 @@ interface YouTubeEmbedProps {
 }
 
 export function YouTubeEmbed({ videoId, title = "Tutorial Video", className = "" }: YouTubeEmbedProps) {
-  if (!videoId) {
+  // Handle unavailable videos
+  if (!videoId || videoId === 'unavailable') {
+    const isExplicitlyUnavailable = videoId === 'unavailable';
+    
     return (
       <div className={`relative w-full ${className}`}>
-        <div className="bg-slate-800 dark:bg-slate-900 rounded-xl p-6 text-center border border-slate-700">
-          <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 dark:from-slate-900 dark:to-black rounded-xl p-6 text-center border border-slate-600">
+          <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center">
             <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-white mb-2">Video Tutorial</h3>
-          <p className="text-slate-400 text-sm">No video available for this lesson</p>
+          <p className="text-slate-300 text-sm mb-2">
+            {isExplicitlyUnavailable 
+              ? "Video currently unavailable" 
+              : "No video available for this lesson"}
+          </p>
+          <p className="text-slate-400 text-xs">
+            {isExplicitlyUnavailable 
+              ? "Our systems couldn't find a suitable tutorial video for this topic at the moment." 
+              : "Follow the written instructions above to complete this day's activities."}
+          </p>
         </div>
       </div>
     );
