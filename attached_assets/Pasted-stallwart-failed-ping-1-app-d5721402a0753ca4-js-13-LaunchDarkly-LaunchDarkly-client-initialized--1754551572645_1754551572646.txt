@@ -1,0 +1,1117 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+18Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 1
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:13 onClick is deprecated, please use onPress
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509
+t @ _app-d5721402a0753ca4.js:1
+(anonymous) @ _app-d5721402a0753ca4.js:28
+r @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+then @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:15
+n @ _app-d5721402a0753ca4.js:15
+next @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+onNext @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40
+(anonymous) @ _app-d5721402a0753ca4.js:40
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40Understand this error
+2_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Understanding Gardening Basics",
+  "mainTask": "Learn the fundamentals of gardening",
+  "explanation": "This day introduces you to the basics of gardening, including terminology and essential tools, setting the foundation for the rest of the week.",
+  "howTo": [
+    "Research basic gardening terms",
+    "Identify essential gardening tools",
+    "Understand the importance of soil and sunlight",
+    "Watch a beginner-friendly gardening video",
+    "Create a gardening notebook for notes"
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Gardening gloves",
+    "Trowel"
+  ],
+  "tips": [
+    "Start small to avoid feeling overwhelmed.",
+    "Take notes to track your progress.",
+    "Watch videos from trusted gardening channels."
+  ],
+  "commonMistakes": [
+    "Buying too many tools at once.",
+    "Skipping research on basic terms.",
+    "Misjudging sunlight requirements."
+  ],
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "youtubeVideoId": "BO8yuSTc3fo",
+  "videoId": "BO8yuSTc3fo",
+  "videoTitle": "Gardening for Beginners - 15 Minutes",
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Gardening Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=gardening+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ]
+}
+Console.js:61 🔧 CRITICAL FIX - First day youtubeVideoId from backend: BO8yuSTc3fo
+Console.js:61 🔧 CRITICAL FIX - First day videoId from backend: BO8yuSTc3fo
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: gardening
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "gardening",
+  "title": "Master Gardening in 7 Days",
+  "overview": "A personalized learning plan for beginners to enjoy gardening in just one hour a day.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Understanding Gardening Basics",
+      "mainTask": "Learn the fundamentals of gardening",
+      "explanation": "This day introduces you to the basics of gardening, including terminology and essential tools, setting the foundation for the rest of the week.",
+      "howTo": [
+        "Research basic gardening terms",
+        "Identify essential gardening tools",
+        "Understand the importance of soil and sunlight",
+        "Watch a beginner-friendly gardening video",
+        "Create a gardening notebook for notes"
+      ],
+      "checklist": [
+        "Notebook",
+        "Pen",
+        "Internet access",
+        "Gardening gloves",
+        "Trowel"
+      ],
+      "tips": [
+        "Start small to avoid feeling overwhelmed.",
+        "Take notes to track your progress.",
+        "Watch videos from trusted gardening channels."
+      ],
+      "mistakesToAvoid": [
+        "Buying too many tools at once.",
+        "Skipping research on basic terms.",
+        "Misjudging sunlight requirements."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Starter Kit Day 1",
+          "link": "https://www.amazon.com/s?k=gardening+starter+kit&tag=wizqohobby-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "BO8yuSTc3fo",
+      "videoId": "BO8yuSTc3fo",
+      "videoTitle": "Gardening for Beginners - 15 Minutes",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Choosing the Right Plants",
+      "mainTask": "Select plants suitable for your space and skill level",
+      "explanation": "Today, you'll learn how to choose plants that thrive in your environment and match your gardening goals.",
+      "howTo": [
+        "Assess your available space and sunlight",
+        "Research beginner-friendly plants",
+        "Consider climate and growing season",
+        "Visit a local nursery or garden center",
+        "Select 2-3 plants to start with"
+      ],
+      "checklist": [
+        "Measuring tape",
+        "Notebook",
+        "Local plant guide",
+        "Budget for plants",
+        "Gardening gloves"
+      ],
+      "tips": [
+        "Start with hardy plants like herbs or succulents.",
+        "Ask nursery staff for recommendations.",
+        "Consider container gardening if space is limited."
+      ],
+      "mistakesToAvoid": [
+        "Choosing plants that require too much care.",
+        "Ignoring climate compatibility.",
+        "Overcrowding plants."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Practice Tools Day 2",
+          "link": "https://www.amazon.com/s?k=gardening+practice+tools&tag=wizqohobby-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "kJQP7kiw5Fk",
+      "videoId": "kJQP7kiw5Fk",
+      "videoTitle": "Soil Preparation Basics - 12 Minutes",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Preparing Your Soil",
+      "mainTask": "Learn how to prepare and improve soil for planting",
+      "explanation": "Healthy soil is essential for plant growth. Today, you'll learn how to test and prepare your soil for optimal results.",
+      "howTo": [
+        "Test soil pH using a kit",
+        "Identify soil type (clay, sand, loam)",
+        "Add compost or organic matter",
+        "Mix soil thoroughly",
+        "Ensure proper drainage"
+      ],
+      "checklist": [
+        "Soil pH test kit",
+        "Compost",
+        "Gardening fork",
+        "Watering can",
+        "Notebook"
+      ],
+      "tips": [
+        "Use compost to enrich soil naturally.",
+        "Test soil in multiple spots for accuracy.",
+        "Ensure pots have drainage holes if container gardening."
+      ],
+      "mistakesToAvoid": [
+        "Skipping soil testing.",
+        "Over-fertilizing soil.",
+        "Ignoring drainage issues."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Learning Guide Day 3",
+          "link": "https://www.amazon.com/s?k=gardening+learning+guide&tag=wizqohobby-20",
+          "price": "$15.99"
+        }
+      ],
+      "youtubeVideoId": "fJ9rUzIMcZQ",
+      "videoId": "fJ9rUzIMcZQ",
+      "videoTitle": "Choosing Your First Plants - 18 Minutes",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 4,
+      "title": "Planting Your First Seeds",
+      "mainTask": "Plant seeds or seedlings in prepared soil",
+      "explanation": "Today, you'll put your knowledge into action by planting your chosen seeds or seedlings.",
+      "howTo": [
+        "Read seed packet or plant care instructions",
+       
+Console.js:61 🐛 First day YouTube video ID before fixPlanDataFields: BO8yuSTc3fo
+Console.js:61 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+Console.js:61 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+Console.js:61 🐛 CRITICAL - Raw plan first day videoId type: string
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: BO8yuSTc3fo
+Console.js:61 🔍   plan.days?.[0]?.videoId: BO8yuSTc3fo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Understanding Gardening Basics",
+  "mainTask": "Learn the fundamentals of gardening",
+  "explanation": "This day introduces you to the basics of gardening, including terminology and essential tools, setting the foundation for the rest of the week.",
+  "howTo": [
+    "Research basic gardening terms",
+    "Identify essential gardening tools",
+    "Understand the importance of soil and sunlight",
+    "Watch a beginner-friendly gardening video",
+    "Create a gardening notebook for notes"
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Gardening gloves",
+    "Trowel"
+  ],
+  "tips": [
+    "Start small to avoid feeling overwhelmed.",
+    "Take notes to track your progress.",
+    "Watch videos from trusted gardening channels."
+  ],
+  "mistakesToAvoid": [
+    "Buying too many tools at once.",
+    "Skipping research on basic terms.",
+    "Misjudging sunlight requirements."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Gardening Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=gardening+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "BO8yuSTc3fo",
+  "videoId": "BO8yuSTc3fo",
+  "videoTitle": "Gardening for Beginners - 15 Minutes",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: BO8yuSTc3fo
+Console.js:61 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+Console.js:61 🔍 PLAN DEBUG: correctedPlanData structure: Object
+Console.js:61 🔍 PLAN DEBUG: About to set plan data and step to plan
+Console.js:61 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+Console.js:61 🔍 PLAN DEBUG: planData should have days: true
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: BO8yuSTc3fo
+Console.js:61 🔍   plan.days?.[0]?.videoId: BO8yuSTc3fo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Understanding Gardening Basics",
+  "mainTask": "Learn the fundamentals of gardening",
+  "explanation": "This day introduces you to the basics of gardening, including terminology and essential tools, setting the foundation for the rest of the week.",
+  "howTo": [
+    "Research basic gardening terms",
+    "Identify essential gardening tools",
+    "Understand the importance of soil and sunlight",
+    "Watch a beginner-friendly gardening video",
+    "Create a gardening notebook for notes"
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Gardening gloves",
+    "Trowel"
+  ],
+  "tips": [
+    "Start small to avoid feeling overwhelmed.",
+    "Take notes to track your progress.",
+    "Watch videos from trusted gardening channels."
+  ],
+  "mistakesToAvoid": [
+    "Buying too many tools at once.",
+    "Skipping research on basic terms.",
+    "Misjudging sunlight requirements."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Gardening Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=gardening+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "BO8yuSTc3fo",
+  "videoId": "BO8yuSTc3fo",
+  "videoTitle": "Gardening for Beginners - 15 Minutes",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: BO8yuSTc3fo
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: gardening user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+Console.js:61 🐛 Video Title: Gardening for Beginners - 15 Minutes
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct Supabase session check: plan-1754551377918-zc1pb7hwn gardening
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - planData exists: true
+Console.js:61 🔍 DUPLICATE CHECK: Found 1 total plans
+Console.js:61 ✅ DUPLICATE CHECK: No existing plan found for gardening
+Console.js:61 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+Console.js:61 💾 SUPABASE SAVE: Fetch completed with status: 201
+Console.js:61 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+Console.js:61 ✅ Plan saved successfully, setting plan ID: 247df999-749e-4f3e-b01a-b428fc8de210
+Console.js:61 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+Console.js:61 🐛 Video Title: Gardening for Beginners - 15 Minutes
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+Console.js:61 🐛 Video Title: Gardening for Beginners - 15 Minutes
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+Console.js:61 🐛 Video Title: Gardening for Beginners - 15 Minutes
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: BO8yuSTc3fo
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+aaf2d9cf-69cf-40d0-a87d-02c7aaade006-00-6hsp6dkpodyz.picard.replit.dev/api/generate-plan:1  Failed to load resource: the server responded with a status of 409 (Conflict)Understand this error
+Console.js:61 Error generating plan: Error: DUPLICATE_PLAN:{"error":"duplicate_plan","message":"You already have a gardening learning plan! Would you like to continue with your existing plan or create a new one?","existingPlan":{"id":"247df999-749e-4f3e-b01a-b428fc8de210","title":"Master Gardening in 7 Days","created_at":"2025-08-07T07:22:57.362133+00:00"},"hobby":"gardening"}
+    at generatePlanWithAI (App.tsx:390:19)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:720:20)
+    at async handleOptionSelect (SplitPlanInterface.tsx:843:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error generating plan: Error: DUPLICATE_PLAN
+    at generatePlanWithAI (App.tsx:435:32)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:720:20)
+    at async handleOptionSelect (SplitPlanInterface.tsx:843:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🚨 DUPLICATE PLAN detected for surprise: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📋 Found saved plans: 2
+Console.js:61 📋 Found progress entries: 0
+Console.js:61 📋 Found localStorage plans: 1
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: 247df999-749e-4f3e-b01a-b428fc8de210
+Console.js:61 📊 Plan 247df999-749e-4f3e-b01a-b428fc8de210 progress: 0% (0/7 days)
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: da5889f3-7323-4f58-a913-f8d77bbf5150
+Console.js:61 📊 Plan da5889f3-7323-4f58-a913-f8d77bbf5150 progress: 0% (0/7 days)
+Console.js:61 📋 Total plans loaded: 2
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop&t=487375
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487375
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "gardening" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "gardening" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop&t=487375
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487375
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487375
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "coffee brewing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "coffee brewing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop&t=487375
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Introduction to Rock Climbing",
+  "mainTask": "Learn basic terminology and safety rules.",
+  "explanation": "Understanding the fundamentals of rock climbing will set a strong foundation for your journey.",
+  "howTo": [
+    "Research basic rock climbing terms (e.g., belay, harness, carabiner).",
+    "Watch a video on climbing safety and etiquette.",
+    "Visit a local climbing gym to observe climbers.",
+    "Ask staff about beginner-friendly routes or classes.",
+    "Reflect on what you learned and jot down questions."
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Comfortable clothing",
+    "Climbing gym membership (if visiting)"
+  ],
+  "tips": [
+    "Take notes on terms you don’t understand to research later.",
+    "Observe how experienced climbers move and interact with equipment.",
+    "Don’t hesitate to ask gym staff for clarification."
+  ],
+  "commonMistakes": [
+    "Skipping safety research.",
+    "Not asking questions when confused.",
+    "Overwhelming yourself with advanced terms."
+  ],
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "youtubeVideoId": "2Vv-BfVoq4g",
+  "videoId": "2Vv-BfVoq4g",
+  "videoTitle": "Introduction to Rock Climbing - rock climbing Tutorial",
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Rock climbing Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=rock%20climbing+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ]
+}
+Console.js:61 🔧 CRITICAL FIX - First day youtubeVideoId from backend: 2Vv-BfVoq4g
+Console.js:61 🔧 CRITICAL FIX - First day videoId from backend: 2Vv-BfVoq4g
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: rock climbing
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "rock climbing",
+  "title": "Master Rock Climbing in 7 Days",
+  "overview": "A beginner-friendly 7-day plan to learn the basics of rock climbing for personal enjoyment.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Introduction to Rock Climbing",
+      "mainTask": "Learn basic terminology and safety rules.",
+      "explanation": "Understanding the fundamentals of rock climbing will set a strong foundation for your journey.",
+      "howTo": [
+        "Research basic rock climbing terms (e.g., belay, harness, carabiner).",
+        "Watch a video on climbing safety and etiquette.",
+        "Visit a local climbing gym to observe climbers.",
+        "Ask staff about beginner-friendly routes or classes.",
+        "Reflect on what you learned and jot down questions."
+      ],
+      "checklist": [
+        "Notebook",
+        "Pen",
+        "Internet access",
+        "Comfortable clothing",
+        "Climbing gym membership (if visiting)"
+      ],
+      "tips": [
+        "Take notes on terms you don’t understand to research later.",
+        "Observe how experienced climbers move and interact with equipment.",
+        "Don’t hesitate to ask gym staff for clarification."
+      ],
+      "mistakesToAvoid": [
+        "Skipping safety research.",
+        "Not asking questions when confused.",
+        "Overwhelming yourself with advanced terms."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Rock climbing Starter Kit Day 1",
+          "link": "https://www.amazon.com/s?k=rock%20climbing+starter+kit&tag=wizqohobby-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "2Vv-BfVoq4g",
+      "videoId": "2Vv-BfVoq4g",
+      "videoTitle": "Introduction to Rock Climbing - rock climbing Tutorial",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Gear Familiarization",
+      "mainTask": "Learn about essential climbing gear and how to use it.",
+      "explanation": "Knowing your gear is crucial for safety and confidence while climbing.",
+      "howTo": [
+        "Research the purpose of harnesses, shoes, chalk, and carabiners.",
+        "Visit a climbing gym or store to handle gear (with permission).",
+        "Practice putting on a harness and adjusting it for fit.",
+        "Learn how to tie a basic figure-8 knot.",
+        "Watch a demo on how to use a belay device."
+      ],
+      "checklist": [
+        "Harness",
+        "Climbing shoes (optional)",
+        "Chalk bag",
+        "Carabiner",
+        "Rope (or a rope-like object for knot practice)"
+      ],
+      "tips": [
+        "Focus on proper harness fit—snug but not too tight.",
+        "Practice the figure-8 knot multiple times until it feels natural.",
+        "Ask a staff member to check your knot for safety."
+      ],
+      "mistakesToAvoid": [
+        "Incorrectly tying knots.",
+        "Wearing a loose or improperly fitted harness.",
+        "Ignoring the importance of chalk for grip."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Rock climbing Practice Tools Day 2",
+          "link": "https://www.amazon.com/s?k=rock%20climbing+practice+tools&tag=wizqohobby-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "RgKAFK5djSk",
+      "videoId": "RgKAFK5djSk",
+      "videoTitle": "Gear Familiarization - rock climbing Tutorial",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Basic Climbing Movement",
+      "mainTask": "Practice beginner climbing techniques on a bouldering wall.",
+      "explanation": "Learning proper movement will help you climb efficiently and reduce fatigue.",
+      "howTo": [
+        "Warm up with light stretching and mobility exercises.",
+        "Practice 'smearing' (using the sole of your shoe for grip).",
+        "Climb a beginner bouldering route, focusing on foot placement.",
+        "Try 'flagging' (extending a leg for balance) on easy routes.",
+        "Cool down with stretching and reflect on your progress."
+      ],
+      "checklist": [
+        "Climbing shoes",
+        "Chalk bag",
+        "Comfortable clothing",
+        "Water bottle",
+        "Climbing gym access"
+      ],
+      "tips": [
+        "Keep your arms straight to conserve energy.",
+        "Look for footholds before moving your feet.",
+        "Breathe steadily to stay relaxed."
+      ],
+      "mistakesToAvoid": [
+        "Over-gripping holds, leading to quick fatigue.",
+        "Ignoring footwork and relying too much on arms.",
+        "Skipping warm-up or cool-down stretches."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Rock climbing Learning Guide Day 3",
+          "link": "https://www.amazon.com/s?k=rock%20climbing+learning+guide&tag=wizqohobby-20",
+          "price": "$15.99"
+        }
+      ],
+      "yout
+Console.js:61 🐛 First day YouTube video ID before fixPlanDataFields: 2Vv-BfVoq4g
+Console.js:61 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+Console.js:61 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+Console.js:61 🐛 CRITICAL - Raw plan first day videoId type: string
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: 2Vv-BfVoq4g
+Console.js:61 🔍   plan.days?.[0]?.videoId: 2Vv-BfVoq4g
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Rock Climbing",
+  "mainTask": "Learn basic terminology and safety rules.",
+  "explanation": "Understanding the fundamentals of rock climbing will set a strong foundation for your journey.",
+  "howTo": [
+    "Research basic rock climbing terms (e.g., belay, harness, carabiner).",
+    "Watch a video on climbing safety and etiquette.",
+    "Visit a local climbing gym to observe climbers.",
+    "Ask staff about beginner-friendly routes or classes.",
+    "Reflect on what you learned and jot down questions."
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Comfortable clothing",
+    "Climbing gym membership (if visiting)"
+  ],
+  "tips": [
+    "Take notes on terms you don’t understand to research later.",
+    "Observe how experienced climbers move and interact with equipment.",
+    "Don’t hesitate to ask gym staff for clarification."
+  ],
+  "mistakesToAvoid": [
+    "Skipping safety research.",
+    "Not asking questions when confused.",
+    "Overwhelming yourself with advanced terms."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Rock climbing Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=rock%20climbing+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "2Vv-BfVoq4g",
+  "videoId": "2Vv-BfVoq4g",
+  "videoTitle": "Introduction to Rock Climbing - rock climbing Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: 2Vv-BfVoq4g
+Console.js:61 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+Console.js:61 🔍 PLAN DEBUG: correctedPlanData structure: Object
+Console.js:61 🔍 PLAN DEBUG: About to set plan data and step to plan
+Console.js:61 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+Console.js:61 🔍 PLAN DEBUG: planData should have days: true
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: 2Vv-BfVoq4g
+Console.js:61 🔍   plan.days?.[0]?.videoId: 2Vv-BfVoq4g
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Rock Climbing",
+  "mainTask": "Learn basic terminology and safety rules.",
+  "explanation": "Understanding the fundamentals of rock climbing will set a strong foundation for your journey.",
+  "howTo": [
+    "Research basic rock climbing terms (e.g., belay, harness, carabiner).",
+    "Watch a video on climbing safety and etiquette.",
+    "Visit a local climbing gym to observe climbers.",
+    "Ask staff about beginner-friendly routes or classes.",
+    "Reflect on what you learned and jot down questions."
+  ],
+  "checklist": [
+    "Notebook",
+    "Pen",
+    "Internet access",
+    "Comfortable clothing",
+    "Climbing gym membership (if visiting)"
+  ],
+  "tips": [
+    "Take notes on terms you don’t understand to research later.",
+    "Observe how experienced climbers move and interact with equipment.",
+    "Don’t hesitate to ask gym staff for clarification."
+  ],
+  "mistakesToAvoid": [
+    "Skipping safety research.",
+    "Not asking questions when confused.",
+    "Overwhelming yourself with advanced terms."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Rock climbing Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=rock%20climbing+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "2Vv-BfVoq4g",
+  "videoId": "2Vv-BfVoq4g",
+  "videoTitle": "Introduction to Rock Climbing - rock climbing Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: 2Vv-BfVoq4g
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "rock climbing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "rock climbing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: 2Vv-BfVoq4g
+Console.js:61 🐛 Video Title: Introduction to Rock Climbing - rock climbing Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct Supabase session check: plan-1754551533532-qhm1srlgf rock climbing
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - planData exists: true
+Console.js:61 🔍 DUPLICATE CHECK: Found 0 total plans
+Console.js:61 ✅ DUPLICATE CHECK: No existing plan found for rock climbing
+Console.js:61 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+Console.js:61 💾 SUPABASE SAVE: Fetch completed with status: 201
+Console.js:61 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+Console.js:61 ✅ Plan saved successfully, setting plan ID: be235392-a10a-41b1-ad22-6eccaddecafa
+Console.js:61 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "rock climbing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "rock climbing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: 2Vv-BfVoq4g
+Console.js:61 🐛 Video Title: Introduction to Rock Climbing - rock climbing Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "rock climbing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "rock climbing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: 2Vv-BfVoq4g
+Console.js:61 🐛 Video Title: Introduction to Rock Climbing - rock climbing Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "rock climbing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "rock climbing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487375
+Console.js:61 🐛 Debug YouTube Video ID: 2Vv-BfVoq4g
+Console.js:61 🐛 Video Title: Introduction to Rock Climbing - rock climbing Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: 2Vv-BfVoq4g
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
+Console.js:61 🚨 RENDER DEBUG: Object
