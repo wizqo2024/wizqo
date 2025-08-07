@@ -223,10 +223,11 @@ const fixPlanDataFields = (plan: any) => {
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
-    // FIXED: Always start fresh unless there's initialPlanData (back navigation)
-    // Clear any stored plans when starting fresh
-    if (!initialPlanData) {
-      console.log('🔄 Starting fresh - clearing any stored plans');
+    // FIXED: Only clear plans when explicitly starting fresh (not when component re-renders)
+    // Don't clear stored plans if there's active plan data or initialPlanData
+    const hasActivePlan = sessionStorage.getItem('activePlanData');
+    if (!initialPlanData && !hasActivePlan) {
+      console.log('🔄 Starting completely fresh - no existing plans found');
       sessionStorage.removeItem('activePlanData');
       // Keep localStorage for dashboard access but don't auto-load here
       
