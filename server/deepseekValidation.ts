@@ -33,7 +33,14 @@ export class OpenRouterHobbyValidator {
   async validateHobby(userInput: string): Promise<ValidationResponse> {
     const cacheKey = userInput.toLowerCase().trim();
     
-    // Check for hardcoded complex hobbies first (override AI inconsistency)
+    // SAFETY CHECK FIRST - Check for dangerous/harmful hobby inputs
+    const dangerousHobbyResult = this.checkDangerousHobby(cacheKey);
+    if (dangerousHobbyResult) {
+      console.log(`⚠️ DANGEROUS hobby input blocked: ${userInput}`);
+      return dangerousHobbyResult;
+    }
+    
+    // Check for hardcoded complex hobbies (override AI inconsistency)
     const complexHobbyResult = this.checkComplexHobby(cacheKey);
     if (complexHobbyResult) {
       console.log(`🚫 Complex hobby detected: ${userInput}`);
@@ -136,6 +143,64 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation error:`, error);
       return this.fallbackValidation(userInput);
     }
+  }
+
+  private checkDangerousHobby(input: string): ValidationResponse | null {
+    // List of dangerous/harmful activities that should be rejected
+    const dangerousKeywords = [
+      // Explosives & weapons
+      'bomb', 'explosive', 'dynamite', 'grenade', 'weapon', 'gun', 'rifle', 'pistol',
+      'ammunition', 'bullet', 'gunpowder', 'tnt', 'c4', 'molotov', 'missile', 'rocket launcher',
+      
+      // Violence & harm
+      'killing', 'murder', 'assassination', 'torture', 'violence', 'fighting', 'stabbing',
+      'shooting', 'attacking', 'hurting', 'harm', 'injury', 'wound', 'bloodshed',
+      
+      // Illegal substances & activities
+      'drug', 'cocaine', 'heroin', 'methamphetamine', 'meth', 'lsd', 'ecstasy', 'marijuana production',
+      'counterfeiting', 'forgery', 'fraud', 'scam', 'theft', 'robbery', 'burglary',
+      'hacking', 'cyber attack', 'virus creation', 'malware',
+      
+      // Dangerous chemicals & activities
+      'poison', 'toxic', 'radioactive', 'biological weapon', 'chemical weapon',
+      'acid attack', 'arson', 'fire setting', 'burning things', 'destruction',
+      
+      // Self-harm & dangerous activities
+      'suicide', 'self harm', 'cutting', 'overdose', 'dangerous stunt',
+      'extreme danger', 'life threatening',
+      
+      // Illegal activities
+      'smuggling', 'trafficking', 'blackmail', 'extortion', 'kidnapping',
+      'identity theft', 'money laundering', 'tax evasion'
+    ];
+    
+    // Check if input contains any dangerous keywords
+    const containsDangerousContent = dangerousKeywords.some(keyword => 
+      input.includes(keyword) || input.includes(keyword.replace(' ', ''))
+    );
+    
+    // Also check for suspicious patterns
+    const suspiciousPatterns = [
+      /how to (kill|hurt|harm|attack|murder)/, // "how to kill/hurt someone"
+      /making (bombs?|explosives?|weapons?)/, // "making bombs/weapons"
+      /create (poison|virus|malware)/, // "create poison/virus"
+      /(illegal|criminal|unlawful) (activity|activities)/, // "illegal activities"
+      /dangerous (experiments?|chemicals?)/ // "dangerous experiments"
+    ];
+    
+    const matchesSuspiciousPattern = suspiciousPatterns.some(pattern => 
+      pattern.test(input)
+    );
+    
+    if (containsDangerousContent || matchesSuspiciousPattern) {
+      return {
+        isValid: false,
+        suggestions: ['cooking', 'gardening', 'reading', 'drawing', 'music', 'photography'],
+        reasoning: 'This input contains harmful or dangerous content. We only support safe, positive learning activities. Please try one of our suggested hobbies instead!'
+      };
+    }
+    
+    return null;
   }
 
   private checkComplexHobby(input: string): ValidationResponse | null {
