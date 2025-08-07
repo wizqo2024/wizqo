@@ -984,10 +984,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       sessionStorage.setItem('activePlanData', JSON.stringify(finalPlanData));
       localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
       
-      setPlanData(finalPlanData);
-      // Mark as freshly generated plan
+      // Mark as freshly generated plan BEFORE setting plan data
       sessionStorage.setItem('freshPlanGenerated', 'true');
-      console.log('🎯 Marked plan as freshly generated');
+      console.log('🎯 Marked plan as freshly generated BEFORE setPlanData');
+      setPlanData(finalPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
       
@@ -1125,10 +1125,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           renderCondition: !!(finalAISuggestionPlan && finalAISuggestionPlan.days && finalAISuggestionPlan.days.length > 0)
         });
         
-        setPlanData(finalAISuggestionPlan);
-        // Mark as freshly generated plan
+        // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
-        console.log('🎯 Marked AI suggestion plan as freshly generated');
+        console.log('🎯 Marked AI suggestion plan as freshly generated BEFORE setPlanData');
+        setPlanData(finalAISuggestionPlan);
         setCurrentStep('plan'); // Show the plan after generation
         
         // Prevent any navigation for the next few seconds to ensure plan displays
@@ -1275,10 +1275,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           renderCondition: !!(finalGenerateAnywayPlan && finalGenerateAnywayPlan.days && finalGenerateAnywayPlan.days.length > 0)
         });
         
-        setPlanData(finalGenerateAnywayPlan);
-        // Mark as freshly generated plan
+        // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
-        console.log('🎯 Marked generate-anyway plan as freshly generated');
+        console.log('🎯 Marked generate-anyway plan as freshly generated BEFORE setPlanData');
+        setPlanData(finalGenerateAnywayPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save new plan
@@ -1375,10 +1375,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           renderCondition: !!(finalStandardPlan && finalStandardPlan.days && finalStandardPlan.days.length > 0)
         });
         
-        setPlanData(finalStandardPlan);
-        // Mark as freshly generated plan
+        // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
-        console.log('🎯 Marked standard plan as freshly generated');
+        console.log('🎯 Marked standard plan as freshly generated BEFORE setPlanData');
+        setPlanData(finalStandardPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save plan to Supabase if user is authenticated
