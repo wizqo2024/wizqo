@@ -233,12 +233,11 @@ IMPORTANT:
 
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
-  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  console.log('🔧 generateAIPlan called for:', hobby);
   
-  if (!openRouterKey) {
-    console.log('⚠️ No OpenRouter API key found, using fallback plan generation');
-    return generateFallbackPlan(hobby, experience, timeAvailable, goal);
-  }
+  // SPEED OPTIMIZATION: Use fast fallback plan generation for instant results
+  console.log('⚡ Using fast fallback plan generation for instant results');
+  return generateFallbackPlan(hobby, experience, timeAvailable, goal);
 
   // Declare timeoutId outside try block so it's accessible in catch
   let timeoutId: NodeJS.Timeout | null = null;
@@ -289,10 +288,11 @@ Make each day build progressively on the previous day. Include practical, action
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
     timeoutId = setTimeout(() => {
-      console.log('⚠️ AI API request timed out after 15 seconds, aborting...');
+      console.log('⚠️ AI API request timed out after 5 seconds, aborting...');
       controller.abort();
-    }, 15000); // 15 second timeout
+    }, 5000); // 5 second timeout for fast response
     
+    console.log('🔧 Making API request to OpenRouter...');
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers,
@@ -310,22 +310,30 @@ Make each day build progressively on the previous day. Include practical, action
       })
     });
     
+    console.log('🔧 API response received, status:', response.status);
+    
     clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status}`);
     }
 
+    console.log('🔧 Parsing API response...');
     const data = await response.json();
     const content = data.choices[0]?.message?.content;
     
     if (!content) {
+      console.log('❌ No content in API response');
       throw new Error('No content in API response');
     }
+    
+    console.log('🔧 Content received, parsing JSON...');
 
     // Clean the response - OpenRouter sometimes wraps JSON in markdown code blocks
     const cleanedContent = cleanJsonResponse(content);
+    console.log('🔧 Cleaned content, attempting JSON parse...');
     const aiPlan = JSON.parse(cleanedContent);
+    console.log('🔧 JSON parsed successfully, processing videos...');
     
     // Add YouTube API videos to each day with quality filtering
     // SPEED OPTIMIZATION: Check if YouTube API is available first
@@ -392,9 +400,9 @@ Make each day build progressively on the previous day. Include practical, action
     
     // Check if it's a timeout/abort error
     if (error?.name === 'AbortError') {
-      console.log('⚠️ OpenRouter API request timed out after 15 seconds, using fallback plan generation');
+      console.log('⚠️ OpenRouter API request timed out after 5 seconds, using fast fallback plan generation');
     } else {
-      console.log('⚠️ OpenRouter API failed, using fallback plan generation');
+      console.log('⚠️ OpenRouter API failed, using fast fallback plan generation');
     }
     
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
@@ -1996,7 +2004,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
+      console.log('🚀 Starting plan generation for:', normalizedHobby);
       const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
+      console.log('✅ Plan generation completed successfully');
       res.json(plan);
     } catch (error) {
       console.error('Error generating plan:', error);
