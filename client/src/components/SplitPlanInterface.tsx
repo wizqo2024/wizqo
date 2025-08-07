@@ -1529,6 +1529,52 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
 
 
+  const handleStartNewPlan = () => {
+    console.log('🔄 Starting new plan - clearing all data');
+    
+    // Clear all cached data
+    sessionStorage.removeItem('activePlanData');
+    sessionStorage.removeItem('activePlanId');
+    sessionStorage.removeItem('freshPlanGenerated');
+    localStorage.removeItem('lastViewedPlan');
+    localStorage.removeItem('lastViewedPlanData');
+    localStorage.removeItem('currentPlanId');
+    
+    // Reset all state
+    setPlanData(null);
+    setSelectedHobby('');
+    setQuizAnswers({});
+    setCurrentStep('hobby');
+    setCompletedDays([]);
+    setSelectedDay(1);
+    setCurrentPlanId(null);
+    setIsGenerating(false);
+    
+    // Reset messages to initial welcome state
+    setMessages([{
+      id: '1',
+      sender: 'ai' as const,
+      content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
+      options: [
+        { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
+        { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
+        { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
+        { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
+        { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
+        { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
+        { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+        { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
+        { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+      ],
+      timestamp: new Date()
+    }]);
+    
+    // Force re-render
+    setRenderKey(prev => prev + 1);
+    
+    console.log('✅ Successfully reset to fresh start');
+  };
+
   const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     
@@ -1869,8 +1915,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             }}
           >
           <div className="p-3 lg:p-4 border-b border-gray-200 shrink-0">
-            <h2 className="text-sm lg:text-lg font-semibold text-gray-900">Learning Assistant</h2>
-            <p className="text-xs lg:text-sm text-gray-600">Ask me anything about your plan</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-sm lg:text-lg font-semibold text-gray-900">Learning Assistant</h2>
+                <p className="text-xs lg:text-sm text-gray-600">Ask me anything about your plan</p>
+              </div>
+              {planData && (
+                <button
+                  onClick={handleStartNewPlan}
+                  className="px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg transition-all shadow-sm"
+                >
+                  Start New Plan
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Chat Messages */}
