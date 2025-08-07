@@ -402,8 +402,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Separate effect to handle authentication and plan ID detection
   useEffect(() => {
+    // PRIORITY: If we have fresh plan data from generation, use it directly
+    // Only look up old plans if we don't have current plan data
     if (user && initialPlanData && initialPlanData.hobby && !currentPlanId) {
-      console.log('🔍 User authenticated, looking for plan ID for hobby:', initialPlanData.hobby);
+      // Check if this is a freshly generated plan (has session marker)
+      const sessionPlanMarker = sessionStorage.getItem('freshPlanGenerated');
+      if (sessionPlanMarker) {
+        console.log('🎯 Fresh plan detected - using generated plan data directly, not querying database');
+        // Don't query database for old plans, just use the fresh plan
+        return;
+      }
+      
+      console.log('🔍 User authenticated, looking for plan ID for existing hobby:', initialPlanData.hobby);
       console.log('🔍 User ID:', user.id);
       
       const findPlanId = async () => {
@@ -740,6 +750,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔄 Initializing with existing plan data:', initialPlanData.hobby);
       const fixedGuestPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
+      // Clear fresh plan marker when loading existing plan
+      sessionStorage.removeItem('freshPlanGenerated');
       setPlanData(fixedGuestPlanData);
       
       // Initialize chat conversation for existing plan
@@ -966,6 +978,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
       
       setPlanData(finalPlanData);
+      // Mark as freshly generated plan
+      sessionStorage.setItem('freshPlanGenerated', 'true');
+      console.log('🎯 Marked plan as freshly generated');
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
       
@@ -1104,6 +1119,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         });
         
         setPlanData(finalAISuggestionPlan);
+        // Mark as freshly generated plan
+        sessionStorage.setItem('freshPlanGenerated', 'true');
+        console.log('🎯 Marked AI suggestion plan as freshly generated');
         setCurrentStep('plan'); // Show the plan after generation
         
         // Prevent any navigation for the next few seconds to ensure plan displays
@@ -1251,6 +1269,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         });
         
         setPlanData(finalGenerateAnywayPlan);
+        // Mark as freshly generated plan
+        sessionStorage.setItem('freshPlanGenerated', 'true');
+        console.log('🎯 Marked generate-anyway plan as freshly generated');
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save new plan
@@ -1348,6 +1369,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         });
         
         setPlanData(finalStandardPlan);
+        // Mark as freshly generated plan
+        sessionStorage.setItem('freshPlanGenerated', 'true');
+        console.log('🎯 Marked standard plan as freshly generated');
         setRenderKey(prev => prev + 1); // Force React re-render
         
         // Save plan to Supabase if user is authenticated
