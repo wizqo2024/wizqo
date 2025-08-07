@@ -916,6 +916,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔧 CORRECTED plan data - first day youtubeVideoId:', correctedPlanData.days[0].youtubeVideoId);
       
       setPlanData(correctedPlanData);
+      setCurrentStep('plan'); // Show the plan after generation
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -998,7 +999,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
         setPlanData(fixedPlan);
-        setCurrentStep('plan');
+        setCurrentStep('plan'); // Show the plan after generation
         addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
       } catch (error) {
         console.error('Error generating AI suggested plan:', error);
