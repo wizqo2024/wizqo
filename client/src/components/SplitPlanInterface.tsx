@@ -265,6 +265,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
+  
+  // CRITICAL FIX: Reset selectedDay when planData changes
+  useEffect(() => {
+    if (planData && planData.days && planData.days.length > 0) {
+      console.log('🔍 Plan data loaded, resetting selectedDay to 1');
+      setSelectedDay(1);
+    }
+  }, [planData]);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
@@ -2009,17 +2017,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
               </div>
 
-              {/* Selected Day Content */}
+              {/* Selected Day Content - FIXED: Simplified conditional */}
               {(() => {
-                const currentDay = planData.days?.find((day: any) => day.day === selectedDay);
-                const status = getDayStatus(selectedDay);
+                console.log('🔍 DEBUG: selectedDay:', selectedDay);
+                console.log('🔍 DEBUG: planData.days length:', planData.days?.length);
                 
-                if (!currentDay || status === 'locked' || !planData.days) {
+                const currentDay = planData.days?.find((day: any) => day.day === selectedDay) || planData.days?.[0];
+                console.log('🔍 DEBUG: currentDay found:', !!currentDay, currentDay?.title);
+                
+                const status = getDayStatus(selectedDay);
+                console.log('🔍 DEBUG: day status:', status);
+                
+                if (!currentDay) {
+                  console.log('❌ DEBUG: No current day found, showing fallback');
                   return (
                     <Card className="p-8 text-center">
-                      <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
-                      <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                      <div className="text-4xl mb-4">📚</div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Loading Day Content...</h3>
+                      <p className="text-gray-600">Your plan is ready, loading day details.</p>
                     </Card>
                   );
                 }
