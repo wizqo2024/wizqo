@@ -915,8 +915,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔧 CORRECTED plan data - first day commonMistakes:', correctedPlanData.days[0].commonMistakes);
       console.log('🔧 CORRECTED plan data - first day youtubeVideoId:', correctedPlanData.days[0].youtubeVideoId);
       
+      console.log('🔍 PLAN DEBUG: Setting planData with correctedPlanData');
+      console.log('🔍 PLAN DEBUG: correctedPlanData structure:', {
+        exists: !!correctedPlanData,
+        hasDays: !!correctedPlanData?.days,
+        daysLength: correctedPlanData?.days?.length,
+        title: correctedPlanData?.title
+      });
+      
       setPlanData(correctedPlanData);
       setCurrentStep('plan'); // Show the plan after generation
+      
+      console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
+      console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -998,6 +1009,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
+        console.log('🔍 AI SUGGESTION DEBUG: Setting planData with fixedPlan');
+        console.log('🔍 AI SUGGESTION DEBUG: fixedPlan structure:', {
+          exists: !!fixedPlan,
+          hasDays: !!fixedPlan?.days,
+          daysLength: fixedPlan?.days?.length,
+          title: fixedPlan?.title
+        });
+        
         setPlanData(fixedPlan);
         setCurrentStep('plan'); // Show the plan after generation
         addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
@@ -1718,6 +1737,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
+          {/* Debug Panel - Remove after fixing */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="fixed top-16 right-4 bg-yellow-100 border border-yellow-300 p-3 rounded-lg text-xs max-w-xs z-50 shadow-lg">
+              <div className="font-bold mb-2 text-yellow-800">Debug Panel</div>
+              <div><span className="font-semibold">Current Step:</span> {currentStep}</div>
+              <div><span className="font-semibold">Plan Data Exists:</span> {planData ? 'Yes' : 'No'}</div>
+              <div><span className="font-semibold">Plan Has Days:</span> {planData?.days ? 'Yes' : 'No'}</div>
+              <div><span className="font-semibold">Days Count:</span> {planData?.days?.length || 0}</div>
+              <div><span className="font-semibold">Plan Title:</span> {planData?.title || 'None'}</div>
+            </div>
+          )}
           {planData && planData.days ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
