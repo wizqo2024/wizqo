@@ -400,7 +400,7 @@ export default function App() {
       console.log('🔧 CRITICAL FIX - First day videoId from backend:', planData.days[0]?.videoId);
       
       // Convert backend data to frontend format - PRESERVE ALL VIDEO FIELDS
-      return {
+      const formattedPlanData = {
         hobby: planData.hobby || hobby,
         title: planData.title || `Learn ${planData.hobby || hobby} in 7 Days`,
         overview: planData.overview || planData.description || `Master ${planData.hobby || hobby} in 7 days with this personalized plan.`,
@@ -425,6 +425,14 @@ export default function App() {
           skillLevel: day.skillLevel
         }))
       };
+      
+      // 🔧 CRITICAL FIX: Set plan data in App state and navigate to plan route
+      console.log('🔧 CRITICAL FIX: Setting plan data in App state and navigating to plan route');
+      setPlanData(formattedPlanData);
+      setCurrentRoute('plan');
+      window.location.hash = '/plan';
+      
+      return formattedPlanData;
     } catch (error) {
       console.error('Error generating plan:', error);
       
