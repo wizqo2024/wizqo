@@ -930,10 +930,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
       
-      // Force a re-render by triggering a state update
+      // Prevent any navigation for the next few seconds to ensure plan displays
+      const preventNavigation = (e: BeforeUnloadEvent) => {
+        console.log('🛡️ NAVIGATION PROTECTION: Preventing unwanted navigation after plan generation');
+        e.preventDefault();
+        e.returnValue = '';
+      };
+      window.addEventListener('beforeunload', preventNavigation);
       setTimeout(() => {
+        window.removeEventListener('beforeunload', preventNavigation);
         console.log('🔍 PLAN DEBUG: Force re-render check - planData exists:', !!correctedPlanData);
-      }, 100);
+      }, 3000);
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -1027,10 +1034,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         setPlanData(fixedPlan);
         setCurrentStep('plan'); // Show the plan after generation
         
-        // Force a re-render by triggering a state update
+        // Prevent any navigation for the next few seconds to ensure plan displays
+        const preventNavigation = (e: BeforeUnloadEvent) => {
+          console.log('🛡️ NAVIGATION PROTECTION: Preventing unwanted navigation after AI plan generation');
+          e.preventDefault();
+          e.returnValue = '';
+        };
+        window.addEventListener('beforeunload', preventNavigation);
         setTimeout(() => {
+          window.removeEventListener('beforeunload', preventNavigation);
           console.log('🔍 AI SUGGESTION DEBUG: Force re-render check - planData exists:', !!fixedPlan);
-        }, 100);
+        }, 3000);
         addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
       } catch (error) {
         console.error('Error generating AI suggested plan:', error);
@@ -1607,13 +1621,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       <UnifiedNavigation 
         showBackButton={true} 
         onBackClick={() => {
+          console.log('🔙 BACK NAVIGATION: User clicked back button');
+          console.log('🔙 BACK NAVIGATION: planData exists:', !!planData, 'user exists:', !!user);
+          
           // When navigating back from a generated plan, go to dashboard if user is logged in
           if (planData && user) {
+            console.log('🔙 BACK NAVIGATION: Storing plan state and going to dashboard');
             // Store the current plan state for potential return
             sessionStorage.setItem('activePlanData', JSON.stringify(planData));
             sessionStorage.setItem('fromGeneratedPlan', 'true');
-            window.location.href = '/#/dashboard';
+            window.location.hash = '#/dashboard';
           } else {
+            console.log('🔙 BACK NAVIGATION: Using default back behavior');
             // Default back behavior for non-authenticated users or no plan
             onNavigateBack();
           }
