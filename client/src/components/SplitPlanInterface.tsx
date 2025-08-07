@@ -223,26 +223,13 @@ const fixPlanDataFields = (plan: any) => {
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
-    // Check for existing plan data first
-    const storedPlan = sessionStorage.getItem('activePlanData') || localStorage.getItem('lastViewedPlanData');
-    if (storedPlan && !initialPlanData) {
-      try {
-        const planData = JSON.parse(storedPlan);
-        console.log('🔄 Found stored plan, loading directly:', planData.hobby);
-        // Load the stored plan immediately
-        setTimeout(() => {
-          setPlanData(planData);
-          setCurrentStep('plan');
-          setRenderKey(prev => prev + 1);
-        }, 100);
-        return [];
-      } catch (error) {
-        console.error('Error loading stored plan:', error);
-      }
-    }
-    
-    // Initialize with welcome message if no plan data
-    if (!initialPlanData && !storedPlan) {
+    // FIXED: Always start fresh unless there's initialPlanData (back navigation)
+    // Clear any stored plans when starting fresh
+    if (!initialPlanData) {
+      console.log('🔄 Starting fresh - clearing any stored plans');
+      sessionStorage.removeItem('activePlanData');
+      // Keep localStorage for dashboard access but don't auto-load here
+      
       console.log('🔄 Initializing messages state with welcome message');
       return [{
         id: '1',
