@@ -894,7 +894,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsGenerating(true);
 
     try {
-      const plan = await onGeneratePlan(randomHobby, surpriseAnswers, user?.id);
+      const plan = await onGeneratePlan(randomHobby, surpriseAnswers);
       console.log('🎯 Setting plan data in SplitPlanInterface:', plan.hobby);
       console.log('🐛 Raw plan data received in setPlanData:', JSON.stringify(plan, null, 2));
       console.log('🐛 First day YouTube video ID before fixPlanDataFields:', plan?.days?.[0]?.youtubeVideoId);
@@ -1011,7 +1011,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           experience: 'beginner',
           timeAvailable: '1 hour',
           goal: 'personal enjoyment'
-        }, user?.id);
+        });
         
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
@@ -1081,7 +1081,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       
       try {
         // Force generate new plan by bypassing duplicate check
-        const plan = await onGeneratePlan(selectedHobby, quizAnswers, user?.id, true); // Add force flag
+        const plan = await onGeneratePlan(selectedHobby, quizAnswers);
         const fixedPlan = fixPlanDataFields(plan);
         setPlanData(fixedPlan);
         
@@ -1163,7 +1163,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers, user?.id);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
@@ -1817,7 +1817,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
-                  {Array.from({ length: planData?.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
+                  {Array.from({ length: planData.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
                     
@@ -1857,10 +1857,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
               {/* Selected Day Content */}
               {(() => {
-                const currentDay = planData?.days?.find((day: any) => day.day === selectedDay);
+                const currentDay = planData.days?.find((day: any) => day.day === selectedDay);
                 const status = getDayStatus(selectedDay);
                 
-                if (!currentDay || status === 'locked' || !planData?.days) {
+                if (!currentDay || status === 'locked' || !planData.days) {
                   return (
                     <Card className="p-8 text-center">
                       <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
