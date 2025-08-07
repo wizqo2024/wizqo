@@ -371,6 +371,12 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       checklist: dayPlan.checklist,
       tips: dayPlan.tips,
       mistakesToAvoid: dayPlan.mistakesToAvoid,
+      // ✅ COMPREHENSIVE DETAILED FIELDS - Include all enhanced content
+      timeAllocation: dayPlan.timeAllocation,
+      equipment: dayPlan.equipment,
+      materials: dayPlan.materials,
+      detailedSteps: dayPlan.detailedSteps,
+      progressMilestones: dayPlan.progressMilestones,
       freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
       affiliateProducts: [{
         ...getHobbyProduct(hobby, dayNumber)
