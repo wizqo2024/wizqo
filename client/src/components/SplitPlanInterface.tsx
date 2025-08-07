@@ -752,8 +752,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔄 Initializing with existing plan data:', initialPlanData.hobby);
       const fixedGuestPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
-      // Clear fresh plan marker when loading existing plan
-      sessionStorage.removeItem('freshPlanGenerated');
+      // Only clear fresh plan marker if this isn't a freshly generated plan
+      const isFreshPlan = sessionStorage.getItem('freshPlanGenerated');
+      if (!isFreshPlan) {
+        console.log('🧹 Clearing any stale plan markers for old plan');
+      } else {
+        console.log('🎯 Keeping fresh plan marker - this is a newly generated plan');
+      }
       setPlanData(fixedGuestPlanData);
       
       // Initialize chat conversation for existing plan
