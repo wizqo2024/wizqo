@@ -327,7 +327,7 @@ function getHobbyProduct(hobby: string, day: number) {
 
 
 
-// Fallback plan generator with YouTube API integration
+// Comprehensive fallback plan generator with detailed hobby-specific content
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   // Validate hobby input in fallback too
   const validation = validateHobby(hobby);
@@ -338,49 +338,20 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   hobby = validation.normalizedHobby;
   const days = [];
   
-  // Define unique daily topics and progressions
-  const dailyTopics = [
-    { focus: 'Basics & Setup', task: 'Get familiar with fundamentals and set up your practice space', skills: 'basic concepts and terminology' },
-    { focus: 'Core Techniques', task: 'Master the essential techniques that form the foundation', skills: 'core techniques and proper form' },
-    { focus: 'Building Skills', task: 'Develop coordination and muscle memory through practice', skills: 'coordination and skill-building exercises' },
-    { focus: 'Practical Application', task: 'Apply what you\'ve learned in real-world scenarios', skills: 'practical application and problem-solving' },
-    { focus: 'Advanced Elements', task: 'Introduce more challenging concepts and variations', skills: 'advanced techniques and variations' },
-    { focus: 'Creative Expression', task: 'Explore creativity and personal style in your practice', skills: 'creative expression and personal style' },
-    { focus: 'Integration & Mastery', task: 'Combine all elements and plan your continued journey', skills: 'integration and long-term planning' }
-  ];
-
-  const dailyMistakes = [
-    ['Rushing through setup without proper preparation', 'Skipping basic safety or preparation steps', 'Not taking time to understand the fundamentals'],
-    ['Using incorrect technique from the start', 'Practicing bad habits that are hard to break later', 'Ignoring proper form for speed'],
-    ['Practicing without focus or clear goals', 'Not breaking down complex movements into parts', 'Expecting immediate perfection'],
-    ['Not applying skills to real situations', 'Staying too comfortable with easy exercises', 'Avoiding challenging but important practice'],
-    ['Attempting advanced techniques without mastering basics', 'Getting frustrated with increased difficulty', 'Skipping important foundational steps'],
-    ['Copying others instead of finding your own style', 'Being too critical of creative attempts', 'Not exploring different approaches'],
-    ['Not planning for continued learning', 'Thinking the journey ends after 7 days', 'Not celebrating progress made']
-  ];
-
-  const dailyTips = [
-    ['Take time to properly set up your practice space', 'Focus on understanding why, not just how', 'Start slow and build confidence gradually'],
-    ['Quality practice beats quantity every time', 'Focus on proper technique before speed', 'Use a mirror or recording to check your form'],
-    ['Break complex skills into smaller parts', 'Celebrate small improvements each day', 'Be patient with your learning process'],
-    ['Practice in different situations and environments', 'Challenge yourself with real-world applications', 'Don\'t be afraid to make mistakes'],
-    ['Master the basics before moving to advanced techniques', 'Push your comfort zone but stay safe', 'Ask for feedback from experienced practitioners'],
-    ['Experiment and find what feels natural to you', 'Draw inspiration from various sources', 'Trust your instincts and creative impulses'],
-    ['Reflect on how far you\'ve come in just one week', 'Set realistic goals for continued growth', 'Connect with others who share your interest']
-  ];
+  // Generate comprehensive, hobby-specific daily plans
+  const dailyPlans = generateHobbySpecificPlans(hobby, experience, timeAvailable);
   
   for (let i = 0; i < 7; i++) {
     const dayNumber = i + 1;
-    const dayTopic = dailyTopics[i];
-    const dayTitle = `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} ${dayTopic.focus}`;
+    const dayPlan = dailyPlans[i];
     
     // Use YouTube API for quality video selection
     const targetedVideoId = await getBestVideoForDay(
       hobby, 
       experience, 
       dayNumber, 
-      dayTitle, 
-      `${dayTopic.task} - Day ${dayNumber}`
+      dayPlan.title, 
+      dayPlan.mainTask
     );
     console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
     
@@ -393,25 +364,13 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     
     days.push({
       day: dayNumber,
-      title: `Day ${dayNumber}: ${dayTitle}`,
-      mainTask: `${dayTopic.task} with focused practice and hands-on learning.`,
-      explanation: `Day ${dayNumber} focuses on ${dayTopic.focus.toLowerCase()} in ${hobby}. You'll work on ${dayTopic.skills} while building on everything you've learned so far.`,
-      howTo: [
-        `Begin with ${dayTopic.skills} fundamentals`,
-        `Practice the day's core techniques step-by-step`,
-        `Complete ${dayNumber <= 3 ? 'foundational' : dayNumber <= 5 ? 'intermediate' : 'advanced'} exercises for ${experience} level`,
-        `Apply today's skills in practical ${hobby} scenarios`,
-        `Review progress and prepare for tomorrow's challenges`
-      ],
-      checklist: [
-        `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} equipment ready and organized`,
-        `Practice area set up for ${dayTopic.focus.toLowerCase()} work`,
-        `${dayNumber <= 3 ? 'Basic reference materials' : dayNumber <= 5 ? 'Intermediate guides' : 'Advanced resources'} available`,
-        `Timer set for focused ${dayTopic.focus.toLowerCase()} practice`,
-        `Progress tracking system ready for Day ${dayNumber}`
-      ],
-      tips: dailyTips[i],
-      mistakesToAvoid: dailyMistakes[i],
+      title: dayPlan.title,
+      mainTask: dayPlan.mainTask,
+      explanation: dayPlan.explanation,
+      howTo: dayPlan.howTo,
+      checklist: dayPlan.checklist,
+      tips: dayPlan.tips,
+      mistakesToAvoid: dayPlan.mistakesToAvoid,
       freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
       affiliateProducts: [{
         ...getHobbyProduct(hobby, dayNumber)
@@ -460,6 +419,930 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   });
   
   return plan;
+}
+
+// Generate comprehensive, hobby-specific daily plans
+function generateHobbySpecificPlans(hobby: string, experience: string, timeAvailable: string) {
+  const isBeginnerLevel = experience === 'none' || experience === 'beginner';
+  const isIntermediateLevel = experience === 'some' || experience === 'intermediate';
+  
+  // Hobby-specific comprehensive plans
+  const hobbyPlans: { [key: string]: any[] } = {
+    guitar: [
+      {
+        title: "Guitar Fundamentals and Setup",
+        mainTask: "Learn proper guitar posture, basic chord shapes, and essential techniques for building a solid foundation in guitar playing.",
+        explanation: "Day 1 establishes the fundamental building blocks of guitar playing. You'll learn proper posture to prevent injury, understand basic guitar anatomy, and master your first chord shapes. This foundation is crucial for everything that follows in your guitar journey.",
+        howTo: [
+          "Set up proper sitting and standing posture with guitar positioned correctly against your body",
+          "Learn to hold the pick properly and practice basic down strokes on open strings",
+          "Master the G major chord by placing fingers 3rd fret low E, 2nd fret A, 3rd fret high E strings",
+          "Practice C major chord: 1st fret B string, 2nd fret D string, 3rd fret A string",
+          "Work on clean chord transitions between G and C, strumming slowly and deliberately",
+          "Practice basic strumming pattern: Down-Down-Up-Down-Up with focus on rhythm"
+        ],
+        checklist: [
+          "Guitar properly tuned using tuner app or physical tuner",
+          "Comfortable chair or guitar strap for standing practice",
+          "Guitar picks (medium thickness recommended for beginners)",
+          "Music stand or tablet for viewing chord charts",
+          "15-30 minute focused practice session scheduled"
+        ],
+        tips: [
+          "Keep your fretting hand thumb behind the neck, not wrapped around",
+          "Press strings firmly but don't over-squeeze - find the minimum pressure needed",
+          "Start with slow, clean chord changes rather than fast, sloppy ones",
+          "Take breaks if your fingers hurt - building calluses takes time"
+        ],
+        mistakesToAvoid: [
+          "Holding the guitar neck like a baseball bat with thumb wrapped around",
+          "Pressing too hard on strings causing hand fatigue and poor tone",
+          "Rushing through chord changes without ensuring clean notes",
+          "Practicing with an untuned guitar - this trains your ear incorrectly"
+        ]
+      },
+      {
+        title: "Essential Chord Progressions and Strumming",
+        mainTask: "Master fundamental chord progressions and develop rhythmic strumming patterns that form the backbone of thousands of songs.",
+        explanation: "Day 2 builds on your chord foundation by introducing chord progressions - the sequences that create the harmonic structure of songs. You'll learn the most common progressions in popular music and develop strumming patterns that bring these chords to life.",
+        howTo: [
+          "Perfect the Em chord (easiest chord - 2nd fret A and D strings) for quick confidence building",
+          "Master the D major chord (2nd fret G, 3rd fret B, 2nd fret high E strings)",
+          "Practice the G-C-Em-D progression slowly, ensuring each chord rings clearly",
+          "Learn the basic down-up strumming pattern with emphasis on beats 1 and 3",
+          "Practice chord progression with steady tempo using metronome or backing track",
+          "Work on 'quick changes' - rapid transitions between any two chords"
+        ],
+        checklist: [
+          "Previous day's chords (G, C) can be played cleanly and consistently",
+          "Metronome app or device for tempo practice",
+          "Chord progression chart written out clearly",
+          "Recording device to capture your practice for self-assessment",
+          "Fresh mindset and warmed-up hands before starting"
+        ],
+        tips: [
+          "Lift fingers together when changing chords, don't move them one at a time",
+          "Practice chord changes without strumming first to build muscle memory",
+          "Keep strumming hand moving even during chord changes to maintain rhythm",
+          "Focus on making chord changes on beat rather than rushing ahead"
+        ],
+        mistakesToAvoid: [
+          "Stopping strumming completely during chord changes",
+          "Looking at fretting hand while changing chords - trust your muscle memory",
+          "Practicing chord progressions too fast before mastering slow transitions",
+          "Ignoring timing and rhythm in favor of just getting chord shapes right"
+        ]
+      },
+      {
+        title: "Picking Techniques and Melody Playing",
+        mainTask: "Develop precise picking technique and learn to play simple melodies, transitioning from just chords to actual song parts and riffs.",
+        explanation: "Day 3 introduces individual string picking, which opens up a whole new dimension of guitar playing. You'll learn proper pick control, play your first melodies, and understand how single notes combine with chords to create complete songs.",
+        howTo: [
+          "Practice alternate picking on single strings - down pick, up pick, down pick consistently",
+          "Learn a simple melody like 'Twinkle Twinkle Little Star' on the B and high E strings",
+          "Master the chromatic exercise: play 1-2-3-4 on each string, one finger per fret",
+          "Practice palm muting technique - rest edge of picking hand on strings near bridge",
+          "Combine simple melody with chord playing in a basic fingerpicking pattern",
+          "Work on accuracy over speed - every note should ring clearly"
+        ],
+        checklist: [
+          "Comfortable grip on pick established from previous days",
+          "Simple melody written out in tablature or standard notation",
+          "Clear understanding of fret numbers and string names",
+          "Quiet practice space where you can hear clearly",
+          "Patience for detail-oriented practice session"
+        ],
+        tips: [
+          "Keep pick parallel to strings - don't let it tilt and catch on strings",
+          "Use minimal motion when picking - efficiency creates speed",
+          "Practice with a light touch - let the string vibrate naturally",
+          "Start melodies very slowly and gradually increase tempo"
+        ],
+        mistakesToAvoid: [
+          "Gripping the pick too tightly causing tension in hand and arm",
+          "Using excessive motion when picking - bigger isn't better",
+          "Rushing through exercises without ensuring clean note clarity",
+          "Neglecting rhythm while focusing only on hitting the right notes"
+        ]
+      },
+      {
+        title: "Song Application and Performance Skills",
+        mainTask: "Apply your skills to real songs, develop performance confidence, and learn to play complete song sections from start to finish.",
+        explanation: "Day 4 transforms your individual skills into real music by learning complete song sections. You'll choose appropriate songs for your level, practice performing them smoothly, and develop the confidence to play for others.",
+        howTo: [
+          "Choose a simple 3-4 chord song using chords you've mastered (suggestions: 'Wonderwall', 'Horse with No Name')",
+          "Learn the verse and chorus sections separately before combining them",
+          "Practice singing along while playing to develop multitasking skills",
+          "Record yourself playing through entire song sections to identify trouble spots",
+          "Work on smooth transitions between song sections (verse to chorus)",
+          "Practice starting and stopping cleanly - essential performance skills"
+        ],
+        checklist: [
+          "Song chosen with lyrics and chords printed or displayed clearly",
+          "Song audio available for reference and play-along practice",
+          "All required chords can be played cleanly in isolation",
+          "Recording capability for self-assessment",
+          "Comfortable, distraction-free practice environment"
+        ],
+        tips: [
+          "Start by just strumming chords while listening to the song",
+          "Don't worry about exact strumming patterns initially - focus on chord changes",
+          "Practice trouble spots slowly and separately before full song runs",
+          "Build confidence with repetition - play sections until they feel automatic"
+        ],
+        mistakesToAvoid: [
+          "Choosing songs too advanced for current skill level",
+          "Trying to play exactly like the recording before mastering basics",
+          "Getting frustrated with mistakes - they're part of the learning process",
+          "Practicing only the easy parts and avoiding challenging sections"
+        ]
+      },
+      {
+        title: "Advanced Techniques and Musical Expression",
+        mainTask: "Introduce advanced playing techniques like barre chords, hammer-ons, and pull-offs while developing your personal musical style and expression.",
+        explanation: "Day 5 elevates your playing with techniques that professional guitarists use daily. You'll learn your first barre chord, explore expressive techniques, and begin developing your own musical voice beyond just copying songs.",
+        howTo: [
+          "Learn the F major barre chord - index finger across all strings at 1st fret, other fingers form E shape",
+          "Practice hammer-on technique: fret a note, then 'hammer' another finger down to sound higher note",
+          "Master pull-off technique: reverse of hammer-on, pull finger off to sound lower fretted note",
+          "Experiment with vibrato - slight bending motion to add expression to sustained notes",
+          "Practice chord embellishments - adding single notes to basic chords for color",
+          "Work on dynamics - playing some parts louder/softer for musical expression"
+        ],
+        checklist: [
+          "Hand strength developed from previous days of practice",
+          "Understanding of basic chord shapes and transitions",
+          "Willingness to work through initial difficulty of barre chords",
+          "Examples of songs using barre chords available for reference",
+          "Extended practice time allocated for challenging new techniques"
+        ],
+        tips: [
+          "Build barre chord strength gradually - don't force it if fingers tire quickly",
+          "Practice hammer-ons and pull-offs slowly before adding them to songs",
+          "Listen to how professional guitarists use these techniques in context",
+          "Focus on clean execution over speed - precision builds confidence"
+        ],
+        mistakesToAvoid: [
+          "Pressing too hard on barre chords causing hand cramps and fatigue",
+          "Trying to use advanced techniques before mastering basic chord playing",
+          "Getting discouraged by initial difficulty - these techniques take time",
+          "Overusing effects and techniques without musical purpose"
+        ]
+      },
+      {
+        title: "Creative Playing and Personal Style Development",
+        mainTask: "Explore creative expression through improvisation, songwriting basics, and developing your unique approach to guitar playing.",
+        explanation: "Day 6 focuses on creativity and personal expression. You'll learn basic improvisation, try simple songwriting, and explore different musical styles to find what resonates with your musical personality.",
+        howTo: [
+          "Learn the pentatonic scale pattern - the foundation for guitar solos and improvisation",
+          "Practice improvising simple melodies over chord progressions you know",
+          "Experiment with different strumming patterns and rhythmic feels",
+          "Try creating your own chord progressions using chords you've learned",
+          "Explore different musical styles - folk, rock, blues - with same basic chords",
+          "Record short improvisation sessions to capture creative moments"
+        ],
+        checklist: [
+          "Solid foundation in basic chords and picking from previous days",
+          "Pentatonic scale pattern diagram or video reference",
+          "Recording device for capturing creative ideas",
+          "Open mindset for experimentation and creative exploration",
+          "Examples of different musical styles available for inspiration"
+        ],
+        tips: [
+          "Don't judge your creative attempts - exploration is the goal",
+          "Start improvisation with just a few notes rather than entire scale",
+          "Listen to different guitarists and notice their unique approaches",
+          "Keep a musical journal of chord progressions and ideas you discover"
+        ],
+        mistakesToAvoid: [
+          "Comparing your creative attempts to professional recordings",
+          "Being too critical of experimental playing and creative exploration",
+          "Sticking rigidly to learned patterns without personal interpretation",
+          "Avoiding improvisation because it feels too advanced or intimidating"
+        ]
+      },
+      {
+        title: "Integration and Future Learning Path",
+        mainTask: "Consolidate all learned skills into cohesive playing ability and create a structured plan for continued guitar development beyond the 7-day foundation.",
+        explanation: "Day 7 brings together everything you've learned and sets you up for long-term success. You'll play complete songs confidently, understand your current skill level, and have a clear roadmap for continued improvement.",
+        howTo: [
+          "Perform 2-3 complete songs from start to finish, demonstrating all learned skills",
+          "Assess your progress by recording 'before and after' comparisons",
+          "Create a practice routine incorporating chords, picking, and songs",
+          "Set specific, achievable goals for the next month of practice",
+          "Research local guitar teachers, online courses, or learning resources",
+          "Plan regular practice schedule and track progress methods"
+        ],
+        checklist: [
+          "All basic chords can be played cleanly and changed smoothly",
+          "At least one complete song can be performed confidently",
+          "Understanding of practice methods that work best for your learning style",
+          "Clear goals and timeline for continued learning",
+          "Resources identified for next phase of guitar education"
+        ],
+        tips: [
+          "Celebrate the progress made in just one week - it's significant!",
+          "Focus on consistency in future practice rather than long sporadic sessions",
+          "Join online guitar communities for motivation and support",
+          "Keep challenging yourself with slightly harder songs and techniques"
+        ],
+        mistakesToAvoid: [
+          "Stopping practice after completing the 7-day program",
+          "Setting unrealistic goals for future learning progress",
+          "Comparing your beginner skills to advanced players",
+          "Neglecting to maintain and review previously learned skills"
+        ]
+      }
+    ],
+    
+    cooking: [
+      {
+        title: "Kitchen Fundamentals and Safety",
+        mainTask: "Master essential knife skills, kitchen safety, and ingredient preparation techniques that form the foundation of all successful cooking.",
+        explanation: "Day 1 establishes the critical foundation of cooking: proper knife handling, kitchen safety, and basic preparation techniques. These skills are used in virtually every recipe and will make you more confident and efficient in the kitchen.",
+        howTo: [
+          "Learn proper knife grip: pinch the blade between thumb and forefinger, wrap other fingers around handle",
+          "Master the rock-chop technique: keep knife tip on cutting board, rock blade through ingredients",
+          "Practice basic cuts: dice onions into uniform cubes, julienne carrots into matchsticks",
+          "Set up mise en place: organize all ingredients before cooking begins",
+          "Learn proper hand positioning: claw grip to protect fingertips while cutting",
+          "Practice kitchen safety: proper pot handle positioning, heat management, clean workspace"
+        ],
+        checklist: [
+          "Sharp chef's knife (8-10 inch) properly maintained and cleaned",
+          "Stable cutting board (wood or plastic, large enough for comfortable work)",
+          "Practice ingredients: onions, carrots, celery for basic cuts",
+          "Kitchen towels for cleanup and hand protection",
+          "First aid kit accessible in case of minor cuts"
+        ],
+        tips: [
+          "Keep knives sharp - dull knives are more dangerous than sharp ones",
+          "Take your time with cuts initially - speed comes with practice",
+          "Clean as you go to maintain organized workspace",
+          "Taste ingredients as you prep to understand their flavors"
+        ],
+        mistakesToAvoid: [
+          "Holding knife like a pencil or gripping blade instead of handle",
+          "Cutting toward your body or without proper finger protection",
+          "Using dull knives that slip and require excessive pressure",
+          "Rushing through prep work without focus on technique and safety"
+        ]
+      },
+      {
+        title: "Heat Control and Basic Cooking Methods",
+        mainTask: "Understand heat management and master fundamental cooking techniques: sautéing, boiling, and roasting that apply to countless recipes.",
+        explanation: "Day 2 focuses on heat control - the most important skill for successful cooking. You'll learn how different heat levels affect food and master basic cooking methods that you'll use throughout your culinary journey.",
+        howTo: [
+          "Learn heat levels: low (simmer), medium (steady cooking), high (searing and quick cooking)",
+          "Master sautéing technique: heat pan, add oil, cook ingredients while moving frequently",
+          "Practice proper boiling: bring to rapid boil, then adjust heat to maintain gentle bubbling",
+          "Learn basic roasting: high heat for browning, lower heat for even cooking through",
+          "Cook simple egg dishes demonstrating each technique: scrambled (low), fried (medium), poached (simmering)",
+          "Understand doneness indicators: visual cues, internal temperatures, texture changes"
+        ],
+        checklist: [
+          "Heavy-bottomed sauté pan and medium saucepan available",
+          "Cooking oil with high smoke point (vegetable, canola, or olive oil)",
+          "Instant-read thermometer for checking internal temperatures",
+          "Practice ingredients: eggs, vegetables, simple proteins",
+          "Timer for tracking cooking times accurately"
+        ],
+        tips: [
+          "Preheat pans properly before adding oil or ingredients",
+          "Don't overcrowd pans - food will steam instead of browning",
+          "Listen to your food - sizzling sounds indicate proper heat levels",
+          "Adjust heat as needed throughout cooking process"
+        ],
+        mistakesToAvoid: [
+          "Cooking everything on high heat thinking it's faster",
+          "Adding oil to cold pans causing food to stick",
+          "Constantly stirring or flipping food preventing proper browning",
+          "Ignoring visual and auditory cues that indicate doneness"
+        ]
+      },
+      {
+        title: "Flavor Building and Seasoning Mastery",
+        mainTask: "Develop your palate and learn how to build complex flavors through proper seasoning, herbs, spices, and taste balancing techniques.",
+        explanation: "Day 3 transforms basic cooking into delicious food through flavor development. You'll learn how to taste and adjust seasonings, understand flavor profiles, and create dishes that are well-balanced and exciting to eat.",
+        howTo: [
+          "Learn the four basic tastes: salt enhances flavors, acid brightens, fat carries flavors, heat adds excitement",
+          "Practice seasoning in layers: season ingredients as you cook, not just at the end",
+          "Master herb and spice usage: dried herbs early in cooking, fresh herbs at the end",
+          "Create a simple vinaigrette demonstrating acid balance: oil, vinegar, seasonings",
+          "Cook aromatics (onions, garlic, ginger) to build flavor foundation for dishes",
+          "Practice tasting and adjusting: add salt gradually, balance with acid, finish with fresh herbs"
+        ],
+        checklist: [
+          "Basic spice collection: salt, pepper, garlic powder, paprika, dried herbs",
+          "Fresh herbs available: parsley, basil, or cilantro for finishing dishes",
+          "Acid ingredients: lemon juice, vinegar for balancing flavors",
+          "Tasting spoons for safe sampling during cooking",
+          "Small bowls for pre-measuring seasonings (mise en place)"
+        ],
+        tips: [
+          "Season gradually and taste frequently - you can always add more",
+          "Salt early in cooking process to allow flavors to develop",
+          "Balance strong flavors - if too salty, add acid; if too acidic, add fat or sweetness",
+          "Trust your palate and adjust seasonings to your preference"
+        ],
+        mistakesToAvoid: [
+          "Adding all seasonings at once without tasting between additions",
+          "Using the same spoon for tasting and cooking (food safety issue)",
+          "Over-seasoning with strong spices that can't be removed",
+          "Ignoring the importance of salt in enhancing other flavors"
+        ]
+      },
+      {
+        title: "Complete Meal Planning and Execution",
+        mainTask: "Plan and execute a complete meal from start to finish, demonstrating timing, organization, and integration of all learned cooking skills.",
+        explanation: "Day 4 puts all your skills together in the real-world challenge of preparing a complete meal. You'll learn timing, multitasking, and organization skills essential for successful home cooking.",
+        howTo: [
+          "Plan a simple 3-component meal: protein, vegetable, and starch (e.g., chicken, roasted vegetables, rice)",
+          "Create cooking timeline working backward from desired serving time",
+          "Prep all ingredients first (mise en place) before starting any cooking",
+          "Start with longest-cooking components and add others according to timeline",
+          "Practice multitasking: monitor multiple cooking processes simultaneously",
+          "Finish all components so they're ready to serve at the same time"
+        ],
+        checklist: [
+          "Complete meal planned with realistic cooking times researched",
+          "All ingredients purchased and recipe steps reviewed",
+          "Multiple pans and cooking surfaces available for simultaneous cooking",
+          "Timer or phone for tracking multiple cooking processes",
+          "Serving dishes and utensils ready for plating"
+        ],
+        tips: [
+          "Start with simple meals - complexity comes with experience",
+          "Keep components warm in low oven while finishing other dishes",
+          "Don't attempt new techniques during complete meal preparation",
+          "Have backup plans for components that might not work perfectly"
+        ],
+        mistakesToAvoid: [
+          "Attempting too complex or unfamiliar recipes for first complete meal",
+          "Starting all components at the same time regardless of cooking duration",
+          "Panicking when timing doesn't work perfectly - adjust and keep cooking",
+          "Forgetting to taste and season each component before serving"
+        ]
+      },
+      {
+        title: "Advanced Techniques and Troubleshooting",
+        mainTask: "Learn advanced cooking techniques like braising and sauce-making while developing problem-solving skills for common cooking challenges.",
+        explanation: "Day 5 introduces sophisticated cooking methods and teaches you how to rescue dishes when things go wrong. These skills separate confident cooks from beginners and give you the tools to handle any cooking situation.",
+        howTo: [
+          "Master braising technique: sear protein, add liquid, cover and cook slowly until tender",
+          "Learn basic sauce making: create pan sauces using fond (browned bits) and deglazing",
+          "Practice emulsification: make mayonnaise or hollandaise demonstrating how oil and water combine",
+          "Understand how to fix common problems: too salty (add acid/dairy), too bland (add salt/acid), too thick (add liquid)",
+          "Learn temperature control for delicate cooking: custards, chocolate melting, gentle reheating",
+          "Practice rescue techniques: fixing broken sauces, salvaging overcooked vegetables"
+        ],
+        checklist: [
+          "Heavy pot with lid for braising experiments",
+          "Whisk and small saucepan for sauce making practice",
+          "Ingredients for basic emulsion: eggs, oil, acid for mayonnaise",
+          "Thermometer for monitoring delicate cooking temperatures",
+          "Variety of tasting ingredients for problem-solving practice"
+        ],
+        tips: [
+          "Low and slow cooking develops better flavors than rushing with high heat",
+          "Taste constantly when learning to fix seasoning problems",
+          "Don't be afraid to experiment - mistakes teach valuable lessons",
+          "Keep calm when things go wrong - most cooking problems have solutions"
+        ],
+        mistakesToAvoid: [
+          "Rushing advanced techniques that require patience and attention",
+          "Giving up on dishes that seem to be going wrong",
+          "Using high heat for delicate techniques that require gentle cooking",
+          "Not tasting food throughout cooking process to catch problems early"
+        ]
+      },
+      {
+        title: "Creative Cooking and Recipe Development",
+        mainTask: "Develop creativity in the kitchen by learning to improvise with available ingredients and create your own recipes based on fundamental techniques.",
+        explanation: "Day 6 liberates you from strict recipe following and teaches creative cooking. You'll learn to improvise based on what's available, understand flavor combinations, and develop confidence to create original dishes.",
+        howTo: [
+          "Practice 'refrigerator cooking': create meals using only ingredients currently available",
+          "Learn flavor pairing principles: complementary tastes, traditional combinations, creative contrasts",
+          "Experiment with substitutions: replace ingredients in familiar recipes with available alternatives",
+          "Create your own spice blends based on cuisine preferences (Italian herbs, Mexican spices, Asian five-spice)",
+          "Practice improvisational cooking: start with technique and adapt based on available ingredients",
+          "Document successful experiments and variations for future reference"
+        ],
+        checklist: [
+          "Variety of ingredients available for experimentation",
+          "Basic understanding of flavor profiles from different cuisines",
+          "Notebook or phone for recording successful combinations and recipes",
+          "Willingness to experiment and potentially make some unsuccessful dishes",
+          "Basic spices and herbs for creating custom blends"
+        ],
+        tips: [
+          "Start with familiar flavors and gradually introduce new combinations",
+          "Think about texture combinations as well as flavors",
+          "Keep portions small when experimenting so failures aren't wasteful",
+          "Draw inspiration from restaurant dishes and try to recreate at home"
+        ],
+        mistakesToAvoid: [
+          "Being too conservative - creativity requires some risk-taking",
+          "Combining too many new flavors at once in experimental dishes",
+          "Getting discouraged by unsuccessful experiments - they're part of learning",
+          "Ignoring basic cooking principles while focusing on creativity"
+        ]
+      },
+      {
+        title: "Kitchen Mastery and Continued Learning",
+        mainTask: "Consolidate all cooking skills into confident kitchen mastery and establish systems for continued culinary education and improvement.",
+        explanation: "Day 7 transforms you from a beginner into a confident home cook with strong fundamentals and a clear path for continued improvement. You'll demonstrate mastery of basic skills and establish habits for lifelong culinary learning.",
+        howTo: [
+          "Prepare a complete dinner party meal for 2-4 people showcasing all learned skills",
+          "Demonstrate knife skills, heat control, seasoning, and timing in integrated cooking session",
+          "Create a personalized recipe collection of successful dishes from the week",
+          "Establish regular cooking routine and practice schedule for continued improvement",
+          "Research advanced cooking resources: cookbooks, online courses, local cooking classes",
+          "Set specific cooking goals for next month: new cuisines, advanced techniques, special occasions"
+        ],
+        checklist: [
+          "Confidence in basic knife skills and food safety practices",
+          "Ability to cook complete meals with proper timing and seasoning",
+          "Understanding of fundamental cooking techniques and when to use them",
+          "Collection of successful recipes and techniques for future reference",
+          "Plan for continued learning and skill development"
+        ],
+        tips: [
+          "Cook regularly to maintain and improve skills - consistency is key",
+          "Challenge yourself with new ingredients and techniques gradually",
+          "Join cooking communities online or locally for inspiration and support",
+          "Focus on quality ingredients - they make simple cooking shine"
+        ],
+        mistakesToAvoid: [
+          "Stopping regular cooking practice after completing foundational week",
+          "Becoming overconfident and skipping basic safety and sanitation practices",
+          "Attempting overly complex recipes before mastering fundamentals",
+          "Comparing your beginner skills to professional or experienced home cooks"
+        ]
+      }
+    ],
+    
+    drawing: [
+      {
+        title: "Drawing Fundamentals and Basic Shapes",
+        mainTask: "Master foundational drawing techniques including proper pencil grip, basic shapes, line quality, and observation skills essential for all drawing.",
+        explanation: "Day 1 establishes the core fundamentals that underpin all drawing skills. You'll learn proper technique, develop hand-eye coordination, and understand how basic shapes form the foundation of complex subjects.",
+        howTo: [
+          "Learn proper pencil grip: hold pencil 1-2 inches from tip, use whole arm for large strokes",
+          "Practice basic line exercises: straight lines, curves, circles, continuous lines without lifting pencil",
+          "Master the four basic shapes: circles, squares, triangles, and cylinders in perspective",
+          "Learn value scale creation: practice drawing gradients from light to dark using pencil pressure",
+          "Practice contour drawing: draw objects using only outlines, focusing on observation",
+          "Complete gesture drawing exercises: quick 30-second sketches capturing essential forms"
+        ],
+        checklist: [
+          "Set of drawing pencils (2H, HB, 2B, 4B) for different line weights and values",
+          "Large sketchbook (at least 9x12 inches) with quality paper",
+          "Kneaded eraser for gentle corrections and highlights",
+          "Simple objects for observation drawing: apple, cup, geometric shapes",
+          "Good lighting setup for clear visibility of subjects and paper"
+        ],
+        tips: [
+          "Draw from your shoulder, not just your wrist, for smoother lines",
+          "Look at your subject more than your paper while drawing",
+          "Start light and gradually darken lines - you can always add more",
+          "Practice daily line exercises to build muscle memory and control"
+        ],
+        mistakesToAvoid: [
+          "Gripping pencil too tightly causing hand fatigue and shaky lines",
+          "Starting with dark lines that are difficult to erase or modify",
+          "Drawing what you think objects look like instead of what you actually see",
+          "Becoming frustrated with imperfect results - improvement takes consistent practice"
+        ]
+      },
+      {
+        title: "Understanding Light and Shadow",
+        mainTask: "Learn how light creates form through shadow patterns and practice rendering three-dimensional objects using value and shading techniques.",
+        explanation: "Day 2 introduces the crucial concept of light and shadow that gives drawings their three-dimensional appearance. You'll learn to see and render the subtle gradations that make flat drawings appear solid and realistic.",
+        howTo: [
+          "Set up simple still life with single light source to observe clear shadow patterns",
+          "Identify the five elements of light: highlight, light tone, shadow edge, reflected light, cast shadow",
+          "Practice shading techniques: hatching (parallel lines), cross-hatching (crossed lines), blending",
+          "Draw simple geometric forms (sphere, cube, cylinder) showing complete light patterns",
+          "Learn to squint to see simplified value patterns in complex subjects",
+          "Practice gradual blending from light to dark using various pencil pressures"
+        ],
+        checklist: [
+          "Single directional light source (desk lamp or window light)",
+          "Simple white or neutral objects for clear shadow observation",
+          "Blending tools: tissue, blending stumps, or finger for smooth gradations",
+          "Range of pencils from hard (2H) to soft (6B) for different values",
+          "Examples of master drawings showing excellent use of light and shadow"
+        ],
+        tips: [
+          "Squint frequently to see major light and dark patterns",
+          "Start with overall light and dark areas before adding details",
+          "Reflected light is always darker than direct light areas",
+          "Use consistent light direction throughout your drawing"
+        ],
+        mistakesToAvoid: [
+          "Making reflected light areas too bright competing with direct light",
+          "Adding cast shadows without understanding their shapes and directions",
+          "Overworking surface details before establishing overall light patterns",
+          "Using harsh, unrealistic contrast without observing actual light behavior"
+        ]
+      },
+      {
+        title: "Proportion and Measurement Techniques",
+        mainTask: "Develop accurate proportional skills using measurement techniques and learn to see relationships between different parts of your subjects.",
+        explanation: "Day 3 focuses on accuracy and proportion - skills that separate amateur drawings from professional-looking work. You'll learn practical techniques for measuring and comparing proportions in any subject.",
+        howTo: [
+          "Learn pencil measurement technique: hold pencil at arm's length to compare relative sizes",
+          "Practice sight-size method: draw subjects at same size you observe them",
+          "Use grid method for complex subjects: overlay grid on reference, transfer proportionally",
+          "Master negative space drawing: focus on shapes around objects rather than objects themselves",
+          "Practice envelope method: establish overall outer boundaries before interior details",
+          "Complete proportional studies of simple objects focusing on accuracy over style"
+        ],
+        checklist: [
+          "Variety of objects with clear proportional relationships",
+          "Ruler or measuring tools for verification of proportional accuracy",
+          "Grid overlay sheets or ability to draw light grid lines",
+          "Examples of well-proportioned drawings for reference",
+          "Patient mindset focused on accuracy over speed"
+        ],
+        tips: [
+          "Check proportions frequently throughout drawing process",
+          "Use landmarks and alignment points to maintain accuracy",
+          "Step back from your drawing regularly to assess overall proportions",
+          "Trust your measurements over what you think proportions should be"
+        ],
+        mistakesToAvoid: [
+          "Drawing what you know instead of what you see proportionally",
+          "Getting caught up in details before establishing correct overall proportions",
+          "Ignoring negative spaces which often reveal proportion errors",
+          "Rushing measurement process in favor of getting to 'fun' details"
+        ]
+      },
+      {
+        title: "Texture and Surface Rendering",
+        mainTask: "Learn to observe and render different surface textures, developing techniques for creating convincing material qualities in your drawings.",
+        explanation: "Day 4 adds realism and interest to your drawings through texture rendering. You'll learn to observe surface qualities and develop mark-making techniques that convince viewers of different material properties.",
+        howTo: [
+          "Study different surface textures: smooth (glass, metal), rough (bark, fabric), soft (fur, hair)",
+          "Develop mark-making vocabulary: dots, dashes, scribbles, smooth tones for different textures",
+          "Practice texture studies: small focused drawings showing specific surface qualities",
+          "Learn to vary pencil pressure and direction to suggest different materials",
+          "Combine multiple textures in single drawing to show material variety",
+          "Practice edge quality: hard edges for crisp materials, soft edges for fuzzy surfaces"
+        ],
+        checklist: [
+          "Objects with distinctly different textures for study",
+          "Various pencil types and drawing tools for different mark-making",
+          "Magnifying glass for observing fine texture details",
+          "Reference photos of textures for detailed study",
+          "Examples of masterful texture rendering in professional drawings"
+        ],
+        tips: [
+          "Observe texture patterns rather than trying to draw every individual mark",
+          "Vary your mark-making to keep textures lively and interesting",
+          "Less can be more - suggest textures rather than overworking them",
+          "Consider light's effect on texture - shiny vs. matte surfaces"
+        ],
+        mistakesToAvoid: [
+          "Making all textures with same mark-making approach",
+          "Overworking textures until they become muddy and unclear",
+          "Ignoring how light affects different surface textures",
+          "Adding texture details before establishing proper form and lighting"
+        ]
+      },
+      {
+        title: "Composition and Design Principles",
+        mainTask: "Learn fundamental design principles and composition techniques that make drawings visually compelling and well-organized.",
+        explanation: "Day 5 elevates your drawings from mere representation to compelling visual art through understanding composition. You'll learn how to organize elements for maximum visual impact and viewer engagement.",
+        howTo: [
+          "Learn rule of thirds: divide paper into nine sections, place focal points at intersections",
+          "Practice different viewpoints: eye-level, bird's eye, worm's eye for visual interest",
+          "Understand visual balance: distribute visual weight evenly or create purposeful imbalance",
+          "Create depth through overlapping, size variation, and atmospheric perspective",
+          "Practice leading lines: use lines within composition to guide viewer's eye",
+          "Experiment with cropping: how framing affects impact and focus of drawings"
+        ],
+        checklist: [
+          "Variety of subjects that can be arranged in different compositions",
+          "Viewfinder or cropping tools for framing experiments",
+          "Examples of well-composed drawings and paintings for study",
+          "Understanding of basic design principles from reference materials",
+          "Multiple sheets for composition studies and experiments"
+        ],
+        tips: [
+          "Plan composition with thumbnail sketches before starting final drawing",
+          "Consider negative space as important as positive shapes in composition",
+          "Create focal hierarchy - some elements should dominate others",
+          "Use contrast (light/dark, large/small) to create visual interest"
+        ],
+        mistakesToAvoid: [
+          "Centering everything in composition creating static, boring arrangements",
+          "Making all elements same size and importance competing for attention",
+          "Ignoring background and negative space in compositional planning",
+          "Starting detailed work before establishing strong overall composition"
+        ]
+      },
+      {
+        title: "Personal Style and Artistic Expression",
+        mainTask: "Explore different drawing approaches and begin developing your personal artistic voice through experimentation with various techniques and subjects.",
+        explanation: "Day 6 encourages artistic exploration and personal expression. You'll experiment with different approaches to find what resonates with your artistic vision and begin developing your unique drawing style.",
+        howTo: [
+          "Experiment with different drawing styles: realistic, impressionistic, cartoon, abstract",
+          "Try various media combinations: pencil with ink, charcoal with white chalk",
+          "Practice expressive mark-making: loose gestural approaches vs. tight detailed work",
+          "Explore personal subject preferences: landscapes, portraits, still life, imagination",
+          "Study different artistic movements and try techniques in your own work",
+          "Create artwork that expresses personal interests and emotional responses"
+        ],
+        checklist: [
+          "Variety of drawing materials for experimentation",
+          "Examples of different artistic styles for inspiration",
+          "Personal subjects or themes that interest you",
+          "Experimental mindset open to trying new approaches",
+          "Journal for recording successful techniques and personal preferences"
+        ],
+        tips: [
+          "Don't worry about finding 'your style' immediately - it develops over time",
+          "Copy masterworks to understand different approaches and techniques",
+          "Follow your interests - draw what genuinely excites you",
+          "Experiment freely without judgment about 'right' or 'wrong' approaches"
+        ],
+        mistakesToAvoid: [
+          "Copying one artist's style exactly without developing personal interpretation",
+          "Being too critical of experimental work during exploration phase",
+          "Sticking rigidly to realistic approach without exploring other possibilities",
+          "Comparing your developing style to established professional artists"
+        ]
+      },
+      {
+        title: "Portfolio Development and Continued Growth",
+        mainTask: "Create a cohesive portfolio showcasing your learned skills and establish a structured plan for continued artistic development and improvement.",
+        explanation: "Day 7 consolidates your week of learning into a portfolio demonstrating your progress and sets you up for continued artistic growth with clear goals and practice methods.",
+        howTo: [
+          "Select best drawings from week showing range of skills: line, value, proportion, texture, composition",
+          "Complete one comprehensive drawing combining all learned techniques",
+          "Photograph or scan work properly for digital portfolio documentation",
+          "Assess strengths and areas for improvement based on week's work",
+          "Research continued learning resources: books, online courses, local art classes",
+          "Establish regular drawing practice schedule and skill development goals"
+        ],
+        checklist: [
+          "Week's worth of drawings showing clear skill progression",
+          "Camera or scanner for documenting artwork properly",
+          "Portfolio folder or digital storage system for organizing work",
+          "List of drawing subjects and techniques for continued practice",
+          "Plan for ongoing learning and skill development"
+        ],
+        tips: [
+          "Draw regularly, even if just for 15-20 minutes daily",
+          "Seek feedback from other artists to accelerate improvement",
+          "Challenge yourself with slightly harder subjects and techniques",
+          "Keep a sketchbook for daily observation and practice"
+        ],
+        mistakesToAvoid: [
+          "Stopping regular practice after completing foundational week",
+          "Being overly critical of beginner work - focus on improvement, not perfection",
+          "Attempting advanced techniques before solidifying fundamental skills",
+          "Comparing your beginner portfolio to professional or experienced artists"
+        ]
+      }
+    ]
+  };
+  
+  // Get hobby-specific plans or create generic detailed plans
+  const specificPlans = hobbyPlans[hobby.toLowerCase()];
+  if (specificPlans) {
+    return specificPlans;
+  }
+  
+  // Generic but detailed fallback for any hobby
+  return [
+    {
+      title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Fundamentals and Setup`,
+      mainTask: `Establish proper foundation in ${hobby} through learning essential techniques, safety procedures, and setting up optimal practice environment.`,
+      explanation: `Day 1 creates the fundamental building blocks for ${hobby}. You'll learn proper form, understand basic principles, and establish good habits that will serve you throughout your ${hobby} journey. This foundation prevents bad habits and ensures safe, effective practice.`,
+      howTo: [
+        `Research and understand basic ${hobby} terminology and concepts`,
+        `Set up dedicated practice space with proper lighting and organization`,
+        `Learn fundamental techniques starting with most basic movements or concepts`,
+        `Practice core skills slowly with focus on proper form rather than speed`,
+        `Complete beginner-level exercises designed to build foundational understanding`,
+        `Review progress and identify areas needing extra attention tomorrow`
+      ],
+      checklist: [
+        `Essential ${hobby} equipment gathered and properly organized`,
+        `Practice area set up with adequate space and proper lighting`,
+        `Basic reference materials available (books, videos, or guides)`,
+        `Timer or tracking method for structured practice sessions`,
+        `Safety equipment or procedures understood and implemented`
+      ],
+      tips: [
+        `Focus on quality over quantity - better to do fewer repetitions correctly`,
+        `Take breaks when concentration wavers to maintain focus`,
+        `Start with shorter practice sessions and gradually increase duration`,
+        `Keep notes on what works well and what needs improvement`
+      ],
+      mistakesToAvoid: [
+        `Rushing through foundational concepts to get to 'fun' advanced techniques`,
+        `Practicing with improper form that creates bad habits`,
+        `Skipping safety procedures or using inadequate equipment`,
+        `Becoming frustrated with beginner-level difficulty and slow progress`
+      ]
+    },
+    {
+      title: `Core Techniques and Skill Building`,
+      mainTask: `Master essential ${hobby} techniques through focused practice and develop muscle memory for fundamental movements and concepts.`,
+      explanation: `Day 2 builds on yesterday's foundation by introducing core techniques that you'll use repeatedly in ${hobby}. You'll develop muscle memory, improve coordination, and gain confidence through structured practice of essential skills.`,
+      howTo: [
+        `Practice yesterday's fundamentals until they feel more natural`,
+        `Learn 2-3 new core techniques building on foundational knowledge`,
+        `Complete exercises specifically designed to develop muscle memory`,
+        `Practice techniques in isolation before combining with other skills`,
+        `Work on timing and rhythm if applicable to your chosen hobby`,
+        `Record practice session to review technique and identify improvements`
+      ],
+      checklist: [
+        `Foundational skills from Day 1 can be performed with basic competency`,
+        `New techniques researched and demonstrated through reliable sources`,
+        `Practice routine planned to maximize skill development time`,
+        `Method for tracking progress and technique improvement`,
+        `Adequate rest periods planned to prevent fatigue and maintain focus`
+      ],
+      tips: [
+        `Repeat techniques until they begin to feel automatic`,
+        `Focus on smooth, controlled movements rather than speed or power`,
+        `Use mirrors or recording devices to check your form`,
+        `Practice techniques both individually and in simple combinations`
+      ],
+      mistakesToAvoid: [
+        `Attempting advanced variations before mastering basic techniques`,
+        `Practicing when overly tired leading to sloppy form`,
+        `Ignoring small technique details that become important later`,
+        `Comparing your Day 2 skills to experienced practitioners`
+      ]
+    },
+    {
+      title: `Application and Problem-Solving`,
+      mainTask: `Apply learned techniques to practical situations and develop problem-solving skills for common challenges in ${hobby}.`,
+      explanation: `Day 3 moves beyond isolated practice to real-world application. You'll learn to adapt your skills to different situations, troubleshoot problems, and begin developing the judgment that separates beginners from competent practitioners.`,
+      howTo: [
+        `Apply learned techniques to complete simple projects or sequences`,
+        `Practice adapting techniques when conditions or requirements change`,
+        `Identify and work on common problems beginners face in ${hobby}`,
+        `Learn basic troubleshooting methods for when things don't go as planned`,
+        `Complete mini-challenges that require combining multiple skills`,
+        `Analyze what works well and what needs improvement in practical application`
+      ],
+      checklist: [
+        `Basic techniques from previous days can be performed reliably`,
+        `Simple projects or applications planned that use learned skills`,
+        `Understanding of common beginner problems and their solutions`,
+        `Materials or setup needed for practical application available`,
+        `Realistic expectations set for first attempts at practical application`
+      ],
+      tips: [
+        `Start with simpler applications before attempting complex projects`,
+        `Don't be discouraged if practical application is harder than isolated practice`,
+        `Take time to analyze problems rather than just repeating failed attempts`,
+        `Celebrate small successes in practical application`
+      ],
+      mistakesToAvoid: [
+        `Attempting projects too advanced for current skill level`,
+        `Getting frustrated when practical application reveals skill gaps`,
+        `Skipping back to basics when application problems arise`,
+        `Focusing only on end results rather than learning from the process`
+      ]
+    },
+    {
+      title: `Intermediate Concepts and Refinement`,
+      mainTask: `Introduce intermediate-level concepts and refine technique quality through focused practice and attention to detail.`,
+      explanation: `Day 4 elevates your skills from basic competency toward intermediate ability. You'll learn more sophisticated techniques, improve the quality of your basic skills, and develop greater precision and control.`,
+      howTo: [
+        `Refine basic techniques focusing on precision and consistency`,
+        `Learn intermediate concepts that build on your foundation`,
+        `Practice advanced variations of fundamental techniques`,
+        `Work on subtle improvements in timing, control, or precision`,
+        `Complete challenges that require higher skill levels`,
+        `Analyze your technique critically and make specific improvements`
+      ],
+      checklist: [
+        `Solid foundation in basic techniques with consistent execution`,
+        `Understanding of how to progress from basic to intermediate level`,
+        `Intermediate techniques researched and demonstrated by reliable sources`,
+        `Higher standards set for technique quality and precision`,
+        `Methods available for detailed self-assessment and improvement`
+      ],
+      tips: [
+        `Focus on quality improvements rather than learning many new techniques`,
+        `Pay attention to subtle details that distinguish good from great technique`,
+        `Practice intermediate concepts slowly before increasing speed or complexity`,
+        `Seek feedback from experienced practitioners when possible`
+      ],
+      mistakesToAvoid: [
+        `Rushing to advanced techniques without refining intermediate skills`,
+        `Accepting 'good enough' technique quality without pushing for improvement`,
+        `Practicing intermediate techniques with poor foundational form`,
+        `Getting impatient with the detailed work required for skill refinement`
+      ]
+    },
+    {
+      title: `Creative Expression and Personal Style`,
+      mainTask: `Explore creative possibilities within ${hobby} and begin developing personal preferences and individual approach to practice.`,
+      explanation: `Day 5 encourages creativity and personal expression. You'll explore different approaches, discover your preferences, and begin developing the individual style that makes ${hobby} personally meaningful and engaging.`,
+      howTo: [
+        `Experiment with different approaches and styles within ${hobby}`,
+        `Try creative variations on standard techniques and applications`,
+        `Explore different aspects of ${hobby} to find personal interests`,
+        `Practice expressing personal preferences through your approach`,
+        `Study different practitioners to see various styles and methods`,
+        `Create something unique that reflects your personality and interests`
+      ],
+      checklist: [
+        `Solid technical foundation that supports creative exploration`,
+        `Examples of different styles and approaches within ${hobby} for inspiration`,
+        `Open mindset for experimentation and creative risk-taking`,
+        `Materials or setup that allows for creative expression`,
+        `Understanding that creativity requires some failed experiments`
+      ],
+      tips: [
+        `Don't judge creative experiments too harshly - exploration is the goal`,
+        `Combine influences from different sources to create something personal`,
+        `Follow your interests and intuition about what appeals to you`,
+        `Keep notes about creative approaches that resonate with you`
+      ],
+      mistakesToAvoid: [
+        `Copying others' styles exactly without adding personal interpretation`,
+        `Being too conservative and not taking creative risks`,
+        `Abandoning technical precision in favor of pure creativity`,
+        `Comparing your creative experiments to established practitioners`
+      ]
+    },
+    {
+      title: `Integration and Advanced Application`,
+      mainTask: `Integrate all learned skills into seamless performance and tackle advanced applications that demonstrate comprehensive ability.`,
+      explanation: `Day 6 synthesizes your week of learning into fluid, integrated performance. You'll demonstrate mastery of foundational skills while applying them to more challenging situations that require combining multiple techniques.`,
+      howTo: [
+        `Combine all learned techniques into fluid, integrated sequences`,
+        `Complete advanced projects that demonstrate comprehensive skill`,
+        `Practice performing under slightly increased pressure or challenge`,
+        `Work on transitions and connections between different techniques`,
+        `Demonstrate ability to adapt and problem-solve in complex situations`,
+        `Prepare a demonstration of your skills for others or for documentation`
+      ],
+      checklist: [
+        `All fundamental and intermediate techniques can be performed reliably`,
+        `Advanced projects planned that showcase integrated skill development`,
+        `Understanding of how to combine techniques smoothly and effectively`,
+        `Confidence in ability to handle moderately challenging applications`,
+        `Method for demonstrating or documenting skill progression`
+      ],
+      tips: [
+        `Focus on smooth integration rather than showcasing individual techniques`,
+        `Practice handling mistakes gracefully and continuing performance`,
+        `Build confidence through successful completion of challenging applications`,
+        `Document your abilities to track progress and maintain motivation`
+      ],
+      mistakesToAvoid: [
+        `Attempting applications too advanced for current integrated skill level`,
+        `Focusing on impressive techniques rather than solid foundational performance`,
+        `Getting nervous about demonstrating skills to others`,
+        `Perfectionism that prevents completion of challenging applications`
+      ]
+    },
+    {
+      title: `Mastery Planning and Future Development`,
+      mainTask: `Consolidate learning achievements and create structured plan for continued growth and skill development in ${hobby}.`,
+      explanation: `Day 7 celebrates your rapid progress while establishing sustainable systems for continued improvement. You'll assess your current abilities, set realistic future goals, and create structured approaches for long-term skill development.`,
+      howTo: [
+        `Assess progress by demonstrating all learned skills in comprehensive session`,
+        `Identify strengths developed and areas still needing improvement`,
+        `Research intermediate and advanced learning resources for continued growth`,
+        `Create realistic practice schedule that fits your lifestyle and goals`,
+        `Set specific, measurable goals for next month and next three months`,
+        `Connect with community of practitioners for ongoing motivation and learning`
+      ],
+      checklist: [
+        `Demonstrated competency in fundamental techniques and concepts`,
+        `Clear understanding of current skill level and areas for improvement`,
+        `Research completed on resources for continued learning`,
+        `Realistic practice schedule developed for ongoing skill maintenance`,
+        `Specific goals set for continued development in ${hobby}`
+      ],
+      tips: [
+        `Celebrate significant progress made in just one week of focused learning`,
+        `Maintain regular practice schedule to preserve and build on gains`,
+        `Continue challenging yourself with slightly more difficult applications`,
+        `Connect with others who share interest in ${hobby} for motivation`
+      ],
+      mistakesToAvoid: [
+        `Stopping regular practice after completing intensive learning week`,
+        `Setting unrealistic goals for future improvement that lead to discouragement`,
+        `Comparing beginner skills to advanced practitioners rather than celebrating progress`,
+        `Abandoning structured approach in favor of random, unfocused practice`
+      ]
+    }
+  ];
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
