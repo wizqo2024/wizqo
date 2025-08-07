@@ -249,7 +249,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [currentInput, setCurrentInput] = useState('');
   const [selectedHobby, setSelectedHobby] = useState('');
   const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({});
-  const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
+  const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
   
   // Fix initial loading state
@@ -923,11 +923,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         title: correctedPlanData?.title
       });
       
+      console.log('🔍 PLAN DEBUG: About to set plan data and step to plan');
       setPlanData(correctedPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
+      
+      // Force a re-render by triggering a state update
+      setTimeout(() => {
+        console.log('🔍 PLAN DEBUG: Force re-render check - planData exists:', !!correctedPlanData);
+      }, 100);
       
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
@@ -1017,8 +1023,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           title: fixedPlan?.title
         });
         
+        console.log('🔍 AI SUGGESTION DEBUG: About to set plan data and step to plan');
         setPlanData(fixedPlan);
         setCurrentStep('plan'); // Show the plan after generation
+        
+        // Force a re-render by triggering a state update
+        setTimeout(() => {
+          console.log('🔍 AI SUGGESTION DEBUG: Force re-render check - planData exists:', !!fixedPlan);
+        }, 100);
         addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
       } catch (error) {
         console.error('Error generating AI suggested plan:', error);
@@ -1754,9 +1766,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               planDataHasDays: !!planData?.days,
               daysLength: planData?.days?.length,
               currentStep,
-              planTitle: planData?.title
+              planTitle: planData?.title,
+              showingPlan: (planData && planData.days && planData.days.length > 0)
             });
-            return planData && planData.days;
+            // CRITICAL FIX: More robust check for plan data
+            return (planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0);
           })() ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
