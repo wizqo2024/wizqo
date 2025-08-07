@@ -426,11 +426,9 @@ export default function App() {
         }))
       };
       
-      // 🔧 CRITICAL FIX: Set plan data in App state and navigate to plan route
-      console.log('🔧 CRITICAL FIX: Setting plan data in App state and navigating to plan route');
-      setPlanData(formattedPlanData);
-      setCurrentRoute('plan');
-      window.location.hash = '/plan';
+      // 🔧 FIXED: Just return the plan data - no navigation needed
+      // The SplitPlanInterface will handle displaying the plan internally
+      console.log('🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface');
       
       return formattedPlanData;
     } catch (error) {
