@@ -1748,7 +1748,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               <div><span className="font-semibold">Plan Title:</span> {planData?.title || 'None'}</div>
             </div>
           )}
-          {planData && planData.days ? (
+          {(() => {
+            console.log('🚨 RENDER DEBUG:', {
+              planDataExists: !!planData,
+              planDataHasDays: !!planData?.days,
+              daysLength: planData?.days?.length,
+              currentStep,
+              planTitle: planData?.title
+            });
+            return planData && planData.days;
+          })() ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
