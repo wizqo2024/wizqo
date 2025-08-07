@@ -964,15 +964,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
       
-      // Force a re-render check immediately after state update
+      // Force a re-render check immediately after state update - CHECK ACTUAL STATE, NOT LOCAL VARIABLE
       setTimeout(() => {
-        console.log('🔍 PLAN DEBUG: Force re-render check - planData exists:', !!correctedPlanData);
-        console.log('🔍 PLAN DEBUG: Force re-render check - days array:', !!correctedPlanData?.days);
-        console.log('🔍 PLAN DEBUG: Force re-render check - days length:', correctedPlanData?.days?.length);
-        console.log('🔍 PLAN DEBUG: Force re-render check - currentStep:', 'plan');
+        // Use the stored data instead of the local variable
+        const storedPlanData = JSON.parse(sessionStorage.getItem('activePlanData') || '{}');
+        console.log('🔍 PLAN DEBUG: Force re-render check - stored planData exists:', !!storedPlanData);
+        console.log('🔍 PLAN DEBUG: Force re-render check - stored days array:', !!storedPlanData?.days);
+        console.log('🔍 PLAN DEBUG: Force re-render check - stored days length:', storedPlanData?.days?.length);
+        console.log('🔍 PLAN DEBUG: Force re-render check - currentStep should be:', 'plan');
         console.log('🔍 PLAN DEBUG: Force re-render check - should show plan:', 
-          !!(correctedPlanData && correctedPlanData.days && Array.isArray(correctedPlanData.days) && correctedPlanData.days.length > 0));
-      }, 100);
+          !!(storedPlanData && storedPlanData.days && Array.isArray(storedPlanData.days) && storedPlanData.days.length > 0));
+        
+        // Force another re-render to ensure UI updates
+        setRenderKey(prev => prev + 2);
+      }, 200);
       
       // Prevent any navigation for the next few seconds to ensure plan displays
       const preventNavigation = (e: BeforeUnloadEvent) => {
@@ -983,7 +988,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       window.addEventListener('beforeunload', preventNavigation);
       setTimeout(() => {
         window.removeEventListener('beforeunload', preventNavigation);
-        console.log('🔍 PLAN DEBUG: Force re-render check - planData exists:', !!correctedPlanData);
+        console.log('🔍 PLAN DEBUG: Navigation protection disabled after plan generation');
       }, 3000);
       
       // Save plan to Supabase if user is authenticated
@@ -1917,8 +1922,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           {console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days)}
           {console.log('🔍 RENDER DEBUG: planData.days length:', planData?.days?.length)}
           {console.log('🔍 RENDER DEBUG: planData.days is array:', Array.isArray(planData?.days))}
-          {console.log('🔍 RENDER DEBUG: planData structure:', planData ? Object.keys(planData) : 'none')}
-          {console.log('🔍 RENDER DEBUG: first day data:', planData?.days?.[0])}
+          {console.log('🔍 RENDER DEBUG: currentStep:', currentStep)}
+          {console.log('🔍 RENDER DEBUG: will show plan:', currentStep === 'plan' && !!planData && !!planData.days && planData.days.length > 0)}
 
 {(planData && planData.days && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
