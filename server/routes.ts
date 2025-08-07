@@ -4,7 +4,7 @@ import { sendContactEmail } from './email.js';
 import { getTargetedYouTubeVideo, getVideoDetails } from './videoSelection.js';
 import { getBestVideoForDay, getGenericVideoFallback } from './youtubeService.js';
 import { validateHobby, getVideosForHobby, suggestAlternativeHobbies } from './hobbyValidator.js';
-import { hobbyValidator } from './deepseekValidation.js';
+import { hobbyValidator } from './openrouterValidation';
 import { storage } from './storage.js';
 import { supabaseStorage } from './supabase-storage';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
@@ -234,14 +234,9 @@ IMPORTANT:
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const openRouterKey = process.env.OPENROUTER_API_KEY;
-  const deepSeekKey = process.env.DEEPSEEK_API_KEY;
-  const youtubeApiKey = process.env.YOUTUBE_API_KEY;
   
-  // Prefer OpenRouter if available, fallback to DeepSeek
-  const apiKey = openRouterKey || deepSeekKey;
-  
-  if (!apiKey) {
-    console.log('⚠️ No AI API key found, using fallback plan generation');
+  if (!openRouterKey) {
+    console.log('⚠️ No OpenRouter API key found, using fallback plan generation');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
@@ -281,21 +276,15 @@ Return ONLY a JSON object with this exact structure:
 
 Make each day build progressively on the previous day. Include practical, actionable steps.`;
 
-    // Use OpenRouter API if available, otherwise use DeepSeek
-    const apiUrl = openRouterKey 
-      ? 'https://openrouter.ai/api/v1/chat/completions'
-      : 'https://api.deepseek.com/v1/chat/completions';
+    // Use OpenRouter API
+    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
+      'Authorization': `Bearer ${openRouterKey}`,
+      'HTTP-Referer': 'https://wizqo.com',
+      'X-Title': 'Wizqo Hobby Learning Platform'
     };
-    
-    // Add OpenRouter specific headers if using OpenRouter
-    if (openRouterKey) {
-      headers['HTTP-Referer'] = 'https://wizqo.com';
-      headers['X-Title'] = 'Wizqo Hobby Learning Platform';
-    }
     
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
@@ -309,7 +298,7 @@ Make each day build progressively on the previous day. Include practical, action
       headers,
       signal: controller.signal,
       body: JSON.stringify({
-        model: openRouterKey ? 'deepseek/deepseek-chat' : 'deepseek-chat',
+        model: 'deepseek/deepseek-chat',
         messages: [
           {
             role: 'user',
@@ -413,13 +402,13 @@ Make each day build progressively on the previous day. Include practical, action
 
   } catch (error: any) {
     if (timeoutId) clearTimeout(timeoutId); // Ensure timeout is cleared on error
-    console.error(`AI API error (${openRouterKey ? 'OpenRouter' : 'DeepSeek'}):`, error);
+    console.error('OpenRouter API error:', error);
     
     // Check if it's a timeout/abort error
     if (error?.name === 'AbortError') {
-      console.log('⚠️ AI API request timed out after 30 seconds, using fallback plan generation');
+      console.log('⚠️ OpenRouter API request timed out after 30 seconds, using fallback plan generation');
     } else {
-      console.log('⚠️ AI API failed, using fallback plan generation');
+      console.log('⚠️ OpenRouter API failed, using fallback plan generation');
     }
     
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
@@ -2029,7 +2018,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // AI Chat endpoint using DeepSeek API
+  // AI Chat endpoint using OpenRouter API
   app.post('/api/chat', async (req, res) => {
     try {
       const { question, planData, hobbyContext } = req.body;
@@ -2038,7 +2027,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Question is required' });
       }
 
-      const apiKey = process.env.DEEPSEEK_API_KEY;
+      const apiKey = process.env.OPENROUTER_API_KEY;
       
       if (!apiKey) {
         // Fallback response if no API key
@@ -2072,14 +2061,16 @@ User question: ${question}
 
 Please provide a helpful response:`;
 
-      const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': 'https://wizqo.com',
+          'X-Title': 'Wizqo Hobby Learning Platform'
         },
         body: JSON.stringify({
-          model: 'deepseek-chat',
+          model: 'deepseek/deepseek-chat',
           messages: [
             {
               role: 'user',
@@ -2093,7 +2084,7 @@ Please provide a helpful response:`;
       });
 
       if (!response.ok) {
-        console.error('DeepSeek API error:', response.status, response.statusText);
+        console.error('OpenRouter API error:', response.status, response.statusText);
         // Use intelligent fallback response
         const fallbackResponse = generateContextualResponse(question, planData, hobbyContext);
         return res.json({ response: fallbackResponse });

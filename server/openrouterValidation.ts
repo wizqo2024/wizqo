@@ -9,24 +9,16 @@ interface ValidationResponse {
 
 export class OpenRouterHobbyValidator {
   private openRouterKey: string;
-  private deepSeekKey: string;
   private baseUrl: string;
   private validationCache: Map<string, { result: ValidationResponse; timestamp: number }> = new Map();
   private cacheExpiryMs = 5 * 60 * 1000; // 5 minutes cache
 
   constructor() {
     this.openRouterKey = process.env.OPENROUTER_API_KEY || '';
-    this.deepSeekKey = process.env.DEEPSEEK_API_KEY || '';
+    this.baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
     
-    // Prefer OpenRouter, fallback to DeepSeek
-    if (this.openRouterKey) {
-      this.baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    } else {
-      this.baseUrl = 'https://api.deepseek.com/v1/chat/completions';
-    }
-    
-    if (!this.openRouterKey && !this.deepSeekKey) {
-      console.warn('⚠️ No AI API key found - hobby validation will be limited');
+    if (!this.openRouterKey) {
+      console.warn('⚠️ No OpenRouter API key found - hobby validation will be limited');
     }
   }
 
@@ -54,13 +46,12 @@ export class OpenRouterHobbyValidator {
       return cached.result;
     }
     
-    const apiKey = this.openRouterKey || this.deepSeekKey;
-    if (!apiKey) {
+    if (!this.openRouterKey) {
       return this.fallbackValidation(userInput);
     }
 
     try {
-      console.log(`🔍 ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Validating hobby input:`, userInput);
+      console.log(`🔍 OpenRouter: Validating hobby input:`, userInput);
 
       const prompt = `You are a hobby and activity expert. Analyze this user input and determine if it's a valid hobby or activity that someone can learn in 7 days.
 
@@ -89,22 +80,16 @@ Invalid inputs include:
 For misspellings of valid hobbies, provide the corrected spelling in correctedHobby.
 For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legitimate hobbies instead.`;
 
-      const headers: Record<string, string> = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      };
-      
-      // Add OpenRouter specific headers if using OpenRouter
-      if (this.openRouterKey) {
-        headers['HTTP-Referer'] = 'https://wizqo.com';
-        headers['X-Title'] = 'Wizqo Hobby Learning Platform';
-      }
-      
       const response = await fetch(this.baseUrl, {
         method: 'POST',
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.openRouterKey}`,
+          'HTTP-Referer': 'https://wizqo.com',
+          'X-Title': 'Wizqo Hobby Learning Platform'
+        },
         body: JSON.stringify({
-          model: this.openRouterKey ? 'deepseek/deepseek-chat' : 'deepseek-chat',
+          model: 'deepseek/deepseek-chat',
           messages: [
             {
               role: 'user',
@@ -117,7 +102,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       });
 
       if (!response.ok) {
-        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} API error:`, response.status, response.statusText);
+        console.error('OpenRouter API error:', response.status, response.statusText);
         return this.fallbackValidation(userInput);
       }
 
@@ -125,7 +110,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       const content = data.choices?.[0]?.message?.content;
 
       if (!content) {
-        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: No content in response`);
+        console.error('OpenRouter: No content in response');
         return this.fallbackValidation(userInput);
       }
 
@@ -133,7 +118,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         // Clean the response - OpenRouter sometimes wraps JSON in markdown code blocks
         const cleanedContent = this.cleanJsonResponse(content);
         const result = JSON.parse(cleanedContent) as ValidationResponse;
-        console.log(`✅ ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation result:`, result);
+        console.log(`✅ OpenRouter validation result:`, result);
         
         // Cache the result for consistency
         this.validationCache.set(cacheKey, {
@@ -143,13 +128,13 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         
         return result;
       } catch (parseError) {
-        console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Failed to parse JSON response:`, parseError);
+        console.error('OpenRouter: Failed to parse JSON response:', parseError);
         console.error('Raw content:', content);
         return this.fallbackValidation(userInput);
       }
 
     } catch (error) {
-      console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation error:`, error);
+      console.error('OpenRouter validation error:', error);
       return this.fallbackValidation(userInput);
     }
   }
