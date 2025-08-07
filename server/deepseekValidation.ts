@@ -96,11 +96,14 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       }
 
       try {
-        const result = JSON.parse(content) as ValidationResponse;
+        // Clean the response - OpenRouter sometimes wraps JSON in markdown code blocks
+        const cleanedContent = this.cleanJsonResponse(content);
+        const result = JSON.parse(cleanedContent) as ValidationResponse;
         console.log(`✅ ${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation result:`, result);
         return result;
       } catch (parseError) {
         console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'}: Failed to parse JSON response:`, parseError);
+        console.error('Raw content:', content);
         return this.fallbackValidation(userInput);
       }
 
@@ -194,6 +197,24 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
 
     const distance = matrix[len2][len1];
     return 1 - distance / Math.max(len1, len2);
+  }
+
+  private cleanJsonResponse(content: string): string {
+    // Remove markdown code blocks if present
+    let cleaned = content.trim();
+    
+    // Remove ```json and ``` markers
+    if (cleaned.startsWith('```json')) {
+      cleaned = cleaned.replace(/^```json\s*/, '');
+    }
+    if (cleaned.startsWith('```')) {
+      cleaned = cleaned.replace(/^```\s*/, '');
+    }
+    if (cleaned.endsWith('```')) {
+      cleaned = cleaned.replace(/\s*```$/, '');
+    }
+    
+    return cleaned.trim();
   }
 
   private getRandomHobbies(count: number): string[] {

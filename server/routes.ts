@@ -139,6 +139,25 @@ Your 7-day plan covers all these progressively - each day builds on the previous
   return `I'm here to help with your ${hobby} learning plan! You can ask me about:\n• Getting started with Day 1\n• Daily activities and techniques\n• Equipment and setup\n• Practice tips and techniques\n• Time management\n• Progress tracking\n\nWhat aspect of your ${hobby} learning would you like help with?`;
 }
 
+// Helper function to clean JSON responses from AI APIs
+function cleanJsonResponse(content: string): string {
+  // Remove markdown code blocks if present
+  let cleaned = content.trim();
+  
+  // Remove ```json and ``` markers
+  if (cleaned.startsWith('```json')) {
+    cleaned = cleaned.replace(/^```json\s*/, '');
+  }
+  if (cleaned.startsWith('```')) {
+    cleaned = cleaned.replace(/^```\s*/, '');
+  }
+  if (cleaned.endsWith('```')) {
+    cleaned = cleaned.replace(/\s*```$/, '');
+  }
+  
+  return cleaned.trim();
+}
+
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const openRouterKey = process.env.OPENROUTER_API_KEY;
@@ -229,7 +248,9 @@ Make each day build progressively on the previous day. Include practical, action
       throw new Error('No content in API response');
     }
 
-    const aiPlan = JSON.parse(content);
+    // Clean the response - OpenRouter sometimes wraps JSON in markdown code blocks
+    const cleanedContent = cleanJsonResponse(content);
+    const aiPlan = JSON.parse(cleanedContent);
     
     // Add YouTube API videos to each day with quality filtering
     aiPlan.days = await Promise.all(aiPlan.days.map(async (day: any, index: number) => {
