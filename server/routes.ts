@@ -1144,6 +1144,147 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
           "Comparing your beginner portfolio to professional or experienced artists"
         ]
       }
+    ],
+    
+    'game development': [
+      {
+        title: "Game Development Fundamentals & Setup",
+        mainTask: "Set up your development environment, learn core game development concepts, and create your first interactive prototype.",
+        explanation: "Day 1 introduces you to the exciting world of game development. You'll set up essential tools, understand the game development pipeline, and create your first simple interactive experience. This foundation will support everything you build in the following days.",
+        timeAllocation: "60-90 minutes total",
+        equipment: [
+          "💻 Computer with decent specs (4GB+ RAM)",
+          "🖱️ Mouse for precise editing",
+          "🎧 Headphones for audio testing",
+          "📱 Smartphone for mobile testing",
+          "🔌 Stable internet connection"
+        ],
+        materials: [
+          "🆓 Unity Hub (free game engine)",
+          "💻 Visual Studio Code (free editor)",
+          "🎨 Free sprite/3D assets from Unity Store",
+          "📝 Game design notebook",
+          "⏱️ Timer for focused development sessions"
+        ],
+        detailedSteps: [
+          {
+            step: "Development Environment Setup",
+            time: "25 minutes",
+            description: "🚀 Download and install Unity Hub, create Unity account, install Unity 2022.3 LTS version. Set up Visual Studio Code with C# extension. Verify everything works by creating a new 3D project."
+          },
+          {
+            step: "Unity Interface Mastery",
+            time: "30 minutes", 
+            description: "🎮 Explore Unity's interface: Scene view, Game view, Project window, Inspector. Learn basic navigation (WASD + mouse). Create and manipulate basic objects (cubes, spheres). Understand parent-child relationships in hierarchy."
+          },
+          {
+            step: "First Interactive Prototype",
+            time: "35 minutes",
+            description: "🎯 Create a simple 'click the cube' game: Add a cube, attach a simple C# script to detect mouse clicks, make the cube change color when clicked. Test in play mode to see your first interactive game element."
+          }
+        ],
+        progressMilestones: [
+          "🚀 Unity environment set up and functioning properly",
+          "🎮 Can navigate Unity interface confidently", 
+          "🎯 Created first interactive game object with script",
+          "🔄 Successfully tested game in play mode"
+        ],
+        howTo: [
+          "Download and install Unity Hub and Unity 2022.3 LTS",
+          "Set up Visual Studio Code with C# extension for scripting",
+          "Create your first Unity project and explore the interface",
+          "Learn basic object manipulation and hierarchy organization",
+          "Write your first C# script to handle mouse click interactions",
+          "Test your interactive prototype in Unity's play mode"
+        ],
+        checklist: [
+          "Unity Hub and Unity 2022.3 LTS installed successfully",
+          "Visual Studio Code configured with C# extension",
+          "New 3D Unity project created and opened",
+          "First interactive script written and attached to game object",
+          "Game tested in play mode with successful interaction"
+        ],
+        tips: [
+          "🎯 Start with Unity's built-in tutorials - they're excellent for beginners",
+          "💾 Save your project frequently (Ctrl+S) to prevent losing work",
+          "🔍 Use Unity's Console window to debug errors - it's your best friend",
+          "📚 Keep Unity's documentation open in browser for quick reference"
+        ],
+        mistakesToAvoid: [
+          "⚠️ Installing multiple Unity versions as beginner - stick to LTS version",
+          "🏃 Rushing through interface learning - take time to understand each panel",
+          "🚫 Ignoring error messages in Console - they tell you exactly what's wrong",
+          "📱 Trying complex features before mastering basic object manipulation"
+        ]
+      },
+      {
+        title: "Player Movement & Physics",
+        mainTask: "Implement smooth player movement, understand Unity's physics system, and create responsive character controls that feel great to use.",
+        explanation: "Day 2 focuses on one of the most crucial aspects of game development - making the player feel in control. You'll learn different movement techniques, work with Unity's physics, and understand what makes character movement feel responsive and enjoyable.",
+        timeAllocation: "75-90 minutes total",
+        equipment: [
+          "💻 Unity project from Day 1",
+          "🎮 Game controller (optional for testing)",
+          "📐 Graph paper for movement planning",
+          "⏱️ Stopwatch for timing tests"
+        ],
+        materials: [
+          "🆓 Unity's Standard Assets (free)",
+          "🎨 Simple character sprite or 3D model",
+          "🎵 Sound effects for movement feedback",
+          "📋 Movement reference videos from favorite games"
+        ],
+        detailedSteps: [
+          {
+            step: "Basic Movement Scripts",
+            time: "30 minutes",
+            description: "⌨️ Create C# script for basic WASD movement using Transform.Translate. Implement smooth movement with Time.deltaTime. Add boundary checking to prevent player leaving screen. Test different movement speeds."
+          },
+          {
+            step: "Physics-Based Movement",
+            time: "25 minutes",
+            description: "🎯 Upgrade to Rigidbody movement using AddForce or velocity. Compare feel vs Transform movement. Add gravity effects and ground detection. Implement jumping mechanics with physics."
+          },
+          {
+            step: "Enhanced Controls & Polish",
+            time: "20 minutes",
+            description: "✨ Add movement smoothing and acceleration. Implement variable jump heights. Add visual feedback (particle effects, screen shake). Create responsive controls that feel satisfying to use."
+          }
+        ],
+        progressMilestones: [
+          "⌨️ Implemented smooth WASD movement controls",
+          "🎯 Successfully integrated physics-based movement",
+          "🦘 Added jumping mechanics with proper physics",
+          "✨ Enhanced movement with polish and visual feedback"
+        ],
+        howTo: [
+          "Create movement script using Unity's Input system for WASD controls",
+          "Implement smooth movement using Time.deltaTime for frame-rate independence",
+          "Add Rigidbody component and experiment with physics-based movement",
+          "Create jumping mechanics with ground detection and variable jump heights",
+          "Add movement boundaries to keep player within game world",
+          "Polish movement with acceleration, deceleration, and visual feedback"
+        ],
+        checklist: [
+          "Movement script responds smoothly to WASD input",
+          "Physics-based movement implemented with Rigidbody",
+          "Jumping mechanics work reliably with ground detection",
+          "Movement feels responsive and satisfying to control",
+          "Player stays within defined game boundaries"
+        ],
+        tips: [
+          "🎮 Test movement feel constantly - small changes make big differences",
+          "⚡ Use FixedUpdate() for physics-based movement, Update() for Transform",
+          "🎯 Study your favorite games' movement - what makes them feel good?",
+          "📊 Adjust movement speed based on your game's scale and camera distance"
+        ],
+        mistakesToAvoid: [
+          "🚫 Making movement too fast or too slow without testing thoroughly",
+          "⚠️ Forgetting Time.deltaTime - movement will be framerate dependent",
+          "🎮 Not testing with different input devices and sensitivities",
+          "🏃 Adding complex movement before perfecting basic locomotion"
+        ]
+      }
     ]
   };
   
