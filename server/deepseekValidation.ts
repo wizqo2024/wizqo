@@ -33,6 +33,13 @@ export class OpenRouterHobbyValidator {
   async validateHobby(userInput: string): Promise<ValidationResponse> {
     const cacheKey = userInput.toLowerCase().trim();
     
+    // Check for hardcoded complex hobbies first (override AI inconsistency)
+    const complexHobbyResult = this.checkComplexHobby(cacheKey);
+    if (complexHobbyResult) {
+      console.log(`🚫 Complex hobby detected: ${userInput}`);
+      return complexHobbyResult;
+    }
+    
     // Check cache first for consistency
     const cached = this.validationCache.get(cacheKey);
     if (cached && (Date.now() - cached.timestamp) < this.cacheExpiryMs) {
@@ -129,6 +136,34 @@ For completely invalid inputs, suggest 3 similar legitimate hobbies.`;
       console.error(`${this.openRouterKey ? 'OpenRouter' : 'DeepSeek'} validation error:`, error);
       return this.fallbackValidation(userInput);
     }
+  }
+
+  private checkComplexHobby(input: string): ValidationResponse | null {
+    const complexHobbies: { [key: string]: string[] } = {
+      'robotics': ['electronics tinkering', 'programming basics', 'model building'],
+      'brain surgery': ['first aid training', 'medical terminology', 'anatomy drawing'],
+      'rocket engineering': ['model rockets', 'physics basics', 'aerospace history'],
+      'nuclear physics': ['physics basics', 'chemistry', 'science experiments'],
+      'heart surgery': ['first aid training', 'anatomy drawing', 'medical terminology'],
+      'architecture': ['home design', 'interior design', 'sketching'],
+      'app development': ['coding basics', 'web design', 'computer skills'],
+      'game development': ['coding basics', 'digital art', 'storytelling'],
+      'artificial intelligence': ['programming basics', 'data analysis', 'logic puzzles'],
+      'machine learning': ['programming basics', 'statistics', 'data analysis'],
+      'neurosurgery': ['first aid training', 'anatomy drawing', 'medical terminology'],
+      'rocket science': ['model rockets', 'physics basics', 'astronomy'],
+      'quantum physics': ['physics basics', 'mathematics', 'science experiments']
+    };
+    
+    if (complexHobbies[input]) {
+      return {
+        isValid: false,
+        suggestions: complexHobbies[input],
+        reasoning: `${input.charAt(0).toUpperCase() + input.slice(1)} is quite complex and typically requires more than 7 days to learn effectively. However, these related activities are perfect for getting started!`
+      };
+    }
+    
+    return null;
   }
 
   private fallbackValidation(userInput: string): ValidationResponse {
