@@ -1760,7 +1760,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
-(planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0) ? (
+{(planData && planData.days && Array.isArray(planData.days) && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
