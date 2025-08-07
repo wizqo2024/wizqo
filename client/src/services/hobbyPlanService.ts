@@ -72,22 +72,24 @@ export class HobbyPlanService {
   }
 
   // Save a hobby plan to Supabase
-  async savePlan(planData: any, userId: string): Promise<any> {
+  async savePlan(planData: any, userId: string, force: boolean = false): Promise<any> {
     try {
       console.log('💾 SUPABASE SAVE: Starting plan save for user:', userId)
       console.log('💾 SUPABASE SAVE: Plan data:', planData)
       
-      // Check if plan already exists for this hobby
-      const existingPlan = await this.checkExistingPlan(planData.hobby, userId)
-      if (existingPlan) {
-        console.log('⚠️ DUPLICATE PLAN: Plan already exists for hobby:', planData.hobby)
-        throw new Error(`You already have a learning plan for ${planData.hobby}. Check your dashboard to continue your existing plan.`)
+      // Check if plan already exists for this hobby (only if not forcing)
+      if (!force) {
+        const existingPlan = await this.checkExistingPlan(planData.hobby, userId)
+        if (existingPlan) {
+          console.log('⚠️ DUPLICATE PLAN: Plan already exists for hobby:', planData.hobby)
+          throw new Error(`You already have a learning plan for ${planData.hobby}. Check your dashboard to continue your existing plan.`)
+        }
       }
       
       console.log('💾 SUPABASE SAVE: Making direct fetch request to Supabase API')
 
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 2000)
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // Increased timeout to 10 seconds
 
       const saveResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans`, {
         method: 'POST',
@@ -123,13 +125,25 @@ export class HobbyPlanService {
 
     } catch (error: any) {
       console.error('❌ SUPABASE SAVE ERROR: Failed to save plan:', error)
+      console.error('❌ SUPABASE SAVE ERROR - Full error details:', {
+        name: error?.name,
+        message: error?.message,
+        stack: error?.stack,
+        toString: error?.toString()
+      })
       
       if (error.name === 'AbortError') {
-        console.error('❌ SUPABASE SAVE: Network timeout after 2 seconds')
+        console.error('❌ SUPABASE SAVE: Network timeout after 10 seconds')
         throw new Error('Plan save timed out - please check your connection')
       }
       
-      throw error
+      // If it's a duplicate error, re-throw with clear message
+      if (error.message && error.message.includes('already have a learning plan')) {
+        throw error
+      }
+      
+      // For other errors, provide a helpful message
+      throw new Error(`Failed to save plan: ${error?.message || 'Unknown error occurred'}`)
     }
   }
 
