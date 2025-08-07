@@ -973,6 +973,43 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
+    // Handle AI-suggested hobbies with automatic plan generation
+    if (value.startsWith('ai_suggested_')) {
+      const actualHobby = value.replace('ai_suggested_', '');
+      addUserMessage(label);
+      addAIMessage(`Excellent choice! ${actualHobby} is perfect for learning in 7 days. Let me create your personalized plan right away... ✨`);
+      
+      setSelectedHobby(actualHobby);
+      setQuizAnswers({
+        experience: 'beginner',
+        timeAvailable: '1 hour',
+        goal: 'personal enjoyment'
+      });
+      setCurrentStep('generating');
+      setIsGenerating(true);
+      
+      try {
+        const plan = await onGeneratePlan(actualHobby, {
+          experience: 'beginner',
+          timeAvailable: '1 hour',
+          goal: 'personal enjoyment'
+        }, user?.id);
+        
+        console.log('🎯 AI Suggested plan generated:', plan.hobby);
+        const fixedPlan = fixPlanDataFields(plan);
+        setPlanData(fixedPlan);
+        setCurrentStep('plan');
+        addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
+      } catch (error) {
+        console.error('Error generating AI suggested plan:', error);
+        addAIMessage(`I had trouble creating your ${actualHobby} plan. Let me try a different approach or you can choose another hobby.`);
+        setCurrentStep('hobby');
+      } finally {
+        setIsGenerating(false);
+      }
+      return;
+    }
+    
     if (value === 'surprise') {
       await handleSurpriseMe();
       return;
@@ -1286,9 +1323,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             if (validation.suggestions && validation.suggestions.length > 0) {
               errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
               const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
-                value: suggestion,
+                value: `ai_suggested_${suggestion}`,
                 label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
-                description: `Learn ${suggestion}`
+                description: `Learn ${suggestion} (AI recommended)`
               }));
               
               addAIMessage(errorMessage, hobbyOptions);
