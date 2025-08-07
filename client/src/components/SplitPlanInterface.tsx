@@ -404,7 +404,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               const mostRecentPlan = plans[0];
               console.log('🔄 AUTO-LOAD: Found recent plan:', mostRecentPlan.title);
               
-              // Convert Supabase plan to our format
+              // Convert Supabase plan to our format - FIXED nested structure
               const planData = {
                 id: mostRecentPlan.id,
                 hobby: mostRecentPlan.hobby_name || mostRecentPlan.plan_data?.hobby,
@@ -412,8 +412,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 overview: mostRecentPlan.overview,
                 difficulty: mostRecentPlan.difficulty,
                 totalDays: mostRecentPlan.total_days,
-                days: mostRecentPlan.plan_data?.days || []
+                days: mostRecentPlan.plan_data?.plan_data?.days || mostRecentPlan.plan_data?.days || []
               };
+              
+              console.log('🔧 AUTO-LOAD: Extracted days count:', planData.days.length);
+              console.log('🔧 AUTO-LOAD: Raw plan_data structure:', {
+                hasPlanData: !!mostRecentPlan.plan_data,
+                hasDays: !!mostRecentPlan.plan_data?.days,
+                hasNestedDays: !!mostRecentPlan.plan_data?.plan_data?.days,
+                extractedDaysLength: planData.days.length
+              });
               
               const fixedAutoLoadPlan = fixPlanDataFields(planData);
               console.log('🔄 AUTO-LOAD: Setting plan data automatically');
