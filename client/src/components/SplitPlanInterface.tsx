@@ -980,13 +980,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         renderCondition: !!(finalPlanData && finalPlanData.days && finalPlanData.days.length > 0)
       });
       
-      // CRITICAL FIX: Store plan data immediately to prevent loss
-      sessionStorage.setItem('activePlanData', JSON.stringify(finalPlanData));
-      localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
+      // CRITICAL FIX: Clear old cached data and store fresh plan
+      sessionStorage.removeItem('activePlanData');
+      localStorage.removeItem('lastViewedPlanData');
+      console.log('🧹 Cleared old cached plan data');
       
       // Mark as freshly generated plan BEFORE setting plan data
       sessionStorage.setItem('freshPlanGenerated', 'true');
       console.log('🎯 Marked plan as freshly generated BEFORE setPlanData');
+      
+      // Store the fresh plan data
+      sessionStorage.setItem('activePlanData', JSON.stringify(finalPlanData));
+      localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
       setPlanData(finalPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
@@ -1124,6 +1129,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🔍 AI SUGGESTION DEBUG: Final plan validation:', {
           renderCondition: !!(finalAISuggestionPlan && finalAISuggestionPlan.days && finalAISuggestionPlan.days.length > 0)
         });
+        
+        // Clear old cached data first
+        sessionStorage.removeItem('activePlanData');
+        localStorage.removeItem('lastViewedPlanData');
+        console.log('🧹 Cleared old cached plan data for AI suggestion');
         
         // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
@@ -1275,6 +1285,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           renderCondition: !!(finalGenerateAnywayPlan && finalGenerateAnywayPlan.days && finalGenerateAnywayPlan.days.length > 0)
         });
         
+        // Clear old cached data first
+        sessionStorage.removeItem('activePlanData');
+        localStorage.removeItem('lastViewedPlanData');
+        console.log('🧹 Cleared old cached plan data for generate-anyway');
+        
         // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
         console.log('🎯 Marked generate-anyway plan as freshly generated BEFORE setPlanData');
@@ -1374,6 +1389,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🔍 STANDARD PLAN DEBUG: Final plan validation:', {
           renderCondition: !!(finalStandardPlan && finalStandardPlan.days && finalStandardPlan.days.length > 0)
         });
+        
+        // Clear old cached data first
+        sessionStorage.removeItem('activePlanData');
+        localStorage.removeItem('lastViewedPlanData');
+        console.log('🧹 Cleared old cached plan data for standard plan');
         
         // Mark as freshly generated plan BEFORE setting plan data
         sessionStorage.setItem('freshPlanGenerated', 'true');
