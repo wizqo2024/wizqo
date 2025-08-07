@@ -454,10 +454,38 @@ export default function App() {
       case 'landing':
         return <LandingPage onNavigateToGenerate={() => navigateTo('generate')} />;
       case 'generate':
+        // Check for existing plan data, just like the 'plan' route does
+        let existingPlanData = null;
+        
+        // Check session storage first
+        const sessionPlan = sessionStorage.getItem('activePlanData');
+        if (sessionPlan) {
+          try {
+            existingPlanData = JSON.parse(sessionPlan);
+            console.log('🔧 Found existing plan in session storage for generate route:', existingPlanData?.hobby);
+          } catch (e) {
+            console.log('❌ Failed to parse session plan data');
+          }
+        }
+        
+        // Check localStorage as backup
+        if (!existingPlanData) {
+          const localPlan = localStorage.getItem('lastViewedPlanData');
+          if (localPlan) {
+            try {
+              existingPlanData = JSON.parse(localPlan);
+              console.log('🔧 Found existing plan in localStorage for generate route:', existingPlanData?.hobby);
+            } catch (e) {
+              console.log('❌ Failed to parse local plan data');
+            }
+          }
+        }
+        
         return (
           <SplitPlanInterface
             onGeneratePlan={generatePlanWithAI}
             onNavigateBack={() => navigateTo('landing')}
+            initialPlanData={existingPlanData}
           />
         );
       case 'plan':
