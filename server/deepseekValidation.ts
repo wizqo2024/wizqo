@@ -154,6 +154,8 @@ For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies i
   }
 
   private checkDangerousHobby(input: string): ValidationResponse | null {
+    console.log(`🔍 SAFETY CHECK: Checking input "${input}" for dangerous content`);
+    
     // List of dangerous/harmful activities that should be rejected
     const dangerousKeywords = [
       // Explosives & weapons
@@ -183,9 +185,13 @@ For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies i
     ];
     
     // Check if input contains any dangerous keywords
-    const containsDangerousContent = dangerousKeywords.some(keyword => 
-      input.includes(keyword) || input.includes(keyword.replace(' ', ''))
-    );
+    const containsDangerousContent = dangerousKeywords.some(keyword => {
+      const matches = input.includes(keyword) || input.includes(keyword.replace(' ', ''));
+      if (matches) {
+        console.log(`⚠️ DANGEROUS KEYWORD MATCHED: "${keyword}" in "${input}"`);
+      }
+      return matches;
+    });
     
     // Also check for suspicious patterns
     const suspiciousPatterns = [
@@ -196,17 +202,24 @@ For dangerous or completely invalid inputs, suggest 3 safe, legitimate hobbies i
       /dangerous (experiments?|chemicals?)/ // "dangerous experiments"
     ];
     
-    const matchesSuspiciousPattern = suspiciousPatterns.some(pattern => 
-      pattern.test(input)
-    );
+    const matchesSuspiciousPattern = suspiciousPatterns.some(pattern => {
+      const matches = pattern.test(input);
+      if (matches) {
+        console.log(`⚠️ SUSPICIOUS PATTERN MATCHED: ${pattern} in "${input}"`);
+      }
+      return matches;
+    });
     
     if (containsDangerousContent || matchesSuspiciousPattern) {
+      console.log(`🚫 BLOCKING DANGEROUS INPUT: "${input}"`);
       return {
         isValid: false,
         suggestions: ['cooking', 'gardening', 'reading', 'drawing', 'music', 'photography'],
         reasoning: 'This input contains harmful or dangerous content. We only support safe, positive learning activities. Please try one of our suggested hobbies instead!'
       };
     }
+    
+    console.log(`✅ SAFETY CHECK PASSED: "${input}" is not flagged as dangerous`);
     
     return null;
   }
