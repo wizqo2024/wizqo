@@ -1294,12 +1294,49 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
     return specificPlans;
   }
   
-  // Generic but detailed fallback for any hobby
+  // Comprehensive detailed fallback for any hobby
   return [
     {
       title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Fundamentals and Setup`,
       mainTask: `Establish proper foundation in ${hobby} through learning essential techniques, safety procedures, and setting up optimal practice environment.`,
       explanation: `Day 1 creates the fundamental building blocks for ${hobby}. You'll learn proper form, understand basic principles, and establish good habits that will serve you throughout your ${hobby} journey. This foundation prevents bad habits and ensures safe, effective practice.`,
+      timeAllocation: "45-60 minutes total",
+      equipment: [
+        `📦 Basic ${hobby} starter kit with essential tools`,
+        `📚 Reference guide or instruction manual`,
+        `📱 Timer or smartphone for session tracking`,
+        `🪑 Comfortable seating or workspace setup`,
+        `💡 Adequate lighting for detailed work`
+      ],
+      materials: [
+        `📝 Practice journal for tracking progress`,
+        `✏️ Pen or pencil for notes and planning`,
+        `📋 Checklist template for daily goals`,
+        `⏱️ Timer app for focused practice sessions`
+      ],
+      detailedSteps: [
+        {
+          step: "Equipment Setup and Organization",
+          time: "15 minutes",
+          description: `🔧 Gather all essential ${hobby} equipment and organize your practice space. Ensure everything is clean, functional, and easily accessible. Set up proper lighting and comfortable workspace positioning.`
+        },
+        {
+          step: "Fundamental Technique Learning",
+          time: "25 minutes",
+          description: `📖 Learn and practice the most basic techniques of ${hobby}. Focus on proper form and safety procedures. Start with simple movements or concepts, emphasizing accuracy over speed.`
+        },
+        {
+          step: "Practice and Review",
+          time: "15 minutes",
+          description: `🔄 Practice the fundamental techniques learned. Take notes on what feels natural and what needs more work. Plan focus areas for tomorrow's session.`
+        }
+      ],
+      progressMilestones: [
+        `🎯 Can identify and name basic ${hobby} tools and equipment`,
+        `📐 Demonstrates proper setup and workspace organization`,
+        `🎨 Performs fundamental techniques with basic competency`,
+        `📝 Successfully tracks practice session and identifies improvement areas`
+      ],
       howTo: [
         `Research and understand basic ${hobby} terminology and concepts`,
         `Set up dedicated practice space with proper lighting and organization`,
@@ -1332,6 +1369,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Core Techniques and Skill Building`,
       mainTask: `Master essential ${hobby} techniques through focused practice and develop muscle memory for fundamental movements and concepts.`,
       explanation: `Day 2 builds on yesterday's foundation by introducing core techniques that you'll use repeatedly in ${hobby}. You'll develop muscle memory, improve coordination, and gain confidence through structured practice of essential skills.`,
+      timeAllocation: "50-70 minutes total",
+      equipment: [
+        `📦 All equipment from Day 1 properly maintained`,
+        `🎥 Recording device (phone/camera) for technique review`,
+        `🪞 Mirror or reflective surface for form checking`,
+        `📖 Advanced technique reference materials`,
+        `⏰ Interval timer for structured practice sessions`
+      ],
+      materials: [
+        `📚 Technique progression guide or checklist`,
+        `📝 Practice log with yesterday's notes`,
+        `🎯 Goal sheet for today's skill targets`,
+        `💾 Storage for recorded practice sessions`
+      ],
+      detailedSteps: [
+        {
+          step: "Foundation Review and Warm-up",
+          time: "15 minutes",
+          description: `🔄 Review and practice Day 1 fundamentals until they feel more comfortable. Focus on muscle memory development and smooth execution of basic techniques.`
+        },
+        {
+          step: "Core Technique Learning",
+          time: "30 minutes",
+          description: `🎯 Learn 2-3 essential core techniques that build on your foundation. Practice each technique in isolation, focusing on proper form and gradual speed increase.`
+        },
+        {
+          step: "Integration and Recording",
+          time: "20 minutes",
+          description: `🎬 Combine techniques in simple sequences. Record your practice to review form and identify areas for improvement. Take detailed notes for tomorrow.`
+        }
+      ],
+      progressMilestones: [
+        `🎯 Day 1 fundamentals performed with increased confidence`,
+        `🔧 Core techniques executed with basic proficiency`,
+        `🎬 Successfully records and reviews own technique`,
+        `📈 Shows measurable improvement from Day 1 baseline`
+      ],
       howTo: [
         `Practice yesterday's fundamentals until they feel more natural`,
         `Learn 2-3 new core techniques building on foundational knowledge`,
@@ -1364,6 +1438,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Application and Problem-Solving`,
       mainTask: `Apply learned techniques to practical situations and develop problem-solving skills for common challenges in ${hobby}.`,
       explanation: `Day 3 moves beyond isolated practice to real-world application. You'll learn to adapt your skills to different situations, troubleshoot problems, and begin developing the judgment that separates beginners from competent practitioners.`,
+      timeAllocation: "60-80 minutes total",
+      equipment: [
+        `🛠️ Complete toolkit from previous days`,
+        `📋 Project planning materials and templates`,
+        `🔍 Troubleshooting guides and reference materials`,
+        `📱 Problem-solving apps or digital resources`,
+        `🎯 Mini-project supplies for practical application`
+      ],
+      materials: [
+        `📝 Project planning worksheets`,
+        `🗂️ Common problems and solutions reference`,
+        `📊 Progress tracking sheets for applications`,
+        `🎨 Creative materials for varied practice scenarios`
+      ],
+      detailedSteps: [
+        {
+          step: "Skill Integration Review",
+          time: "15 minutes",
+          description: `🔄 Practice combining Day 1 and Day 2 techniques into smooth sequences. Focus on transitions and maintaining quality throughout integrated practice.`
+        },
+        {
+          step: "Practical Application Projects",
+          time: "35 minutes",
+          description: `🎯 Complete 2-3 mini-projects that require applying your learned skills in practical situations. Focus on problem-solving when things don't go perfectly.`
+        },
+        {
+          step: "Troubleshooting and Analysis",
+          time: "20 minutes",
+          description: `🔍 Identify common problems in your applications and practice systematic troubleshooting. Analyze what works well and plan improvements for tomorrow.`
+        }
+      ],
+      progressMilestones: [
+        `🎯 Successfully completes simple practical applications`,
+        `🔧 Demonstrates basic problem-solving when issues arise`,
+        `🔄 Integrates multiple techniques into coherent sequences`,
+        `📈 Shows improved confidence in real-world application`
+      ],
       howTo: [
         `Apply learned techniques to complete simple projects or sequences`,
         `Practice adapting techniques when conditions or requirements change`,
@@ -1396,6 +1507,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Intermediate Concepts and Refinement`,
       mainTask: `Introduce intermediate-level concepts and refine technique quality through focused practice and attention to detail.`,
       explanation: `Day 4 elevates your skills from basic competency toward intermediate ability. You'll learn more sophisticated techniques, improve the quality of your basic skills, and develop greater precision and control.`,
+      timeAllocation: "70-90 minutes total",
+      equipment: [
+        `🎯 Precision tools for detailed technique work`,
+        `📐 Measurement tools for accuracy assessment`,
+        `🔍 Magnification or detail-enhancement tools`,
+        `📹 High-quality recording setup for technique analysis`,
+        `⚖️ Quality assessment materials and rubrics`
+      ],
+      materials: [
+        `📊 Intermediate technique progression charts`,
+        `🎯 Precision practice templates and guides`,
+        `📝 Detailed self-assessment worksheets`,
+        `📚 Advanced reference materials and examples`
+      ],
+      detailedSteps: [
+        {
+          step: "Foundation Refinement",
+          time: "25 minutes",
+          description: `🔧 Practice basic techniques with focus on precision and consistency. Use measurement tools and detailed analysis to improve quality beyond just 'good enough'.`
+        },
+        {
+          step: "Intermediate Technique Introduction",
+          time: "30 minutes",
+          description: `📈 Learn intermediate-level concepts that build on your solid foundation. Practice advanced variations slowly, emphasizing proper form and understanding.`
+        },
+        {
+          step: "Quality Control and Assessment",
+          time: "25 minutes",
+          description: `🎯 Critically analyze technique quality using detailed assessment criteria. Make specific improvements and plan advanced practice strategies.`
+        }
+      ],
+      progressMilestones: [
+        `🎯 Demonstrates improved precision in all basic techniques`,
+        `📈 Successfully executes intermediate-level concepts`,
+        `🔍 Shows ability to self-assess and improve technique quality`,
+        `⚖️ Maintains high standards for technique execution`
+      ],
       howTo: [
         `Refine basic techniques focusing on precision and consistency`,
         `Learn intermediate concepts that build on your foundation`,
@@ -1428,6 +1576,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Creative Expression and Personal Style`,
       mainTask: `Explore creative possibilities within ${hobby} and begin developing personal preferences and individual approach to practice.`,
       explanation: `Day 5 encourages creativity and personal expression. You'll explore different approaches, discover your preferences, and begin developing the individual style that makes ${hobby} personally meaningful and engaging.`,
+      timeAllocation: "75-95 minutes total",
+      equipment: [
+        `🎨 Creative materials for experimentation`,
+        `🖼️ Inspiration sources (books, digital galleries, examples)`,
+        `📱 Documentation tools for creative experiments`,
+        `🎭 Style exploration guides and references`,
+        `🌈 Variety of materials for different creative approaches`
+      ],
+      materials: [
+        `📖 Style reference collection and inspiration boards`,
+        `📝 Creative experiment journal and notes`,
+        `🎯 Personal preference discovery worksheets`,
+        `💾 Digital storage for creative work documentation`
+      ],
+      detailedSteps: [
+        {
+          step: "Creative Foundation Review",
+          time: "20 minutes",
+          description: `🎨 Review all learned techniques as creative tools. Practice applying them with personal flair and expression rather than just technical accuracy.`
+        },
+        {
+          step: "Style Exploration and Experimentation",
+          time: "40 minutes",
+          description: `🌟 Experiment with different styles and approaches within ${hobby}. Try creative variations, explore personal preferences, and create unique combinations.`
+        },
+        {
+          step: "Personal Style Development",
+          time: "25 minutes",
+          description: `🎭 Identify elements that resonate with you personally. Create something unique that reflects your emerging style and document your creative preferences.`
+        }
+      ],
+      progressMilestones: [
+        `🎨 Successfully experiments with creative variations`,
+        `🌟 Identifies personal preferences and style elements`,
+        `🎭 Creates unique work reflecting individual approach`,
+        `📝 Documents creative discoveries for future development`
+      ],
       howTo: [
         `Experiment with different approaches and styles within ${hobby}`,
         `Try creative variations on standard techniques and applications`,
@@ -1460,6 +1645,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Integration and Advanced Application`,
       mainTask: `Integrate all learned skills into seamless performance and tackle advanced applications that demonstrate comprehensive ability.`,
       explanation: `Day 6 synthesizes your week of learning into fluid, integrated performance. You'll demonstrate mastery of foundational skills while applying them to more challenging situations that require combining multiple techniques.`,
+      timeAllocation: "80-100 minutes total",
+      equipment: [
+        `🎯 Complete professional-level setup`,
+        `📹 High-quality recording equipment for demonstrations`,
+        `🎪 Performance or presentation setup`,
+        `📊 Comprehensive assessment tools`,
+        `🏆 Challenge project materials and resources`
+      ],
+      materials: [
+        `📋 Integration practice sequences and routines`,
+        `🎯 Advanced challenge project templates`,
+        `📝 Performance evaluation criteria and rubrics`,
+        `💾 Documentation systems for skill demonstration`
+      ],
+      detailedSteps: [
+        {
+          step: "Skill Integration Practice",
+          time: "30 minutes",
+          description: `🔄 Practice combining all learned techniques into smooth, fluid sequences. Focus on seamless transitions and maintaining quality throughout complex applications.`
+        },
+        {
+          step: "Advanced Challenge Projects",
+          time: "35 minutes",
+          description: `🏆 Complete challenging projects that require comprehensive skill integration. Demonstrate ability to adapt and problem-solve in complex situations.`
+        },
+        {
+          step: "Performance Documentation",
+          time: "25 minutes",
+          description: `📹 Record comprehensive demonstration of integrated skills. Create documentation of your progress and prepare for tomorrow's mastery planning.`
+        }
+      ],
+      progressMilestones: [
+        `🔄 Seamlessly integrates all learned techniques`,
+        `🏆 Successfully completes advanced challenge projects`,
+        `🎭 Demonstrates confidence in complex applications`,
+        `📹 Creates comprehensive skill demonstration documentation`
+      ],
       howTo: [
         `Combine all learned techniques into fluid, integrated sequences`,
         `Complete advanced projects that demonstrate comprehensive skill`,
@@ -1492,6 +1714,43 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       title: `Mastery Planning and Future Development`,
       mainTask: `Consolidate learning achievements and create structured plan for continued growth and skill development in ${hobby}.`,
       explanation: `Day 7 celebrates your rapid progress while establishing sustainable systems for continued improvement. You'll assess your current abilities, set realistic future goals, and create structured approaches for long-term skill development.`,
+      timeAllocation: "90-120 minutes total",
+      equipment: [
+        `📊 Comprehensive assessment and testing materials`,
+        `📋 Goal-setting and planning templates`,
+        `📚 Research tools for continued learning resources`,
+        `📱 Long-term tracking and scheduling apps`,
+        `🎯 Portfolio or demonstration setup`
+      ],
+      materials: [
+        `📈 Progress assessment worksheets and rubrics`,
+        `🎯 Goal-setting templates for short and long-term planning`,
+        `📚 Resource research guides and evaluation criteria`,
+        `📅 Practice schedule templates and tracking systems`
+      ],
+      detailedSteps: [
+        {
+          step: "Comprehensive Skill Assessment",
+          time: "35 minutes",
+          description: `📊 Demonstrate all learned skills in comprehensive testing session. Assess current abilities objectively and identify strengths and improvement areas.`
+        },
+        {
+          step: "Future Learning Planning",
+          time: "40 minutes",
+          description: `🎯 Research advanced resources, set specific measurable goals, and create detailed practice schedule. Plan your continued ${hobby} development journey.`
+        },
+        {
+          step: "Portfolio Creation and Documentation",
+          time: "35 minutes",
+          description: `📁 Create comprehensive portfolio documenting your week's progress. Establish systems for continued progress tracking and motivation maintenance.`
+        }
+      ],
+      progressMilestones: [
+        `📊 Completes comprehensive assessment of all learned skills`,
+        `🎯 Creates detailed plan for continued skill development`,
+        `📚 Identifies appropriate resources for advanced learning`,
+        `📁 Establishes portfolio and progress tracking systems`
+      ],
       howTo: [
         `Assess progress by demonstrating all learned skills in comprehensive session`,
         `Identify strengths developed and areas still needing improvement`,
