@@ -1,0 +1,908 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+framework-9c40cea28e5a102c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-9c40cea28e5a102c.js:1Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+f2b8d854bcea315e1ce5b3f198879b2f:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+framework-9c40cea28e5a102c.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-9c40cea28e5a102c.js:1Understand this error
+workspace_iframe.html:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+ ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+ 🔧 Route change detected - pathname: / hash: 
+ 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+stallwart.build.js:1 stallwart: failed ping 1
+ 🔧 Route change detected - pathname: / hash: #/dashboard
+ 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+ 📋 Found saved plans: 2
+ 📋 Found progress entries: 0
+ 📋 Found localStorage plans: 1
+ 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: 82a7705f-0608-4752-838b-020a493c167a
+ 📊 Plan 82a7705f-0608-4752-838b-020a493c167a progress: 0% (0/7 days)
+ 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: e4b26de1-0b1e-47d8-8ff4-3b6d1368f84f
+ 📊 Plan e4b26de1-0b1e-47d8-8ff4-3b6d1368f84f progress: 0% (0/7 days)
+ 📋 Total plans loaded: 2
+ 🎨 Dashboard AUTO-IMAGE: "singing" -> category-based generation
+ 🎨 Dashboard AUTO-GENERATED: "singing" -> unique category-based image
+ 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+ 🎨 Dashboard AUTO-IMAGE: "theater" -> category-based generation
+ 🎨 Dashboard AUTO-GENERATED: "theater" -> unique category-based image
+ 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487373
+ 🔧 Route change detected - pathname: / hash: #/plan
+ 🔄 Restoring plan from activePlanData: Singing
+ ✅ Using plan data from state: Singing
+ 🔄 Initializing with existing plan data: Singing
+ 🔍 fixPlanDataFields - Examining data structure:
+ 🔍 plan.days length: 7
+ 🔍 plan.plan_data?.days length: 0
+ 🔍 plan.plan_data?.plan_data?.days length: 0
+ 🔍 First day youtubeVideoId from different paths:
+ 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+ 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+ 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+ 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+ 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+ 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+ 🔍 FRONTEND - youtubeVideoId value type: string
+ 🔍 FRONTEND - videoId value type: string
+ 🔧 fixPlanDataFields - Input plan structure: [object Object]
+ 🔧 fixPlanDataFields - Output plan days count: 7
+ 🔧 Applied field mapping fix to initial plan data
+ 🔍 User authenticated, looking for plan ID for hobby: Singing
+ 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+ 🔍 Using direct API to find plans for hobby: Singing
+ 🔄 Initializing with existing plan data: Singing
+ 🔍 fixPlanDataFields - Examining data structure:
+ 🔍 plan.days length: 7
+ 🔍 plan.plan_data?.days length: 0
+ 🔍 plan.plan_data?.plan_data?.days length: 0
+ 🔍 First day youtubeVideoId from different paths:
+ 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+ 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+ 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+ 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+ 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+ 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+ 🔍 FRONTEND - youtubeVideoId value type: string
+ 🔍 FRONTEND - videoId value type: string
+ 🔧 fixPlanDataFields - Input plan structure: [object Object]
+ 🔧 fixPlanDataFields - Output plan days count: 7
+ 🔧 Applied field mapping fix to initial plan data
+ 🔍 User authenticated, searching for existing plan ID...
+ 📍 Database-only progress tracking - no localStorage used
+ 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+ 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+ 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+ 🐛 Debug YouTube Video ID: rtR63-ecUNo
+ 🐛 Video Title: singing Day 1 Tutorial
+ TIP 0: Using icon at index 0
+ TIP 1: Using icon at index 1
+ TIP 2: Using icon at index 2
+ 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+ 🐛 Full current day data: [object Object]
+ MISTAKE 0: Using icon at index 0
+ MISTAKE 1: Using icon at index 1
+ MISTAKE 2: Using icon at index 2
+ 🔍 Direct Supabase session check: plan-1754543271690-9vocixn7d Singing
+ 🔍 Direct API query result: [object Object]
+ 🔍 All user plans: [object Object],[object Object]
+ 🔍 Filtered plans for hobby: [object Object]
+ 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: [object Object]
+ 🎯 Found plan via auth context: 82a7705f-0608-4752-838b-020a493c167a for title: Learn singing in 7 Days
+ 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+ 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+ 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+ 🐛 Debug YouTube Video ID: rtR63-ecUNo
+ 🐛 Video Title: singing Day 1 Tutorial
+ TIP 0: Using icon at index 0
+ TIP 1: Using icon at index 1
+ TIP 2: Using icon at index 2
+ 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+ 🐛 Full current day data: [object Object]
+ MISTAKE 0: Using icon at index 0
+ MISTAKE 1: Using icon at index 1
+ MISTAKE 2: Using icon at index 2
+ 🔍 Progress query result: [object Object]
+ ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 🔄 Restoring plan from activePlanData: Singing
+Console.js:61 ✅ Using plan data from state: Singing
+Console.js:61 🔄 Initializing with existing plan data: Singing
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: [object Object]
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Direct Supabase session check: plan-1754544146888-xob7zb96e Singing
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 User authenticated, looking for plan ID for hobby: Singing
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: Singing
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: [object Object]
+Console.js:61 🔍 All user plans: [object Object],[object Object]
+Console.js:61 🔍 Filtered plans for hobby: [object Object]
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: [object Object]
+Console.js:61 🎯 Found plan via auth context: 82a7705f-0608-4752-838b-020a493c167a for title: Learn singing in 7 Days
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Progress query result: [object Object]
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📋 Found saved plans: 2
+Console.js:61 📋 Found progress entries: 0
+Console.js:61 📋 Found localStorage plans: 1
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: 82a7705f-0608-4752-838b-020a493c167a
+Console.js:61 📊 Plan 82a7705f-0608-4752-838b-020a493c167a progress: 0% (0/7 days)
+Console.js:61 🔍 Searching for progress with userId: 773c3f18-025a-432d-ae3d-fa13be3faef8, planId: e4b26de1-0b1e-47d8-8ff4-3b6d1368f84f
+Console.js:61 📊 Plan e4b26de1-0b1e-47d8-8ff4-3b6d1368f84f progress: 0% (0/7 days)
+Console.js:61 📋 Total plans loaded: 2
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "singing" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "singing" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🎨 Dashboard AUTO-IMAGE: "theater" -> category-based generation
+Console.js:61 🎨 Dashboard AUTO-GENERATED: "theater" -> unique category-based image
+Console.js:61 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop&t=487373
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 🔄 Restoring plan from activePlanData: Singing
+Console.js:61 ✅ Using plan data from state: Singing
+Console.js:61 🔄 Initializing with existing plan data: Singing
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: [object Object]
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 User authenticated, looking for plan ID for hobby: Singing
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: Singing
+Console.js:61 🔄 Initializing with existing plan data: Singing
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: [object Object]
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct Supabase session check: plan-1754544216719-zl4kmq802 Singing
+Console.js:61 🔍 Direct API query result: [object Object]
+Console.js:61 🔍 All user plans: [object Object],[object Object]
+Console.js:61 🔍 Filtered plans for hobby: [object Object]
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: [object Object]
+Console.js:61 🎯 Found plan via auth context: 82a7705f-0608-4752-838b-020a493c167a for title: Learn singing in 7 Days
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Progress query result: [object Object]
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 🔄 Restoring plan from activePlanData: Singing
+Console.js:61 ✅ Using plan data from state: Singing
+Console.js:61 🔄 Initializing with existing plan data: Singing
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: day,title,mainTask,explanation,howTo,checklist,tips,mistakesToAvoid,freeResources,affiliateProducts,youtubeVideoId,videoTitle,estimatedTime,skillLevel,commonMistakes,videoId
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: [object Object]
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Direct Supabase session check: plan-1754544264523-2vtyfncjv Singing
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 User authenticated, looking for plan ID for hobby: Singing
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: Singing
+Console.js:61 🔍 Direct API query result: [object Object]
+Console.js:61 🔍 All user plans: [object Object],[object Object]
+Console.js:61 🔍 Filtered plans for hobby: [object Object]
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: [object Object]
+Console.js:61 🎯 Found plan via auth context: 82a7705f-0608-4752-838b-020a493c167a for title: Learn singing in 7 Days
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Progress query result: [object Object]
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Rushing through exercises,Skipping practice time,Not taking notes
+Console.js:61 🐛 Full current day data: [object Object]
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 🔄 Restoring plan from activePlanData: Singing
+Console.js:61 ✅ Using plan data from state: Singing
+Console.js:61 🔄 Initializing with existing plan data: Singing
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: rtR63-ecUNo
+Console.js:61 🔍   plan.days?.[0]?.videoId: rtR63-ecUNo
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Day 1: singing Fundamentals",
+  "mainTask": "Learn essential singing techniques and practice hands-on exercises.",
+  "explanation": "Day 1 focuses on building your foundation in singing with practical exercises.",
+  "howTo": [
+    "Start with basic singing concepts",
+    "Practice fundamental techniques",
+    "Complete hands-on exercises",
+    "Review and refine your skills"
+  ],
+  "checklist": [
+    "Understand today's core concepts",
+    "Complete all practice exercises",
+    "Review progress and notes",
+    "Prepare for tomorrow's lesson"
+  ],
+  "tips": [
+    "Take your time with each exercise",
+    "Don't be afraid to repeat difficult parts",
+    "Keep practicing regularly"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "freeResources": [
+    {
+      "title": "singing Day 1 Tutorial",
+      "link": "https://youtube.com/watch?v=singing-day-1"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Singing Essential Kit - Day 1",
+      "link": "https://amazon.com/s?k=singing+beginner+kit&tag=wizqohobby-20",
+      "price": "$19.99"
+    }
+  ],
+  "youtubeVideoId": "rtR63-ecUNo",
+  "videoTitle": "singing Day 1 Tutorial",
+  "estimatedTime": "30-60 minutes",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises",
+    "Skipping practice time",
+    "Not taking notes"
+  ],
+  "videoId": "rtR63-ecUNo"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Direct Supabase session check: plan-1754544285076-efc7va6bb Singing
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 User authenticated, looking for plan ID for hobby: Singing
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: Singing
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(2)
+Console.js:61 🔍 Filtered plans for hobby: Array(1)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🎯 Found plan via auth context: 82a7705f-0608-4752-838b-020a493c167a for title: Learn singing in 7 Days
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Progress query result: Object
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: rtR63-ecUNo
+Console.js:61 🎨 Plan AUTO-IMAGE: "Singing" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "Singing" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487373
+Console.js:61 🐛 Debug YouTube Video ID: rtR63-ecUNo
+Console.js:61 🐛 Video Title: singing Day 1 Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: (3) ['Rushing through exercises', 'Skipping practice time', 'Not taking notes']
+Console.js:61 🐛 Full current day data: {day: 1, title: 'Day 1: singing Fundamentals', mainTask: 'Learn essential singing techniques and practice hands-on exercises.', explanation: 'Day 1 focuses on building your foundation in singing with practical exercises.', howTo: Array(4), …}
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+stallwart.build.js:1 stallwart: failed ping 1
