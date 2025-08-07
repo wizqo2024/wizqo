@@ -14,6 +14,7 @@ import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthDebug } from './components/AuthDebug';
 import { AuthProvider } from './context/AuthContext';
 
 interface QuizAnswers {
@@ -158,6 +159,7 @@ export default function App() {
       const pathname = window.location.pathname;
       const hash = window.location.hash;
       
+      console.log('🔧 Route change detected - pathname:', pathname, 'hash:', hash);
       
       // Always prioritize hash-based routing for SPA behavior
       let route = '';
@@ -207,7 +209,8 @@ export default function App() {
             if (storedData) {
               const parsedPlan = JSON.parse(storedData);
               if (parsedPlan && parsedPlan.days && parsedPlan.days.length > 0) {
-                        setPlanData(parsedPlan);
+                console.log(`🔄 Restoring plan from ${source}:`, parsedPlan.hobby);
+                setPlanData(parsedPlan);
                 
                 // Clear temporary navigation data
                 if (source === 'tempPlanForNavigation') {
@@ -217,6 +220,7 @@ export default function App() {
               }
             }
           } catch (e) {
+            console.warn(`Failed to parse ${source}:`, e);
           }
         }
         setCurrentRoute('plan');
@@ -229,9 +233,11 @@ export default function App() {
         if (activePlanData && fromGeneratedPlan) {
           try {
             const planData = JSON.parse(activePlanData);
+            console.log('🔄 Restoring active plan from session:', planData.hobby);
             setPlanData(planData);
             sessionStorage.removeItem('fromGeneratedPlan'); // Clear the flag
           } catch (e) {
+            console.warn('Failed to parse active plan data');
           }
         }
 
@@ -261,6 +267,7 @@ export default function App() {
 
   // Navigation helpers
   const navigateTo = (route: Route) => {
+    console.log('🔧 Navigating to route:', route);
     let path = '';
     switch (route) {
       case 'landing':
@@ -295,6 +302,7 @@ export default function App() {
         break;
 
     }
+    console.log('🔧 Setting location to:', path);
     if (path.startsWith('#/')) {
       window.location.hash = path.slice(1);
     } else {
@@ -387,6 +395,9 @@ export default function App() {
 
       const planData = await response.json();
       
+      console.log('🔧 CRITICAL FIX - Backend planData received:', JSON.stringify(planData.days[0], null, 2));
+      console.log('🔧 CRITICAL FIX - First day youtubeVideoId from backend:', planData.days[0]?.youtubeVideoId);
+      console.log('🔧 CRITICAL FIX - First day videoId from backend:', planData.days[0]?.videoId);
       
       // Convert backend data to frontend format - PRESERVE ALL VIDEO FIELDS
       return {
@@ -448,6 +459,7 @@ export default function App() {
         
         // 1. Check state first (from previous generation)
         if (planData) {
+          console.log('✅ Using plan data from state:', planData.hobby);
           currentPlanData = planData;
         }
         
@@ -457,7 +469,9 @@ export default function App() {
           if (sessionData) {
             try {
               currentPlanData = JSON.parse(sessionData);
+              console.log('✅ Using plan data from session storage:', currentPlanData.hobby);
             } catch (e) {
+              console.error('Failed to parse session plan data:', e);
             }
           }
         }
@@ -468,7 +482,9 @@ export default function App() {
           if (lastPlanData) {
             try {
               currentPlanData = JSON.parse(lastPlanData);
+              console.log('✅ Using plan data from localStorage:', currentPlanData.hobby);
             } catch (e) {
+              console.error('Failed to parse localStorage plan data:', e);
             }
           }
         }
@@ -484,6 +500,7 @@ export default function App() {
         }
         
         // Final fallback: No plan data found
+        console.log('❌ No plan data found, showing generate interface');
         return (
           <SplitPlanInterface
             onGeneratePlan={generatePlanWithAI}
@@ -515,6 +532,7 @@ export default function App() {
       <div className="min-h-screen bg-slate-50">
         {renderCurrentRoute()}
         <Toaster />
+  
       </div>
     </AuthProvider>
   );
