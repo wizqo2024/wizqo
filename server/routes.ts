@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { sendContactEmail } from './email.js';
 import { getTargetedYouTubeVideo, getVideoDetails } from './videoSelection.js';
-import { getBestVideoForDay } from './youtubeService.js';
+import { getBestVideoForDay, getGenericVideoFallback } from './youtubeService.js';
 import { validateHobby, getVideosForHobby, suggestAlternativeHobbies } from './hobbyValidator.js';
 import { hobbyValidator } from './deepseekValidation.js';
 import { storage } from './storage.js';
@@ -172,6 +172,9 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
+  // Declare timeoutId outside try block so it's accessible in catch
+  let timeoutId: NodeJS.Timeout | null = null;
+  
   try {
     const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}. 
 
@@ -223,7 +226,7 @@ Make each day build progressively on the previous day. Include practical, action
     
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => {
+    timeoutId = setTimeout(() => {
       console.log('⚠️ AI API request timed out after 30 seconds, aborting...');
       controller.abort();
     }, 30000); // 30 second timeout
@@ -263,15 +266,25 @@ Make each day build progressively on the previous day. Include practical, action
     const aiPlan = JSON.parse(cleanedContent);
     
     // Add YouTube API videos to each day with quality filtering
+    // SPEED OPTIMIZATION: Check if YouTube API is available first
+    let isYouTubeAPIWorking = true;
+    try {
+      // Quick test call to check if API is working
+      const testResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=test&type=video&key=${process.env.YOUTUBE_API_KEY}`);
+      if (!testResponse.ok && testResponse.status === 403) {
+        console.log('⚡ YouTube API quota exceeded - using fast fallback mode');
+        isYouTubeAPIWorking = false;
+      }
+    } catch (error) {
+      console.log('⚡ YouTube API unavailable - using fast fallback mode');
+      isYouTubeAPIWorking = false;
+    }
+
     aiPlan.days = await Promise.all(aiPlan.days.map(async (day: any, index: number) => {
-      // Use YouTube API for quality video selection
-      const targetedVideoId = await getBestVideoForDay(
-        hobby, 
-        experience, 
-        day.day, 
-        day.title, 
-        day.mainTask
-      );
+      // Use fast fallback when API is down, otherwise use full search
+      const targetedVideoId = isYouTubeAPIWorking 
+        ? await getBestVideoForDay(hobby, experience, day.day, day.title, day.mainTask)
+        : getGenericVideoFallback(hobby, experience, day.day);
       
       const videoDetails = getVideoDetails(hobby, experience, day.day);
       
@@ -310,12 +323,12 @@ Make each day build progressively on the previous day. Include practical, action
     
     return aiPlan;
 
-  } catch (error) {
-    clearTimeout(timeoutId); // Ensure timeout is cleared on error
+  } catch (error: any) {
+    if (timeoutId) clearTimeout(timeoutId); // Ensure timeout is cleared on error
     console.error(`AI API error (${openRouterKey ? 'OpenRouter' : 'DeepSeek'}):`, error);
     
     // Check if it's a timeout/abort error
-    if (error.name === 'AbortError') {
+    if (error?.name === 'AbortError') {
       console.log('⚠️ AI API request timed out after 30 seconds, using fallback plan generation');
     } else {
       console.log('⚠️ AI API failed, using fallback plan generation');
