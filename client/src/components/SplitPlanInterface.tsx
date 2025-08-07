@@ -425,7 +425,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             // Filter for the specific hobby by extracting from title
             const supabasePlans = allPlans?.filter((p: any) => {
               if (p.title) {
-                const titleMatch = p.title.match(/Learn (\w+) in/i);
+                // Updated regex to match both "Learn X in" and "Master X in" patterns
+                const titleMatch = p.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
                 const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
                 return extractedHobby === initialPlanData.hobby.toLowerCase();
               }
