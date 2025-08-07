@@ -223,8 +223,26 @@ const fixPlanDataFields = (plan: any) => {
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
-    // Initialize with welcome message immediately if no plan data
-    if (!initialPlanData) {
+    // Check for existing plan data first
+    const storedPlan = sessionStorage.getItem('activePlanData') || localStorage.getItem('lastViewedPlanData');
+    if (storedPlan && !initialPlanData) {
+      try {
+        const planData = JSON.parse(storedPlan);
+        console.log('🔄 Found stored plan, loading directly:', planData.hobby);
+        // Load the stored plan immediately
+        setTimeout(() => {
+          setPlanData(planData);
+          setCurrentStep('plan');
+          setRenderKey(prev => prev + 1);
+        }, 100);
+        return [];
+      } catch (error) {
+        console.error('Error loading stored plan:', error);
+      }
+    }
+    
+    // Initialize with welcome message if no plan data
+    if (!initialPlanData && !storedPlan) {
       console.log('🔄 Initializing messages state with welcome message');
       return [{
         id: '1',
@@ -946,9 +964,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         renderCondition: !!(finalPlanData && finalPlanData.days && finalPlanData.days.length > 0)
       });
       
+      // CRITICAL FIX: Store plan data immediately to prevent loss
+      sessionStorage.setItem('activePlanData', JSON.stringify(finalPlanData));
+      localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
+      
       setPlanData(finalPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
+      
+      console.log('✅ PLAN STORED: Plan data saved to storage and state');
       
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
