@@ -1,0 +1,925 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+24Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 1
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:13 onClick is deprecated, please use onPress
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509
+t @ _app-d5721402a0753ca4.js:1
+(anonymous) @ _app-d5721402a0753ca4.js:28
+r @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+then @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:15
+n @ _app-d5721402a0753ca4.js:15
+next @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+onNext @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40
+(anonymous) @ _app-d5721402a0753ca4.js:40
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40Understand this error
+4_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+6_app-d5721402a0753ca4.js:13 An aria-label or aria-labelledby prop is required for accessibility.
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+4_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Starting fresh - clearing any stored plans
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Introduction to Woodworking Tools",
+  "mainTask": "Learn about basic woodworking tools and their uses.",
+  "explanation": "Understanding tools is the foundation of woodworking. Today, you'll familiarize yourself with essential tools and their purposes.",
+  "howTo": [
+    "Research common woodworking tools (e.g., saw, hammer, chisel, drill, measuring tape).",
+    "Watch a short video demonstrating each tool's use.",
+    "Practice holding and handling each tool safely.",
+    "Identify the purpose of each tool in a simple project.",
+    "Organize your workspace for easy tool access."
+  ],
+  "checklist": [
+    "Measuring tape",
+    "Hammer",
+    "Hand saw",
+    "Chisel",
+    "Drill"
+  ],
+  "tips": [
+    "Always wear safety goggles when handling tools.",
+    "Start with lightweight tools to build confidence.",
+    "Keep tools clean and sharp for better performance."
+  ],
+  "commonMistakes": [
+    "Using tools incorrectly can damage them or cause injury.",
+    "Not measuring twice before cutting.",
+    "Ignoring safety precautions."
+  ],
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "youtubeVideoId": "CevxZvSJLk8",
+  "videoId": "CevxZvSJLk8",
+  "videoTitle": "Introduction to Woodworking Tools - woodworking Tutorial",
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=woodworking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ]
+}
+Console.js:61 🔧 CRITICAL FIX - First day youtubeVideoId from backend: CevxZvSJLk8
+Console.js:61 🔧 CRITICAL FIX - First day videoId from backend: CevxZvSJLk8
+Console.js:61 🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: woodworking
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "woodworking",
+  "title": "Master Woodworking in 7 Days",
+  "overview": "A beginner-friendly 7-day plan to learn woodworking basics for personal enjoyment, with practical projects and foundational skills.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Introduction to Woodworking Tools",
+      "mainTask": "Learn about basic woodworking tools and their uses.",
+      "explanation": "Understanding tools is the foundation of woodworking. Today, you'll familiarize yourself with essential tools and their purposes.",
+      "howTo": [
+        "Research common woodworking tools (e.g., saw, hammer, chisel, drill, measuring tape).",
+        "Watch a short video demonstrating each tool's use.",
+        "Practice holding and handling each tool safely.",
+        "Identify the purpose of each tool in a simple project.",
+        "Organize your workspace for easy tool access."
+      ],
+      "checklist": [
+        "Measuring tape",
+        "Hammer",
+        "Hand saw",
+        "Chisel",
+        "Drill"
+      ],
+      "tips": [
+        "Always wear safety goggles when handling tools.",
+        "Start with lightweight tools to build confidence.",
+        "Keep tools clean and sharp for better performance."
+      ],
+      "mistakesToAvoid": [
+        "Using tools incorrectly can damage them or cause injury.",
+        "Not measuring twice before cutting.",
+        "Ignoring safety precautions."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Woodworking Starter Kit Day 1",
+          "link": "https://www.amazon.com/s?k=woodworking+starter+kit&tag=wizqohobby-20",
+          "price": "$24.99"
+        }
+      ],
+      "youtubeVideoId": "CevxZvSJLk8",
+      "videoId": "CevxZvSJLk8",
+      "videoTitle": "Introduction to Woodworking Tools - woodworking Tutorial",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Measuring and Marking",
+      "mainTask": "Practice accurate measuring and marking techniques.",
+      "explanation": "Precision is key in woodworking. Today, you'll learn how to measure and mark wood accurately for cuts.",
+      "howTo": [
+        "Learn how to read a measuring tape and ruler.",
+        "Practice marking straight lines with a pencil and square.",
+        "Use a marking knife for more precise lines.",
+        "Measure and mark a piece of scrap wood for practice cuts.",
+        "Compare your marks with the actual measurements to check accuracy."
+      ],
+      "checklist": [
+        "Measuring tape",
+        "Pencil",
+        "Combination square",
+        "Marking knife",
+        "Scrap wood"
+      ],
+      "tips": [
+        "Use a sharp pencil for fine lines.",
+        "Double-check measurements before marking.",
+        "Mark the waste side of the cut line to avoid errors."
+      ],
+      "mistakesToAvoid": [
+        "Inconsistent pressure when marking lines.",
+        "Not accounting for the width of the saw blade (kerf).",
+        "Rushing measurements leads to inaccuracies."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Woodworking Practice Tools Day 2",
+          "link": "https://www.amazon.com/s?k=woodworking+practice+tools&tag=wizqohobby-20",
+          "price": "$19.99"
+        }
+      ],
+      "youtubeVideoId": "RgKAFK5djSk",
+      "videoId": "RgKAFK5djSk",
+      "videoTitle": "Measuring and Marking - woodworking Tutorial",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Basic Sawing Techniques",
+      "mainTask": "Learn how to make straight and controlled cuts with a hand saw.",
+      "explanation": "Cutting wood is a fundamental skill. Today, you'll practice sawing techniques to achieve clean, straight cuts.",
+      "howTo": [
+        "Secure your scrap wood to a workbench or sawhorse.",
+        "Mark a straight line for cutting.",
+        "Practice starting the cut with the saw at a slight angle.",
+        "Use long, steady strokes to follow the line.",
+        "Sand the cut edges smooth."
+      ],
+      "checklist": [
+        "Hand saw",
+        "Scrap wood",
+        "Workbench or sawhorse",
+        "Sandpaper",
+        "Clamps"
+      ],
+      "tips": [
+        "Let the saw do the work—don’t force it.",
+        "Keep your elbow aligned with the saw for better control.",
+        "Practice on softwood like pine for easier cuts."
+      ],
+      "mistakesToAvoid": [
+        "Sawing too quickly, causing jagged edges.",
+        "Not supporting the wood properly, leading to splintering.",
+        "Cutting off the marked line."
+      ],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Woodworking Learning Guide Day 3",
+          "link": "https://www.amazon.com/s?k=woodworking+learning+guide&tag=wizqohobby-20",
+          "price": "$15.99"
+        }
+      ],
+      "youtubeVideoId": "2Vv-BfVoq4g",
+  
+Console.js:61 🐛 First day YouTube video ID before fixPlanDataFields: CevxZvSJLk8
+Console.js:61 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+Console.js:61 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+Console.js:61 🐛 CRITICAL - Raw plan first day videoId type: string
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: CevxZvSJLk8
+Console.js:61 🔍   plan.days?.[0]?.videoId: CevxZvSJLk8
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Woodworking Tools",
+  "mainTask": "Learn about basic woodworking tools and their uses.",
+  "explanation": "Understanding tools is the foundation of woodworking. Today, you'll familiarize yourself with essential tools and their purposes.",
+  "howTo": [
+    "Research common woodworking tools (e.g., saw, hammer, chisel, drill, measuring tape).",
+    "Watch a short video demonstrating each tool's use.",
+    "Practice holding and handling each tool safely.",
+    "Identify the purpose of each tool in a simple project.",
+    "Organize your workspace for easy tool access."
+  ],
+  "checklist": [
+    "Measuring tape",
+    "Hammer",
+    "Hand saw",
+    "Chisel",
+    "Drill"
+  ],
+  "tips": [
+    "Always wear safety goggles when handling tools.",
+    "Start with lightweight tools to build confidence.",
+    "Keep tools clean and sharp for better performance."
+  ],
+  "mistakesToAvoid": [
+    "Using tools incorrectly can damage them or cause injury.",
+    "Not measuring twice before cutting.",
+    "Ignoring safety precautions."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=woodworking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "CevxZvSJLk8",
+  "videoId": "CevxZvSJLk8",
+  "videoTitle": "Introduction to Woodworking Tools - woodworking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: CevxZvSJLk8
+Console.js:61 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+Console.js:61 🔍 PLAN DEBUG: correctedPlanData structure: Object
+Console.js:61 🔍 PLAN DEBUG: About to set plan data and step to plan
+Console.js:61 🔍 PLAN DEBUG: Final plan data validation: Object
+Console.js:61 ✅ PLAN STORED: Plan data saved to storage and state
+Console.js:61 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+Console.js:61 🔍 PLAN DEBUG: planData should have days: true
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: CevxZvSJLk8
+Console.js:61 🔍   plan.days?.[0]?.videoId: CevxZvSJLk8
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Woodworking Tools",
+  "mainTask": "Learn about basic woodworking tools and their uses.",
+  "explanation": "Understanding tools is the foundation of woodworking. Today, you'll familiarize yourself with essential tools and their purposes.",
+  "howTo": [
+    "Research common woodworking tools (e.g., saw, hammer, chisel, drill, measuring tape).",
+    "Watch a short video demonstrating each tool's use.",
+    "Practice holding and handling each tool safely.",
+    "Identify the purpose of each tool in a simple project.",
+    "Organize your workspace for easy tool access."
+  ],
+  "checklist": [
+    "Measuring tape",
+    "Hammer",
+    "Hand saw",
+    "Chisel",
+    "Drill"
+  ],
+  "tips": [
+    "Always wear safety goggles when handling tools.",
+    "Start with lightweight tools to build confidence.",
+    "Keep tools clean and sharp for better performance."
+  ],
+  "mistakesToAvoid": [
+    "Using tools incorrectly can damage them or cause injury.",
+    "Not measuring twice before cutting.",
+    "Ignoring safety precautions."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=woodworking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "CevxZvSJLk8",
+  "videoId": "CevxZvSJLk8",
+  "videoTitle": "Introduction to Woodworking Tools - woodworking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(15)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: CevxZvSJLk8
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: woodworking user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754555027410-rbus71egr woodworking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - stored planData exists: true
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - stored days array: true
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - stored days length: 7
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - currentStep should be: plan
+Console.js:61 🔍 PLAN DEBUG: Force re-render check - should show plan: true
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 DUPLICATE CHECK: Found 3 total plans
+Console.js:61 ✅ DUPLICATE CHECK: No existing plan found for woodworking
+Console.js:61 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+Console.js:61 💾 SUPABASE SAVE: Fetch completed with status: 201
+Console.js:61 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+Console.js:61 ✅ Plan saved successfully, setting plan ID: 02e96a5a-7afd-45da-942e-100ad6e91d86
+Console.js:61 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 ✅ YouTube video loaded successfully: CevxZvSJLk8
+Console.js:61 🔍 PLAN DEBUG: Navigation protection disabled after plan generation
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Woodworking Tools
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "woodworking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "woodworking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: CevxZvSJLk8
+Console.js:61 🐛 Video Title: Introduction to Woodworking Tools - woodworking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Starting fresh - clearing any stored plans
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: generating
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
