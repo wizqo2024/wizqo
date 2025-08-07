@@ -289,9 +289,9 @@ Make each day build progressively on the previous day. Include practical, action
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
     timeoutId = setTimeout(() => {
-      console.log('⚠️ AI API request timed out after 30 seconds, aborting...');
+      console.log('⚠️ AI API request timed out after 15 seconds, aborting...');
       controller.abort();
-    }, 30000); // 30 second timeout
+    }, 15000); // 15 second timeout
     
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -305,7 +305,7 @@ Make each day build progressively on the previous day. Include practical, action
             content: prompt
           }
         ],
-        max_tokens: 4000,
+        max_tokens: 3000,
         temperature: 0.7
       })
     });
@@ -406,7 +406,7 @@ Make each day build progressively on the previous day. Include practical, action
     
     // Check if it's a timeout/abort error
     if (error?.name === 'AbortError') {
-      console.log('⚠️ OpenRouter API request timed out after 30 seconds, using fallback plan generation');
+      console.log('⚠️ OpenRouter API request timed out after 15 seconds, using fallback plan generation');
     } else {
       console.log('⚠️ OpenRouter API failed, using fallback plan generation');
     }
@@ -1951,8 +1951,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Use DeepSeek for intelligent hobby validation
-      console.log('🔍 Validating hobby with DeepSeek:', hobby);
+      // Use OpenRouter for intelligent hobby validation
+      console.log('🔍 Validating hobby with OpenRouter:', hobby);
       const validation = await hobbyValidator.validateHobby(hobby);
       
       if (!validation.isValid) {
