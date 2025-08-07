@@ -463,7 +463,7 @@ function getFallbackVideo(hobby: string, dayNumber: number): string {
 }
 
 // Generic video fallback when YouTube API is unavailable
-function getGenericVideoFallback(hobby: string, experience: string, day: number): string {
+export function getGenericVideoFallback(hobby: string, experience: string, day: number): string {
   // Use a deterministic approach to select from working video IDs
   // These are tested working YouTube video IDs that are appropriate for tutorials
   const workingVideoIds = [
