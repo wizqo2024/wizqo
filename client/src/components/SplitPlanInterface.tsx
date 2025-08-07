@@ -2037,12 +2037,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           }}
         >
           {/* DEBUG: Plan data structure logging */}
-          {console.log('🔍 RENDER DEBUG: planData exists:', !!planData)}
-          {console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days)}
-          {console.log('🔍 RENDER DEBUG: planData.days length:', planData?.days?.length)}
-          {console.log('🔍 RENDER DEBUG: planData.days is array:', Array.isArray(planData?.days))}
-          {console.log('🔍 RENDER DEBUG: currentStep:', currentStep)}
-          {console.log('🔍 RENDER DEBUG: will show plan:', currentStep === 'plan' && !!planData && !!planData.days && planData.days.length > 0)}
+          {(() => {
+            console.log('🔍 RENDER DEBUG: planData exists:', !!planData);
+            console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days);
+            console.log('🔍 RENDER DEBUG: planData.days length:', planData?.days?.length);
+            console.log('🔍 RENDER DEBUG: planData.days is array:', Array.isArray(planData?.days));
+            console.log('🔍 RENDER DEBUG: currentStep:', currentStep);
+            console.log('🔍 RENDER DEBUG: will show plan:', currentStep === 'plan' && !!planData && !!planData.days && planData.days.length > 0);
+            return null;
+          })()}
 
           {(planData && planData.days && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
@@ -2505,7 +2508,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             </div>
             
           ) : (
-            <div className="mb-6">
+            <div className="p-4 lg:p-6">
+              <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
@@ -2542,10 +2546,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     <p className="text-gray-700 leading-relaxed">{planData.overview}</p>
                   </CardContent>
                 </Card>
-            </div>
-
-            {/* Day Selection Buttons */}
-            <div className="mb-6">
+              </div>
+            
+              {/* Day Selection Buttons */}
+              <div className="mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
                   {Array.from({ length: planData.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
