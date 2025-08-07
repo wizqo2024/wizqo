@@ -223,7 +223,10 @@ Make each day build progressively on the previous day. Include practical, action
     
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    const timeoutId = setTimeout(() => {
+      console.log('⚠️ AI API request timed out after 30 seconds, aborting...');
+      controller.abort();
+    }, 30000); // 30 second timeout
     
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -308,8 +311,16 @@ Make each day build progressively on the previous day. Include practical, action
     return aiPlan;
 
   } catch (error) {
+    clearTimeout(timeoutId); // Ensure timeout is cleared on error
     console.error(`AI API error (${openRouterKey ? 'OpenRouter' : 'DeepSeek'}):`, error);
-    console.log('⚠️ DeepSeek API failed, using fallback plan generation');
+    
+    // Check if it's a timeout/abort error
+    if (error.name === 'AbortError') {
+      console.log('⚠️ AI API request timed out after 30 seconds, using fallback plan generation');
+    } else {
+      console.log('⚠️ AI API failed, using fallback plan generation');
+    }
+    
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 }
