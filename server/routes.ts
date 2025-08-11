@@ -2149,6 +2149,21 @@ Please provide a helpful response:`;
     }
   });
 
+  // Add missing user progress endpoint
+  app.get('/api/user-progress/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      console.log('📖 API: Fetching user progress for:', userId);
+      
+      const progress = await supabaseStorage.getUserProgress(userId);
+      console.log('📖 API: Found', progress.length, 'progress entries');
+      res.json(progress);
+    } catch (error) {
+      console.error('📖 API: Error fetching user progress:', error);
+      res.status(500).json({ error: 'Failed to fetch user progress' });
+    }
+  });
+
   app.get('/api/hobby-plans/:userId', async (req, res) => {
     try {
       const { userId } = req.params;
