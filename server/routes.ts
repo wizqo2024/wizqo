@@ -2024,6 +2024,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const apiKey = process.env.OPENROUTER_API_KEY;
+      console.log('🔍 Chat API - OpenRouter key status:', apiKey ? 'Found' : 'Missing');
       
       if (!apiKey) {
         // Fallback response if no API key
