@@ -328,6 +328,44 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Validate hobby endpoint
+app.post('/api/validate-hobby', async (req, res) => {
+  try {
+    const { hobby } = req.body;
+    
+    if (!hobby) {
+      return res.status(400).json({ error: 'Hobby is required' });
+    }
+
+    const cleanHobby = hobby.replace(/["']/g, '').trim();
+    console.log('🔍 Validating hobby:', cleanHobby);
+    
+    // Basic hobby validation for production
+    const validHobbies = [
+      'guitar', 'piano', 'violin', 'drums', 'singing', 'drawing', 'painting', 'photography',
+      'cooking', 'baking', 'gardening', 'yoga', 'dance', 'running', 'swimming', 'cycling',
+      'coding', 'programming', 'writing', 'reading', 'chess', 'knitting', 'sewing'
+    ];
+    
+    const isValid = validHobbies.includes(cleanHobby.toLowerCase()) ||
+                   validHobbies.some(h => cleanHobby.toLowerCase().includes(h) || h.includes(cleanHobby.toLowerCase()));
+    
+    const response = {
+      isValid: isValid,
+      correctedHobby: isValid ? cleanHobby.toLowerCase() : null,
+      originalHobby: cleanHobby,
+      suggestions: isValid ? [] : ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance'],
+      reasoning: isValid ? 'Valid hobby detected' : 'Please try a more specific hobby'
+    };
+    
+    console.log('🔍 Sending response:', response);
+    res.json(response);
+  } catch (error) {
+    console.error('Hobby validation error:', error);
+    res.status(500).json({ error: 'Failed to validate hobby' });
+  }
+});
+
 // Basic API routes
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
