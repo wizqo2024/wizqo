@@ -19,9 +19,12 @@ export class OpenRouterHobbyValidator {
     
     console.log('🔍 OpenRouter API Key status:', this.openRouterKey ? 'Found' : 'Missing');
     console.log('🔍 API Key length:', this.openRouterKey ? this.openRouterKey.length : 0);
+    console.log('🔍 API Key prefix:', this.openRouterKey ? this.openRouterKey.substring(0, 10) + '...' : 'None');
     
     if (!this.openRouterKey) {
       console.warn('⚠️ No OpenRouter API key found - hobby validation will be limited');
+    } else if (this.openRouterKey.length < 50) {
+      console.warn('⚠️ OpenRouter API key seems too short - might be invalid');
     }
   }
 
@@ -88,7 +91,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.openRouterKey}`,
-          'HTTP-Referer': 'https://wizqo.com',
+          'HTTP-Referer': process.env.VITE_SUPABASE_URL || 'https://wizqo.com',
           'X-Title': 'Wizqo Hobby Learning Platform'
         },
         body: JSON.stringify({
@@ -106,6 +109,8 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
 
       if (!response.ok) {
         console.error('OpenRouter API error:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('OpenRouter error details:', errorText);
         return this.fallbackValidation(userInput);
       }
 

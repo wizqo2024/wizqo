@@ -16,21 +16,21 @@ console.log('🚀 SUPABASE MODE: Using Supabase PostgreSQL database');
 // Fixed plan data field mapping function
 function fixPlanDataFields(plan: any) {
   if (!plan || !plan.days) return plan;
-  
+
   return {
     ...plan,
     days: plan.days.map((day: any) => ({
       ...day,
       // Handle "Avoid These Mistakes" section with various possible field names
-      commonMistakes: day.commonMistakes && day.commonMistakes.length > 0 
-        ? day.commonMistakes 
+      commonMistakes: day.commonMistakes && day.commonMistakes.length > 0
+        ? day.commonMistakes
         : day.mistakesToAvoid && day.mistakesToAvoid.length > 0
           ? day.mistakesToAvoid
           : day.avoidMistakes && day.avoidMistakes.length > 0
             ? day.avoidMistakes
             : [
               "Rushing through exercises without understanding concepts",
-              "Skipping practice time or cutting sessions short", 
+              "Skipping practice time or cutting sessions short",
               "Not taking notes or tracking your improvement"
             ],
       // Preserve ALL YouTube video fields from the original plan
@@ -46,14 +46,14 @@ function fixPlanDataFields(plan: any) {
 function getYouTubeVideos(hobby: string): string[] {
   const videos: { [key: string]: string[] } = {
     guitar: ["3jWRrafhO7M", "F9vWVucRJzo", "7tpQr0Xh6yM", "VJPCkS-wZR4", "kXOcz1_qnXw", "w8L3f3DWlNs", "Qa7GNfwLQJo"],
-    cooking: ["dQw4w9WgXcQ", "fBYVFCb1n6s", "L3dDHKjr_P8", "dNGgJa8r_7s", "mGz7d8xB1V8", "K2nV8JGFgh4", "u3JzYrWLJ4E"], 
+    cooking: ["dQw4w9WgXcQ", "fBYVFCb1n6s", "L3dDHKjr_P8", "dNGgJa8r_7s", "mGz7d8xB1V8", "K2nV8JGFgh4", "u3JzYrWLJ4E"],
     drawing: ["ewMksAbPdas", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk", "7BDKWT3pI_A", "vqbOW8K_bsI", "dWMc3Gz9Zd0"],
     coding: ["UB1O30fR-EE", "hdI2bqOjy3c", "t_ispmWmdjY", "W6NZfCO5SIk", "c8aAYU5m4jM", "9Yf36xdLp2A", "rfscVS0vtbw"],
     photography: ["B9FzVhw8_bY", "DJ_DIYDqWGY", "pwmJRx0eJiQ", "R8MzHddV-Z0", "mKY4gUEjAVs", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"],
     painting: ["7BDKWT3pI_A", "vqbOW8K_bsI", "dWMc3Gz9Zd0", "ewMksAbPdas", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk"],
     yoga: ["v7AYKMP6rOE", "xQgP8N7jCrE", "Vg5FeCTzB6w", "h8TKF2_p7qU", "AaF2lpO2IHY", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"]
   };
-  
+
   // REPLACE BROKEN VIDEO ID "On2LgxqJlMU" with working cooking videos
   const hobbyVideos = videos[hobby.toLowerCase()] || videos.cooking;
   return hobbyVideos;
@@ -63,7 +63,7 @@ function getYouTubeVideos(hobby: string): string[] {
 function generateContextualResponse(question: string, planData: any, hobbyContext: string): string {
   const q = question.toLowerCase().trim();
   const hobby = planData?.hobby || hobbyContext || 'hobby';
-  
+
   // Skills improvement questions
   if (q.includes('improve') || q.includes('better') || q.includes('skill') || q.includes('advance')) {
     if (hobby.toLowerCase().includes('video') || hobby.toLowerCase().includes('editing')) {
@@ -74,7 +74,7 @@ function generateContextualResponse(question: string, planData: any, hobbyContex
 • Learn keyboard shortcuts for faster workflow
 • Practice color correction and audio sync
 
-**Intermediate (Days 3-5):**  
+**Intermediate (Days 3-5):**
 • Advanced effects and color grading techniques
 • Audio mixing and sound design principles
 • Storytelling through pacing and rhythm
@@ -104,37 +104,37 @@ Your 7-day plan covers all these progressively - each day builds on the previous
     }
     return `Here are some essential ${hobby} learning tips:\n\n1. Start with proper fundamentals - don't rush the basics\n2. Practice consistently, even 15-20 minutes daily\n3. Be patient with yourself and celebrate small wins\n4. Take notes and track your progress\n\nYour plan has specific tips for each day too!`;
   }
-  
+
   // Greetings
   if (q.includes('hi') || q.includes('hello') || q.includes('hey')) {
     return `Hello! I'm here to help you with your ${hobby} learning journey. You can ask me about specific techniques, daily activities, equipment, time management, or any questions about your 7-day plan. What would you like to know?`;
   }
-  
+
   // How to start
   if (q.includes('how') && (q.includes('start') || q.includes('begin'))) {
     return `Great question! Start with Day 1 - that's where all the fundamentals are covered. Click on 'Day 1' in your plan above to see detailed instructions, video tutorial, and checklist. Take your time with the basics!`;
   }
-  
+
   // Equipment questions
   if (q.includes('equipment') || q.includes('need') || q.includes('buy') || q.includes('tool')) {
     return `Check the 'What You'll Need' section in Day 1 - it lists everything required to get started with ${hobby}. Most hobbies can be started with basic, affordable equipment. Focus on learning first before investing in expensive gear!`;
   }
-  
+
   // Time questions
   if (q.includes('time') || q.includes('long') || q.includes('minutes') || q.includes('hour')) {
     return `Your ${hobby} plan is designed for manageable daily sessions. The most important thing is consistent practice - even 15-20 minutes daily can make a huge difference! Each day's activities are structured to be effective within your available time.`;
   }
-  
+
   // Progress questions
   if (q.includes('progress') || q.includes('track')) {
     return `Your progress is automatically saved! You can mark days as complete and track your ${hobby} learning journey. Visit your dashboard anytime to see your progress and continue where you left off.`;
   }
-  
+
   // Weather or unrelated questions
   if (q.includes('weather') || q.includes('rain') || q.includes('sun')) {
     return `I'm focused on helping you with your ${hobby} learning plan! While I can't help with weather, I can answer questions about your daily activities, techniques, equipment, or anything related to your 7-day journey. What would you like to know about ${hobby}?`;
   }
-  
+
   // Default response
   return `I'm here to help with your ${hobby} learning plan! You can ask me about:\n• Getting started with Day 1\n• Daily activities and techniques\n• Equipment and setup\n• Practice tips and techniques\n• Time management\n• Progress tracking\n\nWhat aspect of your ${hobby} learning would you like help with?`;
 }
@@ -143,7 +143,7 @@ Your 7-day plan covers all these progressively - each day builds on the previous
 function cleanJsonResponse(content: string): string {
   // Remove markdown code blocks if present
   let cleaned = content.trim();
-  
+
   // Remove ```json and ``` markers
   if (cleaned.startsWith('```json')) {
     cleaned = cleaned.replace(/^```json\s*/, '');
@@ -154,21 +154,21 @@ function cleanJsonResponse(content: string): string {
   if (cleaned.endsWith('```')) {
     cleaned = cleaned.replace(/\s*```$/, '');
   }
-  
+
   return cleaned.trim();
 }
 
 // Use OpenRouter AI to find relevant videos when YouTube API fails
 async function getAIRecommendedVideo(hobby: string, dayNumber: number, dayTitle: string, mainTask: string): Promise<string | null> {
   const openRouterKey = process.env.OPENROUTER_API_KEY;
-  
+
   if (!openRouterKey) {
     console.log('⚠️ No OpenRouter API key for video search');
     return null;
   }
 
   try {
-    const prompt = `Find a YouTube video for learning ${hobby}. 
+    const prompt = `Find a YouTube video for learning ${hobby}.
 
 Specific topic for Day ${dayNumber}: ${dayTitle}
 Main task: ${mainTask}
@@ -180,7 +180,7 @@ Return ONLY a JSON object with this structure:
   "reasoning": "Why this video fits the topic"
 }
 
-IMPORTANT: 
+IMPORTANT:
 - Only return real, working YouTube video IDs
 - Make sure the video is relevant to the specific day topic
 - Prefer beginner-friendly tutorial videos under 45 minutes
@@ -191,13 +191,14 @@ IMPORTANT:
       headers: {
         'Authorization': `Bearer ${openRouterKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': process.env.VITE_SUPABASE_URL || 'http://localhost:5000',
+        'HTTP-Referer': process.env.VITE_SUPABASE_URL || 'https://wizqo.com',
         'X-Title': 'Wizqo Hobby Learning'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'deepseek/deepseek-chat',
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 200
+        max_tokens: 200,
+        temperature: 0.3
       })
     });
 
@@ -208,7 +209,7 @@ IMPORTANT:
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content;
-    
+
     if (!content) {
       console.log('⚠️ No content from OpenRouter video search');
       return null;
@@ -217,14 +218,14 @@ IMPORTANT:
     // Parse AI response
     const cleanedContent = cleanJsonResponse(content);
     const videoData = JSON.parse(cleanedContent);
-    
+
     if (videoData.videoId && videoData.videoId !== 'null') {
       console.log(`✅ AI found video for ${hobby} day ${dayNumber}: ${videoData.title} (${videoData.videoId})`);
       return videoData.videoId;
     }
-    
+
     return null;
-    
+
   } catch (error) {
     console.log(`❌ Error in AI video search:`, error);
     return null;
@@ -234,16 +235,16 @@ IMPORTANT:
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   console.log('🔧 generateAIPlan called for:', hobby);
-  
+
   // SPEED OPTIMIZATION: Use fast fallback plan generation for instant results
   console.log('⚡ Using fast fallback plan generation for instant results');
   return generateFallbackPlan(hobby, experience, timeAvailable, goal);
 
   // Declare timeoutId outside try block so it's accessible in catch
   let timeoutId: NodeJS.Timeout | null = null;
-  
+
   try {
-    const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}. 
+    const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
 
 User details:
 - Experience level: ${experience}
@@ -277,21 +278,22 @@ Make each day build progressively on the previous day. Include practical, action
 
     // Use OpenRouter API
     const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    
+    const openRouterKey = process.env.OPENROUTER_API_KEY; // Ensure key is accessed here
+
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${openRouterKey}`,
       'HTTP-Referer': 'https://wizqo.com',
       'X-Title': 'Wizqo Hobby Learning Platform'
     };
-    
+
     // Add timeout to prevent hanging requests
     const controller = new AbortController();
     timeoutId = setTimeout(() => {
       console.log('⚠️ AI API request timed out after 5 seconds, aborting...');
       controller.abort();
     }, 5000); // 5 second timeout for fast response
-    
+
     console.log('🔧 Making API request to OpenRouter...');
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -309,9 +311,9 @@ Make each day build progressively on the previous day. Include practical, action
         temperature: 0.7
       })
     });
-    
+
     console.log('🔧 API response received, status:', response.status);
-    
+
     clearTimeout(timeoutId);
 
     if (!response.ok) {
@@ -321,12 +323,12 @@ Make each day build progressively on the previous day. Include practical, action
     console.log('🔧 Parsing API response...');
     const data = await response.json();
     const content = data.choices[0]?.message?.content;
-    
+
     if (!content) {
       console.log('❌ No content in API response');
       throw new Error('No content in API response');
     }
-    
+
     console.log('🔧 Content received, parsing JSON...');
 
     // Clean the response - OpenRouter sometimes wraps JSON in markdown code blocks
@@ -334,7 +336,7 @@ Make each day build progressively on the previous day. Include practical, action
     console.log('🔧 Cleaned content, attempting JSON parse...');
     const aiPlan = JSON.parse(cleanedContent);
     console.log('🔧 JSON parsed successfully, processing videos...');
-    
+
     // Add YouTube API videos to each day with quality filtering
     // SPEED OPTIMIZATION: Check if YouTube API is available first
     let isYouTubeAPIWorking = true;
@@ -353,12 +355,12 @@ Make each day build progressively on the previous day. Include practical, action
     // SPEED OPTIMIZATION: Use fast video assignment instead of slow API calls
     console.log('⚡ Using fast video assignment for instant plan generation');
     const hobbyVideos = getYouTubeVideos(hobby);
-    
+
     aiPlan.days = aiPlan.days.map((day: any, index: number) => {
       // Use pre-selected videos for speed
       const targetedVideoId = hobbyVideos[index % hobbyVideos.length];
       const videoDetails = getVideoDetails(hobby, experience, day.day);
-      
+
       return {
         ...day,
         // Ensure commonMistakes field exists (AI may use different field names)
@@ -381,30 +383,30 @@ Make each day build progressively on the previous day. Include practical, action
     console.log('🔍 AI PLAN GENERATED - First day youtubeVideoId:', aiPlan.days[0].youtubeVideoId);
     console.log('🔍 AI PLAN GENERATED - First day videoId:', aiPlan.days[0].videoId);
     console.log('🔍 AI PLAN COMPLETE FIRST DAY:', JSON.stringify(aiPlan.days[0], null, 2));
-    
+
     // Ensure hobby field and correct difficulty mapping are included in the response
     aiPlan.hobby = hobby;
     aiPlan.difficulty = experience === 'some' ? 'intermediate' : experience;
     aiPlan.overview = aiPlan.overview || aiPlan.description || `A comprehensive ${hobby} learning plan tailored for ${experience === 'some' ? 'intermediate' : experience} learners`;
-    
+
     // Force professional title format if AI generated old format
     if (aiPlan.title && aiPlan.title.includes('Learning Journey')) {
       aiPlan.title = `Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days`;
     }
-    
+
     return aiPlan;
 
   } catch (error: any) {
     if (timeoutId) clearTimeout(timeoutId); // Ensure timeout is cleared on error
     console.error('OpenRouter API error:', error);
-    
+
     // Check if it's a timeout/abort error
     if (error?.name === 'AbortError') {
       console.log('⚠️ OpenRouter API request timed out after 5 seconds, using fast fallback plan generation');
     } else {
       console.log('⚠️ OpenRouter API failed, using fast fallback plan generation');
     }
-    
+
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 }
@@ -451,7 +453,7 @@ function getHobbyProduct(hobby: string, day: number) {
       { title: "Dance Workout DVD", link: "https://www.amazon.com/dp/B0018XFMUU?tag=wizqohobby-20", price: "$16.99" }
     ]
   };
-  
+
   const products = hobbyProducts[hobby] || [
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Starter Kit Day 1`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: "$24.99" },
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Practice Tools Day 2`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+practice+tools&tag=wizqohobby-20`, price: "$19.99" },
@@ -461,7 +463,7 @@ function getHobbyProduct(hobby: string, day: number) {
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Organizer Day 6`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+organizer&tag=wizqohobby-20`, price: "$22.99" },
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Reference Book Day 7`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+reference+book&tag=wizqohobby-20`, price: "$18.99" }
   ];
-  
+
   return products[day - 1] || products[0];
 }
 
@@ -474,34 +476,34 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   if (!validation.isValid) {
     throw new Error(`"${hobby}" doesn't seem like a hobby. Please enter a specific hobby you'd like to learn (e.g., guitar, cooking, photography, yoga, coding).`);
   }
-  
+
   hobby = validation.normalizedHobby;
   const days = [];
-  
+
   // Generate comprehensive, hobby-specific daily plans
   const dailyPlans = generateHobbySpecificPlans(hobby, experience, timeAvailable);
-  
+
   for (let i = 0; i < 7; i++) {
     const dayNumber = i + 1;
     const dayPlan = dailyPlans[i];
-    
+
     // Use YouTube API for quality video selection
     const targetedVideoId = await getBestVideoForDay(
-      hobby, 
-      experience, 
-      dayNumber, 
-      dayPlan.title, 
+      hobby,
+      experience,
+      dayNumber,
+      dayPlan.title,
       dayPlan.mainTask
     );
     console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
-    
+
     // Final verification: If we still get the problematic video, use a proper fallback
     const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
     console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
     console.log(`🔧 VIDEO REPLACEMENT: ${targetedVideoId} -> ${finalVideoId}`);
-    
+
     const videoDetails = getVideoDetails(hobby, experience, dayNumber);
-    
+
     days.push({
       day: dayNumber,
       title: dayPlan.title,
@@ -537,11 +539,11 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     totalDays: 7,
     days: days
   };
-  
+
   console.log('🔍 FALLBACK PLAN GENERATED - First day mistakesToAvoid:', plan.days[0].mistakesToAvoid);
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
   console.log('🔍 FALLBACK PLAN GENERATED - First day videoId:', plan.days[0].videoId);
-  
+
   // CRITICAL FIX: Apply video verification to final plan
   for (let i = 0; i < plan.days.length; i++) {
     if (plan.days[i].youtubeVideoId === 'dQw4w9WgXcQ') {
@@ -551,10 +553,10 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     }
   }
   console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
-  
+
   // Debug: Log complete first day structure
   console.log('🔍 COMPLETE FIRST DAY DATA:', JSON.stringify(plan.days[0], null, 2));
-  
+
   // Final debug: Log complete plan response structure
   console.log('🔍 FINAL PLAN RESPONSE STRUCTURE:', {
     hobby: plan.hobby,
@@ -563,7 +565,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     firstDayVideoId: plan.days[0].youtubeVideoId,
     firstDayVideoIdAlt: plan.days[0].videoId
   });
-  
+
   return plan;
 }
 
@@ -571,7 +573,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
 function generateHobbySpecificPlans(hobby: string, experience: string, timeAvailable: string) {
   const isBeginnerLevel = experience === 'none' || experience === 'beginner';
   const isIntermediateLevel = experience === 'some' || experience === 'intermediate';
-  
+
   // Hobby-specific comprehensive plans
   const hobbyPlans: { [key: string]: any[] } = {
     guitar: [
@@ -601,7 +603,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
           },
           {
             step: "Proper Posture Training",
-            time: "15 minutes", 
+            time: "15 minutes",
             description: "🪑 Sit with back straight, guitar resting on your right leg (if right-handed). Keep shoulders relaxed, left hand thumb behind the neck, not wrapped around. Practice holding position for 2-minute intervals."
           },
           {
@@ -612,7 +614,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         ],
         progressMilestones: [
           "🎵 Can tune guitar independently using tuner",
-          "🪑 Maintains proper posture for 5+ minutes comfortably", 
+          "🪑 Maintains proper posture for 5+ minutes comfortably",
           "🎯 Forms G major chord with clear sound on all strings",
           "🔄 Transitions between relaxed and playing position smoothly"
         ],
@@ -837,7 +839,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         ]
       }
     ],
-    
+
     cooking: [
       {
         title: "Kitchen Fundamentals and Safety",
@@ -1064,7 +1066,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         ]
       }
     ],
-    
+
     drawing: [
       {
         title: "Drawing Fundamentals and Basic Shapes",
@@ -1291,7 +1293,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         ]
       }
     ],
-    
+
     'game development': [
       {
         title: "Game Development Fundamentals & Setup",
@@ -1320,7 +1322,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
           },
           {
             step: "Unity Interface Mastery",
-            time: "30 minutes", 
+            time: "30 minutes",
             description: "🎮 Explore Unity's interface: Scene view, Game view, Project window, Inspector. Learn basic navigation (WASD + mouse). Create and manipulate basic objects (cubes, spheres). Understand parent-child relationships in hierarchy."
           },
           {
@@ -1331,7 +1333,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         ],
         progressMilestones: [
           "🚀 Unity environment set up and functioning properly",
-          "🎮 Can navigate Unity interface confidently", 
+          "🎮 Can navigate Unity interface confidently",
           "🎯 Created first interactive game object with script",
           "🔄 Successfully tested game in play mode"
         ],
@@ -1433,13 +1435,13 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       }
     ]
   };
-  
+
   // Get hobby-specific plans or create generic detailed plans
   const specificPlans = hobbyPlans[hobby.toLowerCase()];
   if (specificPlans) {
     return specificPlans;
   }
-  
+
   // Comprehensive detailed fallback for any hobby
   return [
     {
@@ -1556,7 +1558,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         `Practice yesterday's fundamentals until they feel more natural`,
         `Learn 2-3 new core techniques building on foundational knowledge`,
         `Complete exercises specifically designed to develop muscle memory`,
-        `Practice techniques in isolation before combining with other skills`,
+        `Practice techniques both individually and in simple combinations`,
         `Work on timing and rhythm if applicable to your chosen hobby`,
         `Record practice session to review technique and identify improvements`
       ],
@@ -1831,7 +1833,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       howTo: [
         `Combine all learned techniques into fluid, integrated sequences`,
         `Complete advanced projects that demonstrate comprehensive skill`,
-        `Practice performing under slightly increased pressure or challenge`,
+        `Practice handling mistakes gracefully and continuing performance`,
         `Work on transitions and connections between different techniques`,
         `Demonstrate ability to adapt and problem-solve in complex situations`,
         `Prepare a demonstration of your skills for others or for documentation`
@@ -1938,17 +1940,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/generate-plan', async (req, res) => {
     try {
       const { hobby, experience, timeAvailable, goal, userId, force } = req.body;
-      
+
       if (!hobby || !experience || !timeAvailable) {
-        return res.status(400).json({ 
-          error: 'Missing required fields: hobby, experience, timeAvailable' 
+        return res.status(400).json({
+          error: 'Missing required fields: hobby, experience, timeAvailable'
         });
       }
 
       // Use OpenRouter for intelligent hobby validation
       console.log('🔍 Validating hobby with OpenRouter:', hobby);
       const validation = await hobbyValidator.validateHobby(hobby);
-      
+
       if (!validation.isValid) {
         return res.status(400).json({
           error: `I'm not sure "${hobby}" is a hobby I can help with right now.`,
@@ -1957,32 +1959,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
           invalidHobby: hobby
         });
       }
-      
+
       const normalizedHobby = validation.correctedHobby || hobby;
-      
+
       // Check for duplicate plans if user is authenticated and not forcing new plan
       if (userId && !force) {
         console.log('🔍 DUPLICATE CHECK: Checking for existing plans for user:', userId, 'hobby:', normalizedHobby);
         try {
           const existingPlans = await supabaseStorage.getHobbyPlansByUserId(userId);
           console.log('🔍 DUPLICATE CHECK: Found', existingPlans.length, 'existing plans');
-          
+
           const duplicatePlan = existingPlans.find((plan: any) => {
             const planHobby = plan.hobby_name?.toLowerCase() || '';
             const normalizedPlanHobby = planHobby.trim();
             const checkHobby = normalizedHobby.toLowerCase().trim();
-            
+
             console.log('🔍 DUPLICATE CHECK: Comparing', normalizedPlanHobby, 'vs', checkHobby);
-            
+
             // Exact match
             if (normalizedPlanHobby === checkHobby) return true;
-            
+
             // Handle variations (e.g., "guitar" vs "guitar playing")
             if (normalizedPlanHobby.includes(checkHobby) || checkHobby.includes(normalizedPlanHobby)) return true;
-            
+
             return false;
           });
-          
+
           if (duplicatePlan) {
             console.log('🚨 DUPLICATE DETECTED: Found existing plan for', normalizedHobby, 'with ID:', duplicatePlan.id);
             return res.status(409).json({
@@ -1996,14 +1998,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
               hobby: normalizedHobby
             });
           }
-          
+
           console.log('✅ DUPLICATE CHECK: No existing plan found for', normalizedHobby);
         } catch (error) {
           console.error('❌ DUPLICATE CHECK: Error checking for duplicates:', error);
           // Continue with plan generation if duplicate check fails
         }
       }
-      
+
       console.log('🚀 Starting plan generation for:', normalizedHobby);
       const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
       console.log('✅ Plan generation completed successfully');
@@ -2018,14 +2020,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/chat', async (req, res) => {
     try {
       const { question, planData, hobbyContext } = req.body;
-      
+
       if (!question) {
         return res.status(400).json({ error: 'Question is required' });
       }
 
       const apiKey = process.env.OPENROUTER_API_KEY;
       console.log('🔍 Chat API - OpenRouter key status:', apiKey ? 'Found' : 'Missing');
-      
+
       if (!apiKey) {
         // Fallback response if no API key
         const fallbackResponse = generateContextualResponse(question, planData, hobbyContext);
@@ -2034,22 +2036,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Build context from plan data
       let context = `You are a helpful AI assistant for Wizqo, a 7-day hobby learning platform. `;
-      
+
       if (planData && planData.hobby) {
         context += `The user is learning ${planData.hobby} over 7 days. `;
-        
+
         if (planData.days && planData.days.length > 0) {
           const currentDay = planData.days.find((day: any) => day.day === 1) || planData.days[0];
           if (currentDay) {
             context += `Today's focus is "${currentDay.title}" with the main task: ${currentDay.mainTask}. `;
-            
+
             if (currentDay.tips && currentDay.tips.length > 0) {
               context += `Key tips include: ${currentDay.tips.join(', ')}. `;
             }
           }
         }
       }
-      
+
       context += `Provide helpful, specific advice about the user's learning journey. Keep responses conversational but informative.`;
 
       const prompt = `${context}
@@ -2088,11 +2090,11 @@ Please provide a helpful response:`;
       }
 
       const data = await response.json();
-      const aiResponse = data.choices?.[0]?.message?.content || 
+      const aiResponse = data.choices?.[0]?.message?.content ||
         `I'm here to help with your ${hobbyContext || 'hobby'} learning plan! What would you like to know?`;
 
       res.json({ response: aiResponse });
-      
+
     } catch (error) {
       console.error('Error in AI chat:', error);
       const { question, planData, hobbyContext } = req.body;
@@ -2105,7 +2107,7 @@ Please provide a helpful response:`;
   app.post('/api/validate-hobby', async (req, res) => {
     try {
       const { hobby } = req.body;
-      
+
       if (!hobby) {
         return res.status(400).json({ error: 'Hobby is required' });
       }
@@ -2114,7 +2116,7 @@ Please provide a helpful response:`;
       console.log('🔍 Validating hobby:', cleanHobby);
       const validation = await hobbyValidator.validateHobby(cleanHobby);
       console.log('🔍 Server validation result:', validation);
-      
+
       // Ensure proper response format for frontend
       const response = {
         isValid: validation.isValid,
@@ -2123,7 +2125,7 @@ Please provide a helpful response:`;
         suggestions: validation.suggestions || [],
         reasoning: validation.reasoning
       };
-      
+
       console.log('🔍 Sending response to frontend:', response);
       res.json(response);
     } catch (error) {
@@ -2140,7 +2142,7 @@ Please provide a helpful response:`;
       if (!user_id) {
         return res.status(400).json({ error: 'user_id is required' });
       }
-      
+
       console.log('📖 API: Fetching hobby plans for user:', user_id);
       const plans = await supabaseStorage.getHobbyPlansByUserId(user_id as string);
       console.log('📖 API: Found', plans?.length || 0, 'hobby plans');
@@ -2151,17 +2153,13 @@ Please provide a helpful response:`;
     }
   });
 
-  
-
-  
-
   app.post('/api/hobby-plans', async (req, res) => {
     try {
       const { user_id, hobby, title, overview, plan_data } = req.body;
       console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
       console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
       console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
-      
+
       // Validate the request data
       const validatedData = insertHobbyPlanSchema.parse({
         userId: user_id,
@@ -2170,7 +2168,7 @@ Please provide a helpful response:`;
         overview,
         planData: plan_data
       });
-      
+
       const plan = await supabaseStorage.createHobbyPlan(validatedData);
       console.log('📝 DATABASE: Created plan with ID:', plan.id);
       res.json(plan);
@@ -2189,19 +2187,19 @@ Please provide a helpful response:`;
     try {
       const { id } = req.params;
       const { user_id } = req.query;
-      
+
       if (!user_id) {
         return res.status(400).json({ error: 'user_id is required' });
       }
-      
+
       console.log('🗑️ API: Deleting hobby plan', id, 'for user:', user_id);
-      
+
       // Delete progress records first
       await supabaseStorage.deleteUserProgress(id, user_id as string);
-      
+
       // Delete the hobby plan
       await supabaseStorage.deleteHobbyPlan(id, user_id as string);
-      
+
       console.log('🗑️ API: Successfully deleted hobby plan', id);
       res.json({ success: true });
     } catch (error) {
@@ -2215,7 +2213,7 @@ Please provide a helpful response:`;
     try {
       const { userId } = req.params;
       console.log('📖 API: Fetching user progress for:', userId);
-      
+
       const progress = await supabaseStorage.getUserProgress(userId);
       console.log('📖 API: Found', progress.length, 'progress entries');
       res.json(progress);
@@ -2229,7 +2227,7 @@ Please provide a helpful response:`;
     try {
       const { user_id, plan_id, completed_days, current_day, unlocked_days } = req.body;
       console.log('📝 DATABASE: Creating/updating user progress for:', user_id, 'plan:', plan_id);
-      
+
       // Validate the request data
       const validatedData = insertUserProgressSchema.parse({
         userId: user_id,
@@ -2238,7 +2236,7 @@ Please provide a helpful response:`;
         currentDay: current_day,
         unlockedDays: unlocked_days
       });
-      
+
       const progress = await supabaseStorage.createOrUpdateUserProgress(validatedData);
       console.log('📝 DATABASE: Updated progress for plan:', plan_id);
       res.json(progress);
@@ -2257,28 +2255,28 @@ Please provide a helpful response:`;
     try {
       // Test Supabase database connection
       const result = await supabaseStorage.getUserProfile('test');
-      const isHealthy = true;
+      const isHealthy = true; // Assuming this check always passes for now
       if (isHealthy) {
-        res.json({ 
-          status: 'healthy', 
+        res.json({
+          status: 'healthy',
           database: 'supabase',
           independent: true,
-          message: 'Database is connected and running on Supabase PostgreSQL' 
+          message: 'Database is connected and running on Supabase PostgreSQL'
         });
       } else {
-        res.status(500).json({ 
-          status: 'unhealthy', 
+        res.status(500).json({
+          status: 'unhealthy',
           database: 'supabase',
           independent: true,
-          message: 'Database connection failed' 
+          message: 'Database connection failed'
         });
       }
     } catch (error) {
       console.error('Health check error:', error);
-      res.status(500).json({ 
-        status: 'error', 
+      res.status(500).json({
+        status: 'error',
         message: 'Health check failed',
-        independent: true 
+        independent: true
       });
     }
   });
@@ -2287,11 +2285,11 @@ Please provide a helpful response:`;
   app.post('/api/migrate-data', async (req, res) => {
     try {
       console.log('🔄 Starting data migration from Replit to Supabase...');
-      
+
       // Since you have existing data in Replit, but want to use Supabase for independence
       // This endpoint helps verify the migration is complete
       const userProfileExists = await supabaseStorage.getUserProfile('773c3f18-025a-432d-ae3d-fa13be3faef8');
-      
+
       if (!userProfileExists) {
         // Create user profile in Supabase
         await supabaseStorage.createUserProfile({
@@ -2302,10 +2300,10 @@ Please provide a helpful response:`;
         });
         console.log('✅ User profile migrated to Supabase');
       }
-      
-      res.json({ 
-        success: true, 
-        message: 'Data migration completed - your website is now 100% independent!' 
+
+      res.json({
+        success: true,
+        message: 'Data migration completed - your website is now 100% independent!'
       });
     } catch (error) {
       console.error('Migration error:', error);
@@ -2317,15 +2315,15 @@ Please provide a helpful response:`;
   app.post('/api/contact', async (req, res) => {
     try {
       const { name, email, subject, message } = req.body;
-      
+
       if (!name || !email || !subject || !message) {
-        return res.status(400).json({ 
-          error: 'All fields are required: name, email, subject, message' 
+        return res.status(400).json({
+          error: 'All fields are required: name, email, subject, message'
         });
       }
 
       const emailSent = await sendContactEmail({ name, email, subject, message });
-      
+
       if (emailSent) {
         res.json({ success: true, message: 'Message sent successfully!' });
       } else {
