@@ -61,6 +61,10 @@ export class SupabaseBackendStorage implements SupabaseStorage {
     return data;
   }
 
+  async getHobbyPlans(userId: string): Promise<any[]> {
+    return this.getHobbyPlansByUserId(userId);
+  }
+
   async getHobbyPlansByUserId(userId: string): Promise<any[]> {
     const { data, error } = await supabaseAdmin
       .from('hobby_plans')
@@ -80,7 +84,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
       .from('hobby_plans')
       .insert({
         user_id: plan.userId || plan.user_id,
-        hobby_name: plan.hobby,
+        hobby: plan.hobby || plan.hobby_name, // Handle both field names
         title: plan.title,
         overview: plan.overview,
         plan_data: plan.planData || plan.plan_data

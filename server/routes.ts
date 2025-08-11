@@ -2132,6 +2132,7 @@ Please provide a helpful response:`;
   });
 
   // Database-backed hobby plans endpoints
+  // Get hobby plans for a specific user
   app.get('/api/hobby-plans', async (req, res) => {
     try {
       const { user_id } = req.query;
@@ -2149,34 +2150,9 @@ Please provide a helpful response:`;
     }
   });
 
-  // Add missing user progress endpoint
-  app.get('/api/user-progress/:userId', async (req, res) => {
-    try {
-      const { userId } = req.params;
-      console.log('📖 API: Fetching user progress for:', userId);
-      
-      const progress = await supabaseStorage.getUserProgress(userId);
-      console.log('📖 API: Found', progress.length, 'progress entries');
-      res.json(progress);
-    } catch (error) {
-      console.error('📖 API: Error fetching user progress:', error);
-      res.status(500).json({ error: 'Failed to fetch user progress' });
-    }
-  });
+  
 
-  app.get('/api/hobby-plans/:userId', async (req, res) => {
-    try {
-      const { userId } = req.params;
-      console.log('📖 API: Fetching hobby plans for user:', userId);
-      
-      const plans = await supabaseStorage.getHobbyPlansByUserId(userId);
-      console.log('📖 API: Found', plans?.length || 0, 'plans');
-      res.json(plans || []);
-    } catch (error) {
-      console.error('📖 API: Error fetching hobby plans:', error);
-      res.status(500).json({ error: 'Failed to fetch hobby plans' });
-    }
-  });
+  
 
   app.post('/api/hobby-plans', async (req, res) => {
     try {
