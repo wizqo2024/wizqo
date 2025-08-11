@@ -1,0 +1,75 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: 
+index-CaH9-3ku.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-CaH9-3ku.js:217 🔄 Starting completely fresh - no existing plans found
+index-CaH9-3ku.js:217 🔄 Initializing messages state with welcome message
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+/api/validate-hobby:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: experience
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: experience
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: experience
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: currentStep: experience
+index-CaH9-3ku.js:255 🔍 RENDER DEBUG: will show plan: false
