@@ -17,6 +17,9 @@ export class OpenRouterHobbyValidator {
     this.openRouterKey = process.env.OPENROUTER_API_KEY || '';
     this.baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
     
+    console.log('🔍 OpenRouter API Key status:', this.openRouterKey ? 'Found' : 'Missing');
+    console.log('🔍 API Key length:', this.openRouterKey ? this.openRouterKey.length : 0);
+    
     if (!this.openRouterKey) {
       console.warn('⚠️ No OpenRouter API key found - hobby validation will be limited');
     }
