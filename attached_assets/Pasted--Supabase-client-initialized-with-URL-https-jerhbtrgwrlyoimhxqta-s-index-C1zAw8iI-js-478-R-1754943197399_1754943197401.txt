@@ -1,0 +1,694 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-C1zAw8iI.js:478 🔧 Route change detected - pathname: / hash: 
+index-C1zAw8iI.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-C1zAw8iI.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-C1zAw8iI.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-C1zAw8iI.js:478 🔧 Route change detected - pathname: / hash: #/dashboard
+index-C1zAw8iI.js:462 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+/api/hobby-plans?user_id=773c3f18-025a-432d-ae3d-fa13be3faef8:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+/api/user-progress/773c3f18-025a-432d-ae3d-fa13be3faef8:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-C1zAw8iI.js:462 📋 Found localStorage plans: 1
+index-C1zAw8iI.js:462 📋 Total plans loaded: 1
+index-C1zAw8iI.js:462 🎨 Dashboard AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:462 🎨 Dashboard AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:462 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:478 🔧 Route change detected - pathname: / hash: #/plan
+index-C1zAw8iI.js:478 🔄 Restoring plan from currentPlanData: Leather crafting
+index-C1zAw8iI.js:478 ✅ Using plan data from state: Leather crafting
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: false
+index-C1zAw8iI.js:219 🔄 Initializing with existing plan data: Leather crafting
+index-C1zAw8iI.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-C1zAw8iI.js:217 🔍 plan.days length: 7
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 First day youtubeVideoId from different paths:
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.youtubeVideoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.videoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Leather crafting Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in leather crafting. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical leather crafting scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Leather crafting equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Leather crafting Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=ZIgxsMtjE8Q"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Leather crafting Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "ZIgxsMtjE8Q",
+  "videoId": "ZIgxsMtjE8Q",
+  "videoTitle": "Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-C1zAw8iI.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-C1zAw8iI.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-C1zAw8iI.js:217 🔍 FRONTEND - videoId value type: string
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-C1zAw8iI.js:219 🔧 Applied field mapping fix to initial plan data
+index-C1zAw8iI.js:219 🔍 Checking for fresh plan marker: NOT FOUND
+index-C1zAw8iI.js:219 🔍 User authenticated, looking for plan ID for existing hobby: Leather crafting
+index-C1zAw8iI.js:219 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-C1zAw8iI.js:219 🔍 Using direct API to find plans for hobby: Leather crafting
+index-C1zAw8iI.js:219 🔄 Initializing with existing plan data: Leather crafting
+index-C1zAw8iI.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-C1zAw8iI.js:217 🔍 plan.days length: 7
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 First day youtubeVideoId from different paths:
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.youtubeVideoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.videoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Leather crafting Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in leather crafting. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical leather crafting scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Leather crafting equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Leather crafting Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=ZIgxsMtjE8Q"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Leather crafting Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "ZIgxsMtjE8Q",
+  "videoId": "ZIgxsMtjE8Q",
+  "videoTitle": "Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-C1zAw8iI.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-C1zAw8iI.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-C1zAw8iI.js:217 🔍 FRONTEND - videoId value type: string
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-C1zAw8iI.js:219 🔧 Applied field mapping fix to initial plan data
+index-C1zAw8iI.js:219 🧹 Clearing any stale plan markers for old plan
+index-C1zAw8iI.js:228 🔍 User authenticated, searching for existing plan ID...
+index-C1zAw8iI.js:228 📍 Database-only progress tracking - no localStorage used
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-C1zAw8iI.js:219 🔍 Direct Supabase session check: plan-1754943161291-bx8ovt4i2 Leather crafting
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:219 🔍 Direct API query result: Object
+index-C1zAw8iI.js:219 🔍 All user plans: Array(3)
+index-C1zAw8iI.js:219 🔍 Filtered plans for hobby: Array(0)
+index-C1zAw8iI.js:219 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+index-C1zAw8iI.js:219 🚨 No plans found for hobby: Leather crafting
+index-C1zAw8iI.js:219 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Leather crafting
+index-C1zAw8iI.js:219 🚨 Available plan titles: Array(3)
+index-C1zAw8iI.js:219 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:217 ✅ YouTube video loaded successfully: ZIgxsMtjE8Q
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: No plan ID available - checking storage...
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DEBUG: Object
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DEBUG: Object
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 2
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Core Techniques - Day 2
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: fyvBE4TsDYs
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: Car Wrapping MISTAKES For Beginners (Simple Fix)
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:217 ✅ YouTube video loaded successfully: fyvBE4TsDYs
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: No plan ID available - checking storage...
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DEBUG: Object
+index-C1zAw8iI.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-C1zAw8iI.js:255Understand this warning
+index-C1zAw8iI.js:255 📝 DEBUG: Object
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 2
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Core Techniques - Day 2
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: fyvBE4TsDYs
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: Car Wrapping MISTAKES For Beginners (Simple Fix)
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 2
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Core Techniques - Day 2
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: fyvBE4TsDYs
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: Car Wrapping MISTAKES For Beginners (Simple Fix)
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 2
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Core Techniques - Day 2
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: completed
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: fyvBE4TsDYs
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: Car Wrapping MISTAKES For Beginners (Simple Fix)
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:478 🔧 Route change detected - pathname: / hash: #/dashboard
+index-C1zAw8iI.js:462 📋 Loading user plans for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+/api/hobby-plans?user_id=773c3f18-025a-432d-ae3d-fa13be3faef8:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+/api/user-progress/773c3f18-025a-432d-ae3d-fa13be3faef8:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-C1zAw8iI.js:462 📋 Found localStorage plans: 1
+index-C1zAw8iI.js:462 📋 Total plans loaded: 1
+index-C1zAw8iI.js:462 🎨 Dashboard AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:462 🎨 Dashboard AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:462 🎨 Dashboard FINAL IMAGE: https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:478 🔧 Route change detected - pathname: / hash: #/plan
+index-C1zAw8iI.js:478 🔄 Restoring plan from currentPlanData: Leather crafting
+index-C1zAw8iI.js:478 ✅ Using plan data from state: Leather crafting
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: false
+index-C1zAw8iI.js:219 🔄 Initializing with existing plan data: Leather crafting
+index-C1zAw8iI.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-C1zAw8iI.js:217 🔍 plan.days length: 7
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 First day youtubeVideoId from different paths:
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.youtubeVideoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.videoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Leather crafting Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in leather crafting. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical leather crafting scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Leather crafting equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Leather crafting Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=ZIgxsMtjE8Q"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Leather crafting Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "ZIgxsMtjE8Q",
+  "videoId": "ZIgxsMtjE8Q",
+  "videoTitle": "Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-C1zAw8iI.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-C1zAw8iI.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-C1zAw8iI.js:217 🔍 FRONTEND - videoId value type: string
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-C1zAw8iI.js:219 🔧 Applied field mapping fix to initial plan data
+index-C1zAw8iI.js:219 🔍 Checking for fresh plan marker: NOT FOUND
+index-C1zAw8iI.js:219 🔍 User authenticated, looking for plan ID for existing hobby: Leather crafting
+index-C1zAw8iI.js:219 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-C1zAw8iI.js:219 🔍 Using direct API to find plans for hobby: Leather crafting
+index-C1zAw8iI.js:219 🔄 Initializing with existing plan data: Leather crafting
+index-C1zAw8iI.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-C1zAw8iI.js:217 🔍 plan.days length: 7
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-C1zAw8iI.js:217 🔍 First day youtubeVideoId from different paths:
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.youtubeVideoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.days?.[0]?.videoId: ZIgxsMtjE8Q
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-C1zAw8iI.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Leather crafting Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in leather crafting. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical leather crafting scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Leather crafting equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Leather crafting Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=ZIgxsMtjE8Q"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Leather crafting Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "ZIgxsMtjE8Q",
+  "videoId": "ZIgxsMtjE8Q",
+  "videoTitle": "Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-C1zAw8iI.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-C1zAw8iI.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-C1zAw8iI.js:217 🔍 FRONTEND - videoId value type: string
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-C1zAw8iI.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-C1zAw8iI.js:219 🔧 Applied field mapping fix to initial plan data
+index-C1zAw8iI.js:219 🧹 Clearing any stale plan markers for old plan
+index-C1zAw8iI.js:228 🔍 User authenticated, searching for existing plan ID...
+index-C1zAw8iI.js:228 📍 Database-only progress tracking - no localStorage used
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-C1zAw8iI.js:219 🔍 Direct Supabase session check: plan-1754943173087-wyz328hcl Leather crafting
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
+index-C1zAw8iI.js:219 🔍 Direct API query result: Object
+index-C1zAw8iI.js:219 🔍 All user plans: Array(3)
+index-C1zAw8iI.js:219 🔍 Filtered plans for hobby: Array(0)
+index-C1zAw8iI.js:219 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+index-C1zAw8iI.js:219 🚨 No plans found for hobby: Leather crafting
+index-C1zAw8iI.js:219 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Leather crafting
+index-C1zAw8iI.js:219 🚨 Available plan titles: Array(3)
+index-C1zAw8iI.js:219 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+index-C1zAw8iI.js:217 ✅ YouTube video loaded successfully: ZIgxsMtjE8Q
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-C1zAw8iI.js:255 🔍 RENDER DEBUG: will show plan: true
+index-C1zAw8iI.js:255 🔍 DEBUG: selectedDay: 1
+index-C1zAw8iI.js:255 🔍 DEBUG: planData.days length: 7
+index-C1zAw8iI.js:255 🔍 DEBUG: currentDay found: true Leather crafting Basics & Setup - Day 1
+index-C1zAw8iI.js:255 🔍 DEBUG: day status: unlocked
+index-C1zAw8iI.js:217 🎨 Plan AUTO-IMAGE: "Leather crafting" -> category-based generation
+index-C1zAw8iI.js:217 🎨 Plan AUTO-GENERATED: "Leather crafting" -> unique category-based image
+index-C1zAw8iI.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=240&fit=crop&t=487484
+index-C1zAw8iI.js:256 🐛 Debug YouTube Video ID: ZIgxsMtjE8Q
+index-C1zAw8iI.js:256 🐛 Video Title: Leather crafting: How to Start Leather Working - Watch This BEFORE you Buy Anything
+index-C1zAw8iI.js:256 TIP 0: Using icon at index 0
+index-C1zAw8iI.js:256 TIP 1: Using icon at index 1
+index-C1zAw8iI.js:256 TIP 2: Using icon at index 2
+index-C1zAw8iI.js:256 TIP 3: Using icon at index 3
+index-C1zAw8iI.js:256 🐛 Debug Common Mistakes: Array(3)
+index-C1zAw8iI.js:256 🐛 Full current day data: Object
+index-C1zAw8iI.js:256 MISTAKE 0: Using icon at index 0
+index-C1zAw8iI.js:256 MISTAKE 1: Using icon at index 1
+index-C1zAw8iI.js:256 MISTAKE 2: Using icon at index 2
