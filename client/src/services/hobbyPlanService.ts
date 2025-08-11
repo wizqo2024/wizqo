@@ -22,59 +22,50 @@ export class HobbyPlanService {
         const searchHobby = hobby.toLowerCase().trim()
         
         const existingPlan = allPlans.find((plan: any) => {
-          // Check hobby field (new schema)
+          // Exact match on hobby field (new schema)
           if (plan.hobby?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via hobby field:', plan.hobby)
             return true
           }
           
-          // Check hobby_name field (legacy)
+          // Exact match on hobby_name field (legacy)
           if (plan.hobby_name?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via hobby_name:', plan.hobby_name)
             return true
           }
           
-          // Check plan_data.hobby field
+          // Exact match on plan_data.hobby field
           if (plan.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', plan.plan_data.hobby)
             return true
           }
           
-          // Enhanced title pattern matching for various formats
+          // More precise title pattern matching - only exact hobby matches
           if (plan.title) {
             const titleLower = plan.title.toLowerCase()
             
-            // Match "Master [hobby] in 7 Days" format
+            // Match "Master [hobby] in 7 Days" format - exact hobby only
             const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i)
             if (masterMatch) {
               const planHobby = masterMatch[1].toLowerCase().trim()
-              if (planHobby === searchHobby || planHobby.includes(searchHobby) || searchHobby.includes(planHobby)) {
+              if (planHobby === searchHobby) {
                 console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title)
                 return true
               }
             }
             
-            // Match "Learn [hobby] in" format  
+            // Match "Learn [hobby] in" format - exact hobby only
             const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i)
             if (learnMatch) {
               const planHobby = learnMatch[1].toLowerCase().trim()
-              if (planHobby === searchHobby || planHobby.includes(searchHobby) || searchHobby.includes(planHobby)) {
+              if (planHobby === searchHobby) {
                 console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title)
                 return true
               }
             }
-            
-            // Direct title contains check with word boundaries
-            const hobbyWords = searchHobby.split(/\s+/)
-            const titleContainsHobby = hobbyWords.every(word => 
-              titleLower.includes(word.toLowerCase())
-            )
-            if (titleContainsHobby) {
-              console.log('🚨 DUPLICATE FOUND via title contains all hobby words:', plan.title)
-              return true
-            }
           }
           
+          console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', plan.hobby || plan.hobby_name || 'unknown')
           return false
         })
 
