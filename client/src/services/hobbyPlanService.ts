@@ -6,7 +6,7 @@ export class HobbyPlanService {
     try {
       console.log('🔍 DUPLICATE CHECK: Looking for existing plan for hobby:', hobby, 'user:', userId)
       
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name&order=created_at.desc`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc`, {
         method: 'GET',
         headers: {
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
@@ -22,7 +22,13 @@ export class HobbyPlanService {
         const searchHobby = hobby.toLowerCase().trim()
         
         const existingPlan = allPlans.find((plan: any) => {
-          // Check hobby_name field
+          // Check hobby field (new schema)
+          if (plan.hobby?.toLowerCase().trim() === searchHobby) {
+            console.log('🚨 DUPLICATE FOUND via hobby field:', plan.hobby)
+            return true
+          }
+          
+          // Check hobby_name field (legacy)
           if (plan.hobby_name?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via hobby_name:', plan.hobby_name)
             return true
@@ -34,21 +40,37 @@ export class HobbyPlanService {
             return true
           }
           
-          // Check title pattern "Learn [hobby] in" or "Master [hobby]"
+          // Enhanced title pattern matching for various formats
           if (plan.title) {
             const titleLower = plan.title.toLowerCase()
-            const titleMatch = titleLower.match(/(?:learn|master)\s+(\w+)\s+(?:in|7-day|hobby)/i)
-            if (titleMatch) {
-              const planHobby = titleMatch[1].toLowerCase()
-              if (planHobby === searchHobby) {
-                console.log('🚨 DUPLICATE FOUND via title pattern:', plan.title)
+            
+            // Match "Master [hobby] in 7 Days" format
+            const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i)
+            if (masterMatch) {
+              const planHobby = masterMatch[1].toLowerCase().trim()
+              if (planHobby === searchHobby || planHobby.includes(searchHobby) || searchHobby.includes(planHobby)) {
+                console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title)
                 return true
               }
             }
             
-            // Also check if title contains exact hobby name
-            if (titleLower.includes(searchHobby)) {
-              console.log('🚨 DUPLICATE FOUND via title contains:', plan.title)
+            // Match "Learn [hobby] in" format  
+            const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i)
+            if (learnMatch) {
+              const planHobby = learnMatch[1].toLowerCase().trim()
+              if (planHobby === searchHobby || planHobby.includes(searchHobby) || searchHobby.includes(planHobby)) {
+                console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title)
+                return true
+              }
+            }
+            
+            // Direct title contains check with word boundaries
+            const hobbyWords = searchHobby.split(/\s+/)
+            const titleContainsHobby = hobbyWords.every(word => 
+              titleLower.includes(word.toLowerCase())
+            )
+            if (titleContainsHobby) {
+              console.log('🚨 DUPLICATE FOUND via title contains all hobby words:', plan.title)
               return true
             }
           }
@@ -71,11 +93,11 @@ export class HobbyPlanService {
     }
   }
 
-  // Save a hobby plan to Supabase
+  // Save a hobby plan to Supabase via backend API
   async savePlan(planData: any, userId: string, force: boolean = false): Promise<any> {
     try {
-      console.log('💾 SUPABASE SAVE: Starting plan save for user:', userId)
-      console.log('💾 SUPABASE SAVE: Plan data:', planData)
+      console.log('💾 DATABASE SAVE: Starting plan save for user:', userId)
+      console.log('💾 DATABASE SAVE: Plan data:', planData)
       
       // Check if plan already exists for this hobby (only if not forcing)
       if (!force) {
@@ -86,46 +108,42 @@ export class HobbyPlanService {
         }
       }
       
-      console.log('💾 SUPABASE SAVE: Making direct fetch request to Supabase API')
+      console.log('💾 DATABASE SAVE: Using backend API for reliable save')
 
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 10000) // Increased timeout to 10 seconds
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
-      const saveResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans`, {
+      const saveResponse = await fetch('/api/hobby-plans', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Prefer': 'return=representation'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           user_id: userId,
-          hobby_name: planData.hobby,
+          hobby: planData.hobby,
           title: planData.title,
           overview: planData.overview,
-          difficulty: planData.difficulty,
-          total_days: planData.totalDays,
           plan_data: planData
         }),
         signal: controller.signal
       })
 
       clearTimeout(timeoutId)
-      console.log('💾 SUPABASE SAVE: Fetch completed with status:', saveResponse.status)
+      console.log('💾 DATABASE SAVE: Backend API response status:', saveResponse.status)
 
       if (!saveResponse.ok) {
         const errorText = await saveResponse.text()
-        console.error('💾 SUPABASE SAVE: HTTP Error:', saveResponse.status, errorText)
-        throw new Error(`HTTP ${saveResponse.status}: ${errorText}`)
+        console.error('💾 DATABASE SAVE: Backend API Error:', saveResponse.status, errorText)
+        throw new Error(`Backend API Error ${saveResponse.status}: ${errorText}`)
       }
 
       const result = await saveResponse.json()
-      console.log('✅ SUPABASE SAVE SUCCESS: Plan saved successfully:', result[0])
-      return result[0]
+      console.log('✅ DATABASE SAVE SUCCESS: Plan saved successfully with ID:', result.id)
+      return result
 
     } catch (error: any) {
-      console.error('❌ SUPABASE SAVE ERROR: Failed to save plan:', error)
-      console.error('❌ SUPABASE SAVE ERROR - Full error details:', {
+      console.error('❌ DATABASE SAVE ERROR: Failed to save plan:', error)
+      console.error('❌ DATABASE SAVE ERROR - Full error details:', {
         name: error?.name,
         message: error?.message,
         stack: error?.stack,
@@ -133,7 +151,7 @@ export class HobbyPlanService {
       })
       
       if (error.name === 'AbortError') {
-        console.error('❌ SUPABASE SAVE: Network timeout after 10 seconds')
+        console.error('❌ DATABASE SAVE: Network timeout after 10 seconds')
         throw new Error('Plan save timed out - please check your connection')
       }
       
