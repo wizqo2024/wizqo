@@ -1,0 +1,895 @@
+upabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-DL5uImCv.js:478 🔧 Route change detected - pathname: / hash: 
+index-DL5uImCv.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-DL5uImCv.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-DL5uImCv.js:478 🔧 Found existing plan in localStorage for generate route: Woodworking
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:219 🔄 Initializing with existing plan data: Woodworking
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Woodworking Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical woodworking scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Woodworking equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Woodworking Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "zpdMZK6LlDE",
+  "videoId": "zpdMZK6LlDE",
+  "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:219 🔧 Applied field mapping fix to initial plan data
+index-DL5uImCv.js:219 🔍 Checking for fresh plan marker: NOT FOUND
+index-DL5uImCv.js:219 🔍 User authenticated, looking for plan ID for existing hobby: Woodworking
+index-DL5uImCv.js:219 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:219 🔍 Using direct API to find plans for hobby: Woodworking
+index-DL5uImCv.js:219 🔄 Initializing with existing plan data: Woodworking
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Woodworking Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical woodworking scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Woodworking equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Woodworking Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "zpdMZK6LlDE",
+  "videoId": "zpdMZK6LlDE",
+  "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:219 🔧 Applied field mapping fix to initial plan data
+index-DL5uImCv.js:219 🧹 Clearing any stale plan markers for old plan
+index-DL5uImCv.js:228 🔍 User authenticated, searching for existing plan ID...
+index-DL5uImCv.js:228 📍 Database-only progress tracking - no localStorage used
+index-DL5uImCv.js:478 🔧 Found existing plan in localStorage for generate route: Woodworking
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-DL5uImCv.js:219 🔍 Direct Supabase session check: plan-1754944498564-8x3ml66cq Woodworking
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:217 ✅ YouTube video loaded successfully: zpdMZK6LlDE
+index-DL5uImCv.js:219 🔍 Direct API query result: Object
+index-DL5uImCv.js:219 🔍 All user plans: Array(3)
+index-DL5uImCv.js:219 🔍 Filtered plans for hobby: Array(1)
+index-DL5uImCv.js:219 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+index-DL5uImCv.js:219 🎯 Found plan via auth context: 585f6522-0f06-4554-887c-167a4735f666 for title: Master Woodworking in 7 Days
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:219 🔍 Progress query result: Object
+index-DL5uImCv.js:237 🔄 Starting new plan - clearing all data
+index-DL5uImCv.js:239 ✅ Successfully reset to fresh start
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:478 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Woodworking Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical woodworking scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Woodworking equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Woodworking Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "zpdMZK6LlDE",
+  "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-DL5uImCv.js:478 🔧 CRITICAL FIX - First day youtubeVideoId from backend: zpdMZK6LlDE
+index-DL5uImCv.js:478 🔧 CRITICAL FIX - First day videoId from backend: undefined
+index-DL5uImCv.js:478 🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface
+index-DL5uImCv.js:228 🎯 Setting plan data in SplitPlanInterface: Woodworking
+index-DL5uImCv.js:228 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Woodworking",
+  "title": "Master Woodworking in 7 Days",
+  "overview": "A comprehensive woodworking learning plan tailored for beginner learners",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Woodworking Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical woodworking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Woodworking equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Woodworking Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Woodworking Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "zpdMZK6LlDE",
+      "videoId": "zpdMZK6LlDE",
+      "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Woodworking Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical woodworking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Woodworking equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Woodworking Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Woodworking Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "zpdMZK6LlDE",
+      "videoId": "zpdMZK6LlDE",
+      "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Woodworking Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical woodworking scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "c
+index-DL5uImCv.js:228 🐛 First day YouTube video ID before fixPlanDataFields: zpdMZK6LlDE
+index-DL5uImCv.js:228 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+index-DL5uImCv.js:228 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+index-DL5uImCv.js:228 🐛 CRITICAL - Raw plan first day videoId type: string
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Woodworking Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical woodworking scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Woodworking equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Woodworking Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "zpdMZK6LlDE",
+  "videoId": "zpdMZK6LlDE",
+  "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:228 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-DL5uImCv.js:228 🔧 CORRECTED plan data - first day youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: correctedPlanData structure: Object
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: About to set plan data and step to plan
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Final plan data validation: Object
+index-DL5uImCv.js:228 🧹 Cleared old cached plan data
+index-DL5uImCv.js:228 🎯 Marked plan as freshly generated BEFORE setPlanData
+index-DL5uImCv.js:228 ✅ PLAN STORED: Plan data saved to storage and state
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: planData should have days: true
+index-DL5uImCv.js:228 Saving surprise plan to Supabase for authenticated user...
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Woodworking Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in woodworking. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical woodworking scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Woodworking equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Woodworking Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=zpdMZK6LlDE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Woodworking Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "zpdMZK6LlDE",
+  "videoId": "zpdMZK6LlDE",
+  "videoTitle": "Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:228 🔧 FIXED plan data - first day commonMistakes: Array(3)
+index-DL5uImCv.js:228 🔧 FIXED plan data - first day youtubeVideoId: zpdMZK6LlDE
+index-DL5uImCv.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:217 💾 DATABASE SAVE: Plan data: Object
+index-DL5uImCv.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: woodworking user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-DL5uImCv.js:219 🔍 Direct Supabase session check: plan-1754944503429-hw4417brq Woodworking
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Force re-render check - stored planData exists: true
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Force re-render check - stored days array: true
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Force re-render check - stored days length: 7
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Force re-render check - currentStep should be: plan
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Force re-render check - should show plan: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-DL5uImCv.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-DL5uImCv.js:217 ✅ YouTube video loaded successfully: zpdMZK6LlDE
+/api/hobby-plans:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-DL5uImCv.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-DL5uImCv.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-DL5uImCv.js:217Understand this error
+index-DL5uImCv.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at a1.savePlan (index-DL5uImCv.js:217:27084)
+    at async tn (index-DL5uImCv.js:228:7089)
+    at async Mg (index-DL5uImCv.js:233:2465)
+savePlan @ index-DL5uImCv.js:217Understand this error
+index-DL5uImCv.js:217 ❌ DATABASE SAVE ERROR - Full error details: Object
+savePlan @ index-DL5uImCv.js:217Understand this error
+index-DL5uImCv.js:228 Error saving surprise plan to Supabase: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at a1.savePlan (index-DL5uImCv.js:217:27729)
+    at async tn (index-DL5uImCv.js:228:7089)
+    at async Mg (index-DL5uImCv.js:233:2465)
+tn @ index-DL5uImCv.js:228Understand this error
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:228 🔍 PLAN DEBUG: Navigation protection disabled after plan generation
+index-DL5uImCv.js:255 📝 DATABASE SAVE: No plan ID available - checking storage...
+Fg @ index-DL5uImCv.js:255Understand this warning
+index-DL5uImCv.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-DL5uImCv.js:255Understand this warning
+index-DL5uImCv.js:255 📝 DEBUG: Object
+index-DL5uImCv.js:255 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Fg @ index-DL5uImCv.js:255Understand this warning
+index-DL5uImCv.js:255 📝 DEBUG: Object
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: completed
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: completed
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: completed
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Woodworking Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: completed
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Woodworking" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Woodworking" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop&t=487484
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: zpdMZK6LlDE
+index-DL5uImCv.js:256 🐛 Video Title: Woodworking: SketchUp Tutorial for Beginners - Learn SketchUp in 10 MINUTES | (SketchUp Free 2022)
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
