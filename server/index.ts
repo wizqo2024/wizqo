@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Register API routes
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -67,5 +68,7 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    console.log('🔑 OpenRouter API Key status:', process.env.OPENROUTER_API_KEY ? 'Loaded' : 'Missing');
+    console.log('🗄️ Supabase URL status:', process.env.VITE_SUPABASE_URL ? 'Loaded' : 'Missing');
   });
 })();

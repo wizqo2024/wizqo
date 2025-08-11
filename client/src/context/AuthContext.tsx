@@ -26,43 +26,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let mounted = true;
 
     // Get initial session
-    const getInitialSession = async () => {
-      try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (mounted) {
-          if (error) {
-            console.error('Error getting initial session:', error);
-          } else {
-            console.log('🔑 Initial session:', session?.user?.email || 'none');
-            setSession(session);
-            setUser(session?.user ?? null);
-          }
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Failed to get initial session:', error);
-        if (mounted) {
-          setLoading(false);
-        }
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.error('🔑 Error getting initial session:', error);
       }
-    };
-
-    getInitialSession();
+      console.log('🔑 Initial session:', session ? 'authenticated' : 'none');
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+      console.log('🔄 Auth context state change: INITIAL_SESSION', session ? 'authenticated' : 'none');
+    }).catch((error) => {
+      console.error('🔑 Failed to get initial session:', error);
+      setLoading(false);
+    });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (!mounted) return;
 
       console.log('🔄 Auth context state change:', event, session?.user?.email || 'none');
-      
+
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
 
       if (event === 'SIGNED_IN' && session?.user) {
         console.log('🔧 Creating/updating user profile for:', session.user.id);
-        
+
         // Show success notification
         setTimeout(() => {
           toast({
@@ -70,7 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             description: "You've been successfully signed in.",
           });
         }, 500);
-        
+
         // Create profile in background without redirecting
         try {
           await userProfileService.createOrUpdateProfile(session.user.id, {
@@ -89,7 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log('✅ User signed out event - clearing state');
         setUser(null);
         setSession(null);
-        
+
         // Show sign out notification
         toast({
           title: "Signed out",
@@ -142,7 +132,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Force clear local state immediately
       setUser(null);
       setSession(null);
-      
+
       // Clear only auth-related data, preserve other app data
       const keysToRemove = [];
       for (let i = 0; i < localStorage.length; i++) {
@@ -153,15 +143,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       keysToRemove.forEach(key => localStorage.removeItem(key));
       sessionStorage.clear();
-      
+
       // Call Supabase signOut
       await supabase.auth.signOut();
-      
+
       console.log('✅ Sign out successful - redirecting');
-      
+
       // Force redirect and reload
       window.location.href = window.location.origin + '/#/';
-      
+
       return { error: null };
     } catch (err) {
       console.error('Sign out error:', err);
