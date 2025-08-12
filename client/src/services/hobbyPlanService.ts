@@ -136,8 +136,12 @@ export class HobbyPlanService {
             const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i)
             if (masterMatch) {
               const planHobby = masterMatch[1].toLowerCase().trim()
-              // Handle multi-word hobbies like "coffee brewing"
-              if (planHobby === searchHobby || searchHobby.includes(planHobby) || planHobby.includes(searchHobby)) {
+              // Handle multi-word hobbies like "jewelry making"
+              if (planHobby === searchHobby || 
+                  searchHobby.includes(planHobby) || 
+                  planHobby.includes(searchHobby) ||
+                  // Handle variations like "jewelry making" vs "jewelry"
+                  planHobby.split(' ')[0] === searchHobby.split(' ')[0]) {
                 console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title, 'extracted:', planHobby)
                 return true
               }
@@ -147,8 +151,12 @@ export class HobbyPlanService {
             const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i)
             if (learnMatch) {
               const planHobby = learnMatch[1].toLowerCase().trim()
-              // Handle multi-word hobbies like "coffee brewing"
-              if (planHobby === searchHobby || searchHobby.includes(planHobby) || planHobby.includes(searchHobby)) {
+              // Handle multi-word hobbies like "jewelry making"
+              if (planHobby === searchHobby || 
+                  searchHobby.includes(planHobby) || 
+                  planHobby.includes(searchHobby) ||
+                  // Handle variations like "jewelry making" vs "jewelry"
+                  planHobby.split(' ')[0] === searchHobby.split(' ')[0]) {
                 console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title, 'extracted:', planHobby)
                 return true
               }
