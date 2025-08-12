@@ -106,10 +106,11 @@ export class HobbyPlanService {
           return planHobby.toLowerCase() === hobby.toLowerCase();
         }
         
-        // Fallback to title matching
+        // Fallback to title matching - handle both "Learn" and "Master" patterns
         if (plan.title) {
           const titleMatch = plan.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
           const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
+          console.log('🔍 Title matching - extracted:', extractedHobby, 'vs target:', hobby.toLowerCase());
           return extractedHobby === hobby.toLowerCase();
         }
         
