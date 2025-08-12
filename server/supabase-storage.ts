@@ -18,7 +18,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
       .select('*')
       .eq('user_id', id)
       .single();
-    
+
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching user profile:', error);
     }
@@ -31,7 +31,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
       .select('*')
       .eq('email', email)
       .single();
-    
+
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching user profile by email:', error);
     }
@@ -84,7 +84,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
       .from('hobby_plans')
       .insert({
         user_id: plan.userId || plan.user_id,
-        hobby: plan.hobby || plan.hobby_name, // Handle both field names
+        hobby_name: plan.hobby || plan.hobby_name, // Handle both field names
         title: plan.title,
         overview: plan.overview,
         plan_data: plan.planData || plan.plan_data
