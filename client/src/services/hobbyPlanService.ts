@@ -1,20 +1,51 @@
 import { supabase } from '../lib/supabase'
 
 export class HobbyPlanService {
+  // Clear all caches for a specific hobby
+  clearHobbyCache(hobby: string, userId: string): void {
+    const cacheKeys = [
+      `existingPlan_${hobby}_${userId}`,
+      `duplicateCheck_${hobby}_${userId}`,
+      `hobbyPlan_${hobby}`,
+      `lastViewedPlan_${hobby}`,
+      `currentPlanData_${hobby}`,
+      `plan_${hobby}`,
+      `${hobby}_plan`,
+      `${hobby}_progress`
+    ];
+    
+    cacheKeys.forEach(key => {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    });
+    
+    // Also clear general cache entries
+    sessionStorage.removeItem('currentPlanData');
+    sessionStorage.removeItem('activePlanData');
+    localStorage.removeItem('lastViewedPlanData');
+    
+    console.log('🧹 CLEARED all caches for hobby:', hobby);
+  }
+
   // Check if plan already exists for this hobby
   async checkExistingPlan(hobby: string, userId: string): Promise<any> {
     try {
       console.log('🔍 DUPLICATE CHECK: Looking for existing plan for hobby:', hobby, 'user:', userId)
       
+      // First clear any stale caches
+      this.clearHobbyCache(hobby, userId);
+      
       // Use cache-busting timestamp to ensure fresh data
       const timestamp = Date.now();
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc&_t=${timestamp}`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc&_t=${timestamp}&cache_bust=${Math.random()}`, {
         method: 'GET',
         headers: {
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
           'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
+          'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+          'If-None-Match': '*'
         }
       })
 
