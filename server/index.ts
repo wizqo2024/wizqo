@@ -143,8 +143,14 @@ app.use((req, res, next) => {
 
   server.listen(port, "0.0.0.0", () => {
     log(`🚀 SERVER STARTED: serving on port ${port}`);
-    console.log(`🌐 LIVE URL: Server should be accessible at https://www.wizqo.com/`);
-    console.log(`🔍 API TEST: Try https://www.wizqo.com/api/health`);
+    console.log(`🌐 LOCAL DEV: http://localhost:${port}`);
+    console.log(`🔍 API TEST: Try /api/health`);
+    
+    // Production deployment info
+    if (process.env.NODE_ENV === 'production') {
+      console.log('🚀 PRODUCTION: Ready for Replit deployment');
+      console.log('🔗 After deploying, your API will be available at your deployment URL');
+    }
     
     // Environment variable status
     console.log('🔑 Environment Variables Status:');
