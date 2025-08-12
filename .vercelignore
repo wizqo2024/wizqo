@@ -1,0 +1,27 @@
+
+# Development and documentation files
+*.patch
+*.md
+attached_assets/
+fresh-wizqo/
+wizqo-download/
+*.tar.gz
+*.zip
+
+# Git and editor files
+.git/
+.gitignore
+.env.example
+.node-version
+.nvmrc
+
+# Development notes and SQL files
+*.sql
+SQL script in SUPABASE_MANUAL_FIX.md
+
+# Base64 encoded files
+*_base64.txt
+
+# Test files
+test-auth.html
+debug-storage.js
