@@ -117,18 +117,31 @@ app.use((req, res, next) => {
   
   // Final route verification before starting server
   console.log('🔍 FINAL ROUTE CHECK: All registered routes before server start:');
+  let routeCount = 0;
   app._router.stack.forEach((middleware: any, index: number) => {
     if (middleware.route) {
       const methods = Object.keys(middleware.route.methods).join(',').toUpperCase();
       console.log(`  ${index}: ${methods} ${middleware.route.path}`);
+      routeCount++;
     }
   });
+  
+  console.log(`🔍 TOTAL ROUTES REGISTERED: ${routeCount}`);
+  
+  // Critical API routes check
+  const hasHobbyPlansPost = app._router.stack.some((middleware: any) => 
+    middleware.route && 
+    middleware.route.path === '/api/hobby-plans' && 
+    middleware.route.methods.post
+  );
+  
+  if (!hasHobbyPlansPost) {
+    console.error('❌ CRITICAL: POST /api/hobby-plans route NOT FOUND!');
+  } else {
+    console.log('✅ CRITICAL: POST /api/hobby-plans route is registered');
+  }
 
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
+  server.listen(port, "0.0.0.0", () => {
     log(`🚀 SERVER STARTED: serving on port ${port}`);
     console.log(`🌐 LIVE URL: Server should be accessible at https://www.wizqo.com/`);
     console.log(`🔍 API TEST: Try https://www.wizqo.com/api/health`);
