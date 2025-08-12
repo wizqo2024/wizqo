@@ -193,10 +193,10 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     if (user) {
       try {
         console.log('🔍 DUPLICATE CHECK: Starting comprehensive check for:', finalHobby);
-        
+
         // Use the hobbyPlanService for consistent duplicate checking
         const existingPlan = await hobbyPlanService.checkExistingPlan(finalHobby, user.id);
-        
+
         if (existingPlan) {
           console.log('🚨 DUPLICATE DETECTED:', existingPlan.title);
           addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
@@ -217,7 +217,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
 
           return;
         }
-        
+
         console.log('✅ DUPLICATE CHECK: No existing plan found, proceeding with generation');
       } catch (error) {
         console.error('Error checking for existing plan:', error);
@@ -554,69 +554,71 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         {/* Right Main Content Area */}
         <div className="flex-1 flex flex-col">
           {/* Welcome Section */}
-          <div className="flex-1 flex items-center justify-center p-12">
-            <div className="text-center max-w-2xl">
-              {/* Icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-              </div>
-
-              <h1 className="text-4xl font-bold text-slate-800 mb-6">
-                Welcome to Your Learning Journey!
-              </h1>
-
-              <p className="text-xl text-slate-600 mb-12 leading-relaxed">
-                Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. Your custom learning plan will appear here once we chat!
-              </p>
-
-              {/* Feature Cards */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">Personalized Plans</h3>
-                  <p className="text-sm text-slate-600">Every plan is tailored to your experience level, available time, and specific goals.</p>
+          {!isGenerating && (
+            <div className="flex-1 flex items-center justify-center p-12">
+              <div className="text-center max-w-2xl">
+                {/* Icon */}
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
                 </div>
 
-                <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
+                <h1 className="text-4xl font-bold text-slate-800 mb-6">
+                  Welcome to Your Learning Journey!
+                </h1>
+
+                <p className="text-xl text-slate-600 mb-12 leading-relaxed">
+                  Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. Your custom learning plan will appear here once we chat!
+                </p>
+
+                {/* Feature Cards */}
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Personalized Plans</h3>
+                    <p className="text-sm text-slate-600">Every plan is tailored to your experience level, available time, and specific goals.</p>
                   </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">Structured Learning</h3>
-                  <p className="text-sm text-slate-600">Daily lessons with tips, checklists, and resources to guide your progress step by step.</p>
+
+                  <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Structured Learning</h3>
+                    <p className="text-sm text-slate-600">Daily lessons with tips, checklists, and resources to guide your progress step by step.</p>
+                  </div>
+
+                  <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                      </svg>
+                    </div>
+                    <h3 className="font-semibold text-slate-800 mb-2">Quick Results</h3>
+                    <p className="text-sm text-slate-600">See real progress in just 7 days with our proven methodology and expert guidance.</p>
+                  </div>
                 </div>
 
-                <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                    </svg>
+                {/* Popular Hobbies */}
+                <div className="text-center">
+                  <p className="text-sm text-slate-500 mb-3">Popular hobbies:</p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {['📸 Photography', '🍳 Cooking', '🎸 Guitar', '🎨 Painting'].map((hobby) => (
+                      <span key={hobby} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
+                        {hobby}
+                      </span>
+                    ))}
                   </div>
-                  <h3 className="font-semibold text-slate-800 mb-2">Quick Results</h3>
-                  <p className="text-sm text-slate-600">See real progress in just 7 days with our proven methodology and expert guidance.</p>
-                </div>
-              </div>
-
-              {/* Popular Hobbies */}
-              <div className="text-center">
-                <p className="text-sm text-slate-500 mb-3">Popular hobbies:</p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {['📸 Photography', '🍳 Cooking', '🎸 Guitar', '🎨 Painting'].map((hobby) => (
-                    <span key={hobby} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
-                      {hobby}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
