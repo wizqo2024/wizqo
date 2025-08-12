@@ -1467,7 +1467,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
               addAIMessage(errorMessage, hobbyOptions);
             } else {
-              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, photography, yoga, or dance.', [
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, photography, yoga, or dance. What hobby would you like to learn?', [
                 { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
                 { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
                 { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
