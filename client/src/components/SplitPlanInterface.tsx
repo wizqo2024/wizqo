@@ -2104,15 +2104,64 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             backgroundColor: '#f9fafb'
           }}
         >
-          {/* DEBUG: Plan data structure logging */}
-          {console.log('🔍 RENDER DEBUG: planData exists:', !!planData)}
-          {console.log('🔍 RENDER DEBUG: planData.days exists:', !!planData?.days)}
-          {console.log('🔍 RENDER DEBUG: planData.days length:', planData?.days?.length)}
-          {console.log('🔍 RENDER DEBUG: planData.days is array:', Array.isArray(planData?.days))}
-          {console.log('🔍 RENDER DEBUG: currentStep:', currentStep)}
-          {console.log('🔍 RENDER DEBUG: will show plan:', currentStep === 'plan' && !!planData && !!planData.days && planData.days.length > 0)}
+          {/* Show loading animation when generating plan */}
+          {isGenerating && (
+            <div className="flex items-center justify-center min-h-full p-6">
+              <div className="max-w-md mx-auto text-center">
+                {/* Animated loading icon */}
+                <div className="relative mb-8">
+                  <div className="w-20 h-20 mx-auto">
+                    <div className="absolute inset-0 border-4 border-purple-200 rounded-full"></div>
+                    <div className="absolute inset-0 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"></div>
+                    <div className="absolute inset-2 border-4 border-transparent border-t-pink-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+                  </div>
+                </div>
 
-{(planData && planData.days && planData.days.length > 0) ? (
+                {/* Loading text with animated dots */}
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Creating Your Plan
+                  <span className="inline-flex ml-1">
+                    <span className="animate-pulse" style={{ animationDelay: '0s' }}>.</span>
+                    <span className="animate-pulse" style={{ animationDelay: '0.2s' }}>.</span>
+                    <span className="animate-pulse" style={{ animationDelay: '0.4s' }}>.</span>
+                  </span>
+                </h2>
+
+                <div className="space-y-4">
+                  <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-center mb-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-lg">🎯</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 text-sm">
+                      I'm analyzing your preferences and creating a personalized 7-day learning journey just for you.
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border border-purple-200">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      </div>
+                      <p className="text-purple-700 text-sm font-medium">
+                        Generating daily lessons, tips, and resources...
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-gray-500">
+                    This usually takes 10-20 seconds
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Show plan content when ready */}
+          {!isGenerating && (planData && planData.days && planData.days.length > 0) ? (
             <div className="p-4 lg:p-6">
               {/* Header */}
               <div className="mb-6">
@@ -2551,7 +2600,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 );
               })()}
             </div>
-          ) : (
+          ) : !isGenerating ? (
             <div className="flex items-center justify-center min-h-full p-6">
               <div className="max-w-2xl mx-auto space-y-6">
                 {/* Welcome Section */}
@@ -2671,7 +2720,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
 
