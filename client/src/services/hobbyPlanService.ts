@@ -89,14 +89,18 @@ export class HobbyPlanService {
     try {
       console.log('💾 DATABASE SAVE: Starting plan save for user:', userId)
       console.log('💾 DATABASE SAVE: Plan data:', planData)
+      console.log('💾 DATABASE SAVE: Force mode:', force)
       
       // Check if plan already exists for this hobby (only if not forcing)
       if (!force) {
         const existingPlan = await this.checkExistingPlan(planData.hobby, userId)
         if (existingPlan) {
           console.log('⚠️ DUPLICATE PLAN: Plan already exists for hobby:', planData.hobby)
-          throw new Error(`You already have a learning plan for ${planData.hobby}. Check your dashboard to continue your existing plan.`)
+          console.log('💡 SUGGESTION: Use force=true to create new plan anyway')
+          throw new Error(`You already have a learning plan for ${planData.hobby}. Check your dashboard to continue your existing plan, or create a new plan by trying again.`)
         }
+      } else {
+        console.log('🚀 FORCE MODE: Bypassing duplicate check for', planData.hobby)
       }
       
       console.log('💾 DATABASE SAVE: Using backend API for reliable save')
