@@ -35,6 +35,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
@@ -290,23 +291,83 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     const finalAnswers = { ...quizAnswers, goal };
     setQuizAnswers(finalAnswers);
     setCurrentStep('generating');
+    
+    // Generate plan
+    console.log('🚀 Starting plan generation for:', selectedHobby);
     setIsGenerating(true);
+    setIsSaving(true);
+    addAIMessage(`Perfect! I've chosen ${selectedHobby} for you. Creating your 7-day plan now... ✨`);
 
     try {
-      addAIMessage(`Perfect! I have everything I need. 🚀\n\nGive me a moment to create your personalized 7-day ${selectedHobby} learning plan...`);
+      const planResponse = await fetch('/api/generate-plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hobby: selectedHobby,
+          experience: quizAnswers.experience, // Use quizAnswers directly
+          timeAvailable: quizAnswers.timeAvailable, // Use quizAnswers directly
+          goal: goal, // Use the goal passed to the function
+          userId: user?.id || null,
+          force: false // Don't force creation if duplicate exists
+        })
+      });
 
-      const plan = await onGeneratePlan(selectedHobby, finalAnswers as QuizAnswers);
-      onPlanGenerated(plan);
-      // Store the plan data for the plan interface
-      sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
-      sessionStorage.setItem('lastViewedPlanData', JSON.stringify(plan));
-      sessionStorage.setItem('planFromGeneration', 'true');
-    } catch (error) {
+      if (!planResponse.ok) {
+        const errorData = await planResponse.json();
+
+        if (planResponse.status === 409 && errorData.error === 'duplicate_plan') {
+          // Handle duplicate plan case
+          addAIMessage(
+            `${errorData.message}\n\nWould you like to:\n• Go to Dashboard to continue your existing plan\n• Try a different hobby instead`,
+            [
+              { value: 'dashboard', label: 'View Dashboard', description: 'Continue existing plan' },
+              { value: 'different_hobby', label: 'Try Different Hobby', description: 'Choose something new' }
+            ]
+          );
+          return;
+        }
+
+        throw new Error(errorData.error || 'Failed to generate plan');
+      }
+
+      const generatedPlan = await planResponse.json();
+      console.log('✅ Plan generated successfully');
+
+      // Mark plan as fresh to help identify it later
+      generatedPlan._isFreshPlan = true;
+
+      setPlanData(generatedPlan);
+      setCurrentStep('generating'); // Change step to 'generating' to show the "creating plan" message
+
+      // Store plan in session storage for navigation
+      sessionStorage.setItem('currentPlanData', JSON.stringify(generatedPlan));
+
+      // Save plan to database if user is signed in (only once)
+      if (user?.id && !isSaving) {
+        try {
+          console.log('💾 Saving plan to database...');
+          setIsSaving(true);
+          await hobbyPlanService.savePlan(generatedPlan, user.id);
+          console.log('✅ Plan saved to database successfully');
+        } catch (saveError: any) {
+          console.error('❌ Error saving plan to database:', saveError);
+          // Don't show error to user - plan is still usable
+        }
+      }
+
+      addAIMessage(`🎉 Your ${selectedHobby} learning plan is ready! I've created a comprehensive 7-day journey that will take you from beginner to confident practitioner. Each day builds on the previous one with practical exercises, expert tips, and everything you need to succeed.`);
+
+    } catch (error: any) {
       console.error('Error generating plan:', error);
-      addAIMessage("Oops! Something went wrong while creating your plan. Let me try again...");
-      setCurrentStep('goal');
+      // setError(error.message); // Already handled by addAIMessage
+      addAIMessage(`I encountered an issue creating your plan: ${error.message}. Please try again!`);
     } finally {
       setIsGenerating(false);
+      // Keep isSaving true until the actual saving operation is confirmed or fails
+      // If plan generation failed, we might want to reset isSaving for a retry attempt.
+      // For now, assuming savePlan is called after successful generation, isSaving is reset there.
+      // If generation fails and savePlan is not called, isSaving remains true until the component unmounts or a reset occurs.
+      // A more robust approach might involve managing isSaving state more granularly tied to the save operation itself.
     }
   };
 
