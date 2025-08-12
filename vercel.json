@@ -1,3 +1,4 @@
+
 {
   "version": 2,
   "builds": [
@@ -13,22 +14,19 @@
       "use": "@vercel/node@3.0.0"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server/index.ts"
+      "source": "/api/(.*)",
+      "destination": "/server/index.ts"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "source": "/assets/(.*).js",
+      "source": "/assets/(.*)\\.js",
       "headers": [
         {
           "key": "Content-Type",
@@ -37,7 +35,7 @@
       ]
     },
     {
-      "source": "/assets/(.*).css",
+      "source": "/assets/(.*)\\.css",
       "headers": [
         {
           "key": "Content-Type",
