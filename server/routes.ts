@@ -2301,42 +2301,6 @@ Please provide a helpful response:`;
       }
     }
   });
-    try {
-      console.log('📝 API: Hobby plans POST request received');
-      console.log('📝 API: Request body keys:', Object.keys(req.body));
-      const { user_id, hobby, title, overview, plan_data } = req.body;
-      console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
-      console.log('🔍 DEBUG: Plan data structure:', {
-        hasTitle: !!title,
-        hasOverview: !!overview,
-        hasPlanData: !!plan_data,
-        planDataKeys: plan_data ? Object.keys(plan_data) : 'none',
-        firstDayExists: !!plan_data?.days?.[0]
-      });
-      console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
-      console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
-
-      // Validate the request data
-      const validatedData = insertHobbyPlanSchema.parse({
-        userId: user_id,
-        hobby,
-        title,
-        overview,
-        planData: plan_data
-      });
-
-      const plan = await supabaseStorage.createHobbyPlan(validatedData);
-      console.log('📝 DATABASE: Created plan with ID:', plan.id);
-      res.json(plan);
-    } catch (error) {
-      console.error('📝 API: Error creating hobby plan:', error);
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ error: 'Invalid request data', details: error.errors });
-      } else {
-        res.status(500).json({ error: 'Failed to create hobby plan' });
-      }
-    }
-  });
 
   // Delete a hobby plan
   app.delete('/api/hobby-plans/:id', async (req, res) => {
