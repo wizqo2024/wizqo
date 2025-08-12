@@ -84,7 +84,7 @@ export class HobbyPlanService {
 
       // ALWAYS query database directly - no caching to prevent stale data
       console.log('🔍 DUPLICATE CHECK: Skipping cache, querying database directly');
-      
+
       const response = await fetch(`/api/hobby-plans?user_id=${userId}&_t=${Date.now()}`);
       if (!response.ok) {
         console.error('🔍 DUPLICATE CHECK: API error:', response.status);
@@ -105,7 +105,7 @@ export class HobbyPlanService {
         if (planHobby) {
           return planHobby.toLowerCase() === hobby.toLowerCase();
         }
-        
+
         // Fallback to title matching - handle both "Learn" and "Master" patterns
         if (plan.title) {
           const titleMatch = plan.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
@@ -113,13 +113,13 @@ export class HobbyPlanService {
           console.log('🔍 Title matching - extracted:', extractedHobby, 'vs target:', hobby.toLowerCase());
           return extractedHobby === hobby.toLowerCase();
         }
-        
+
         return false;
       });
 
       // Get the most recent matching plan
       const existingPlan = matchingPlans.length > 0 
-        ? matchingPlans.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+        ? matchingPlans.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
         : null;
 
       if (existingPlan) {

@@ -74,7 +74,7 @@ app.use((req, res, next) => {
 
   // Test route availability
   console.log('🔍 Testing route registration...');
-  const routes = [];
+  const routes: any[] = [];
   app._router.stack.forEach((middleware: any) => {
     if (middleware.route) {
       routes.push(`${Object.keys(middleware.route.methods)} ${middleware.route.path}`);

@@ -321,95 +321,189 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [planData]);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const { savePlan, saving } = usePlanStorage(); // saving is not used here, but keep for consistency if needed elsewhere
-  const { user } = useAuth();
-
-  // Auto-close auth modal when user signs in
+  // Keep the old logic for backward compatibility
   useEffect(() => {
-    if (user && showAuthModal) {
-      console.log('🔐 User signed in, closing auth modal');
-      setShowAuthModal(false);
-    }
-  }, [user]);
+    if (initialPlanData && !user) {
+      const initializeWithAuth = async () => {
+        // Check directly with Supabase instead of relying on hook state
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log('🔍 Fallback session check:', session?.user?.id || 'no session');
 
-  const hobbyOptions = [
-    { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-    { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
-    { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
-    { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
-    { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
-    { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
-    { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-    { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
-    { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
-  ];
+        if (session?.user) {
+          try {
+            console.log('🔍 Looking for plan ID for authenticated user:', session.user.id);
 
-  const surpriseHobbies = [
-    // Creative Arts
-    'photography', 'drawing', 'painting', 'digital art', 'calligraphy', 'pottery', 'jewelry making', 'sculpture',
+            // First, try to find existing plan via direct Supabase query to ensure we get the latest data
+            const { data: supabasePlans, error: supabaseError } = await supabase
+              .from('hobby_plans')
+              .select('id, hobby, created_at, title')
+              .eq('user_id', session.user.id)
+              .eq('hobby', initialPlanData.hobby)
+              .order('created_at', { ascending: false })
+              .limit(5); // Get more plans to debug
 
-    // Music & Performance
-    'guitar', 'piano', 'ukulele', 'singing', 'violin', 'drums', 'harmonica', 'dance', 'theater',
+            console.log('🔍 Supabase query result:', { supabaseError, planCount: supabasePlans?.length || 0 });
+            console.log('🔍 Available plans:', supabasePlans?.map(p => ({ id: p.id, hobby: p.hobby, title: p.title })));
 
-    // Culinary Arts
-    'cooking', 'baking', 'wine tasting', 'coffee brewing', 'bread making', 'cake decorating',
+            if (!supabaseError && supabasePlans && supabasePlans.length > 0) {
+              const mostRecentPlan = supabasePlans[0];
+              console.log('🎯 Found plan via Supabase:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
+              setCurrentPlanId(mostRecentPlan.id.toString());
 
-    // Physical & Wellness
-    'yoga', 'meditation', 'tai chi', 'martial arts', 'rock climbing', 'swimming', 'running', 'cycling',
+              // Load progress for this plan  
+              try {
+                const { data: progressData, error: progressError } = await supabase
+                  .from('user_progress')
+                  .select('*')
+                  .eq('plan_id', mostRecentPlan.id)
+                  .eq('user_id', session.user.id);
 
-    // Technical & Digital
-    'coding', 'web design', 'video editing', 'electronics tinkering', 'programming basics', 'model building', 'digital photography',
+                console.log('🔍 Progress query result:', { progressError, progressCount: progressData?.length || 0 });
 
-    // Nature & Outdoor
-    'gardening', 'hiking', 'bird watching', 'astronomy', 'fishing', 'camping', 'foraging',
+                if (!progressError && progressData && progressData.length > 0) {
+                  const completed = progressData.map(p => p.day_number);
+                  console.log('📖 Loaded progress from database:', completed);
+                  setCompletedDays(completed);
+                  setSelectedDay(progressData[0].current_day || 1);
+                }
+              } catch (progressErr) {
+                console.error('Error loading progress:', progressErr);
+              }
+              return;
+            } else {
+              console.log('🚨 No plans found via Supabase for hobby:', initialPlanData.hobby);
+            }
 
-    // Crafts & Making
-    'knitting', 'sewing', 'woodworking', 'leather crafting', 'soap making', 'candle making', 'embroidery',
+            // Fallback to API service
+            const { data: userPlans, error } = await apiService.getHobbyPlans(session.user.id);
 
-    // Learning & Culture
-    'chess', 'language learning', 'reading', 'writing', 'history research', 'genealogy'
-  ];
-  const surpriseAnswers: QuizAnswers = {
-    experience: 'beginner',
-    timeAvailable: '1 hour',
-    goal: 'personal enjoyment'
-  };
+            if (!error && userPlans && userPlans.length > 0) {
+              // Find the MOST RECENT plan that matches this hobby
+              const matchingPlans = userPlans.filter(plan => 
+                plan.hobby === initialPlanData.hobby
+              );
 
-  // Initialize with plan data if provided (for back navigation from dashboard)
-  useEffect(() => {
-    // Clear any stale cached data on mount
-    if (!initialPlanData) {
-      console.log('🧹 Clearing stale cached data on fresh mount');
-      const keys = Object.keys(sessionStorage);
-      keys.forEach(key => {
-        if (key.startsWith('existingPlan_') || key.startsWith('duplicateCheck_')) {
-          sessionStorage.removeItem(key);
+              if (matchingPlans.length > 0) {
+                // Sort by created_at descending and take the most recent
+                const mostRecentPlan = matchingPlans.sort((a, b) => 
+                  new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                )[0];
+
+                console.log('🎯 Found most recent plan ID via API:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
+                setCurrentPlanId(mostRecentPlan.id.toString());
+
+                // Load progress from database for this plan
+                console.log('📖 Loading progress for plan ID:', mostRecentPlan.id);
+
+                // Try direct REST API call for progress
+                try {
+                  const response = await fetch(
+                    `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${session.user.id}`,
+                    {
+                      headers: {
+                        'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${session.access_token}`,
+                        'Content-Type': 'application/json'
+                      }
+                    }
+                  );
+
+                  if (response.ok) {
+                    const progressData = await response.json();
+                    if (progressData && progressData.length > 0) {
+                      const progress = progressData[0];
+                      console.log('✅ FOUND PROGRESS! Loading from database:', progress.completed_days);
+                      setCompletedDays(progress.completed_days || []);
+                      setSelectedDay(progress.current_day || 1);
+                      return; // Exit early, we found the progress
+                    } else {
+                      console.log('⚠️ No progress found for plan ID:', mostRecentPlan.id);
+                    }
+                  } else {
+                    console.log('⚠️ Progress API response not OK:', response.status);
+                  }
+                } catch (progressError) {
+                  console.log('⚠️ Error loading progress from database:', progressError);
+                }
+              } else {
+                console.log('🔄 No matching plans found for hobby:', initialPlanData.hobby);
+              }
+            } else {
+              console.log('🔄 No user plans found');
+            }
+          } catch (error) {
+            console.error('🔄 Error fetching user plans:', error);
+          }
+        } else {
+          console.log('🔄 No authenticated session found - progress will not persist');
         }
-      });
-    }
-    
-    if (initialPlanData) {
+      };
+
+      const loadLocalStorageProgress = () => {
+        console.log('📍 Database-only progress tracking - no localStorage used');
+      };
+
+      // Start the initialization process
+      initializeWithAuth();
+    } else if (initialPlanData) {
+      // User with existing plan data - check if authenticated to get plan ID
       console.log('🔄 Initializing with existing plan data:', initialPlanData.hobby);
-      const fixedPlanData = fixPlanDataFields(initialPlanData);
+      const fixedGuestPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
-      setPlanData(fixedPlanData);
-      setRenderKey(prev => prev + 1); // Force React re-render
+      // Only clear fresh plan marker if this isn't a freshly generated plan
+      const isFreshPlan = sessionStorage.getItem('freshPlanMarker');
+      if (!isFreshPlan) {
+        console.log('🧹 Clearing any stale plan markers for old plan');
+      } else {
+        console.log('🎯 Keeping fresh plan marker - this is a newly generated plan');
+      }
+      setPlanData(fixedGuestPlanData);
 
-      // CRITICAL FIX: Set plan ID from initial plan data if available
-      if (initialPlanData.id || initialPlanData.planId) {
-        const planId = initialPlanData.id || initialPlanData.planId;
-        console.log('🎯 Setting plan ID from initial data:', planId);
-        setCurrentPlanId(planId);
+      // Initialize chat conversation for existing plan
+      if (messages.length === 0) {
+        const welcomeMessage: ChatMessage = {
+          id: Date.now().toString(),
+          sender: 'ai',
+          content: `Welcome back to your ${initialPlanData.hobby} learning plan! 🌟\n\nI'm here to help you with any questions about your 7-day journey. Feel free to ask me about:\n\n• Daily tasks and how to complete them\n• Tips for better practice\n• Troubleshooting common challenges\n• Resources and recommendations\n\nHow can I assist you today?`,
+          timestamp: new Date()
+        };
+        setMessages([welcomeMessage]);
       }
 
-      // Also check storage for plan ID
-      const storedPlanId = sessionStorage.getItem('currentPlanId') || localStorage.getItem('currentPlanId');
-      if (storedPlanId) {
-        console.log('🎯 Found stored plan ID:', storedPlanId);
-        setCurrentPlanId(storedPlanId);
+      // If user is authenticated, try to get plan ID from database
+      if (user?.id) {
+        console.log('🔍 User authenticated, searching for existing plan ID...');
+        // Find the plan ID from the database based on hobby and user
+        setTimeout(async () => {
+          try {
+            const { data: plans, error } = await supabase
+              .from('hobby_plans')
+              .select('id')
+              .eq('user_id', user.id)
+              .eq('hobby', initialPlanData.hobby)
+              .order('created_at', { ascending: false })
+              .limit(1);
+
+            if (!error && plans && plans.length > 0) {
+              console.log('✅ Found existing plan ID:', plans[0].id);
+              setCurrentPlanId(plans[0].id.toString());
+
+              // Also load progress for this plan
+              await loadProgressFromDatabase(plans[0].id.toString());
+            } else {
+              console.log('⚠️ No existing plan found for this hobby');
+            }
+          } catch (error) {
+            console.error('Error finding plan ID:', error);
+          }
+        }, 100);
       }
+
+      console.log('📍 Database-only progress tracking - no localStorage used');
+
+      // CRITICAL FIX: Set step to 'plan' when plan exists so chat works properly
+      setCurrentStep('plan');
+      setIsGenerating(false);
     }
   }, [initialPlanData]);
 
@@ -632,189 +726,39 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [user, initialPlanData]);
 
-  // Keep the old logic for backward compatibility
+  // Initialize with plan data if provided (for back navigation from dashboard)
   useEffect(() => {
-    if (initialPlanData && !user) {
-      const initializeWithAuth = async () => {
-        // Check directly with Supabase instead of relying on hook state
-        const { data: { session } } = await supabase.auth.getSession();
-        console.log('🔍 Fallback session check:', session?.user?.id || 'no session');
-
-        if (session?.user) {
-          try {
-            console.log('🔍 Looking for plan ID for authenticated user:', session.user.id);
-
-            // First, try to find existing plan via direct Supabase query to ensure we get the latest data
-            const { data: supabasePlans, error: supabaseError } = await supabase
-              .from('hobby_plans')
-              .select('id, hobby, created_at, title')
-              .eq('user_id', session.user.id)
-              .eq('hobby', initialPlanData.hobby)
-              .order('created_at', { ascending: false })
-              .limit(5); // Get more plans to debug
-
-            console.log('🔍 Supabase query result:', { supabaseError, planCount: supabasePlans?.length || 0 });
-            console.log('🔍 Available plans:', supabasePlans?.map(p => ({ id: p.id, hobby: p.hobby, title: p.title })));
-
-            if (!supabaseError && supabasePlans && supabasePlans.length > 0) {
-              const mostRecentPlan = supabasePlans[0];
-              console.log('🎯 Found plan via Supabase:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
-              setCurrentPlanId(mostRecentPlan.id.toString());
-
-              // Load progress for this plan  
-              try {
-                const { data: progressData, error: progressError } = await supabase
-                  .from('user_progress')
-                  .select('*')
-                  .eq('plan_id', mostRecentPlan.id)
-                  .eq('user_id', session.user.id);
-
-                console.log('🔍 Progress query result:', { progressError, progressCount: progressData?.length || 0 });
-
-                if (!progressError && progressData && progressData.length > 0) {
-                  const completed = progressData.map(p => p.day_number);
-                  console.log('📖 Loaded progress from database:', completed);
-                  setCompletedDays(completed);
-                  setSelectedDay(progressData[0].current_day || 1);
-                }
-              } catch (progressErr) {
-                console.error('Error loading progress:', progressErr);
-              }
-              return;
-            } else {
-              console.log('🚨 No plans found via Supabase for hobby:', initialPlanData.hobby);
-            }
-
-            // Fallback to API service
-            const { data: userPlans, error } = await apiService.getHobbyPlans(session.user.id);
-
-            if (!error && userPlans && userPlans.length > 0) {
-              // Find the MOST RECENT plan that matches this hobby
-              const matchingPlans = userPlans.filter(plan => 
-                plan.hobby === initialPlanData.hobby
-              );
-
-              if (matchingPlans.length > 0) {
-                // Sort by created_at descending and take the most recent
-                const mostRecentPlan = matchingPlans.sort((a, b) => 
-                  new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-                )[0];
-
-                console.log('🎯 Found most recent plan ID via API:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
-                setCurrentPlanId(mostRecentPlan.id.toString());
-
-                // Load progress from database for this plan
-                console.log('📖 Loading progress for plan ID:', mostRecentPlan.id);
-
-                // Try direct REST API call for progress
-                try {
-                  const response = await fetch(
-                    `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${session.user.id}`,
-                    {
-                      headers: {
-                        'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${session.access_token}`,
-                        'Content-Type': 'application/json'
-                      }
-                    }
-                  );
-
-                  if (response.ok) {
-                    const progressData = await response.json();
-                    if (progressData && progressData.length > 0) {
-                      const progress = progressData[0];
-                      console.log('✅ FOUND PROGRESS! Loading from database:', progress.completed_days);
-                      setCompletedDays(progress.completed_days || []);
-                      setSelectedDay(progress.current_day || 1);
-                      return; // Exit early, we found the progress
-                    } else {
-                      console.log('⚠️ No progress found for plan ID:', mostRecentPlan.id);
-                    }
-                  } else {
-                    console.log('⚠️ Progress API response not OK:', response.status);
-                  }
-                } catch (progressError) {
-                  console.log('⚠️ Error loading progress from database:', progressError);
-                }
-              } else {
-                console.log('🔄 No matching plans found for hobby:', initialPlanData.hobby);
-              }
-            } else {
-              console.log('🔄 No user plans found');
-            }
-          } catch (error) {
-            console.error('🔄 Error fetching user plans:', error);
-          }
-        } else {
-          console.log('🔄 No authenticated session found - progress will not persist');
+    // Clear any stale cached data on mount
+    if (!initialPlanData) {
+      console.log('🧹 Clearing stale cached data on fresh mount');
+      const keys = Object.keys(sessionStorage);
+      keys.forEach(key => {
+        if (key.startsWith('existingPlan_') || key.startsWith('duplicateCheck_')) {
+          sessionStorage.removeItem(key);
         }
-      };
+      });
+    }
 
-      const loadLocalStorageProgress = () => {
-        console.log('📍 Database-only progress tracking - no localStorage used');
-      };
-
-      // Start the initialization process
-      initializeWithAuth();
-    } else if (initialPlanData) {
-      // User with existing plan data - check if authenticated to get plan ID
+    if (initialPlanData) {
       console.log('🔄 Initializing with existing plan data:', initialPlanData.hobby);
-      const fixedGuestPlanData = fixPlanDataFields(initialPlanData);
+      const fixedPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
-      // Only clear fresh plan marker if this isn't a freshly generated plan
-      const isFreshPlan = sessionStorage.getItem('freshPlanMarker');
-      if (!isFreshPlan) {
-        console.log('🧹 Clearing any stale plan markers for old plan');
-      } else {
-        console.log('🎯 Keeping fresh plan marker - this is a newly generated plan');
-      }
-      setPlanData(fixedGuestPlanData);
+      setPlanData(fixedPlanData);
+      setRenderKey(prev => prev + 1); // Force React re-render
 
-      // Initialize chat conversation for existing plan
-      if (messages.length === 0) {
-        const welcomeMessage: ChatMessage = {
-          id: Date.now().toString(),
-          sender: 'ai',
-          content: `Welcome back to your ${initialPlanData.hobby} learning plan! 🌟\n\nI'm here to help you with any questions about your 7-day journey. Feel free to ask me about:\n\n• Daily tasks and how to complete them\n• Tips for better practice\n• Troubleshooting common challenges\n• Resources and recommendations\n\nHow can I assist you today?`,
-          timestamp: new Date()
-        };
-        setMessages([welcomeMessage]);
+      // CRITICAL FIX: Set plan ID from initial plan data if available
+      if (initialPlanData.id || initialPlanData.planId) {
+        const planId = initialPlanData.id || initialPlanData.planId;
+        console.log('🎯 Setting plan ID from initial data:', planId);
+        setCurrentPlanId(planId || null);
       }
 
-      // If user is authenticated, try to get plan ID from database
-      if (user?.id) {
-        console.log('🔍 User authenticated, searching for existing plan ID...');
-        // Find the plan ID from the database based on hobby and user
-        setTimeout(async () => {
-          try {
-            const { data: plans, error } = await supabase
-              .from('hobby_plans')
-              .select('id')
-              .eq('user_id', user.id)
-              .eq('hobby', initialPlanData.hobby)
-              .order('created_at', { ascending: false })
-              .limit(1);
-
-            if (!error && plans && plans.length > 0) {
-              console.log('✅ Found existing plan ID:', plans[0].id);
-              setCurrentPlanId(plans[0].id.toString());
-
-              // Also load progress for this plan
-              await loadProgressFromDatabase(plans[0].id.toString());
-            } else {
-              console.log('⚠️ No existing plan found for this hobby');
-            }
-          } catch (error) {
-            console.error('Error finding plan ID:', error);
-          }
-        }, 100);
+      // Also check storage for plan ID
+      const storedPlanId = sessionStorage.getItem('currentPlanId') || localStorage.getItem('currentPlanId');
+      if (storedPlanId) {
+        console.log('🎯 Found stored plan ID:', storedPlanId);
+        setCurrentPlanId(storedPlanId);
       }
-
-      console.log('📍 Database-only progress tracking - no localStorage used');
-
-      // CRITICAL FIX: Set step to 'plan' when plan exists so chat works properly
-      setCurrentStep('plan');
-      setIsGenerating(false);
     }
   }, [initialPlanData]);
 
@@ -1560,7 +1504,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     } catch (error: any) {
       console.error('❌ AUTO-SAVE: Failed to save plan:', error);
-      console.error('❌ AUTO-SAVE: Error details:', {
+      console.log('❌ AUTO-SAVE: Error details:', {
         name: error.name,
         message: error.message,
         stack: error.stack
@@ -1989,12 +1933,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <p className="text-xs lg:text-sm text-gray-600">Ask me anything about your plan</p>
               </div>
               {planData && (
-                <button
+                <Button
                   onClick={handleStartNewPlan}
                   className="px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg transition-all shadow-sm"
                 >
                   Start New Plan
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -2571,7 +2515,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               {/* USER PREFERENCE: Only affiliate links, no free tutorials */}
 
                               {/* Recommended Tools - Compact, No Pricing */}
-                              {currentDay.affiliateProducts && currentDay.affiliateProducts.length > 0 && (
+                              {currentDay.affiliateProducts && currentDay.affiliateProducts.length > 0 ? (
                                 currentDay.affiliateProducts.map((product, index) => (
                                   <a
                                     key={index}
@@ -2591,6 +2535,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                     </div>
                                   </a>
                                 ))
+                              ) : (
+                                <div className="bg-white rounded-lg p-3 shadow-sm text-center">
+                                  <p className="text-gray-600 text-sm">No recommended tools for this day.</p>
+                                </div>
                               )}
                             </div>
                           </section>

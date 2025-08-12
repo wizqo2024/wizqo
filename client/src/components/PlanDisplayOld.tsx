@@ -38,7 +38,7 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
-  const { user, isSignedIn } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [expandedDay, setExpandedDay] = useState<number | null>(1);
@@ -62,7 +62,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
         const newCompletedDays = [...completedDays, dayNumber];
         setCompletedDays(newCompletedDays);
 
-        if (dayNumber === 1 && !isSignedIn) {
+        if (dayNumber === 1 && !isAuthenticated) {
           setShowAuthModal(true);
         }
       }
