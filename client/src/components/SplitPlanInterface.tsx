@@ -17,7 +17,7 @@ import { supabase } from '@/lib/supabase';
 const getHobbyImage = (hobby: string): string => {
   const normalizedHobby = hobby?.toLowerCase() || '';
   console.log(`🎨 Plan AUTO-IMAGE: "${hobby}" -> category-based generation`);
-  
+
   // Automated categorization and image selection (same logic as Dashboard)
   const getImageByCategory = (hobbyName: string): string => {
     // Technology hobbies
@@ -31,7 +31,7 @@ const getHobbyImage = (hobby: string): string => {
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       return techImages[hash % techImages.length];
     }
-    
+
     // Creative arts and crafts - comprehensive coverage
     if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo') || 
         hobbyName.includes('craft') || hobbyName.includes('embroidery') || hobbyName.includes('knit') || hobbyName.includes('sew') || 
@@ -45,7 +45,7 @@ const getHobbyImage = (hobby: string): string => {
         hobbyName.includes('sketch') || hobbyName.includes('cosplay') || hobbyName.includes('vintage') || hobbyName.includes('collect')) {
       const creativeImages = [
         'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1541961017774-2034585d5c2?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1559622214-2d1b21d5ab7e?w=400&h=240&fit=crop',
@@ -54,7 +54,7 @@ const getHobbyImage = (hobby: string): string => {
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       return creativeImages[hash % creativeImages.length];
     }
-    
+
     // Culinary and food - comprehensive coverage
     if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food') ||
         hobbyName.includes('mixology') || hobbyName.includes('ferment') || hobbyName.includes('cheese') ||
@@ -67,7 +67,7 @@ const getHobbyImage = (hobby: string): string => {
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       return culinaryImages[hash % culinaryImages.length];
     }
-    
+
     // Fitness and movement - comprehensive coverage
     if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport') ||
         hobbyName.includes('pilates') || hobbyName.includes('aerial') || hobbyName.includes('hula') || hobbyName.includes('jump') ||
@@ -75,14 +75,14 @@ const getHobbyImage = (hobby: string): string => {
         hobbyName.includes('tai chi') || hobbyName.includes('martial') || hobbyName.includes('climb') || hobbyName.includes('parkour') ||
         hobbyName.includes('rollerblade') || hobbyName.includes('skateboard') || hobbyName.includes('fencing') || hobbyName.includes('archery')) {
       const fitnessImages = [
-        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1544367567-0f2fcb0090b?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop'
       ];
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       return fitnessImages[hash % fitnessImages.length];
     }
-    
+
     // Default learning category
     const learningImages = [
       'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
@@ -92,10 +92,10 @@ const getHobbyImage = (hobby: string): string => {
     const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     return learningImages[hash % learningImages.length];
   };
-  
+
   const selectedImage = getImageByCategory(normalizedHobby);
   console.log(`🎨 Plan AUTO-GENERATED: "${hobby}" -> unique category-based image`);
-  
+
   const timestamp = Math.floor(Date.now() / (1000 * 60 * 60));
   const finalImage = `${selectedImage}&t=${timestamp}`;
   console.log(`🎨 Plan FINAL IMAGE: ${finalImage}`);
@@ -145,6 +145,7 @@ interface PlanData {
   difficulty: string;
   totalDays: number;
   days: Day[];
+  _isFreshPlan?: boolean; // Internal flag for fresh plan generation
 }
 
 interface SplitPlanInterfaceProps {
@@ -156,10 +157,10 @@ interface SplitPlanInterfaceProps {
 // Function to fix field mapping consistently across all plan data sources
 const fixPlanDataFields = (plan: any) => {
   if (!plan) return plan;
-  
+
   // Extract days array from various possible nested structures
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
-  
+
   console.log('🔍 fixPlanDataFields - Examining data structure:');
   console.log('🔍 plan.days length:', plan.days?.length || 0);
   console.log('🔍 plan.plan_data?.days length:', plan.plan_data?.days?.length || 0);
@@ -169,7 +170,7 @@ const fixPlanDataFields = (plan: any) => {
   console.log('🔍   plan.days?.[0]?.videoId:', plan.days?.[0]?.videoId);
   console.log('🔍   plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
   console.log('🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId);
-  
+
   // LOG COMPLETE FIRST DAY TO SEE ALL FIELDS
   if (plan.days?.[0]) {
     console.log('🔍 COMPLETE FIRST DAY FRONTEND DATA:', JSON.stringify(plan.days[0], null, 2));
@@ -177,19 +178,19 @@ const fixPlanDataFields = (plan: any) => {
     console.log('🔍 FRONTEND - youtubeVideoId value type:', typeof plan.days[0].youtubeVideoId);
     console.log('🔍 FRONTEND - videoId value type:', typeof plan.days[0].videoId);
   }
-  
+
   console.log('🔧 fixPlanDataFields - Input plan structure:', {
     hasDays: !!plan.days,
     hasPlanData: !!plan.plan_data,
     hasPlanDataDays: !!plan.plan_data?.days,
     daysArrayLength: daysArray.length
   });
-  
+
   if (!daysArray || daysArray.length === 0) {
     console.warn('🔧 fixPlanDataFields - No days array found in plan data');
     return plan;
   }
-  
+
   const fixedPlan = {
     ...plan,
     // Preserve important top-level fields from backend
@@ -216,7 +217,7 @@ const fixPlanDataFields = (plan: any) => {
       skillLevel: day.skillLevel
     }))
   };
-  
+
   console.log('🔧 fixPlanDataFields - Output plan days count:', fixedPlan.days.length);
   return fixedPlan;
 };
@@ -230,7 +231,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔄 Starting completely fresh - no existing plans found');
       sessionStorage.removeItem('activePlanData');
       // Keep localStorage for dashboard access but don't auto-load here
-      
+
       console.log('🔄 Initializing messages state with welcome message');
       return [{
         id: '1',
@@ -257,7 +258,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({});
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
-  
+
   // Fix initial loading state
   useEffect(() => {
     setIsTyping(false);
@@ -266,7 +267,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
-  
+  const [isSaving, setIsSaving] = useState(false); // State for saving process
+  const [toast, setToast] = useState<{ type: 'success' | 'error', message: string } | null>(null); // Toast notification state
+
   // CRITICAL FIX: Reset selectedDay when planData changes
   useEffect(() => {
     if (planData && planData.days && planData.days.length > 0) {
@@ -280,29 +283,29 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
   const [isChatMinimized, setIsChatMinimized] = useState(false);
   const [renderKey, setRenderKey] = useState(0); // Force re-render key
-  
+
   // Window resize listener for responsive layout
   useEffect(() => {
     const handleResize = () => {
       // Use only browser window measurements, not physical screen size
       const innerWidth = window.innerWidth || 0;
       const clientWidth = document.documentElement.clientWidth || 0;
-      
+
       // Use the smaller of the two measurements to be conservative
       const effectiveWidth = Math.min(innerWidth, clientWidth);
       const isLikelyDesktop = effectiveWidth >= 768;
-      
+
       // console.log('📱 Inner:', innerWidth, 'Client:', clientWidth, 'Effective:', effectiveWidth, 'Desktop:', isLikelyDesktop);
       setIsDesktop(isLikelyDesktop);
     };
-    
+
     // Initial check
     handleResize();
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   // Store plan data for dashboard navigation when plan is generated
   useEffect(() => {
     if (planData) {
@@ -313,12 +316,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       // Also store in session for immediate back navigation
       sessionStorage.setItem('activePlanData', JSON.stringify(planData));
       sessionStorage.setItem('activePlanId', planId);
+      console.log('🎯 Marked plan as freshly generated in session storage');
+      sessionStorage.setItem('freshPlanMarker', 'true'); // Set the marker for auto-save
     }
   }, [planData]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { savePlan, saving } = usePlanStorage();
+  const { savePlan, saving } = usePlanStorage(); // saving is not used here, but keep for consistency if needed elsewhere
   const { user } = useAuth();
 
   // Auto-close auth modal when user signs in
@@ -344,25 +349,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const surpriseHobbies = [
     // Creative Arts
     'photography', 'drawing', 'painting', 'digital art', 'calligraphy', 'pottery', 'jewelry making', 'sculpture',
-    
+
     // Music & Performance
     'guitar', 'piano', 'ukulele', 'singing', 'violin', 'drums', 'harmonica', 'dance', 'theater',
-    
+
     // Culinary Arts
     'cooking', 'baking', 'wine tasting', 'coffee brewing', 'bread making', 'cake decorating',
-    
+
     // Physical & Wellness
     'yoga', 'meditation', 'tai chi', 'martial arts', 'rock climbing', 'swimming', 'running', 'cycling',
-    
+
     // Technical & Digital
     'coding', 'web design', 'video editing', 'electronics tinkering', 'programming basics', 'model building', 'digital photography',
-    
+
     // Nature & Outdoor
     'gardening', 'hiking', 'bird watching', 'astronomy', 'fishing', 'camping', 'foraging',
-    
+
     // Crafts & Making
     'knitting', 'sewing', 'woodworking', 'leather crafting', 'soap making', 'candle making', 'embroidery',
-    
+
     // Learning & Culture
     'chess', 'language learning', 'reading', 'writing', 'history research', 'genealogy'
   ];
@@ -380,14 +385,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🔧 Applied field mapping fix to initial plan data');
       setPlanData(fixedPlanData);
       setRenderKey(prev => prev + 1); // Force React re-render
-      
+
       // CRITICAL FIX: Set plan ID from initial plan data if available
       if (initialPlanData.id || initialPlanData.planId) {
         const planId = initialPlanData.id || initialPlanData.planId;
         console.log('🎯 Setting plan ID from initial data:', planId);
         setCurrentPlanId(planId.toString());
       }
-      
+
       // Also check storage for plan ID
       const storedPlanId = sessionStorage.getItem('currentPlanId') || localStorage.getItem('currentPlanId');
       if (storedPlanId) {
@@ -397,27 +402,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [initialPlanData]);
 
-  // DISABLED: No more auto-loading of old plans to prevent confusion
-  // Users start fresh every time - they can access old plans via dashboard if needed
-
   // Separate effect to handle authentication and plan ID detection
   useEffect(() => {
     // PRIORITY: If we have fresh plan data from generation, use it directly
     // Only look up old plans if we don't have current plan data
     if (user && initialPlanData && initialPlanData.hobby && !currentPlanId) {
       // Check if this is a freshly generated plan (has session marker)
-      const sessionPlanMarker = sessionStorage.getItem('freshPlanGenerated');
+      const sessionPlanMarker = sessionStorage.getItem('freshPlanMarker');
       console.log('🔍 Checking for fresh plan marker:', sessionPlanMarker ? 'FOUND' : 'NOT FOUND');
-      
+
       if (sessionPlanMarker) {
         console.log('🎯 Fresh plan detected - using generated plan data directly, not querying database');
         // Don't query database for old plans, just use the fresh plan
         return;
       }
-      
+
       console.log('🔍 User authenticated, looking for plan ID for existing hobby:', initialPlanData.hobby);
       console.log('🔍 User ID:', user.id);
-      
+
       const findPlanId = async () => {
         try {
           // Use the same direct API approach as the dashboard - no hobby column in production
@@ -428,12 +430,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
             }
           });
-          
+
           if (response.ok) {
             const allPlans = await response.json();
             console.log('🔍 Direct API query result:', { totalPlans: allPlans?.length || 0 });
             console.log('🔍 All user plans:', allPlans?.map((p: any) => ({ id: p.id, title: p.title })));
-            
+
             // Filter for the specific hobby by extracting from title
             const supabasePlans = allPlans?.filter((p: any) => {
               if (p.title) {
@@ -450,12 +452,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               foundTitles: allPlans?.map((p: any) => p.title),
               matchedPlans: supabasePlans?.length || 0 
             });
-            
+
             if (supabasePlans && supabasePlans.length > 0) {
               const mostRecentPlan = supabasePlans[0];
               console.log('🎯 Found plan via auth context:', mostRecentPlan.id, 'for title:', mostRecentPlan.title);
               setCurrentPlanId(mostRecentPlan.id.toString());
-              
+
               // Load progress for this plan using direct API
               const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
                 headers: {
@@ -463,11 +465,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
                 }
               });
-              
+
               if (progressResponse.ok) {
                 const progressData = await progressResponse.json();
                 console.log('🔍 Progress query result:', { progressCount: progressData?.length || 0 });
-                
+
                 if (progressData && progressData.length > 0) {
                   const progress = progressData[0];
                   console.log('📖 Loaded progress from database:', progress.completed_days);
@@ -494,7 +496,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               console.log('🚨 Query details - User ID:', user.id, 'Hobby:', initialPlanData.hobby);
               console.log('🚨 Available plan titles:', allPlans?.map((p: any) => p.title));
               console.log('🚨 This indicates a plan lookup issue - checking if plan exists with different title format');
-              
+
               // Fallback: try broader search patterns
               const fallbackPlans = allPlans?.filter((p: any) => {
                 if (p.title) {
@@ -503,12 +505,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 }
                 return false;
               }) || [];
-              
+
               if (fallbackPlans.length > 0) {
                 console.log('🔧 FALLBACK SUCCESS: Found plan with broader search:', fallbackPlans[0].title);
                 const fallbackPlan = fallbackPlans[0];
                 setCurrentPlanId(fallbackPlan.id.toString());
-                
+
                 // Load progress for fallback plan
                 const sessionKey = `progress_${user.id}_${fallbackPlan.id}`;
                 const sessionProgress = sessionStorage.getItem(sessionKey);
@@ -539,22 +541,22 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('⚠️ Plan data keys:', Object.keys(initialPlanData));
       console.log('⚠️ Plan data hobby field:', initialPlanData.hobby);
       console.log('⚠️ Plan data title field:', initialPlanData.title);
-      
+
       // Try to extract hobby from title if available
       if (initialPlanData.title && !initialPlanData.hobby) {
         const titleMatch = initialPlanData.title.match(/Learn (\w+) in/i);
         if (titleMatch) {
           const extractedHobby = titleMatch[1].toLowerCase();
           console.log('🔧 Extracted hobby from title:', extractedHobby);
-          
+
           // Create updated plan data with extracted hobby
           const updatedPlanData = {
             ...initialPlanData,
             hobby: extractedHobby
           };
-          
+
           console.log('🔧 Retrying plan ID search with extracted hobby...');
-          
+
           const findPlanIdWithExtractedHobby = async () => {
             try {
               // Use the same direct API approach as the dashboard - no hobby column in production
@@ -565,12 +567,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
                 }
               });
-              
+
               if (response.ok) {
                 const allPlans = await response.json();
                 console.log('🔍 Direct API query result:', { totalPlans: allPlans?.length || 0 });
                 console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
-                
+
                 // Filter for the extracted hobby by parsing titles
                 const supabasePlans = allPlans?.filter(p => {
                   if (p.title) {
@@ -581,24 +583,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   return false;
                 }) || [];
                 console.log('🔍 Filtered plans for extracted hobby:', supabasePlans?.map(p => ({ id: p.id, title: p.title })));
-                
+
                 if (supabasePlans && supabasePlans.length > 0) {
                   const mostRecentPlan = supabasePlans[0];
                   console.log('🎯 Found plan via extracted hobby:', mostRecentPlan.id, 'for title:', mostRecentPlan.title);
                   setCurrentPlanId(mostRecentPlan.id.toString());
-                  
-                  // Load progress for this plan using direct API
+
+                  // Load progress for this plan
                   const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
                     headers: {
                       'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
                       'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
                     }
                   });
-                  
+
                   if (progressResponse.ok) {
                     const progressData = await progressResponse.json();
                     console.log('🔍 Progress query result for extracted hobby:', { progressCount: progressData?.length || 0 });
-                    
+
                     if (progressData && progressData.length > 0) {
                       const completed = progressData.map(p => p.day_number);
                       console.log('📖 Loaded progress from database via extracted hobby:', completed);
@@ -617,7 +619,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               console.error('Error finding plan with extracted hobby:', error);
             }
           };
-          
+
           findPlanIdWithExtractedHobby();
         }
       }
@@ -631,11 +633,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         // Check directly with Supabase instead of relying on hook state
         const { data: { session } } = await supabase.auth.getSession();
         console.log('🔍 Fallback session check:', session?.user?.id || 'no session');
-        
+
         if (session?.user) {
           try {
             console.log('🔍 Looking for plan ID for authenticated user:', session.user.id);
-            
+
             // First, try to find existing plan via direct Supabase query to ensure we get the latest data
             const { data: supabasePlans, error: supabaseError } = await supabase
               .from('hobby_plans')
@@ -644,15 +646,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               .eq('hobby', initialPlanData.hobby)
               .order('created_at', { ascending: false })
               .limit(5); // Get more plans to debug
-              
+
             console.log('🔍 Supabase query result:', { supabaseError, planCount: supabasePlans?.length || 0 });
             console.log('🔍 Available plans:', supabasePlans?.map(p => ({ id: p.id, hobby: p.hobby, title: p.title })));
-              
+
             if (!supabaseError && supabasePlans && supabasePlans.length > 0) {
               const mostRecentPlan = supabasePlans[0];
               console.log('🎯 Found plan via Supabase:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
               setCurrentPlanId(mostRecentPlan.id.toString());
-              
+
               // Load progress for this plan  
               try {
                 const { data: progressData, error: progressError } = await supabase
@@ -660,9 +662,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   .select('*')
                   .eq('plan_id', mostRecentPlan.id)
                   .eq('user_id', session.user.id);
-                
+
                 console.log('🔍 Progress query result:', { progressError, progressCount: progressData?.length || 0 });
-                
+
                 if (!progressError && progressData && progressData.length > 0) {
                   const completed = progressData.map(p => p.day_number);
                   console.log('📖 Loaded progress from database:', completed);
@@ -675,28 +677,28 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             } else {
               console.log('🚨 No plans found via Supabase for hobby:', initialPlanData.hobby);
             }
-            
+
             // Fallback to API service
             const { data: userPlans, error } = await apiService.getHobbyPlans(session.user.id);
-            
+
             if (!error && userPlans && userPlans.length > 0) {
               // Find the MOST RECENT plan that matches this hobby
               const matchingPlans = userPlans.filter(plan => 
                 plan.hobby === initialPlanData.hobby
               );
-              
+
               if (matchingPlans.length > 0) {
                 // Sort by created_at descending and take the most recent
                 const mostRecentPlan = matchingPlans.sort((a, b) => 
                   new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
                 )[0];
-                
+
                 console.log('🎯 Found most recent plan ID via API:', mostRecentPlan.id, 'for hobby:', mostRecentPlan.hobby);
                 setCurrentPlanId(mostRecentPlan.id.toString());
-                
+
                 // Load progress from database for this plan
                 console.log('📖 Loading progress for plan ID:', mostRecentPlan.id);
-                
+
                 // Try direct REST API call for progress
                 try {
                   const response = await fetch(
@@ -709,7 +711,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       }
                     }
                   );
-                  
+
                   if (response.ok) {
                     const progressData = await response.json();
                     if (progressData && progressData.length > 0) {
@@ -740,11 +742,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           console.log('🔄 No authenticated session found - progress will not persist');
         }
       };
-      
+
       const loadLocalStorageProgress = () => {
         console.log('📍 No localStorage progress loading - using database only');
       };
-      
+
       // Start the initialization process
       initializeWithAuth();
     } else if (initialPlanData) {
@@ -753,14 +755,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const fixedGuestPlanData = fixPlanDataFields(initialPlanData);
       console.log('🔧 Applied field mapping fix to initial plan data');
       // Only clear fresh plan marker if this isn't a freshly generated plan
-      const isFreshPlan = sessionStorage.getItem('freshPlanGenerated');
+      const isFreshPlan = sessionStorage.getItem('freshPlanMarker');
       if (!isFreshPlan) {
         console.log('🧹 Clearing any stale plan markers for old plan');
       } else {
         console.log('🎯 Keeping fresh plan marker - this is a newly generated plan');
       }
       setPlanData(fixedGuestPlanData);
-      
+
       // Initialize chat conversation for existing plan
       if (messages.length === 0) {
         const welcomeMessage: ChatMessage = {
@@ -771,7 +773,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         };
         setMessages([welcomeMessage]);
       }
-      
+
       // If user is authenticated, try to get plan ID from database
       if (user?.id) {
         console.log('🔍 User authenticated, searching for existing plan ID...');
@@ -785,11 +787,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               .eq('hobby', initialPlanData.hobby)
               .order('created_at', { ascending: false })
               .limit(1);
-              
+
             if (!error && plans && plans.length > 0) {
               console.log('✅ Found existing plan ID:', plans[0].id);
               setCurrentPlanId(plans[0].id.toString());
-              
+
               // Also load progress for this plan
               await loadProgressFromDatabase(plans[0].id.toString());
             } else {
@@ -800,9 +802,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           }
         }, 100);
       }
-      
+
       console.log('📍 Database-only progress tracking - no localStorage used');
-      
+
       // CRITICAL FIX: Set step to 'plan' when plan exists so chat works properly
       setCurrentStep('plan');
       setIsGenerating(false);
@@ -822,17 +824,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   // Enhanced hobby validation and processing
   const validateAndProcessHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
     const trimmedInput = input.toLowerCase().trim();
-    
+
     // Only reject completely nonsensical inputs (matching backend logic)
     const badInputs = ['bye', 'hello', 'hi', 'hey', 'hmm', 'um', 'uh', 'ah', 'ok', 'okay', 'yes', 'no', 'maybe', 'test', 'testing', '', 'null', 'undefined', 'admin', 'root'];
-    
+
     if (badInputs.includes(trimmedInput) || trimmedInput.length < 2) {
       return {
         isValid: false,
         suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance']
       };
     }
-    
+
     // Expanded hobby detection with smart matching
     const hobbyKeywords = {
       music: ['music', 'guitar', 'piano', 'violin', 'drums', 'singing', 'bass', 'keyboard', 'ukulele'],
@@ -849,10 +851,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       languages: ['language', 'spanish', 'french', 'german', 'italian', 'chinese', 'japanese', 'english'],
       gaming: ['gaming', 'video games', 'board games', 'chess', 'poker', 'game development']
     };
-    
+
     // Smart hobby detection
     const detectedHobbies: string[] = [];
-    
+
     for (const [category, keywords] of Object.entries(hobbyKeywords)) {
       for (const keyword of keywords) {
         if (trimmedInput === keyword || 
@@ -864,14 +866,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }
       }
     }
-    
+
     if (detectedHobbies.length > 0) {
       return {
         isValid: true,
         detectedHobbies: detectedHobbies
       };
     }
-    
+
     // Accept reasonable-looking inputs (let backend handle detailed validation)
     const reasonablePattern = /^[a-zA-Z\s-]{3,30}$/;
     if (reasonablePattern.test(trimmedInput)) {
@@ -880,7 +882,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         detectedHobbies: [trimmedInput]
       };
     }
-    
+
     return {
       isValid: false,
       suggestions: ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance']
@@ -894,7 +896,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       content,
       timestamp: new Date()
     };
-    
+
     setMessages(prev => [...prev, userMessage]);
     return userMessage;
   };
@@ -902,7 +904,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[], delay = 1000) => {
     setTimeout(() => {
       setIsTyping(true);
-      
+
       setTimeout(() => {
         const aiMessage: ChatMessage = {
           id: Date.now().toString(),
@@ -911,7 +913,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           options,
           timestamp: new Date()
         };
-        
+
         setMessages(prev => [...prev, aiMessage]);
         setIsTyping(false);
       }, delay);
@@ -920,13 +922,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const handleSurpriseMe = async () => {
     const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
-    
+
     // Add user message
     addUserMessage("Surprise Me! 🎲");
-    
+
     // Add AI response
     addAIMessage(`Perfect! I've chosen ${randomHobby} for you. Creating your 7-day plan now... ✨`, undefined, 800);
-    
+
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
     setCurrentStep('generating');
@@ -940,20 +942,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🐛 CRITICAL - Raw plan first day has keys:', Object.keys(plan?.days?.[0] || {}));
       console.log('🐛 CRITICAL - Raw plan first day youtubeVideoId type:', typeof plan?.days?.[0]?.youtubeVideoId);
       console.log('🐛 CRITICAL - Raw plan first day videoId type:', typeof plan?.days?.[0]?.videoId);
-      
+
       // If no YouTube video ID, check nested structures
       if (!plan?.days?.[0]?.youtubeVideoId) {
         console.log('🔍 Checking nested plan structure for YouTube video ID...');
         console.log('🔍 plan.plan_data?.days?.[0]?.youtubeVideoId:', plan.plan_data?.days?.[0]?.youtubeVideoId);
         console.log('🔍 plan.days?.[0]?.freeResources:', plan.days?.[0]?.freeResources);
       }
-      
+
       // Fix field mapping for frontend display
       const correctedPlanData = fixPlanDataFields(plan);
-      
+
       console.log('🔧 CORRECTED plan data - first day commonMistakes:', correctedPlanData.days[0].commonMistakes);
       console.log('🔧 CORRECTED plan data - first day youtubeVideoId:', correctedPlanData.days[0].youtubeVideoId);
-      
+
       console.log('🔍 PLAN DEBUG: Setting planData with correctedPlanData');
       console.log('🔍 PLAN DEBUG: correctedPlanData structure:', {
         exists: !!correctedPlanData,
@@ -963,44 +965,44 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         isArray: Array.isArray(correctedPlanData?.days),
         firstDay: correctedPlanData?.days?.[0]
       });
-      
+
       console.log('🔍 PLAN DEBUG: About to set plan data and step to plan');
-      
+
       // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
       const finalPlanData = {
         ...correctedPlanData,
         // Guarantee days is always an array
         days: Array.isArray(correctedPlanData?.days) ? correctedPlanData.days : []
       };
-      
+
       console.log('🔍 PLAN DEBUG: Final plan data validation:', {
         hasDays: !!finalPlanData.days,
         daysLength: finalPlanData.days.length,
         isArray: Array.isArray(finalPlanData.days),
         renderCondition: !!(finalPlanData && finalPlanData.days && finalPlanData.days.length > 0)
       });
-      
+
       // CRITICAL FIX: Clear old cached data and store fresh plan
       sessionStorage.removeItem('activePlanData');
       localStorage.removeItem('lastViewedPlanData');
       console.log('🧹 Cleared old cached plan data');
-      
+
       // Mark as freshly generated plan BEFORE setting plan data
-      sessionStorage.setItem('freshPlanGenerated', 'true');
+      sessionStorage.setItem('freshPlanMarker', 'true'); // Use the new marker
       console.log('🎯 Marked plan as freshly generated BEFORE setPlanData');
-      
+
       // Store the fresh plan data
       sessionStorage.setItem('activePlanData', JSON.stringify(finalPlanData));
       localStorage.setItem('lastViewedPlanData', JSON.stringify(finalPlanData));
       setPlanData(finalPlanData);
       setCurrentStep('plan'); // Show the plan after generation
       setRenderKey(prev => prev + 1); // Force React re-render
-      
+
       console.log('✅ PLAN STORED: Plan data saved to storage and state');
-      
+
       console.log('🔍 PLAN DEBUG: After setPlanData - currentStep should be:', 'plan');
       console.log('🔍 PLAN DEBUG: planData should have days:', !!correctedPlanData?.days);
-      
+
       // Force a re-render check immediately after state update - CHECK ACTUAL STATE, NOT LOCAL VARIABLE
       setTimeout(() => {
         // Use the stored data instead of the local variable
@@ -1011,14 +1013,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🔍 PLAN DEBUG: Force re-render check - currentStep should be:', 'plan');
         console.log('🔍 PLAN DEBUG: Force re-render check - should show plan:', 
           !!(storedPlanData && storedPlanData.days && Array.isArray(storedPlanData.days) && storedPlanData.days.length > 0));
-        
+
         // Force another re-render to ensure UI updates
         setRenderKey(prev => prev + 2);
       }, 200);
-      
+
       // Prevent any navigation for the next few seconds to ensure plan displays
       const preventNavigation = (e: BeforeUnloadEvent) => {
-        console.log('🛡️ NAVIGATION PROTECTION: Preventing unwanted navigation after plan generation');
+        console.log('🛡️NAVIGATION PROTECTION: Preventing unwanted navigation after plan generation');
         e.preventDefault();
         e.returnValue = '';
       };
@@ -1027,30 +1029,28 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         window.removeEventListener('beforeunload', preventNavigation);
         console.log('🔍 PLAN DEBUG: Navigation protection disabled after plan generation');
       }, 3000);
-      
+
       // Save plan to Supabase if user is authenticated
       if (user?.id) {
         try {
           console.log('Saving surprise plan to Supabase for authenticated user...');
           // Fix field name mapping before saving
           const planDataWithCorrectFields = fixPlanDataFields(plan);
-          
+
           console.log('🔧 FIXED plan data - first day commonMistakes:', planDataWithCorrectFields.days[0].commonMistakes);
           console.log('🔧 FIXED plan data - first day youtubeVideoId:', planDataWithCorrectFields.days[0].youtubeVideoId);
 
           const savedPlan = await hobbyPlanService.savePlan({
-            hobby: randomHobby,
-            title: plan.title,
-            overview: plan.overview,
-            plan_data: planDataWithCorrectFields
+            ...plan, // Use the original plan data for saving to Supabase
+            _isFreshPlan: true, // Add flag for internal tracking
           }, user.id);
-          
+
           console.log('✅ Plan saved successfully, setting plan ID:', savedPlan.id);
           setCurrentPlanId(savedPlan.id.toString());
-          
+
           // Initialize progress tracking
           await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-          
+
           addAIMessage(`Your ${randomHobby} plan is ready and saved! 🎉 Check it out on the right side. Your progress will be tracked automatically!`, undefined, 500);
         } catch (saveError) {
           console.error('Error saving surprise plan to Supabase:', saveError);
@@ -1061,12 +1061,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
     } catch (error) {
       console.error('Error generating plan:', error);
-      
+
       // Handle duplicate plan errors with friendly UI
       if (error instanceof Error && error.message === 'DUPLICATE_PLAN') {
         const duplicateData = (error as any).duplicateData;
         console.log('🚨 DUPLICATE PLAN detected for surprise:', duplicateData);
-        
+
         addAIMessage(
           `I see you already have a ${randomHobby} plan! 🎯\n\nWould you like me to:\n• Show your existing plan\n• Try a different surprise hobby\n• Generate the same hobby with new content?`,
           [
@@ -1089,7 +1089,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const actualHobby = value.replace('ai_suggested_', '');
       addUserMessage(label);
       addAIMessage(`Excellent choice! ${actualHobby} is perfect for learning in 7 days. Let me create your personalized plan right away... ✨`);
-      
+
       setSelectedHobby(actualHobby);
       setQuizAnswers({
         experience: 'beginner',
@@ -1098,14 +1098,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       });
       setCurrentStep('generating');
       setIsGenerating(true);
-      
+
       try {
         const plan = await onGeneratePlan(actualHobby, {
           experience: 'beginner',
           timeAvailable: '1 hour',
           goal: 'personal enjoyment'
         });
-        
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
         console.log('🔍 AI SUGGESTION DEBUG: Setting planData with fixedPlan');
@@ -1116,43 +1115,30 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           title: fixedPlan?.title,
           isArray: Array.isArray(fixedPlan?.days)
         });
-        
+
         console.log('🔍 AI SUGGESTION DEBUG: About to set plan data and step to plan');
-        
+
         // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
         const finalAISuggestionPlan = {
           ...fixedPlan,
           // Guarantee days is always an array
           days: Array.isArray(fixedPlan?.days) ? fixedPlan.days : []
         };
-        
+
         console.log('🔍 AI SUGGESTION DEBUG: Final plan validation:', {
           renderCondition: !!(finalAISuggestionPlan && finalAISuggestionPlan.days && finalAISuggestionPlan.days.length > 0)
         });
-        
+
         // Clear old cached data first
         sessionStorage.removeItem('activePlanData');
         localStorage.removeItem('lastViewedPlanData');
         console.log('🧹 Cleared old cached plan data for AI suggestion');
-        
+
         // Mark as freshly generated plan BEFORE setting plan data
-        sessionStorage.setItem('freshPlanGenerated', 'true');
+        sessionStorage.setItem('freshPlanMarker', 'true');
         console.log('🎯 Marked AI suggestion plan as freshly generated BEFORE setPlanData');
         setPlanData(finalAISuggestionPlan);
         setCurrentStep('plan'); // Show the plan after generation
-        
-        // Prevent any navigation for the next few seconds to ensure plan displays
-        const preventNavigation = (e: BeforeUnloadEvent) => {
-          console.log('🛡️ NAVIGATION PROTECTION: Preventing unwanted navigation after AI plan generation');
-          e.preventDefault();
-          e.returnValue = '';
-        };
-        window.addEventListener('beforeunload', preventNavigation);
-        setTimeout(() => {
-          window.removeEventListener('beforeunload', preventNavigation);
-          console.log('🔍 AI SUGGESTION DEBUG: Force re-render check - planData exists:', !!fixedPlan);
-        }, 3000);
-        addAIMessage(`Your ${actualHobby} plan is ready! 🎉 This AI-recommended hobby is perfect for beginners. Ask me any questions!`);
       } catch (error) {
         console.error('Error generating AI suggested plan:', error);
         addAIMessage(`I had trouble creating your ${actualHobby} plan. Let me try a different approach or you can choose another hobby.`);
@@ -1162,12 +1148,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
       return;
     }
-    
+
     if (value === 'surprise') {
       await handleSurpriseMe();
       return;
     }
-    
+
     // Handle continuing previous plan or starting fresh
     if (value === 'continue_plan') {
       addUserMessage(label);
@@ -1176,17 +1162,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         try {
           const previousPlanData = JSON.parse(previousPlanDataStr);
           const fixedPreviousPlan = fixPlanDataFields(previousPlanData);
-          
+
           // Load the previous plan
           const finalPreviousPlan = {
             ...fixedPreviousPlan,
             days: Array.isArray(fixedPreviousPlan?.days) ? fixedPreviousPlan.days : []
           };
-          
+
           setPlanData(finalPreviousPlan);
           setCurrentPlanId(previousPlanData.id.toString());
           setRenderKey(prev => prev + 1);
-          
+
           // Load progress
           if (user?.id && previousPlanData.id) {
             try {
@@ -1196,7 +1182,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
                 }
               });
-              
+
               if (progressResponse.ok) {
                 const progressData = await progressResponse.json();
                 if (progressData && progressData.length > 0) {
@@ -1209,7 +1195,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               console.error('Error loading progress:', error);
             }
           }
-          
+
           addAIMessage(`Great! Your ${previousPlanData.hobby} plan is back! 🎉 You can continue where you left off. Ask me anything about your plan!`);
         } catch (error) {
           console.error('Error loading previous plan:', error);
@@ -1218,7 +1204,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
       return;
     }
-    
+
     if (value === 'start_fresh') {
       addUserMessage(label);
       // Clear any stored plan data
@@ -1268,42 +1254,40 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setCurrentStep('generating');
       setIsGenerating(true);
       addAIMessage(`Creating a fresh ${selectedHobby} plan with new content... ✨`);
-      
+
       try {
         // Force generate new plan by bypassing duplicate check
         const plan = await onGeneratePlan(selectedHobby, quizAnswers);
         const fixedPlan = fixPlanDataFields(plan);
-        
+
         // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
         const finalGenerateAnywayPlan = {
           ...fixedPlan,
           // Guarantee days is always an array
           days: Array.isArray(fixedPlan?.days) ? fixedPlan.days : []
         };
-        
+
         console.log('🔍 GENERATE ANYWAY DEBUG: Final plan validation:', {
           renderCondition: !!(finalGenerateAnywayPlan && finalGenerateAnywayPlan.days && finalGenerateAnywayPlan.days.length > 0)
         });
-        
+
         // Clear old cached data first
         sessionStorage.removeItem('activePlanData');
         localStorage.removeItem('lastViewedPlanData');
         console.log('🧹 Cleared old cached plan data for generate-anyway');
-        
+
         // Mark as freshly generated plan BEFORE setting plan data
-        sessionStorage.setItem('freshPlanGenerated', 'true');
+        sessionStorage.setItem('freshPlanMarker', 'true');
         console.log('🎯 Marked generate-anyway plan as freshly generated BEFORE setPlanData');
         setPlanData(finalGenerateAnywayPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
-        
+
         // Save new plan
         if (user?.id) {
           try {
             const savedPlan = await hobbyPlanService.savePlan({
-              hobby: selectedHobby,
-              title: plan.title,
-              overview: plan.overview,
-              plan_data: plan
+              ...plan,
+              _isFreshPlan: true,
             }, user.id);
             setCurrentPlanId(savedPlan.id.toString());
             await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
@@ -1326,120 +1310,118 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
 
     addUserMessage(label);
-    
+
     if (currentStep === 'hobby') {
       setSelectedHobby(value);
       setCurrentStep('experience');
-      
+
       const experienceOptions = [
         { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
-      
+
       addAIMessage(`Great choice! ${selectedHobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
-      
+
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setCurrentStep('time');
-      
+
       const timeOptions = [
         { value: '30 minutes', label: '30 minutes/day', description: 'Quick daily sessions' },
         { value: '1 hour', label: '1 hour/day', description: 'Solid practice time' },
         { value: '2+ hours', label: '2+ hours/day', description: 'Deep dive sessions' }
       ];
-      
+
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
-      
+
     } else if (currentStep === 'time') {
       setQuizAnswers(prev => ({ ...prev, timeAvailable: value }));
       setCurrentStep('goal');
-      
+
       const goalOptions = [
         { value: 'personal enjoyment', label: 'Personal Enjoyment', description: 'Just for fun and relaxation' },
         { value: 'skill building', label: 'Skill Building', description: 'Develop expertise and technique' },
         { value: 'social connection', label: 'Social Connection', description: 'Meet people and share experiences' },
         { value: 'career change', label: 'Career Change', description: 'Explore new professional paths' }
       ];
-      
+
       addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
-      
+
     } else if (currentStep === 'goal') {
       const finalAnswers = { ...quizAnswers, goal: value } as QuizAnswers;
       setQuizAnswers(finalAnswers);
       setCurrentStep('generating');
       setIsGenerating(true);
-      
+
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
-      
+
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
         const plan = await onGeneratePlan(selectedHobby, finalAnswers);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
-        
+
         // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
         const finalStandardPlan = {
           ...fixedStandardPlan,
           // Guarantee days is always an array
           days: Array.isArray(fixedStandardPlan?.days) ? fixedStandardPlan.days : []
         };
-        
+
         console.log('🔍 STANDARD PLAN DEBUG: Final plan validation:', {
           renderCondition: !!(finalStandardPlan && finalStandardPlan.days && finalStandardPlan.days.length > 0)
         });
-        
+
         // Clear old cached data first
         sessionStorage.removeItem('activePlanData');
         localStorage.removeItem('lastViewedPlanData');
         console.log('🧹 Cleared old cached plan data for standard plan');
-        
+
         // Mark as freshly generated plan BEFORE setting plan data
-        sessionStorage.setItem('freshPlanGenerated', 'true');
+        sessionStorage.setItem('freshPlanMarker', 'true');
         console.log('🎯 Marked standard plan as freshly generated BEFORE setPlanData');
         setPlanData(finalStandardPlan);
         setRenderKey(prev => prev + 1); // Force React re-render
-        
+
         // Save plan to Supabase if user is authenticated
         console.log('🔍 AUTH CHECK: user object:', user);
         console.log('🔍 AUTH CHECK: user?.id:', user?.id);
         console.log('🔍 AUTH CHECK: Boolean(user?.id):', Boolean(user?.id));
-        
+
         if (user?.id) {
           try {
             console.log('🔄 PLAN SAVE: Starting Supabase save for authenticated user...');
             console.log('🔄 PLAN SAVE: User ID:', user.id);
             const savedPlan = await hobbyPlanService.savePlan({
-              hobby: selectedHobby,
-              title: plan.title,
-              overview: plan.overview,
-              plan_data: plan
+              ...plan,
+              _isFreshPlan: true,
             }, user.id);
-            
+
             console.log('✅ PLAN SAVE SUCCESS: Plan saved with ID:', savedPlan.id);
             console.log('✅ PLAN SAVE SUCCESS: Setting currentPlanId to:', savedPlan.id);
             setCurrentPlanId(savedPlan.id.toString());
-            
+
             // Initialize progress tracking
             await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-            
+
             // Load any existing progress for this plan
             setTimeout(async () => {
               await loadProgressFromDatabase(savedPlan.id);
             }, 500); // Small delay to ensure progress is initialized
-            
+
             addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Ask me any questions about your plan!`);
-            
+
             // CRITICAL FIX: Set step to 'plan' after plan generation for proper chat handling
             setCurrentStep('plan');
           } catch (saveError) {
             console.error('🚨 PLAN SAVE FAILED:', saveError);
             console.error('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
-            
+
             // Provide specific error messages to user
             let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan.`
-            
+
             if (saveError instanceof Error) {
               if (saveError.message.includes('timed out')) {
                 errorMessage += ' (Database connection timed out - please run the manual RLS fix)'
@@ -1451,9 +1433,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 errorMessage += ' (Database setup issue - please contact support)'
               }
             }
-            
+
             addAIMessage(errorMessage + ' Ask me any questions about your plan!');
-            
+
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling  
             setCurrentStep('plan');
           }
@@ -1461,18 +1443,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           console.log('❌ AUTH CHECK: User not authenticated - cannot save plan');
           console.log('❌ AUTH CHECK: user object:', user);
           addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Ask me any questions about your plan!`);
-          
+
           // CRITICAL FIX: Set step to 'plan' for non-authenticated users too
           setCurrentStep('plan');
         }
       } catch (error) {
         console.error('Error generating plan:', error);
-        
+
         // Handle duplicate plan errors with friendly UI and options
         if (error instanceof Error && error.message === 'DUPLICATE_PLAN') {
           const duplicateData = (error as any).duplicateData;
           console.log('🚨 DUPLICATE PLAN detected:', duplicateData);
-          
+
           addAIMessage(
             `I notice you already have a ${selectedHobby} learning plan! 🎯\n\nWhat would you like to do?`,
             [
@@ -1481,7 +1463,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               { value: 'try_different_hobby', label: 'Try Different Hobby', description: 'Pick a completely different hobby to learn' }
             ]
           );
-          
+
           // Reset to goal step so user can make a choice
           setCurrentStep('goal');
         } else {
@@ -1497,7 +1479,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const handlePlanQuestions = async (question: string) => {
     console.log('🤖 Processing plan question with DeepSeek API:', question);
     setIsTyping(true);
-    
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -1517,29 +1499,98 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       const data = await response.json();
       addAIMessage(data.response);
-      
+
     } catch (error) {
       console.error('Error getting AI response:', error);
       // Fallback response
       addAIMessage(`I'm here to help with your ${planData?.hobby || 'hobby'} learning plan! You can ask me about getting started, daily activities, equipment needed, practice tips, or anything else about your 7-day journey. What would you like to know?`);
     }
-    
+
     setIsTyping(false);
   };
 
+  // Auto-save function
+  const handleAutoSave = async () => {
+    if (!user || !planData || isSaving) {
+      console.log('⏭️ Auto-save skipped - missing requirements:', { 
+        hasUser: !!user, 
+        hasPlanData: !!planData, 
+        isSaving 
+      });
+      return;
+    }
 
+    setIsSaving(true);
+    try {
+      console.log('💾 AUTO-SAVE: Starting automatic plan save for user:', user.id);
+      console.log('💾 AUTO-SAVE: Plan data keys:', Object.keys(planData));
+      console.log('💾 AUTO-SAVE: Plan hobby:', planData.hobby);
+      console.log('💾 AUTO-SAVE: Plan title:', planData.title);
+
+      const savedPlan = await hobbyPlanService.savePlan(planData, user.id);
+      console.log('✅ AUTO-SAVE: Plan saved successfully with ID:', savedPlan.id);
+
+      setCurrentPlanId(savedPlan.id.toString());
+
+      // Clear the fresh plan marker since it's now saved
+      sessionStorage.removeItem('freshPlanMarker');
+      if (planData._isFreshPlan) {
+        delete planData._isFreshPlan;
+      }
+
+      setToast({
+        type: 'success',
+        message: 'Your learning plan has been saved to your dashboard!'
+      });
+
+    } catch (error: any) {
+      console.error('❌ AUTO-SAVE: Failed to save plan:', error);
+      console.error('❌ AUTO-SAVE: Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
+
+      setToast({
+        type: 'error',
+        message: error.message || 'Failed to save plan. Please try again.'
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Effect to trigger auto-save when planData is ready and user is authenticated
+  useEffect(() => {
+    // AUTO-SAVE: Save plan to database when user is authenticated and plan is ready
+    if (user && planData && planData.hobby && !isSaving) {
+      console.log('🔍 Auto-save check: User authenticated, plan ready, checking for saving...');
+
+      // Check if plan needs to be saved (fresh plan or not in database yet)
+      const isFreshPlan = planData._isFreshPlan || sessionStorage.getItem('freshPlanMarker');
+      console.log('🔍 Fresh plan marker check:', isFreshPlan ? 'FOUND' : 'NOT FOUND');
+
+      // Always attempt to save if we don't have a currentPlanId yet
+      if (isFreshPlan || !currentPlanId) {
+        console.log('🎯 Plan needs saving - attempting database save operation');
+        handleAutoSave();
+      } else {
+        console.log('✅ Plan already saved with ID:', currentPlanId);
+      }
+    }
+  }, [user, planData, isSaving, currentPlanId]); // Depend on these states for re-evaluation
 
   const handleStartNewPlan = () => {
     console.log('🔄 Starting new plan - clearing all data');
-    
+
     // Clear all cached data
     sessionStorage.removeItem('activePlanData');
     sessionStorage.removeItem('activePlanId');
-    sessionStorage.removeItem('freshPlanGenerated');
+    sessionStorage.removeItem('freshPlanMarker'); // Clear fresh plan marker
     localStorage.removeItem('lastViewedPlan');
     localStorage.removeItem('lastViewedPlanData');
     localStorage.removeItem('currentPlanId');
-    
+
     // Reset all state
     setPlanData(null);
     setSelectedHobby('');
@@ -1549,7 +1600,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setSelectedDay(1);
     setCurrentPlanId(null);
     setIsGenerating(false);
-    
+    setIsSaving(false); // Reset saving state
+    setToast(null); // Clear any existing toast
+
     // Reset messages to initial welcome state
     setMessages([{
       id: '1',
@@ -1568,27 +1621,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       ],
       timestamp: new Date()
     }]);
-    
+
     // Force re-render
     setRenderKey(prev => prev + 1);
-    
+
     console.log('✅ Successfully reset to fresh start');
   };
 
   const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
-    
+
     const userInput = currentInput.trim();
     addUserMessage(userInput);
     setCurrentInput('');
-    
+
     // CRITICAL FIX: Handle post-plan generation chat
     if (planData && (currentStep === 'generating' || currentStep === 'plan')) {
       console.log('🤖 Handling post-plan question:', userInput);
       handlePlanQuestions(userInput);
       return;
     }
-    
+
     // Handle hobby input if we're in hobby selection step
     if (currentStep === 'hobby') {
       // Use DeepSeek AI for intelligent hobby validation
@@ -1606,30 +1659,30 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           console.log('🔍 Frontend received validation response:', validation);
           console.log('🔍 Original input:', userInput);
           console.log('🔍 Corrected hobby:', validation.correctedHobby);
-          
+
           if (validation.isValid) {
             const finalHobby = validation.correctedHobby || userInput.toLowerCase().trim();
             setSelectedHobby(finalHobby);
             setCurrentStep('experience');
-            
+
             let message = `Perfect! I understand you want to learn ${finalHobby}. This is an excellent choice!`;
-            
+
             if (validation.correctedHobby && validation.correctedHobby !== userInput.toLowerCase().trim()) {
               message += `\n\n(I detected the specific hobby from your input)`;
             }
-            
+
             message += `\n\nWhat's your experience level?`;
-            
+
             const experienceOptions = [
               { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
               { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
               { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
             ];
-            
+
             addAIMessage(message, experienceOptions);
           } else {
             let errorMessage = `I'm not sure "${userInput}" is a hobby I can help with right now.`;
-            
+
             if (validation.suggestions && validation.suggestions.length > 0) {
               errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
               const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
@@ -1637,7 +1690,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
                 description: `Learn ${suggestion} (AI recommended)`
               }));
-              
+
               addAIMessage(errorMessage, hobbyOptions);
             } else {
               addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.', [
@@ -1653,20 +1706,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } else {
           // Fallback to old validation if API fails
           const validation = validateAndProcessHobby(userInput);
-          
+
           if (validation.isValid && validation.detectedHobbies) {
             if (validation.detectedHobbies.length === 1) {
               // Single hobby detected - process directly
               const hobby = validation.detectedHobbies[0];
               setSelectedHobby(hobby);
               setCurrentStep('experience');
-              
+
               const experienceOptions = [
                 { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
                 { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
                 { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
               ];
-              
+
               addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
             } else {
               // Multiple hobbies detected
@@ -1675,7 +1728,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
                 description: `Focus on ${h} first`
               }));
-              
+
               addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
             }
           } else {
@@ -1694,18 +1747,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.error('Error validating hobby with DeepSeek API:', error);
         // Fallback to old validation if API completely fails
         const validation = validateAndProcessHobby(userInput);
-        
+
         if (validation.isValid && validation.detectedHobbies) {
           const hobby = validation.detectedHobbies[0];
           setSelectedHobby(hobby);
           setCurrentStep('experience');
-          
+
           const experienceOptions = [
             { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
             { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
             { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
           ];
-          
+
           addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
         } else {
           addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
@@ -1730,10 +1783,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   // Function to load progress from database for current plan
   const loadProgressFromDatabase = async (planId: string) => {
     if (!user?.id) return;
-    
+
     try {
       console.log('🔄 Loading progress from database for plan:', planId);
-      
+
       // First check session storage for immediate access
       const sessionKey = `progress_${user.id}_${planId}`;
       const sessionProgress = sessionStorage.getItem(sessionKey);
@@ -1748,7 +1801,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           console.error('Failed to parse session progress');
         }
       }
-      
+
       // Fallback to API
       const { data: progressData, error } = await apiService.getUserProgress(user.id);
       if (!error && progressData) {
@@ -1775,11 +1828,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const toggleDayCompletion = async (dayNumber: number) => {
     if (isSavingProgress) return;
-    
+
     // CRITICAL FIX: Check for plan ID before attempting database save
     if (!currentPlanId && (!initialPlanData?.id && !initialPlanData?.planId)) {
       console.warn('📝 DATABASE SAVE: No plan ID available - checking storage...');
-      
+
       // Try to get plan ID from storage
       const storedPlanId = sessionStorage.getItem('currentPlanId') || localStorage.getItem('currentPlanId');
       if (storedPlanId) {
@@ -1826,7 +1879,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         // Mark as complete
         const newCompletedDays = [...completedDays, dayNumber];
         setCompletedDays(newCompletedDays);
-        
+
         if (user?.id && currentPlanId) {
           // Save to database via API
           console.log('📝 DATABASE SAVE: Marking day COMPLETE via API:', dayNumber, 'for plan ID:', currentPlanId);
@@ -1867,7 +1920,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const getDayStatus = (dayNumber: number): 'completed' | 'unlocked' | 'locked' => {
     const isCompleted = isDayCompleted(dayNumber);
-    
+
     if (isCompleted) return 'completed';
     if (dayNumber === 1) return 'unlocked';
     if (dayNumber === 2 && !user) return 'unlocked';
@@ -1887,7 +1940,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         onBackClick={() => {
           console.log('🔙 BACK NAVIGATION: User manually clicked back button');
           console.log('🔙 BACK NAVIGATION: planData exists:', !!planData, 'user exists:', !!user);
-          
+
           // FIXED: Always use default back behavior to prevent automatic navigation
           // The dashboard redirect was causing plans to disappear after generation
           console.log('🔙 BACK NAVIGATION: Using default back behavior (no auto-redirect)');
@@ -1948,7 +2001,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed">
                     {message.content}
                   </div>
-                  
+
                   {message.options && currentStep !== 'plan' && !planData && (
                     <div className="mt-1 lg:mt-2 flex flex-wrap gap-1">
                       {message.options.map((option) => (
@@ -1966,7 +2019,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
               </div>
             ))}
-            
+
             {isTyping && (
               <div className="flex justify-start">
                 <div className="bg-white border border-gray-200 rounded-lg px-2 md:px-3 py-1.5 md:py-2 shadow-sm">
@@ -1978,7 +2031,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 
@@ -2093,7 +2146,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   {Array.from({ length: planData.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
-                    
+
                     return (
                       <button
                         key={dayNum}
@@ -2132,13 +2185,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               {(() => {
                 console.log('🔍 DEBUG: selectedDay:', selectedDay);
                 console.log('🔍 DEBUG: planData.days length:', planData.days?.length);
-                
+
                 const currentDay = planData.days?.find((day: any) => day.day === selectedDay) || planData.days?.[0];
                 console.log('🔍 DEBUG: currentDay found:', !!currentDay, currentDay?.title);
-                
+
                 const status = getDayStatus(selectedDay);
                 console.log('🔍 DEBUG: day status:', status);
-                
+
                 if (!currentDay) {
                   console.log('❌ DEBUG: No current day found, showing fallback');
                   return (
@@ -2175,7 +2228,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   planData.hobby?.toLowerCase() === 'writing' ? '#7C3AED, #5B21B6' :
                                   planData.hobby?.toLowerCase() === 'reading' ? '#DC2626, #B91C1C' :
                                   planData.hobby?.toLowerCase() === 'piano' ? '#1F2937, #111827' :
-                                  planData.hobby?.toLowerCase() === 'singing' ? '#EC4899, #DB2777' :
+                                  planData.hobby?.toLowerCase() === 'singing' ? ' #EC4899, #DB2777' :
                                   planData.hobby?.toLowerCase() === 'baking' ? '#F59E0B, #D97706' :
                                   planData.hobby?.toLowerCase() === 'knitting' ? '#8B5CF6, #7C3AED' :
                                   planData.hobby?.toLowerCase() === 'pottery' ? '#A3A3A3, #737373' :
@@ -2205,7 +2258,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                              planData.hobby?.toLowerCase().includes('history') ? '📚' :
                              '🎯'}
                           </div>
-                          
+
                           <div>
                             <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
                               {currentDay.title.startsWith('Day ') ? currentDay.title : `Day ${currentDay.day}: ${currentDay.title}`}
@@ -2241,7 +2294,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         </button>
                       </div>
                     </CardHeader>
-                    
+
                     <CardContent className="p-0">
                         {/* Hero Section with Main Task */}
                         <div 
@@ -2256,26 +2309,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           <div className="max-w-4xl">
                             <div className="flex items-center mb-4">
                               <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 mr-4 flex items-center justify-center text-3xl shadow-lg">
-                                {planData?.hobby?.toLowerCase() === 'photography' ? '📸' : 
-                                 planData?.hobby?.toLowerCase() === 'guitar' ? '🎸' :
-                                 planData?.hobby?.toLowerCase() === 'cooking' ? '👨‍🍳' :
-                                 planData?.hobby?.toLowerCase() === 'drawing' ? '🎨' :
-                                 planData?.hobby?.toLowerCase() === 'yoga' ? '🧘' :
-                                 planData?.hobby?.toLowerCase() === 'gardening' ? '🌱' :
-                                 planData?.hobby?.toLowerCase() === 'coding' ? '💻' :
-                                 planData?.hobby?.toLowerCase() === 'dance' ? '💃' :
-                                 planData?.hobby?.toLowerCase() === 'foraging' ? '🌿' :
-                                 planData?.hobby?.toLowerCase() === 'hiking' ? '🥾' :
-                                 planData?.hobby?.toLowerCase() === 'camping' ? '🏕️' :
-                                 planData?.hobby?.toLowerCase() === 'chess' ? '♟️' :
-                                 planData?.hobby?.toLowerCase() === 'writing' ? '✍️' :
-                                 planData?.hobby?.toLowerCase() === 'reading' ? '📚' :
-                                 planData?.hobby?.toLowerCase() === 'piano' ? '🎹' :
-                                 planData?.hobby?.toLowerCase() === 'singing' ? '🎤' :
-                                 planData?.hobby?.toLowerCase() === 'baking' ? '🧁' :
-                                 planData?.hobby?.toLowerCase() === 'knitting' ? '🧶' :
-                                 planData?.hobby?.toLowerCase() === 'pottery' ? '🏺' :
-                                 planData?.hobby?.toLowerCase().includes('history') ? '📚' :
+                                {planData.hobby?.toLowerCase() === 'photography' ? '📸' : 
+                                 planData.hobby?.toLowerCase() === 'guitar' ? '🎸' :
+                                 planData.hobby?.toLowerCase() === 'cooking' ? '👨‍🍳' :
+                                 planData.hobby?.toLowerCase() === 'drawing' ? '🎨' :
+                                 planData.hobby?.toLowerCase() === 'yoga' ? '🧘' :
+                                 planData.hobby?.toLowerCase() === 'gardening' ? '🌱' :
+                                 planData.hobby?.toLowerCase() === 'coding' ? '💻' :
+                                 planData.hobby?.toLowerCase() === 'dance' ? '💃' :
+                                 planData.hobby?.toLowerCase() === 'foraging' ? '🌿' :
+                                 planData.hobby?.toLowerCase() === 'hiking' ? '🥾' :
+                                 planData.hobby?.toLowerCase() === 'camping' ? '🏕️' :
+                                 planData.hobby?.toLowerCase() === 'chess' ? '♟️' :
+                                 planData.hobby?.toLowerCase() === 'writing' ? '✍️' :
+                                 planData.hobby?.toLowerCase() === 'reading' ? '📚' :
+                                 planData.hobby?.toLowerCase() === 'piano' ? '🎹' :
+                                 planData.hobby?.toLowerCase() === 'singing' ? '🎤' :
+                                 planData.hobby?.toLowerCase() === 'baking' ? '🧁' :
+                                 planData.hobby?.toLowerCase() === 'knitting' ? '🧶' :
+                                 planData.hobby?.toLowerCase() === 'pottery' ? '🏺' :
+                                 planData.hobby?.toLowerCase().includes('history') ? '📚' :
                                  '🎯'}
                               </div>
                               <h2 className="text-2xl md:text-3xl font-bold">Today's Learning Goal</h2>
@@ -2307,7 +2360,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               {currentDay.explanation}
                             </p>
                           </section>
-                      
+
                           {/* Step-by-Step Guide */}
                           <section className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
                             <div className="flex items-center mb-3">
@@ -2327,11 +2380,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             ))}
                             </div>
                           </section>
-                      
+
                           {/* Video Tutorial Section - Simple */}
                           <section className="bg-slate-800 rounded-xl p-6">
                             <h3 className="text-lg font-semibold text-white mb-4">Video Tutorial</h3>
-                            
+
                             {(() => {
                               console.log('🐛 Debug YouTube Video ID:', currentDay.youtubeVideoId);
                               console.log('🐛 Video Title:', currentDay.videoTitle);
@@ -2375,7 +2428,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               )}
                             </div>
                           </section>
-                            
+
                           {/* Success Tips - Mobile Optimized */}
                           <section className="bg-amber-50 border border-amber-200 rounded-xl p-4 md:p-6">
                             <div className="flex items-center mb-3">
@@ -2452,7 +2505,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                             <div className="space-y-3">
                               {/* USER PREFERENCE: Only affiliate links, no free tutorials */}
-                            
+
                               {/* Recommended Tools - Compact, No Pricing */}
                               {currentDay.affiliateProducts && currentDay.affiliateProducts.length > 0 && (
                                 currentDay.affiliateProducts.map((product, index) => (
@@ -2606,12 +2659,21 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           )}
         </div>
       </div>
-      
+
       {/* Authentication Modal */}
       <AuthModal 
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
       />
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`fixed bottom-6 right-6 z-50 p-4 rounded-lg shadow-lg ${
+          toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+        } animate-fade-in-down`}>
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

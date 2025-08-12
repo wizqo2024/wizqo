@@ -235,10 +235,117 @@ IMPORTANT:
 // OpenRouter AI integration for dynamic plan generation
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   console.log('🔧 generateAIPlan called for:', hobby);
+  console.log('🔍 OpenRouter API Key status:', process.env.OPENROUTER_API_KEY ? 'Found' : 'Missing');
 
-  // SPEED OPTIMIZATION: Use fast fallback plan generation for instant results
-  console.log('⚡ Using fast fallback plan generation for instant results');
-  return generateFallbackPlan(hobby, experience, timeAvailable, goal);
+  // Try OpenRouter first, fallback to local generation if it fails
+  const openRouterKey = process.env.OPENROUTER_API_KEY;
+  
+  if (!openRouterKey) {
+    console.log('⚡ No OpenRouter key - using fast fallback plan generation');
+    return generateFallbackPlan(hobby, experience, timeAvailable, goal);
+  }
+
+  try {
+    console.log('🤖 Attempting OpenRouter AI plan generation...');
+    const aiPlan = await tryOpenRouterGeneration(hobby, experience, timeAvailable, goal);
+    console.log('✅ OpenRouter AI plan generated successfully');
+    return aiPlan;
+  } catch (error) {
+    console.error('❌ OpenRouter failed, using fallback:', error);
+    return generateFallbackPlan(hobby, experience, timeAvailable, goal);
+  }
+
+  // Try OpenRouter AI generation
+async function tryOpenRouterGeneration(hobby: string, experience: string, timeAvailable: string, goal: string) {
+  const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
+
+User details:
+- Experience level: ${experience}
+- Time available per day: ${timeAvailable}
+- Learning goal: ${goal}
+
+Return ONLY a JSON object with this exact structure:
+{
+  "hobby": "${hobby}",
+  "title": "Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days",
+  "description": "A personalized learning plan description",
+  "difficulty": "${experience}",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Just the activity name without 'Day X:' prefix",
+      "mainTask": "Main learning objective for the day",
+      "explanation": "Why this day matters and what you'll accomplish",
+      "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
+      "checklist": ["Item needed 1", "Item needed 2", "Item needed 3", "Item needed 4", "Item needed 5"],
+      "tips": ["Helpful tip 1", "Helpful tip 2", "Helpful tip 3"],
+      "commonMistakes": ["Common mistake 1", "Common mistake 2", "Common mistake 3"],
+      "estimatedTime": "${timeAvailable}",
+      "skillLevel": "${experience}"
+    }
+  ]
+}
+
+Make each day build progressively on the previous day. Include practical, actionable steps.`;
+
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      'HTTP-Referer': 'https://wizqo.com',
+      'X-Title': 'Wizqo Hobby Learning Platform'
+    },
+    body: JSON.stringify({
+      model: 'deepseek/deepseek-chat',
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 3000,
+      temperature: 0.7
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenRouter API request failed: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const content = data.choices[0]?.message?.content;
+
+  if (!content) {
+    throw new Error('No content in OpenRouter response');
+  }
+
+  const cleanedContent = cleanJsonResponse(content);
+  const aiPlan = JSON.parse(cleanedContent);
+
+  // Add YouTube videos and affiliate products
+  const hobbyVideos = getYouTubeVideos(hobby);
+  aiPlan.days = aiPlan.days.map((day: any, index: number) => {
+    const targetedVideoId = hobbyVideos[index % hobbyVideos.length];
+    const videoDetails = getVideoDetails(hobby, experience, day.day);
+
+    return {
+      ...day,
+      commonMistakes: day.commonMistakes || day.mistakesToAvoid || [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      youtubeVideoId: targetedVideoId,
+      videoId: targetedVideoId,
+      videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
+      freeResources: [],
+      affiliateProducts: [{ ...getHobbyProduct(hobby, day.day) }]
+    };
+  });
+
+  aiPlan.hobby = hobby;
+  aiPlan.difficulty = experience === 'some' ? 'intermediate' : experience;
+  aiPlan.overview = aiPlan.overview || aiPlan.description || `A comprehensive ${hobby} learning plan tailored for ${experience === 'some' ? 'intermediate' : experience} learners`;
+
+  return aiPlan;
+}
 
   // Declare timeoutId outside try block so it's accessible in catch
   let timeoutId: NodeJS.Timeout | null = null;
@@ -1939,9 +2046,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Generate hobby plan endpoint with validation
   app.post('/api/generate-plan', async (req, res) => {
     try {
+      console.log('🔄 API: Generate plan request received');
+      console.log('🔍 API: Request body keys:', Object.keys(req.body));
       const { hobby, experience, timeAvailable, goal, userId, force } = req.body;
+      console.log('🔍 API: Extracted values:', { hobby, experience, timeAvailable, goal, userId, force });
 
       if (!hobby || !experience || !timeAvailable) {
+        console.error('❌ API: Missing required fields');
         return res.status(400).json({
           error: 'Missing required fields: hobby, experience, timeAvailable'
         });
@@ -2155,8 +2266,17 @@ Please provide a helpful response:`;
 
   app.post('/api/hobby-plans', async (req, res) => {
     try {
+      console.log('📝 API: Hobby plans POST request received');
+      console.log('📝 API: Request body keys:', Object.keys(req.body));
       const { user_id, hobby, title, overview, plan_data } = req.body;
       console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
+      console.log('🔍 DEBUG: Plan data structure:', {
+        hasTitle: !!title,
+        hasOverview: !!overview,
+        hasPlanData: !!plan_data,
+        planDataKeys: plan_data ? Object.keys(plan_data) : 'none',
+        firstDayExists: !!plan_data?.days?.[0]
+      });
       console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
       console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
 
