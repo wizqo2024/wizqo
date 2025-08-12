@@ -291,7 +291,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     const finalAnswers = { ...quizAnswers, goal };
     setQuizAnswers(finalAnswers);
     setCurrentStep('generating');
-    
+
     // Generate plan
     console.log('🚀 Starting plan generation for:', selectedHobby);
     setIsGenerating(true);
@@ -336,7 +336,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       // Mark plan as fresh to help identify it later
       generatedPlan._isFreshPlan = true;
 
-      setPlanData(generatedPlan);
+      // setPlanData(generatedPlan); // Remove undefined reference
       setCurrentStep('generating'); // Change step to 'generating' to show the "creating plan" message
 
       // Store plan in session storage for navigation

@@ -239,7 +239,7 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
 
   // Try OpenRouter first, fallback to local generation if it fails
   const openRouterKey = process.env.OPENROUTER_API_KEY;
-  
+
   if (!openRouterKey) {
     console.log('⚡ No OpenRouter key - using fast fallback plan generation');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
@@ -264,7 +264,7 @@ User details:
 - Time available per day: ${timeAvailable}
 - Learning goal: ${goal}
 
-Return ONLY a JSON object with this exact structure:
+Return ONLY a JSON object with this structure:
 {
   "hobby": "${hobby}",
   "title": "Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days",
@@ -335,7 +335,7 @@ Make each day build progressively on the previous day. Include practical, action
       youtubeVideoId: targetedVideoId,
       videoId: targetedVideoId,
       videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
-      freeResources: [],
+      freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
       affiliateProducts: [{ ...getHobbyProduct(hobby, day.day) }]
     };
   });
@@ -358,7 +358,7 @@ User details:
 - Time available per day: ${timeAvailable}
 - Learning goal: ${goal}
 
-Return ONLY a JSON object with this exact structure:
+Return ONLY a JSON object with this structure:
 {
   "hobby": "${hobby}",
   "title": "Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days",
@@ -421,7 +421,7 @@ Make each day build progressively on the previous day. Include practical, action
 
     console.log('🔧 API response received, status:', response.status);
 
-    clearTimeout(timeoutId);
+    if (timeoutId) clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status}`);
@@ -1147,7 +1147,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
         howTo: [
           "Prepare a complete dinner party meal for 2-4 people showcasing all learned skills",
           "Demonstrate knife skills, heat control, seasoning, and timing in integrated cooking session",
-          "Create a personalized recipe collection of successful dishes from the week",
+          "Create a personal recipe collection of successful dishes from the week",
           "Establish regular cooking routine and practice schedule for continued improvement",
           "Research advanced cooking resources: cookbooks, online courses, local cooking classes",
           "Set specific cooking goals for next month: new cuisines, advanced techniques, special occasions"
@@ -1361,7 +1361,7 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
           "Experiment freely without judgment about 'right' or 'wrong' approaches"
         ],
         mistakesToAvoid: [
-          "Copying one artist's style exactly without developing personal interpretation",
+          "Copying one artist's style exactly without adding personal interpretation",
           "Being too critical of experimental work during exploration phase",
           "Sticking rigidly to realistic approach without exploring other possibilities",
           "Comparing your developing style to established professional artists"
@@ -2309,9 +2309,9 @@ Please provide a helpful response:`;
       console.log('📝 API: Request body keys:', Object.keys(req.body || {}));
       console.log('📝 API: Content-Type:', req.headers['content-type']);
       console.log('📝 API: User-Agent:', req.headers['user-agent']);
-      
+
       const { user_id, hobby, title, overview, plan_data } = req.body || {};
-      
+
       if (!user_id || !hobby || !title || !plan_data) {
         console.error('📝 API: Missing required fields');
         console.error('📝 API: Received data:', { user_id, hobby, title, overview, has_plan_data: !!plan_data });
@@ -2349,7 +2349,7 @@ Please provide a helpful response:`;
     } catch (error) {
       console.error('❌ API: Error creating hobby plan:', error);
       console.error('❌ API: Error stack:', error instanceof Error ? error.stack : 'No stack trace');
-      
+
       if (error instanceof z.ZodError) {
         res.status(400).json({ 
           error: 'Invalid request data', 

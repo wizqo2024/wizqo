@@ -1,7 +1,7 @@
 
 // Deployment verification utility
 export function verifyDeploymentRoutes(app: any) {
-  const routes = [];
+  const routes: any[] = [];
   const routeStack = app._router?.stack || [];
   
   routeStack.forEach((middleware: any) => {
