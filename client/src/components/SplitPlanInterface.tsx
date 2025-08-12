@@ -86,7 +86,7 @@ const getHobbyImage = (hobby: string): string => {
     // Default learning category
     const learningImages = [
       'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1434030216411-0a7dd7a55c?w=400&h=240&fit=crop',
       'https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop'
     ];
     const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -390,7 +390,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       if (initialPlanData.id || initialPlanData.planId) {
         const planId = initialPlanData.id || initialPlanData.planId;
         console.log('🎯 Setting plan ID from initial data:', planId);
-        setCurrentPlanId(planId.toString());
+        setCurrentPlanId(planId);
       }
 
       // Also check storage for plan ID
@@ -434,7 +434,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           if (response.ok) {
             const allPlans = await response.json();
             console.log('🔍 Direct API query result:', { totalPlans: allPlans?.length || 0 });
-            console.log('🔍 All user plans:', allPlans?.map((p: any) => ({ id: p.id, title: p.title })));
+            console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
 
             // Filter for the specific hobby by extracting from title
             const supabasePlans = allPlans?.filter((p: any) => {
@@ -446,10 +446,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
               return false;
             }) || [];
-            console.log('🔍 Filtered plans for hobby:', supabasePlans?.map((p: any) => ({ id: p.id, title: p.title })));
+            console.log('🔍 Filtered plans for hobby:', supabasePlans?.map(p => ({ id: p.id, title: p.title })));
             console.log('🔍 Search comparison - extractedHobby vs initialPlanData.hobby:', { 
               searchTerm: initialPlanData.hobby.toLowerCase(),
-              foundTitles: allPlans?.map((p: any) => p.title),
+              foundTitles: allPlans?.map(p => p.title),
               matchedPlans: supabasePlans?.length || 0 
             });
 
@@ -494,7 +494,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             } else {
               console.log('🚨 No plans found for hobby:', initialPlanData.hobby);
               console.log('🚨 Query details - User ID:', user.id, 'Hobby:', initialPlanData.hobby);
-              console.log('🚨 Available plan titles:', allPlans?.map((p: any) => p.title));
+              console.log('🚨 Available plan titles:', allPlans?.map(p => p.title));
               console.log('🚨 This indicates a plan lookup issue - checking if plan exists with different title format');
 
               // Fallback: try broader search patterns
@@ -603,8 +603,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
                     if (progressData && progressData.length > 0) {
                       const completed = progressData.map(p => p.day_number);
-                      console.log('📖 Loaded progress from database via extracted hobby:', completed);
+                      console.log('📖 Loaded progress from database:', completed);
                       setCompletedDays(completed);
+                      setSelectedDay(progressData[0].current_day || 1);
                     }
                   }
                 } else {
@@ -669,6 +670,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   const completed = progressData.map(p => p.day_number);
                   console.log('📖 Loaded progress from database:', completed);
                   setCompletedDays(completed);
+                  setSelectedDay(progressData[0].current_day || 1);
                 }
               } catch (progressErr) {
                 console.error('Error loading progress:', progressErr);
@@ -988,7 +990,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('🧹 Cleared old cached plan data');
 
       // Mark as freshly generated plan BEFORE setting plan data
-      sessionStorage.setItem('freshPlanMarker', 'true'); // Use the new marker
+      sessionStorage.setItem('freshPlanMarker', 'true');
       console.log('🎯 Marked plan as freshly generated BEFORE setPlanData');
 
       // Store the fresh plan data
@@ -1291,7 +1293,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             }, user.id);
             setCurrentPlanId(savedPlan.id.toString());
             await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-            addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 This version has different content and approach. Ask me any questions!`);
+            addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 Ask me any questions about this new version!`);
           } catch (saveError) {
             addAIMessage(`Your fresh ${selectedHobby} plan is ready! 🎉 Ask me any questions about this new version!`);
           }
@@ -1527,8 +1529,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('💾 AUTO-SAVE: Plan hobby:', planData.hobby);
       console.log('💾 AUTO-SAVE: Plan title:', planData.title);
 
-      const savedPlan = await hobbyPlanService.savePlan(planData, user.id);
-      console.log('✅ AUTO-SAVE: Plan saved successfully with ID:', savedPlan.id);
+      // Check if the plan is marked as freshly generated
+      const isFromPlanGeneration = planData._isFreshPlan || sessionStorage.getItem('freshPlanMarker') === 'true';
+      console.log('💾 AUTO-SAVE: Is plan from generation?', isFromPlanGeneration);
+
+      const savedPlan = await hobbyPlanService.savePlan(planData, user.id, isFromPlanGeneration);
+
+      // Remove the fresh plan marker to prevent duplicate saves
+      sessionStorage.removeItem('freshPlanGenerated');
+      sessionStorage.removeItem('planFromGeneration');
+      console.log('✅ AUTO-SAVE: Plan saved successfully');
 
       setCurrentPlanId(savedPlan.id.toString());
 

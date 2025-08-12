@@ -68,7 +68,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   // Frontend hobby validation function
   const validateHobby = (input: string): { isValid: boolean; normalizedHobby: string; suggestions?: string[] } => {
     const hobbyInput = input.toLowerCase().trim();
-    
+
     // Reject common non-hobby words
     const invalidInputs = [
       'hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening',
@@ -77,7 +77,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       'nothing', 'none', 'anything', 'something',
       'help', 'please', 'thank you', 'thanks'
     ];
-    
+
     if (invalidInputs.includes(hobbyInput) || hobbyInput.length < 3) {
       return { 
         isValid: false, 
@@ -88,7 +88,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
 
     // Check if it's a supported hobby from our options
     const supportedHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance', 'music', 'piano', 'singing', 'drums', 'violin', 'ukulele', 'running', 'weightlifting', 'swimming', 'martial arts', 'cycling', 'baking', 'wine tasting', 'coffee brewing', 'grilling', 'mixology', 'writing', 'journaling', 'blogging', 'storytelling', 'poetry', 'creative writing', 'chess', 'gaming', 'board games', 'puzzle solving', 'card games', 'video games', 'hiking', 'birdwatching', 'camping', 'rock climbing', 'fishing', 'woodworking', 'crafting', 'knitting', 'sewing', 'jewelry making', 'origami', 'painting', 'pottery', 'sketching', 'calligraphy'];
-    
+
     const directMatch = supportedHobbies.find(hobby => hobby.toLowerCase() === hobbyInput);
     if (directMatch) {
       return { isValid: true, normalizedHobby: directMatch };
@@ -98,7 +98,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     const partialMatches = supportedHobbies.filter(hobby => 
       hobby.toLowerCase().includes(hobbyInput) || hobbyInput.includes(hobby.toLowerCase())
     );
-    
+
     if (partialMatches.length > 0) {
       return { isValid: true, normalizedHobby: partialMatches[0] };
     }
@@ -108,7 +108,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     if (validHobbyPattern.test(input) && !invalidInputs.includes(hobbyInput)) {
       return { isValid: true, normalizedHobby: hobbyInput };
     }
-    
+
     return { 
       isValid: false, 
       normalizedHobby: '', 
@@ -130,7 +130,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       options: hobbyOptions,
       timestamp: new Date()
     };
-    
+
     setTimeout(() => {
       setMessages([welcomeMessage]);
     }, 500);
@@ -164,7 +164,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   const handleHobbySelect = async (hobby: string) => {
     // Handle "Surprise Me!" with random selection
     const finalHobby = hobby === 'surprise' ? getRandomHobby() : hobby;
-    
+
     // Validate hobby selection to prevent invalid inputs from being processed
     if (hobby !== 'surprise' && !hobbyOptions.some(h => h.value === hobby)) {
       const validation = validateHobby(hobby);
@@ -203,13 +203,13 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
               description: h.description
             }))
           );
-          
+
           toast({
             title: "Plan already exists",
             description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
             variant: "default"
           });
-          
+
           return;
         }
       } catch (error) {
@@ -221,7 +221,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     addUserMessage(hobby === 'surprise' ? `Surprise me! (${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)})` : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
     setSelectedHobby(finalHobby);
     setCurrentStep('experience');
-    
+
     addAIMessage(
       `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} sounds exciting. 🎯\n\nTo create the perfect learning plan for you, what's your current experience level?`,
       [
@@ -238,11 +238,11 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       some: 'Some Experience',
       intermediate: 'Intermediate'
     };
-    
+
     addUserMessage(experienceLabels[experience as keyof typeof experienceLabels]);
     setQuizAnswers(prev => ({ ...prev, experience }));
     setCurrentStep('time');
-    
+
     addAIMessage(
       `Perfect! Now I know where you're starting from. ⏰\n\nHow much time can you dedicate to learning each day?`,
       [
@@ -258,7 +258,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     addUserMessage(timeAvailable);
     setQuizAnswers(prev => ({ ...prev, timeAvailable }));
     setCurrentStep('goal');
-    
+
     addAIMessage(
       `Excellent! ${timeAvailable} per day is perfect for making real progress. 🎯\n\nWhat's your main goal with this hobby?`,
       [
@@ -277,9 +277,9 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       'skill building': 'Skill Building',
       'social connection': 'Social Connection'
     };
-    
+
     addUserMessage(goalLabels[goal as keyof typeof goalLabels]);
-    
+
     const finalAnswers = { ...quizAnswers, goal };
     setQuizAnswers(finalAnswers);
     setCurrentStep('generating');
@@ -287,9 +287,13 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
 
     try {
       addAIMessage(`Perfect! I have everything I need. 🚀\n\nGive me a moment to create your personalized 7-day ${selectedHobby} learning plan...`);
-      
+
       const plan = await onGeneratePlan(selectedHobby, finalAnswers as QuizAnswers);
       onPlanGenerated(plan);
+      // Store the plan data for the plan interface
+      sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
+      sessionStorage.setItem('lastViewedPlanData', JSON.stringify(plan));
+      sessionStorage.setItem('planFromGeneration', 'true');
     } catch (error) {
       console.error('Error generating plan:', error);
       addAIMessage("Oops! Something went wrong while creating your plan. Let me try again...");
@@ -302,16 +306,16 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   const handleTextInput = () => {
     console.log('🚨 HANDLE TEXT INPUT CALLED!!! Input:', currentInput, 'Step:', currentStep);
     if (!currentInput.trim()) return;
-    
+
     const userInput = currentInput.trim();
     setCurrentInput('');
-    
+
     // Add user message immediately
     addUserMessage(userInput);
-    
+
     console.log('🔧 TEXT INPUT DEBUG: Current step is:', currentStep);
     console.log('🔧 TEXT INPUT DEBUG: Input received:', userInput);
-    
+
     // Check if plan is already generated (after generating step)
     if (currentStep === 'generating' && messages.some(m => m.content.includes('Your personalized learning plan is ready'))) {
       // Handle questions about the generated plan
@@ -320,11 +324,11 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       // Add debug logging to trace validation
       console.log('🔍 VALIDATION DEBUG: Input received:', userInput);
       console.log('🔍 VALIDATION DEBUG: Current step:', currentStep);
-      
+
       // Validate hobby input before proceeding
       const validation = validateHobby(userInput);
       console.log('🔍 VALIDATION DEBUG: Validation result:', validation);
-      
+
       if (!validation.isValid) {
         console.log('🔍 VALIDATION DEBUG: Invalid input detected, showing error message');
         addAIMessage(
@@ -344,7 +348,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         );
         return;
       }
-      
+
       console.log('🔍 VALIDATION DEBUG: Valid input, proceeding with hobby:', validation.normalizedHobby);
       // Call handleHobbySelect with the validated hobby instead of setting state directly
       handleHobbySelect(validation.normalizedHobby);
@@ -354,11 +358,11 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
   // Handle questions about the generated plan
   const handlePlanQuestions = (question: string) => {
     setIsTyping(true);
-    
+
     setTimeout(() => {
       let response = "";
       const q = question.toLowerCase();
-      
+
       // Smart responses based on question content
       if (q.includes('how') && (q.includes('start') || q.includes('begin'))) {
         response = "Great question! Start with Day 1 - that's where all the fundamentals are covered. Click on 'Day 1' in your plan above to see the detailed instructions, video tutorial, and checklist. Take your time and don't rush through the basics!";
@@ -377,7 +381,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       } else {
         response = "I'm here to help with any questions about your learning plan! You can ask me about getting started, the daily activities, equipment needed, time requirements, or anything else about your 7-day journey. What would you like to know more about?";
       }
-      
+
       addAIMessage(response);
       setIsTyping(false);
     }, 1000);
@@ -424,7 +428,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
                 <p className="text-sm text-slate-600">Ready to create your learning plan</p>
               </div>
             </div>
-            
+
             <div className="bg-slate-50 rounded-lg p-4">
               <p className="text-sm text-slate-700 leading-relaxed">
                 Hi! I'm your AI learning assistant. I create personalized 7-day learning plans for any hobby.
@@ -551,11 +555,11 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              
+
               <h1 className="text-4xl font-bold text-slate-800 mb-6">
                 Welcome to Your Learning Journey!
               </h1>
-              
+
               <p className="text-xl text-slate-600 mb-12 leading-relaxed">
                 Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. Your custom learning plan will appear here once we chat!
               </p>
