@@ -351,7 +351,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           if (response.ok) {
             const allPlans = await response.json();
             console.log('🔍 Direct API query result:', { totalPlans: allPlans?.length || 0 });
-            console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
+            console.log('🔍 All user plans:', allPlans?.map((p: any) => ({ id: p.id, title: p.title })));
 
             // Filter for the specific hobby by extracting from title
             const supabasePlans = allPlans?.filter((p: { id: string; title: string; created_at: string; plan_data: any }) => {
@@ -363,10 +363,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
               return false;
             }) || [];
-            console.log('🔍 Filtered plans for hobby:', supabasePlans?.map(p => ({ id: p.id, title: p.title })));
+            console.log('🔍 Filtered plans for hobby:', supabasePlans?.map((p: any) => ({ id: p.id, title: p.title })));
             console.log('🔍 Search comparison - extractedHobby vs initialPlanData.hobby:', {
               searchTerm: initialPlanData.hobby.toLowerCase(),
-              foundTitles: allPlans?.map(p => p.title),
+              foundTitles: allPlans?.map((p: any) => p.title),
               matchedPlans: supabasePlans?.length || 0
             });
 
@@ -487,7 +487,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               if (response.ok) {
                 const allPlans = await response.json();
                 console.log('🔍 Direct API query result:', { totalPlans: allPlans?.length || 0 });
-                console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
+                console.log('🔍 All user plans:', allPlans?.map((p: any) => ({ id: p.id, title: p.title })));
 
                 // Filter for the extracted hobby by parsing titles
                 const supabasePlans = allPlans?.filter((p: { id: string; title: string; created_at: string; plan_data: any }) => {
@@ -498,7 +498,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   }
                   return false;
                 }) || [];
-                console.log('🔍 Filtered plans for extracted hobby:', supabasePlans?.map(p => ({ id: p.id, title: p.title })));
+                console.log('🔍 Filtered plans for extracted hobby:', supabasePlans?.map((p: any) => ({ id: p.id, title: p.title })));
 
                 if (supabasePlans && supabasePlans.length > 0) {
                   const mostRecentPlan = supabasePlans[0];
@@ -1181,7 +1181,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
             // CRITICAL FIX: Set step to 'plan' after plan generation for proper chat handling
             setCurrentStep('plan');
-          } catch (saveError) {
+          } catch (saveError: any) {
             console.error('🚨 PLAN SAVE FAILED:', saveError);
             console.error('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
 
