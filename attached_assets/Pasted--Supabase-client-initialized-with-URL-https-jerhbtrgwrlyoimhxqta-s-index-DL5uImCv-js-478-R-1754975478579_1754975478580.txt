@@ -1,0 +1,281 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-DL5uImCv.js:478 🔧 Route change detected - pathname: / hash: #/plan
+index-DL5uImCv.js:478 🔄 Restoring plan from currentPlanData: Gardening
+index-DL5uImCv.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-DL5uImCv.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-DL5uImCv.js:478 ✅ Using plan data from state: Gardening
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: false
+index-DL5uImCv.js:219 🔄 Initializing with existing plan data: Gardening
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: BO8yuSTc3fo
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: BO8yuSTc3fo
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Gardening Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in gardening. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical gardening scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Gardening equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Gardening Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=BO8yuSTc3fo"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Gardening Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "BO8yuSTc3fo",
+  "videoId": "BO8yuSTc3fo",
+  "videoTitle": "Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:219 🔧 Applied field mapping fix to initial plan data
+index-DL5uImCv.js:219 🔍 Checking for fresh plan marker: FOUND
+index-DL5uImCv.js:219 🎯 Fresh plan detected - using generated plan data directly, not querying database
+index-DL5uImCv.js:219 🔄 Initializing with existing plan data: Gardening
+index-DL5uImCv.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-DL5uImCv.js:217 🔍 plan.days length: 7
+index-DL5uImCv.js:217 🔍 plan.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-DL5uImCv.js:217 🔍 First day youtubeVideoId from different paths:
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.youtubeVideoId: BO8yuSTc3fo
+index-DL5uImCv.js:217 🔍   plan.days?.[0]?.videoId: BO8yuSTc3fo
+index-DL5uImCv.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-DL5uImCv.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Gardening Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in gardening. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical gardening scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Gardening equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Gardening Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=BO8yuSTc3fo"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Gardening Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "BO8yuSTc3fo",
+  "videoId": "BO8yuSTc3fo",
+  "videoTitle": "Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-DL5uImCv.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-DL5uImCv.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-DL5uImCv.js:217 🔍 FRONTEND - videoId value type: string
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-DL5uImCv.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-DL5uImCv.js:219 🔧 Applied field mapping fix to initial plan data
+index-DL5uImCv.js:219 🎯 Keeping fresh plan marker - this is a newly generated plan
+index-DL5uImCv.js:228 🔍 User authenticated, searching for existing plan ID...
+index-DL5uImCv.js:228 📍 Database-only progress tracking - no localStorage used
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Gardening Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Gardening" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Gardening" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-DL5uImCv.js:256 🐛 Video Title: Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-DL5uImCv.js:219 🔍 Direct Supabase session check: plan-1754975354849-ae7r20b4l Gardening
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Gardening Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Gardening" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Gardening" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-DL5uImCv.js:256 🐛 Video Title: Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Gardening Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Gardening" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Gardening" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-DL5uImCv.js:256 🐛 Video Title: Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+base.js:5427 [Violation] Permissions policy violation: compute-pressure is not allowed in this document.
+qTl @ base.js:5427Understand this error
+index-DL5uImCv.js:217 ✅ YouTube video loaded successfully: BO8yuSTc3fo
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Gardening Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Gardening" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Gardening" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-DL5uImCv.js:256 🐛 Video Title: Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-DL5uImCv.js:255 🔍 RENDER DEBUG: will show plan: true
+index-DL5uImCv.js:255 🔍 DEBUG: selectedDay: 1
+index-DL5uImCv.js:255 🔍 DEBUG: planData.days length: 7
+index-DL5uImCv.js:255 🔍 DEBUG: currentDay found: true Gardening Basics & Setup - Day 1
+index-DL5uImCv.js:255 🔍 DEBUG: day status: unlocked
+index-DL5uImCv.js:217 🎨 Plan AUTO-IMAGE: "Gardening" -> category-based generation
+index-DL5uImCv.js:217 🎨 Plan AUTO-GENERATED: "Gardening" -> unique category-based image
+index-DL5uImCv.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-DL5uImCv.js:256 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-DL5uImCv.js:256 🐛 Video Title: Gardening: Gardening for Beginners Series:  Gardening Basics for Beginners
+index-DL5uImCv.js:256 TIP 0: Using icon at index 0
+index-DL5uImCv.js:256 TIP 1: Using icon at index 1
+index-DL5uImCv.js:256 TIP 2: Using icon at index 2
+index-DL5uImCv.js:256 TIP 3: Using icon at index 3
+index-DL5uImCv.js:256 🐛 Debug Common Mistakes: Array(3)
+index-DL5uImCv.js:256 🐛 Full current day data: Object
+index-DL5uImCv.js:256 MISTAKE 0: Using icon at index 0
+index-DL5uImCv.js:256 MISTAKE 1: Using icon at index 1
+index-DL5uImCv.js:256 MISTAKE 2: Using icon at index 2
