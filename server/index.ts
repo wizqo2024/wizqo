@@ -50,8 +50,15 @@ app.use((req, res, next) => {
 (async () => {
   // Register API routes
   const server = await registerRoutes(app);
+
+  // Verify deployment routes
+  import('./deployment-check').then(({ verifyDeploymentRoutes }) => {
+    verifyDeploymentRoutes(app);
+  }).catch(err => {
+    console.error('Failed to load deployment check:', err);
+  });
   
-  // Log registered routes for debugging
+  // Comprehensive route debugging
   console.log('🛣️ Registered API routes:');
   app._router.stack.forEach((middleware: any) => {
     if (middleware.route) {
@@ -64,6 +71,22 @@ app.use((req, res, next) => {
       });
     }
   });
+
+  // Test route availability
+  console.log('🔍 Testing route registration...');
+  const routes = [];
+  app._router.stack.forEach((middleware: any) => {
+    if (middleware.route) {
+      routes.push(`${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
+    }
+  });
+  console.log('📋 Found routes:', routes);
+
+  // Add specific check for hobby-plans endpoint
+  const hobbyPlansRoute = app._router.stack.find((middleware: any) => {
+    return middleware.route && middleware.route.path === '/api/hobby-plans';
+  });
+  console.log('🎯 hobby-plans POST route exists:', !!hobbyPlansRoute);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -93,7 +116,25 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
-    console.log('🔑 OpenRouter API Key status:', process.env.OPENROUTER_API_KEY ? 'Loaded' : 'Missing');
-    console.log('🗄️ Supabase URL status:', process.env.VITE_SUPABASE_URL ? 'Loaded' : 'Missing');
+    
+    // Environment variable status
+    console.log('🔑 Environment Variables Status:');
+    console.log('  - NODE_ENV:', process.env.NODE_ENV || 'not set');
+    console.log('  - OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? `Found (${process.env.OPENROUTER_API_KEY.length} chars)` : 'Missing');
+    console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? 'Found' : 'Missing');
+    console.log('  - VITE_SUPABASE_ANON_KEY:', process.env.VITE_SUPABASE_ANON_KEY ? 'Found' : 'Missing');
+    
+    // Warning for missing keys
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.log('⚠️ WARNING: OPENROUTER_API_KEY not set - AI plan generation will use fallback');
+    }
+    if (!process.env.VITE_SUPABASE_URL) {
+      console.log('⚠️ WARNING: VITE_SUPABASE_URL not set - database operations may fail');
+    }
+
+    // Production deployment check
+    if (process.env.NODE_ENV === 'production') {
+      console.log('🚀 PRODUCTION MODE: Ensure all API routes are properly registered');
+    }
   });
 })();
