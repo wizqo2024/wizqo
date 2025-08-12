@@ -2326,10 +2326,11 @@ Please provide a helpful response:`;
         firstDayExists: !!plan_data?.days?.[0]
       });
 
-      // Validate the request data
+      // Validate the request data with hobby_name mapping
       const validatedData = insertHobbyPlanSchema.parse({
         userId: user_id,
         hobby,
+        hobbyName: hobby, // Map hobby to hobby_name for database compatibility
         title,
         overview,
         planData: plan_data
