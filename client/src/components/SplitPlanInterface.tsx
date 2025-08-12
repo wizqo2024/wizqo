@@ -262,17 +262,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
 
-  // Fix initial loading state
-  useEffect(() => {
-    setIsTyping(false);
-  }, []);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [planData, setPlanData] = useState<PlanData | null>(null);
-  const [completedDays, setCompletedDays] = useState<number[]>([]);
-  const [selectedDay, setSelectedDay] = useState<number>(1);
-  const [isSaving, setIsSaving] = useState(false); // State for saving process
-  const [toast, setToast] = useState<{ type: 'success' | 'error', message: string } | null>(null); // Toast notification state
-
   // CRITICAL FIX: Reset selectedDay when planData changes
   useEffect(() => {
     if (planData && planData.days && planData.days.length > 0) {
@@ -280,6 +269,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setSelectedDay(1);
     }
   }, [planData]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [planData, setPlanData] = useState<PlanData | null>(null);
+  const [completedDays, setCompletedDays] = useState<number[]>([]);
+  const [selectedDay, setSelectedDay] = useState<number>(1);
+  const [isSaving, setIsSaving] = useState(false); // State for saving process
+  const [toast, setToast] = useState<{ type: 'success' | 'error', message: string } | null>(null); // Toast notification state
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
@@ -359,7 +354,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
 
             // Filter for the specific hobby by extracting from title
-            const supabasePlans = allPlans?.filter((p: any) => {
+            const supabasePlans = allPlans?.filter((p: { id: string; title: string; created_at: string; plan_data: any }) => {
               if (p.title) {
                 // Updated regex to match both "Learn X in" and "Master X in" patterns
                 const titleMatch = p.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
@@ -416,11 +411,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             } else {
               console.log('🚨 No plans found for hobby:', initialPlanData.hobby);
               console.log('🚨 Query details - User ID:', user.id, 'Hobby:', initialPlanData.hobby);
-              console.log('🚨 Available plan titles:', allPlans?.map(p => p.title));
               console.log('🚨 This indicates a plan lookup issue - checking if plan exists with different title format');
 
               // Fallback: try broader search patterns
-              const fallbackPlans = allPlans?.filter((p: any) => {
+              const fallbackPlans = allPlans?.filter((p: { id: string; title: string; created_at: string; plan_data: any }) => {
                 if (p.title) {
                   const hobbyInTitle = p.title.toLowerCase().includes(initialPlanData.hobby.toLowerCase());
                   return hobbyInTitle;
@@ -496,7 +490,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
 
                 // Filter for the extracted hobby by parsing titles
-                const supabasePlans = allPlans?.filter((p: any) => {
+                const supabasePlans = allPlans?.filter((p: { id: string; title: string; created_at: string; plan_data: any }) => {
                   if (p.title) {
                     const titleMatch = p.title.match(/Learn (\w+) in/i);
                     const planHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
@@ -1206,7 +1200,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
             }
 
-            addAIMessage(errorMessage + ' Ask me any questions about your plan!');
+            addAIMessage(errorMessage);
 
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling
             setCurrentStep('plan');
@@ -2135,7 +2129,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         <div
                           className="text-white p-8 md:p-12 relative overflow-hidden"
                           style={{
-                            backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(${getHobbyImage(planData?.hobby || initialPlanData?.hobby || selectedHobby || '')})`,
+                            backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(${getHobbyImage(planData?.hobby || initialPlanData?.hobby || selectedHobby || 'default')})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat'
