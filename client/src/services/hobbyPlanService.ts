@@ -1,9 +1,48 @@
 import { supabase } from '../lib/supabase'
 
 export class HobbyPlanService {
-  // Clear all caches for a specific hobby
+  // Clear all caches for a specific hobby (enhanced version)
   clearHobbyCache(hobby: string, userId: string): void {
-    const cacheKeys = [
+    console.log('🧹 AGGRESSIVE CACHE CLEAR: Starting for hobby:', hobby, 'user:', userId);
+    
+    // Clear all localStorage entries that might be related
+    const localStorageKeys = Object.keys(localStorage);
+    for (const key of localStorageKeys) {
+      const shouldClear = key.toLowerCase().includes(hobby.toLowerCase()) ||
+                         key.includes(userId) ||
+                         key.startsWith('hobbyPlan_') ||
+                         key.startsWith('lastViewedPlan') ||
+                         key.startsWith('currentPlanData') ||
+                         key.startsWith('activePlanData') ||
+                         key.startsWith('plan_') ||
+                         key.includes('freshPlanMarker');
+      
+      if (shouldClear) {
+        localStorage.removeItem(key);
+        console.log('🧹 Cleared localStorage:', key);
+      }
+    }
+    
+    // Clear all sessionStorage entries that might be related
+    const sessionStorageKeys = Object.keys(sessionStorage);
+    for (const key of sessionStorageKeys) {
+      const shouldClear = key.toLowerCase().includes(hobby.toLowerCase()) ||
+                         key.includes(userId) ||
+                         key.startsWith('currentPlanData') ||
+                         key.startsWith('activePlanData') ||
+                         key.startsWith('lastViewedPlanData') ||
+                         key.startsWith('planFromGeneration') ||
+                         key.startsWith('freshPlanMarker') ||
+                         key.startsWith('progress_');
+      
+      if (shouldClear) {
+        sessionStorage.removeItem(key);
+        console.log('🧹 Cleared sessionStorage:', key);
+      }
+    }
+    
+    // Clear specific cache keys (both lowercase and capitalized)
+    const specificCacheKeys = [
       `existingPlan_${hobby}_${userId}`,
       `duplicateCheck_${hobby}_${userId}`,
       `hobbyPlan_${hobby}`,
@@ -11,10 +50,19 @@ export class HobbyPlanService {
       `currentPlanData_${hobby}`,
       `plan_${hobby}`,
       `${hobby}_plan`,
-      `${hobby}_progress`
+      `${hobby}_progress`,
+      // Capitalized versions
+      `existingPlan_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_${userId}`,
+      `duplicateCheck_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_${userId}`,
+      `hobbyPlan_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}`,
+      `lastViewedPlan_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}`,
+      `currentPlanData_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}`,
+      `plan_${hobby.charAt(0).toUpperCase() + hobby.slice(1)}`,
+      `${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_plan`,
+      `${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_progress`
     ];
     
-    cacheKeys.forEach(key => {
+    specificCacheKeys.forEach(key => {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
@@ -22,9 +70,11 @@ export class HobbyPlanService {
     // Also clear general cache entries
     sessionStorage.removeItem('currentPlanData');
     sessionStorage.removeItem('activePlanData');
+    sessionStorage.removeItem('lastViewedPlanData');
+    sessionStorage.removeItem('planFromGeneration');
     localStorage.removeItem('lastViewedPlanData');
     
-    console.log('🧹 CLEARED all caches for hobby:', hobby);
+    console.log('🧹 AGGRESSIVE CACHE CLEAR: Completed for hobby:', hobby);
   }
 
   // Check if plan already exists for this hobby
