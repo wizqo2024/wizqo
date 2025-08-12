@@ -306,3 +306,80 @@ export default async function handler(req, res) {
     });
   }
 }
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const { hobby, experience, timeAvailable, goal, userId, force } = req.body;
+
+    if (!hobby || !experience || !timeAvailable) {
+      return res.status(400).json({
+        error: 'Missing required fields: hobby, experience, timeAvailable'
+      });
+    }
+
+    // Import the route handler
+    const { registerRoutes } = await import('../server/routes.js');
+    
+    // For now, return a simple response to test
+    // TODO: Implement full plan generation
+    return res.json({
+      hobby,
+      title: `Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days`,
+      overview: `A comprehensive ${hobby} learning plan`,
+      difficulty: experience === 'some' ? 'intermediate' : experience,
+      totalDays: 7,
+      days: Array.from({ length: 7 }, (_, i) => ({
+        day: i + 1,
+        title: `Day ${i + 1}: ${hobby} Fundamentals`,
+        mainTask: `Learn essential ${hobby} techniques`,
+        explanation: `Day ${i + 1} focuses on building your foundation in ${hobby}`,
+        howTo: [
+          "Start with basic concepts",
+          "Practice fundamental techniques", 
+          "Complete hands-on exercises",
+          "Review and refine your skills"
+        ],
+        checklist: [
+          "Understand today's core concepts",
+          "Complete all practice exercises",
+          "Review progress and notes",
+          "Prepare for tomorrow's lesson"
+        ],
+        tips: [
+          "Take your time with each exercise",
+          "Don't be afraid to repeat difficult parts",
+          "Keep practicing regularly"
+        ],
+        commonMistakes: [
+          "Rushing through exercises",
+          "Skipping practice time",
+          "Not taking notes"
+        ],
+        youtubeVideoId: "dQw4w9WgXcQ",
+        videoTitle: `${hobby} Day ${i + 1} Tutorial`,
+        estimatedTime: timeAvailable,
+        skillLevel: experience
+      }))
+    });
+
+  } catch (error) {
+    console.error('Generate plan error:', error);
+    return res.status(500).json({ 
+      error: 'Failed to generate learning plan',
+      message: error.message 
+    });
+  }
+}
