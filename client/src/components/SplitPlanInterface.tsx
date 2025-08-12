@@ -24,7 +24,7 @@ const getHobbyImage = (hobby: string): string => {
     if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech') || hobbyName.includes('edit')) {
       const techImages = [
         'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1574717024653-6fd4719555c?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=240&fit=crop'
       ];
@@ -85,7 +85,7 @@ const getHobbyImage = (hobby: string): string => {
 
     // Default learning category
     const learningImages = [
-      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1481627834876-dccba630e2f6?w=400&h=240&fit=crop',
       'https://images.unsplash.com/photo-1434030216411-0a7dd7a55c?w=400&h=240&fit=crop',
       'https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop'
     ];
@@ -590,22 +590,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   setCurrentPlanId(mostRecentPlan.id.toString());
 
                   // Load progress for this plan
-                  const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
-                    headers: {
-                      'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-                      'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-                    }
-                  });
-
-                  if (progressResponse.ok) {
-                    const progressData = await progressResponse.json();
-                    console.log('🔍 Progress query result for extracted hobby:', { progressCount: progressData?.length || 0 });
-
-                    if (progressData && progressData.length > 0) {
-                      const completed = progressData.map(p => p.day_number);
-                      console.log('📖 Loaded progress from database:', completed);
-                      setCompletedDays(completed);
-                      setSelectedDay(progressData[0].current_day || 1);
+                  const sessionKey = `progress_${user.id}_${mostRecentPlan.id}`;
+                  const sessionProgress = sessionStorage.getItem(sessionKey);
+                  if (sessionProgress) {
+                    try {
+                      const progress = JSON.parse(sessionProgress);
+                      console.log('📖 Restored progress from session (extracted hobby):', progress.completed_days);
+                      setCompletedDays(progress.completed_days || []);
+                      setSelectedDay(progress.current_day || 1);
+                    } catch (e) {
+                      console.error('Failed to parse session progress');
                     }
                   }
                 } else {
@@ -746,7 +740,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       };
 
       const loadLocalStorageProgress = () => {
-        console.log('📍 No localStorage progress loading - using database only');
+        console.log('📍 Database-only progress tracking - no localStorage used');
       };
 
       // Start the initialization process
@@ -1428,7 +1422,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               if (saveError.message.includes('timed out')) {
                 errorMessage += ' (Database connection timed out - please run the manual RLS fix)'
               } else if (saveError.message.includes('violates row-level security policy')) {
-                errorMessage += ' (Database permissions issue - please run the SUPABASE_MANUAL_FIX.md instructions)'
+                errorMessage += ' (Database permissions issue - please contact support or run the SUPABASE_MANUAL_FIX.md instructions)'
               } else if (saveError.message.includes('Authentication issue')) {
                 errorMessage += ' (Authentication issue - please try signing out and back in)'
               } else if (saveError.message.includes('table not found')) {
@@ -1536,7 +1530,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const savedPlan = await hobbyPlanService.savePlan(planData, user.id, isFromPlanGeneration);
 
       // Remove the fresh plan marker to prevent duplicate saves
-      sessionStorage.removeItem('freshPlanGenerated');
+      sessionStorage.removeItem('freshPlanMarker');
       sessionStorage.removeItem('planFromGeneration');
       console.log('✅ AUTO-SAVE: Plan saved successfully');
 
@@ -1572,7 +1566,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Effect to trigger auto-save when planData is ready and user is authenticated
   useEffect(() => {
-    // AUTO-SAVE: Save plan to database when user is authenticated and plan is ready
+    // Auto-save plan when user is authenticated and plan data is available
     if (user && planData && planData.hobby && !isSaving) {
       console.log('🔍 Auto-save check: User authenticated, plan ready, checking for saving...');
 
@@ -2233,7 +2227,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   planData.hobby?.toLowerCase() === 'dance' ? '#EC4899, #DB2777' :
                                   planData.hobby?.toLowerCase() === 'foraging' ? '#22C55E, #16A34A' :
                                   planData.hobby?.toLowerCase() === 'hiking' ? '#8B5A2B, #6B4423' :
-                                  planData.hobby?.toLowerCase() === 'camping' ? '#059669, #047857' :
+                                  planData.hobby?.toLowerCase() === 'camping' ? ' #059669, #047857' :
                                   planData.hobby?.toLowerCase() === 'chess' ? '#374151, #1F2937' :
                                   planData.hobby?.toLowerCase() === 'writing' ? '#7C3AED, #5B21B6' :
                                   planData.hobby?.toLowerCase() === 'reading' ? '#DC2626, #B91C1C' :

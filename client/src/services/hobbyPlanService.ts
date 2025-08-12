@@ -6,11 +6,15 @@ export class HobbyPlanService {
     try {
       console.log('🔍 DUPLICATE CHECK: Looking for existing plan for hobby:', hobby, 'user:', userId)
       
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc`, {
+      // Use cache-busting timestamp to ensure fresh data
+      const timestamp = Date.now();
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc&_t=${timestamp}`, {
         method: 'GET',
         headers: {
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
         }
       })
 

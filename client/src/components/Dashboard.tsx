@@ -243,11 +243,21 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Remove from local state
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
       
-      // Clean up localStorage
+      // Clean up localStorage and cache
       const keys = Object.keys(localStorage);
       for (const key of keys) {
         if (key.includes(planId) || (key.startsWith('hobbyPlan_') && localStorage.getItem(key)?.includes(planId))) {
           localStorage.removeItem(key);
+        }
+      }
+      
+      // Clear any cached plan data for this hobby
+      const deletedPlan = hobbyPlans.find(p => p.id === planId);
+      if (deletedPlan?.title) {
+        const titleMatch = deletedPlan.title.match(/Learn (\w+) in/i);
+        if (titleMatch) {
+          const hobby = titleMatch[1].toLowerCase();
+          localStorage.removeItem(`existingPlan_${hobby}_${user?.id}`);
         }
       }
       
