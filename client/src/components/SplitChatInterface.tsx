@@ -193,28 +193,48 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     if (user) {
       try {
         // Wait longer for deletions to propagate and clear all caches
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
         
-        // Clear ALL cached data for this hobby
-        const cacheKeys = [
-          `existingPlan_${finalHobby}_${user.id}`,
-          `duplicateCheck_${finalHobby}_${user.id}`,
-          `hobbyPlan_${finalHobby}`,
-          `lastViewedPlan_${finalHobby}`,
-          `currentPlanData_${finalHobby}`
-        ];
+        // AGGRESSIVE CACHE CLEARING - Clear everything that might interfere
+        console.log('🧹 AGGRESSIVE PRE-CHECK CLEANUP for hobby:', finalHobby);
         
-        cacheKeys.forEach(key => {
-          sessionStorage.removeItem(key);
-          localStorage.removeItem(key);
-        });
+        // Clear all localStorage entries that might be related
+        const localStorageKeys = Object.keys(localStorage);
+        for (const key of localStorageKeys) {
+          const shouldClear = key.toLowerCase().includes(finalHobby.toLowerCase()) ||
+                             key.includes(user.id) ||
+                             key.startsWith('hobbyPlan_') ||
+                             key.startsWith('lastViewedPlan') ||
+                             key.startsWith('currentPlanData') ||
+                             key.startsWith('activePlanData') ||
+                             key.startsWith('plan_') ||
+                             key.includes('freshPlanMarker');
+          
+          if (shouldClear) {
+            localStorage.removeItem(key);
+            console.log('🧹 Pre-check cleared localStorage:', key);
+          }
+        }
         
-        // Clear any existing plan data that might be cached
-        sessionStorage.removeItem('currentPlanData');
-        sessionStorage.removeItem('activePlanData');
-        localStorage.removeItem('lastViewedPlanData');
+        // Clear all sessionStorage entries that might be related
+        const sessionStorageKeys = Object.keys(sessionStorage);
+        for (const key of sessionStorageKeys) {
+          const shouldClear = key.toLowerCase().includes(finalHobby.toLowerCase()) ||
+                             key.includes(user.id) ||
+                             key.startsWith('currentPlanData') ||
+                             key.startsWith('activePlanData') ||
+                             key.startsWith('lastViewedPlanData') ||
+                             key.startsWith('planFromGeneration') ||
+                             key.startsWith('freshPlanMarker') ||
+                             key.startsWith('progress_');
+          
+          if (shouldClear) {
+            sessionStorage.removeItem(key);
+            console.log('🧹 Pre-check cleared sessionStorage:', key);
+          }
+        }
         
-        console.log('🧹 CLEARED all caches for hobby:', finalHobby);
+        console.log('🧹 AGGRESSIVE PRE-CHECK CLEANUP completed for hobby:', finalHobby);
         
         // Force a fresh API check with cache-busting and no-cache headers
         const timestamp = Date.now();

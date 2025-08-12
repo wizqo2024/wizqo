@@ -233,12 +233,14 @@ Learn any hobby in 7 days at https://wizqo.com`;
       const deletedPlan = hobbyPlans.find(p => p.id === planId);
       let deletedHobby = '';
       
-      if (deletedPlan?.title) {
-        const titleMatch = deletedPlan.title.match(/Learn (\w+) in/i);
-        if (titleMatch) {
-          deletedHobby = titleMatch[1].toLowerCase();
-        }
+      // Extract hobby name from multiple sources
+      if (deletedPlan) {
+        deletedHobby = deletedPlan.hobby?.toLowerCase() || 
+                       deletedPlan.title?.match(/Learn (\w+) in/i)?.[1]?.toLowerCase() ||
+                       deletedPlan.title?.match(/Master (\w+) in/i)?.[1]?.toLowerCase() || '';
       }
+      
+      console.log('🗑️ Deleting plan:', planId, 'Hobby:', deletedHobby);
       
       // Delete from Supabase if it's a real plan (not local)
       if (!planId.startsWith('local-') && user?.id) {
@@ -253,30 +255,47 @@ Learn any hobby in 7 days at https://wizqo.com`;
         console.log('✅ Plan deleted from database:', planId);
       }
       
-      // Remove from local state immediately
-      setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
+      // COMPREHENSIVE CACHE CLEARING - Clear everything related to this plan and hobby
       
-      // Enhanced comprehensive cache cleanup
-      const keys = Object.keys(localStorage);
-      for (const key of keys) {
-        if (key.includes(planId) || (key.startsWith('hobbyPlan_') && localStorage.getItem(key)?.includes(planId))) {
+      // 1. Clear all localStorage entries
+      const localStorageKeys = Object.keys(localStorage);
+      for (const key of localStorageKeys) {
+        const shouldClear = key.includes(planId) ||
+                           key.includes(deletedHobby) ||
+                           key.startsWith('hobbyPlan_') ||
+                           key.startsWith('lastViewedPlan') ||
+                           key.startsWith('currentPlanData') ||
+                           key.startsWith('activePlanData') ||
+                           key.startsWith('plan_') ||
+                           key.includes('freshPlanMarker');
+        
+        if (shouldClear) {
           localStorage.removeItem(key);
-          console.log('🧹 Cleared localStorage key:', key);
+          console.log('🧹 Cleared localStorage:', key);
         }
       }
       
-      // Clear sessionStorage
-      const sessionKeys = Object.keys(sessionStorage);
-      for (const key of sessionKeys) {
-        if (key.includes(planId) || (deletedHobby && key.toLowerCase().includes(deletedHobby.toLowerCase()))) {
+      // 2. Clear all sessionStorage entries
+      const sessionStorageKeys = Object.keys(sessionStorage);
+      for (const key of sessionStorageKeys) {
+        const shouldClear = key.includes(planId) ||
+                           key.includes(deletedHobby) ||
+                           key.startsWith('currentPlanData') ||
+                           key.startsWith('activePlanData') ||
+                           key.startsWith('lastViewedPlanData') ||
+                           key.startsWith('planFromGeneration') ||
+                           key.startsWith('freshPlanMarker') ||
+                           key.startsWith('progress_');
+        
+        if (shouldClear) {
           sessionStorage.removeItem(key);
-          console.log('🧹 Cleared sessionStorage key:', key);
+          console.log('🧹 Cleared sessionStorage:', key);
         }
       }
       
-      // Clear ALL hobby-based cache entries (comprehensive cleanup)
+      // 3. Clear specific cache entries for this hobby and user
       if (deletedHobby && user?.id) {
-        const cacheKeys = [
+        const specificCacheKeys = [
           `existingPlan_${deletedHobby}_${user.id}`,
           `duplicateCheck_${deletedHobby}_${user.id}`,
           `hobbyPlan_${deletedHobby}`,
@@ -285,10 +304,19 @@ Learn any hobby in 7 days at https://wizqo.com`;
           `plan_${deletedHobby}`,
           `${deletedHobby}_plan`,
           `${deletedHobby}_progress`,
-          `progress_${user.id}_${planId}`
+          `progress_${user.id}_${planId}`,
+          // Also clear capitalized versions
+          `existingPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_${user.id}`,
+          `duplicateCheck_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_${user.id}`,
+          `hobbyPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
+          `lastViewedPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
+          `currentPlanData_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
+          `plan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
+          `${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_plan`,
+          `${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_progress`
         ];
         
-        cacheKeys.forEach(key => {
+        specificCacheKeys.forEach(key => {
           localStorage.removeItem(key);
           sessionStorage.removeItem(key);
         });
@@ -296,24 +324,22 @@ Learn any hobby in 7 days at https://wizqo.com`;
         console.log('🧹 Cleared ALL hobby-specific caches for:', deletedHobby);
       }
       
-      // Clear active plan data if it matches
-      const activePlanData = sessionStorage.getItem('activePlanData');
-      if (activePlanData) {
-        try {
-          const planData = JSON.parse(activePlanData);
-          if (planData.hobby === deletedHobby) {
-            sessionStorage.removeItem('activePlanData');
-            localStorage.removeItem('lastViewedPlanData');
-            console.log('🧹 Cleared active plan data for deleted hobby');
-          }
-        } catch (e) {
-          // If parsing fails, clear anyway to be safe
-          sessionStorage.removeItem('activePlanData');
-          localStorage.removeItem('lastViewedPlanData');
-        }
-      }
+      // 4. Force clear any plan data that might be cached
+      sessionStorage.removeItem('currentPlanData');
+      sessionStorage.removeItem('activePlanData');
+      sessionStorage.removeItem('lastViewedPlanData');
+      sessionStorage.removeItem('planFromGeneration');
+      localStorage.removeItem('lastViewedPlanData');
       
-      console.log('✅ Plan deletion and cleanup completed for:', deletedHobby);
+      // 5. Remove from local state immediately
+      setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
+      
+      // 6. Force a page refresh of the dashboard data after a short delay
+      setTimeout(() => {
+        loadUserPlans();
+      }, 500);
+      
+      console.log('✅ Plan deletion and comprehensive cleanup completed');
       
     } catch (error) {
       console.error('Error deleting plan:', error);
