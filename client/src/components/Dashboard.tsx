@@ -72,14 +72,29 @@ Learn any hobby in 7 days at https://wizqo.com`;
       setLoadingMessage('Fetching your learning plans...');
       console.log('📋 Loading user plans for:', user?.id);
 
-      // Prevent duplicate API calls by using a loading flag
+      // Check for loading flag but with timeout to prevent permanent blocking
       const isAlreadyLoading = sessionStorage.getItem('dashboardLoading');
-      if (isAlreadyLoading === 'true') {
+      const loadingTimestamp = sessionStorage.getItem('dashboardLoadingTime');
+      const now = Date.now();
+      
+      // If loading flag is older than 10 seconds, clear it (prevents permanent blocking)
+      if (isAlreadyLoading === 'true' && loadingTimestamp) {
+        const timeDiff = now - parseInt(loadingTimestamp);
+        if (timeDiff > 10000) {
+          console.log('📋 Clearing stale loading flag (older than 10 seconds)');
+          sessionStorage.removeItem('dashboardLoading');
+          sessionStorage.removeItem('dashboardLoadingTime');
+        } else {
+          console.log('📋 Dashboard already loading, skipping duplicate request');
+          return;
+        }
+      } else if (isAlreadyLoading === 'true') {
         console.log('📋 Dashboard already loading, skipping duplicate request');
         return;
       }
 
       sessionStorage.setItem('dashboardLoading', 'true');
+      sessionStorage.setItem('dashboardLoadingTime', now.toString());
 
       try {
         // Load saved plans from Supabase with deduplication
@@ -160,11 +175,15 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
       } finally {
         sessionStorage.removeItem('dashboardLoading');
+        sessionStorage.removeItem('dashboardLoadingTime');
       }
 
     } catch (error) {
       console.error('Error loading user plans:', error);
       setLoadingMessage('Error loading plans. Please refresh.');
+      // Clear loading flags on error too
+      sessionStorage.removeItem('dashboardLoading');
+      sessionStorage.removeItem('dashboardLoadingTime');
     } finally {
       setLoading(false);
     }
@@ -218,39 +237,40 @@ Learn any hobby in 7 days at https://wizqo.com`;
         console.log('✅ Plan deleted from database:', planId);
       }
 
-      // Comprehensive cache clearing
-      const clearKeys = [
-        'activePlanData', 'lastViewedPlanData', 'currentPlanData',
-        'freshPlanMarker', 'planFromGeneration'
-      ];
+      // AGGRESSIVE CACHE CLEARING - Clear everything that might cache this plan
+      const allKeys = [...Object.keys(localStorage), ...Object.keys(sessionStorage)];
+      
+      allKeys.forEach(key => {
+        const shouldClear = key.includes(planId) || 
+                           (deletedHobby && key.toLowerCase().includes(deletedHobby)) ||
+                           key.startsWith('existingPlan_') ||
+                           key.startsWith('duplicateCheck_') ||
+                           key.startsWith('hobbyPlan_') ||
+                           key.startsWith('currentPlanData') ||
+                           key.startsWith('activePlanData') ||
+                           key.startsWith('lastViewedPlan') ||
+                           key.startsWith('progress_') ||
+                           key.includes('freshPlanMarker') ||
+                           key.includes('planFromGeneration');
 
-      clearKeys.forEach(key => {
-        localStorage.removeItem(key);
-        sessionStorage.removeItem(key);
-      });
-
-      // Clear hobby-specific caches
-      if (deletedHobby && user?.id) {
-        const hobbyKeys = [
-          `existingPlan_${deletedHobby}_${user.id}`,
-          `duplicateCheck_${deletedHobby}_${user.id}`,
-          `progress_${user.id}_${planId}`,
-          `hobbyPlan_${deletedHobby}`
-        ];
-
-        hobbyKeys.forEach(key => {
+        if (shouldClear) {
           localStorage.removeItem(key);
           sessionStorage.removeItem(key);
-        });
-      }
+          console.log('🧹 Cleared cache key:', key);
+        }
+      });
 
-      // Remove from local state
+      // Clear dashboard loading flag to prevent stale data
+      sessionStorage.removeItem('dashboardLoading');
+
+      // Remove from local state immediately
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
 
-      // Reload plans after cleanup
+      // Force reload plans after a short delay to ensure deletion is reflected
       setTimeout(() => {
+        console.log('🔄 Force reloading plans after deletion');
         loadUserPlans();
-      }, 500);
+      }, 1000);
 
     } catch (error) {
       console.error('Error deleting plan:', error);

@@ -80,72 +80,56 @@ export class HobbyPlanService {
   // Check if plan already exists for this hobby
   async checkExistingPlan(hobby: string, userId: string): Promise<any | null> {
     try {
-      console.log('🔍 DUPLICATE CHECK: Starting check for hobby:', hobby, 'user:', userId);
+      console.log('🔍 DUPLICATE CHECK: Starting FRESH check for hobby:', hobby, 'user:', userId);
 
-      // Prevent concurrent duplicate checks
-      const checkKey = `duplicateCheck_${hobby}_${userId}`;
-      const isAlreadyChecking = sessionStorage.getItem(checkKey);
-      if (isAlreadyChecking === 'checking') {
-        console.log('🔍 DUPLICATE CHECK: Already in progress, waiting...');
-        // Wait a bit and try again
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const cachedResult = sessionStorage.getItem(`existingPlan_${hobby}_${userId}`);
-        return cachedResult ? JSON.parse(cachedResult) : null;
+      // ALWAYS query database directly - no caching to prevent stale data
+      console.log('🔍 DUPLICATE CHECK: Skipping cache, querying database directly');
+      
+      const response = await fetch(`/api/hobby-plans?user_id=${userId}&_t=${Date.now()}`);
+      if (!response.ok) {
+        console.error('🔍 DUPLICATE CHECK: API error:', response.status);
+        return null;
       }
 
-      sessionStorage.setItem(checkKey, 'checking');
+      const allPlans = await response.json();
+      console.log('🔍 DUPLICATE CHECK: Retrieved plans:', allPlans?.length || 0);
 
-      try {
-        // Check cache first
-        const cacheKey = `existingPlan_${hobby}_${userId}`;
-        const cachedResult = sessionStorage.getItem(cacheKey);
-        if (cachedResult) {
-          const parsed = JSON.parse(cachedResult);
-          console.log('🔍 DUPLICATE CHECK: Found cached result:', parsed ? 'EXISTS' : 'NOT_EXISTS');
-          return parsed;
+      if (!allPlans || allPlans.length === 0) {
+        console.log('✅ DUPLICATE CHECK: No plans found');
+        return null;
+      }
+
+      // Filter plans for the specific hobby by extracting from title or hobby field
+      const matchingPlans = allPlans.filter((plan: any) => {
+        const planHobby = plan.hobby_name || plan.hobby;
+        if (planHobby) {
+          return planHobby.toLowerCase() === hobby.toLowerCase();
         }
-
-        // Query database via API with deduplication
-        const response = await fetch(`/api/hobby-plans?user_id=${userId}`);
-        if (!response.ok) {
-          console.error('🔍 DUPLICATE CHECK: API error:', response.status);
-          return null;
+        
+        // Fallback to title matching
+        if (plan.title) {
+          const titleMatch = plan.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
+          const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
+          return extractedHobby === hobby.toLowerCase();
         }
+        
+        return false;
+      });
 
-        const allPlans = await response.json();
-        console.log('🔍 DUPLICATE CHECK: Retrieved plans:', allPlans?.length || 0);
+      // Get the most recent matching plan
+      const existingPlan = matchingPlans.length > 0 
+        ? matchingPlans.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+        : null;
 
-        // Deduplicate plans by hobby and take the most recent
-        const plansByHobby = new Map();
-        allPlans?.forEach((plan: any) => {
-          const planHobby = (plan.hobby_name || plan.hobby)?.toLowerCase();
-          if (planHobby) {
-            const existing = plansByHobby.get(planHobby);
-            if (!existing || new Date(plan.created_at) > new Date(existing.created_at)) {
-              plansByHobby.set(planHobby, plan);
-            }
-          }
-        });
-
-        // Look for exact hobby match
-        const existingPlan = plansByHobby.get(hobby.toLowerCase());
-
-        // Cache the result for this session
-        sessionStorage.setItem(cacheKey, JSON.stringify(existingPlan || null));
-
-        if (existingPlan) {
-          console.log('🚨 DUPLICATE CHECK: Found existing plan:', existingPlan.title);
-          return existingPlan;
-        } else {
-          console.log('✅ DUPLICATE CHECK: No existing plan found');
-          return null;
-        }
-      } finally {
-        sessionStorage.removeItem(checkKey);
+      if (existingPlan) {
+        console.log('🚨 DUPLICATE CHECK: Found existing plan:', existingPlan.title, 'ID:', existingPlan.id);
+        return existingPlan;
+      } else {
+        console.log('✅ DUPLICATE CHECK: No existing plan found for hobby:', hobby);
+        return null;
       }
     } catch (error) {
       console.error('🔍 DUPLICATE CHECK: Error:', error);
-      sessionStorage.removeItem(`duplicateCheck_${hobby}_${userId}`);
       return null;
     }
   }
