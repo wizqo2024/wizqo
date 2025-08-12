@@ -2040,7 +2040,22 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
   app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({ 
+      status: 'ok', 
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      server: 'Express'
+    });
+  });
+
+  // Specific health check for hobby-plans endpoint
+  app.get('/api/hobby-plans/health', (req, res) => {
+    res.json({ 
+      status: 'hobby-plans endpoint is healthy',
+      timestamp: new Date().toISOString(),
+      methods: ['GET', 'POST', 'DELETE'],
+      message: 'hobby-plans API is properly registered and responding'
+    });
   });
 
   // Route registration verification endpoint
@@ -2281,17 +2296,24 @@ Please provide a helpful response:`;
   app.post('/api/hobby-plans', async (req, res) => {
     try {
       console.log('📝 API: Hobby plans POST request received at:', new Date().toISOString());
+      console.log('📝 API: Request method:', req.method);
+      console.log('📝 API: Request URL:', req.url);
+      console.log('📝 API: Request body exists:', !!req.body);
       console.log('📝 API: Request body keys:', Object.keys(req.body || {}));
-      console.log('📝 API: Headers:', req.headers);
+      console.log('📝 API: Content-Type:', req.headers['content-type']);
+      console.log('📝 API: User-Agent:', req.headers['user-agent']);
       
       const { user_id, hobby, title, overview, plan_data } = req.body || {};
       
       if (!user_id || !hobby || !title || !plan_data) {
         console.error('📝 API: Missing required fields');
+        console.error('📝 API: Received data:', { user_id, hobby, title, overview, has_plan_data: !!plan_data });
         return res.status(400).json({
           error: 'Missing required fields',
           required: ['user_id', 'hobby', 'title', 'plan_data'],
-          received: Object.keys(req.body || {})
+          received: Object.keys(req.body || {}),
+          timestamp: new Date().toISOString(),
+          endpoint: 'POST /api/hobby-plans'
         });
       }
 

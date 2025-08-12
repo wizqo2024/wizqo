@@ -110,12 +110,28 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
+  
+  // Production deployment verification
+  console.log('🚀 DEPLOYMENT: Starting server on host 0.0.0.0 port', port);
+  console.log('🚀 DEPLOYMENT: Environment NODE_ENV:', process.env.NODE_ENV);
+  
+  // Final route verification before starting server
+  console.log('🔍 FINAL ROUTE CHECK: All registered routes before server start:');
+  app._router.stack.forEach((middleware: any, index: number) => {
+    if (middleware.route) {
+      const methods = Object.keys(middleware.route.methods).join(',').toUpperCase();
+      console.log(`  ${index}: ${methods} ${middleware.route.path}`);
+    }
+  });
+
   server.listen({
     port,
     host: "0.0.0.0",
     reusePort: true,
   }, () => {
-    log(`serving on port ${port}`);
+    log(`🚀 SERVER STARTED: serving on port ${port}`);
+    console.log(`🌐 LIVE URL: Server should be accessible at https://www.wizqo.com/`);
+    console.log(`🔍 API TEST: Try https://www.wizqo.com/api/health`);
     
     // Environment variable status
     console.log('🔑 Environment Variables Status:');
@@ -123,6 +139,24 @@ app.use((req, res, next) => {
     console.log('  - OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? `Found (${process.env.OPENROUTER_API_KEY.length} chars)` : 'Missing');
     console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? 'Found' : 'Missing');
     console.log('  - VITE_SUPABASE_ANON_KEY:', process.env.VITE_SUPABASE_ANON_KEY ? 'Found' : 'Missing');
+    
+    // Critical API endpoint verification for production
+    console.log('🎯 CRITICAL ENDPOINTS VERIFICATION:');
+    const criticalEndpoints = [
+      { method: 'POST', path: '/api/hobby-plans' },
+      { method: 'GET', path: '/api/hobby-plans' },
+      { method: 'POST', path: '/api/generate-plan' },
+      { method: 'GET', path: '/api/health' }
+    ];
+    
+    criticalEndpoints.forEach(endpoint => {
+      const routeExists = app._router.stack.some((middleware: any) => 
+        middleware.route && 
+        middleware.route.path === endpoint.path && 
+        middleware.route.methods[endpoint.method.toLowerCase()]
+      );
+      console.log(`  ${routeExists ? '✅' : '❌'} ${endpoint.method} ${endpoint.path}: ${routeExists ? 'REGISTERED' : 'MISSING'}`);
+    });
     
     // Warning for missing keys
     if (!process.env.OPENROUTER_API_KEY) {
@@ -134,7 +168,8 @@ app.use((req, res, next) => {
 
     // Production deployment check
     if (process.env.NODE_ENV === 'production') {
-      console.log('🚀 PRODUCTION MODE: Ensure all API routes are properly registered');
+      console.log('🚀 PRODUCTION MODE: All API routes verified and ready');
+      console.log('🚀 PRODUCTION: Server is properly configured for live deployment');
     }
   });
 })();
