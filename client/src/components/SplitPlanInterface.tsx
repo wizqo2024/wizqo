@@ -223,6 +223,7 @@ const fixPlanDataFields = (plan: any) => {
 };
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     // FIXED: Only clear plans when explicitly starting fresh (not when component re-renders)
     // Don't clear stored plans if there's active plan data or initialPlanData
