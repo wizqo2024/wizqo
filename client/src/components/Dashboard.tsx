@@ -229,6 +229,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
     
     setDeletingPlan(planId);
     try {
+      // Get the plan before deletion for cleanup
+      const deletedPlan = hobbyPlans.find(p => p.id === planId);
+      let deletedHobby = '';
+      
+      if (deletedPlan?.title) {
+        const titleMatch = deletedPlan.title.match(/Learn (\w+) in/i);
+        if (titleMatch) {
+          deletedHobby = titleMatch[1].toLowerCase();
+        }
+      }
+      
       // Delete from Supabase if it's a real plan (not local)
       if (!planId.startsWith('local-') && user?.id) {
         const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
@@ -238,28 +249,58 @@ Learn any hobby in 7 days at https://wizqo.com`;
         if (!response.ok) {
           throw new Error('Failed to delete plan from database');
         }
+        
+        console.log('✅ Plan deleted from database:', planId);
       }
       
-      // Remove from local state
+      // Remove from local state immediately
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
       
-      // Clean up localStorage and cache
+      // Comprehensive cache cleanup
       const keys = Object.keys(localStorage);
       for (const key of keys) {
         if (key.includes(planId) || (key.startsWith('hobbyPlan_') && localStorage.getItem(key)?.includes(planId))) {
           localStorage.removeItem(key);
+          console.log('🧹 Cleared localStorage key:', key);
         }
       }
       
-      // Clear any cached plan data for this hobby
-      const deletedPlan = hobbyPlans.find(p => p.id === planId);
-      if (deletedPlan?.title) {
-        const titleMatch = deletedPlan.title.match(/Learn (\w+) in/i);
-        if (titleMatch) {
-          const hobby = titleMatch[1].toLowerCase();
-          localStorage.removeItem(`existingPlan_${hobby}_${user?.id}`);
+      // Clear sessionStorage
+      const sessionKeys = Object.keys(sessionStorage);
+      for (const key of sessionKeys) {
+        if (key.includes(planId) || (deletedHobby && key.includes(deletedHobby))) {
+          sessionStorage.removeItem(key);
+          console.log('🧹 Cleared sessionStorage key:', key);
         }
       }
+      
+      // Clear specific hobby-based cache entries
+      if (deletedHobby && user?.id) {
+        localStorage.removeItem(`existingPlan_${deletedHobby}_${user.id}`);
+        sessionStorage.removeItem(`existingPlan_${deletedHobby}_${user.id}`);
+        localStorage.removeItem(`lastViewedPlan_${deletedHobby}`);
+        sessionStorage.removeItem(`currentPlanData_${deletedHobby}`);
+        console.log('🧹 Cleared hobby-specific caches for:', deletedHobby);
+      }
+      
+      // Clear active plan data if it matches
+      const activePlanData = sessionStorage.getItem('activePlanData');
+      if (activePlanData) {
+        try {
+          const planData = JSON.parse(activePlanData);
+          if (planData.hobby === deletedHobby) {
+            sessionStorage.removeItem('activePlanData');
+            localStorage.removeItem('lastViewedPlanData');
+            console.log('🧹 Cleared active plan data for deleted hobby');
+          }
+        } catch (e) {
+          // If parsing fails, clear anyway to be safe
+          sessionStorage.removeItem('activePlanData');
+          localStorage.removeItem('lastViewedPlanData');
+        }
+      }
+      
+      console.log('✅ Plan deletion and cleanup completed for:', deletedHobby);
       
     } catch (error) {
       console.error('Error deleting plan:', error);

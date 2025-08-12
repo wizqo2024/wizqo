@@ -379,6 +379,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Initialize with plan data if provided (for back navigation from dashboard)
   useEffect(() => {
+    // Clear any stale cached data on mount
+    if (!initialPlanData) {
+      console.log('🧹 Clearing stale cached data on fresh mount');
+      const keys = Object.keys(sessionStorage);
+      keys.forEach(key => {
+        if (key.startsWith('existingPlan_') || key.startsWith('duplicateCheck_')) {
+          sessionStorage.removeItem(key);
+        }
+      });
+    }
+    
     if (initialPlanData) {
       console.log('🔄 Initializing with existing plan data:', initialPlanData.hobby);
       const fixedPlanData = fixPlanDataFields(initialPlanData);
