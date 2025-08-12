@@ -2110,7 +2110,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.log('🔍 DUPLICATE CHECK: Found', existingPlans.length, 'existing plans');
 
           const duplicatePlan = existingPlans.find((plan: any) => {
-            const planHobby = plan.hobby_name?.toLowerCase() || '';
+            const planHobby = plan.hobby_name?.toLowerCase() || plan.hobby?.toLowerCase() || '';
             const normalizedPlanHobby = planHobby.trim();
             const checkHobby = normalizedHobby.toLowerCase().trim();
 
@@ -2121,6 +2121,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
             // Handle variations (e.g., "guitar" vs "guitar playing")
             if (normalizedPlanHobby.includes(checkHobby) || checkHobby.includes(normalizedPlanHobby)) return true;
+
+            // Also check title-based matching
+            if (plan.title) {
+              const titleMatch = plan.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
+              const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
+              if (extractedHobby === checkHobby) return true;
+            }
 
             return false;
           });
