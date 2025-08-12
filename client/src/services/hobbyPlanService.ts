@@ -85,6 +85,9 @@ export class HobbyPlanService {
       // First clear any stale caches
       this.clearHobbyCache(hobby, userId);
       
+      // Wait a moment for any pending operations to complete
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       // Use cache-busting timestamp to ensure fresh data
       const timestamp = Date.now();
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc&_t=${timestamp}&cache_bust=${Math.random()}`, {
@@ -102,66 +105,76 @@ export class HobbyPlanService {
       if (response.ok) {
         const allPlans = await response.json()
         console.log('🔍 DUPLICATE CHECK: Found', allPlans.length, 'total plans')
+        console.log('🔍 DUPLICATE CHECK: Plan details:', allPlans.map((p: any) => ({ id: p.id, title: p.title, hobby: p.hobby, hobby_name: p.hobby_name })))
         
-        // Multiple ways to detect existing hobby plan
+        // Normalize the search hobby for comparison
         const searchHobby = hobby.toLowerCase().trim()
+        console.log('🔍 DUPLICATE CHECK: Searching for hobby:', searchHobby)
         
         const existingPlan = allPlans.find((plan: any) => {
-          // Exact match on hobby field (new schema)
+          // Direct field matches (most reliable)
           if (plan.hobby?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via hobby field:', plan.hobby)
             return true
           }
           
-          // Exact match on hobby_name field (legacy)
           if (plan.hobby_name?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via hobby_name:', plan.hobby_name)
             return true
           }
           
-          // Exact match on plan_data.hobby field
           if (plan.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
             console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', plan.plan_data.hobby)
             return true
           }
           
-          // More precise title pattern matching - only exact hobby matches
+          // Enhanced title pattern matching for "coffee brewing" type hobbies
           if (plan.title) {
             const titleLower = plan.title.toLowerCase()
             
-            // Match "Master [hobby] in 7 Days" format - exact hobby only
+            // Match "Master [hobby] in X Days" format
             const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i)
             if (masterMatch) {
               const planHobby = masterMatch[1].toLowerCase().trim()
-              if (planHobby === searchHobby) {
-                console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title)
+              // Handle multi-word hobbies like "coffee brewing"
+              if (planHobby === searchHobby || searchHobby.includes(planHobby) || planHobby.includes(searchHobby)) {
+                console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title, 'extracted:', planHobby)
                 return true
               }
             }
             
-            // Match "Learn [hobby] in" format - exact hobby only
+            // Match "Learn [hobby] in" format
             const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i)
             if (learnMatch) {
               const planHobby = learnMatch[1].toLowerCase().trim()
-              if (planHobby === searchHobby) {
-                console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title)
+              // Handle multi-word hobbies like "coffee brewing"
+              if (planHobby === searchHobby || searchHobby.includes(planHobby) || planHobby.includes(searchHobby)) {
+                console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title, 'extracted:', planHobby)
                 return true
               }
             }
+            
+            // Direct title search for complex hobby names
+            if (titleLower.includes(searchHobby) || searchHobby.includes(titleLower.replace(/master|learn|in \d+ days?/gi, '').trim())) {
+              console.log('🚨 DUPLICATE FOUND via direct title search:', plan.title)
+              return true
+            }
           }
           
-          console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', plan.hobby || plan.hobby_name || 'unknown')
+          console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', plan.id, plan.title)
           return false
         })
 
         if (existingPlan) {
-          console.log('🚨 DUPLICATE DETECTED: Found existing plan:', existingPlan.title)
+          console.log('🚨 DUPLICATE DETECTED: Found existing plan:', existingPlan.title, 'ID:', existingPlan.id)
           return existingPlan
         }
         
         console.log('✅ DUPLICATE CHECK: No existing plan found for', hobby)
         return null
       }
+      
+      console.log('⚠️ DUPLICATE CHECK: API request failed with status:', response.status)
       return null
     } catch (error) {
       console.error('❌ DUPLICATE CHECK ERROR: Failed to check existing plans:', error)

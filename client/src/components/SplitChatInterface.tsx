@@ -192,143 +192,33 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     // Check for duplicate plan if user is signed in
     if (user) {
       try {
-        // Wait longer for deletions to propagate and clear all caches
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        console.log('🔍 DUPLICATE CHECK: Starting comprehensive check for:', finalHobby);
         
-        // AGGRESSIVE CACHE CLEARING - Clear everything that might interfere
-        console.log('🧹 AGGRESSIVE PRE-CHECK CLEANUP for hobby:', finalHobby);
+        // Use the hobbyPlanService for consistent duplicate checking
+        const existingPlan = await hobbyPlanService.checkExistingPlan(finalHobby, user.id);
         
-        // Clear all localStorage entries that might be related
-        const localStorageKeys = Object.keys(localStorage);
-        for (const key of localStorageKeys) {
-          const shouldClear = key.toLowerCase().includes(finalHobby.toLowerCase()) ||
-                             key.includes(user.id) ||
-                             key.startsWith('hobbyPlan_') ||
-                             key.startsWith('lastViewedPlan') ||
-                             key.startsWith('currentPlanData') ||
-                             key.startsWith('activePlanData') ||
-                             key.startsWith('plan_') ||
-                             key.includes('freshPlanMarker');
-          
-          if (shouldClear) {
-            localStorage.removeItem(key);
-            console.log('🧹 Pre-check cleared localStorage:', key);
-          }
-        }
-        
-        // Clear all sessionStorage entries that might be related
-        const sessionStorageKeys = Object.keys(sessionStorage);
-        for (const key of sessionStorageKeys) {
-          const shouldClear = key.toLowerCase().includes(finalHobby.toLowerCase()) ||
-                             key.includes(user.id) ||
-                             key.startsWith('currentPlanData') ||
-                             key.startsWith('activePlanData') ||
-                             key.startsWith('lastViewedPlanData') ||
-                             key.startsWith('planFromGeneration') ||
-                             key.startsWith('freshPlanMarker') ||
-                             key.startsWith('progress_');
-          
-          if (shouldClear) {
-            sessionStorage.removeItem(key);
-            console.log('🧹 Pre-check cleared sessionStorage:', key);
-          }
-        }
-        
-        console.log('🧹 AGGRESSIVE PRE-CHECK CLEANUP completed for hobby:', finalHobby);
-        
-        // Force a fresh API check with cache-busting and no-cache headers
-        const timestamp = Date.now();
-        const response = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${timestamp}&cache_bust=${Math.random()}`, {
-          method: 'GET',
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-            'If-None-Match': '*'
-          }
-        });
-        
-        if (response.ok) {
-          const allPlans = await response.json();
-          console.log('🔍 DUPLICATE CHECK: Fresh API response:', allPlans.length, 'plans');
-          console.log('🔍 DUPLICATE CHECK: All plan titles:', allPlans.map((p: any) => p.title));
-          
-          // More strict checking for existing plans
-          const searchHobby = finalHobby.toLowerCase().trim();
-          const currentPlan = allPlans.find((p: any) => {
-            // Check hobby field (exact match only)
-            if (p.hobby?.toLowerCase().trim() === searchHobby) {
-              console.log('🚨 DUPLICATE FOUND via hobby field:', p.hobby);
-              return true;
-            }
-            
-            // Check hobby_name field (exact match only)
-            if (p.hobby_name?.toLowerCase().trim() === searchHobby) {
-              console.log('🚨 DUPLICATE FOUND via hobby_name:', p.hobby_name);
-              return true;
-            }
-            
-            // Check plan_data.hobby field (exact match only)
-            if (p.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
-              console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', p.plan_data.hobby);
-              return true;
-            }
-            
-            // Check title patterns (exact hobby match only)
-            if (p.title) {
-              const titleLower = p.title.toLowerCase();
-              
-              // Match "Master [hobby] in X Days" format
-              const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i);
-              if (masterMatch) {
-                const planHobby = masterMatch[1].toLowerCase().trim();
-                if (planHobby === searchHobby) {
-                  console.log('🚨 DUPLICATE FOUND via Master title pattern:', p.title);
-                  return true;
-                }
-              }
-              
-              // Match "Learn [hobby] in" format
-              const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i);
-              if (learnMatch) {
-                const planHobby = learnMatch[1].toLowerCase().trim();
-                if (planHobby === searchHobby) {
-                  console.log('🚨 DUPLICATE FOUND via Learn title pattern:', p.title);
-                  return true;
-                }
-              }
-            }
-            
-            console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', p.id, p.title);
-            return false;
+        if (existingPlan) {
+          console.log('🚨 DUPLICATE DETECTED:', existingPlan.title);
+          addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
+          addAIMessage(
+            `You already have a learning plan for ${finalHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
+            hobbyOptions.filter(h => h.value !== 'surprise' && h.value !== finalHobby).slice(0, 6).map(h => ({
+              value: h.value,
+              label: h.label,
+              description: h.description
+            }))
+          );
+
+          toast({
+            title: "Plan already exists",
+            description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
+            variant: "default"
           });
-          
-          // Only show duplicate message if plan truly exists
-          if (currentPlan && currentPlan.id) {
-            console.log('🚨 DUPLICATE DETECTED after strict check:', currentPlan.title, 'ID:', currentPlan.id);
-            addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
-            addAIMessage(
-              `You already have a learning plan for ${finalHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
-              hobbyOptions.filter(h => h.value !== 'surprise' && h.value !== finalHobby).slice(0, 6).map(h => ({
-                value: h.value,
-                label: h.label,
-                description: h.description
-              }))
-            );
 
-            toast({
-              title: "Plan already exists",
-              description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
-              variant: "default"
-            });
-
-            return;
-          } else {
-            console.log('✅ DUPLICATE CHECK: No existing plan found after strict check');
-          }
-        } else {
-          console.log('⚠️ DUPLICATE CHECK: API request failed, proceeding with generation');
+          return;
         }
+        
+        console.log('✅ DUPLICATE CHECK: No existing plan found, proceeding with generation');
       } catch (error) {
         console.error('Error checking for existing plan:', error);
         // Continue with plan generation if check fails
