@@ -22,7 +22,7 @@ async function createHobbyPlan(user_id: string, hobby: string, title: string, ov
     if (!supabase) {
       throw new Error('Supabase client not initialized');
     }
-    
+
     const { data, error } = await supabase
       .from('hobby_plans')
       .insert({
@@ -34,12 +34,12 @@ async function createHobbyPlan(user_id: string, hobby: string, title: string, ov
       })
       .select()
       .single();
-    
+
     if (error) {
       console.error('Supabase insert error:', error);
       throw error;
     }
-    
+
     return data;
   } catch (error) {
     console.error('Supabase hobby plan creation error:', error);
@@ -52,18 +52,18 @@ async function getHobbyPlans(user_id: string) {
     if (!supabase) {
       throw new Error('Supabase client not initialized');
     }
-    
+
     const { data, error } = await supabase
       .from('hobby_plans')
       .select('id, user_id, hobby, title, overview, plan_data, created_at')
       .eq('user_id', user_id)
       .order('created_at', { ascending: false });
-    
+
     if (error) {
       console.error('Supabase select error:', error);
       return [];
     }
-    
+
     return data || [];
   } catch (error) {
     console.error('Supabase hobby plans fetch error:', error);
@@ -76,7 +76,7 @@ async function createUserProgress(user_id: string, plan_id: number, completed_da
     if (!supabase) {
       throw new Error('Supabase client not initialized');
     }
-    
+
     // First try to update existing progress
     const { data: existingProgress, error: selectError } = await supabase
       .from('user_progress')
@@ -84,7 +84,7 @@ async function createUserProgress(user_id: string, plan_id: number, completed_da
       .eq('user_id', user_id)
       .eq('plan_id', plan_id)
       .single();
-    
+
     if (existingProgress) {
       // Update existing progress
       const { data, error } = await supabase
@@ -99,12 +99,12 @@ async function createUserProgress(user_id: string, plan_id: number, completed_da
         .eq('plan_id', plan_id)
         .select()
         .single();
-      
+
       if (error) {
         console.error('Supabase progress update error:', error);
         throw error;
       }
-      
+
       return data;
     } else {
       // Insert new progress
@@ -119,12 +119,12 @@ async function createUserProgress(user_id: string, plan_id: number, completed_da
         })
         .select()
         .single();
-      
+
       if (error) {
         console.error('Supabase progress insert error:', error);
         throw error;
       }
-      
+
       return data;
     }
   } catch (error) {
@@ -138,17 +138,17 @@ async function getUserProgress(user_id: string) {
     if (!supabase) {
       throw new Error('Supabase client not initialized');
     }
-    
+
     const { data, error } = await supabase
       .from('user_progress')
       .select('id, user_id, plan_id, completed_days, current_day, unlocked_days, last_accessed_at')
       .eq('user_id', user_id);
-    
+
     if (error) {
       console.error('Supabase progress select error:', error);
       return [];
     }
-    
+
     return data || [];
   } catch (error) {
     console.error('Supabase user progress fetch error:', error);
@@ -229,7 +229,7 @@ function getYouTubeVideos(hobby: string): string[] {
 // AI-powered plan generation with DeepSeek
 async function generateAIPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const apiKey = process.env.DEEPSEEK_API_KEY;
-  
+
   if (!apiKey) {
     console.warn('DeepSeek API key not found, using fallback plan');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
@@ -290,18 +290,18 @@ Make each day build progressively on the previous day. Include practical, action
 
     const data = await response.json();
     const content = data.choices[0]?.message?.content;
-    
+
     if (!content) {
       throw new Error('No content in API response');
     }
 
     const aiPlan = JSON.parse(content);
-    
+
     // Add targeted YouTube videos to each day with precise video matching
     aiPlan.days = aiPlan.days.map((day: any, index: number) => {
       const targetedVideoId = getTargetedYouTubeVideo(hobby, day.title, day.mainTask, experience);
       const videoDetails = getVideoDetails(hobby, experience, day.day);
-      
+
       return {
         ...day,
         // Ensure commonMistakes field exists (AI may use different field names)
@@ -338,7 +338,7 @@ Make each day build progressively on the previous day. Include practical, action
 // Remove duplicate function definition - using imported version
   // Generate precise search query for this specific day
   const searchQuery = `${hobby} ${experience} tutorial ${dayTitle.toLowerCase()} beginner guide`;
-  
+
   // Curated video database with targeted selections
   const targetedVideos: { [key: string]: { [key: string]: string[] } } = {
     guitar: {
@@ -391,7 +391,7 @@ Make each day build progressively on the previous day. Include practical, action
     const dayIndex = Math.min(parseInt(dayTitle.match(/\d+/)?.[0] || "1") - 1, hobbyVideos[experience].length - 1);
     return hobbyVideos[experience][dayIndex];
   }
-  
+
   // Fallback to general hobby videos
   const fallbackVideos = getYouTubeVideos(hobby);
   return fallbackVideos[0] || "3jWRrafhO7M";
@@ -399,7 +399,7 @@ Make each day build progressively on the previous day. Include practical, action
 
 // Fallback plan generator
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
-  
+
   const plan = {
     hobby: hobby,
     title: `7-Day ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Learning Journey`,
@@ -407,7 +407,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     days: await Promise.all(Array.from({ length: 7 }, async (_, i) => {
       const dayTitle = `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Fundamentals - Day ${i + 1}`;
       const targetedVideoId = await getTargetedYouTubeVideo(hobby, dayTitle, `Learn essential ${hobby} techniques`, experience);
-      
+
         return {
           day: i + 1,
           title: dayTitle,
@@ -452,10 +452,10 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
       skillLevel: experience
     }))
   };
-  
+
   console.log('🔍 FALLBACK PLAN GENERATED - First day commonMistakes:', plan.days[0].commonMistakes);
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
-  
+
   return plan;
 }
 
@@ -469,7 +469,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/generate-plan', async (req, res) => {
     try {
       const { hobby, experience, timeAvailable, goal } = req.body;
-      
+
       if (!hobby || !experience || !timeAvailable) {
         return res.status(400).json({ 
           error: 'Missing required fields: hobby, experience, timeAvailable' 
@@ -489,7 +489,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { userId } = req.params;
       console.log('📖 API: Fetching hobby plans for user:', userId);
-      
+
       const plans = await getHobbyPlans(userId);
       console.log('📖 API: Found', plans.length, 'plans');
       res.json(plans);
@@ -505,7 +505,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('📝 SUPABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
       console.log('🔍 DEBUG: Plan data being saved - first day commonMistakes:', plan_data?.days?.[0]?.commonMistakes);
       console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
-      
+
       const plan = await createHobbyPlan(user_id, hobby, title, overview, plan_data);
       console.log('📝 SUPABASE: Created plan with ID:', plan.id);
       res.json(plan);
@@ -520,7 +520,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { userId } = req.params;
       console.log('📖 API: Fetching user progress for:', userId);
-      
+
       const progress = await getUserProgress(userId);
       console.log('📖 API: Found', progress.length, 'progress entries');
       res.json(progress);
@@ -534,7 +534,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { user_id, plan_id, completed_days, current_day, unlocked_days } = req.body;
       console.log('📝 SUPABASE: Creating/updating user progress for:', user_id, 'plan:', plan_id);
-      
+
       const progress = await createUserProgress(user_id, plan_id, completed_days, current_day, unlocked_days);
       console.log('📝 SUPABASE: Updated progress for plan:', plan_id);
       res.json(progress);
@@ -548,7 +548,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/setup-supabase-tables', async (req, res) => {
     try {
       console.log('🔧 Creating Supabase tables via direct SQL execution...');
-      
+
       if (!supabase) {
         return res.status(500).json({ error: 'Supabase not connected' });
       }
@@ -581,7 +581,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       `;
 
       console.log('🔧 Executing table creation SQL...');
-      
+
       // Split SQL into individual statements and execute them one by one
       const statements = createTablesSQL
         .split(';')
@@ -594,7 +594,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.log(`🔧 Executing: ${statement.substring(0, 50)}...`);
           // Use basic select to verify connection, then attempt table creation
           const { error } = await supabase.rpc('exec', { query: statement });
-          
+
           if (error) {
             console.log(`🔧 Error in statement: ${error.message}`);
             results.push({ 
@@ -625,7 +625,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           .from('hobby_plans')
           .select('id')
           .limit(1);
-        
+
         const { data: userProgressTest } = await supabase
           .from('user_progress')
           .select('id')
@@ -633,7 +633,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         console.log('🔧 Table verification - hobby_plans accessible:', hobbyPlansTest !== null);
         console.log('🔧 Table verification - user_progress accessible:', userProgressTest !== null);
-        
+
         res.json({
           message: 'Database setup completed',
           results,
