@@ -2043,6 +2043,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // Route registration verification endpoint
+  app.get('/api/routes-check', (req, res) => {
+    const routes = [];
+    app._router.stack.forEach((middleware: any) => {
+      if (middleware.route) {
+        routes.push({
+          method: Object.keys(middleware.route.methods)[0].toUpperCase(),
+          path: middleware.route.path
+        });
+      }
+    });
+    res.json({ routes, message: 'Routes registered successfully' });
+  });
+
   // Generate hobby plan endpoint with validation
   app.post('/api/generate-plan', async (req, res) => {
     try {
@@ -2266,9 +2280,21 @@ Please provide a helpful response:`;
 
   app.post('/api/hobby-plans', async (req, res) => {
     try {
-      console.log('📝 API: Hobby plans POST request received');
-      console.log('📝 API: Request body keys:', Object.keys(req.body));
-      const { user_id, hobby, title, overview, plan_data } = req.body;
+      console.log('📝 API: Hobby plans POST request received at:', new Date().toISOString());
+      console.log('📝 API: Request body keys:', Object.keys(req.body || {}));
+      console.log('📝 API: Headers:', req.headers);
+      
+      const { user_id, hobby, title, overview, plan_data } = req.body || {};
+      
+      if (!user_id || !hobby || !title || !plan_data) {
+        console.error('📝 API: Missing required fields');
+        return res.status(400).json({
+          error: 'Missing required fields',
+          required: ['user_id', 'hobby', 'title', 'plan_data'],
+          received: Object.keys(req.body || {})
+        });
+      }
+
       console.log('📝 DATABASE: Creating hobby plan for user:', user_id, 'hobby:', hobby);
       console.log('🔍 DEBUG: Plan data structure:', {
         hasTitle: !!title,
@@ -2277,8 +2303,6 @@ Please provide a helpful response:`;
         planDataKeys: plan_data ? Object.keys(plan_data) : 'none',
         firstDayExists: !!plan_data?.days?.[0]
       });
-      console.log('🔍 DEBUG: Plan data being saved - first day mistakesToAvoid:', plan_data?.days?.[0]?.mistakesToAvoid);
-      console.log('🔍 DEBUG: Plan data being saved - first day youtubeVideoId:', plan_data?.days?.[0]?.youtubeVideoId);
 
       // Validate the request data
       const validatedData = insertHobbyPlanSchema.parse({
@@ -2290,14 +2314,24 @@ Please provide a helpful response:`;
       });
 
       const plan = await supabaseStorage.createHobbyPlan(validatedData);
-      console.log('📝 DATABASE: Created plan with ID:', plan.id);
+      console.log('✅ DATABASE: Created plan successfully with ID:', plan.id);
       res.json(plan);
     } catch (error) {
-      console.error('📝 API: Error creating hobby plan:', error);
+      console.error('❌ API: Error creating hobby plan:', error);
+      console.error('❌ API: Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+      
       if (error instanceof z.ZodError) {
-        res.status(400).json({ error: 'Invalid request data', details: error.errors });
+        res.status(400).json({ 
+          error: 'Invalid request data', 
+          details: error.errors,
+          message: 'Request validation failed'
+        });
       } else {
-        res.status(500).json({ error: 'Failed to create hobby plan' });
+        res.status(500).json({ 
+          error: 'Failed to create hobby plan',
+          message: error instanceof Error ? error.message : 'Unknown error',
+          timestamp: new Date().toISOString()
+        });
       }
     }
   });
