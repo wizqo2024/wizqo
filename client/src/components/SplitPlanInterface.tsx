@@ -379,7 +379,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
             if (!error && userPlans && userPlans.length > 0) {
               // Find the MOST RECENT plan that matches this hobby
-              const matchingPlans = userPlans.filter(plan => 
+              const matchingPlans = userPlans.filter((plan: any) => 
                 plan.hobby === initialPlanData.hobby
               );
 
@@ -679,7 +679,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 console.log('🔍 All user plans:', allPlans?.map(p => ({ id: p.id, title: p.title })));
 
                 // Filter for the extracted hobby by parsing titles
-                const supabasePlans = allPlans?.filter(p => {
+                const supabasePlans = allPlans?.filter((p: any) => {
                   if (p.title) {
                     const titleMatch = p.title.match(/Learn (\w+) in/i);
                     const planHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
@@ -793,7 +793,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       dance: ['dance', 'dancing', 'ballet', 'hip hop', 'salsa', 'ballroom', 'contemporary', 'jazz dance'],
       fitness: ['yoga', 'pilates', 'workout', 'fitness', 'exercise', 'gym', 'strength training', 'cardio'],
       sports: ['tennis', 'basketball', 'soccer', 'football', 'volleyball', 'swimming', 'running', 'cycling'],
-      cooking: ['cooking', 'baking', 'culinary', 'chef', 'cuisine', 'recipes', 'food preparation'],
+      cooking: ['cooking', 'baking', 'culinary', 'chef', 'recipes', 'food preparation'],
       crafts: ['knitting', 'sewing', 'crochet', 'embroidery', 'quilting', 'needlework', 'crafting'],
       coding: ['coding', 'programming', 'web development', 'app development', 'software', 'javascript', 'python'],
       gardening: ['gardening', 'horticulture', 'plants', 'farming', 'landscaping', 'greenhouse'],
@@ -1002,13 +1002,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           // Initialize progress tracking
           await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
 
-          addAIMessage(`Your ${randomHobby} plan is ready and saved! 🎉 Check it out on the right side. Your progress will be tracked automatically!`, undefined, 500);
+          addAIMessage(`Your ${randomHobby} plan is ready and saved! 🎉 Check it out on the right side. Your progress will be tracked automatically!`);
         } catch (saveError) {
           console.error('Error saving surprise plan to Supabase:', saveError);
-          addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Progress tracking is unavailable right now, but you can still use your plan!`, undefined, 500);
+          addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Progress tracking is unavailable right now, but you can still use your plan!`);
         }
       } else {
-        addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Sign up to save your progress!`, undefined, 500);
+        addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Sign up to save your progress!`);
       }
     } catch (error) {
       console.error('Error generating plan:', error);
@@ -1169,7 +1169,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
         { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
         { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
-        { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+        { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let me pick something exciting for you' }
       ]);
       return;
     }
@@ -1263,7 +1263,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(label);
 
     if (currentStep === 'hobby') {
-      setSelectedHobby(value);
+      const finalHobby = value; // Use the selected value directly
+      setSelectedHobby(finalHobby);
       setCurrentStep('experience');
 
       const experienceOptions = [
@@ -1272,7 +1273,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
 
-      addAIMessage(`Great choice! ${selectedHobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+      addAIMessage(`Great choice! ${finalHobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
 
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
@@ -1371,7 +1372,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             console.error('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
 
             // Provide specific error messages to user
-            let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan.`
+            let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan!`
 
             if (saveError instanceof Error) {
               if (saveError.message.includes('timed out')) {
@@ -1603,7 +1604,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     // Handle hobby input if we're in hobby selection step
     if (currentStep === 'hobby') {
-      // Use DeepSeek AI for intelligent hobby validation
+      // Use DeepSeek API for intelligent hobby validation
       try {
         const response = await fetch('/api/validate-hobby', {
           method: 'POST',
@@ -1652,7 +1653,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
               addAIMessage(errorMessage, hobbyOptions);
             } else {
-              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.', [
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, photography, yoga, or dance.', [
                 { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
                 { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
                 { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
@@ -2159,13 +2160,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       <button
                         key={dayNum}
                         onClick={() => {
-                          if (dayNum > 1 && !user) {
+                          if (dayNum > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
                             setShowAuthModal(true);
                           } else {
                             setSelectedDay(dayNum);
                           }
                         }}
-                        disabled={false}
+                        disabled={status === 'locked'}
                         className={`w-12 h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
                           isSelected 
                             ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300' 
@@ -2275,7 +2276,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           </div>
                         </div>
                         <button
-                          onClick={() => toggleDayCompletion(selectedDay)}
+                          onClick={() => {
+                            if (selectedDay > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
+                              setShowAuthModal(true);
+                            } else {
+                              toggleDayCompletion(selectedDay);
+                            }
+                          }}
                           disabled={selectedDay > 1 && !user && status !== 'completed'}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-sm border transition-colors ${
                             selectedDay > 1 && !user && status !== 'completed'
@@ -2477,11 +2484,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <h3 className="text-lg md:text-xl font-bold text-red-900">Avoid These Mistakes</h3>
                             </div>
                             <div className="space-y-2">
-                              {(() => {
-                                console.log('🐛 Debug Common Mistakes:', currentDay.commonMistakes);
-                                console.log('🐛 Full current day data:', currentDay);
-                                return currentDay.commonMistakes && currentDay.commonMistakes.length > 0;
-                              })() ? currentDay.commonMistakes.map((mistake: string, index: number) => {
+                              {(currentDay.commonMistakes || []).map((mistake: string, index: number) => {
                                 const iconMap = [X, AlertTriangle, Ban, StopCircle, XCircle];
                                 const IconComponent = iconMap[index % iconMap.length];
                                 console.log(`MISTAKE ${index}: Using icon at index ${index % iconMap.length}`);
@@ -2495,11 +2498,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                     </div>
                                   </div>
                                 );
-                              }) : (
-                                <div className="bg-white rounded-lg p-3 shadow-sm text-center">
-                                  <p className="text-gray-600 text-sm">No common mistakes listed for this day.</p>
-                                </div>
-                              )}
+                              })}
                             </div>
                           </section>
 

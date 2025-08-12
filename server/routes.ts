@@ -421,7 +421,7 @@ Make each day build progressively on the previous day. Include practical, action
 
     console.log('🔧 API response received, status:', response.status);
 
-    if (timeoutId) clearTimeout(timeoutId);
+    if (timeoutId) clearTimeout(timeoutId as NodeJS.Timeout);
 
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status}`);
@@ -477,7 +477,7 @@ Make each day build progressively on the previous day. Include practical, action
           `Not taking notes or tracking your improvement`
         ],
         youtubeVideoId: targetedVideoId,
-        videoId: targetedVideoId, // Also add videoId for compatibility
+        videoId: targetedVideoId, // Also add videoId for backwards compatibility
         videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
         freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
         affiliateProducts: [{
@@ -504,7 +504,7 @@ Make each day build progressively on the previous day. Include practical, action
     return aiPlan;
 
   } catch (error: any) {
-    if (timeoutId) clearTimeout(timeoutId); // Ensure timeout is cleared on error
+    if (timeoutId) clearTimeout(timeoutId as NodeJS.Timeout); // Ensure timeout is cleared on error
     console.error('OpenRouter API error:', error);
 
     // Check if it's a timeout/abort error
@@ -2040,8 +2040,8 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
   app.get('/api/health', (req, res) => {
-    res.json({ 
-      status: 'ok', 
+    res.json({
+      status: 'ok',
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV || 'development',
       server: 'Express'
@@ -2050,7 +2050,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Specific health check for hobby-plans endpoint
   app.get('/api/hobby-plans/health', (req, res) => {
-    res.json({ 
+    res.json({
       status: 'hobby-plans endpoint is healthy',
       timestamp: new Date().toISOString(),
       methods: ['GET', 'POST', 'DELETE'],
@@ -2060,15 +2060,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Route registration verification endpoint
   app.get('/api/routes-check', (req, res) => {
-    const routes = [];
+    console.log('🔍 Testing route registration...');
+    const routes: string[] = [];
     app._router.stack.forEach((middleware: any) => {
       if (middleware.route) {
-        routes.push({
-          method: Object.keys(middleware.route.methods)[0].toUpperCase(),
-          path: middleware.route.path
-        });
+        routes.push(`${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
       }
     });
+    console.log('📋 Found routes:', routes);
     res.json({ routes, message: 'Routes registered successfully' });
   });
 
@@ -2351,13 +2350,13 @@ Please provide a helpful response:`;
       console.error('❌ API: Error stack:', error instanceof Error ? error.stack : 'No stack trace');
 
       if (error instanceof z.ZodError) {
-        res.status(400).json({ 
-          error: 'Invalid request data', 
+        res.status(400).json({
+          error: 'Invalid request data',
           details: error.errors,
           message: 'Request validation failed'
         });
       } else {
-        res.status(500).json({ 
+        res.status(500).json({
           error: 'Failed to create hobby plan',
           message: error instanceof Error ? error.message : 'Unknown error',
           timestamp: new Date().toISOString()
