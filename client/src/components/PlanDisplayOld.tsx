@@ -39,14 +39,14 @@ interface PlanDisplayProps {
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
   console.log('🚨 PLANDISPLAY COMPONENT IS RENDERING 🚨');
   console.log('Plan data received:', planData?.hobby);
-  
+
   // Set plan data when component renders
   React.useEffect(() => {
     if (planData) {
       console.log('🔍 Plan data loaded:', planData.hobby);
     }
   }, [planData]);
-  
+
   const { user, isSignedIn } = useAuth();
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
@@ -54,9 +54,9 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
-  
+
   const [userProgress, setUserProgress] = useState<any>(null);
-  
+
   // Debug: Check if planData is actually available
   console.log('🔍 PlanDisplay state check:', { 
     hasPlanData: !!planData, 
@@ -73,16 +73,16 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
       // Generate a unique plan ID for this plan
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       setCurrentPlanId(planId);
-      
+
       // Store plan ID for navigation
       console.log('🔍 Setting current plan ID for navigation:', planId, planData?.hobby);
-      
+
       if (isSignedIn && user && planData) {
         console.log('User authenticated, saving surprise plan to Supabase...');
-        
+
         try {
           console.log('Saving plan to Supabase for user:', user.id);
-          
+
           // Save the plan to database
           const savedPlan = await hobbyPlanService.savePlan({
             hobby: planData.hobby,
@@ -159,7 +159,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
           try {
             console.log('Saving progress to database (complete)...');
             await hobbyPlanService.completeDay(user.id, currentPlanId.toString(), dayNumber);
-            
+
             console.log('Progress saved to database successfully');
             toast({
               title: "Progress Saved!",
@@ -180,7 +180,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
             description: `Day ${dayNumber} completed. Sign up to save your progress.`,
           });
         }
-        
+
         // Show auth modal after completing Day 1 for non-authenticated users
         if (dayNumber === 1 && !isSignedIn) {
           setShowAuthModal(true);
@@ -228,7 +228,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
               Learn {planData.hobby} in 7 Days
             </h1>
-            
+
             <button 
               onClick={() => setShowAuthModal(true)}
               style={{
@@ -298,7 +298,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
           {planData.days.map((day) => {
             const status = getDayStatus(day.day);
             const isExpanded = expandedDay === day.day;
-            
+
             return (
               <Card key={day.day} className="overflow-hidden">
                 <CardHeader 
@@ -439,23 +439,23 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="p-6 pt-16 text-center">
                           <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
                             <Play className="w-10 h-10 text-white ml-1" />
                           </div>
-                          
+
                           <h3 className="text-xl font-bold mb-2">Interactive Learning Session</h3>
                           <p className="text-slate-300 mb-6 text-sm leading-relaxed max-w-md mx-auto">
                             Access your personalized tutorial in our optimized learning environment
                           </p>
-                          
+
                           <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                             <Play className="w-4 h-4 mr-2" />
                             Start Learning Session
                           </Button>
                         </div>
-                        
+
                         <div className="absolute bottom-3 left-3 right-3">
                           <div className="flex items-center justify-between text-xs text-slate-400">
                             <div className="flex items-center space-x-2">
@@ -472,7 +472,7 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                             </div>
                           </div>
                         </div>
-                      </CardContent>
+                      </Card>
                     </Card>
 
                     {/* Video Tutorial Description */}
@@ -607,33 +607,6 @@ export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
                         </CardContent>
                       </Card>
                     </div>
-
-                    {/* Complete Day Button */}
-                    {status === 'unlocked' && !isDayCompleted(day.day) && (
-                      <div className="text-center">
-                        <Button 
-                          onClick={() => toggleDayCompletion(day.day)}
-                          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3"
-                        >
-                          ✅ Mark Day {day.day} as Complete
-                        </Button>
-                      </div>
-                    )}
-
-                    {status === 'completed' && (
-                      <div className="text-center bg-green-50 rounded-lg py-4">
-                        <div className="flex items-center justify-center space-x-2 text-green-700">
-                          <CheckCircle className="w-5 h-5" />
-                          <span className="font-semibold">Day {day.day} Complete! 🎉</span>
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                )}
-              </Card>
-            );
-          })}
-        </div>
 
                     {/* Complete Day Button */}
                     {status === 'unlocked' && !isDayCompleted(day.day) && (
