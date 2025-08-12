@@ -118,13 +118,13 @@ export class HobbyPlanService {
       });
 
       // Get the most recent matching plan
-      const existingPlan = matchingPlans.length > 0 
+      const mostRecentPlan = matchingPlans.length > 0 
         ? matchingPlans.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
         : null;
 
-      if (existingPlan) {
-        console.log('🚨 DUPLICATE CHECK: Found existing plan:', existingPlan.title, 'ID:', existingPlan.id);
-        return existingPlan;
+      if (mostRecentPlan) {
+        console.log('🚨 DUPLICATE CHECK: Found existing plan:', mostRecentPlan.title, 'ID:', mostRecentPlan.id);
+        return mostRecentPlan;
       } else {
         console.log('✅ DUPLICATE CHECK: No existing plan found for hobby:', hobby);
         return null;

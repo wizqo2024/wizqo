@@ -57,7 +57,7 @@ app.use((req, res, next) => {
   }).catch(err => {
     console.error('Failed to load deployment check:', err);
   });
-  
+
   // Comprehensive route debugging
   console.log('🛣️ Registered API routes:');
   app._router.stack.forEach((middleware: any) => {
@@ -74,7 +74,7 @@ app.use((req, res, next) => {
 
   // Test route availability
   console.log('🔍 Testing route registration...');
-  const routes: any[] = [];
+  const routes: string[] = [];
   app._router.stack.forEach((middleware: any) => {
     if (middleware.route) {
       routes.push(`${Object.keys(middleware.route.methods)} ${middleware.route.path}`);
@@ -110,15 +110,15 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  
+
   console.log('🚀 PRODUCTION: Preparing server for live deployment');
   console.log('🌐 PRODUCTION: Server will bind to 0.0.0.0 for external access');
   console.log('📡 PRODUCTION: All API routes configured for live traffic');
-  
+
   // Production deployment verification
   console.log('🚀 DEPLOYMENT: Starting server on host 0.0.0.0 port', port);
   console.log('🚀 DEPLOYMENT: Environment NODE_ENV:', process.env.NODE_ENV);
-  
+
   // Final route verification before starting server
   console.log('🔍 FINAL ROUTE CHECK: All registered routes before server start:');
   let routeCount = 0;
@@ -129,16 +129,16 @@ app.use((req, res, next) => {
       routeCount++;
     }
   });
-  
+
   console.log(`🔍 TOTAL ROUTES REGISTERED: ${routeCount}`);
-  
+
   // Critical API routes check
   const hasHobbyPlansPost = app._router.stack.some((middleware: any) => 
     middleware.route && 
     middleware.route.path === '/api/hobby-plans' && 
     middleware.route.methods.post
   );
-  
+
   if (!hasHobbyPlansPost) {
     console.error('❌ CRITICAL: POST /api/hobby-plans route NOT FOUND!');
   } else {
@@ -149,20 +149,20 @@ app.use((req, res, next) => {
     log(`🚀 SERVER STARTED: serving on port ${port}`);
     console.log(`🌐 LOCAL DEV: http://localhost:${port}`);
     console.log(`🔍 API TEST: Try /api/health`);
-    
+
     // Production deployment info
     if (process.env.NODE_ENV === 'production') {
       console.log('🚀 PRODUCTION: Ready for Replit deployment');
       console.log('🔗 After deploying, your API will be available at your deployment URL');
     }
-    
+
     // Environment variable status
     console.log('🔑 Environment Variables Status:');
     console.log('  - NODE_ENV:', process.env.NODE_ENV || 'not set');
     console.log('  - OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? `Found (${process.env.OPENROUTER_API_KEY.length} chars)` : 'Missing');
     console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? 'Found' : 'Missing');
     console.log('  - VITE_SUPABASE_ANON_KEY:', process.env.VITE_SUPABASE_ANON_KEY ? 'Found' : 'Missing');
-    
+
     // Critical API endpoint verification for production
     console.log('🎯 CRITICAL ENDPOINTS VERIFICATION:');
     const criticalEndpoints = [
@@ -171,7 +171,7 @@ app.use((req, res, next) => {
       { method: 'POST', path: '/api/generate-plan' },
       { method: 'GET', path: '/api/health' }
     ];
-    
+
     criticalEndpoints.forEach(endpoint => {
       const routeExists = app._router.stack.some((middleware: any) => 
         middleware.route && 
@@ -180,7 +180,7 @@ app.use((req, res, next) => {
       );
       console.log(`  ${routeExists ? '✅' : '❌'} ${endpoint.method} ${endpoint.path}: ${routeExists ? 'REGISTERED' : 'MISSING'}`);
     });
-    
+
     // Warning for missing keys
     if (!process.env.OPENROUTER_API_KEY) {
       console.log('⚠️ WARNING: OPENROUTER_API_KEY not set - AI plan generation will use fallback');
