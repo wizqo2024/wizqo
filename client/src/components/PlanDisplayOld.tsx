@@ -38,7 +38,8 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, onNavigateBack }: PlanDisplayProps) {
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
   const { toast } = useToast();
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [expandedDay, setExpandedDay] = useState<number | null>(1);
