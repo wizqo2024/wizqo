@@ -42,12 +42,14 @@
   .mobile-card {
     @apply transition-all duration-300 ease-out;
     @apply active:scale-95 sm:hover:scale-105;
+    @apply will-change-transform;
   }
   
   /* Mobile-friendly button states */
   .mobile-button {
     @apply active:scale-95 transition-transform duration-150;
     @apply min-h-[44px] min-w-[44px]; /* WCAG AA touch target size */
+    @apply will-change-transform;
   }
   
   /* Responsive text sizes */
@@ -69,6 +71,46 @@
   
   .text-responsive-2xl {
     @apply text-xl sm:text-2xl;
+  }
+  
+  /* Performance optimizations */
+  .gpu-accelerated {
+    @apply transform-gpu;
+    will-change: transform;
+  }
+  
+  /* Loading states */
+  .loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  /* Smooth animations */
+  .smooth-animation {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  /* Image loading optimization */
+  .lazy-image {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .lazy-image[data-loaded="false"] {
+    opacity: 0;
+  }
+  
+  .lazy-image[data-loaded="true"] {
+    opacity: 1;
   }
 }
 

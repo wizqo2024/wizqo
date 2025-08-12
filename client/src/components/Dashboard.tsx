@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Play, MoreHorizontal, Trash2, Share2, Trophy, ExternalLink, X } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Calendar, Clock, Play, Trash2, Share2, Trophy, ExternalLink, X } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
@@ -31,7 +32,8 @@ export default function Dashboard() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareData, setShareData] = useState<any>(null);
   const [showCopyToast, setShowCopyToast] = useState(false);
-  
+  const [loadingMessage, setLoadingMessage] = useState('Loading your learning dashboard...');
+
   // Social sharing function with all platforms
   const openShareModal = (plan: HobbyPlan) => {
     const shareText = `🎉 I just completed my 7-day ${plan.hobby.toUpperCase()} learning journey! 
@@ -46,13 +48,12 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
     const shareUrl = `https://wizqo.com`;
     const imageUrl = getHobbyImage(plan.hobby);
-    
-    // Create simple text-only sharing URLs that prioritize the message
+
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&quote=${encodeURIComponent(shareText)}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://wizqo.com')}&title=${encodeURIComponent('🎉 Completed 7-Day ' + plan.hobby.toUpperCase() + ' Challenge!')}&summary=${encodeURIComponent(shareText)}`,
-      instagram: shareText, // Copy to clipboard for Instagram
+      instagram: shareText,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText)}`
     };
 
@@ -68,138 +69,102 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const loadUserPlans = async () => {
     try {
+      setLoadingMessage('Fetching your learning plans...');
       console.log('📋 Loading user plans for:', user?.id);
-      
-      // First, load saved plans from Supabase
-      const plansResponse = await fetch(`/api/hobby-plans?user_id=${user?.id}`);
-      let savedPlans: any[] = [];
-      
-      if (plansResponse.ok) {
-        savedPlans = await plansResponse.json();
-        console.log('📋 Found saved plans:', savedPlans.length);
+
+      // Prevent duplicate API calls by using a loading flag
+      const isAlreadyLoading = sessionStorage.getItem('dashboardLoading');
+      if (isAlreadyLoading === 'true') {
+        console.log('📋 Dashboard already loading, skipping duplicate request');
+        return;
       }
-      
-      // Then load progress data  
-      const progressResponse = await fetch(`/api/user-progress/${user?.id}`);
-      let progressData: any[] = [];
-      
-      if (progressResponse.ok) {
-        progressData = await progressResponse.json();
-        console.log('📋 Found progress entries:', progressData.length);
-      }
-      
-      // Also check localStorage for recent plans
-      const recentPlans = [];
-      const keys = Object.keys(localStorage);
-      for (const key of keys) {
-        if (key.startsWith('hobbyPlan_') || key === 'lastViewedPlanData') {
-          try {
-            const planData = JSON.parse(localStorage.getItem(key) || '{}');
-            if (planData && planData.hobby && planData.title) {
-              recentPlans.push(planData);
+
+      sessionStorage.setItem('dashboardLoading', 'true');
+
+      try {
+        // Load saved plans from Supabase with deduplication
+        setLoadingMessage('Loading saved plans...');
+        const plansResponse = await fetch(`/api/hobby-plans?user_id=${user?.id}`);
+        let savedPlans: any[] = [];
+
+        if (plansResponse.ok) {
+          savedPlans = await plansResponse.json();
+          console.log('📋 Found saved plans:', savedPlans.length);
+
+          // Deduplicate plans by hobby and take the most recent
+          const deduplicatedPlans = new Map();
+          savedPlans.forEach(plan => {
+            const hobby = plan.hobby_name || plan.hobby;
+            const existing = deduplicatedPlans.get(hobby);
+            if (!existing || new Date(plan.created_at) > new Date(existing.created_at)) {
+              deduplicatedPlans.set(hobby, plan);
             }
-          } catch (e) {
-            console.log('Could not parse plan from localStorage:', key);
-          }
+          });
+          savedPlans = Array.from(deduplicatedPlans.values());
+          console.log('📋 Deduplicated to:', savedPlans.length, 'unique plans');
         }
-      }
-      console.log('📋 Found localStorage plans:', recentPlans.length);
-      
-      // Combine all plan sources
-      const allPlans = new Map();
-      
-      // Add saved plans from Supabase
-      savedPlans.forEach(plan => {
-        const hobbyName = plan.hobby_name || plan.hobby;
-        const planData = plan.plan_data;
-        
-        const progressEntry = progressData.find(p => p.plan_id === plan.id);
-        
-        // Check session storage for progress fallback
-        let completedDays = progressEntry?.completed_days || [];
-        let currentDay = progressEntry?.current_day || 1;
-        
-        // Fallback to session storage if no database progress
-        if (!progressEntry) {
-          // Use the correct session storage key format from hobbyPlanService
-          const userId = user?.id || 'anonymous';
-          const possibleKeys = [
-            `progress_${userId}_${plan.id}`,  // hobbyPlanService format
-            `progress_${plan.id}`,
-            `progress_${hobbyName}`,
-            `hobbyProgress_${plan.id}`,
-            `${hobbyName}_progress`
-          ];
-          
-          console.log(`🔍 Searching for progress with userId: ${userId}, planId: ${plan.id}`);
-          
-          for (const sessionKey of possibleKeys) {
+
+        // Load progress data
+        setLoadingMessage('Loading progress data...');
+        const progressResponse = await fetch(`/api/user-progress/${user?.id}`);
+        let progressData: any[] = [];
+
+        if (progressResponse.ok) {
+          progressData = await progressResponse.json();
+          console.log('📋 Found progress entries:', progressData.length);
+        }
+
+        // Process plans with progress
+        const processedPlans: HobbyPlan[] = savedPlans.map(plan => {
+          const hobbyName = plan.hobby_name || plan.hobby;
+          const progressEntry = progressData.find(p => p.plan_id === plan.id);
+
+          let completedDays = progressEntry?.completed_days || [];
+          let currentDay = progressEntry?.current_day || 1;
+
+          // Fallback to session storage for recent progress
+          if (!progressEntry) {
+            const userId = user?.id || 'anonymous';
+            const sessionKey = `progress_${userId}_${plan.id}`;
             const sessionProgress = sessionStorage.getItem(sessionKey);
             if (sessionProgress) {
               try {
                 const parsed = JSON.parse(sessionProgress);
-                if (parsed.completedDays || parsed.completed_days) {
-                  completedDays = parsed.completedDays || parsed.completed_days || [];
-                  currentDay = parsed.currentDay || parsed.current_day || 1;
-                  console.log(`📊 Progress loaded from session key ${sessionKey} for ${plan.id}:`, completedDays.length, 'days completed');
-                  break;
-                }
+                completedDays = parsed.completed_days || [];
+                currentDay = parsed.current_day || 1;
               } catch (e) {
                 console.log('Could not parse session progress for key:', sessionKey);
               }
             }
           }
-        }
-        
-        const progressPercent = Math.round((completedDays.length / 7) * 100);
-        console.log(`📊 Plan ${plan.id} progress: ${progressPercent}% (${completedDays.length}/7 days)`);
-        
-        allPlans.set(plan.id, {
-          id: plan.id,
-          hobby: hobbyName,
-          title: plan.title,
-          progress: progressPercent,
-          totalDays: 7,
-          currentDay: currentDay,
-          category: getCategoryForHobby(hobbyName),
-          startDate: plan.created_at,
-          expectedEndDate: new Date(new Date(plan.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          status: completedDays.length >= 7 ? 'completed' : 'in_progress',
-          planData: planData
-        });
-      });
-      
-      // Add recent plans from localStorage if not already in Supabase (avoid duplicates)
-      recentPlans.forEach(planData => {
-        const planId = `local-${planData.hobby}-${Date.now()}`;
-        // Check for duplicates by hobby name
-        const isDuplicate = Array.from(allPlans.values()).some(p => 
-          p.hobby.toLowerCase() === planData.hobby.toLowerCase()
-        );
-        
-        if (!isDuplicate) {
-          allPlans.set(planId, {
-            id: planId,
-            hobby: planData.hobby,
-            title: planData.title,
-            progress: 0,
+
+          const progressPercent = Math.round((completedDays.length / 7) * 100);
+
+          return {
+            id: plan.id,
+            hobby: hobbyName,
+            title: plan.title,
+            progress: progressPercent,
             totalDays: 7,
-            currentDay: 1,
-            category: getCategoryForHobby(planData.hobby),
-            startDate: new Date().toISOString(),
-            expectedEndDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'in_progress' as const,
-            planData: planData
-          });
-        }
-      });
-      
-      const finalPlans = Array.from(allPlans.values());
-      console.log('📋 Total plans loaded:', finalPlans.length);
-      setHobbyPlans(finalPlans);
-      
+            currentDay: currentDay,
+            category: getCategoryForHobby(hobbyName),
+            startDate: plan.created_at,
+            expectedEndDate: new Date(new Date(plan.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            status: completedDays.length >= 7 ? 'completed' : 'in_progress',
+            planData: plan.plan_data
+          };
+        });
+
+        setHobbyPlans(processedPlans);
+        console.log('📋 Total plans loaded:', processedPlans.length);
+
+      } finally {
+        sessionStorage.removeItem('dashboardLoading');
+      }
+
     } catch (error) {
       console.error('Error loading user plans:', error);
+      setLoadingMessage('Error loading plans. Please refresh.');
     } finally {
       setLoading(false);
     }
@@ -226,121 +191,67 @@ Learn any hobby in 7 days at https://wizqo.com`;
     if (!confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {
       return;
     }
-    
+
     setDeletingPlan(planId);
     try {
-      // Get the plan before deletion for cleanup
       const deletedPlan = hobbyPlans.find(p => p.id === planId);
       let deletedHobby = '';
-      
-      // Extract hobby name from multiple sources
+
       if (deletedPlan) {
         deletedHobby = deletedPlan.hobby?.toLowerCase() || 
                        deletedPlan.title?.match(/Learn (\w+) in/i)?.[1]?.toLowerCase() ||
                        deletedPlan.title?.match(/Master (\w+) in/i)?.[1]?.toLowerCase() || '';
       }
-      
+
       console.log('🗑️ Deleting plan:', planId, 'Hobby:', deletedHobby);
-      
-      // Delete from Supabase if it's a real plan (not local)
+
+      // Delete from Supabase
       if (!planId.startsWith('local-') && user?.id) {
         const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
           method: 'DELETE'
         });
-        
+
         if (!response.ok) {
           throw new Error('Failed to delete plan from database');
         }
-        
+
         console.log('✅ Plan deleted from database:', planId);
       }
-      
-      // COMPREHENSIVE CACHE CLEARING - Clear everything related to this plan and hobby
-      
-      // 1. Clear all localStorage entries
-      const localStorageKeys = Object.keys(localStorage);
-      for (const key of localStorageKeys) {
-        const shouldClear = key.includes(planId) ||
-                           key.includes(deletedHobby) ||
-                           key.startsWith('hobbyPlan_') ||
-                           key.startsWith('lastViewedPlan') ||
-                           key.startsWith('currentPlanData') ||
-                           key.startsWith('activePlanData') ||
-                           key.startsWith('plan_') ||
-                           key.includes('freshPlanMarker');
-        
-        if (shouldClear) {
-          localStorage.removeItem(key);
-          console.log('🧹 Cleared localStorage:', key);
-        }
-      }
-      
-      // 2. Clear all sessionStorage entries
-      const sessionStorageKeys = Object.keys(sessionStorage);
-      for (const key of sessionStorageKeys) {
-        const shouldClear = key.includes(planId) ||
-                           key.includes(deletedHobby) ||
-                           key.startsWith('currentPlanData') ||
-                           key.startsWith('activePlanData') ||
-                           key.startsWith('lastViewedPlanData') ||
-                           key.startsWith('planFromGeneration') ||
-                           key.startsWith('freshPlanMarker') ||
-                           key.startsWith('progress_');
-        
-        if (shouldClear) {
-          sessionStorage.removeItem(key);
-          console.log('🧹 Cleared sessionStorage:', key);
-        }
-      }
-      
-      // 3. Clear specific cache entries for this hobby and user
+
+      // Comprehensive cache clearing
+      const clearKeys = [
+        'activePlanData', 'lastViewedPlanData', 'currentPlanData',
+        'freshPlanMarker', 'planFromGeneration'
+      ];
+
+      clearKeys.forEach(key => {
+        localStorage.removeItem(key);
+        sessionStorage.removeItem(key);
+      });
+
+      // Clear hobby-specific caches
       if (deletedHobby && user?.id) {
-        const specificCacheKeys = [
+        const hobbyKeys = [
           `existingPlan_${deletedHobby}_${user.id}`,
           `duplicateCheck_${deletedHobby}_${user.id}`,
-          `hobbyPlan_${deletedHobby}`,
-          `lastViewedPlan_${deletedHobby}`,
-          `currentPlanData_${deletedHobby}`,
-          `plan_${deletedHobby}`,
-          `${deletedHobby}_plan`,
-          `${deletedHobby}_progress`,
           `progress_${user.id}_${planId}`,
-          // Also clear capitalized versions
-          `existingPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_${user.id}`,
-          `duplicateCheck_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_${user.id}`,
-          `hobbyPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
-          `lastViewedPlan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
-          `currentPlanData_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
-          `plan_${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}`,
-          `${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_plan`,
-          `${deletedHobby.charAt(0).toUpperCase() + deletedHobby.slice(1)}_progress`
+          `hobbyPlan_${deletedHobby}`
         ];
-        
-        specificCacheKeys.forEach(key => {
+
+        hobbyKeys.forEach(key => {
           localStorage.removeItem(key);
           sessionStorage.removeItem(key);
         });
-        
-        console.log('🧹 Cleared ALL hobby-specific caches for:', deletedHobby);
       }
-      
-      // 4. Force clear any plan data that might be cached
-      sessionStorage.removeItem('currentPlanData');
-      sessionStorage.removeItem('activePlanData');
-      sessionStorage.removeItem('lastViewedPlanData');
-      sessionStorage.removeItem('planFromGeneration');
-      localStorage.removeItem('lastViewedPlanData');
-      
-      // 5. Remove from local state immediately
+
+      // Remove from local state
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
-      
-      // 6. Force a page refresh of the dashboard data after a short delay
+
+      // Reload plans after cleanup
       setTimeout(() => {
         loadUserPlans();
       }, 500);
-      
-      console.log('✅ Plan deletion and comprehensive cleanup completed');
-      
+
     } catch (error) {
       console.error('Error deleting plan:', error);
       alert('Failed to delete plan. Please try again.');
@@ -351,150 +262,62 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const getHobbyImage = (hobby: string): string => {
     const normalizedHobby = hobby?.toLowerCase() || '';
-    console.log(`🎨 Dashboard AUTO-IMAGE: "${hobby}" -> category-based generation`);
-    
-    // Automated categorization and image selection
+
     const getImageByCategory = (hobbyName: string): string => {
       // Technology hobbies
-      if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech') || hobbyName.includes('edit')) {
+      if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech')) {
         const techImages = [
           'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=240&fit=crop'
+          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop'
         ];
         const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
         return techImages[hash % techImages.length];
       }
-      
-      // Creative arts and crafts - comprehensive coverage
-      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('music') || hobbyName.includes('photo') || 
-          hobbyName.includes('craft') || hobbyName.includes('embroidery') || hobbyName.includes('knit') || hobbyName.includes('sew') || 
-          hobbyName.includes('candle') || hobbyName.includes('jewelry') || hobbyName.includes('pottery') || hobbyName.includes('wood') ||
-          hobbyName.includes('crochet') || hobbyName.includes('calligraphy') || hobbyName.includes('quill') || hobbyName.includes('origami') ||
-          hobbyName.includes('macramé') || hobbyName.includes('upcycl') || hobbyName.includes('watercolor') || hobbyName.includes('diamond') ||
-          hobbyName.includes('pour') || hobbyName.includes('scrapbook') || hobbyName.includes('soap') || hobbyName.includes('leather') ||
-          hobbyName.includes('street') || hobbyName.includes('digital') || hobbyName.includes('mug') || hobbyName.includes('nail') ||
-          hobbyName.includes('floral') || hobbyName.includes('miniature') || hobbyName.includes('bullet') || hobbyName.includes('writing') ||
-          hobbyName.includes('song') || hobbyName.includes('acting') || hobbyName.includes('improv') || hobbyName.includes('comedy') ||
-          hobbyName.includes('sketch') || hobbyName.includes('cosplay') || hobbyName.includes('vintage') || hobbyName.includes('collect')) {
+
+      // Creative arts
+      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('photo')) {
         const creativeImages = [
           'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=240&fit=crop'
+          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop'
         ];
         const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
         return creativeImages[hash % creativeImages.length];
       }
-      
-      // Culinary and food - comprehensive coverage
-      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food') ||
-          hobbyName.includes('mixology') || hobbyName.includes('ferment') || hobbyName.includes('cheese') ||
-          hobbyName.includes('brew') || hobbyName.includes('kombucha') || hobbyName.includes('drink')) {
+
+      // Culinary
+      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
         const culinaryImages = [
           'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=240&fit=crop'
+          'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop'
         ];
         const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
         return culinaryImages[hash % culinaryImages.length];
       }
-      
-      // Fitness and movement - comprehensive coverage
-      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('exercise') || hobbyName.includes('sport') ||
-          hobbyName.includes('pilates') || hobbyName.includes('aerial') || hobbyName.includes('hula') || hobbyName.includes('jump') ||
-          hobbyName.includes('krav') || hobbyName.includes('boxing') || hobbyName.includes('capoeira') || hobbyName.includes('dance') ||
-          hobbyName.includes('tai chi') || hobbyName.includes('martial') || hobbyName.includes('climb') || hobbyName.includes('parkour') ||
-          hobbyName.includes('rollerblade') || hobbyName.includes('skateboard') || hobbyName.includes('fencing') || hobbyName.includes('archery')) {
+
+      // Fitness
+      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('dance')) {
         const fitnessImages = [
           'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop'
+          'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop'
         ];
         const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
         return fitnessImages[hash % fitnessImages.length];
       }
-      
-      // Outdoor and nature activities
-      if (hobbyName.includes('garden') || hobbyName.includes('farm') || hobbyName.includes('forag') || 
-          hobbyName.includes('bird') || hobbyName.includes('star') || hobbyName.includes('geocach') ||
-          hobbyName.includes('hik') || hobbyName.includes('camp') || hobbyName.includes('kayak') ||
-          hobbyName.includes('paddleboard') || hobbyName.includes('swim') || hobbyName.includes('orient') ||
-          hobbyName.includes('beach') || hobbyName.includes('metal detect') || hobbyName.includes('aquascape') ||
-          hobbyName.includes('terrarium') || hobbyName.includes('hydroponic') || hobbyName.includes('beekeep') ||
-          hobbyName.includes('mushroom') || hobbyName.includes('urban explor') || hobbyName.includes('astrophoto') ||
-          hobbyName.includes('insect')) {
-        const outdoorImages = [
-          'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return outdoorImages[hash % outdoorImages.length];
-      }
 
-      // Games and puzzles
-      if (hobbyName.includes('chess') || hobbyName.includes('board') || hobbyName.includes('puzzle') ||
-          hobbyName.includes('escape') || hobbyName.includes('speedcub') || hobbyName.includes('magic') ||
-          hobbyName.includes('trivia') || hobbyName.includes('quiz') || hobbyName.includes('debate') ||
-          hobbyName.includes('gaming') || hobbyName.includes('retro') || hobbyName.includes('larp') ||
-          hobbyName.includes('disc golf')) {
-        const gameImages = [
-          'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1541278107931-e006523892df?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return gameImages[hash % gameImages.length];
-      }
-
-      // Technology and digital - expanded
-      if (hobbyName.includes('robot') || hobbyName.includes('3d print') || hobbyName.includes('drone') ||
-          hobbyName.includes('virtual reality') || hobbyName.includes('augmented') || hobbyName.includes('podcast') ||
-          hobbyName.includes('vlog') || hobbyName.includes('stream') || hobbyName.includes('ethical hack') ||
-          hobbyName.includes('digital nomad')) {
-        const advancedTechImages = [
-          'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return advancedTechImages[hash % advancedTechImages.length];
-      }
-
-      // Wellness and mindfulness
-      if (hobbyName.includes('meditat') || hobbyName.includes('sound bath') || hobbyName.includes('journal') ||
-          hobbyName.includes('volunteer') || hobbyName.includes('philosophy') || hobbyName.includes('book club') ||
-          hobbyName.includes('pen pal') || hobbyName.includes('genealogy') || hobbyName.includes('astronomy') ||
-          hobbyName.includes('language learn') || hobbyName.includes('cryptography')) {
-        const wellnessImages = [
-          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1499728603263-13726abce5ce?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return wellnessImages[hash % wellnessImages.length];
-      }
-
-      // Default learning category
+      // Default learning
       const learningImages = [
         'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7a7cc52?w=400&h=240&fit=crop'
+        'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop'
       ];
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
       return learningImages[hash % learningImages.length];
     };
-    
+
     const selectedImage = getImageByCategory(normalizedHobby);
-    console.log(`🎨 Dashboard AUTO-GENERATED: "${hobby}" -> unique category-based image`);
-    
     const timestamp = Math.floor(Date.now() / (1000 * 60 * 60));
-    const finalImage = `${selectedImage}&t=${timestamp}`;
-    console.log(`🎨 Dashboard FINAL IMAGE: ${finalImage}`);
-    return finalImage;
+    return `${selectedImage}&t=${timestamp}`;
   };
 
   const getStatusColor = (status: string): string => {
@@ -517,13 +340,22 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   if (!user) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h2>
-          <p className="text-gray-600 mb-6">Sign in to view your hobby learning progress and continue your 7-day journeys.</p>
-          <Button onClick={() => window.location.hash = '#/login'}>
-            Sign In
-          </Button>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+        <UnifiedNavigation currentPage="dashboard" />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center max-w-md mx-auto">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-white text-2xl">📚</span>
+            </div>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Welcome to Your Dashboard</h2>
+            <p className="text-gray-600 mb-6">Sign in to view your hobby learning progress and continue your 7-day journeys.</p>
+            <Button 
+              onClick={() => window.location.hash = '#/login'}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              Sign In to Continue
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -531,10 +363,58 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <p>Loading your learning dashboard...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+        <UnifiedNavigation currentPage="dashboard" />
+        <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl">
+          {/* Loading Header */}
+          <header className="mb-6 sm:mb-8">
+            <div className="text-center sm:text-left">
+              <Skeleton className="h-8 sm:h-10 w-64 mx-auto sm:mx-0 mb-3" />
+              <Skeleton className="h-4 w-80 mx-auto sm:mx-0" />
+            </div>
+          </header>
+
+          {/* Loading Stats */}
+          <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i} className="shadow-md">
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                    <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-full" />
+                    <div className="text-center sm:text-left">
+                      <Skeleton className="h-6 w-8 mb-1" />
+                      <Skeleton className="h-3 w-16" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </section>
+
+          {/* Loading Message */}
+          <div className="text-center py-8">
+            <div className="inline-flex items-center space-x-3 bg-white rounded-lg px-6 py-4 shadow-sm">
+              <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-500 border-t-transparent"></div>
+              <span className="text-gray-700 font-medium">{loadingMessage}</span>
+            </div>
+          </div>
+
+          {/* Loading Plan Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="overflow-hidden shadow-md">
+                <Skeleton className="h-40 sm:h-48 w-full" />
+                <CardContent className="p-4 sm:p-6">
+                  <Skeleton className="h-5 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-1/2 mb-4" />
+                  <Skeleton className="h-2 w-full mb-4" />
+                  <Skeleton className="h-4 w-full mb-6" />
+                  <Skeleton className="h-10 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </main>
       </div>
     );
   }
@@ -546,13 +426,35 @@ Learn any hobby in 7 days at https://wizqo.com`;
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "Personal Learning Dashboard",
-          "description": "Track your personalized 7-day hobby learning plans and celebrate achievements",
+          "name": "Personal Learning Dashboard - Wizqo",
+          "description": "Track your personalized 7-day hobby learning plans and celebrate achievements. Monitor progress across multiple skills and hobbies.",
           "url": "https://wizqo.com/dashboard",
           "mainEntity": {
             "@type": "Course",
             "name": "7-Day Hobby Learning Plans",
-            "description": "Personalized learning journeys for various hobbies"
+            "description": "Personalized learning journeys for various hobbies including cooking, guitar, yoga, photography, and more.",
+            "provider": {
+              "@type": "Organization",
+              "name": "Wizqo",
+              "url": "https://wizqo.com"
+            }
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://wizqo.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Dashboard",
+                "item": "https://wizqo.com/dashboard"
+              }
+            ]
           }
         })}
       </script>
@@ -561,17 +463,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
         <UnifiedNavigation currentPage="dashboard" />
 
         <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl" role="main">
-        {/* SEO Header */}
-        <header className="mb-6 sm:mb-8">
-          <div className="text-center sm:text-left">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 sm:mb-3">
-              My Learning Dashboard
-            </h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto sm:mx-0">
-              Track your progress across all your hobby learning journeys. Complete 7-day challenges and celebrate your achievements.
-            </p>
-          </div>
-        </header>
+          {/* SEO Optimized Header */}
+          <header className="mb-6 sm:mb-8">
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 sm:mb-3">
+                My Learning Dashboard
+              </h1>
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto sm:mx-0">
+                Track your progress across all your hobby learning journeys. Complete 7-day challenges and celebrate your achievements.
+              </p>
+            </div>
+          </header>
 
           {/* Mobile-Optimized Stats Cards */}
           <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8" aria-label="Learning Statistics">
@@ -590,7 +492,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                 </div>
               </CardContent>
             </Card>
-          
+
             <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
               <CardContent className="p-3 sm:p-4 lg:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
@@ -606,7 +508,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
               <CardContent className="p-3 sm:p-4 lg:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
@@ -622,12 +524,12 @@ Learn any hobby in 7 days at https://wizqo.com`;
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
               <CardContent className="p-3 sm:p-4 lg:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-800 dark:to-orange-700 rounded-full flex items-center justify-center">
-                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-orange-600 dark:text-orange-300" />
+                    <Trophy className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-orange-600 dark:text-orange-300" />
                   </div>
                   <div className="text-center sm:text-left">
                     <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
@@ -640,27 +542,33 @@ Learn any hobby in 7 days at https://wizqo.com`;
             </Card>
           </section>
 
-          {/* Hobby Plans Grid */}
+          {/* Hobby Plans Grid or Empty State */}
           {hobbyPlans.length === 0 ? (
             <div className="text-center py-12">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white text-3xl">🎯</span>
+              </div>
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">No Learning Plans Yet</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">Start your first 7-day hobby learning journey today!</p>
-              <Button onClick={() => window.location.hash = '#/generate'} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">Start your first 7-day hobby learning journey today! Choose from photography, cooking, guitar, yoga, and many more.</p>
+              <Button 
+                onClick={() => window.location.hash = '#/generate'} 
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold"
+              >
                 Create Your First Plan
               </Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {hobbyPlans.map((plan) => (
-                <Card key={plan.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white dark:bg-gray-800">
+                <Card key={plan.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white dark:bg-gray-800 mobile-card">
                   {/* Plan Image */}
                   <div className="relative h-40 sm:h-48 bg-gradient-to-r from-blue-500 to-purple-600">
                     <img 
                       src={getHobbyImage(plan.hobby)} 
-                      alt={plan.title}
+                      alt={`${plan.title} - Learn ${plan.hobby} in 7 days`}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                       onError={(e) => {
-                        // Fallback to gradient background if image fails
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
@@ -675,7 +583,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                   <CardContent className="p-4 sm:p-6">
                     {/* Plan Title */}
                     <h3 className="font-semibold text-base sm:text-lg mb-2 text-gray-900 dark:text-white line-clamp-2">{plan.title}</h3>
-                    
+
                     {/* Category and Duration */}
                     <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4">
                       <span className="font-medium">{plan.category}</span>
@@ -692,7 +600,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       <Progress value={plan.progress} className="h-2 bg-gray-200 dark:bg-gray-700" />
                     </div>
 
-                    {/* Dates - only show start date */}
+                    {/* Dates and Actions */}
                     <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-6">
                       <div className="flex items-center">
                         <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
@@ -703,13 +611,14 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         size="sm"
                         onClick={() => deletePlan(plan.id)}
                         disabled={deletingPlan === plan.id}
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 p-1 h-auto"
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 p-1 h-auto mobile-button"
+                        aria-label={`Delete ${plan.title}`}
                       >
                         <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                       </Button>
                     </div>
 
-                    {/* Social Sharing Button for Completed Plans */}
+                    {/* Social Sharing for Completed Plans */}
                     {plan.status === 'completed' && (
                       <div className="mb-4">
                         <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg">
@@ -722,8 +631,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
                             </div>
                             <Button
                               size="sm"
-                              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-sm py-2 px-4 flex items-center justify-center min-h-[44px] font-medium"
+                              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-sm py-2 px-4 flex items-center justify-center min-h-[44px] font-medium mobile-button"
                               onClick={() => openShareModal(plan)}
+                              aria-label={`Share ${plan.title} achievement`}
                             >
                               <Share2 className="h-4 w-4 mr-2 flex-shrink-0" />
                               Share Achievement
@@ -736,257 +646,146 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     {/* Action Button */}
                     <Button 
                       onClick={() => {
-                        // Store plan data for navigation
                         if (plan.planData) {
                           sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
                         }
                         window.location.hash = '#/plan';
                       }}
-                      className="w-full text-sm sm:text-base py-2 sm:py-3" 
+                      className="w-full text-sm sm:text-base py-2 sm:py-3 mobile-button" 
                       variant={plan.status === 'completed' ? 'outline' : 'default'}
+                      aria-label={plan.status === 'completed' ? `View ${plan.title}` : `Continue learning ${plan.title}`}
                     >
                       {plan.status === 'completed' ? 'View Plan' : 'Continue Learning'}
                     </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
 
-      {/* Share Achievement Modal */}
-      {showShareModal && shareData && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between mb-6">
+          {/* Share Achievement Modal */}
+          {showShareModal && shareData && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-2">
+                    <Trophy className="h-6 w-6 text-yellow-500" />
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      Share Your Achievement
+                    </h3>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowShareModal(false)}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    aria-label="Close share modal"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg mb-6">
+                  <div className="bg-white dark:bg-gray-800 rounded-[6px] p-4 text-center">
+                    <img 
+                      src={shareData.image} 
+                      alt={shareData.plan.hobby}
+                      className="w-16 h-16 mx-auto rounded-full mb-3 object-cover"
+                      loading="lazy"
+                    />
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      {shareData.plan.hobby} Challenge Complete! 🎉
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      7 days • {shareData.plan.totalDays} lessons completed
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Share on social media:
+                  </h4>
+
+                  {/* Social Media Buttons */}
+                  <Button
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white justify-start h-12 mobile-button"
+                    onClick={() => {
+                      window.open(shareData.platforms.twitter, '_blank');
+                      setShowShareModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <Share2 className="h-4 w-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-medium">Twitter</div>
+                        <div className="text-xs opacity-90">Share with your followers</div>
+                      </div>
+                    </div>
+                  </Button>
+
+                  <Button
+                    className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12 mobile-button"
+                    onClick={() => {
+                      window.open(shareData.platforms.facebook, '_blank');
+                      setShowShareModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <ExternalLink className="h-4 w-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-medium">Facebook</div>
+                        <div className="text-xs opacity-90">Post to your timeline</div>
+                      </div>
+                    </div>
+                  </Button>
+
+                  <Button
+                    className="w-full bg-green-500 hover:bg-green-600 text-white justify-start h-12 mobile-button"
+                    onClick={() => {
+                      window.open(shareData.platforms.whatsapp, '_blank');
+                      setShowShareModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <Share2 className="h-4 w-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-medium">WhatsApp</div>
+                        <div className="text-xs opacity-90">Send to friends</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+
+                <Button
+                  variant="outline"
+                  className="w-full mt-4 h-10 mobile-button"
+                  onClick={() => setShowShareModal(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Copy Success Toast */}
+          {showCopyToast && (
+            <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-right duration-300">
               <div className="flex items-center space-x-2">
-                <Trophy className="h-6 w-6 text-yellow-500" />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Share Your Achievement
-                </h3>
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="font-medium">Copied to clipboard!</span>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowShareModal(false)}
-                className="h-8 w-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <div className="text-xs mt-1 opacity-90">Open Instagram and paste it in your story</div>
             </div>
-
-            {/* Achievement Preview */}
-            <div className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-0.5 rounded-lg mb-6">
-              <div className="bg-white dark:bg-gray-800 rounded-[6px] p-4 text-center">
-                <img 
-                  src={shareData.image} 
-                  alt={shareData.plan.hobby}
-                  className="w-16 h-16 mx-auto rounded-full mb-3 object-cover"
-                />
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                  {shareData.plan.hobby} Challenge Complete! 🎉
-                </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  7 days • {shareData.plan.totalDays} lessons completed
-                </p>
-              </div>
-            </div>
-
-            {/* Social Media Buttons */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                Share on social media:
-              </h4>
-              
-              {/* Twitter */}
-              <Button
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white justify-start h-12"
-                onClick={() => {
-                  // Force Twitter to use the text by opening with proper encoding
-                  const twitterText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
-
-✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
-📚 Completed all 7 daily lessons
-🚀 Ready for the next challenge!
-
-#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
-
-Learn any hobby in 7 days at https://wizqo.com`;
-                  
-                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}`, '_blank');
-                  setShowShareModal(false);
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <Share2 className="h-4 w-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Twitter</div>
-                    <div className="text-xs opacity-90">Share with your followers</div>
-                  </div>
-                </div>
-              </Button>
-
-              {/* Facebook */}
-              <Button
-                className="w-full bg-blue-700 hover:bg-blue-800 text-white justify-start h-12"
-                onClick={() => {
-                  const achievementText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo Learn any hobby in 7 days at https://wizqo.com`;
-                  
-                  // Try native Web Share API first, fallback to Facebook sharing
-                  if (navigator.share) {
-                    navigator.share({
-                      title: `🎉 Completed 7-Day ${shareData.plan.hobby.toUpperCase()} Challenge!`,
-                      text: achievementText,
-                      url: 'https://wizqo.com'
-                    }).catch(() => {
-                      // Fallback to Facebook URL
-                      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&t=${encodeURIComponent(achievementText)}`, '_blank', 'width=600,height=400');
-                    });
-                  } else {
-                    // Direct Facebook sharing without quote parameter (often ignored)
-                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&t=${encodeURIComponent(achievementText)}`, '_blank', 'width=600,height=400');
-                  }
-                  setShowShareModal(false);
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <ExternalLink className="h-4 w-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Facebook</div>
-                    <div className="text-xs opacity-90">Post to your timeline</div>
-                  </div>
-                </div>
-              </Button>
-
-              {/* LinkedIn */}
-              <Button
-                className="w-full bg-blue-800 hover:bg-blue-900 text-white justify-start h-12"
-                onClick={() => {
-                  const achievementText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey! ✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days 📚 Completed all 7 daily lessons 🚀 Ready for the next challenge! #7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo Learn any hobby in 7 days at https://wizqo.com`;
-                  
-                  // Try native Web Share API first
-                  if (navigator.share) {
-                    navigator.share({
-                      title: `🎉 Completed 7-Day ${shareData.plan.hobby.toUpperCase()} Challenge!`,
-                      text: achievementText,
-                      url: 'https://wizqo.com'
-                    }).catch(() => {
-                      // Fallback: open LinkedIn and copy text
-                      window.open('https://www.linkedin.com/feed/', '_blank');
-                      navigator.clipboard.writeText(achievementText);
-                      alert('LinkedIn opened! The achievement text has been copied to your clipboard - paste it in your new post.');
-                    });
-                  } else {
-                    // Fallback: open LinkedIn and copy text
-                    window.open('https://www.linkedin.com/feed/', '_blank');
-                    navigator.clipboard.writeText(achievementText);
-                    alert('LinkedIn opened! The achievement text has been copied to your clipboard - paste it in your new post.');
-                  }
-                  setShowShareModal(false);
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <Share2 className="h-4 w-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">LinkedIn</div>
-                    <div className="text-xs opacity-90">Share with professionals</div>
-                  </div>
-                </div>
-              </Button>
-
-              {/* Instagram */}
-              <Button
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white justify-start h-12"
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(shareData.platforms.instagram);
-                    setShowCopyToast(true);
-                    setTimeout(() => setShowCopyToast(false), 3000);
-                  } catch (err) {
-                    // Fallback for older browsers
-                    const textArea = document.createElement('textarea');
-                    textArea.value = shareData.platforms.instagram;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    setShowCopyToast(true);
-                    setTimeout(() => setShowCopyToast(false), 3000);
-                  }
-                  setShowShareModal(false);
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <Share2 className="h-4 w-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">Instagram</div>
-                    <div className="text-xs opacity-90">Copy text to share</div>
-                  </div>
-                </div>
-              </Button>
-
-              {/* WhatsApp */}
-              <Button
-                className="w-full bg-green-500 hover:bg-green-600 text-white justify-start h-12"
-                onClick={() => {
-                  const whatsappText = `🎉 I just completed my 7-day ${shareData.plan.hobby.toUpperCase()} learning journey!
-
-✅ Mastered ${shareData.plan.hobby} fundamentals in just 7 days
-📚 Completed all 7 daily lessons
-🚀 Ready for the next challenge!
-
-#7DayChallenge #Learning #${shareData.plan.hobby.charAt(0).toUpperCase() + shareData.plan.hobby.slice(1)} #PersonalGrowth #Wizqo
-
-Learn any hobby in 7 days at https://wizqo.com`;
-                  
-                  window.open(`https://wa.me/?text=${encodeURIComponent(whatsappText)}`, '_blank');
-                  setShowShareModal(false);
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                    <Share2 className="h-4 w-4" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-medium">WhatsApp</div>
-                    <div className="text-xs opacity-90">Send to friends</div>
-                  </div>
-                </div>
-              </Button>
-            </div>
-
-            {/* Cancel Button */}
-            <Button
-              variant="outline"
-              className="w-full mt-4 h-10"
-              onClick={() => setShowShareModal(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Copy Success Toast */}
-      {showCopyToast && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-in slide-in-from-right duration-300">
-          <div className="flex items-center space-x-2">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <span className="font-medium">Copied to clipboard!</span>
-          </div>
-          <div className="text-xs mt-1 opacity-90">Open Instagram and paste it in your story</div>
-        </div>
-      )}
+          )}
         </main>
       </div>
     </>

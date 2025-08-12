@@ -54,6 +54,7 @@ type Route = 'landing' | 'generate' | 'plan' | 'about' | 'blog' | 'dashboard' | 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<Route>('landing');
   const [planData, setPlanData] = useState<PlanData | null>(null);
+  const [currentPage, setCurrentPage] = useState<string>(''); // State to track current page for routing optimization
 
   // SEO meta tag updates based on current route
   useEffect(() => {
@@ -112,38 +113,38 @@ export default function App() {
       };
 
       const currentSEO = seoData[currentRoute as keyof typeof seoData] || seoData.landing;
-      
+
       document.title = currentSEO.title;
-      
+
       // Update meta description
       let descriptionMeta = document.querySelector('meta[name="description"]');
       if (descriptionMeta) {
         descriptionMeta.setAttribute('content', currentSEO.description);
       }
-      
+
       // Update meta keywords
       let keywordsMeta = document.querySelector('meta[name="keywords"]');
       if (keywordsMeta) {
         keywordsMeta.setAttribute('content', currentSEO.keywords);
       }
-      
+
       // Update Open Graph tags
       let ogTitle = document.querySelector('meta[property="og:title"]');
       if (ogTitle) {
         ogTitle.setAttribute('content', currentSEO.title);
       }
-      
+
       let ogDescription = document.querySelector('meta[property="og:description"]');
       if (ogDescription) {
         ogDescription.setAttribute('content', currentSEO.description);
       }
-      
+
       // Update Twitter tags
       let twitterTitle = document.querySelector('meta[property="twitter:title"]');
       if (twitterTitle) {
         twitterTitle.setAttribute('content', currentSEO.title);
       }
-      
+
       let twitterDescription = document.querySelector('meta[property="twitter:description"]');
       if (twitterDescription) {
         twitterDescription.setAttribute('content', currentSEO.description);
@@ -155,54 +156,54 @@ export default function App() {
 
   // Hash-based routing
   useEffect(() => {
-    const handleRouteChange = () => {
-      const pathname = window.location.pathname;
-      const hash = window.location.hash;
-      
-      console.log('🔧 Route change detected - pathname:', pathname, 'hash:', hash);
-      
-      // Always prioritize hash-based routing for SPA behavior
-      let route = '';
-      
-      if (hash.startsWith('#/generate')) {
-        route = 'generate';
-      } else if (hash.startsWith('#/dashboard')) {
-        route = 'dashboard';
-      } else if (hash.startsWith('#/plan')) {
-        route = 'plan';
-      } else if (hash.startsWith('#/about')) {
-        route = 'about';
-      } else if (hash.startsWith('#/blog')) {
-        route = 'blog';
-      } else if (hash.startsWith('#/contact')) {
-        route = 'contact';
-      } else if (hash.startsWith('#/privacy')) {
-        route = 'privacy';
-      } else if (hash.startsWith('#/terms')) {
-        route = 'terms';
-      } else if (hash.startsWith('#/cookies')) {
-        route = 'cookies';
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) || '/';
+      console.log('🔧 Route change detected - pathname:', window.location.pathname, 'hash:', window.location.hash);
 
-      } else if (hash === '#/' || hash === '#' || hash === '') {
-        route = 'landing';
-      } else if (pathname === '/generate' || pathname.startsWith('/generate')) {
-        // Fallback for direct /generate access - redirect to hash-based routing
-        route = 'generate';
-      } else {
-        route = 'landing';
+      // Prevent duplicate navigation to the same page
+      if (hash === currentPage) {
+        console.log('🔧 Same page navigation detected, skipping');
+        return;
       }
-      
-      if (route === 'landing') {
-        setCurrentRoute('landing');
-      } else if (route === 'plan') {
-        // Check for stored plan data when navigating to plan route
+
+      // Clear loading states when navigating
+      sessionStorage.removeItem('dashboardLoading');
+
+      setCurrentPage(hash); // Update the internal state to track the current page
+
+      // Map hash to route
+      let route: Route = 'landing'; // Default to landing
+      if (hash.startsWith('/generate')) {
+        route = 'generate';
+      } else if (hash.startsWith('/dashboard')) {
+        route = 'dashboard';
+      } else if (hash.startsWith('/plan')) {
+        route = 'plan';
+      } else if (hash.startsWith('/about')) {
+        route = 'about';
+      } else if (hash.startsWith('/blog')) {
+        route = 'blog';
+      } else if (hash.startsWith('/contact')) {
+        route = 'contact';
+      } else if (hash.startsWith('/privacy')) {
+        route = 'privacy';
+      } else if (hash.startsWith('/terms')) {
+        route = 'terms';
+      } else if (hash.startsWith('/cookies')) {
+        route = 'cookies';
+      }
+
+      setCurrentRoute(route);
+
+      // Handle plan data restoration logic when navigating to 'plan' or 'generate'
+      if (route === 'plan') {
         const sources = [
           'currentPlanData',
-          'activePlanData', 
+          'activePlanData',
           'tempPlanForNavigation',
           'lastViewedPlanData'
         ];
-        
+
         for (const source of sources) {
           try {
             const storedData = sessionStorage.getItem(source) || localStorage.getItem(source);
@@ -211,8 +212,6 @@ export default function App() {
               if (parsedPlan && parsedPlan.days && parsedPlan.days.length > 0) {
                 console.log(`🔄 Restoring plan from ${source}:`, parsedPlan.hobby);
                 setPlanData(parsedPlan);
-                
-                // Clear temporary navigation data
                 if (source === 'tempPlanForNavigation') {
                   localStorage.removeItem('tempPlanForNavigation');
                 }
@@ -223,11 +222,7 @@ export default function App() {
             console.warn(`Failed to parse ${source}:`, e);
           }
         }
-        setCurrentRoute('plan');
       } else if (route === 'generate') {
-        setCurrentRoute('generate');
-        
-        // Check if we're returning from dashboard with active plan data
         const activePlanData = sessionStorage.getItem('activePlanData');
         const fromGeneratedPlan = sessionStorage.getItem('fromGeneratedPlan');
         if (activePlanData && fromGeneratedPlan) {
@@ -235,36 +230,19 @@ export default function App() {
             const planData = JSON.parse(activePlanData);
             console.log('🔄 Restoring active plan from session:', planData.hobby);
             setPlanData(planData);
-            sessionStorage.removeItem('fromGeneratedPlan'); // Clear the flag
+            sessionStorage.removeItem('fromGeneratedPlan');
           } catch (e) {
             console.warn('Failed to parse active plan data');
           }
         }
-
-      } else if (route === 'about') {
-        setCurrentRoute('about');
-      } else if (route === 'blog') {
-        setCurrentRoute('blog');
-      } else if (route === 'dashboard') {
-        setCurrentRoute('dashboard');
-      } else if (route === 'contact') {
-        setCurrentRoute('contact');
-      } else if (route === 'privacy') {
-        setCurrentRoute('privacy');
-      } else if (route === 'terms') {
-        setCurrentRoute('terms');
-      } else if (route === 'cookies') {
-        setCurrentRoute('cookies');
-
       }
     };
 
-    // Re-enable hashchange listener but prevent interference with plan display
-    window.addEventListener('hashchange', handleRouteChange);
-    handleRouteChange();
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Initial call to set the correct route on load
 
-    return () => window.removeEventListener('hashchange', handleRouteChange);
-  }, []);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [currentPage]); // Dependency on currentPage to trigger re-evaluation
 
   // Navigation helpers
   const navigateTo = (route: Route) => {
@@ -301,7 +279,6 @@ export default function App() {
       case 'cookies':
         path = '#/cookies';
         break;
-
     }
     console.log('🔧 Setting location to:', path);
     if (path.startsWith('#/')) {
@@ -309,7 +286,7 @@ export default function App() {
     } else {
       window.location.href = path;
     }
-    setCurrentRoute(route);
+    // setCurrentRoute(route); // This is now handled within handleHashChange
   };
 
   // Simple fallback plan generator
@@ -395,11 +372,11 @@ export default function App() {
       }
 
       const planData = await response.json();
-      
+
       console.log('🔧 CRITICAL FIX - Backend planData received:', JSON.stringify(planData.days[0], null, 2));
       console.log('🔧 CRITICAL FIX - First day youtubeVideoId from backend:', planData.days[0]?.youtubeVideoId);
       console.log('🔧 CRITICAL FIX - First day videoId from backend:', planData.days[0]?.videoId);
-      
+
       // Convert backend data to frontend format - PRESERVE ALL VIDEO FIELDS
       const formattedPlanData = {
         hobby: planData.hobby || hobby,
@@ -426,15 +403,15 @@ export default function App() {
           skillLevel: day.skillLevel
         }))
       };
-      
+
       // 🔧 FIXED: Just return the plan data - no navigation needed
       // The SplitPlanInterface will handle displaying the plan internally
       console.log('🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface');
-      
+
       return formattedPlanData;
     } catch (error) {
       console.error('Error generating plan:', error);
-      
+
       // Handle duplicate plan errors specially
       if (error instanceof Error && error.message.startsWith('DUPLICATE_PLAN:')) {
         const errorData = JSON.parse(error.message.replace('DUPLICATE_PLAN:', ''));
@@ -443,7 +420,7 @@ export default function App() {
         duplicateError.duplicateData = errorData;
         throw duplicateError;
       }
-      
+
       // Return fallback plan if API fails for other reasons
       return getFallbackPlan(hobby, answers);
     }
@@ -454,10 +431,7 @@ export default function App() {
       case 'landing':
         return <LandingPage onNavigateToGenerate={() => navigateTo('generate')} />;
       case 'generate':
-        // Check for existing plan data, just like the 'plan' route does
         let existingPlanData = null;
-        
-        // Check session storage first
         const sessionPlan = sessionStorage.getItem('activePlanData');
         if (sessionPlan) {
           try {
@@ -467,8 +441,6 @@ export default function App() {
             console.log('❌ Failed to parse session plan data');
           }
         }
-        
-        // Check localStorage as backup
         if (!existingPlanData) {
           const localPlan = localStorage.getItem('lastViewedPlanData');
           if (localPlan) {
@@ -480,7 +452,6 @@ export default function App() {
             }
           }
         }
-        
         return (
           <SplitPlanInterface
             onGeneratePlan={generatePlanWithAI}
@@ -489,16 +460,11 @@ export default function App() {
           />
         );
       case 'plan':
-        // Try multiple storage sources to find plan data
         let currentPlanData = null;
-        
-        // 1. Check state first (from previous generation)
         if (planData) {
           console.log('✅ Using plan data from state:', planData.hobby);
           currentPlanData = planData;
         }
-        
-        // 2. Check sessionStorage (from dashboard navigation)
         if (!currentPlanData) {
           const sessionData = sessionStorage.getItem('currentPlanData');
           if (sessionData) {
@@ -510,8 +476,6 @@ export default function App() {
             }
           }
         }
-        
-        // 3. Check localStorage as backup
         if (!currentPlanData) {
           const lastPlanData = localStorage.getItem('lastViewedPlanData');
           if (lastPlanData) {
@@ -523,7 +487,6 @@ export default function App() {
             }
           }
         }
-        
         if (currentPlanData) {
           return (
             <SplitPlanInterface
@@ -533,8 +496,6 @@ export default function App() {
             />
           );
         }
-        
-        // Final fallback: No plan data found
         console.log('❌ No plan data found, showing generate interface');
         return (
           <SplitPlanInterface
@@ -567,7 +528,6 @@ export default function App() {
       <div className="min-h-screen bg-slate-50">
         {renderCurrentRoute()}
         <Toaster />
-  
       </div>
     </AuthProvider>
   );

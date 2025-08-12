@@ -4,7 +4,7 @@ export class HobbyPlanService {
   // Clear all caches for a specific hobby (enhanced version)
   clearHobbyCache(hobby: string, userId: string): void {
     console.log('🧹 AGGRESSIVE CACHE CLEAR: Starting for hobby:', hobby, 'user:', userId);
-    
+
     // Clear all localStorage entries that might be related
     const localStorageKeys = Object.keys(localStorage);
     for (const key of localStorageKeys) {
@@ -16,13 +16,13 @@ export class HobbyPlanService {
                          key.startsWith('activePlanData') ||
                          key.startsWith('plan_') ||
                          key.includes('freshPlanMarker');
-      
+
       if (shouldClear) {
         localStorage.removeItem(key);
         console.log('🧹 Cleared localStorage:', key);
       }
     }
-    
+
     // Clear all sessionStorage entries that might be related
     const sessionStorageKeys = Object.keys(sessionStorage);
     for (const key of sessionStorageKeys) {
@@ -34,13 +34,13 @@ export class HobbyPlanService {
                          key.startsWith('planFromGeneration') ||
                          key.startsWith('freshPlanMarker') ||
                          key.startsWith('progress_');
-      
+
       if (shouldClear) {
         sessionStorage.removeItem(key);
         console.log('🧹 Cleared sessionStorage:', key);
       }
     }
-    
+
     // Clear specific cache keys (both lowercase and capitalized)
     const specificCacheKeys = [
       `existingPlan_${hobby}_${userId}`,
@@ -61,132 +61,92 @@ export class HobbyPlanService {
       `${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_plan`,
       `${hobby.charAt(0).toUpperCase() + hobby.slice(1)}_progress`
     ];
-    
+
     specificCacheKeys.forEach(key => {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
-    
+
     // Also clear general cache entries
     sessionStorage.removeItem('currentPlanData');
     sessionStorage.removeItem('activePlanData');
     sessionStorage.removeItem('lastViewedPlanData');
     sessionStorage.removeItem('planFromGeneration');
     localStorage.removeItem('lastViewedPlanData');
-    
+
     console.log('🧹 AGGRESSIVE CACHE CLEAR: Completed for hobby:', hobby);
   }
 
   // Check if plan already exists for this hobby
-  async checkExistingPlan(hobby: string, userId: string): Promise<any> {
+  async checkExistingPlan(hobby: string, userId: string): Promise<any | null> {
     try {
-      console.log('🔍 DUPLICATE CHECK: Looking for existing plan for hobby:', hobby, 'user:', userId)
-      
-      // First clear any stale caches
-      this.clearHobbyCache(hobby, userId);
-      
-      // Wait a moment for any pending operations to complete
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Use cache-busting timestamp to ensure fresh data
-      const timestamp = Date.now();
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${userId}&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc&_t=${timestamp}&cache_bust=${Math.random()}`, {
-        method: 'GET',
-        headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
-          'Pragma': 'no-cache',
-          'Expires': '0',
-          'If-None-Match': '*'
-        }
-      })
+      console.log('🔍 DUPLICATE CHECK: Starting check for hobby:', hobby, 'user:', userId);
 
-      if (response.ok) {
-        const allPlans = await response.json()
-        console.log('🔍 DUPLICATE CHECK: Found', allPlans.length, 'total plans')
-        console.log('🔍 DUPLICATE CHECK: Plan details:', allPlans.map((p: any) => ({ id: p.id, title: p.title, hobby: p.hobby, hobby_name: p.hobby_name })))
-        
-        // Normalize the search hobby for comparison
-        const searchHobby = hobby.toLowerCase().trim()
-        console.log('🔍 DUPLICATE CHECK: Searching for hobby:', searchHobby)
-        
-        const existingPlan = allPlans.find((plan: any) => {
-          // Direct field matches (most reliable)
-          if (plan.hobby?.toLowerCase().trim() === searchHobby) {
-            console.log('🚨 DUPLICATE FOUND via hobby field:', plan.hobby)
-            return true
-          }
-          
-          if (plan.hobby_name?.toLowerCase().trim() === searchHobby) {
-            console.log('🚨 DUPLICATE FOUND via hobby_name:', plan.hobby_name)
-            return true
-          }
-          
-          if (plan.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
-            console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', plan.plan_data.hobby)
-            return true
-          }
-          
-          // Enhanced title pattern matching for "coffee brewing" type hobbies
-          if (plan.title) {
-            const titleLower = plan.title.toLowerCase()
-            
-            // Match "Master [hobby] in X Days" format
-            const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i)
-            if (masterMatch) {
-              const planHobby = masterMatch[1].toLowerCase().trim()
-              // Handle multi-word hobbies like "jewelry making"
-              if (planHobby === searchHobby || 
-                  searchHobby.includes(planHobby) || 
-                  planHobby.includes(searchHobby) ||
-                  // Handle variations like "jewelry making" vs "jewelry"
-                  planHobby.split(' ')[0] === searchHobby.split(' ')[0]) {
-                console.log('🚨 DUPLICATE FOUND via Master title pattern:', plan.title, 'extracted:', planHobby)
-                return true
-              }
-            }
-            
-            // Match "Learn [hobby] in" format
-            const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i)
-            if (learnMatch) {
-              const planHobby = learnMatch[1].toLowerCase().trim()
-              // Handle multi-word hobbies like "jewelry making"
-              if (planHobby === searchHobby || 
-                  searchHobby.includes(planHobby) || 
-                  planHobby.includes(searchHobby) ||
-                  // Handle variations like "jewelry making" vs "jewelry"
-                  planHobby.split(' ')[0] === searchHobby.split(' ')[0]) {
-                console.log('🚨 DUPLICATE FOUND via Learn title pattern:', plan.title, 'extracted:', planHobby)
-                return true
-              }
-            }
-            
-            // Direct title search for complex hobby names
-            if (titleLower.includes(searchHobby) || searchHobby.includes(titleLower.replace(/master|learn|in \d+ days?/gi, '').trim())) {
-              console.log('🚨 DUPLICATE FOUND via direct title search:', plan.title)
-              return true
+      // Prevent concurrent duplicate checks
+      const checkKey = `duplicateCheck_${hobby}_${userId}`;
+      const isAlreadyChecking = sessionStorage.getItem(checkKey);
+      if (isAlreadyChecking === 'checking') {
+        console.log('🔍 DUPLICATE CHECK: Already in progress, waiting...');
+        // Wait a bit and try again
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const cachedResult = sessionStorage.getItem(`existingPlan_${hobby}_${userId}`);
+        return cachedResult ? JSON.parse(cachedResult) : null;
+      }
+
+      sessionStorage.setItem(checkKey, 'checking');
+
+      try {
+        // Check cache first
+        const cacheKey = `existingPlan_${hobby}_${userId}`;
+        const cachedResult = sessionStorage.getItem(cacheKey);
+        if (cachedResult) {
+          const parsed = JSON.parse(cachedResult);
+          console.log('🔍 DUPLICATE CHECK: Found cached result:', parsed ? 'EXISTS' : 'NOT_EXISTS');
+          return parsed;
+        }
+
+        // Query database via API with deduplication
+        const response = await fetch(`/api/hobby-plans?user_id=${userId}`);
+        if (!response.ok) {
+          console.error('🔍 DUPLICATE CHECK: API error:', response.status);
+          return null;
+        }
+
+        const allPlans = await response.json();
+        console.log('🔍 DUPLICATE CHECK: Retrieved plans:', allPlans?.length || 0);
+
+        // Deduplicate plans by hobby and take the most recent
+        const plansByHobby = new Map();
+        allPlans?.forEach((plan: any) => {
+          const planHobby = (plan.hobby_name || plan.hobby)?.toLowerCase();
+          if (planHobby) {
+            const existing = plansByHobby.get(planHobby);
+            if (!existing || new Date(plan.created_at) > new Date(existing.created_at)) {
+              plansByHobby.set(planHobby, plan);
             }
           }
-          
-          console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', plan.id, plan.title)
-          return false
-        })
+        });
+
+        // Look for exact hobby match
+        const existingPlan = plansByHobby.get(hobby.toLowerCase());
+
+        // Cache the result for this session
+        sessionStorage.setItem(cacheKey, JSON.stringify(existingPlan || null));
 
         if (existingPlan) {
-          console.log('🚨 DUPLICATE DETECTED: Found existing plan:', existingPlan.title, 'ID:', existingPlan.id)
-          return existingPlan
+          console.log('🚨 DUPLICATE CHECK: Found existing plan:', existingPlan.title);
+          return existingPlan;
+        } else {
+          console.log('✅ DUPLICATE CHECK: No existing plan found');
+          return null;
         }
-        
-        console.log('✅ DUPLICATE CHECK: No existing plan found for', hobby)
-        return null
+      } finally {
+        sessionStorage.removeItem(checkKey);
       }
-      
-      console.log('⚠️ DUPLICATE CHECK: API request failed with status:', response.status)
-      return null
     } catch (error) {
-      console.error('❌ DUPLICATE CHECK ERROR: Failed to check existing plans:', error)
-      return null
+      console.error('🔍 DUPLICATE CHECK: Error:', error);
+      sessionStorage.removeItem(`duplicateCheck_${hobby}_${userId}`);
+      return null;
     }
   }
 
@@ -196,7 +156,7 @@ export class HobbyPlanService {
       console.log('💾 DATABASE SAVE: Starting plan save for user:', userId)
       console.log('💾 DATABASE SAVE: Plan data:', planData)
       console.log('💾 DATABASE SAVE: Force mode:', force)
-      
+
       // Check if plan already exists for this hobby (only if not forcing)
       if (!force) {
         const existingPlan = await this.checkExistingPlan(planData.hobby, userId)
@@ -208,7 +168,7 @@ export class HobbyPlanService {
       } else {
         console.log('🚀 FORCE MODE: Bypassing duplicate check for', planData.hobby)
       }
-      
+
       console.log('💾 DATABASE SAVE: Using backend API for reliable save')
 
       const controller = new AbortController()
@@ -250,17 +210,17 @@ export class HobbyPlanService {
         stack: error?.stack,
         toString: error?.toString()
       })
-      
+
       if (error.name === 'AbortError') {
         console.error('❌ DATABASE SAVE: Network timeout after 10 seconds')
         throw new Error('Plan save timed out - please check your connection')
       }
-      
+
       // If it's a duplicate error, re-throw with clear message
       if (error.message && error.message.includes('already have a learning plan')) {
         throw error
       }
-      
+
       // For other errors, provide a helpful message
       throw new Error(`Failed to save plan: ${error?.message || 'Unknown error occurred'}`)
     }
@@ -296,12 +256,12 @@ export class HobbyPlanService {
 
     } catch (error: any) {
       console.error('❌ DELETE ERROR: Failed to delete plan:', error)
-      
+
       if (error.name === 'AbortError') {
         console.error('❌ DELETE: Network timeout after 2 seconds')
         throw new Error('Delete timed out - please check your connection')
       }
-      
+
       throw error
     }
   }
@@ -338,12 +298,12 @@ export class HobbyPlanService {
 
     } catch (error: any) {
       console.error('❌ SUPABASE: Error fetching user plans:', error)
-      
+
       if (error.name === 'AbortError') {
         console.error('❌ SUPABASE: Plans query timed out after 2 seconds')
         return []
       }
-      
+
       throw error
     }
   }
@@ -352,7 +312,7 @@ export class HobbyPlanService {
   async getUserProgress(userId: string, validPlanIds?: string[]): Promise<any[]> {
     try {
       console.log('📖 SUPABASE: Starting progress query via direct API...')
-      
+
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}`, {
         headers: {
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
@@ -371,7 +331,7 @@ export class HobbyPlanService {
       // Always check session storage for temporary progress (with cleanup)
       const sessionProgress = this.getSessionProgress(userId, validPlanIds)
       console.log('📝 PROGRESS: Checking session storage for user:', userId, 'found:', sessionProgress.length, 'entries')
-      
+
       if (sessionProgress.length > 0) {
         console.log('📝 PROGRESS: Adding', sessionProgress.length, 'session storage progress entries')
         // Merge with database progress, prioritizing session storage (more recent)
@@ -400,21 +360,21 @@ export class HobbyPlanService {
     const sessionProgress = []
     console.log('📝 PROGRESS: Scanning sessionStorage for user:', userId)
     console.log('📝 PROGRESS: SessionStorage has', sessionStorage.length, 'total items')
-    
+
     for (let i = 0; i < sessionStorage.length; i++) {
       const key = sessionStorage.key(i)
       console.log('📝 PROGRESS: Checking key:', key)
       if (key && key.startsWith(`progress_${userId}_`)) {
         // Extract plan ID from the key
         const planId = key.split('_')[2]
-        
+
         // If validPlanIds are provided, clean up orphaned progress
         if (validPlanIds && validPlanIds.length > 0 && !validPlanIds.includes(planId)) {
           console.log('📝 PROGRESS: Removing progress for deleted plan:', planId)
           sessionStorage.removeItem(key)
           continue
         }
-        
+
         try {
           const progressData = JSON.parse(sessionStorage.getItem(key) || '{}')
           console.log('📝 PROGRESS: Found session progress for key:', key, progressData)
@@ -444,7 +404,7 @@ export class HobbyPlanService {
           return progress[0]
         }
       }
-      
+
       // Fallback to session storage
       const sessionKey = `progress_${userId}_${planId}`
       const sessionProgress = sessionStorage.getItem(sessionKey)
@@ -452,7 +412,7 @@ export class HobbyPlanService {
         console.log('📝 PROGRESS: Using session storage fallback for plan:', planId)
         return JSON.parse(sessionProgress)
       }
-      
+
       return null
     } catch (error) {
       console.error('Error fetching plan progress:', error)
@@ -482,7 +442,7 @@ export class HobbyPlanService {
   async updateProgress(userId: string, planId: string, updates: any): Promise<any> {
     try {
       console.log('📝 PROGRESS: Updating progress via API for plan:', planId)
-      
+
       // First try to find existing progress
       const existingResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}&plan_id=eq.${planId}`, {
         headers: {
@@ -515,12 +475,12 @@ export class HobbyPlanService {
   async completeDay(userId: string, planId: string, dayNumber: number): Promise<any> {
     try {
       console.log('📝 PROGRESS: Completing day', dayNumber, 'for plan:', planId)
-      
+
       // First check session storage for existing progress (handles RLS cache issues)
       const sessionKey = `progress_${userId}_${planId}`
       const sessionProgress = sessionStorage.getItem(sessionKey)
       let completedDays = []
-      
+
       if (sessionProgress) {
         try {
           const existing = JSON.parse(sessionProgress)
@@ -552,7 +512,7 @@ export class HobbyPlanService {
       if (!completedDays.includes(dayNumber)) {
         completedDays.push(dayNumber)
       }
-      
+
       // Sort completed days to maintain proper order
       completedDays.sort((a: number, b: number) => a - b)
       console.log('📝 PROGRESS: Updated completed days:', completedDays)
