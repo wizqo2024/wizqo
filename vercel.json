@@ -1,3 +1,4 @@
+
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
@@ -11,14 +12,29 @@
     }
   },
   "functions": {
-    "api/index.js": {
-      "runtime": "@vercel/node@2.15.10"
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
     }
   },
   "routes": [
     {
+      "src": "/api/hobby-plans",
+      "methods": ["GET", "POST", "DELETE", "OPTIONS"],
+      "dest": "/api/hobby-plans.js"
+    },
+    {
+      "src": "/api/generate-plan",
+      "methods": ["POST", "OPTIONS"],
+      "dest": "/api/generate-plan.js"
+    },
+    {
+      "src": "/api/health",
+      "methods": ["GET", "OPTIONS"],
+      "dest": "/api/health.js"
+    },
+    {
       "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/api/$1.js"
     },
     {
       "handle": "filesystem"
