@@ -256,7 +256,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Remove from local state immediately
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
       
-      // Comprehensive cache cleanup
+      // Enhanced comprehensive cache cleanup
       const keys = Object.keys(localStorage);
       for (const key of keys) {
         if (key.includes(planId) || (key.startsWith('hobbyPlan_') && localStorage.getItem(key)?.includes(planId))) {
@@ -268,19 +268,32 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Clear sessionStorage
       const sessionKeys = Object.keys(sessionStorage);
       for (const key of sessionKeys) {
-        if (key.includes(planId) || (deletedHobby && key.includes(deletedHobby))) {
+        if (key.includes(planId) || (deletedHobby && key.toLowerCase().includes(deletedHobby.toLowerCase()))) {
           sessionStorage.removeItem(key);
           console.log('🧹 Cleared sessionStorage key:', key);
         }
       }
       
-      // Clear specific hobby-based cache entries
+      // Clear ALL hobby-based cache entries (comprehensive cleanup)
       if (deletedHobby && user?.id) {
-        localStorage.removeItem(`existingPlan_${deletedHobby}_${user.id}`);
-        sessionStorage.removeItem(`existingPlan_${deletedHobby}_${user.id}`);
-        localStorage.removeItem(`lastViewedPlan_${deletedHobby}`);
-        sessionStorage.removeItem(`currentPlanData_${deletedHobby}`);
-        console.log('🧹 Cleared hobby-specific caches for:', deletedHobby);
+        const cacheKeys = [
+          `existingPlan_${deletedHobby}_${user.id}`,
+          `duplicateCheck_${deletedHobby}_${user.id}`,
+          `hobbyPlan_${deletedHobby}`,
+          `lastViewedPlan_${deletedHobby}`,
+          `currentPlanData_${deletedHobby}`,
+          `plan_${deletedHobby}`,
+          `${deletedHobby}_plan`,
+          `${deletedHobby}_progress`,
+          `progress_${user.id}_${planId}`
+        ];
+        
+        cacheKeys.forEach(key => {
+          localStorage.removeItem(key);
+          sessionStorage.removeItem(key);
+        });
+        
+        console.log('🧹 Cleared ALL hobby-specific caches for:', deletedHobby);
       }
       
       // Clear active plan data if it matches

@@ -192,64 +192,100 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     // Check for duplicate plan if user is signed in
     if (user) {
       try {
-        // Wait a moment for any recent deletions to propagate
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Wait longer for deletions to propagate and clear all caches
+        await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Clear any cached data first
-        sessionStorage.removeItem(`existingPlan_${finalHobby}_${user.id}`);
-        localStorage.removeItem(`existingPlan_${finalHobby}_${user.id}`);
+        // Clear ALL cached data for this hobby
+        const cacheKeys = [
+          `existingPlan_${finalHobby}_${user.id}`,
+          `duplicateCheck_${finalHobby}_${user.id}`,
+          `hobbyPlan_${finalHobby}`,
+          `lastViewedPlan_${finalHobby}`,
+          `currentPlanData_${finalHobby}`
+        ];
         
-        // Force a fresh API check with cache-busting timestamp
+        cacheKeys.forEach(key => {
+          sessionStorage.removeItem(key);
+          localStorage.removeItem(key);
+        });
+        
+        // Clear any existing plan data that might be cached
+        sessionStorage.removeItem('currentPlanData');
+        sessionStorage.removeItem('activePlanData');
+        localStorage.removeItem('lastViewedPlanData');
+        
+        console.log('🧹 CLEARED all caches for hobby:', finalHobby);
+        
+        // Force a fresh API check with cache-busting and no-cache headers
         const timestamp = Date.now();
-        const response = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${timestamp}`, {
+        const response = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${timestamp}&cache_bust=${Math.random()}`, {
+          method: 'GET',
           headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache'
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'If-None-Match': '*'
           }
         });
         
         if (response.ok) {
           const allPlans = await response.json();
           console.log('🔍 DUPLICATE CHECK: Fresh API response:', allPlans.length, 'plans');
+          console.log('🔍 DUPLICATE CHECK: All plan titles:', allPlans.map((p: any) => p.title));
           
-          // Check multiple ways to find existing plan
+          // More strict checking for existing plans
           const searchHobby = finalHobby.toLowerCase().trim();
           const currentPlan = allPlans.find((p: any) => {
-            // Check hobby field
+            // Check hobby field (exact match only)
             if (p.hobby?.toLowerCase().trim() === searchHobby) {
               console.log('🚨 DUPLICATE FOUND via hobby field:', p.hobby);
               return true;
             }
             
-            // Check hobby_name field
+            // Check hobby_name field (exact match only)
             if (p.hobby_name?.toLowerCase().trim() === searchHobby) {
               console.log('🚨 DUPLICATE FOUND via hobby_name:', p.hobby_name);
               return true;
             }
             
-            // Check title patterns
+            // Check plan_data.hobby field (exact match only)
+            if (p.plan_data?.hobby?.toLowerCase().trim() === searchHobby) {
+              console.log('🚨 DUPLICATE FOUND via plan_data.hobby:', p.plan_data.hobby);
+              return true;
+            }
+            
+            // Check title patterns (exact hobby match only)
             if (p.title) {
               const titleLower = p.title.toLowerCase();
-              const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i);
-              const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i);
               
-              if (masterMatch && masterMatch[1].toLowerCase().trim() === searchHobby) {
-                console.log('🚨 DUPLICATE FOUND via Master title:', p.title);
-                return true;
+              // Match "Master [hobby] in X Days" format
+              const masterMatch = titleLower.match(/master\s+(.+?)\s+in\s+\d+\s+days?/i);
+              if (masterMatch) {
+                const planHobby = masterMatch[1].toLowerCase().trim();
+                if (planHobby === searchHobby) {
+                  console.log('🚨 DUPLICATE FOUND via Master title pattern:', p.title);
+                  return true;
+                }
               }
               
-              if (learnMatch && learnMatch[1].toLowerCase().trim() === searchHobby) {
-                console.log('🚨 DUPLICATE FOUND via Learn title:', p.title);
-                return true;
+              // Match "Learn [hobby] in" format
+              const learnMatch = titleLower.match(/learn\s+(.+?)\s+in/i);
+              if (learnMatch) {
+                const planHobby = learnMatch[1].toLowerCase().trim();
+                if (planHobby === searchHobby) {
+                  console.log('🚨 DUPLICATE FOUND via Learn title pattern:', p.title);
+                  return true;
+                }
               }
             }
             
+            console.log('✅ DUPLICATE CHECK: No match for', searchHobby, 'against plan', p.id, p.title);
             return false;
           });
           
-          // If plan still exists after fresh check, show duplicate message
-          if (currentPlan) {
-            console.log('🚨 DUPLICATE DETECTED after fresh check:', currentPlan.title);
+          // Only show duplicate message if plan truly exists
+          if (currentPlan && currentPlan.id) {
+            console.log('🚨 DUPLICATE DETECTED after strict check:', currentPlan.title, 'ID:', currentPlan.id);
             addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
             addAIMessage(
               `You already have a learning plan for ${finalHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
@@ -268,8 +304,10 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
 
             return;
           } else {
-            console.log('✅ DUPLICATE CHECK: No existing plan found after fresh API check');
+            console.log('✅ DUPLICATE CHECK: No existing plan found after strict check');
           }
+        } else {
+          console.log('⚠️ DUPLICATE CHECK: API request failed, proceeding with generation');
         }
       } catch (error) {
         console.error('Error checking for existing plan:', error);
