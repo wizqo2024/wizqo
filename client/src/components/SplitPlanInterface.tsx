@@ -262,13 +262,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
 
-  // CRITICAL FIX: Reset selectedDay when planData changes
-  useEffect(() => {
-    if (planData && planData.days && planData.days.length > 0) {
-      console.log('🔍 Plan data loaded, resetting selectedDay to 1');
-      setSelectedDay(1);
-    }
-  }, [planData]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
@@ -281,6 +274,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
   const [isChatMinimized, setIsChatMinimized] = useState(false);
   const [renderKey, setRenderKey] = useState(0); // Force re-render key
+
+  // CRITICAL FIX: Reset selectedDay when planData changes
+  useEffect(() => {
+    if (planData && planData.days && planData.days.length > 0) {
+      console.log('🔍 Plan data loaded, resetting selectedDay to 1');
+      setSelectedDay(1);
+    }
+  }, [planData]);
 
   // Window resize listener for responsive layout
   useEffect(() => {
