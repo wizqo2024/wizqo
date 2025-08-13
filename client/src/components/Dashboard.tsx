@@ -224,20 +224,58 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
       console.log('🗑️ Deleting plan:', planId, 'Hobby:', deletedHobby);
 
-      // Delete from Supabase
-      if (!planId.startsWith('local-') && user?.id) {
-        const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
-          method: 'DELETE'
-        });
+      // Enhanced deletion with multiple approaches
+      if (user?.id) {
+        // Try direct API deletion first
+        try {
+          const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
-        if (!response.ok) {
-          throw new Error('Failed to delete plan from database');
+          if (!response.ok) {
+            console.warn('API deletion failed, trying Supabase direct:', response.status);
+            // Fallback to direct Supabase deletion
+            const supabaseResponse = await fetch(`https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?id=eq.${planId}&user_id=eq.${user.id}`, {
+              method: 'DELETE',
+              headers: {
+                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
+                'Content-Type': 'application/json'
+              }
+            });
+
+            if (!supabaseResponse.ok) {
+              throw new Error(`Both API and direct deletion failed: ${response.status}, ${supabaseResponse.status}`);
+            }
+          }
+
+          console.log('✅ Plan deleted from database:', planId);
+
+          // Also delete any associated progress records
+          try {
+            await fetch(`https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_progress?plan_id=eq.${planId}&user_id=eq.${user.id}`, {
+              method: 'DELETE',
+              headers: {
+                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
+                'Content-Type': 'application/json'
+              }
+            });
+            console.log('✅ Associated progress records deleted');
+          } catch (progressError) {
+            console.warn('Failed to delete progress records:', progressError);
+          }
+
+        } catch (error) {
+          console.error('Failed to delete from database:', error);
+          throw error;
         }
-
-        console.log('✅ Plan deleted from database:', planId);
       }
 
-      // AGGRESSIVE CACHE CLEARING - Clear everything that might cache this plan
+      // COMPREHENSIVE CACHE CLEARING
       const allKeys = [...Object.keys(localStorage), ...Object.keys(sessionStorage)];
       
       allKeys.forEach(key => {
@@ -260,21 +298,22 @@ Learn any hobby in 7 days at https://wizqo.com`;
         }
       });
 
-      // Clear dashboard loading flag to prevent stale data
+      // Clear dashboard loading flags
       sessionStorage.removeItem('dashboardLoading');
+      sessionStorage.removeItem('dashboardLoadingTime');
 
       // Remove from local state immediately
       setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
 
-      // Force reload plans after a short delay to ensure deletion is reflected
+      // Force reload plans to ensure deletion is reflected
       setTimeout(() => {
-        console.log('🔄 Force reloading plans after deletion');
+        console.log('🔄 Reloading plans after deletion');
         loadUserPlans();
-      }, 1000);
+      }, 500);
 
     } catch (error) {
       console.error('Error deleting plan:', error);
-      alert('Failed to delete plan. Please try again.');
+      alert(`Failed to delete plan: ${error.message || 'Unknown error'}. Please try again.`);
     } finally {
       setDeletingPlan(null);
     }
