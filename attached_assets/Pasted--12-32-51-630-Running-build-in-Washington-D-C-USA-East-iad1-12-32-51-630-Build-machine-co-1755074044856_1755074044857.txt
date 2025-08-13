@@ -1,0 +1,58 @@
+[12:32:51.630] Running build in Washington, D.C., USA (East) – iad1
+[12:32:51.630] Build machine configuration: 2 cores, 8 GB
+[12:32:51.676] Cloning github.com/wizqo2024/wizqo (Branch: main, Commit: d5d8881)
+[12:32:51.803] Previous build caches not available
+[12:32:54.495] Cloning completed: 2.819s
+[12:32:54.655] Found .vercelignore
+[12:32:54.730] Removed 659 ignored files defined in .vercelignore
+[12:32:54.731]   /.env.example
+[12:32:54.731]   /.git/config
+[12:32:54.731]   /.git/description
+[12:32:54.731]   /.git/FETCH_HEAD
+[12:32:54.731]   /.git/HEAD
+[12:32:54.731]   /.git/hooks/applypatch-msg.sample
+[12:32:54.732]   /.git/hooks/commit-msg.sample
+[12:32:54.732]   /.git/hooks/fsmonitor-watchman.sample
+[12:32:54.732]   /.git/hooks/post-update.sample
+[12:32:54.732]   /.git/hooks/pre-applypatch.sample
+[12:32:57.660] Running "vercel build"
+[12:32:58.089] Vercel CLI 44.7.3
+[12:32:58.278] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[12:32:58.693] > Installing Builder: @vercel/node@3.0.0
+[12:33:09.701] Installing dependencies...
+[12:33:14.422] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[12:33:14.812] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[12:33:14.813] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[12:33:20.983] 
+[12:33:20.984] added 538 packages in 11s
+[12:33:20.985] 
+[12:33:20.985] 72 packages are looking for funding
+[12:33:20.986]   run `npm fund` for details
+[12:33:21.076] Running "npm run vercel-build"
+[12:33:21.294] 
+[12:33:21.295] > rest-express@1.0.0 vercel-build
+[12:33:21.295] > npm run build
+[12:33:21.295] 
+[12:33:21.432] 
+[12:33:21.432] > rest-express@1.0.0 build
+[12:33:21.432] > tsc && vite build
+[12:33:21.432] 
+[12:33:32.703] client/src/App.tsx(458,13): error TS2322: Type '(hobby: string, answers: QuizAnswers, userId?: string, force?: boolean) => Promise<PlanData>' is not assignable to type '(hobby: string, answers: QuizAnswers) => Promise<any>'.
+[12:33:32.703]   Types of parameters 'answers' and 'answers' are incompatible.
+[12:33:32.703]     Type 'QuizAnswers' is not assignable to type 'QuizAnswers'. Two different types with this name exist, but they are unrelated.
+[12:33:32.703]       Types of property 'experience' are incompatible.
+[12:33:32.704]         Type 'string | undefined' is not assignable to type 'string'.
+[12:33:32.704]           Type 'undefined' is not assignable to type 'string'.
+[12:33:32.704] client/src/App.tsx(494,15): error TS2322: Type '(hobby: string, answers: QuizAnswers, userId?: string, force?: boolean) => Promise<PlanData>' is not assignable to type '(hobby: string, answers: QuizAnswers) => Promise<any>'.
+[12:33:32.704]   Types of parameters 'answers' and 'answers' are incompatible.
+[12:33:32.704]     Type 'QuizAnswers' is not assignable to type 'QuizAnswers'. Two different types with this name exist, but they are unrelated.
+[12:33:32.704]       Types of property 'experience' are incompatible.
+[12:33:32.704]         Type 'string | undefined' is not assignable to type 'string'.
+[12:33:32.704]           Type 'undefined' is not assignable to type 'string'.
+[12:33:32.705] client/src/App.tsx(503,13): error TS2322: Type '(hobby: string, answers: QuizAnswers, userId?: string, force?: boolean) => Promise<PlanData>' is not assignable to type '(hobby: string, answers: QuizAnswers) => Promise<any>'.
+[12:33:32.705]   Types of parameters 'answers' and 'answers' are incompatible.
+[12:33:32.705]     Type 'QuizAnswers' is not assignable to type 'QuizAnswers'. Two different types with this name exist, but they are unrelated.
+[12:33:32.705]       Types of property 'experience' are incompatible.
+[12:33:32.705]         Type 'string | undefined' is not assignable to type 'string'.
+[12:33:32.705]           Type 'undefined' is not assignable to type 'string'.
+[12:33:32.746] Error: Command "npm run vercel-build" exited with 2
