@@ -263,6 +263,10 @@ Learn any hobby in 7 days at https://wizqo.com`;
         // Delete ALL plans for this hobby
         console.log(`🗑️ Batch deleting ${duplicateCount} plans for hobby:`, extractedHobby);
         
+        // Immediately update UI to remove all plans
+        setHobbyPlans(prev => prev.filter(p => !allHobbyPlans.some(deleted => deleted.id === p.id)));
+        
+        // Then delete from database in background
         for (const plan of allHobbyPlans) {
           try {
             await deleteSinglePlan(plan.id, extractedHobby);
@@ -272,26 +276,31 @@ Learn any hobby in 7 days at https://wizqo.com`;
           }
         }
         
-        // Update local state to remove all deleted plans
-        setHobbyPlans(prev => prev.filter(p => !allHobbyPlans.some(deleted => deleted.id === p.id)));
-        
       } else {
         // Delete just the selected plan
-        await deleteSinglePlan(planId, extractedHobby);
-        
-        // Update local state
+        // Immediately update UI
         setHobbyPlans(prev => prev.filter(p => p.id !== planId));
+        
+        // Then delete from database
+        await deleteSinglePlan(planId, extractedHobby);
       }
       
-      // Force a fresh reload after successful deletion
-      setTimeout(() => {
-        console.log('🔄 Forcing dashboard reload after deletion');
-        loadUserPlans();
-      }, 1000);
+      // Clear all caches to prevent reappearance
+      sessionStorage.clear();
+      
+      // Clear specific cache keys
+      ['dashboardLoading', 'dashboardLoadingTime', 'currentPlanData', 'activePlanData'].forEach(key => {
+        sessionStorage.removeItem(key);
+        localStorage.removeItem(key);
+      });
+      
+      console.log('✅ Plan(s) deleted and caches cleared');
       
     } catch (error) {
       console.error('Error in deletion:', error);
       alert(`Failed to delete plan(s): ${error.message || 'Unknown error'}. Please try again.`);
+      // Reload on error to get fresh state
+      loadUserPlans();
     } finally {
       setDeletingPlan(null);
     }
@@ -306,10 +315,12 @@ Learn any hobby in 7 days at https://wizqo.com`;
       }
 
       // Use the API endpoint for consistent deletion
-      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
+      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}&_nocache=${Date.now()}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         }
       });
 
@@ -320,32 +331,11 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
       console.log('✅ Plan deleted from database via API:', planId);
 
-      // COMPREHENSIVE CACHE CLEARING
-      const allKeys = [...Object.keys(localStorage), ...Object.keys(sessionStorage)];
+      // AGGRESSIVE CACHE CLEARING - clear everything related to plans
+      Object.keys(localStorage).forEach(key => localStorage.removeItem(key));
+      Object.keys(sessionStorage).forEach(key => sessionStorage.removeItem(key));
       
-      allKeys.forEach(key => {
-        const shouldClear = key.includes(planId) || 
-                           (deletedHobby && key.toLowerCase().includes(deletedHobby.toLowerCase())) ||
-                           key.startsWith('existingPlan_') ||
-                           key.startsWith('duplicateCheck_') ||
-                           key.startsWith('hobbyPlan_') ||
-                           key.startsWith('currentPlanData') ||
-                           key.startsWith('activePlanData') ||
-                           key.startsWith('lastViewedPlan') ||
-                           key.startsWith('progress_') ||
-                           key.includes('freshPlanMarker') ||
-                           key.includes('planFromGeneration');
-
-        if (shouldClear) {
-          localStorage.removeItem(key);
-          sessionStorage.removeItem(key);
-          console.log('🧹 Cleared cache key:', key);
-        }
-      });
-
-      // Clear dashboard loading flags
-      sessionStorage.removeItem('dashboardLoading');
-      sessionStorage.removeItem('dashboardLoadingTime');
+      console.log('🧹 Cleared all browser caches');
 
     } catch (error) {
       console.error('Error deleting plan:', error);
