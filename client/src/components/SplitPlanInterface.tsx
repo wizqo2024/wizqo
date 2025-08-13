@@ -76,7 +76,7 @@ const getHobbyImage = (hobby: string): string => {
         hobbyName.includes('rollerblade') || hobbyName.includes('skateboard') || hobbyName.includes('fencing') || hobbyName.includes('archery')) {
       const fitnessImages = [
         'https://images.unsplash.com/photo-1544367567-0f2fcb0090b?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1571019613540-996a69c4a2d3f?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=240&fit=crop'
       ];
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -850,7 +850,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
-    // Handle AI-suggested hobbies with automatic plan generation
+    // Handle AI suggestion generation with proper type casting
     if (value.startsWith('ai_suggested_')) {
       const actualHobby = value.replace('ai_suggested_', '');
       addUserMessage(label);
@@ -866,6 +866,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setIsGenerating(true);
 
       try {
+        // Fix: Apply QuizAnswers type to the generated plan arguments
         const plan = await onGeneratePlan(actualHobby, {
           experience: 'beginner',
           timeCommitment: '1 hour',
