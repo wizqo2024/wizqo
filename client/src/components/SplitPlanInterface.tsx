@@ -104,8 +104,8 @@ const getHobbyImage = (hobby: string): string => {
 
 interface QuizAnswers {
   experience: string;
-  timeAvailable: string;
-  goal: string;
+  timeCommitment?: string; // Renamed from timeAvailable
+  specificGoal?: string;   // Renamed from goal
 }
 
 interface ChatMessage {
@@ -603,7 +603,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       music: ['music', 'guitar', 'piano', 'violin', 'drums', 'singing', 'bass', 'keyboard', 'ukulele'],
       art: ['drawing', 'painting', 'sketching', 'art', 'illustration', 'digital art', 'watercolor', 'acrylic'],
       dance: ['dance', 'dancing', 'ballet', 'hip hop', 'salsa', 'ballroom', 'contemporary', 'jazz dance'],
-      fitness: ['yoga', 'pilates', 'workout', 'fitness', 'exercise', 'gym', 'strength training', 'cardio'],
+      fitness: ['yoga', 'pilates', 'workout', 'exercise', 'gym', 'strength training', 'cardio'],
       sports: ['tennis', 'basketball', 'soccer', 'football', 'volleyball', 'swimming', 'running', 'cycling'],
       cooking: ['cooking', 'baking', 'culinary', 'chef', 'recipes', 'food preparation'],
       crafts: ['knitting', 'sewing', 'crochet', 'embroidery', 'quilting', 'needlework', 'crafting'],
@@ -685,7 +685,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const handleSurpriseMe = async () => {
     const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance', 'writing', 'painting', 'knitting', 'foraging']; // Example surprise hobbies
-    const surpriseAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' }; // Default answers for surprise
+    const surpriseAnswers = { experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment' }; // Default answers for surprise
 
     const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
 
@@ -859,8 +859,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setSelectedHobby(actualHobby);
       setQuizAnswers({
         experience: 'beginner',
-        timeAvailable: '1 hour',
-        goal: 'personal enjoyment'
+        timeCommitment: '1 hour',
+        specificGoal: 'personal enjoyment'
       });
       setCurrentStep('generating');
       setIsGenerating(true);
@@ -868,8 +868,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       try {
         const plan = await onGeneratePlan(actualHobby, {
           experience: 'beginner',
-          timeAvailable: '1 hour',
-          goal: 'personal enjoyment'
+          timeCommitment: '1 hour',
+          specificGoal: 'personal enjoyment'
         });
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
@@ -975,7 +975,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addUserMessage(label);
       // Clear any stored plan data
       sessionStorage.removeItem('previousPlanData');
-      addAIMessage("Perfect! Let's create a brand new learning plan for you. What hobby would you like to learn?", [
+      addAIMessage("Perfect! Let's create a brand new learning plan for you. What would you like to learn?", [
         { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
         { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
         { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
@@ -1003,7 +1003,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       // Reset to hobby selection
       setCurrentStep('hobby');
       setSelectedHobby('');
-      setQuizAnswers({ experience: '', timeAvailable: '', goal: '' });
+      setQuizAnswers({ experience: '', timeCommitment: '', specificGoal: '' });
       addAIMessage("Great choice! Let's find you a different hobby to explore. What would you like to learn?", [
         { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let me pick something exciting for you' },
         { value: 'cooking', label: 'Cooking', description: 'Learn delicious recipes and techniques' },
@@ -1095,15 +1095,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setCurrentStep('time');
 
       const timeOptions = [
-        { value: '30 minutes', label: '30 minutes/day', description: 'Quick daily sessions' },
-        { value: '1 hour', label: '1 hour/day', description: 'Solid practice time' },
-        { value: '2+ hours', label: '2+ hours/day', description: 'Deep dive sessions' }
+        { value: '30-60', label: '30-60 minutes/day', description: 'Quick daily sessions' },
+        { value: '60-120', label: '60-120 minutes/day', description: 'Solid practice time' },
+        { value: '120+', label: '120+ minutes/day', description: 'Deep dive sessions' }
       ];
 
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      setQuizAnswers(prev => ({ ...prev, timeAvailable: value }));
+      setQuizAnswers(prev => ({ ...prev, timeCommitment: value }));
       setCurrentStep('goal');
 
       const goalOptions = [
@@ -1116,7 +1116,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
 
     } else if (currentStep === 'goal') {
-      const finalAnswers = { ...quizAnswers, goal: value } as QuizAnswers;
+      const finalAnswers = { ...quizAnswers, specificGoal: value } as QuizAnswers;
       setQuizAnswers(finalAnswers);
       setCurrentStep('generating');
       setIsGenerating(true);
