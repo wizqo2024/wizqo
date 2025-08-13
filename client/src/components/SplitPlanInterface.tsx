@@ -870,7 +870,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           experience: 'beginner',
           timeCommitment: '1 hour',
           specificGoal: 'personal enjoyment'
-        });
+        } as QuizAnswers);
         console.log('🎯 AI Suggested plan generated:', plan.hobby);
         const fixedPlan = fixPlanDataFields(plan);
         console.log('🔍 AI SUGGESTION DEBUG: Setting planData with fixedPlan');
@@ -1116,7 +1116,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
 
     } else if (currentStep === 'goal') {
-      const finalAnswers = { ...quizAnswers, specificGoal: value } as QuizAnswers;
+      const finalAnswers: QuizAnswers = { 
+        experience: quizAnswers.experience || 'beginner',
+        timeCommitment: quizAnswers.timeCommitment || '30 minutes',
+        specificGoal: value
+      };
       setQuizAnswers(finalAnswers);
       setCurrentStep('generating');
       setIsGenerating(true);
@@ -1125,7 +1129,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers as QuizAnswers);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
