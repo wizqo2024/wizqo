@@ -2513,91 +2513,76 @@ Please provide a helpful response:`;
 
       console.log('🗑️ API: Deleting hobby plan', id, 'for user:', user_id);
 
-      // Enhanced deletion with error handling
+      // Use direct Supabase client for more reliable deletion
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        process.env.VITE_SUPABASE_URL!,
+        process.env.VITE_SUPABASE_ANON_KEY!
+      );
+
+      // Delete progress records first
       try {
-        // Delete progress records first (ignore errors if none exist)
-        try {
-          await supabaseStorage.deleteUserProgress(id, user_id as string);
-          console.log('🗑️ API: Deleted associated progress records');
-        } catch (progressError) {
-          console.warn('🗑️ API: No progress records to delete or deletion failed:', progressError);
+        const { error: progressError } = await supabase
+          .from('user_progress')
+          .delete()
+          .eq('plan_id', id)
+          .eq('user_id', user_id);
+          
+        if (progressError) {
+          console.warn('🗑️ API: Progress deletion warning:', progressError.message);
+        } else {
+          console.log('🗑️ API: Progress records deleted');
         }
-
-        // Delete the hobby plan
-        await supabaseStorage.deleteHobbyPlan(id, user_id as string);
-        console.log('🗑️ API: Successfully deleted hobby plan', id);
-
-        // Verify deletion by checking if plan still exists
-        try {
-          const remainingPlans = await supabaseStorage.getHobbyPlansByUserId(user_id as string);
-          const stillExists = remainingPlans.find((plan: any) => plan.id === id);
-          
-          if (stillExists) {
-            console.warn('🗑️ API: Plan still exists after deletion attempt, trying direct SQL');
-            // Try direct deletion if standard method failed
-            const { createClient } = await import('@supabase/supabase-js');
-            const supabase = createClient(
-              process.env.VITE_SUPABASE_URL!,
-              process.env.VITE_SUPABASE_ANON_KEY!
-            );
-            
-            await supabase
-              .from('hobby_plans')
-              .delete()
-              .eq('id', id)
-              .eq('user_id', user_id);
-              
-            console.log('🗑️ API: Direct SQL deletion attempted');
-          }
-        } catch (verificationError) {
-          console.warn('🗑️ API: Could not verify deletion:', verificationError);
-        }
-
-        res.json({ success: true, message: 'Plan deleted successfully' });
-
-      } catch (deleteError) {
-        console.error('🗑️ API: Primary deletion failed:', deleteError);
-        
-        // Try alternative deletion method
-        try {
-          const { createClient } = await import('@supabase/supabase-js');
-          const supabase = createClient(
-            process.env.VITE_SUPABASE_URL!,
-            process.env.VITE_SUPABASE_ANON_KEY!
-          );
-          
-          // Delete progress first
-          await supabase
-            .from('user_progress')
-            .delete()
-            .eq('plan_id', id)
-            .eq('user_id', user_id);
-            
-          // Delete plan
-          const { error } = await supabase
-            .from('hobby_plans')
-            .delete()
-            .eq('id', id)
-            .eq('user_id', user_id);
-            
-          if (error) {
-            throw error;
-          }
-          
-          console.log('🗑️ API: Alternative deletion method succeeded');
-          res.json({ success: true, message: 'Plan deleted using alternative method' });
-          
-        } catch (alternativeError) {
-          console.error('🗑️ API: Alternative deletion also failed:', alternativeError);
-          throw new Error(`Both primary and alternative deletion methods failed: ${deleteError.message}`);
-        }
+      } catch (progressError) {
+        console.warn('🗑️ API: Progress deletion failed:', progressError);
       }
 
-    } catch (error) {
-      console.error('🗑️ API: Complete deletion failure:', error);
+      // Delete the hobby plan
+      const { error: planError, count } = await supabase
+        .from('hobby_plans')
+        .delete({ count: 'exact' })
+        .eq('id', id)
+        .eq('user_id', user_id);
+
+      if (planError) {
+        console.error('🗑️ API: Plan deletion error:', planError);
+        throw new Error(`Database deletion failed: ${planError.message}`);
+      }
+
+      if (count === 0) {
+        console.warn('🗑️ API: No plan found to delete with ID:', id);
+        return res.status(404).json({ 
+          error: 'Plan not found',
+          message: 'No plan found with the specified ID and user'
+        });
+      }
+
+      console.log('🗑️ API: Successfully deleted', count, 'hobby plan(s) with ID:', id);
+
+      // Verify deletion
+      const { data: remainingPlans } = await supabase
+        .from('hobby_plans')
+        .select('id')
+        .eq('id', id)
+        .eq('user_id', user_id);
+
+      if (remainingPlans && remainingPlans.length > 0) {
+        console.error('🗑️ API: Plan still exists after deletion!');
+        throw new Error('Plan deletion verification failed');
+      }
+
+      console.log('✅ API: Deletion verified - plan completely removed');
+      res.json({ 
+        success: true, 
+        message: 'Plan deleted successfully',
+        deletedCount: count 
+      });
+
+    } catch (error: any) {
+      console.error('🗑️ API: Deletion failure:', error);
       res.status(500).json({ 
         error: 'Failed to delete hobby plan',
-        details: error.message,
+        details: error.message || 'Unknown error',
         planId: req.params.id
       });
     }
