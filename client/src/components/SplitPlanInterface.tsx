@@ -104,7 +104,7 @@ const getHobbyImage = (hobby: string): string => {
 };
 
 interface QuizAnswers {
-  experience: string;
+  experience?: string;
   timeCommitment?: string; // Renamed from timeAvailable
   specificGoal?: string;   // Renamed from goal
   hobby?: string; // Added hobby to QuizAnswers interface
@@ -1312,7 +1312,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return;
     } else if (currentStep === 'experience') {
       // CORRECTED: Add hobby to the answers object
-      const updatedAnswers = { ...quizAnswers, experience: value, hobby: selectedHobby };
+      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, experience: value, hobby: selectedHobby };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
@@ -1325,7 +1325,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      const updatedAnswers = { ...quizAnswers, timeCommitment: value };
+      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, timeCommitment: value };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
@@ -1340,8 +1340,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     } else if (currentStep === 'goal') {
       const finalAnswers: QuizAnswers = {
-        ...quizAnswers,
-        specificGoal: value // Directly set the goal
+        experience: quizAnswers.experience || 'beginner',
+        timeCommitment: quizAnswers.timeCommitment,
+        specificGoal: value,
+        hobby: quizAnswers.hobby || selectedHobby
       };
       setQuizAnswers(finalAnswers); // Update state with the final answer
       setCurrentStep('generating');
@@ -1534,7 +1536,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('💾 AUTO-SAVE: Plan title:', planData.title);
 
       // Check if the plan is marked as freshly generated
-      const isFromPlanGeneration = planData._isFreshPlan || sessionStorage.getItem('freshPlanMarker');
+      const isFromPlanGeneration = planData._isFreshPlan || !!sessionStorage.getItem('freshPlanMarker');
       console.log('💾 AUTO-SAVE: Is plan from generation?', isFromPlanGeneration);
 
       const savedPlan = await hobbyPlanService.savePlan(planData, user.id, isFromPlanGeneration);
@@ -1615,7 +1617,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setCurrentPlanId(null);
     setIsGenerating(false);
     setIsSaving(false); // Reset saving state
-    // setToast(null); // Clear any existing toast - handled by toast hook
+    // Clear any existing toast - handled by toast hook
 
     // Reset messages to initial welcome state
     setMessages([{
@@ -1662,7 +1664,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return;
     } else if (currentStep === 'experience') {
       // CORRECTED: Add hobby to the answers object
-      const updatedAnswers = { ...quizAnswers, experience: userInput, hobby: selectedHobby };
+      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, experience: userInput, hobby: selectedHobby };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
@@ -1675,7 +1677,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      const updatedAnswers = { ...quizAnswers, timeCommitment: userInput };
+      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, timeCommitment: userInput };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
@@ -1690,8 +1692,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     } else if (currentStep === 'goal') {
       const finalAnswers: QuizAnswers = {
-        ...quizAnswers,
-        specificGoal: userInput // Directly set the goal
+        experience: quizAnswers.experience || 'beginner',
+        timeCommitment: quizAnswers.timeCommitment,
+        specificGoal: userInput,
+        hobby: quizAnswers.hobby || selectedHobby
       };
       setQuizAnswers(finalAnswers); // Update state with the final answer
       setCurrentStep('generating');
@@ -2746,14 +2750,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         onClose={() => setShowAuthModal(false)}
       />
 
-      {/* Toast Notification */}
-      {toast && (
-        <div className={`fixed bottom-6 right-6 z-50 p-4 rounded-lg shadow-lg ${
-          toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-        } animate-fade-in-down`}>
-          {toast.message}
-        </div>
-      )}
+      
     </div>
   );
 }
