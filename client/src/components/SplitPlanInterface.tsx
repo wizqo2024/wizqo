@@ -688,13 +688,54 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Helper function to get a random hobby for "Surprise Me!"
   const getRandomHobby = (): string => {
-    const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance', 'writing', 'painting', 'knitting', 'foraging', 'hiking', 'camping', 'chess', 'reading', 'piano', 'singing', 'baking', 'pottery', 'history', 'filmmaking', 'woodworking', 'calligraphy'];
+    const surpriseHobbies = [
+      // Creative Arts
+      'photography', 'painting', 'drawing', 'sketching', 'watercolor', 'acrylic painting', 'digital art', 'calligraphy', 'pottery', 'ceramics', 'sculpture', 'jewelry making', 'origami', 'scrapbooking', 'embroidery', 'cross-stitch', 'knitting', 'crochet', 'sewing', 'quilting', 'macrame', 'candle making', 'soap making', 'woodworking', 'wood carving', 'leather crafting', 'glass blowing', 'mosaic art', 'collage', 'printmaking',
+      
+      // Music & Performance
+      'guitar', 'piano', 'violin', 'drums', 'ukulele', 'harmonica', 'flute', 'saxophone', 'singing', 'voice training', 'songwriting', 'music production', 'beatboxing', 'dancing', 'ballet', 'hip hop dance', 'salsa', 'tango', 'swing dance', 'breakdancing', 'acting', 'improv comedy', 'stand-up comedy', 'magic tricks', 'ventriloquism',
+      
+      // Culinary Arts
+      'cooking', 'baking', 'bread making', 'cake decorating', 'pastry making', 'chocolate making', 'wine tasting', 'coffee roasting', 'tea blending', 'mixology', 'fermentation', 'cheese making', 'brewing', 'kombucha making', 'pickling', 'food photography',
+      
+      // Physical & Sports
+      'yoga', 'pilates', 'martial arts', 'karate', 'taekwondo', 'boxing', 'kickboxing', 'fencing', 'archery', 'rock climbing', 'bouldering', 'swimming', 'diving', 'surfing', 'skateboarding', 'rollerblading', 'cycling', 'running', 'marathon training', 'weightlifting', 'gymnastics', 'parkour', 'tennis', 'badminton', 'ping pong',
+      
+      // Mental & Strategic
+      'chess', 'poker', 'bridge', 'go', 'backgammon', 'sudoku', 'crossword puzzles', 'rubiks cube', 'magic square', 'memory training', 'speed reading', 'meditation', 'mindfulness', 'journaling',
+      
+      // Technology & Digital
+      'coding', 'web development', 'app development', 'game development', 'graphic design', 'video editing', 'animation', '3d modeling', 'drone flying', 'robotics', 'electronics', 'arduino programming', 'cryptocurrency trading', 'blockchain development', 'cybersecurity', 'data science',
+      
+      // Nature & Outdoors
+      'gardening', 'hydroponics', 'bonsai', 'mushroom growing', 'beekeeping', 'bird watching', 'astronomy', 'stargazing', 'hiking', 'camping', 'fishing', 'hunting', 'foraging', 'survival skills', 'geocaching', 'metal detecting', 'fossil hunting', 'rock collecting',
+      
+      // Literary & Language
+      'writing', 'creative writing', 'poetry', 'blogging', 'screenwriting', 'storytelling', 'book binding', 'calligraphy', 'language learning', 'sign language', 'speed writing', 'copywriting', 'journalism',
+      
+      // Business & Professional
+      'public speaking', 'presentation skills', 'negotiation', 'sales techniques', 'leadership training', 'time management', 'productivity hacking', 'investing', 'real estate', 'dropshipping', 'affiliate marketing', 'social media marketing', 'content creation', 'podcasting', 'youtube creation', 'blogging for profit',
+      
+      // Collecting & Hobbies
+      'coin collecting', 'stamp collecting', 'vintage toys', 'comic books', 'trading cards', 'antique hunting', 'thrift shopping', 'model building', 'train modeling', 'doll making', 'miniature crafting', 'slot car racing',
+      
+      // Home & Lifestyle
+      'interior design', 'feng shui', 'home brewing', 'wine making', 'urban farming', 'composting', 'tiny house living', 'minimalism', 'organization', 'decluttering', 'sustainable living', 'zero waste lifestyle',
+      
+      // Unique & Interesting
+      'lock picking', 'origami', 'balloon twisting', 'face painting', 'mime', 'juggling', 'yo-yo tricks', 'card tricks', 'coin magic', 'escape artistry', 'fire spinning', 'poi spinning', 'diabolo', 'kendama', 'speed cubing', 'competitive eating', 'memory palace', 'lucid dreaming'
+    ];
     return surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
   };
 
   const handleSurpriseMe = async () => {
     const randomHobby = getRandomHobby();
-    const surpriseAnswers = { experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment' }; // Default answers for surprise
+    const surpriseAnswers: QuizAnswers = { 
+      experience: 'beginner', 
+      timeCommitment: '1 hour', 
+      specificGoal: 'personal enjoyment',
+      hobby: randomHobby
+    };
 
     // Add user message
     addUserMessage("Surprise Me! 🎲");
@@ -1182,6 +1223,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     // Handle direct hobby selection and progression through quiz
     if (currentStep === 'hobby') {
+      // Handle "Surprise Me!" option directly without validation
+      if (value === 'surprise') {
+        handleSurpriseMe();
+        return;
+      }
+      
       // Use DeepSeek API for intelligent hobby validation
       try {
         const response = await fetch('/api/validate-hobby', {
