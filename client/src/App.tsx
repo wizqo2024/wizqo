@@ -354,8 +354,8 @@ export default function App() {
           userId, // Pass userId for server-side duplicate detection
           force, // Pass force flag to bypass duplicate detection
           experience: answers.experience,
-          timeAvailable: answers.timeAvailable || answers.timeCommitment || '30 minutes',
-          goal: answers.goal || answers.specificGoal || 'Learn the basics',
+          timeAvailable: answers.timeCommitment || '30 minutes',
+          goal: answers.specificGoal || 'Learn the basics',
         })
       });
 
