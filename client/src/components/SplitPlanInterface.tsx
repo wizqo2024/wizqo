@@ -1119,7 +1119,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const finalAnswers: QuizAnswers = {
         experience: quizAnswers.experience || 'beginner',
         timeCommitment: quizAnswers.timeCommitment || '30 minutes',
-        specificGoal: value
+        specificGoal: value || 'personal enjoyment'
       };
       setQuizAnswers(finalAnswers);
       setCurrentStep('generating');
@@ -1129,7 +1129,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers as QuizAnswers); // Explicit cast here
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
