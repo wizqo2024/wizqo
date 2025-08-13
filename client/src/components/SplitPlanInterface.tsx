@@ -104,10 +104,10 @@ const getHobbyImage = (hobby: string): string => {
 };
 
 interface QuizAnswers {
-  experience?: string;
-  timeCommitment?: string; // Renamed from timeAvailable
-  specificGoal?: string;   // Renamed from goal
-  hobby?: string; // Added hobby to QuizAnswers interface
+  experience: string;
+  timeCommitment: string;
+  specificGoal: string;
+  hobby: string;
 }
 
 interface ChatMessage {
@@ -261,7 +261,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   });
   const [currentInput, setCurrentInput] = useState('');
   const [selectedHobby, setSelectedHobby] = useState('');
-  const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({});
+  const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({
+    experience: '',
+    timeCommitment: '',
+    specificGoal: '',
+    hobby: ''
+  });
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
 
