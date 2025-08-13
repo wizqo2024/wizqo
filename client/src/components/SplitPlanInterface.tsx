@@ -12,7 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { apiService } from '@/lib/api-service';
 import { supabase } from '@/lib/supabase';
-import { useToast } from '@/hooks/useToast'; // Assuming useToast is available
+import { useToast } from '@/hooks/use-toast';
 
 // Automated hobby image system (same as Dashboard)
 const getHobbyImage = (hobby: string): string => {
@@ -2329,10 +2329,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         </div>
                         <button
                           onClick={() => {
-                            if (selectedDay > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
+                            if (selectedDay > 1 && !user && status !== 'completed') {
                               setShowAuthModal(true);
-                            } else {
-                              setSelectedDay(dayNum);
+                            } else if (status === 'unlocked' || status === 'completed') {
+                              toggleDayCompletion(selectedDay);
                             }
                           }}
                           disabled={status === 'locked'}
@@ -2341,7 +2341,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
                               : 'bg-white hover:bg-gray-50'
                           }`}
-                        >
+                        ></button>
                           {status === 'completed' ? (
                             <>
                               <CheckCircle className="w-5 h-5 text-green-600" />
