@@ -1129,7 +1129,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       try {
         console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers as QuizAnswers);
         console.log('🔥 PLAN GENERATED:', plan);
         const fixedStandardPlan = fixPlanDataFields(plan);
         console.log('🔧 Applied field mapping fix to standard plan');
