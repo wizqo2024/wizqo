@@ -274,6 +274,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isDesktop, setIsDesktop] = useState(false); // Start with mobile view
   const [isChatMinimized, setIsChatMinimized] = useState(false);
   const [renderKey, setRenderKey] = useState(0); // Force re-render key
+  const [showQuiz, setShowQuiz] = useState(false); // State to control quiz visibility
 
   // CRITICAL FIX: Reset selectedDay when planData changes
   useEffect(() => {
@@ -850,23 +851,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
-    // Handle AI suggestion generation with proper type casting
+    // Handle AI suggestion generation with proper duplicate checking
     if (value.startsWith('ai_suggested_')) {
       const actualHobby = value.replace('ai_suggested_', '');
       addUserMessage(label);
-      addAIMessage(`Excellent choice! ${actualHobby} is perfect for learning in 7 days. Let me create your personalized plan right away... ✨`);
 
-      setSelectedHobby(actualHobby);
-      setQuizAnswers({
-        experience: 'beginner',
-        timeCommitment: '1 hour',
-        specificGoal: 'personal enjoyment'
-      });
-      setCurrentStep('generating');
+      // Check for existing plans before generating
+      if (user?.id) {
+        try {
+          const existingPlan = await hobbyPlanService.checkExistingPlan(actualHobby, user.id);
+          if (existingPlan) {
+            addAIMessage(
+              `You already have a learning plan for ${actualHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
+              hobbyOptions.filter(h => !h.value.startsWith('ai_suggested_') && !h.value.includes(actualHobby.toLowerCase())).slice(0, 6)
+            );
+            return;
+          }
+        } catch (error) {
+          console.error('Error checking for existing plan:', error);
+        }
+      }
+
       setIsGenerating(true);
 
       try {
-        // Fix: Apply QuizAnswers type to the generated plan arguments
+        // Generate plan with proper type casting
         const plan = await onGeneratePlan(actualHobby, {
           experience: 'beginner',
           timeCommitment: '1 hour',
@@ -1079,18 +1088,44 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(label);
 
     if (currentStep === 'hobby') {
-      const finalHobby = value; // Use the selected value directly
-      setSelectedHobby(finalHobby);
-      setCurrentStep('experience');
+      // Handle regular hobby selection with duplicate checking
+      addUserMessage(label);
 
-      const experienceOptions = [
-        { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-        { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-        { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-      ];
+      // Map the hobby value to ensure consistent naming
+      const hobbyMapping: { [key: string]: string } = {
+        'cooking': 'cooking',
+        'guitar': 'guitar',
+        'drawing': 'drawing',
+        'yoga': 'yoga',
+        'photography': 'photography',
+        'dance': 'dance',
+        'coding': 'coding',
+        'baking': 'baking',
+        'painting': 'painting'
+      };
 
-      addAIMessage(`Great choice! ${finalHobby} is really fun to learn.`, experienceOptions);
+      const mappedHobby = hobbyMapping[value] || value;
+      console.log('🎯 Hobby selection - original:', value, 'mapped:', mappedHobby);
 
+      // Check for existing plans before proceeding to quiz
+      if (user?.id) {
+        try {
+          const existingPlan = await hobbyPlanService.checkExistingPlan(mappedHobby, user.id);
+          if (existingPlan) {
+            addAIMessage(
+              `You already have a learning plan for ${mappedHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
+              hobbyOptions.filter(h => !h.value.includes(mappedHobby.toLowerCase())).slice(0, 6)
+            );
+            return;
+          }
+        } catch (error) {
+          console.error('Error checking for existing plan:', error);
+        }
+      }
+
+      // Direct hobby selection - show quiz
+      setSelectedHobby(mappedHobby);
+      setShowQuiz(true);
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setCurrentStep('time');
@@ -1300,7 +1335,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       console.log('💾 AUTO-SAVE: Plan title:', planData.title);
 
       // Check if the plan is marked as freshly generated
-      const isFromPlanGeneration = planData._isFreshPlan || sessionStorage.getItem('freshPlanMarker') === 'true';
+      const isFromPlanGeneration = planData._isFreshPlan || sessionStorage.getItem('freshPlanMarker');
       console.log('💾 AUTO-SAVE: Is plan from generation?', isFromPlanGeneration);
 
       const savedPlan = await hobbyPlanService.savePlan(planData, user.id, isFromPlanGeneration);
@@ -1713,6 +1748,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const progressPercentage = planData ? (completedDays.length / planData.totalDays) * 100 : 0;
 
+  // Define hobbyOptions here to be accessible in handleOptionSelect
+  const hobbyOptions = [
+    { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
+    { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
+    { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
+    { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
+    { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
+    { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
+    { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+    { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
+    { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+  ];
+
   return (
     <div key={renderKey} className="min-h-screen bg-slate-50">
       <UnifiedNavigation
@@ -2100,10 +2148,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             if (selectedDay > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
                               setShowAuthModal(true);
                             } else {
-                              toggleDayCompletion(selectedDay);
+                              setSelectedDay(dayNum);
                             }
                           }}
-                          disabled={selectedDay > 1 && !user && status !== 'completed'}
+                          disabled={status === 'locked'}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-sm border transition-colors ${
                             selectedDay > 1 && !user && status !== 'completed'
                               ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
