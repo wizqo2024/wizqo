@@ -2092,13 +2092,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         </div>
                         <button
                           onClick={() => {
-                            if (selectedDay > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
+                            if (dayNum > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
                               setShowAuthModal(true);
                             } else {
-                              toggleDayCompletion(selectedDay);
+                              setSelectedDay(dayNum);
                             }
                           }}
-                          disabled={selectedDay > 1 && !user && status !== 'completed'}
+                          disabled={status === 'locked'}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-sm border transition-colors ${
                             selectedDay > 1 && !user && status !== 'completed'
                               ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
