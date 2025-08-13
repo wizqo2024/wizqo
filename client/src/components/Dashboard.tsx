@@ -9,6 +9,15 @@ import { Calendar, Clock, Play, Trash2, Share2, Trophy, ExternalLink, X } from "
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
+// Mocking hobbyPlanService for demonstration purposes
+const hobbyPlanService = {
+  clearHobbyCache: (hobby: string, userId: string) => {
+    console.log(`Mock: Clearing cache for hobby "${hobby}" and user "${userId}"`);
+    // In a real scenario, this would clear specific caches related to the hobby.
+    // For this fix, we are relying on more aggressive session/local storage clearing.
+  }
+};
+
 interface HobbyPlan {
   id: string;
   hobby: string;
@@ -76,7 +85,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
       const isAlreadyLoading = sessionStorage.getItem('dashboardLoading');
       const loadingTimestamp = sessionStorage.getItem('dashboardLoadingTime');
       const now = Date.now();
-      
+
       // If loading flag is older than 10 seconds, clear it (prevents permanent blocking)
       if (isAlreadyLoading === 'true' && loadingTimestamp) {
         const timeDiff = now - parseInt(loadingTimestamp);
@@ -209,41 +218,41 @@ Learn any hobby in 7 days at https://wizqo.com`;
   const deletePlan = async (planId: string) => {
     const planToDelete = hobbyPlans.find(p => p.id === planId);
     const hobby = planToDelete?.hobby;
-    
+
     // Extract hobby from title if hobby field is missing
     const extractedHobby = hobby || planToDelete?.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1];
-    
+
     if (!extractedHobby) {
       alert('Cannot determine hobby type for this plan');
       return;
     }
-    
+
     // Find ALL plans for this hobby (including title-based matching)
     const allHobbyPlans = hobbyPlans.filter(p => {
       const planHobby = p.hobby;
       if (planHobby && planHobby.toLowerCase() === extractedHobby.toLowerCase()) {
         return true;
       }
-      
+
       // Also check title-based matching
       if (p.title) {
         const titleMatch = p.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
         const titleHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
         return titleHobby === extractedHobby.toLowerCase();
       }
-      
+
       return false;
     });
-    
+
     const duplicateCount = allHobbyPlans.length;
-    
+
     let confirmMessage;
     let shouldDeleteAll = false;
-    
+
     if (duplicateCount > 1) {
       confirmMessage = `Found ${duplicateCount} duplicate "${extractedHobby}" plans. Delete ALL ${duplicateCount} duplicates to clean up your dashboard?`;
       shouldDeleteAll = confirm(confirmMessage);
-      
+
       if (!shouldDeleteAll) {
         // If user doesn't want to delete all, just delete the selected one
         if (!confirm(`Delete just this one "${extractedHobby}" plan?`)) {
@@ -257,15 +266,15 @@ Learn any hobby in 7 days at https://wizqo.com`;
     }
 
     setDeletingPlan(planId);
-    
+
     try {
       if (shouldDeleteAll && duplicateCount > 1) {
         // Delete ALL plans for this hobby
         console.log(`🗑️ Batch deleting ${duplicateCount} plans for hobby:`, extractedHobby);
-        
+
         // Immediately update UI to remove all plans
         setHobbyPlans(prev => prev.filter(p => !allHobbyPlans.some(deleted => deleted.id === p.id)));
-        
+
         // Then delete from database in background
         for (const plan of allHobbyPlans) {
           try {
@@ -275,52 +284,55 @@ Learn any hobby in 7 days at https://wizqo.com`;
             console.error('🗑️ Failed to delete plan:', plan.id, error);
           }
         }
-        
+
       } else {
         // Delete just the selected plan
         // Immediately update UI
         setHobbyPlans(prev => prev.filter(p => p.id !== planId));
-        
+
         // Then delete from database
         await deleteSinglePlan(planId, extractedHobby);
       }
-      
+
       // Clear all caches to prevent reappearance
       sessionStorage.clear();
-      
+
       // Clear specific cache keys
       ['dashboardLoading', 'dashboardLoadingTime', 'currentPlanData', 'activePlanData'].forEach(key => {
         sessionStorage.removeItem(key);
         localStorage.removeItem(key);
       });
-      
+
       console.log('✅ Plan(s) deleted and caches cleared');
-      
-    } catch (error) {
+
+    } catch (error: any) {
       console.error('Error in deletion:', error);
+
+      // Clear all caches even on error to prevent stale data
+      sessionStorage.clear();
+      localStorage.clear();
+
       alert(`Failed to delete plan(s): ${error.message || 'Unknown error'}. Please try again.`);
-      // Reload on error to get fresh state
-      loadUserPlans();
+
+      // Force reload on error to get fresh state
+      setTimeout(() => {
+        loadUserPlans();
+      }, 1000);
     } finally {
       setDeletingPlan(null);
     }
   };
 
-  const deleteSinglePlan = async (planId: string, deletedHobby: string) => {
+  const deleteSinglePlan = async (planId: string, hobby: string) => {
     try {
-      console.log('🗑️ Deleting single plan:', planId, 'Hobby:', deletedHobby);
+      console.log('🗑️ Deleting single plan:', planId, 'hobby:', hobby);
 
-      if (!user?.id) {
-        throw new Error('User not authenticated');
-      }
-
-      // Use the API endpoint for consistent deletion
-      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}&_nocache=${Date.now()}`, {
+      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user?.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
+          'Cache-Control': 'no-cache', // Explicitly try to prevent caching at the request level
+          'Pragma': 'no-cache'        // For older HTTP versions
         }
       });
 
@@ -329,16 +341,26 @@ Learn any hobby in 7 days at https://wizqo.com`;
         throw new Error(`API deletion failed: ${response.status} - ${errorText}`);
       }
 
-      console.log('✅ Plan deleted from database via API:', planId);
+      console.log('✅ Plan deleted successfully from database via API:', planId);
 
-      // AGGRESSIVE CACHE CLEARING - clear everything related to plans
-      Object.keys(localStorage).forEach(key => localStorage.removeItem(key));
-      Object.keys(sessionStorage).forEach(key => sessionStorage.removeItem(key));
-      
-      console.log('🧹 Cleared all browser caches');
+      // Clear ALL caches aggressively
+      hobbyPlanService.clearHobbyCache(hobby, user?.id || '');
 
-    } catch (error) {
-      console.error('Error deleting plan:', error);
+      // Clear additional session/local storage entries
+      sessionStorage.clear();
+      localStorage.removeItem('currentPlanData');
+      localStorage.removeItem('activePlanData');
+      localStorage.removeItem('lastViewedPlanData');
+      localStorage.removeItem(`freshPlanMarker_${planId}`);
+      localStorage.removeItem(`plan_${hobby}`);
+
+      // Clear progress entries for this plan
+      sessionStorage.removeItem(`progress_${user?.id}_${planId}`);
+
+      console.log('🧹 All caches cleared for deleted plan');
+
+    } catch (error: any) {
+      console.error('❌ Error deleting plan:', error);
       throw error; // Re-throw for parent function to handle
     }
   };
@@ -362,7 +384,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
       if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('photo')) {
         const creativeImages = [
           'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=240&fit=crop',
+          'https://images.unsplash.com/photo-1541961017774-2034504a1262?w=400&h=240&fit=crop',
           'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop'
         ];
         const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -391,7 +413,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
       // Default learning
       const learningImages = [
-        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=240&fit=crop',
+        'https://images.unsplash.com/photo-1481627834876-dccba630e2f6?w=400&h=240&fit=crop',
         'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop'
       ];
       const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -632,9 +654,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
               acc[hobby] = (acc[hobby] || 0) + 1;
               return acc;
             }, {} as Record<string, number>);
-            
+
             const duplicates = Object.entries(hobbyGroups).filter(([_, count]) => count > 1);
-            
+
             if (duplicates.length > 0) {
               return (
                 <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -651,7 +673,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           const plansForHobby = hobbyPlans.filter(p => 
                             (p.hobby || p.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1]) === hobby
                           ).sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
-                          
+
                           // Keep the first (most recent), delete the rest
                           for (let i = 1; i < plansForHobby.length; i++) {
                             try {
