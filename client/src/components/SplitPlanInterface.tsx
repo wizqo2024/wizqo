@@ -2341,7 +2341,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
                               : 'bg-white hover:bg-gray-50'
                           }`}
-                        ></button>
+                        >
                           {status === 'completed' ? (
                             <>
                               <CheckCircle className="w-5 h-5 text-green-600" />
