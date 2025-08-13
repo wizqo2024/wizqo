@@ -19,8 +19,9 @@ import { AuthProvider } from './context/AuthContext';
 
 interface QuizAnswers {
   experience: string;
-  timeCommitment?: string;
-  specificGoal?: string;
+  timeCommitment: string;
+  specificGoal: string;
+  hobby: string;
 }
 
 interface Day {
