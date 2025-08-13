@@ -1,0 +1,48 @@
+[08:56:13.283] Running build in Washington, D.C., USA (East) – iad1
+[08:56:13.284] Build machine configuration: 2 cores, 8 GB
+[08:56:13.302] Cloning github.com/wizqo2024/wizqo (Branch: main, Commit: ea2a7da)
+[08:56:13.439] Previous build caches not available
+[08:56:16.118] Cloning completed: 2.815s
+[08:56:16.227] Found .vercelignore
+[08:56:16.300] Removed 646 ignored files defined in .vercelignore
+[08:56:16.300]   /.env.example
+[08:56:16.300]   /.git/config
+[08:56:16.301]   /.git/description
+[08:56:16.301]   /.git/FETCH_HEAD
+[08:56:16.301]   /.git/HEAD
+[08:56:16.301]   /.git/hooks/applypatch-msg.sample
+[08:56:16.301]   /.git/hooks/commit-msg.sample
+[08:56:16.301]   /.git/hooks/fsmonitor-watchman.sample
+[08:56:16.301]   /.git/hooks/post-update.sample
+[08:56:16.302]   /.git/hooks/pre-applypatch.sample
+[08:56:18.713] Running "vercel build"
+[08:56:19.142] Vercel CLI 44.7.3
+[08:56:19.333] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[08:56:19.819] > Installing Builder: @vercel/node@3.0.0
+[08:56:28.424] Installing dependencies...
+[08:56:32.575] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[08:56:32.966] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[08:56:32.996] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[08:56:38.699] 
+[08:56:38.700] added 538 packages in 10s
+[08:56:38.701] 
+[08:56:38.701] 72 packages are looking for funding
+[08:56:38.701]   run `npm fund` for details
+[08:56:38.758] Running "npm run vercel-build"
+[08:56:38.869] 
+[08:56:38.870] > rest-express@1.0.0 vercel-build
+[08:56:38.870] > npm run build
+[08:56:38.871] 
+[08:56:39.036] 
+[08:56:39.038] > rest-express@1.0.0 build
+[08:56:39.039] > tsc && vite build
+[08:56:39.039] 
+[08:56:50.677] client/src/App.tsx(357,34): error TS2339: Property 'timeAvailable' does not exist on type 'QuizAnswers'.
+[08:56:50.677] client/src/App.tsx(358,25): error TS2339: Property 'goal' does not exist on type 'QuizAnswers'.
+[08:56:50.677] client/src/components/SplitPlanInterface.tsx(1026,58): error TS2345: Argument of type 'Partial<QuizAnswers>' is not assignable to parameter of type 'QuizAnswers'.
+[08:56:50.677]   Types of property 'experience' are incompatible.
+[08:56:50.678]     Type 'string | undefined' is not assignable to type 'string'.
+[08:56:50.678]       Type 'undefined' is not assignable to type 'string'.
+[08:56:50.678] client/src/components/SplitPlanInterface.tsx(2224,33): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+[08:56:50.678]   Type 'undefined' is not assignable to type 'string'.
+[08:56:50.721] Error: Command "npm run vercel-build" exited with 2
