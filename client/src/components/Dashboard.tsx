@@ -210,38 +210,88 @@ Learn any hobby in 7 days at https://wizqo.com`;
     const planToDelete = hobbyPlans.find(p => p.id === planId);
     const hobby = planToDelete?.hobby;
     
-    // Check for duplicates and offer batch deletion
-    const duplicatePlans = hobbyPlans.filter(p => p.hobby === hobby && p.id !== planId);
+    // Extract hobby from title if hobby field is missing
+    const extractedHobby = hobby || planToDelete?.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1];
     
-    let confirmMessage = 'Are you sure you want to delete this plan? This action cannot be undone.';
-    if (duplicatePlans.length > 0) {
-      confirmMessage = `Found ${duplicatePlans.length + 1} duplicate "${hobby}" plans. Would you like to delete ALL duplicates to clean up your dashboard?`;
+    if (!extractedHobby) {
+      alert('Cannot determine hobby type for this plan');
+      return;
     }
     
-    if (!confirm(confirmMessage)) {
-      return;
+    // Find ALL plans for this hobby (including title-based matching)
+    const allHobbyPlans = hobbyPlans.filter(p => {
+      const planHobby = p.hobby;
+      if (planHobby && planHobby.toLowerCase() === extractedHobby.toLowerCase()) {
+        return true;
+      }
+      
+      // Also check title-based matching
+      if (p.title) {
+        const titleMatch = p.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
+        const titleHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
+        return titleHobby === extractedHobby.toLowerCase();
+      }
+      
+      return false;
+    });
+    
+    const duplicateCount = allHobbyPlans.length;
+    
+    let confirmMessage;
+    let shouldDeleteAll = false;
+    
+    if (duplicateCount > 1) {
+      confirmMessage = `Found ${duplicateCount} duplicate "${extractedHobby}" plans. Delete ALL ${duplicateCount} duplicates to clean up your dashboard?`;
+      shouldDeleteAll = confirm(confirmMessage);
+      
+      if (!shouldDeleteAll) {
+        // If user doesn't want to delete all, just delete the selected one
+        if (!confirm(`Delete just this one "${extractedHobby}" plan?`)) {
+          return;
+        }
+      }
+    } else {
+      if (!confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {
+        return;
+      }
     }
 
     setDeletingPlan(planId);
+    
     try {
-      // Delete the selected plan
-      await deleteSinglePlan(planId, hobby || '');
-      
-      // If user confirmed batch deletion, delete duplicates too
-      if (duplicatePlans.length > 0 && confirmMessage.includes('ALL duplicates')) {
-        for (const duplicatePlan of duplicatePlans) {
+      if (shouldDeleteAll && duplicateCount > 1) {
+        // Delete ALL plans for this hobby
+        console.log(`🗑️ Batch deleting ${duplicateCount} plans for hobby:`, extractedHobby);
+        
+        for (const plan of allHobbyPlans) {
           try {
-            await deleteSinglePlan(duplicatePlan.id, hobby || '');
-            console.log('🗑️ Deleted duplicate plan:', duplicatePlan.id);
+            await deleteSinglePlan(plan.id, extractedHobby);
+            console.log('🗑️ Successfully deleted plan:', plan.id);
           } catch (error) {
-            console.error('Error deleting duplicate plan:', duplicatePlan.id, error);
+            console.error('🗑️ Failed to delete plan:', plan.id, error);
           }
         }
+        
+        // Update local state to remove all deleted plans
+        setHobbyPlans(prev => prev.filter(p => !allHobbyPlans.some(deleted => deleted.id === p.id)));
+        
+      } else {
+        // Delete just the selected plan
+        await deleteSinglePlan(planId, extractedHobby);
+        
+        // Update local state
+        setHobbyPlans(prev => prev.filter(p => p.id !== planId));
       }
-
+      
+      // Force a fresh reload after successful deletion
+      setTimeout(() => {
+        console.log('🔄 Forcing dashboard reload after deletion');
+        loadUserPlans();
+      }, 1000);
+      
     } catch (error) {
-      console.error('Error in batch deletion:', error);
-      alert(`Failed to delete plan: ${error.message || 'Unknown error'}. Please try again.`);
+      console.error('Error in deletion:', error);
+      alert(`Failed to delete plan(s): ${error.message || 'Unknown error'}. Please try again.`);
     } finally {
       setDeletingPlan(null);
     }
@@ -251,63 +301,31 @@ Learn any hobby in 7 days at https://wizqo.com`;
     try {
       console.log('🗑️ Deleting single plan:', planId, 'Hobby:', deletedHobby);
 
-      // Enhanced deletion with multiple approaches
-      if (user?.id) {
-        // Try direct API deletion first
-        try {
-          const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-
-          if (!response.ok) {
-            console.warn('API deletion failed, trying Supabase direct:', response.status);
-            // Fallback to direct Supabase deletion
-            const supabaseResponse = await fetch(`https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?id=eq.${planId}&user_id=eq.${user.id}`, {
-              method: 'DELETE',
-              headers: {
-                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
-                'Content-Type': 'application/json'
-              }
-            });
-
-            if (!supabaseResponse.ok) {
-              throw new Error(`Both API and direct deletion failed: ${response.status}, ${supabaseResponse.status}`);
-            }
-          }
-
-          console.log('✅ Plan deleted from database:', planId);
-
-          // Also delete any associated progress records
-          try {
-            await fetch(`https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_progress?plan_id=eq.${planId}&user_id=eq.${user.id}`, {
-              method: 'DELETE',
-              headers: {
-                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplcmhidHJnd3JseW9pbWh4cXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MTU3NjMsImV4cCI6MjA2OTI5MTc2M30.KL7z36x6dAz_nGxSqD5uyeQApNTU70rNBCRfpRt8IG8',
-                'Content-Type': 'application/json'
-              }
-            });
-            console.log('✅ Associated progress records deleted');
-          } catch (progressError) {
-            console.warn('Failed to delete progress records:', progressError);
-          }
-
-        } catch (error) {
-          console.error('Failed to delete from database:', error);
-          throw error;
-        }
+      if (!user?.id) {
+        throw new Error('User not authenticated');
       }
+
+      // Use the API endpoint for consistent deletion
+      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${user.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API deletion failed: ${response.status} - ${errorText}`);
+      }
+
+      console.log('✅ Plan deleted from database via API:', planId);
 
       // COMPREHENSIVE CACHE CLEARING
       const allKeys = [...Object.keys(localStorage), ...Object.keys(sessionStorage)];
       
       allKeys.forEach(key => {
         const shouldClear = key.includes(planId) || 
-                           (deletedHobby && key.toLowerCase().includes(deletedHobby)) ||
+                           (deletedHobby && key.toLowerCase().includes(deletedHobby.toLowerCase())) ||
                            key.startsWith('existingPlan_') ||
                            key.startsWith('duplicateCheck_') ||
                            key.startsWith('hobbyPlan_') ||
@@ -329,20 +347,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
       sessionStorage.removeItem('dashboardLoading');
       sessionStorage.removeItem('dashboardLoadingTime');
 
-      // Remove from local state immediately
-      setHobbyPlans(prev => prev.filter(plan => plan.id !== planId));
-
-      // Force reload plans to ensure deletion is reflected
-      setTimeout(() => {
-        console.log('🔄 Reloading plans after deletion');
-        loadUserPlans();
-      }, 500);
-
     } catch (error) {
       console.error('Error deleting plan:', error);
-      alert(`Failed to delete plan: ${error.message || 'Unknown error'}. Please try again.`);
-    } finally {
-      setDeletingPlan(null);
+      throw error; // Re-throw for parent function to handle
     }
   };
 
