@@ -237,21 +237,28 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
   console.log('🔧 generateAIPlan called for:', hobby);
   console.log('🔍 OpenRouter API Key status:', process.env.OPENROUTER_API_KEY ? 'Found' : 'Missing');
 
-  // Try OpenRouter first, fallback to local generation if it fails
+  // Use fast fallback by default for better user experience
   const openRouterKey = process.env.OPENROUTER_API_KEY;
+  const useAI = false; // Set to false for faster generation
 
-  if (!openRouterKey) {
-    console.log('⚡ No OpenRouter key - using fast fallback plan generation');
+  if (!openRouterKey || !useAI) {
+    console.log('⚡ Using fast fallback plan generation for instant response');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
+  // AI generation with shorter timeout
   try {
-    console.log('🤖 Attempting OpenRouter AI plan generation...');
-    const aiPlan = await tryOpenRouterGeneration(hobby, experience, timeAvailable, goal);
+    console.log('🤖 Attempting fast OpenRouter AI plan generation...');
+    const aiPlan = await Promise.race([
+      tryOpenRouterGeneration(hobby, experience, timeAvailable, goal),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('AI timeout')), 3000) // 3 second timeout
+      )
+    ]);
     console.log('✅ OpenRouter AI plan generated successfully');
     return aiPlan;
   } catch (error) {
-    console.error('❌ OpenRouter failed, using fallback:', error);
+    console.log('⚡ Using fast fallback due to AI timeout or error');
     return generateFallbackPlan(hobby, experience, timeAvailable, goal);
   }
 
@@ -394,12 +401,12 @@ Make each day build progressively on the previous day. Include practical, action
       'X-Title': 'Wizqo Hobby Learning Platform'
     };
 
-    // Add timeout to prevent hanging requests
+    // Add shorter timeout for faster user experience
     const controller = new AbortController();
     timeoutId = setTimeout(() => {
-      console.log('⚠️ AI API request timed out after 5 seconds, aborting...');
+      console.log('⚠️ AI API request timed out after 2 seconds, aborting...');
       controller.abort();
-    }, 5000); // 5 second timeout for fast response
+    }, 2000); // 2 second timeout for faster response
 
     console.log('🔧 Making API request to OpenRouter...');
     const response = await fetch(apiUrl, {
@@ -576,35 +583,32 @@ function getHobbyProduct(hobby: string, day: number) {
 
 
 
-// Comprehensive fallback plan generator with detailed hobby-specific content
+// Fast fallback plan generator with pre-built content for instant response
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
-  // Validate hobby input in fallback too
+  console.log('⚡ FAST GENERATION: Creating instant plan for', hobby);
+  
+  // Quick validation
   const validation = validateHobby(hobby);
   if (!validation.isValid) {
     throw new Error(`"${hobby}" doesn't seem like a hobby. Please enter a specific hobby you'd like to learn (e.g., guitar, cooking, photography, yoga, coding).`);
   }
 
   hobby = validation.normalizedHobby;
-  const days = [];
-
-  // Generate comprehensive, hobby-specific daily plans
-  const dailyPlans = generateHobbySpecificPlans(hobby, experience, timeAvailable);
+  console.log('⚡ FAST GENERATION: Validated hobby as', hobby);
+  
+  // Get pre-built plans for instant response
+  const dailyPlans = getPreBuiltHobbyPlans(hobby, experience, timeAvailable);
 
   for (let i = 0; i < 7; i++) {
     const dayNumber = i + 1;
     const dayPlan = dailyPlans[i];
 
-    // Use YouTube API for quality video selection
-    const targetedVideoId = await getBestVideoForDay(
-      hobby,
-      experience,
-      dayNumber,
-      dayPlan.title,
-      dayPlan.mainTask
-    );
-    console.log(`🔍 FALLBACK getBestVideoForDay returned: ${targetedVideoId} for ${hobby} day ${dayNumber}`);
+    // Use pre-selected videos for instant response
+    const hobbyVideos = getYouTubeVideos(hobby);
+    const targetedVideoId = hobbyVideos[i % hobbyVideos.length];
+    console.log(`⚡ FAST VIDEO: Using pre-selected video ${targetedVideoId} for ${hobby} day ${dayNumber}`);
 
-    // Final verification: If we still get the problematic video, use a proper fallback
+    // Ensure no problematic videos
     const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
     console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
     console.log(`🔧 VIDEO REPLACEMENT: ${targetedVideoId} -> ${finalVideoId}`);
@@ -676,7 +680,139 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   return plan;
 }
 
-// Generate comprehensive, hobby-specific daily plans
+// Fast pre-built hobby plans for instant generation
+function getPreBuiltHobbyPlans(hobby: string, experience: string, timeAvailable: string) {
+  console.log('⚡ INSTANT PLANS: Getting pre-built plan for', hobby);
+  
+  // Fast hobby-specific plan templates
+  const quickPlans: { [key: string]: any[] } = {
+    coding: [
+      {
+        title: "Programming Setup & Basics",
+        mainTask: "Set up your coding environment and learn fundamental programming concepts",
+        explanation: "Day 1 establishes your coding foundation with proper setup and basic concepts",
+        howTo: [
+          "Install a code editor like Visual Studio Code",
+          "Learn basic programming terminology and concepts", 
+          "Set up your first project folder and files",
+          "Write your first 'Hello World' program",
+          "Understand variables and basic data types"
+        ],
+        checklist: [
+          "Code editor installed and configured",
+          "First program written and executed successfully",
+          "Basic syntax and structure understood",
+          "Development environment properly set up"
+        ],
+        tips: [
+          "Start with simple programs and gradually increase complexity",
+          "Don't worry about memorizing syntax - focus on understanding logic",
+          "Practice typing code rather than copy-pasting"
+        ],
+        mistakesToAvoid: [
+          "Trying to learn multiple languages at once",
+          "Skipping the basics to jump to advanced topics",
+          "Not practicing regularly with hands-on coding"
+        ]
+      },
+      // Add 6 more days...
+      ...Array.from({length: 6}, (_, i) => ({
+        title: `Programming Day ${i + 2}`,
+        mainTask: `Learn essential programming concept ${i + 2}`,
+        explanation: `Day ${i + 2} builds on previous knowledge with new programming skills`,
+        howTo: ["Practice coding exercises", "Learn new concepts", "Build small projects"],
+        checklist: ["Complete daily exercises", "Understand new concepts", "Practice problem solving"],
+        tips: ["Code regularly", "Ask questions", "Practice debugging"],
+        mistakesToAvoid: ["Rushing through concepts", "Not testing your code", "Avoiding difficult problems"]
+      }))
+    ],
+    guitar: [
+      {
+        title: "Guitar Fundamentals & Setup",
+        mainTask: "Learn proper guitar posture and play your first chords",
+        explanation: "Day 1 covers essential guitar basics including posture, tuning, and first chords",
+        howTo: [
+          "Learn proper sitting and standing posture with guitar",
+          "Understand how to tune your guitar using a tuner",
+          "Master the G major chord finger placement",
+          "Practice basic down-stroke strumming pattern",
+          "Learn the C major chord and practice switching"
+        ],
+        checklist: [
+          "Guitar properly tuned and ready to play",
+          "Comfortable posture established",
+          "G major chord played cleanly",
+          "Basic strumming pattern practiced"
+        ],
+        tips: [
+          "Keep your fretting hand thumb behind the neck",
+          "Press strings firmly but don't over-squeeze",
+          "Start slow and focus on clean chord changes"
+        ],
+        mistakesToAvoid: [
+          "Holding the guitar neck like a baseball bat",
+          "Pressing too hard causing hand fatigue",
+          "Rushing through chord changes without clarity"
+        ]
+      },
+      ...Array.from({length: 6}, (_, i) => ({
+        title: `Guitar Day ${i + 2}`,
+        mainTask: `Master essential guitar technique ${i + 2}`,
+        explanation: `Day ${i + 2} builds your guitar skills with new chords and techniques`,
+        howTo: ["Practice new chords", "Work on strumming patterns", "Play simple songs"],
+        checklist: ["New chords mastered", "Smooth chord transitions", "Song sections completed"],
+        tips: ["Practice daily", "Use a metronome", "Record yourself playing"],
+        mistakesToAvoid: ["Skipping practice", "Ignoring timing", "Playing too fast too soon"]
+      }))
+    ]
+  };
+  
+  // Get specific plans or use generic template
+  const specificPlans = quickPlans[hobby.toLowerCase()];
+  if (specificPlans) {
+    console.log('⚡ INSTANT PLANS: Found specific plan for', hobby);
+    return specificPlans;
+  }
+  
+  console.log('⚡ INSTANT PLANS: Using generic template for', hobby);
+  return generateGenericHobbyPlan(hobby, experience, timeAvailable);
+}
+
+// Generic hobby plan generator for any hobby
+function generateGenericHobbyPlan(hobby: string, experience: string, timeAvailable: string) {
+  return Array.from({length: 7}, (_, i) => ({
+    title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Day ${i + 1}`,
+    mainTask: `Learn essential ${hobby} skills and techniques for day ${i + 1}`,
+    explanation: `Day ${i + 1} focuses on building your ${hobby} foundation step by step`,
+    howTo: [
+      `Set up your ${hobby} practice space and materials`,
+      `Learn fundamental ${hobby} techniques and concepts`,
+      `Practice basic ${hobby} exercises and movements`,
+      `Complete hands-on ${hobby} activities`,
+      `Review progress and plan next session`
+    ],
+    checklist: [
+      `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} equipment ready`,
+      `Basic techniques understood and practiced`,
+      `Daily exercises completed successfully`,
+      `Progress tracked and noted`
+    ],
+    tips: [
+      `Start slowly and focus on proper form`,
+      `Practice regularly even if just for short sessions`,
+      `Don't be afraid to repeat difficult parts`,
+      `Celebrate small improvements and progress`
+    ],
+    mistakesToAvoid: [
+      `Rushing through exercises without understanding`,
+      `Skipping practice time or cutting sessions short`,
+      `Comparing yourself to advanced practitioners`,
+      `Not taking notes or tracking improvement`
+    ]
+  }));
+}
+
+// Original comprehensive hobby plan generator (keep for reference)
 function generateHobbySpecificPlans(hobby: string, experience: string, timeAvailable: string) {
   const isBeginnerLevel = experience === 'none' || experience === 'beginner';
   const isIntermediateLevel = experience === 'some' || experience === 'intermediate';
