@@ -207,22 +207,49 @@ Learn any hobby in 7 days at https://wizqo.com`;
   };
 
   const deletePlan = async (planId: string) => {
-    if (!confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {
+    const planToDelete = hobbyPlans.find(p => p.id === planId);
+    const hobby = planToDelete?.hobby;
+    
+    // Check for duplicates and offer batch deletion
+    const duplicatePlans = hobbyPlans.filter(p => p.hobby === hobby && p.id !== planId);
+    
+    let confirmMessage = 'Are you sure you want to delete this plan? This action cannot be undone.';
+    if (duplicatePlans.length > 0) {
+      confirmMessage = `Found ${duplicatePlans.length + 1} duplicate "${hobby}" plans. Would you like to delete ALL duplicates to clean up your dashboard?`;
+    }
+    
+    if (!confirm(confirmMessage)) {
       return;
     }
 
     setDeletingPlan(planId);
     try {
-      const deletedPlan = hobbyPlans.find(p => p.id === planId);
-      let deletedHobby = '';
-
-      if (deletedPlan) {
-        deletedHobby = deletedPlan.hobby?.toLowerCase() || 
-                       deletedPlan.title?.match(/Learn (\w+) in/i)?.[1]?.toLowerCase() ||
-                       deletedPlan.title?.match(/Master (\w+) in/i)?.[1]?.toLowerCase() || '';
+      // Delete the selected plan
+      await deleteSinglePlan(planId, hobby || '');
+      
+      // If user confirmed batch deletion, delete duplicates too
+      if (duplicatePlans.length > 0 && confirmMessage.includes('ALL duplicates')) {
+        for (const duplicatePlan of duplicatePlans) {
+          try {
+            await deleteSinglePlan(duplicatePlan.id, hobby || '');
+            console.log('🗑️ Deleted duplicate plan:', duplicatePlan.id);
+          } catch (error) {
+            console.error('Error deleting duplicate plan:', duplicatePlan.id, error);
+          }
+        }
       }
 
-      console.log('🗑️ Deleting plan:', planId, 'Hobby:', deletedHobby);
+    } catch (error) {
+      console.error('Error in batch deletion:', error);
+      alert(`Failed to delete plan: ${error.message || 'Unknown error'}. Please try again.`);
+    } finally {
+      setDeletingPlan(null);
+    }
+  };
+
+  const deleteSinglePlan = async (planId: string, deletedHobby: string) => {
+    try {
+      console.log('🗑️ Deleting single plan:', planId, 'Hobby:', deletedHobby);
 
       // Enhanced deletion with multiple approaches
       if (user?.id) {
@@ -600,6 +627,56 @@ Learn any hobby in 7 days at https://wizqo.com`;
               </CardContent>
             </Card>
           </section>
+
+          {/* Duplicate Cleanup Section */}
+          {hobbyPlans.length > 0 && (() => {
+            const hobbyGroups = hobbyPlans.reduce((acc, plan) => {
+              const hobby = plan.hobby || plan.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1] || 'unknown';
+              acc[hobby] = (acc[hobby] || 0) + 1;
+              return acc;
+            }, {} as Record<string, number>);
+            
+            const duplicates = Object.entries(hobbyGroups).filter(([_, count]) => count > 1);
+            
+            if (duplicates.length > 0) {
+              return (
+                <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <h3 className="text-lg font-semibold text-yellow-800 mb-2">
+                    Duplicate Plans Detected
+                  </h3>
+                  <p className="text-yellow-700 mb-3">
+                    You have duplicate plans: {duplicates.map(([hobby, count]) => `${count} ${hobby} plans`).join(', ')}
+                  </p>
+                  <Button
+                    onClick={async () => {
+                      if (confirm('This will delete all duplicate plans, keeping only the most recent one for each hobby. Continue?')) {
+                        for (const [hobby, count] of duplicates) {
+                          const plansForHobby = hobbyPlans.filter(p => 
+                            (p.hobby || p.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1]) === hobby
+                          ).sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+                          
+                          // Keep the first (most recent), delete the rest
+                          for (let i = 1; i < plansForHobby.length; i++) {
+                            try {
+                              await deleteSinglePlan(plansForHobby[i].id, hobby);
+                            } catch (error) {
+                              console.error('Error cleaning duplicate:', error);
+                            }
+                          }
+                        }
+                        loadUserPlans(); // Refresh the list
+                      }
+                    }}
+                    variant="outline"
+                    className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                  >
+                    Clean Up Duplicates
+                  </Button>
+                </div>
+              );
+            }
+            return null;
+          })()}
 
           {/* Hobby Plans Grid or Empty State */}
           {hobbyPlans.length === 0 ? (
