@@ -525,7 +525,18 @@ Make each day build progressively on the previous day. Include practical, action
   }
 }
 
-// This function is no longer needed - consolidated into getHobbyProduct
+// Helper function to verify and replace problematic video IDs
+function verifyAndReplaceVideo(videoId: string, hobby: string, day: number): string {
+  if (videoId === 'dQw4w9WgXcQ') {
+    console.log(`🔧 VIDEO FIX: Replacing problematic video ID 'dQw4w9WgXcQ' for ${hobby} day ${day}`);
+    // You can fetch a relevant video ID here dynamically or use a hardcoded fallback
+    // For now, using a generic placeholder or a known good video
+    const placeholderVideoId = 'fC7oUOUEEi4'; // Example: A general tutorial video
+    console.log(`🔧 VIDEO FIX: Using ${placeholderVideoId} as fallback video for ${hobby} day ${day}`);
+    return placeholderVideoId;
+  }
+  return videoId;
+}
 
 // Function to get specific products for other hobbies
 function getHobbyProduct(hobby: string, day: number) {
@@ -586,7 +597,7 @@ function getHobbyProduct(hobby: string, day: number) {
 // Fast fallback plan generator with pre-built content for instant response
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   console.log('⚡ FAST GENERATION: Creating instant plan for', hobby);
-  
+
   // Quick validation
   const validation = validateHobby(hobby);
   if (!validation.isValid) {
@@ -595,9 +606,12 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
 
   hobby = validation.normalizedHobby;
   console.log('⚡ FAST GENERATION: Validated hobby as', hobby);
-  
+
   // Get pre-built plans for instant response
   const dailyPlans = getPreBuiltHobbyPlans(hobby, experience, timeAvailable);
+
+  // IMPORTANT: Define 'days' array here before using it
+  const days: any[] = []; // Placeholder for the actual plan data
 
   for (let i = 0; i < 7; i++) {
     const dayNumber = i + 1;
@@ -609,7 +623,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
     console.log(`⚡ FAST VIDEO: Using pre-selected video ${targetedVideoId} for ${hobby} day ${dayNumber}`);
 
     // Ensure no problematic videos
-    const finalVideoId = targetedVideoId === 'dQw4w9WgXcQ' ? 'fC7oUOUEEi4' : targetedVideoId;
+    const finalVideoId = verifyAndReplaceVideo(targetedVideoId, hobby, dayNumber); // Use verifyAndReplaceVideo
     console.log(`🔍 FINAL VIDEO ID after verification: ${finalVideoId} for ${hobby} day ${dayNumber}`);
     console.log(`🔧 VIDEO REPLACEMENT: ${targetedVideoId} -> ${finalVideoId}`);
 
@@ -655,19 +669,6 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
   console.log('🔍 FALLBACK PLAN GENERATED - First day youtubeVideoId:', plan.days[0].youtubeVideoId);
   console.log('🔍 FALLBACK PLAN GENERATED - First day videoId:', plan.days[0].videoId);
 
-  // CRITICAL FIX: Apply video verification to final plan
-  for (let i = 0; i < plan.days.length; i++) {
-    if (plan.days[i].youtubeVideoId === 'dQw4w9WgXcQ') {
-      plan.days[i].youtubeVideoId = 'fC7oUOUEEi4'; // Educational content fallback
-      plan.days[i].videoId = 'fC7oUOUEEi4';
-      console.log(`🔧 FIXED: Replaced problematic video ID in day ${i + 1} with educational content`);
-    }
-  }
-  console.log('🔍 FALLBACK PLAN DIFFICULTY:', plan.difficulty, 'EXPERIENCE:', experience);
-
-  // Debug: Log complete first day structure
-  console.log('🔍 COMPLETE FIRST DAY DATA:', JSON.stringify(plan.days[0], null, 2));
-
   // Final debug: Log complete plan response structure
   console.log('🔍 FINAL PLAN RESPONSE STRUCTURE:', {
     hobby: plan.hobby,
@@ -683,13 +684,13 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
 // Fast pre-built hobby plans for instant generation
 function getPreBuiltHobbyPlans(hobby: string, experience: string, timeAvailable: string) {
   console.log('⚡ INSTANT PLANS: Getting pre-built plan for', hobby);
-  
+
   // Fast hobby-specific plan templates
   const quickPlans: { [key: string]: any[] } = {
     coding: [
       {
         title: "Programming Setup & Basics",
-        mainTask: "Set up your coding environment and learn fundamental programming concepts",
+        mainTask: "Set up your coding environment and learn core programming concepts",
         explanation: "Day 1 establishes your coding foundation with proper setup and basic concepts",
         howTo: [
           "Install a code editor like Visual Studio Code",
@@ -766,14 +767,14 @@ function getPreBuiltHobbyPlans(hobby: string, experience: string, timeAvailable:
       }))
     ]
   };
-  
+
   // Get specific plans or use generic template
   const specificPlans = quickPlans[hobby.toLowerCase()];
   if (specificPlans) {
     console.log('⚡ INSTANT PLANS: Found specific plan for', hobby);
     return specificPlans;
   }
-  
+
   console.log('⚡ INSTANT PLANS: Using generic template for', hobby);
   return generateGenericHobbyPlan(hobby, experience, timeAvailable);
 }
@@ -1762,9 +1763,9 @@ function generateHobbySpecificPlans(hobby: string, experience: string, timeAvail
       explanation: `Day 2 builds on yesterday's foundation by introducing core techniques that you'll use repeatedly in ${hobby}. You'll develop muscle memory, improve coordination, and gain confidence through structured practice of essential skills.`,
       timeAllocation: "50-70 minutes total",
       equipment: [
-        `📦 All equipment from Day 1 properly maintained`,
+        `📦 All equipment from previous days properly maintained`,
         `🎥 Recording device (phone/camera) for technique review`,
-        `🪞 Mirror or reflective surface for form checking`,
+        `mirror or reflective surface for form checking`,
         `📖 Advanced technique reference materials`,
         `⏰ Interval timer for structured practice sessions`
       ],
@@ -2527,7 +2528,7 @@ Please provide a helpful response:`;
           .delete()
           .eq('plan_id', id)
           .eq('user_id', user_id);
-          
+
         if (progressError) {
           console.warn('🗑️ API: Progress deletion warning:', progressError.message);
         } else {

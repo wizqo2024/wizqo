@@ -107,6 +107,7 @@ interface QuizAnswers {
   experience: string;
   timeCommitment?: string; // Renamed from timeAvailable
   specificGoal?: string;   // Renamed from goal
+  hobby?: string; // Added hobby to QuizAnswers interface
 }
 
 interface ChatMessage {
@@ -840,7 +841,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         console.log('🚨 DUPLICATE PLAN detected for surprise:', duplicateData);
 
         addAIMessage(
-          `I see you already have a ${randomHobby} plan! 🎯\n\nWould you like me to:\n• Show your existing plan\n• Try a different surprise hobby\n• Generate the same hobby with new content?`,
+          `I already have a plan for ${randomHobby}! 🎯\n\nWould you like me to:\n• Show your existing plan\n• Try a different surprise hobby\n• Generate the same hobby with new content?`,
           [
             { value: 'show_existing', label: 'Show My Existing Plan', description: 'View your current plan' },
             { value: 'try_different', label: 'Try Different Hobby', description: 'Get a new surprise hobby' },
@@ -923,7 +924,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           toast({
             title: "Plan already exists",
             description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
-            variant: "default"
           });
 
           return;
@@ -1022,11 +1022,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       } finally {
         setIsGenerating(false);
       }
-      return;
-    }
-
-    if (value === 'surprise') {
-      await handleSurpriseMe();
       return;
     }
 
@@ -1316,7 +1311,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
       return;
     } else if (currentStep === 'experience') {
-      setQuizAnswers(prev => ({ ...prev, experience: value }));
+      // CORRECTED: Add hobby to the answers object
+      const updatedAnswers = { ...quizAnswers, experience: value, hobby: selectedHobby };
+      setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
       const timeOptions = [
@@ -1328,7 +1325,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      setQuizAnswers(prev => ({ ...prev, timeCommitment: value }));
+      const updatedAnswers = { ...quizAnswers, timeCommitment: value };
+      setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
       const goalOptions = [
@@ -1342,11 +1340,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     } else if (currentStep === 'goal') {
       const finalAnswers: QuizAnswers = {
-        experience: quizAnswers.experience || 'beginner',
-        timeCommitment: quizAnswers.timeCommitment || '30 minutes',
-        specificGoal: value || 'personal enjoyment'
+        ...quizAnswers,
+        specificGoal: value // Directly set the goal
       };
-      setQuizAnswers(finalAnswers);
+      setQuizAnswers(finalAnswers); // Update state with the final answer
       setCurrentStep('generating');
       setIsGenerating(true);
 
@@ -1430,7 +1427,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
             }
 
-            addAIMessage(errorMessage);
+            toast({
+              title: "Generation Failed",
+              description: errorMessage,
+              variant: "destructive"
+            });
 
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling
             setCurrentStep('plan');
@@ -1463,11 +1464,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           // Reset to goal step so user can make a choice
           setCurrentStep('goal');
         } else {
-          addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
+          toast({
+            title: "Generation Failed",
+            description: "Sorry, I had trouble creating your plan. Let me try again!",
+            variant: "destructive"
+          });
         }
       } finally {
         setIsGenerating(false);
       }
+    } else {
+      // General chat response for other steps
+      setTimeout(() => {
+        addAIMessage("Thanks for your message! How can I help you with your learning plan?");
+      }, 1000);
     }
   };
 
@@ -1543,8 +1553,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
 
       toast({
-        type: 'success',
-        message: 'Your learning plan has been saved to your dashboard!'
+        title: 'Success',
+        description: 'Your learning plan has been saved to your dashboard!'
       });
 
     } catch (error: any) {
@@ -1556,8 +1566,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       });
 
       toast({
-        type: 'error',
-        message: error.message || 'Failed to save plan. Please try again.'
+        title: 'Error',
+        description: error.message || 'Failed to save plan. Please try again.'
       });
     } finally {
       setIsSaving(false);
@@ -1651,7 +1661,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       handleHobbySelect(userInput);
       return;
     } else if (currentStep === 'experience') {
-      setQuizAnswers(prev => ({ ...prev, experience: userInput }));
+      // CORRECTED: Add hobby to the answers object
+      const updatedAnswers = { ...quizAnswers, experience: userInput, hobby: selectedHobby };
+      setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
       const timeOptions = [
@@ -1663,7 +1675,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      setQuizAnswers(prev => ({ ...prev, timeCommitment: userInput }));
+      const updatedAnswers = { ...quizAnswers, timeCommitment: userInput };
+      setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
       const goalOptions = [
@@ -1677,11 +1690,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     } else if (currentStep === 'goal') {
       const finalAnswers: QuizAnswers = {
-        experience: quizAnswers.experience || 'beginner',
-        timeCommitment: quizAnswers.timeCommitment || '30 minutes',
-        specificGoal: userInput || 'personal enjoyment'
+        ...quizAnswers,
+        specificGoal: userInput // Directly set the goal
       };
-      setQuizAnswers(finalAnswers);
+      setQuizAnswers(finalAnswers); // Update state with the final answer
       setCurrentStep('generating');
       setIsGenerating(true);
 
@@ -1765,7 +1777,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               }
             }
 
-            addAIMessage(errorMessage);
+            toast({
+              title: "Generation Failed",
+              description: errorMessage,
+              variant: "destructive"
+            });
 
             // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling
             setCurrentStep('plan');
@@ -1798,7 +1814,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           // Reset to goal step so user can make a choice
           setCurrentStep('goal');
         } else {
-          addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
+          toast({
+            title: "Generation Failed",
+            description: "Sorry, I had trouble creating your plan. Let me try again!",
+            variant: "destructive"
+          });
         }
       } finally {
         setIsGenerating(false);
@@ -1872,7 +1892,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         toast({
           title: "Day unmarked",
           description: `Day ${dayNumber} removed from completed days.`,
-          variant: "default"
         });
       } else {
         // Add day to completed list
@@ -1882,7 +1901,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         toast({
           title: "Day completed! 🎉",
           description: `Great job completing Day ${dayNumber}!`,
-          variant: "default"
         });
 
         if (dayNumber === 1 && !user) {
@@ -1903,7 +1921,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           toast({
             title: "Warning",
             description: "Progress saved locally but may not sync until you're back online.",
-            variant: "default"
           });
         }
       }
@@ -2458,8 +2475,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               return currentDay.youtubeVideoId;
                             })() ? (
                               <YouTubeEmbed
-                                videoId={currentDay.youtubeVideoId}
-                                title=""
+                                videoId={currentDay.youtubeVideoId || ''}
+                                title={`${planData.hobby || ''} Day ${selectedDay} Tutorial`}
                                 className="w-full"
                               />
                             ) : (
