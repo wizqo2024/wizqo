@@ -147,8 +147,14 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     setMessages(prev => [...prev, userMessage]);
   };
 
-  const addAIMessage = (content: string, options?: any[]) => {
-    setIsTyping(true);
+  const addAIMessage = (content: string, options?: any[], isTypingIndicator?: boolean, isGeneratingIndicator?: boolean) => {
+    if (isTypingIndicator) {
+      setIsTyping(true);
+    }
+    if (isGeneratingIndicator) {
+      setIsGenerating(true);
+    }
+    
     setTimeout(() => {
       const aiMessage: ChatMessage = {
         id: Date.now().toString(),
@@ -159,6 +165,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       };
       setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
+      setIsGenerating(false); // Reset generation indicator once message is added
     }, 1000);
   };
 
