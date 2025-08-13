@@ -2092,15 +2092,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         </div>
                         <button
                           onClick={() => {
-                            if (dayNum > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
+                            if (selectedDay > 1 && !user && status !== 'completed') { // Allow viewing completed days without auth
                               setShowAuthModal(true);
                             } else {
-                              setSelectedDay(dayNum); // Corrected: use selectedDay
+                              toggleDayCompletion(selectedDay);
                             }
                           }}
-                          disabled={dayNum > 1 && !user && status !== 'completed'}
+                          disabled={selectedDay > 1 && !user && status !== 'completed'}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-lg shadow-sm border transition-colors ${
-                            dayNum > 1 && !user && status !== 'completed'
+                            selectedDay > 1 && !user && status !== 'completed'
                               ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
                               : 'bg-white hover:bg-gray-50'
                           }`}
@@ -2110,7 +2110,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <CheckCircle className="w-5 h-5 text-green-600" />
                               <span className="text-sm font-medium text-green-700">Completed</span>
                             </>
-                          ) : dayNum > 1 && !user ? (
+                          ) : selectedDay > 1 && !user ? (
                             <>
                               <Lock className="w-5 h-5 text-gray-400" />
                               <span className="text-sm font-medium text-gray-400">Login to Complete</span>
