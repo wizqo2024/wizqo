@@ -12,6 +12,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { apiService } from '@/lib/api-service';
 import { supabase } from '@/lib/supabase';
+import { useToast } from '@/hooks/useToast'; // Assuming useToast is available
 
 // Automated hobby image system (same as Dashboard)
 const getHobbyImage = (hobby: string): string => {
@@ -224,6 +225,7 @@ const fixPlanDataFields = (plan: any) => {
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const { user } = useAuth();
+  const { toast } = useToast(); // Use the toast hook
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
@@ -267,7 +269,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const [isSaving, setIsSaving] = useState(false); // State for saving process
-  const [toast, setToast] = useState<{ type: 'success' | 'error', message: string } | null>(null); // Toast notification state
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
@@ -586,7 +587,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   }, []);
 
   // Enhanced hobby validation and processing
-  const validateAndProcessHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
+  const validateHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
     const trimmedInput = input.toLowerCase().trim();
 
     // Only reject completely nonsensical inputs (matching backend logic)
@@ -607,7 +608,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       fitness: ['yoga', 'pilates', 'workout', 'exercise', 'gym', 'strength training', 'cardio'],
       sports: ['tennis', 'basketball', 'soccer', 'football', 'volleyball', 'swimming', 'running', 'cycling'],
       cooking: ['cooking', 'baking', 'culinary', 'chef', 'recipes', 'food preparation'],
-      crafts: ['knitting', 'sewing', 'crochet', 'embroidery', 'quilting', 'needlework', 'crafting'],
+      crafts: ['knitting', 'sewing', 'crochet', 'embroidery', 'needlework', 'crafting'],
       coding: ['coding', 'programming', 'web development', 'app development', 'software', 'javascript', 'python'],
       gardening: ['gardening', 'horticulture', 'plants', 'farming', 'landscaping', 'greenhouse'],
       photography: ['photography', 'photo', 'camera', 'portrait', 'landscape photography', 'digital photography'],
@@ -684,11 +685,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }, 300);
   };
 
-  const handleSurpriseMe = async () => {
-    const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance', 'writing', 'painting', 'knitting', 'foraging']; // Example surprise hobbies
-    const surpriseAnswers = { experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment' }; // Default answers for surprise
+  // Helper function to get a random hobby for "Surprise Me!"
+  const getRandomHobby = (): string => {
+    const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance', 'writing', 'painting', 'knitting', 'foraging', 'hiking', 'camping', 'chess', 'reading', 'piano', 'singing', 'baking', 'pottery', 'history', 'filmmaking', 'woodworking', 'calligraphy'];
+    return surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
+  };
 
-    const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
+  const handleSurpriseMe = async () => {
+    const randomHobby = getRandomHobby();
+    const surpriseAnswers = { experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment' }; // Default answers for surprise
 
     // Add user message
     addUserMessage("Surprise Me! 🎲");
@@ -848,6 +853,101 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  // Handle hobby selection and plan generation
+  const handleHobbySelect = async (hobby: string) => {
+    // Handle "Surprise Me!" with random selection and duplicate avoidance
+    let finalHobby = hobby === 'surprise' ? getRandomHobby() : hobby;
+
+    // For surprise selection, try to find a hobby that doesn't already exist
+    if (hobby === 'surprise' && user?.id) {
+      let attempts = 0;
+      while (attempts < 5) {
+        try {
+          const existingPlan = await hobbyPlanService.checkExistingPlan(finalHobby, user.id);
+          if (!existingPlan) break; // Found a hobby without existing plan
+          finalHobby = getRandomHobby(); // Try another random hobby
+          attempts++;
+        } catch (error) {
+          console.error('Error checking surprise hobby:', error);
+          break;
+        }
+      }
+    }
+
+    // Validate hobby selection to prevent invalid inputs from being processed
+    if (hobby !== 'surprise' && !hobbyOptions.some(h => h.value === hobby)) {
+      const validation = validateHobby(hobby);
+      if (!validation.isValid) {
+        addUserMessage(hobby);
+        addAIMessage(
+          `I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`,
+          validation.suggestions?.map(h => ({
+            value: h,
+            label: h.charAt(0).toUpperCase() + h.slice(1),
+            description: `Learn ${h} in 7 days`
+          })) || [
+            { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+            { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+            { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+            { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+            { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+            { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
+          ]
+        );
+        return;
+      }
+    }
+
+    // Check for duplicate plan if user is signed in
+    if (user?.id) {
+      try {
+        console.log('🔍 DUPLICATE CHECK: Starting comprehensive check for:', finalHobby);
+
+        // Use the hobbyPlanService for consistent duplicate checking
+        const existingPlan = await hobbyPlanService.checkExistingPlan(finalHobby, user.id);
+
+        if (existingPlan) {
+          console.log('🚨 DUPLICATE DETECTED:', existingPlan.title);
+          addUserMessage(hobby === 'surprise' ? 'Surprise me!' : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
+          addAIMessage(
+            `You already have a learning plan for ${finalHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
+            hobbyOptions.filter(h => h.value !== 'surprise' && h.value !== finalHobby).slice(0, 6).map(h => ({
+              value: h.value,
+              label: h.label,
+              description: h.description
+            }))
+          );
+
+          toast({
+            title: "Plan already exists",
+            description: `You already have a ${finalHobby} plan. Check your dashboard to continue.`,
+            variant: "default"
+          });
+
+          return;
+        }
+
+        console.log('✅ DUPLICATE CHECK: No existing plan found, proceeding with generation');
+      } catch (error) {
+        console.error('Error checking for existing plan:', error);
+        // Continue with plan generation if check fails
+      }
+    }
+
+    addUserMessage(hobby === 'surprise' ? `Surprise me! (${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)})` : hobbyOptions.find(h => h.value === hobby)?.label || hobby);
+    setSelectedHobby(finalHobby);
+    setCurrentStep('experience');
+
+    addAIMessage(
+      `Great choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} sounds exciting. 🎯\n\nTo create the perfect learning plan for you, what's your current experience level?`,
+      [
+        { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+        { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+        { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
+      ]
+    );
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
@@ -1085,47 +1185,136 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return;
     }
 
-    addUserMessage(label);
-
+    // Handle direct hobby selection and progression through quiz
     if (currentStep === 'hobby') {
-      // Handle regular hobby selection with duplicate checking
-      addUserMessage(label);
+      // Use DeepSeek API for intelligent hobby validation
+      try {
+        const response = await fetch('/api/validate-hobby', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ hobby: value.trim() })
+        });
 
-      // Map the hobby value to ensure consistent naming
-      const hobbyMapping: { [key: string]: string } = {
-        'cooking': 'cooking',
-        'guitar': 'guitar',
-        'drawing': 'drawing',
-        'yoga': 'yoga',
-        'photography': 'photography',
-        'dance': 'dance',
-        'coding': 'coding',
-        'baking': 'baking',
-        'painting': 'painting'
-      };
+        if (response.ok) {
+          const validation = await response.json();
+          console.log('🔍 Frontend received validation response:', validation);
+          console.log('🔍 Original input:', value);
+          console.log('🔍 Corrected hobby:', validation.correctedHobby);
 
-      const mappedHobby = hobbyMapping[value] || value;
-      console.log('🎯 Hobby selection - original:', value, 'mapped:', mappedHobby);
+          if (validation.isValid) {
+            const finalHobby = validation.correctedHobby || value.toLowerCase().trim();
+            setSelectedHobby(finalHobby);
+            setCurrentStep('experience');
 
-      // Check for existing plans before proceeding to quiz
-      if (user?.id) {
-        try {
-          const existingPlan = await hobbyPlanService.checkExistingPlan(mappedHobby, user.id);
-          if (existingPlan) {
-            addAIMessage(
-              `You already have a learning plan for ${mappedHobby}! 📚\n\nTo continue your existing plan, go to your Dashboard and click "Continue Plan". Each plan is designed to be unique and comprehensive.\n\nWould you like to try a different hobby instead?`,
-              hobbyOptions.filter(h => !h.value.includes(mappedHobby.toLowerCase())).slice(0, 6)
-            );
-            return;
+            let message = `Perfect! I understand you want to learn ${finalHobby}. This is an excellent choice!`;
+
+            if (validation.correctedHobby && validation.correctedHobby !== value.toLowerCase().trim()) {
+              message += `\n\n(I detected the specific hobby from your input)`;
+            }
+
+            message += `\n\nWhat's your experience level?`;
+
+            const experienceOptions = [
+              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+            ];
+
+            addAIMessage(message, experienceOptions);
+          } else {
+            let errorMessage = `I'm not sure "${value}" is a hobby I can help with right now.`;
+
+            if (validation.suggestions && validation.suggestions.length > 0) {
+              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
+              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
+                value: `ai_suggested_${suggestion}`,
+                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
+                description: `Learn ${suggestion} (AI recommended)`
+              }));
+
+              addAIMessage(errorMessage, hobbyOptions);
+            } else {
+              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, photography, yoga, or dance. What hobby would you like to learn?', [
+                { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+                { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+                { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+                { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+                { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+                { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
+              ]);
+            }
           }
-        } catch (error) {
-          console.error('Error checking for existing plan:', error);
+        } else {
+          // Fallback to old validation if API fails
+          const validation = validateHobby(value);
+
+          if (validation.isValid && validation.detectedHobbies) {
+            if (validation.detectedHobbies.length === 1) {
+              // Single hobby detected - process directly
+              const hobby = validation.detectedHobbies[0];
+              setSelectedHobby(hobby);
+              setCurrentStep('experience');
+
+              const experienceOptions = [
+                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+                { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+              ];
+
+              addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+            } else {
+              // Multiple hobbies detected
+              const hobbyOptions = validation.detectedHobbies.map(h => ({
+                value: h,
+                label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
+                description: `Focus on ${h} first`
+              }));
+
+              addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
+            }
+          } else {
+            // Invalid hobby - use fallback suggestions
+            addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+              { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+              { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+              { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+              { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+              { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+              { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+            ]);
+          }
+        }
+      } catch (error) {
+        console.error('Error validating hobby with DeepSeek API:', error);
+        // Fallback to old validation if API completely fails
+        const validation = validateHobby(value);
+
+        if (validation.isValid && validation.detectedHobbies) {
+          const hobby = validation.detectedHobbies[0];
+          setSelectedHobby(hobby);
+          setCurrentStep('experience');
+
+          const experienceOptions = [
+            { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+            { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+            { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
+          ];
+
+          addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+        } else {
+          addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
+            { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
+            { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
+            { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
+            { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
+            { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
+            { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
+          ]);
         }
       }
-
-      // Direct hobby selection - show quiz
-      setSelectedHobby(mappedHobby);
-      setShowQuiz(true);
+      return;
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setCurrentStep('time');
@@ -1224,7 +1413,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             setCurrentStep('plan');
           } catch (saveError: any) {
             console.error('🚨 PLAN SAVE FAILED:', saveError);
-            console.error('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
+            console.log('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
 
             // Provide specific error messages to user
             let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan!`
@@ -1353,7 +1542,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         delete planData._isFreshPlan;
       }
 
-      setToast({
+      toast({
         type: 'success',
         message: 'Your learning plan has been saved to your dashboard!'
       });
@@ -1366,7 +1555,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         stack: error.stack
       });
 
-      setToast({
+      toast({
         type: 'error',
         message: error.message || 'Failed to save plan. Please try again.'
       });
@@ -1416,7 +1605,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setCurrentPlanId(null);
     setIsGenerating(false);
     setIsSaving(false); // Reset saving state
-    setToast(null); // Clear any existing toast
+    // setToast(null); // Clear any existing toast - handled by toast hook
 
     // Reset messages to initial welcome state
     setMessages([{
@@ -1459,134 +1648,161 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     // Handle hobby input if we're in hobby selection step
     if (currentStep === 'hobby') {
-      // Use DeepSeek API for intelligent hobby validation
+      handleHobbySelect(userInput);
+      return;
+    } else if (currentStep === 'experience') {
+      setQuizAnswers(prev => ({ ...prev, experience: userInput }));
+      setCurrentStep('time');
+
+      const timeOptions = [
+        { value: '30-60', label: '30-60 minutes/day', description: 'Quick daily sessions' },
+        { value: '60-120', label: '60-120 minutes/day', description: 'Solid practice time' },
+        { value: '120+', label: '120+ minutes/day', description: 'Deep dive sessions' }
+      ];
+
+      addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
+
+    } else if (currentStep === 'time') {
+      setQuizAnswers(prev => ({ ...prev, timeCommitment: userInput }));
+      setCurrentStep('goal');
+
+      const goalOptions = [
+        { value: 'personal enjoyment', label: 'Personal Enjoyment', description: 'Just for fun and relaxation' },
+        { value: 'skill building', label: 'Skill Building', description: 'Develop expertise and technique' },
+        { value: 'social connection', label: 'Social Connection', description: 'Meet people and share experiences' },
+        { value: 'career change', label: 'Career Change', description: 'Explore new professional paths' }
+      ];
+
+      addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
+
+    } else if (currentStep === 'goal') {
+      const finalAnswers: QuizAnswers = {
+        experience: quizAnswers.experience || 'beginner',
+        timeCommitment: quizAnswers.timeCommitment || '30 minutes',
+        specificGoal: userInput || 'personal enjoyment'
+      };
+      setQuizAnswers(finalAnswers);
+      setCurrentStep('generating');
+      setIsGenerating(true);
+
+      addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
+
       try {
-        const response = await fetch('/api/validate-hobby', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ hobby: userInput.trim() })
+        console.log('🔥 GENERATING PLAN FOR:', selectedHobby, finalAnswers);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
+        console.log('🔥 PLAN GENERATED:', plan);
+        const fixedStandardPlan = fixPlanDataFields(plan);
+        console.log('🔧 Applied field mapping fix to standard plan');
+
+        // CRITICAL FIX: Ensure the data structure is exactly what the render condition expects
+        const finalStandardPlan = {
+          ...fixedStandardPlan,
+          // Guarantee days is always an array
+          days: Array.isArray(fixedStandardPlan?.days) ? fixedStandardPlan.days : []
+        };
+
+        console.log('🔍 STANDARD PLAN DEBUG: Final plan validation:', {
+          renderCondition: !!(finalStandardPlan && finalStandardPlan.days && finalStandardPlan.days.length > 0)
         });
 
-        if (response.ok) {
-          const validation = await response.json();
-          console.log('🔍 Frontend received validation response:', validation);
-          console.log('🔍 Original input:', userInput);
-          console.log('🔍 Corrected hobby:', validation.correctedHobby);
+        // Clear old cached data first
+        sessionStorage.removeItem('activePlanData');
+        localStorage.removeItem('lastViewedPlanData');
+        console.log('🧹 Cleared old cached plan data for standard plan');
 
-          if (validation.isValid) {
-            const finalHobby = validation.correctedHobby || userInput.toLowerCase().trim();
-            setSelectedHobby(finalHobby);
-            setCurrentStep('experience');
+        // Mark as freshly generated plan BEFORE setting plan data
+        sessionStorage.setItem('freshPlanMarker', 'true');
+        console.log('🎯 Marked standard plan as freshly generated BEFORE setPlanData');
+        setPlanData(finalStandardPlan);
+        setRenderKey(prev => prev + 1); // Force React re-render
 
-            let message = `Perfect! I understand you want to learn ${finalHobby}. This is an excellent choice!`;
+        // Save plan to Supabase if user is authenticated
+        console.log('🔍 AUTH CHECK: user object:', user);
+        console.log('🔍 AUTH CHECK: user?.id:', user?.id);
+        console.log('🔍 AUTH CHECK: Boolean(user?.id):', Boolean(user?.id));
 
-            if (validation.correctedHobby && validation.correctedHobby !== userInput.toLowerCase().trim()) {
-              message += `\n\n(I detected the specific hobby from your input)`;
+        if (user?.id) {
+          try {
+            console.log('🔄 PLAN SAVE: Starting Supabase save for authenticated user...');
+            console.log('🔄 PLAN SAVE: User ID:', user.id);
+            const savedPlan = await hobbyPlanService.savePlan({
+              ...plan,
+              _isFreshPlan: true,
+            }, user.id);
+
+            console.log('✅ PLAN SAVE SUCCESS: Plan saved with ID:', savedPlan.id);
+            console.log('✅ PLAN SAVE SUCCESS: Setting currentPlanId to:', savedPlan.id);
+            setCurrentPlanId(savedPlan.id.toString());
+
+            // Initialize progress tracking
+            await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
+
+            // Load any existing progress for this plan
+            setTimeout(async () => {
+              await loadProgressFromDatabase(savedPlan.id);
+            }, 500); // Small delay to ensure progress is initialized
+
+            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Ask me any questions about your plan!`);
+
+            // CRITICAL FIX: Set step to 'plan' after plan generation for proper chat handling
+            setCurrentStep('plan');
+          } catch (saveError: any) {
+            console.error('🚨 PLAN SAVE FAILED:', saveError);
+            console.log('🚨 PLAN SAVE FAILED Details:', JSON.stringify(saveError, null, 2));
+
+            // Provide specific error messages to user
+            let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan!`
+
+            if (saveError instanceof Error) {
+              if (saveError.message.includes('timed out')) {
+                errorMessage += ' (Database connection timed out - please run the manual RLS fix)'
+              } else if (saveError.message.includes('violates row-level security policy')) {
+                errorMessage += ' (Database permissions issue - please contact support or run the SUPABASE_MANUAL_FIX.md instructions)'
+              } else if (saveError.message.includes('Authentication issue')) {
+                errorMessage += ' (Authentication issue - please try signing out and back in)'
+              } else if (saveError.message.includes('table not found')) {
+                errorMessage += ' (Database setup issue - please contact support)'
+              }
             }
 
-            message += `\n\nWhat's your experience level?`;
+            addAIMessage(errorMessage);
 
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-
-            addAIMessage(message, experienceOptions);
-          } else {
-            let errorMessage = `I'm not sure "${userInput}" is a hobby I can help with right now.`;
-
-            if (validation.suggestions && validation.suggestions.length > 0) {
-              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
-              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
-                value: `ai_suggested_${suggestion}`,
-                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
-                description: `Learn ${suggestion} (AI recommended)`
-              }));
-
-              addAIMessage(errorMessage, hobbyOptions);
-            } else {
-              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, photography, yoga, or dance. What hobby would you like to learn?', [
-                { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
-                { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
-                { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
-                { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
-                { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
-                { value: 'dance', label: 'Dance', description: 'Learn dance in 7 days' }
-              ]);
-            }
+            // CRITICAL FIX: Set step to 'plan' even when save fails for proper chat handling
+            setCurrentStep('plan');
           }
         } else {
-          // Fallback to old validation if API fails
-          const validation = validateAndProcessHobby(userInput);
+          console.log('❌ AUTH CHECK: User not authenticated - cannot save plan');
+          console.log('❌ AUTH CHECK: user object:', user);
+          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Ask me any questions about your plan!`);
 
-          if (validation.isValid && validation.detectedHobbies) {
-            if (validation.detectedHobbies.length === 1) {
-              // Single hobby detected - process directly
-              const hobby = validation.detectedHobbies[0];
-              setSelectedHobby(hobby);
-              setCurrentStep('experience');
-
-              const experienceOptions = [
-                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-                { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-              ];
-
-              addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
-            } else {
-              // Multiple hobbies detected
-              const hobbyOptions = validation.detectedHobbies.map(h => ({
-                value: h,
-                label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`,
-                description: `Focus on ${h} first`
-              }));
-
-              addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
-            }
-          } else {
-            // Invalid hobby - use fallback suggestions
-            addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
-              { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
-              { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
-              { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
-              { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
-              { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
-              { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
-            ]);
-          }
+          // CRITICAL FIX: Set step to 'plan' for non-authenticated users too
+          setCurrentStep('plan');
         }
       } catch (error) {
-        console.error('Error validating hobby with DeepSeek API:', error);
-        // Fallback to old validation if API completely fails
-        const validation = validateAndProcessHobby(userInput);
+        console.error('Error generating plan:', error);
 
-        if (validation.isValid && validation.detectedHobbies) {
-          const hobby = validation.detectedHobbies[0];
-          setSelectedHobby(hobby);
-          setCurrentStep('experience');
+        // Handle duplicate plan errors with friendly UI and options
+        if (error instanceof Error && error.message === 'DUPLICATE_PLAN') {
+          const duplicateData = (error as any).duplicateData;
+          console.log('🚨 DUPLICATE PLAN detected:', duplicateData);
 
-          const experienceOptions = [
-            { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-            { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-            { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-          ];
+          addAIMessage(
+            `I notice you already have a ${selectedHobby} learning plan! 🎯\n\nWhat would you like to do?`,
+            [
+              { value: 'view_existing', label: 'View My Current Plan', description: 'See your existing plan and continue learning' },
+              { value: 'create_new', label: 'Create Fresh Plan', description: 'Generate new content with different approach' },
+              { value: 'try_different_hobby', label: 'Try Different Hobby', description: 'Pick a completely different hobby to learn' }
+            ]
+          );
 
-          addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+          // Reset to goal step so user can make a choice
+          setCurrentStep('goal');
         } else {
-          addAIMessage(`I didn't quite catch that hobby. Could you be more specific? 🤔\n\nTry something like: guitar, cooking, drawing, photography, yoga, or coding. What hobby would you like to learn?`, [
-            { value: 'guitar', label: 'Guitar', description: 'Learn guitar in 7 days' },
-            { value: 'cooking', label: 'Cooking', description: 'Learn cooking in 7 days' },
-            { value: 'drawing', label: 'Drawing', description: 'Learn drawing in 7 days' },
-            { value: 'photography', label: 'Photography', description: 'Learn photography in 7 days' },
-            { value: 'yoga', label: 'Yoga', description: 'Learn yoga in 7 days' },
-            { value: 'coding', label: 'Coding', description: 'Learn coding in 7 days' }
-          ]);
+          addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
         }
+      } finally {
+        setIsGenerating(false);
       }
-      return;
     } else {
       // General chat response for other steps
       setTimeout(() => {
@@ -1644,103 +1860,71 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const toggleDayCompletion = async (dayNumber: number) => {
     if (isSavingProgress) return;
 
-    // CRITICAL FIX: Check for plan ID before attempting database save
-    if (!currentPlanId && (!initialPlanData?.id && !initialPlanData?.planId)) {
-      console.warn('📝 DATABASE SAVE: No plan ID available - checking storage...');
-
-      // Try to get plan ID from storage
-      const storedPlanId = sessionStorage.getItem('currentPlanId') || localStorage.getItem('currentPlanId');
-      if (storedPlanId) {
-        console.log('🎯 Found plan ID in storage:', storedPlanId);
-        setCurrentPlanId(storedPlanId);
-      } else {
-        console.warn('📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved');
-        console.log('📝 DEBUG:', {
-          currentPlanId,
-          hasInitialPlanData: !!initialPlanData,
-          initialPlanDataId: initialPlanData?.id || initialPlanData?.planId,
-          userId: user?.id,
-          isAuthenticated: !!user
-        });
-      }
-    }
-
     try {
       setIsSavingProgress(true);
 
+      let newCompletedDays;
       if (isDayCompleted(dayNumber)) {
-        // Mark as incomplete
-        const newCompletedDays = completedDays.filter(d => d !== dayNumber);
+        // Remove day from completed list
+        newCompletedDays = completedDays.filter(d => d !== dayNumber);
         setCompletedDays(newCompletedDays);
 
-        if (user?.id && currentPlanId) {
-          // Save to database via API
-          console.log('📝 DATABASE SAVE: Marking day INCOMPLETE via API:', dayNumber, 'for plan ID:', currentPlanId);
-          try {
-            await hobbyPlanService.updateProgress(user.id, currentPlanId, {
-              completed_days: newCompletedDays,
-              current_day: Math.max(1, Math.min(...newCompletedDays) || 1),
-              unlocked_days: [1, ...newCompletedDays.map(d => d + 1)].filter(d => d <= 7)
-            });
-            console.log('📝 DATABASE SAVE: Successfully saved progress to database');
-          } catch (error) {
-            console.error('📝 DATABASE SAVE: Failed to save progress to database:', error);
-            throw error;
-          }
-        } else {
-          console.warn('📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved');
-        }
+        toast({
+          title: "Day unmarked",
+          description: `Day ${dayNumber} removed from completed days.`,
+          variant: "default"
+        });
       } else {
-        // Mark as complete
-        const newCompletedDays = [...completedDays, dayNumber];
+        // Add day to completed list
+        newCompletedDays = [...completedDays, dayNumber].sort((a, b) => a - b);
         setCompletedDays(newCompletedDays);
 
-        if (user?.id && currentPlanId) {
-          // Save to database via API
-          console.log('📝 DATABASE SAVE: Marking day COMPLETE via API:', dayNumber, 'for plan ID:', currentPlanId);
-          try {
-            await hobbyPlanService.completeDay(user.id, currentPlanId, dayNumber);
-            console.log('📝 DATABASE SAVE: Successfully saved progress to database');
-          } catch (error) {
-            console.error('📝 DATABASE SAVE: Failed to save progress to database:', error);
-            throw error;
-          }
-        } else {
-          console.warn('📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved');
-          console.log('📝 DEBUG:', { hasUser: !!user, userId: user?.id, planId: currentPlanId, hobby: initialPlanData?.hobby });
-          addAIMessage("Sign up to save your progress automatically! Your progress isn't saved without an account.", [], 500);
-        }
+        toast({
+          title: "Day completed! 🎉",
+          description: `Great job completing Day ${dayNumber}!`,
+          variant: "default"
+        });
 
-
-
-        // Show congratulations message after completing Day 1
         if (dayNumber === 1 && !user) {
-          addAIMessage("🎉 Well done! Day 1 completed! Sign up to unlock Days 2-7 and track your progress.", [], 500);
           setShowAuthModal(true);
-        } else if (dayNumber === 7) {
-          addAIMessage("🎊 Congratulations! You've completed your 7-day learning journey! You're amazing!", [], 500);
-        } else if (user) {
-          addAIMessage(`Great job! Day ${dayNumber} completed. Keep up the excellent work!`, [], 500);
+        }
+      }
+
+      // Save progress if user is authenticated and we have a plan ID
+      if (user?.id && currentPlanId) {
+        try {
+          await hobbyPlanService.updateProgress(user.id, currentPlanId, {
+            completed_days: newCompletedDays,
+            current_day: Math.min(Math.max(...newCompletedDays, 0) + 1, 7)
+          });
+          console.log('✅ Progress saved successfully');
+        } catch (error) {
+          console.error('Error saving progress:', error);
+          toast({
+            title: "Warning",
+            description: "Progress saved locally but may not sync until you're back online.",
+            variant: "default"
+          });
         }
       }
     } catch (error) {
       console.error('Error updating day completion:', error);
-      addAIMessage("Sorry, there was an error saving your progress. Please try again.", [], 500);
+      toast({
+        title: "Error",
+        description: "Failed to save progress. Please try again.",
+        variant: "destructive"
+      });
     } finally {
       setIsSavingProgress(false);
     }
   };
-
-  // Day selection is now handled by selectedDay state
 
   const getDayStatus = (dayNumber: number): 'completed' | 'unlocked' | 'locked' => {
     const isCompleted = isDayCompleted(dayNumber);
 
     if (isCompleted) return 'completed';
     if (dayNumber === 1) return 'unlocked';
-    if (dayNumber === 2 && !user) return 'unlocked';
-    // Days 3-7 show as locked for non-authenticated users
-    if (dayNumber > 2 && !user) return 'locked';
+    if (dayNumber > 1 && !user) return 'locked'; // Days 2-7 require authentication
     // For authenticated users, follow normal progression
     if (isDayUnlocked(dayNumber)) return 'unlocked';
     return 'locked';
