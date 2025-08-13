@@ -261,7 +261,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   });
   const [currentInput, setCurrentInput] = useState('');
   const [selectedHobby, setSelectedHobby] = useState('');
-  const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({
+  const [quizAnswers, setQuizAnswers] = useState<QuizAnswers>({
     experience: '',
     timeCommitment: '',
     specificGoal: '',
@@ -1364,7 +1364,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return;
     } else if (currentStep === 'experience') {
       // CORRECTED: Add hobby to the answers object
-      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, experience: value, hobby: selectedHobby };
+      const updatedAnswers: QuizAnswers = { ...quizAnswers, experience: value, hobby: selectedHobby };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
@@ -1377,7 +1377,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, timeCommitment: value };
+      const updatedAnswers: QuizAnswers = { ...quizAnswers, timeCommitment: value };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
@@ -1716,7 +1716,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return;
     } else if (currentStep === 'experience') {
       // CORRECTED: Add hobby to the answers object
-      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, experience: userInput, hobby: selectedHobby };
+      const updatedAnswers: QuizAnswers = { ...quizAnswers, experience: userInput, hobby: selectedHobby };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('time');
 
@@ -1729,7 +1729,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
 
     } else if (currentStep === 'time') {
-      const updatedAnswers: Partial<QuizAnswers> = { ...quizAnswers, timeCommitment: userInput };
+      const updatedAnswers: QuizAnswers = { ...quizAnswers, timeCommitment: userInput };
       setQuizAnswers(updatedAnswers);
       setCurrentStep('goal');
 
