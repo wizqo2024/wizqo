@@ -2225,15 +2225,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Use OpenRouter for intelligent hobby validation
       console.log('🔍 Validating hobby with OpenRouter:', hobby);
-      const validation = await hobbyValidator.validateHobby(hobby);
+      let validation: any = { isValid: true, correctedHobby: hobby };
+      try {
+        validation = await hobbyValidator.validateHobby(hobby);
+      } catch (e) {
+        console.warn('⚠️ Validation service failed, proceeding with fallback plan:', e);
+        validation = { isValid: true, correctedHobby: hobby };
+      }
 
       if (!validation.isValid) {
-        return res.status(400).json({
-          error: `I'm not sure "${hobby}" is a hobby I can help with right now.`,
-          suggestions: validation.suggestions || ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance'],
-          message: validation.reasoning || 'Please try one of these popular hobbies instead.',
-          invalidHobby: hobby
-        });
+        // Instead of 400, return a fast fallback plan for a suggested hobby
+        const suggested = (validation.suggestions && validation.suggestions[0]) || 'cooking';
+        console.log('⚠️ Invalid hobby, generating fallback for suggestion:', suggested);
+        const plan = await generateFallbackPlan(suggested, experience, timeAvailable, goal || `Learn ${suggested} fundamentals`);
+        return res.status(200).json(plan);
       }
 
       const normalizedHobby = validation.correctedHobby || hobby;
