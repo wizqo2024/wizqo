@@ -598,10 +598,18 @@ function getHobbyProduct(hobby: string, day: number) {
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
   console.log('⚡ FAST GENERATION: Creating instant plan for', hobby);
 
-  // Quick validation
-  const validation = validateHobby(hobby);
+  // Quick validation using OpenRouter validator with safe fallback
+  let validation: any = { isValid: true, correctedHobby: hobby };
+  try {
+    validation = await hobbyValidator.validateHobby(hobby);
+  } catch (e) {
+    console.warn('⚠️ Fallback validator failed in generateFallbackPlan:', e);
+    validation = { isValid: true, correctedHobby: hobby };
+  }
   if (!validation.isValid) {
-    throw new Error(`"${hobby}" doesn't seem like a hobby. Please enter a specific hobby you'd like to learn (e.g., guitar, cooking, photography, yoga, coding).`);
+    // If invalid, pick a safe suggested hobby for instant plan
+    const suggested = (validation.suggestions && validation.suggestions[0]) || 'cooking';
+    hobby = suggested;
   }
 
   hobby = validation.normalizedHobby;
