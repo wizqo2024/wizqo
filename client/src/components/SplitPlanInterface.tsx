@@ -121,7 +121,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const [currentInput, setCurrentInput] = useState('');
 	const [selectedHobby, setSelectedHobby] = useState('');
 	const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({});
-	const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
+	const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating' | 'plan'>('hobby');
 	const [isTyping, setIsTyping] = useState(false);
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [planData, setPlanData] = useState<PlanData | null>(null);
@@ -145,7 +145,39 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
 
-	// Action: generate plan
+	// Message helpers
+	const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[]) => {
+		setMessages(prev => ([
+			...prev,
+			{ id: `${Date.now()}_${prev.length}`, sender: 'ai', content, options, timestamp: new Date() }
+		]));
+	};
+	const addUserMessage = (content: string) => {
+		setMessages(prev => ([
+			...prev,
+			{ id: `${Date.now()}_${prev.length}`, sender: 'user', content, timestamp: new Date() }
+		]));
+	};
+
+	const experienceOptions = [
+		{ value: 'beginner', label: 'Beginner 🌱' },
+		{ value: 'intermediate', label: 'Intermediate 🧭' },
+		{ value: 'advanced', label: 'Advanced 🏆' },
+	];
+	const timeOptions = [
+		{ value: '15 minutes', label: '15 minutes/day' },
+		{ value: '30 minutes', label: '30 minutes/day' },
+		{ value: '1 hour', label: '1 hour/day' },
+	];
+	const goalOptions = [
+		{ value: 'personal enjoyment', label: 'Personal enjoyment' },
+		{ value: 'skill improvement', label: 'Improve skills' },
+		{ value: 'professional', label: 'Professional growth' },
+	];
+
+	const randomHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding', 'dance'];
+
+	// Generate plan using provided answers
 	const handleGenerate = async (hobby: string, answers: Partial<QuizAnswers>) => {
 		if (!hobby || !answers.experience) return;
 		setIsGenerating(true);
@@ -160,14 +192,89 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			const plan = await onGeneratePlan(hobby, finalAnswers, user?.id || undefined, false);
 			const fixed = fixPlanDataFields(plan);
 			setPlanData(fixed);
-			// Persist for navigation
+			setCurrentStep('plan');
 			localStorage.setItem('lastViewedPlanData', JSON.stringify(fixed));
 			sessionStorage.setItem('activePlanData', JSON.stringify(fixed));
 			sessionStorage.setItem('currentPlanData', JSON.stringify(fixed));
 		} catch (e) {
-			console.error('Error generating plan in SplitPlanInterface:', e);
+			console.error('Error generating plan:', e);
 		} finally {
 			setIsGenerating(false);
+		}
+	};
+
+	const handleSurpriseMe = async () => {
+		const random = randomHobbies[Math.floor(Math.random() * randomHobbies.length)];
+		setSelectedHobby(random);
+		setQuizAnswers({ experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment', hobby: random });
+		setCurrentStep('generating');
+		await handleGenerate(random, { experience: 'beginner', timeCommitment: '1 hour', specificGoal: 'personal enjoyment', hobby: random });
+	};
+
+	const handleOptionSelect = async (value: string, label: string) => {
+		if (value === 'surprise' && currentStep === 'hobby') {
+			await handleSurpriseMe();
+			return;
+		}
+
+		addUserMessage(label);
+
+		if (currentStep === 'hobby') {
+			setSelectedHobby(value);
+			setCurrentStep('experience');
+			addAIMessage(`Great choice! ${value} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+			return;
+		}
+		if (currentStep === 'experience') {
+			setQuizAnswers(prev => ({ ...prev, experience: value }));
+			setCurrentStep('time');
+			addAIMessage('Got it! How much time can you spend learning each day?', timeOptions);
+			return;
+		}
+		if (currentStep === 'time') {
+			setQuizAnswers(prev => ({ ...prev, timeCommitment: value }));
+			setCurrentStep('goal');
+			addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
+			return;
+		}
+		if (currentStep === 'goal') {
+			const final = { ...quizAnswers, specificGoal: value } as QuizAnswers;
+			setQuizAnswers(final);
+			setCurrentStep('generating');
+			await handleGenerate(selectedHobby, final);
+			return;
+		}
+	};
+
+	const handleSendMessage = async () => {
+		if (!currentInput.trim()) return;
+		const input = currentInput.trim();
+		setCurrentInput('');
+		if (currentStep === 'hobby') {
+			setSelectedHobby(input.toLowerCase());
+			addUserMessage(input);
+			setCurrentStep('experience');
+			addAIMessage(`Great choice! ${input} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+			return;
+		}
+		if (currentStep === 'experience') {
+			addUserMessage(input);
+			setQuizAnswers(prev => ({ ...prev, experience: input.toLowerCase() }));
+			setCurrentStep('time');
+			addAIMessage('Got it! How much time can you spend learning each day?', timeOptions);
+			return;
+		}
+		if (currentStep === 'time') {
+			addUserMessage(input);
+			setQuizAnswers(prev => ({ ...prev, timeCommitment: input }));
+			setCurrentStep('goal');
+			addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
+			return;
+		}
+		if (currentStep === 'goal') {
+			addUserMessage(input);
+			const final = { ...quizAnswers, specificGoal: input } as QuizAnswers;
+			await handleGenerate(selectedHobby, final);
 		}
 	};
 
@@ -201,6 +308,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 								</div>
 							</div>
 						))}
+						{/* Render options for the last AI message */}
+						{(() => {
+							const last = messages[messages.length - 1];
+							if (last && last.sender === 'ai' && last.options && last.options.length > 0 && currentStep !== 'plan') {
+								return (
+									<div className="flex flex-wrap gap-2 mt-2">
+										{last.options.map((option) => (
+											<button
+												key={option.value}
+												onClick={() => handleOptionSelect(option.value, option.label)}
+												className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm disabled:opacity-50"
+												disabled={isGenerating}
+											>
+												{option.label}
+											</button>
+										))}
+									</div>
+								);
+							}
+							return null;
+						})()}
 						<div ref={messagesEndRef} />
 					</div>
 
@@ -210,11 +338,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 								ref={inputRef}
 								value={currentInput}
 								onChange={(e) => setCurrentInput(e.target.value)}
-								placeholder="Ask me anything..."
-								onKeyPress={(e) => e.key === 'Enter' && setCurrentInput('')}
+								placeholder="Type your answer..."
+								onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
 								className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10"
 							/>
-							<Button onClick={() => setCurrentInput('')} size="sm" className="px-2 md:px-3 h-8 md:h-10">
+							<Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10">
 								<Send className="w-3 h-3 md:w-4 md:h-4" />
 							</Button>
 						</div>
