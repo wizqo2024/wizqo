@@ -102,17 +102,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				id: '1',
 				sender: 'ai' as const,
 				content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
-				options: [
-					{ value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-					{ value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
-					{ value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
-					{ value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
-					{ value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
-					{ value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
-					{ value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-					{ value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
-					{ value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
-				],
+				options: hobbyOptions,
 				timestamp: new Date()
 			}];
 		}
@@ -138,6 +128,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { savePlan, saving } = usePlanStorage();
 	const { user } = useAuth();
+
+	// Consistent hobby suggestion options
+	const hobbyOptions = [
+		{ value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
+		{ value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
+		{ value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
+		{ value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
+		{ value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
+		{ value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
+		{ value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+		{ value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
+		{ value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+	];
 
 	// Save state and chat typing
 	const [isSavingPlan, setIsSavingPlan] = useState<boolean>(false);
@@ -264,6 +267,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
+
+	// Ensure suggestions always show at start of generate flow
+	useEffect(() => {
+		if (currentStep === 'hobby') {
+			const hasSuggestion = messages.some(m => m.sender === 'ai' && Array.isArray(m.options) && m.options.length > 0);
+			if (!hasSuggestion) {
+				setMessages(prev => ([
+					...prev,
+					{
+						id: `${Date.now()}_${prev.length}`,
+						sender: 'ai',
+						content: "Tell me what you'd like to learn. Pick a hobby to get started:",
+						options: hobbyOptions,
+						timestamp: new Date()
+					}
+				]));
+			}
+		}
+	}, [currentStep, messages]);
 
 	// Message helpers
 	const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[]) => {
