@@ -239,7 +239,7 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
 
   // Use fast fallback by default for better user experience
   const openRouterKey = process.env.OPENROUTER_API_KEY;
-  const useAI = false; // Set to false for faster generation
+  const useAI = !!openRouterKey; // Use AI when key is present
 
   if (!openRouterKey || !useAI) {
     console.log('⚡ Using fast fallback plan generation for instant response');
