@@ -2213,14 +2213,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log('🔄 API: Generate plan request received');
       console.log('🔍 API: Request body keys:', Object.keys(req.body));
-      const { hobby, experience, timeAvailable, goal, userId, force } = req.body;
-      console.log('🔍 API: Extracted values:', { hobby, experience, timeAvailable, goal, userId, force });
 
-      if (!hobby || !experience || !timeAvailable) {
-        console.error('❌ API: Missing required fields');
-        return res.status(400).json({
-          error: 'Missing required fields: hobby, experience, timeAvailable'
-        });
+      // Normalize incoming fields and provide sensible defaults
+      const body: any = req.body || {};
+      const hobbyRaw = ((body.hobby ?? body.topic ?? body.subject) ?? '').toString().trim();
+      const experienceRaw = ((body.experience ?? body.level ?? body.skillLevel) ?? 'beginner').toString().trim() || 'beginner';
+      const timeAvailableRaw = ((body.timeAvailable ?? body.time ?? body.time_per_day) ?? '30 minutes').toString().trim() || '30 minutes';
+      const goalRaw = ((body.goal ?? body.objective) ?? (hobbyRaw ? `Learn ${hobbyRaw} fundamentals` : '')).toString();
+      const userId = (body.userId ?? body.user_id) || undefined;
+      const force = Boolean(body.force);
+
+      const hobby = hobbyRaw;
+      const experience = experienceRaw;
+      const timeAvailable = timeAvailableRaw;
+      const goal = goalRaw;
+
+      console.log('🔍 API: Normalized values:', { hobby, experience, timeAvailable, goal, userId, force });
+
+      if (!hobby) {
+        console.error('❌ API: Missing required field: hobby');
+        return res.status(400).json({ error: 'Missing required field: hobby' });
       }
 
       // Use OpenRouter for intelligent hobby validation
@@ -2293,7 +2305,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
       console.log('✅ Plan generation completed successfully');
       res.json(plan);
-    } catch (error) {
+    } catch (error: any) {
+      // Map known validation errors to 400 instead of 500
+      const hobbyRaw = ((req.body?.hobby ?? req.body?.topic ?? req.body?.subject) ?? '').toString();
+      const errMsg = (error?.message || '').toString().toLowerCase();
+      if (error instanceof Error && (errMsg.includes("doesn't seem like a hobby") || errMsg.includes('doesnt seem like a hobby'))) {
+        return res.status(400).json({
+          error: 'invalid_hobby',
+          message: error.message,
+          suggestions: suggestAlternativeHobbies(hobbyRaw || ''),
+          invalidHobby: hobbyRaw || undefined
+        });
+      }
+
       console.error('Error generating plan:', error);
       res.status(500).json({ error: 'Failed to generate learning plan' });
     }
