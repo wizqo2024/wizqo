@@ -413,15 +413,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			/>
 
 			{/* Split layout: single column on mobile, two columns on lg+ */}
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[calc(100vh-64px)]">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-[calc(100vh-64px)]">
 				{/* Chat column (left) */}
-				<div className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 flex flex-col h-[50vh] md:h-[55vh] lg:h-[calc(100vh-64px)]">
+				<div className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 flex flex-col h-[50vh] md:h-[50vh] lg:h-[calc(100vh-64px)]">
 					<div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
 						<h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
 						<p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
 					</div>
 
-					<div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2 md:space-y-3">
+					<div className="flex-1 min-h-0 overflow-y-auto p-3 md:p-4 space-y-2 md:space-y-3">
 						{messages.map((message, index) => (
 							<div key={`${message.id}-${index}`} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
 								<div className={`max-w-[85%] rounded-lg px-2 md:px-3 py-1.5 md:py-2 shadow-sm ${
@@ -477,7 +477,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				</div>
 
 				{/* Plan column (right) */}
- 				<div className="w-full flex-1 overflow-y-auto bg-gray-50">
+ 				<div className="w-full min-h-0 flex-1 overflow-y-auto bg-gray-50">
  					{planData && planData.days ? (
  						<div className="p-4 lg:p-6">
  							<div className="mb-6">
