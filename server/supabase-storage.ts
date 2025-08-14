@@ -84,7 +84,7 @@ export class SupabaseBackendStorage implements SupabaseStorage {
       .from('hobby_plans')
       .insert({
         user_id: plan.userId || plan.user_id,
-        hobby_name: plan.hobby || plan.hobby_name, // Handle both field names
+        hobby: plan.hobby || plan.hobby_name, // store in 'hobby' column
         title: plan.title,
         overview: plan.overview,
         plan_data: plan.planData || plan.plan_data
