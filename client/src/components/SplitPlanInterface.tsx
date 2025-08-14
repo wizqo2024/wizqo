@@ -2,8 +2,9 @@ import React from "react";
 
 export interface QuizAnswers {
   experience: string;
-  timeAvailable: string;
-  goal: string;
+  timeCommitment: string;
+  specificGoal: string;
+  hobby: string;
 }
 
 export interface PlanData {
