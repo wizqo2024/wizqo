@@ -249,10 +249,11 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
   // AI generation with shorter timeout
   try {
     console.log('🤖 Attempting fast OpenRouter AI plan generation...');
+    const timeoutMs = parseInt(process.env.OPENROUTER_TIMEOUT_MS || '10000', 10);
     const aiPlan = await Promise.race([
       tryOpenRouterGeneration(hobby, experience, timeAvailable, goal),
       new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('AI timeout')), 3000) // 3 second timeout
+        setTimeout(() => reject(new Error('AI timeout')), timeoutMs)
       )
     ]);
     console.log('✅ OpenRouter AI plan generated successfully');
@@ -263,8 +264,8 @@ async function generateAIPlan(hobby: string, experience: string, timeAvailable: 
   }
 
   // Try OpenRouter AI generation
-async function tryOpenRouterGeneration(hobby: string, experience: string, timeAvailable: string, goal: string) {
-  const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
+  async function tryOpenRouterGeneration(hobby: string, experience: string, timeAvailable: string, goal: string) {
+    const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
 
 User details:
 - Experience level: ${experience}
@@ -279,80 +280,93 @@ Return ONLY a JSON object with this structure:
   "difficulty": "${experience}",
   "totalDays": 7,
   "days": [
-    {
-      "day": 1,
-      "title": "Just the activity name without 'Day X:' prefix",
-      "mainTask": "Main learning objective for the day",
-      "explanation": "Why this day matters and what you'll accomplish",
-      "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
-      "checklist": ["Item needed 1", "Item needed 2", "Item needed 3", "Item needed 4", "Item needed 5"],
-      "tips": ["Helpful tip 1", "Helpful tip 2", "Helpful tip 3"],
-      "commonMistakes": ["Common mistake 1", "Common mistake 2", "Common mistake 3"],
-      "estimatedTime": "${timeAvailable}",
-      "skillLevel": "${experience}"
-    }
+    {"day": 1, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 2, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 3, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 4, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 5, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 6, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"},
+    {"day": 7, "title": "Concise title", "mainTask": "...", "explanation": "...", "howTo": ["...","..."], "checklist": ["..."], "tips": ["..."], "commonMistakes": ["..."], "estimatedTime": "${timeAvailable}", "skillLevel": "${experience}"}
   ]
 }
 
 Make each day build progressively on the previous day. Include practical, actionable steps.`;
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      'HTTP-Referer': 'https://wizqo.com',
-      'X-Title': 'Wizqo Hobby Learning Platform'
-    },
-    body: JSON.stringify({
-      model: 'deepseek/deepseek-chat',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 3000,
-      temperature: 0.7
-    })
-  });
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': 'https://wizqo.com',
+        'X-Title': 'Wizqo Hobby Learning Platform'
+      },
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 3500,
+        temperature: 0.7
+      })
+    });
 
-  if (!response.ok) {
-    throw new Error(`OpenRouter API request failed: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`OpenRouter API request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const content = data.choices[0]?.message?.content;
+
+    if (!content) {
+      throw new Error('No content in OpenRouter response');
+    }
+
+    const cleanedContent = cleanJsonResponse(content);
+    const aiPlan = JSON.parse(cleanedContent);
+
+    // Ensure 7 full days; backfill from fallback templates if needed
+    const hobbyVideos = getYouTubeVideos(hobby);
+    const templates = getPreBuiltHobbyPlans(hobby, experience, timeAvailable);
+    let days: any[] = Array.isArray(aiPlan.days) ? aiPlan.days : [];
+    if (days.length < 7) {
+      console.log(`⚠️ AI returned ${days.length} days; backfilling to 7`);
+      for (let d = days.length; d < 7; d++) {
+        const t = templates[d];
+        days.push({
+          day: d + 1,
+          title: t?.title || `Day ${d + 1}`,
+          mainTask: t?.mainTask || '',
+          explanation: t?.explanation || '',
+          howTo: t?.howTo || [],
+          checklist: t?.checklist || [],
+          tips: t?.tips || [],
+          commonMistakes: t?.mistakesToAvoid || []
+        });
+      }
+    }
+    aiPlan.days = days.slice(0, 7).map((day: any, index: number) => {
+      const targetedVideoId = hobbyVideos[index % hobbyVideos.length];
+      const videoDetails = getVideoDetails(hobby, experience, day.day || index + 1);
+      return {
+        ...day,
+        day: day.day || index + 1,
+        commonMistakes: day.commonMistakes || day.mistakesToAvoid || [
+          "Rushing through exercises without understanding concepts",
+          "Skipping practice time or cutting sessions short",
+          "Not taking notes or tracking your improvement"
+        ],
+        youtubeVideoId: targetedVideoId,
+        videoId: targetedVideoId,
+        videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
+        freeResources: day.freeResources || [],
+        affiliateProducts: day.affiliateProducts || [{ ...getHobbyProduct(hobby, index + 1) }]
+      };
+    });
+
+    aiPlan.hobby = hobby;
+    aiPlan.difficulty = experience === 'some' ? 'intermediate' : experience;
+    aiPlan.overview = aiPlan.overview || aiPlan.description || `A comprehensive ${hobby} learning plan tailored for ${experience === 'some' ? 'intermediate' : experience} learners`;
+
+    return aiPlan;
   }
-
-  const data = await response.json();
-  const content = data.choices[0]?.message?.content;
-
-  if (!content) {
-    throw new Error('No content in OpenRouter response');
-  }
-
-  const cleanedContent = cleanJsonResponse(content);
-  const aiPlan = JSON.parse(cleanedContent);
-
-  // Add YouTube videos and affiliate products
-  const hobbyVideos = getYouTubeVideos(hobby);
-  aiPlan.days = aiPlan.days.map((day: any, index: number) => {
-    const targetedVideoId = hobbyVideos[index % hobbyVideos.length];
-    const videoDetails = getVideoDetails(hobby, experience, day.day);
-
-    return {
-      ...day,
-      commonMistakes: day.commonMistakes || day.mistakesToAvoid || [
-        "Rushing through exercises without understanding concepts",
-        "Skipping practice time or cutting sessions short",
-        "Not taking notes or tracking your improvement"
-      ],
-      youtubeVideoId: targetedVideoId,
-      videoId: targetedVideoId,
-      videoTitle: videoDetails?.title || `${day.title} - ${hobby} Tutorial`,
-      freeResources: [], // USER PREFERENCE: Only affiliate links, no free tutorials
-      affiliateProducts: [{ ...getHobbyProduct(hobby, day.day) }]
-    };
-  });
-
-  aiPlan.hobby = hobby;
-  aiPlan.difficulty = experience === 'some' ? 'intermediate' : experience;
-  aiPlan.overview = aiPlan.overview || aiPlan.description || `A comprehensive ${hobby} learning plan tailored for ${experience === 'some' ? 'intermediate' : experience} learners`;
-
-  return aiPlan;
-}
 
   // Declare timeoutId outside try block so it's accessible in catch
   let timeoutId: NodeJS.Timeout | null = null;
@@ -401,12 +415,13 @@ Make each day build progressively on the previous day. Include practical, action
       'X-Title': 'Wizqo Hobby Learning Platform'
     };
 
-    // Add shorter timeout for faster user experience
+    // Add timeout with configurable duration for user experience
     const controller = new AbortController();
+    const timeoutMs2 = parseInt(process.env.OPENROUTER_TIMEOUT_MS || '10000', 10);
     timeoutId = setTimeout(() => {
-      console.log('⚠️ AI API request timed out after 2 seconds, aborting...');
+      console.log(`⚠️ AI API request timed out after ${timeoutMs2} ms, aborting...`);
       controller.abort();
-    }, 2000); // 2 second timeout for faster response
+    }, timeoutMs2);
 
     console.log('🔧 Making API request to OpenRouter...');
     const response = await fetch(apiUrl, {
