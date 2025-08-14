@@ -139,6 +139,123 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const { savePlan, saving } = usePlanStorage();
 	const { user } = useAuth();
 
+	// Save state and chat typing
+	const [isSavingPlan, setIsSavingPlan] = useState<boolean>(false);
+	const [saveError, setSaveError] = useState<string | null>(null);
+	const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+
+	// Load progress from server if available
+	useEffect(() => {
+		const loadProgress = async () => {
+			try {
+				if (!user || !currentPlanId) return;
+				const resp = await fetch(`/api/user-progress/${user.id}`);
+				if (!resp.ok) return;
+				const data = await resp.json();
+				const entry = Array.isArray(data) ? data.find((p: any) => (p.plan_id || p.planId) === currentPlanId) : null;
+				if (entry) {
+					const serverCompleted: number[] = entry.completed_days || entry.completedDays || [];
+					const serverCurrent: number = entry.current_day || entry.currentDay || 1;
+					setCompletedDays(serverCompleted);
+					setSelectedDay(serverCurrent);
+				}
+			} catch (e) {
+				console.warn('Progress load failed:', e);
+			}
+		};
+		loadProgress();
+	}, [user, currentPlanId]);
+
+	const syncProgressToServer = async (nextCompletedDays: number[], nextCurrentDay: number) => {
+		try {
+			if (!user || !currentPlanId) return;
+			await fetch('/api/user-progress', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					user_id: user.id,
+					plan_id: currentPlanId,
+					completed_days: nextCompletedDays,
+					current_day: nextCurrentDay,
+					unlocked_days: nextCompletedDays.length > 0 ? Array.from({ length: Math.min(7, Math.max(...nextCompletedDays) + 1) }, (_, i) => i + 1) : [1]
+				})
+			});
+		} catch (e) {
+			console.warn('Progress sync failed:', e);
+		}
+	};
+
+	const savePlanToDashboard = async () => {
+		try {
+			setIsSavingPlan(true);
+			setSaveError(null);
+			setSaveSuccess(null);
+			if (!user) {
+				setSaveError('Please log in to save your plan.');
+				setShowAuthModal(true);
+				return;
+			}
+
+			if (!planData) {
+				setSaveError('No plan to save.');
+				return;
+			}
+
+			const payload = {
+				user_id: user.id,
+				hobby: planData.hobby,
+				title: planData.title,
+				overview: planData.overview,
+				plan_data: planData
+			};
+
+			const resp = await fetch('/api/hobby-plans', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+
+			if (!resp.ok) {
+				const txt = await resp.text();
+				throw new Error(`Save failed (${resp.status}): ${txt}`);
+			}
+			const saved = await resp.json();
+			const newPlanId = saved.id || saved.plan_id || null;
+			if (newPlanId) {
+				setCurrentPlanId(String(newPlanId));
+				setSaveSuccess('Plan saved to your dashboard.');
+				// Initial progress sync
+				await syncProgressToServer(completedDays, selectedDay);
+			}
+		} catch (e: any) {
+			setSaveError(e?.message || 'Failed to save plan');
+		} finally {
+			setIsSavingPlan(false);
+		}
+	};
+
+	const askPlanQuestion = async (question: string) => {
+		if (!planData) return;
+		try {
+			setIsTyping(true);
+			const resp = await fetch('/api/chat', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ question, planData, hobbyContext: planData.hobby })
+			});
+			if (resp.ok) {
+				const data = await resp.json();
+				addAIMessage(data.response || '');
+			} else {
+				addAIMessage('Sorry, I could not answer that right now.');
+			}
+		} catch (e) {
+			addAIMessage('There was a problem contacting the assistant.');
+		} finally {
+			setIsTyping(false);
+		}
+	};
+
 	// Helpers
 	const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
 	const isDayUnlocked = (dayNumber: number) => dayNumber === 1 || (user && isDayCompleted(dayNumber - 1));
@@ -253,6 +370,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		if (!currentInput.trim()) return;
 		const input = currentInput.trim();
 		setCurrentInput('');
+		// If plan exists, route to plan-aware chat endpoint
+		if (planData && currentStep === 'plan') {
+			addUserMessage(input);
+			await askPlanQuestion(input);
+			return;
+		}
 		if (currentStep === 'hobby') {
 			setSelectedHobby(input.toLowerCase());
 			addUserMessage(input);
@@ -370,13 +493,22 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
  								</div>
  							</div>
  
- 							<div className="mb-6">
- 								<div className="flex items-center justify-between mb-2">
- 									<span className="text-sm font-medium text-gray-700">Progress</span>
- 									<span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
- 								</div>
- 								<Progress value={progressPercentage} className="h-2" />
- 							</div>
+ 														<div className="mb-6">
+								<div className="flex items-center justify-between mb-2">
+									<span className="text-sm font-medium text-gray-700">Progress</span>
+									<div className="flex items-center gap-3">
+										<span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
+										{user && (
+											<Button size="sm" variant="secondary" disabled={isSavingPlan} onClick={savePlanToDashboard}>
+												{isSavingPlan ? 'Saving…' : 'Save Plan'}
+											</Button>
+										)}
+									</div>
+								</div>
+								{saveError && <p className="text-sm text-red-600 mb-2">{saveError}</p>}
+								{saveSuccess && <p className="text-sm text-green-600 mb-2">{saveSuccess}</p>}
+								<Progress value={progressPercentage} className="h-2" />
+							</div>
  
  							<Card className="mb-6">
  								<CardHeader>
@@ -424,12 +556,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 												<CardTitle className="text-xl font-bold text-gray-900">Day {currentDay.day}: {currentDay.title}</CardTitle>
 												<Button
 													onClick={() => {
-														const next = isCompleted
-															? completedDays.filter(d => d !== selectedDay)
-															: (completedDays.includes(selectedDay) ? completedDays : [...completedDays, selectedDay]);
-														setCompletedDays(next);
-														sessionStorage.setItem('progress_local', JSON.stringify({ completedDays: next }));
-													}}
+																											const next = isCompleted
+														? completedDays.filter(d => d !== selectedDay)
+														: (completedDays.includes(selectedDay) ? completedDays : [...completedDays, selectedDay]);
+													setCompletedDays(next);
+													sessionStorage.setItem('progress_local', JSON.stringify({ completedDays: next }));
+													// sync to server if logged in
+													void syncProgressToServer(next, selectedDay);
+												}}
 													variant="outline"
 													className="text-sm"
 												>
