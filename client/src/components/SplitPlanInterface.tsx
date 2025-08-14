@@ -125,7 +125,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const [isTyping, setIsTyping] = useState(false);
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [planData, setPlanData] = useState<PlanData | null>(null);
-	const [completedDays, setCompletedDays] = useState<number[]>([]);
+	const [completedDays, setCompletedDays] = useState<number[]>(() => {
+		const saved = sessionStorage.getItem('progress_local');
+		return saved ? JSON.parse(saved).completedDays : [];
+	});
 	const [selectedDay, setSelectedDay] = useState<number>(1);
 	const [showAuthModal, setShowAuthModal] = useState(false);
 	const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
@@ -351,62 +354,147 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				</div>
 
 				{/* Plan column (right) */}
-				<div className="w-full flex-1 overflow-y-auto bg-gray-50">
-					{planData && planData.days ? (
-						<div className="p-4 lg:p-6">
+ 				<div className="w-full flex-1 overflow-y-auto bg-gray-50">
+ 					{planData && planData.days ? (
+ 						<div className="p-4 lg:p-6">
+ 							<div className="mb-6">
+ 								<h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
+ 								<div className="flex items-center space-x-2 lg:space-x-4 mt-2">
+ 									<span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+ 										{planData.difficulty}
+ 									</span>
+ 									<span className="text-xs lg:text-sm text-gray-600 flex items-center">
+ 										<Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+ 										{planData.totalDays} days
+ 									</span>
+ 								</div>
+ 							</div>
+ 
+ 							<div className="mb-6">
+ 								<div className="flex items-center justify-between mb-2">
+ 									<span className="text-sm font-medium text-gray-700">Progress</span>
+ 									<span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
+ 								</div>
+ 								<Progress value={progressPercentage} className="h-2" />
+ 							</div>
+ 
+ 							<Card className="mb-6">
+ 								<CardHeader>
+ 									<CardTitle className="flex items-center">
+ 										<BookOpen className="w-5 h-5 mr-2" />
+ 										Overview
+ 									</CardTitle>
+ 								</CardHeader>
+ 								<CardContent>
+ 									<p className="text-gray-700 leading-relaxed">{planData.overview}</p>
+ 								</CardContent>
+ 							</Card>
+
+							{/* Day selector */}
 							<div className="mb-6">
-								<h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
-								<div className="flex items-center space-x-2 lg:space-x-4 mt-2">
-									<span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-										{planData.difficulty}
-									</span>
-									<span className="text-xs lg:text-sm text-gray-600 flex items-center">
-										<Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
-										{planData.totalDays} days
-									</span>
+								<h3 className="text-lg font-semibold text-gray-900 mb-4">Select Day</h3>
+								<div className="flex flex-wrap gap-2">
+									{Array.from({ length: planData?.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
+										const isCompleted = completedDays.includes(dayNum);
+										const isSelected = selectedDay === dayNum;
+										return (
+											<button
+												key={dayNum}
+												onClick={() => setSelectedDay(dayNum)}
+												className={`w-10 h-10 rounded-lg font-semibold text-sm transition-all flex items-center justify-center border ${
+													isSelected ? 'bg-blue-500 text-white border-blue-600' : isCompleted ? 'bg-green-100 text-green-700 border-green-300' : 'bg-gray-100 text-gray-700 border-gray-300'
+												}`}
+											>
+												{dayNum}
+											</button>
+										);
+									})}
 								</div>
 							</div>
 
-							<div className="mb-6">
-								<div className="flex items-center justify-between mb-2">
-									<span className="text-sm font-medium text-gray-700">Progress</span>
-									<span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
-								</div>
-								<Progress value={progressPercentage} className="h-2" />
-							</div>
-
-							<Card className="mb-6">
-								<CardHeader>
-									<CardTitle className="flex items-center">
-										<BookOpen className="w-5 h-5 mr-2" />
-										Overview
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-gray-700 leading-relaxed">{planData.overview}</p>
-								</CardContent>
-							</Card>
-						</div>
-					) : (
-						<div className="flex items-center justify-center min-h-full p-6">
-							<div className="max-w-2xl mx-auto space-y-6">
-								<div className="text-center">
-									<div className="text-6xl mb-6">🎯</div>
-									<h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Your Learning Journey!</h2>
-									<p className="text-lg text-gray-700 leading-relaxed">
-										Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you.
-									</p>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
-			</div>
-
-			<AuthModal 
-				isOpen={showAuthModal}
-				onClose={() => setShowAuthModal(false)}
-			/>
-		</div>
-	);
-}
+							{/* Selected day content */}
+							{(() => {
+								const currentDay = planData?.days?.find((d) => d.day === selectedDay);
+								if (!currentDay) return null;
+								const isCompleted = completedDays.includes(selectedDay);
+								return (
+									<Card className="overflow-hidden">
+										<CardHeader>
+											<div className="flex items-center justify-between">
+												<CardTitle className="text-xl font-bold text-gray-900">Day {currentDay.day}: {currentDay.title}</CardTitle>
+												<Button
+													onClick={() => {
+														const next = isCompleted
+															? completedDays.filter(d => d !== selectedDay)
+															: (completedDays.includes(selectedDay) ? completedDays : [...completedDays, selectedDay]);
+														setCompletedDays(next);
+														sessionStorage.setItem('progress_local', JSON.stringify({ completedDays: next }));
+													}}
+													variant="outline"
+													className="text-sm"
+												>
+													{isCompleted ? 'Completed' : 'Mark Complete'}
+												</Button>
+											</div>
+										</CardHeader>
+										<CardContent>
+											<div className="space-y-6">
+												<section>
+													<h4 className="font-semibold mb-2">Main Task</h4>
+													<p className="text-gray-700">{currentDay.mainTask}</p>
+												</section>
+												<section>
+													<h4 className="font-semibold mb-2">How To</h4>
+													<ul className="list-disc list-inside space-y-1 text-gray-700">
+														{currentDay.howTo?.map((s, i) => (<li key={i}>{s}</li>))}
+													</ul>
+												</section>
+												<section>
+													<h4 className="font-semibold mb-2">Tips</h4>
+													<ul className="list-disc list-inside space-y-1 text-gray-700">
+														{currentDay.tips?.map((t, i) => (<li key={i}>{t}</li>))}
+													</ul>
+												</section>
+												<section>
+													<h4 className="font-semibold mb-2">Checklist</h4>
+													<ul className="list-disc list-inside space-y-1 text-gray-700">
+														{currentDay.checklist?.map((c, i) => (<li key={i}>{c}</li>))}
+													</ul>
+												</section>
+												<section>
+													<h4 className="font-semibold mb-2">Video</h4>
+													{currentDay.youtubeVideoId ? (
+														<YouTubeEmbed videoId={currentDay.youtubeVideoId} title={currentDay.videoTitle || 'Tutorial'} />
+													) : (
+														<p className="text-gray-600">No video for this day.</p>
+													)}
+												</section>
+											</div>
+										</CardContent>
+									</Card>
+								);
+							})()}
+ 						</div>
+ 					) : (
+ 						<div className="flex items-center justify-center min-h-full p-6">
+ 							<div className="max-w-2xl mx-auto space-y-6">
+ 								<div className="text-center">
+ 									<div className="text-6xl mb-6">🎯</div>
+ 									<h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Your Learning Journey!</h2>
+ 									<p className="text-lg text-gray-700 leading-relaxed">
+ 										Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you.
+ 									</p>
+ 								</div>
+ 							</div>
+ 						</div>
+ 					)}
+ 				</div>
+ 			</div>
+ 
+ 			<AuthModal 
+ 				isOpen={showAuthModal}
+ 				onClose={() => setShowAuthModal(false)}
+ 			/>
+ 		</div>
+ 	);
+ }
