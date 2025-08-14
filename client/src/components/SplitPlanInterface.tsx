@@ -286,9 +286,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				currentPage={planData ? 'plan' : 'generate'}
 			/>
 
-			<div className="flex flex-col min-h-[calc(100vh-64px)]">
-				{/* Chat area header and messages */}
-				<div className="w-full bg-white border-b-2 border-gray-300 flex flex-col h-64 md:h-80">
+			{/* Split layout: single column on mobile, two columns on lg+ */}
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[calc(100vh-64px)]">
+				{/* Chat column (left) */}
+				<div className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 flex flex-col h-[50vh] md:h-[55vh] lg:h-[calc(100vh-64px)]">
 					<div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
 						<h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
 						<p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
@@ -349,7 +350,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					</div>
 				</div>
 
-				{/* Plan area */}
+				{/* Plan column (right) */}
 				<div className="w-full flex-1 overflow-y-auto bg-gray-50">
 					{planData && planData.days ? (
 						<div className="p-4 lg:p-6">
