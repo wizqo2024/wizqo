@@ -2,7 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 
 // Use the same Supabase instance as frontend
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseServiceKey = process.env.VITE_SUPABASE_ANON_KEY; // In production, use service role key
+// Prefer secure service role key in server
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY 
+	|| process.env.VITE_SUPABASE_SERVICE_ROLE_KEY 
+	|| process.env.VITE_SUPABASE_ANON_KEY; // fallback only if service key not set
 
 if (!supabaseUrl || !supabaseServiceKey) {
   throw new Error('Supabase environment variables not found');
