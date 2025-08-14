@@ -437,7 +437,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			{/* Split layout: single column on mobile, two columns on lg+ */}
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-[calc(100vh-64px)]">
 				{/* Chat column (left) */}
-				<div className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 flex flex-col h-[50vh] md:h-[50vh] lg:h-[calc(100vh-64px)]">
+				<div className="bg-white border-b lg:border-b-0 lg:border-r border-gray-300 flex flex-col h-[42vh] md:h-[42vh] lg:h-[calc(100vh-64px)] lg:max-h-[40vh]">
 					<div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
 						<h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
 						<p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
@@ -467,7 +467,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 											<button
 												key={option.value}
 												onClick={() => handleOptionSelect(option.value, option.label)}
-												className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm disabled:opacity-50"
+												className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm disabled:opacity-50"
 												disabled={isGenerating}
 											>
 												{option.label}
@@ -481,7 +481,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						<div ref={messagesEndRef} />
 					</div>
 
-					<div className="p-3 md:p-4 border-t border-gray-200 bg-gray-50 shrink-0">
+					<div className="p-2 md:p-3 border-t border-gray-200 bg-gray-50 shrink-0">
 						<div className="flex space-x-2">
 							<Input
 								ref={inputRef}
@@ -489,7 +489,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 								onChange={(e) => setCurrentInput(e.target.value)}
 								placeholder="Type your answer..."
 								onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-								className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10"
+																				className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-9"
 							/>
 							<Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10">
 								<Send className="w-3 h-3 md:w-4 md:h-4" />
@@ -508,7 +508,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
  									<span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
  										{planData.difficulty}
  									</span>
- 									<span className="text-xs lg:text-sm text-gray-600 flex items-center">
+ 																			<span className="text-xs lg:text-sm text-gray-600 flex items-center whitespace-nowrap">
  										<Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
  										{planData.totalDays} days
  									</span>
