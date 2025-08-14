@@ -631,7 +631,7 @@ async function generateFallbackPlan(hobby: string, experience: string, timeAvail
 
     days.push({
       day: dayNumber,
-      title: dayPlan.title,
+      title: dayPlan.title.replace(/^Day\s*\d+[:\s-]*/i, ''),
       mainTask: dayPlan.mainTask,
       explanation: dayPlan.explanation,
       howTo: dayPlan.howTo,
