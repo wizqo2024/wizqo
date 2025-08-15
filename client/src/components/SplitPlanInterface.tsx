@@ -425,9 +425,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					
 					const savedPlan = await hobbyPlanService.savePlan({
 						...plan,
-						user_id: user.id,
 						hobby: hobby
-					});
+					}, user.id);
 					
 					console.log('✅ Plan saved successfully:', savedPlan.id);
 					
