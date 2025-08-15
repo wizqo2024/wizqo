@@ -44,29 +44,17 @@ interface PlanDisplayProps {
 }
 
 export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayProps) {
-  const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1]));
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const { toast } = useToast();
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const dayRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   useEffect(() => {
-    setExpandedDays(new Set([selectedDay]));
     const target = dayRefs.current[selectedDay];
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [selectedDay]);
-
-  const toggleDayExpansion = (dayNumber: number) => {
-    const newExpanded = new Set(expandedDays);
-    if (newExpanded.has(dayNumber)) {
-      newExpanded.delete(dayNumber);
-    } else {
-      newExpanded.add(dayNumber);
-    }
-    setExpandedDays(newExpanded);
-  };
 
   const toggleDayCompletion = async (dayNumber: number) => {
     if (completedDays.includes(dayNumber)) {
@@ -141,154 +129,174 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
         </div>
       </div>
 
-      {/* Days */}
-      <div className="space-y-4">
+      {/* Selected Day Display */}
+      <div className="min-h-[600px]">
         {planData.days.map((day) => {
           const status = getDayStatus(day.day);
-          const isExpanded = expandedDays.has(day.day);
+          const isSelected = selectedDay === day.day;
+
+          if (!isSelected) return null;
 
           return (
             <div key={day.day} ref={(el) => (dayRefs.current[day.day] = el)}>
-            <Card className="bg-white border border-gray-200 shadow-sm">
-              {/* Day Header */}
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
-                      status === 'completed' ? 'bg-green-500' : 
-                      status === 'unlocked' ? 'bg-blue-500' : 'bg-gray-400'
-                    }`}>
-                      {status === 'completed' ? <CheckCircle className="w-5 h-5" /> : 
-                       status === 'locked' ? <Lock className="w-5 h-5" /> : day.day}
+              <Card className="bg-white border border-gray-200 shadow-sm">
+                {/* Day Header */}
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
+                        status === 'completed' ? 'bg-green-500' : 
+                        status === 'unlocked' ? 'bg-blue-500' : 'bg-gray-400'
+                      }`}>
+                        {status === 'completed' ? <CheckCircle className="w-5 h-5" /> : 
+                         status === 'locked' ? <Lock className="w-5 h-5" /> : day.day}
+                      </div>
+                      <div>
+                        <h2 className="text-xl font-semibold text-gray-900">{day.title}</h2>
+                        <p className="text-sm text-gray-600">{day.mainTask}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h2 className="text-xl font-semibold text-gray-900">{day.title}</h2>
-                      <p className="text-sm text-gray-600">{day.mainTask}</p>
-                    </div>
+                    <Button
+                      variant="ghost"
+                      onClick={() => toggleDayCompletion(day.day)}
+                      disabled={status === 'locked'}
+                      className="flex items-center space-x-2"
+                    >
+                      {isDayCompleted(day.day) ? (
+                        <>
+                          <CheckCircle className="w-4 h-4 text-green-600" />
+                          <span className="text-sm text-green-600">Completed</span>
+                        </>
+                      ) : (
+                        <>
+                          <Circle className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm text-gray-600">Mark Complete</span>
+                        </>
+                      )}
+                    </Button>
                   </div>
-                  <Button
-                    variant="ghost"
-                    onClick={() => toggleDayExpansion(day.day)}
-                    disabled={status === 'locked'}
-                  >
-                    {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                  </Button>
-                </div>
-              </CardHeader>
+                </CardHeader>
 
-              {/* Day Content */}
-              {isExpanded && (
-                <CardContent className="space-y-8 max-w-none">
-                  {/* Time Allocation & Overview */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                          <Clock className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-blue-900">Today's Focus</h3>
-                          <p className="text-sm text-blue-700">{day.timeAllocation || day.estimatedTime || '30-45 minutes'}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-sm font-medium text-blue-700">Day {day.day}</span>
-                        <p className="text-xs text-blue-600">{day.skillLevel || 'Beginner'}</p>
-                      </div>
-                    </div>
-                    <div className="prose prose-blue max-w-none">
-                      <p className="text-blue-800 leading-relaxed text-base">{day.explanation}</p>
-                    </div>
-                  </div>
-
-                  {/* Equipment & Materials */}
-                  {(day.equipment || day.materials) && (
-                    <div className="bg-white border border-gray-200 rounded-lg p-6">
-                      <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
-                          <Package className="w-4 h-4 text-white" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900">What You'll Need</h3>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {day.equipment && (
-                          <div>
-                            <h4 className="text-sm font-medium text-purple-700 mb-2">🎯 Equipment</h4>
-                            <ul className="space-y-2">
-                              {day.equipment.map((item, index) => (
-                                <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
-                                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {day.materials && (
-                          <div>
-                            <h4 className="text-sm font-medium text-indigo-700 mb-2">📋 Materials</h4>
-                            <ul className="space-y-2">
-                              {day.materials.map((item, index) => (
-                                <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
-                                  <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Detailed Steps */}
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <div className="flex items-center space-x-3 mb-6">
-                      <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-4 h-4 text-white" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-900">Step-by-Step Instructions</h3>
-                    </div>
-                    
-                    {day.detailedSteps && day.detailedSteps.length > 0 ? (
-                      <div className="space-y-6">
-                        {day.detailedSteps.map((step, index) => (
-                          <div key={index} className="relative">
-                            <div className="flex items-start space-x-4">
-                              <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                                {index + 1}
-                              </div>
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between mb-2">
-                                  <h4 className="font-semibold text-gray-900">{step.step}</h4>
-                                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">{step.time}</span>
-                                </div>
-                                <p className="text-gray-700 leading-relaxed">{step.description}</p>
-                              </div>
+                {/* Day Content - Horizontal Layout */}
+                <CardContent className="space-y-6 max-w-none">
+                  {/* Main Content Grid */}
+                  <div className="grid lg:grid-cols-3 gap-6">
+                    {/* Left Column - Overview & Steps */}
+                    <div className="lg:col-span-2 space-y-6">
+                      {/* Time Allocation & Overview */}
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                              <Clock className="w-5 h-5 text-white" />
                             </div>
-                            {index < (day.detailedSteps?.length || 0) - 1 && (
-                              <div className="ml-4 mt-3 mb-3">
-                                <ArrowRight className="w-4 h-4 text-gray-400" />
+                            <div>
+                              <h3 className="text-lg font-semibold text-blue-900">Today's Focus</h3>
+                              <p className="text-sm text-blue-700">{day.timeAllocation || day.estimatedTime || '30-45 minutes'}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-medium text-blue-700">Day {day.day}</span>
+                            <p className="text-xs text-blue-600">{day.skillLevel || 'Beginner'}</p>
+                          </div>
+                        </div>
+                        <div className="prose prose-blue max-w-none">
+                          <p className="text-blue-800 leading-relaxed text-base">{day.explanation}</p>
+                        </div>
+                      </div>
+
+                      {/* Equipment & Materials */}
+                      {(day.equipment || day.materials) && (
+                        <div className="bg-white border border-gray-200 rounded-lg p-6">
+                          <div className="flex items-center space-x-3 mb-4">
+                            <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                              <Package className="w-4 h-4 text-white" />
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900">What You'll Need</h3>
+                          </div>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            {day.equipment && (
+                              <div>
+                                <h4 className="text-sm font-medium text-purple-700 mb-2">🎯 Equipment</h4>
+                                <ul className="space-y-2">
+                                  {day.equipment.map((item, index) => (
+                                    <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
+                                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {day.materials && (
+                              <div>
+                                <h4 className="text-sm font-medium text-indigo-700 mb-2">📋 Materials</h4>
+                                <ul className="space-y-2">
+                                  {day.materials.map((item, index) => (
+                                    <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
+                                      <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
                             )}
                           </div>
-                        ))}
+                        </div>
+                      )}
+
+                      {/* Detailed Steps */}
+                      <div className="bg-white border border-gray-200 rounded-lg p-6">
+                        <div className="flex items-center space-x-3 mb-6">
+                          <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <BookOpen className="w-4 h-4 text-white" />
+                          </div>
+                          <h3 className="text-lg font-semibold text-gray-900">Step-by-Step Instructions</h3>
+                        </div>
+                        
+                        {day.detailedSteps && day.detailedSteps.length > 0 ? (
+                          <div className="space-y-6">
+                            {day.detailedSteps.map((step, index) => (
+                              <div key={index} className="relative">
+                                <div className="flex items-start space-x-4">
+                                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                    {index + 1}
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between mb-2">
+                                      <h4 className="font-semibold text-gray-900">{step.step}</h4>
+                                      <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">{step.time}</span>
+                                    </div>
+                                    <p className="text-gray-700 leading-relaxed">{step.description}</p>
+                                  </div>
+                                </div>
+                                {index < (day.detailedSteps?.length || 0) - 1 && (
+                                  <div className="ml-4 mt-3 mb-3">
+                                    <ArrowRight className="w-4 h-4 text-gray-400" />
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <ol className="space-y-4">
+                            {day.howTo.map((step, index) => (
+                              <li key={index} className="flex items-start space-x-4">
+                                <span className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                                  {index + 1}
+                                </span>
+                                <div className="flex-1">
+                                  <p className="text-gray-700 leading-relaxed">{step}</p>
+                                </div>
+                              </li>
+                            ))}
+                          </ol>
+                        )}
                       </div>
-                    ) : (
-                      <ol className="space-y-4">
-                        {day.howTo.map((step, index) => (
-                          <li key={index} className="flex items-start space-x-4">
-                            <span className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
-                              {index + 1}
-                            </span>
-                            <div className="flex-1">
-                              <p className="text-gray-700 leading-relaxed">{step}</p>
-                            </div>
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-                  </div>
+                    </div>
+
+                    {/* Right Sidebar */}
+                    <div className="space-y-6">
 
                   {/* Success Tips */}
                   <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
@@ -443,6 +451,8 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
                       </div>
                     </div>
                   )}
+                    </div>
+                  </div>
                 </CardContent>
               )}
             </Card>
