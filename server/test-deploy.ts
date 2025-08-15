@@ -32,66 +32,66 @@ app.get('/api/hobby-plans', (req, res) => {
     {
       id: 'mock-plan-1',
       user_id: req.query.user_id,
-      hobby: 'programming',
-      title: 'Programming Learning Plan',
+      hobby: 'creative writing',
+      title: 'Creative Writing Learning Plan',
       progress: 14, // 1 day completed out of 7
       totalDays: 7,
       currentDay: 2,
-      category: 'technical',
+      category: 'creative',
       startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days ago
       expectedEndDate: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString(), // 6 days from now
       status: 'in_progress',
       created_at: new Date().toISOString(),
       planData: {
-        hobby: 'programming',
-        title: 'Programming Learning Plan',
+        hobby: 'creative writing',
+        title: 'Creative Writing Learning Plan',
         days: [
           { 
             day: 1, 
-            title: 'Day 1: Introduction to Programming', 
-            content: 'Learn the basics of programming concepts and tools.',
+            title: 'Day 1: Introduction to Creative Writing', 
+            content: 'Learn the basics of creative writing and storytelling.',
             youtubeVideoId: 'mock-video-id',
             affiliateProducts: []
           },
           { 
             day: 2, 
-            title: 'Day 2: Basic Syntax', 
-            content: 'Master fundamental programming syntax and structure.',
+            title: 'Day 2: Character Development', 
+            content: 'Master character creation and development techniques.',
             youtubeVideoId: 'mock-video-id-2',
             affiliateProducts: []
           },
           { 
             day: 3, 
-            title: 'Day 3: Variables and Data Types', 
-            content: 'Learn about variables, data types, and memory management.',
+            title: 'Day 3: Plot Structure', 
+            content: 'Learn about plot structure and story arcs.',
             youtubeVideoId: 'mock-video-id-3',
             affiliateProducts: []
           },
           { 
             day: 4, 
-            title: 'Day 4: Control Structures', 
-            content: 'Master loops, conditionals, and program flow.',
+            title: 'Day 4: Dialogue Writing', 
+            content: 'Master dialogue writing and character voice.',
             youtubeVideoId: 'mock-video-id-4',
             affiliateProducts: []
           },
           { 
             day: 5, 
-            title: 'Day 5: Functions', 
-            content: 'Learn about functions, parameters, and code organization.',
+            title: 'Day 5: Setting and World Building', 
+            content: 'Learn about setting creation and world building.',
             youtubeVideoId: 'mock-video-id-5',
             affiliateProducts: []
           },
           { 
             day: 6, 
-            title: 'Day 6: Object-Oriented Programming', 
-            content: 'Introduction to classes, objects, and inheritance.',
+            title: 'Day 6: Editing and Revision', 
+            content: 'Master editing and revision techniques.',
             youtubeVideoId: 'mock-video-id-6',
             affiliateProducts: []
           },
           { 
             day: 7, 
-            title: 'Day 7: Final Project', 
-            content: 'Complete a final programming project.',
+            title: 'Day 7: Final Story Project', 
+            content: 'Complete your final creative writing project.',
             youtubeVideoId: 'mock-video-id-7',
             affiliateProducts: []
           }
