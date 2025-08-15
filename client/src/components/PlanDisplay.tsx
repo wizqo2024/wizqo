@@ -343,6 +343,116 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
                   </div>
                 </div>
 
+                {/* Video Tutorial Section */}
+                {selectedDayData.youtubeVideoId && (
+                  <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
+                        <Play className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-red-900">🎥 Video Tutorial</h3>
+                        <p className="text-sm text-red-700">Watch and learn with our step-by-step video guide</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${selectedDayData.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
+                          title={`${planData.hobby} Day ${selectedDayData.day}: ${selectedDayData.title}`}
+                          frameBorder="0"
+                          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="absolute top-0 left-0 w-full h-full"
+                        ></iframe>
+                      </div>
+                      {selectedDayData.videoTitle && (
+                        <div className="mt-4 text-center">
+                          <h4 className="font-semibold text-gray-900">{selectedDayData.videoTitle}</h4>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Resources Section */}
+                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200 rounded-lg p-6">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                      <Package className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-orange-900">🛒 Recommended Resources</h3>
+                      <p className="text-sm text-orange-700">Tools and materials to enhance your learning experience</p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {/* Free Resources */}
+                    {selectedDayData.freeResources && selectedDayData.freeResources.length > 0 && (
+                      <div className="bg-white rounded-lg p-4 border border-orange-200">
+                        <h4 className="text-sm font-medium text-orange-700 mb-3">📚 Free Learning Resources</h4>
+                        <div className="space-y-2">
+                          {selectedDayData.freeResources.map((resource, index) => (
+                            <a
+                              key={index}
+                              href={resource.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center space-x-2 text-sm text-gray-700 hover:text-orange-600 transition-colors"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              <span>{resource.title}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Affiliate Products */}
+                    {selectedDayData.affiliateProducts && selectedDayData.affiliateProducts.length > 0 && (
+                      <div className="bg-white rounded-lg p-4 border border-orange-200">
+                        <h4 className="text-sm font-medium text-orange-700 mb-3">🛍️ Recommended Products</h4>
+                        <div className="space-y-3">
+                          {selectedDayData.affiliateProducts.map((product, index) => (
+                            <a
+                              key={index}
+                              href={product.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block p-3 bg-gray-50 rounded-lg hover:bg-orange-50 transition-colors border border-gray-200 hover:border-orange-200"
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <h5 className="font-medium text-gray-900 text-sm">{product.title}</h5>
+                                  <p className="text-xs text-gray-500 mt-1">Amazon</p>
+                                </div>
+                                <div className="text-right">
+                                  <span className="text-sm font-semibold text-orange-600">{product.price}</span>
+                                  <div className="text-xs text-gray-400 mt-1">View on Amazon</div>
+                                </div>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Placeholder for when no resources are available */}
+                    {(!selectedDayData.freeResources || selectedDayData.freeResources.length === 0) && 
+                     (!selectedDayData.affiliateProducts || selectedDayData.affiliateProducts.length === 0) && (
+                      <div className="col-span-2 bg-white rounded-lg p-6 border border-orange-200 text-center">
+                        <div className="text-orange-400 mb-2">
+                          <Package className="w-8 h-8 mx-auto" />
+                        </div>
+                        <h4 className="font-medium text-gray-900 mb-2">Resources Coming Soon</h4>
+                        <p className="text-sm text-gray-500">We're curating the best tools and materials for this hobby. Check back soon!</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 {/* Tips and Checklist Section */}
                 <div className="grid lg:grid-cols-2 gap-6">
                   {/* Success Tips */}
