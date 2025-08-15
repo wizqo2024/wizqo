@@ -19,7 +19,7 @@ interface ChatMessage {
 	id: string;
 	sender: 'ai' | 'user';
 	content: string;
-	options?: { value: string; label: string; description?: string }[];
+	options?: { value: string; label: string }[];
 	isTyping?: boolean;
 	timestamp: Date;
 }
@@ -68,6 +68,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const [showAuthModal, setShowAuthModal] = useState(false);
 	const [showSuggestions, setShowSuggestions] = useState(!initialPlanData);
 
+	const [chatStep, setChatStep] = useState<'idle' | 'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
+	const [selectedHobby, setSelectedHobby] = useState('');
+	const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
+
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { user } = useAuth();
@@ -76,21 +80,97 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 	const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
 
+	useEffect(() => {
+		if (messages.length === 0) {
+			setMessages([
+				{
+					id: 'welcome',
+					sender: 'ai',
+					content: "Hi! 👋 Tell me what hobby you'd like to learn.",
+					timestamp: new Date()
+				}
+			]);
+		}
+	}, []);
+
 	const handleStartNewPlan = () => {
 		setPlanData(null);
 		setShowSuggestions(true);
+		setChatStep('hobby');
+		setSelectedHobby('');
+		setAnswers({});
+	};
+
+	const askExperience = () => {
+		setMessages(prev => [
+			...prev,
+			{ id: Date.now().toString(), sender: 'ai', content: "Great! What's your experience level?", options: [
+				{ value: 'beginner', label: 'Beginner' },
+				{ value: 'some', label: 'Some Experience' },
+				{ value: 'intermediate', label: 'Intermediate' }
+			], timestamp: new Date() }
+		]);
+		setChatStep('experience');
+	};
+	const askTime = () => {
+		setMessages(prev => [
+			...prev,
+			{ id: Date.now().toString(), sender: 'ai', content: 'How much time per day can you spend?', options: [
+				{ value: '30 minutes', label: '30 minutes/day' },
+				{ value: '1 hour', label: '1 hour/day' },
+				{ value: '2+ hours', label: '2+ hours/day' }
+			], timestamp: new Date() }
+		]);
+		setChatStep('time');
+	};
+	const askGoal = () => {
+		setMessages(prev => [
+			...prev,
+			{ id: Date.now().toString(), sender: 'ai', content: 'What is your main goal?', options: [
+				{ value: 'personal enjoyment', label: 'Personal Enjoyment' },
+				{ value: 'skill building', label: 'Skill Building' },
+				{ value: 'social connection', label: 'Social Connection' },
+				{ value: 'career change', label: 'Career Change' }
+			], timestamp: new Date() }
+		]);
+		setChatStep('goal');
+	};
+
+	const handleOptionSelect = async (value: string) => {
+		if (chatStep === 'experience') {
+			setAnswers(prev => ({ ...prev, experience: value }));
+			askTime();
+			return;
+		}
+		if (chatStep === 'time') {
+			setAnswers(prev => ({ ...prev, timeAvailable: value }));
+			askGoal();
+			return;
+		}
+		if (chatStep === 'goal') {
+			const finalAnswers: QuizAnswers = {
+				experience: answers.experience || 'beginner',
+				timeAvailable: value || '1 hour',
+				goal: value || 'personal enjoyment'
+			};
+			try {
+				setChatStep('generating');
+				const plan = await onGeneratePlan(selectedHobby, finalAnswers);
+				setPlanData(plan);
+				setShowSuggestions(false);
+				setCompletedDays([]);
+			} catch (e) {
+				console.error('Failed to generate plan', e);
+			} finally {
+				setChatStep('idle');
+			}
+		}
 	};
 
 	const handlePickHobby = async (hobby: string) => {
-		try {
-			const plan = await onGeneratePlan(hobby, defaultAnswers);
-			setPlanData(plan);
-			setShowSuggestions(false);
-			// reset progress UI
-			setCompletedDays([]);
-		} catch (e) {
-			console.error('Failed to generate plan', e);
-		}
+		setSelectedHobby(hobby);
+		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: hobby, timestamp: new Date() }]);
+		askExperience();
 	};
 
 	useEffect(() => {
@@ -103,14 +183,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
 	const handleSendMessage = () => {
 		if (!currentInput.trim()) return;
-		const newMessage: ChatMessage = {
-			id: Date.now().toString(),
-			sender: 'user',
-			content: currentInput.trim(),
-			timestamp: new Date()
-		};
-		setMessages(prev => [...prev, newMessage]);
+		const text = currentInput.trim();
+		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: text, timestamp: new Date() }]);
 		setCurrentInput('');
+		if (!planData && (chatStep === 'hobby' || chatStep === 'idle')) {
+			setSelectedHobby(text.toLowerCase());
+			askExperience();
+		}
 	};
 
 	const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
@@ -143,6 +222,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 									<div className="whitespace-pre-wrap text-xs md:text-sm leading-relaxed">
 										{message.content}
 									</div>
+									{message.options && (
+										<div className="mt-2 flex flex-wrap gap-2">
+											{message.options.map(opt => (
+												<Button key={opt.value} size="sm" variant="secondary" onClick={() => handleOptionSelect(opt.value)} className="px-2 py-1 text-xs">
+													{opt.label}
+												</Button>
+											))}
+										</div>
+									)}
 								</div>
 							</div>
 						))}
