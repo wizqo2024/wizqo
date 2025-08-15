@@ -338,6 +338,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const generatePlanFlow = async (hobby: string, qa: QuizAnswers = defaultAnswers) => {
 		const dup = await preflightDuplicateCheck(hobby);
 		if (dup === 'duplicate') return;
+		
+		// Check plan limits for logged-in users
+		if (user?.id) {
+			try {
+				const userPlans = await hobbyPlanService.getUserPlans(user.id);
+				if (userPlans.length >= 5) {
+					setMessages(prev => [...prev, { 
+						id: Date.now().toString(), 
+						sender: 'ai', 
+						content: 'You have reached the maximum limit of 5 plans. Please delete an existing plan before creating a new one.', 
+						timestamp: new Date() 
+					}]);
+					return;
+				}
+			} catch (e) {
+				console.log('Plan limit check failed, proceeding');
+			}
+		}
+		
 		try {
 			setChatStep('generating');
 			// Clear old chat messages when starting a new plan generation
@@ -346,6 +365,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			setPlanData(plan);
 			setShowSuggestions(false);
 			setCompletedDays([]);
+			
+			// Save plan to database if user is logged in
+			if (user?.id) {
+				try {
+					const savedPlan = await hobbyPlanService.savePlan({
+						...plan,
+						user_id: user.id,
+						hobby: hobby
+					});
+					
+					// Initialize progress for the saved plan
+					await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
+					
+					console.log('Plan saved successfully:', savedPlan.id);
+				} catch (saveError) {
+					console.error('Failed to save plan:', saveError);
+					// Don't block the UI, just log the error
+				}
+			}
 		} catch (e) {
 			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Sorry, I had trouble generating the plan. Please try again.', timestamp: new Date() }]);
 		} finally {
@@ -769,7 +807,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 							</div>
 
 							{/* Full plan content */}
-							<PlanDisplay planData={planData} user={user} setShowAuthModal={setShowAuthModal} />
+							<PlanDisplay 
+								planData={planData} 
+								user={user} 
+								setShowAuthModal={setShowAuthModal}
+								completedDays={completedDays}
+								setCompletedDays={setCompletedDays}
+							/>
 						</div>
 					) : (
 						<div className="p-6 lg:p-10">

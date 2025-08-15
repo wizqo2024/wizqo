@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar, Clock, Play, Trash2, Share2, Trophy, ExternalLink, X } from "lucide-react";
+import { Calendar, Clock, Play, Trash2, Share2, Trophy, ExternalLink, X, BookOpen } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
 
@@ -566,7 +566,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
           </header>
 
           {/* Mobile-Optimized Stats Cards */}
-          <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8" aria-label="Learning Statistics">
+          <section className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8" aria-label="Learning Statistics">
             <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
               <CardContent className="p-3 sm:p-4 lg:p-6">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
@@ -626,6 +626,32 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       {Math.round(hobbyPlans.reduce((acc, plan) => acc + plan.progress, 0) / hobbyPlans.length) || 0}%
                     </p>
                     <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Avg Progress</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center ${
+                    hobbyPlans.length >= 5 
+                      ? 'bg-gradient-to-br from-red-100 to-red-200 dark:from-red-800 dark:to-red-700' 
+                      : 'bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-700'
+                  }`}>
+                    <BookOpen className={`h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 ${
+                      hobbyPlans.length >= 5 
+                        ? 'text-red-600 dark:text-red-300' 
+                        : 'text-blue-600 dark:text-blue-300'
+                    }`} />
+                  </div>
+                  <div className="text-center sm:text-left">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+                      {hobbyPlans.length}/5
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">
+                      {hobbyPlans.length >= 5 ? 'Plan Limit' : 'Plans Created'}
+                    </p>
                   </div>
                 </div>
               </CardContent>
