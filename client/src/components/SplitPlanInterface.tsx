@@ -209,22 +209,90 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						</div>
 					) : (
 						<div className="p-6 lg:p-10">
-							<div className="max-w-4xl mx-auto">
-								<div className="text-center mb-8">
-									<div className="text-6xl mb-4">🎯</div>
-									<h2 className="text-2xl font-bold text-gray-900 mb-2">Start a New 7-Day Learning Plan</h2>
-									<p className="text-gray-700">Pick a hobby to generate a personalized plan, or ask anything in the chat.</p>
+							<div className="max-w-5xl mx-auto space-y-10">
+								<div className="text-center">
+									<div className="text-6xl mb-6">🎯</div>
+									<h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Your Learning Journey!</h2>
+									<p className="text-lg text-gray-700 leading-relaxed">
+										Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. Your custom learning plan will appear here once we chat!
+									</p>
 								</div>
-								<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
-									{hobbySuggestions.map((hobby) => (
-										<button
-											key={hobby}
-											onClick={() => handlePickHobby(hobby)}
-											className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm font-medium text-gray-800 hover:border-blue-300 hover:bg-blue-50 text-left"
-										>
-											{hobby.charAt(0).toUpperCase() + hobby.slice(1)}
-										</button>
-									))}
+
+								<div className="grid md:grid-cols-3 gap-6">
+									<div className="text-center p-6 bg-blue-50 rounded-xl border border-blue-100">
+										<div className="text-3xl mb-3">🎨</div>
+										<h3 className="font-bold text-gray-900 mb-2">Personalized Plans</h3>
+										<p className="text-sm text-gray-600">Every plan is tailored to your experience level, available time, and specific goals.</p>
+									</div>
+									<div className="text-center p-6 bg-green-50 rounded-xl border border-green-100">
+										<div className="text-3xl mb-3">📚</div>
+										<h3 className="font-bold text-gray-900 mb-2">Structured Learning</h3>
+										<p className="text-sm text-gray-600">Daily lessons with tips, checklists, and resources to guide your progress step by step.</p>
+									</div>
+									<div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
+										<div className="text-3xl mb-3">⚡</div>
+										<h3 className="font-bold text-gray-900 mb-2">Quick Results</h3>
+										<p className="text-sm text-gray-600">See real progress in just 7 days with our proven methodology and expert guidance.</p>
+									</div>
+								</div>
+
+								<div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+									<div className="flex items-center mb-4">
+										<span className="text-2xl mr-3">💬</span>
+										<h3 className="text-xl font-bold text-gray-900">How to Get Started</h3>
+									</div>
+									<div className="space-y-4">
+										<div className="flex items-start">
+											<span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">1</span>
+											<div>
+												<h4 className="font-semibold text-gray-900">Tell me your hobby</h4>
+												<p className="text-sm text-gray-600">Use the chat on the left to tell me what you want to learn</p>
+											</div>
+										</div>
+										<div className="flex items-start">
+											<span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">2</span>
+											<div>
+												<h4 className="font-semibold text-gray-900">Answer 3 questions</h4>
+												<p className="text-sm text-gray-600">Help me personalize your learning plan</p>
+											</div>
+										</div>
+										<div className="flex items-start">
+											<span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">3</span>
+											<div>
+												<h4 className="font-semibold text-gray-900">Start learning!</h4>
+												<p className="text-sm text-gray-600">Your custom 7-day plan will appear here</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+									<h3 className="text-xl font-bold text-gray-900 mb-4">Popular Learning Paths</h3>
+									<p className="text-gray-600 mb-4">Not sure what to learn? Here are some popular hobbies our AI has created amazing plans for:</p>
+									<div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+										{[
+											{ icon: '📸', label: 'Photography', key: 'photography' },
+											{ icon: '🎨', label: 'Painting', key: 'painting' },
+											{ icon: '🍳', label: 'Cooking', key: 'cooking' },
+											{ icon: '💻', label: 'Coding', key: 'coding' },
+											{ icon: '🧶', label: 'Knitting', key: 'knitting' },
+											{ icon: '🏡', label: 'Gardening', key: 'gardening' },
+											{ icon: '✍️', label: 'Writing', key: 'writing' },
+											{ icon: '♟️', label: 'Chess', key: 'chess' },
+											{ icon: '🧘', label: 'Yoga', key: 'yoga' },
+											{ icon: '📚', label: 'Reading', key: 'reading' },
+											{ icon: '🏃', label: 'Running', key: 'running' },
+										].map((item) => (
+											<button
+												key={item.key}
+												onClick={() => handlePickHobby(item.key)}
+												className="text-center p-3 bg-gray-50 rounded-lg hover:bg-blue-50 hover:border-blue-200 border border-gray-200"
+											>
+												<div className="text-2xl mb-1">{item.icon}</div>
+												<div className="text-xs font-medium text-gray-700">{item.label}</div>
+											</button>
+										))}
+									</div>
 								</div>
 							</div>
 						</div>
