@@ -2457,7 +2457,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       console.log('✅ Enhanced plan generated successfully with OpenRouter API, YouTube videos, and Supabase storage');
-      res.json({ plan });
+      res.json(plan);
     } catch (error) {
       console.error('Error generating plan:', error);
       res.status(500).json({ error: 'Failed to generate learning plan' });
