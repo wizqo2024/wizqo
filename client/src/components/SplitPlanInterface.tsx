@@ -104,8 +104,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				currentPage={planData ? "plan" : "generate"}
 			/>
 
-			<div className="flex flex-col min-h-[calc(100vh-64px)]">
-				<div className="w-full bg-white border-b-2 border-gray-300 flex flex-col h-64 md:h-80">
+			<div className="flex flex-col md:flex-row md:h-[calc(100vh-64px)]">
+				<div className="w-full md:w-[420px] lg:w-[480px] bg-white border-b border-gray-200 md:border-b-0 md:border-r flex flex-col h-64 md:h-full">
 					<div className="p-3 md:p-4 border-b border-gray-200 shrink-0">
 						<h2 className="text-sm md:text-lg font-semibold text-gray-900">Learning Assistant</h2>
 						<p className="text-xs md:text-sm text-gray-600">Ask me anything about your plan</p>
@@ -145,7 +145,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					</div>
 				</div>
 
-				<div className="w-full flex-1 overflow-y-auto bg-gray-50">
+				<div className="w-full md:flex-1 overflow-y-auto bg-gray-50 md:h-full">
 					{planData && planData.days ? (
 						<div className="p-4 lg:p-6">
 							<div className="mb-6">
