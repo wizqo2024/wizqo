@@ -199,7 +199,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
             startDate: plan.created_at,
             expectedEndDate: new Date(new Date(plan.created_at).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(),
             status: completedDays.length >= 7 ? 'completed' : 'in_progress',
-            planData: plan.plan_data
+            planData: plan.planData || plan.plan_data
           };
         });
 
