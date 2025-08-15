@@ -41,13 +41,50 @@ interface PlanDisplayProps {
   planData: PlanData;
   user?: any;
   setShowAuthModal: (show: boolean) => void;
+  completedDays?: number[];
+  setCompletedDays?: (days: number[]) => void;
 }
 
-export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayProps) {
-  const [completedDays, setCompletedDays] = useState<number[]>([]);
+export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: propCompletedDays, setCompletedDays: propSetCompletedDays }: PlanDisplayProps) {
+  const [localCompletedDays, setLocalCompletedDays] = useState<number[]>([]);
+  
+  // Use props if provided, otherwise use local state
+  const completedDays = propCompletedDays || localCompletedDays;
+  const setCompletedDays = propSetCompletedDays || setLocalCompletedDays;
   const { toast } = useToast();
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const dayRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
+
+  // Load plan ID and progress when component mounts
+  useEffect(() => {
+    const loadPlanData = async () => {
+      if (user?.id && planData) {
+        try {
+          // Get the plan ID from the database
+          const userPlans = await hobbyPlanService.getUserPlans(user.id);
+          const matchingPlan = userPlans.find(plan => 
+            plan.hobby?.toLowerCase() === planData.hobby?.toLowerCase() ||
+            plan.title?.toLowerCase().includes(planData.hobby?.toLowerCase())
+          );
+          
+          if (matchingPlan) {
+            setCurrentPlanId(matchingPlan.id);
+            
+            // Load progress for this plan
+            const progress = await hobbyPlanService.getPlanProgress(user.id, matchingPlan.id);
+            if (progress) {
+              setCompletedDays(progress.completed_days || []);
+            }
+          }
+        } catch (error) {
+          console.error('Error loading plan data:', error);
+        }
+      }
+    };
+    
+    loadPlanData();
+  }, [user?.id, planData]);
 
   useEffect(() => {
     const target = dayRefs.current[selectedDay];
@@ -57,16 +94,46 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
   }, [selectedDay]);
 
   const toggleDayCompletion = async (dayNumber: number) => {
+    if (!user) {
+      if (dayNumber === 1) {
+        setShowAuthModal(true);
+      }
+      return;
+    }
+
     if (completedDays.includes(dayNumber)) {
-      setCompletedDays(completedDays.filter(d => d !== dayNumber));
+      // Mark day as incomplete
+      const newCompletedDays = completedDays.filter(d => d !== dayNumber);
+      setCompletedDays(newCompletedDays);
+      
+      // Save progress to database
+      if (currentPlanId) {
+        try {
+          await hobbyPlanService.updateProgress(user.id, currentPlanId, {
+            completed_days: newCompletedDays,
+            current_day: Math.max(1, Math.min(...newCompletedDays) || 1)
+          });
+        } catch (error) {
+          console.error('Error updating progress:', error);
+        }
+      }
     } else {
-      setCompletedDays([...completedDays, dayNumber]);
+      // Mark day as complete
+      const newCompletedDays = [...completedDays, dayNumber];
+      setCompletedDays(newCompletedDays);
+      
       toast({
         title: "Day Completed!",
         description: `Great job completing Day ${dayNumber}!`,
       });
-      if (!user && dayNumber === 1) {
-        setShowAuthModal(true);
+      
+      // Save progress to database
+      if (currentPlanId) {
+        try {
+          await hobbyPlanService.completeDay(user.id, currentPlanId, dayNumber);
+        } catch (error) {
+          console.error('Error completing day:', error);
+        }
       }
     }
   };
