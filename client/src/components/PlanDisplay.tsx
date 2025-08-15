@@ -67,6 +67,10 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
         title: "Day Completed!",
         description: `Great job completing Day ${dayNumber}!`,
       });
+      // If user not logged in and day 1 is now completed, prompt auth
+      if (!user && dayNumber === 1) {
+        setShowAuthModal(true);
+      }
     }
   };
 
