@@ -7,6 +7,7 @@ import { validateHobby, getVideosForHobby, suggestAlternativeHobbies } from './h
 import { hobbyValidator } from './openrouterValidation';
 import { storage } from './storage.js';
 import { supabaseStorage } from './supabase-storage';
+import { supabaseAdmin } from './supabase-db';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
 import { z } from 'zod';
 import { EnhancedPlanGenerator } from './enhancedPlanGenerator.js';
