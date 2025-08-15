@@ -540,35 +540,71 @@ function verifyAndReplaceVideo(videoId: string, hobby: string, day: number): str
   return videoId;
 }
 
-// Function to get specific products for other hobbies
+// Enhanced Amazon product recommendations for hobbies
 function getHobbyProduct(hobby: string, day: number) {
   const hobbyProducts: Record<string, Array<{title: string, link: string, price: string}>> = {
     guitar: [
-      { title: "Guitar Picks Set", link: "https://www.amazon.com/dp/B07DVJW6Z8?tag=wizqohobby-20", price: "$8.99" },
-      { title: "Guitar Tuner", link: "https://www.amazon.com/dp/B01H74YV56?tag=wizqohobby-20", price: "$12.99" },
-      { title: "Guitar Capo", link: "https://www.amazon.com/dp/B074KBXQZC?tag=wizqohobby-20", price: "$9.99" },
-      { title: "Guitar Strings", link: "https://www.amazon.com/dp/B0002E1G5C?tag=wizqohobby-20", price: "$6.99" },
-      { title: "Guitar Stand", link: "https://www.amazon.com/dp/B004M5T66U?tag=wizqohobby-20", price: "$19.99" },
-      { title: "Guitar Strap", link: "https://www.amazon.com/dp/B01GPDH3ZY?tag=wizqohobby-20", price: "$11.99" },
-      { title: "Guitar Chord Book", link: "https://www.amazon.com/dp/B0002E2L9U?tag=wizqohobby-20", price: "$14.99" }
+      { title: "Fender Acoustic Guitar Beginner Set", link: "https://www.amazon.com/s?k=fender+acoustic+guitar+beginner+set&tag=wizqohobby-20", price: "$89.99" },
+      { title: "Snark SN5X Clip-On Tuner", link: "https://www.amazon.com/dp/B01H74YV56?tag=wizqohobby-20", price: "$12.99" },
+      { title: "Dunlop Guitar Picks Variety Pack", link: "https://www.amazon.com/dp/B07DVJW6Z8?tag=wizqohobby-20", price: "$8.99" },
+      { title: "Kyser Quick-Change Capo", link: "https://www.amazon.com/dp/B074KBXQZC?tag=wizqohobby-20", price: "$9.99" },
+      { title: "Ernie Ball Guitar Strings", link: "https://www.amazon.com/dp/B0002E1G5C?tag=wizqohobby-20", price: "$6.99" },
+      { title: "Hercules Guitar Stand", link: "https://www.amazon.com/dp/B004M5T66U?tag=wizqohobby-20", price: "$19.99" },
+      { title: "Guitar Chord Book for Beginners", link: "https://www.amazon.com/dp/B0002E2L9U?tag=wizqohobby-20", price: "$14.99" }
     ],
     cooking: [
-      { title: "Chef's Knife 8 Inch", link: "https://www.amazon.com/s?k=chef+knife+8+inch&tag=wizqohobby-20", price: "$29.99" },
-      { title: "Bamboo Cutting Board", link: "https://www.amazon.com/s?k=bamboo+cutting+board&tag=wizqohobby-20", price: "$16.99" },
+      { title: "Victorinox Chef's Knife 8 Inch", link: "https://www.amazon.com/s?k=victorinox+chef+knife+8+inch&tag=wizqohobby-20", price: "$29.99" },
+      { title: "Bamboo Cutting Board Set", link: "https://www.amazon.com/s?k=bamboo+cutting+board+set&tag=wizqohobby-20", price: "$16.99" },
       { title: "Measuring Cups and Spoons Set", link: "https://www.amazon.com/s?k=measuring+cups+spoons+set&tag=wizqohobby-20", price: "$12.99" },
-      { title: "Non-Stick Frying Pan 10 Inch", link: "https://www.amazon.com/s?k=non+stick+frying+pan+10+inch&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Tramontina Non-Stick Frying Pan", link: "https://www.amazon.com/s?k=tramontina+non+stick+frying+pan&tag=wizqohobby-20", price: "$24.99" },
       { title: "Spice Organizer Rack", link: "https://www.amazon.com/s?k=spice+organizer+rack&tag=wizqohobby-20", price: "$19.99" },
       { title: "Digital Kitchen Scale", link: "https://www.amazon.com/s?k=digital+kitchen+scale&tag=wizqohobby-20", price: "$19.99" },
-      { title: "Beginner's Cookbook", link: "https://www.amazon.com/s?k=beginner+cookbook&tag=wizqohobby-20", price: "$15.99" }
+      { title: "The Joy of Cooking Cookbook", link: "https://www.amazon.com/s?k=joy+of+cooking+cookbook&tag=wizqohobby-20", price: "$15.99" }
     ],
     drawing: [
-      { title: "Drawing Pencils Set", link: "https://www.amazon.com/s?k=drawing+pencils+set&tag=wizqohobby-20", price: "$14.99" },
-      { title: "Sketchbook 9x12", link: "https://www.amazon.com/s?k=sketchbook+9x12&tag=wizqohobby-20", price: "$12.99" },
-      { title: "Blending Stumps Set", link: "https://www.amazon.com/s?k=blending+stumps+set&tag=wizqohobby-20", price: "$8.99" },
-      { title: "Kneaded Eraser", link: "https://www.amazon.com/s?k=kneaded+eraser&tag=wizqohobby-20", price: "$9.99" },
-      { title: "Drawing Tablet", link: "https://www.amazon.com/s?k=drawing+tablet&tag=wizqohobby-20", price: "$49.99" },
-      { title: "Art Supply Box", link: "https://www.amazon.com/s?k=art+supply+box&tag=wizqohobby-20", price: "$24.99" },
-      { title: "Drawing Book", link: "https://www.amazon.com/s?k=drawing+techniques+book&tag=wizqohobby-20", price: "$16.99" }
+      { title: "Professional Drawing Pencils Set", link: "https://www.amazon.com/s?k=professional+drawing+pencils+set&tag=wizqohobby-20", price: "$14.99" },
+      { title: "Strathmore Sketchbook 9x12", link: "https://www.amazon.com/s?k=strathmore+sketchbook+9x12&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Blending Stumps and Tortillons Set", link: "https://www.amazon.com/s?k=blending+stumps+tortillons+set&tag=wizqohobby-20", price: "$8.99" },
+      { title: "Prismacolor Kneaded Eraser", link: "https://www.amazon.com/s?k=prismacolor+kneaded+eraser&tag=wizqohobby-20", price: "$9.99" },
+      { title: "Wacom Drawing Tablet", link: "https://www.amazon.com/s?k=wacom+drawing+tablet&tag=wizqohobby-20", price: "$49.99" },
+      { title: "Art Supply Storage Box", link: "https://www.amazon.com/s?k=art+supply+storage+box&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Drawing on the Right Side of the Brain", link: "https://www.amazon.com/s?k=drawing+right+side+brain+book&tag=wizqohobby-20", price: "$16.99" }
+    ],
+    photography: [
+      { title: "Canon EOS Rebel T7 DSLR Camera", link: "https://www.amazon.com/s?k=canon+eos+rebel+t7&tag=wizqohobby-20", price: "$449.99" },
+      { title: "Camera Tripod Stand", link: "https://www.amazon.com/s?k=camera+tripod+stand&tag=wizqohobby-20", price: "$39.99" },
+      { title: "Camera Lens Cleaning Kit", link: "https://www.amazon.com/s?k=camera+lens+cleaning+kit&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Camera Bag Backpack", link: "https://www.amazon.com/s?k=camera+bag+backpack&tag=wizqohobby-20", price: "$29.99" },
+      { title: "SD Memory Card 64GB", link: "https://www.amazon.com/s?k=sd+memory+card+64gb&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Camera Remote Shutter", link: "https://www.amazon.com/s?k=camera+remote+shutter&tag=wizqohobby-20", price: "$8.99" },
+      { title: "Photography for Beginners Book", link: "https://www.amazon.com/s?k=photography+for+beginners+book&tag=wizqohobby-20", price: "$24.99" }
+    ],
+    yoga: [
+      { title: "Premium Yoga Mat", link: "https://www.amazon.com/s?k=premium+yoga+mat&tag=wizqohobby-20", price: "$29.99" },
+      { title: "Yoga Block Set", link: "https://www.amazon.com/dp/B071P9LBPX?tag=wizqohobby-20", price: "$9.99" },
+      { title: "Yoga Strap", link: "https://www.amazon.com/s?k=yoga+strap&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Yoga Bolster Pillow", link: "https://www.amazon.com/s?k=yoga+bolster+pillow&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Yoga Towel", link: "https://www.amazon.com/s?k=yoga+towel&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Yoga Bag", link: "https://www.amazon.com/s?k=yoga+bag&tag=wizqohobby-20", price: "$15.99" },
+      { title: "Yoga for Beginners Book", link: "https://www.amazon.com/s?k=yoga+for+beginners+book&tag=wizqohobby-20", price: "$18.99" }
+    ],
+    coding: [
+      { title: "MacBook Air M1", link: "https://www.amazon.com/s?k=macbook+air+m1&tag=wizqohobby-20", price: "$999.99" },
+      { title: "Mechanical Keyboard", link: "https://www.amazon.com/s?k=mechanical+keyboard&tag=wizqohobby-20", price: "$89.99" },
+      { title: "Programming Books Set", link: "https://www.amazon.com/s?k=programming+books+set&tag=wizqohobby-20", price: "$49.99" },
+      { title: "Monitor Stand", link: "https://www.amazon.com/s?k=monitor+stand&tag=wizqohobby-20", price: "$29.99" },
+      { title: "Wireless Mouse", link: "https://www.amazon.com/s?k=wireless+mouse&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Desk Organizer", link: "https://www.amazon.com/s?k=desk+organizer&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Coding Bootcamp Course", link: "https://www.amazon.com/s?k=coding+bootcamp+course&tag=wizqohobby-20", price: "$199.99" }
+    ],
+    painting: [
+      { title: "Acrylic Paint Set", link: "https://www.amazon.com/s?k=acrylic+paint+set&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Canvas Panel Set", link: "https://www.amazon.com/s?k=canvas+panel+set&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Paint Brushes Set", link: "https://www.amazon.com/s?k=paint+brushes+set&tag=wizqohobby-20", price: "$14.99" },
+      { title: "Easel Stand", link: "https://www.amazon.com/s?k=easel+stand&tag=wizqohobby-20", price: "$39.99" },
+      { title: "Palette Knife Set", link: "https://www.amazon.com/s?k=palette+knife+set&tag=wizqohobby-20", price: "$9.99" },
+      { title: "Paint Storage Box", link: "https://www.amazon.com/s?k=paint+storage+box&tag=wizqohobby-20", price: "$16.99" },
+      { title: "Painting Techniques Book", link: "https://www.amazon.com/s?k=painting+techniques+book&tag=wizqohobby-20", price: "$22.99" }
     ],
     dance: [
       { title: "Exercise Mat for Dance Practice", link: "https://www.amazon.com/dp/B01LP0ULZQ?tag=wizqohobby-20", price: "$19.99" },
@@ -578,10 +614,46 @@ function getHobbyProduct(hobby: string, day: number) {
       { title: "Cross Training Shoes", link: "https://www.amazon.com/dp/B07FNLVLGM?tag=wizqohobby-20", price: "$39.99" },
       { title: "Foam Roller for Recovery", link: "https://www.amazon.com/dp/B00KAEJ3NA?tag=wizqohobby-20", price: "$24.99" },
       { title: "Dance Workout DVD", link: "https://www.amazon.com/dp/B0018XFMUU?tag=wizqohobby-20", price: "$16.99" }
+    ],
+    gardening: [
+      { title: "Garden Tool Set", link: "https://www.amazon.com/s?k=garden+tool+set&tag=wizqohobby-20", price: "$34.99" },
+      { title: "Seed Starter Kit", link: "https://www.amazon.com/s?k=seed+starter+kit&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Garden Gloves", link: "https://www.amazon.com/s?k=garden+gloves&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Watering Can", link: "https://www.amazon.com/s?k=watering+can&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Plant Pots Set", link: "https://www.amazon.com/s?k=plant+pots+set&tag=wizqohobby-20", price: "$16.99" },
+      { title: "Garden Kneeler", link: "https://www.amazon.com/s?k=garden+kneeler&tag=wizqohobby-20", price: "$29.99" },
+      { title: "Gardening for Beginners Book", link: "https://www.amazon.com/s?k=gardening+for+beginners+book&tag=wizqohobby-20", price: "$18.99" }
+    ],
+    knitting: [
+      { title: "Knitting Needles Set", link: "https://www.amazon.com/s?k=knitting+needles+set&tag=wizqohobby-20", price: "$14.99" },
+      { title: "Yarn Starter Pack", link: "https://www.amazon.com/s?k=yarn+starter+pack&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Knitting Pattern Book", link: "https://www.amazon.com/s?k=knitting+pattern+book&tag=wizqohobby-20", price: "$16.99" },
+      { title: "Yarn Storage Bag", link: "https://www.amazon.com/s?k=yarn+storage+bag&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Stitch Markers", link: "https://www.amazon.com/s?k=stitch+markers+knitting&tag=wizqohobby-20", price: "$8.99" },
+      { title: "Knitting Gauge Ruler", link: "https://www.amazon.com/s?k=knitting+gauge+ruler&tag=wizqohobby-20", price: "$6.99" },
+      { title: "Knitting for Beginners Book", link: "https://www.amazon.com/s?k=knitting+for+beginners+book&tag=wizqohobby-20", price: "$15.99" }
+    ],
+    woodworking: [
+      { title: "Woodworking Tool Set", link: "https://www.amazon.com/s?k=woodworking+tool+set&tag=wizqohobby-20", price: "$89.99" },
+      { title: "Safety Glasses", link: "https://www.amazon.com/s?k=safety+glasses+woodworking&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Workbench", link: "https://www.amazon.com/s?k=workbench&tag=wizqohobby-20", price: "$149.99" },
+      { title: "Wood Glue", link: "https://www.amazon.com/s?k=wood+glue&tag=wizqohobby-20", price: "$8.99" },
+      { title: "Sandpaper Assortment", link: "https://www.amazon.com/s?k=sandpaper+assortment&tag=wizqohobby-20", price: "$14.99" },
+      { title: "Clamps Set", link: "https://www.amazon.com/s?k=clamps+set+woodworking&tag=wizqohobby-20", price: "$24.99" },
+      { title: "Woodworking for Beginners Book", link: "https://www.amazon.com/s?k=woodworking+for+beginners+book&tag=wizqohobby-20", price: "$22.99" }
+    ],
+    calligraphy: [
+      { title: "Calligraphy Pen Set", link: "https://www.amazon.com/s?k=calligraphy+pen+set&tag=wizqohobby-20", price: "$19.99" },
+      { title: "Calligraphy Paper", link: "https://www.amazon.com/s?k=calligraphy+paper&tag=wizqohobby-20", price: "$12.99" },
+      { title: "Ink Bottles Set", link: "https://www.amazon.com/s?k=ink+bottles+set+calligraphy&tag=wizqohobby-20", price: "$16.99" },
+      { title: "Calligraphy Guide Book", link: "https://www.amazon.com/s?k=calligraphy+guide+book&tag=wizqohobby-20", price: "$18.99" },
+      { title: "Practice Sheets", link: "https://www.amazon.com/s?k=calligraphy+practice+sheets&tag=wizqohobby-20", price: "$9.99" },
+      { title: "Pen Holder", link: "https://www.amazon.com/s?k=pen+holder+calligraphy&tag=wizqohobby-20", price: "$14.99" },
+      { title: "Calligraphy Workbook", link: "https://www.amazon.com/s?k=calligraphy+workbook&tag=wizqohobby-20", price: "$15.99" }
     ]
   };
 
-  const products = hobbyProducts[hobby] || [
+  const products = hobbyProducts[hobby.toLowerCase()] || [
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Starter Kit Day 1`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: "$24.99" },
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Practice Tools Day 2`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+practice+tools&tag=wizqohobby-20`, price: "$19.99" },
     { title: `${hobby.charAt(0).toUpperCase() + hobby.slice(1)} Learning Guide Day 3`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+learning+guide&tag=wizqohobby-20`, price: "$15.99" },
