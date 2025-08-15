@@ -8,6 +8,7 @@ import { BookOpen, Clock, Send } from 'lucide-react';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '@/hooks/useAuth';
+import { PlanDisplay } from '@/components/PlanDisplay';
 
 interface QuizAnswers {
 	experience: string;
@@ -323,17 +324,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 								<Progress value={progressPercentage} className="h-2" />
 							</div>
 
-							<Card className="mb-6">
-								<CardHeader>
-									<CardTitle className="flex items-center">
-										<BookOpen className="w-5 h-5 mr-2" />
-										Overview
-									</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-gray-700 leading-relaxed">{planData.overview}</p>
-								</CardContent>
-							</Card>
+							{/* Full plan content */}
+							<PlanDisplay planData={planData} user={user} setShowAuthModal={setShowAuthModal} />
 						</div>
 					) : (
 						<div className="p-6 lg:p-10">
