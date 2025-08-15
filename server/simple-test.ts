@@ -7,7 +7,7 @@ app.use(express.json());
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    message: 'Server is running',
+    message: 'Server is running - TEST VERSION',
     timestamp: new Date().toISOString()
   });
 });
