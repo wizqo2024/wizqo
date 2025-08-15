@@ -825,7 +825,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           console.log('💾 Dashboard: Plan data stored in sessionStorage');
                         } else {
                           console.log('❌ Dashboard: No planData found in plan object');
-                          console.log('🔍 Dashboard: Full plan object:', plan);
+                          console.log('🔍 Dashboard: Full plan object:', JSON.stringify(plan, null, 2));
+                          console.log('🔍 Dashboard: Plan object keys:', Object.keys(plan));
+                          console.log('🔍 Dashboard: Plan object type:', typeof plan);
                         }
                         window.location.hash = '#/plan';
                       }}
