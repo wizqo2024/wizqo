@@ -40,6 +40,7 @@ app.get('/api/hobby-plans', (req, res) => {
       status: 'in_progress',
       created_at: new Date().toISOString(),
       planData: {
+        hobby: 'photo editing',
         title: 'Photo Editing Learning Plan',
         days: [
           { 
