@@ -114,13 +114,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			const existing = await hobbyPlanService.checkExistingPlan(hobby, user.id);
 			if (existing) {
 				setExistingPlanCandidate(existing);
-				setMessages(prev => [
-					...prev,
-					{ id: Date.now().toString(), sender: 'ai', content: `You already have a plan for ${hobby}. Continue the existing plan or create a new one?`, options: [
-						{ value: '__continue_existing__', label: 'Continue existing' },
-						{ value: '__force_new__', label: 'Make a new plan' }
-					], timestamp: new Date() }
-				]);
 				return 'duplicate';
 			}
 		} catch (e) {
@@ -138,7 +131,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			setPlanData(plan);
 			setShowSuggestions(false);
 			setCompletedDays([]);
-			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Ask me anything about it or make a new plan.', options: [ { value: '__new_plan__', label: 'Make a new plan' } ], timestamp: new Date() }]);
 		} catch (e) {
 			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Sorry, I had trouble generating the plan. Please try again.', timestamp: new Date() }]);
 		} finally {
@@ -218,21 +210,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	};
 
 	const handleOptionSelect = async (value: string) => {
-		if (value === '__new_plan__') {
-			handleStartNewPlan();
-			sendHobbySuggestionsMessage();
-			return;
-		}
-		if (value === '__continue_existing__' && existingPlanCandidate) {
-			setPlanData(existingPlanCandidate.plan_data || existingPlanCandidate);
-			setShowSuggestions(false);
-			setCompletedDays([]);
-			return;
-		}
-		if (value === '__force_new__' && selectedHobby) {
-			await generatePlanFlow(selectedHobby, defaultAnswers);
-			return;
-		}
 
 		if (chatStep === 'hobby') {
 			if (value === '__surprise__') {
