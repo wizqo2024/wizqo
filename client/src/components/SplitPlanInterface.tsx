@@ -269,11 +269,54 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		if (user && showAuthModal) setShowAuthModal(false);
 	}, [user, showAuthModal]);
 
-	const handleSendMessage = () => {
+	const handleSendMessage = async () => {
 		if (!currentInput.trim()) return;
 		const text = currentInput.trim();
 		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: text, timestamp: new Date() }]);
 		setCurrentInput('');
+		
+		// If we have a plan, treat as general chat
+		if (planData) {
+			try {
+				const response = await fetch('/api/chat', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						question: text,
+						planData: planData,
+						hobbyContext: planData.hobby
+					})
+				});
+				
+				if (response.ok) {
+					const data = await response.json();
+					setMessages(prev => [...prev, { 
+						id: Date.now().toString(), 
+						sender: 'ai', 
+						content: data.response, 
+						timestamp: new Date() 
+					}]);
+				} else {
+					setMessages(prev => [...prev, { 
+						id: Date.now().toString(), 
+						sender: 'ai', 
+						content: "I'm here to help with your learning plan! What would you like to know?", 
+						timestamp: new Date() 
+					}]);
+				}
+			} catch (error) {
+				console.error('Chat error:', error);
+				setMessages(prev => [...prev, { 
+					id: Date.now().toString(), 
+					sender: 'ai', 
+					content: "I'm here to help with your learning plan! What would you like to know?", 
+					timestamp: new Date() 
+				}]);
+			}
+			return;
+		}
+		
+		// If no plan and in hobby selection mode, treat as hobby input
 		if (!planData && (chatStep === 'hobby' || chatStep === 'idle')) {
 			if (isInappropriate(text)) {
 				const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
