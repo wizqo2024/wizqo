@@ -306,6 +306,16 @@ app.post('/api/generate-plan', (req, res) => {
   });
 });
 
+// Add DELETE endpoint for plan deletion
+app.delete('/api/hobby-plans/:planId', (req, res) => {
+  console.log('🗑️ DELETE /api/hobby-plans - Deleting plan:', req.params.planId);
+  res.json({ 
+    status: 'ok',
+    message: 'Plan deleted successfully',
+    planId: req.params.planId
+  });
+});
+
 // Error handler
 app.use((err: any, req: any, res: any, next: any) => {
   console.error('Error:', err);
