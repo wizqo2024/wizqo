@@ -403,6 +403,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			setShowSuggestions(false);
 			setCompletedDays([]);
 			
+			// Store plan in sessionStorage for navigation
+			const planDataForStorage = {
+				...plan,
+				hobby: hobby
+			};
+			sessionStorage.setItem('currentPlanData', JSON.stringify(planDataForStorage));
+			console.log('💾 Plan data stored in sessionStorage for navigation');
+			
 			// Save plan to database if user is logged in
 			if (user?.id) {
 				try {
