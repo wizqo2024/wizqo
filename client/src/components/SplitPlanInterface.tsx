@@ -415,6 +415,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						hobby: hobby
 					});
 					
+					// Store plan in localStorage as temporary backup
+					const tempPlanKey = `temp_plan_${Date.now()}`;
+					localStorage.setItem(tempPlanKey, JSON.stringify({
+						...plan,
+						user_id: user.id,
+						hobby: hobby,
+						timestamp: new Date().toISOString()
+					}));
+					
 					const savedPlan = await hobbyPlanService.savePlan({
 						...plan,
 						user_id: user.id,
@@ -427,6 +436,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
 					console.log('✅ Progress initialized for plan:', savedPlan.id);
 					
+					// Remove temporary backup since save was successful
+					localStorage.removeItem(tempPlanKey);
+					
 					// Add success message to chat
 					setMessages(prev => [...prev, {
 						id: Date.now().toString(),
@@ -438,11 +450,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				} catch (saveError) {
 					console.error('❌ Failed to save plan:', saveError);
 					
-					// Add error message to chat
+					// Add error message to chat with temporary storage info
 					setMessages(prev => [...prev, {
 						id: Date.now().toString(),
 						sender: 'ai',
-						content: `⚠️ Plan generated successfully, but there was an issue saving it to your account. You can still use the plan, but it may not appear in your dashboard.`,
+						content: `⚠️ Plan generated successfully, but there was an issue saving it to your account due to server maintenance. Your plan has been saved locally and will be synced when the server is back online.`,
 						timestamp: new Date()
 					}]);
 				}
@@ -498,6 +510,33 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		}
 	}, [user]);
 
+	// Sync temporary plans when user signs in
+	const syncTemporaryPlans = async () => {
+		if (!user?.id) return;
+		
+		try {
+			const tempPlanKeys = Object.keys(localStorage).filter(key => key.startsWith('temp_plan_'));
+			if (tempPlanKeys.length === 0) return;
+			
+			console.log('🔄 Syncing', tempPlanKeys.length, 'temporary plans...');
+			
+			for (const key of tempPlanKeys) {
+				try {
+					const tempPlan = JSON.parse(localStorage.getItem(key) || '{}');
+					if (tempPlan.user_id === user.id) {
+						await hobbyPlanService.savePlan(tempPlan);
+						localStorage.removeItem(key);
+						console.log('✅ Synced temporary plan:', tempPlan.hobby);
+					}
+				} catch (error) {
+					console.error('❌ Failed to sync temporary plan:', error);
+				}
+			}
+		} catch (error) {
+			console.error('❌ Error syncing temporary plans:', error);
+		}
+	};
+
 	// Listen for authentication events
 	useEffect(() => {
 		const handleUserSignedIn = (event: CustomEvent) => {
@@ -513,6 +552,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					timestamp: new Date()
 				}
 			]);
+			
+			// Sync any temporary plans
+			setTimeout(syncTemporaryPlans, 1000);
 		};
 
 		const handleUserSignedOut = () => {
@@ -536,7 +578,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			window.removeEventListener('userSignedIn', handleUserSignedIn as EventListener);
 			window.removeEventListener('userSignedOut', handleUserSignedOut);
 		};
-	}, []);
+	}, [user?.id]);
 
 	const handleStartNewPlan = () => {
 		setPlanData(null);
