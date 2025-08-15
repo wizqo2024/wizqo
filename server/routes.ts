@@ -2735,8 +2735,41 @@ Please provide a helpful response:`;
     res.json({ 
       status: 'ok', 
       timestamp: new Date().toISOString(),
-      message: 'Server is running'
+      message: 'Server is running',
+      version: '1.0.0'
     });
+  });
+
+  // Test Supabase connection
+  app.get('/api/test-supabase', async (req, res) => {
+    try {
+      console.log('🧪 Testing Supabase connection...');
+      const { data, error } = await supabaseAdmin
+        .from('hobby_plans')
+        .select('count')
+        .limit(1);
+      
+      if (error) {
+        console.error('❌ Supabase test failed:', error);
+        res.status(500).json({ 
+          error: 'Supabase connection failed',
+          details: error
+        });
+      } else {
+        console.log('✅ Supabase connection successful');
+        res.json({ 
+          status: 'ok',
+          message: 'Supabase connection successful',
+          data: data
+        });
+      }
+    } catch (error) {
+      console.error('❌ Supabase test exception:', error);
+      res.status(500).json({ 
+        error: 'Supabase test failed',
+        details: error
+      });
+    }
   });
 
   // Database-backed hobby plans endpoints
