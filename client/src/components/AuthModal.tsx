@@ -79,26 +79,30 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       let errorMessage = error.message
       
       // Provide helpful error messages based on error code and message
-      if (error.code === 'invalid_credentials' || error.message?.includes('Invalid login credentials')) {
-        errorMessage = "Invalid email or password. Please check your credentials and try again."
+      if (error.code === 'invalid_credentials' || error.message?.includes('Invalid login credentials') || error.message?.includes('Invalid login credentials')) {
+        errorMessage = "❌ Invalid email or password. Please check your credentials and try again."
+      } else if (error.code === 'invalid_grant' || error.message?.includes('Invalid login credentials')) {
+        errorMessage = "❌ Wrong password. Please check your password and try again."
       } else if (error.message?.includes('Email not confirmed') || error.code === 'email_not_confirmed') {
-        errorMessage = "Please check your email and click the confirmation link before signing in."
+        errorMessage = "📧 Please check your email and click the confirmation link before signing in."
       } else if (error.message?.includes('Password should be at least') || error.code === 'weak_password') {
-        errorMessage = "Password must be at least 6 characters long."
+        errorMessage = "🔒 Password must be at least 6 characters long."
       } else if (error.message?.includes('Unable to validate email address') || error.code === 'invalid_email') {
-        errorMessage = "Please enter a valid email address."
+        errorMessage = "📧 Please enter a valid email address."
       } else if (error.message?.includes('User already registered') || error.code === 'user_already_exists') {
-        errorMessage = "An account with this email already exists. Try signing in instead."
+        errorMessage = "👤 An account with this email already exists. Try signing in instead."
         setIsSignUp(false) // Switch to sign-in mode
       } else if (error.code === 'signup_disabled') {
-        errorMessage = "New user registration is currently disabled. Please contact support."
+        errorMessage = "🚫 New user registration is currently disabled. Please contact support."
       } else if (error.code === 'email_address_invalid') {
-        errorMessage = "Please enter a valid email address."
+        errorMessage = "📧 Please enter a valid email address."
+      } else if (error.message?.includes('Too many requests') || error.code === 'too_many_requests') {
+        errorMessage = "⏰ Too many login attempts. Please wait a few minutes before trying again."
       } else if (!errorMessage || errorMessage === 'AuthApiError') {
         // Fallback for generic or unclear errors
         errorMessage = isSignUp ? 
-          "Unable to create account. Please check your information and try again." :
-          "Sign in failed. Please check your email and password."
+          "❌ Unable to create account. Please check your information and try again." :
+          "❌ Sign in failed. Please check your email and password."
       }
       
       toast({
