@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { useToast } from '@/hooks/use-toast';
-import { CheckCircle, Circle, Lock, Play, Star, Lightbulb, Target, Trophy, X, AlertTriangle, Ban, Clock, Package, BookOpen, Zap, Award, ArrowRight } from 'lucide-react';
+import { CheckCircle, Circle, Lock, Play, Star, Lightbulb, Target, Trophy, X, AlertTriangle, Ban, Clock, Package, BookOpen, Zap, Award, ArrowRight, ExternalLink } from 'lucide-react';
 
 interface Day {
   day: number;
