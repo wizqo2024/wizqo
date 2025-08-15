@@ -56,6 +56,8 @@ app.get('/api/health', (req, res) => {
 // Mock endpoints that the app needs
 app.get('/api/hobby-plans', (req, res) => {
   console.log('📖 GET /api/hobby-plans - Request for user:', req.query.user_id);
+  console.log('📖 GET /api/hobby-plans - Total mock plans in memory:', mockPlans.length);
+  console.log('📖 GET /api/hobby-plans - All mock plans:', mockPlans.map(p => ({ id: p.id, user_id: p.user_id, hobby: p.hobby })));
   
   // Filter plans for the specific user from our dynamic mock data
   const userPlans = mockPlans.filter(plan => plan.user_id === req.query.user_id);
@@ -154,6 +156,8 @@ app.post('/api/hobby-plans', (req, res) => {
 
   // Add the new plan to our dynamic mock data
   mockPlans.push(savedPlan);
+  console.log('📝 POST /api/hobby-plans - Added plan to mock data. Total plans now:', mockPlans.length);
+  console.log('📝 POST /api/hobby-plans - All plans in memory:', mockPlans.map(p => ({ id: p.id, user_id: p.user_id, hobby: p.hobby })));
 
   console.log('📝 POST /api/hobby-plans - Returning saved plan:', {
     id: savedPlan.id,
