@@ -80,6 +80,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 	const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
 
+	const sendHobbySuggestionsMessage = () => {
+		const top = hobbySuggestions.slice(0, 6);
+		const options = [
+			...top.map(h => ({ value: h, label: h.charAt(0).toUpperCase() + h.slice(1) })),
+			{ value: '__surprise__', label: 'Surprise Me 🎲' }
+		];
+		setMessages(prev => [
+			...prev,
+			{ id: Date.now().toString(), sender: 'ai', content: 'Pick a hobby to get started:', options, timestamp: new Date() }
+		]);
+		setChatStep('hobby');
+	};
+
 	useEffect(() => {
 		if (messages.length === 0) {
 			setMessages([
@@ -90,6 +103,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					timestamp: new Date()
 				}
 			]);
+			// also show quick suggestions
+			sendHobbySuggestionsMessage();
 		}
 	}, []);
 
@@ -137,6 +152,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	};
 
 	const handleOptionSelect = async (value: string) => {
+		if (chatStep === 'hobby') {
+			if (value === '__surprise__') {
+				const random = hobbySuggestions[Math.floor(Math.random() * hobbySuggestions.length)];
+				setSelectedHobby(random);
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: 'Surprise Me 🎲', timestamp: new Date() }]);
+				askExperience();
+				return;
+			}
+			// value is a hobby
+			await handlePickHobby(value);
+			return;
+		}
 		if (chatStep === 'experience') {
 			setAnswers(prev => ({ ...prev, experience: value }));
 			askTime();
@@ -150,7 +177,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		if (chatStep === 'goal') {
 			const finalAnswers: QuizAnswers = {
 				experience: answers.experience || 'beginner',
-				timeAvailable: value || '1 hour',
+				timeAvailable: answers.timeAvailable || '1 hour',
 				goal: value || 'personal enjoyment'
 			};
 			try {
@@ -159,11 +186,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				setPlanData(plan);
 				setShowSuggestions(false);
 				setCompletedDays([]);
+				// Offer to start a new plan
+				setMessages(prev => [
+					...prev,
+					{ id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Want to make a new plan?', options: [
+						{ value: '__new_plan__', label: 'Make a new plan' }
+					], timestamp: new Date() }
+				]);
 			} catch (e) {
 				console.error('Failed to generate plan', e);
 			} finally {
 				setChatStep('idle');
 			}
+			return;
+		}
+		if (value === '__new_plan__') {
+			handleStartNewPlan();
+			sendHobbySuggestionsMessage();
+			return;
 		}
 	};
 
