@@ -280,7 +280,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                         <div>
                           <h4 className="text-sm font-medium text-purple-700 mb-2">🎯 Equipment</h4>
                           <ul className="space-y-2">
-                            {selectedDayData.equipment.map((item, index) => (
+                            {selectedDayData.equipment?.map((item, index) => (
                               <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
                                 <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                                 <span>{item}</span>
@@ -293,7 +293,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                         <div>
                           <h4 className="text-sm font-medium text-indigo-700 mb-2">📋 Materials</h4>
                           <ul className="space-y-2">
-                            {selectedDayData.materials.map((item, index) => (
+                            {selectedDayData.materials?.map((item, index) => (
                               <li key={index} className="flex items-center space-x-2 text-sm text-gray-700">
                                 <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
                                 <span>{item}</span>
@@ -317,7 +317,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                   
                   {selectedDayData.detailedSteps && selectedDayData.detailedSteps.length > 0 ? (
                     <div className="space-y-6">
-                      {selectedDayData.detailedSteps.map((step, index) => (
+                      {selectedDayData.detailedSteps?.map((step, index) => (
                         <div key={index} className="relative">
                           <div className="flex items-start space-x-4">
                             <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
@@ -341,7 +341,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                     </div>
                   ) : (
                     <ol className="space-y-4">
-                      {selectedDayData.howTo.map((step, index) => (
+                      {selectedDayData.howTo?.map((step, index) => (
                         <li key={index} className="flex items-start space-x-4">
                           <span className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
                             {index + 1}
@@ -466,7 +466,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                       <div className="bg-white rounded-lg p-4 border border-orange-200">
                         <h4 className="text-sm font-medium text-orange-700 mb-3">📚 Free Learning Resources</h4>
                         <div className="space-y-2">
-                          {selectedDayData.freeResources.map((resource, index) => (
+                          {selectedDayData.freeResources?.map((resource, index) => (
                             <a
                               key={index}
                               href={resource.link}
@@ -487,7 +487,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                       <div className="bg-white rounded-lg p-4 border border-orange-200">
                         <h4 className="text-sm font-medium text-orange-700 mb-3">🛍️ Recommended Products</h4>
                         <div className="space-y-3">
-                          {selectedDayData.affiliateProducts.map((product, index) => (
+                          {selectedDayData.affiliateProducts?.map((product, index) => (
                             <a
                               key={index}
                               href={product.link}
@@ -539,7 +539,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                       </div>
                     </div>
                     <div className="grid gap-4">
-                      {selectedDayData.tips.map((tip, index) => {
+                      {selectedDayData.tips?.map((tip, index) => {
                         const IconComponent = getTipIcon(index);
                         return (
                           <div key={index} className="bg-white rounded-lg p-4 border border-green-200 hover:border-green-300 transition-colors">
@@ -569,7 +569,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                       </div>
                     </div>
                     <div className="space-y-3">
-                      {selectedDayData.checklist.map((item, index) => (
+                      {selectedDayData.checklist?.map((item, index) => (
                         <label key={index} className="flex items-start space-x-3 cursor-pointer group hover:bg-white hover:shadow-sm rounded-lg p-3 transition-all">
                           <input 
                             type="checkbox" 
