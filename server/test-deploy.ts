@@ -24,6 +24,8 @@ app.get('/api/health', (req, res) => {
 
 // Mock endpoints that the app needs
 app.get('/api/hobby-plans', (req, res) => {
+  console.log('📖 GET /api/hobby-plans - Request for user:', req.query.user_id);
+  
   // Return array of plans as expected by frontend
   // For now, return a dynamic plan based on the user's recent activity
   const mockPlans = [
@@ -167,11 +169,25 @@ app.get('/api/hobby-plans', (req, res) => {
     }
   ];
   
+  console.log('📖 GET /api/hobby-plans - Returning plans:', mockPlans.map(p => ({
+    id: p.id,
+    hobby: p.hobby,
+    hasPlanData: !!p.planData,
+    planDataHobby: p.planData?.hobby
+  })));
+  
   res.json(mockPlans);
 });
 
 app.post('/api/hobby-plans', (req, res) => {
-  // Return the created plan with ID and planData
+  console.log('📝 POST /api/hobby-plans - Received plan data:', {
+    hobby: req.body.hobby,
+    title: req.body.title,
+    hasDays: !!req.body.days,
+    daysCount: req.body.days?.length || 0
+  });
+
+  // Create a complete plan structure
   const planData = {
     hobby: req.body.hobby,
     title: req.body.title || `${req.body.hobby} Learning Plan`,
@@ -182,11 +198,53 @@ app.post('/api/hobby-plans', (req, res) => {
         content: `Learn the basics of ${req.body.hobby}.`,
         youtubeVideoId: 'mock-video-id',
         affiliateProducts: []
+      },
+      { 
+        day: 2, 
+        title: `Day 2: Basic ${req.body.hobby} Techniques`, 
+        content: `Master fundamental ${req.body.hobby} techniques.`,
+        youtubeVideoId: 'mock-video-id-2',
+        affiliateProducts: []
+      },
+      { 
+        day: 3, 
+        title: `Day 3: Intermediate ${req.body.hobby} Skills`, 
+        content: `Learn intermediate ${req.body.hobby} skills.`,
+        youtubeVideoId: 'mock-video-id-3',
+        affiliateProducts: []
+      },
+      { 
+        day: 4, 
+        title: `Day 4: Advanced ${req.body.hobby} Concepts`, 
+        content: `Explore advanced ${req.body.hobby} concepts.`,
+        youtubeVideoId: 'mock-video-id-4',
+        affiliateProducts: []
+      },
+      { 
+        day: 5, 
+        title: `Day 5: ${req.body.hobby} Practice`, 
+        content: `Practice and refine your ${req.body.hobby} skills.`,
+        youtubeVideoId: 'mock-video-id-5',
+        affiliateProducts: []
+      },
+      { 
+        day: 6, 
+        title: `Day 6: ${req.body.hobby} Mastery`, 
+        content: `Master advanced ${req.body.hobby} techniques.`,
+        youtubeVideoId: 'mock-video-id-6',
+        affiliateProducts: []
+      },
+      { 
+        day: 7, 
+        title: `Day 7: Final ${req.body.hobby} Project`, 
+        content: `Complete your final ${req.body.hobby} project.`,
+        youtubeVideoId: 'mock-video-id-7',
+        affiliateProducts: []
       }
     ]
   };
   
-  res.json({
+  const savedPlan = {
     id: 'mock-plan-' + Date.now(),
     user_id: req.body.user_id,
     hobby: req.body.hobby,
@@ -200,7 +258,16 @@ app.post('/api/hobby-plans', (req, res) => {
     status: 'in_progress',
     created_at: new Date().toISOString(),
     planData: planData
+  };
+
+  console.log('📝 POST /api/hobby-plans - Returning saved plan:', {
+    id: savedPlan.id,
+    hobby: savedPlan.hobby,
+    hasPlanData: !!savedPlan.planData,
+    planDataHobby: savedPlan.planData?.hobby
   });
+
+  res.json(savedPlan);
 });
 
 app.get('/api/user-progress/:userId', (req, res) => {
