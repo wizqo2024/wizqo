@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
@@ -47,6 +47,16 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
   const [expandedDays, setExpandedDays] = useState<Set<number>>(new Set([1]));
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const { toast } = useToast();
+  const [selectedDay, setSelectedDay] = useState<number>(1);
+  const dayRefs = useRef<Record<number, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    setExpandedDays(new Set([selectedDay]));
+    const target = dayRefs.current[selectedDay];
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selectedDay]);
 
   const toggleDayExpansion = (dayNumber: number) => {
     const newExpanded = new Set(expandedDays);
@@ -105,6 +115,32 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
         <p className="text-gray-600">{planData.overview}</p>
       </div>
 
+      {/* Day Selector */}
+      <div className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-gray-100 py-2 -mx-4 px-4">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          {Array.from({ length: planData.totalDays }, (_, i) => i + 1).map((n) => {
+            const status = getDayStatus(n);
+            const isSelected = selectedDay === n;
+            return (
+              <button
+                key={n}
+                onClick={() => status !== 'locked' && setSelectedDay(n)}
+                disabled={status === 'locked'}
+                className={`w-10 h-10 rounded-full text-sm font-semibold flex items-center justify-center border transition ${
+                  isSelected
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : status === 'locked'
+                    ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                    : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:border-blue-300'
+                }`}
+              >
+                {n}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Days */}
       <div className="space-y-4">
         {planData.days.map((day) => {
@@ -112,7 +148,8 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
           const isExpanded = expandedDays.has(day.day);
 
           return (
-            <Card key={day.day} className="bg-white border border-gray-200 shadow-sm">
+            <div key={day.day} ref={(el) => (dayRefs.current[day.day] = el)}>
+            <Card className="bg-white border border-gray-200 shadow-sm">
               {/* Day Header */}
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
@@ -409,6 +446,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
                 </CardContent>
               )}
             </Card>
+            </div>
           );
         })}
       </div>
