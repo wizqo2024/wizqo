@@ -327,6 +327,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			const existing = await hobbyPlanService.checkExistingPlan(hobby, user.id);
 			if (existing) {
 				setExistingPlanCandidate(existing);
+				// Show duplicate plan dialog with options
+				setMessages(prev => [...prev, {
+					id: Date.now().toString(),
+					sender: 'ai',
+					content: `You already have a ${hobby} learning plan! 📚\n\nI found an existing plan in your dashboard. Would you like to continue your existing plan or create a fresh one?`,
+					options: [
+						{ value: 'continue_existing', label: 'Continue Existing Plan', description: 'Go to dashboard to continue where you left off' },
+						{ value: 'create_new', label: 'Create Fresh Plan', description: 'Generate a new plan with different approach' },
+						{ value: 'go_dashboard', label: 'View All Plans', description: 'See all your learning plans' }
+					],
+					timestamp: new Date()
+				}]);
 				return 'duplicate';
 			}
 		} catch (e) {
@@ -335,9 +347,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		return 'ok';
 	};
 
-	const generatePlanFlow = async (hobby: string, qa: QuizAnswers = defaultAnswers) => {
-		const dup = await preflightDuplicateCheck(hobby);
-		if (dup === 'duplicate') return;
+	const generatePlanFlow = async (hobby: string, qa: QuizAnswers = defaultAnswers, forceNew: boolean = false) => {
+		// Only check for duplicates if not forcing a new plan
+		if (!forceNew) {
+			const dup = await preflightDuplicateCheck(hobby);
+			if (dup === 'duplicate') return;
+		}
 		
 		// Check plan limits for logged-in users
 		if (user?.id) {
@@ -530,6 +545,36 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	};
 
 	const handleOptionSelect = async (value: string) => {
+
+		// Handle duplicate plan options
+		if (value === 'continue_existing' || value === 'create_new' || value === 'go_dashboard') {
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: value === 'continue_existing' ? 'Continue Existing Plan' : value === 'create_new' ? 'Create New Plan' : 'View Dashboard', timestamp: new Date() }]);
+			
+			if (value === 'continue_existing') {
+				// Navigate to dashboard to continue existing plan
+				window.location.href = '/#/dashboard';
+				return;
+			} else if (value === 'go_dashboard') {
+				// Navigate to dashboard
+				window.location.href = '/#/dashboard';
+				return;
+			} else if (value === 'create_new') {
+				// Clear existing plan candidate and proceed with new plan
+				setExistingPlanCandidate(null);
+				setChatStep('hobby');
+				// Generate new plan for the same hobby, bypassing duplicate check
+				if (selectedHobby) {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `Great! I'll create a fresh ${selectedHobby} learning plan for you. Generating now...`,
+						timestamp: new Date()
+					}]);
+					await generatePlanFlow(selectedHobby, defaultAnswers, true);
+				}
+				return;
+			}
+		}
 
 		if (chatStep === 'hobby') {
 			if (value === '__surprise__') {
