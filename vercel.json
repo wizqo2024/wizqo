@@ -10,14 +10,14 @@
       }
     },
     {
-      "src": "server/test-deploy.ts",
+      "src": "server/index.ts",
       "use": "@vercel/node@3.0.0"
     }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/server/test-deploy.ts"
+      "destination": "/server/index.ts"
     },
     {
       "source": "/((?!assets/).*)",
