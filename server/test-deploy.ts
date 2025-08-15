@@ -24,41 +24,66 @@ app.get('/api/health', (req, res) => {
 
 // Mock endpoints that the app needs
 app.get('/api/hobby-plans', (req, res) => {
-  res.json({ 
-    status: 'ok',
-    message: 'Mock hobby plans endpoint',
-    plans: [],
-    user_id: req.query.user_id
-  });
+  // Return array of plans as expected by frontend
+  res.json([
+    {
+      id: 'mock-plan-1',
+      user_id: req.query.user_id,
+      hobby: 'photo editing',
+      title: 'Photo Editing Learning Plan',
+      days: [
+        { day: 1, title: 'Day 1', content: 'Mock content' }
+      ],
+      created_at: new Date().toISOString()
+    }
+  ]);
 });
 
 app.post('/api/hobby-plans', (req, res) => {
-  res.json({ 
-    status: 'ok',
-    message: 'Mock hobby plan created',
-    plan: req.body
+  // Return the created plan with ID
+  res.json({
+    id: 'mock-plan-' + Date.now(),
+    user_id: req.body.user_id,
+    hobby: req.body.hobby,
+    title: req.body.title,
+    days: req.body.days,
+    created_at: new Date().toISOString()
   });
 });
 
 app.get('/api/user-progress/:userId', (req, res) => {
-  res.json({ 
-    status: 'ok',
-    message: 'Mock user progress endpoint',
-    progress: [],
-    user_id: req.params.userId
-  });
+  // Return array of progress as expected by frontend
+  res.json([
+    {
+      id: 'mock-progress-1',
+      user_id: req.params.userId,
+      plan_id: 'mock-plan-1',
+      completed_days: [1],
+      created_at: new Date().toISOString()
+    }
+  ]);
 });
 
 app.post('/api/generate-plan', (req, res) => {
-  res.json({ 
-    status: 'ok',
-    message: 'Mock plan generation endpoint',
-    plan: {
-      title: 'Mock Plan',
-      days: [
-        { day: 1, title: 'Day 1', content: 'Mock content' }
-      ]
-    }
+  // Return full plan structure as expected by frontend
+  res.json({
+    title: 'Photo Editing Learning Plan',
+    days: [
+      { 
+        day: 1, 
+        title: 'Day 1: Introduction to Photo Editing', 
+        content: 'Learn the basics of photo editing software and tools.',
+        youtubeVideoId: 'mock-video-id',
+        affiliateProducts: []
+      },
+      { 
+        day: 2, 
+        title: 'Day 2: Basic Editing Techniques', 
+        content: 'Master fundamental editing techniques like cropping and color adjustment.',
+        youtubeVideoId: 'mock-video-id-2',
+        affiliateProducts: []
+      }
+    ]
   });
 });
 
