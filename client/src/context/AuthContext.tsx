@@ -73,6 +73,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } catch (error) {
           console.error('Failed to sync user profile in auth context:', error);
         }
+
+        // Dispatch custom event for chat interface to show welcome message
+        window.dispatchEvent(new CustomEvent('userSignedIn', {
+          detail: { user: session.user }
+        }));
       }
 
       if (event === 'SIGNED_OUT') {
@@ -85,6 +90,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           title: "Signed out",
           description: "You've been successfully signed out.",
         });
+
+        // Dispatch custom event for chat interface to show sign out message
+        window.dispatchEvent(new CustomEvent('userSignedOut'));
       }
     });
 

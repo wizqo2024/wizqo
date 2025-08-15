@@ -153,17 +153,65 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
 	useEffect(() => {
 		if (messages.length === 0) {
+			let welcomeContent = "Hi! 👋 Tell me what hobby you'd like to learn.";
+			
+			// If user is already signed in, show personalized welcome
+			if (user) {
+				const userName = user.user_metadata?.full_name || user.user_metadata?.name || user.email;
+				welcomeContent = `Welcome back, ${userName}! 👋 I'm here to help you with your hobby learning journey. What would you like to work on today?`;
+			}
+			
 			setMessages([
 				{
 					id: 'welcome',
 					sender: 'ai',
-					content: "Hi! 👋 Tell me what hobby you'd like to learn.",
+					content: welcomeContent,
 					timestamp: new Date()
 				}
 			]);
 			// also show quick suggestions
 			sendHobbySuggestionsMessage();
 		}
+	}, [user]);
+
+	// Listen for authentication events
+	useEffect(() => {
+		const handleUserSignedIn = (event: CustomEvent) => {
+			const user = event.detail.user;
+			const welcomeMessage = `Welcome back, ${user.user_metadata?.full_name || user.user_metadata?.name || user.email}! 👋 I'm here to help you with your hobby learning journey. What would you like to work on today?`;
+			
+			setMessages(prev => [
+				...prev,
+				{
+					id: Date.now().toString(),
+					sender: 'ai',
+					content: welcomeMessage,
+					timestamp: new Date()
+				}
+			]);
+		};
+
+		const handleUserSignedOut = () => {
+			const signOutMessage = "You've been signed out. Feel free to continue exploring hobbies or sign in again to save your progress!";
+			
+			setMessages(prev => [
+				...prev,
+				{
+					id: Date.now().toString(),
+					sender: 'ai',
+					content: signOutMessage,
+					timestamp: new Date()
+				}
+			]);
+		};
+
+		window.addEventListener('userSignedIn', handleUserSignedIn as EventListener);
+		window.addEventListener('userSignedOut', handleUserSignedOut);
+
+		return () => {
+			window.removeEventListener('userSignedIn', handleUserSignedIn as EventListener);
+			window.removeEventListener('userSignedOut', handleUserSignedOut);
+		};
 	}, []);
 
 	const handleStartNewPlan = () => {
