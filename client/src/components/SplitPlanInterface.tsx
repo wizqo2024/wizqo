@@ -340,6 +340,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		if (dup === 'duplicate') return;
 		try {
 			setChatStep('generating');
+			// Clear old chat messages when starting a new plan generation
+			setMessages([]);
 			const plan = await onGeneratePlan(hobby, qa);
 			setPlanData(plan);
 			setShowSuggestions(false);
@@ -433,6 +435,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		setChatStep('hobby');
 		setSelectedHobby('');
 		setAnswers({});
+		// Clear old chat messages and start fresh
+		setMessages([]);
+		// Add fresh welcome message
+		setTimeout(() => {
+			let welcomeContent = "Hi! 👋 Tell me what hobby you'd like to learn.";
+			if (user) {
+				const userName = user.user_metadata?.full_name || user.user_metadata?.name || user.email;
+				welcomeContent = `Welcome back, ${userName}! 👋 I'm here to help you with your hobby learning journey. What would you like to work on today?`;
+			}
+			setMessages([
+				{
+					id: 'welcome',
+					sender: 'ai',
+					content: welcomeContent,
+					timestamp: new Date()
+				}
+			]);
+			sendHobbySuggestionsMessage();
+		}, 100);
 	};
 
 	const askExperience = () => {
