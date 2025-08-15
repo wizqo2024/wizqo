@@ -2736,7 +2736,17 @@ Please provide a helpful response:`;
       status: 'ok', 
       timestamp: new Date().toISOString(),
       message: 'Server is running',
-      version: '1.0.0'
+      version: '1.0.0',
+      nodeEnv: process.env.NODE_ENV || 'not set'
+    });
+  });
+
+  // Simple test endpoint
+  app.get('/api/simple-test', (req, res) => {
+    res.json({ 
+      status: 'ok',
+      message: 'Simple test endpoint working',
+      timestamp: new Date().toISOString()
     });
   });
 
@@ -2744,6 +2754,24 @@ Please provide a helpful response:`;
   app.get('/api/test-supabase', async (req, res) => {
     try {
       console.log('🧪 Testing Supabase connection...');
+      
+      // Check environment variables first
+      const envCheck = {
+        supabaseUrl: !!process.env.VITE_SUPABASE_URL,
+        supabaseKey: !!process.env.VITE_SUPABASE_ANON_KEY,
+        serviceRoleKey: !!process.env.VITE_SUPABASE_SERVICE_ROLE_KEY,
+        nodeEnv: process.env.NODE_ENV
+      };
+      
+      console.log('🔑 Environment check:', envCheck);
+      
+      if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_ANON_KEY) {
+        return res.status(500).json({ 
+          error: 'Missing Supabase environment variables',
+          envCheck
+        });
+      }
+      
       const { data, error } = await supabaseAdmin
         .from('hobby_plans')
         .select('count')
@@ -2753,14 +2781,16 @@ Please provide a helpful response:`;
         console.error('❌ Supabase test failed:', error);
         res.status(500).json({ 
           error: 'Supabase connection failed',
-          details: error
+          details: error,
+          envCheck
         });
       } else {
         console.log('✅ Supabase connection successful');
         res.json({ 
           status: 'ok',
           message: 'Supabase connection successful',
-          data: data
+          data: data,
+          envCheck
         });
       }
     } catch (error) {
