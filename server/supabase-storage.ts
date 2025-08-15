@@ -66,37 +66,73 @@ export class SupabaseBackendStorage implements SupabaseStorage {
   }
 
   async getHobbyPlansByUserId(userId: string): Promise<any[]> {
-    const { data, error } = await supabaseAdmin
-      .from('hobby_plans')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false });
+    try {
+      console.log('📖 SUPABASE: Fetching hobby plans for user:', userId);
+      const { data, error } = await supabaseAdmin
+        .from('hobby_plans')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Error fetching hobby plans:', error);
+      if (error) {
+        console.error('❌ SUPABASE: Error fetching hobby plans:', error);
+        console.error('❌ SUPABASE: Error details:', {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+          hint: error.hint
+        });
+        return [];
+      }
+      
+      console.log('✅ SUPABASE: Successfully fetched', data?.length || 0, 'hobby plans');
+      return data || [];
+    } catch (error) {
+      console.error('❌ SUPABASE: Exception fetching hobby plans:', error);
       return [];
     }
-    return data || [];
   }
 
   async createHobbyPlan(plan: any): Promise<any> {
-    const { data, error } = await supabaseAdmin
-      .from('hobby_plans')
-      .insert({
-        user_id: plan.userId || plan.user_id,
-        hobby_name: plan.hobby || plan.hobby_name, // Handle both field names
-        title: plan.title,
-        overview: plan.overview,
-        plan_data: plan.planData || plan.plan_data
-      })
-      .select()
-      .single();
+    try {
+      console.log('📝 SUPABASE: Creating hobby plan for user:', plan.userId || plan.user_id);
+      console.log('📝 SUPABASE: Plan data structure:', {
+        hasUserId: !!(plan.userId || plan.user_id),
+        hasHobby: !!(plan.hobby || plan.hobby_name),
+        hasTitle: !!plan.title,
+        hasOverview: !!plan.overview,
+        hasPlanData: !!(plan.planData || plan.plan_data)
+      });
 
-    if (error) {
-      console.error('Error creating hobby plan:', error);
+      const { data, error } = await supabaseAdmin
+        .from('hobby_plans')
+        .insert({
+          user_id: plan.userId || plan.user_id,
+          hobby_name: plan.hobby || plan.hobby_name, // Handle both field names
+          title: plan.title,
+          overview: plan.overview,
+          plan_data: plan.planData || plan.plan_data
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ SUPABASE: Error creating hobby plan:', error);
+        console.error('❌ SUPABASE: Error details:', {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+          hint: error.hint
+        });
+        throw error;
+      }
+      
+      console.log('✅ SUPABASE: Successfully created hobby plan with ID:', data.id);
+      return data;
+    } catch (error) {
+      console.error('❌ SUPABASE: Exception creating hobby plan:', error);
       throw error;
     }
-    return data;
   }
 
   async getUserProgress(userId: string): Promise<any[]> {
