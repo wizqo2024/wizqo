@@ -78,8 +78,12 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
 
   const getDayStatus = (dayNumber: number): 'locked' | 'unlocked' | 'completed' => {
     if (isDayCompleted(dayNumber)) return 'completed';
-    if (dayNumber === 1 || isDayCompleted(dayNumber - 1)) return 'unlocked';
-    return 'locked';
+    // If not logged in, only Day 1 is accessible
+    if (!user) {
+      return dayNumber === 1 ? 'unlocked' : 'locked';
+    }
+    // Logged-in users can access all days
+    return 'unlocked';
   };
 
   // Define different icons for tips and mistakes
