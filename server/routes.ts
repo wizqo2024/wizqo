@@ -61,39 +61,69 @@ function getYouTubeVideos(hobby: string): string[] {
   return hobbyVideos;
 }
 
-// Smart contextual response generator for chat fallback
+// Enhanced intelligent response generator for chat fallback
 function generateContextualResponse(question: string, planData: any, hobbyContext: string): string {
   const q = question.toLowerCase().trim();
   const hobby = planData?.hobby || hobbyContext || 'hobby';
+  const currentDay = planData?.days?.find((day: any) => day.day === 1) || planData?.days?.[0];
+
+  // Progress tracking questions
+  if (q.includes('progress') || q.includes('how am i doing') || q.includes('track')) {
+    return `Great question! Let's check your ${hobby} learning progress:
+
+📊 **Progress Tracking:**
+• You're on Day ${currentDay?.day || 1} of your 7-day journey
+• Today's focus: ${currentDay?.title || 'Getting started'}
+• Main task: ${currentDay?.mainTask || 'Learning fundamentals'}
+
+🎯 **Next Steps:**
+• Complete today's checklist: ${currentDay?.checklist?.join(', ') || 'Practice the basics'}
+• Estimated time needed: ${currentDay?.estimatedTime || '30-60 minutes'}
+• Don't rush - quality practice beats quantity!
+
+💡 **Pro Tip:** Take photos/videos of your work to track improvement over time!`;
+  }
+
+  // Motivation and encouragement
+  if (q.includes('motivation') || q.includes('encouragement') || q.includes('stuck') || q.includes('difficult')) {
+    return `I understand! Learning ${hobby} can be challenging, but you've got this! 🌟
+
+💪 **Motivation Boost:**
+• Every expert was once a beginner - you're on the right path!
+• Focus on progress, not perfection
+• Small daily practice beats occasional intense sessions
+• Celebrate small wins - even 10 minutes of practice counts!
+
+🎯 **When You're Stuck:**
+• Break down today's task into smaller steps
+• Review the tips: ${currentDay?.tips?.join(', ') || 'Take it step by step'}
+• Avoid these common mistakes: ${currentDay?.mistakesToAvoid?.join(', ') || 'Don't rush the process'}
+• Remember: struggling means you're learning!
+
+🔥 **You're doing great - keep going!**`;
+  }
 
   // Skills improvement questions
   if (q.includes('improve') || q.includes('better') || q.includes('skill') || q.includes('advance')) {
-    if (hobby.toLowerCase().includes('video') || hobby.toLowerCase().includes('editing')) {
-      return `Here's how to improve your video editing skills progressively:
+    return `Excellent question! Here's how to improve your ${hobby} skills:
 
-**Foundation (Days 1-2):**
-• Master basic cuts, transitions, and timeline navigation
-• Learn keyboard shortcuts for faster workflow
-• Practice color correction and audio sync
+📈 **Progressive Improvement Strategy:**
+• **Foundation (Days 1-3):** Master the basics - ${currentDay?.mainTask || 'core fundamentals'}
+• **Building (Days 4-5):** Add complexity and refine techniques
+• **Advanced (Days 6-7):** Polish and develop your unique style
 
-**Intermediate (Days 3-5):**
-• Advanced effects and color grading techniques
-• Audio mixing and sound design principles
-• Storytelling through pacing and rhythm
+🎯 **Today's Focus:**
+• Main task: ${currentDay?.mainTask || 'Practice fundamentals'}
+• Key tips: ${currentDay?.tips?.join(', ') || 'Focus on technique over speed'}
+• Time investment: ${currentDay?.estimatedTime || '30-60 minutes daily'}
 
-**Advanced (Days 6-7):**
-• Professional color grading workflows
-• Motion graphics and title animations
-• Portfolio development and client presentation
+💡 **Pro Tips for Improvement:**
+• Practice consistently - even 15 minutes daily beats 2 hours once a week
+• Record your progress to see improvement over time
+• Study examples and try to replicate techniques
+• Don't be afraid to make mistakes - they're learning opportunities!
 
-**Daily Practice Tips:**
-• Edit different types of content (vlogs, commercials, stories)
-• Study professional work and reverse-engineer techniques
-• Join online communities for feedback and inspiration
-• Practice with raw footage daily, even 15-30 minutes
-
-Your 7-day plan covers all these progressively - each day builds on the previous!`;
-    }
+Your 7-day plan is designed to build skills progressively. Each day builds on the previous!`;
   }
 
   // Tips requests
@@ -137,8 +167,59 @@ Your 7-day plan covers all these progressively - each day builds on the previous
     return `I'm focused on helping you with your ${hobby} learning plan! While I can't help with weather, I can answer questions about your daily activities, techniques, equipment, or anything related to your 7-day journey. What would you like to know about ${hobby}?`;
   }
 
+  // Technique questions
+  if (q.includes('technique') || q.includes('method') || q.includes('how to') || q.includes('step')) {
+    return `Let me help you with the techniques for ${hobby}:
+
+🎯 **Today's Technique Focus:**
+• Main task: ${currentDay?.mainTask || 'Practice fundamentals'}
+• How to: ${currentDay?.howTo?.join('\n• ') || 'Follow the step-by-step instructions'}
+
+📋 **Step-by-Step Approach:**
+• Start with the basics - don't rush ahead
+• Practice each step until comfortable
+• Combine techniques gradually
+• Focus on form and technique over speed
+
+💡 **Technique Tips:**
+• Break complex movements into smaller parts
+• Practice slowly and deliberately
+• Use mirrors or recordings to check your form
+• Don't be afraid to make mistakes - they're learning opportunities
+
+Your plan builds techniques progressively each day!`;
+  }
+
+  // Next steps questions
+  if (q.includes('next') || q.includes('tomorrow') || q.includes('continue') || q.includes('what after')) {
+    const nextDay = planData?.days?.find((day: any) => day.day === 2) || planData?.days?.[1];
+    return `Great question! Here's what's coming next in your ${hobby} journey:
+
+🎯 **Tomorrow's Focus:**
+• Day ${nextDay?.day || 2}: ${nextDay?.title || 'Building on fundamentals'}
+• Main task: ${nextDay?.mainTask || 'Advancing your skills'}
+• Estimated time: ${nextDay?.estimatedTime || '30-60 minutes'}
+
+📈 **Progression Path:**
+• Today: ${currentDay?.title || 'Getting started'}
+• Tomorrow: ${nextDay?.title || 'Building skills'}
+• Day 3: Adding complexity
+• Day 4: Refining techniques
+• Day 5: Advanced concepts
+• Day 6: Mastery building
+• Day 7: Polishing and showcasing
+
+💡 **Preparation Tips:**
+• Complete today's checklist first
+• Review what you learned today
+• Get a good night's rest
+• Come back with fresh energy tomorrow!
+
+Each day builds on the previous - you're making great progress!`;
+  }
+
   // Default response
-  return `I'm here to help with your ${hobby} learning plan! You can ask me about:\n• Getting started with Day 1\n• Daily activities and techniques\n• Equipment and setup\n• Practice tips and techniques\n• Time management\n• Progress tracking\n\nWhat aspect of your ${hobby} learning would you like help with?`;
+  return `I'm here to help with your ${hobby} learning plan! You can ask me about:\n• Getting started with Day 1\n• Daily activities and techniques\n• Equipment and setup\n• Practice tips and techniques\n• Time management\n• Progress tracking\n• What's coming next\n• Troubleshooting challenges\n\nWhat aspect of your ${hobby} learning would you like help with?`;
 }
 
 // Helper function to clean JSON responses from AI APIs
@@ -2513,25 +2594,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json({ response: fallbackResponse });
       }
 
-      // Build context from plan data
-      let context = `You are a helpful AI assistant for Wizqo, a 7-day hobby learning platform. `;
+      // Build comprehensive context from plan data
+      let context = `You are Wizqo, an expert AI learning coach for hobby development. You're warm, encouraging, and deeply knowledgeable about skill-building. `;
 
       if (planData && planData.hobby) {
-        context += `The user is learning ${planData.hobby} over 7 days. `;
+        context += `The user is following a 7-day learning plan for ${planData.hobby}. `;
 
         if (planData.days && planData.days.length > 0) {
+          // Find current day (you can enhance this logic based on user progress)
           const currentDay = planData.days.find((day: any) => day.day === 1) || planData.days[0];
+          
           if (currentDay) {
-            context += `Today's focus is "${currentDay.title}" with the main task: ${currentDay.mainTask}. `;
+            context += `\n\nCURRENT DAY CONTEXT:
+- Day ${currentDay.day}: ${currentDay.title}
+- Main Task: ${currentDay.mainTask}
+- Estimated Time: ${currentDay.estimatedTime}
+- Skill Level: ${currentDay.skillLevel}
 
-            if (currentDay.tips && currentDay.tips.length > 0) {
-              context += `Key tips include: ${currentDay.tips.join(', ')}. `;
-            }
+TODAY'S CONTENT:
+- Explanation: ${currentDay.explanation}
+- How To: ${Array.isArray(currentDay.howTo) ? currentDay.howTo.join('; ') : currentDay.howTo}
+- Tips: ${Array.isArray(currentDay.tips) ? currentDay.tips.join('; ') : currentDay.tips}
+- Mistakes to Avoid: ${Array.isArray(currentDay.mistakesToAvoid) ? currentDay.mistakesToAvoid.join('; ') : currentDay.mistakesToAvoid}
+
+CHECKLIST: ${Array.isArray(currentDay.checklist) ? currentDay.checklist.join('; ') : currentDay.checklist}
+
+RESOURCES: ${currentDay.freeResources ? currentDay.freeResources.map((r: any) => r.title).join(', ') : 'None specified'}
+
+PRODUCTS: ${currentDay.affiliateProducts ? currentDay.affiliateProducts.map((p: any) => p.title).join(', ') : 'None specified'}`;
           }
+
+          // Add overview of the entire plan
+          context += `\n\nPLAN OVERVIEW:
+- Total Days: ${planData.totalDays}
+- Difficulty: ${planData.difficulty}
+- Overview: ${planData.overview}
+
+ALL DAYS SUMMARY:`;
+          
+          planData.days.forEach((day: any, index: number) => {
+            context += `\n- Day ${day.day}: ${day.title} (${day.estimatedTime})`;
+          });
         }
       }
 
-      context += `Provide helpful, specific advice about the user's learning journey. Keep responses conversational but informative.`;
+      context += `\n\nRESPONSE GUIDELINES:
+1. Be encouraging and supportive - learning new skills can be challenging
+2. Provide specific, actionable advice based on the plan content
+3. Reference specific days, tasks, or tips from the plan when relevant
+4. Help users understand concepts, troubleshoot issues, or get motivated
+5. Suggest modifications to the plan if needed (time constraints, skill level, etc.)
+6. Answer questions about techniques, tools, resources, or next steps
+7. Keep responses conversational but informative and educational
+8. If asked about progress, help them track their learning journey
+9. If they're struggling, provide encouragement and alternative approaches
+10. Always relate your advice back to their specific hobby and learning plan`;
 
       const prompt = `${context}
 
