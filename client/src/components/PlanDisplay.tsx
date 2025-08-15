@@ -51,6 +51,11 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
   // Use props if provided, otherwise use local state
   const completedDays = propCompletedDays || localCompletedDays;
   const setCompletedDays = propSetCompletedDays || setLocalCompletedDays;
+  
+  // Debug: Log plan data structure
+  console.log('🔍 PlanDisplay: Received planData:', planData);
+  console.log('🔍 PlanDisplay: planData.days:', planData?.days);
+  console.log('🔍 PlanDisplay: planData keys:', planData ? Object.keys(planData) : 'planData is null/undefined');
   const { toast } = useToast();
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const dayRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -363,7 +368,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                   </div>
                   
                   <div className="grid grid-cols-7 gap-3">
-                    {planData.days.map((day, index) => {
+                    {planData.days?.map((day, index) => {
                       const dayStatus = getDayStatus(day.day);
                       const isCurrentDay = day.day === selectedDay;
                       return (
