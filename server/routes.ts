@@ -9,6 +9,7 @@ import { storage } from './storage.js';
 import { supabaseStorage } from './supabase-storage';
 import { insertHobbyPlanSchema, insertUserProgressSchema } from '@shared/schema';
 import { z } from 'zod';
+import { EnhancedPlanGenerator } from './enhancedPlanGenerator.js';
 
 console.log('📖 API: Database storage initialized for all operations');
 console.log('🚀 SUPABASE MODE: Using Supabase PostgreSQL database');
@@ -2289,13 +2290,135 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      console.log('🚀 Starting plan generation for:', normalizedHobby);
-      const plan = await generateAIPlan(normalizedHobby, experience, timeAvailable, goal || `Learn ${normalizedHobby} fundamentals`);
-      console.log('✅ Plan generation completed successfully');
-      res.json(plan);
+      console.log('🚀 Starting enhanced plan generation for:', normalizedHobby);
+      
+      // Generate the plan using the enhanced generator
+      const planGenerator = new EnhancedPlanGenerator();
+      const plan = await planGenerator.generatePlan({
+        hobby: normalizedHobby,
+        experience,
+        timeAvailable,
+        goal: goal || `Learn ${normalizedHobby} fundamentals`,
+        userId
+      });
+
+      console.log('✅ Enhanced plan generated successfully with OpenRouter API, YouTube videos, and Supabase storage');
+      res.json({ plan });
     } catch (error) {
       console.error('Error generating plan:', error);
       res.status(500).json({ error: 'Failed to generate learning plan' });
+    }
+  });
+
+  // Get user's saved plans from Supabase
+  app.get('/api/user-plans/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+      
+      if (!userId) {
+        return res.status(400).json({ error: 'User ID is required' });
+      }
+
+      console.log('📋 Fetching plans for user:', userId);
+      const plans = await supabaseStorage.getHobbyPlansByUserId(userId);
+      
+      console.log('✅ Retrieved', plans.length, 'plans for user');
+      res.json({ plans });
+    } catch (error) {
+      console.error('❌ Error fetching user plans:', error);
+      res.status(500).json({ error: 'Failed to fetch user plans' });
+    }
+  });
+
+  // Get specific plan by ID
+  app.get('/api/plan/:planId', async (req, res) => {
+    try {
+      const { planId } = req.params;
+      
+      if (!planId) {
+        return res.status(400).json({ error: 'Plan ID is required' });
+      }
+
+      console.log('📋 Fetching plan by ID:', planId);
+      const { data, error } = await supabaseAdmin
+        .from('hobby_plans')
+        .select('*')
+        .eq('id', planId)
+        .single();
+
+      if (error) {
+        console.error('❌ Error fetching plan:', error);
+        return res.status(404).json({ error: 'Plan not found' });
+      }
+
+      console.log('✅ Retrieved plan:', data.title);
+      res.json({ plan: data });
+    } catch (error) {
+      console.error('❌ Error fetching plan by ID:', error);
+      res.status(500).json({ error: 'Failed to fetch plan' });
+    }
+  });
+
+  // Delete plan by ID
+  app.delete('/api/plan/:planId', async (req, res) => {
+    try {
+      const { planId } = req.params;
+      
+      if (!planId) {
+        return res.status(400).json({ error: 'Plan ID is required' });
+      }
+
+      console.log('🗑️ Deleting plan:', planId);
+      const { error } = await supabaseAdmin
+        .from('hobby_plans')
+        .delete()
+        .eq('id', planId);
+
+      if (error) {
+        console.error('❌ Error deleting plan:', error);
+        return res.status(500).json({ error: 'Failed to delete plan' });
+      }
+
+      console.log('✅ Plan deleted successfully');
+      res.json({ success: true });
+    } catch (error) {
+      console.error('❌ Error deleting plan:', error);
+      res.status(500).json({ error: 'Failed to delete plan' });
+    }
+  });
+
+  // Update plan progress
+  app.put('/api/plan/:planId/progress', async (req, res) => {
+    try {
+      const { planId } = req.params;
+      const { progress } = req.body;
+      
+      if (!planId) {
+        return res.status(400).json({ error: 'Plan ID is required' });
+      }
+
+      console.log('📊 Updating progress for plan:', planId);
+      
+      // Update the plan_data with progress information
+      const { data, error } = await supabaseAdmin
+        .from('hobby_plans')
+        .update({
+          plan_data: progress
+        })
+        .eq('id', planId)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('❌ Error updating plan progress:', error);
+        return res.status(500).json({ error: 'Failed to update progress' });
+      }
+
+      console.log('✅ Plan progress updated successfully');
+      res.json({ plan: data });
+    } catch (error) {
+      console.error('❌ Error updating plan progress:', error);
+      res.status(500).json({ error: 'Failed to update progress' });
     }
   });
 

@@ -372,13 +372,14 @@ export default function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const planData = await response.json();
+      const responseData = await response.json();
+      const planData = responseData.plan || responseData; // Handle both new and old response formats
 
-      console.log('🔧 CRITICAL FIX - Backend planData received:', JSON.stringify(planData.days[0], null, 2));
-      console.log('🔧 CRITICAL FIX - First day youtubeVideoId from backend:', planData.days[0]?.youtubeVideoId);
-      console.log('🔧 CRITICAL FIX - First day videoId from backend:', planData.days[0]?.videoId);
+      console.log('🚀 Enhanced Plan Generator - Backend planData received:', JSON.stringify(planData.days[0], null, 2));
+      console.log('🎥 Enhanced Plan Generator - First day youtubeVideoId from backend:', planData.days[0]?.youtubeVideoId);
+      console.log('🛒 Enhanced Plan Generator - First day affiliateProducts from backend:', planData.days[0]?.affiliateProducts?.length || 0);
 
-      // Convert backend data to frontend format - PRESERVE ALL VIDEO FIELDS
+      // Convert backend data to frontend format - PRESERVE ALL ENHANCED FIELDS
       const formattedPlanData = {
         hobby: planData.hobby || hobby,
         title: planData.title || `Learn ${planData.hobby || hobby} in 7 Days`,
@@ -394,9 +395,9 @@ export default function App() {
           checklist: day.checklist || [],
           tips: day.tips || [],
           mistakesToAvoid: day.mistakesToAvoid || day.commonMistakes || [],
+          // *** ENHANCED FEATURES: PRESERVE ALL NEW FIELDS ***
           freeResources: day.freeResources || [],
           affiliateProducts: day.affiliateProducts || [],
-          // *** CRITICAL FIX: PRESERVE ALL VIDEO FIELDS FROM BACKEND ***
           youtubeVideoId: day.youtubeVideoId || day.videoId,
           videoId: day.videoId || day.youtubeVideoId,
           videoTitle: day.videoTitle,
