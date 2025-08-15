@@ -66,11 +66,32 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	const [planData, setPlanData] = useState<PlanData | null>(initialPlanData || null);
 	const [completedDays, setCompletedDays] = useState<number[]>([]);
 	const [showAuthModal, setShowAuthModal] = useState(false);
+	const [showSuggestions, setShowSuggestions] = useState(!initialPlanData);
 
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { user } = useAuth();
 	usePlanStorage();
+
+	const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
+	const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
+
+	const handleStartNewPlan = () => {
+		setPlanData(null);
+		setShowSuggestions(true);
+	};
+
+	const handlePickHobby = async (hobby: string) => {
+		try {
+			const plan = await onGeneratePlan(hobby, defaultAnswers);
+			setPlanData(plan);
+			setShowSuggestions(false);
+			// reset progress UI
+			setCompletedDays([]);
+		} catch (e) {
+			console.error('Failed to generate plan', e);
+		}
+	};
 
 	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -146,18 +167,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				</div>
 
 				<div className="w-full md:flex-1 overflow-y-auto bg-gray-50 md:h-full">
-					{planData && planData.days ? (
+					{planData && !showSuggestions ? (
 						<div className="p-4 lg:p-6">
-							<div className="mb-6">
-								<h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
-								<div className="flex items-center space-x-2 lg:space-x-4 mt-2">
-									<span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-										{planData.difficulty}
-									</span>
-									<span className="text-xs lg:text-sm text-gray-600 flex items-center">
-										<Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
-										{planData.totalDays} days
-									</span>
+							<div className="mb-6 flex items-start justify-between gap-3">
+								<div>
+									<h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
+									<div className="flex items-center space-x-2 lg:space-x-4 mt-2">
+										<span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+											{planData.difficulty}
+										</span>
+										<span className="text-xs lg:text-sm text-gray-600 flex items-center">
+											<Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+											{planData.totalDays} days
+										</span>
+									</div>
+								</div>
+								<div>
+									<Button onClick={handleStartNewPlan} variant="default">Start New Plan</Button>
 								</div>
 							</div>
 
@@ -182,14 +208,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 							</Card>
 						</div>
 					) : (
-						<div className="flex items-center justify-center min-h-full p-6">
-							<div className="max-w-2xl mx-auto space-y-6">
-								<div className="text-center">
-									<div className="text-6xl mb-6">🎯</div>
-									<h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Your Learning Journey!</h2>
-									<p className="text-lg text-gray-700 leading-relaxed">
-										Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you.
-									</p>
+						<div className="p-6 lg:p-10">
+							<div className="max-w-4xl mx-auto">
+								<div className="text-center mb-8">
+									<div className="text-6xl mb-4">🎯</div>
+									<h2 className="text-2xl font-bold text-gray-900 mb-2">Start a New 7-Day Learning Plan</h2>
+									<p className="text-gray-700">Pick a hobby to generate a personalized plan, or ask anything in the chat.</p>
+								</div>
+								<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+									{hobbySuggestions.map((hobby) => (
+										<button
+											key={hobby}
+											onClick={() => handlePickHobby(hobby)}
+											className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm font-medium text-gray-800 hover:border-blue-300 hover:bg-blue-50 text-left"
+										>
+											{hobby.charAt(0).toUpperCase() + hobby.slice(1)}
+										</button>
+									))}
 								</div>
 							</div>
 						</div>
