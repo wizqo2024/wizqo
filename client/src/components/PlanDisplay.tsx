@@ -170,10 +170,8 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
 
             {/* Day Content - Horizontal Layout */}
             <CardContent className="space-y-6 max-w-none">
-              {/* Main Content Grid */}
-              <div className="grid lg:grid-cols-3 gap-6">
-                {/* Left Column - Overview & Steps */}
-                <div className="lg:col-span-2 space-y-6">
+              {/* Main Content */}
+              <div className="space-y-6">
                   {/* Time Allocation & Overview */}
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
                     <div className="flex items-center justify-between mb-4">
@@ -284,140 +282,121 @@ export function PlanDisplay({ planData, user, setShowAuthModal }: PlanDisplayPro
                       </ol>
                     )}
                   </div>
-                </div>
 
-                {/* Right Sidebar */}
-                <div className="space-y-6">
-                  {/* Success Tips */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
+                  {/* 7-Day Plan Overview */}
+                  <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-lg p-6">
                     <div className="flex items-center space-x-3 mb-6">
-                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-white" />
+                      <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        <BookOpen className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-green-900">💡 Pro Tips for Success</h3>
-                        <p className="text-sm text-green-700">Expert insights to accelerate your learning</p>
+                        <h3 className="text-lg font-semibold text-purple-900">📅 Your 7-Day Learning Journey</h3>
+                        <p className="text-sm text-purple-700">Complete overview of your learning plan</p>
                       </div>
                     </div>
-                    <div className="grid gap-4">
-                      {selectedDayData.tips.map((tip, index) => {
-                        const IconComponent = getTipIcon(index);
+                    
+                    <div className="grid grid-cols-7 gap-3">
+                      {planData.days.map((day, index) => {
+                        const dayStatus = getDayStatus(day.day);
+                        const isCurrentDay = day.day === selectedDay;
                         return (
-                          <div key={index} className="bg-white rounded-lg p-4 border border-green-200 hover:border-green-300 transition-colors">
-                            <div className="flex items-start space-x-3">
-                              <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <IconComponent className="w-4 h-4 text-white" />
+                          <div 
+                            key={day.day}
+                            onClick={() => setSelectedDay(day.day)}
+                            className={`relative cursor-pointer rounded-lg p-3 border transition-all ${
+                              isCurrentDay 
+                                ? 'bg-purple-100 border-purple-300 shadow-md' 
+                                : dayStatus === 'locked'
+                                ? 'bg-gray-50 border-gray-200 opacity-50'
+                                : 'bg-white border-gray-200 hover:bg-purple-50 hover:border-purple-200'
+                            }`}
+                          >
+                            <div className="text-center">
+                              <div className={`w-8 h-8 mx-auto rounded-full flex items-center justify-center text-sm font-bold mb-2 ${
+                                dayStatus === 'completed' 
+                                  ? 'bg-green-500 text-white' 
+                                  : dayStatus === 'locked'
+                                  ? 'bg-gray-300 text-gray-500'
+                                  : isCurrentDay
+                                  ? 'bg-purple-500 text-white'
+                                  : 'bg-blue-100 text-blue-600'
+                              }`}>
+                                {dayStatus === 'completed' ? <CheckCircle className="w-4 h-4" /> : day.day}
                               </div>
-                              <div className="flex-1">
-                                <p className="text-gray-800 leading-relaxed font-medium">{tip}</p>
-                              </div>
+                              <h4 className={`text-xs font-semibold mb-1 ${
+                                isCurrentDay ? 'text-purple-900' : 'text-gray-700'
+                              }`}>
+                                Day {day.day}
+                              </h4>
+                              <p className={`text-xs line-clamp-2 ${
+                                isCurrentDay ? 'text-purple-700' : 'text-gray-500'
+                              }`}>
+                                {day.title}
+                              </p>
                             </div>
+                            {isCurrentDay && (
+                              <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-500 rounded-full"></div>
+                            )}
                           </div>
                         );
                       })}
                     </div>
                   </div>
 
-                  {/* Avoid These Mistakes */}
-                  <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
-                    <div className="flex items-center space-x-3 mb-6">
-                      <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
-                        <AlertTriangle className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-red-900">⚠️ Common Pitfalls to Avoid</h3>
-                        <p className="text-sm text-red-700">Learn from others' mistakes to save time</p>
-                      </div>
-                    </div>
-                    <div className="grid gap-4">
-                      {selectedDayData.mistakesToAvoid.map((mistake, index) => {
-                        const IconComponent = getMistakeIcon(index);
-                        return (
-                          <div key={index} className="bg-white rounded-lg p-4 border border-red-200 hover:border-red-300 transition-colors">
-                            <div className="flex items-start space-x-3">
-                              <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
-                                <IconComponent className="w-4 h-4 text-white" />
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-gray-800 leading-relaxed font-medium">{mistake}</p>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Video Tutorial */}
-                  {selectedDayData.youtubeVideoId && (
-                    <div className="bg-white border border-gray-200 rounded-lg p-6">
-                      <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                          <Play className="w-4 h-4 text-white" />
+                  {/* Tips and Checklist Section */}
+                  <div className="grid lg:grid-cols-2 gap-6">
+                    {/* Success Tips */}
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
+                      <div className="flex items-center space-x-3 mb-6">
+                        <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                          <Zap className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-900">Video Tutorial</h3>
-                          <p className="text-sm text-gray-500">{selectedDayData.videoTitle}</p>
+                          <h3 className="text-lg font-semibold text-green-900">💡 Pro Tips for Success</h3>
+                          <p className="text-sm text-green-700">Expert insights to accelerate your learning</p>
                         </div>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
-                          <iframe
-                            src={`https://www.youtube.com/embed/${selectedDayData.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
-                            title={`${planData.hobby} Day ${selectedDayData.day}: ${selectedDayData.title}`}
-                            frameBorder="0"
-                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="absolute top-0 left-0 w-full h-full"
-                          ></iframe>
-                        </div>
+                      <div className="grid gap-4">
+                        {selectedDayData.tips.map((tip, index) => {
+                          const IconComponent = getTipIcon(index);
+                          return (
+                            <div key={index} className="bg-white rounded-lg p-4 border border-green-200 hover:border-green-300 transition-colors">
+                              <div className="flex items-start space-x-3">
+                                <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                                  <IconComponent className="w-4 h-4 text-white" />
+                                </div>
+                                <div className="flex-1">
+                                  <p className="text-gray-800 leading-relaxed font-medium">{tip}</p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
-                  )}
 
-                  {/* Progress Milestones */}
-                  {selectedDayData.progressMilestones && (
-                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
-                      <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
-                          <Award className="w-4 h-4 text-white" />
+                    {/* Interactive Checklist */}
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
+                      <div className="flex items-center space-x-3 mb-6">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                          <CheckCircle className="w-5 h-5 text-white" />
                         </div>
-                        <h3 className="text-lg font-semibold text-yellow-900">🎯 Progress Milestones</h3>
+                        <div>
+                          <h3 className="text-lg font-semibold text-blue-900">✅ Today's Action Items</h3>
+                          <p className="text-sm text-blue-700">Check off each item as you complete it</p>
+                        </div>
                       </div>
                       <div className="space-y-3">
-                        {selectedDayData.progressMilestones.map((milestone, index) => (
-                          <div key={index} className="flex items-center space-x-3 bg-white rounded-lg p-3 border border-yellow-200">
-                            <div className="w-6 h-6 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center text-sm font-bold">
-                              {index + 1}
-                            </div>
-                            <span className="text-gray-800 font-medium">{milestone}</span>
-                          </div>
+                        {selectedDayData.checklist.map((item, index) => (
+                          <label key={index} className="flex items-start space-x-3 cursor-pointer group hover:bg-white hover:shadow-sm rounded-lg p-3 transition-all">
+                            <input 
+                              type="checkbox" 
+                              className="w-5 h-5 text-blue-500 rounded mt-0.5 focus:ring-blue-500 focus:ring-2" 
+                            />
+                            <span className="text-gray-800 leading-relaxed group-hover:text-blue-900 transition-colors font-medium">{item}</span>
+                          </label>
                         ))}
                       </div>
-                    </div>
-                  )}
-
-                  {/* Interactive Checklist */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
-                    <div className="flex items-center space-x-3 mb-6">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                        <CheckCircle className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-blue-900">✅ Today's Action Items</h3>
-                        <p className="text-sm text-blue-700">Check off each item as you complete it</p>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      {selectedDayData.checklist.map((item, index) => (
-                        <label key={index} className="flex items-start space-x-3 cursor-pointer group hover:bg-white hover:shadow-sm rounded-lg p-3 transition-all">
-                          <input 
-                            type="checkbox" 
-                            className="w-5 h-5 text-blue-500 rounded mt-0.5 focus:ring-blue-500 focus:ring-2" 
-                          />
-                          <span className="text-gray-800 leading-relaxed group-hover:text-blue-900 transition-colors font-medium">{item}</span>
-                        </label>
-                      ))}
                     </div>
                   </div>
 
