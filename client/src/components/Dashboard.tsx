@@ -812,8 +812,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     {/* Action Button */}
                     <Button 
                       onClick={() => {
+                        console.log('🔍 Dashboard: Plan data check:', {
+                          hasPlanData: !!plan.planData,
+                          planData: plan.planData,
+                          planId: plan.id,
+                          hobby: plan.hobby
+                        });
                         if (plan.planData) {
                           sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
+                          console.log('💾 Dashboard: Plan data stored in sessionStorage');
+                        } else {
+                          console.log('❌ Dashboard: No planData found in plan object');
                         }
                         window.location.hash = '#/plan';
                       }}
