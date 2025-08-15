@@ -96,16 +96,229 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
 	const [existingPlanCandidate, setExistingPlanCandidate] = useState<any>(null);
 
-	const blockedKeywords = ['sex','sexual','porn','xxx','nude','fetish','bdsm','escort','adult','erotic','drugs','cocaine','heroin','meth','bomb','weapon','gun','hacking illegal'];
-	const isInappropriate = (text: string) => blockedKeywords.some(k => text.toLowerCase().includes(k));
-	const normalize = (s: string) => s.toLowerCase().trim();
+	// Comprehensive hobby validation system
+	const blockedKeywords = [
+		// Inappropriate content
+		'sex', 'sexual', 'porn', 'xxx', 'nude', 'fetish', 'bdsm', 'escort', 'adult', 'erotic',
+		// Dangerous activities
+		'drugs', 'cocaine', 'heroin', 'meth', 'bomb', 'weapon', 'gun', 'hacking illegal', 'terrorism',
+		// Harmful activities
+		'self-harm', 'suicide', 'violence', 'hate', 'racism', 'discrimination'
+	];
+
+	const religiousActivities = [
+		'reading quran', 'praying', 'worship', 'religious study', 'bible study', 'meditation spiritual',
+		'fasting', 'pilgrimage', 'religious ceremony', 'church', 'mosque', 'temple', 'synagogue'
+	];
+
+	const nonHobbyActivities = [
+		'work', 'job', 'career', 'business', 'study', 'homework', 'exam', 'test', 'assignment',
+		'chores', 'cleaning', 'cooking daily', 'shopping', 'errands', 'sleeping', 'eating',
+		'watching tv', 'social media', 'internet browsing', 'gaming addiction', 'gambling'
+	];
+
+	const normalize = (s: string) => s.toLowerCase().trim().replace(/\s+/g, ' ');
+
+	const isInappropriate = (text: string) => {
+		const normalized = text.toLowerCase();
+		return blockedKeywords.some(k => normalized.includes(k));
+	};
+
+	const isReligiousActivity = (text: string) => {
+		const normalized = normalize(text);
+		return religiousActivities.some(activity => normalized.includes(activity));
+	};
+
+	const isNonHobbyActivity = (text: string) => {
+		const normalized = normalize(text);
+		return nonHobbyActivities.some(activity => normalized.includes(activity));
+	};
+
+	const hasMultipleHobbies = (text: string) => {
+		const hobbyWords = allHobbies.filter(hobby => 
+			text.toLowerCase().includes(hobby.toLowerCase())
+		);
+		return hobbyWords.length > 1;
+	};
+
+	const findTypos = (input: string) => {
+		const normalized = normalize(input);
+		const suggestions = [];
+		
+		// Common typos mapping
+		const typoMap: { [key: string]: string } = {
+			'guitar': ['guitar', 'guitar playing'],
+			'piano': ['piano', 'piano playing'],
+			'cooking': ['cooking', 'chef', 'culinary'],
+			'drawing': ['drawing', 'sketching', 'art'],
+			'painting': ['painting', 'watercolor', 'acrylic'],
+			'photography': ['photography', 'photo', 'camera'],
+			'yoga': ['yoga', 'meditation'],
+			'gardening': ['gardening', 'garden'],
+			'knitting': ['knitting', 'crochet'],
+			'woodworking': ['woodworking', 'carpentry'],
+			'coding': ['coding', 'programming', 'web development'],
+			'writing': ['writing', 'creative writing'],
+			'reading': ['reading', 'books'],
+			'dancing': ['dancing', 'dance'],
+			'singing': ['singing', 'vocal'],
+			'pottery': ['pottery', 'ceramics'],
+			'calligraphy': ['calligraphy', 'handwriting'],
+			'origami': ['origami', 'paper folding'],
+			'jewelry': ['jewelry making', 'beading'],
+			'sewing': ['sewing', 'tailoring'],
+			'candle making': ['candle making', 'candles'],
+			'soap making': ['soap making', 'soap'],
+			'beekeeping': ['beekeeping', 'bees'],
+			'bird watching': ['bird watching', 'ornithology'],
+			'astronomy': ['astronomy', 'stargazing'],
+			'coin collecting': ['coin collecting', 'numismatics'],
+			'stamp collecting': ['stamp collecting', 'philately']
+		};
+
+		// Check for exact matches and similar words
+		for (const [correct, variations] of Object.entries(typoMap)) {
+			if (variations.some(v => normalized.includes(v))) {
+				suggestions.push(correct);
+			}
+		}
+
+		// Fuzzy matching for similar words
+		const inputWords = normalized.split(' ');
+		for (const hobby of allHobbies) {
+			const hobbyWords = hobby.toLowerCase().split(' ');
+			const similarity = inputWords.filter(word => 
+				hobbyWords.some(hobbyWord => 
+					hobbyWord.includes(word) || word.includes(hobbyWord) || 
+					levenshteinDistance(word, hobbyWord) <= 2
+				)
+			).length;
+			
+			if (similarity > 0 && !suggestions.includes(hobby)) {
+				suggestions.push(hobby);
+			}
+		}
+
+		return suggestions.slice(0, 5);
+	};
+
+	const levenshteinDistance = (str1: string, str2: string) => {
+		const matrix = [];
+		for (let i = 0; i <= str2.length; i++) {
+			matrix[i] = [i];
+		}
+		for (let j = 0; j <= str1.length; j++) {
+			matrix[0][j] = j;
+		}
+		for (let i = 1; i <= str2.length; i++) {
+			for (let j = 1; j <= str1.length; j++) {
+				if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+					matrix[i][j] = matrix[i - 1][j - 1];
+				} else {
+					matrix[i][j] = Math.min(
+						matrix[i - 1][j - 1] + 1,
+						matrix[i][j - 1] + 1,
+						matrix[i - 1][j] + 1
+					);
+				}
+			}
+		}
+		return matrix[str2.length][str1.length];
+	};
+
+	const validateHobbyInput = (input: string) => {
+		const normalized = normalize(input);
+		
+		// Check for inappropriate content
+		if (isInappropriate(input)) {
+			return {
+				isValid: false,
+				type: 'inappropriate',
+				message: "I can't help with that type of activity. Let's focus on positive, creative hobbies that help you grow and learn! 🌱",
+				suggestions: allHobbies.slice(0, 6)
+			};
+		}
+
+		// Check for religious activities
+		if (isReligiousActivity(input)) {
+			return {
+				isValid: false,
+				type: 'religious',
+				message: "That's a spiritual practice, not a hobby. I focus on creative, recreational, and skill-building activities. Here are some great hobby options:",
+				suggestions: allHobbies.slice(0, 6)
+			};
+		}
+
+		// Check for non-hobby activities
+		if (isNonHobbyActivity(input)) {
+			return {
+				isValid: false,
+				type: 'non-hobby',
+				message: "That sounds like a daily activity or obligation rather than a hobby. Hobbies are activities you do for enjoyment and personal growth. Try one of these:",
+				suggestions: allHobbies.slice(0, 6)
+			};
+		}
+
+		// Check for multiple hobbies
+		if (hasMultipleHobbies(input)) {
+			const foundHobbies = allHobbies.filter(hobby => 
+				input.toLowerCase().includes(hobby.toLowerCase())
+			);
+			return {
+				isValid: false,
+				type: 'multiple',
+				message: `I see you mentioned multiple hobbies: ${foundHobbies.join(', ')}. Let's focus on one hobby at a time for the best learning experience. Which one interests you most?`,
+				suggestions: foundHobbies.slice(0, 4)
+			};
+		}
+
+		// Check for typos and suggest corrections
+		const typoSuggestions = findTypos(input);
+		if (typoSuggestions.length > 0 && !allHobbies.some(h => h.toLowerCase() === normalized)) {
+			return {
+				isValid: false,
+				type: 'typo',
+				message: `Did you mean one of these hobbies?`,
+				suggestions: typoSuggestions
+			};
+		}
+
+		// Check if it's a valid hobby
+		const exactMatch = allHobbies.find(h => h.toLowerCase() === normalized);
+		if (exactMatch) {
+			return {
+				isValid: true,
+				type: 'exact',
+				hobby: exactMatch
+			};
+		}
+
+		// Check for partial matches
+		const partialMatches = allHobbies.filter(h => 
+			h.toLowerCase().includes(normalized) || normalized.includes(h.toLowerCase())
+		);
+
+		if (partialMatches.length > 0) {
+			return {
+				isValid: false,
+				type: 'partial',
+				message: "I found some similar hobbies. Did you mean one of these?",
+				suggestions: partialMatches.slice(0, 4)
+			};
+		}
+
+		// No matches found
+		return {
+			isValid: false,
+			type: 'no-match',
+			message: "I don't recognize that as a hobby. Here are some popular options to choose from:",
+			suggestions: allHobbies.slice(0, 6)
+		};
+	};
+
 	const fuzzySuggest = (input: string) => {
-		const n = normalize(input).replace(/\s+/g,'');
-		const candidates = allHobbies.filter(h => {
-			const hn = h.toLowerCase().replace(/\s+/g,'');
-			return hn.includes(n) || n.includes(hn);
-		});
-		return (candidates.length > 0 ? candidates.slice(0,6) : allHobbies.slice(0,6));
+		const validation = validateHobbyInput(input);
+		return validation.suggestions || allHobbies.slice(0, 6);
 	};
 
 	const preflightDuplicateCheck = async (hobby: string): Promise<'ok'|'duplicate'> => {
@@ -269,13 +482,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				return;
 			}
 			// value is a hobby
-			if (isInappropriate(value)) {
-				const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
-				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+			const validation = validateHobbyInput(value);
+			
+			if (!validation.isValid) {
+				const options = validation.suggestions?.map(h => ({ 
+					value: h, 
+					label: h.charAt(0).toUpperCase() + h.slice(1) 
+				})) || [];
+				
+				if (validation.type !== 'multiple' && options.length > 0) {
+					options.push({ value: '__surprise__', label: 'Surprise Me 🎲' });
+				}
+				
+				setMessages(prev => [...prev, { 
+					id: Date.now().toString(), 
+					sender: 'ai', 
+					content: validation.message, 
+					options, 
+					timestamp: new Date() 
+				}]);
 				return;
 			}
-			setSelectedHobby(value);
-			await generatePlanFlow(value, defaultAnswers); // skip extra questions
+			
+			setSelectedHobby(validation.hobby);
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: validation.hobby, timestamp: new Date() }]);
+			await generatePlanFlow(validation.hobby, defaultAnswers); // skip extra questions
 			return;
 		}
 		if (chatStep === 'experience') {
@@ -299,14 +530,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	};
 
 	const handlePickHobby = async (hobby: string) => {
-		if (isInappropriate(hobby)) {
-			const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
-			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+		const validation = validateHobbyInput(hobby);
+		
+		if (!validation.isValid) {
+			const options = validation.suggestions?.map(h => ({ 
+				value: h, 
+				label: h.charAt(0).toUpperCase() + h.slice(1) 
+			})) || [];
+			
+			if (validation.type !== 'multiple' && options.length > 0) {
+				options.push({ value: '__surprise__', label: 'Surprise Me 🎲' });
+			}
+			
+			setMessages(prev => [...prev, { 
+				id: Date.now().toString(), 
+				sender: 'ai', 
+				content: validation.message, 
+				options, 
+				timestamp: new Date() 
+			}]);
 			return;
 		}
-		setSelectedHobby(hobby);
-		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: hobby, timestamp: new Date() }]);
-		await generatePlanFlow(hobby, defaultAnswers);
+		
+		setSelectedHobby(validation.hobby);
+		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: validation.hobby, timestamp: new Date() }]);
+		await generatePlanFlow(validation.hobby, defaultAnswers);
 	};
 
 	useEffect(() => {
@@ -366,20 +614,39 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		
 		// If no plan and in hobby selection mode, treat as hobby input
 		if (!planData && (chatStep === 'hobby' || chatStep === 'idle')) {
-			if (isInappropriate(text)) {
-				const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
-				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+			const validation = validateHobbyInput(text);
+			
+			if (!validation.isValid) {
+				// Create options from suggestions
+				const options = validation.suggestions?.map(h => ({ 
+					value: h, 
+					label: h.charAt(0).toUpperCase() + h.slice(1) 
+				})) || [];
+				
+				// Add "Surprise Me" option for most cases
+				if (validation.type !== 'multiple' && options.length > 0) {
+					options.push({ value: '__surprise__', label: 'Surprise Me 🎲' });
+				}
+				
+				setMessages(prev => [...prev, { 
+					id: Date.now().toString(), 
+					sender: 'ai', 
+					content: validation.message, 
+					options, 
+					timestamp: new Date() 
+				}]);
 				return;
 			}
-			// fuzzy normalization/typo correction
-			const suggestions = fuzzySuggest(text);
-			if (suggestions.length > 0) {
-				setSelectedHobby(suggestions[0]);
-				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: `Did you mean ${suggestions[0]}? Generating now...`, timestamp: new Date() }]);
-				generatePlanFlow(suggestions[0], defaultAnswers);
-			} else {
-				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Please pick a hobby below to begin:', options: fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) })), timestamp: new Date() }]);
-			}
+			
+			// Valid hobby found
+			setSelectedHobby(validation.hobby);
+			setMessages(prev => [...prev, { 
+				id: Date.now().toString(), 
+				sender: 'ai', 
+				content: `Perfect! Let's create your ${validation.hobby} learning plan. Generating now...`, 
+				timestamp: new Date() 
+			}]);
+			generatePlanFlow(validation.hobby, defaultAnswers);
 		}
 	};
 
