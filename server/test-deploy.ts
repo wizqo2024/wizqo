@@ -31,10 +31,68 @@ app.get('/api/hobby-plans', (req, res) => {
       user_id: req.query.user_id,
       hobby: 'photo editing',
       title: 'Photo Editing Learning Plan',
-      days: [
-        { day: 1, title: 'Day 1', content: 'Mock content' }
-      ],
-      created_at: new Date().toISOString()
+      progress: 14, // 1 day completed out of 7
+      totalDays: 7,
+      currentDay: 2,
+      category: 'creative',
+      startDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days ago
+      expectedEndDate: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString(), // 6 days from now
+      status: 'in_progress',
+      created_at: new Date().toISOString(),
+      planData: {
+        title: 'Photo Editing Learning Plan',
+        days: [
+          { 
+            day: 1, 
+            title: 'Day 1: Introduction to Photo Editing', 
+            content: 'Learn the basics of photo editing software and tools.',
+            youtubeVideoId: 'mock-video-id',
+            affiliateProducts: []
+          },
+          { 
+            day: 2, 
+            title: 'Day 2: Basic Editing Techniques', 
+            content: 'Master fundamental editing techniques like cropping and color adjustment.',
+            youtubeVideoId: 'mock-video-id-2',
+            affiliateProducts: []
+          },
+          { 
+            day: 3, 
+            title: 'Day 3: Advanced Techniques', 
+            content: 'Learn advanced editing techniques and filters.',
+            youtubeVideoId: 'mock-video-id-3',
+            affiliateProducts: []
+          },
+          { 
+            day: 4, 
+            title: 'Day 4: Color Correction', 
+            content: 'Master color correction and white balance.',
+            youtubeVideoId: 'mock-video-id-4',
+            affiliateProducts: []
+          },
+          { 
+            day: 5, 
+            title: 'Day 5: Retouching', 
+            content: 'Learn portrait retouching and blemish removal.',
+            youtubeVideoId: 'mock-video-id-5',
+            affiliateProducts: []
+          },
+          { 
+            day: 6, 
+            title: 'Day 6: Special Effects', 
+            content: 'Add special effects and creative filters.',
+            youtubeVideoId: 'mock-video-id-6',
+            affiliateProducts: []
+          },
+          { 
+            day: 7, 
+            title: 'Day 7: Final Project', 
+            content: 'Complete a final project combining all techniques.',
+            youtubeVideoId: 'mock-video-id-7',
+            affiliateProducts: []
+          }
+        ]
+      }
     }
   ]);
 });
