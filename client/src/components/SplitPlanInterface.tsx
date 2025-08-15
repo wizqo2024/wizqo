@@ -697,14 +697,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
 					<div className="p-3 md:p-4 border-t border-gray-200 bg-gray-50 shrink-0">
 						<div className="flex space-x-2">
-							<Input
-								ref={inputRef}
-								value={currentInput}
-								onChange={(e) => setCurrentInput(e.target.value)}
-								placeholder="Ask me anything..."
-								onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-								className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10"
-							/>
+							<div className="flex-1 relative">
+								<Input
+									ref={inputRef}
+									value={currentInput}
+									onChange={(e) => setCurrentInput(e.target.value.slice(0, 50))}
+									placeholder="Ask me anything... (max 50 chars)"
+									maxLength={50}
+									onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+									className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10 pr-12"
+								/>
+								<div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-xs text-gray-400">
+									{currentInput.length}/50
+								</div>
+							</div>
 							<Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10">
 								<Send className="w-3 h-3 md:w-4 md:h-4" />
 							</Button>
