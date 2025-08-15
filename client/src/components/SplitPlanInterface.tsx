@@ -357,18 +357,38 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		// Check plan limits for logged-in users
 		if (user?.id) {
 			try {
-				const userPlans = await hobbyPlanService.getUserPlans(user.id);
+				// Use the same API endpoint as the dashboard for consistency
+				const timestamp = Date.now();
+				const plansResponse = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${timestamp}&_bustCache=true`, {
+					cache: 'no-cache',
+					headers: {
+						'Cache-Control': 'no-cache, no-store, must-revalidate',
+						'Pragma': 'no-cache',
+						'Expires': '0'
+					}
+				});
+				
+				let userPlans: any[] = [];
+				if (plansResponse.ok) {
+					userPlans = await plansResponse.json();
+					console.log('Plan limit check: Found', userPlans.length, 'plans');
+				}
+				
 				if (userPlans.length >= 5) {
 					setMessages(prev => [...prev, { 
 						id: Date.now().toString(), 
 						sender: 'ai', 
-						content: 'You have reached the maximum limit of 5 plans. Please delete an existing plan before creating a new one.', 
+						content: `You have reached the maximum limit of 5 plans. You currently have ${userPlans.length} plans. Please delete an existing plan from your dashboard before creating a new one.`, 
+						options: [
+							{ value: 'check_plans', label: 'Check My Plans', description: 'View dashboard to see all plans' },
+							{ value: 'debug_plans', label: 'Debug Plan Count', description: 'Check what plans exist' }
+						],
 						timestamp: new Date() 
 					}]);
 					return;
 				}
 			} catch (e) {
-				console.log('Plan limit check failed, proceeding');
+				console.log('Plan limit check failed, proceeding:', e);
 			}
 		}
 		
@@ -571,6 +591,49 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						timestamp: new Date()
 					}]);
 					await generatePlanFlow(selectedHobby, defaultAnswers, true);
+				}
+				return;
+			}
+		}
+
+		// Handle plan limit debug options
+		if (value === 'check_plans' || value === 'debug_plans') {
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: value === 'check_plans' ? 'Check My Plans' : 'Debug Plan Count', timestamp: new Date() }]);
+			
+			if (value === 'check_plans') {
+				window.location.href = '/#/dashboard';
+				return;
+			} else if (value === 'debug_plans') {
+				// Debug: Check what plans actually exist
+				try {
+					const timestamp = Date.now();
+					const plansResponse = await fetch(`/api/hobby-plans?user_id=${user?.id}&_t=${timestamp}&_bustCache=true`, {
+						cache: 'no-cache',
+						headers: {
+							'Cache-Control': 'no-cache, no-store, must-revalidate',
+							'Pragma': 'no-cache',
+							'Expires': '0'
+						}
+					});
+					
+					let userPlans: any[] = [];
+					if (plansResponse.ok) {
+						userPlans = await plansResponse.json();
+					}
+					
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `🔍 Debug Info:\n\nAPI Response Status: ${plansResponse.status}\nPlans Found: ${userPlans.length}\n\nPlan Details:\n${userPlans.map((plan, i) => `${i + 1}. ${plan.title || plan.hobby} (ID: ${plan.id})`).join('\n') || 'No plans found'}`,
+						timestamp: new Date()
+					}]);
+				} catch (error) {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `❌ Debug Error: ${error}`,
+						timestamp: new Date()
+					}]);
 				}
 				return;
 			}
