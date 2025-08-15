@@ -2730,6 +2730,15 @@ Please provide a helpful response:`;
     }
   });
 
+  // Health check endpoint
+  app.get('/api/health', (req, res) => {
+    res.json({ 
+      status: 'ok', 
+      timestamp: new Date().toISOString(),
+      message: 'Server is running'
+    });
+  });
+
   // Database-backed hobby plans endpoints
   // Get hobby plans for a specific user
   app.get('/api/hobby-plans', async (req, res) => {
