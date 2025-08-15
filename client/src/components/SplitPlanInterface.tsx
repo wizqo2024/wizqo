@@ -9,6 +9,7 @@ import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '@/hooks/useAuth';
 import { PlanDisplay } from '@/components/PlanDisplay';
+import { hobbyPlanService } from '@/services/hobbyPlanService';
 
 interface QuizAnswers {
 	experience: string;
@@ -79,7 +80,71 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	usePlanStorage();
 
 	const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
-	const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
+	const allHobbies: string[] = [
+		'guitar','piano','violin','drums','singing','music production','dj','ukulele','flute','saxophone',
+		'painting','drawing','sketching','watercolor','digital art','calligraphy','graphic design','animation',
+		'photography','videography','photo editing','video editing','film making','blogging','podcasting','writing','creative writing','poetry','journaling',
+		'coding','programming','web development','app development','game development','data science','machine learning',
+		'cooking','baking','grilling','coffee brewing','mixology','nutrition','meal prep',
+		'yoga','meditation','pilates','running','cycling','swimming','weightlifting','calisthenics','boxing','martial arts',
+		'chess','board games','puzzle solving','origami','knitting','crochet','sewing','embroidery','woodworking','leathercraft','jewelry making',
+		'gardening','bonsai','indoor plants','herbalism',
+		'language learning','spanish','french','german','japanese','korean','arabic',
+		'public speaking','storytelling','debate','reading Quran','Bible reading'
+	];
+	const hobbySuggestions = allHobbies;
+
+	const [existingPlanCandidate, setExistingPlanCandidate] = useState<any>(null);
+
+	const blockedKeywords = ['sex','sexual','porn','xxx','nude','fetish','bdsm','escort','adult','erotic','drugs','cocaine','heroin','meth','bomb','weapon','gun','hacking illegal'];
+	const isInappropriate = (text: string) => blockedKeywords.some(k => text.toLowerCase().includes(k));
+	const normalize = (s: string) => s.toLowerCase().trim();
+	const fuzzySuggest = (input: string) => {
+		const n = normalize(input).replace(/\s+/g,'');
+		const candidates = allHobbies.filter(h => {
+			const hn = h.toLowerCase().replace(/\s+/g,'');
+			return hn.includes(n) || n.includes(hn);
+		});
+		return (candidates.length > 0 ? candidates.slice(0,6) : allHobbies.slice(0,6));
+	};
+
+	const preflightDuplicateCheck = async (hobby: string): Promise<'ok'|'duplicate'> => {
+		if (!user?.id) return 'ok';
+		try {
+			const existing = await hobbyPlanService.checkExistingPlan(hobby, user.id);
+			if (existing) {
+				setExistingPlanCandidate(existing);
+				setMessages(prev => [
+					...prev,
+					{ id: Date.now().toString(), sender: 'ai', content: `You already have a plan for ${hobby}. Continue the existing plan or create a new one?`, options: [
+						{ value: '__continue_existing__', label: 'Continue existing' },
+						{ value: '__force_new__', label: 'Make a new plan' }
+					], timestamp: new Date() }
+				]);
+				return 'duplicate';
+			}
+		} catch (e) {
+			console.log('Duplicate check failed, proceeding');
+		}
+		return 'ok';
+	};
+
+	const generatePlanFlow = async (hobby: string, qa: QuizAnswers = defaultAnswers) => {
+		const dup = await preflightDuplicateCheck(hobby);
+		if (dup === 'duplicate') return;
+		try {
+			setChatStep('generating');
+			const plan = await onGeneratePlan(hobby, qa);
+			setPlanData(plan);
+			setShowSuggestions(false);
+			setCompletedDays([]);
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Ask me anything about it or make a new plan.', options: [ { value: '__new_plan__', label: 'Make a new plan' } ], timestamp: new Date() }]);
+		} catch (e) {
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Sorry, I had trouble generating the plan. Please try again.', timestamp: new Date() }]);
+		} finally {
+			setChatStep('idle');
+		}
+	};
 
 	const sendHobbySuggestionsMessage = () => {
 		const top = hobbySuggestions.slice(0, 6);
@@ -153,16 +218,39 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	};
 
 	const handleOptionSelect = async (value: string) => {
+		if (value === '__new_plan__') {
+			handleStartNewPlan();
+			sendHobbySuggestionsMessage();
+			return;
+		}
+		if (value === '__continue_existing__' && existingPlanCandidate) {
+			setPlanData(existingPlanCandidate.plan_data || existingPlanCandidate);
+			setShowSuggestions(false);
+			setCompletedDays([]);
+			return;
+		}
+		if (value === '__force_new__' && selectedHobby) {
+			await generatePlanFlow(selectedHobby, defaultAnswers);
+			return;
+		}
+
 		if (chatStep === 'hobby') {
 			if (value === '__surprise__') {
-				const random = hobbySuggestions[Math.floor(Math.random() * hobbySuggestions.length)];
+				const random = allHobbies[Math.floor(Math.random() * allHobbies.length)];
 				setSelectedHobby(random);
 				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: 'Surprise Me 🎲', timestamp: new Date() }]);
-				askExperience();
+				// Generate immediately with defaults
+				await generatePlanFlow(random, defaultAnswers);
 				return;
 			}
 			// value is a hobby
-			await handlePickHobby(value);
+			if (isInappropriate(value)) {
+				const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+				return;
+			}
+			setSelectedHobby(value);
+			await generatePlanFlow(value, defaultAnswers); // skip extra questions
 			return;
 		}
 		if (chatStep === 'experience') {
@@ -176,42 +264,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			return;
 		}
 		if (chatStep === 'goal') {
-			const finalAnswers: QuizAnswers = {
+			await generatePlanFlow(selectedHobby, {
 				experience: answers.experience || 'beginner',
 				timeAvailable: answers.timeAvailable || '1 hour',
 				goal: value || 'personal enjoyment'
-			};
-			try {
-				setChatStep('generating');
-				const plan = await onGeneratePlan(selectedHobby, finalAnswers);
-				setPlanData(plan);
-				setShowSuggestions(false);
-				setCompletedDays([]);
-				// Offer to start a new plan
-				setMessages(prev => [
-					...prev,
-					{ id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Want to make a new plan?', options: [
-						{ value: '__new_plan__', label: 'Make a new plan' }
-					], timestamp: new Date() }
-				]);
-			} catch (e) {
-				console.error('Failed to generate plan', e);
-			} finally {
-				setChatStep('idle');
-			}
-			return;
-		}
-		if (value === '__new_plan__') {
-			handleStartNewPlan();
-			sendHobbySuggestionsMessage();
+			});
 			return;
 		}
 	};
 
 	const handlePickHobby = async (hobby: string) => {
+		if (isInappropriate(hobby)) {
+			const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
+			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+			return;
+		}
 		setSelectedHobby(hobby);
 		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: hobby, timestamp: new Date() }]);
-		askExperience();
+		await generatePlanFlow(hobby, defaultAnswers);
 	};
 
 	useEffect(() => {
@@ -228,8 +298,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: text, timestamp: new Date() }]);
 		setCurrentInput('');
 		if (!planData && (chatStep === 'hobby' || chatStep === 'idle')) {
-			setSelectedHobby(text.toLowerCase());
-			askExperience();
+			if (isInappropriate(text)) {
+				const opts = fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) }));
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm not sure about that hobby. Please pick a safe option below:", options: opts, timestamp: new Date() }]);
+				return;
+			}
+			// fuzzy normalization/typo correction
+			const suggestions = fuzzySuggest(text);
+			if (suggestions.length > 0) {
+				setSelectedHobby(suggestions[0]);
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: `Did you mean ${suggestions[0]}? Generating now...`, timestamp: new Date() }]);
+				generatePlanFlow(suggestions[0], defaultAnswers);
+			} else {
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Please pick a hobby below to begin:', options: fuzzySuggest('hobby').map(h => ({ value: h, label: h.charAt(0).toUpperCase()+h.slice(1) })), timestamp: new Date() }]);
+			}
 		}
 	};
 
