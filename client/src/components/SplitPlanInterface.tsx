@@ -381,7 +381,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						content: `You have reached the maximum limit of 5 plans. You currently have ${userPlans.length} plans. Please delete an existing plan from your dashboard before creating a new one.`, 
 						options: [
 							{ value: 'check_plans', label: 'Check My Plans', description: 'View dashboard to see all plans' },
-							{ value: 'debug_plans', label: 'Debug Plan Count', description: 'Check what plans exist' }
+							{ value: 'debug_plans', label: 'Debug Plan Count', description: 'Check what plans exist' },
+							{ value: 'test_save', label: 'Test Plan Save', description: 'Test saving a simple plan' },
+							{ value: 'refresh_dashboard', label: 'Refresh Dashboard', description: 'Clear cache and refresh dashboard' }
 						],
 						timestamp: new Date() 
 					}]);
@@ -404,20 +406,54 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			// Save plan to database if user is logged in
 			if (user?.id) {
 				try {
+					console.log('🔄 Saving plan to database for user:', user.id);
+					console.log('🔄 Plan data structure:', {
+						hasTitle: !!plan.title,
+						hasOverview: !!plan.overview,
+						hasDays: !!plan.days,
+						daysCount: plan.days?.length || 0,
+						hobby: hobby
+					});
+					
 					const savedPlan = await hobbyPlanService.savePlan({
 						...plan,
 						user_id: user.id,
 						hobby: hobby
 					});
 					
+					console.log('✅ Plan saved successfully:', savedPlan.id);
+					
 					// Initialize progress for the saved plan
 					await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
+					console.log('✅ Progress initialized for plan:', savedPlan.id);
 					
-					console.log('Plan saved successfully:', savedPlan.id);
+					// Add success message to chat
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `🎉 Plan saved successfully! You can view it in your dashboard anytime.`,
+						timestamp: new Date()
+					}]);
+					
 				} catch (saveError) {
-					console.error('Failed to save plan:', saveError);
-					// Don't block the UI, just log the error
+					console.error('❌ Failed to save plan:', saveError);
+					
+					// Add error message to chat
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `⚠️ Plan generated successfully, but there was an issue saving it to your account. You can still use the plan, but it may not appear in your dashboard.`,
+						timestamp: new Date()
+					}]);
 				}
+			} else {
+				// User not logged in - show message about saving
+				setMessages(prev => [...prev, {
+					id: Date.now().toString(),
+					sender: 'ai',
+					content: `💡 Tip: Sign in to save this plan to your dashboard and track your progress!`,
+					timestamp: new Date()
+				}]);
 			}
 		} catch (e) {
 			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: 'Sorry, I had trouble generating the plan. Please try again.', timestamp: new Date() }]);
@@ -597,7 +633,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		}
 
 		// Handle plan limit debug options
-		if (value === 'check_plans' || value === 'debug_plans') {
+		if (value === 'check_plans' || value === 'debug_plans' || value === 'test_save' || value === 'refresh_dashboard') {
 			setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: value === 'check_plans' ? 'Check My Plans' : 'Debug Plan Count', timestamp: new Date() }]);
 			
 			if (value === 'check_plans') {
@@ -632,6 +668,121 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 						id: Date.now().toString(),
 						sender: 'ai',
 						content: `❌ Debug Error: ${error}`,
+						timestamp: new Date()
+					}]);
+				}
+				return;
+			} else if (value === 'test_save') {
+				// Test saving a simple plan
+				try {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: '🧪 Testing plan save...',
+						timestamp: new Date()
+					}]);
+					
+					const testPlan = {
+						user_id: user?.id,
+						hobby: 'test-hobby',
+						title: 'Test Plan - Debug',
+						overview: 'This is a test plan to debug saving issues',
+						plan_data: {
+							hobby: 'test-hobby',
+							title: 'Test Plan - Debug',
+							overview: 'This is a test plan to debug saving issues',
+							totalDays: 7,
+							difficulty: 'Beginner',
+							days: [
+								{
+									day: 1,
+									title: 'Test Day 1',
+									mainTask: 'Test task',
+									explanation: 'Test explanation',
+									estimatedTime: '30 minutes',
+									skillLevel: 'Beginner',
+									howTo: ['Step 1', 'Step 2'],
+									tips: ['Tip 1', 'Tip 2'],
+									mistakesToAvoid: ['Mistake 1'],
+									checklist: ['Item 1', 'Item 2'],
+									freeResources: [{ title: 'Test Resource', url: '#' }],
+									affiliateProducts: [{ title: 'Test Product', link: '#', price: '$10' }]
+								}
+							]
+						}
+					};
+					
+					const saveResponse = await fetch('/api/hobby-plans', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(testPlan)
+					});
+					
+					if (saveResponse.ok) {
+						const savedPlan = await saveResponse.json();
+						setMessages(prev => [...prev, {
+							id: Date.now().toString(),
+							sender: 'ai',
+							content: `✅ Test plan saved successfully!\n\nPlan ID: ${savedPlan.id}\nStatus: ${saveResponse.status}\n\nNow check your dashboard to see if it appears.`,
+							timestamp: new Date()
+						}]);
+					} else {
+						const errorText = await saveResponse.text();
+						setMessages(prev => [...prev, {
+							id: Date.now().toString(),
+							sender: 'ai',
+							content: `❌ Test plan save failed!\n\nStatus: ${saveResponse.status}\nError: ${errorText}`,
+							timestamp: new Date()
+						}]);
+					}
+				} catch (error) {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `❌ Test save error: ${error}`,
+						timestamp: new Date()
+					}]);
+				}
+				return;
+			} else if (value === 'refresh_dashboard') {
+				// Clear dashboard cache and refresh
+				try {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: '🔄 Clearing dashboard cache...',
+						timestamp: new Date()
+					}]);
+					
+					// Clear all dashboard-related cache
+					sessionStorage.removeItem('dashboardLoading');
+					sessionStorage.removeItem('dashboardLoadingTime');
+					
+					// Clear any plan-related cache
+					const keysToRemove = [];
+					for (let i = 0; i < sessionStorage.length; i++) {
+						const key = sessionStorage.key(i);
+						if (key && (key.includes('dashboard') || key.includes('plan') || key.includes('hobby'))) {
+							keysToRemove.push(key);
+						}
+					}
+					
+					keysToRemove.forEach(key => sessionStorage.removeItem(key));
+					
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `✅ Dashboard cache cleared! Cleared ${keysToRemove.length} cache entries.\n\nNow navigate to your dashboard to see fresh data.`,
+						timestamp: new Date()
+					}]);
+					
+				} catch (error) {
+					setMessages(prev => [...prev, {
+						id: Date.now().toString(),
+						sender: 'ai',
+						content: `❌ Cache clear error: ${error}`,
 						timestamp: new Date()
 					}]);
 				}
