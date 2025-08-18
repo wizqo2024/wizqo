@@ -455,6 +455,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete a hobby plan (and dependent progress via FK cascade)
+  app.delete('/api/hobby-plans/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { user_id } = req.query as any;
+      if (!id || !user_id) {
+        return res.status(400).json({ error: 'id and user_id are required' });
+      }
+      if (!supabase) {
+        return res.status(500).json({ error: 'Supabase not connected' });
+      }
+      console.log('🗑️ API: Deleting hobby plan', id, 'for user', user_id);
+      const { error } = await supabase.from('hobby_plans').delete().match({ id, user_id });
+      if (error) {
+        console.error('🗑️ Supabase delete error:', error);
+        return res.status(500).json({ error: 'Failed to delete plan' });
+      }
+      res.json({ success: true });
+    } catch (err) {
+      console.error('🗑️ API: Error deleting hobby plan:', err);
+      res.status(500).json({ error: 'Failed to delete hobby plan' });
+    }
+  });
+
   // User progress tracking endpoints
   app.get('/api/user-progress/:userId', async (req, res) => {
     try {
