@@ -64,6 +64,22 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
   };
 
   const selectedDayData = planData.days.find(d => d.day === selectedDay) || planData.days[0];
+  const dayAny = selectedDayData as any;
+  const safeMainTask = selectedDayData?.mainTask || dayAny?.goal || dayAny?.objective || `Learn ${planData.hobby} fundamentals`;
+  const safeExplanation = selectedDayData?.explanation || dayAny?.description || dayAny?.details || dayAny?.reasoning || `Day ${selectedDayData?.day || 1} of your ${planData.hobby} journey`;
+  const safeHowTo: string[] = Array.isArray(selectedDayData?.howTo) && selectedDayData.howTo.length > 0
+    ? selectedDayData.howTo
+    : (dayAny?.steps || dayAny?.stepByStep || dayAny?.instructions || [`Step ${selectedDayData?.day || 1}`]);
+  const safeChecklist: string[] = Array.isArray(selectedDayData?.checklist) && selectedDayData.checklist.length > 0
+    ? selectedDayData.checklist
+    : (dayAny?.actionItems || dayAny?.todos || [`Complete day ${selectedDayData?.day || 1} tasks`]);
+  const safeTips: string[] = Array.isArray(selectedDayData?.tips) && selectedDayData.tips.length > 0
+    ? selectedDayData.tips
+    : (dayAny?.proTips || dayAny?.suggestions || [`Tip for day ${selectedDayData?.day || 1}`]);
+  const safeMistakes: string[] = Array.isArray(selectedDayData?.mistakesToAvoid) && selectedDayData.mistakesToAvoid.length > 0
+    ? selectedDayData.mistakesToAvoid
+    : (dayAny?.commonMistakes || dayAny?.avoidMistakes || dayAny?.pitfalls || [`Avoid rushing on day ${selectedDayData?.day || 1}`]);
+  const safeYoutubeId: string | undefined = selectedDayData?.youtubeVideoId || dayAny?.videoId;
 
   return (
     <div className="space-y-6">
@@ -125,13 +141,13 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
           {/* Today's Learning Goal */}
           <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 border-l-4 border-indigo-500">
             <h4 className="text-lg font-semibold text-indigo-900 mb-2">Today's Learning Goal</h4>
-            <p className="text-indigo-800 leading-relaxed text-base">{selectedDayData.mainTask}</p>
+            <p className="text-indigo-800 leading-relaxed text-base">{safeMainTask}</p>
           </div>
 
           {/* Why this matters */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
             <h4 className="text-lg font-semibold text-blue-900 mb-2">Why This Matters</h4>
-            <p className="text-blue-800 leading-relaxed text-base">{selectedDayData.explanation}</p>
+            <p className="text-blue-800 leading-relaxed text-base">{safeExplanation}</p>
           </div>
 
           {/* Step-by-Step Guide */}
@@ -143,7 +159,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
               <h4 className="text-lg font-semibold text-gray-900">Step-by-Step Guide</h4>
             </div>
             <ol className="space-y-3">
-              {selectedDayData.howTo?.map((step, index) => (
+              {safeHowTo.map((step, index) => (
                 <li key={index} className="flex items-start space-x-4">
                   <span className="w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                     {index + 1}
@@ -155,7 +171,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
           </div>
 
           {/* Video Tutorial */}
-          {selectedDayData.youtubeVideoId && (
+          {safeYoutubeId && (
             <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
@@ -169,7 +185,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
               <div className="bg-white rounded-lg p-4 shadow-sm">
                 <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
                   <iframe
-                    src={`https://www.youtube.com/embed/${selectedDayData.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
+                    src={`https://www.youtube.com/embed/${safeYoutubeId}?rel=0&showinfo=0&modestbranding=1`}
                     title={`${planData.hobby} Day ${selectedDayData.day}: ${selectedDayData.title}`}
                     frameBorder="0"
                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -222,7 +238,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
               </div>
             </div>
             <ul className="space-y-2">
-              {selectedDayData.tips?.map((tip, index) => (
+              {safeTips.map((tip, index) => (
                 <li key={index} className="text-sm text-gray-800">• {tip}</li>
               ))}
             </ul>
@@ -237,7 +253,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
               <h4 className="text-lg font-semibold text-gray-900">Avoid These Mistakes</h4>
             </div>
             <ul className="space-y-2">
-              {selectedDayData.mistakesToAvoid?.map((m, i) => (
+              {safeMistakes.map((m, i) => (
                 <li key={i} className="text-sm text-gray-800">• {m}</li>
               ))}
             </ul>
@@ -255,7 +271,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
               </div>
             </div>
             <ul className="space-y-2">
-              {selectedDayData.checklist?.map((item, index) => (
+              {safeChecklist.map((item, index) => (
                 <li key={index} className="flex items-center space-x-3">
                   <input type="checkbox" className="w-4 h-4 text-blue-500 rounded" />
                   <span className="text-sm text-gray-800">{item}</span>
