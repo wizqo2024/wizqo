@@ -83,6 +83,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         }
         
         console.log('Sign-in successful')
+        // Immediate success toast (in addition to AuthContext onAuthStateChange)
+        setTimeout(() => {
+          toast({
+            title: 'Welcome back!',
+            description: "You've been successfully signed in.",
+          })
+        }, 0)
         // The useEffect will handle closing the modal when user state updates
       }
     } catch (error: any) {
