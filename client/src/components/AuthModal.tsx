@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
-import { X, Mail, Lock, User, HelpCircle } from 'lucide-react'
+import { X, Mail, Lock, User, HelpCircle, Eye, EyeOff } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa'
 import { Separator } from '@/components/ui/separator'
 import { GoogleSetupGuide } from './GoogleSetupGuide'
@@ -20,6 +20,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [showGoogleGuide, setShowGoogleGuide] = useState(false)
   const { signIn, signUp, signInWithGoogle, user } = useAuth()
   const { toast } = useToast()
@@ -114,11 +115,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           "❌ Sign in failed. Please check your email and password."
       }
       
-      toast({
-        title: "Authentication Error",
-        description: errorMessage,
-        variant: "destructive",
-      })
+      // Defer toast to next tick to avoid any mount race conditions
+      setTimeout(() => {
+        toast({
+          title: "Authentication Error",
+          description: errorMessage,
+          variant: "destructive",
+        })
+      }, 0)
     } finally {
       setLoading(false)
     }
@@ -233,14 +237,22 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10"
+                className="pl-10 pr-10"
                 placeholder={isSignUp ? "Create a password (6+ characters)" : "Enter your password"}
                 required
                 minLength={6}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
               {isSignUp && password.length > 0 && password.length < 6 && (
                 <p className="text-xs text-red-500 mt-1">Password must be at least 6 characters</p>
               )}
