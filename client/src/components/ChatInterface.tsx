@@ -372,6 +372,31 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   const handleTextInput = async () => {
     if (!currentInput.trim()) return;
     
+    // If a plan exists, route any input to /api/chat for intelligent Q&A
+    const planRaw = sessionStorage.getItem('currentPlanData');
+    if (planRaw) {
+      const plan = JSON.parse(planRaw);
+      const question = currentInput.trim();
+      addUserMessage(question);
+      setCurrentInput('');
+      setIsTyping(true);
+      try {
+        const resp = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question, plan })
+        });
+        if (!resp.ok) throw new Error('chat_failed');
+        const data = await resp.json();
+        addAIMessage(data.answer || '');
+      } catch (e) {
+        addAIMessage("I'm here to help with your plan. Ask me about any day, techniques, time, or equipment.");
+      } finally {
+        setIsTyping(false);
+      }
+      return;
+    }
+    
     if (currentStep === 'hobby') {
       // Use DeepSeek AI for intelligent hobby validation
       try {
