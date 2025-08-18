@@ -156,7 +156,25 @@ async function generatePlanWithAI(hobby: string, experience: string, timeAvailab
   }
 }
 
-// Generate-plan endpoint (AI first, fallback always full)
+async function getYouTubeVideoId(hobby: string, dayNumber: number, dayTitle: string) {
+  const apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const q = `${hobby} tutorial day ${dayNumber} ${dayTitle}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=${encodeURIComponent(q)}&key=${apiKey}`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`YouTube ${resp.status}`);
+    const data = await resp.json();
+    const item = data.items?.[0];
+    if (!item) return null;
+    return { id: item.id?.videoId as string, title: item.snippet?.title as string };
+  } catch (e) {
+    console.log('YouTube search error:', e);
+    return null;
+  }
+}
+
+// Generate-plan endpoint (strict: no mock/fallback plan)
 app.post('/api/generate-plan', async (req, res) => {
   try {
     const hobby = String(req.body?.hobby || 'hobby');
@@ -164,47 +182,53 @@ app.post('/api/generate-plan', async (req, res) => {
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
     const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
 
+    // Enforce API keys present
+    const missing: string[] = [];
+    if (!process.env.OPENROUTER_API_KEY) missing.push('OPENROUTER_API_KEY');
+    if (!process.env.YOUTUBE_API_KEY) missing.push('YOUTUBE_API_KEY');
+    if (missing.length) {
+      return res.status(503).json({ error: 'missing_api_keys', missing });
+    }
+
+    // Generate via OpenRouter
     const ai = await generatePlanWithAI(hobby, experience, timeAvailable, goal);
+    if (!ai || !Array.isArray(ai.days) || ai.days.length === 0) {
+      return res.status(502).json({ error: 'openrouter_failed' });
+    }
 
-    const base = ai || {
-      hobby,
-      title: `Learn ${hobby} in 7 Days`,
-      overview: `A structured 7-day journey to learn ${hobby} fundamentals and build a solid foundation.`,
-      difficulty: experience,
-      totalDays: 7,
-      days: [] as any[]
-    };
-
-    // Normalize to 7 days and enrich
-    const days = Array.from({ length: 7 }, (_, i) => {
-      const d = base.days?.[i] || {} as any;
-      const dayNum = i + 1;
-      const youtubeVideoId = (typeof d.youtubeVideoId === 'string' && d.youtubeVideoId.length > 5) ? d.youtubeVideoId : getFallbackVideoId(hobby, i);
-      return {
-        day: dayNum,
-        title: (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`,
-        mainTask: d.mainTask || d.goal || d.objective || `Learn ${hobby} fundamentals`,
-        explanation: d.explanation || d.description || d.details || `Day ${dayNum} of your ${hobby} journey`,
-        howTo: Array.isArray(d.howTo) && d.howTo.length ? d.howTo : [`Step ${dayNum}`],
-        checklist: Array.isArray(d.checklist) && d.checklist.length ? d.checklist : [`Complete day ${dayNum} tasks`],
-        tips: Array.isArray(d.tips) && d.tips.length ? d.tips : [`Tip for day ${dayNum}`],
-        mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
-        freeResources: [],
-        affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
-        youtubeVideoId,
-        videoTitle: `${hobby} Day ${dayNum} Tutorial`,
-        estimatedTime: d.estimatedTime || timeAvailable,
-        skillLevel: d.skillLevel || experience
-      };
-    });
+    // For each day, fetch a real YouTube video (no fallback IDs)
+    const enrichedDays = await Promise.all(
+      Array.from({ length: 7 }, async (_, i) => {
+        const d = ai.days?.[i] || {} as any;
+        const dayNum = i + 1;
+        const title = (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`;
+        const yt = await getYouTubeVideoId(hobby, dayNum, title);
+        return {
+          day: dayNum,
+          title,
+          mainTask: d.mainTask || d.goal || d.objective || `Learn ${hobby} fundamentals`,
+          explanation: d.explanation || d.description || d.details || `Day ${dayNum} of your ${hobby} journey`,
+          howTo: Array.isArray(d.howTo) && d.howTo.length ? d.howTo : [`Step ${dayNum}`],
+          checklist: Array.isArray(d.checklist) && d.checklist.length ? d.checklist : [`Complete day ${dayNum} tasks`],
+          tips: Array.isArray(d.tips) && d.tips.length ? d.tips : [`Tip for day ${dayNum}`],
+          mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
+          freeResources: [],
+          affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
+          youtubeVideoId: yt?.id,
+          videoTitle: yt?.title,
+          estimatedTime: d.estimatedTime || timeAvailable,
+          skillLevel: d.skillLevel || experience
+        };
+      })
+    );
 
     res.json({
-      hobby: base.hobby || hobby,
-      title: base.title || `Learn ${hobby} in 7 Days`,
-      overview: base.overview || base.description || `Master ${hobby} with this 7-day plan`,
-      difficulty: base.difficulty || experience,
+      hobby: ai.hobby || hobby,
+      title: ai.title || `Learn ${hobby} in 7 Days`,
+      overview: ai.overview || ai.description || `Master ${hobby} with this 7-day plan`,
+      difficulty: ai.difficulty || experience,
       totalDays: 7,
-      days
+      days: enrichedDays
     });
   } catch (err: any) {
     console.error('generate-plan error:', err);
