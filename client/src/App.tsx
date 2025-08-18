@@ -393,12 +393,12 @@ export default function App() {
         days: (planData.days || []).map((day: any) => ({
           day: day.day,
           title: day.title,
-          mainTask: day.mainTask,
-          explanation: day.explanation,
-          howTo: day.howTo || [],
-          checklist: day.checklist || [],
-          tips: day.tips || [],
-          mistakesToAvoid: day.mistakesToAvoid || day.commonMistakes || [],
+          mainTask: day.mainTask || day.content || day.goal || day.objective,
+          explanation: day.explanation || day.description || day.details || day.reasoning || day.content,
+          howTo: day.howTo || day.steps || day.stepByStep || day.instructions || [],
+          checklist: day.checklist || day.actionItems || day.todos || [],
+          tips: day.tips || day.proTips || day.suggestions || [],
+          mistakesToAvoid: day.mistakesToAvoid || day.commonMistakes || day.avoidMistakes || day.pitfalls || [],
           // *** ENHANCED FEATURES: PRESERVE ALL NEW FIELDS ***
           freeResources: day.freeResources || [],
           affiliateProducts: day.affiliateProducts || [],
