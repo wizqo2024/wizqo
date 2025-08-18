@@ -202,6 +202,25 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
             </div>
           )}
 
+          {!safeYoutubeId && (
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
+                  <Play className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-red-900">Video Tutorial</h4>
+                  <p className="text-sm text-red-700">Video not available</p>
+                </div>
+              </div>
+              {selectedDayData.videoTitle && (
+                <div className="text-sm text-red-700">
+                  {selectedDayData.videoTitle}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* What You Need */}
           <div className="bg-white border border-gray-200 rounded-lg p-6">
             <div className="flex items-center space-x-3 mb-4">
