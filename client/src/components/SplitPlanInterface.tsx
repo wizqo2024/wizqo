@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { UnifiedNavigation } from './UnifiedNavigation';
-import { BookOpen, Clock, Send } from 'lucide-react';
+import { BookOpen, Clock, Send, Loader2 } from 'lucide-react';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '@/hooks/useAuth';
@@ -312,7 +312,22 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				</div>
 
 				<div className="w-full md:flex-1 overflow-y-auto bg-gray-50 md:h-full">
-					{planData && !showSuggestions ? (
+					{chatStep === 'generating' ? (
+						<div className="p-6 lg:p-10">
+							<div className="max-w-3xl mx-auto text-center">
+								<div className="flex items-center justify-center mb-6">
+									<Loader2 className="w-10 h-10 text-blue-600 animate-spin" />
+								</div>
+								<h2 className="text-2xl font-bold text-gray-900">Creating your 7-day plan...</h2>
+								<p className="text-gray-600 mt-2">Fetching real videos and generating content. This usually takes 10–20 seconds.</p>
+							</div>
+							<div className="mt-8 max-w-4xl mx-auto grid md:grid-cols-3 gap-4">
+								<div className="h-28 rounded-lg bg-white border border-gray-200 p-4 animate-pulse" />
+								<div className="h-28 rounded-lg bg-white border border-gray-200 p-4 animate-pulse" />
+								<div className="h-28 rounded-lg bg-white border border-gray-200 p-4 animate-pulse" />
+							</div>
+						</div>
+					) : planData && !showSuggestions ? (
 						<div className="p-4 lg:p-6">
 							<div className="mb-6 flex items-start justify-between gap-3">
 								<div>
