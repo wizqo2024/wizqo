@@ -440,6 +440,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			setMessages([]);
 			const generated = await onGeneratePlan(hobby, qa);
 			const plan = normalizePlan(generated);
+			// Strip any test placeholders that might leak from backend
+			if (/test learning plan/i.test(plan.title)) {
+				plan.title = `Learn ${plan.hobby} in 7 Days`;
+			}
+			plan.days = plan.days.map(d => ({
+				...d,
+				youtubeVideoId: d.youtubeVideoId && String(d.youtubeVideoId).startsWith('test-') ? undefined : d.youtubeVideoId,
+				videoId: d.videoId && String(d.videoId).startsWith('test-') ? undefined : d.videoId,
+			}));
 			setPlanData(plan);
 			setShowSuggestions(false);
 			setCompletedDays([]);

@@ -380,9 +380,13 @@ export default function App() {
       console.log('🛒 Enhanced Plan Generator - First day affiliateProducts from backend:', planData.days[0]?.affiliateProducts?.length || 0);
 
       // Convert backend data to frontend format - PRESERVE ALL ENHANCED FIELDS
+      const computedTitle = (planData.title && /test/i.test(planData.title))
+        ? `Learn ${planData.hobby || hobby} in 7 Days`
+        : (planData.title || `Learn ${planData.hobby || hobby} in 7 Days`);
+
       const formattedPlanData = {
         hobby: planData.hobby || hobby,
-        title: planData.title || `Learn ${planData.hobby || hobby} in 7 Days`,
+        title: computedTitle,
         overview: planData.overview || planData.description || `Master ${planData.hobby || hobby} in 7 days with this personalized plan.`,
         difficulty: planData.difficulty || 'beginner',
         totalDays: planData.totalDays || 7,
@@ -398,8 +402,8 @@ export default function App() {
           // *** ENHANCED FEATURES: PRESERVE ALL NEW FIELDS ***
           freeResources: day.freeResources || [],
           affiliateProducts: day.affiliateProducts || [],
-          youtubeVideoId: day.youtubeVideoId || day.videoId,
-          videoId: day.videoId || day.youtubeVideoId,
+          youtubeVideoId: (day.youtubeVideoId && !String(day.youtubeVideoId).startsWith('test-')) ? day.youtubeVideoId : (day.videoId && !String(day.videoId).startsWith('test-') ? day.videoId : undefined),
+          videoId: (day.videoId && !String(day.videoId).startsWith('test-')) ? day.videoId : (day.youtubeVideoId && !String(day.youtubeVideoId).startsWith('test-') ? day.youtubeVideoId : undefined),
           videoTitle: day.videoTitle,
           estimatedTime: day.estimatedTime,
           skillLevel: day.skillLevel
