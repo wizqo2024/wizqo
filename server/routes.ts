@@ -335,67 +335,7 @@ Make each day build progressively on the previous day. Include practical, action
   }
 }
 
-// Remove duplicate function definition - using imported version
-  // Generate precise search query for this specific day
-  const searchQuery = `${hobby} ${experience} tutorial ${dayTitle.toLowerCase()} beginner guide`;
-  
-  // Curated video database with targeted selections
-  const targetedVideos: { [key: string]: { [key: string]: string[] } } = {
-    guitar: {
-      beginner: [
-        "3jWRrafhO7M", // Guitar basics for absolute beginners
-        "F9vWVucRJzo", // First guitar lesson - chords
-        "7tpQr0Xh6yM", // Basic strumming patterns
-        "VJPCkS-wZR4", // Finger positioning tutorial
-        "kXOcz1_qnXw", // Easy songs for beginners
-        "w8L3f3DWlNs", // Practice routine setup
-        "Qa7GNfwLQJo"  // Playing your first song
-      ],
-      intermediate: [
-        "y3Xl3UaHZss", // Intermediate techniques
-        "mW7K3aKh8N8", // Advanced chord progressions
-        "Y8CQPhH2iAo", // Picking techniques
-        "VJPCkS-wZR4", // Music theory for guitar
-        "kXOcz1_qnXw", // Lead guitar basics
-        "w8L3f3DWlNs", // Rhythm patterns
-        "Qa7GNfwLQJo"  // Song arrangement
-      ]
-    },
-    cooking: {
-      beginner: [
-        "rtR63-ecUNo", // Basic knife skills
-        "fBYVFCb1n6s", // Essential cooking techniques
-        "jQWBWn7dcR8", // Kitchen basics for beginners
-        "L3dDHKjr_P8", // Simple recipes start here
-        "dNGgJa8r_7s", // Food safety fundamentals
-        "mGz7d8xB1V8", // Meal planning basics
-        "K2nV8JGFgh4"  // One-pot meals
-      ]
-    },
-    drawing: {
-      beginner: [
-        "pMC0Cx3Uk5g", // Drawing basics for beginners
-        "ewMksAbPdas", // Basic shapes and forms
-        "S0SxlqltDBo", // Shading techniques tutorial
-        "wgDNDOKnArk", // Drawing realistic objects
-        "7BDKWT3pI_A", // Figure drawing basics
-        "vqbOW8K_bsI", // Digital vs traditional
-        "dWMc3Gz9Zd0"  // Building an art practice
-      ]
-    }
-  };
-
-  // Get targeted video for this hobby and skill level
-  const hobbyVideos = targetedVideos[hobby.toLowerCase()];
-  if (hobbyVideos && hobbyVideos[experience]) {
-    const dayIndex = Math.min(parseInt(dayTitle.match(/\d+/)?.[0] || "1") - 1, hobbyVideos[experience].length - 1);
-    return hobbyVideos[experience][dayIndex];
-  }
-  
-  // Fallback to general hobby videos
-  const fallbackVideos = getYouTubeVideos(hobby);
-  return fallbackVideos[0] || "3jWRrafhO7M";
-}
+// Removed stray duplicate targeted videos block that caused syntax errors
 
 // Fallback plan generator
 async function generateFallbackPlan(hobby: string, experience: string, timeAvailable: string, goal: string) {
