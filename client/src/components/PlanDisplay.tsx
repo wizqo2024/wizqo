@@ -291,22 +291,8 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                 <p className="text-sm text-orange-700">Tools and materials to enhance your learning experience</p>
               </div>
             </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Free resources */}
-              {selectedDayData.freeResources && selectedDayData.freeResources.length > 0 && (
-                <div className="bg-white rounded-lg p-4 border border-orange-200">
-                  <h5 className="text-sm font-medium text-orange-700 mb-3">📚 Free Learning Resources</h5>
-                  <div className="space-y-2">
-                    {selectedDayData.freeResources.map((r, idx) => (
-                      <a key={idx} href={r.link} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-sm text-gray-700 hover:text-orange-600 transition-colors">
-                        <ExternalLink className="w-4 h-4" />
-                        <span>{r.title}</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {/* Affiliate products */}
+            <div className="grid md:grid-cols-1 gap-4">
+              {/* Affiliate products only (remove YouTube/free resources) */}
               {selectedDayData.affiliateProducts && selectedDayData.affiliateProducts.length > 0 && (
                 <div className="bg-white rounded-lg p-4 border border-orange-200">
                   <h5 className="text-sm font-medium text-orange-700 mb-3">🛍️ Recommended Products</h5>
