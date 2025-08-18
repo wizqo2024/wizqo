@@ -386,7 +386,7 @@ export default function App() {
         overview: planData.overview || planData.description || `Master ${planData.hobby || hobby} in 7 days with this personalized plan.`,
         difficulty: planData.difficulty || 'beginner',
         totalDays: planData.totalDays || 7,
-        days: planData.days.map((day: any) => ({
+        days: (planData.days || []).map((day: any) => ({
           day: day.day,
           title: day.title,
           mainTask: day.mainTask,
@@ -404,13 +404,57 @@ export default function App() {
           estimatedTime: day.estimatedTime,
           skillLevel: day.skillLevel
         }))
+      } as PlanData;
+
+      // 🔧 Normalize to guarantee 7 fully-populated days and consistent fields
+      const ensureArray = <T,>(arr: T[] | undefined, fallback: T[]): T[] => Array.isArray(arr) ? arr : fallback;
+
+      const normalizedDays = Array.from({ length: 7 }, (_, i) => {
+        const dayNumber = i + 1;
+        const existing = formattedPlanData.days.find((d: any) => Number(d.day) === dayNumber);
+        const base = existing || {
+          day: dayNumber,
+          title: `Day ${dayNumber}: ${formattedPlanData.hobby} Fundamentals`,
+          mainTask: `Learn ${formattedPlanData.hobby} fundamentals`,
+          explanation: `Day ${dayNumber} of your ${formattedPlanData.hobby} journey`,
+          howTo: [],
+          checklist: [],
+          tips: [],
+          mistakesToAvoid: [],
+          freeResources: [],
+          affiliateProducts: [],
+          estimatedTime: formattedPlanData.days[0]?.estimatedTime || '30-60 minutes',
+          skillLevel: formattedPlanData.days[0]?.skillLevel || formattedPlanData.difficulty || 'beginner'
+        };
+
+        return {
+          ...base,
+          day: dayNumber,
+          title: base.title || `Day ${dayNumber}`,
+          howTo: ensureArray(base.howTo as any[], [`Step ${dayNumber}`]),
+          checklist: ensureArray(base.checklist as any[], [`Complete day ${dayNumber} tasks`]),
+          tips: ensureArray(base.tips as any[], [`Tip for day ${dayNumber}`]),
+          mistakesToAvoid: ensureArray((base as any).mistakesToAvoid as any[] || (base as any).commonMistakes as any[], [`Avoid rushing on day ${dayNumber}`]),
+          freeResources: ensureArray(base.freeResources as any[], []),
+          affiliateProducts: ensureArray(base.affiliateProducts as any[], []),
+          youtubeVideoId: (base as any).youtubeVideoId,
+          videoTitle: (base as any).videoTitle,
+          estimatedTime: (base as any).estimatedTime,
+          skillLevel: (base as any).skillLevel
+        };
+      });
+
+      const normalizedPlanData: PlanData = {
+        ...formattedPlanData,
+        totalDays: 7,
+        days: normalizedDays
       };
 
-      // 🔧 FIXED: Just return the plan data - no navigation needed
+      console.log('🔧 Normalized plan days count:', normalizedPlanData.days.length);
       // The SplitPlanInterface will handle displaying the plan internally
-      console.log('🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface');
+      console.log('🔧 FIXED: Plan generated successfully, returning normalized data to SplitPlanInterface');
 
-      return formattedPlanData;
+      return normalizedPlanData;
     } catch (error) {
       console.error('Error generating plan:', error);
 
