@@ -122,6 +122,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           description: errorMessage,
           variant: "destructive",
         })
+        console.warn('Toast shown:', errorMessage)
       }, 0)
     } finally {
       setLoading(false)
