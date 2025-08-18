@@ -158,7 +158,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				const random = hobbySuggestions[Math.floor(Math.random() * hobbySuggestions.length)];
 				setSelectedHobby(random);
 				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: 'Surprise Me 🎲', timestamp: new Date() }]);
-				askExperience();
+				try {
+					setChatStep('generating');
+					const plan = await onGeneratePlan(random, defaultAnswers);
+					setPlanData(plan);
+					setShowSuggestions(false);
+					setCompletedDays([]);
+					setMessages(prev => [
+						...prev,
+						{ id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Want to make a new plan?', options: [
+							{ value: '__new_plan__', label: 'Make a new plan' }
+						], timestamp: new Date() }
+					]);
+				} catch (e) {
+					console.error('Failed to generate surprise plan', e);
+				} finally {
+					setChatStep('idle');
+				}
 				return;
 			}
 			// value is a hobby
