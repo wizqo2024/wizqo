@@ -51,7 +51,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
     return 'unlocked';
   };
 
-  const toggleDayCompletion = async (dayNumber: number) => {
+  const toggleDayCompletion = (dayNumber: number) => {
     if (!user) {
       if (dayNumber === 1) setShowAuthModal(true);
       return;
@@ -166,7 +166,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
             </ul>
           </div>
 
-          {/* Recommended Resources - placed below Tips and Action Items */}
+          {/* Recommended Resources - below Tips and Action Items */}
           <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200 rounded-lg p-6">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center">
