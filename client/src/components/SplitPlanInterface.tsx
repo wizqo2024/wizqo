@@ -479,7 +479,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					setMessages(prev => [...prev, {
 						id: Date.now().toString(),
 						sender: 'ai',
-						content: `🎉 Plan saved successfully to Supabase! You can view it in your dashboard anytime.`,
+						content: `🎉 Plan saved successfully! You can view it in your dashboard anytime.`,
 						timestamp: new Date()
 					}]);
 					
@@ -490,7 +490,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					setMessages(prev => [...prev, {
 						id: Date.now().toString(),
 						sender: 'ai',
-						content: `❌ Failed to save plan to Supabase. Please try again or contact support if the issue persists.`,
+						content: `❌ Failed to save plan. Please try again or contact support if the issue persists.`,
 						timestamp: new Date()
 					}]);
 				}
@@ -499,7 +499,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				setMessages(prev => [...prev, {
 					id: Date.now().toString(),
 					sender: 'ai',
-					content: `💡 Tip: Sign in to save this plan to your Supabase dashboard and track your progress!`,
+					content: `💡 Tip: Sign in to save this plan to your dashboard and track your progress!`,
 					timestamp: new Date()
 				}]);
 			}
