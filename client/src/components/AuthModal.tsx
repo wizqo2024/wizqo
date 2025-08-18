@@ -22,6 +22,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showGoogleGuide, setShowGoogleGuide] = useState(false)
+  const [formError, setFormError] = useState<string>("")
   const { signIn, signUp, signInWithGoogle, user } = useAuth()
   const { toast } = useToast()
 
@@ -44,9 +45,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         description: isSignUp ? 'Please enter a valid email, username, and a password with 6+ characters.' : 'Please enter your email and password.',
         variant: 'destructive'
       })
+      setFormError(isSignUp ? 'Please complete all fields (password 6+ characters).' : 'Please enter your email and password.')
       return
     }
     setLoading(true)
+    setFormError("")
 
     console.log('Auth form submitted:', { isSignUp, email, username })
 
@@ -124,6 +127,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         })
         console.warn('Toast shown:', errorMessage)
       }, 0)
+      setFormError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -192,6 +196,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {formError && (
+            <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-2">
+              {formError}
+            </div>
+          )}
           {isSignUp && (
             <div>
               <Label htmlFor="username" className="text-sm font-medium text-gray-700">
