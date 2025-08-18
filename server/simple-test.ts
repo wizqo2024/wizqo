@@ -46,60 +46,144 @@ app.post('/api/hobby-plans', (req, res) => {
   });
 });
 
-// Robust mock generate-plan endpoint (returns full 7-day plan with details)
-app.post('/api/generate-plan', (req, res) => {
-  const hobby = String(req.body?.hobby || 'hobby');
-  const experience = String(req.body?.experience || 'beginner');
-  const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
-
-  const plan = {
-    hobby,
-    title: `Learn ${hobby} in 7 Days`,
-    overview: `A structured 7-day journey to learn ${hobby} fundamentals and build a solid foundation.`,
-    difficulty: experience,
-    totalDays: 7,
-    days: Array.from({ length: 7 }, (_, i) => {
-      const day = i + 1;
-      return {
-        day,
-        title: `Day ${day}: ${hobby} Fundamentals`,
-        mainTask: `Learn essential ${hobby} techniques and practice hands-on exercises`,
-        explanation: `Day ${day} focuses on ${hobby} basics with practical, actionable steps.`,
-        howTo: [
-          `Start with basic ${hobby} concepts`,
-          `Practice fundamental techniques`,
-          `Complete hands-on exercises`,
-          `Review and refine your skills`,
-          `Document your progress`
-        ],
-        checklist: [
-          `Understand today's core concepts`,
-          `Complete practice exercises`,
-          `Review notes`,
-          `Prepare for tomorrow`,
-          `Reflect on progress`
-        ],
-        tips: [
-          `Take your time with each exercise`,
-          `Repeat difficult parts`,
-          `Practice regularly`
-        ],
-        mistakesToAvoid: [
-          `Rushing through exercises`,
-          `Skipping practice time`,
-          `Not taking notes`
-        ],
-        freeResources: [{ title: `${hobby} Day ${day} Tutorial`, link: `https://youtube.com` }],
-        affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://amazon.com`, price: `$${19 + i * 5}.99` }],
-        youtubeVideoId: 'dQw4w9WgXcQ',
-        videoTitle: `${hobby} Day ${day} Tutorial`,
-        estimatedTime: timeAvailable,
-        skillLevel: experience
-      };
-    })
+// Helpers for AI generation
+const getFallbackVideoId = (hobby: string, index: number) => {
+  const map: Record<string, string[]> = {
+    guitar: ["3jWRrafhO7M", "F9vWVucRJzo", "7tpQr0Xh6yM", "VJPCkS-wZR4", "kXOcz1_qnXw", "w8L3f3DWlNs", "Qa7GNfwLQJo"],
+    cooking: ["rtR63-ecUNo", "fBYVFCb1n6s", "L3dDHKjr_P8", "dNGgJa8r_7s", "mGz7d8xB1V8", "K2nV8JGFgh4", "u3JzYrWLJ4E"],
+    drawing: ["ewMksAbPdas", "ewMksAbPdas", "S0SxlqltDBo", "wgDNDOKnArk", "7BDKWT3pI_A", "vqbOW8K_bsI", "dWMc3Gz9Zd0"],
+    coding: ["UB1O30fR-EE", "hdI2bqOjy3c", "t_ispmWmdjY", "W6NZfCO5SIk", "c8aAYU5m4jM", "9Yf36xdLp2A", "rfscVS0vtbw"],
+    yoga:  ["v7AYKMP6rOE", "xQgP8N7jCrE", "Vg5FeCTzB6w", "h8TKF2_p7qU", "AaF2lpO2IHY", "L9qWnJGJz8Y", "M8Hb2Y5QN3w"]
   };
+  const list = map[hobby.toLowerCase()] || map.cooking;
+  return list[index % list.length];
+};
 
-  res.json(plan);
+const cleanJsonResponse = (content: string) => {
+  let text = content.trim();
+  if (text.startsWith('```json')) text = text.replace(/^```json\s*/, '');
+  if (text.startsWith('```')) text = text.replace(/^```\s*/, '');
+  if (text.endsWith('```')) text = text.replace(/\s*```$/, '');
+  const match = text.match(/\{[\s\S]*\}/);
+  return (match ? match[0] : text).trim();
+};
+
+const buildPrompt = (hobby: string, experience: string, timeAvailable: string, goal: string) => `Generate a comprehensive 7-day learning plan for learning ${hobby}.
+
+User Details:
+- Experience level: ${experience}
+- Time available per day: ${timeAvailable}
+- Learning goal: ${goal}
+
+Return ONLY a JSON object with this exact structure:
+{
+  "hobby": "${hobby}",
+  "title": "Master ${hobby.charAt(0).toUpperCase() + hobby.slice(1)} in 7 Days",
+  "overview": "A compelling description of what this 7-day journey will teach you",
+  "difficulty": "${experience}",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day title without 'Day X:' prefix",
+      "mainTask": "Main learning objective for the day",
+      "explanation": "Why this day matters and what you'll accomplish",
+      "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
+      "checklist": ["Action item 1", "Action item 2", "Action item 3", "Action item 4", "Action item 5"],
+      "tips": ["Pro tip 1", "Pro tip 2", "Pro tip 3"],
+      "mistakesToAvoid": ["Common mistake 1", "Common mistake 2", "Common mistake 3"],
+      "estimatedTime": "${timeAvailable}",
+      "skillLevel": "${experience}",
+      "youtubeVideoId": ""
+    }
+  ]
+}`;
+
+async function generatePlanWithAI(hobby: string, experience: string, timeAvailable: string, goal: string) {
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) return null;
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`,
+        'HTTP-Referer': process.env.VERCEL_URL || 'https://wizqo.com',
+        'X-Title': 'Wizqo Hobby Learning Platform'
+      },
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [{ role: 'user', content: buildPrompt(hobby, experience, timeAvailable, goal) }],
+        max_tokens: 3500,
+        temperature: 0.7
+      })
+    });
+    if (!response.ok) throw new Error(`OpenRouter ${response.status}`);
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content;
+    if (!content) throw new Error('Empty content');
+    const parsed = JSON.parse(cleanJsonResponse(content));
+    return parsed;
+  } catch (e) {
+    console.log('OpenRouter error:', e);
+    return null;
+  }
+}
+
+// Generate-plan endpoint (AI first, fallback always full)
+app.post('/api/generate-plan', async (req, res) => {
+  try {
+    const hobby = String(req.body?.hobby || 'hobby');
+    const experience = String(req.body?.experience || 'beginner');
+    const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
+    const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
+
+    const ai = await generatePlanWithAI(hobby, experience, timeAvailable, goal);
+
+    const base = ai || {
+      hobby,
+      title: `Learn ${hobby} in 7 Days`,
+      overview: `A structured 7-day journey to learn ${hobby} fundamentals and build a solid foundation.`,
+      difficulty: experience,
+      totalDays: 7,
+      days: [] as any[]
+    };
+
+    // Normalize to 7 days and enrich
+    const days = Array.from({ length: 7 }, (_, i) => {
+      const d = base.days?.[i] || {} as any;
+      const dayNum = i + 1;
+      const youtubeVideoId = (typeof d.youtubeVideoId === 'string' && d.youtubeVideoId.length > 5) ? d.youtubeVideoId : getFallbackVideoId(hobby, i);
+      return {
+        day: dayNum,
+        title: (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`,
+        mainTask: d.mainTask || d.goal || d.objective || `Learn ${hobby} fundamentals`,
+        explanation: d.explanation || d.description || d.details || `Day ${dayNum} of your ${hobby} journey`,
+        howTo: Array.isArray(d.howTo) && d.howTo.length ? d.howTo : [`Step ${dayNum}`],
+        checklist: Array.isArray(d.checklist) && d.checklist.length ? d.checklist : [`Complete day ${dayNum} tasks`],
+        tips: Array.isArray(d.tips) && d.tips.length ? d.tips : [`Tip for day ${dayNum}`],
+        mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
+        freeResources: [],
+        affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
+        youtubeVideoId,
+        videoTitle: `${hobby} Day ${dayNum} Tutorial`,
+        estimatedTime: d.estimatedTime || timeAvailable,
+        skillLevel: d.skillLevel || experience
+      };
+    });
+
+    res.json({
+      hobby: base.hobby || hobby,
+      title: base.title || `Learn ${hobby} in 7 Days`,
+      overview: base.overview || base.description || `Master ${hobby} with this 7-day plan`,
+      difficulty: base.difficulty || experience,
+      totalDays: 7,
+      days
+    });
+  } catch (err: any) {
+    console.error('generate-plan error:', err);
+    res.status(500).json({ error: 'Failed to generate plan' });
+  }
 });
 
 // Error handler
