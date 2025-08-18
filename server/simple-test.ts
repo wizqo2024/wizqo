@@ -215,11 +215,8 @@ app.post('/api/generate-plan', async (req, res) => {
     const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
 
     // Enforce API keys present
-    const missing: string[] = [];
-    if (!process.env.OPENROUTER_API_KEY) missing.push('OPENROUTER_API_KEY');
-    if (!process.env.YOUTUBE_API_KEY) missing.push('YOUTUBE_API_KEY');
-    if (missing.length) {
-      return res.status(503).json({ error: 'missing_api_keys', missing });
+    if (!process.env.OPENROUTER_API_KEY) {
+      return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
     }
 
     // Generate via OpenRouter
@@ -234,7 +231,10 @@ app.post('/api/generate-plan', async (req, res) => {
         const d = ai.days?.[i] || {} as any;
         const dayNum = i + 1;
         const title = (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`;
-        const yt = await getYouTubeVideoId(hobby, dayNum, title);
+        let yt: { id?: string, title?: string } | null = null;
+        try {
+          yt = await getYouTubeVideoId(hobby, dayNum, title);
+        } catch {}
         return {
           day: dayNum,
           title,
@@ -246,8 +246,8 @@ app.post('/api/generate-plan', async (req, res) => {
           mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
           freeResources: [],
           affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
-          youtubeVideoId: yt?.id,
-          videoTitle: yt?.title,
+          youtubeVideoId: yt?.id || null,
+          videoTitle: yt?.title || 'Video not available',
           estimatedTime: d.estimatedTime || timeAvailable,
           skillLevel: d.skillLevel || experience
         };
