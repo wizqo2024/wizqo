@@ -47,6 +47,46 @@ app.post('/api/validate-hobby', async (req, res) => {
   }
 });
 
+// Chat endpoint: uses OpenRouter to answer with plan context
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { question, plan } = req.body || {};
+    const key = process.env.OPENROUTER_API_KEY;
+    if (!key) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+    const hobby = plan?.hobby || 'hobby';
+    const context = plan ? JSON.stringify({ title: plan.title, days: plan.days?.slice(0, 3) }) : '';
+    const prompt = `You are an expert tutor for ${hobby}. Answer concisely and helpfully about their 7-day plan.
+
+Plan (partial): ${context}
+
+Question: ${question}
+
+Answer:`;
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`,
+        'HTTP-Referer': process.env.VERCEL_URL || 'https://wizqo.com',
+        'X-Title': 'Wizqo Chat'
+      },
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 500,
+        temperature: 0.6
+      })
+    });
+    if (!response.ok) return res.status(502).json({ error: 'openrouter_failed' });
+    const data = await response.json();
+    const answer = data.choices?.[0]?.message?.content || '';
+    res.json({ answer });
+  } catch (e) {
+    console.error('chat error:', e);
+    res.status(500).json({ error: 'chat_failed' });
+  }
+});
+
 // Mock hobby-plans endpoint
 app.get('/api/hobby-plans', (req, res) => {
   res.json([
