@@ -457,6 +457,7 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                     <div>
                       <h3 className="text-lg font-semibold text-orange-900">🛒 Recommended Resources</h3>
                       <p className="text-sm text-orange-700">Tools and materials to enhance your learning experience</p>
+                      <p className="text-xs text-orange-600 mt-1">add below</p>
                     </div>
                   </div>
                   
