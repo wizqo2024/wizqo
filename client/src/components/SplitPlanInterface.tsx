@@ -203,13 +203,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 				setPlanData(plan);
 				setShowSuggestions(false);
 				setCompletedDays([]);
-				// Offer to start a new plan
-				setMessages(prev => [
-					...prev,
-					{ id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Want to make a new plan?', options: [
-						{ value: '__new_plan__', label: 'Make a new plan' }
-					], timestamp: new Date() }
-				]);
 			} catch (e) {
 				console.error('Failed to generate plan', e);
 			} finally {
