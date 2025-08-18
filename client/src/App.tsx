@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChatInterface } from './components/ChatInterface';
+import { SplitPlanInterface } from './components/SplitPlanInterface';
 import { PlanDisplay } from './components/PlanDisplay';
 import { Navigation } from './components/Navigation';
 import { LandingPage } from './components/LandingPage';
@@ -480,12 +480,8 @@ export default function App() {
         return <LandingPage onNavigateToGenerate={() => navigateTo('generate')} />;
       case 'generate':
         return (
-          <ChatInterface
+          <SplitPlanInterface
             onGeneratePlan={generatePlanWithAI}
-            onPlanGenerated={(plan) => {
-              sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
-              navigateTo('plan');
-            }}
             onNavigateBack={() => navigateTo('landing')}
           />
         );
@@ -519,21 +515,17 @@ export default function App() {
         }
         if (currentPlanData) {
           return (
-            <PlanDisplay
-              planData={currentPlanData}
-              user={null as any}
-              setShowAuthModal={() => {}}
+            <SplitPlanInterface
+              onGeneratePlan={generatePlanWithAI}
+              onNavigateBack={() => navigateTo('dashboard')}
+              initialPlanData={currentPlanData}
             />
           );
         }
         console.log('❌ No plan data found, showing generate interface');
         return (
-          <ChatInterface
+          <SplitPlanInterface
             onGeneratePlan={generatePlanWithAI}
-            onPlanGenerated={(plan) => {
-              sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
-              navigateTo('plan');
-            }}
             onNavigateBack={() => navigateTo('landing')}
           />
         );
