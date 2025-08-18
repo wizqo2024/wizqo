@@ -411,7 +411,7 @@ export default function App() {
       } as PlanData;
 
       // 🔧 Normalize to guarantee 7 fully-populated days and consistent fields
-      const ensureArray = <T,>(arr: T[] | undefined, fallback: T[]): T[] => Array.isArray(arr) ? arr : fallback;
+      const ensureNonEmpty = <T,>(arr: T[] | undefined, fallback: T[]): T[] => (Array.isArray(arr) && arr.length > 0) ? arr : fallback;
 
       const normalizedDays = Array.from({ length: 7 }, (_, i) => {
         const dayNumber = i + 1;
@@ -435,12 +435,12 @@ export default function App() {
           ...base,
           day: dayNumber,
           title: base.title || `Day ${dayNumber}`,
-          howTo: ensureArray(base.howTo as any[], [`Step ${dayNumber}`]),
-          checklist: ensureArray(base.checklist as any[], [`Complete day ${dayNumber} tasks`]),
-          tips: ensureArray(base.tips as any[], [`Tip for day ${dayNumber}`]),
-          mistakesToAvoid: ensureArray((base as any).mistakesToAvoid as any[] || (base as any).commonMistakes as any[], [`Avoid rushing on day ${dayNumber}`]),
-          freeResources: ensureArray(base.freeResources as any[], []),
-          affiliateProducts: ensureArray(base.affiliateProducts as any[], []),
+          howTo: ensureNonEmpty(base.howTo as any[], [`Step ${dayNumber}`]),
+          checklist: ensureNonEmpty(base.checklist as any[], [`Complete day ${dayNumber} tasks`]),
+          tips: ensureNonEmpty(base.tips as any[], [`Tip for day ${dayNumber}`]),
+          mistakesToAvoid: ensureNonEmpty(((base as any).mistakesToAvoid as any[]) || ((base as any).commonMistakes as any[]), [`Avoid rushing on day ${dayNumber}`]),
+          freeResources: ensureNonEmpty(base.freeResources as any[], []),
+          affiliateProducts: ensureNonEmpty(base.affiliateProducts as any[], []),
           youtubeVideoId: (base as any).youtubeVideoId,
           videoTitle: (base as any).videoTitle,
           estimatedTime: (base as any).estimatedTime,
