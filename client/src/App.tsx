@@ -19,8 +19,8 @@ import { AuthProvider } from './context/AuthContext';
 
 interface QuizAnswers {
   experience: string;
-  timeCommitment: string;
-  specificGoal: string;
+  timeAvailable: string;
+  goal: string;
   hobby: string;
 }
 
@@ -355,8 +355,8 @@ export default function App() {
           userId, // Pass userId for server-side duplicate detection
           force, // Pass force flag to bypass duplicate detection
           experience: answers.experience,
-          timeAvailable: answers.timeCommitment || '30 minutes',
-          goal: answers.specificGoal || 'Learn the basics',
+          timeAvailable: (answers as any).timeAvailable || '30 minutes',
+          goal: (answers as any).goal || 'Learn the basics',
         })
       });
 
