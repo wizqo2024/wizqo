@@ -36,6 +36,15 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // Basic inline validation
+    if (!email || !password || (isSignUp && (!username || password.length < 6))) {
+      toast({
+        title: 'Incomplete form',
+        description: isSignUp ? 'Please enter a valid email, username, and a password with 6+ characters.' : 'Please enter your email and password.',
+        variant: 'destructive'
+      })
+      return
+    }
     setLoading(true)
 
     console.log('Auth form submitted:', { isSignUp, email, username })
