@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SplitChatInterface } from './components/SplitChatInterface';
+import { ChatInterface } from './components/ChatInterface';
 import { PlanDisplay } from './components/PlanDisplay';
-import { SplitPlanInterface } from './components/SplitPlanInterface';
 import { Navigation } from './components/Navigation';
 import { LandingPage } from './components/LandingPage';
 import { LoginModal } from './components/LoginModal';
@@ -455,8 +454,7 @@ export default function App() {
       };
 
       console.log('🔧 Normalized plan days count:', normalizedPlanData.days.length);
-      // The SplitPlanInterface will handle displaying the plan internally
-      console.log('🔧 FIXED: Plan generated successfully, returning normalized data to SplitPlanInterface');
+      console.log('🔧 FIXED: Plan generated successfully, returning normalized data');
 
       return normalizedPlanData;
     } catch (error) {
@@ -481,10 +479,13 @@ export default function App() {
       case 'landing':
         return <LandingPage onNavigateToGenerate={() => navigateTo('generate')} />;
       case 'generate':
-        // Always start fresh on generate page; do not preload previous plans
         return (
-          <SplitPlanInterface
+          <ChatInterface
             onGeneratePlan={generatePlanWithAI}
+            onPlanGenerated={(plan) => {
+              sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
+              navigateTo('plan');
+            }}
             onNavigateBack={() => navigateTo('landing')}
           />
         );
@@ -518,17 +519,21 @@ export default function App() {
         }
         if (currentPlanData) {
           return (
-            <SplitPlanInterface
-              onGeneratePlan={generatePlanWithAI}
-              onNavigateBack={() => navigateTo('dashboard')}
-              initialPlanData={currentPlanData}
+            <PlanDisplay
+              planData={currentPlanData}
+              user={null as any}
+              setShowAuthModal={() => {}}
             />
           );
         }
         console.log('❌ No plan data found, showing generate interface');
         return (
-          <SplitPlanInterface
+          <ChatInterface
             onGeneratePlan={generatePlanWithAI}
+            onPlanGenerated={(plan) => {
+              sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
+              navigateTo('plan');
+            }}
             onNavigateBack={() => navigateTo('landing')}
           />
         );
