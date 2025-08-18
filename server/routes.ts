@@ -1,7 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { createClient } from '@supabase/supabase-js';
-import { getTargetedYouTubeVideo } from './videoSelection.js';
 
 // Supabase service client (server-side)
 const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -56,13 +55,26 @@ Return ONLY a JSON object with this exact structure:
       temperature: 0.7
     })
   });
-  if (!resp.ok) throw new Error(`openrouter_${resp.status}`);
+  if (!resp.ok) {
+    const text = await resp.text().catch(() => '');
+    console.error('OpenRouter error status:', resp.status, text?.slice(0, 200));
+    throw new Error(`openrouter_${resp.status}`);
+  }
   const data = await resp.json();
-  let content = data.choices?.[0]?.message?.content || '';
-  content = content.trim().replace(/^```json\s*|^```\s*|\s*```$/g, '');
+  let content = data?.choices?.[0]?.message?.content || '';
+  content = String(content).trim();
+  // Strip markdown fences if present
+  content = content.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
+  // Try to find the outermost JSON object
+  let cleaned = content;
   const jsonMatch = content.match(/\{[\s\S]*\}/);
-  const cleaned = jsonMatch ? jsonMatch[0] : content;
-  return JSON.parse(cleaned);
+  if (jsonMatch) cleaned = jsonMatch[0];
+  try {
+    return JSON.parse(cleaned);
+  } catch (e) {
+    console.error('JSON parse failed. Raw content (first 300 chars):', content.slice(0, 300));
+    throw new Error('openrouter_invalid_json');
+  }
 }
 
 async function getYouTubeVideo(hobby: string, day: number, title: string) {
