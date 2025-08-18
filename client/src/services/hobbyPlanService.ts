@@ -211,7 +211,7 @@ export class HobbyPlanService {
     }
   }
 
-  // Delete a hobby plan from Supabase
+  // Delete a hobby plan via backend API and clear caches
   async deletePlan(planId: string, userId: string): Promise<void> {
     try {
       console.log('🗑️ DELETING PLAN: Starting delete for plan:', planId, 'user:', userId)
@@ -219,12 +219,10 @@ export class HobbyPlanService {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 2000)
 
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?id=eq.${planId}&user_id=eq.${userId}`, {
+      // Use backend API so we can do cascade and any extra cleanup
+      const response = await fetch(`/api/hobby-plans/${planId}?user_id=${userId}`, {
         method: 'DELETE',
-        headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         signal: controller.signal
       })
 
@@ -238,6 +236,26 @@ export class HobbyPlanService {
       }
 
       console.log('✅ DELETE SUCCESS: Plan deleted successfully')
+
+      // Aggressively clear caches for this plan
+      try {
+        const keysToRemove: string[] = []
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i)
+          if (!key) continue
+          if (key.includes(planId) || key.includes('currentPlanData') || key.includes('activePlanData') || key.includes('lastViewedPlanData')) {
+            keysToRemove.push(key)
+          }
+        }
+        keysToRemove.forEach(k => sessionStorage.removeItem(k))
+        // Clear generic local caches
+        ;['lastViewedPlanData', 'activePlanData', 'currentPlanData'].forEach(k => {
+          localStorage.removeItem(k)
+          sessionStorage.removeItem(k)
+        })
+      } catch (e) {
+        console.warn('🧹 DELETE: Cache clear warning:', e)
+      }
 
     } catch (error: any) {
       console.error('❌ DELETE ERROR: Failed to delete plan:', error)
