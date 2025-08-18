@@ -21,6 +21,32 @@ app.get('/api/test', (req, res) => {
   });
 });
 
+// Lightweight hobby validation for chat flow
+app.post('/api/validate-hobby', async (req, res) => {
+  try {
+    const input = String(req.body?.hobby || '').trim();
+    if (!input) return res.json({ isValid: false, suggestions: ['guitar','cooking','drawing','yoga','photography','coding'] });
+
+    // Simple normalization and whitelist
+    const normalized = input.toLowerCase();
+    const whitelist = ['guitar','cooking','drawing','photography','yoga','coding','piano','singing','painting','gardening','dance'];
+    const correctedHobby = normalized.replace(/\s+/g, ' ').trim();
+    const isValid = whitelist.includes(correctedHobby);
+
+    if (isValid) {
+      return res.json({ isValid: true, correctedHobby });
+    }
+
+    // Suggest closest matches
+    const suggestions = whitelist.filter(h => h.startsWith(correctedHobby[0] || ''))
+      .slice(0, 6);
+    return res.json({ isValid: false, correctedHobby: undefined, suggestions });
+  } catch (e: any) {
+    console.error('validate-hobby error:', e);
+    res.json({ isValid: false, suggestions: ['guitar','cooking','drawing','yoga','photography','coding'] });
+  }
+});
+
 // Mock hobby-plans endpoint
 app.get('/api/hobby-plans', (req, res) => {
   res.json([
