@@ -164,12 +164,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 					setPlanData(plan);
 					setShowSuggestions(false);
 					setCompletedDays([]);
-					setMessages(prev => [
-						...prev,
-						{ id: Date.now().toString(), sender: 'ai', content: 'Your plan is ready! Want to make a new plan?', options: [
-							{ value: '__new_plan__', label: 'Make a new plan' }
-						], timestamp: new Date() }
-					]);
+					// Plan is ready—no follow-up prompt
 				} catch (e) {
 					console.error('Failed to generate surprise plan', e);
 				} finally {
@@ -231,11 +226,29 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 		if (user && showAuthModal) setShowAuthModal(false);
 	}, [user, showAuthModal]);
 
-	const handleSendMessage = () => {
+	const handleSendMessage = async () => {
 		if (!currentInput.trim()) return;
 		const text = currentInput.trim();
 		setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: text, timestamp: new Date() }]);
 		setCurrentInput('');
+
+		// If plan exists, route to intelligent chat endpoint
+		if (planData) {
+			try {
+				const resp = await fetch('/api/chat', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ question: text, plan: planData })
+				});
+				const data = await resp.json();
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: data.answer || "I'm here to help with your plan.", timestamp: new Date() }]);
+			} catch (e) {
+				setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', content: "I'm here to help with your plan. Ask me about any day, techniques, time, or equipment.", timestamp: new Date() }]);
+			}
+			return;
+		}
+
+		// Otherwise proceed with guided flow
 		if (!planData && (chatStep === 'hobby' || chatStep === 'idle')) {
 			setSelectedHobby(text.toLowerCase());
 			askExperience();
