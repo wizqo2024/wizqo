@@ -459,7 +459,7 @@ export default function App() {
       return normalizedPlanData;
     } catch (error) {
       console.error('Error generating plan:', error);
-
+      
       // Handle duplicate plan errors specially
       if (error instanceof Error && error.message.startsWith('DUPLICATE_PLAN:')) {
         const errorData = JSON.parse(error.message.replace('DUPLICATE_PLAN:', ''));
@@ -468,9 +468,9 @@ export default function App() {
         duplicateError.duplicateData = errorData;
         throw duplicateError;
       }
-
-      // Return fallback plan if API fails for other reasons
-      return getFallbackPlan(hobby, answers);
+      
+      // No fallback plans: surface error to UI
+      throw error instanceof Error ? error : new Error('Plan generation failed');
     }
   };
 
