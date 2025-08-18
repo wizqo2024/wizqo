@@ -46,29 +46,60 @@ app.post('/api/hobby-plans', (req, res) => {
   });
 });
 
-// Mock generate-plan endpoint
+// Robust mock generate-plan endpoint (returns full 7-day plan with details)
 app.post('/api/generate-plan', (req, res) => {
-  console.log('POST /api/generate-plan received:', req.body);
-  res.json({
-    hobby: req.body.hobby || 'test-hobby',
-    title: 'Test Learning Plan',
-    days: [
-      {
-        day: 1,
-        title: 'Day 1: Introduction',
-        content: 'Learn the basics',
-        youtubeVideoId: 'test-video-id',
-        affiliateProducts: []
-      },
-      {
-        day: 2,
-        title: 'Day 2: Practice',
-        content: 'Practice what you learned',
-        youtubeVideoId: 'test-video-id-2',
-        affiliateProducts: []
-      }
-    ]
-  });
+  const hobby = String(req.body?.hobby || 'hobby');
+  const experience = String(req.body?.experience || 'beginner');
+  const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
+
+  const plan = {
+    hobby,
+    title: `Learn ${hobby} in 7 Days`,
+    overview: `A structured 7-day journey to learn ${hobby} fundamentals and build a solid foundation.`,
+    difficulty: experience,
+    totalDays: 7,
+    days: Array.from({ length: 7 }, (_, i) => {
+      const day = i + 1;
+      return {
+        day,
+        title: `Day ${day}: ${hobby} Fundamentals`,
+        mainTask: `Learn essential ${hobby} techniques and practice hands-on exercises`,
+        explanation: `Day ${day} focuses on ${hobby} basics with practical, actionable steps.`,
+        howTo: [
+          `Start with basic ${hobby} concepts`,
+          `Practice fundamental techniques`,
+          `Complete hands-on exercises`,
+          `Review and refine your skills`,
+          `Document your progress`
+        ],
+        checklist: [
+          `Understand today's core concepts`,
+          `Complete practice exercises`,
+          `Review notes`,
+          `Prepare for tomorrow`,
+          `Reflect on progress`
+        ],
+        tips: [
+          `Take your time with each exercise`,
+          `Repeat difficult parts`,
+          `Practice regularly`
+        ],
+        mistakesToAvoid: [
+          `Rushing through exercises`,
+          `Skipping practice time`,
+          `Not taking notes`
+        ],
+        freeResources: [{ title: `${hobby} Day ${day} Tutorial`, link: `https://youtube.com` }],
+        affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://amazon.com`, price: `$${19 + i * 5}.99` }],
+        youtubeVideoId: 'dQw4w9WgXcQ',
+        videoTitle: `${hobby} Day ${day} Tutorial`,
+        estimatedTime: timeAvailable,
+        skillLevel: experience
+      };
+    })
+  };
+
+  res.json(plan);
 });
 
 // Error handler
