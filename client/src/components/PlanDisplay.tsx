@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { CheckCircle, Circle, Lock, Clock, Package, ExternalLink, Zap } from 'lucide-react';
+import { CheckCircle, Circle, Lock, Clock, Package, ExternalLink, Zap, Play, AlertTriangle } from 'lucide-react';
 
 interface Day {
   day: number;
@@ -109,8 +109,8 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
                  getDayStatus(selectedDayData.day) === 'locked' ? <Lock className="w-5 h-5" /> : selectedDayData.day}
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-900">{selectedDayData.title}</h3>
-                <p className="text-sm text-gray-600">{selectedDayData.mainTask}</p>
+                <h3 className="text-xl font-semibold text-gray-900">Day {selectedDayData.day} of {planData.totalDays}</h3>
+                <p className="text-sm text-gray-600">Level: {selectedDayData.skillLevel || planData.difficulty || 'Beginner'}</p>
               </div>
             </div>
             <div className="text-right">
@@ -122,9 +122,92 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Today's Learning Goal */}
+          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 border-l-4 border-indigo-500">
+            <h4 className="text-lg font-semibold text-indigo-900 mb-2">Today's Learning Goal</h4>
+            <p className="text-indigo-800 leading-relaxed text-base">{selectedDayData.mainTask}</p>
+          </div>
+
           {/* Why this matters */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border-l-4 border-blue-500">
+            <h4 className="text-lg font-semibold text-blue-900 mb-2">Why This Matters</h4>
             <p className="text-blue-800 leading-relaxed text-base">{selectedDayData.explanation}</p>
+          </div>
+
+          {/* Step-by-Step Guide */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center">
+                <span className="text-white">🔍</span>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900">Step-by-Step Guide</h4>
+            </div>
+            <ol className="space-y-3">
+              {selectedDayData.howTo?.map((step, index) => (
+                <li key={index} className="flex items-start space-x-4">
+                  <span className="w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                    {index + 1}
+                  </span>
+                  <p className="text-gray-800 leading-relaxed">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Video Tutorial */}
+          {selectedDayData.youtubeVideoId && (
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center">
+                  <Play className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-red-900">Video Tutorial</h4>
+                  <p className="text-sm text-red-700">Watch and learn with our step-by-step video guide</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${selectedDayData.youtubeVideoId}?rel=0&showinfo=0&modestbranding=1`}
+                    title={`${planData.hobby} Day ${selectedDayData.day}: ${selectedDayData.title}`}
+                    frameBorder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute top-0 left-0 w-full h-full"
+                  ></iframe>
+                </div>
+                {selectedDayData.videoTitle && (
+                  <div className="mt-4 text-center">
+                    <h5 className="font-semibold text-gray-900">{selectedDayData.videoTitle}</h5>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* What You Need */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center">
+                <span className="text-white">📋</span>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900">What You Need</h4>
+            </div>
+            <ul className="space-y-2">
+              {selectedDayData.affiliateProducts?.slice(0, 4).map((p, i) => (
+                <li key={i} className="flex items-center space-x-2 text-sm text-gray-800">
+                  <span className="text-green-600">✓</span>
+                  <span>{p.title}</span>
+                </li>
+              ))}
+              {(!selectedDayData.affiliateProducts || selectedDayData.affiliateProducts.length === 0) && selectedDayData.checklist?.slice(0, 4).map((item, i) => (
+                <li key={i} className="flex items-center space-x-2 text-sm text-gray-800">
+                  <span className="text-green-600">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Pro Tips for Success */}
@@ -141,6 +224,21 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
             <ul className="space-y-2">
               {selectedDayData.tips?.map((tip, index) => (
                 <li key={index} className="text-sm text-gray-800">• {tip}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Avoid These Mistakes */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-rose-600 rounded-lg flex items-center justify-center">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900">Avoid These Mistakes</h4>
+            </div>
+            <ul className="space-y-2">
+              {selectedDayData.mistakesToAvoid?.map((m, i) => (
+                <li key={i} className="text-sm text-gray-800">• {m}</li>
               ))}
             </ul>
           </div>
