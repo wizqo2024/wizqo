@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { UnifiedNavigation } from './components/UnifiedNavigation';
-import { ChatInterface } from './components/ChatInterface';
+import { SplitPlanInterface } from './components/SplitPlanInterface';
 import { PlanDisplay } from './components/PlanDisplay';
 import { AuthProvider } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
@@ -71,12 +71,7 @@ export default function App() {
               );
             case 'generate':
               return (
-                <>
-                  <UnifiedNavigation currentPage="generate" />
-                  <div className="max-w-6xl mx-auto p-4">
-                    <ChatInterface onGeneratePlan={handleGeneratePlan} onPlanGenerated={handlePlanGenerated} onNavigateBack={handleNavigateBack} />
-                  </div>
-                </>
+                <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => { window.location.hash = '#/'; }} />
               );
             case 'plan':
               return (
