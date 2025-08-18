@@ -94,6 +94,46 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	];
 	const hobbySuggestions = allHobbies;
 
+	// Normalize plan data to guarantee 7 days and filled fields
+	const ensureArray = <T,>(arr: T[] | undefined, fallback: T[]): T[] => Array.isArray(arr) ? arr : fallback;
+	const normalizePlan = (plan: any): PlanData => {
+		const base: PlanData = {
+			id: plan.id,
+			planId: plan.planId,
+			hobby: plan.hobby || 'hobby',
+			title: plan.title || `Learn ${plan.hobby || 'hobby'} in 7 Days`,
+			overview: plan.overview || plan.description || `Master ${plan.hobby || 'hobby'} in 7 days with this personalized plan.`,
+			difficulty: plan.difficulty || 'beginner',
+			totalDays: 7,
+			days: []
+		};
+
+		const incomingDays: any[] = Array.isArray(plan.days) ? plan.days : [];
+		const normalizedDays: Day[] = Array.from({ length: 7 }, (_, i) => {
+			const dayNumber = i + 1;
+			const existing = incomingDays.find((d: any) => Number(d?.day) === dayNumber) || {};
+			return {
+				day: dayNumber,
+				title: existing.title || `Day ${dayNumber}: ${base.hobby} Fundamentals`,
+				mainTask: existing.mainTask || `Learn ${base.hobby} fundamentals`,
+				explanation: existing.explanation || `Day ${dayNumber} of your ${base.hobby} journey`,
+				howTo: ensureArray(existing.howTo, [`Step ${dayNumber}`]),
+				checklist: ensureArray(existing.checklist, [`Complete day ${dayNumber} tasks`]),
+				tips: ensureArray(existing.tips, [`Tip for day ${dayNumber}`]),
+				mistakesToAvoid: ensureArray(existing.mistakesToAvoid || existing.commonMistakes, [`Avoid rushing on day ${dayNumber}`]),
+				freeResources: ensureArray(existing.freeResources, []),
+				affiliateProducts: ensureArray(existing.affiliateProducts, []),
+				youtubeVideoId: existing.youtubeVideoId || existing.videoId,
+				videoId: existing.videoId || existing.youtubeVideoId,
+				videoTitle: existing.videoTitle || `${base.hobby} - Day ${dayNumber}`,
+				estimatedTime: existing.estimatedTime || '30-60 minutes',
+				skillLevel: existing.skillLevel || base.difficulty,
+			};
+		});
+
+		return { ...base, days: normalizedDays };
+	};
+
 	const [existingPlanCandidate, setExistingPlanCandidate] = useState<any>(null);
 
 	// Comprehensive hobby validation system
@@ -398,7 +438,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 			setChatStep('generating');
 			// Clear old chat messages when starting a new plan generation
 			setMessages([]);
-			const plan = await onGeneratePlan(hobby, qa);
+			const generated = await onGeneratePlan(hobby, qa);
+			const plan = normalizePlan(generated);
 			setPlanData(plan);
 			setShowSuggestions(false);
 			setCompletedDays([]);
