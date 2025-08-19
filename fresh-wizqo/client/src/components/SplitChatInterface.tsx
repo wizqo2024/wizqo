@@ -16,6 +16,7 @@ interface ChatMessage {
   options?: { value: string; label: string; description?: string }[];
   isTyping?: boolean;
   timestamp: Date;
+  step?: 'hobby' | 'experience' | 'time' | 'goal';
 }
 
 interface SplitChatInterfaceProps {
@@ -58,7 +59,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
       sender: 'ai',
       content: "Hey there! 👋 I'm your personal learning assistant. I'm here to help you master any hobby in just 7 days with a personalized plan made just for you.\n\nWhat hobby would you like to learn?",
       options: hobbyOptions,
-      timestamp: new Date()
+      timestamp: new Date(),
+      step: 'hobby'
     };
     
     setTimeout(() => {
@@ -76,7 +78,7 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     setMessages(prev => [...prev, userMessage]);
   };
 
-  const addAIMessage = (content: string, options?: any[]) => {
+  const addAIMessage = (content: string, options?: any[], stepForOptions?: 'hobby' | 'experience' | 'time' | 'goal') => {
     setIsTyping(true);
     setTimeout(() => {
       const aiMessage: ChatMessage = {
@@ -84,7 +86,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         sender: 'ai',
         content,
         options,
-        timestamp: new Date()
+        timestamp: new Date(),
+        step: stepForOptions
       };
       setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
@@ -102,7 +105,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-      ]
+      ],
+      'experience'
     );
   };
 
@@ -124,7 +128,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         { value: '30-60 minutes', label: '30-60 minutes', description: 'Focused practice time' },
         { value: '1-2 hours', label: '1-2 hours', description: 'Deep learning sessions' },
         { value: '2+ hours', label: '2+ hours', description: 'Intensive learning' }
-      ]
+      ],
+      'time'
     );
   };
 
@@ -140,7 +145,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
         { value: 'creative expression', label: 'Creative Expression', description: 'Express myself artistically' },
         { value: 'skill building', label: 'Skill Building', description: 'Develop a valuable skill' },
         { value: 'social connection', label: 'Social Connection', description: 'Connect with others who share this hobby' }
-      ]
+      ],
+      'goal'
     );
   };
 
@@ -194,19 +200,28 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
     setCurrentInput('');
   };
 
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value: string, optionStep?: 'hobby' | 'experience' | 'time' | 'goal') => {
+    if (optionStep && optionStep !== currentStep) {
+      return;
+    }
     switch (currentStep) {
       case 'hobby':
         handleHobbySelect(value);
         break;
       case 'experience':
-        handleExperienceSelect(value);
+        if (['beginner', 'some', 'intermediate'].includes(value)) {
+          handleExperienceSelect(value);
+        }
         break;
       case 'time':
-        handleTimeSelect(value);
+        if (['15-30 minutes', '30-60 minutes', '1-2 hours', '2+ hours'].includes(value)) {
+          handleTimeSelect(value);
+        }
         break;
       case 'goal':
-        handleGoalSelect(value);
+        if (['personal enjoyment', 'creative expression', 'skill building', 'social connection'].includes(value)) {
+          handleGoalSelect(value);
+        }
         break;
     }
   };
@@ -259,7 +274,8 @@ export function SplitChatInterface({ onGeneratePlan, onPlanGenerated, onNavigate
                       {message.options.map((option) => (
                         <Button
                           key={option.value}
-                          onClick={() => handleOptionSelect(option.value)}
+                          onClick={() => handleOptionSelect(option.value, message.step)}
+                          disabled={message.step !== currentStep || isTyping || isGenerating}
                           variant="outline"
                           className="w-full justify-start text-left h-auto p-3 border-slate-200"
                         >
