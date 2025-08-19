@@ -137,6 +137,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
   const [isTyping, setIsTyping] = useState(false);
   const [isProcessingChoice, setIsProcessingChoice] = useState(false);
+  const [disabledOptionMessageIds, setDisabledOptionMessageIds] = useState<Set<string>>(new Set());
   
   // Fix initial loading state
   useEffect(() => {
@@ -718,8 +719,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       await handleSurpriseMe();
       return;
     }
-    if (isProcessingChoice) return;
-    setIsProcessingChoice(true);
+    // Disable only this message's options; do not block others globally
+    setDisabledOptionMessageIds(prev => new Set([...prev, sourceMessageId]));
 
     addUserMessage(label);
     
@@ -836,7 +837,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
       } finally {
         setIsGenerating(false);
-        setIsProcessingChoice(false);
       }
     }
   };
@@ -1096,12 +1096,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       {message.options.map((option) => (
                         <button
                           key={option.value}
-                          onClick={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.pointerEvents = 'none';
-                            handleOptionSelect(message.id, option.value, option.label);
-                          }}
-                          className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm hover:shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
-                          disabled={isGenerating || isProcessingChoice}
+                          onClick={() => handleOptionSelect(message.id, option.value, option.label)}
+                          className={`px-3 py-2 text-xs font-medium border rounded-full transition-all duration-200 ${
+                            disabledOptionMessageIds.has(message.id)
+                              ? 'text-gray-400 bg-white border-gray-200 cursor-not-allowed opacity-60'
+                              : 'text-gray-700 bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 shadow-sm hover:shadow-md'
+                          }`}
+                          disabled={disabledOptionMessageIds.has(message.id)}
                         >
                           {option.label}
                         </button>
