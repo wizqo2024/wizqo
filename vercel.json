@@ -11,19 +11,18 @@
     },
     {
       "src": "server/index.ts",
-      "use": "@vercel/node@3.0.0"
+      "use": "@vercel/node@3.0.0",
+      "config": {
+        "bundle": true,
+        "includeFiles": "server/**,shared/**"
+      }
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/server/index.ts"
-    },
-    {
-      "source": "/((?!assets/).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/(.*)", "destination": "/server/index.ts" },
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
   ],
+  
   "headers": [
     {
       "source": "/assets/(.*)\\.js",
