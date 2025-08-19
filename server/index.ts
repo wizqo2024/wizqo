@@ -1,16 +1,14 @@
 import express, { type Request, Response, NextFunction, type Express } from "express";
-import { createServer, type Server } from "http";
+import { createServer } from "http";
 import { createClient } from '@supabase/supabase-js';
+import path from 'path';
+import fs from 'fs';
 // In serverless, avoid importing vite helpers; only use static serving
 const log = (...args: any[]) => console.log(...args);
 const serveStatic = (app: Express) => {
-  // Serve the built client from dist/public
-  const path = await import('path');
-  const fs = await import('fs');
-  const expressStatic = (await import('express')).default.static;
   const clientDir = path.resolve(process.cwd(), 'dist', 'public');
   if (fs.existsSync(clientDir)) {
-    app.use(expressStatic(clientDir));
+    app.use(express.static(clientDir));
   }
 };
 
