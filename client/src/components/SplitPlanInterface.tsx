@@ -142,6 +142,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setIsTyping(false);
   }, []);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isProcessingChoice, setIsProcessingChoice] = useState(false);
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
@@ -649,6 +650,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         
         setMessages(prev => [...prev, aiMessage]);
         setIsTyping(false);
+        // Allow next choice after AI has rendered options
+        setIsProcessingChoice(false);
       }, delay);
     }, 300);
   };
@@ -720,6 +723,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
+    if (isProcessingChoice) return;
+    setIsProcessingChoice(true);
     if (value === 'surprise') {
       await handleSurpriseMe();
       return;
@@ -840,6 +845,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
       } finally {
         setIsGenerating(false);
+        setIsProcessingChoice(false);
       }
     }
   };
@@ -1123,7 +1129,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           key={option.value}
                           onClick={() => handleOptionSelect(option.value, option.label)}
                           className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
-                          disabled={isGenerating}
+                          disabled={isGenerating || isProcessingChoice}
                         >
                           {option.label}
                         </button>
