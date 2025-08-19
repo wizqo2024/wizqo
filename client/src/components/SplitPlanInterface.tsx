@@ -320,3 +320,4 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 	);
 }
 
+export default SplitPlanInterface;
