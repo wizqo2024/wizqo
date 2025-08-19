@@ -65,6 +65,159 @@ app.use((req, res, next) => {
 
   app.get('/api/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
+  // ===== OpenRouter helpers (inline) =====
+  async function generatePlanViaOpenRouter(hobby: string, experience: string, timeAvailable: string, goal: string) {
+    const key = process.env.OPENROUTER_API_KEY;
+    if (!key) throw new Error('missing_openrouter_key');
+    const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
+
+User Details:
+- Experience level: ${experience}
+- Time available per day: ${timeAvailable}
+- Learning goal: ${goal}
+
+Return ONLY a JSON object with this exact structure:
+{
+  "hobby": "${hobby}",
+  "title": "Master ${hobby} in 7 Days",
+  "overview": "A compelling description of what this 7-day journey will teach you",
+  "difficulty": "${experience}",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day title without 'Day X:' prefix",
+      "mainTask": "Main learning objective for the day",
+      "explanation": "Why this day matters and what you'll accomplish",
+      "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
+      "checklist": ["Action item 1", "Action item 2", "Action item 3", "Action item 4", "Action item 5"],
+      "tips": ["Pro tip 1", "Pro tip 2", "Pro tip 3"],
+      "mistakesToAvoid": ["Common mistake 1", "Common mistake 2", "Common mistake 3"],
+      "estimatedTime": "${timeAvailable}",
+      "skillLevel": "${experience}",
+      "youtubeVideoId": ""
+    }
+  ]
+}`;
+    const vercelUrl = process.env.VERCEL_URL || '';
+    const refererUrl = process.env.WEB_ORIGIN || process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : 'https://wizqo.com');
+    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`,
+        'HTTP-Referer': refererUrl,
+        'X-Title': 'Wizqo Hobby Learning Platform'
+      },
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 3500,
+        temperature: 0.7
+      })
+    });
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => '');
+      const err: any = new Error(`openrouter_${resp.status}`);
+      err.upstream = text?.slice(0, 500) || '';
+      throw err;
+    }
+    const data = await resp.json();
+    let content = data?.choices?.[0]?.message?.content || '';
+    content = String(content).trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    const cleaned = jsonMatch ? jsonMatch[0] : content;
+    return JSON.parse(cleaned);
+  }
+
+  async function getYouTubeVideo(hobby: string, day: number, title: string) {
+    const apiKey = process.env.YOUTUBE_API_KEY;
+    if (!apiKey) return null;
+    try {
+      const q = `${hobby} tutorial day ${day} ${title}`;
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=${encodeURIComponent(q)}&key=${apiKey}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`yt_${r.status}`);
+      const j = await r.json();
+      const it = j.items?.[0];
+      if (!it) return null;
+      return { id: it.id?.videoId as string, title: it.snippet?.title as string };
+    } catch {
+      return null;
+    }
+  }
+
+  async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: string) {
+    try {
+      const key = process.env.OPENROUTER_API_KEY;
+      if (!key) return null;
+      const prompt = `Suggest a single YouTube video ID for ${hobby} day ${day} titled "${title}". Reply ONLY with a JSON: {"id":"VIDEO_ID","title":"Title"}`;
+      const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+        body: JSON.stringify({ model: 'deepseek/deepseek-chat', messages: [{ role: 'user', content: prompt }], max_tokens: 100 })
+      });
+      if (!resp.ok) return null;
+      const data = await resp.json();
+      let content = data.choices?.[0]?.message?.content || '';
+      content = content.trim().replace(/^```json\s*|^```\s*|\s*```$/g, '');
+      const parsed = JSON.parse(content);
+      if (parsed?.id && typeof parsed.id === 'string') return parsed;
+      return null;
+    } catch { return null; }
+  }
+
+  // ===== API: generate plan =====
+  app.post('/api/generate-plan', async (req: Request, res: Response) => {
+    try {
+      const hobby = String(req.body?.hobby || '').trim();
+      const experience = String(req.body?.experience || 'beginner');
+      const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
+      const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
+      if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
+      if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+      const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
+      if (!aiPlan?.days || !Array.isArray(aiPlan.days)) return res.status(502).json({ error: 'bad_ai_response' });
+
+      const days = await Promise.all(Array.from({ length: 7 }, async (_, i) => {
+        const d = aiPlan.days?.[i] || {} as any;
+        const dayNum = i + 1;
+        const title = (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`;
+        let video = await getYouTubeVideo(hobby, dayNum, title);
+        if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
+        return {
+          day: dayNum,
+          title,
+          mainTask: d.mainTask || d.goal || d.objective || `Learn ${hobby} fundamentals`,
+          explanation: d.explanation || d.description || d.details || `Day ${dayNum} of your ${hobby} journey`,
+          howTo: Array.isArray(d.howTo) && d.howTo.length ? d.howTo : [`Step ${dayNum}`],
+          checklist: Array.isArray(d.checklist) && d.checklist.length ? d.checklist : [`Complete day ${dayNum} tasks`],
+          tips: Array.isArray(d.tips) && d.tips.length ? d.tips : [`Tip for day ${dayNum}`],
+          mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
+          freeResources: [],
+          affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
+          youtubeVideoId: video?.id || null,
+          videoTitle: video?.title || 'Video not available',
+          estimatedTime: d.estimatedTime || timeAvailable,
+          skillLevel: d.skillLevel || experience
+        };
+      }));
+
+      res.json({
+        hobby: aiPlan.hobby || hobby,
+        title: aiPlan.title || `Learn ${hobby} in 7 Days`,
+        overview: aiPlan.overview || aiPlan.description || `Master ${hobby} with this 7-day plan`,
+        difficulty: aiPlan.difficulty || experience,
+        totalDays: 7,
+        days
+      });
+    } catch (e: any) {
+      console.error('generate-plan error:', e);
+      res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e), upstream: e?.upstream || '' });
+    }
+  });
+
   const http = createServer(app);
 
   // Verify deployment routes
