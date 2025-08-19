@@ -40,12 +40,15 @@ Return ONLY a JSON object with this exact structure:
     }
   ]
 }`;
+  const vercelUrl = process.env.VERCEL_URL || '';
+  const refererUrl = process.env.WEB_ORIGIN || process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : 'https://wizqo.com');
   const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${key}`,
-      'HTTP-Referer': process.env.VERCEL_URL || 'https://wizqo.com',
+      // OpenRouter recommends providing your site URL via Referer
+      'HTTP-Referer': refererUrl,
       'X-Title': 'Wizqo Hobby Learning Platform'
     },
     body: JSON.stringify({
@@ -58,7 +61,9 @@ Return ONLY a JSON object with this exact structure:
   if (!resp.ok) {
     const text = await resp.text().catch(() => '');
     console.error('OpenRouter error status:', resp.status, text?.slice(0, 200));
-    throw new Error(`openrouter_${resp.status}`);
+    const err = new Error(`openrouter_${resp.status}`);
+    ;(err as any).upstream = text?.slice(0, 500) || '';
+    throw err;
   }
   const data = await resp.json();
   let content = data?.choices?.[0]?.message?.content || '';
@@ -169,7 +174,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (e: any) {
       console.error('generate-plan error:', e);
-      res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e) });
+      res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e), upstream: e?.upstream || '' });
     }
   });
 
@@ -267,7 +272,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!resp.ok) {
         const text = await resp.text().catch(() => '');
         console.error('OpenRouter chat error:', resp.status, text.slice(0, 200));
-        return res.status(502).json({ error: 'chat_upstream_error' });
+        return res.status(502).json({ error: 'chat_upstream_error', detail: text.slice(0, 500) });
       }
       const data = await resp.json();
       const reply = data?.choices?.[0]?.message?.content?.trim() || "I'm here to help. What would you like to know about your hobby?";
