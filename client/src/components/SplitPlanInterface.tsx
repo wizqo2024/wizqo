@@ -184,6 +184,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       };
       try {
         setChatStep('generating');
+        setMessages(prev => [
+          ...prev,
+          { id: Date.now().toString(), sender: 'ai', content: "Creating your personalized 7-day plan...", timestamp: new Date() }
+        ]);
         const plan = await onGeneratePlan(selectedHobby, finalAnswers);
         setPlanData(plan);
         setShowSuggestions(false);
@@ -248,12 +252,22 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
               </div>
             ))}
+            {chatStep === 'generating' && (
+              <div className="flex justify-start">
+                <div className="max-w-[85%] rounded-lg px-3 py-2 bg-white text-gray-900 border border-gray-200">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-400 border-t-transparent" />
+                    <span>Creating your personalized learning plan...</span>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
           <div className="p-3 md:p-4 border-t border-gray-200 bg-gray-50 shrink-0">
             <div className="flex space-x-2">
-              <Input ref={inputRef} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} placeholder="Ask me anything..." onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10" />
-              <Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10">
+              <Input ref={inputRef} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} placeholder="Ask me anything..." onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 text-xs md:text-sm h-8 md:h-10" disabled={chatStep === 'generating'} />
+              <Button onClick={handleSendMessage} size="sm" className="px-2 md:px-3 h-8 md:h-10" disabled={chatStep === 'generating'}>
                 <Send className="w-3 h-3 md:w-4 md:h-4" />
               </Button>
             </div>
