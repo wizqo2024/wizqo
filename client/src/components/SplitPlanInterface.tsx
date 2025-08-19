@@ -1147,7 +1147,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         </div>
 
         {/* Right Side - Plan Display */}
-        <div className="w-1/2 lg:w-3/5 overflow-y-auto h-full bg-gray-50">
+        <div className="w-1/2 lg:w-3/5 overflow-y-auto h-full bg-gray-50 relative">
+          {isGenerating && !planData && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-50/80 z-10">
+              <div className="w-full max-w-xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Creating your personalized plan…</h3>
+                <p className="text-sm text-gray-600">This takes a few seconds while we analyze and assemble your 7-day curriculum.</p>
+              </div>
+            </div>
+          )}
           {planData && planData.days ? (
             <div className="p-6">
               {/* Header */}
