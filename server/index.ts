@@ -218,6 +218,56 @@ Return ONLY a JSON object with this exact structure:
     }
   });
 
+  // ===== API: user plans (Supabase) =====
+  app.get('/api/hobby-plans', async (req: Request, res: Response) => {
+    try {
+      const userId = String(req.query.user_id || '').trim();
+      if (!userId || !supabase) return res.json([]);
+      const { data, error } = await supabase
+        .from('hobby_plans')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) return res.json([]);
+      res.json(data || []);
+    } catch {
+      res.json([]);
+    }
+  });
+
+  app.post('/api/hobby-plans', async (req: Request, res: Response) => {
+    try {
+      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      const { user_id, hobby, title, overview, plan_data } = req.body || {};
+      const { data, error } = await supabase
+        .from('hobby_plans')
+        .insert({ user_id, hobby, title, overview, plan_data })
+        .select()
+        .single();
+      if (error) return res.status(500).json({ error: 'save_failed' });
+      res.json(data);
+    } catch (e) {
+      res.status(500).json({ error: 'save_failed' });
+    }
+  });
+
+  // ===== API: user progress (read-only) =====
+  app.get('/api/user-progress/:userId', async (req: Request, res: Response) => {
+    try {
+      const userId = String(req.params.userId || '').trim();
+      if (!userId || !supabase) return res.json([]);
+      const { data, error } = await supabase
+        .from('user_progress')
+        .select('*')
+        .eq('user_id', userId)
+        .order('updated_at', { ascending: false });
+      if (error) return res.json([]);
+      res.json(data || []);
+    } catch {
+      res.json([]);
+    }
+  });
+
   const http = createServer(app);
 
   // Verify deployment routes
