@@ -14,9 +14,7 @@
       "use": "@vercel/node@3.0.0",
       "config": {
         "bundle": true,
-        "includeFiles": [
-          "shared/**"
-        ]
+        "includeFiles": "server/**,shared/**"
       }
     }
   ],
@@ -24,14 +22,7 @@
     { "source": "/api/(.*)", "destination": "/server/index.ts" },
     { "source": "/((?!assets/).*)", "destination": "/index.html" }
   ],
-  "functions": {
-    "server/index.ts": {
-      "runtime": "nodejs22.x",
-      "includeFiles": ["server/**", "shared/**"],
-      "memory": 1024,
-      "maxDuration": 30
-    }
-  },
+  
   "headers": [
     {
       "source": "/assets/(.*)\\.js",
