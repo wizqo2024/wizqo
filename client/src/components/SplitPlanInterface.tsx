@@ -1169,6 +1169,43 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
         {/* Right Side - Plan Display */}
         <div className="w-1/2 lg:w-3/5 overflow-y-auto h-full bg-gray-50">
+          {isGenerating && !planData && (
+            <div className="h-full flex items-center justify-center p-8">
+              <div className="w-full max-w-xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm p-8 text-center">
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Creating your personalized plan…</h3>
+                <p className="text-sm text-gray-600 mb-6">This usually takes a few seconds while we analyze your answers and assemble the best 7-day curriculum.</p>
+                <div className="grid grid-cols-3 gap-3 text-left">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    <div className="w-24 h-3 bg-gray-200 rounded mb-2"></div>
+                    <div className="space-y-1">
+                      <div className="h-2.5 bg-gray-200 rounded"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-5/6"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    <div className="w-24 h-3 bg-gray-200 rounded mb-2"></div>
+                    <div className="space-y-1">
+                      <div className="h-2.5 bg-gray-200 rounded"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-5/6"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    <div className="w-24 h-3 bg-gray-200 rounded mb-2"></div>
+                    <div className="space-y-1">
+                      <div className="h-2.5 bg-gray-200 rounded"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-5/6"></div>
+                      <div className="h-2.5 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           {planData && planData.days ? (
             <div className="p-6">
               {/* Header */}
