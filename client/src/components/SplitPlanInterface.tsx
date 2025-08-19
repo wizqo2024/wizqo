@@ -574,9 +574,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     // Component initialization logging can be removed in production
   }, []);
 
-  // Enhanced hobby validation and processing
+  // Enhanced hobby validation and processing with safety checks
   const validateAndProcessHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
-    const hobbies = ['painting', 'drawing', 'coding', 'programming', 'guitar', 'music', 'photography', 'cooking', 'baking', 'yoga', 'reading', 'writing', 'journaling', 'gardening', 'crafting'];
+    const lowered = input.toLowerCase().trim();
+    if (lowered.length < 3) {
+      return { isValid: false, suggestions: ['🎨 Arts (painting, drawing)', '🎮 Games', '🏃 Outdoor Activities'] };
+    }
+
+    // Block unsafe/inappropriate topics
+    const blockedTerms = [
+      'sex','sexual','porn','pornography','nsfw','nude','erotic','fetish','escort','prostitution','incest','rape','blowjob','anal','hentai',
+      'drug','cocaine','heroin','meth','steroid','mdma','lsd','psychedelic','weed','marijuana',
+      'suicide','self-harm','kill','murder','bomb','weapon','firearm','gun','explosive',
+      'dox','doxx','credit card','ssn','social security','hack','crack','piracy'
+    ];
+    if (blockedTerms.some(term => lowered.includes(term))) {
+      return { isValid: false, suggestions: ['🎨 Arts (painting, drawing)', '📸 Photography', '🎸 Guitar', '🍳 Cooking'] };
+    }
+
+    const hobbies = [
+      'photography','guitar','cooking','drawing','yoga','gardening','coding','painting','piano','singing','running','cycling','swimming','hiking','camping','fishing','chess','writing','reading','baking','knitting','crochet','sewing','calligraphy','origami','woodworking','pottery','scrapbooking','makeup','skincare','videography','blogging','podcasting','public speaking','martial arts','boxing','dance','badminton','tennis','table tennis','basketball','soccer','cricket','golf','archery','rock climbing','skateboarding','snowboarding','surfing','sailing','birdwatching','astronomy','robotics','electronics','3d printing','graphic design','speedcubing'
+    ];
     const synonymMap: Record<string, string> = {
       'sketching': 'drawing',
       'art': 'drawing', 
@@ -597,7 +615,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       'storytelling': 'writing'
     };
 
-    const words = input.toLowerCase().split(/[\s,&]+/).filter(w => w.length > 2);
+    const words = lowered.split(/[\s,&]+/).filter(w => w.length > 2);
     const detectedHobbies: string[] = [];
     
     words.forEach(word => {
@@ -609,8 +627,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     });
 
     // Check for vague inputs
-    const vagueTerms = ['fun', 'interesting', 'creative', 'cool', 'nice', 'good'];
-    if (vagueTerms.some(term => input.toLowerCase().includes(term))) {
+    const vagueTerms = ['fun', 'interesting', 'creative', 'cool', 'nice', 'good', 'anything', 'whatever'];
+    if (vagueTerms.some(term => lowered.includes(term))) {
       return {
         isValid: false,
         suggestions: ['🎨 Arts (painting, drawing)', '🎮 Games', '🏃 Outdoor Activities']
@@ -896,23 +914,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           
           addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions);
         } else {
-          // Accept any reasonable hobby input and let backend validate - process directly
-          const reasonablePattern = /^[a-zA-Z\s-]{2,30}$/;
-          if (reasonablePattern.test(userInput)) {
-            const hobby = userInput.toLowerCase();
-            setSelectedHobby(hobby);
-            setCurrentStep('experience');
-            
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-            
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
-          } else {
-            addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
-          }
+          addAIMessage("I didn't quite catch that hobby. Try a popular one like 'guitar', 'cooking', 'drawing', 'photography', or tap Surprise Me! 🎲");
         }
       }
     } else {
