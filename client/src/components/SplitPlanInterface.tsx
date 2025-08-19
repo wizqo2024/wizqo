@@ -911,9 +911,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
     } else {
       // General chat response for other steps
-      setTimeout(() => {
-        addAIMessage("Thanks for your message! How can I help you with your learning plan?");
-      }, 1000);
+      // If we have a generated plan, route to server chat; otherwise be generic
+      if (planData) {
+        (async () => {
+          try {
+            const resp = await fetch('/api/hobby-chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: userInput, hobby: selectedHobby || planData.hobby, plan: planData })
+            });
+            if (resp.ok) {
+              const data = await resp.json();
+              const reply = (data && data.reply) ? String(data.reply) : "I'm here to help with your hobby questions.";
+              addAIMessage(reply, undefined, 300);
+            } else {
+              addAIMessage("I'm having trouble connecting to the chat right now. Please try again in a moment.");
+            }
+          } catch {
+            addAIMessage("I'm having trouble connecting to the chat right now. Please try again in a moment.");
+          }
+        })();
+      } else {
+        setTimeout(() => {
+          addAIMessage("Thanks for your message! How can I help you with your learning plan?");
+        }, 600);
+      }
     }
   };
 
