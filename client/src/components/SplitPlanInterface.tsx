@@ -78,6 +78,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   usePlanStorage();
 
   const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
+  const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 
   const sendHobbySuggestionsMessage = () => {
     const top = hobbySuggestions.slice(0, 6);
@@ -152,7 +153,21 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const random = hobbySuggestions[Math.floor(Math.random() * hobbySuggestions.length)];
         setSelectedHobby(random);
         setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'user', content: 'Surprise Me 🎲', timestamp: new Date() }]);
-        askExperience();
+        try {
+          setChatStep('generating');
+          setMessages(prev => [
+            ...prev,
+            { id: Date.now().toString(), sender: 'ai', content: "Creating your personalized 7-day plan...", timestamp: new Date() }
+          ]);
+          const plan = await onGeneratePlan(random, defaultAnswers);
+          setPlanData(plan);
+          setShowSuggestions(false);
+        } catch (e) {
+          console.error('Failed to generate surprise plan', e);
+          setChatStep('hobby');
+        } finally {
+          setChatStep('idle');
+        }
         return;
       }
       setSelectedHobby(value);
