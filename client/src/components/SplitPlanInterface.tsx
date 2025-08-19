@@ -595,6 +595,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     const hobbies = [
       'photography','guitar','cooking','drawing','yoga','gardening','coding','painting','piano','singing','running','cycling','swimming','hiking','camping','fishing','chess','writing','reading','baking','knitting','crochet','sewing','calligraphy','origami','woodworking','pottery','scrapbooking','makeup','skincare','videography','blogging','podcasting','public speaking','martial arts','boxing','dance','badminton','tennis','table tennis','basketball','soccer','cricket','golf','archery','rock climbing','skateboarding','snowboarding','surfing','sailing','birdwatching','astronomy','robotics','electronics','3d printing','graphic design','speedcubing'
     ];
+    // Phrase detection (multi-word hobbies)
+    const phraseMap: Record<string, string> = {
+      'public speaking': 'public speaking',
+      'table tennis': 'table tennis',
+      'graphic design': 'graphic design',
+      'bird watching': 'birdwatching',
+      'quran recitation': 'quran recitation',
+      'quran reading': 'quran recitation',
+      'holy quran': 'quran recitation',
+      'bible study': 'bible study',
+      'rock climbing': 'rock climbing'
+    };
     const synonymMap: Record<string, string> = {
       'sketching': 'drawing',
       'art': 'drawing', 
@@ -612,11 +624,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       'blog': 'writing',
       'creative writing': 'writing',
       'poetry': 'writing',
-      'storytelling': 'writing'
+      'storytelling': 'writing',
+      'bird': 'birdwatching',
+      'birds': 'birdwatching',
+      'tajweed': 'quran recitation',
+      'quran': 'quran recitation',
+      'bible': 'bible study'
     };
 
     const words = lowered.split(/[\s,&]+/).filter(w => w.length > 2);
     const detectedHobbies: string[] = [];
+    
+    // Phrase-based detection first
+    Object.keys(phraseMap).forEach(phrase => {
+      if (lowered.includes(phrase)) {
+        detectedHobbies.push(phraseMap[phrase]);
+      }
+    });
     
     words.forEach(word => {
       if (hobbies.includes(word)) {
@@ -901,7 +925,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             description: `Focus on ${h} first`
           }));
           
-          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
+          addAIMessage(`I found multiple hobbies in your message. Please choose one to start with:`, hobbyOptions);
         }
       } else {
         // Invalid hobby or suggestions needed
