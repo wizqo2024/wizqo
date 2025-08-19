@@ -907,10 +907,30 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }
       }
     } else {
-      // General chat response for other steps
-      setTimeout(() => {
+      // After plan is generated or during any other step, use server AI chat if possible
+      const hobby = selectedHobby || planData?.hobby || '';
+      if (hobby || planData) {
+        (async () => {
+          try {
+            const resp = await fetch('/api/hobby-chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: userInput, hobby, plan: planData || undefined })
+            });
+            if (resp.ok) {
+              const data = await resp.json();
+              const reply = (data && data.reply) ? String(data.reply) : "I'm here to help with your hobby questions.";
+              addAIMessage(reply, undefined, 300);
+            } else {
+              addAIMessage("I'm having trouble connecting right now. Please try again.");
+            }
+          } catch {
+            addAIMessage("I'm having trouble connecting right now. Please try again.");
+          }
+        })();
+      } else {
         addAIMessage("Thanks for your message! How can I help you with your learning plan?");
-      }, 1000);
+      }
     }
   };
 
