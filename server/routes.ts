@@ -128,19 +128,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
 
       if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
-      if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
-
-      const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
-      if (!aiPlan?.days || !Array.isArray(aiPlan.days)) return res.status(502).json({ error: 'bad_ai_response' });
+      // If AI key is missing, return a deterministic fallback plan so the app keeps working
+      const useFallback = !process.env.OPENROUTER_API_KEY;
+      let aiPlan: any;
+      if (useFallback) {
+        console.warn('⚠️ OPENROUTER_API_KEY missing. Using fallback plan generator.');
+        aiPlan = {
+          hobby,
+          title: `Learn ${hobby} in 7 Days`,
+          overview: `A practical, step-by-step 7-day introduction to ${hobby} tailored for a ${experience} with ${timeAvailable} per day to achieve: ${goal}.`,
+          difficulty: experience,
+          totalDays: 7,
+          days: Array.from({ length: 7 }, (_v, i) => {
+            const day = i + 1;
+            return {
+              day,
+              title: `${hobby} Day ${day}`,
+              mainTask: `Core ${hobby} practice for day ${day}`,
+              explanation: `Focus on foundational skills in ${hobby}. This is day ${day} of your journey.`,
+              howTo: [
+                `Warm up for ${Math.max(5, 10 - i)} minutes`,
+                `Study a focused concept for ${Math.max(10, 20 - i)} minutes`,
+                `Practice with one small project or exercise`,
+                `Review what you learned and note questions`,
+                `Plan tomorrow's focus`
+              ],
+              checklist: [
+                'Complete the warm-up',
+                'Finish the focused study',
+                'Do the practice exercise',
+                'Write down 1–2 insights',
+                'Set a goal for tomorrow'
+              ],
+              tips: [
+                'Keep sessions short and consistent',
+                'Embrace mistakes; they are part of learning',
+                'Reflect after each session'
+              ],
+              mistakesToAvoid: [
+                'Rushing through steps',
+                'Skipping deliberate practice',
+                'Comparing progress to others'
+              ],
+              estimatedTime: timeAvailable,
+              skillLevel: experience,
+              youtubeVideoId: null,
+              videoTitle: 'Video not available',
+              freeResources: [],
+              affiliateProducts: []
+            };
+          })
+        };
+      } else {
+        aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
+        if (!aiPlan?.days || !Array.isArray(aiPlan.days)) return res.status(502).json({ error: 'bad_ai_response' });
+      }
 
       const days = await Promise.all(Array.from({ length: 7 }, async (_, i) => {
         const d = aiPlan.days?.[i] || {} as any;
         const dayNum = i + 1;
         const title = (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`;
-        let video = await getYouTubeVideo(hobby, dayNum, title);
-        if (!video) {
-          // try OpenRouter to suggest a video id/title
-          video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
+        let video = null as { id: string, title: string } | null;
+        if (!useFallback) {
+          video = await getYouTubeVideo(hobby, dayNum, title);
+          if (!video) {
+            // try OpenRouter to suggest a video id/title
+            video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
+          }
         }
         return {
           day: dayNum,
