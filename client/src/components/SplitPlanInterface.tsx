@@ -165,6 +165,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isProcessingChoiceRef = useRef(false);
   const { savePlan, saving } = usePlanStorage();
   const { user } = useAuth();
 
@@ -694,6 +695,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         setIsTyping(false);
         // Allow next choice after AI has rendered options
         setIsProcessingChoice(false);
+        isProcessingChoiceRef.current = false;
       }, delay);
     }, 300);
   };
@@ -765,8 +767,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
-    if (isProcessingChoice) return;
+    if (isProcessingChoice || isProcessingChoiceRef.current) return;
     setIsProcessingChoice(true);
+    isProcessingChoiceRef.current = true;
     if (value === 'surprise') {
       await handleSurpriseMe();
       return;
@@ -888,6 +891,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       } finally {
         setIsGenerating(false);
         setIsProcessingChoice(false);
+        isProcessingChoiceRef.current = false;
       }
     }
   };
