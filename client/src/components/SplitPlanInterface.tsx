@@ -77,7 +77,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const { user } = useAuth();
   usePlanStorage();
 
-  const hobbySuggestions = ['guitar', 'cooking', 'drawing', 'yoga', 'photography', 'dance', 'coding', 'gardening', 'piano', 'singing', 'painting'];
+  const hobbySuggestions = [
+    'guitar','piano','violin','drums','singing','photography','videography','drawing','painting','sketching',
+    'calligraphy','graphic design','coding','web development','app development','robotics','electronics',
+    'arduino','3d printing','cooking','baking','barista','mixology','gardening','indoor plants','bonsai',
+    'yoga','meditation','pilates','running','cycling','swimming','hiking','rock climbing','martial arts',
+    'boxing','dance','salsa','hip hop','ballroom','chess','board games','poker','magic tricks','origami',
+    'woodworking','metalworking','leathercraft','knitting','crocheting','sewing','embroidery','jewelry making',
+    'birdwatching','astrophotography','stargazing','poetry','creative writing','blogging','podcasting','public speaking',
+    'improv','standup comedy','language learning','callisthenics','weightlifting','caligraphy','watercolor','digital art'
+  ];
   const defaultAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 
   const sendHobbySuggestionsMessage = () => {
