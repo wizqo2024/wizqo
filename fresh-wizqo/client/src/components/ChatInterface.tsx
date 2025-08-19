@@ -16,6 +16,7 @@ interface ChatMessage {
   options?: { value: string; label: string; description?: string }[];
   isTyping?: boolean;
   timestamp: Date;
+  step?: 'hobby' | 'experience' | 'time' | 'goal';
 }
 
 interface ChatInterfaceProps {
@@ -104,24 +105,18 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     'gardenin': 'gardening'
   };
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Hobby validation functions
   const validateHobby = (input: string): { isValid: boolean; suggestion?: string; needsClarification?: boolean; options?: any[] } => {
     const cleanInput = input.toLowerCase().trim();
-    
-    // Empty or too short
     if (!cleanInput || cleanInput.length < 2) {
       return { 
         isValid: false, 
         suggestion: "Let's try a specific hobby (like painting, gardening, coding) to get started!" 
       };
     }
-    
-    // Check for vague inputs
     const vagueTerms = ['fun', 'cool', 'interesting', 'good', 'nice', 'creative', 'physical'];
     if (vagueTerms.includes(cleanInput)) {
       return {
@@ -136,8 +131,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         ]
       };
     }
-    
-    // Check for typos
     if (commonTypos[cleanInput]) {
       return {
         isValid: false,
@@ -148,13 +141,9 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         ]
       };
     }
-    
-    // Check for synonyms
     if (hobbySynonyms[cleanInput]) {
       return { isValid: true, suggestion: hobbySynonyms[cleanInput] };
     }
-    
-    // Check for multiple hobbies
     const words = cleanInput.split(/\s+|,|and|&/);
     const foundHobbies = words.filter(word => {
       const normalizedWord = word.trim().toLowerCase();
@@ -162,7 +151,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
              hobbySynonyms[normalizedWord] ||
              hobbyOptions.some(h => h.value === normalizedWord);
     });
-    
     if (foundHobbies.length > 1) {
       return {
         isValid: false,
@@ -177,20 +165,14 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         ]
       };
     }
-    
-    // Check if it's a recognized hobby
     const allHobbies = Object.values(categorizedHobbies).flat();
     if (allHobbies.includes(cleanInput) || hobbyOptions.some(h => h.value === cleanInput)) {
       return { isValid: true, suggestion: cleanInput };
     }
-    
-    // For any reasonable hobby input, let the backend validate it
     const reasonableHobbyPattern = /^[a-zA-Z\s-]{2,30}$/;
     if (reasonableHobbyPattern.test(cleanInput)) {
       return { isValid: true, suggestion: cleanInput };
     }
-    
-    // If not recognized, show fallback options
     return {
       isValid: false,
       suggestion: "I'm not familiar with that hobby yet. Here are some popular categories to choose from:",
@@ -200,7 +182,7 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         { value: 'nature', label: '🌿 Nature', description: 'Gardening, hiking, camping' },
         { value: 'diy', label: '🔧 DIY', description: 'Crafting, woodworking, building' },
         { value: 'surprise', label: '🎲 Surprise Me!', description: 'Random hobby plan' },
-        { value: 'custom', label: '✏️ Try "' + cleanInput + '" anyway' }
+        { value: 'custom', label: '✏️ Try ' + cleanInput + ' anyway' }
       ]
     };
   };
@@ -228,16 +210,15 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     }));
   };
 
-  // Initialize conversation on mount
   useEffect(() => {
     const welcomeMessage: ChatMessage = {
       id: '1',
       sender: 'ai',
       content: "Hey there! 👋 I'm your personal learning assistant. I'm here to help you master any hobby in just 7 days with a personalized plan made just for you.\n\nWhat hobby would you like to learn?",
       options: hobbyOptions,
-      timestamp: new Date()
+      timestamp: new Date(),
+      step: 'hobby'
     };
-    
     setTimeout(() => {
       setMessages([welcomeMessage]);
     }, 500);
@@ -253,37 +234,40 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     setMessages(prev => [...prev, userMessage]);
   };
 
-  const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[]) => {
+  const addAIMessage = (
+    content: string,
+    options?: { value: string; label: string; description?: string }[],
+    stepForOptions?: 'hobby' | 'experience' | 'time' | 'goal'
+  ) => {
     setIsTyping(true);
-    
     setTimeout(() => {
       const aiMessage: ChatMessage = {
         id: Date.now().toString(),
         sender: 'ai',
         content,
         options,
-        timestamp: new Date()
+        timestamp: new Date(),
+        step: stepForOptions
       };
       setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    }, 1000 + Math.random() * 1000);
   };
 
   const handleHobbySelect = (hobby: string) => {
     const selectedOption = hobbyOptions.find(h => h.value === hobby);
     const finalHobby = hobby === 'surprise' ? getRandomHobby() : hobby;
-    
     addUserMessage(selectedOption?.label || hobby);
     setSelectedHobby(finalHobby);
     setCurrentStep('experience');
-    
     addAIMessage(
       `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
       [
         { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-      ]
+      ],
+      'experience'
     );
   };
 
@@ -298,18 +282,17 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
       'some': 'Some Experience', 
       'intermediate': 'Intermediate'
     };
-    
     addUserMessage(experienceLabels[experience as keyof typeof experienceLabels]);
     setQuizAnswers(prev => ({ ...prev, experience }));
     setCurrentStep('time');
-    
     addAIMessage(
       `Perfect! I'll design the plan for your ${experience} level. ⏰\n\nHow much time can you dedicate to learning each day? Be honest - consistency is more important than duration!`,
       [
         { value: '15-30 minutes', label: '15-30 minutes', description: 'Quick daily sessions' },
         { value: '30-60 minutes', label: '30-60 minutes', description: 'Regular practice time' },
         { value: '60+ minutes', label: '1+ hours', description: 'Deep learning sessions' }
-      ]
+      ],
+      'time'
     );
   };
 
@@ -317,7 +300,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     addUserMessage(timeAvailable);
     setQuizAnswers(prev => ({ ...prev, timeAvailable }));
     setCurrentStep('goal');
-    
     addAIMessage(
       `Great! ${timeAvailable} per day is perfect for building real momentum. 🎯\n\nFinally, what's your main goal? This helps me focus your plan on what matters most to you.`,
       [
@@ -325,7 +307,8 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         { value: 'create something', label: 'Create Something', description: 'Make my first project' },
         { value: 'improve skills', label: 'Improve Skills', description: 'Get better at what I know' },
         { value: 'explore and have fun', label: 'Explore & Have Fun', description: 'Discover if I like it' }
-      ]
+      ],
+      'goal'
     );
   };
 
@@ -336,15 +319,11 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
       'improve skills': 'Improve Skills',
       'explore and have fun': 'Explore & Have Fun'
     };
-    
     addUserMessage(goalLabels[goal as keyof typeof goalLabels]);
     setQuizAnswers(prev => ({ ...prev, goal }));
     setCurrentStep('generating');
-    
     addAIMessage("Perfect! I have everything I need. 🚀\n\nI'm now creating your personalized 7-day learning plan. This will take about 10-15 seconds...");
-    
     setIsGenerating(true);
-    
     try {
       const plan = await onGeneratePlan(selectedHobby, { ...quizAnswers, goal } as QuizAnswers);
       onPlanGenerated(plan);
@@ -359,54 +338,53 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
 
   const handleTextInput = () => {
     if (!currentInput.trim()) return;
-    
     if (currentStep === 'hobby') {
       const validation = validateHobby(currentInput);
-      
       if (validation.isValid) {
         const finalHobby = validation.suggestion || currentInput.toLowerCase().trim();
         addUserMessage(currentInput);
         setSelectedHobby(finalHobby);
         setCurrentStep('experience');
-        
         addAIMessage(
           `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
           [
             { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
             { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
             { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-          ]
+          ],
+          'experience'
         );
       } else {
         addUserMessage(currentInput);
-        addAIMessage(validation.suggestion!, validation.options);
+        addAIMessage(validation.suggestion!, validation.options, 'hobby');
       }
     }
-    
     setCurrentInput('');
   };
 
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value: string, optionStep?: 'hobby' | 'experience' | 'time' | 'goal') => {
+    if (optionStep && optionStep !== currentStep) {
+      return;
+    }
     switch (currentStep) {
       case 'hobby':
         if (value === 'different') {
-          // Show original hobby options again
           addAIMessage(
             "No problem! Here are some popular hobbies to choose from:",
-            hobbyOptions
+            hobbyOptions,
+            'hobby'
           );
         } else if (value === 'arts' || value === 'games' || value === 'nature' || value === 'diy') {
-          // Show category-specific hobbies
           const categoryHobbies = getCategoryHobbies(value);
           addAIMessage(
             `Great choice! Here are some popular ${value} hobbies you can learn:`,
             [
               ...categoryHobbies,
               { value: 'surprise', label: '🎲 Surprise Me!', description: 'Random hobby plan' }
-            ]
+            ],
+            'hobby'
           );
         } else if (value.startsWith('custom:') || value === 'custom') {
-          // Handle custom hobby
           const customHobby = value === 'custom' ? currentInput : value.replace('custom:', '');
           handleHobbySelect(customHobby);
         } else {
@@ -414,33 +392,40 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         }
         break;
       case 'experience':
-        handleExperienceSelect(value);
+        if (['beginner', 'some', 'intermediate'].includes(value)) {
+          handleExperienceSelect(value);
+        }
         break;
       case 'time':
-        handleTimeSelect(value);
+        if (['15-30 minutes', '30-60 minutes', '60+ minutes'].includes(value)) {
+          handleTimeSelect(value);
+        }
         break;
       case 'goal':
-        handleGoalSelect(value);
+        if ([
+          'learn basics',
+          'create something',
+          'improve skills',
+          'explore and have fun'
+        ].includes(value)) {
+          handleGoalSelect(value);
+        }
         break;
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Unified Navigation */}
       <UnifiedNavigation 
         showBackButton={true} 
         onBackClick={onNavigateBack}
         currentPage="generate" 
       />
-      {/* Chat Container */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-4rem)] flex flex-col text-[12px]">
-        {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto space-y-6 mb-6">
           {messages.map((message, index) => (
             <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`flex items-start space-x-3 max-w-3xl ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                {/* Avatar */}
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                   message.sender === 'ai' 
                     ? 'bg-gradient-to-br from-purple-500 to-pink-500' 
@@ -450,8 +435,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
                     {message.sender === 'ai' ? '🤖' : '👤'}
                   </span>
                 </div>
-
-                {/* Message Content */}
                 <div className={`rounded-2xl p-4 ${
                   message.sender === 'ai'
                     ? 'bg-white/10 backdrop-blur-sm border border-white/20 text-white'
@@ -460,15 +443,14 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
                   <p className="whitespace-pre-line text-base leading-relaxed">
                     {message.content}
                   </p>
-
-                  {/* Options */}
                   {message.options && (
                     <div className="mt-4 space-y-2">
                       {message.options.map((option) => (
                         <Button
                           key={option.value}
-                          onClick={() => handleOptionSelect(option.value)}
-                          className="w-full justify-start text-left bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl p-4 h-auto"
+                          onClick={() => handleOptionSelect(option.value, message.step)}
+                          disabled={message.step !== currentStep || isTyping || isGenerating}
+                          className="w-full justify-start text left bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl p-4 h-auto"
                         >
                           <div>
                             <div className="font-medium text-base">{option.label}</div>
@@ -476,7 +458,7 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
                               <div className="text-sm text-white/70 mt-1">{option.description}</div>
                             )}
                           </div>
-                        </Button>
+                        </Button)
                       ))}
                     </div>
                   )}
@@ -484,8 +466,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
               </div>
             </div>
           ))}
-
-          {/* Typing Indicator */}
           {isTyping && (
             <div className="flex justify-start">
               <div className="flex items-start space-x-3 max-w-3xl">
@@ -502,8 +482,6 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
               </div>
             </div>
           )}
-
-          {/* Generating Indicator */}
           {isGenerating && (
             <div className="flex justify-start">
               <div className="flex items-start space-x-3 max-w-3xl">
@@ -516,11 +494,8 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
               </div>
             </div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
-
-        {/* Input Area */}
         {currentStep === 'hobby' && (
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
             <div className="flex space-x-3">
