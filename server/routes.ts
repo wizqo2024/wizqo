@@ -193,6 +193,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (e) { res.status(500).json({ error: 'save_failed' }); }
   });
 
+  // Simple input moderation for hobby chat
+  function isUnsafeQuery(text: string): { unsafe: boolean; category?: string } {
+    const lowered = text.toLowerCase();
+    const banned = [
+      'sex', 'sexual', 'porn', 'pornography', 'nsfw', 'nude', 'erotic', 'hentai', 'fetish', 'escort', 'prostitution',
+      'blowjob', 'anal', 'rape', 'incest', 'child', 'minor', 'cp',
+      'drug', 'cocaine', 'heroin', 'meth', 'marijuana', 'weed', 'steroid', 'mdma', 'lsd', 'psychedelic',
+      'suicide', 'self-harm', 'bomb', 'weapon', 'firearm', 'gun', 'explosive', 'kill', 'murder',
+      'dox', 'doxx', 'credit card', 'ssn', 'social security', 'hack', 'crack', 'piracy'
+    ];
+    for (const term of banned) {
+      if (lowered.includes(term)) return { unsafe: true, category: term };
+    }
+    return { unsafe: false };
+  }
+
+  // Hobby Q&A chat endpoint with safety guardrails
+  app.post('/api/hobby-chat', async (req, res) => {
+    try {
+      const message = String(req.body?.message || '').trim();
+      const hobby = String(req.body?.hobby || '').trim();
+      const plan = req.body?.plan || null;
+      if (!message) return res.status(400).json({ error: 'missing_message' });
+
+      const moderation = isUnsafeQuery(message);
+      if (moderation.unsafe) {
+        return res.json({
+          reply: "I can't assist with adult, illegal, violent, or harmful topics. Please ask hobby-related learning questions (e.g., practice tips, techniques, resources)."
+        });
+      }
+
+      if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+      const system = [
+        'You are Wizqo, a friendly expert hobby coach.',
+        'Strict safety: refuse adult/sexual content, illegal drugs, violence, self-harm, doxxing, crime, hacking, or dangerous instructions.',
+        'Keep answers PG-13. Redirect to safe, constructive hobby learning advice.',
+        'Be concise, practical, and encouraging. If user asks risky activities (e.g., BASE jumping), stress safety, training, and certified guidance.',
+        hobby ? `User hobby context: ${hobby}` : ''
+      ].filter(Boolean).join('\n');
+
+      let planSummary = '';
+      try {
+        if (plan && typeof plan === 'object' && Array.isArray(plan.days)) {
+          const title = plan.title || '';
+          const total = plan.totalDays || plan.days.length;
+          const day1 = plan.days[0]?.title || '';
+          const dayN = plan.days[Math.min(6, plan.days.length - 1)]?.title || '';
+          planSummary = `Plan: ${title} | Days: ${total} | Sample: Day1: ${day1} ... Day${Math.min(7, plan.days.length)}: ${dayN}`;
+        }
+      } catch {}
+
+      const key = process.env.OPENROUTER_API_KEY as string;
+      const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`,
+          'HTTP-Referer': process.env.VERCEL_URL || 'https://wizqo.com',
+          'X-Title': 'Wizqo Hobby Learning Platform'
+        },
+        body: JSON.stringify({
+          model: 'deepseek/deepseek-chat',
+          messages: [
+            { role: 'system', content: system + (planSummary ? `\n${planSummary}` : '') },
+            { role: 'user', content: message }
+          ],
+          max_tokens: 800,
+          temperature: 0.5
+        })
+      });
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '');
+        console.error('OpenRouter chat error:', resp.status, text.slice(0, 200));
+        return res.status(502).json({ error: 'chat_upstream_error' });
+      }
+      const data = await resp.json();
+      const reply = data?.choices?.[0]?.message?.content?.trim() || "I'm here to help. What would you like to know about your hobby?";
+      res.json({ reply });
+    } catch (e) {
+      console.error('hobby-chat error:', e);
+      res.status(500).json({ error: 'failed_hobby_chat' });
+    }
+  });
+
   app.delete('/api/hobby-plans/:id', async (req, res) => {
     try {
       if (!supabase) return res.json({ success: true });
