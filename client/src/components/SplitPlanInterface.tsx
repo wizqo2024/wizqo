@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { UnifiedNavigation } from './UnifiedNavigation';
-import { Send } from 'lucide-react';
+import { Clock, Send } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
 import { useAuth } from '@/hooks/useAuth';
@@ -261,6 +262,30 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         <div className="w-full md:flex-1 overflow-y-auto bg-gray-50 md:h-full">
           {planData && !showSuggestions ? (
             <div className="p-4 lg:p-6">
+              <div className="mb-6 flex items-start justify-between gap-3">
+                <div>
+                  <h1 className="text-lg lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
+                  <div className="flex items-center space-x-2 lg:space-x-4 mt-2">
+                    <span className="inline-flex items-center px-2 lg:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      {planData.difficulty}
+                    </span>
+                    <span className="text-xs lg:text-sm text-gray-600 flex items-center">
+                      <Clock className="w-3 h-3 lg:w-4 lg:h-4 mr-1" />
+                      {planData.totalDays} days
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <Button onClick={handleStartNewPlan} variant="default">Start New Plan</Button>
+                </div>
+              </div>
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">Progress</span>
+                  <span className="text-sm text-gray-600">0/{planData.totalDays} days completed</span>
+                </div>
+                <Progress value={0} className="h-2" />
+              </div>
               <PlanDisplayOld planData={planData} onNavigateBack={onNavigateBack} />
             </div>
           ) : (
