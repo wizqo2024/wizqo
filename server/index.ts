@@ -93,6 +93,63 @@ app.post('/api/user-profile', async (req, res) => {
       .single();
     if (!insertWithUserId.error && insertWithUserId.data) return res.json(insertWithUserId.data);
 
+    // 5) Final fallback: call Supabase REST API directly (service role)
+    try {
+      if (supabaseUrl && supabaseServiceRoleKey) {
+        const baseHeaders: any = {
+          'apikey': supabaseServiceRoleKey,
+          'Authorization': `Bearer ${supabaseServiceRoleKey}`,
+          'Content-Type': 'application/json'
+        };
+
+        // Check existing by id or user_id
+        let existing: any = null;
+        const checkById = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${encodeURIComponent(user_id)}&select=*`, { headers: baseHeaders });
+        if (checkById.ok) {
+          const arr = await checkById.json();
+          if (Array.isArray(arr) && arr.length > 0) existing = arr[0];
+        }
+        if (!existing) {
+          const checkByUserId = await fetch(`${supabaseUrl}/rest/v1/user_profiles?user_id=eq.${encodeURIComponent(user_id)}&select=*`, { headers: baseHeaders });
+          if (checkByUserId.ok) {
+            const arr = await checkByUserId.json();
+            if (Array.isArray(arr) && arr.length > 0) existing = arr[0];
+          }
+        }
+
+        if (existing) {
+          const patch = await fetch(`${supabaseUrl}/rest/v1/user_profiles?id=eq.${encodeURIComponent(existing.id || user_id)}&user_id=eq.${encodeURIComponent(existing.user_id || user_id)}`, {
+            method: 'PATCH',
+            headers: baseHeaders,
+            body: JSON.stringify({ email, full_name, avatar_url, last_active_at: new Date().toISOString() })
+          });
+          const body = await patch.text();
+          if (patch.ok) return res.json({ ...(existing || {}), email, full_name, avatar_url });
+          console.error('profile_upsert_rest_patch_failed', patch.status, body);
+        } else {
+          // Insert by id first
+          const ins1 = await fetch(`${supabaseUrl}/rest/v1/user_profiles`, {
+            method: 'POST', headers: { ...baseHeaders, Prefer: 'return=representation' },
+            body: JSON.stringify({ id: user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() })
+          });
+          const body1 = await ins1.text();
+          if (ins1.ok) return res.json(JSON.parse(body1)[0]);
+
+          // Insert by user_id
+          const ins2 = await fetch(`${supabaseUrl}/rest/v1/user_profiles`, {
+            method: 'POST', headers: { ...baseHeaders, Prefer: 'return=representation' },
+            body: JSON.stringify({ user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() })
+          });
+          const body2 = await ins2.text();
+          if (ins2.ok) return res.json(JSON.parse(body2)[0]);
+
+          console.error('profile_upsert_rest_insert_failed', ins1.status, body1, ins2.status, body2);
+        }
+      }
+    } catch (restErr) {
+      console.error('profile_upsert_rest_exception', restErr);
+    }
+
     console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
     return res.status(500).json({ error: 'profile_upsert_failed', details: {
       message: String(insertWithUserId.error?.message || insertWithId.error?.message || updateByUserId.error?.message || updateById.error?.message || ''),
@@ -153,6 +210,33 @@ app.post('/api/hobby-plans', async (req, res) => {
     const alt = { user_id, hobby_name: hobby_name || hobby, title, overview, plan_data } as any;
     const second = await supabaseAdmin.from('hobby_plans').insert(alt).select().single();
     if (!second.error && second.data) return res.json(second.data);
+
+    // Final fallback: REST API using service role
+    try {
+      if (supabaseUrl && supabaseServiceRoleKey) {
+        const baseHeaders: any = {
+          'apikey': supabaseServiceRoleKey,
+          'Authorization': `Bearer ${supabaseServiceRoleKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        };
+        // Attempt with hobby column
+        const r1 = await fetch(`${supabaseUrl}/rest/v1/hobby_plans`, {
+          method: 'POST', headers: baseHeaders, body: JSON.stringify(base)
+        });
+        const t1 = await r1.text();
+        if (r1.ok) return res.json(JSON.parse(t1)[0]);
+        // Attempt with hobby_name column
+        const r2 = await fetch(`${supabaseUrl}/rest/v1/hobby_plans`, {
+          method: 'POST', headers: baseHeaders, body: JSON.stringify(alt)
+        });
+        const t2 = await r2.text();
+        if (r2.ok) return res.json(JSON.parse(t2)[0]);
+        console.error('hobby_plan_rest_failed', r1.status, t1, r2.status, t2);
+      }
+    } catch (restErr) {
+      console.error('hobby_plan_rest_exception', restErr);
+    }
 
     // Include table columns for debugging
     let planColumns: string[] = [];
