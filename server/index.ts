@@ -60,7 +60,12 @@ app.use((req, res, next) => {
 (async () => {
   // Inline route registration (avoid missing module issues)
   const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  // Prefer secure server keys, but support VITE_* fallbacks when projects only set client-style env names in Vercel
+  const supabaseServiceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY;
   const supabase = (supabaseUrl && supabaseServiceKey) ? createClient(supabaseUrl, supabaseServiceKey) : null as any;
 
   app.get('/api/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -244,10 +249,14 @@ Return ONLY a JSON object with this exact structure:
         .insert({ user_id, hobby, title, overview, plan_data })
         .select()
         .single();
-      if (error) return res.status(500).json({ error: 'save_failed' });
+      if (error) {
+        const normalizedMessage = String(error.message || '').toLowerCase();
+        const status = normalizedMessage.includes('permission') || normalizedMessage.includes('rls') ? 403 : 500;
+        return res.status(status).json({ error: 'save_failed', details: error.message || error });
+      }
       res.json(data);
     } catch (e) {
-      res.status(500).json({ error: 'save_failed' });
+      res.status(500).json({ error: 'save_failed', details: String((e as any)?.message || e) });
     }
   });
 
@@ -377,7 +386,11 @@ Return ONLY a JSON object with this exact structure:
     console.log('🔑 Environment Variables Status:');
     console.log('  - NODE_ENV:', process.env.NODE_ENV || 'not set');
     console.log('  - OPENROUTER_API_KEY:', process.env.OPENROUTER_API_KEY ? `Found (${process.env.OPENROUTER_API_KEY.length} chars)` : 'Missing');
+    console.log('  - SUPABASE_URL:', process.env.SUPABASE_URL ? 'Found' : 'Missing');
+    console.log('  - SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'Found' : 'Missing');
+    console.log('  - SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY ? 'Found' : 'Missing');
     console.log('  - VITE_SUPABASE_URL:', process.env.VITE_SUPABASE_URL ? 'Found' : 'Missing');
+    console.log('  - VITE_SUPABASE_SERVICE_ROLE_KEY:', process.env.VITE_SUPABASE_SERVICE_ROLE_KEY ? 'Found' : 'Missing');
     console.log('  - VITE_SUPABASE_ANON_KEY:', process.env.VITE_SUPABASE_ANON_KEY ? 'Found' : 'Missing');
 
     // Critical API endpoint verification for production
@@ -402,8 +415,8 @@ Return ONLY a JSON object with this exact structure:
     if (!process.env.OPENROUTER_API_KEY) {
       console.log('⚠️ WARNING: OPENROUTER_API_KEY not set - AI plan generation will use fallback');
     }
-    if (!process.env.VITE_SUPABASE_URL) {
-      console.log('⚠️ WARNING: VITE_SUPABASE_URL not set - database operations may fail');
+    if (!process.env.VITE_SUPABASE_URL && !process.env.SUPABASE_URL) {
+      console.log('⚠️ WARNING: SUPABASE_URL/VITE_SUPABASE_URL not set - database operations may fail');
     }
 
     // Production deployment check
