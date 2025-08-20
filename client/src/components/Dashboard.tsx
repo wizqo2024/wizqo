@@ -11,8 +11,8 @@ import { UnifiedNavigation } from './UnifiedNavigation';
 
 // Mocking hobbyPlanService for demonstration purposes
 const hobbyPlanService = {
-  clearHobbyCache: (hobby: string, userId: string) => {
-    console.log(`Mock: Clearing cache for hobby "${hobby}" and user "${userId}"`);
+  clearHobbyCache: (hobby: string, userId: string, planId: string) => {
+    console.log(`Mock: Clearing cache for hobby "${hobby}" and user "${userId}" for plan "${planId}"`);
     // In a real scenario, this would clear specific caches related to the hobby.
     // For this fix, we are relying on more aggressive session/local storage clearing.
   }
@@ -361,7 +361,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
       console.log('✅ Plan deleted successfully from database via API:', planId);
 
       // Clear ALL caches aggressively
-      hobbyPlanService.clearHobbyCache(hobby, user?.id || '');
+      hobbyPlanService.clearHobbyCache(hobby, user?.id || '', planId);
 
       // Clear caches but preserve current plan-related data
       clearCachesPreservingPlan();
