@@ -341,41 +341,144 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
-  const validateAndProcessHobby = (input: string): { isValid: boolean; suggestions?: string[]; detectedHobbies?: string[] } => {
-    const hobbies = ['painting', 'drawing', 'coding', 'programming', 'guitar', 'music', 'photography', 'cooking', 'baking', 'yoga', 'reading', 'writing', 'journaling', 'gardening', 'crafting'];
-    const synonymMap: Record<string, string> = {
-      'sketching': 'drawing',
-      'art': 'drawing',
-      'dev': 'coding',
-      'development': 'coding',
-      'software': 'coding',
-      'instrument': 'guitar',
-      'camera': 'photography',
-      'photo': 'photography',
-      'chef': 'cooking',
-      'recipes': 'cooking',
-      'diary': 'journaling',
-      'journal': 'journaling',
-      'blogging': 'writing',
-      'blog': 'writing',
-      'creative writing': 'writing',
-      'poetry': 'writing',
-      'storytelling': 'writing'
+  const highlightHobby = (text: string, hobby: string) => {
+    return text.replace(new RegExp(`(${hobby})`, 'gi'), '**$1**');
+  };
+
+  const validateAndProcessHobby = (input: string): { isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string } => {
+    const SAFE_HOBBIES = Array.from(new Set([
+      'photography','smartphone photography','photo editing','video editing',
+      'guitar','piano','ukulele','violin','drums','harmonica','singing','music production','dj mixing','beatboxing',
+      'cooking','baking','bread baking','sourdough','coffee brewing','latte art','tea tasting',
+      'drawing','sketching','painting','watercolor','acrylic painting','oil painting','calligraphy','hand lettering','graphic design','logo design','animation','3d modeling',
+      'origami','paper crafts','pottery','ceramics','woodworking','carpentry','leathercraft','knitting','crochet','sewing','embroidery','quilting','quilling','jewelry making',
+      'candle making','soap making','resin art','gardening','indoor plants','succulents','bonsai','terrarium building',
+      'yoga','meditation','pilates','calisthenics','weight training','running','cycling','hiking','swimming','jump rope',
+      'table tennis','badminton','basketball shooting','football juggling','chess','rubiks cube','speed cubing','sudoku','crossword puzzles',
+      'blogging','journaling','creative writing','poetry','public speaking','language learning','spanish language','french language','german language','japanese language','korean language',
+      'coding','web development','app development','game development','bird watching','astronomy','stargazing','kite flying','calligraphy practice','reading'
+    ]));
+
+    const SYNONYMS: Record<string, string> = {
+      'art':'drawing', 'sketch':'sketching', 'photos':'photography','camera':'photography','photo':'photography',
+      'chef':'cooking','recipes':'cooking','cook':'cooking','dev':'coding','development':'coding','software':'coding',
+      'write':'creative writing','blog':'blogging','blogging':'blogging','speak':'public speaking',
+      'arabic':'language learning','quran':'reading','holy book':'reading','holybook':'reading'
     };
-    const words = input.toLowerCase().split(/[\s,&]+/).filter(w => w.length > 2);
-    const detectedHobbies: string[] = [];
-    words.forEach(word => {
-      if (hobbies.includes(word)) {
-        detectedHobbies.push(word);
-      } else if (synonymMap[word]) {
-        detectedHobbies.push(synonymMap[word]);
+
+    const BANNED = [
+      'sex','sexual','porn','pornography','nsfw','nude','erotic','fetish','escort','prostitution','blowjob','anal','rape','incest','hentai',
+      'drug','cocaine','heroin','meth','weed','marijuana','steroid','mdma','lsd','psychedelic','suicide','self-harm','bomb','weapon','gun','kill','murder'
+    ];
+
+    const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    const text = normalize(input);
+
+    // Safety check
+    for (const term of BANNED) {
+      if (text.includes(term)) {
+        return {
+          isValid: false,
+          unsafe: true,
+          reason: 'unsafe',
+          suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding']
+        };
       }
-    });
-    const vagueTerms = ['fun', 'interesting', 'creative', 'cool', 'nice', 'good'];
-    if (vagueTerms.some(term => input.toLowerCase().includes(term))) {
-      return { isValid: false, suggestions: ['🎨 Arts (painting, drawing)', '🎮 Games', '🏃 Outdoor Activities'] };
     }
-    return { isValid: detectedHobbies.length > 0, detectedHobbies: Array.from(new Set(detectedHobbies)) };
+
+    // Extract candidates (split by delimiters and handle multi-words)
+    const rawTokens = text.split(/[,/&]|\band\b|\bwith\b|\bfor\b/).map(t => normalize(t)).filter(Boolean);
+    const candidates: string[] = [];
+    for (const token of rawTokens) {
+      if (!token) continue;
+      // direct match
+      if (SAFE_HOBBIES.includes(token)) candidates.push(token);
+      // synonym map by words
+      const words = token.split(' ');
+      for (const w of words) {
+        if (SYNONYMS[w]) candidates.push(SYNONYMS[w]);
+      }
+      // generate bigrams/trigrams to catch multi-word hobbies
+      for (let i = 0; i < words.length; i++) {
+        for (let j = i + 1; j <= Math.min(words.length, i + 3); j++) {
+          const phrase = words.slice(i, j).join(' ');
+          if (SAFE_HOBBIES.includes(phrase)) candidates.push(phrase);
+        }
+      }
+    }
+
+    // Fuzzy match helper
+    const editDistance = (a: string, b: string) => {
+      const dp = Array.from({ length: a.length + 1 }, () => new Array(b.length + 1).fill(0));
+      for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+      for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(
+            dp[i - 1][j] + 1,
+            dp[i][j - 1] + 1,
+            dp[i - 1][j - 1] + cost
+          );
+        }
+      }
+      return dp[a.length][b.length];
+    };
+    const fuzzySuggest = (phrase: string): string | null => {
+      let best: { h: string; d: number } | null = null;
+      for (const h of SAFE_HOBBIES) {
+        const d = editDistance(phrase, h);
+        if (!best || d < best.d) best = { h, d };
+      }
+      if (best && best.d <= Math.max(1, Math.floor(best.h.length * 0.25))) return best.h;
+      return null;
+    };
+
+    // If nothing detected, try fuzzy suggestions
+    let detected = Array.from(new Set(candidates));
+    if (detected.length === 0) {
+      const words = text.split(' ');
+      const phrases = new Set<string>();
+      for (let i = 0; i < words.length; i++) {
+        for (let j = i + 1; j <= Math.min(words.length, i + 3); j++) {
+          const p = words.slice(i, j).join(' ');
+          if (p.length > 2) phrases.add(p);
+        }
+      }
+      const sug: string[] = [];
+      for (const p of phrases) {
+        const s = fuzzySuggest(p);
+        if (s && !sug.includes(s)) sug.push(s);
+        if (sug.length >= 5) break;
+      }
+      if (sug.length > 0) return { isValid: false, suggestions: sug };
+    }
+
+    // Vague input handling
+    const vagueTerms = ['fun','interesting','creative','cool','nice','good'];
+    if (vagueTerms.some(term => text.includes(term)) && detected.length === 0) {
+      return { isValid: false, suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding'] };
+    }
+
+    // Block arbitrary alphabetic strings (like "haaa", "test", etc.)
+    const isArbitraryString = (str: string) => {
+      // Check if it's just repeated characters or random letters
+      const uniqueChars = new Set(str.split(''));
+      const isRepeated = uniqueChars.size <= 2 && str.length > 3;
+      const isRandomLetters = /^[a-z]{3,}$/.test(str) && !SAFE_HOBBIES.some(hobby => 
+        hobby.includes(str) || str.includes(hobby) || editDistance(str, hobby) <= 2
+      );
+      return isRepeated || isRandomLetters;
+    };
+
+    if (detected.length === 0 && isArbitraryString(text)) {
+      return { 
+        isValid: false, 
+        suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding','reading','writing','meditation'] 
+      };
+    }
+
+    return { isValid: detected.length > 0, detectedHobbies: detected };
   };
 
   const addUserMessage = (content: string) => {
@@ -398,7 +501,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const handleSurpriseMe = async () => {
     const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
     addUserMessage("Surprise Me! 🎲");
-    addAIMessage(`Perfect! I've chosen ${randomHobby} for you. Creating your 7-day plan now... ✨`, undefined, 800);
+    addAIMessage(`Perfect! I've chosen **${randomHobby}** for you. Creating your 7-day plan now... ✨`, undefined, 800);
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
     setCurrentStep('generating');
@@ -446,7 +549,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
-      addAIMessage(`Great choice! ${value} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
+                        addAIMessage(`Great choice! **${value}** is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setAnsweredSteps(prev => new Set(prev).add('experience'));
@@ -501,13 +604,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     const userInput = currentInput.trim();
     addUserMessage(userInput);
     setCurrentInput('');
     if (currentStep === 'hobby') {
       const validation = validateAndProcessHobby(userInput);
+      if ((validation as any).unsafe) {
+        addAIMessage("I can't help with adult, illegal, or dangerous topics. Please choose a safe, family-friendly hobby like photography, guitar, cooking, drawing, yoga, gardening, or coding.");
+        return;
+      }
       if (validation.isValid && validation.detectedHobbies) {
         if (validation.detectedHobbies.length === 1) {
           const hobby = validation.detectedHobbies[0];
@@ -525,29 +632,33 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions, 1000, 'hobby');
         }
       } else {
-        if (validation.suggestions) {
-          const suggestionOptions = validation.suggestions.map(s => ({ value: s.toLowerCase().replace(/[^\w]/g, ''), label: s, description: 'Explore this category' }));
-          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions, 1000, 'hobby');
-        } else {
-          const reasonablePattern = /^[a-zA-Z\s-]{2,30}$/;
-          if (reasonablePattern.test(userInput)) {
-            const hobby = userInput.toLowerCase();
-            setSelectedHobby(hobby);
-            setAnsweredSteps(prev => new Set(prev).add('hobby'));
-            setCurrentStep('experience');
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
-          } else {
-            addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
-          }
-        }
+        const fallbackList = (validation.suggestions && validation.suggestions.length > 0)
+          ? validation.suggestions.slice(0, 8)
+          : ['photography','guitar','cooking','drawing','yoga','gardening','coding','language learning'];
+        const suggestionOptions = fallbackList.map(s => ({ value: s, label: s.charAt(0).toUpperCase() + s.slice(1), description: 'Explore this hobby' }));
+        addAIMessage("I didn't quite catch that hobby. Did you mean one of these?", suggestionOptions, 800, 'hobby');
       }
     } else {
-      setTimeout(() => { addAIMessage("Thanks for your message! How can I help you with your learning plan?"); }, 1000);
+      // Post-plan smart chat with server AI
+      try {
+        const resp = await fetch('/api/hobby-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userInput,
+            hobby: selectedHobby || planData?.hobby || '',
+            plan: planData || null
+          })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          addAIMessage(data?.reply || "I'm here to help. What would you like to know about your hobby?");
+        } else {
+          addAIMessage("I'm here to help. What would you like to know about your hobby?");
+        }
+      } catch {
+        addAIMessage("I'm here to help. What would you like to know about your hobby?");
+      }
     }
   };
 
