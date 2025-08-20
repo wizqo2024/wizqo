@@ -169,6 +169,12 @@ app.post('/api/user-progress', async (req, res) => {
     const current_day: number = Number(req.body?.current_day || 1);
     if (!user_id || !plan_id) return res.status(400).json({ error: 'missing_params' });
 
+    // If plan_id is not a UUID (e.g., stub id), don't attempt DB write; return echo for UI
+    const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+    if (!uuidRegex.test(plan_id)) {
+      return res.json({ user_id, plan_id, completed_days, current_day, last_accessed_at: new Date().toISOString(), stub: true });
+    }
+
     // Select then update/insert to avoid depending on composite unique constraint
     const existing = await supabaseAdmin
       .from('user_progress')
