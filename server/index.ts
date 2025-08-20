@@ -46,28 +46,42 @@ app.post('/api/user-profile', async (req, res) => {
     const avatar_url: string | null = (req.body?.avatar_url ?? null) as any;
     if (!user_id) return res.status(400).json({ error: 'missing_user_id' });
 
-    // Attempt upsert using id (most common schema)
-    const attempt1 = await supabaseAdmin
+    // 1) Try update by id
+    const updateById = await supabaseAdmin
       .from('user_profiles')
-      .upsert({ id: user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() }, { onConflict: 'id' })
+      .update({ email, full_name, avatar_url, last_active_at: new Date().toISOString() })
+      .eq('id', user_id)
+      .select()
+      .maybeSingle();
+    if (updateById.data) return res.json(updateById.data);
+
+    // 2) Try update by user_id
+    const updateByUserId = await supabaseAdmin
+      .from('user_profiles')
+      .update({ email, full_name, avatar_url, last_active_at: new Date().toISOString() })
+      .eq('user_id', user_id)
+      .select()
+      .maybeSingle();
+    if (updateByUserId.data) return res.json(updateByUserId.data);
+
+    // 3) Try insert with id column
+    const insertWithId = await supabaseAdmin
+      .from('user_profiles')
+      .insert({ id: user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() })
       .select()
       .single();
-    if (!attempt1.error && attempt1.data) {
-      return res.json(attempt1.data);
-    }
+    if (!insertWithId.error && insertWithId.data) return res.json(insertWithId.data);
 
-    // Fallback: upsert using user_id shape
-    const attempt2 = await supabaseAdmin
+    // 4) Try insert with user_id column
+    const insertWithUserId = await supabaseAdmin
       .from('user_profiles')
-      .upsert({ user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() }, { onConflict: 'user_id' })
+      .insert({ user_id, email, full_name, avatar_url, last_active_at: new Date().toISOString() })
       .select()
       .single();
-    if (!attempt2.error && attempt2.data) {
-      return res.json(attempt2.data);
-    }
+    if (!insertWithUserId.error && insertWithUserId.data) return res.json(insertWithUserId.data);
 
-    console.error('profile_upsert_failed', { a1: attempt1.error, a2: attempt2.error });
-    return res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(attempt2.error?.message || attempt1.error?.message || '') } });
+    console.error('profile_upsert_failed', { updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
+    return res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(insertWithUserId.error?.message || insertWithId.error?.message || updateByUserId.error?.message || updateById.error?.message || '') } });
   } catch (e: any) {
     console.error('profile_upsert_exception', e);
     res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(e?.message || e) } });
@@ -113,23 +127,33 @@ app.post('/api/hobby-plans', async (req, res) => {
     if (hobby_name || hobby) base.hobby = hobby_name || hobby;
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
-    let { data, error } = await supabaseAdmin.from('hobby_plans').insert(base).select().single();
-    if (error && String(error.message || '').toLowerCase().includes('column') && String(error.message || '').toLowerCase().includes('does not exist')) {
-      // Retry with hobby_name column
-      const alt = { user_id, hobby_name: hobby_name || hobby, title, overview, plan_data } as any;
-      const retry = await supabaseAdmin.from('hobby_plans').insert(alt).select().single();
-      data = retry.data; error = retry.error as any;
-    }
+    const first = await supabaseAdmin.from('hobby_plans').insert(base).select().single();
+    if (!first.error && first.data) return res.json(first.data);
 
-    if (error) {
-      console.error('hobby_plan_save_failed', error);
-      return res.status(500).json({ error: 'save_failed', details: { message: String(error.message || '') } });
-    }
-    res.json(data);
+    const alt = { user_id, hobby_name: hobby_name || hobby, title, overview, plan_data } as any;
+    const second = await supabaseAdmin.from('hobby_plans').insert(alt).select().single();
+    if (!second.error && second.data) return res.json(second.data);
+
+    console.error('hobby_plan_save_failed', { first: first.error, second: second.error });
+    return res.status(500).json({ error: 'save_failed', details: { message: String(second.error?.message || first.error?.message || '') } });
   } catch (e: any) {
     console.error('hobby_plan_exception', e);
     res.status(500).json({ error: 'save_failed', details: { message: String(e?.message || e) } });
   }
+});
+
+// Read progress for a user
+app.get('/api/user-progress/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    if (!supabaseAnon) return res.json([]);
+    const { data, error } = await supabaseAnon
+      .from('user_progress')
+      .select('*')
+      .eq('user_id', userId);
+    if (error) return res.json([]);
+    res.json(data || []);
+  } catch { res.json([]); }
 });
 
 // Admin delete: hobby plan
