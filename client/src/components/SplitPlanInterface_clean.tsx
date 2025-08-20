@@ -841,15 +841,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           {/* Chat Input */}
           <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
             <div className="flex space-x-3">
-              <Input
-                ref={inputRef}
-                value={currentInput}
-                onChange={(e) => setCurrentInput(e.target.value)}
-                placeholder="Ask me anything about your plan..."
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500"
-              />
-              <Button onClick={handleSendMessage} size="sm" className="px-4">
+              <div className="flex-1 relative">
+                <Input
+                  ref={inputRef}
+                  value={currentInput}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length <= 50) {
+                      setCurrentInput(value);
+                    }
+                  }}
+                  placeholder="Ask me anything about your plan... (max 50 chars)"
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 pr-12"
+                  maxLength={50}
+                />
+                <div className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-xs ${
+                  currentInput.length >= 45 ? 'text-red-500' : 
+                  currentInput.length >= 35 ? 'text-yellow-500' : 
+                  'text-gray-400'
+                }`}>
+                  {currentInput.length}/50
+                </div>
+              </div>
+              <Button 
+                onClick={handleSendMessage} 
+                size="sm" 
+                className="px-4"
+                disabled={!currentInput.trim() || currentInput.length === 0}
+              >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
