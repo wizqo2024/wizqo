@@ -243,12 +243,35 @@ Return ONLY a JSON object with this exact structure:
   app.post('/api/hobby-plans', async (req: Request, res: Response) => {
     try {
       if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
-      const { user_id, hobby, title, overview, plan_data } = req.body || {};
-      const { data, error } = await supabase
+      const { user_id, hobby, hobby_name, title, overview, plan_data } = req.body || {};
+
+      // Support both schemas: some DBs use column "hobby", others use "hobby_name"
+      const basePayload: Record<string, any> = { user_id, title, overview, plan_data };
+      const firstAttemptPayload = { ...basePayload, hobby: hobby ?? hobby_name };
+
+      let { data, error } = await supabase
         .from('hobby_plans')
-        .insert({ user_id, hobby, title, overview, plan_data })
+        .insert(firstAttemptPayload)
         .select()
         .single();
+
+      if (error) {
+        const msg = String(error.message || '').toLowerCase();
+        const needsHobbyName = msg.includes('hobby_name') && (msg.includes('null value') || msg.includes('not-null'));
+        const columnHobbyMissing = msg.includes('column') && msg.includes('hobby"') && msg.includes('does not exist');
+
+        if (needsHobbyName || columnHobbyMissing) {
+          const secondAttemptPayload = { ...basePayload, hobby_name: hobby ?? hobby_name } as Record<string, any>;
+          const retry = await supabase
+            .from('hobby_plans')
+            .insert(secondAttemptPayload)
+            .select()
+            .single();
+          data = retry.data as any;
+          error = retry.error as any;
+        }
+      }
+
       if (error) {
         const normalizedMessage = String(error.message || '').toLowerCase();
         const status = normalizedMessage.includes('permission') || normalizedMessage.includes('rls') ? 403 : 500;
@@ -274,6 +297,71 @@ Return ONLY a JSON object with this exact structure:
       res.json(data || []);
     } catch {
       res.json([]);
+    }
+  });
+
+  // ===== API: hobby chat (post-plan Q&A) =====
+  function isUnsafeQuery(text: string): boolean {
+    const t = String(text || '').toLowerCase();
+    const banned = [
+      'sex', 'sexual', 'porn', 'nsfw', 'nude', 'adult',
+      'drug', 'cocaine', 'heroin', 'weed', 'marijuana', 'meth',
+      'violent', 'violence', 'kill', 'murder', 'suicide',
+      'bomb', 'weapon', 'explosive', 'terror',
+      'hack', 'hacking', 'crack', 'warez', 'piracy'
+    ];
+    return banned.some(w => t.includes(w));
+  }
+
+  app.post('/api/hobby-chat', async (req: Request, res: Response) => {
+    try {
+      const message = String(req.body?.message || '').trim();
+      const hobby = String(req.body?.hobby || '').trim();
+      const planData = req.body?.planData || null;
+
+      if (!message) return res.status(400).json({ error: 'missing_message' });
+      if (isUnsafeQuery(message)) return res.status(400).json({ error: 'unsafe_message' });
+      if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+      const vercelUrl = process.env.VERCEL_URL || '';
+      const refererUrl = process.env.WEB_ORIGIN || process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl ? `https://${vercelUrl}` : 'https://wizqo.com');
+
+      const system = [
+        'You are a helpful, safe hobby learning assistant for Wizqo.',
+        'Answer concisely. Stay strictly on hobby learning, skills, tips, practice, and safety.',
+        'Refuse adult/sexual/drugs/violence/hacking or other dangerous content.',
+        hobby ? `User hobby: ${hobby}` : '',
+        planData ? `Plan context: ${JSON.stringify(planData).slice(0, 2000)}` : ''
+      ].filter(Boolean).join('\n');
+
+      const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'HTTP-Referer': refererUrl,
+          'X-Title': 'Wizqo Hobby Learning Platform'
+        },
+        body: JSON.stringify({
+          model: 'deepseek/deepseek-chat',
+          messages: [
+            { role: 'system', content: system },
+            { role: 'user', content: message }
+          ],
+          temperature: 0.6,
+          max_tokens: 600
+        })
+      });
+
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '');
+        return res.status(502).json({ error: 'upstream_error', upstream: text.slice(0, 500) });
+      }
+      const data = await resp.json();
+      const content = data?.choices?.[0]?.message?.content || '';
+      res.json({ reply: content });
+    } catch (e: any) {
+      res.status(500).json({ error: 'chat_failed', message: String(e?.message || e) });
     }
   });
 
