@@ -1,1 +1,0 @@
-export default function SplitPlanInterface(props: any) { return null as any; }
