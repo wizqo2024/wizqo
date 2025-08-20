@@ -610,26 +610,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions, 1000, 'hobby');
         }
       } else {
-        if (validation.suggestions) {
-          const suggestionOptions = validation.suggestions.map(s => ({ value: s.toLowerCase().replace(/[^\w]/g, ''), label: s, description: 'Explore this category' }));
-          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions, 1000, 'hobby');
-        } else {
-          const reasonablePattern = /^[a-zA-Z\s-]{2,30}$/;
-          if (reasonablePattern.test(userInput)) {
-            const hobby = userInput.toLowerCase();
-            setSelectedHobby(hobby);
-            setAnsweredSteps(prev => new Set(prev).add('hobby'));
-            setCurrentStep('experience');
-            const experienceOptions = [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-            ];
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
-          } else {
-            addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
-          }
-        }
+        const fallbackList = (validation.suggestions && validation.suggestions.length > 0)
+          ? validation.suggestions.slice(0, 8)
+          : ['photography','guitar','cooking','drawing','yoga','gardening','coding','language learning'];
+        const suggestionOptions = fallbackList.map(s => ({ value: s, label: s.charAt(0).toUpperCase() + s.slice(1), description: 'Explore this hobby' }));
+        addAIMessage("I didn't quite catch that hobby. Did you mean one of these?", suggestionOptions, 800, 'hobby');
       }
     } else {
       // Post-plan smart chat with server AI
