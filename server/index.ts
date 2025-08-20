@@ -327,28 +327,23 @@ Return ONLY a JSON object with this exact structure:
           details: (error as any)?.details,
           hint: (error as any)?.hint
         });
-        const msg = String(error.message || '').toLowerCase();
-        const needsHobbyName = msg.includes('hobby_name') && (msg.includes('null value') || msg.includes('not-null'));
-        const columnHobbyMissing = msg.includes('column') && msg.includes('hobby"') && msg.includes('does not exist');
-
-        if (needsHobbyName || columnHobbyMissing) {
-          const secondAttemptPayload = { ...basePayload, hobby_name: hobby ?? hobby_name } as Record<string, any>;
-          const retry = await supabaseAdmin
-            .from('hobby_plans')
-            .insert(secondAttemptPayload)
-            .select()
-            .single();
-          if (retry.error) {
-            console.error('❌ SUPABASE hobby_plans second insert error:', {
-              message: retry.error.message,
-              code: (retry.error as any)?.code,
-              details: (retry.error as any)?.details,
-              hint: (retry.error as any)?.hint
-            });
-          }
-          data = retry.data as any;
-          error = retry.error as any;
+        // Always try fallback with hobby_name on any failure
+        const secondAttemptPayload = { ...basePayload, hobby_name: hobby ?? hobby_name } as Record<string, any>;
+        const retry = await supabaseAdmin
+          .from('hobby_plans')
+          .insert(secondAttemptPayload)
+          .select()
+          .single();
+        if (retry.error) {
+          console.error('❌ SUPABASE hobby_plans second insert error:', {
+            message: retry.error.message,
+            code: (retry.error as any)?.code,
+            details: (retry.error as any)?.details,
+            hint: (retry.error as any)?.hint
+          });
         }
+        data = retry.data as any;
+        error = retry.error as any;
       }
 
       if (error) {
@@ -505,7 +500,7 @@ Return ONLY a JSON object with this exact structure:
         return res.json(data);
       }
 
-      // 3) Insert using id column schema first
+      // 3) Try both insert shapes: id-first, then user_id
       let insertResp = await supabaseAdmin
         .from('user_profiles')
         .insert({ id: user_id, ...base })
@@ -513,17 +508,17 @@ Return ONLY a JSON object with this exact structure:
         .single();
 
       if (insertResp.error) {
-        const msg = String(insertResp.error.message || '').toLowerCase();
-        const idColumnMissing = msg.includes('column') && msg.includes('id"') && msg.includes('does not exist');
-
-        if (idColumnMissing) {
-          // 4) Fallback insert using user_id column schema
-          insertResp = await supabaseAdmin
-            .from('user_profiles')
-            .insert({ user_id, ...base })
-            .select()
-            .single();
-        }
+        console.error('❌ SUPABASE user_profiles insert (id) error:', {
+          message: insertResp.error.message,
+          code: (insertResp.error as any)?.code,
+          details: (insertResp.error as any)?.details,
+          hint: (insertResp.error as any)?.hint
+        });
+        insertResp = await supabaseAdmin
+          .from('user_profiles')
+          .insert({ user_id, ...base })
+          .select()
+          .single();
       }
 
       if (insertResp.error) {
