@@ -88,16 +88,11 @@ export default function App() {
               );
             case 'plan':
               return (
-                <>
-                  <UnifiedNavigation currentPage="plan" />
-                  <div className="max-w-6xl mx-auto p-4">
-                    <SplitPlanInterface 
-                      onGeneratePlan={handleGeneratePlan}
-                      onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
-                      initialPlanData={currentPlan || undefined}
-                    />
-                  </div>
-                </>
+                <SplitPlanInterface 
+                  onGeneratePlan={handleGeneratePlan}
+                  onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
+                  initialPlanData={currentPlan || undefined}
+                />
               );
             case 'blog':
               return <BlogPage />;
