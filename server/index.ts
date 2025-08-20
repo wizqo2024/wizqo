@@ -500,10 +500,10 @@ Return ONLY a JSON object with this exact structure:
         return res.json(data);
       }
 
-      // 3) Try both insert shapes: id-first, then user_id
+      // 3) Try insert setting BOTH id and user_id to satisfy either schema
       let insertResp = await supabaseAdmin
         .from('user_profiles')
-        .insert({ id: user_id, ...base })
+        .insert({ id: user_id, user_id, ...base })
         .select()
         .single();
 
@@ -514,11 +514,19 @@ Return ONLY a JSON object with this exact structure:
           details: (insertResp.error as any)?.details,
           hint: (insertResp.error as any)?.hint
         });
+        // Fallback attempts
         insertResp = await supabaseAdmin
           .from('user_profiles')
-          .insert({ user_id, ...base })
+          .insert({ id: user_id, ...base })
           .select()
           .single();
+        if (insertResp.error) {
+          insertResp = await supabaseAdmin
+            .from('user_profiles')
+            .insert({ user_id, ...base })
+            .select()
+            .single();
+        }
       }
 
       if (insertResp.error) {
