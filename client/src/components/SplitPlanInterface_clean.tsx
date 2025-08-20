@@ -851,7 +851,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       setCurrentInput(value);
                     }
                   }}
-                  placeholder="Ask me anything about your plan... (max 50 chars)"
+                  placeholder="Ask me anything about your plan..."
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 pr-12"
                   maxLength={50}
