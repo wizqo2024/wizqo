@@ -63,7 +63,19 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
     }
   };
 
-  const selectedDayData = planData.days.find(d => d.day === selectedDay) || planData.days[0];
+  const daysArray = Array.isArray(planData?.days) ? planData.days : [];
+  const selectedDayData = daysArray.find(d => d.day === selectedDay) || daysArray[0] || {
+    day: 1,
+    title: 'Getting Started',
+    mainTask: `Learn ${planData?.hobby || 'your hobby'} fundamentals`,
+    explanation: `Day 1 of your ${planData?.hobby || ''} journey`,
+    howTo: [`Step 1`],
+    checklist: [`Complete day 1 tasks`],
+    tips: [`Tip for day 1`],
+    mistakesToAvoid: [`Avoid rushing on day 1`],
+    freeResources: [],
+    affiliateProducts: []
+  } as any;
   const dayAny = selectedDayData as any;
   const safeMainTask = selectedDayData?.mainTask || dayAny?.goal || dayAny?.objective || `Learn ${planData.hobby} fundamentals`;
   const safeExplanation = selectedDayData?.explanation || dayAny?.description || dayAny?.details || dayAny?.reasoning || `Day ${selectedDayData?.day || 1} of your ${planData.hobby} journey`;

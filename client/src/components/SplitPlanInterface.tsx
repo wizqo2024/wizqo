@@ -958,8 +958,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       
       // Fallback to API
       const { data: progressData, error } = await apiService.getUserProgress(user.id);
-      if (!error && progressData) {
-        const planProgress = progressData.find(p => p.plan_id === parseInt(planId));
+      if (!error && Array.isArray(progressData)) {
+        const planProgress = progressData.find((p: any) => String(p.plan_id) === String(planId));
         if (planProgress) {
           console.log('✅ Found database progress:', planProgress);
           setCompletedDays(planProgress.completed_days || []);

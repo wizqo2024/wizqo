@@ -240,6 +240,23 @@ Return ONLY a JSON object with this exact structure:
     }
   });
 
+  // Optional: GET by user param to support older client API helper
+  app.get('/api/hobby-plans/:userId', async (req: Request, res: Response) => {
+    try {
+      const userId = String(req.params.userId || '').trim();
+      if (!userId || !supabase) return res.json([]);
+      const { data, error } = await supabase
+        .from('hobby_plans')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false });
+      if (error) return res.json([]);
+      res.json(data || []);
+    } catch {
+      res.json([]);
+    }
+  });
+
   app.post('/api/hobby-plans', async (req: Request, res: Response) => {
     try {
       if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
@@ -297,6 +314,27 @@ Return ONLY a JSON object with this exact structure:
       res.json(data || []);
     } catch {
       res.json([]);
+    }
+  });
+
+  // Delete a hobby plan by id
+  app.delete('/api/hobby-plans/:id', async (req: Request, res: Response) => {
+    try {
+      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      const id = String(req.params.id || '').trim();
+      if (!id) return res.status(400).json({ error: 'missing_id' });
+      const { error } = await supabase
+        .from('hobby_plans')
+        .delete()
+        .eq('id', id);
+      if (error) {
+        const msg = String(error.message || '').toLowerCase();
+        const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
+        return res.status(status).json({ error: 'delete_failed', details: error.message || error });
+      }
+      res.json({ success: true });
+    } catch (e: any) {
+      res.status(500).json({ error: 'delete_failed', details: String(e?.message || e) });
     }
   });
 
