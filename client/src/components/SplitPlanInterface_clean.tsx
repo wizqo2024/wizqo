@@ -582,7 +582,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!currentInput.trim()) return;
     const userInput = currentInput.trim();
     addUserMessage(userInput);
@@ -632,7 +632,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }
       }
     } else {
-      setTimeout(() => { addAIMessage("Thanks for your message! How can I help you with your learning plan?"); }, 1000);
+      // Post-plan smart chat with server AI
+      try {
+        const resp = await fetch('/api/hobby-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userInput,
+            hobby: selectedHobby || planData?.hobby || '',
+            plan: planData || null
+          })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          addAIMessage(data?.reply || "I'm here to help. What would you like to know about your hobby?");
+        } else {
+          addAIMessage("I'm here to help. What would you like to know about your hobby?");
+        }
+      } catch {
+        addAIMessage("I'm here to help. What would you like to know about your hobby?");
+      }
     }
   };
 
