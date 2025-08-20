@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase'
 
 export class HobbyPlanService {
   // Clear all caches for a specific hobby (enhanced version)
-  clearHobbyCache(hobby: string, userId: string): void {
+  clearHobbyCache(hobby: string, userId: string, planIdToDelete?: string): void {
     console.log('🧹 AGGRESSIVE CACHE CLEAR: Starting for hobby:', hobby, 'user:', userId);
 
     // Clear all localStorage entries that might be related
@@ -27,15 +27,22 @@ export class HobbyPlanService {
     // Clear all sessionStorage entries that might be related
     const sessionStorageKeys = Object.keys(sessionStorage);
     for (const key of sessionStorageKeys) {
-      const shouldClear = key.toLowerCase().includes(hobby.toLowerCase()) ||
-                         key.includes(userId) ||
-                         // Preserve global plan keys used by plan route
-                         // key.startsWith('currentPlanData') ||
-                         // key.startsWith('activePlanData') ||
-                         // key.startsWith('lastViewedPlanData') ||
-                         key.startsWith('planFromGeneration') ||
-                         key.startsWith('freshPlanMarker') ||
-                         key.startsWith('progress_');
+      let shouldClear = false;
+      if (key.toLowerCase().includes(hobby.toLowerCase())) shouldClear = true;
+      if (key.startsWith('planFromGeneration') || key.startsWith('freshPlanMarker')) shouldClear = true;
+      // Progress keys: only clear if they belong to the deleted planId
+      if (key.startsWith(`progress_${userId}_`)) {
+        if (planIdToDelete) {
+          const parts = key.split('_');
+          const progressPlanId = parts[2];
+          if (String(progressPlanId) === String(planIdToDelete)) {
+            shouldClear = true;
+          }
+        } else {
+          // If we don't know the planId, do not clear any progress keys here
+          shouldClear = false;
+        }
+      }
 
       if (shouldClear) {
         sessionStorage.removeItem(key);
