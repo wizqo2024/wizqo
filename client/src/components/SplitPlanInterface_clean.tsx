@@ -178,9 +178,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     'table tennis', 'badminton', 'basketball shooting', 'football juggling',
     'chess', 'rubiks cube', 'speed cubing', 'sudoku', 'crossword puzzles',
     'blogging', 'journaling', 'creative writing', 'poetry', 'public speaking',
-    'language learning', 'spanish language', 'french language', 'german language', 'japanese language', 'korean language',
     'coding', 'web development', 'app development', 'game development',
-    'bird watching', 'astronomy', 'stargazing', 'kite flying', 'calligraphy practice'
+    'bird watching', 'astronomy', 'stargazing', 'kite flying', 'calligraphy practice', 'reading'
   ];
   const surpriseAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 
