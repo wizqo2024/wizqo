@@ -169,20 +169,39 @@ app.post('/api/user-progress', async (req, res) => {
     const current_day: number = Number(req.body?.current_day || 1);
     if (!user_id || !plan_id) return res.status(400).json({ error: 'missing_params' });
 
-    const { data, error } = await supabaseAdmin
+    // Select then update/insert to avoid depending on composite unique constraint
+    const existing = await supabaseAdmin
       .from('user_progress')
-      .upsert(
-        { user_id, plan_id, completed_days, current_day, last_accessed_at: new Date().toISOString() },
-        { onConflict: 'user_id,plan_id' }
-      )
-      .select()
-      .single();
+      .select('id')
+      .eq('user_id', user_id)
+      .eq('plan_id', plan_id)
+      .maybeSingle();
 
-    if (error) {
-      console.error('user_progress_upsert_failed', error);
-      return res.status(500).json({ error: 'progress_save_failed', details: { message: String(error.message || '') } });
+    if (existing.data) {
+      const upd = await supabaseAdmin
+        .from('user_progress')
+        .update({ completed_days, current_day, last_accessed_at: new Date().toISOString() })
+        .eq('user_id', user_id)
+        .eq('plan_id', plan_id)
+        .select()
+        .single();
+      if (upd.error) {
+        console.error('user_progress_update_failed', upd.error);
+        return res.status(500).json({ error: 'progress_save_failed', details: { message: String(upd.error.message || '') } });
+      }
+      return res.json(upd.data);
+    } else {
+      const ins = await supabaseAdmin
+        .from('user_progress')
+        .insert({ user_id, plan_id, completed_days, current_day, last_accessed_at: new Date().toISOString() })
+        .select()
+        .single();
+      if (ins.error) {
+        console.error('user_progress_insert_failed', ins.error);
+        return res.status(500).json({ error: 'progress_save_failed', details: { message: String(ins.error.message || '') } });
+      }
+      return res.json(ins.data);
     }
-    res.json(data);
   } catch (e: any) {
     console.error('user_progress_exception', e);
     res.status(500).json({ error: 'progress_save_failed', details: { message: String(e?.message || e) } });
@@ -194,14 +213,17 @@ app.post('/api/hobby-plans', async (req, res) => {
   try {
     if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
     const { user_id, hobby, hobby_name, title, overview, plan_data } = req.body || {};
-    const base = { user_id, title, overview, plan_data } as any;
+    const difficulty = (plan_data?.difficulty || plan_data?.level || null) as any;
+    const total_days = Number(plan_data?.totalDays || (Array.isArray(plan_data?.days) ? plan_data.days.length : null)) || 7;
+
+    const base = { user_id, title, overview, plan_data, difficulty, total_days } as any;
     if (hobby_name || hobby) base.hobby = hobby_name || hobby;
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
     const first = await supabaseAdmin.from('hobby_plans').insert(base).select().single();
     if (!first.error && first.data) return res.json(first.data);
 
-    const alt = { user_id, hobby_name: hobby_name || hobby, title, overview, plan_data } as any;
+    const alt = { user_id, hobby_name: hobby_name || hobby, title, overview, plan_data, difficulty, total_days } as any;
     const second = await supabaseAdmin.from('hobby_plans').insert(alt).select().single();
     if (!second.error && second.data) return res.json(second.data);
 
