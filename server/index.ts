@@ -176,11 +176,28 @@ Return ONLY a JSON object with this exact structure:
   app.post('/api/generate-plan', async (req: Request, res: Response) => {
     try {
       const hobby = String(req.body?.hobby || '').trim();
+      const userId = String(req.body?.user_id || '').trim();
       const experience = String(req.body?.experience || 'beginner');
       const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
       const goal = String(req.body?.goal || `Learn ${hobby} fundamentals`);
       if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
       if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+      // Enforce per-user daily plan generation limit (max 5/day)
+      if (userId && (globalThis as any).Date && (supabase)) {
+        try {
+          const now = new Date();
+          const startOfUtcDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
+          const { count, error: cntErr } = await supabase
+            .from('hobby_plans')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId)
+            .gte('created_at', startOfUtcDay.toISOString());
+          if (!cntErr && typeof count === 'number' && count >= 5) {
+            return res.status(429).json({ error: 'daily_limit_reached', max: 5 });
+          }
+        } catch {}
+      }
 
       const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
       if (!aiPlan?.days || !Array.isArray(aiPlan.days)) return res.status(502).json({ error: 'bad_ai_response' });
