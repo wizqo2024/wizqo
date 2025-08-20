@@ -37,27 +37,25 @@ class UserProfileService {
     try {
       console.log('🔧 Creating/updating user profile for:', userId);
       
-      const { data, error } = await supabase
-        .from('user_profiles')
-        .upsert({
+      // Use backend to bypass RLS with service role
+      const resp = await fetch('/api/user-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           user_id: userId,
           email: userData.email,
           full_name: userData.full_name,
-          avatar_url: userData.avatar_url,
-          last_active_at: new Date().toISOString()
-        }, {
-          onConflict: 'user_id'
+          avatar_url: userData.avatar_url
         })
-        .select()
-        .single();
-
-      if (error) {
-        console.error('❌ Error creating/updating profile:', error);
-        throw error;
+      });
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '');
+        console.error('❌ Error creating/updating profile via backend:', resp.status, text);
+        throw new Error(text || `HTTP ${resp.status}`);
       }
-
-      console.log('✅ Profile created/updated successfully:', data);
-      return data;
+      const data = await resp.json();
+      console.log('✅ Profile created/updated successfully via backend:', data);
+      return data as UserProfile;
     } catch (error) {
       console.error('❌ UserProfileService createOrUpdateProfile error:', error);
       throw error;
