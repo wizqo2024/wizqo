@@ -46,6 +46,19 @@ app.post('/api/user-profile', async (req, res) => {
     const avatar_url: string | null = (req.body?.avatar_url ?? null) as any;
     if (!user_id) return res.status(400).json({ error: 'missing_user_id' });
 
+    // Optional: inspect table columns to tailor the write
+    let profileColumns: string[] = [];
+    try {
+      if (supabaseAnon) {
+        const cols = await supabaseAnon
+          .from('information_schema.columns')
+          .select('column_name')
+          .eq('table_schema', 'public')
+          .eq('table_name', 'user_profiles');
+        profileColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
+      }
+    } catch {}
+
     // 1) Try update by id
     const updateById = await supabaseAdmin
       .from('user_profiles')
@@ -80,8 +93,15 @@ app.post('/api/user-profile', async (req, res) => {
       .single();
     if (!insertWithUserId.error && insertWithUserId.data) return res.json(insertWithUserId.data);
 
-    console.error('profile_upsert_failed', { updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
-    return res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(insertWithUserId.error?.message || insertWithId.error?.message || updateByUserId.error?.message || updateById.error?.message || '') } });
+    console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
+    return res.status(500).json({ error: 'profile_upsert_failed', details: {
+      message: String(insertWithUserId.error?.message || insertWithId.error?.message || updateByUserId.error?.message || updateById.error?.message || ''),
+      columns: profileColumns,
+      a: updateById.error || null,
+      b: updateByUserId.error || null,
+      c: insertWithId.error || null,
+      d: insertWithUserId.error || null
+    }});
   } catch (e: any) {
     console.error('profile_upsert_exception', e);
     res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(e?.message || e) } });
@@ -134,8 +154,21 @@ app.post('/api/hobby-plans', async (req, res) => {
     const second = await supabaseAdmin.from('hobby_plans').insert(alt).select().single();
     if (!second.error && second.data) return res.json(second.data);
 
-    console.error('hobby_plan_save_failed', { first: first.error, second: second.error });
-    return res.status(500).json({ error: 'save_failed', details: { message: String(second.error?.message || first.error?.message || '') } });
+    // Include table columns for debugging
+    let planColumns: string[] = [];
+    try {
+      if (supabaseAnon) {
+        const cols = await supabaseAnon
+          .from('information_schema.columns')
+          .select('column_name')
+          .eq('table_schema', 'public')
+          .eq('table_name', 'hobby_plans');
+        planColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
+      }
+    } catch {}
+
+    console.error('hobby_plan_save_failed', { columns: planColumns, first: first.error, second: second.error });
+    return res.status(500).json({ error: 'save_failed', details: { message: String(second.error?.message || first.error?.message || ''), columns: planColumns, first: first.error || null, second: second.error || null } });
   } catch (e: any) {
     console.error('hobby_plan_exception', e);
     res.status(500).json({ error: 'save_failed', details: { message: String(e?.message || e) } });
