@@ -30,6 +30,7 @@ interface ChatMessage {
   options?: { value: string; label: string; description?: string }[];
   isTyping?: boolean;
   timestamp: Date;
+  step?: 'hobby' | 'experience' | 'time' | 'goal';
 }
 
 interface Day {
@@ -113,6 +114,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
           { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
         ],
+        step: 'hobby',
         timestamp: new Date()
       }];
     }
@@ -125,6 +127,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isTyping, setIsTyping] = useState(false);
   useEffect(() => { setIsTyping(false); }, []);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [answeredSteps, setAnsweredSteps] = useState<Set<'hobby' | 'experience' | 'time' | 'goal'>>(() => new Set());
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
@@ -381,11 +384,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     return userMessage;
   };
 
-  const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[], delay = 1000) => {
+  const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[], delay = 1000, step?: 'hobby' | 'experience' | 'time' | 'goal') => {
     setTimeout(() => {
       setIsTyping(true);
       setTimeout(() => {
-        const aiMessage: ChatMessage = { id: Date.now().toString(), sender: 'ai', content, options, timestamp: new Date() };
+        const aiMessage: ChatMessage = { id: Date.now().toString(), sender: 'ai', content, options, timestamp: new Date(), step };
         setMessages(prev => [...prev, aiMessage]);
         setIsTyping(false);
       }, delay);
@@ -425,6 +428,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const handleOptionSelect = async (value: string, label: string) => {
+    // Prevent double-clicks on the same step
+    if (answeredSteps.has(currentStep as any)) {
+      return;
+    }
     if (value === 'surprise') {
       await handleSurpriseMe();
       return;
@@ -432,24 +439,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(label);
     if (currentStep === 'hobby') {
       setSelectedHobby(value);
+      setAnsweredSteps(prev => new Set(prev).add('hobby'));
       setCurrentStep('experience');
       const experienceOptions = [
         { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
-      addAIMessage(`Great choice! ${selectedHobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+      addAIMessage(`Great choice! ${value} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
+      setAnsweredSteps(prev => new Set(prev).add('experience'));
       setCurrentStep('time');
       const timeOptions = [
         { value: '30 minutes', label: '30 minutes/day', description: 'Quick daily sessions' },
         { value: '1 hour', label: '1 hour/day', description: 'Solid practice time' },
         { value: '2+ hours', label: '2+ hours/day', description: 'Deep dive sessions' }
       ];
-      addAIMessage("Got it! How much time can you spend learning each day?", timeOptions);
+      addAIMessage("Got it! How much time can you spend learning each day?", timeOptions, 1000, 'time');
     } else if (currentStep === 'time') {
       setQuizAnswers(prev => ({ ...prev, timeAvailable: value }));
+      setAnsweredSteps(prev => new Set(prev).add('time'));
       setCurrentStep('goal');
       const goalOptions = [
         { value: 'personal enjoyment', label: 'Personal Enjoyment', description: 'Just for fun and relaxation' },
@@ -457,10 +467,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'social connection', label: 'Social Connection', description: 'Meet people and share experiences' },
         { value: 'career change', label: 'Career Change', description: 'Explore new professional paths' }
       ];
-      addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions);
+      addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions, 1000, 'goal');
     } else if (currentStep === 'goal') {
       const finalAnswers = { ...quizAnswers, goal: value } as QuizAnswers;
       setQuizAnswers(finalAnswers);
+      setAnsweredSteps(prev => new Set(prev).add('goal'));
       setCurrentStep('generating');
       setIsGenerating(true);
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
@@ -501,33 +512,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         if (validation.detectedHobbies.length === 1) {
           const hobby = validation.detectedHobbies[0];
           setSelectedHobby(hobby);
+          setAnsweredSteps(prev => new Set(prev).add('hobby'));
           setCurrentStep('experience');
           const experienceOptions = [
             { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
             { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
             { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
           ];
-          addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+          addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
         } else {
           const hobbyOptions = validation.detectedHobbies.map(h => ({ value: h, label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`, description: `Focus on ${h} first` }));
-          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions);
+          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions, 1000, 'hobby');
         }
       } else {
         if (validation.suggestions) {
           const suggestionOptions = validation.suggestions.map(s => ({ value: s.toLowerCase().replace(/[^\w]/g, ''), label: s, description: 'Explore this category' }));
-          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions);
+          addAIMessage("I'd love to help you explore new hobbies! Here are some popular options:", suggestionOptions, 1000, 'hobby');
         } else {
           const reasonablePattern = /^[a-zA-Z\s-]{2,30}$/;
           if (reasonablePattern.test(userInput)) {
             const hobby = userInput.toLowerCase();
             setSelectedHobby(hobby);
+            setAnsweredSteps(prev => new Set(prev).add('hobby'));
             setCurrentStep('experience');
             const experienceOptions = [
               { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
               { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
               { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
             ];
-            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions);
+            addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
           } else {
             addAIMessage("I didn't quite catch that hobby. Could you be more specific? Try something like 'guitar', 'cooking', 'dance', or 'photography'!");
           }
@@ -667,16 +680,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   </div>
                   {message.options && (
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {message.options.map((option) => (
+                      {message.options.map((option) => {
+                        const isDisabledForStep = message.step ? (message.step !== currentStep || answeredSteps.has(message.step)) : false;
+                        return (
                         <button
                           key={option.value}
                           onClick={() => handleOptionSelect(option.value, option.label)}
-                          className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 shadow-sm hover:shadow-md"
-                          disabled={isGenerating}
+                          className={`px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full transition-all duration-200 shadow-sm ${isDisabledForStep || isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-md'}`}
+                          disabled={isGenerating || isDisabledForStep}
                         >
                           {option.label}
                         </button>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
