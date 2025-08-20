@@ -1085,28 +1085,55 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               })()}
             </div>
           ) : isGenerating ? (
-            <div className="p-6 animate-pulse space-y-6">
-              <div className="space-y-3">
-                <div className="h-6 bg-gray-200 rounded w-2/3" />
-                <div className="flex items-center space-x-4">
-                  <div className="h-5 w-24 bg-green-200 rounded-full" />
-                  <div className="h-5 w-20 bg-gray-200 rounded" />
+            <div className="h-full w-full flex items-center justify-center p-6">
+              <div className="w-full max-w-2xl">
+                <div className="relative overflow-hidden rounded-2xl shadow-xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#6366f1_0,transparent_40%),radial-gradient(circle_at_80%_0%,#a855f7_0,transparent_40%),radial-gradient(circle_at_0%_80%,#22d3ee_0,transparent_40%)] opacity-20" />
+                  <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-600 text-white p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-full border-4 border-white/30 border-t-white animate-spin" />
+                      <div>
+                        <h3 className="text-2xl font-bold">Creating your 7-day plan…</h3>
+                        <p className="text-white/80 text-sm">This usually takes 20–60 seconds</p>
+                      </div>
+                    </div>
+
+                    {/* Animated progress bar */}
+                    <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-6">
+                      <div className="h-full w-2/3 bg-white/90 rounded-full animate-[loading_1.4s_ease_infinite]" style={{
+                        backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.1) 100%)',
+                        backgroundSize: '200% 100%'
+                      }} />
+                    </div>
+
+                    {/* Steps */}
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/20 text-white text-xs font-semibold">1</span>
+                          <span className="font-semibold">Outlining</span>
+                        </div>
+                        <p className="text-xs text-white/80">Building your personalized day-by-day plan</p>
+                      </div>
+                      <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/20 text-white text-xs font-semibold">2</span>
+                          <span className="font-semibold">Finding videos</span>
+                        </div>
+                        <p className="text-xs text-white/80">Selecting a great tutorial for each day</p>
+                      </div>
+                      <div className="bg-white/10 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="inline-flex w-6 h-6 items-center justify-center rounded-full bg-white/20 text-white text-xs font-semibold">3</span>
+                          <span className="font-semibold">Final touches</span>
+                        </div>
+                        <p className="text-xs text-white/80">Adding tips, checklists and resources</p>
+                      </div>
+                    </div>
+
+                    <p className="mt-6 text-xs text-white/70">Pro tip: You can keep browsing while we prepare your plan. This page will update automatically.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-1/3" />
-                <div className="h-2 bg-gray-200 rounded w-full" />
-              </div>
-              <div className="space-y-4">
-                <div className="h-5 bg-gray-200 rounded w-32" />
-                <div className="grid grid-cols-1 gap-3">
-                  <div className="h-24 bg-white border border-gray-200 rounded-xl" />
-                  <div className="h-24 bg-white border border-gray-200 rounded-xl" />
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="h-5 bg-gray-200 rounded w-40" />
-                <div className="h-48 bg-white border border-gray-200 rounded-2xl" />
               </div>
             </div>
           ) : (
