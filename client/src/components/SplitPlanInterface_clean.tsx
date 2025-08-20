@@ -341,7 +341,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
   const highlightHobby = (text: string, hobby: string) => {
-    return text.replace(new RegExp(`(${hobby})`, 'gi'), '**$1**');
+    return text.replace(new RegExp(`(${hobby})`, 'gi'), '<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm">$1</span>');
   };
 
   const validateAndProcessHobby = (input: string): { isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string } => {
@@ -500,7 +500,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const handleSurpriseMe = async () => {
     const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
     addUserMessage("Surprise Me! 🎲");
-    addAIMessage(`Perfect! I've chosen **${randomHobby}** for you. Creating your 7-day plan now... ✨`, undefined, 800);
+    addAIMessage(`Perfect! I've chosen ${highlightHobby(randomHobby, randomHobby)} for you. Creating your 7-day plan now... ✨`, undefined, 800);
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
     setCurrentStep('generating');
@@ -548,7 +548,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
-                        addAIMessage(`Great choice! **${value}** is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
+                        addAIMessage(`Great choice! ${highlightHobby(value, value)} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setAnsweredSteps(prev => new Set(prev).add('experience'));
@@ -785,9 +785,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     ? 'bg-blue-600 text-white' 
                     : 'bg-white text-gray-900 border border-gray-200'
                 }`}>
-                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed font-medium">
-                    {message.content}
-                  </div>
+                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: message.content }} />
                   {message.options && (
                     <div className="mt-4 flex flex-wrap gap-2">
                       {message.options.map((option) => {
