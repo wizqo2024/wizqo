@@ -334,6 +334,116 @@ Return ONLY a JSON object with this exact structure:
     }
   });
 
+  // ===== API: user progress (create/update) =====
+  app.post('/api/user-progress', async (req: Request, res: Response) => {
+    try {
+      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      const { user_id, plan_id, completed_days, current_day } = req.body || {};
+      if (!user_id || !plan_id) {
+        return res.status(400).json({ error: 'missing_fields', required: ['user_id', 'plan_id'] });
+      }
+
+      // Check if a progress row already exists
+      const existing = await supabase
+        .from('user_progress')
+        .select('*')
+        .eq('user_id', user_id)
+        .eq('plan_id', plan_id)
+        .limit(1)
+        .single();
+
+      const payload: Record<string, any> = {
+        user_id,
+        plan_id,
+        completed_days: Array.isArray(completed_days) ? completed_days : [],
+        current_day: typeof current_day === 'number' ? current_day : 1
+      };
+
+      if (!existing.error && existing.data) {
+        // Update
+        const { data, error } = await supabase
+          .from('user_progress')
+          .update({
+            completed_days: payload.completed_days,
+            current_day: payload.current_day
+          })
+          .eq('id', existing.data.id)
+          .select()
+          .single();
+        if (error) {
+          const msg = String(error.message || '').toLowerCase();
+          const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
+          return res.status(status).json({ error: 'progress_update_failed', details: error.message || error });
+        }
+        return res.json(data);
+      }
+
+      // Insert
+      const { data, error } = await supabase
+        .from('user_progress')
+        .insert(payload)
+        .select()
+        .single();
+      if (error) {
+        const msg = String(error.message || '').toLowerCase();
+        const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
+        return res.status(status).json({ error: 'progress_create_failed', details: error.message || error });
+      }
+      return res.json(data);
+    } catch (e: any) {
+      return res.status(500).json({ error: 'progress_save_failed', details: String(e?.message || e) });
+    }
+  });
+
+  // ===== API: user profile upsert (service role) =====
+  app.post('/api/user-profile', async (req: Request, res: Response) => {
+    try {
+      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      const { user_id, email, full_name, avatar_url } = req.body || {};
+      if (!user_id) return res.status(400).json({ error: 'missing_user_id' });
+
+      const nowIso = new Date().toISOString();
+      const base: Record<string, any> = {
+        email: email ?? null,
+        full_name: full_name ?? null,
+        avatar_url: avatar_url ?? null,
+        last_active_at: nowIso
+      };
+
+      // Attempt schema with primary key column "id"
+      let resp = await supabase
+        .from('user_profiles')
+        .upsert({ id: user_id, ...base }, { onConflict: 'id' })
+        .select()
+        .single();
+
+      if (resp.error) {
+        const msg = String(resp.error.message || '').toLowerCase();
+        const idColumnMissing = msg.includes('column') && msg.includes('id"') && msg.includes('does not exist');
+        const notNullViolation = msg.includes('null value') && msg.includes('id');
+
+        if (idColumnMissing || notNullViolation) {
+          // Fallback schema with column "user_id"
+          resp = await supabase
+            .from('user_profiles')
+            .upsert({ user_id, ...base }, { onConflict: 'user_id' })
+            .select()
+            .single();
+        }
+      }
+
+      if (resp.error) {
+        const msg = String(resp.error.message || '').toLowerCase();
+        const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
+        return res.status(status).json({ error: 'profile_upsert_failed', details: resp.error.message || resp.error });
+      }
+
+      return res.json(resp.data);
+    } catch (e: any) {
+      return res.status(500).json({ error: 'profile_upsert_failed', details: String(e?.message || e) });
+    }
+  });
+
   // Delete a hobby plan by id
   app.delete('/api/hobby-plans/:id', async (req: Request, res: Response) => {
     try {

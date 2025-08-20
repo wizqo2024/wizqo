@@ -442,8 +442,21 @@ export class HobbyPlanService {
   // Initialize user progress for a plan (simplified)
   async initializeProgress(userId: string, planId: string): Promise<any> {
     try {
-      console.log('📝 PROGRESS: Skipping progress initialization - RLS issues resolved later')
-      return { user_id: userId, plan_id: planId, completed_days: [], current_day: 1 }
+      console.log('📝 PROGRESS: Initializing progress via backend for plan:', planId)
+      const resp = await fetch('/api/user-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, plan_id: planId, completed_days: [], current_day: 1 })
+      })
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '')
+        console.warn('📝 PROGRESS: Backend init failed, using session fallback:', resp.status, text)
+        const fallback = { user_id: userId, plan_id: planId, completed_days: [], current_day: 1 }
+        sessionStorage.setItem(`progress_${userId}_${planId}`, JSON.stringify(fallback))
+        return fallback
+      }
+      const data = await resp.json()
+      return data
     } catch (error: any) {
       console.error('❌ PROGRESS: Error initializing progress:', error)
       throw error
@@ -454,29 +467,32 @@ export class HobbyPlanService {
   async updateProgress(userId: string, planId: string, updates: any): Promise<any> {
     try {
       console.log('📝 PROGRESS: Updating progress via API for plan:', planId)
-
-      // First try to find existing progress
-      const existingResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?user_id=eq.${userId}&plan_id=eq.${planId}`, {
-        headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        }
+      const resp = await fetch('/api/user-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: userId,
+          plan_id: planId,
+          completed_days: updates.completed_days || [],
+          current_day: updates.current_day || 1
+        })
       })
-
-      const existingProgress = await existingResponse.json()
       const progressData = {
         user_id: userId,
         plan_id: planId,
         completed_days: updates.completed_days || [],
         current_day: updates.current_day || 1
       }
-
-      // Temporarily save to sessionStorage until RLS is resolved
-      console.log('📝 PROGRESS: RLS cache issue - saving to session storage until resolved')
-      const sessionKey = `progress_${userId}_${planId}`
-      sessionStorage.setItem(sessionKey, JSON.stringify(progressData))
-      console.log('✅ PROGRESS: Day completed successfully (saved to session storage)')
-      return progressData
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => '')
+        console.warn('📝 PROGRESS: Backend save failed, using session fallback:', resp.status, text)
+        sessionStorage.setItem(`progress_${userId}_${planId}`, JSON.stringify(progressData))
+        return progressData
+      }
+      const data = await resp.json()
+      // Sync session as cache for instant UI restore
+      sessionStorage.setItem(`progress_${userId}_${planId}`, JSON.stringify(progressData))
+      return data
     } catch (error) {
       console.error('Error updating progress:', error)
       throw error
@@ -529,10 +545,11 @@ export class HobbyPlanService {
       completedDays.sort((a: number, b: number) => a - b)
       console.log('📝 PROGRESS: Updated completed days:', completedDays)
 
-      // Update progress with accumulated completed days
+      // Update progress with accumulated completed days via backend
+      const nextCurrent = Math.min(Math.max(...completedDays) + 1, 7)
       return await this.updateProgress(userId, planId, {
         completed_days: completedDays,
-        current_day: Math.min(Math.max(...completedDays) + 1, 7)
+        current_day: nextCurrent
       })
     } catch (error) {
       console.error('❌ PROGRESS: Error completing day:', error)
