@@ -59,14 +59,12 @@ app.use((req, res, next) => {
 
 (async () => {
   // Inline route registration (avoid missing module issues)
-  const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-  // Prefer secure server keys, but support VITE_* fallbacks when projects only set client-style env names in Vercel
-  const supabaseServiceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.SUPABASE_ANON_KEY ||
-    process.env.VITE_SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.VITE_SUPABASE_ANON_KEY;
-  const supabase = (supabaseUrl && supabaseServiceKey) ? createClient(supabaseUrl, supabaseServiceKey) : null as any;
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  // Create separate anon and admin clients. Admin is required for writes bypassing RLS.
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || '';
+  const supabaseAnon = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null as any;
+  const supabaseAdmin = (supabaseUrl && supabaseServiceRoleKey) ? createClient(supabaseUrl, supabaseServiceRoleKey) : null as any;
 
   app.get('/api/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
@@ -184,11 +182,11 @@ Return ONLY a JSON object with this exact structure:
       if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
 
       // Enforce per-user daily plan generation limit (max 5/day)
-      if (userId && (globalThis as any).Date && (supabase)) {
+      if (userId && (globalThis as any).Date && (supabaseAnon)) {
         try {
           const now = new Date();
           const startOfUtcDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
-          const { count, error: cntErr } = await supabase
+          const { count, error: cntErr } = await supabaseAnon
             .from('hobby_plans')
             .select('id', { count: 'exact', head: true })
             .eq('user_id', userId)
@@ -244,8 +242,8 @@ Return ONLY a JSON object with this exact structure:
   app.get('/api/hobby-plans', async (req: Request, res: Response) => {
     try {
       const userId = String(req.query.user_id || '').trim();
-      if (!userId || !supabase) return res.json([]);
-      const { data, error } = await supabase
+      if (!userId || !supabaseAnon) return res.json([]);
+      const { data, error } = await supabaseAnon
         .from('hobby_plans')
         .select('*')
         .eq('user_id', userId)
@@ -261,8 +259,8 @@ Return ONLY a JSON object with this exact structure:
   app.get('/api/hobby-plans/:userId', async (req: Request, res: Response) => {
     try {
       const userId = String(req.params.userId || '').trim();
-      if (!userId || !supabase) return res.json([]);
-      const { data, error } = await supabase
+      if (!userId || !supabaseAnon) return res.json([]);
+      const { data, error } = await supabaseAnon
         .from('hobby_plans')
         .select('*')
         .eq('user_id', userId)
@@ -276,14 +274,14 @@ Return ONLY a JSON object with this exact structure:
 
   app.post('/api/hobby-plans', async (req: Request, res: Response) => {
     try {
-      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
       const { user_id, hobby, hobby_name, title, overview, plan_data } = req.body || {};
 
       // Support both schemas: some DBs use column "hobby", others use "hobby_name"
       const basePayload: Record<string, any> = { user_id, title, overview, plan_data };
       const firstAttemptPayload = { ...basePayload, hobby: hobby ?? hobby_name };
 
-      let { data, error } = await supabase
+      let { data, error } = await supabaseAdmin
         .from('hobby_plans')
         .insert(firstAttemptPayload)
         .select()
@@ -296,7 +294,7 @@ Return ONLY a JSON object with this exact structure:
 
         if (needsHobbyName || columnHobbyMissing) {
           const secondAttemptPayload = { ...basePayload, hobby_name: hobby ?? hobby_name } as Record<string, any>;
-          const retry = await supabase
+          const retry = await supabaseAdmin
             .from('hobby_plans')
             .insert(secondAttemptPayload)
             .select()
@@ -321,8 +319,8 @@ Return ONLY a JSON object with this exact structure:
   app.get('/api/user-progress/:userId', async (req: Request, res: Response) => {
     try {
       const userId = String(req.params.userId || '').trim();
-      if (!userId || !supabase) return res.json([]);
-      const { data, error } = await supabase
+      if (!userId || !supabaseAnon) return res.json([]);
+      const { data, error } = await supabaseAnon
         .from('user_progress')
         .select('*')
         .eq('user_id', userId)
@@ -337,14 +335,14 @@ Return ONLY a JSON object with this exact structure:
   // ===== API: user progress (create/update) =====
   app.post('/api/user-progress', async (req: Request, res: Response) => {
     try {
-      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
       const { user_id, plan_id, completed_days, current_day } = req.body || {};
       if (!user_id || !plan_id) {
         return res.status(400).json({ error: 'missing_fields', required: ['user_id', 'plan_id'] });
       }
 
       // Check if a progress row already exists
-      const existing = await supabase
+      const existing = await supabaseAdmin
         .from('user_progress')
         .select('*')
         .eq('user_id', user_id)
@@ -361,7 +359,7 @@ Return ONLY a JSON object with this exact structure:
 
       if (!existing.error && existing.data) {
         // Update
-        const { data, error } = await supabase
+        const { data, error } = await supabaseAdmin
           .from('user_progress')
           .update({
             completed_days: payload.completed_days,
@@ -379,7 +377,7 @@ Return ONLY a JSON object with this exact structure:
       }
 
       // Insert
-      const { data, error } = await supabase
+      const { data, error } = await supabaseAdmin
         .from('user_progress')
         .insert(payload)
         .select()
@@ -398,7 +396,7 @@ Return ONLY a JSON object with this exact structure:
   // ===== API: user profile upsert (service role) =====
   app.post('/api/user-profile', async (req: Request, res: Response) => {
     try {
-      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
       const { user_id, email, full_name, avatar_url } = req.body || {};
       if (!user_id) return res.status(400).json({ error: 'missing_user_id' });
 
@@ -411,7 +409,7 @@ Return ONLY a JSON object with this exact structure:
       };
 
       // Attempt schema with primary key column "id"
-      let resp = await supabase
+      let resp = await supabaseAdmin
         .from('user_profiles')
         .upsert({ id: user_id, ...base }, { onConflict: 'id' })
         .select()
@@ -424,7 +422,7 @@ Return ONLY a JSON object with this exact structure:
 
         if (idColumnMissing || notNullViolation) {
           // Fallback schema with column "user_id"
-          resp = await supabase
+          resp = await supabaseAdmin
             .from('user_profiles')
             .upsert({ user_id, ...base }, { onConflict: 'user_id' })
             .select()
@@ -447,10 +445,10 @@ Return ONLY a JSON object with this exact structure:
   // Delete a hobby plan by id
   app.delete('/api/hobby-plans/:id', async (req: Request, res: Response) => {
     try {
-      if (!supabase) return res.status(503).json({ error: 'db_unavailable' });
+      if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
       const id = String(req.params.id || '').trim();
       if (!id) return res.status(400).json({ error: 'missing_id' });
-      const { error } = await supabase
+      const { error } = await supabaseAdmin
         .from('hobby_plans')
         .delete()
         .eq('id', id);
