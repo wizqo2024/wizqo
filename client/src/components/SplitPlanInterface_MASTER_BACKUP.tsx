@@ -341,7 +341,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
   const highlightHobby = (text: string, hobby: string) => {
-    return text.replace(new RegExp(`(${hobby})`, 'gi'), '**$1**');
+    return text.replace(new RegExp(`(${hobby})`, 'gi'), '<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm">$1</span>');
   };
 
   const validateAndProcessHobby = (input: string): { isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string } => {
@@ -500,7 +500,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const handleSurpriseMe = async () => {
     const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
     addUserMessage("Surprise Me! 🎲");
-    addAIMessage(`Perfect! I've chosen **${randomHobby}** for you. Creating your 7-day plan now... ✨`, undefined, 800);
+    addAIMessage(`Perfect! I've chosen ${highlightHobby(randomHobby, randomHobby)} for you. Creating your 7-day plan now... ✨`, undefined, 800);
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
     setCurrentStep('generating');
@@ -548,7 +548,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
         { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
       ];
-                        addAIMessage(`Great choice! **${value}** is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
+                        addAIMessage(`Great choice! ${highlightHobby(value, value)} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
     } else if (currentStep === 'experience') {
       setQuizAnswers(prev => ({ ...prev, experience: value }));
       setAnsweredSteps(prev => new Set(prev).add('experience'));
@@ -749,6 +749,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* SEO Meta Tags */}
+      <div style={{ display: 'none' }}>
+        <title>{planData ? `${planData.title} - Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days - Personalized Learning Plans'}</title>
+        <meta name="description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan. Step-by-step guidance, daily tasks, and expert tips to help you succeed.` : 'Transform your life with personalized 7-day learning plans for any hobby. From photography to coding, get expert guidance and achieve your goals faster.'} />
+        <meta name="keywords" content={planData ? `${planData.hobby}, learning, 7-day plan, tutorial, skills, personal development` : 'hobby learning, 7-day plans, personal development, skill building, tutorials'} />
+        <meta property="og:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days'} />
+        <meta property="og:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Transform your life with personalized 7-day learning plans for any hobby.'} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days'} />
+        <meta name="twitter:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Transform your life with personalized 7-day learning plans for any hobby.'} />
+      </div>
       <UnifiedNavigation 
         showBackButton={true} 
         onBackClick={() => {
@@ -763,20 +775,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         currentPage={planData ? "plan" : "generate"}
       />
 
-      <div className="flex flex-row h-[calc(100vh-64px)]">
-        {/* Left Side - Chat Interface */}
-        <div className="w-1/2 lg:w-2/5 border-r-2 border-gray-300 bg-white flex flex-col h-full">
+      <div className="flex flex-col lg:flex-row h-[calc(100vh-64px)]">
+        {/* Chat Interface - Full width on mobile, left side on desktop */}
+        <div className="w-full lg:w-1/2 xl:w-2/5 border-r-0 lg:border-r-2 border-gray-300 bg-white flex flex-col h-full lg:h-full min-h-[60vh] lg:min-h-0">
           <div className="p-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">Learning Assistant</h2>
             <p className="text-sm text-gray-600">Your personal hobby guide</p>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 max-h-[calc(100vh-200px)]">
+          <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4 lg:space-y-6 max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-200px)]">
             {messages.length === 0 && (
-              <div className="text-center text-gray-500 p-4">
+                          <div className="text-center text-gray-500 p-4">
+              <div className="lg:hidden mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">🎯 Start Your Learning Journey</h3>
+                <p className="text-sm text-gray-600">Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you!</p>
+              </div>
+              <div className="hidden lg:block">
                 <p>Loading conversation...</p>
               </div>
+            </div>
             )}
             {messages.map((message, index) => (
               <div key={`${message.id}-${index}`} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -785,9 +803,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     ? 'bg-blue-600 text-white' 
                     : 'bg-white text-gray-900 border border-gray-200'
                 }`}>
-                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed font-medium">
-                    {message.content}
-                  </div>
+                  <div className="whitespace-pre-wrap text-xs lg:text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: message.content }} />
                   {message.options && (
                     <div className="mt-4 flex flex-wrap gap-2">
                       {message.options.map((option) => {
@@ -823,7 +839,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           </div>
 
           {/* Chat Input */}
-          <div className="p-6 border-t border-gray-200 bg-gray-50">
+          <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
             <div className="flex space-x-3">
               <Input
                 ref={inputRef}
@@ -840,16 +856,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           </div>
         </div>
 
-        {/* Right Side - Plan Display */}
-        <div className="w-1/2 lg:w-3/5 overflow-y-auto h-full bg-gray-50">
+        {/* Plan Display - Full width on mobile, right side on desktop */}
+        <div className="w-full lg:w-1/2 xl:w-3/5 overflow-y-auto h-full bg-gray-50 min-h-[40vh] lg:min-h-0">
           {planData && planData.days ? (
-            <div className="p-6">
+            <div className="p-4 lg:p-6">
               {/* Header */}
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="mb-4 lg:mb-6">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-900">{planData.title}</h1>
-                    <div className="flex items-center space-x-4 mt-2">
+                    <h1 className="text-xl lg:text-2xl font-bold text-gray-900">{planData.title}</h1>
+                    <div className="flex flex-wrap items-center gap-2 lg:gap-4 mt-2">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                         {planData.difficulty}
                       </span>
@@ -862,7 +878,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 </div>
 
                 {/* Progress */}
-                <div className="mb-6">
+                <div className="mb-4 lg:mb-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">Progress</span>
                     <span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
@@ -885,8 +901,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               </div>
 
               {/* Day Selection Buttons */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Day</h3>
+              <div className="mb-4 lg:mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
                   {Array.from({ length: planData?.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
                     const status = getDayStatus(dayNum);
@@ -902,7 +918,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           }
                         }}
                         disabled={false}
-                        className={`w-12 h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
+                        className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
                           isSelected 
                             ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300' 
                             : status === 'completed' 
@@ -1268,17 +1284,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-center min-h-full p-6">
-              <div className="max-w-2xl mx-auto space-y-6">
+            <div className="flex items-center justify-center min-h-full p-4 lg:p-6">
+              <div className="max-w-2xl mx-auto space-y-4 lg:space-y-6">
                 <div className="text-center">
-                  <div className="text-6xl mb-6">🎯</div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Your Learning Journey!</h2>
+                  <div className="text-4xl lg:text-6xl mb-4 lg:mb-6">🎯</div>
+                  <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-4">Welcome to Your Learning Journey!</h2>
                   <p className="text-lg text-gray-700 leading-relaxed">
                     Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. 
                     Your custom learning plan will appear here once we chat!
                   </p>
                 </div>
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                   <div className="text-center p-6 bg-blue-50 rounded-xl border border-blue-100">
                     <div className="text-3xl mb-3">🎨</div>
                     <h3 className="font-bold text-gray-900 mb-2">Personalized Plans</h3>
@@ -1327,7 +1343,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">Popular Learning Paths</h3>
                   <p className="text-gray-600 mb-4">Not sure what to learn? Here are some popular hobbies our AI has created amazing plans for:</p>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 lg:gap-3">
                     <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">📸</div><div className="text-xs font-medium text-gray-700">Photography</div></div>
                     <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🎨</div><div className="text-xs font-medium text-gray-700">Painting</div></div>
                     <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🍳</div><div className="text-xs font-medium text-gray-700">Cooking</div></div>
