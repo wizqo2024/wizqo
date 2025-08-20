@@ -189,7 +189,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
   ];
 
-  const surpriseHobbies = ['photography', 'guitar', 'cooking', 'drawing', 'yoga', 'gardening', 'coding'];
+  const surpriseHobbies = [
+    'photography', 'smartphone photography', 'photo editing', 'video editing',
+    'guitar', 'piano', 'ukulele', 'violin', 'drums', 'harmonica', 'singing',
+    'music production', 'dj mixing', 'beatboxing',
+    'cooking', 'baking', 'bread baking', 'sourdough', 'coffee brewing', 'latte art', 'tea tasting',
+    'drawing', 'sketching', 'painting', 'watercolor', 'acrylic painting', 'oil painting',
+    'calligraphy', 'hand lettering', 'graphic design', 'logo design', 'animation', '3d modeling',
+    'origami', 'paper crafts', 'pottery', 'ceramics', 'woodworking', 'carpentry', 'leathercraft',
+    'knitting', 'crochet', 'sewing', 'embroidery', 'quilting', 'quilling', 'jewelry making',
+    'candle making', 'soap making', 'resin art',
+    'gardening', 'indoor plants', 'succulents', 'bonsai', 'terrarium building',
+    'yoga', 'meditation', 'pilates', 'calisthenics', 'weight training',
+    'running', 'cycling', 'hiking', 'swimming', 'jump rope',
+    'table tennis', 'badminton', 'basketball shooting', 'football juggling',
+    'chess', 'rubiks cube', 'speed cubing', 'sudoku', 'crossword puzzles',
+    'blogging', 'journaling', 'creative writing', 'poetry', 'public speaking',
+    'language learning', 'spanish language', 'french language', 'german language', 'japanese language', 'korean language',
+    'coding', 'web development', 'app development', 'game development',
+    'bird watching', 'astronomy', 'stargazing', 'kite flying', 'calligraphy practice'
+  ];
   const surpriseAnswers: QuizAnswers = {
     experience: 'beginner',
     timeAvailable: '1 hour',
