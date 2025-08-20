@@ -408,37 +408,71 @@ Return ONLY a JSON object with this exact structure:
         last_active_at: nowIso
       };
 
-      // Attempt schema with primary key column "id"
-      let resp = await supabaseAdmin
+      // 1) Try update by id column
+      const byId = await supabaseAdmin
         .from('user_profiles')
-        .upsert({ id: user_id, ...base }, { onConflict: 'id' })
+        .select('*')
+        .eq('id', user_id)
+        .limit(1)
+        .single();
+
+      if (!byId.error && byId.data) {
+        const { data, error } = await supabaseAdmin
+          .from('user_profiles')
+          .update(base)
+          .eq('id', user_id)
+          .select()
+          .single();
+        if (error) return res.status(500).json({ error: 'profile_upsert_failed', details: error });
+        return res.json(data);
+      }
+
+      // 2) Try update by user_id column
+      const byUserId = await supabaseAdmin
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', user_id)
+        .limit(1)
+        .single();
+
+      if (!byUserId.error && byUserId.data) {
+        const { data, error } = await supabaseAdmin
+          .from('user_profiles')
+          .update(base)
+          .eq('user_id', user_id)
+          .select()
+          .single();
+        if (error) return res.status(500).json({ error: 'profile_upsert_failed', details: error });
+        return res.json(data);
+      }
+
+      // 3) Insert using id column schema first
+      let insertResp = await supabaseAdmin
+        .from('user_profiles')
+        .insert({ id: user_id, ...base })
         .select()
         .single();
 
-      if (resp.error) {
-        const msg = String(resp.error.message || '').toLowerCase();
+      if (insertResp.error) {
+        const msg = String(insertResp.error.message || '').toLowerCase();
         const idColumnMissing = msg.includes('column') && msg.includes('id"') && msg.includes('does not exist');
-        const notNullViolation = msg.includes('null value') && msg.includes('id');
 
-        if (idColumnMissing || notNullViolation) {
-          // Fallback schema with column "user_id"
-          resp = await supabaseAdmin
+        if (idColumnMissing) {
+          // 4) Fallback insert using user_id column schema
+          insertResp = await supabaseAdmin
             .from('user_profiles')
-            .upsert({ user_id, ...base }, { onConflict: 'user_id' })
+            .insert({ user_id, ...base })
             .select()
             .single();
         }
       }
 
-      if (resp.error) {
-        const msg = String(resp.error.message || '').toLowerCase();
-        const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
-        return res.status(status).json({ error: 'profile_upsert_failed', details: resp.error.message || resp.error });
+      if (insertResp.error) {
+        return res.status(500).json({ error: 'profile_upsert_failed', details: insertResp.error });
       }
-
-      return res.json(resp.data);
+      return res.json(insertResp.data);
     } catch (e: any) {
-      return res.status(500).json({ error: 'profile_upsert_failed', details: String(e?.message || e) });
+      return res.status(500).json({ error: 'profile_upsert_failed', details: e });
     }
   });
 
