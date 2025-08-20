@@ -239,6 +239,49 @@ Learn any hobby in 7 days at https://wizqo.com`;
     return categories[hobby.toLowerCase()] || 'General';
   };
 
+  // Clear caches but preserve current plan/session data used by the learning page
+  const clearCachesPreservingPlan = () => {
+    try {
+      const preserveKeys = new Set([
+        'currentPlanData',
+        'activePlanData',
+        'activePlanId',
+        'lastViewedPlan',
+        'lastViewedPlanData'
+      ]);
+
+      // Session Storage
+      const ssKeys = Object.keys(sessionStorage);
+      ssKeys.forEach((key) => {
+        // Keep plan/progress records; remove everything else
+        if (
+          !preserveKeys.has(key) &&
+          !key.startsWith('progress_') &&
+          !key.startsWith('deleted_plan_')
+        ) {
+          sessionStorage.removeItem(key);
+        }
+      });
+
+      // Local Storage
+      const lsKeys = Object.keys(localStorage);
+      lsKeys.forEach((key) => {
+        if (!preserveKeys.has(key)) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      // Clear browser caches (does not affect session/local storage)
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => caches.delete(name));
+        });
+      }
+    } catch (e) {
+      console.warn('Cache clear (preserving plan) encountered an issue:', e);
+    }
+  };
+
   const deletePlan = async (planId: string) => {
     const planToDelete = hobbyPlans.find(p => p.id === planId);
     const hobby = planToDelete?.hobby;
@@ -273,20 +316,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Aggressive cache clearing
       console.log('🧹 AGGRESSIVE CACHE CLEAR: Clearing all cache types');
       
-      // Clear sessionStorage completely
-      sessionStorage.clear();
-      
-      // Clear localStorage completely  
-      localStorage.clear();
-
-      // Also clear any browser cache entries
-      if ('caches' in window) {
-        caches.keys().then(names => {
-          names.forEach(name => {
-            caches.delete(name);
-          });
-        });
-      }
+      // Clear caches but preserve current plan-related data
+      clearCachesPreservingPlan();
 
       console.log('✅ Plan deleted and all caches cleared');
 
@@ -296,9 +327,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Even on error, keep the plan removed from UI to prevent confusion
       alert(`Failed to delete plan: ${error.message || 'Unknown error'}. The plan has been removed from view. Please refresh if issues persist.`);
 
-      // Clear all caches even on error
-      sessionStorage.clear();
-      localStorage.clear();
+      // Clear caches but preserve current plan-related data even on error
+      clearCachesPreservingPlan();
 
     } finally {
       setDeletingPlan(null);
@@ -333,9 +363,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
       // Clear ALL caches aggressively
       hobbyPlanService.clearHobbyCache(hobby, user?.id || '');
 
-      // Clear additional session/local storage entries
-      sessionStorage.clear();
-      localStorage.clear();
+      // Clear caches but preserve current plan-related data
+      clearCachesPreservingPlan();
 
       // Re-add the deletion marker after clearing
       sessionStorage.setItem(`deleted_plan_${planId}`, Date.now().toString());
