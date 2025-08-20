@@ -5,7 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { UnifiedNavigation } from './UnifiedNavigation';
-import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share, BookOpen, Clock, Send, Play } from 'lucide-react';
+import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share,
+ BookOpen, Clock, Send, Play } from 'lucide-react';
+
 import { YouTubeEmbed } from './YouTubeEmbed';
 import { usePlanStorage } from '@/hooks/usePlanStorage';
 import { AuthModal } from './AuthModal';
@@ -13,7 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { apiService } from '@/lib/api-service';
 import { supabase } from '@/lib/supabase';
-import { Loader } from './Loader';
+import Loader from './Loader';
 
 interface QuizAnswers {
   experience: string;
