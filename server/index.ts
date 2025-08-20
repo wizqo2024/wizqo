@@ -67,6 +67,39 @@ app.use((req, res, next) => {
   const supabaseAdmin = (supabaseUrl && supabaseServiceRoleKey) ? createClient(supabaseUrl, supabaseServiceRoleKey) : null as any;
 
   app.get('/api/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
+  // Diagnostics endpoint to verify DB connectivity and table presence
+  app.get('/api/db-diagnostics', async (_req: Request, res: Response) => {
+    try {
+      const checks: Record<string, any> = {
+        supabaseUrlPresent: Boolean(supabaseUrl),
+        anonClientReady: Boolean(supabaseAnon),
+        adminClientReady: Boolean(supabaseAdmin)
+      };
+      if (supabaseAnon) {
+        try {
+          const { error } = await supabaseAnon.from('hobby_plans').select('id').limit(1);
+          checks.hobby_plans_readable = !error;
+          checks.hobby_plans_error = error?.message || null;
+        } catch (e: any) {
+          checks.hobby_plans_readable = false;
+          checks.hobby_plans_error = String(e?.message || e);
+        }
+      }
+      if (supabaseAdmin) {
+        try {
+          const { error } = await supabaseAdmin.from('user_profiles').select('count').limit(1);
+          checks.user_profiles_admin_access = !error;
+          checks.user_profiles_admin_error = error?.message || null;
+        } catch (e: any) {
+          checks.user_profiles_admin_access = false;
+          checks.user_profiles_admin_error = String(e?.message || e);
+        }
+      }
+      res.json(checks);
+    } catch (e: any) {
+      res.status(500).json({ error: 'diagnostics_failed', details: String(e?.message || e) });
+    }
+  });
 
   // ===== OpenRouter helpers (inline) =====
   async function generatePlanViaOpenRouter(hobby: string, experience: string, timeAvailable: string, goal: string) {
@@ -288,6 +321,12 @@ Return ONLY a JSON object with this exact structure:
         .single();
 
       if (error) {
+        console.error('❌ SUPABASE hobby_plans first insert error:', {
+          message: error.message,
+          code: (error as any)?.code,
+          details: (error as any)?.details,
+          hint: (error as any)?.hint
+        });
         const msg = String(error.message || '').toLowerCase();
         const needsHobbyName = msg.includes('hobby_name') && (msg.includes('null value') || msg.includes('not-null'));
         const columnHobbyMissing = msg.includes('column') && msg.includes('hobby"') && msg.includes('does not exist');
@@ -299,6 +338,14 @@ Return ONLY a JSON object with this exact structure:
             .insert(secondAttemptPayload)
             .select()
             .single();
+          if (retry.error) {
+            console.error('❌ SUPABASE hobby_plans second insert error:', {
+              message: retry.error.message,
+              code: (retry.error as any)?.code,
+              details: (retry.error as any)?.details,
+              hint: (retry.error as any)?.hint
+            });
+          }
           data = retry.data as any;
           error = retry.error as any;
         }
@@ -369,6 +416,12 @@ Return ONLY a JSON object with this exact structure:
           .select()
           .single();
         if (error) {
+          console.error('❌ SUPABASE user_progress update error:', {
+            message: error.message,
+            code: (error as any)?.code,
+            details: (error as any)?.details,
+            hint: (error as any)?.hint
+          });
           const msg = String(error.message || '').toLowerCase();
           const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
           return res.status(status).json({ error: 'progress_update_failed', details: error.message || error });
@@ -383,6 +436,12 @@ Return ONLY a JSON object with this exact structure:
         .select()
         .single();
       if (error) {
+        console.error('❌ SUPABASE user_progress insert error:', {
+          message: error.message,
+          code: (error as any)?.code,
+          details: (error as any)?.details,
+          hint: (error as any)?.hint
+        });
         const msg = String(error.message || '').toLowerCase();
         const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
         return res.status(status).json({ error: 'progress_create_failed', details: error.message || error });
@@ -468,6 +527,12 @@ Return ONLY a JSON object with this exact structure:
       }
 
       if (insertResp.error) {
+        console.error('❌ SUPABASE user_profiles insert error:', {
+          message: insertResp.error.message,
+          code: (insertResp.error as any)?.code,
+          details: (insertResp.error as any)?.details,
+          hint: (insertResp.error as any)?.hint
+        });
         return res.status(500).json({ error: 'profile_upsert_failed', details: insertResp.error });
       }
       return res.json(insertResp.data);
@@ -487,6 +552,12 @@ Return ONLY a JSON object with this exact structure:
         .delete()
         .eq('id', id);
       if (error) {
+        console.error('❌ SUPABASE hobby_plans delete error:', {
+          message: error.message,
+          code: (error as any)?.code,
+          details: (error as any)?.details,
+          hint: (error as any)?.hint
+        });
         const msg = String(error.message || '').toLowerCase();
         const status = msg.includes('permission') || msg.includes('rls') ? 403 : 500;
         return res.status(status).json({ error: 'delete_failed', details: error.message || error });
