@@ -12,8 +12,9 @@ export class HobbyPlanService {
                          key.includes(userId) ||
                          key.startsWith('hobbyPlan_') ||
                          key.startsWith('lastViewedPlan') ||
-                         key.startsWith('currentPlanData') ||
-                         key.startsWith('activePlanData') ||
+                         // Preserve global plan keys used by plan route
+                         // key.startsWith('currentPlanData') ||
+                         // key.startsWith('activePlanData') ||
                          key.startsWith('plan_') ||
                          key.includes('freshPlanMarker');
 
@@ -28,9 +29,10 @@ export class HobbyPlanService {
     for (const key of sessionStorageKeys) {
       const shouldClear = key.toLowerCase().includes(hobby.toLowerCase()) ||
                          key.includes(userId) ||
-                         key.startsWith('currentPlanData') ||
-                         key.startsWith('activePlanData') ||
-                         key.startsWith('lastViewedPlanData') ||
+                         // Preserve global plan keys used by plan route
+                         // key.startsWith('currentPlanData') ||
+                         // key.startsWith('activePlanData') ||
+                         // key.startsWith('lastViewedPlanData') ||
                          key.startsWith('planFromGeneration') ||
                          key.startsWith('freshPlanMarker') ||
                          key.startsWith('progress_');
@@ -67,12 +69,12 @@ export class HobbyPlanService {
       sessionStorage.removeItem(key);
     });
 
-    // Also clear general cache entries
-    sessionStorage.removeItem('currentPlanData');
-    sessionStorage.removeItem('activePlanData');
-    sessionStorage.removeItem('lastViewedPlanData');
-    sessionStorage.removeItem('planFromGeneration');
-    localStorage.removeItem('lastViewedPlanData');
+    // Do not clear global plan keys; keep them so returning to plan works
+    // sessionStorage.removeItem('currentPlanData');
+    // sessionStorage.removeItem('activePlanData');
+    // sessionStorage.removeItem('lastViewedPlanData');
+    // sessionStorage.removeItem('planFromGeneration');
+    // localStorage.removeItem('lastViewedPlanData');
 
     console.log('🧹 AGGRESSIVE CACHE CLEAR: Completed for hobby:', hobby);
   }
