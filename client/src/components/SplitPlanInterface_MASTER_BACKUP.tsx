@@ -139,6 +139,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
   const [progressLoaded, setProgressLoaded] = useState(false);
+  const [progressLoading, setProgressLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
@@ -156,6 +157,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const progressLoadedRef = useRef(false);
   const { savePlan, saving } = usePlanStorage();
   const { user } = useAuth();
   useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
@@ -762,10 +764,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const loadProgressFromDatabase = async (planId: string) => {
     if (!user?.id) return;
-    if (progressLoaded) {
-      console.log('🔄 Progress already loaded, skipping...');
+    if (progressLoaded || progressLoading || progressLoadedRef.current) {
+      console.log('🔄 Progress already loaded or loading, skipping...');
       return;
     }
+    
+    setProgressLoading(true);
     try {
       console.log('🔄 Loading progress for plan:', planId);
       
@@ -797,6 +801,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           
           setCompletedDays(completedDaysArray);
           setSelectedDay(currentDay);
+          progressLoadedRef.current = true;
           
           // Force a re-render by updating state
           setTimeout(() => {
@@ -882,13 +887,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } else {
           console.log('❌ No progress found in Supabase for plan:', planId);
         }
-      } catch (supabaseError) {
-        console.error('Supabase direct query failed:', supabaseError);
+              } catch (supabaseError) {
+          console.error('Supabase direct query failed:', supabaseError);
+        }
+      } catch (error) {
+        console.error('Error loading progress:', error);
+      } finally {
+        setProgressLoading(false);
       }
-    } catch (error) {
-      console.error('Error loading progress:', error);
-    }
-  };
+    };
 
   const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
   const isDayUnlocked = (dayNumber: number) => {
@@ -967,6 +974,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setProgressLoaded(false);
     }
   }, [initialPlanData?.hobby]); // Reset when hobby changes
+
+  // Prevent state reset when progress is already loaded
+  useEffect(() => {
+    if (progressLoaded && completedDays.length > 0) {
+      console.log('🛡️ Preventing progress state reset - progress already loaded');
+      return;
+    }
+  }, [progressLoaded, completedDays]);
 
   return (
     <div className="min-h-screen bg-slate-50">
