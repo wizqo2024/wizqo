@@ -296,76 +296,50 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       // Load progress when initialPlanData is provided (e.g., from dashboard)
       const loadProgressForInitialPlan = async () => {
         try {
+          console.log('🔄 Loading progress for initial plan data');
+          
           // Try to get plan ID from URL or session storage
           const hashStr = window.location.hash || '';
           const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
           const params = new URLSearchParams(qs);
           const planId = params.get('plan_id') || sessionStorage.getItem('activePlanId');
           
+          console.log('📋 Plan ID from URL/session:', planId);
+          console.log('👤 User ID:', user?.id);
+          
           if (planId && user?.id) {
+            setCurrentPlanId(planId);
             await loadProgressFromDatabase(planId);
+          } else if (user?.id) {
+            // If no plan ID in URL, try to find the most recent plan for this user
+            console.log('🔍 No plan ID found, searching for user plans...');
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${user.id}&select=id,title,created_at,plan_data&order=created_at.desc&limit=1`, {
+              headers: {
+                'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              }
+            });
+            
+            if (response.ok) {
+              const plans = await response.json();
+              if (plans && plans.length > 0) {
+                const plan = plans[0];
+                console.log('✅ Found plan:', plan.id);
+                setCurrentPlanId(plan.id.toString());
+                await loadProgressFromDatabase(plan.id.toString());
+              }
+            }
           }
-        } catch {}
+        } catch (error) {
+          console.error('Error loading progress for initial plan:', error);
+        }
       };
       
       loadProgressForInitialPlan();
     }
   }, [initialPlanData, user]);
 
-  useEffect(() => {
-    if (user && initialPlanData && initialPlanData.hobby) {
-      const findPlanId = async () => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/hobby_plans?user_id=eq.${user.id}&select=id,title,created_at,plan_data&order=created_at.desc`, {
-            headers: {
-              'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-            }
-          });
-          if (response.ok) {
-            const allPlans = await response.json();
-            const supabasePlans = allPlans?.filter((p: any) => {
-              if (p.title) {
-                const titleMatch = p.title.match(/Learn (\w+) in/i);
-                const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
-                return extractedHobby === initialPlanData.hobby;
-              }
-              return false;
-            }) || [];
-            if (supabasePlans && supabasePlans.length > 0) {
-              const mostRecentPlan = supabasePlans[0];
-              setCurrentPlanId(mostRecentPlan.id.toString());
-              const progressResponse = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/user_progress?plan_id=eq.${mostRecentPlan.id}&user_id=eq.${user.id}`, {
-                headers: {
-                  'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-                }
-              });
-              if (progressResponse.ok) {
-                const progressData = await progressResponse.json();
-                if (progressData && progressData.length > 0) {
-                  const progress = progressData[0];
-                  setCompletedDays(progress.completed_days || []);
-                  setSelectedDay(progress.current_day || 1);
-                } else {
-                  const sessionKey = `progress_${user.id}_${mostRecentPlan.id}`;
-                  const sessionProgress = sessionStorage.getItem(sessionKey);
-                  if (sessionProgress) {
-                    try {
-                      const progress = JSON.parse(sessionProgress);
-                      setCompletedDays(progress.completed_days || []);
-                      setSelectedDay(progress.current_day || 1);
-                    } catch {}
-                  }
-                }
-              }
-            }
-          }
-        } catch {}
-      };
-      findPlanId();
-    }
-  }, [user, initialPlanData]);
+  // Removed conflicting useEffect that was interfering with progress loading
 
   useEffect(() => {
     if (initialPlanData && !user) {
