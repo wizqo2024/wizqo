@@ -152,6 +152,56 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const { user } = useAuth();
   useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
 
+  // Fallback hydration when navigating directly to /#/plan?plan_id=... or from Dashboard without initialPlanData
+  useEffect(() => {
+    const hydratePlanIfMissing = async () => {
+      try {
+        if (planData) return;
+        // 1) Try session 'activePlanData' first
+        try {
+          const raw = sessionStorage.getItem('activePlanData') || sessionStorage.getItem('currentPlanData');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            const fixed = fixPlanDataFields(parsed);
+            setPlanData(fixed);
+            return;
+          }
+        } catch {}
+
+        // 2) Try fetching by active plan id + user id
+        const hash = window.location.hash || '';
+        const qs = hash.includes('?') ? hash.split('?')[1] : '';
+        const params = new URLSearchParams(qs);
+        const idFromUrl = params.get('plan_id') || '';
+        const idFromSession = sessionStorage.getItem('activePlanId') || '';
+        const planId = String(idFromUrl || idFromSession || '');
+        if (!planId || !user?.id) return;
+
+        const resp = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
+        if (!resp.ok) return;
+        const plans = await resp.json().catch(() => []);
+        const match = Array.isArray(plans) ? plans.find((p: any) => String(p?.id) === String(planId)) : null;
+        if (!match) return;
+
+        const payload = match?.plan_data || match?.planData || match;
+        const fixed = fixPlanDataFields(payload);
+        setPlanData(fixed);
+        setCurrentPlanId(String(match.id));
+        try {
+          sessionStorage.setItem('currentPlanData', JSON.stringify(fixed));
+          sessionStorage.setItem('activePlanData', JSON.stringify(fixed));
+          sessionStorage.setItem('activePlanId', String(match.id));
+        } catch {}
+        // Load progress if available
+        try { await loadProgressFromDatabase(String(match.id)); } catch {}
+      } catch {}
+    };
+    // Only run this fallback if we don't already have initial plan data
+    if (!initialPlanData) {
+      hydratePlanIfMissing();
+    }
+  }, [initialPlanData, planData, user]);
+
   const hobbyOptions = [
     { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
     { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
