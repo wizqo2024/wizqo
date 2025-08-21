@@ -1298,9 +1298,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       <span className="text-sm text-gray-600 flex items-center">
                         <Clock className="w-4 h-4 mr-1" />
                         7 days
-                        <span className="ml-2 text-xs text-red-600">
-                          (Debug: totalDays={planData.totalDays}, daysLength={planData.days?.length})
-                        </span>
+
                       </span>
                     </div>
                   </div>
@@ -1312,9 +1310,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     <span className="text-sm font-medium text-gray-700">Progress</span>
                     <span className="text-sm text-gray-600">
                       {completedDays.length}/7 days completed
-                      <span className="ml-2 text-xs text-blue-600">
-                        (Debug: {JSON.stringify({ completedDays: completedDays.length, totalDays: 7, percentage: progressPercentage })})
-                      </span>
+
                     </span>
                   </div>
                   <Progress value={progressPercentage} className="h-2" />
@@ -1348,10 +1344,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     
                     // Do not auto-correct selectedDay here; respect explicit user selection
                     
-                    console.log('🎯 Day rendering debug - completedDays:', completedDays);
-                    console.log('🎯 Day rendering debug - nextDayToComplete:', nextDayToComplete);
-                    console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
-                    console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
+
                     
                     // Generate all 7 day buttons
                     return Array.from({ length: 7 }, (_, i) => {
@@ -1449,16 +1442,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               {(() => {
                 const currentDay = planData?.days?.find((day: any) => day.day === selectedDay);
                 const status = getDayStatus(selectedDay);
-                console.log('🎯 Day content debug:', {
-                  selectedDay,
-                  currentDay: !!currentDay,
-                  status,
-                  planDataDays: planData?.days?.length,
-                  planDataDaysArray: planData?.days?.map((d: any) => d.day),
-                  planDataTitle: planData?.title,
-                  planDataHobby: planData?.hobby,
-                  planDataOverview: planData?.overview
-                });
+
                 if (!currentDay) {
                   return (
                     <Card className="p-8 text-center">
