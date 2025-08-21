@@ -74,17 +74,41 @@ const fixPlanDataFields = (plan: any) => {
   console.log('🔧 fixPlanDataFields input - planTitle:', plan.title);
   console.log('🔧 fixPlanDataFields input - planHobby:', plan.hobby);
   
-  const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
-  if (!daysArray || daysArray.length === 0) {
-    console.log('🔧 No days array found, returning original plan');
-    return plan;
-  }
+  const existingDaysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
+  const totalDays = plan.totalDays || 7;
+  
+  // Create a complete 7-day array, preserving existing days and creating placeholders for missing ones
+  const daysArray = Array.from({ length: totalDays }, (_, index) => {
+    const dayNumber = index + 1;
+    const existingDay = existingDaysArray.find((d: any) => d.day === dayNumber);
+    
+    if (existingDay) {
+      return existingDay;
+    } else {
+      // Create a placeholder day structure
+      return {
+        day: dayNumber,
+        title: `Day ${dayNumber}`,
+        content: `Content for Day ${dayNumber} will be generated when you select this day.`,
+        exercises: [`Exercise for Day ${dayNumber}`],
+        tips: [`Tip for Day ${dayNumber}`],
+        commonMistakes: [
+          'Rushing through exercises without understanding concepts',
+          'Skipping practice time or cutting sessions short',
+          'Not taking notes or tracking your improvement'
+        ],
+        youtubeVideoId: 'dQw4w9WgXcQ',
+        videoTitle: `${plan.hobby || 'Tutorial'} - Day ${dayNumber}`,
+        isGenerated: false // Flag to indicate this day needs generation
+      };
+    }
+  });
   
   const fixedPlan = {
     ...plan,
     difficulty: plan.difficulty || plan.plan_data?.difficulty || 'beginner',
     overview: plan.overview || plan.plan_data?.overview || plan.description || `Learn ${plan.hobby} with this comprehensive plan`,
-    totalDays: plan.totalDays || daysArray.length || 7,
+    totalDays: plan.totalDays || 7,
     days: daysArray.map((day: any) => ({
       ...day,
       commonMistakes: (day.commonMistakes && day.commonMistakes.length > 0)
