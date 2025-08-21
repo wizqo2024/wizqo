@@ -208,6 +208,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           const parsedUser = JSON.parse(authUser);
           if (parsedUser?.id) {
             loadProgressFromDatabase(activePlanId);
+            // Also apply session fallback immediately for snappy UI
+            const sessionKey = `progress_${parsedUser.id}_${activePlanId}`;
+            const sessionProgress = sessionStorage.getItem(sessionKey);
+            if (sessionProgress) {
+              try {
+                const p = JSON.parse(sessionProgress);
+                setCompletedDays(p.completed_days || []);
+                setSelectedDay(p.current_day || 1);
+              } catch {}
+            }
           }
         }
       } catch {}
