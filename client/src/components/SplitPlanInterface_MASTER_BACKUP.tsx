@@ -138,6 +138,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
   const [selectedDay, setSelectedDay] = useState<number>(1);
+  const [progressLoaded, setProgressLoaded] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
@@ -288,7 +289,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const surpriseAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
 
   useEffect(() => {
-    if (initialPlanData) {
+    if (initialPlanData && !progressLoaded) {
       const fixedPlanData = fixPlanDataFields(initialPlanData);
       setPlanData(fixedPlanData);
       setShowQuickReplies(true);
@@ -310,6 +311,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           if (planId && user?.id) {
             setCurrentPlanId(planId);
             await loadProgressFromDatabase(planId);
+            setProgressLoaded(true);
           } else if (user?.id) {
             // If no plan ID in URL, try to find the most recent plan for this user
             console.log('🔍 No plan ID found, searching for user plans...');
@@ -327,6 +329,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 console.log('✅ Found plan:', plan.id);
                 setCurrentPlanId(plan.id.toString());
                 await loadProgressFromDatabase(plan.id.toString());
+                setProgressLoaded(true);
               }
             }
           }
@@ -337,7 +340,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       
       loadProgressForInitialPlan();
     }
-  }, [initialPlanData, user]);
+  }, [initialPlanData, user, progressLoaded]);
 
   // Removed conflicting useEffect that was interfering with progress loading
 
@@ -759,6 +762,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const loadProgressFromDatabase = async (planId: string) => {
     if (!user?.id) return;
+    if (progressLoaded) {
+      console.log('🔄 Progress already loaded, skipping...');
+      return;
+    }
     try {
       console.log('🔄 Loading progress for plan:', planId);
       
@@ -953,6 +960,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     console.log('🎯 selectedDay state changed to:', selectedDay);
     console.log('🎯 progressPercentage:', progressPercentage);
   }, [completedDays, selectedDay, progressPercentage]);
+
+  // Reset progressLoaded when plan changes
+  useEffect(() => {
+    if (initialPlanData) {
+      setProgressLoaded(false);
+    }
+  }, [initialPlanData?.hobby]); // Reset when hobby changes
 
   return (
     <div className="min-h-screen bg-slate-50">
