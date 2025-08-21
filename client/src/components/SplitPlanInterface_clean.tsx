@@ -138,6 +138,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(false);
+  const [loadingDay, setLoadingDay] = useState<number | null>(null);
   
   // Performance optimization: Memoize expensive calculations
   const progressPercentage = useMemo(() => 
@@ -1010,6 +1011,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             if (!hasDay && statusNow !== 'locked' && dayNum >= 2) {
                               // Show a lightweight loader message in chat
                               addAIMessage(`Generating content for Day ${dayNum}...`, [], 0);
+                              setLoadingDay(dayNum);
                               const body: any = {
                                 hobby: planData.hobby,
                                 experience: planData.difficulty || 'beginner',
@@ -1040,6 +1042,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               } else {
                                 addAIMessage(`Sorry, I couldn't generate Day ${dayNum} right now. Please try again.`, [], 0);
                               }
+                              setLoadingDay(null);
                             }
                           } catch {}
                         }}
@@ -1076,9 +1079,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 if (!currentDay || status === 'locked' || !planData?.days) {
                   return (
                     <Card className="p-8 text-center">
-                      <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
-                      <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                      {loadingDay === selectedDay ? (
+                        <div className="flex flex-col items-center justify-center space-y-3">
+                          <Loader size={48} />
+                          <p className="text-gray-700 font-medium">Generating Day {selectedDay}...</p>
+                          <p className="text-gray-500 text-sm">Please wait a moment</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
+                          <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                        </>
+                      )}
                     </Card>
                   );
                 }
