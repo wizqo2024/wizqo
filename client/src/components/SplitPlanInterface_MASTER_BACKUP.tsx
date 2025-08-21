@@ -1005,12 +1005,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const getDayStatus = (dayNumber: number): 'completed' | 'unlocked' | 'locked' => {
     const isCompleted = isDayCompleted(dayNumber);
-    if (isCompleted) return 'completed';
-    if (dayNumber === 1) return 'unlocked';
-    if (dayNumber === 2 && !user) return 'unlocked';
-    if (dayNumber > 2 && !user) return 'locked';
-    if (isDayUnlocked(dayNumber)) return 'unlocked';
-    return 'locked';
+    const status = (() => {
+      if (isCompleted) return 'completed';
+      if (dayNumber === 1) return 'unlocked';
+      if (dayNumber === 2 && !user) return 'unlocked';
+      if (dayNumber > 2 && !user) return 'locked';
+      if (isDayUnlocked(dayNumber)) return 'unlocked';
+      return 'locked';
+    })();
+    console.log('🎯 Day status for day', dayNumber, ':', { isCompleted, user: !!user, status });
+    return status;
   };
 
   const progressPercentage = useMemo(() => {
@@ -1290,7 +1294,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               <div className="mb-4 lg:mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
-                  {Array.from({ length: planData?.totalDays || 7 }, (_, i) => i + 1).map((dayNum) => {
+                  {(() => {
+                    const totalDays = planData?.totalDays || 7;
+                    console.log('🎯 Day rendering debug:', { 
+                      totalDays, 
+                      planDataTotalDays: planData?.totalDays,
+                      daysToRender: Array.from({ length: totalDays }, (_, i) => i + 1)
+                    });
+                    return Array.from({ length: totalDays }, (_, i) => i + 1).map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
                     return (
@@ -1362,7 +1373,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         )}
                       </button>
                     );
-                  })}
+                  });
+                })()}
                 </div>
               </div>
 
