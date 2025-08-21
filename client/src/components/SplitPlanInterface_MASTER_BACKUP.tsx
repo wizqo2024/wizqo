@@ -1014,10 +1014,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const progressPercentage = useMemo(() => {
-    const percentage = planData ? (completedDays.length / planData.totalDays) * 100 : 0;
-    console.log('📊 Progress calculation:', { completedDays: completedDays.length, totalDays: planData?.totalDays, percentage });
+    const totalDays = planData?.totalDays || planData?.days?.length || 7;
+    const percentage = planData ? (completedDays.length / totalDays) * 100 : 0;
+    console.log('📊 Progress calculation:', { completedDays: completedDays.length, totalDays, percentage });
     return percentage;
-  }, [completedDays.length, planData?.totalDays]);
+  }, [completedDays.length, planData?.totalDays, planData?.days?.length]);
 
   // Debug useEffect to monitor completedDays changes
   useEffect(() => {
@@ -1237,7 +1238,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       </span>
                       <span className="text-sm text-gray-600 flex items-center">
                         <Clock className="w-4 h-4 mr-1" />
-                        {planData.totalDays} days
+                        {planData.totalDays || planData.days?.length || 7} days
+                        <span className="ml-2 text-xs text-red-600">
+                          (Debug: totalDays={planData.totalDays}, daysLength={planData.days?.length})
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -1248,9 +1252,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">Progress</span>
                     <span className="text-sm text-gray-600">
-                      {completedDays.length}/{planData.totalDays} days completed
+                      {completedDays.length}/{planData.totalDays || planData.days?.length || 7} days completed
                       <span className="ml-2 text-xs text-blue-600">
-                        (Debug: {JSON.stringify({ completedDays: completedDays.length, totalDays: planData.totalDays, percentage: progressPercentage })})
+                        (Debug: {JSON.stringify({ completedDays: completedDays.length, totalDays: planData.totalDays || planData.days?.length || 7, percentage: progressPercentage })})
                       </span>
                     </span>
                   </div>
