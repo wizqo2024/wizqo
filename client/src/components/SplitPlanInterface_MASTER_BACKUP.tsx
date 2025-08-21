@@ -1013,7 +1013,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     return 'locked';
   };
 
-  const progressPercentage = useMemo(() => planData ? (completedDays.length / planData.totalDays) * 100 : 0, [completedDays.length, planData?.totalDays]);
+  const progressPercentage = useMemo(() => {
+    const percentage = planData ? (completedDays.length / planData.totalDays) * 100 : 0;
+    console.log('📊 Progress calculation:', { completedDays: completedDays.length, totalDays: planData?.totalDays, percentage });
+    return percentage;
+  }, [completedDays.length, planData?.totalDays]);
 
   // Debug useEffect to monitor completedDays changes
   useEffect(() => {
@@ -1065,6 +1069,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       }
     }
   }, [completedDays.length, selectedDay, user?.id]);
+
+  // Force UI update when progress is loaded
+  useEffect(() => {
+    if (completedDays.length > 0 && planData) {
+      console.log('🎨 Forcing UI update with progress:', { completedDays, selectedDay, progressPercentage });
+      // Force a re-render by updating state
+      setTimeout(() => {
+        setCompletedDays([...completedDays]);
+        setSelectedDay(selectedDay);
+      }, 100);
+    }
+  }, [completedDays.length, planData]);
 
   return (
     <div className="min-h-screen bg-slate-50">
