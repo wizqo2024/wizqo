@@ -164,6 +164,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     const hydratePlanIfMissing = async () => {
       try {
         if (planData) return;
+        // Only hydrate when on the plan route, never on the generate route
+        const routeHash = typeof window !== 'undefined' ? window.location.hash : '';
+        const onPlanRoute = !!routeHash && routeHash.includes('#/plan');
+        if (!onPlanRoute) return;
         // 1) Try session 'activePlanData' first
         try {
           const raw = sessionStorage.getItem('activePlanData') || sessionStorage.getItem('currentPlanData');
@@ -187,8 +191,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } catch {}
 
         // 2) Try fetching by active plan id + user id
-        const hash = window.location.hash || '';
-        const qs = hash.includes('?') ? hash.split('?')[1] : '';
+        const hashStr = window.location.hash || '';
+        const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
         const params = new URLSearchParams(qs);
         const idFromUrl = params.get('plan_id') || '';
         const idFromSession = sessionStorage.getItem('activePlanId') || '';
