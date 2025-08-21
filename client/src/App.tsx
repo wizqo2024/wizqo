@@ -58,7 +58,16 @@ export default function App() {
 
   const currentPlan = planData || (() => {
     const s = sessionStorage.getItem('currentPlanData');
-    return s ? JSON.parse(s) : null;
+    if (!s) return null;
+    try {
+      const first = JSON.parse(s);
+      if (typeof first === 'string') {
+        try { return JSON.parse(first); } catch { return null; }
+      }
+      return first;
+    } catch {
+      return null;
+    }
   })();
 
   const [route, setRoute] = useState<string>(() => window.location.hash || '#/');
