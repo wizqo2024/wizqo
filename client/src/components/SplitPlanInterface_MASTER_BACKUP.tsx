@@ -85,20 +85,26 @@ const fixPlanDataFields = (plan: any) => {
     if (existingDay) {
       return existingDay;
     } else {
-      // Create a placeholder day structure
+      // Create a placeholder day structure with all required arrays
       return {
         day: dayNumber,
         title: `Day ${dayNumber}`,
         content: `Content for Day ${dayNumber} will be generated when you select this day.`,
+        mainTask: `Complete Day ${dayNumber} exercises`,
+        howTo: [`Step 1: Get ready for Day ${dayNumber}`, `Step 2: Follow the exercises`, `Step 3: Practice and improve`],
         exercises: [`Exercise for Day ${dayNumber}`],
         tips: [`Tip for Day ${dayNumber}`],
+        checklist: [`Prepare for Day ${dayNumber}`, `Complete exercises`, `Review progress`],
         commonMistakes: [
           'Rushing through exercises without understanding concepts',
           'Skipping practice time or cutting sessions short',
           'Not taking notes or tracking your improvement'
         ],
+        freeResources: [],
+        affiliateProducts: [],
         youtubeVideoId: 'dQw4w9WgXcQ',
         videoTitle: `${plan.hobby || 'Tutorial'} - Day ${dayNumber}`,
+        estimatedTime: '30-45 minutes',
         isGenerated: false // Flag to indicate this day needs generation
       };
     }
