@@ -855,6 +855,11 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           sessionStorage.setItem('activePlanData', JSON.stringify(plan.planData));
                           sessionStorage.setItem('activePlanId', String(plan.id));
                           sessionStorage.setItem('fromDashboard', 'true');
+                          try {
+                            // Also persist to localStorage for hard refresh and direct links
+                            localStorage.setItem('lastViewedPlanData', JSON.stringify(plan.planData));
+                            localStorage.setItem(`plan_${plan.id}`, JSON.stringify(plan.planData));
+                          } catch {}
                           // Seed session progress so Day 1 completion reflects immediately
                           try {
                             if (user?.id) {
