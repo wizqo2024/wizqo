@@ -190,8 +190,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           const sessionProgress = sessionStorage.getItem(sessionKey);
           if (sessionProgress) {
             const progress = JSON.parse(sessionProgress);
-            // Show the last completed day (current_day - 1) or day 1 if no progress
-            const lastCompletedDay = Math.max(1, (progress.current_day || 1) - 1);
+            // Show the last completed day from completed_days array
+            const lastCompletedDay = progress.completed_days && progress.completed_days.length > 0 
+              ? Math.max(...progress.completed_days)
+              : 1;
             console.log('🎯 Initial selectedDay from progress:', { 
               current_day: progress.current_day, 
               completed_days: progress.completed_days,
@@ -889,20 +891,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           console.log('📦 Progress current_day:', progress.current_day);
           
           const completedDaysArray = progress.completed_days || [];
-          const currentDay = progress.current_day || 1;
+          const lastCompletedDay = completedDaysArray.length > 0 ? Math.max(...completedDaysArray) : 1;
           
           console.log('📦 Setting completedDays to:', completedDaysArray);
-          console.log('📦 Setting selectedDay to:', currentDay);
+          console.log('📦 Setting selectedDay to:', lastCompletedDay);
           
           setCompletedDays(completedDaysArray);
-          setSelectedDay(currentDay);
+          setSelectedDay(lastCompletedDay);
           progressLoadedRef.current = true;
           
           // Force a re-render by updating state
           setTimeout(() => {
             console.log('🔄 Forcing re-render with progress data');
             setCompletedDays([...completedDaysArray]);
-            setSelectedDay(currentDay);
+            setSelectedDay(lastCompletedDay);
           }, 100);
           
           return;
@@ -919,8 +921,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           const progressData = await response.json();
           console.log('💾 Direct API progress data:', progressData);
           if (progressData && progressData.completed_days) {
+            const lastCompletedDay = progressData.completed_days.length > 0 ? Math.max(...progressData.completed_days) : 1;
             setCompletedDays(progressData.completed_days || []);
-            setSelectedDay(progressData.current_day || 1);
+            setSelectedDay(lastCompletedDay);
             
             // Cache in session storage
             try {
@@ -942,8 +945,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const planProgress = progressData.find((p: any) => String(p.plan_id) === String(planId));
         if (planProgress) {
           console.log('💾 Found progress in general database:', planProgress);
+          const lastCompletedDay = planProgress.completed_days && planProgress.completed_days.length > 0 ? Math.max(...planProgress.completed_days) : 1;
           setCompletedDays(planProgress.completed_days || []);
-          setSelectedDay(planProgress.current_day || 1);
+          setSelectedDay(lastCompletedDay);
           
           // Cache in session storage
           try {
@@ -969,8 +973,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         
         if (!supabaseError && supabaseProgress) {
           console.log('💾 Found progress in Supabase:', supabaseProgress);
+          const lastCompletedDay = supabaseProgress.completed_days && supabaseProgress.completed_days.length > 0 ? Math.max(...supabaseProgress.completed_days) : 1;
           setCompletedDays(supabaseProgress.completed_days || []);
-          setSelectedDay(supabaseProgress.current_day || 1);
+          setSelectedDay(lastCompletedDay);
           
           // Cache in session storage
           try {
