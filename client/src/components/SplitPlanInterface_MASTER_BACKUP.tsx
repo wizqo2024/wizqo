@@ -134,6 +134,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
+  const [loadingDay, setLoadingDay] = useState<number | null>(null);
   useEffect(() => {
     if (planData) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -724,8 +725,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           setShowAuthModal(true);
         } else if (dayNumber === 7) {
           addAIMessage("🎊 Congratulations! You've completed your 7-day learning journey! You're amazing!", [], 500);
+          setShowConfetti(true);
         } else if (user) {
           addAIMessage(`Great job! Day ${dayNumber} completed. Keep up the excellent work!`, [], 500);
+          setShowConfetti(true);
         }
       }
     } catch {
@@ -910,11 +913,38 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     return (
                       <button
                         key={dayNum}
-                        onClick={() => {
+                        onClick={async () => {
                           if (dayNum > 1 && !user) {
                             setShowAuthModal(true);
-                          } else {
-                            setSelectedDay(dayNum);
+                            return;
+                          }
+                          setSelectedDay(dayNum);
+                          try {
+                            if (!planData) return;
+                            const hasDay = Array.isArray(planData.days) && planData.days.some((d: any) => d.day === dayNum);
+                            const prevDays = (planData.days || []).filter((d: any) => d.day < dayNum);
+                            if (!hasDay && dayNum >= 2) {
+                              setLoadingDay(dayNum);
+                              const body: any = {
+                                hobby: planData.hobby,
+                                experience: planData.difficulty || 'beginner',
+                                timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                day_number: dayNum,
+                                outline: (planData as any).outline || [],
+                                prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                              };
+                              const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                              if (resp.ok) {
+                                const j = await resp.json();
+                                if (j?.day) {
+                                  setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                }
+                              }
+                              setLoadingDay(null);
+                            }
+                          } catch {
+                            setLoadingDay(null);
                           }
                         }}
                         disabled={false}
@@ -948,9 +978,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 if (!currentDay || status === 'locked' || !planData?.days) {
                   return (
                     <Card className="p-8 text-center">
-                      <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
-                      <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                      {loadingDay === selectedDay ? (
+                        <div className="flex flex-col items-center space-y-3">
+                          <div style={{ transform: 'scale(0.6)' }}><Loader /></div>
+                          <p className="text-gray-700 font-medium">Generating Day {selectedDay}...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
+                          <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                        </>
+                      )}
                     </Card>
                   );
                 }
