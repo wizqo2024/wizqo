@@ -68,10 +68,19 @@ interface SplitPlanInterfaceProps {
 // Function to fix field mapping consistently across all plan data sources
 const fixPlanDataFields = (plan: any) => {
   if (!plan) return plan;
+  console.log('🔧 fixPlanDataFields input:', {
+    planKeys: Object.keys(plan),
+    planTotalDays: plan.totalDays,
+    planDaysLength: plan.days?.length,
+    planPlanDataDaysLength: plan.plan_data?.days?.length
+  });
+  
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   if (!daysArray || daysArray.length === 0) {
+    console.log('🔧 No days array found, returning original plan');
     return plan;
   }
+  
   const fixedPlan = {
     ...plan,
     difficulty: plan.difficulty || plan.plan_data?.difficulty || 'beginner',
@@ -92,6 +101,13 @@ const fixPlanDataFields = (plan: any) => {
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
     }))
   };
+  
+  console.log('🔧 fixPlanDataFields output:', {
+    fixedTotalDays: fixedPlan.totalDays,
+    fixedDaysLength: fixedPlan.days?.length,
+    fixedDaysArray: fixedPlan.days?.map((d: any) => d.day)
+  });
+  
   return fixedPlan;
 };
 
@@ -1296,12 +1312,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <div className="flex flex-wrap gap-2">
                   {(() => {
                     const totalDays = planData?.totalDays || 7;
+                    const daysArray = Array.from({ length: totalDays }, (_, i) => i + 1);
                     console.log('🎯 Day rendering debug:', { 
                       totalDays, 
                       planDataTotalDays: planData?.totalDays,
-                      daysToRender: Array.from({ length: totalDays }, (_, i) => i + 1)
+                      daysToRender: daysArray,
+                      planDataExists: !!planData,
+                      planDataKeys: planData ? Object.keys(planData) : []
                     });
-                    return Array.from({ length: totalDays }, (_, i) => i + 1).map((dayNum) => {
+                    return daysArray.map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
                     return (
