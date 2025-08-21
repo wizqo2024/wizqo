@@ -1328,18 +1328,63 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           <button
                             key={dayNum}
                             data-day={dayNum}
-                            onClick={() => {
+                            onClick={async () => {
                               console.log('🎯 Completed day clicked:', { dayNum });
                               setSelectedDay(dayNum);
+                              
+                              // Check if day content exists, if not generate it
+                              const hasDay = planData?.days?.some((d: any) => d.day === dayNum);
+                              if (!hasDay) {
+                                try {
+                                  console.log('🎯 Generating missing completed day content for day:', dayNum);
+                                  setLoadingDay(dayNum);
+                                  const prevDays = planData?.days || [];
+                                  const body: any = {
+                                    hobby: planData.hobby,
+                                    experience: planData.difficulty || 'beginner',
+                                    timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                    goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                    day_number: dayNum,
+                                    outline: (planData as any).outline || [],
+                                    prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                                  };
+                                  console.log('🎯 Sending day generation request for completed day:', body);
+                                  const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                                  console.log('🎯 Day generation response status:', resp.status);
+                                  if (resp.ok) {
+                                    const j = await resp.json();
+                                    console.log('🎯 Day generation response:', j);
+                                    if (j?.day) {
+                                      console.log('🎯 Adding generated day to plan data');
+                                      setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                    } else {
+                                      console.log('🎯 No day data in response');
+                                    }
+                                  } else {
+                                    console.log('🎯 Day generation failed:', resp.statusText);
+                                  }
+                                  setLoadingDay(null);
+                                } catch {
+                                  setLoadingDay(null);
+                                }
+                              }
                             }}
                             className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
                               selectedDay === dayNum
                                 ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
-                                : 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
+                                : loadingDay === dayNum
+                                  ? 'bg-green-100 text-green-600 border-2 border-green-300 cursor-wait'
+                                  : 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
                             }`}
                           >
-                            {dayNum}
-                            <CheckCircle className="w-3 h-3 text-green-600 absolute -top-1 -right-1 bg-white rounded-full" />
+                            {loadingDay === dayNum ? (
+                              <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                              <>
+                                {dayNum}
+                                <CheckCircle className="w-3 h-3 text-green-600 absolute -top-1 -right-1 bg-white rounded-full" />
+                              </>
+                            )}
                           </button>
                         ))}
                         
