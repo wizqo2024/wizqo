@@ -606,6 +606,24 @@ app.get('/api/hobby-plans', async (req, res) => {
   } catch { res.json([]); }
 });
 
+// GET single hobby plan by id (read-only)
+app.get('/api/hobby-plans/:id', async (req, res) => {
+  try {
+    const id = String(req.params.id || '');
+    if (!id || !supabaseAnon) return res.status(404).json({ error: 'not_found' });
+    const { data, error } = await supabaseAnon
+      .from('hobby_plans')
+      .select('*')
+      .eq('id', id)
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return res.status(404).json({ error: 'not_found' });
+    res.json(data);
+  } catch {
+    res.status(404).json({ error: 'not_found' });
+  }
+});
+
 // Chat moderation helper
 function isUnsafeQuery(text: string): { unsafe: boolean; category?: string } {
   const lowered = text.toLowerCase();
