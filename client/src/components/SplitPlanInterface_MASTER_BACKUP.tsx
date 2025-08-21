@@ -208,13 +208,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           }
         }
 
-        // Fallback: try localStorage key by plan id
-        if (!payload) {
+        // Supabase direct fetch (RLS-protected; requires signed-in user)
+        if (!payload && planId) {
           try {
-            const key = `plan_${planId}`;
-            const rawById = localStorage.getItem(key) || sessionStorage.getItem(key);
-            if (rawById) {
-              payload = JSON.parse(rawById);
+            const { data } = await supabase
+              .from('hobby_plans')
+              .select('id,user_id,plan_data')
+              .eq('id', planId)
+              .maybeSingle();
+            if (data) {
+              match = data as any;
+              payload = (data as any).plan_data || data;
             }
           } catch {}
         }
