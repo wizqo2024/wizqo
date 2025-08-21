@@ -181,7 +181,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         let match: any = null;
         // Prefer direct plan fetch by id (works even without user context)
         try {
-          const r = await fetch(`/api/hobby-plans/${planId}`);
+          const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
           if (r.ok) {
             match = await r.json();
             payload = match?.plan_data || match?.planData || match;
