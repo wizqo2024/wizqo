@@ -68,14 +68,11 @@ interface SplitPlanInterfaceProps {
 // Function to fix field mapping consistently across all plan data sources
 const fixPlanDataFields = (plan: any) => {
   if (!plan) return plan;
-  console.log('🔧 fixPlanDataFields input:', {
-    planKeys: Object.keys(plan),
-    planTotalDays: plan.totalDays,
-    planDaysLength: plan.days?.length,
-    planPlanDataDaysLength: plan.plan_data?.days?.length,
-    planTitle: plan.title,
-    planHobby: plan.hobby
-  });
+  console.log('🔧 fixPlanDataFields input - planTotalDays:', plan.totalDays);
+  console.log('🔧 fixPlanDataFields input - planDaysLength:', plan.days?.length);
+  console.log('🔧 fixPlanDataFields input - planPlanDataDaysLength:', plan.plan_data?.days?.length);
+  console.log('🔧 fixPlanDataFields input - planTitle:', plan.title);
+  console.log('🔧 fixPlanDataFields input - planHobby:', plan.hobby);
   
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   if (!daysArray || daysArray.length === 0) {
@@ -104,13 +101,11 @@ const fixPlanDataFields = (plan: any) => {
     }))
   };
   
-  console.log('🔧 fixPlanDataFields output:', {
-    fixedTotalDays: fixedPlan.totalDays,
-    fixedDaysLength: fixedPlan.days?.length,
-    fixedDaysArray: fixedPlan.days?.map((d: any) => d.day),
-    fixedTitle: fixedPlan.title,
-    fixedHobby: fixedPlan.hobby
-  });
+  console.log('🔧 fixPlanDataFields output - fixedTotalDays:', fixedPlan.totalDays);
+  console.log('🔧 fixPlanDataFields output - fixedDaysLength:', fixedPlan.days?.length);
+  console.log('🔧 fixPlanDataFields output - fixedDaysArray:', fixedPlan.days?.map((d: any) => d.day));
+  console.log('🔧 fixPlanDataFields output - fixedTitle:', fixedPlan.title);
+  console.log('🔧 fixPlanDataFields output - fixedHobby:', fixedPlan.hobby);
   
   return fixedPlan;
 };
@@ -1317,15 +1312,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   {(() => {
                     const totalDays = planData?.totalDays || 7;
                     const daysArray = Array.from({ length: totalDays }, (_, i) => i + 1);
-                    console.log('🎯 Day rendering debug:', { 
-                      totalDays, 
-                      planDataTotalDays: planData?.totalDays,
-                      daysToRender: daysArray,
-                      planDataExists: !!planData,
-                      planDataKeys: planData ? Object.keys(planData) : [],
-                      planDataTitle: planData?.title,
-                      planDataHobby: planData?.hobby
-                    });
+                    console.log('🎯 Day rendering debug - totalDays:', totalDays);
+                    console.log('🎯 Day rendering debug - planDataTotalDays:', planData?.totalDays);
+                    console.log('🎯 Day rendering debug - daysToRender:', daysArray);
+                    console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
+                    console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
                     return daysArray.map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
