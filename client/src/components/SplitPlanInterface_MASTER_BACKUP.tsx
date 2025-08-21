@@ -775,12 +775,37 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } catch {}
       }
       
-      // Then try database
+      // Try direct API call for this specific plan
+      try {
+        console.log('🔍 Trying direct API call for plan progress...');
+        const response = await fetch(`/api/user-progress/${user.id}/${planId}`, { cache: 'no-cache' });
+        if (response.ok) {
+          const progressData = await response.json();
+          console.log('💾 Direct API progress data:', progressData);
+          if (progressData && progressData.completed_days) {
+            setCompletedDays(progressData.completed_days || []);
+            setSelectedDay(progressData.current_day || 1);
+            
+            // Cache in session storage
+            try {
+              sessionStorage.setItem(sessionKey, JSON.stringify({
+                completed_days: progressData.completed_days || [],
+                current_day: progressData.current_day || 1
+              }));
+            } catch {}
+            return;
+          }
+        }
+      } catch (directError) {
+        console.log('Direct API call failed, trying general progress...');
+      }
+      
+      // Then try general user progress
       const { data: progressData, error } = await apiService.getUserProgress(user.id);
       if (!error && progressData) {
         const planProgress = progressData.find((p: any) => String(p.plan_id) === String(planId));
         if (planProgress) {
-          console.log('💾 Found progress in database:', planProgress);
+          console.log('💾 Found progress in general database:', planProgress);
           setCompletedDays(planProgress.completed_days || []);
           setSelectedDay(planProgress.current_day || 1);
           
@@ -794,6 +819,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         } else {
           console.log('❌ No progress found for plan:', planId);
         }
+      }
+      
+      // Final fallback: try Supabase directly
+      try {
+        console.log('🔍 Trying Supabase direct query...');
+        const { data: supabaseProgress, error: supabaseError } = await supabase
+          .from('user_progress')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('plan_id', planId)
+          .maybeSingle();
+        
+        if (!supabaseError && supabaseProgress) {
+          console.log('💾 Found progress in Supabase:', supabaseProgress);
+          setCompletedDays(supabaseProgress.completed_days || []);
+          setSelectedDay(supabaseProgress.current_day || 1);
+          
+          // Cache in session storage
+          try {
+            sessionStorage.setItem(sessionKey, JSON.stringify({
+              completed_days: supabaseProgress.completed_days || [],
+              current_day: supabaseProgress.current_day || 1
+            }));
+          } catch {}
+        } else {
+          console.log('❌ No progress found in Supabase for plan:', planId);
+        }
+      } catch (supabaseError) {
+        console.error('Supabase direct query failed:', supabaseError);
       }
     } catch (error) {
       console.error('Error loading progress:', error);
