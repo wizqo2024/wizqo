@@ -292,8 +292,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const fixedPlanData = fixPlanDataFields(initialPlanData);
       setPlanData(fixedPlanData);
       setShowQuickReplies(true);
+      
+      // Load progress when initialPlanData is provided (e.g., from dashboard)
+      const loadProgressForInitialPlan = async () => {
+        try {
+          // Try to get plan ID from URL or session storage
+          const hashStr = window.location.hash || '';
+          const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
+          const params = new URLSearchParams(qs);
+          const planId = params.get('plan_id') || sessionStorage.getItem('activePlanId');
+          
+          if (planId && user?.id) {
+            await loadProgressFromDatabase(planId);
+          }
+        } catch {}
+      };
+      
+      loadProgressForInitialPlan();
     }
-  }, [initialPlanData]);
+  }, [initialPlanData, user]);
 
   useEffect(() => {
     if (user && initialPlanData && initialPlanData.hobby) {
@@ -769,25 +786,44 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const loadProgressFromDatabase = async (planId: string) => {
     if (!user?.id) return;
     try {
+      console.log('🔄 Loading progress for plan:', planId);
+      
+      // First try session storage
       const sessionKey = `progress_${user.id}_${planId}`;
       const sessionProgress = sessionStorage.getItem(sessionKey);
       if (sessionProgress) {
         try {
           const progress = JSON.parse(sessionProgress);
+          console.log('📦 Found progress in session:', progress);
           setCompletedDays(progress.completed_days || []);
           setSelectedDay(progress.current_day || 1);
           return;
         } catch {}
       }
+      
+      // Then try database
       const { data: progressData, error } = await apiService.getUserProgress(user.id);
       if (!error && progressData) {
         const planProgress = progressData.find((p: any) => String(p.plan_id) === String(planId));
         if (planProgress) {
+          console.log('💾 Found progress in database:', planProgress);
           setCompletedDays(planProgress.completed_days || []);
           setSelectedDay(planProgress.current_day || 1);
+          
+          // Cache in session storage
+          try {
+            sessionStorage.setItem(sessionKey, JSON.stringify({
+              completed_days: planProgress.completed_days || [],
+              current_day: planProgress.current_day || 1
+            }));
+          } catch {}
+        } else {
+          console.log('❌ No progress found for plan:', planId);
         }
       }
-    } catch {}
+    } catch (error) {
+      console.error('Error loading progress:', error);
+    }
   };
 
   const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
