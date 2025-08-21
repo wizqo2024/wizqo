@@ -155,16 +155,15 @@ app.post('/api/user-profile', async (req, res) => {
 
     console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
     
-    // RLS policy issue detected - return stub response to prevent blocking
-    console.log('🔧 RLS POLICY ISSUE: Returning stub profile to prevent blocking');
-    return res.json({ 
-      id: user_id, 
-      user_id, 
-      email, 
-      full_name, 
-      avatar_url, 
-      stub: true,
-      rls_issue: true 
+    // All attempts failed - return error
+    return res.status(500).json({ 
+      error: 'profile_upsert_failed', 
+      details: { 
+        updateByIdErr: updateById.error,
+        updateByUserIdErr: updateByUserId.error,
+        insertWithIdErr: insertWithId.error,
+        insertWithUserIdErr: insertWithUserId.error
+      } 
     });
   } catch (e: any) {
     console.error('profile_upsert_exception', e);
