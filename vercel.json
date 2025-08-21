@@ -14,7 +14,8 @@
       "use": "@vercel/node@3.0.0",
       "config": {
         "bundle": true,
-        "includeFiles": "server/**,shared/**"
+        "includeFiles": "server/**,shared/**",
+        "runtime": "nodejs20.x"
       }
     }
   ],
