@@ -187,6 +187,20 @@ app.post('/api/user-progress', async (req, res) => {
       return res.json({ user_id, plan_id, completed_days, current_day, last_accessed_at: new Date().toISOString(), stub: true });
     }
 
+    // Inspect columns to avoid referencing non-existent fields (e.g., last_accessed_at)
+    let progressColumns: string[] = [];
+    try {
+      if (supabaseAnon) {
+        const cols = await supabaseAnon
+          .from('information_schema.columns')
+          .select('column_name')
+          .eq('table_schema', 'public')
+          .eq('table_name', 'user_progress');
+        progressColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
+      }
+    } catch {}
+    const hasLastAccessed = progressColumns.includes('last_accessed_at');
+
     // Select then update/insert to avoid depending on composite unique constraint
     const existing = await supabaseAdmin
       .from('user_progress')
@@ -196,9 +210,11 @@ app.post('/api/user-progress', async (req, res) => {
       .maybeSingle();
 
     if (existing.data) {
+      const updatePayload: any = { completed_days, current_day };
+      if (hasLastAccessed) updatePayload.last_accessed_at = new Date().toISOString();
       const upd = await supabaseAdmin
         .from('user_progress')
-        .update({ completed_days, current_day, last_accessed_at: new Date().toISOString() })
+        .update(updatePayload)
         .eq('user_id', user_id)
         .eq('plan_id', plan_id)
         .select()
@@ -209,9 +225,11 @@ app.post('/api/user-progress', async (req, res) => {
       }
       return res.json(upd.data);
     } else {
+      const insertPayload: any = { user_id, plan_id, completed_days, current_day };
+      if (hasLastAccessed) insertPayload.last_accessed_at = new Date().toISOString();
       const ins = await supabaseAdmin
         .from('user_progress')
-        .insert({ user_id, plan_id, completed_days, current_day, last_accessed_at: new Date().toISOString() })
+        .insert(insertPayload)
         .select()
         .single();
       if (ins.error) {
