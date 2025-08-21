@@ -58,6 +58,7 @@ interface PlanData {
   overview: string;
   difficulty: string;
   totalDays: number;
+  outline?: { day: number; title: string | null; goals?: string[] }[];
   days: Day[];
 }
 
@@ -995,12 +996,52 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     return (
                       <button
                         key={dayNum}
-                        onClick={() => {
+                        onClick={async () => {
                           if (dayNum > 1 && !user) {
                             setShowAuthModal(true);
-                          } else {
-                            setSelectedDay(dayNum);
+                            return;
                           }
+                          // Lazy-generate day content if missing
+                          try {
+                            setSelectedDay(dayNum);
+                            if (!planData) return;
+                            const hasDay = Array.isArray(planData.days) && planData.days.some((d: any) => d.day === dayNum);
+                            const statusNow = getDayStatus(dayNum);
+                            if (!hasDay && statusNow !== 'locked' && dayNum >= 2) {
+                              // Show a lightweight loader message in chat
+                              addAIMessage(`Generating content for Day ${dayNum}...`, [], 0);
+                              const body: any = {
+                                hobby: planData.hobby,
+                                experience: planData.difficulty || 'beginner',
+                                timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                day_number: dayNum,
+                                outline: (planData as any).outline || [],
+                                prior_days: planData.days.filter((d: any) => d.day < dayNum).map((d: any) => ({
+                                  day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo
+                                }))
+                              };
+                              const resp = await fetch('/api/generate-day', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(body)
+                              });
+                              if (resp.ok) {
+                                const j = await resp.json();
+                                if (j?.day) {
+                                  setPlanData(prev => {
+                                    if (!prev) return prev;
+                                    const updated = { ...prev, days: [...(prev.days || []), j.day] } as any;
+                                    // Persist for reloads
+                                    sessionStorage.setItem('activePlanData', JSON.stringify(updated));
+                                    return updated;
+                                  });
+                                }
+                              } else {
+                                addAIMessage(`Sorry, I couldn't generate Day ${dayNum} right now. Please try again.`, [], 0);
+                              }
+                            }
+                          } catch {}
                         }}
                         disabled={false}
                         className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${

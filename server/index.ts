@@ -433,31 +433,38 @@ app.post('/api/generate-plan', async (req, res) => {
     if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
     const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
-    if (!aiPlan?.days || !Array.isArray(aiPlan.days)) return res.status(502).json({ error: 'bad_ai_response' });
+    if (!aiPlan) return res.status(502).json({ error: 'bad_ai_response' });
 
-    const days = await Promise.all(Array.from({ length: 7 }, async (__, i) => {
-      const d = aiPlan.days?.[i] || {} as any;
-      const dayNum = i + 1;
-      const title = (typeof d.title === 'string' && d.title.trim()) ? d.title : `${hobby} Fundamentals`;
-      let video = await getYouTubeVideo(hobby, dayNum, title);
-      if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
-      return {
-        day: dayNum,
-        title,
-        mainTask: d.mainTask || d.goal || d.objective || `Learn ${hobby} fundamentals`,
-        explanation: d.explanation || d.description || d.details || `Day ${dayNum} of your ${hobby} journey`,
-        howTo: Array.isArray(d.howTo) && d.howTo.length ? d.howTo : [`Step ${dayNum}`],
-        checklist: Array.isArray(d.checklist) && d.checklist.length ? d.checklist : [`Complete day ${dayNum} tasks`],
-        tips: Array.isArray(d.tips) && d.tips.length ? d.tips : [`Tip for day ${dayNum}`],
-        mistakesToAvoid: Array.isArray(d.mistakesToAvoid) && d.mistakesToAvoid.length ? d.mistakesToAvoid : (Array.isArray(d.commonMistakes) && d.commonMistakes.length ? d.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
-        freeResources: [],
-        affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + i * 5}.99` }],
-        youtubeVideoId: video?.id || null,
-        videoTitle: video?.title || 'Video not available',
-        estimatedTime: d.estimatedTime || timeAvailable,
-        skillLevel: d.skillLevel || experience
-      };
+    // Build a lightweight outline if provided, else derive from any returned days
+    const rawDays: any[] = Array.isArray(aiPlan.days) ? aiPlan.days : [];
+    const outline = rawDays.slice(0, 7).map((d: any, idx: number) => ({
+      day: (typeof d?.day === 'number' ? d.day : (idx + 1)),
+      title: typeof d?.title === 'string' ? d.title : null,
+      goals: Array.isArray(d?.checklist) ? d.checklist.slice(0, 3) : (Array.isArray(d?.howTo) ? d.howTo.slice(0, 3) : [])
     }));
+
+    // Generate only Day 1 content now to save tokens
+    const d1 = rawDays?.[0] || {} as any;
+    const dayNum = 1;
+    const title = (typeof d1.title === 'string' && d1.title.trim()) ? d1.title : `${hobby} Fundamentals`;
+    let video = await getYouTubeVideo(hobby, dayNum, title);
+    if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
+    const day1 = {
+      day: 1,
+      title,
+      mainTask: d1.mainTask || d1.goal || d1.objective || `Learn ${hobby} fundamentals`,
+      explanation: d1.explanation || d1.description || d1.details || `Day ${dayNum} of your ${hobby} journey`,
+      howTo: Array.isArray(d1.howTo) && d1.howTo.length ? d1.howTo : [`Step ${dayNum}`],
+      checklist: Array.isArray(d1.checklist) && d1.checklist.length ? d1.checklist : [`Complete day ${dayNum} tasks`],
+      tips: Array.isArray(d1.tips) && d1.tips.length ? d1.tips : [`Tip for day ${dayNum}`],
+      mistakesToAvoid: Array.isArray(d1.mistakesToAvoid) && d1.mistakesToAvoid.length ? d1.mistakesToAvoid : (Array.isArray(d1.commonMistakes) && d1.commonMistakes.length ? d1.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
+      freeResources: [],
+      affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + 0 * 5}.99` }],
+      youtubeVideoId: video?.id || null,
+      videoTitle: video?.title || 'Video not available',
+      estimatedTime: d1.estimatedTime || timeAvailable,
+      skillLevel: d1.skillLevel || experience
+    };
 
     res.json({
       hobby: aiPlan.hobby || hobby,
@@ -465,11 +472,100 @@ app.post('/api/generate-plan', async (req, res) => {
       overview: aiPlan.overview || aiPlan.description || `Master ${hobby} with this 7-day plan`,
       difficulty: aiPlan.difficulty || experience,
       totalDays: 7,
-      days
+      outline,
+      days: [day1]
     });
   } catch (e: any) {
     console.error('generate-plan error:', e);
     res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e), upstream: e?.upstream || '' });
+  }
+});
+
+// Generate a single day on-demand (Days 2-7)
+app.post('/api/generate-day', async (req, res) => {
+  try {
+    const hobby = String(req.body?.hobby || '').trim();
+    const experience = String(req.body?.experience || 'beginner');
+    const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
+    const goal = String(req.body?.goal || (hobby ? `Learn ${hobby} fundamentals` : ''));
+    const dayNumber = Number(req.body?.day_number || 0);
+    const outline = Array.isArray(req.body?.outline) ? req.body.outline : [];
+    const priorDays = Array.isArray(req.body?.prior_days) ? req.body.prior_days : [];
+
+    if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
+    if (!dayNumber || dayNumber < 2 || dayNumber > 7) return res.status(400).json({ error: 'invalid_day_number' });
+    if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+    // Build a concise context from outline and prior days to keep tokens low
+    const outlineForDay = outline.find((o: any) => Number(o?.day) === dayNumber) || null;
+    const priorSummaries = priorDays
+      .filter((d: any) => typeof d?.day === 'number' && d.day < dayNumber)
+      .slice(-3)
+      .map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, keySteps: Array.isArray(d.howTo) ? d.howTo.slice(0, 3) : [] }));
+
+    const system = [
+      'You are Wizqo, a friendly expert hobby coach.',
+      'Output strict JSON only. No markdown.'
+    ].join('\n');
+    const userPrompt = `Hobby: ${hobby}\nDifficulty: ${experience}\nTime per day: ${timeAvailable}\nGoal: ${goal}\n\nDay requested: ${dayNumber}\nOutline for this day: ${JSON.stringify(outlineForDay || {})}\nPrior day summaries: ${JSON.stringify(priorSummaries)}\n\nConstraints:\n- Build on previous days, no repetition.\n- Progressive difficulty.\n- Be practical and concise.\n- End with a next_day_hint.\n\nReturn ONLY a JSON object with keys: {"title","objectives","steps","resources","estimated_total_min","prerequisites","next_day_hint"}.`;
+
+    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        'HTTP-Referer': process.env.WEB_ORIGIN || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://wizqo.com'),
+        'X-Title': 'Wizqo Hobby Learning Platform'
+      },
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: userPrompt }
+        ],
+        max_tokens: 1200,
+        temperature: 0.7
+      })
+    });
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => '');
+      const err = new Error(`openrouter_${resp.status}`);
+      ;(err as any).upstream = text;
+      throw err;
+    }
+    const data = await resp.json();
+    let content = data?.choices?.[0]?.message?.content || '';
+    content = String(content).trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    const cleaned = jsonMatch ? jsonMatch[0] : content;
+    let parsed: any;
+    try { parsed = JSON.parse(cleaned); } catch { throw new Error('openrouter_invalid_json'); }
+
+    // Normalize into Day structure expected by frontend
+    const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
+    let video = await getYouTubeVideo(hobby, dayNumber, title);
+    if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
+    const day = {
+      day: dayNumber,
+      title,
+      mainTask: Array.isArray(parsed?.objectives) && parsed.objectives.length ? parsed.objectives[0] : `Objective for day ${dayNumber}`,
+      explanation: parsed?.prerequisites ? `Prerequisites: ${(Array.isArray(parsed.prerequisites) ? parsed.prerequisites.join(', ') : String(parsed.prerequisites))}` : `Focus on building skills from prior days.`,
+      howTo: Array.isArray(parsed?.steps) && parsed.steps.length ? parsed.steps.map((s: any) => (typeof s === 'string' ? s : (s?.how || s?.what || 'Step'))) : [`Step ${dayNumber}`],
+      checklist: Array.isArray(parsed?.steps) && parsed.steps.length ? parsed.steps.map((s: any, i: number) => (typeof s === 'string' ? s : (s?.title || `Task ${i + 1}`))) : [`Complete day ${dayNumber} tasks`],
+      tips: [],
+      mistakesToAvoid: [],
+      freeResources: Array.isArray(parsed?.resources) ? parsed.resources.filter((r: any) => r?.type === 'link' || r?.type === 'article').slice(0, 3).map((r: any) => ({ title: r?.title || 'Resource', link: r?.url || '#' })) : [],
+      affiliateProducts: [{ title: `${hobby} Essentials`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+essentials&tag=wizqohobby-20`, price: `$${19 + (dayNumber - 1) * 5}.99` }],
+      youtubeVideoId: video?.id || null,
+      videoTitle: video?.title || 'Video not available',
+      estimatedTime: typeof parsed?.estimated_total_min === 'number' ? `${parsed.estimated_total_min} minutes` : timeAvailable,
+      skillLevel: experience
+    };
+
+    res.json({ day });
+  } catch (e: any) {
+    console.error('generate-day error:', e);
+    res.status(500).json({ error: 'failed_to_generate_day', message: String(e?.message || e), upstream: e?.upstream || '' });
   }
 });
 
