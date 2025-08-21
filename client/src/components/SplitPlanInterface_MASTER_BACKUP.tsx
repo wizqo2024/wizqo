@@ -1082,6 +1082,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [completedDays.length, planData]);
 
+  // Force re-render when progress changes
+  const [forceRender, setForceRender] = useState(0);
+  useEffect(() => {
+    if (completedDays.length > 0) {
+      console.log('🔄 Forcing component re-render due to progress change');
+      setForceRender(prev => prev + 1);
+    }
+  }, [completedDays.length, progressPercentage]);
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* SEO Meta Tags */}
@@ -1238,9 +1247,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <div className="mb-4 lg:mb-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">Progress</span>
-                    <span className="text-sm text-gray-600">{completedDays.length}/{planData.totalDays} days completed</span>
+                    <span className="text-sm text-gray-600">
+                      {completedDays.length}/{planData.totalDays} days completed
+                      <span className="ml-2 text-xs text-blue-600">
+                        (Debug: {JSON.stringify({ completedDays: completedDays.length, totalDays: planData.totalDays, percentage: progressPercentage })})
+                      </span>
+                    </span>
                   </div>
                   <Progress value={progressPercentage} className="h-2" />
+                  <div className="text-xs text-gray-500 mt-1">
+                    Progress: {progressPercentage.toFixed(1)}% | Completed: {completedDays.join(', ') || 'none'} | Current Day: {selectedDay}
+                  </div>
                 </div>
 
                 {/* Overview */}
