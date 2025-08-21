@@ -197,10 +197,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   useEffect(() => {
     if (initialPlanData) {
       const fixedPlanData = fixPlanDataFields(initialPlanData);
-      // If only Day 1 is present but outline exists, preserve outline for on-demand days
       const merged = { ...fixedPlanData } as any;
       if ((initialPlanData as any).outline && !merged.outline) merged.outline = (initialPlanData as any).outline;
       setPlanData(merged);
+      // Attempt to hydrate progress for this plan if we have an active plan id
+      try {
+        const activePlanId = sessionStorage.getItem('activePlanId');
+        const authUser = sessionStorage.getItem('auth_user');
+        if (activePlanId && authUser) {
+          const parsedUser = JSON.parse(authUser);
+          if (parsedUser?.id) {
+            loadProgressFromDatabase(activePlanId);
+          }
+        }
+      } catch {}
     }
   }, [initialPlanData]);
 

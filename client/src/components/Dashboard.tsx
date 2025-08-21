@@ -850,7 +850,11 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           planDataKeys: plan.planData ? Object.keys(plan.planData) : null
                         });
                         if (plan.planData) {
+                          // Persist plan payload for the plan page
                           sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
+                          sessionStorage.setItem('activePlanData', JSON.stringify(plan.planData));
+                          sessionStorage.setItem('activePlanId', String(plan.id));
+                          sessionStorage.setItem('fromDashboard', 'true');
                           console.log('💾 Dashboard: Plan data stored in sessionStorage');
                         } else {
                           console.log('❌ Dashboard: No planData found in plan object');
