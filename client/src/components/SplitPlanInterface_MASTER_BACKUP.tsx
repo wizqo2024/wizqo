@@ -213,6 +213,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [loadingDay, setLoadingDay] = useState<number | null>(null);
+  const [dayGenerationError, setDayGenerationError] = useState<string | null>(null);
   useEffect(() => {
     if (planData) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -1345,11 +1346,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     const lastCompletedDay = completedDays.length > 0 ? Math.max(...completedDays) : 0;
                     const nextDayToComplete = lastCompletedDay + 1;
                     
-                    // Ensure selectedDay is set to last completed day if it's not already
-                    if (selectedDay !== lastCompletedDay && lastCompletedDay > 0) {
-                      console.log('🎯 Auto-correcting selectedDay from', selectedDay, 'to', lastCompletedDay);
-                      setSelectedDay(lastCompletedDay);
-                    }
+                    // Do not auto-correct selectedDay here; respect explicit user selection
                     
                     console.log('🎯 Day rendering debug - completedDays:', completedDays);
                     console.log('🎯 Day rendering debug - nextDayToComplete:', nextDayToComplete);
@@ -1370,6 +1367,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           data-day={dayNum}
                           onClick={async () => {
                             console.log('🎯 Day button clicked:', { dayNum, isCompleted, isNextDay });
+                            setDayGenerationError(null);
                             setSelectedDay(dayNum);
                             
                             // Generate content if it doesn't exist
@@ -1401,10 +1399,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   }
                                 } else {
                                   console.log('🎯 Day generation failed:', resp.statusText);
+                                  if (resp.status === 429 || resp.status === 500) {
+                                    setDayGenerationError('Generation failed (possibly API quota). Please try again later.');
+                                  } else {
+                                    setDayGenerationError('Failed to generate this day.');
+                                  }
                                 }
                                 setLoadingDay(null);
-                              } catch {
+                              } catch (e) {
                                 setLoadingDay(null);
+                                setDayGenerationError('Failed to generate this day.');
                               }
                             }
                           }}
@@ -1458,6 +1462,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 if (!currentDay) {
                   return (
                     <Card className="p-8 text-center">
+                      {dayGenerationError && (
+                        <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                          {dayGenerationError}
+                        </div>
+                      )}
                       {loadingDay === selectedDay ? (
                         <div className="flex flex-col items-center space-y-3">
                           <div style={{ transform: 'scale(0.6)' }}><Loader /></div>
