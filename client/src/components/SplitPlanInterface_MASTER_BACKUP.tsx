@@ -1342,7 +1342,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <div className="flex flex-wrap gap-2">
                                     {(() => {
                     // Show all completed days and the next day to complete
-                    const nextDayToComplete = Math.max(...completedDays, 0) + 1;
+                    const lastCompletedDay = completedDays.length > 0 ? Math.max(...completedDays) : 0;
+                    const nextDayToComplete = lastCompletedDay + 1;
+                    
+                    // Ensure selectedDay is set to last completed day if it's not already
+                    if (selectedDay !== lastCompletedDay && lastCompletedDay > 0) {
+                      console.log('🎯 Auto-correcting selectedDay from', selectedDay, 'to', lastCompletedDay);
+                      setSelectedDay(lastCompletedDay);
+                    }
                     
                     console.log('🎯 Day rendering debug - completedDays:', completedDays);
                     console.log('🎯 Day rendering debug - nextDayToComplete:', nextDayToComplete);
