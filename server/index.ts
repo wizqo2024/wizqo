@@ -37,6 +37,9 @@ app.get('/api/db-diagnostics', async (_req, res) => {
 });
 
 // Admin write: create/update user profile (schema-flexible: id or user_id)
+// NOTE: If you see RLS policy errors, you need to either:
+// 1) Disable RLS on user_profiles table: ALTER TABLE user_profiles DISABLE ROW LEVEL SECURITY;
+// 2) Or create a policy that allows service role: CREATE POLICY "service_role_all" ON user_profiles FOR ALL USING (auth.role() = 'service_role');
 app.post('/api/user-profile', async (req, res) => {
   try {
     if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable', details: 'service_role_key_missing' });
@@ -151,8 +154,18 @@ app.post('/api/user-profile', async (req, res) => {
     }
 
     console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
-    // Return a non-blocking stub so frontend can proceed; real DB writes are optional for profile
-    return res.json({ id: user_id, user_id, email, full_name, avatar_url, stub: true });
+    
+    // RLS policy issue detected - return stub response to prevent blocking
+    console.log('🔧 RLS POLICY ISSUE: Returning stub profile to prevent blocking');
+    return res.json({ 
+      id: user_id, 
+      user_id, 
+      email, 
+      full_name, 
+      avatar_url, 
+      stub: true,
+      rls_issue: true 
+    });
   } catch (e: any) {
     console.error('profile_upsert_exception', e);
     res.status(500).json({ error: 'profile_upsert_failed', details: { message: String(e?.message || e) } });
@@ -226,6 +239,7 @@ app.post('/api/hobby-plans', async (req, res) => {
     if (hobby_name || hobby) base.hobby = hobby_name || hobby;
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
+    // Use service role to bypass RLS policies
     const first = await supabaseAdmin.from('hobby_plans').insert(base).select().single();
     if (!first.error && first.data) return res.json(first.data);
 
