@@ -21,6 +21,8 @@ type QuizAnswers = {
 
 export default function App() {
   const [planData, setPlanData] = useState<any | null>(null);
+  const [hydratedPlan, setHydratedPlan] = useState<any | null>(null);
+  const [hydrating, setHydrating] = useState(false);
 
   const handleGeneratePlan = async (hobby: string, answers: QuizAnswers) => {
     // Try to include user_id for per-day limit
@@ -96,6 +98,68 @@ export default function App() {
     }
   }, [routeKey, routeQuery]);
 
+  // Top-level hydration for /plan route so Split receives initialPlanData immediately
+  useEffect(() => {
+    const hydrate = async () => {
+      try {
+        setHydrating(true);
+        setHydratedPlan(null);
+        if (routeKey !== 'plan') return;
+        const planId = routeQuery.get('plan_id') || sessionStorage.getItem('activePlanId') || '';
+        const parseMaybeDouble = (s: string | null) => {
+          if (!s) return null;
+          try {
+            const v = JSON.parse(s);
+            if (typeof v === 'string') {
+              try { return JSON.parse(v); } catch { return null; }
+            }
+            return v;
+          } catch { return null; }
+        };
+        const fromSession = parseMaybeDouble(sessionStorage.getItem('activePlanData')) || parseMaybeDouble(sessionStorage.getItem('currentPlanData'));
+        if (fromSession && fromSession.days) {
+          setHydratedPlan(fromSession);
+          return;
+        }
+        const fromLastViewed = parseMaybeDouble(localStorage.getItem('lastViewedPlanData'));
+        if (fromLastViewed && fromLastViewed.days) {
+          setHydratedPlan(fromLastViewed);
+          try { sessionStorage.setItem('currentPlanData', JSON.stringify(fromLastViewed)); } catch {}
+          return;
+        }
+        if (planId) {
+          try {
+            const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
+            if (r.ok) {
+              const j = await r.json();
+              const payload = j?.plan_data || j?.planData || j;
+              if (payload && payload.days) {
+                setHydratedPlan(payload);
+                try {
+                  sessionStorage.setItem('currentPlanData', JSON.stringify(payload));
+                  sessionStorage.setItem('activePlanData', JSON.stringify(payload));
+                } catch {}
+                return;
+              }
+            }
+          } catch {}
+          try {
+            const rawById = localStorage.getItem(`plan_${planId}`) || sessionStorage.getItem(`plan_${planId}`);
+            const parsed = parseMaybeDouble(rawById);
+            if (parsed && parsed.days) {
+              setHydratedPlan(parsed);
+              try { sessionStorage.setItem('currentPlanData', JSON.stringify(parsed)); } catch {}
+              return;
+            }
+          } catch {}
+        }
+      } finally {
+        setHydrating(false);
+      }
+    };
+    hydrate();
+  }, [routeKey, routeQuery]);
+
   return (
     <AuthProvider>
       <div className="min-h-screen bg-slate-50">
@@ -114,7 +178,7 @@ export default function App() {
                 <SplitPlanInterface 
                   onGeneratePlan={handleGeneratePlan}
                   onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
-                  initialPlanData={currentPlan || undefined}
+                  initialPlanData={(hydratedPlan || currentPlan) || undefined}
                   key={`plan-${routeQuery.get('plan_id') || 'default'}`}
                 />
               );
