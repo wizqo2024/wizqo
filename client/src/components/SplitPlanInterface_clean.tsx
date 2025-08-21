@@ -197,7 +197,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   useEffect(() => {
     if (initialPlanData) {
       const fixedPlanData = fixPlanDataFields(initialPlanData);
-      setPlanData(fixedPlanData);
+      // If only Day 1 is present but outline exists, preserve outline for on-demand days
+      const merged = { ...fixedPlanData } as any;
+      if ((initialPlanData as any).outline && !merged.outline) merged.outline = (initialPlanData as any).outline;
+      setPlanData(merged);
     }
   }, [initialPlanData]);
 
@@ -753,6 +756,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const getDayStatus = (dayNumber: number): 'completed' | 'unlocked' | 'locked' => {
     const isCompleted = isDayCompleted(dayNumber);
     if (isCompleted) return 'completed';
+    // If content for this day already exists, consider it unlocked so it can be viewed
+    if (planData?.days?.some((d: any) => d.day === dayNumber)) return 'unlocked';
     if (dayNumber === 1) return 'unlocked';
     if (dayNumber === 2 && !user) return 'unlocked';
     if (dayNumber > 2 && !user) return 'locked';
