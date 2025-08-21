@@ -1037,6 +1037,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [progressLoaded, completedDays]);
 
+  // Aggressive state protection - restore progress if it gets reset
+  useEffect(() => {
+    if (completedDays.length === 0 && selectedDay === 1 && user?.id) {
+      console.log('🛡️ Detected state reset, attempting to restore progress...');
+      
+      // Try to restore from session storage
+      const hashStr = window.location.hash || '';
+      const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
+      const params = new URLSearchParams(qs);
+      const planId = params.get('plan_id');
+      
+      if (planId) {
+        const sessionKey = `progress_${user.id}_${planId}`;
+        const sessionProgress = sessionStorage.getItem(sessionKey);
+        if (sessionProgress) {
+          try {
+            const progress = JSON.parse(sessionProgress);
+            console.log('🛡️ Restoring progress from session:', progress);
+            setCompletedDays(progress.completed_days || []);
+            setSelectedDay(progress.current_day || 1);
+            setProgressLoaded(true);
+          } catch (error) {
+            console.error('Error restoring progress:', error);
+          }
+        }
+      }
+    }
+  }, [completedDays.length, selectedDay, user?.id]);
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* SEO Meta Tags */}
