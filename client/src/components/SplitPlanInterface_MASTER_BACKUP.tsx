@@ -192,7 +192,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             const progress = JSON.parse(sessionProgress);
             // Show the last completed day (current_day - 1) or day 1 if no progress
             const lastCompletedDay = Math.max(1, (progress.current_day || 1) - 1);
-            console.log('🎯 Initial selectedDay from progress:', { current_day: progress.current_day, lastCompletedDay });
+            console.log('🎯 Initial selectedDay from progress:', { 
+              current_day: progress.current_day, 
+              completed_days: progress.completed_days,
+              lastCompletedDay 
+            });
             return lastCompletedDay;
           }
         }
@@ -512,6 +516,25 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   }, [initialPlanData]);
 
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
+
+  // Auto-generate the last completed day content if it's missing
+  useEffect(() => {
+    if (planData && completedDays.length > 0 && !loadingDay) {
+      const lastCompletedDay = Math.max(...completedDays);
+      const hasLastCompletedDay = planData.days?.some((d: any) => d.day === lastCompletedDay);
+      
+      if (!hasLastCompletedDay && selectedDay === lastCompletedDay) {
+        console.log('🎯 Auto-generating last completed day content for day:', lastCompletedDay);
+        // Trigger the generation by clicking the day button
+        setTimeout(() => {
+          const dayButton = document.querySelector(`[data-day="${lastCompletedDay}"]`) as HTMLButtonElement;
+          if (dayButton) {
+            dayButton.click();
+          }
+        }, 100);
+      }
+    }
+  }, [planData, completedDays, selectedDay, loadingDay]);
 
   const highlightHobby = (text: string, hobby: string) => {
     return text.replace(new RegExp(`(${hobby})`, 'gi'), '<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm">$1</span>');
