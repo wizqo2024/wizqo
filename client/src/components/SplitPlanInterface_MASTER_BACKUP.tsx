@@ -96,8 +96,16 @@ const fixPlanDataFields = (plan: any) => {
 };
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
+  const [isPlanRoute, setIsPlanRoute] = useState(false);
+  useEffect(() => {
+    try {
+      const hash = typeof window !== 'undefined' ? window.location.hash : '';
+      setIsPlanRoute(!!hash && hash.includes('#/plan'));
+    } catch {}
+  }, []);
+
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
-    if (!initialPlanData) {
+    if (!initialPlanData && !((typeof window !== 'undefined' ? window.location.hash : '').includes('#/plan'))) {
       return [{
         id: '1',
         sender: 'ai' as const,
@@ -1438,8 +1446,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             </div>
           ) : (
             <div className="flex items-center justify-center min-h-full p-4 lg:p-6">
-              <div className="max-w-2xl mx-auto space-y-4 lg:space-y-6">
-                <div className="text-center">
+              {isPlanRoute ? (
+                <div className="flex items-center space-x-3 text-gray-700">
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-500 border-t-transparent"></div>
+                  <span className="font-medium">Loading your plan…</span>
+                </div>
+              ) : (
+                <div className="max-w-2xl mx-auto space-y-4 lg:space-y-6 text-center">
                   <div className="text-4xl lg:text-6xl mb-4 lg:mb-6">🎯</div>
                   <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-4">Welcome to Your Learning Journey!</h2>
                   <p className="text-lg text-gray-700 leading-relaxed">
@@ -1447,71 +1460,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     Your custom learning plan will appear here once we chat!
                   </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-                  <div className="text-center p-6 bg-blue-50 rounded-xl border border-blue-100">
-                    <div className="text-3xl mb-3">🎨</div>
-                    <h3 className="font-bold text-gray-900 mb-2">Personalized Plans</h3>
-                    <p className="text-sm text-gray-600">Every plan is tailored to your experience level, available time, and specific goals.</p>
-                  </div>
-                  <div className="text-center p-6 bg-green-50 rounded-xl border border-green-100">
-                    <div className="text-3xl mb-3">📚</div>
-                    <h3 className="font-bold text-gray-900 mb-2">Structured Learning</h3>
-                    <p className="text-sm text-gray-600">Daily lessons with tips, checklists, and resources to guide your progress step by step.</p>
-                  </div>
-                  <div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
-                    <div className="text-3xl mb-3">⚡</div>
-                    <h3 className="font-bold text-gray-900 mb-2">Quick Results</h3>
-                    <p className="text-sm text-gray-600">See real progress in just 7 days with our proven methodology and expert guidance.</p>
-                  </div>
-                </div>
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                  <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">💬</span>
-                    <h3 className="text-xl font-bold text-gray-900">How to Get Started</h3>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">1</span>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Tell me your hobby</h4>
-                        <p className="text-sm text-gray-600">Use the chat on the left to tell me what you want to learn</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">2</span>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Answer 3 questions</h4>
-                        <p className="text-sm text-gray-600">Help me personalize your learning plan</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4 mt-0.5 flex-shrink-0">3</span>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">Start learning!</h4>
-                        <p className="text-sm text-gray-600">Your custom 7-day plan will appear here</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Popular Learning Paths</h3>
-                  <p className="text-gray-600 mb-4">Not sure what to learn? Here are some popular hobbies our AI has created amazing plans for:</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 lg:gap-3">
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">📸</div><div className="text-xs font-medium text-gray-700">Photography</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🎨</div><div className="text-xs font-medium text-gray-700">Painting</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🍳</div><div className="text-xs font-medium text-gray-700">Cooking</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">💻</div><div className="text-xs font-medium text-gray-700">Coding</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🧶</div><div className="text-xs font-medium text-gray-700">Knitting</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🏡</div><div className="text-xs font-medium text-gray-700">Gardening</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">✍️</div><div className="text-xs font-medium text-gray-700">Writing</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">♟️</div><div className="text-xs font-medium text-gray-700">Chess</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🎸</div><div className="text-xs font-medium text-gray-700">Guitar</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🧘</div><div className="text-xs font-medium text-gray-700">Yoga</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">📚</div><div className="text-xs font-medium text-gray-700">Reading</div></div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg"><div className="text-2xl mb-1">🏃</div><div className="text-xs font-medium text-gray-700">Running</div></div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>
