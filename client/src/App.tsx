@@ -197,7 +197,6 @@ export default function App() {
                   onGeneratePlan={handleGeneratePlan}
                   onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
                   initialPlanData={(hydratedPlan || currentPlan) || undefined}
-                  key={`plan-${routeQuery.get('plan_id') || 'default'}`}
                 />
               );
             case 'blog':
