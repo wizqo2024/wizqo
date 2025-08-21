@@ -1298,6 +1298,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         key={dayNum}
                         data-day={dayNum}
                         onClick={async () => {
+                          console.log('🎯 Day button clicked:', { dayNum, user: !!user, planData: !!planData });
                           if (dayNum > 1 && !user) {
                             setShowAuthModal(true);
                             return;
@@ -1307,7 +1308,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             if (!planData) return;
                             const hasDay = Array.isArray(planData.days) && planData.days.some((d: any) => d.day === dayNum);
                             const prevDays = (planData.days || []).filter((d: any) => d.day < dayNum);
+                            console.log('🎯 Day generation check:', { dayNum, hasDay, prevDaysLength: prevDays.length });
                             if (!hasDay && dayNum >= 2) {
+                              console.log('🎯 Starting day generation for day:', dayNum);
                               setLoadingDay(dayNum);
                               const body: any = {
                                 hobby: planData.hobby,
@@ -1318,12 +1321,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 outline: (planData as any).outline || [],
                                 prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
                               };
+                              console.log('🎯 Sending day generation request:', body);
                               const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                              console.log('🎯 Day generation response status:', resp.status);
                               if (resp.ok) {
                                 const j = await resp.json();
+                                console.log('🎯 Day generation response:', j);
                                 if (j?.day) {
+                                  console.log('🎯 Adding generated day to plan data');
                                   setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                } else {
+                                  console.log('🎯 No day data in response');
                                 }
+                              } else {
+                                console.log('🎯 Day generation failed:', resp.statusText);
                               }
                               setLoadingDay(null);
                             }
@@ -1364,7 +1375,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   currentDay: !!currentDay,
                   status,
                   planDataDays: planData?.days?.length,
-                  planDataDaysArray: planData?.days?.map((d: any) => d.day)
+                  planDataDaysArray: planData?.days?.map((d: any) => d.day),
+                  planDataTitle: planData?.title,
+                  planDataHobby: planData?.hobby,
+                  planDataOverview: planData?.overview
                 });
                 if (!currentDay || status === 'locked' || !planData?.days) {
                   // If day is not locked and we have plan data, try to generate the day
