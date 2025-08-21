@@ -1341,7 +1341,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
                                     {(() => {
-                    // Show all completed days and the next day to complete
+                    // Show all 7 days with proper status
                     const lastCompletedDay = completedDays.length > 0 ? Math.max(...completedDays) : 0;
                     const nextDayToComplete = lastCompletedDay + 1;
                     
@@ -1356,140 +1356,87 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
                     console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
                     
-                    return (
-                      <>
-                        {/* All completed days */}
-                        {completedDays.map((dayNum) => (
-                          <button
-                            key={dayNum}
-                            data-day={dayNum}
-                            onClick={async () => {
-                              console.log('🎯 Completed day clicked:', { dayNum });
-                              setSelectedDay(dayNum);
-                              
-                              // Check if day content exists, if not generate it
-                              const hasDay = planData?.days?.some((d: any) => d.day === dayNum);
-                              if (!hasDay) {
-                                try {
-                                  console.log('🎯 Generating missing completed day content for day:', dayNum);
-                                  setLoadingDay(dayNum);
-                                  const prevDays = planData?.days || [];
-                                  const body: any = {
-                                    hobby: planData.hobby,
-                                    experience: planData.difficulty || 'beginner',
-                                    timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
-                                    goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
-                                    day_number: dayNum,
-                                    outline: (planData as any).outline || [],
-                                    prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
-                                  };
-                                  console.log('🎯 Sending day generation request for completed day:', body);
-                                  const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-                                  console.log('🎯 Day generation response status:', resp.status);
-                                  if (resp.ok) {
-                                    const j = await resp.json();
-                                    console.log('🎯 Day generation response:', j);
-                                    if (j?.day) {
-                                      console.log('🎯 Adding generated day to plan data');
-                                      setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
-                                    } else {
-                                      console.log('🎯 No day data in response');
-                                    }
+                    // Generate all 7 day buttons
+                    return Array.from({ length: 7 }, (_, i) => {
+                      const dayNum = i + 1;
+                      const isCompleted = completedDays.includes(dayNum);
+                      const isNextDay = dayNum === nextDayToComplete;
+                      const isSelected = selectedDay === dayNum;
+                      const hasContent = planData?.days?.some((d: any) => d.day === dayNum);
+                      
+                      return (
+                        <button
+                          key={dayNum}
+                          data-day={dayNum}
+                          onClick={async () => {
+                            console.log('🎯 Day button clicked:', { dayNum, isCompleted, isNextDay });
+                            setSelectedDay(dayNum);
+                            
+                            // Generate content if it doesn't exist
+                            if (!hasContent) {
+                              try {
+                                console.log('🎯 Generating content for day:', dayNum);
+                                setLoadingDay(dayNum);
+                                const prevDays = planData?.days || [];
+                                const body: any = {
+                                  hobby: planData.hobby,
+                                  experience: planData.difficulty || 'beginner',
+                                  timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                  goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                  day_number: dayNum,
+                                  outline: (planData as any).outline || [],
+                                  prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                                };
+                                console.log('🎯 Sending day generation request:', body);
+                                const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                                console.log('🎯 Day generation response status:', resp.status);
+                                if (resp.ok) {
+                                  const j = await resp.json();
+                                  console.log('🎯 Day generation response:', j);
+                                  if (j?.day) {
+                                    console.log('🎯 Adding generated day to plan data');
+                                    setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
                                   } else {
-                                    console.log('🎯 Day generation failed:', resp.statusText);
+                                    console.log('🎯 No day data in response');
                                   }
-                                  setLoadingDay(null);
-                                } catch {
-                                  setLoadingDay(null);
+                                } else {
+                                  console.log('🎯 Day generation failed:', resp.statusText);
                                 }
+                                setLoadingDay(null);
+                              } catch {
+                                setLoadingDay(null);
                               }
-                            }}
-                            className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
-                              selectedDay === dayNum
-                                ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
-                                : loadingDay === dayNum
-                                  ? 'bg-green-100 text-green-600 border-2 border-green-300 cursor-wait'
-                                  : 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
-                            }`}
-                          >
-                            {loadingDay === dayNum ? (
-                              <div className="w-4 h-4 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-                            ) : (
-                              <>
-                                {dayNum}
+                            }
+                          }}
+                          disabled={loadingDay === dayNum}
+                          className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
+                            isSelected
+                              ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
+                              : loadingDay === dayNum
+                                ? 'bg-gray-100 text-gray-600 border-2 border-gray-300 cursor-wait'
+                                : isCompleted
+                                  ? 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
+                                  : isNextDay
+                                    ? 'bg-orange-50 text-orange-600 border-2 border-orange-300 hover:bg-orange-100'
+                                    : 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
+                          }`}
+                        >
+                          {loadingDay === dayNum ? (
+                            <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
+                          ) : (
+                            <>
+                              {dayNum}
+                              {isCompleted && (
                                 <CheckCircle className="w-3 h-3 text-green-600 absolute -top-1 -right-1 bg-white rounded-full" />
-                              </>
-                            )}
-                          </button>
-                        ))}
-                        
-                        {/* Next day to complete */}
-                        {nextDayToComplete <= 7 && (
-                          <button
-                            key={nextDayToComplete}
-                            data-day={nextDayToComplete}
-                            onClick={async () => {
-                              console.log('🎯 Next day button clicked:', { nextDayToComplete, planData: !!planData });
-                              setSelectedDay(nextDayToComplete);
-                              
-                              // Check if day content exists, if not generate it
-                              const hasDay = planData?.days?.some((d: any) => d.day === nextDayToComplete);
-                              if (!hasDay) {
-                                try {
-                                  console.log('🎯 Starting day generation for day:', nextDayToComplete);
-                                  setLoadingDay(nextDayToComplete);
-                                  const prevDays = planData?.days || [];
-                                  const body: any = {
-                                    hobby: planData.hobby,
-                                    experience: planData.difficulty || 'beginner',
-                                    timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
-                                    goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
-                                    day_number: nextDayToComplete,
-                                    outline: (planData as any).outline || [],
-                                    prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
-                                  };
-                                  console.log('🎯 Sending day generation request:', body);
-                                  const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-                                  console.log('🎯 Day generation response status:', resp.status);
-                                  if (resp.ok) {
-                                    const j = await resp.json();
-                                    console.log('🎯 Day generation response:', j);
-                                    if (j?.day) {
-                                      console.log('🎯 Adding generated day to plan data');
-                                      setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
-                                    } else {
-                                      console.log('🎯 No day data in response');
-                                    }
-                                  } else {
-                                    console.log('🎯 Day generation failed:', resp.statusText);
-                                  }
-                                  setLoadingDay(null);
-                                } catch {
-                                  setLoadingDay(null);
-                                }
-                              }
-                            }}
-                            disabled={loadingDay === nextDayToComplete}
-                            className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
-                              selectedDay === nextDayToComplete
-                                ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
-                                : loadingDay === nextDayToComplete
-                                  ? 'bg-orange-100 text-orange-600 border-2 border-orange-300 cursor-wait'
-                                  : 'bg-orange-50 text-orange-600 border-2 border-orange-300 hover:bg-orange-100'
-                            }`}
-                          >
-                            {loadingDay === nextDayToComplete ? (
-                              <div className="w-4 h-4 border-2 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
-                            ) : (
-                              <>
-                                {nextDayToComplete}
+                              )}
+                              {isNextDay && (
                                 <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">→</span>
-                              </>
-                            )}
-                          </button>
-                        )}
-                      </>
-                    );
+                              )}
+                            </>
+                          )}
+                        </button>
+                      );
+                    });
                   })()}
                 </div>
               </div>
