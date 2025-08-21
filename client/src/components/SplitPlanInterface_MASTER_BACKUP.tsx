@@ -191,7 +191,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           if (sessionProgress) {
             const progress = JSON.parse(sessionProgress);
             // Show the last completed day (current_day - 1) or day 1 if no progress
-            return Math.max(1, (progress.current_day || 1) - 1);
+            const lastCompletedDay = Math.max(1, (progress.current_day || 1) - 1);
+            console.log('🎯 Initial selectedDay from progress:', { current_day: progress.current_day, lastCompletedDay });
+            return lastCompletedDay;
           }
         }
       }
@@ -1311,36 +1313,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
                                     {(() => {
-                    // Show only the last completed day and the next day to complete
-                    const lastCompletedDay = Math.max(0, ...completedDays);
-                    const nextDayToComplete = lastCompletedDay + 1;
+                    // Show all completed days and the next day to complete
+                    const nextDayToComplete = Math.max(...completedDays, 0) + 1;
                     
-                    console.log('🎯 Day rendering debug - lastCompletedDay:', lastCompletedDay);
+                    console.log('🎯 Day rendering debug - completedDays:', completedDays);
                     console.log('🎯 Day rendering debug - nextDayToComplete:', nextDayToComplete);
                     console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
                     console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
                     
                     return (
                       <>
-                        {/* Last completed day */}
-                        {lastCompletedDay > 0 && (
+                        {/* All completed days */}
+                        {completedDays.map((dayNum) => (
                           <button
-                            key={lastCompletedDay}
-                            data-day={lastCompletedDay}
+                            key={dayNum}
+                            data-day={dayNum}
                             onClick={() => {
-                              console.log('🎯 Last completed day clicked:', { lastCompletedDay });
-                              setSelectedDay(lastCompletedDay);
+                              console.log('🎯 Completed day clicked:', { dayNum });
+                              setSelectedDay(dayNum);
                             }}
                             className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
-                              selectedDay === lastCompletedDay
+                              selectedDay === dayNum
                                 ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
                                 : 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
                             }`}
                           >
-                            {lastCompletedDay}
+                            {dayNum}
                             <CheckCircle className="w-3 h-3 text-green-600 absolute -top-1 -right-1 bg-white rounded-full" />
                           </button>
-                        )}
+                        ))}
                         
                         {/* Next day to complete */}
                         {nextDayToComplete <= 7 && (
