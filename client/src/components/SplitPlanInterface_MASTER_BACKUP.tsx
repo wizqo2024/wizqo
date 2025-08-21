@@ -77,38 +77,8 @@ const fixPlanDataFields = (plan: any) => {
   const existingDaysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   const totalDays = plan.totalDays || 7;
   
-  // Create a complete 7-day array, preserving existing days and creating placeholders for missing ones
-  const daysArray = Array.from({ length: totalDays }, (_, index) => {
-    const dayNumber = index + 1;
-    const existingDay = existingDaysArray.find((d: any) => d.day === dayNumber);
-    
-    if (existingDay) {
-      return existingDay;
-    } else {
-      // Create a placeholder day structure with all required arrays
-      return {
-        day: dayNumber,
-        title: `Day ${dayNumber}`,
-        content: `Content for Day ${dayNumber} will be generated when you select this day.`,
-        mainTask: `Complete Day ${dayNumber} exercises`,
-        howTo: [`Step 1: Get ready for Day ${dayNumber}`, `Step 2: Follow the exercises`, `Step 3: Practice and improve`],
-        exercises: [`Exercise for Day ${dayNumber}`],
-        tips: [`Tip for Day ${dayNumber}`],
-        checklist: [`Prepare for Day ${dayNumber}`, `Complete exercises`, `Review progress`],
-        commonMistakes: [
-          'Rushing through exercises without understanding concepts',
-          'Skipping practice time or cutting sessions short',
-          'Not taking notes or tracking your improvement'
-        ],
-        freeResources: [],
-        affiliateProducts: [],
-        youtubeVideoId: 'dQw4w9WgXcQ',
-        videoTitle: `${plan.hobby || 'Tutorial'} - Day ${dayNumber}`,
-        estimatedTime: '30-45 minutes',
-        isGenerated: false // Flag to indicate this day needs generation
-      };
-    }
-  });
+  // Only include days that actually exist in the plan data
+  const daysArray = existingDaysArray || [];
   
   const fixedPlan = {
     ...plan,
@@ -1339,15 +1309,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               <div className="mb-4 lg:mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
-                  {(() => {
-                    const totalDays = planData?.totalDays || 7;
-                    const daysArray = Array.from({ length: totalDays }, (_, i) => i + 1);
-                    console.log('🎯 Day rendering debug - totalDays:', totalDays);
-                    console.log('🎯 Day rendering debug - planDataTotalDays:', planData?.totalDays);
-                    console.log('🎯 Day rendering debug - daysToRender:', daysArray);
-                    console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
-                    console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
-                    return daysArray.map((dayNum) => {
+                                      {(() => {
+                      // Only show days that actually exist in the plan data
+                      const existingDays = planData?.days || [];
+                      const daysArray = existingDays.map((day: any) => day.day).sort((a: number, b: number) => a - b);
+                      console.log('🎯 Day rendering debug - existingDays:', existingDays.length);
+                      console.log('🎯 Day rendering debug - daysToRender:', daysArray);
+                      console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
+                      console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
+                      return daysArray.map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
                     return (
@@ -1421,6 +1391,86 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     );
                   });
                 })()}
+                
+                {/* Show available days to generate */}
+                {(() => {
+                  const existingDayNumbers = new Set(daysArray);
+                  const availableDays = [];
+                  for (let i = 1; i <= 7; i++) {
+                    if (!existingDayNumbers.has(i)) {
+                      availableDays.push(i);
+                    }
+                  }
+                  
+                  if (availableDays.length > 0) {
+                    return (
+                      <>
+                        <div className="w-full h-px bg-gray-200 my-3"></div>
+                        <div className="w-full">
+                          <p className="text-sm text-gray-500 mb-2">Available to generate:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {availableDays.map((dayNum) => (
+                              <button
+                                key={dayNum}
+                                data-day={dayNum}
+                                onClick={async () => {
+                                  console.log('🎯 Generate day button clicked:', { dayNum, planData: !!planData });
+                                  setSelectedDay(dayNum);
+                                  // Auto-generate day content
+                                  try {
+                                    console.log('🎯 Starting day generation for day:', dayNum);
+                                    setLoadingDay(dayNum);
+                                    const prevDays = planData?.days || [];
+                                    const body: any = {
+                                      hobby: planData.hobby,
+                                      experience: planData.difficulty || 'beginner',
+                                      timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                      goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                      day_number: dayNum,
+                                      outline: (planData as any).outline || [],
+                                      prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                                    };
+                                    console.log('🎯 Sending day generation request:', body);
+                                    const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                                    console.log('🎯 Day generation response status:', resp.status);
+                                    if (resp.ok) {
+                                      const j = await resp.json();
+                                      console.log('🎯 Day generation response:', j);
+                                      if (j?.day) {
+                                        console.log('🎯 Adding generated day to plan data');
+                                        setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                      } else {
+                                        console.log('🎯 No day data in response');
+                                      }
+                                    } else {
+                                      console.log('🎯 Day generation failed:', resp.statusText);
+                                    }
+                                    setLoadingDay(null);
+                                  } catch {
+                                    setLoadingDay(null);
+                                  }
+                                }}
+                                disabled={loadingDay === dayNum}
+                                className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
+                                  loadingDay === dayNum
+                                    ? 'bg-blue-100 text-blue-600 border-2 border-blue-300 cursor-wait'
+                                    : 'bg-blue-50 text-blue-600 border-2 border-blue-300 hover:bg-blue-100'
+                                }`}
+                              >
+                                {loadingDay === dayNum ? (
+                                  <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                ) : (
+                                  dayNum
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
+                  return null;
+                })()}
                 </div>
               </div>
 
@@ -1438,19 +1488,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                   planDataHobby: planData?.hobby,
                   planDataOverview: planData?.overview
                 });
-                if (!currentDay || status === 'locked' || !planData?.days) {
-                  // If day is not locked and we have plan data, try to generate the day
-                  if (status !== 'locked' && planData && selectedDay <= 7) {
-                    console.log('🔄 Attempting to generate day content for day:', selectedDay);
-                    // Trigger day generation
-                    setTimeout(() => {
-                      const dayButton = document.querySelector(`[data-day="${selectedDay}"]`) as HTMLButtonElement;
-                      if (dayButton) {
-                        dayButton.click();
-                      }
-                    }, 100);
-                  }
-                  
+                if (!currentDay) {
                   return (
                     <Card className="p-8 text-center">
                       {loadingDay === selectedDay ? (
@@ -1460,9 +1498,22 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         </div>
                       ) : (
                         <>
-                          <Lock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Locked</h3>
-                          <p className="text-gray-600">Complete previous days to unlock this content.</p>
+                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-gray-400 text-xl">📝</span>
+                          </div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">Day {selectedDay} Not Generated</h3>
+                          <p className="text-gray-600 mb-4">This day's content hasn't been generated yet. Click the day button above to generate it.</p>
+                          <button
+                            onClick={() => {
+                              const dayButton = document.querySelector(`[data-day="${selectedDay}"]`) as HTMLButtonElement;
+                              if (dayButton) {
+                                dayButton.click();
+                              }
+                            }}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                          >
+                            Generate Day {selectedDay}
+                          </button>
                         </>
                       )}
                     </Card>
