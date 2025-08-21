@@ -136,8 +136,52 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isGenerating, setIsGenerating] = useState(false);
   const [answeredSteps, setAnsweredSteps] = useState<Set<'hobby' | 'experience' | 'time' | 'goal'>>(() => new Set());
   const [planData, setPlanData] = useState<PlanData | null>(null);
-  const [completedDays, setCompletedDays] = useState<number[]>([]);
-  const [selectedDay, setSelectedDay] = useState<number>(1);
+  const [completedDays, setCompletedDays] = useState<number[]>(() => {
+    // Try to get initial progress from session storage
+    try {
+      const hashStr = window.location.hash || '';
+      const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
+      const params = new URLSearchParams(qs);
+      const planId = params.get('plan_id');
+      if (planId) {
+        // Try to get user ID from session storage or wait for it
+        const userFromSession = sessionStorage.getItem('user_id') || localStorage.getItem('user_id');
+        if (userFromSession) {
+          const sessionKey = `progress_${userFromSession}_${planId}`;
+          const sessionProgress = sessionStorage.getItem(sessionKey);
+          if (sessionProgress) {
+            const progress = JSON.parse(sessionProgress);
+            console.log('🚀 Initial state from session:', progress);
+            return progress.completed_days || [];
+          }
+        }
+      }
+    } catch {}
+    return [];
+  });
+  
+  const [selectedDay, setSelectedDay] = useState<number>(() => {
+    // Try to get initial progress from session storage
+    try {
+      const hashStr = window.location.hash || '';
+      const qs = hashStr.includes('?') ? hashStr.split('?')[1] : '';
+      const params = new URLSearchParams(qs);
+      const planId = params.get('plan_id');
+      if (planId) {
+        // Try to get user ID from session storage or wait for it
+        const userFromSession = sessionStorage.getItem('user_id') || localStorage.getItem('user_id');
+        if (userFromSession) {
+          const sessionKey = `progress_${userFromSession}_${planId}`;
+          const sessionProgress = sessionStorage.getItem(sessionKey);
+          if (sessionProgress) {
+            const progress = JSON.parse(sessionProgress);
+            return progress.current_day || 1;
+          }
+        }
+      }
+    } catch {}
+    return 1;
+  });
   const [progressLoaded, setProgressLoaded] = useState(false);
   const [progressLoading, setProgressLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -161,6 +205,16 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const { savePlan, saving } = usePlanStorage();
   const { user } = useAuth();
   useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
+  
+  // Store user ID in session storage for initial state loading
+  useEffect(() => {
+    if (user?.id) {
+      try {
+        sessionStorage.setItem('user_id', user.id);
+        localStorage.setItem('user_id', user.id);
+      } catch {}
+    }
+  }, [user?.id]);
 
   // Fallback hydration when navigating directly to /#/plan?plan_id=... or from Dashboard without initialPlanData
   useEffect(() => {
