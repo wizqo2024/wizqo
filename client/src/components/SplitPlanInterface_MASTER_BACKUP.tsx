@@ -72,7 +72,9 @@ const fixPlanDataFields = (plan: any) => {
     planKeys: Object.keys(plan),
     planTotalDays: plan.totalDays,
     planDaysLength: plan.days?.length,
-    planPlanDataDaysLength: plan.plan_data?.days?.length
+    planPlanDataDaysLength: plan.plan_data?.days?.length,
+    planTitle: plan.title,
+    planHobby: plan.hobby
   });
   
   const daysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
@@ -105,7 +107,9 @@ const fixPlanDataFields = (plan: any) => {
   console.log('🔧 fixPlanDataFields output:', {
     fixedTotalDays: fixedPlan.totalDays,
     fixedDaysLength: fixedPlan.days?.length,
-    fixedDaysArray: fixedPlan.days?.map((d: any) => d.day)
+    fixedDaysArray: fixedPlan.days?.map((d: any) => d.day),
+    fixedTitle: fixedPlan.title,
+    fixedHobby: fixedPlan.hobby
   });
   
   return fixedPlan;
@@ -1318,7 +1322,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       planDataTotalDays: planData?.totalDays,
                       daysToRender: daysArray,
                       planDataExists: !!planData,
-                      planDataKeys: planData ? Object.keys(planData) : []
+                      planDataKeys: planData ? Object.keys(planData) : [],
+                      planDataTitle: planData?.title,
+                      planDataHobby: planData?.hobby
                     });
                     return daysArray.map((dayNum) => {
                     const status = getDayStatus(dayNum);
