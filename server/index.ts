@@ -326,7 +326,7 @@ app.delete('/api/hobby-plans/:id', async (req, res) => {
 async function generatePlanViaOpenRouter(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const key = process.env.OPENROUTER_API_KEY as string;
   if (!key) throw new Error('missing_openrouter_key');
-  const prompt = `Generate a comprehensive 7-day learning plan for learning ${hobby}.
+  const prompt = `Create a concise 7-day learning outline and a fully detailed Day 1 for ${hobby}.
 
 User Details:
 - Experience level: ${experience}
@@ -337,23 +337,28 @@ Return ONLY a JSON object with this exact structure:
 {
   "hobby": "${hobby}",
   "title": "Master ${hobby} in 7 Days",
-  "overview": "A compelling description of what this 7-day journey will teach you",
+  "overview": "Short description of the journey",
   "difficulty": "${experience}",
   "totalDays": 7,
   "days": [
-    {
-      "day": 1,
-      "title": "Day title without 'Day X:' prefix",
-      "mainTask": "Main learning objective for the day",
-      "explanation": "Why this day matters and what you'll accomplish",
-      "howTo": ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"],
-      "checklist": ["Action item 1", "Action item 2", "Action item 3", "Action item 4", "Action item 5"],
-      "tips": ["Pro tip 1", "Pro tip 2", "Pro tip 3"],
-      "mistakesToAvoid": ["Common mistake 1", "Common mistake 2", "Common mistake 3"],
+    { "day": 1, "title": "Day 1 title", "mainTask": "...", "explanation": "...",
+      "howTo": ["Step 1","Step 2","Step 3"],
+      "checklist": ["Item 1","Item 2","Item 3"],
+      "tips": ["Tip 1","Tip 2"],
+      "mistakesToAvoid": ["Mistake 1","Mistake 2"],
       "estimatedTime": "${timeAvailable}",
       "skillLevel": "${experience}",
       "youtubeVideoId": ""
     }
+  ],
+  "outline": [
+    {"day":1, "title":"...", "goals":["...","..."]},
+    {"day":2, "title":"...", "goals":["...","..."]},
+    {"day":3, "title":"...", "goals":["...","..."]},
+    {"day":4, "title":"...", "goals":["...","..."]},
+    {"day":5, "title":"...", "goals":["...","..."]},
+    {"day":6, "title":"...", "goals":["...","..."]},
+    {"day":7, "title":"...", "goals":["...","..."]}
   ]
 }`;
   const vercelUrl = process.env.VERCEL_URL || '';
@@ -369,7 +374,7 @@ Return ONLY a JSON object with this exact structure:
     body: JSON.stringify({
       model: 'deepseek/deepseek-chat',
       messages: [{ role: 'user', content: prompt }],
-      max_tokens: 3500,
+      max_tokens: 1400,
       temperature: 0.7
     })
   });
@@ -437,11 +442,14 @@ app.post('/api/generate-plan', async (req, res) => {
 
     // Build a lightweight outline if provided, else derive from any returned days
     const rawDays: any[] = Array.isArray(aiPlan.days) ? aiPlan.days : [];
-    const outline = rawDays.slice(0, 7).map((d: any, idx: number) => ({
+    // Prefer explicit outline if provided by the model
+    const explicitOutline: any[] = Array.isArray((aiPlan as any).outline) ? (aiPlan as any).outline : [];
+    const derivedOutline = rawDays.slice(0, 7).map((d: any, idx: number) => ({
       day: (typeof d?.day === 'number' ? d.day : (idx + 1)),
       title: typeof d?.title === 'string' ? d.title : null,
       goals: Array.isArray(d?.checklist) ? d.checklist.slice(0, 3) : (Array.isArray(d?.howTo) ? d.howTo.slice(0, 3) : [])
     }));
+    const outline = explicitOutline.length ? explicitOutline.slice(0,7) : derivedOutline;
 
     // Generate only Day 1 content now to save tokens
     const d1 = rawDays?.[0] || {} as any;
