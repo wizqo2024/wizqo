@@ -48,22 +48,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Home</span>
               </button>
               
-              <button onClick={async () => {
-                try {
-                  if (user?.id) {
-                    const resp = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
-                    if (resp.ok) {
-                      const plans = await resp.json();
-                      if (Array.isArray(plans) && plans.length > 0) {
-                        const mostRecent = plans[0];
-                        window.location.href = `/#/plan?plan_id=${mostRecent.id}`;
-                        return;
-                      }
-                    }
-                  }
-                } catch {}
-                window.location.href = '/#/generate';
-              }} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <button onClick={() => { window.location.href = '/#/generate'; }} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
