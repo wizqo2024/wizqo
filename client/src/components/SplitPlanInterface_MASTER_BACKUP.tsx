@@ -175,25 +175,40 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const idFromUrl = params.get('plan_id') || '';
         const idFromSession = sessionStorage.getItem('activePlanId') || '';
         const planId = String(idFromUrl || idFromSession || '');
-        if (!planId || !user?.id) return;
+        if (!planId) return;
 
-        const resp = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
-        if (!resp.ok) return;
-        const plans = await resp.json().catch(() => []);
-        const match = Array.isArray(plans) ? plans.find((p: any) => String(p?.id) === String(planId)) : null;
-        if (!match) return;
+        let payload: any = null;
+        let match: any = null;
+        // Prefer direct plan fetch by id (works even without user context)
+        try {
+          const r = await fetch(`/api/hobby-plans/${planId}`);
+          if (r.ok) {
+            match = await r.json();
+            payload = match?.plan_data || match?.planData || match;
+          }
+        } catch {}
 
-        const payload = match?.plan_data || match?.planData || match;
+        // Fallback to list-by-user if we have a user but single fetch failed
+        if (!payload && user?.id) {
+          const resp = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
+          if (resp.ok) {
+            const plans = await resp.json().catch(() => []);
+            match = Array.isArray(plans) ? plans.find((p: any) => String(p?.id) === String(planId)) : null;
+            payload = match?.plan_data || match?.planData || match || null;
+          }
+        }
+
+        if (!payload) return;
         const fixed = fixPlanDataFields(payload);
         setPlanData(fixed);
-        setCurrentPlanId(String(match.id));
+        if (match?.id) setCurrentPlanId(String(match.id));
         try {
           sessionStorage.setItem('currentPlanData', JSON.stringify(fixed));
           sessionStorage.setItem('activePlanData', JSON.stringify(fixed));
-          sessionStorage.setItem('activePlanId', String(match.id));
+          if (match?.id) sessionStorage.setItem('activePlanId', String(match.id));
         } catch {}
         // Load progress if available
-        try { await loadProgressFromDatabase(String(match.id)); } catch {}
+        try { if (match?.id) await loadProgressFromDatabase(String(match.id)); } catch {}
       } catch {}
     };
     // Only run this fallback if we don't already have initial plan data
