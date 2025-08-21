@@ -463,8 +463,8 @@ function findCategoryForHobby(hobby: string): string {
   // Culinary
   const culinary = ['cooking', 'baking', 'mixology', 'fermenting', 'cheese making', 'home brewing', 'food photography', 'kombucha brewing'];
   
-  // Wellness & Learning
-  const wellness = ['astronomy', 'genealogy', 'language learning', 'cryptography', 'philosophy reading', 'book club', 'pen palling', 'journaling', 'meditation', 'sound bathing', 'volunteering', 'letterboxing'];
+  // Wellness & Learning (exclude language-related)
+  const wellness = ['astronomy', 'genealogy', 'cryptography', 'philosophy reading', 'book club', 'pen palling', 'journaling', 'meditation', 'sound bathing', 'volunteering', 'letterboxing'];
   
   if (creativeArts.includes(lowerHobby)) return 'Creative Arts';
   if (outdoor.includes(lowerHobby)) return 'Outdoor/Nature';
