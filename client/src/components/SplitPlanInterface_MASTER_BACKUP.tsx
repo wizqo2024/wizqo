@@ -134,6 +134,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
+  const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [loadingDay, setLoadingDay] = useState<number | null>(null);
   useEffect(() => {
     if (planData) {
@@ -188,6 +189,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     if (initialPlanData) {
       const fixedPlanData = fixPlanDataFields(initialPlanData);
       setPlanData(fixedPlanData);
+      setShowQuickReplies(true);
     }
   }, [initialPlanData]);
 
@@ -843,18 +845,35 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
           {/* Chat Input */}
           <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
-            <div className="flex space-x-3">
-              <Input
-                ref={inputRef}
-                value={currentInput}
-                onChange={(e) => setCurrentInput(e.target.value)}
-                placeholder="Ask me anything about your plan..."
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500"
-              />
-              <Button onClick={handleSendMessage} size="sm" className="px-4">
-                <Send className="w-4 h-4" />
-              </Button>
+            {showQuickReplies && (
+              <div className="mb-3 flex flex-wrap gap-2">
+                {['How do I get started?','What should I practice today?','Suggest resources','Common mistakes to avoid'].map((q) => (
+                  <button key={q} onClick={() => { setCurrentInput(q); setShowQuickReplies(false); }} className="px-3 py-1.5 text-xs bg-white border border-gray-200 rounded-full hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700">
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="flex flex-col space-y-2">
+              <div className="flex space-x-3">
+                <Input
+                  ref={inputRef}
+                  value={currentInput}
+                  onChange={(e) => setCurrentInput(e.target.value.slice(0, 50))}
+                  placeholder="Ask me anything about your plan..."
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500"
+                  maxLength={50}
+                  aria-label="Chat input"
+                  aria-describedby="char-counter"
+                />
+                <Button onClick={handleSendMessage} size="sm" className="px-4">
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+              <div id="char-counter" aria-live="polite" className={`text-right text-xs ${currentInput.length < 35 ? 'text-gray-400' : currentInput.length < 50 ? 'text-yellow-600' : 'text-red-600'}`}>
+                {currentInput.length}/50
+              </div>
             </div>
           </div>
         </div>
