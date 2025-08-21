@@ -855,6 +855,19 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           sessionStorage.setItem('activePlanData', JSON.stringify(plan.planData));
                           sessionStorage.setItem('activePlanId', String(plan.id));
                           sessionStorage.setItem('fromDashboard', 'true');
+                          // Seed session progress so Day 1 completion reflects immediately
+                          try {
+                            if (user?.id) {
+                              const completedDays = plan.currentDay > 1 ? Array.from({ length: plan.currentDay - 1 }, (_, i) => i + 1) : [];
+                              const sessionKey = `progress_${user.id}_${plan.id}`;
+                              sessionStorage.setItem(sessionKey, JSON.stringify({
+                                user_id: user.id,
+                                plan_id: plan.id,
+                                completed_days: completedDays,
+                                current_day: plan.currentDay || 1
+                              }));
+                            }
+                          } catch {}
                           console.log('💾 Dashboard: Plan data stored in sessionStorage');
                         } else {
                           console.log('❌ Dashboard: No planData found in plan object');
