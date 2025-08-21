@@ -1309,15 +1309,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               <div className="mb-4 lg:mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
                 <div className="flex flex-wrap gap-2">
-                                      {(() => {
-                      // Only show days that actually exist in the plan data
-                      const existingDays = planData?.days || [];
-                      const daysArray = existingDays.map((day: any) => day.day).sort((a: number, b: number) => a - b);
-                      console.log('🎯 Day rendering debug - existingDays:', existingDays.length);
-                      console.log('🎯 Day rendering debug - daysToRender:', daysArray);
-                      console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
-                      console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
-                      return daysArray.map((dayNum) => {
+                  {(() => {
+                    // Only show days that actually exist in the plan data
+                    const existingDays = planData?.days || [];
+                    const daysArray = existingDays.map((day: any) => day.day).sort((a: number, b: number) => a - b);
+                    console.log('🎯 Day rendering debug - existingDays:', existingDays.length);
+                    console.log('🎯 Day rendering debug - daysToRender:', daysArray);
+                    console.log('🎯 Day rendering debug - planDataTitle:', planData?.title);
+                    console.log('🎯 Day rendering debug - planDataHobby:', planData?.hobby);
+                    
+                    return (
+                      <>
+                        {/* Existing days */}
+                        {daysArray.map((dayNum) => {
                     const status = getDayStatus(dayNum);
                     const isSelected = selectedDay === dayNum;
                     return (
@@ -1389,88 +1393,90 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         )}
                       </button>
                     );
-                  });
-                })()}
-                
-                {/* Show available days to generate */}
-                {(() => {
-                  const existingDayNumbers = new Set(daysArray);
-                  const availableDays = [];
-                  for (let i = 1; i <= 7; i++) {
-                    if (!existingDayNumbers.has(i)) {
-                      availableDays.push(i);
-                    }
-                  }
-                  
-                  if (availableDays.length > 0) {
-                    return (
-                      <>
-                        <div className="w-full h-px bg-gray-200 my-3"></div>
-                        <div className="w-full">
-                          <p className="text-sm text-gray-500 mb-2">Available to generate:</p>
-                          <div className="flex flex-wrap gap-2">
-                            {availableDays.map((dayNum) => (
-                              <button
-                                key={dayNum}
-                                data-day={dayNum}
-                                onClick={async () => {
-                                  console.log('🎯 Generate day button clicked:', { dayNum, planData: !!planData });
-                                  setSelectedDay(dayNum);
-                                  // Auto-generate day content
-                                  try {
-                                    console.log('🎯 Starting day generation for day:', dayNum);
-                                    setLoadingDay(dayNum);
-                                    const prevDays = planData?.days || [];
-                                    const body: any = {
-                                      hobby: planData.hobby,
-                                      experience: planData.difficulty || 'beginner',
-                                      timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
-                                      goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
-                                      day_number: dayNum,
-                                      outline: (planData as any).outline || [],
-                                      prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
-                                    };
-                                    console.log('🎯 Sending day generation request:', body);
-                                    const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-                                    console.log('🎯 Day generation response status:', resp.status);
-                                    if (resp.ok) {
-                                      const j = await resp.json();
-                                      console.log('🎯 Day generation response:', j);
-                                      if (j?.day) {
-                                        console.log('🎯 Adding generated day to plan data');
-                                        setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
-                                      } else {
-                                        console.log('🎯 No day data in response');
-                                      }
-                                    } else {
-                                      console.log('🎯 Day generation failed:', resp.statusText);
-                                    }
-                                    setLoadingDay(null);
-                                  } catch {
-                                    setLoadingDay(null);
-                                  }
-                                }}
-                                disabled={loadingDay === dayNum}
-                                className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
-                                  loadingDay === dayNum
-                                    ? 'bg-blue-100 text-blue-600 border-2 border-blue-300 cursor-wait'
-                                    : 'bg-blue-50 text-blue-600 border-2 border-blue-300 hover:bg-blue-100'
-                                }`}
-                              >
-                                {loadingDay === dayNum ? (
-                                  <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                                ) : (
-                                  dayNum
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
+                  })}
+                        
+                        {/* Available days to generate */}
+                        {(() => {
+                          const existingDayNumbers = new Set(daysArray);
+                          const availableDays = [];
+                          for (let i = 1; i <= 7; i++) {
+                            if (!existingDayNumbers.has(i)) {
+                              availableDays.push(i);
+                            }
+                          }
+                          
+                          if (availableDays.length > 0) {
+                            return (
+                              <>
+                                <div className="w-full h-px bg-gray-200 my-3"></div>
+                                <div className="w-full">
+                                  <p className="text-sm text-gray-500 mb-2">Available to generate:</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {availableDays.map((dayNum) => (
+                                      <button
+                                        key={dayNum}
+                                        data-day={dayNum}
+                                        onClick={async () => {
+                                          console.log('🎯 Generate day button clicked:', { dayNum, planData: !!planData });
+                                          setSelectedDay(dayNum);
+                                          // Auto-generate day content
+                                          try {
+                                            console.log('🎯 Starting day generation for day:', dayNum);
+                                            setLoadingDay(dayNum);
+                                            const prevDays = planData?.days || [];
+                                            const body: any = {
+                                              hobby: planData.hobby,
+                                              experience: planData.difficulty || 'beginner',
+                                              timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+                                              goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+                                              day_number: dayNum,
+                                              outline: (planData as any).outline || [],
+                                              prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                                            };
+                                            console.log('🎯 Sending day generation request:', body);
+                                            const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                                            console.log('🎯 Day generation response status:', resp.status);
+                                            if (resp.ok) {
+                                              const j = await resp.json();
+                                              console.log('🎯 Day generation response:', j);
+                                              if (j?.day) {
+                                                console.log('🎯 Adding generated day to plan data');
+                                                setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                              } else {
+                                                console.log('🎯 No day data in response');
+                                              }
+                                            } else {
+                                              console.log('🎯 Day generation failed:', resp.statusText);
+                                            }
+                                            setLoadingDay(null);
+                                          } catch {
+                                            setLoadingDay(null);
+                                          }
+                                        }}
+                                        disabled={loadingDay === dayNum}
+                                        className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
+                                          loadingDay === dayNum
+                                            ? 'bg-blue-100 text-blue-600 border-2 border-blue-300 cursor-wait'
+                                            : 'bg-blue-50 text-blue-600 border-2 border-blue-300 hover:bg-blue-100'
+                                        }`}
+                                      >
+                                        {loadingDay === dayNum ? (
+                                          <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                        ) : (
+                                          dayNum
+                                        )}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              </>
+                            );
+                          }
+                          return null;
+                        })()}
                       </>
                     );
-                  }
-                  return null;
-                })()}
+                  })()}
                 </div>
               </div>
 
