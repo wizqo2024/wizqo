@@ -762,17 +762,46 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     try {
       console.log('🔄 Loading progress for plan:', planId);
       
+      // Debug: Check all session storage keys
+      console.log('🔍 All session storage keys:');
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key && key.includes('progress')) {
+          console.log('🔍 Progress key:', key, 'Value:', sessionStorage.getItem(key));
+        }
+      }
+      
       // First try session storage
       const sessionKey = `progress_${user.id}_${planId}`;
+      console.log('🔍 Looking for session key:', sessionKey);
       const sessionProgress = sessionStorage.getItem(sessionKey);
       if (sessionProgress) {
         try {
           const progress = JSON.parse(sessionProgress);
           console.log('📦 Found progress in session:', progress);
-          setCompletedDays(progress.completed_days || []);
-          setSelectedDay(progress.current_day || 1);
+          console.log('📦 Progress completed_days:', progress.completed_days);
+          console.log('📦 Progress current_day:', progress.current_day);
+          
+          const completedDaysArray = progress.completed_days || [];
+          const currentDay = progress.current_day || 1;
+          
+          console.log('📦 Setting completedDays to:', completedDaysArray);
+          console.log('📦 Setting selectedDay to:', currentDay);
+          
+          setCompletedDays(completedDaysArray);
+          setSelectedDay(currentDay);
+          
+          // Force a re-render by updating state
+          setTimeout(() => {
+            console.log('🔄 Forcing re-render with progress data');
+            setCompletedDays([...completedDaysArray]);
+            setSelectedDay(currentDay);
+          }, 100);
+          
           return;
-        } catch {}
+        } catch (parseError) {
+          console.error('Error parsing session progress:', parseError);
+        }
       }
       
       // Try direct API call for this specific plan
@@ -917,6 +946,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   };
 
   const progressPercentage = useMemo(() => planData ? (completedDays.length / planData.totalDays) * 100 : 0, [completedDays.length, planData?.totalDays]);
+
+  // Debug useEffect to monitor completedDays changes
+  useEffect(() => {
+    console.log('🎯 completedDays state changed to:', completedDays);
+    console.log('🎯 selectedDay state changed to:', selectedDay);
+    console.log('🎯 progressPercentage:', progressPercentage);
+  }, [completedDays, selectedDay, progressPercentage]);
 
   return (
     <div className="min-h-screen bg-slate-50">
