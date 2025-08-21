@@ -1576,7 +1576,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 mt-0.5 flex-shrink-0 shadow-lg">
                                   {index + 1}
                                 </div>
-                                <div className="text-gray-800 leading-relaxed text-lg flex-1">{step}</div>
+                                <div className="text-gray-800 leading-relaxed text-sm flex-1">{step}</div>
                               </div>
                             ))}
                           </div>
