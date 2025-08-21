@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { supabase } from './lib/supabase';
 import { UnifiedNavigation } from './components/UnifiedNavigation';
 import { SplitPlanInterface } from './components/SplitPlanInterface';
 import { PlanDisplay } from './components/PlanDisplay';
@@ -141,6 +142,23 @@ export default function App() {
                 } catch {}
                 return;
               }
+            }
+          } catch {}
+          // Supabase direct fallback (requires authenticated user due to RLS)
+          try {
+            const { data, error } = await supabase
+              .from('hobby_plans')
+              .select('id, plan_data')
+              .eq('id', planId)
+              .maybeSingle();
+            if (!error && data && (data as any).plan_data?.days) {
+              const payload = (data as any).plan_data;
+              setHydratedPlan(payload);
+              try {
+                sessionStorage.setItem('currentPlanData', JSON.stringify(payload));
+                sessionStorage.setItem('activePlanData', JSON.stringify(payload));
+              } catch {}
+              return;
             }
           } catch {}
           try {
