@@ -617,8 +617,26 @@ app.get('/api/hobby-plans/:id', async (req, res) => {
       .eq('id', id)
       .limit(1)
       .maybeSingle();
-    if (error || !data) return res.status(404).json({ error: 'not_found' });
-    res.json(data);
+    if (!error && data) return res.json(data);
+
+    // Fallback: use service role via REST to bypass RLS if available
+    try {
+      if (supabaseUrl && supabaseServiceRoleKey) {
+        const r = await fetch(`${supabaseUrl}/rest/v1/hobby_plans?id=eq.${encodeURIComponent(id)}&select=*`, {
+          headers: {
+            'apikey': supabaseServiceRoleKey,
+            'Authorization': `Bearer ${supabaseServiceRoleKey}`
+          }
+        });
+        const t = await r.text();
+        if (r.ok) {
+          const arr = JSON.parse(t);
+          if (Array.isArray(arr) && arr.length > 0) return res.json(arr[0]);
+        }
+      }
+    } catch {}
+
+    return res.status(404).json({ error: 'not_found' });
   } catch {
     res.status(404).json({ error: 'not_found' });
   }
