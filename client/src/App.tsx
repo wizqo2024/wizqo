@@ -12,6 +12,7 @@ import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 
+
 type QuizAnswers = {
   experience: string;
   timeAvailable: string;
@@ -67,11 +68,24 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  const routeKey = useMemo(() => {
+  const [routeKey, routeQuery] = useMemo(() => {
     const hash = route.startsWith('#') ? route.slice(1) : route;
-    const seg = hash.replace(/^\/?/, '').split('?')[0].split('/')[0];
-    return seg || '';
+    const path = hash.replace(/^\/?/, '');
+    const [pathname, queryString] = path.split('?');
+    const seg = pathname.split('/')[0] || '';
+    const params = new URLSearchParams(queryString || '');
+    return [seg, params] as const;
   }, [route]);
+
+  // Persist plan_id from URL into session for downstream hydration
+  useEffect(() => {
+    if (routeKey === 'plan' && routeQuery) {
+      const planId = routeQuery.get('plan_id');
+      if (planId) {
+        try { sessionStorage.setItem('activePlanId', planId); } catch {}
+      }
+    }
+  }, [routeKey, routeQuery]);
 
   return (
     <AuthProvider>
@@ -92,6 +106,7 @@ export default function App() {
                   onGeneratePlan={handleGeneratePlan}
                   onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
                   initialPlanData={currentPlan || undefined}
+                  key={`plan-${routeQuery.get('plan_id') || 'default'}`}
                 />
               );
             case 'blog':
@@ -117,4 +132,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-

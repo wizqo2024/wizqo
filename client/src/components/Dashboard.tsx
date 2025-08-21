@@ -875,7 +875,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           console.log('🔍 Dashboard: Plan object keys:', Object.keys(plan));
                           console.log('🔍 Dashboard: Plan object type:', typeof plan);
                         }
-                        window.location.hash = '#/plan';
+                        window.location.hash = `#/plan?plan_id=${plan.id}`;
                       }}
                       className="w-full text-sm sm:text-base py-2 sm:py-3 mobile-button" 
                       variant={plan.status === 'completed' ? 'outline' : 'default'}
