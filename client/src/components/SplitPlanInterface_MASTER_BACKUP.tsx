@@ -1296,6 +1296,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     return (
                       <button
                         key={dayNum}
+                        data-day={dayNum}
                         onClick={async () => {
                           if (dayNum > 1 && !user) {
                             setShowAuthModal(true);
@@ -1358,7 +1359,26 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               {(() => {
                 const currentDay = planData?.days?.find((day: any) => day.day === selectedDay);
                 const status = getDayStatus(selectedDay);
+                console.log('🎯 Day content debug:', {
+                  selectedDay,
+                  currentDay: !!currentDay,
+                  status,
+                  planDataDays: planData?.days?.length,
+                  planDataDaysArray: planData?.days?.map((d: any) => d.day)
+                });
                 if (!currentDay || status === 'locked' || !planData?.days) {
+                  // If day is not locked and we have plan data, try to generate the day
+                  if (status !== 'locked' && planData && selectedDay <= 7) {
+                    console.log('🔄 Attempting to generate day content for day:', selectedDay);
+                    // Trigger day generation
+                    setTimeout(() => {
+                      const dayButton = document.querySelector(`[data-day="${selectedDay}"]`) as HTMLButtonElement;
+                      if (dayButton) {
+                        dayButton.click();
+                      }
+                    }, 100);
+                  }
+                  
                   return (
                     <Card className="p-8 text-center">
                       {loadingDay === selectedDay ? (
