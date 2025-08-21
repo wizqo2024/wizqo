@@ -855,24 +855,29 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               </div>
             )}
             <div className="flex flex-col space-y-2">
-              <div className="flex space-x-3">
-                <Input
-                  ref={inputRef}
-                  value={currentInput}
-                  onChange={(e) => setCurrentInput(e.target.value.slice(0, 50))}
-                  placeholder="Ask me anything about your plan..."
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500"
-                  maxLength={50}
-                  aria-label="Chat input"
-                  aria-describedby="char-counter"
-                />
+              <div className="flex space-x-3 items-center">
+                <div className="relative flex-1">
+                  <Input
+                    ref={inputRef}
+                    value={currentInput}
+                    onChange={(e) => setCurrentInput(e.target.value.slice(0, 50))}
+                    placeholder="Ask me anything about your plan..."
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    className="w-full pr-12 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500"
+                    maxLength={50}
+                    aria-label="Chat input"
+                  />
+                  <span
+                    id="char-counter"
+                    aria-live="polite"
+                    className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs ${currentInput.length < 35 ? 'text-gray-400' : currentInput.length < 50 ? 'text-yellow-600' : 'text-red-600'}`}
+                  >
+                    {currentInput.length}/50
+                  </span>
+                </div>
                 <Button onClick={handleSendMessage} size="sm" className="px-4">
                   <Send className="w-4 h-4" />
                 </Button>
-              </div>
-              <div id="char-counter" aria-live="polite" className={`text-right text-xs ${currentInput.length < 35 ? 'text-gray-400' : currentInput.length < 50 ? 'text-yellow-600' : 'text-red-600'}`}>
-                {currentInput.length}/50
               </div>
             </div>
           </div>
