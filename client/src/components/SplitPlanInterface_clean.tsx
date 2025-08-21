@@ -16,6 +16,7 @@ import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { apiService } from '@/lib/api-service';
 import { supabase } from '@/lib/supabase';
 import Loader from './Loader';
+import { Confetti } from './Confetti';
 
 interface QuizAnswers {
   experience: string;
@@ -134,6 +135,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showQuickReplies, setShowQuickReplies] = useState(false);
+  
+  // Performance optimization: Memoize expensive calculations
+  const progressPercentage = useMemo(() => 
+    planData ? (completedDays.length / planData.totalDays) * 100 : 0, 
+    [completedDays.length, planData?.totalDays]
+  );
   useEffect(() => {
     if (planData) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -516,6 +525,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           setCurrentPlanId(savedPlan.id.toString());
           await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
           addAIMessage(`Your ${randomHobby} plan is ready and saved! 🎉 Check it out on the right side. Your progress will be tracked automatically!`, undefined, 500);
+          setShowQuickReplies(true);
         } catch (saveError) {
           addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Progress tracking is unavailable right now, but you can still use your plan!`, undefined, 500);
         }
@@ -588,6 +598,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
             setTimeout(async () => { await loadProgressFromDatabase(savedPlan.id); }, 500);
             addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Need help with anything? Just ask!`);
+          setShowQuickReplies(true);
           } catch (saveError) {
             let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan.`;
             addAIMessage(errorMessage + ' Need help with anything? Just ask!');
@@ -724,8 +735,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           setShowAuthModal(true);
         } else if (dayNumber === 7) {
           addAIMessage("🎊 Congratulations! You've completed your 7-day learning journey! You're amazing!", [], 500);
+          setShowConfetti(true);
         } else if (user) {
           addAIMessage(`Great job! Day ${dayNumber} completed. Keep up the excellent work!`, [], 500);
+          setShowConfetti(true);
         }
       }
     } catch {
@@ -745,7 +758,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     return 'locked';
   };
 
-  const progressPercentage = planData ? (completedDays.length / planData.totalDays) * 100 : 0;
+
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -838,29 +851,81 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Quick Reply Buttons */}
+          {showQuickReplies && planData && (
+            <div className="p-4 lg:p-6 border-t border-gray-200 bg-blue-50">
+              <p className="text-sm text-gray-600 mb-3">💡 Quick questions:</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => {
+                    setCurrentInput("How do I get started with today's lesson?");
+                    setShowQuickReplies(false);
+                  }}
+                  className="px-3 py-2 text-xs bg-white border border-blue-200 rounded-full hover:bg-blue-50 transition-colors"
+                >
+                  How do I get started?
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentInput("What if I miss a day?");
+                    setShowQuickReplies(false);
+                  }}
+                  className="px-3 py-2 text-xs bg-white border border-blue-200 rounded-full hover:bg-blue-50 transition-colors"
+                >
+                  What if I miss a day?
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentInput("How long should I practice each day?");
+                    setShowQuickReplies(false);
+                  }}
+                  className="px-3 py-2 text-xs bg-white border border-blue-200 rounded-full hover:bg-blue-50 transition-colors"
+                >
+                  How long to practice?
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentInput("Can I modify this plan?");
+                    setShowQuickReplies(false);
+                  }}
+                  className="px-3 py-2 text-xs bg-white border border-blue-200 rounded-full hover:bg-blue-50 transition-colors"
+                >
+                  Can I modify the plan?
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Chat Input */}
           <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
             <div className="flex space-x-3">
               <div className="flex-1 relative">
-                <Input
-                  ref={inputRef}
-                  value={currentInput}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value.length <= 50) {
-                      setCurrentInput(value);
-                    }
-                  }}
-                  placeholder="Ask me anything about your plan..."
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 pr-12"
-                  maxLength={50}
-                />
-                <div className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-xs ${
-                  currentInput.length >= 45 ? 'text-red-500' : 
-                  currentInput.length >= 35 ? 'text-yellow-500' : 
-                  'text-gray-400'
-                }`}>
+                                  <Input
+                    ref={inputRef}
+                    value={currentInput}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value.length <= 50) {
+                        setCurrentInput(value);
+                      }
+                    }}
+                    placeholder="Ask me anything about your plan..."
+                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    className="flex-1 border-0 bg-white shadow-sm focus:ring-2 focus:ring-blue-500 pr-12"
+                    maxLength={50}
+                    aria-label="Chat message input"
+                    aria-describedby="char-counter"
+                  />
+                <div 
+                  id="char-counter"
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-xs ${
+                    currentInput.length >= 45 ? 'text-red-500' : 
+                    currentInput.length >= 35 ? 'text-yellow-500' : 
+                    'text-gray-400'
+                  }`}
+                  aria-live="polite"
+                  aria-label={`${currentInput.length} of 50 characters used`}
+                >
                   {currentInput.length}/50
                 </div>
               </div>
@@ -947,6 +1012,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 ? 'bg-gray-100 text-gray-700 border-2 border-gray-300 hover:bg-gray-200' 
                                 : 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
                         }`}
+                        aria-label={`Day ${dayNum} - ${status === 'completed' ? 'Completed' : status === 'unlocked' ? 'Available' : 'Locked'}`}
+                        aria-pressed={isSelected}
                       >
                         {dayNum}
                         {status === 'completed' && (
@@ -1384,6 +1451,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         </div>
       </div>
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      <Confetti 
+        isActive={showConfetti} 
+        onComplete={() => setShowConfetti(false)} 
+      />
     </div>
   );
 }
