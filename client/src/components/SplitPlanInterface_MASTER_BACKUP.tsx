@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -168,6 +167,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           }
         } catch {}
 
+        // 1a) Try lastViewedPlanData in localStorage
+        try {
+          const lastRaw = localStorage.getItem('lastViewedPlanData');
+          if (lastRaw) {
+            const parsed = JSON.parse(lastRaw);
+            const fixed = fixPlanDataFields(parsed);
+            setPlanData(fixed);
+            return;
+          }
+        } catch {}
+
         // 2) Try fetching by active plan id + user id
         const hash = window.location.hash || '';
         const qs = hash.includes('?') ? hash.split('?')[1] : '';
@@ -196,6 +206,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             match = Array.isArray(plans) ? plans.find((p: any) => String(p?.id) === String(planId)) : null;
             payload = match?.plan_data || match?.planData || match || null;
           }
+        }
+
+        // Fallback: try localStorage key by plan id
+        if (!payload) {
+          try {
+            const key = `plan_${planId}`;
+            const rawById = localStorage.getItem(key) || sessionStorage.getItem(key);
+            if (rawById) {
+              payload = JSON.parse(rawById);
+            }
+          } catch {}
         }
 
         if (!payload) return;
