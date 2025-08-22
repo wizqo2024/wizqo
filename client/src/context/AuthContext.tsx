@@ -158,7 +158,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('✅ Sign out successful - redirecting');
 
       // Force redirect and reload
-      window.location.href = window.location.origin + '/#/';
+      window.location.href = window.location.origin + '/';
 
       return { error: null };
     } catch (err) {
