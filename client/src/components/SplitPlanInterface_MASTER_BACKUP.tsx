@@ -561,7 +561,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       'art':'drawing', 'sketch':'sketching', 'photos':'photography','camera':'photography','photo':'photography',
       'chef':'cooking','recipes':'cooking','cook':'cooking','dev':'coding','development':'coding','software':'coding',
       'write':'creative writing','blog':'blogging','blogging':'blogging','speak':'public speaking',
-      'arabic':'language learning','quran':'reading','holy book':'reading','holybook':'reading'
+      'arabic':'language learning','quran':'quran reading','koran':'quran reading','holy book':'religious reading','holybook':'religious reading'
     };
 
     const BANNED = [
