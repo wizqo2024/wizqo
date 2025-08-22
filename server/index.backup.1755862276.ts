@@ -1,7 +1,6 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
-import { generateAffiliateProducts } from './affiliate';
 // We inline key API routes here to avoid module resolution issues on Vercel
 
 // Create Express app
@@ -745,7 +744,38 @@ app.post('/api/generate-plan', async (req, res) => {
       tips: Array.isArray(d1.tips) && d1.tips.length ? d1.tips : [`Tip for day ${dayNum}`],
       mistakesToAvoid: Array.isArray(d1.mistakesToAvoid) && d1.mistakesToAvoid.length ? d1.mistakesToAvoid : (Array.isArray(d1.commonMistakes) && d1.commonMistakes.length ? d1.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
       freeResources: [],
-      affiliateProducts: await generateAffiliateProducts(hobby, (d1.mainTask || d1.goal || d1.objective || title), Array.isArray(d1.howTo) ? d1.howTo : [], dayNum),
+      affiliateProducts: (() => {
+        const affiliateTag = 'wizqohobby-20';
+        const normalizedHobby = hobby.toLowerCase();
+        const task = (d1.mainTask || d1.goal || d1.objective || '').toLowerCase();
+        const titleText = (title || '').toLowerCase();
+
+        const keywordMap: Record<string, string[]> = {
+          bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+          guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+          painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+          drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+          knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+          photography: ['tripod', 'sd card', 'camera cleaning kit'],
+          yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+        };
+
+        const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`];
+        const focusTerms: string[] = [];
+        if (task.includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+        if (task.includes('wire') || titleText.includes('wire')) focusTerms.push('wire');
+        if (task.includes('practice')) focusTerms.push('practice kit');
+        if (task.includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+
+        const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+        const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
+
+        return productIdeas.slice(0, 2).map((idea, idx) => ({
+          title: idea.replace(/\s+/g, ' ').trim(),
+          link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+          price: `$${(19 + (dayNum - 1) * 5 + idx * 3).toFixed(2)}`
+        }));
+      })(),
       youtubeVideoId: video?.id || null,
       videoTitle: video?.title || 'Video not available',
       estimatedTime: d1.estimatedTime || timeAvailable,
@@ -890,7 +920,31 @@ app.post('/api/generate-day', async (req, res) => {
     // Per request: no free resources; only Amazon affiliate products
     const freeResources: { title: string; link: string }[] = [];
 
-    const affiliateProducts = await generateAffiliateProducts(hobby, (primaryObjective || title), stepTexts, dayNumber);
+    const affiliateTag = 'wizqohobby-20';
+    const normalizedHobby = hobby.toLowerCase();
+    const titleText = (title || '').toLowerCase();
+    const keywordMap: Record<string, string[]> = {
+      bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+      guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+      painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+      drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+      knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+      photography: ['tripod', 'sd card', 'camera cleaning kit'],
+      yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+    };
+    const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`, `${hobby} accessories`];
+    const focusTerms: string[] = [];
+    if (primaryObjective.toLowerCase().includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+    if (primaryObjective.toLowerCase().includes('wire') || titleText.includes('wire') || stepTexts.some(s => s.toLowerCase().includes('wire'))) focusTerms.push('wire');
+    if (primaryObjective.toLowerCase().includes('practice')) focusTerms.push('practice kit');
+    if (primaryObjective.toLowerCase().includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+    const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+    const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
+    const affiliateProducts = productIdeas.slice(0, 2).map((idea: string, idx: number) => ({
+      title: idea.replace(/\s+/g, ' ').trim(),
+      link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+      price: `$${(19 + (dayNumber - 1) * 5 + idx * 3).toFixed(2)}`
+    }));
 
     const day = {
       day: dayNumber,
