@@ -3,7 +3,6 @@ import { supabase } from './lib/supabase';
 import { UnifiedNavigation } from './components/UnifiedNavigation';
 import { SplitPlanInterface } from './components/SplitPlanInterface';
 import { PlanDisplay } from './components/PlanDisplay';
-import { ChatInterface } from './components/ChatInterface';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
 import { LandingPage } from './components/LandingPage';
