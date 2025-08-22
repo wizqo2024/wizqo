@@ -218,28 +218,48 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   // Smart hobby validation using OpenRouter API
   const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
     try {
-      console.log('🔍 AI Validation: Calling API for hobby:', input);
+      console.log('🔍 AI Validation: Starting validation for hobby:', input);
+      console.log('🔍 AI Validation: API endpoint:', '/api/validate-hobby');
+      
+      const requestBody = { hobby: input };
+      console.log('🔍 AI Validation: Request body:', requestBody);
+      
       const response = await fetch('/api/validate-hobby', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ hobby: input })
+        body: JSON.stringify(requestBody)
       });
 
       console.log('🔍 AI Validation: API response status:', response.status);
+      console.log('🔍 AI Validation: API response headers:', Object.fromEntries(response.headers.entries()));
       
       if (response.ok) {
         const result = await response.json();
         console.log('🔍 AI Validation: API response data:', result);
+        console.log('🔍 AI Validation: Response isValid:', result.isValid);
+        console.log('🔍 AI Validation: Response suggestion:', result.suggestion);
+        console.log('🔍 AI Validation: Response category:', result.category);
         return result;
       } else {
         console.error('🔍 AI Validation: API error status:', response.status);
         const errorText = await response.text();
         console.error('🔍 AI Validation: API error response:', errorText);
+        console.error('🔍 AI Validation: API error details:', {
+          status: response.status,
+          statusText: response.statusText,
+          url: response.url,
+          body: errorText
+        });
       }
     } catch (error) {
       console.error('🔍 AI Validation: Fetch error:', error);
+      console.error('🔍 AI Validation: Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack
+      });
     }
 
     console.log('🔍 AI Validation: Falling back to basic validation');
