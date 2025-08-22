@@ -15,6 +15,7 @@ import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { apiService } from '@/lib/api-service';
 import { supabase } from '@/lib/supabase';
 import Loader from './Loader';
+import Confetti from './Confetti';
 
 interface QuizAnswers {
   experience: string;
@@ -214,6 +215,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [loadingDay, setLoadingDay] = useState<number | null>(null);
   const [dayGenerationError, setDayGenerationError] = useState<string | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => {
     if (planData) {
       const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -1935,6 +1937,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         </div>
       </div>
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      {showConfetti && (
+        <div className="fixed inset-0 pointer-events-none">
+          <Confetti />
+        </div>
+      )}
     </div>
   );
 }
