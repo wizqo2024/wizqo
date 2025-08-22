@@ -110,17 +110,18 @@ export class HobbyPlanService {
 
       // Filter plans for the specific hobby by extracting from title or hobby field
       const matchingPlans = allPlans.filter((plan: any) => {
-        const planHobby = plan.hobby_name || plan.hobby;
+        const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        const planHobby = normalize(plan.hobby_name || plan.hobby);
         if (planHobby) {
-          return planHobby.toLowerCase() === hobby.toLowerCase();
+          return planHobby === normalize(hobby);
         }
 
         // Fallback to title matching - handle both "Learn" and "Master" patterns
         if (plan.title) {
-          const titleMatch = plan.title.match(/(?:Learn|Master)\s+(\w+)\s+in/i);
-          const extractedHobby = titleMatch ? titleMatch[1].toLowerCase() : '';
-          console.log('🔍 Title matching - extracted:', extractedHobby, 'vs target:', hobby.toLowerCase());
-          return extractedHobby === hobby.toLowerCase();
+          const titleMatch = plan.title.match(/(?:Learn|Master)\s+(.+?)\s+in/i);
+          const extractedHobby = titleMatch ? normalize(titleMatch[1]) : '';
+          console.log('🔍 Title matching - extracted:', extractedHobby, 'vs target:', normalize(hobby));
+          return extractedHobby === normalize(hobby);
         }
 
         return false;
@@ -179,13 +180,16 @@ export class HobbyPlanService {
           title: planData.title,
           overview: planData.overview,
           plan_data: planData
-        }),
-        signal: controller.signal
+        })
       })
 
       clearTimeout(timeoutId)
       console.log('💾 DATABASE SAVE: Backend API response status:', saveResponse.status)
 
+      if (saveResponse.status === 409) {
+        const j = await saveResponse.json().catch(() => ({} as any));
+        throw new Error(j?.message || 'You already have a learning plan for this hobby.');
+      }
       if (!saveResponse.ok) {
         const errorText = await saveResponse.text()
         console.error('💾 DATABASE SAVE: Backend API Error:', saveResponse.status, errorText)

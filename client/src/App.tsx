@@ -44,6 +44,11 @@ export default function App() {
       const j = await resp.json().catch(() => ({}));
       throw new Error(j?.error === 'daily_limit_reached' ? 'Maximum daily plan limit reached (5). Try again tomorrow.' : 'Rate limited');
     }
+    if (resp.status === 409) {
+      const j = await resp.json().catch(() => ({} as any));
+      const pid = j?.plan_id;
+      throw new Error(j?.message || (pid ? `Duplicate plan exists (ID ${pid}). Open it from your dashboard.` : 'You already have a plan for this hobby.'));
+    }
     if (!resp.ok) throw new Error('Failed to generate plan');
     const data = await resp.json();
     sessionStorage.setItem('currentPlanData', JSON.stringify(data));
