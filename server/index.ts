@@ -345,10 +345,39 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
   const key = process.env.OPENROUTER_API_KEY as string;
   if (!key) throw new Error('missing_openrouter_key');
   // Super intelligent hobby parsing - understand any user input
-  const smartHobby = (() => {
-    const lowerHobby = hobby.toLowerCase().trim();
-    
-    // Religious/Spiritual reading patterns
+     const smartHobby = (() => {
+     const lowerHobby = hobby.toLowerCase().trim();
+     
+     // If the input is too broad/complex for 7 days, map to a beginner-friendly scope first
+     const complexityMappings: Array<{ keywords: string[]; target: string }> = [
+       { keywords: ['artificial intelligence', 'ai'], target: 'python for machine learning basics' },
+       { keywords: ['machine learning', 'deep learning'], target: 'machine learning fundamentals with python' },
+       { keywords: ['data science'], target: 'python data analysis basics' },
+       { keywords: ['full stack', 'fullstack'], target: 'web development fundamentals (html, css, js)' },
+       { keywords: ['cybersecurity', 'ethical hacking'], target: 'cybersecurity basics' },
+       { keywords: ['blockchain', 'web3'], target: 'blockchain fundamentals' },
+       { keywords: ['robotics'], target: 'arduino basics' },
+       { keywords: ['electronics'], target: 'basic electronics projects' },
+       { keywords: ['3d modeling'], target: 'blender basics' },
+       { keywords: ['animation'], target: '2d animation basics' },
+       { keywords: ['trading', 'stock market', 'crypto trading'], target: 'investing basics' },
+       { keywords: ['medicine', 'surgery'], target: 'human anatomy basics' },
+       { keywords: ['pilot', 'aviation'], target: 'flight theory basics' },
+       { keywords: ['architecture'], target: 'sketching buildings basics' },
+       { keywords: ['kubernetes'], target: 'docker and containers basics' },
+       { keywords: ['devops'], target: 'ci/cd basics' },
+       { keywords: ['photography'], target: 'beginner photography' },
+     ];
+     for (const map of complexityMappings) {
+       if (map.keywords.every(k => lowerHobby.includes(k))) {
+         return map.target;
+       }
+       if (map.keywords.some(k => lowerHobby === k)) {
+         return map.target;
+       }
+     }
+     
+     // Religious/Spiritual reading patterns
     if (lowerHobby.includes('reading') && (lowerHobby.includes('quran') || lowerHobby.includes('koran'))) {
       return 'quran reading';
     }
@@ -504,21 +533,22 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     return hobby;
   })();
 
-  const prompt = `Create a comprehensive 7-day learning plan for ${smartHobby}.
+    const prompt = `Create a comprehensive 7-day learning plan for ${smartHobby}.
 
 IMPORTANT INSTRUCTIONS:
-1. Treat "${hobby}" as a single, unified hobby or activity
-2. Do NOT separate it into multiple activities or skills
-3. Understand the user's intent and create a focused learning plan
-4. If the input is vague, interpret it intelligently and create a structured plan
-5. Focus on practical, achievable learning objectives
+ 1. Treat "${hobby}" as a single, unified hobby or activity
+ 2. Do NOT separate it into multiple activities or skills
+ 3. Understand the user's intent and create a focused learning plan
+ 4. If the input is vague, interpret it intelligently and create a structured plan
+ 5. Focus on practical, achievable learning objectives
+ 6. If the original input seems too broad or advanced for 7 days, confirm and proceed with the interpreted beginner-friendly scope
 
-User Input: "${hobby}"
-Interpreted Hobby: "${smartHobby}"
-User Details:
-- Experience level: ${experience}
-- Time available per day: ${timeAvailable}
-- Learning goal: ${goal}
+ User Input: "${hobby}"
+ Interpreted Hobby: "${smartHobby}"
+ User Details:
+ - Experience level: ${experience}
+ - Time available per day: ${timeAvailable}
+ - Learning goal: ${goal}
 
 Return ONLY a JSON object with this exact structure:
 {
