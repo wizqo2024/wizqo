@@ -1072,10 +1072,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           setShowAuthModal(true);
         } else if (dayNumber === 7) {
           addAIMessage("🎊 Congratulations! You've completed your 7-day learning journey! You're amazing!", [], 500);
-          setShowConfetti(true);
+          try { setShowConfetti(true); } catch {}
         } else if (user) {
           addAIMessage(`Great job! Day ${dayNumber} completed. Keep up the excellent work!`, [], 500);
-          setShowConfetti(true);
+          try { setShowConfetti(true); } catch {}
         }
       }
     } catch (e) {
