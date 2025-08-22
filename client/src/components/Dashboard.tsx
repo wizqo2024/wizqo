@@ -869,6 +869,14 @@ Learn any hobby in 7 days at https://wizqo.com`;
                             // Store just the plan ID for navigation
                             sessionStorage.setItem('activePlanId', String(plan.id));
                             console.log('💾 Dashboard: Plan ID stored for navigation:', plan.id);
+                            console.log('🔍 Dashboard: Plan object structure:', {
+                              id: plan.id,
+                              hasPlanData: !!plan.planData,
+                              hasDays: !!(plan.planData?.days),
+                              daysCount: plan.planData?.days?.length,
+                              currentDay: plan.currentDay,
+                              status: plan.status
+                            });
                           } catch (error) {
                             console.error('❌ Dashboard: Error storing plan ID:', error);
                           }
