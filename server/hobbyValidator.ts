@@ -262,6 +262,20 @@ function isValidHobby(input: string): boolean {
 function detectBestHobbyMatch(input: string): string | null {
   const lowerInput = input.toLowerCase().trim();
   
+  // Special handling for multi-word religious reading hobbies
+  if (lowerInput.includes('reading') && lowerInput.includes('quran')) {
+    return 'quran reading';
+  }
+  if (lowerInput.includes('reading') && lowerInput.includes('bible')) {
+    return 'bible reading';
+  }
+  if (lowerInput.includes('reading') && lowerInput.includes('holy')) {
+    return 'religious reading';
+  }
+  if (lowerInput.includes('reading') && lowerInput.includes('book')) {
+    return 'book reading';
+  }
+  
   // First check if it's in our comprehensive list
   const exactMatch = validHobbies.find(hobby => hobby.toLowerCase() === lowerInput);
   if (exactMatch) {
