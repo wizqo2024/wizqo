@@ -604,10 +604,45 @@ Return ONLY a JSON object with this exact structure:
   const data = await resp.json();
   let content = data?.choices?.[0]?.message?.content || '';
   content = String(content).trim();
+  // Remove common code fences
   content = content.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  const cleaned = jsonMatch ? jsonMatch[0] : content;
-  return JSON.parse(cleaned);
+
+  // Safe JSON parsing with fallbacks
+  const tryParse = (s: string) => {
+    try { return JSON.parse(s); } catch { return null; }
+  };
+
+  // 1) Try direct parse
+  let parsed: any = tryParse(content);
+
+  // 2) Extract the largest {...} block if direct parse failed
+  if (!parsed) {
+    const match = content.match(/\{[\s\S]*\}/);
+    if (match) parsed = tryParse(match[0]);
+  }
+
+  // 3) Lightweight repair: attempt to balance braces
+  if (!parsed) {
+    const open = (content.match(/\{/g) || []).length;
+    const close = (content.match(/\}/g) || []).length;
+    let repaired = content;
+    if (open > close) {
+      repaired = content + '}'.repeat(open - close);
+    } else if (close > open) {
+      // Trim extra closing braces at the end
+      repaired = content.replace(/\}+$/g, (m) => '}'.repeat(Math.max(0, m.length - (close - open))));
+    }
+    parsed = tryParse(repaired);
+  }
+
+  if (!parsed || typeof parsed !== 'object') {
+    const snippet = content.slice(0, 400);
+    const err = new Error('bad_ai_json');
+    (err as any).upstream = snippet;
+    throw err;
+  }
+
+  return parsed;
 }
 
 async function getYouTubeVideo(hobby: string, day: number, title: string) {
@@ -763,8 +798,41 @@ app.post('/api/generate-day', async (req, res) => {
     content = String(content).trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     const cleaned = jsonMatch ? jsonMatch[0] : content;
-    let parsed: any;
-    try { parsed = JSON.parse(cleaned); } catch { throw new Error('openrouter_invalid_json'); }
+
+    // Safe JSON parsing with fallbacks
+    const tryParse = (s: string) => {
+      try { return JSON.parse(s); } catch { return null; }
+    };
+
+    // 1) Try direct parse
+    let parsed: any = tryParse(cleaned);
+
+    // 2) Extract the largest {...} block if direct parse failed
+    if (!parsed) {
+      const match = cleaned.match(/\{[\s\S]*\}/);
+      if (match) parsed = tryParse(match[0]);
+    }
+
+    // 3) Lightweight repair: attempt to balance braces
+    if (!parsed) {
+      const open = (cleaned.match(/\{/g) || []).length;
+      const close = (cleaned.match(/\}/g) || []).length;
+      let repaired = cleaned;
+      if (open > close) {
+        repaired = cleaned + '}'.repeat(open - close);
+      } else if (close > open) {
+        // Trim extra closing braces at the end
+        repaired = cleaned.replace(/\}+$/g, (m) => '}'.repeat(Math.max(0, m.length - (close - open))));
+      }
+      parsed = tryParse(repaired);
+    }
+
+    if (!parsed || typeof parsed !== 'object') {
+      const snippet = cleaned.slice(0, 400);
+      const err = new Error('bad_ai_json');
+      (err as any).upstream = snippet;
+      throw err;
+    }
 
     // Normalize into Day structure expected by frontend
     const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
