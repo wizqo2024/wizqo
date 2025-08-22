@@ -162,8 +162,17 @@ export default function App() {
           if (r.ok) {
             const j = await r.json();
             console.log('🔍 Plan hydration: API response data:', j);
+            console.log('🔍 Plan hydration: API response data keys:', Object.keys(j));
+            console.log('🔍 Plan hydration: API response data type:', typeof j);
+            console.log('🔍 Plan hydration: API response data plan_data keys:', j?.plan_data ? Object.keys(j.plan_data) : 'NO plan_data');
+            console.log('🔍 Plan hydration: API response data planData keys:', j?.planData ? Object.keys(j.planData) : 'NO planData');
+            
             const payload = j?.plan_data || j?.planData || j;
             console.log('🔍 Plan hydration: Extracted payload:', payload);
+            console.log('🔍 Plan hydration: Payload keys:', payload ? Object.keys(payload) : 'NO payload');
+            console.log('🔍 Plan hydration: Payload days:', payload?.days);
+            console.log('🔍 Plan hydration: Payload days type:', typeof payload?.days);
+            console.log('🔍 Plan hydration: Payload days length:', payload?.days?.length);
             
             if (payload && payload.days) {
               console.log('✅ Plan hydration: Using plan data from API');
@@ -173,6 +182,14 @@ export default function App() {
               return;
             } else {
               console.log('❌ Plan hydration: API payload missing days or invalid structure');
+              console.log('❌ Plan hydration: Payload structure analysis:', {
+                hasPayload: !!payload,
+                payloadType: typeof payload,
+                payloadKeys: payload ? Object.keys(payload) : [],
+                hasDays: !!(payload?.days),
+                daysType: typeof payload?.days,
+                daysLength: payload?.days?.length
+              });
             }
           } else {
             console.log('❌ Plan hydration: API request failed with status:', r.status);
@@ -207,6 +224,10 @@ export default function App() {
               hasDays: !!(data as any)?.plan_data?.days,
               error: error
             });
+            console.log('🔍 Plan hydration: Supabase raw data:', data);
+            console.log('🔍 Plan hydration: Supabase data keys:', data ? Object.keys(data) : 'NO data');
+            console.log('🔍 Plan hydration: Supabase plan_data keys:', (data as any)?.plan_data ? Object.keys((data as any).plan_data) : 'NO plan_data');
+            console.log('🔍 Plan hydration: Supabase plan_data days:', (data as any)?.plan_data?.days);
           }
         } catch (error) {
           console.error('❌ Plan hydration: Supabase error:', error);
