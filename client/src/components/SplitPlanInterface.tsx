@@ -1111,7 +1111,17 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         validation = await validateAndProcessHobby(userInput);
       }
       if ((validation as any).unsafe) {
-        addAIMessage("🎯 That hobby might be a bit complex for a 7-day plan! How about trying something more beginner-friendly? Here are some great starter hobbies that you can actually master in a week! 🌟");
+        // Show suggestions if available, otherwise show default message
+        if (validation.suggestions && validation.suggestions.length > 0) {
+          const suggestionOptions = validation.suggestions.map(s => ({ 
+            value: s, 
+            label: s.charAt(0).toUpperCase() + s.slice(1), 
+            description: 'Safe and beginner-friendly' 
+          }));
+          addAIMessage("🎯 That hobby isn't suitable for learning. Here are some great, safe alternatives you can master in a week! 🌟", suggestionOptions, 800, 'hobby');
+        } else {
+          addAIMessage("🎯 That hobby isn't suitable for learning. How about trying something safe and beginner-friendly like photography, guitar, cooking, drawing, yoga, gardening, or coding? 🌟");
+        }
         return;
       }
       
