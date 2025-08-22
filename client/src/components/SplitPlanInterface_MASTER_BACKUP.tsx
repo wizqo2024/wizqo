@@ -1620,20 +1620,20 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           </p>
                         </section>
 
-                        <section className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                          <div className="flex items-center mb-6">
-                            <div className="bg-indigo-500 rounded-full p-2 mr-4">
-                              <span className="text-white text-xl">🔍</span>
+                        <section className="bg-white border border-gray-200 rounded-xl p-4 md:p-5 shadow-sm">
+                          <div className="flex items-center mb-3">
+                            <div className="bg-indigo-500 rounded-full p-1.5 mr-3">
+                              <span className="text-white text-base">🔍</span>
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900">Step-by-Step Guide</h3>
+                            <h3 className="text-lg font-semibold text-gray-900">Step-by-Step Guide</h3>
                           </div>
-                          <div className="space-y-4">
-                            {currentDay.howTo.map((step, index) => (
-                              <div key={index} className="flex items-start group hover:bg-gray-50 rounded-xl p-4 transition-colors">
-                                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mr-4 mt-0.5 flex-shrink-0 shadow-lg">
+                          <div className="space-y-2">
+                            {(currentDay.howTo || []).slice(0, 5).map((step, index) => (
+                              <div key={index} className="flex items-start group hover:bg-gray-50 rounded-lg p-3 transition-colors">
+                                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0 shadow">
                                   {index + 1}
                                 </div>
-                                <div className="text-gray-800 leading-relaxed text-sm flex-1">{step}</div>
+                                <div className="text-gray-800 leading-snug text-sm flex-1">{step}</div>
                               </div>
                             ))}
                           </div>
