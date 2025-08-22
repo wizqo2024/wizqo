@@ -430,6 +430,7 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     if (!currentInput.trim()) return;
     
     // Check if user wants to start a NEW hobby (common keywords OR any non-question input)
+    // DEPLOYMENT TRIGGER: Enhanced hobby detection logic v2
     const newHobbyKeywords = ['new hobby', 'start', 'begin', 'learn', 'try', 'want to learn', 'hobby'];
     const questionKeywords = ['how', 'what', 'when', 'where', 'why', 'which', 'who', '?', 'help', 'explain', 'tell me', 'show me'];
     
