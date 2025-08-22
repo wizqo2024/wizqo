@@ -739,6 +739,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addAIMessage(`Perfect! I've chosen ${highlightHobby(randomHobby, randomHobby)} for you. Creating your 7-day plan now... ✨`, undefined, 800);
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
+    // Duplicate check
+    if (await precheckDuplicate(randomHobby)) {
+      addAIMessage(`⚠️ You already have a ${highlightHobby(randomHobby, randomHobby)} plan in your dashboard. Open it to continue learning!`);
+      return;
+    }
     // Block if user has reached plan limit
     if (await precheckPlanLimit()) {
       addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
@@ -749,6 +754,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     try {
       const plan = await onGeneratePlan(randomHobby, surpriseAnswers).catch((e: any) => {
         const msg = String(e?.message || e);
+        if (msg.toLowerCase().includes('duplicate') || msg.toLowerCase().includes('already have a learning plan')) {
+          addAIMessage(`⚠️ You already have a ${highlightHobby(randomHobby, randomHobby)} plan in your dashboard. Open it to continue learning!`);
+        }
         if (msg.includes('Plan limit reached')) {
           addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
         }
@@ -825,6 +833,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setIsGenerating(true);
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
       try {
+        // Duplicate check
+        if (await precheckDuplicate(selectedHobby)) {
+          addAIMessage(`⚠️ You already have a ${highlightHobby(selectedHobby, selectedHobby)} plan in your dashboard. Open it to continue learning!`);
+          setIsGenerating(false);
+          setCurrentStep('review');
+          return;
+        }
         // Block if user has reached plan limit
         if (await precheckPlanLimit()) {
           addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
@@ -834,6 +849,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         }
         const plan = await onGeneratePlan(selectedHobby, finalAnswers).catch((e: any) => {
           const msg = String(e?.message || e);
+          if (msg.toLowerCase().includes('duplicate') || msg.toLowerCase().includes('already have a learning plan')) {
+            addAIMessage(`⚠️ You already have a ${highlightHobby(selectedHobby, selectedHobby)} plan in your dashboard. Open it to continue learning!`);
+          }
           if (msg.includes('Plan limit reached')) {
             addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
           }
@@ -1221,6 +1239,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       if (!r.ok) return false;
       const arr = await r.json();
       return Array.isArray(arr) && arr.length >= 5;
+    } catch {
+      return false;
+    }
+  };
+
+  const precheckDuplicate = async (hobbyName: string) => {
+    try {
+      if (!user?.id) return false;
+      const r = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
+      if (!r.ok) return false;
+      const arr = await r.json();
+      const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+      const target = normalize(hobbyName);
+      return (Array.isArray(arr) ? arr : []).some((p: any) => {
+        const h1 = normalize(p.hobby);
+        const h2 = normalize(p.hobby_name);
+        const hp = normalize(p.plan_data?.hobby || p.plan_data?.hobby_name);
+        const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
+        const ht = m ? normalize(m[1]) : '';
+        return [h1, h2, hp, ht].some(v => v && v === target);
+      });
     } catch {
       return false;
     }
