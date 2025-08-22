@@ -863,6 +863,47 @@ app.post('/api/generate-day', async (req, res) => {
     const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
     let video = await getYouTubeVideo(hobby, dayNumber, title);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
+
+    // Derive helpful extras for UI completeness and uniqueness
+    const objectiveList = Array.isArray(parsed?.objectives) ? parsed.objectives : [];
+    const primaryObjective = typeof objectiveList[0] === 'string' ? objectiveList[0] : '';
+    const stepTexts: string[] = Array.isArray(parsed?.steps)
+      ? parsed.steps.map((s: any) => (typeof s === 'string' ? s : (s?.title || s?.what || s?.how || ''))).filter(Boolean)
+      : [];
+
+    const generatedTips: string[] = [
+      primaryObjective ? `Focus on: ${primaryObjective}` : `Review yesterday briefly, then start fresh.`,
+      stepTexts[0] ? `Do this well: ${stepTexts[0]}` : `Split practice into 2×15-minute focused blocks.`,
+      `End with a 2-minute recap to reinforce learning.`
+    ];
+
+    const generatedMistakes: string[] = [
+      `Skipping fundamentals on day ${dayNumber}.`,
+      stepTexts[0] ? `Rushing through: ${stepTexts[0]}` : `Going too fast; prioritize accuracy over speed.`,
+      `Not reflecting on what improved vs. what didn't.`
+    ];
+
+    const parsedFreeResources = Array.isArray(parsed?.resources)
+      ? parsed.resources.filter((r: any) => r?.type === 'link' || r?.type === 'article').slice(0, 3).map((r: any) => ({ title: r?.title || 'Resource', link: r?.url || '#' }))
+      : [];
+    const fallbackResources = [
+      { title: `${hobby} Day ${dayNumber} guide`, link: `https://www.google.com/search?q=${encodeURIComponent(`${hobby} day ${dayNumber} ${title} guide`)}` },
+      { title: `YouTube: ${hobby} ${title}`, link: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${hobby} ${title} tutorial`)}` }
+    ];
+    const freeResources = parsedFreeResources.length > 0 ? parsedFreeResources : fallbackResources;
+
+    const affiliateTag = 'wizqohobby-20';
+    const productIdeas = [
+      `${hobby} ${primaryObjective || 'starter'} tools`,
+      `${hobby} practice kit day ${dayNumber}`,
+      `${hobby} ${title} accessories`
+    ];
+    const affiliateProducts = productIdeas.slice(0, 2).map((idea: string, idx: number) => ({
+      title: idea.trim(),
+      link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+      price: `$${(19 + (dayNumber - 1) * 5 + idx * 3).toFixed(2)}`
+    }));
+
     const day = {
       day: dayNumber,
       title,
@@ -870,10 +911,10 @@ app.post('/api/generate-day', async (req, res) => {
       explanation: parsed?.prerequisites ? `Prerequisites: ${(Array.isArray(parsed.prerequisites) ? parsed.prerequisites.join(', ') : String(parsed.prerequisites))}` : `Focus on building skills from prior days.`,
       howTo: Array.isArray(parsed?.steps) && parsed.steps.length ? parsed.steps.map((s: any) => (typeof s === 'string' ? s : (s?.how || s?.what || 'Step'))) : [`Step ${dayNumber}`],
       checklist: Array.isArray(parsed?.steps) && parsed.steps.length ? parsed.steps.map((s: any, i: number) => (typeof s === 'string' ? s : (s?.title || `Task ${i + 1}`))) : [`Complete day ${dayNumber} tasks`],
-      tips: [],
-      mistakesToAvoid: [],
-      freeResources: Array.isArray(parsed?.resources) ? parsed.resources.filter((r: any) => r?.type === 'link' || r?.type === 'article').slice(0, 3).map((r: any) => ({ title: r?.title || 'Resource', link: r?.url || '#' })) : [],
-      affiliateProducts: [{ title: `${hobby} Essentials`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+essentials&tag=wizqohobby-20`, price: `$${19 + (dayNumber - 1) * 5}.99` }],
+      tips: generatedTips,
+      mistakesToAvoid: generatedMistakes,
+      freeResources,
+      affiliateProducts,
       youtubeVideoId: video?.id || null,
       videoTitle: video?.title || 'Video not available',
       estimatedTime: typeof parsed?.estimated_total_min === 'number' ? `${parsed.estimated_total_min} minutes` : timeAvailable,
