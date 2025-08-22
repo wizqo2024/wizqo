@@ -1140,7 +1140,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
             { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
           ];
-          addAIMessage(`Great choice! ${hobby} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
+          addAIMessage(`Great choice! ${highlightHobby(hobby, hobby)} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
         } else {
           const hobbyOptions = validation.detectedHobbies.map(h => ({ value: h, label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`, description: `Focus on ${h} first` }));
           addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions, 1000, 'hobby');
