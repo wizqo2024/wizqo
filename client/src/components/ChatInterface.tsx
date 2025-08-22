@@ -215,6 +215,29 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     };
   };
 
+  // Smart hobby validation using OpenRouter API
+  const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
+    try {
+      const response = await fetch('/api/validate-hobby', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ hobby: input })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        return result;
+      }
+    } catch (error) {
+      console.error('AI hobby validation error:', error);
+    }
+
+    // Fallback to basic validation
+    return validateHobby(input);
+  };
+
   const getHobbyEmoji = (hobby: string): string => {
     const emojiMap: {[key: string]: string} = {
       photography: '📸', guitar: '🎸', cooking: '👨‍🍳', drawing: '🎨',
@@ -405,74 +428,41 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     if (currentStep === 'hobby') {
       // Use DeepSeek AI for intelligent hobby validation
       try {
-        const response = await fetch('/api/validate-hobby', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ hobby: currentInput.trim() })
-        });
+        const response = await validateHobbyWithAI(currentInput.trim());
 
-        if (response.ok) {
-          const validation = await response.json();
+        if (response.isValid) {
+          const finalHobby = response.suggestion || currentInput.toLowerCase().trim();
+          addUserMessage(currentInput);
+          setSelectedHobby(finalHobby);
+          setCurrentStep('experience');
           
-          if (validation.isValid) {
-            const finalHobby = validation.correctedHobby || currentInput.toLowerCase().trim();
-            addUserMessage(currentInput);
-            setSelectedHobby(finalHobby);
-            setCurrentStep('experience');
-            
-            let message = `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯`;
-            
-            if (validation.correctedHobby) {
-              message += `\n\n(I corrected the spelling for you)`;
-            }
-            
-            message += `\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`;
-            
-            addAIMessage(message, [
-              { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-              { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-              { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-            ]);
-          } else {
-            addUserMessage(currentInput);
-            let errorMessage = `I'm not sure "${currentInput}" is a hobby I can help with right now.`;
-            
-            if (validation.suggestions && validation.suggestions.length > 0) {
-              errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
-              const hobbyOptions = validation.suggestions.map((suggestion: string) => ({
-                value: suggestion,
-                label: suggestion.charAt(0).toUpperCase() + suggestion.slice(1),
-                description: `Learn ${suggestion}`
-              }));
-              
-              addAIMessage(errorMessage, hobbyOptions);
-            } else {
-              addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.');
-            }
+          let message = `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯`;
+          
+          if (response.suggestion) {
+            message += `\n\n(I corrected the spelling for you)`;
           }
-        } else {
-          // Fallback to simple validation if API fails
-          const validation = validateHobby(currentInput);
           
-          if (validation.isValid) {
-            const finalHobby = validation.suggestion || currentInput.toLowerCase().trim();
-            addUserMessage(currentInput);
-            setSelectedHobby(finalHobby);
-            setCurrentStep('experience');
-            
-            addAIMessage(
-              `Awesome choice! ${finalHobby.charAt(0).toUpperCase() + finalHobby.slice(1)} is such a rewarding hobby. 🎯\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`,
-              [
-                { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-                { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-                { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
-              ]
-            );
+          message += `\n\nTo create the perfect learning plan for you, I need to know your current experience level. What best describes you?`;
+          
+          addAIMessage(message, [
+            { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
+            { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
+            { value: 'intermediate', label: 'Intermediate', description: 'Know the basics already' }
+          ]);
+        } else {
+          addUserMessage(currentInput);
+          let errorMessage = `I'm not sure "${currentInput}" is a hobby I can help with right now.`;
+          
+          if (response.suggestion) {
+            errorMessage += `\n\nHere are some popular hobbies you might enjoy instead:`;
+            const hobbyOptions = [
+              { value: response.suggestion, label: response.suggestion.charAt(0).toUpperCase() + response.suggestion.slice(1) },
+              { value: 'surprise', label: '🎲 Surprise Me!' },
+              { value: 'different', label: '🔁 Let me choose a different hobby' }
+            ];
+            addAIMessage(errorMessage, hobbyOptions);
           } else {
-            addUserMessage(currentInput);
-            addAIMessage(validation.suggestion!, validation.options);
+            addAIMessage(errorMessage + '\n\nTry something like: guitar, cooking, drawing, yoga, photography, or dance.');
           }
         }
       } catch (error) {
