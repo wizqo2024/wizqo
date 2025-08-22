@@ -769,33 +769,10 @@ Return ONLY a JSON object with this exact structure:
     parsed = tryParse(repaired);
   }
 
-  // 4) Final fallback: synthesize a minimal valid plan if parsing still fails
+  // 4) No fallback - only real plans allowed
   if (!parsed || typeof parsed !== 'object') {
-    const outline = Array.from({ length: 7 }, (_, i) => ({ day: i + 1, title: `Day ${i + 1}`, goals: [] as string[] }));
-    const fallback = {
-      hobby: smartHobby,
-      title: `Master ${smartHobby} in 7 Days`,
-      overview: goal || `Learn ${smartHobby} fundamentals`,
-      difficulty: experience,
-      totalDays: 7,
-      days: [
-        {
-          day: 1,
-          title: `Getting Started with ${smartHobby}`,
-          mainTask: `Learn ${smartHobby} fundamentals`,
-          explanation: `Day 1 of your ${smartHobby} journey`,
-          howTo: ['Step 1: Setup', 'Step 2: Learn basics', 'Step 3: Practice'],
-          checklist: ['Complete basics', 'Take notes'],
-          tips: ['Stay consistent'],
-          mistakesToAvoid: ['Rushing'],
-          estimatedTime: timeAvailable,
-          skillLevel: experience,
-          youtubeVideoId: ''
-        }
-      ],
-      outline
-    };
-    return fallback as any;
+    console.error('❌ Plan generation failed - no mock/fallback content allowed');
+    throw new Error('Failed to generate real plan content. Please try again or contact support.');
   }
 
   return parsed;
@@ -1010,30 +987,53 @@ app.post('/api/generate-plan', async (req, res) => {
     // Generate only Day 1 content now to save tokens
     const d1 = rawDays?.[0] || {} as any;
     const dayNum = 1;
-    const title = (typeof d1.title === 'string' && d1.title.trim()) ? d1.title : `${hobby} Fundamentals`;
+    // Validate that we have a real AI-generated title
+    if (!d1.title || typeof d1.title !== 'string' || !d1.title.trim()) {
+      return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a title for Day 1. Please try again.' });
+    }
+    
+    const title = d1.title.trim();
     let video = await getYouTubeVideo(hobby, dayNum, title);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
+    // Validate that we have real AI-generated content
+    if (!d1.mainTask && !d1.goal && !d1.objective) {
+      return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate sufficient content for Day 1. Please try again.' });
+    }
+    
+    if (!d1.howTo || d1.howTo.length === 0) {
+      return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate steps for Day 1. Please try again.' });
+    }
+    
     const day1 = {
       day: 1,
       title,
-      mainTask: d1.mainTask || d1.goal || d1.objective || `Learn ${hobby} fundamentals`,
-      explanation: d1.explanation || d1.description || d1.details || `Day ${dayNum} of your ${hobby} journey`,
-      howTo: Array.isArray(d1.howTo) && d1.howTo.length ? d1.howTo : [`Step ${dayNum}`],
-      checklist: Array.isArray(d1.checklist) && d1.checklist.length ? d1.checklist : [`Complete day ${dayNum} tasks`],
-      tips: Array.isArray(d1.tips) && d1.tips.length ? d1.tips : [`Tip for day ${dayNum}`],
-      mistakesToAvoid: Array.isArray(d1.mistakesToAvoid) && d1.mistakesToAvoid.length ? d1.mistakesToAvoid : (Array.isArray(d1.commonMistakes) && d1.commonMistakes.length ? d1.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
+      mainTask: d1.mainTask || d1.goal || d1.objective,
+      explanation: d1.explanation || d1.description || d1.details,
+      howTo: d1.howTo,
+      checklist: d1.checklist || [],
+      tips: d1.tips || [],
+      mistakesToAvoid: d1.mistakesToAvoid || d1.commonMistakes || [],
       freeResources: [],
-      affiliateProducts: await generateAffiliateProducts(hobby, (d1.mainTask || d1.goal || d1.objective || title), Array.isArray(d1.howTo) ? d1.howTo : [], dayNum),
+      affiliateProducts: await generateAffiliateProducts(hobby, (d1.mainTask || d1.goal || d1.objective || title), d1.howTo, dayNum),
       youtubeVideoId: video?.id || null,
       videoTitle: video?.title || 'Video not available',
       estimatedTime: d1.estimatedTime || timeAvailable,
       skillLevel: d1.skillLevel || experience
     };
 
+    // Validate that we have real AI-generated plan content
+    if (!aiPlan.title || typeof aiPlan.title !== 'string' || !aiPlan.title.trim()) {
+      return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a plan title. Please try again.' });
+    }
+    
+    if (!aiPlan.overview && !aiPlan.description) {
+      return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a plan overview. Please try again.' });
+    }
+    
     res.json({
       hobby: aiPlan.hobby || hobby,
-      title: aiPlan.title || `Learn ${hobby} in 7 Days`,
-      overview: aiPlan.overview || aiPlan.description || `Master ${hobby} with this 7-day plan`,
+      title: aiPlan.title.trim(),
+      overview: aiPlan.overview || aiPlan.description,
       difficulty: aiPlan.difficulty || experience,
       totalDays: 7,
       outline,
