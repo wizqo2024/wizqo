@@ -42,7 +42,7 @@ export default function App() {
     });
     if (resp.status === 429) {
       const j = await resp.json().catch(() => ({}));
-      throw new Error(j?.error === 'daily_limit_reached' ? 'Maximum daily plan limit reached (5). Try again tomorrow.' : 'Rate limited');
+      throw new Error(j?.error === 'plan_limit_reached' ? 'Plan limit reached (5 per account).' : 'Rate limited');
     }
     if (resp.status === 409) {
       const j = await resp.json().catch(() => ({} as any));

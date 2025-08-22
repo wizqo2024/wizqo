@@ -375,15 +375,13 @@ app.post('/api/hobby-plans', async (req, res) => {
       });
       if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
 
-      // Daily limit: max 5 created within last 24h
-      const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-      const daily = await supabaseAdmin
+      // Total cap: max 5 plans per user
+      const total = await supabaseAdmin
         .from('hobby_plans')
         .select('id', { count: 'exact', head: true })
-        .eq('user_id', user_id)
-        .gte('created_at', sinceIso);
-      if ((daily.count || 0) >= 5) {
-        return res.status(429).json({ error: 'daily_limit_reached' });
+        .eq('user_id', user_id);
+      if ((total.count || 0) >= 5) {
+        return res.status(429).json({ error: 'plan_limit_reached' });
       }
     } catch {}
 
@@ -848,17 +846,15 @@ app.post('/api/generate-plan', async (req, res) => {
     if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
 
-    // Enforce per-user daily limit (5) and prevent duplicate hobby plans (server-side)
+    // Enforce per-user plan limit (total 5) and prevent duplicate hobby plans (server-side)
     try {
       if (userId && supabaseAdmin) {
-        const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-        const daily = await supabaseAdmin
+        const total = await supabaseAdmin
           .from('hobby_plans')
           .select('id', { count: 'exact', head: true })
-          .eq('user_id', userId)
-          .gte('created_at', sinceIso);
-        if ((daily.count || 0) >= 5) {
-          return res.status(429).json({ error: 'daily_limit_reached' });
+          .eq('user_id', userId);
+        if ((total.count || 0) >= 5) {
+          return res.status(429).json({ error: 'plan_limit_reached' });
         }
 
         const existing = await supabaseAdmin

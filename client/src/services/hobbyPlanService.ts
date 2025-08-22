@@ -192,7 +192,7 @@ export class HobbyPlanService {
       }
       if (saveResponse.status === 429) {
         const j = await saveResponse.json().catch(() => ({} as any));
-        throw new Error(j?.error === 'daily_limit_reached' ? 'Maximum daily plan limit reached (5). Try again tomorrow.' : 'Rate limited');
+        throw new Error(j?.error === 'plan_limit_reached' ? 'Plan limit reached (5 per account).' : 'Rate limited');
       }
       if (!saveResponse.ok) {
         const errorText = await saveResponse.text()
