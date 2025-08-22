@@ -12,6 +12,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { SEOMetaTags } from './components/SEOMetaTags';
 
 
 type QuizAnswers = {
@@ -78,16 +79,23 @@ export default function App() {
     }
   })();
 
-  const [route, setRoute] = useState<string>(() => window.location.hash || '#/');
+  // NEW: Use proper URL routing instead of hash routing
+  const [route, setRoute] = useState<string>(() => window.location.pathname || '/');
+  
   useEffect(() => {
-    const onHashChange = () => setRoute(window.location.hash || '#/');
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onPopState = () => setRoute(window.location.pathname || '/');
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
+  // NEW: Navigation function that updates URL properly
+  const navigateTo = (path: string) => {
+    window.history.pushState({}, '', path);
+    setRoute(path);
+  };
+
   const [routeKey, routeQuery] = useMemo(() => {
-    const hash = route.startsWith('#') ? route.slice(1) : route;
-    const path = hash.replace(/^\/?/, '');
+    const path = route.replace(/^\/?/, '');
     const [pathname, queryString] = path.split('?');
     const seg = pathname.split('/')[0] || '';
     const params = new URLSearchParams(queryString || '');
@@ -190,35 +198,119 @@ export default function App() {
           switch (routeKey) {
             case '': // home
               return (
-                <LandingPage onNavigateToGenerate={() => { window.location.hash = '#/generate'; }} />
+                <>
+                  <SEOMetaTags 
+                    title="Wizqo - AI-Powered 7-Day Hobby Learning Plans | Learn Any Skill Fast"
+                    description="Master any hobby in 7 days with personalized AI learning plans. Get daily video tutorials, practice guides, and progress tracking for cooking, guitar, yoga, and more. Start your learning journey free!"
+                    canonicalUrl="https://wizqo.com/"
+                  />
+                  <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
+                </>
               );
             case 'generate':
               return (
-                <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => { window.location.hash = '#/'; }} />
+                <>
+                  <SEOMetaTags 
+                    title="Generate Your 7-Day Hobby Plan - Wizqo"
+                    description="Create a personalized 7-day learning plan for any hobby. Our AI will craft the perfect curriculum with daily videos, practice guides, and progress tracking."
+                    canonicalUrl="https://wizqo.com/generate"
+                  />
+                  <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
+                </>
               );
             case 'plan':
               return (
-                <SplitPlanInterface 
-                  onGeneratePlan={handleGeneratePlan}
-                  onNavigateBack={() => { window.location.hash = '#/dashboard'; }}
-                  initialPlanData={(hydratedPlan || currentPlan) || undefined}
-                />
+                <>
+                  <SEOMetaTags 
+                    title="Your Hobby Learning Plan - Wizqo"
+                    description="Your personalized 7-day hobby learning plan with daily videos, practice guides, and progress tracking."
+                    canonicalUrl="https://wizqo.com/plan"
+                    noIndex={true}
+                  />
+                  <SplitPlanInterface 
+                    onGeneratePlan={handleGeneratePlan}
+                    onNavigateBack={() => navigateTo('/dashboard')}
+                    initialPlanData={(hydratedPlan || currentPlan) || undefined}
+                  />
+                </>
               );
             case 'blog':
-              return <BlogPage />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Hobby Learning Blog - Tips, Guides & Inspiration - Wizqo"
+                    description="Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts."
+                    canonicalUrl="https://wizqo.com/blog"
+                  />
+                  <BlogPage />
+                </>
+              );
             case 'dashboard':
-              return <Dashboard />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Your Learning Dashboard - Wizqo"
+                    description="Track your hobby learning progress, manage your plans, and access your personalized learning resources."
+                    canonicalUrl="https://wizqo.com/dashboard"
+                    noIndex={true}
+                  />
+                  <Dashboard />
+                </>
+              );
             case 'about':
-              return <AboutPage />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="About Wizqo - AI-Powered Hobby Learning Platform"
+                    description="Learn about Wizqo's mission to make hobby learning accessible to everyone through AI-powered personalized plans and expert-curated content."
+                    canonicalUrl="https://wizqo.com/about"
+                  />
+                  <AboutPage />
+                </>
+              );
             case 'contact':
-              return <ContactPage />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Contact Wizqo - Get Help & Support"
+                    description="Get in touch with the Wizqo team for support, feedback, or questions about our AI-powered hobby learning platform."
+                    canonicalUrl="https://wizqo.com/contact"
+                  />
+                  <ContactPage />
+                </>
+              );
             case 'privacy':
-              return <PrivacyPage />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Privacy Policy - Wizqo"
+                    description="Learn how Wizqo protects your privacy and handles your data while providing personalized hobby learning experiences."
+                    canonicalUrl="https://wizqo.com/privacy"
+                  />
+                  <PrivacyPage />
+                </>
+              );
             case 'terms':
-              return <TermsPage />;
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Terms of Service - Wizqo"
+                    description="Read Wizqo's terms of service and understand the rules and guidelines for using our hobby learning platform."
+                    canonicalUrl="https://wizqo.com/terms"
+                  />
+                  <TermsPage />
+                </>
+              );
             default:
               return (
-                <LandingPage onNavigateToGenerate={() => { window.location.hash = '#/generate'; }} />
+                <>
+                  <SEOMetaTags 
+                    title="Wizqo - AI-Powered 7-Day Hobby Learning Plans | Learn Any Skill Fast"
+                    description="Master any hobby in 7 days with personalized AI learning plans. Get daily video tutorials, practice guides, and progress tracking for cooking, guitar, yoga, and more. Start your learning journey free!"
+                    canonicalUrl="https://wizqo.com/"
+                  />
+                  <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
+                </>
               );
           }
         })()}

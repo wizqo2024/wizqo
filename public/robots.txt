@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Allow all public pages
+Allow: /about
+Allow: /blog
+Allow: /generate
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+
+# Disallow private/user-specific pages
+Disallow: /dashboard
+Disallow: /plan
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://wizqo.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
