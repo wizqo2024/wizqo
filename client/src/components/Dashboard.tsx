@@ -400,11 +400,46 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
     // Deterministic hash for stable, unique images per hobby
     const hash = Array.from(normalizedHobby).reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 0);
-    const query = keywordsForCategory(normalizedHobby);
+    const query = keywordsForCategory(normalizedHobby).replace(/\s+/g, ',');
 
-    // Use Unsplash source with deterministic signature to avoid repeats across hobbies
-    // 400x240 matches card aspect; sig makes it stable per hobby
-    return `https://source.unsplash.com/400x240/?${encodeURIComponent(query)}&sig=${hash}`;
+    // Use Unsplash featured with deterministic signature; comma-separated keywords
+    return `https://source.unsplash.com/featured/400x240?${query}&sig=${hash}`;
+  };
+
+  const getFallbackImage = (hobby: string): string => {
+    const hobbyName = (hobby || '').toLowerCase();
+    const hash = Array.from(hobbyName).reduce((acc, ch) => (acc * 33 + ch.charCodeAt(0)) >>> 0, 0);
+
+    const techImages = [
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop'
+    ];
+    const creativeImages = [
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1541961017774-2034504a1262?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop'
+    ];
+    const culinaryImages = [
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop'
+    ];
+    const fitnessImages = [
+      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop'
+    ];
+    const learningImages = [
+      'https://images.unsplash.com/photo-1481627834876-dccba630e2f6?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop'
+    ];
+
+    const pick = (arr: string[]) => arr[hash % arr.length];
+
+    if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech')) return pick(techImages);
+    if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('photo')) return pick(creativeImages);
+    if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) return pick(culinaryImages);
+    if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('dance')) return pick(fitnessImages);
+    return pick(learningImages);
   };
 
   const getStatusColor = (status: string): string => {
@@ -731,9 +766,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       alt={`${plan.title} - Learn ${plan.hobby} in 7 days`}
                       className="w-full h-full object-cover"
                       loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
-                      }}
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = getFallbackImage(plan.hobby); }}
                     />
 
                     <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
