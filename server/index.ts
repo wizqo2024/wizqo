@@ -744,7 +744,19 @@ app.post('/api/generate-plan', async (req, res) => {
       tips: Array.isArray(d1.tips) && d1.tips.length ? d1.tips : [`Tip for day ${dayNum}`],
       mistakesToAvoid: Array.isArray(d1.mistakesToAvoid) && d1.mistakesToAvoid.length ? d1.mistakesToAvoid : (Array.isArray(d1.commonMistakes) && d1.commonMistakes.length ? d1.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
       freeResources: [],
-      affiliateProducts: [{ title: `${hobby} Starter Kit`, link: `https://www.amazon.com/s?k=${encodeURIComponent(hobby)}+starter+kit&tag=wizqohobby-20`, price: `$${19 + 0 * 5}.99` }],
+      affiliateProducts: (() => {
+        const affiliateTag = 'wizqohobby-20';
+        const productIdeas = [
+          `${hobby} beginner starter kit`,
+          `${hobby} day ${dayNum} practice bundle`,
+          `${hobby} ${title} accessories`
+        ];
+        return productIdeas.slice(0, 2).map((idea, idx) => ({
+          title: idea.trim(),
+          link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+          price: `$${(19 + (dayNum - 1) * 5 + idx * 3).toFixed(2)}`
+        }));
+      })(),
       youtubeVideoId: video?.id || null,
       videoTitle: video?.title || 'Video not available',
       estimatedTime: d1.estimatedTime || timeAvailable,
@@ -886,11 +898,8 @@ app.post('/api/generate-day', async (req, res) => {
     const parsedFreeResources = Array.isArray(parsed?.resources)
       ? parsed.resources.filter((r: any) => r?.type === 'link' || r?.type === 'article').slice(0, 3).map((r: any) => ({ title: r?.title || 'Resource', link: r?.url || '#' }))
       : [];
-    const fallbackResources = [
-      { title: `${hobby} Day ${dayNumber} guide`, link: `https://www.google.com/search?q=${encodeURIComponent(`${hobby} day ${dayNumber} ${title} guide`)}` },
-      { title: `YouTube: ${hobby} ${title}`, link: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${hobby} ${title} tutorial`)}` }
-    ];
-    const freeResources = parsedFreeResources.length > 0 ? parsedFreeResources : fallbackResources;
+    // Per request: no free resources; only Amazon affiliate products
+    const freeResources: { title: string; link: string }[] = [];
 
     const affiliateTag = 'wizqohobby-20';
     const productIdeas = [
