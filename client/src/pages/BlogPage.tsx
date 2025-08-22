@@ -353,7 +353,7 @@ export function BlogPage() {
                   </svg>
                   Table of Contents
                 </h3>
-                <div className="space-y-2 text-sm">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {selectedPost.content.split('\n')
                     .filter(paragraph => 
                       paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') || 
@@ -364,8 +364,8 @@ export function BlogPage() {
                       paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') || 
                       paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')
                     )
-                    .map((heading, index) => {
-                      const headingId = heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    .map((paragraph, index) => {
+                      const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                       return (
                         <a 
                           key={index} 
@@ -380,7 +380,7 @@ export function BlogPage() {
                           }}
                         >
                           <span className="text-purple-400">→</span>
-                          <span className="hover:underline">{heading}</span>
+                          <span className="hover:underline">{paragraph}</span>
                         </a>
                       );
                     })}
@@ -438,7 +438,7 @@ export function BlogPage() {
                       <button 
                         onClick={(e) => {
                           e.stopPropagation();
-                          window.location.pathname = '/generate';
+                          window.location.href = '/generate';
                         }}
                         className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
                       >

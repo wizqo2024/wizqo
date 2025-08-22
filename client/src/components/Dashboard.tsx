@@ -485,7 +485,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
             <h2 className="text-2xl font-bold mb-4 text-gray-900">Welcome to Your Dashboard</h2>
             <p className="text-gray-600 mb-6">Sign in to view your hobby learning progress and continue your 7-day journeys.</p>
             <Button 
-              onClick={() => window.location.pathname = '/login'}
+              onClick={() => window.location.href = '/login'}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             >
               Sign In to Continue
@@ -762,7 +762,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">No Learning Plans Yet</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">Start your first 7-day hobby learning journey today! Choose from photography, cooking, guitar, yoga, and many more.</p>
               <Button 
-                onClick={() => window.location.pathname = '/generate'} 
+                onClick={() => window.location.href = '/generate'} 
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold"
               >
                 Create Your First Plan
@@ -894,7 +894,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           console.log('🔍 Dashboard: Plan object keys:', Object.keys(plan));
                           console.log('🔍 Dashboard: Plan object type:', typeof plan);
                         }
-                        window.location.pathname = `/plan?plan_id=${plan.id}`;
+                        // Use proper navigation instead of setting pathname
+                        window.location.href = `/plan?plan_id=${plan.id}`;
                       }}
                       className="w-full text-sm sm:text-base py-2 sm:py-3 mobile-button" 
                       variant={plan.status === 'completed' ? 'outline' : 'default'}
