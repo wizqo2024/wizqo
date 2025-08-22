@@ -400,10 +400,13 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
     // Deterministic hash for stable, unique images per hobby
     const hash = Array.from(normalizedHobby).reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 0);
-    const query = keywordsForCategory(normalizedHobby).replace(/\s+/g, ',');
+    const category = keywordsForCategory(normalizedHobby).replace(/\s+/g, ',');
 
-    // Use Unsplash featured with deterministic signature; comma-separated keywords
-    return `https://source.unsplash.com/featured/400x240?${query}&sig=${hash}`;
+    // Include the specific hobby term to avoid category-level collisions
+    const q = `${normalizedHobby},${category}`.replace(/,+/g, ',');
+
+    // Use Unsplash random with deterministic signature so each hobby gets a unique, stable image
+    return `https://source.unsplash.com/random/400x240/?${encodeURIComponent(q)}&sig=${hash}`;
   };
 
   const getFallbackImage = (hobby: string): string => {
