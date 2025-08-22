@@ -429,10 +429,24 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   const handleTextInput = async () => {
     if (!currentInput.trim()) return;
     
-    // Check if user wants to start a NEW hobby (common keywords)
+    // Check if user wants to start a NEW hobby (common keywords OR any non-question input)
     const newHobbyKeywords = ['new hobby', 'start', 'begin', 'learn', 'try', 'want to learn', 'hobby'];
+    const questionKeywords = ['how', 'what', 'when', 'where', 'why', 'which', 'who', '?', 'help', 'explain', 'tell me', 'show me'];
+    
     const inputLower = currentInput.toLowerCase().trim();
-    const wantsNewHobby = newHobbyKeywords.some(keyword => inputLower.includes(keyword));
+    const hasNewHobbyKeyword = newHobbyKeywords.some(keyword => inputLower.includes(keyword));
+    const isQuestion = questionKeywords.some(keyword => inputLower.includes(keyword));
+    
+    // If it's NOT a question, treat it as a hobby input
+    const wantsNewHobby = hasNewHobbyKeyword || !isQuestion;
+    
+    console.log('🔍 Input Analysis:', {
+      input: currentInput.trim(),
+      hasNewHobbyKeyword,
+      isQuestion,
+      wantsNewHobby,
+      currentStep
+    });
     
     // If a plan exists AND user doesn't want a new hobby, route to chat
     const planRaw = sessionStorage.getItem('currentPlanData');
