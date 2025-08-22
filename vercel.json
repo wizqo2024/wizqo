@@ -79,16 +79,16 @@
       ]
     },
     {
-      "source": "/dashboard",
+      "source": "/contact",
       "headers": [
         {
           "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
+          "value": "index, follow"
         }
       ]
     },
     {
-      "source": "/plan",
+      "source": "/dashboard",
       "headers": [
         {
           "key": "X-Robots-Tag",
