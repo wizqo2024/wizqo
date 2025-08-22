@@ -218,6 +218,7 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   // Smart hobby validation using OpenRouter API
   const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
     try {
+      console.log('🔍 AI Validation: Calling API for hobby:', input);
       const response = await fetch('/api/validate-hobby', {
         method: 'POST',
         headers: {
@@ -226,14 +227,22 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         body: JSON.stringify({ hobby: input })
       });
 
+      console.log('🔍 AI Validation: API response status:', response.status);
+      
       if (response.ok) {
         const result = await response.json();
+        console.log('🔍 AI Validation: API response data:', result);
         return result;
+      } else {
+        console.error('🔍 AI Validation: API error status:', response.status);
+        const errorText = await response.text();
+        console.error('🔍 AI Validation: API error response:', errorText);
       }
     } catch (error) {
-      console.error('AI hobby validation error:', error);
+      console.error('🔍 AI Validation: Fetch error:', error);
     }
 
+    console.log('🔍 AI Validation: Falling back to basic validation');
     // Fallback to basic validation
     return validateHobby(input);
   };
