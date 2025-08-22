@@ -542,7 +542,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   }, [planData, completedDays, selectedDay, loadingDay]);
 
   const highlightHobby = (text: string, hobby: string) => {
-    return text.replace(new RegExp(`(${hobby})`, 'gi'), '<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm">$1</span>');
+    const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`(${escape(hobby)})`, 'gi');
+    return text.replace(re, '<span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg font-semibold shadow-sm">$1</span>');
   };
 
   const validateAndProcessHobby = (input: string): { isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string } => {
