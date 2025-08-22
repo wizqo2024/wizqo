@@ -174,11 +174,24 @@ export default function App() {
             console.log('🔍 Plan hydration: Payload days type:', typeof payload?.days);
             console.log('🔍 Plan hydration: Payload days length:', payload?.days?.length);
             
-            if (payload && payload.days) {
+            // Handle nested plan_data structure
+            let finalPayload = payload;
+            if (payload?.plan_data?.days) {
+              console.log('🔍 Plan hydration: Found nested plan_data with days');
+              finalPayload = payload.plan_data;
+            } else if (payload?.days) {
+              console.log('🔍 Plan hydration: Found days directly in payload');
+              finalPayload = payload;
+            }
+            
+            console.log('🔍 Plan hydration: Final payload:', finalPayload);
+            console.log('🔍 Plan hydration: Final payload days:', finalPayload?.days);
+            
+            if (finalPayload && finalPayload.days) {
               console.log('✅ Plan hydration: Using plan data from API');
-              console.log('✅ Plan hydration: Days found:', payload.days.length);
-              console.log('✅ Plan hydration: First day:', payload.days[0]);
-              setHydratedPlan(payload);
+              console.log('✅ Plan hydration: Days found:', finalPayload.days.length);
+              console.log('✅ Plan hydration: First day:', finalPayload.days[0]);
+              setHydratedPlan(finalPayload);
               return;
             } else {
               console.log('❌ Plan hydration: API payload missing days or invalid structure');
@@ -188,7 +201,10 @@ export default function App() {
                 payloadKeys: payload ? Object.keys(payload) : [],
                 hasDays: !!(payload?.days),
                 daysType: typeof payload?.days,
-                daysLength: payload?.days?.length
+                daysLength: payload?.days?.length,
+                hasNestedPlanData: !!(payload?.plan_data),
+                nestedPlanDataKeys: payload?.plan_data ? Object.keys(payload.plan_data) : [],
+                nestedPlanDataDays: payload?.plan_data?.days
               });
             }
           } else {
@@ -228,6 +244,16 @@ export default function App() {
             console.log('🔍 Plan hydration: Supabase data keys:', data ? Object.keys(data) : 'NO data');
             console.log('🔍 Plan hydration: Supabase plan_data keys:', (data as any)?.plan_data ? Object.keys((data as any).plan_data) : 'NO plan_data');
             console.log('🔍 Plan hydration: Supabase plan_data days:', (data as any)?.plan_data?.days);
+            
+            // Handle nested plan_data structure for Supabase
+            if ((data as any)?.plan_data?.plan_data?.days) {
+              console.log('🔍 Plan hydration: Found nested plan_data with days in Supabase');
+              const nestedPayload = (data as any).plan_data.plan_data;
+              console.log('✅ Plan hydration: Using nested plan data from Supabase');
+              console.log('✅ Plan hydration: Nested payload days:', nestedPayload.days.length);
+              setHydratedPlan(nestedPayload);
+              return;
+            }
           }
         } catch (error) {
           console.error('❌ Plan hydration: Supabase error:', error);
