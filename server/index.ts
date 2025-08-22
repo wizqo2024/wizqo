@@ -344,21 +344,177 @@ app.delete('/api/hobby-plans/:id', async (req, res) => {
 async function generatePlanViaOpenRouter(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const key = process.env.OPENROUTER_API_KEY as string;
   if (!key) throw new Error('missing_openrouter_key');
-  // Smart hobby parsing - handle multi-word hobbies like "reading quran"
-  const smartHobby = hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('quran') 
-    ? 'quran reading' 
-    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('book')
-    ? 'book reading'
-    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('bible')
-    ? 'bible reading'
-    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('holy')
-    ? 'religious reading'
-    : hobby;
+  // Super intelligent hobby parsing - understand any user input
+  const smartHobby = (() => {
+    const lowerHobby = hobby.toLowerCase().trim();
+    
+    // Religious/Spiritual reading patterns
+    if (lowerHobby.includes('reading') && (lowerHobby.includes('quran') || lowerHobby.includes('koran'))) {
+      return 'quran reading';
+    }
+    if (lowerHobby.includes('reading') && lowerHobby.includes('bible')) {
+      return 'bible reading';
+    }
+    if (lowerHobby.includes('reading') && (lowerHobby.includes('holy') || lowerHobby.includes('religious') || lowerHobby.includes('sacred'))) {
+      return 'religious reading';
+    }
+    
+    // General reading patterns
+    if (lowerHobby.includes('reading') && lowerHobby.includes('book')) {
+      return 'book reading';
+    }
+    if (lowerHobby.includes('reading') && lowerHobby.includes('novel')) {
+      return 'novel reading';
+    }
+    if (lowerHobby.includes('reading') && lowerHobby.includes('poetry')) {
+      return 'poetry reading';
+    }
+    
+    // Music instrument patterns
+    if (lowerHobby.includes('playing') && lowerHobby.includes('guitar')) {
+      return 'guitar';
+    }
+    if (lowerHobby.includes('playing') && lowerHobby.includes('piano')) {
+      return 'piano';
+    }
+    if (lowerHobby.includes('playing') && lowerHobby.includes('violin')) {
+      return 'violin';
+    }
+    if (lowerHobby.includes('playing') && lowerHobby.includes('drum')) {
+      return 'drums';
+    }
+    
+    // Art patterns
+    if (lowerHobby.includes('drawing') || lowerHobby.includes('sketching')) {
+      return 'drawing';
+    }
+    if (lowerHobby.includes('painting') && lowerHobby.includes('watercolor')) {
+      return 'watercolor';
+    }
+    if (lowerHobby.includes('painting') && lowerHobby.includes('acrylic')) {
+      return 'acrylic';
+    }
+    if (lowerHobby.includes('painting') && lowerHobby.includes('oil')) {
+      return 'oil painting';
+    }
+    
+    // Cooking patterns
+    if (lowerHobby.includes('cooking') || lowerHobby.includes('chef')) {
+      return 'cooking';
+    }
+    if (lowerHobby.includes('baking') || lowerHobby.includes('pastry')) {
+      return 'baking';
+    }
+    
+    // Photography patterns
+    if (lowerHobby.includes('photo') || lowerHobby.includes('camera')) {
+      return 'photography';
+    }
+    if (lowerHobby.includes('digital') && lowerHobby.includes('photo')) {
+      return 'digital photography';
+    }
+    
+    // Language patterns
+    if (lowerHobby.includes('learning') && lowerHobby.includes('language')) {
+      return 'language learning';
+    }
+    if (lowerHobby.includes('spanish') || lowerHobby.includes('español')) {
+      return 'spanish';
+    }
+    if (lowerHobby.includes('french') || lowerHobby.includes('français')) {
+      return 'french';
+    }
+    if (lowerHobby.includes('german') || lowerHobby.includes('deutsch')) {
+      return 'german';
+    }
+    if (lowerHobby.includes('japanese') || lowerHobby.includes('nihongo')) {
+      return 'japanese';
+    }
+    if (lowerHobby.includes('chinese') || lowerHobby.includes('mandarin')) {
+      return 'mandarin';
+    }
+    
+    // Fitness patterns
+    if (lowerHobby.includes('yoga') || lowerHobby.includes('meditation')) {
+      return 'yoga';
+    }
+    if (lowerHobby.includes('gym') || lowerHobby.includes('workout') || lowerHobby.includes('fitness')) {
+      return 'fitness';
+    }
+    if (lowerHobby.includes('running') || lowerHobby.includes('jogging')) {
+      return 'running';
+    }
+    if (lowerHobby.includes('swimming') || lowerHobby.includes('swim')) {
+      return 'swimming';
+    }
+    
+    // Technology patterns
+    if (lowerHobby.includes('coding') || lowerHobby.includes('programming') || lowerHobby.includes('code')) {
+      return 'coding';
+    }
+    if (lowerHobby.includes('web') && lowerHobby.includes('development')) {
+      return 'web development';
+    }
+    if (lowerHobby.includes('app') && lowerHobby.includes('development')) {
+      return 'app development';
+    }
+    
+    // Gardening patterns
+    if (lowerHobby.includes('garden') || lowerHobby.includes('plant')) {
+      return 'gardening';
+    }
+    if (lowerHobby.includes('flower') && lowerHobby.includes('growing')) {
+      return 'flower gardening';
+    }
+    
+    // Craft patterns
+    if (lowerHobby.includes('knitting') || lowerHobby.includes('knit')) {
+      return 'knitting';
+    }
+    if (lowerHobby.includes('crochet') || lowerHobby.includes('crocheting')) {
+      return 'crocheting';
+    }
+    if (lowerHobby.includes('sewing') || lowerHobby.includes('sew')) {
+      return 'sewing';
+    }
+    
+    // Writing patterns
+    if (lowerHobby.includes('writing') && lowerHobby.includes('poetry')) {
+      return 'poetry writing';
+    }
+    if (lowerHobby.includes('writing') && lowerHobby.includes('story')) {
+      return 'creative writing';
+    }
+    if (lowerHobby.includes('blog') || lowerHobby.includes('blogging')) {
+      return 'blogging';
+    }
+    
+    // Gaming patterns
+    if (lowerHobby.includes('game') && lowerHobby.includes('development')) {
+      return 'game development';
+    }
+    if (lowerHobby.includes('video') && lowerHobby.includes('game')) {
+      return 'video gaming';
+    }
+    if (lowerHobby.includes('board') && lowerHobby.includes('game')) {
+      return 'board games';
+    }
+    
+    // Return original if no pattern matches
+    return hobby;
+  })();
 
-  const prompt = `Create a concise 7-day learning outline and a fully detailed Day 1 for ${smartHobby}.
+  const prompt = `Create a comprehensive 7-day learning plan for ${smartHobby}.
 
-IMPORTANT: Treat "${hobby}" as a single, unified hobby. Do not separate it into multiple activities.
+IMPORTANT INSTRUCTIONS:
+1. Treat "${hobby}" as a single, unified hobby or activity
+2. Do NOT separate it into multiple activities or skills
+3. Understand the user's intent and create a focused learning plan
+4. If the input is vague, interpret it intelligently and create a structured plan
+5. Focus on practical, achievable learning objectives
 
+User Input: "${hobby}"
+Interpreted Hobby: "${smartHobby}"
 User Details:
 - Experience level: ${experience}
 - Time available per day: ${timeAvailable}
