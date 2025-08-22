@@ -1,7 +1,7 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
-import { generateAffiliateProducts } from './affiliate';
+import { generateAffiliateProducts } from './affiliate.js';
 // We inline key API routes here to avoid module resolution issues on Vercel
 
 // Create Express app
