@@ -864,34 +864,16 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           planDataKeys: plan.planData ? Object.keys(plan.planData) : null
                         });
                         if (plan.planData) {
-                          // Store the complete plan data before navigation to preserve progress
+                          // Store only the plan ID for navigation, let the plan page fetch fresh data
                           try {
-                            // Store the full plan object
-                            sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
-                            sessionStorage.setItem('activePlanData', JSON.stringify(plan));
-                            
-                            // Also store progress data
-                            if (plan.currentDay && plan.currentDay > 1) {
-                              const completedDays = Array.from({ length: plan.currentDay - 1 }, (_, i) => i + 1);
-                              const sessionKey = `progress_${user.id}_${plan.id}`;
-                              sessionStorage.setItem(sessionKey, JSON.stringify({
-                                user_id: user.id,
-                                plan_id: plan.id,
-                                completed_days: completedDays,
-                                current_day: plan.currentDay || 1
-                              }));
-                            }
-                            
-                            // Store in localStorage as backup
-                            localStorage.setItem(`plan_${plan.id}`, JSON.stringify(plan));
-                            localStorage.setItem('lastViewedPlanData', JSON.stringify(plan));
-                            
-                            console.log('💾 Dashboard: Complete plan data stored before navigation');
+                            // Store just the plan ID for navigation
+                            sessionStorage.setItem('activePlanId', String(plan.id));
+                            console.log('💾 Dashboard: Plan ID stored for navigation:', plan.id);
                           } catch (error) {
-                            console.error('❌ Dashboard: Error storing plan data:', error);
+                            console.error('❌ Dashboard: Error storing plan ID:', error);
                           }
                           
-                          // Use proper navigation instead of setting pathname
+                          // Navigate to plan page - it will fetch fresh data from database
                           window.location.href = `/plan?plan_id=${plan.id}`;
                         } else {
                           console.log('❌ Dashboard: No planData found in plan object');
