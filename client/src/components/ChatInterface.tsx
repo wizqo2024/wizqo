@@ -697,6 +697,9 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         {/* Input Area */}
         {(currentStep === 'hobby' || currentStep === 'experience' || currentStep === 'goal') && (
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
+            <div className="text-white text-center mb-2 font-bold text-lg">
+              🎯 INPUT FIELD IS VISIBLE - Current Step: {currentStep}
+            </div>
             <div className="flex space-x-3">
               <Input
                 ref={inputRef}
@@ -726,6 +729,14 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
             </div>
           </div>
         )}
+        
+        {/* Debug Info - Always Visible */}
+        <div className="bg-red-500 text-white p-4 rounded-lg mt-4 text-center">
+          <div className="font-bold text-lg">🔍 DEBUG INFO</div>
+          <div>Current Step: {currentStep}</div>
+          <div>Has Plan: {sessionStorage.getItem('currentPlanData') ? 'YES' : 'NO'}</div>
+          <div>Input Field Should Show: {(currentStep === 'hobby' || currentStep === 'experience' || currentStep === 'goal') ? 'YES' : 'NO'}</div>
+        </div>
       </div>
     </div>
   );
