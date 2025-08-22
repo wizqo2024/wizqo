@@ -864,20 +864,15 @@ Learn any hobby in 7 days at https://wizqo.com`;
                           planDataKeys: plan.planData ? Object.keys(plan.planData) : null
                         });
                         if (plan.planData) {
-                          // Persist plan payload for the plan page
-                          sessionStorage.setItem('currentPlanData', JSON.stringify(plan.planData));
-                          sessionStorage.setItem('activePlanData', JSON.stringify(plan.planData));
-                          sessionStorage.setItem('activePlanId', String(plan.id));
-                          sessionStorage.setItem('fromDashboard', 'true');
+                          // Store the complete plan data before navigation to preserve progress
                           try {
-                            // Also persist to localStorage for hard refresh and direct links
-                            localStorage.setItem('lastViewedPlanData', JSON.stringify(plan.planData));
-                            localStorage.setItem(`plan_${plan.id}`, JSON.stringify(plan.planData));
-                          } catch {}
-                          // Seed session progress so Day 1 completion reflects immediately
-                          try {
-                            if (user?.id) {
-                              const completedDays = plan.currentDay > 1 ? Array.from({ length: plan.currentDay - 1 }, (_, i) => i + 1) : [];
+                            // Store the full plan object
+                            sessionStorage.setItem('currentPlanData', JSON.stringify(plan));
+                            sessionStorage.setItem('activePlanData', JSON.stringify(plan));
+                            
+                            // Also store progress data
+                            if (plan.currentDay && plan.currentDay > 1) {
+                              const completedDays = Array.from({ length: plan.currentDay - 1 }, (_, i) => i + 1);
                               const sessionKey = `progress_${user.id}_${plan.id}`;
                               sessionStorage.setItem(sessionKey, JSON.stringify({
                                 user_id: user.id,
@@ -886,16 +881,24 @@ Learn any hobby in 7 days at https://wizqo.com`;
                                 current_day: plan.currentDay || 1
                               }));
                             }
-                          } catch {}
-                          console.log('💾 Dashboard: Plan data stored in sessionStorage');
+                            
+                            // Store in localStorage as backup
+                            localStorage.setItem(`plan_${plan.id}`, JSON.stringify(plan));
+                            localStorage.setItem('lastViewedPlanData', JSON.stringify(plan));
+                            
+                            console.log('💾 Dashboard: Complete plan data stored before navigation');
+                          } catch (error) {
+                            console.error('❌ Dashboard: Error storing plan data:', error);
+                          }
+                          
+                          // Use proper navigation instead of setting pathname
+                          window.location.href = `/plan?plan_id=${plan.id}`;
                         } else {
                           console.log('❌ Dashboard: No planData found in plan object');
                           console.log('🔍 Dashboard: Full plan object:', JSON.stringify(plan, null, 2));
                           console.log('🔍 Dashboard: Plan object keys:', Object.keys(plan));
                           console.log('🔍 Dashboard: Plan object type:', typeof plan);
                         }
-                        // Use proper navigation instead of setting pathname
-                        window.location.href = `/plan?plan_id=${plan.id}`;
                       }}
                       className="w-full text-sm sm:text-base py-2 sm:py-3 mobile-button" 
                       variant={plan.status === 'completed' ? 'outline' : 'default'}
