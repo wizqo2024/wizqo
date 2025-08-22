@@ -902,7 +902,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     if (currentStep === 'hobby') {
       const validation = validateAndProcessHobby(userInput);
       if ((validation as any).unsafe) {
-        addAIMessage("I can't help with adult, illegal, or dangerous topics. Please choose a safe, family-friendly hobby like photography, guitar, cooking, drawing, yoga, gardening, or coding.");
+        addAIMessage("🎯 That hobby might be a bit complex for a 7-day plan! How about trying something more beginner-friendly? Here are some great starter hobbies that you can actually master in a week! 🌟");
         return;
       }
       if (validation.isValid && validation.detectedHobbies) {
