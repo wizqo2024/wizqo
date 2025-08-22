@@ -746,13 +746,32 @@ app.post('/api/generate-plan', async (req, res) => {
       freeResources: [],
       affiliateProducts: (() => {
         const affiliateTag = 'wizqohobby-20';
-        const productIdeas = [
-          `${hobby} beginner starter kit`,
-          `${hobby} day ${dayNum} practice bundle`,
-          `${hobby} ${title} accessories`
-        ];
+        const normalizedHobby = hobby.toLowerCase();
+        const task = (d1.mainTask || d1.goal || d1.objective || '').toLowerCase();
+        const titleText = (title || '').toLowerCase();
+
+        const keywordMap: Record<string, string[]> = {
+          bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+          guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+          painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+          drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+          knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+          photography: ['tripod', 'sd card', 'camera cleaning kit'],
+          yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+        };
+
+        const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`];
+        const focusTerms: string[] = [];
+        if (task.includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+        if (task.includes('wire') || titleText.includes('wire')) focusTerms.push('wire');
+        if (task.includes('practice')) focusTerms.push('practice kit');
+        if (task.includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+
+        const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+        const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
+
         return productIdeas.slice(0, 2).map((idea, idx) => ({
-          title: idea.trim(),
+          title: idea.replace(/\s+/g, ' ').trim(),
           link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
           price: `$${(19 + (dayNum - 1) * 5 + idx * 3).toFixed(2)}`
         }));
@@ -902,13 +921,27 @@ app.post('/api/generate-day', async (req, res) => {
     const freeResources: { title: string; link: string }[] = [];
 
     const affiliateTag = 'wizqohobby-20';
-    const productIdeas = [
-      `${hobby} ${primaryObjective || 'starter'} tools`,
-      `${hobby} practice kit day ${dayNumber}`,
-      `${hobby} ${title} accessories`
-    ];
+    const normalizedHobby = hobby.toLowerCase();
+    const titleText = (title || '').toLowerCase();
+    const keywordMap: Record<string, string[]> = {
+      bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+      guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+      painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+      drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+      knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+      photography: ['tripod', 'sd card', 'camera cleaning kit'],
+      yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+    };
+    const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`, `${hobby} accessories`];
+    const focusTerms: string[] = [];
+    if (primaryObjective.toLowerCase().includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+    if (primaryObjective.toLowerCase().includes('wire') || titleText.includes('wire') || stepTexts.some(s => s.toLowerCase().includes('wire'))) focusTerms.push('wire');
+    if (primaryObjective.toLowerCase().includes('practice')) focusTerms.push('practice kit');
+    if (primaryObjective.toLowerCase().includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+    const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+    const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
     const affiliateProducts = productIdeas.slice(0, 2).map((idea: string, idx: number) => ({
-      title: idea.trim(),
+      title: idea.replace(/\s+/g, ' ').trim(),
       link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
       price: `$${(19 + (dayNumber - 1) * 5 + idx * 3).toFixed(2)}`
     }));
