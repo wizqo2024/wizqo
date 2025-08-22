@@ -1074,7 +1074,42 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(userInput);
     setCurrentInput('');
     if (currentStep === 'hobby') {
-      const validation = await validateAndProcessHobby(userInput);
+      // First try OpenRouter API validation
+      let validation;
+      try {
+        console.log(`🤖 Calling OpenRouter API for hobby validation: "${userInput}"`);
+        const response = await fetch('/api/validate-hobby', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hobby: userInput })
+        });
+        
+        if (response.ok) {
+          const apiResult = await response.json();
+          console.log(`✅ OpenRouter API validation result:`, apiResult);
+          
+          if (apiResult.isValid) {
+            // API validation succeeded
+            validation = {
+              isValid: true,
+              detectedHobbies: [apiResult.suggestion || userInput],
+              suggestions: [apiResult.suggestion || userInput]
+            };
+          } else {
+            // API validation failed, fall back to local validation
+            console.log(`❌ OpenRouter API validation failed, falling back to local validation`);
+            validation = await validateAndProcessHobby(userInput);
+          }
+        } else {
+          // API call failed, fall back to local validation
+          console.log(`❌ OpenRouter API call failed, falling back to local validation`);
+          validation = await validateAndProcessHobby(userInput);
+        }
+      } catch (error) {
+        // API error, fall back to local validation
+        console.error(`❌ OpenRouter API error:`, error);
+        validation = await validateAndProcessHobby(userInput);
+      }
       if ((validation as any).unsafe) {
         addAIMessage("🎯 That hobby might be a bit complex for a 7-day plan! How about trying something more beginner-friendly? Here are some great starter hobbies that you can actually master in a week! 🌟");
         return;
