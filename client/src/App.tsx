@@ -141,7 +141,10 @@ export default function App() {
         setHydrating(true);
         setHydratedPlan(null);
         if (routeKey !== 'plan') return;
+        
         const planId = routeQuery.get('plan_id') || sessionStorage.getItem('activePlanId') || '';
+        console.log('🔧 Plan hydration: planId =', planId);
+        
         const parseMaybeDouble = (s: string | null) => {
           if (!s) return null;
           try {
@@ -152,34 +155,66 @@ export default function App() {
             return v;
           } catch { return null; }
         };
-        const fromSession = parseMaybeDouble(sessionStorage.getItem('activePlanData')) || parseMaybeDouble(sessionStorage.getItem('currentPlanData'));
-        if (fromSession && fromSession.days) {
-          setHydratedPlan(fromSession);
+        
+        // First priority: Check if we have plan data from dashboard navigation
+        const fromDashboard = parseMaybeDouble(sessionStorage.getItem('currentPlanData')) || 
+                             parseMaybeDouble(sessionStorage.getItem('activePlanData'));
+        if (fromDashboard && fromDashboard.days) {
+          console.log('✅ Plan hydration: Using plan data from dashboard');
+          setHydratedPlan(fromDashboard);
           return;
         }
+        
+        // Second priority: Check localStorage for this specific plan
+        if (planId) {
+          const fromLocalStorage = parseMaybeDouble(localStorage.getItem(`plan_${planId}`));
+          if (fromLocalStorage && fromLocalStorage.days) {
+            console.log('✅ Plan hydration: Using plan data from localStorage');
+            setHydratedPlan(fromLocalStorage);
+            try { 
+              sessionStorage.setItem('currentPlanData', JSON.stringify(fromLocalStorage));
+              sessionStorage.setItem('activePlanData', JSON.stringify(fromLocalStorage));
+            } catch {}
+            return;
+          }
+        }
+        
+        // Third priority: Check last viewed plan
         const fromLastViewed = parseMaybeDouble(localStorage.getItem('lastViewedPlanData'));
         if (fromLastViewed && fromLastViewed.days) {
+          console.log('✅ Plan hydration: Using last viewed plan data');
           setHydratedPlan(fromLastViewed);
-          try { sessionStorage.setItem('currentPlanData', JSON.stringify(fromLastViewed)); } catch {}
+          try { 
+            sessionStorage.setItem('currentPlanData', JSON.stringify(fromLastViewed));
+            sessionStorage.setItem('activePlanData', JSON.stringify(fromLastViewed));
+          } catch {}
           return;
         }
+        
+        // Fourth priority: Fetch from API if we have a plan ID
         if (planId) {
+          console.log('🔍 Plan hydration: Fetching plan data from API for planId:', planId);
           try {
             const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
             if (r.ok) {
               const j = await r.json();
               const payload = j?.plan_data || j?.planData || j;
               if (payload && payload.days) {
+                console.log('✅ Plan hydration: Using plan data from API');
                 setHydratedPlan(payload);
                 try {
                   sessionStorage.setItem('currentPlanData', JSON.stringify(payload));
                   sessionStorage.setItem('activePlanData', JSON.stringify(payload));
+                  localStorage.setItem(`plan_${planId}`, JSON.stringify(payload));
                 } catch {}
                 return;
               }
             }
-          } catch {}
-          // Supabase direct fallback (requires authenticated user due to RLS)
+          } catch (error) {
+            console.error('❌ Plan hydration: API fetch error:', error);
+          }
+          
+          // Fifth priority: Try Supabase direct fallback
           try {
             const { data, error } = await supabase
               .from('hobby_plans')
@@ -187,25 +222,22 @@ export default function App() {
               .eq('id', planId)
               .maybeSingle();
             if (!error && data && (data as any).plan_data?.days) {
+              console.log('✅ Plan hydration: Using plan data from Supabase');
               const payload = (data as any).plan_data;
               setHydratedPlan(payload);
               try {
                 sessionStorage.setItem('currentPlanData', JSON.stringify(payload));
                 sessionStorage.setItem('activePlanData', JSON.stringify(payload));
+                localStorage.setItem(`plan_${planId}`, JSON.stringify(payload));
               } catch {}
               return;
             }
-          } catch {}
-          try {
-            const rawById = localStorage.getItem(`plan_${planId}`) || sessionStorage.getItem(`plan_${planId}`);
-            const parsed = parseMaybeDouble(rawById);
-            if (parsed && parsed.days) {
-              setHydratedPlan(parsed);
-              try { sessionStorage.setItem('currentPlanData', JSON.stringify(parsed)); } catch {}
-              return;
-            }
-          } catch {}
+          } catch (error) {
+            console.error('❌ Plan hydration: Supabase error:', error);
+          }
         }
+        
+        console.log('❌ Plan hydration: No plan data found from any source');
       } finally {
         setHydrating(false);
       }
