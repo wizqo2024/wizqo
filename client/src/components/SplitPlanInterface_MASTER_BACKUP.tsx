@@ -737,6 +737,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addAIMessage(`Perfect! I've chosen ${highlightHobby(randomHobby, randomHobby)} for you. Creating your 7-day plan now... ✨`, undefined, 800);
     setSelectedHobby(randomHobby);
     setQuizAnswers(surpriseAnswers);
+    // Block if user has reached plan limit
+    if (await precheckPlanLimit()) {
+      addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
+      return;
+    }
     setCurrentStep('generating');
     setIsGenerating(true);
     try {
@@ -818,6 +823,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setIsGenerating(true);
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
       try {
+        // Block if user has reached plan limit
+        if (await precheckPlanLimit()) {
+          addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
+          setIsGenerating(false);
+          setCurrentStep('review');
+          return;
+        }
         const plan = await onGeneratePlan(selectedHobby, finalAnswers).catch((e: any) => {
           const msg = String(e?.message || e);
           if (msg.includes('Plan limit reached')) {
@@ -1199,6 +1211,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setForceRender(prev => prev + 1);
     }
   }, [completedDays.length, progressPercentage]);
+
+  const precheckPlanLimit = async () => {
+    try {
+      if (!user?.id) return false;
+      const r = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
+      if (!r.ok) return false;
+      const arr = await r.json();
+      return Array.isArray(arr) && arr.length >= 5;
+    } catch {
+      return false;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
