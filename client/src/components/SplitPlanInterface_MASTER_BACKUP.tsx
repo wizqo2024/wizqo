@@ -218,11 +218,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => {
     if (planData) {
-      const planId = `plan-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('lastViewedPlan', planId);
-      localStorage.setItem('lastViewedPlanData', JSON.stringify(planData));
-      sessionStorage.setItem('activePlanData', JSON.stringify(planData));
-      sessionStorage.setItem('activePlanId', planId);
+      // Get the real plan ID from URL or session, don't generate fake ones
+      const urlParams = new URLSearchParams(window.location.search);
+      const realPlanId = urlParams.get('plan_id') || sessionStorage.getItem('activePlanId') || '';
+      
+      if (realPlanId) {
+        localStorage.setItem('lastViewedPlan', realPlanId);
+        localStorage.setItem('lastViewedPlanData', JSON.stringify(planData));
+        sessionStorage.setItem('activePlanData', JSON.stringify(planData));
+        sessionStorage.setItem('activePlanId', realPlanId);
+        console.log('💾 SplitPlanInterface: Storing real plan ID:', realPlanId);
+      } else {
+        console.log('⚠️ SplitPlanInterface: No real plan ID found, skipping storage');
+      }
     }
   }, [planData]);
 
@@ -281,6 +289,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const idFromUrl = params.get('plan_id') || '';
         const idFromSession = sessionStorage.getItem('activePlanId') || '';
         const planId = String(idFromUrl || idFromSession || '');
+        console.log('🔍 SplitPlanInterface: Hydration plan ID sources:', {
+          idFromUrl,
+          idFromSession,
+          finalPlanId: planId
+        });
         if (!planId) return;
 
         let payload: any = null;
