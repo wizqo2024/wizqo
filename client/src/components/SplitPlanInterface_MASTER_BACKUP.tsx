@@ -1708,7 +1708,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             <h3 className="text-lg md:text-xl font-bold text-red-900">Avoid These Mistakes</h3>
                           </div>
                           <div className="space-y-2">
-                            {currentDay.commonMistakes && currentDay.commonMistakes.length > 0 ? currentDay.commonMistakes.map((mistake: string, index: number) => (
+                            {(currentDay.mistakesToAvoid && currentDay.mistakesToAvoid.length > 0
+                              ? currentDay.mistakesToAvoid
+                              : (currentDay.commonMistakes && currentDay.commonMistakes.length > 0
+                                  ? currentDay.commonMistakes
+                                  : [])
+                            ).map((mistake: string, index: number) => (
                               <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
                                 <div className="flex items-start">
                                   <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
@@ -1717,7 +1722,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <p className="text-gray-800 text-sm font-medium leading-relaxed">{mistake}</p>
                                 </div>
                               </div>
-                            )) : (
+                            ))}
+                            {(!currentDay.mistakesToAvoid || currentDay.mistakesToAvoid.length === 0) && (!currentDay.commonMistakes || currentDay.commonMistakes.length === 0) && (
                               <div className="bg-white rounded-lg p-3 shadow-sm text-center">
                                 <p className="text-gray-600 text-sm">No common mistakes listed for this day.</p>
                               </div>
