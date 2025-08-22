@@ -427,6 +427,10 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   };
 
   const handleTextInput = async () => {
+    console.log('🚨 DEBUG: handleTextInput called with:', currentInput.trim());
+    console.log('🚨 DEBUG: currentStep:', currentStep);
+    console.log('🚨 DEBUG: sessionStorage plan:', sessionStorage.getItem('currentPlanData'));
+    
     if (!currentInput.trim()) return;
     
     // Check if user wants to start a NEW hobby (common keywords OR any non-question input)
