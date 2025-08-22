@@ -256,6 +256,25 @@ app.post('/api/hobby-plans', async (req, res) => {
     const base = { user_id, title, overview, plan_data, difficulty, total_days } as any;
     if (hobby_name || hobby) base.hobby = hobby_name || hobby;
 
+    // Prevent duplicate plan per hobby for this user
+    try {
+      const existing = await supabaseAdmin
+        .from('hobby_plans')
+        .select('id,hobby,hobby_name,title')
+        .eq('user_id', user_id)
+        .order('created_at', { ascending: false });
+      const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+      const target = normalize(hobby || hobby_name || '');
+      const dup = (existing.data || []).find((p: any) => {
+        const h1 = normalize(p.hobby);
+        const h2 = normalize(p.hobby_name);
+        const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
+        const ht = m ? normalize(m[1]) : '';
+        return target && (h1 === target || h2 === target || ht === target);
+      });
+      if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
+    } catch {}
+
     // Try flexible insert handling both schemas (hobby or hobby_name)
     // Use service role to bypass RLS policies
     const first = await supabaseAdmin.from('hobby_plans').insert(base).select().single();
@@ -713,8 +732,44 @@ app.post('/api/generate-plan', async (req, res) => {
     const experience = String(req.body?.experience || 'beginner');
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
     const goal = String(req.body?.goal || (hobby ? `Learn ${hobby} fundamentals` : '')); 
+    const userId = String(req.body?.user_id || '').trim();
     if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
+
+    // Enforce per-user daily limit (5) and prevent duplicate hobby plans (server-side)
+    try {
+      if (userId && supabaseAdmin) {
+        const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+        const daily = await supabaseAdmin
+          .from('hobby_plans')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .gte('created_at', sinceIso);
+        if ((daily.count || 0) >= 5) {
+          return res.status(429).json({ error: 'daily_limit_reached' });
+        }
+
+        const existing = await supabaseAdmin
+          .from('hobby_plans')
+          .select('id,hobby,hobby_name,title')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false });
+        const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        const target = normalize(hobby);
+        const dup = (existing.data || []).find((p: any) => {
+          const h1 = normalize(p.hobby);
+          const h2 = normalize(p.hobby_name);
+          // Try to parse from title e.g., "Learn X in" or "Master X in"
+          const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
+          const ht = m ? normalize(m[1]) : '';
+          return h1 === target || h2 === target || ht === target;
+        });
+        if (dup) {
+          return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${hobby}.` });
+        }
+      }
+    } catch {}
+
     const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
     if (!aiPlan) return res.status(502).json({ error: 'bad_ai_response' });
 
