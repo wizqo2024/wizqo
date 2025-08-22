@@ -380,10 +380,43 @@ Learn any hobby in 7 days at https://wizqo.com`;
   };
 
   const getHobbyImage = (hobby: string): string => {
-    const normalizedHobby = (hobby || '').toLowerCase().trim();
-    const seed = encodeURIComponent(normalizedHobby.replace(/\s+/g, '-')) || 'learning';
-    // Deterministic, unique per hobby
-    return `https://picsum.photos/seed/${seed}/400/240`;
+    const hobbyName = (hobby || '').toLowerCase().trim();
+
+    // Combined image pool (stable Unsplash CDN URLs)
+    const pool = [
+      // Tech
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop',
+      // Creative
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1541961017774-2034504a1262?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop',
+      // Culinary
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop',
+      // Fitness
+      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop',
+      // Learning
+      'https://images.unsplash.com/photo-1481627834876-dccba630e2f6?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop',
+      // Extra variety
+      'https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1503602642458-232111445657?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400&h=240&fit=crop',
+      'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=400&h=240&fit=crop'
+    ];
+
+    // Mix hash to spread across pool deterministically
+    let hash = 0;
+    for (let i = 0; i < hobbyName.length; i++) {
+      hash = (hash * 131 + hobbyName.charCodeAt(i)) >>> 0;
+    }
+    const idx = hash % pool.length;
+    return pool[idx];
   };
 
   const getFallbackImage = (hobby: string): string => {
