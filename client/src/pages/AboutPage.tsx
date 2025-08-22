@@ -50,7 +50,7 @@ export function AboutPage() {
 
             <p className="text-base text-gray-600">
               Ready to find your next passion?{' '}
-              <a href="#/blog" className="text-blue-600 hover:text-blue-800 transition-colors">
+              <a href="/blog" className="text-blue-600 hover:text-blue-800 transition-colors">
                 Check out our latest blog posts
               </a>{' '}
               and get started today.

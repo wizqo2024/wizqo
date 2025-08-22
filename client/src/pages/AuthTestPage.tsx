@@ -128,7 +128,7 @@ export function AuthTestPage() {
         </div>
 
         <div className="text-center">
-          <a href="#/" className="text-purple-600 hover:text-purple-500">
+          <a href="/" className="text-purple-600 hover:text-purple-500">
             ← Back to Home
           </a>
         </div>

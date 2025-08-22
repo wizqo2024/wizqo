@@ -28,17 +28,17 @@ export function Footer() {
             <h3 className="font-semibold text-white mb-4">Company</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#/about" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/about" className="text-slate-400 hover:text-white transition-colors text-sm">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#/blog" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/blog" className="text-slate-400 hover:text-white transition-colors text-sm">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#/contact" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/contact" className="text-slate-400 hover:text-white transition-colors text-sm">
                   Contact
                 </a>
               </li>
@@ -50,17 +50,17 @@ export function Footer() {
             <h3 className="font-semibold text-white mb-4">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#/privacy" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/privacy" className="text-slate-400 hover:text-white transition-colors text-sm">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#/terms" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/terms" className="text-slate-400 hover:text-white transition-colors text-sm">
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a href="#/cookies" className="text-slate-400 hover:text-white transition-colors text-sm">
+                <a href="/cookies" className="text-slate-400 hover:text-white transition-colors text-sm">
                   Cookie Policy
                 </a>
               </li>
@@ -111,7 +111,7 @@ export function Footer() {
             </div>
             
             <a 
-              href="#/generate"
+              href="/generate"
               className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-sm font-medium rounded-lg transition-all"
             >
               Get Started
