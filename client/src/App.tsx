@@ -80,16 +80,37 @@ export default function App() {
   })();
 
   // NEW: Use proper URL routing instead of hash routing
-  const [route, setRoute] = useState<string>(() => window.location.pathname || '/');
+  const [route, setRoute] = useState<string>(() => window.location.pathname + window.location.search || '/');
   
   useEffect(() => {
-    const onPopState = () => setRoute(window.location.pathname || '/');
+    const onPopState = () => setRoute(window.location.pathname + window.location.search || '/');
+    const onLocationChange = () => setRoute(window.location.pathname + window.location.search || '/');
+    
     window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
+    window.addEventListener('locationchange', onLocationChange);
+    
+    // Also listen for clicks on links that might change the URL
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'A' || target.closest('a')) {
+        setTimeout(() => {
+          setRoute(window.location.pathname + window.location.search || '/');
+        }, 100);
+      }
+    };
+    
+    document.addEventListener('click', handleClick);
+    
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('locationchange', onLocationChange);
+      document.removeEventListener('click', handleClick);
+    };
   }, []);
 
   // NEW: Navigation function that updates URL properly
   const navigateTo = (path: string) => {
+    console.log('🔧 Navigating to:', path);
     window.history.pushState({}, '', path);
     setRoute(path);
   };
@@ -99,6 +120,7 @@ export default function App() {
     const [pathname, queryString] = path.split('?');
     const seg = pathname.split('/')[0] || '';
     const params = new URLSearchParams(queryString || '');
+    console.log('🔧 Route parsing:', { route, path, pathname, seg, queryString, params: Object.fromEntries(params) });
     return [seg, params] as const;
   }, [route]);
 
