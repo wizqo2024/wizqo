@@ -155,15 +155,29 @@ export default function App() {
         
         try {
           // First try: Fetch from API
+          console.log('🔍 Plan hydration: Trying API fetch...');
           const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
+          console.log('🔍 Plan hydration: API response status:', r.status);
+          
           if (r.ok) {
             const j = await r.json();
+            console.log('🔍 Plan hydration: API response data:', j);
             const payload = j?.plan_data || j?.planData || j;
+            console.log('🔍 Plan hydration: Extracted payload:', payload);
+            
             if (payload && payload.days) {
               console.log('✅ Plan hydration: Using plan data from API');
+              console.log('✅ Plan hydration: Days found:', payload.days.length);
+              console.log('✅ Plan hydration: First day:', payload.days[0]);
               setHydratedPlan(payload);
               return;
+            } else {
+              console.log('❌ Plan hydration: API payload missing days or invalid structure');
             }
+          } else {
+            console.log('❌ Plan hydration: API request failed with status:', r.status);
+            const errorText = await r.text();
+            console.log('❌ Plan hydration: API error response:', errorText);
           }
         } catch (error) {
           console.error('❌ Plan hydration: API fetch error:', error);
@@ -171,16 +185,28 @@ export default function App() {
         
         // Fallback: Try Supabase direct
         try {
+          console.log('🔍 Plan hydration: Trying Supabase direct fetch...');
           const { data, error } = await supabase
             .from('hobby_plans')
             .select('id, plan_data')
             .eq('id', planId)
             .maybeSingle();
+          
+          console.log('🔍 Plan hydration: Supabase response:', { data, error });
+          
           if (!error && data && (data as any).plan_data?.days) {
             console.log('✅ Plan hydration: Using plan data from Supabase');
             const payload = (data as any).plan_data;
+            console.log('✅ Plan hydration: Supabase payload days:', payload.days.length);
             setHydratedPlan(payload);
             return;
+          } else {
+            console.log('❌ Plan hydration: Supabase data missing or invalid:', { 
+              hasData: !!data, 
+              hasPlanData: !!(data as any)?.plan_data,
+              hasDays: !!(data as any)?.plan_data?.days,
+              error: error
+            });
           }
         } catch (error) {
           console.error('❌ Plan hydration: Supabase error:', error);
