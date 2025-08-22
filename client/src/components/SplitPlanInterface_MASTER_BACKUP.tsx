@@ -1708,7 +1708,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             <h3 className="text-lg md:text-xl font-bold text-red-900">Avoid These Mistakes</h3>
                           </div>
                           <div className="space-y-2">
-                            {currentDay.commonMistakes && currentDay.commonMistakes.length > 0 ? currentDay.commonMistakes.map((mistake: string, index: number) => (
+                            {(currentDay.mistakesToAvoid && currentDay.mistakesToAvoid.length > 0
+                              ? currentDay.mistakesToAvoid
+                              : (currentDay.commonMistakes && currentDay.commonMistakes.length > 0
+                                  ? currentDay.commonMistakes
+                                  : [])
+                            ).map((mistake: string, index: number) => (
                               <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
                                 <div className="flex items-start">
                                   <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
@@ -1717,7 +1722,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <p className="text-gray-800 text-sm font-medium leading-relaxed">{mistake}</p>
                                 </div>
                               </div>
-                            )) : (
+                            ))}
+                            {(!currentDay.mistakesToAvoid || currentDay.mistakesToAvoid.length === 0) && (!currentDay.commonMistakes || currentDay.commonMistakes.length === 0) && (
                               <div className="bg-white rounded-lg p-3 shadow-sm text-center">
                                 <p className="text-gray-600 text-sm">No common mistakes listed for this day.</p>
                               </div>
@@ -1755,25 +1761,32 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               ))
                             )}
                             {currentDay.affiliateProducts && currentDay.affiliateProducts.length > 0 && (
-                              currentDay.affiliateProducts.map((product, index) => (
-                                <a
-                                  key={index}
-                                  href={product.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="block bg-white border border-green-200 rounded-lg p-3 hover:bg-green-50 hover:border-green-300 hover:shadow-md transition-all group"
-                                >
-                                  <div className="flex items-center">
-                                    <div className="bg-green-100 rounded-full p-1.5 mr-3 group-hover:bg-green-200 transition-colors flex-shrink-0">
-                                      <ExternalLink className="w-4 h-4 text-green-600" />
+                              currentDay.affiliateProducts.map((product, index) => {
+                                const sanitizedTitle = String(product.title || '')
+                                  .replace(/\bday\s*\d+\b/gi, '')
+                                  .replace(/practice\s*bundle/gi, 'practice kit')
+                                  .replace(/\s{2,}/g, ' ')
+                                  .trim();
+                                return (
+                                  <a
+                                    key={index}
+                                    href={product.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block bg-white border border-green-200 rounded-lg p-3 hover:bg-green-50 hover:border-green-300 hover:shadow-md transition-all group"
+                                  >
+                                    <div className="flex items-center">
+                                      <div className="bg-green-100 rounded-full p-1.5 mr-3 group-hover:bg-green-200 transition-colors flex-shrink-0">
+                                        <ExternalLink className="w-4 h-4 text-green-600" />
+                                      </div>
+                                      <div className="min-w-0 flex-1">
+                                        <h5 className="font-medium text-green-700 group-hover:text-green-800 text-sm leading-tight truncate">{sanitizedTitle}</h5>
+                                        <p className="text-xs text-green-600 mt-0.5">Recommended gear</p>
+                                      </div>
                                     </div>
-                                    <div className="min-w-0 flex-1">
-                                      <h5 className="font-medium text-green-700 group-hover:text-green-800 text-sm leading-tight truncate">{product.title}</h5>
-                                      <p className="text-xs text-green-600 mt-0.5">Recommended gear</p>
-                                    </div>
-                                  </div>
-                                </a>
-                              ))
+                                  </a>
+                                );
+                              })
                             )}
                           </div>
                         </section>

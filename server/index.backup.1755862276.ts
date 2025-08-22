@@ -1,7 +1,6 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
-import { generateAffiliateProducts } from './affiliate';
 // We inline key API routes here to avoid module resolution issues on Vercel
 
 // Create Express app
@@ -255,25 +254,6 @@ app.post('/api/hobby-plans', async (req, res) => {
 
     const base = { user_id, title, overview, plan_data, difficulty, total_days } as any;
     if (hobby_name || hobby) base.hobby = hobby_name || hobby;
-
-    // Prevent duplicate plan per hobby for this user
-    try {
-      const existing = await supabaseAdmin
-        .from('hobby_plans')
-        .select('id,hobby,hobby_name,title')
-        .eq('user_id', user_id)
-        .order('created_at', { ascending: false });
-      const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
-      const target = normalize(hobby || hobby_name || '');
-      const dup = (existing.data || []).find((p: any) => {
-        const h1 = normalize(p.hobby);
-        const h2 = normalize(p.hobby_name);
-        const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
-        const ht = m ? normalize(m[1]) : '';
-        return target && (h1 === target || h2 === target || ht === target);
-      });
-      if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
-    } catch {}
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
     // Use service role to bypass RLS policies
@@ -732,44 +712,8 @@ app.post('/api/generate-plan', async (req, res) => {
     const experience = String(req.body?.experience || 'beginner');
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
     const goal = String(req.body?.goal || (hobby ? `Learn ${hobby} fundamentals` : '')); 
-    const userId = String(req.body?.user_id || '').trim();
     if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
-
-    // Enforce per-user daily limit (5) and prevent duplicate hobby plans (server-side)
-    try {
-      if (userId && supabaseAdmin) {
-        const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-        const daily = await supabaseAdmin
-          .from('hobby_plans')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', userId)
-          .gte('created_at', sinceIso);
-        if ((daily.count || 0) >= 5) {
-          return res.status(429).json({ error: 'daily_limit_reached' });
-        }
-
-        const existing = await supabaseAdmin
-          .from('hobby_plans')
-          .select('id,hobby,hobby_name,title')
-          .eq('user_id', userId)
-          .order('created_at', { ascending: false });
-        const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
-        const target = normalize(hobby);
-        const dup = (existing.data || []).find((p: any) => {
-          const h1 = normalize(p.hobby);
-          const h2 = normalize(p.hobby_name);
-          // Try to parse from title e.g., "Learn X in" or "Master X in"
-          const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
-          const ht = m ? normalize(m[1]) : '';
-          return h1 === target || h2 === target || ht === target;
-        });
-        if (dup) {
-          return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${hobby}.` });
-        }
-      }
-    } catch {}
-
     const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
     if (!aiPlan) return res.status(502).json({ error: 'bad_ai_response' });
 
@@ -800,7 +744,38 @@ app.post('/api/generate-plan', async (req, res) => {
       tips: Array.isArray(d1.tips) && d1.tips.length ? d1.tips : [`Tip for day ${dayNum}`],
       mistakesToAvoid: Array.isArray(d1.mistakesToAvoid) && d1.mistakesToAvoid.length ? d1.mistakesToAvoid : (Array.isArray(d1.commonMistakes) && d1.commonMistakes.length ? d1.commonMistakes : [`Avoid rushing on day ${dayNum}`]),
       freeResources: [],
-      affiliateProducts: await generateAffiliateProducts(hobby, (d1.mainTask || d1.goal || d1.objective || title), Array.isArray(d1.howTo) ? d1.howTo : [], dayNum),
+      affiliateProducts: (() => {
+        const affiliateTag = 'wizqohobby-20';
+        const normalizedHobby = hobby.toLowerCase();
+        const task = (d1.mainTask || d1.goal || d1.objective || '').toLowerCase();
+        const titleText = (title || '').toLowerCase();
+
+        const keywordMap: Record<string, string[]> = {
+          bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+          guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+          painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+          drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+          knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+          photography: ['tripod', 'sd card', 'camera cleaning kit'],
+          yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+        };
+
+        const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`];
+        const focusTerms: string[] = [];
+        if (task.includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+        if (task.includes('wire') || titleText.includes('wire')) focusTerms.push('wire');
+        if (task.includes('practice')) focusTerms.push('practice kit');
+        if (task.includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+
+        const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+        const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
+
+        return productIdeas.slice(0, 2).map((idea, idx) => ({
+          title: idea.replace(/\s+/g, ' ').trim(),
+          link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+          price: `$${(19 + (dayNum - 1) * 5 + idx * 3).toFixed(2)}`
+        }));
+      })(),
       youtubeVideoId: video?.id || null,
       videoTitle: video?.title || 'Video not available',
       estimatedTime: d1.estimatedTime || timeAvailable,
@@ -945,7 +920,31 @@ app.post('/api/generate-day', async (req, res) => {
     // Per request: no free resources; only Amazon affiliate products
     const freeResources: { title: string; link: string }[] = [];
 
-    const affiliateProducts = await generateAffiliateProducts(hobby, (primaryObjective || title), stepTexts, dayNumber);
+    const affiliateTag = 'wizqohobby-20';
+    const normalizedHobby = hobby.toLowerCase();
+    const titleText = (title || '').toLowerCase();
+    const keywordMap: Record<string, string[]> = {
+      bonsai: ['pruning shears', 'training wire', 'concave cutter', 'soil mix'],
+      guitar: ['beginner acoustic guitar', 'clip-on tuner', 'picks', 'capo'],
+      painting: ['acrylic paint set', 'canvas panels', 'brush set', 'easel'],
+      drawing: ['graphite pencil set', 'sketchbook', 'kneaded eraser'],
+      knitting: ['knitting needles', 'yarn beginner kit', 'stitch markers'],
+      photography: ['tripod', 'sd card', 'camera cleaning kit'],
+      yoga: ['yoga mat', 'yoga blocks', 'yoga strap'],
+    };
+    const baseKeywords = keywordMap[normalizedHobby] || [`${hobby} starter kit`, `${hobby} tools`, `${hobby} accessories`];
+    const focusTerms: string[] = [];
+    if (primaryObjective.toLowerCase().includes('tune') || titleText.includes('tune')) focusTerms.push('tuner');
+    if (primaryObjective.toLowerCase().includes('wire') || titleText.includes('wire') || stepTexts.some(s => s.toLowerCase().includes('wire'))) focusTerms.push('wire');
+    if (primaryObjective.toLowerCase().includes('practice')) focusTerms.push('practice kit');
+    if (primaryObjective.toLowerCase().includes('beginner') || titleText.includes('beginner')) focusTerms.push('beginner');
+    const buildQuery = (kw: string) => [hobby, kw, ...focusTerms].filter(Boolean).join(' ');
+    const productIdeas = baseKeywords.slice(0, 3).map(buildQuery);
+    const affiliateProducts = productIdeas.slice(0, 2).map((idea: string, idx: number) => ({
+      title: idea.replace(/\s+/g, ' ').trim(),
+      link: `https://www.amazon.com/s?k=${encodeURIComponent(idea)}&tag=${affiliateTag}`,
+      price: `$${(19 + (dayNumber - 1) * 5 + idx * 3).toFixed(2)}`
+    }));
 
     const day = {
       day: dayNumber,
