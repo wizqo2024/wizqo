@@ -590,9 +590,12 @@ Return ONLY a JSON object with this exact structure:
     },
     body: JSON.stringify({
       model: 'deepseek/deepseek-chat',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 1400,
-      temperature: 0.7
+      messages: [
+        { role: 'system', content: 'You are a helpful planner. Respond with STRICT JSON only. No explanations, no code fences, no prose. Keep within 7 days and include requested keys.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 2000,
+      temperature: 0.2
     })
   });
   if (!resp.ok) {
@@ -635,11 +638,33 @@ Return ONLY a JSON object with this exact structure:
     parsed = tryParse(repaired);
   }
 
+  // 4) Final fallback: synthesize a minimal valid plan if parsing still fails
   if (!parsed || typeof parsed !== 'object') {
-    const snippet = content.slice(0, 400);
-    const err = new Error('bad_ai_json');
-    (err as any).upstream = snippet;
-    throw err;
+    const outline = Array.from({ length: 7 }, (_, i) => ({ day: i + 1, title: `Day ${i + 1}`, goals: [] as string[] }));
+    const fallback = {
+      hobby: smartHobby,
+      title: `Master ${smartHobby} in 7 Days`,
+      overview: goal || `Learn ${smartHobby} fundamentals`,
+      difficulty: experience,
+      totalDays: 7,
+      days: [
+        {
+          day: 1,
+          title: `Getting Started with ${smartHobby}`,
+          mainTask: `Learn ${smartHobby} fundamentals`,
+          explanation: `Day 1 of your ${smartHobby} journey`,
+          howTo: ['Step 1: Setup', 'Step 2: Learn basics', 'Step 3: Practice'],
+          checklist: ['Complete basics', 'Take notes'],
+          tips: ['Stay consistent'],
+          mistakesToAvoid: ['Rushing'],
+          estimatedTime: timeAvailable,
+          skillLevel: experience,
+          youtubeVideoId: ''
+        }
+      ],
+      outline
+    };
+    return fallback as any;
   }
 
   return parsed;
