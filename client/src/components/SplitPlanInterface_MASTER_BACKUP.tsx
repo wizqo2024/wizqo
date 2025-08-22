@@ -740,7 +740,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     setCurrentStep('generating');
     setIsGenerating(true);
     try {
-      const plan = await onGeneratePlan(randomHobby, surpriseAnswers);
+      const plan = await onGeneratePlan(randomHobby, surpriseAnswers).catch((e: any) => {
+        const msg = String(e?.message || e);
+        if (msg.includes('Plan limit reached')) {
+          addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
+        }
+        throw e;
+      });
       const correctedPlanData = fixPlanDataFields(plan);
       setPlanData(correctedPlanData);
       if (user?.id) {
@@ -812,7 +818,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setIsGenerating(true);
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
       try {
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers);
+        const plan = await onGeneratePlan(selectedHobby, finalAnswers).catch((e: any) => {
+          const msg = String(e?.message || e);
+          if (msg.includes('Plan limit reached')) {
+            addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
+          }
+          throw e;
+        });
         const fixedStandardPlan = fixPlanDataFields(plan);
         setPlanData(fixedStandardPlan);
         if (user?.id) {
