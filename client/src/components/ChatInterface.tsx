@@ -43,6 +43,11 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
     { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
     { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
     { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+    { value: 'robotics', label: 'Robotics 🤖', description: 'Build and program robots' },
+    { value: 'electronics', label: 'Electronics ⚡', description: 'Create electronic circuits' },
+    { value: 'piano', label: 'Piano 🎹', description: 'Learn classical piano' },
+    { value: 'chess', label: 'Chess ♟️', description: 'Master strategic thinking' },
+    { value: 'hiking', label: 'Hiking 🥾', description: 'Explore nature trails' },
     { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
     { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
   ];
