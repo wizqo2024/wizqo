@@ -623,13 +623,38 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   };
 
+  // AI-powered hobby validation function
+  const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
+    try {
+      console.log(`🤖 AI validating hobby: "${input}"`);
+      
+      const response = await fetch('/api/validate-hobby', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hobby: input })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(`✅ AI validation result:`, result);
+        return result;
+      } else {
+        console.error(`❌ AI validation failed:`, response.status);
+        return { isValid: false };
+      }
+    } catch (error) {
+      console.error(`❌ AI validation error:`, error);
+      return { isValid: false };
+    }
+  };
+
   const highlightHobby = (text: string, hobby: string) => {
     const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const re = new RegExp(`(${escape(hobby)})`, 'gi');
     return text.replace(re, '<span style="background: linear-gradient(to right, #8b5cf6, #ec4899); color: white; padding: 0.25rem 0.5rem; border-radius: 0.5rem; font-weight: 600; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);">$1</span>');
   };
 
-  const validateAndProcessHobby = (input: string): { isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string } => {
+  const validateAndProcessHobby = async (input: string): Promise<{ isValid: boolean; detectedHobbies?: string[]; suggestions?: string[]; unsafe?: boolean; reason?: string }> => {
     const SAFE_HOBBIES = Array.from(new Set([
       'photography','smartphone photography','photo editing','video editing',
       'guitar','piano','ukulele','violin','drums','harmonica','singing','music production','dj mixing','beatboxing',
@@ -812,6 +837,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       };
     }
 
+    // Final fallback: Try AI validation for unrecognized inputs
+    if (detected.length === 0) {
+      try {
+        console.log(`🤖 Local validation failed, trying AI validation for: "${input}"`);
+        const aiResult = await validateHobbyWithAI(input);
+        
+        if (aiResult.isValid && aiResult.suggestion) {
+          console.log(`✅ AI validation succeeded: "${input}" → "${aiResult.suggestion}"`);
+          return { 
+            isValid: true, 
+            detectedHobbies: [aiResult.suggestion],
+            suggestions: [aiResult.suggestion]
+          };
+        } else {
+          console.log(`❌ AI validation failed for: "${input}"`);
+        }
+      } catch (aiError) {
+        console.error(`❌ AI validation error:`, aiError);
+      }
+    }
+
     return { isValid: detected.length > 0, detectedHobbies: detected };
   };
 
@@ -986,7 +1032,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(userInput);
     setCurrentInput('');
     if (currentStep === 'hobby') {
-      const validation = validateAndProcessHobby(userInput);
+      const validation = await validateAndProcessHobby(userInput);
       if ((validation as any).unsafe) {
         addAIMessage("🎯 That hobby might be a bit complex for a 7-day plan! How about trying something more beginner-friendly? Here are some great starter hobbies that you can actually master in a week! 🌟");
         return;
