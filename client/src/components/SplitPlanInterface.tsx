@@ -1442,9 +1442,33 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       <span className="text-sm text-gray-600 flex items-center">
                         <Clock className="w-4 h-4 mr-1" />
                         7 days
-
                       </span>
                     </div>
+                  </div>
+                  
+                  {/* Share Button */}
+                  <div className="mt-3 lg:mt-0">
+                    <Button
+                      onClick={() => {
+                        if (navigator.share) {
+                          navigator.share({
+                            title: `${planData.title} - 7-Day Learning Plan`,
+                            text: `Check out my ${planData.hobby} learning plan on Wizqo!`,
+                            url: window.location.href
+                          });
+                        } else {
+                          // Fallback: copy to clipboard
+                          navigator.clipboard.writeText(window.location.href);
+                          // You could add a toast notification here
+                        }
+                      }}
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-2"
+                    >
+                      <Share className="w-4 h-4" />
+                      Share Plan
+                    </Button>
                   </div>
                 </div>
 
