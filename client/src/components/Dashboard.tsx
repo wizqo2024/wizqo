@@ -382,61 +382,29 @@ Learn any hobby in 7 days at https://wizqo.com`;
   const getHobbyImage = (hobby: string): string => {
     const normalizedHobby = hobby?.toLowerCase() || '';
 
-    const getImageByCategory = (hobbyName: string): string => {
-      // Technology hobbies
+    const keywordsForCategory = (hobbyName: string): string => {
       if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech')) {
-        const techImages = [
-          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return techImages[hash % techImages.length];
+        return 'coding,programming,developer,technology';
       }
-
-      // Creative arts
       if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('photo')) {
-        const creativeImages = [
-          'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1541961017774-2034504a1262?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return creativeImages[hash % creativeImages.length];
+        return 'art,creative,drawing,painting,photography';
       }
-
-      // Culinary
       if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
-        const culinaryImages = [
-          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return culinaryImages[hash % culinaryImages.length];
+        return 'cooking,culinary,kitchen,baking,food';
       }
-
-      // Fitness
       if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('dance')) {
-        const fitnessImages = [
-          'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=240&fit=crop',
-          'https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop'
-        ];
-        const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        return fitnessImages[hash % fitnessImages.length];
+        return 'fitness,workout,yoga,dance';
       }
-
-      // Default learning
-      const learningImages = [
-        'https://images.unsplash.com/photo-1481627834876-dccba630e2f6?w=400&h=240&fit=crop',
-        'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop'
-      ];
-      const hash = hobbyName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-      return learningImages[hash % learningImages.length];
+      return normalizedHobby || 'learning,study';
     };
 
-    const selectedImage = getImageByCategory(normalizedHobby);
-    const timestamp = Math.floor(Date.now() / (1000 * 60 * 60));
-    return `${selectedImage}&t=${timestamp}`;
+    // Deterministic hash for stable, unique images per hobby
+    const hash = Array.from(normalizedHobby).reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 0);
+    const query = keywordsForCategory(normalizedHobby);
+
+    // Use Unsplash source with deterministic signature to avoid repeats across hobbies
+    // 400x240 matches card aspect; sig makes it stable per hobby
+    return `https://source.unsplash.com/400x240/?${encodeURIComponent(query)}&sig=${hash}`;
   };
 
   const getStatusColor = (status: string): string => {
