@@ -429,9 +429,14 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
   const handleTextInput = async () => {
     if (!currentInput.trim()) return;
     
-    // If a plan exists, route any input to /api/chat for intelligent Q&A
+    // Check if user wants to start a NEW hobby (common keywords)
+    const newHobbyKeywords = ['new hobby', 'start', 'begin', 'learn', 'try', 'want to learn', 'hobby'];
+    const inputLower = currentInput.toLowerCase().trim();
+    const wantsNewHobby = newHobbyKeywords.some(keyword => inputLower.includes(keyword));
+    
+    // If a plan exists AND user doesn't want a new hobby, route to chat
     const planRaw = sessionStorage.getItem('currentPlanData');
-    if (planRaw) {
+    if (planRaw && !wantsNewHobby) {
       const plan = JSON.parse(planRaw);
       const question = currentInput.trim();
       addUserMessage(question);
@@ -454,7 +459,20 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
       return;
     }
     
-    if (currentStep === 'hobby') {
+    // If user wants a new hobby OR no plan exists, proceed with hobby validation
+    if (currentStep === 'hobby' || wantsNewHobby) {
+      console.log('🎯 Hobby Input Detected:', currentInput.trim());
+      console.log('🎯 Current Step:', currentStep);
+      console.log('🎯 Wants New Hobby:', wantsNewHobby);
+      
+      // Reset to hobby step if coming from existing plan
+      if (wantsNewHobby && currentStep !== 'hobby') {
+        setCurrentStep('hobby');
+        setSelectedHobby('');
+        setQuizAnswers({});
+        addAIMessage("Great! Let's start a new hobby! 🎯\n\nWhat hobby would you like to learn?");
+      }
+      
       // Use DeepSeek AI for intelligent hobby validation
       try {
         const response = await validateHobbyWithAI(currentInput.trim());
