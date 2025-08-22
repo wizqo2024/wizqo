@@ -1,0 +1,20 @@
+c2233a18 Dashboard: restore Unsplash CDN images and deterministic selection; keep fallback
+d38fbffd Dashboard: switch to picsum.photos seeded images for guaranteed per-hobby uniqueness
+60084925 Dashboard: ensure unique per-hobby images by including hobby term and using random with deterministic sig
+ed05f2f9 Dashboard: fix images not showing; use Unsplash featured and robust fallback
+3e5cd179 Dashboard: per-hobby unique images via Unsplash source with deterministic signature
+eb84541f UX: pre-check duplicate hobby; show chat message and stop
+e7b279c8 Fix: set no-store on index.html to avoid stale asset 404s after deploy
+35683a38 UX: restore hobby highlight (safe regex, keeps gradient badge) and ensure chat renders HTML
+ed1c5856 Dupes: check plan_data.hobby in duplicate detection (server+client)
+10a7d478 UI: compact Step-by-Step in plan view (smaller paddings/fonts, limit to 5 steps)
+e31049d1 UX: pre-check plan limit before generating; show chat message and abort
+6c1004c4 Revert Node engines to 18.x to match Vercel builder
+c4137048 Fix Confetti import/props; bump Node engines to 22.x for Vercel
+d98ba461 UX: show AI chat message when plan limit reached instead of proceeding
+26c721ca UI: compact Step-by-Step section (smaller paddings/fonts, limit to 5 steps)
+6e8a3d69 UI: guard confetti calls to avoid ReferenceError in compiled bundle
+cc4d9b15 UI: add showConfetti state and render to fix ReferenceError
+bca3ffed Limits: switch to total cap 5 per user (plan_limit_reached); update client messages
+5df86a17 Limits: enforce daily cap on save endpoint; client surfaces 429
+a039929c Inline affiliate generator to avoid module resolution in serverless bundle
