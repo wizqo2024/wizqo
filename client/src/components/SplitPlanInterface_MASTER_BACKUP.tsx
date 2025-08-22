@@ -571,14 +571,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       'yoga','meditation','pilates','calisthenics','weight training','running','cycling','hiking','swimming','jump rope',
       'table tennis','badminton','basketball shooting','football juggling','chess','rubiks cube','speed cubing','sudoku','crossword puzzles',
       'blogging','journaling','creative writing','poetry','public speaking','language learning','spanish language','french language','german language','japanese language','korean language',
-      'coding','web development','app development','game development','bird watching','astronomy','stargazing','kite flying','calligraphy practice','reading'
+      'coding','web development','app development','game development','bird watching','astronomy','stargazing','kite flying','calligraphy practice','reading',
+      // Adding missing popular tech/design hobbies
+      'robotics','electronics','arduino','raspberry pi','circuit design','soldering','3d printing','laser cutting',
+      'canva editing','design','ui design','ux design','web design','mobile design','app design','logo design',
+      'prompt engineering','ai art','digital art','digital painting','vector art','illustration','comic art',
+      'botanic','botany','plant care','indoor gardening','hydroponics','aquaponics',
+      'noodles','pasta making','asian cooking','thai cooking','chinese cooking','japanese cooking',
+      'sing','vocal training','voice training','karaoke','music theory','songwriting',
+      'tajweed','quran recitation','islamic studies','religious studies','meditation','mindfulness'
     ]));
 
     const SYNONYMS: Record<string, string> = {
       'art':'drawing', 'sketch':'sketching', 'photos':'photography','camera':'photography','photo':'photography',
       'chef':'cooking','recipes':'cooking','cook':'cooking','dev':'coding','development':'coding','software':'coding',
       'write':'creative writing','blog':'blogging','blogging':'blogging','speak':'public speaking',
-      'arabic':'language learning','quran':'quran reading','koran':'quran reading','holy book':'religious reading','holybook':'religious reading'
+      'arabic':'language learning','quran':'quran reading','koran':'quran reading','holy book':'religious reading','holybook':'religious reading',
+      // Adding synonyms for new hobbies
+      'canva':'canva editing','design tool':'canva editing','graphic tool':'canva editing',
+      'robot':'robotics','bot':'robotics','automation':'robotics',
+      'electronic':'electronics','circuit':'electronics','arduino project':'arduino',
+      'prompt':'prompt engineering','ai prompt':'prompt engineering','chatgpt':'prompt engineering',
+      'botanic':'botany','plant':'botany','grow':'gardening',
+      'noodle':'noodles','pasta':'noodles','asian food':'asian cooking',
+      'singing':'sing','voice':'vocal training','karaoke':'sing',
+      'tajweed':'quran recitation','islamic':'islamic studies'
     };
 
     const BANNED = [
