@@ -1118,9 +1118,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             label: s.charAt(0).toUpperCase() + s.slice(1), 
             description: 'Safe and beginner-friendly' 
           }));
-          addAIMessage("🎯 That hobby isn't suitable for learning. Here are some great, safe alternatives you can master in a week! 🌟", suggestionOptions, 800, 'hobby');
+          addAIMessage("🎯 That's not a hobby - it's inappropriate content. Here are some great, safe hobbies you can actually learn in a week! 🌟", suggestionOptions, 800, 'hobby');
         } else {
-          addAIMessage("🎯 That hobby isn't suitable for learning. How about trying something safe and beginner-friendly like photography, guitar, cooking, drawing, yoga, gardening, or coding? 🌟");
+          addAIMessage("🎯 That's not a hobby - it's inappropriate content. How about trying something safe and fun like photography, guitar, cooking, drawing, yoga, gardening, or coding? 🌟");
         }
         return;
       }
