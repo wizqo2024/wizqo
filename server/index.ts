@@ -552,8 +552,8 @@ IMPORTANT INSTRUCTIONS:
 
 Return ONLY a JSON object with this exact structure:
 {
-  "hobby": "${hobby}",
-  "title": "Master ${hobby} in 7 Days",
+  "hobby": "${smartHobby}",
+  "title": "Master ${smartHobby} in 7 Days",
   "overview": "Short description of the journey",
   "difficulty": "${experience}",
   "totalDays": 7,
