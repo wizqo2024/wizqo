@@ -804,36 +804,149 @@ Return ONLY a JSON object with this exact structure:
 async function getYouTubeVideo(hobby: string, day: number, title: string) {
   const apiKey = process.env.YOUTUBE_API_KEY as string | undefined;
   if (!apiKey) return null as any;
+  
   try {
-    const q = `${hobby} tutorial day ${day} ${title}`;
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=${encodeURIComponent(q)}&key=${apiKey}`;
+    // Create more specific and varied search queries for each day
+    const searchQueries = [
+      // Day-specific searches with different approaches
+      `${hobby} day ${day} ${title}`,
+      `${hobby} lesson ${day} ${title}`,
+      `${hobby} tutorial day ${day} ${title}`,
+      `${hobby} practice day ${day} ${title}`,
+      `${hobby} beginner day ${day} ${title}`,
+      `${hobby} step ${day} ${title}`,
+      `${hobby} part ${day} ${title}`,
+      `${hobby} session ${day} ${title}`,
+      // Alternative search strategies
+      `${hobby} ${title} day ${day}`,
+      `${hobby} ${title} lesson ${day}`,
+      `${hobby} ${title} tutorial ${day}`,
+      // More specific day-based searches
+      `${hobby} fundamentals day ${day}`,
+      `${hobby} basics day ${day}`,
+      `${hobby} introduction day ${day}`,
+      `${hobby} getting started day ${day}`,
+      // Skill progression searches
+      `${hobby} progress day ${day}`,
+      `${hobby} next step day ${day}`,
+      `${hobby} continue learning day ${day}`,
+      // Time-based searches
+      `${hobby} daily practice day ${day}`,
+      `${hobby} weekly lesson ${day}`,
+      `${hobby} 7 day challenge day ${day}`
+    ];
+
+    // Use day number to select different search strategies
+    const queryIndex = (day - 1) % searchQueries.length;
+    const selectedQuery = searchQueries[queryIndex];
+    
+    // Add day-specific modifiers to make searches more unique
+    const dayModifiers = [
+      'beginner', 'intermediate', 'advanced', 'fundamentals', 'practice', 'technique',
+      'skill building', 'foundation', 'progression', 'development', 'mastery', 'expertise'
+    ];
+    const modifierIndex = (day - 1) % dayModifiers.length;
+    const dayModifier = dayModifiers[modifierIndex];
+    
+    // Create final search query with day-specific content
+    const finalQuery = `${selectedQuery} ${dayModifier}`;
+    
+    console.log(`🎥 Video search for Day ${day}: "${finalQuery}"`);
+    
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&videoDuration=short&relevanceLanguage=en`;
+    
     const r = await fetch(url);
     if (!r.ok) throw new Error(`yt_${r.status}`);
+    
     const j = await r.json();
-    const it = j.items?.[0];
-    if (!it) return null as any;
-    return { id: it.id?.videoId as string, title: it.snippet?.title as string };
-  } catch (e) { return null as any; }
+    const items = j.items || [];
+    
+    if (items.length === 0) return null as any;
+    
+    // Select video based on day number to ensure variety
+    const videoIndex = (day - 1) % Math.min(items.length, 5);
+    const selectedVideo = items[videoIndex];
+    
+    if (!selectedVideo) return null as any;
+    
+    const result = { 
+      id: selectedVideo.id?.videoId as string, 
+      title: selectedVideo.snippet?.title as string,
+      searchQuery: finalQuery,
+      day: day
+    };
+    
+    console.log(`✅ Day ${day} video selected: ${result.title}`);
+    return result;
+    
+  } catch (e) { 
+    console.error(`❌ Video search error for Day ${day}:`, e);
+    return null as any; 
+  }
 }
 
 async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: string) {
   try {
     const key = process.env.OPENROUTER_API_KEY as string | undefined;
     if (!key) return null as any;
-    const prompt = `Suggest a single YouTube video ID for ${hobby} day ${day} titled "${title}". Reply ONLY with a JSON: {"id":"VIDEO_ID","title":"Title"}`;
+    
+    // Create day-specific prompts for better video variety
+    const daySpecificPrompts = [
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: BEGINNER BASICS. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: PRACTICE TECHNIQUES. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: SKILL BUILDING. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: PROGRESSION. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: INTERMEDIATE CONCEPTS. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: ADVANCED TECHNIQUES. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
+      `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: MASTERY & REFINEMENT. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`
+    ];
+    
+    // Use day number to select different focus areas
+    const promptIndex = (day - 1) % daySpecificPrompts.length;
+    const selectedPrompt = daySpecificPrompts[promptIndex];
+    
+    console.log(`🤖 AI Video suggestion for Day ${day}: ${selectedPrompt}`);
+    
     const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
-      body: JSON.stringify({ model: 'deepseek/deepseek-chat', messages: [{ role: 'user', content: prompt }], max_tokens: 100 })
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${key}` 
+      },
+      body: JSON.stringify({ 
+        model: 'deepseek/deepseek-chat', 
+        messages: [{ role: 'user', content: selectedPrompt }], 
+        max_tokens: 100,
+        temperature: 0.7 // Add some randomness for variety
+      })
     });
+    
     if (!resp.ok) return null as any;
+    
     const data = await resp.json();
     let content = data.choices?.[0]?.message?.content || '';
     content = content.trim().replace(/^```json\s*|^```\s*|\s*```$/g, '');
-    const parsed = JSON.parse(content);
-    if (parsed?.id && typeof parsed.id === 'string') return parsed;
+    
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed?.id && typeof parsed.id === 'string') {
+        const result = {
+          ...parsed,
+          searchQuery: `AI suggested for Day ${day}`,
+          day: day
+        };
+        console.log(`✅ AI suggested Day ${day} video: ${parsed.title}`);
+        return result;
+      }
+    } catch (parseError) {
+      console.error(`❌ AI video suggestion parse error for Day ${day}:`, parseError);
+    }
+    
     return null as any;
-  } catch { return null as any; }
+  } catch (error) {
+    console.error(`❌ AI video suggestion error for Day ${day}:`, error);
+    return null as any;
+  }
 }
 
 // Generate plan
