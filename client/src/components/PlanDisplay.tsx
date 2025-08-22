@@ -163,20 +163,20 @@ export function PlanDisplay({ planData, user, setShowAuthModal, completedDays: p
           </div>
 
           {/* Step-by-Step Guide */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center">
+          <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="flex items-center space-x-2 mb-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg flex items-center justify-center text-sm">
                 <span className="text-white">🔍</span>
               </div>
-              <h4 className="text-lg font-semibold text-gray-900">Step-by-Step Guide</h4>
+              <h4 className="text-base font-semibold text-gray-900">Step-by-Step Guide</h4>
             </div>
-            <ol className="space-y-3">
-              {safeHowTo.map((step, index) => (
-                <li key={index} className="flex items-start space-x-4">
-                  <span className="w-8 h-8 bg-gray-800 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+            <ol className="space-y-2">
+              {safeHowTo.slice(0, 5).map((step, index) => (
+                <li key={index} className="flex items-start space-x-3">
+                  <span className="w-7 h-7 bg-gray-800 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
                     {index + 1}
                   </span>
-                  <p className="text-gray-800 leading-relaxed">{step}</p>
+                  <p className="text-gray-800 leading-snug text-sm">{step}</p>
                 </li>
               ))}
             </ol>
