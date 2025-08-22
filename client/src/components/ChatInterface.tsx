@@ -695,13 +695,19 @@ export function ChatInterface({ onGeneratePlan, onPlanGenerated, onNavigateBack 
         </div>
 
         {/* Input Area */}
-        {currentStep === 'hobby' && (
+        {(currentStep === 'hobby' || currentStep === 'experience' || currentStep === 'goal') && (
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
             <div className="flex space-x-3">
               <Input
                 ref={inputRef}
                 type="text"
-                placeholder="Type any hobby you want to learn..."
+                placeholder={
+                  currentStep === 'hobby' 
+                    ? "Type any hobby you want to learn..."
+                    : currentStep === 'experience'
+                    ? "Type your experience level..."
+                    : "Type your learning goal..."
+                }
                 value={currentInput}
                 onChange={(e) => setCurrentInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleTextInput()}
