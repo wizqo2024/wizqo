@@ -111,7 +111,7 @@ export class HobbyPlanService {
       // Filter plans for the specific hobby by extracting from title or hobby field
       const matchingPlans = allPlans.filter((plan: any) => {
         const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
-        const planHobby = normalize(plan.hobby_name || plan.hobby);
+        const planHobby = normalize(plan.hobby_name || plan.hobby || plan.plan_data?.hobby || plan.plan_data?.hobby_name);
         if (planHobby) {
           return planHobby === normalize(hobby);
         }

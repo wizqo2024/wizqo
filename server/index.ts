@@ -361,7 +361,7 @@ app.post('/api/hobby-plans', async (req, res) => {
     try {
       const existing = await supabaseAdmin
         .from('hobby_plans')
-        .select('id,hobby,hobby_name,title,created_at')
+        .select('id,hobby,hobby_name,title,plan_data,created_at')
         .eq('user_id', user_id)
         .order('created_at', { ascending: false });
       const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -369,9 +369,10 @@ app.post('/api/hobby-plans', async (req, res) => {
       const dup = (existing.data || []).find((p: any) => {
         const h1 = normalize(p.hobby);
         const h2 = normalize(p.hobby_name);
+        const hp = normalize(p.plan_data?.hobby || p.plan_data?.hobby_name || '');
         const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
         const ht = m ? normalize(m[1]) : '';
-        return target && (h1 === target || h2 === target || ht === target);
+        return target && (h1 === target || h2 === target || hp === target || ht === target);
       });
       if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
 
@@ -859,7 +860,7 @@ app.post('/api/generate-plan', async (req, res) => {
 
         const existing = await supabaseAdmin
           .from('hobby_plans')
-          .select('id,hobby,hobby_name,title')
+          .select('id,hobby,hobby_name,title,plan_data')
           .eq('user_id', userId)
           .order('created_at', { ascending: false });
         const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -867,10 +868,11 @@ app.post('/api/generate-plan', async (req, res) => {
         const dup = (existing.data || []).find((p: any) => {
           const h1 = normalize(p.hobby);
           const h2 = normalize(p.hobby_name);
+          const hp = normalize(p.plan_data?.hobby || p.plan_data?.hobby_name || '');
           // Try to parse from title e.g., "Learn X in" or "Master X in"
           const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
           const ht = m ? normalize(m[1]) : '';
-          return h1 === target || h2 === target || ht === target;
+          return h1 === target || h2 === target || hp === target || ht === target;
         });
         if (dup) {
           return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${hobby}.` });
