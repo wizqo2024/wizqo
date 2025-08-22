@@ -190,6 +190,10 @@ export class HobbyPlanService {
         const j = await saveResponse.json().catch(() => ({} as any));
         throw new Error(j?.message || 'You already have a learning plan for this hobby.');
       }
+      if (saveResponse.status === 429) {
+        const j = await saveResponse.json().catch(() => ({} as any));
+        throw new Error(j?.error === 'daily_limit_reached' ? 'Maximum daily plan limit reached (5). Try again tomorrow.' : 'Rate limited');
+      }
       if (!saveResponse.ok) {
         const errorText = await saveResponse.text()
         console.error('💾 DATABASE SAVE: Backend API Error:', saveResponse.status, errorText)

@@ -361,7 +361,7 @@ app.post('/api/hobby-plans', async (req, res) => {
     try {
       const existing = await supabaseAdmin
         .from('hobby_plans')
-        .select('id,hobby,hobby_name,title')
+        .select('id,hobby,hobby_name,title,created_at')
         .eq('user_id', user_id)
         .order('created_at', { ascending: false });
       const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -374,6 +374,17 @@ app.post('/api/hobby-plans', async (req, res) => {
         return target && (h1 === target || h2 === target || ht === target);
       });
       if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
+
+      // Daily limit: max 5 created within last 24h
+      const sinceIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      const daily = await supabaseAdmin
+        .from('hobby_plans')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user_id)
+        .gte('created_at', sinceIso);
+      if ((daily.count || 0) >= 5) {
+        return res.status(429).json({ error: 'daily_limit_reached' });
+      }
     } catch {}
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
