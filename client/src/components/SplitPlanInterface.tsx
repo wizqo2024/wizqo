@@ -97,7 +97,7 @@ const fixPlanDataFields = (plan: any) => {
               'Skipping practice time or cutting sessions short',
               'Not taking notes or tracking your improvement'
             ],
-      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]) || 'dQw4w9WgXcQ',
+      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]) || null,
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
     }))
   };
@@ -537,22 +537,91 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Auto-generate the last completed day content if it's missing
   useEffect(() => {
-    if (planData && completedDays.length > 0 && !loadingDay) {
-      const lastCompletedDay = Math.max(...completedDays);
-      const hasLastCompletedDay = planData.days?.some((d: any) => d.day === lastCompletedDay);
-      
-      if (!hasLastCompletedDay && selectedDay === lastCompletedDay) {
-        console.log('🎯 Auto-generating last completed day content for day:', lastCompletedDay);
-        // Trigger the generation by clicking the day button
-        setTimeout(() => {
-          const dayButton = document.querySelector(`[data-day="${lastCompletedDay}"]`) as HTMLButtonElement;
-          if (dayButton) {
-            dayButton.click();
-          }
-        }, 100);
+    if (planData && planData.days && selectedDay > 1) {
+      const currentDayData = planData.days.find((d: any) => d.day === selectedDay);
+      if (currentDayData && !currentDayData.youtubeVideoId && !currentDayData.youtubeSearchUrl) {
+        // Auto-generate video for this day if it doesn't have one
+        generateVideoForDay(selectedDay);
       }
     }
-  }, [planData, completedDays, selectedDay, loadingDay]);
+  }, [selectedDay, planData]);
+
+  // Function to generate video for a specific day
+  const generateVideoForDay = async (dayNumber: number) => {
+    if (!planData || dayNumber < 2 || dayNumber > 7) return;
+    
+    try {
+      console.log(`🎥 Generating video for Day ${dayNumber}...`);
+      
+      const response = await fetch('/api/generate-day', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hobby: planData.hobby,
+          experience: 'beginner', // Default experience level
+          timeAvailable: '30-60 minutes', // Default time
+          goal: `Learn ${planData.hobby} fundamentals`,
+          day_number: dayNumber,
+          outline: planData.outline || [],
+          prior_days: planData.days?.filter((d: any) => d.day < dayNumber) || []
+        })
+      });
+
+      if (response.ok) {
+        const dayData = await response.json();
+        
+        // Update the plan data with the new day content
+        setPlanData(prev => {
+          if (!prev) return prev;
+          
+          const updatedDays = [...(prev.days || [])];
+          const existingDayIndex = updatedDays.findIndex((d: any) => d.day === dayNumber);
+          
+          if (existingDayIndex >= 0) {
+            // Update existing day with video data
+            updatedDays[existingDayIndex] = {
+              ...updatedDays[existingDayIndex],
+              youtubeVideoId: dayData.day.youtubeVideoId,
+              videoTitle: dayData.day.videoTitle,
+              // Keep other existing data
+              title: updatedDays[existingDayIndex].title || dayData.day.title,
+              mainTask: updatedDays[existingDayIndex].mainTask || dayData.day.mainTask,
+              howTo: updatedDays[existingDayIndex].howTo || dayData.day.howTo,
+              checklist: updatedDays[existingDayIndex].checklist || dayData.day.checklist,
+              tips: updatedDays[existingDayIndex].tips || dayData.day.tips,
+              mistakesToAvoid: updatedDays[existingDayIndex].mistakesToAvoid || dayData.day.mistakesToAvoid
+            };
+          } else {
+            // Add new day data
+            updatedDays.push({
+              day: dayNumber,
+              title: dayData.day.title,
+              mainTask: dayData.day.mainTask,
+              explanation: dayData.day.explanation,
+              howTo: dayData.day.howTo,
+              checklist: dayData.day.checklist,
+              tips: dayData.day.tips,
+              mistakesToAvoid: dayData.day.mistakesToAvoid,
+              freeResources: dayData.day.freeResources || [],
+              affiliateProducts: dayData.day.affiliateProducts || [],
+              youtubeVideoId: dayData.day.youtubeVideoId,
+              videoTitle: dayData.day.videoTitle,
+              estimatedTime: dayData.day.estimatedTime,
+              skillLevel: dayData.day.skillLevel
+            });
+          }
+          
+          return { ...prev, days: updatedDays };
+        });
+        
+        console.log(`✅ Video generated for Day ${dayNumber}:`, dayData.day.youtubeVideoId);
+      } else {
+        console.error(`❌ Failed to generate video for Day ${dayNumber}:`, response.status);
+      }
+    } catch (error) {
+      console.error(`❌ Error generating video for Day ${dayNumber}:`, error);
+    }
+  };
 
   const highlightHobby = (text: string, hobby: string) => {
     const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
