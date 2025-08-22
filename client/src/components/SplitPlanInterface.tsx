@@ -733,15 +733,34 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       normalizedText = normalizedText.replace(m.pattern, m.to);
     }
 
-    // Safety check
+    // Safety check - Check for exact word boundaries, not substrings
+    const words = normalizedText.split(' ');
     for (const term of BANNED) {
-      if (normalizedText.includes(term)) {
+      if (words.includes(term)) {
         return {
           isValid: false,
           unsafe: true,
           reason: 'unsafe',
           suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding']
         };
+      }
+    }
+    
+    // Special exceptions for legitimate hobbies that might contain banned substrings
+    const LEGITIMATE_EXCEPTIONS = ['tajweed', 'tajweed practice', 'quran tajweed'];
+    if (LEGITIMATE_EXCEPTIONS.includes(normalizedText)) {
+      // Skip safety check for legitimate exceptions
+    } else {
+      // Additional check for banned terms as substrings (but be more careful)
+      for (const term of BANNED) {
+        if (normalizedText.includes(term) && !LEGITIMATE_EXCEPTIONS.some(exception => normalizedText.includes(exception))) {
+          return {
+            isValid: false,
+            unsafe: true,
+            reason: 'unsafe',
+            suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding']
+          };
+        }
       }
     }
 
@@ -817,6 +836,29 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     const vagueTerms = ['fun','interesting','creative','cool','nice','good'];
     if (vagueTerms.some(term => normalizedText.includes(term)) && detected.length === 0) {
       return { isValid: false, suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding'] };
+    }
+    
+    // Complex hobby suggestions - if local validation fails, suggest related simpler alternatives
+    const COMPLEX_HOBBY_SUGGESTIONS: Record<string, string[]> = {
+      'tajweed': ['quran reading', 'islamic studies', 'religious reading', 'meditation', 'mindfulness'],
+      'robotics': ['electronics', 'arduino', 'circuit design', 'coding', 'web development'],
+      'ai art': ['digital art', 'digital painting', 'illustration', 'design', 'canva editing'],
+      'prompt engineering': ['coding', 'web development', 'app development', 'digital art'],
+      'botany': ['gardening', 'indoor plants', 'succulents', 'plant care', 'terrarium building'],
+      'noodles': ['cooking', 'asian cooking', 'pasta making', 'baking', 'coffee brewing'],
+      'sing': ['vocal training', 'karaoke', 'music theory', 'piano', 'guitar']
+    };
+    
+    // Check if input matches any complex hobby patterns
+    for (const [complexHobby, suggestions] of Object.entries(COMPLEX_HOBBY_SUGGESTIONS)) {
+      if (normalizedText.includes(complexHobby) || editDistance(normalizedText, complexHobby) <= 2) {
+        console.log(`🎯 Complex hobby detected: "${input}" → suggesting alternatives:`, suggestions);
+        return { 
+          isValid: false, 
+          suggestions: suggestions,
+          reason: 'complex_hobby'
+        };
+      }
     }
 
     // Block arbitrary alphabetic strings (like "haaa", "test", etc.)
@@ -1035,6 +1077,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const validation = await validateAndProcessHobby(userInput);
       if ((validation as any).unsafe) {
         addAIMessage("🎯 That hobby might be a bit complex for a 7-day plan! How about trying something more beginner-friendly? Here are some great starter hobbies that you can actually master in a week! 🌟");
+        return;
+      }
+      
+      if ((validation as any).reason === 'complex_hobby') {
+        addAIMessage("🎯 Great choice! That's a fascinating hobby, but it might be a bit complex for a 7-day beginner plan. Here are some related alternatives that are perfect for getting started in just a week! 🌟");
         return;
       }
       if (validation.isValid && validation.detectedHobbies) {
