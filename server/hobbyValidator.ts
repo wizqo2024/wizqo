@@ -262,18 +262,108 @@ function isValidHobby(input: string): boolean {
 function detectBestHobbyMatch(input: string): string | null {
   const lowerInput = input.toLowerCase().trim();
   
-  // Special handling for multi-word religious reading hobbies
-  if (lowerInput.includes('reading') && lowerInput.includes('quran')) {
-    return 'quran reading';
-  }
-  if (lowerInput.includes('reading') && lowerInput.includes('bible')) {
-    return 'bible reading';
-  }
-  if (lowerInput.includes('reading') && lowerInput.includes('holy')) {
-    return 'religious reading';
-  }
-  if (lowerInput.includes('reading') && lowerInput.includes('book')) {
-    return 'book reading';
+  // Super intelligent multi-word hobby detection
+  const patterns = [
+    // Religious/Spiritual patterns
+    { pattern: ['reading', 'quran'], result: 'quran reading' },
+    { pattern: ['reading', 'koran'], result: 'quran reading' },
+    { pattern: ['reading', 'bible'], result: 'bible reading' },
+    { pattern: ['reading', 'holy'], result: 'religious reading' },
+    { pattern: ['reading', 'religious'], result: 'religious reading' },
+    { pattern: ['reading', 'sacred'], result: 'religious reading' },
+    
+    // General reading patterns
+    { pattern: ['reading', 'book'], result: 'book reading' },
+    { pattern: ['reading', 'novel'], result: 'novel reading' },
+    { pattern: ['reading', 'poetry'], result: 'poetry reading' },
+    
+    // Music patterns
+    { pattern: ['playing', 'guitar'], result: 'guitar' },
+    { pattern: ['playing', 'piano'], result: 'piano' },
+    { pattern: ['playing', 'violin'], result: 'violin' },
+    { pattern: ['playing', 'drum'], result: 'drums' },
+    { pattern: ['learning', 'guitar'], result: 'guitar' },
+    { pattern: ['learning', 'piano'], result: 'piano' },
+    
+    // Art patterns
+    { pattern: ['drawing'], result: 'drawing' },
+    { pattern: ['sketching'], result: 'drawing' },
+    { pattern: ['painting', 'watercolor'], result: 'watercolor' },
+    { pattern: ['painting', 'acrylic'], result: 'acrylic' },
+    { pattern: ['painting', 'oil'], result: 'oil painting' },
+    
+    // Cooking patterns
+    { pattern: ['cooking'], result: 'cooking' },
+    { pattern: ['chef'], result: 'cooking' },
+    { pattern: ['baking'], result: 'baking' },
+    { pattern: ['pastry'], result: 'baking' },
+    
+    // Photography patterns
+    { pattern: ['photo'], result: 'photography' },
+    { pattern: ['camera'], result: 'photography' },
+    { pattern: ['digital', 'photo'], result: 'digital photography' },
+    
+    // Language patterns
+    { pattern: ['learning', 'language'], result: 'language learning' },
+    { pattern: ['spanish'], result: 'spanish' },
+    { pattern: ['español'], result: 'spanish' },
+    { pattern: ['french'], result: 'french' },
+    { pattern: ['français'], result: 'french' },
+    { pattern: ['german'], result: 'german' },
+    { pattern: ['deutsch'], result: 'german' },
+    { pattern: ['japanese'], result: 'japanese' },
+    { pattern: ['nihongo'], result: 'japanese' },
+    { pattern: ['chinese'], result: 'mandarin' },
+    { pattern: ['mandarin'], result: 'mandarin' },
+    
+    // Fitness patterns
+    { pattern: ['yoga'], result: 'yoga' },
+    { pattern: ['meditation'], result: 'yoga' },
+    { pattern: ['gym'], result: 'fitness' },
+    { pattern: ['workout'], result: 'fitness' },
+    { pattern: ['fitness'], result: 'fitness' },
+    { pattern: ['running'], result: 'running' },
+    { pattern: ['jogging'], result: 'running' },
+    { pattern: ['swimming'], result: 'swimming' },
+    { pattern: ['swim'], result: 'swimming' },
+    
+    // Technology patterns
+    { pattern: ['coding'], result: 'coding' },
+    { pattern: ['programming'], result: 'coding' },
+    { pattern: ['code'], result: 'coding' },
+    { pattern: ['web', 'development'], result: 'web development' },
+    { pattern: ['app', 'development'], result: 'app development' },
+    
+    // Gardening patterns
+    { pattern: ['garden'], result: 'gardening' },
+    { pattern: ['plant'], result: 'gardening' },
+    { pattern: ['flower', 'growing'], result: 'flower gardening' },
+    
+    // Craft patterns
+    { pattern: ['knitting'], result: 'knitting' },
+    { pattern: ['knit'], result: 'knitting' },
+    { pattern: ['crochet'], result: 'crocheting' },
+    { pattern: ['crocheting'], result: 'crocheting' },
+    { pattern: ['sewing'], result: 'sewing' },
+    { pattern: ['sew'], result: 'sewing' },
+    
+    // Writing patterns
+    { pattern: ['writing', 'poetry'], result: 'poetry writing' },
+    { pattern: ['writing', 'story'], result: 'creative writing' },
+    { pattern: ['blog'], result: 'blogging' },
+    { pattern: ['blogging'], result: 'blogging' },
+    
+    // Gaming patterns
+    { pattern: ['game', 'development'], result: 'game development' },
+    { pattern: ['video', 'game'], result: 'video gaming' },
+    { pattern: ['board', 'game'], result: 'board games' }
+  ];
+  
+  // Check each pattern
+  for (const { pattern, result } of patterns) {
+    if (pattern.every(word => lowerInput.includes(word))) {
+      return result;
+    }
   }
   
   // First check if it's in our comprehensive list
