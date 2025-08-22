@@ -380,33 +380,10 @@ Learn any hobby in 7 days at https://wizqo.com`;
   };
 
   const getHobbyImage = (hobby: string): string => {
-    const normalizedHobby = hobby?.toLowerCase() || '';
-
-    const keywordsForCategory = (hobbyName: string): string => {
-      if (hobbyName.includes('cod') || hobbyName.includes('program') || hobbyName.includes('develop') || hobbyName.includes('tech')) {
-        return 'coding,programming,developer,technology';
-      }
-      if (hobbyName.includes('art') || hobbyName.includes('draw') || hobbyName.includes('paint') || hobbyName.includes('photo')) {
-        return 'art,creative,drawing,painting,photography';
-      }
-      if (hobbyName.includes('cook') || hobbyName.includes('bak') || hobbyName.includes('food')) {
-        return 'cooking,culinary,kitchen,baking,food';
-      }
-      if (hobbyName.includes('fitness') || hobbyName.includes('yoga') || hobbyName.includes('dance')) {
-        return 'fitness,workout,yoga,dance';
-      }
-      return normalizedHobby || 'learning,study';
-    };
-
-    // Deterministic hash for stable, unique images per hobby
-    const hash = Array.from(normalizedHobby).reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 0);
-    const category = keywordsForCategory(normalizedHobby).replace(/\s+/g, ',');
-
-    // Include the specific hobby term to avoid category-level collisions
-    const q = `${normalizedHobby},${category}`.replace(/,+/g, ',');
-
-    // Use Unsplash random with deterministic signature so each hobby gets a unique, stable image
-    return `https://source.unsplash.com/random/400x240/?${encodeURIComponent(q)}&sig=${hash}`;
+    const normalizedHobby = (hobby || '').toLowerCase().trim();
+    const seed = encodeURIComponent(normalizedHobby.replace(/\s+/g, '-')) || 'learning';
+    // Deterministic, unique per hobby
+    return `https://picsum.photos/seed/${seed}/400/240`;
   };
 
   const getFallbackImage = (hobby: string): string => {
