@@ -1442,8 +1442,54 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         {/* Chat Interface - Full width on mobile, left side on desktop */}
         <div className="w-full lg:w-1/2 xl:w-2/5 border-r-0 lg:border-r-2 border-gray-300 bg-white flex flex-col h-full lg:h-full min-h-[60vh] lg:min-h-0">
           <div className="p-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Learning Assistant</h2>
-            <p className="text-sm text-gray-600">Your personal hobby guide</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900">Learning Assistant</h2>
+                <p className="text-sm text-gray-600">Your personal hobby guide</p>
+              </div>
+              
+              {/* Make a New Plan Button - Top Right */}
+              <Button
+                onClick={() => {
+                  // Reset to initial state for new plan
+                  setPlanData(null);
+                  setMessages([{
+                    id: '1',
+                    sender: 'ai' as const,
+                    content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
+                    options: [
+                      { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
+                      { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
+                      { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
+                      { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
+                      { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
+                      { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
+                      { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
+                      { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
+                      { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
+                    ],
+                    step: 'hobby',
+                    timestamp: new Date()
+                  }]);
+                  setCurrentStep('hobby');
+                  setSelectedHobby('');
+                  setQuizAnswers({});
+                  setAnsweredSteps(new Set());
+                  setCompletedDays([]);
+                  setSelectedDay(1);
+                  setCurrentInput('');
+                  // Clear any existing plan data from storage
+                  sessionStorage.removeItem('activePlanData');
+                  sessionStorage.removeItem('currentPlanData');
+                  localStorage.removeItem('lastViewedPlan');
+                  localStorage.removeItem('lastViewedPlanData');
+                }}
+                size="sm"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+              >
+                🚀 New Plan
+              </Button>
+            </div>
           </div>
 
           {/* Chat Messages */}
@@ -1503,50 +1549,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
           {/* Chat Input */}
           <div className="p-4 lg:p-6 border-t border-gray-200 bg-gray-50">
-            {/* Make a New Plan Button */}
-            <div className="mb-4 text-center">
-              <Button
-                onClick={() => {
-                  // Reset to initial state for new plan
-                  setPlanData(null);
-                  setMessages([{
-                    id: '1',
-                    sender: 'ai' as const,
-                    content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
-                    options: [
-                      { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-                      { value: 'guitar', label: 'Guitar 🎸', description: 'Strum your first songs' },
-                      { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
-                      { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
-                      { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
-                      { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
-                      { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-                      { value: 'dance', label: 'Dance 💃', description: 'Move to the rhythm' },
-                      { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
-                    ],
-                    step: 'hobby',
-                    timestamp: new Date()
-                  }]);
-                  setCurrentStep('hobby');
-                  setSelectedHobby('');
-                  setQuizAnswers({});
-                  setAnsweredSteps(new Set());
-                  setCompletedDays([]);
-                  setSelectedDay(1);
-                  setCurrentInput('');
-                  // Clear any existing plan data from storage
-                  sessionStorage.removeItem('activePlanData');
-                  sessionStorage.removeItem('currentPlanData');
-                  localStorage.removeItem('lastViewedPlan');
-                  localStorage.removeItem('lastViewedPlanData');
-                }}
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-              >
-                🚀 Make a New Plan
-              </Button>
-            </div>
-            
+
             {showQuickReplies && (
               <div className="mb-3 flex flex-wrap gap-2">
                 {['How do I get started?','What should I practice today?','Suggest resources','Common mistakes to avoid'].map((q) => (
