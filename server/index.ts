@@ -344,7 +344,20 @@ app.delete('/api/hobby-plans/:id', async (req, res) => {
 async function generatePlanViaOpenRouter(hobby: string, experience: string, timeAvailable: string, goal: string) {
   const key = process.env.OPENROUTER_API_KEY as string;
   if (!key) throw new Error('missing_openrouter_key');
-  const prompt = `Create a concise 7-day learning outline and a fully detailed Day 1 for ${hobby}.
+  // Smart hobby parsing - handle multi-word hobbies like "reading quran"
+  const smartHobby = hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('quran') 
+    ? 'quran reading' 
+    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('book')
+    ? 'book reading'
+    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('bible')
+    ? 'bible reading'
+    : hobby.toLowerCase().includes('reading') && hobby.toLowerCase().includes('holy')
+    ? 'religious reading'
+    : hobby;
+
+  const prompt = `Create a concise 7-day learning outline and a fully detailed Day 1 for ${smartHobby}.
+
+IMPORTANT: Treat "${hobby}" as a single, unified hobby. Do not separate it into multiple activities.
 
 User Details:
 - Experience level: ${experience}
