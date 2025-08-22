@@ -292,7 +292,7 @@ export default function App() {
                     description="Create a personalized 7-day learning plan for any hobby. Our AI will craft the perfect curriculum with daily videos, practice guides, and progress tracking."
                     canonicalUrl="https://wizqo.com/generate"
                   />
-                  <ChatInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
+                  <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
                 </>
               );
             case 'plan':
