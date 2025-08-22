@@ -572,9 +572,42 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
     const text = normalize(input);
 
+    // Phrase-level normalization for multi-word/double-word inputs BEFORE tokenization
+    const phraseMaps: Array<{ pattern: RegExp; to: string }> = [
+      // Religious/reading
+      { pattern: /\b(reading\s+(quran|koran))\b/g, to: 'quran reading' },
+      { pattern: /\breading\s+bible\b/g, to: 'bible reading' },
+      { pattern: /\breading\s+(holy\s+book|holybook|religious|sacred)\b/g, to: 'religious reading' },
+      // Instruments
+      { pattern: /\b(playing|learn(ing)?)\s+guitar\b/g, to: 'guitar' },
+      { pattern: /\b(playing|learn(ing)?)\s+piano\b/g, to: 'piano' },
+      { pattern: /\b(playing|learn(ing)?)\s+violin\b/g, to: 'violin' },
+      { pattern: /\b(playing|learn(ing)?)\s+drum(s)?\b/g, to: 'drums' },
+      // Dev/tech
+      { pattern: /\b(full\s*stack|fullstack)\b/g, to: 'web development' },
+      { pattern: /\b(game\s+dev(elopment)?|gamedev)\b/g, to: 'game development' },
+      { pattern: /\b(app\s+dev(elopment)?|appdev)\b/g, to: 'app development' },
+      { pattern: /\b(ai|artificial\s+intelligence)\b/g, to: 'coding' },
+      { pattern: /\b(machine\s+learning|deep\s+learning)\b/g, to: 'coding' },
+      // Photography
+      { pattern: /\b(digital\s+photo(graphy)?)\b/g, to: 'digital photography' },
+      { pattern: /\b(photo(graphy)?|camera\b)/g, to: 'photography' },
+      // Reading variants
+      { pattern: /\b(reading\s+novel)\b/g, to: 'novel reading' },
+      { pattern: /\b(reading\s+poetry)\b/g, to: 'poetry reading' },
+      // Fitness
+      { pattern: /\b(workout|gym)\b/g, to: 'fitness' },
+      // Cooking
+      { pattern: /\b(pastry)\b/g, to: 'baking' }
+    ];
+    let normalizedText = text;
+    for (const m of phraseMaps) {
+      normalizedText = normalizedText.replace(m.pattern, m.to);
+    }
+
     // Safety check
     for (const term of BANNED) {
-      if (text.includes(term)) {
+      if (normalizedText.includes(term)) {
         return {
           isValid: false,
           unsafe: true,
@@ -585,7 +618,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
 
     // Extract candidates (split by delimiters and handle multi-words)
-    const rawTokens = text.split(/[,/&]|\band\b|\bwith\b|\bfor\b/).map(t => normalize(t)).filter(Boolean);
+    const rawTokens = normalizedText.split(/[,/&]|\band\b|\bwith\b|\bfor\b/).map(t => normalize(t)).filter(Boolean);
     const candidates: string[] = [];
     for (const token of rawTokens) {
       if (!token) continue;
@@ -635,7 +668,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     // If nothing detected, try fuzzy suggestions
     let detected = Array.from(new Set(candidates));
     if (detected.length === 0) {
-      const words = text.split(' ');
+      const words = normalizedText.split(' ');
       const phrases = new Set<string>();
       for (let i = 0; i < words.length; i++) {
         for (let j = i + 1; j <= Math.min(words.length, i + 3); j++) {
@@ -654,7 +687,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
     // Vague input handling
     const vagueTerms = ['fun','interesting','creative','cool','nice','good'];
-    if (vagueTerms.some(term => text.includes(term)) && detected.length === 0) {
+    if (vagueTerms.some(term => normalizedText.includes(term)) && detected.length === 0) {
       return { isValid: false, suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding'] };
     }
 
@@ -669,7 +702,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       return isRepeated || isRandomLetters;
     };
 
-    if (detected.length === 0 && isArbitraryString(text)) {
+    if (detected.length === 0 && isArbitraryString(normalizedText)) {
       return { 
         isValid: false, 
         suggestions: ['photography','guitar','cooking','drawing','yoga','gardening','coding','reading','writing','meditation'] 
