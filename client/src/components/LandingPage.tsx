@@ -32,11 +32,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
-              What Hobby Means: Discover Your Perfect Hobby
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 animate-gradient-x">
-                with AI in Just 7 Days
-              </span>
+              What Hobby Means – Discover Your Ideal Hobby with Wizqo AI
             </h1>
             
             {/* Subheading */}
