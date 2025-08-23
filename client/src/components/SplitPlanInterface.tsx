@@ -1897,13 +1897,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 }
                 return (
                   <Card className="overflow-hidden">
-                    <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
+                    <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b sticky top-0 z-10">
                       <div className="flex items-center justify-between">
                         <div>
-                          <CardTitle className="text-xl font-bold text-gray-900 flex items-center">
+                          <CardTitle className="text-lg sm:text-xl font-extrabold text-gray-900 flex items-center leading-snug">
                             Day {currentDay.day}: {currentDay.title}
                           </CardTitle>
-                          <p className="text-sm text-gray-600 mt-1">Main Focus</p>
+                          <p className="text-xs sm:text-sm text-gray-600 mt-1">Main Focus</p>
                         </div>
                         <button
                           onClick={() => toggleDayCompletion(selectedDay)}
@@ -1934,15 +1934,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       </div>
                     </CardHeader>
                     <CardContent className="p-0">
-                      <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white p-8 md:p-12">
+                      <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white p-6 sm:p-8 md:p-12">
                         <div className="max-w-4xl">
                           <div className="flex items-center mb-4">
                             <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 mr-4">
                               <span className="text-2xl">🎯</span>
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold">Today's Learning Goal</h2>
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">Today's Learning Goal</h2>
                           </div>
-                          <p className="text-xl md:text-2xl leading-relaxed font-medium text-blue-50 mb-6">
+                          <p className="text-lg sm:text-xl md:text-2xl leading-relaxed font-medium text-blue-50 mb-6">
                             {currentDay.mainTask}
                           </p>
                           <div className="flex flex-wrap gap-3">
@@ -1957,19 +1957,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       </div>
 
                       <div className="p-6 md:p-8 space-y-8">
-                        <section className="bg-green-50 border border-green-200 rounded-2xl p-6 md:p-8">
+                        <section className="bg-green-50 border border-green-200 rounded-2xl p-4 sm:p-6 md:p-8">
                           <div className="flex items-center mb-6">
                             <div className="bg-green-500 rounded-full p-2 mr-4">
                               <span className="text-white text-xl">📚</span>
                             </div>
-                            <h3 className="text-2xl font-bold text-green-900">Why This Matters</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-green-900">Why This Matters</h3>
                           </div>
-                          <p className="text-lg text-green-800 leading-relaxed">
+                          <p className="text-base sm:text-lg text-green-800 leading-relaxed">
                             {currentDay.explanation}
                           </p>
                         </section>
 
-                        <section className="bg-white border border-gray-200 rounded-xl p-4 md:p-5 shadow-sm">
+                        <section className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-5 shadow-sm">
                           <div className="flex items-center mb-3">
                             <div className="bg-indigo-500 rounded-full p-1.5 mr-3">
                               <span className="text-white text-base">🔍</span>
@@ -1982,13 +1982,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0 shadow">
                                   {index + 1}
                                 </div>
-                                <div className="text-gray-800 leading-snug text-sm flex-1">{step}</div>
+                                <div className="text-gray-800 leading-snug text-base sm:text-sm flex-1">{step}</div>
                               </div>
                             ))}
                           </div>
                         </section>
 
-                        <section className="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-2xl p-6 md:p-8">
+                        <section className="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-2xl p-4 sm:p-6 md:p-8">
                           <div className="flex items-center mb-6">
                             <div className="bg-red-500 rounded-full p-2 mr-4">
                               <span className="text-white text-xl">📺</span>
@@ -2003,7 +2003,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 className="mb-4 rounded-xl overflow-hidden"
                               />
                             ) : currentDay.youtubeSearchUrl ? (
-                              <div className="text-center p-8">
+                              <div className="text-center p-5 sm:p-8">
                                 <div className="bg-red-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                   <Play className="w-10 h-10 text-red-600" />
                                 </div>
@@ -2020,7 +2020,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 </a>
                               </div>
                             ) : (
-                              <div className="text-center p-8">
+                              <div className="text-center p-5 sm:p-8">
                                 <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                   <Play className="w-10 h-10 text-gray-400" />
                                 </div>
@@ -2039,7 +2039,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           </div>
                         </section>
 
-                        <section className="bg-purple-50 border border-purple-200 rounded-xl p-4 md:p-6">
+                        <section className="bg-purple-50 border border-purple-200 rounded-xl p-3 sm:p-4 md:p-6">
                           <div className="flex items-center mb-3">
                             <div className="bg-purple-500 rounded-full p-1.5 mr-3">
                               <span className="text-white text-sm">📋</span>
@@ -2052,11 +2052,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 <div className="bg-purple-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
                                   <span className="text-purple-600 text-xs">✓</span>
                                 </div>
-                                <span className="text-gray-800 text-sm font-medium">{item}</span>
+                                <span className="text-gray-800 text-base sm:text-sm font-medium">{item}</span>
                               </div>
                             )) : (
                               <div className="bg-white rounded-lg p-3 shadow-sm text-center">
-                                <p className="text-gray-600 text-sm">No checklist items for this day.</p>
+                                <p className="text-gray-600 text-sm sm:text-base">No checklist items for this day.</p>
                               </div>
                             )}
                           </div>
@@ -2076,12 +2076,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <div className="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                                     <span className="text-amber-600 text-xs">💡</span>
                                   </div>
-                                  <p className="text-gray-800 text-sm font-medium leading-relaxed">{tip}</p>
+                                  <p className="text-gray-800 text-base sm:text-sm font-medium leading-relaxed">{tip}</p>
                                 </div>
                               </div>
                             )) : (
                               <div className="bg-white rounded-lg p-3 shadow-sm text-center">
-                                <p className="text-gray-600 text-sm">No tips available for this day.</p>
+                                <p className="text-gray-600 text-sm sm:text-base">No tips available for this day.</p>
                               </div>
                             )}
                           </div>
@@ -2106,7 +2106,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                                     <span className="text-red-600 text-xs">⚠️</span>
                                   </div>
-                                  <p className="text-gray-800 text-sm font-medium leading-relaxed">{mistake}</p>
+                                  <p className="text-gray-800 text-base sm:text-sm font-medium leading-relaxed">{mistake}</p>
                                 </div>
                               </div>
                             ))}
