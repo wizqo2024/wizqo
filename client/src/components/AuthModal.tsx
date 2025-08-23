@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { X, Mail, Lock, User, HelpCircle, Eye, EyeOff } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { GoogleSetupGuide } from './GoogleSetupGuide'
+import { supabase } from '@/lib/supabase'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -23,6 +24,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [showGoogleGuide, setShowGoogleGuide] = useState(false)
   const [formError, setFormError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [isPasswordReset, setIsPasswordReset] = useState(false)
+  const [passwordResetEmail, setPasswordResetEmail] = useState('')
   const { signIn, signUp, signInWithGoogle, user } = useAuth()
   const { toast } = useToast()
 
@@ -98,6 +101,46 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }
   }
 
+  const handleForgotPassword = async (email: string) => {
+    if (!email.trim()) {
+      toast({
+        title: 'Email Required',
+        description: 'Please enter your email address first.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    setLoading(true)
+    setFormError('')
+    
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+      
+      if (error) throw error
+      
+      toast({
+        title: 'Password Reset Email Sent!',
+        description: 'Check your email for a link to reset your password.',
+      })
+      
+      setIsPasswordReset(true)
+      setPasswordResetEmail(email)
+    } catch (error: any) {
+      const errorMessage = error?.message || 'Failed to send password reset email. Please try again.'
+      setFormError(errorMessage)
+      toast({
+        title: 'Password Reset Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleGoogleSignIn = async () => {
     setLoading(true)
     try {
@@ -154,7 +197,19 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </div>
 
           <div>
-            <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password {isSignUp && (<span className="text-xs text-gray-500">(minimum 6 characters)</span>)}</Label>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password {isSignUp && (<span className="text-xs text-gray-500">(minimum 6 characters)</span>)}</Label>
+              {!isSignUp && (
+                <button 
+                  type="button" 
+                  onClick={() => handleForgotPassword(email)}
+                  className="text-xs text-purple-600 hover:text-purple-500 font-medium"
+                  disabled={!email.trim()}
+                >
+                  Forgot Password?
+                </button>
+              )}
+            </div>
             <div className="relative mt-1">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input id="password" type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 pr-10" placeholder={isSignUp ? 'Create a password (6+ characters)' : 'Enter your password'} required minLength={6} />
@@ -171,6 +226,17 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             {loading ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
           </Button>
         </form>
+
+        {/* Password Reset Success Message */}
+        {isPasswordReset && (
+          <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
+            <div className="text-sm text-green-800">
+              <p className="font-medium">📧 Password Reset Email Sent!</p>
+              <p className="mt-1">We've sent a password reset link to <strong>{passwordResetEmail}</strong></p>
+              <p className="mt-2 text-xs">Check your email and click the link to reset your password. You can close this modal now.</p>
+            </div>
+          </div>
+        )}
 
         <div className="mt-6">
           <div className="relative">
