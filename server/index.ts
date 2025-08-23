@@ -769,7 +769,45 @@ Return ONLY a JSON object with this exact structure:
     parsed = tryParse(repaired);
   }
 
-  // 4) No fallback - only real plans allowed
+  // 4) Robust retry with JSON-enforced model if initial parse failed
+  if (!parsed || typeof parsed !== 'object') {
+    try {
+      console.warn('⚠️ Initial model returned unparseable content. Retrying with openai/gpt-4o-mini and JSON response_format...');
+      const vercelUrl2 = process.env.VERCEL_URL || '';
+      const refererUrl2 = process.env.WEB_ORIGIN || process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl2 ? `https://${vercelUrl2}` : 'https://wizqo.com');
+      const retryResp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`,
+          'HTTP-Referer': refererUrl2,
+          'X-Title': 'Wizqo Hobby Learning Platform (Retry)'
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are a helpful planner. Respond with STRICT JSON only. No explanations, no code fences, no prose. Keep within 7 days and include requested keys.' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 2000,
+          temperature: 0.2,
+          response_format: { type: 'json_object' }
+        })
+      });
+      if (retryResp.ok) {
+        const retryData = await retryResp.json();
+        let retryContent = retryData?.choices?.[0]?.message?.content || '';
+        retryContent = String(retryContent).trim();
+        const retryParsed = (() => { try { return JSON.parse(retryContent); } catch { return null; } })();
+        if (retryParsed && typeof retryParsed === 'object') {
+          parsed = retryParsed;
+        }
+      }
+    } catch (e) {
+      console.error('Retry with JSON-enforced model failed:', e);
+    }
+  }
+
   if (!parsed || typeof parsed !== 'object') {
     console.error('❌ Plan generation failed - no mock/fallback content allowed');
     throw new Error('Failed to generate real plan content. Please try again or contact support.');
