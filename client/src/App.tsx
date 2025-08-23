@@ -12,6 +12,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 
 
@@ -375,6 +376,18 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/terms"
                   />
                   <TermsPage />
+                </>
+              );
+            case 'reset-password':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Reset Your Password - Wizqo"
+                    description="Reset your Wizqo account password securely and continue your hobby learning journey."
+                    canonicalUrl="https://wizqo.com/reset-password"
+                    noIndex={true}
+                  />
+                  <ResetPasswordPage />
                 </>
               );
             default:
