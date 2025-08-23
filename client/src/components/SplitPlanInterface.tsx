@@ -1995,7 +1995,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900">Watch Today's Video Tutorial</h3>
                           </div>
-                          <div className="bg-white rounded-2xl p-6 shadow-sm">
+                          <div>
                             {currentDay.youtubeVideoId ? (
                               <YouTubeEmbed 
                                 videoId={currentDay.youtubeVideoId}
@@ -2003,7 +2003,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 className="mb-4 rounded-xl overflow-hidden"
                               />
                             ) : currentDay.youtubeSearchUrl ? (
-                              <div className="text-center p-5 sm:p-8">
+                              <div className="text-center p-4 sm:p-6">
                                 <div className="bg-red-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                   <Play className="w-10 h-10 text-red-600" />
                                 </div>
@@ -2020,7 +2020,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 </a>
                               </div>
                             ) : (
-                              <div className="text-center p-5 sm:p-8">
+                              <div className="text-center p-4 sm:p-6">
                                 <div className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                                   <Play className="w-10 h-10 text-gray-400" />
                                 </div>
