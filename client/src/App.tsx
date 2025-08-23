@@ -349,8 +349,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Contact Wizqo - Get Help & Support"
-                    description="Get in touch with the Wizqo team for support, feedback, or questions about our AI-powered hobby learning platform."
+                    title="Contact Wizqo – Questions, Feedback, or Hobby Ideas Welcome"
+                    description="Got a question or suggestion? Reach out to Wizqo's team — we typically respond within 24 hours. Let’s improve your hobby journey together"
                     canonicalUrl="https://wizqo.com/contact"
                   />
                   <ContactPage />
