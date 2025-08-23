@@ -3,5 +3,6 @@ Disallow: /dashboard
 Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
+Disallow: /reset-password
 
 Sitemap: https://www.wizqo.com/sitemap.xml
