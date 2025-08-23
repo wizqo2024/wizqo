@@ -1756,9 +1756,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               </div>
 
               {/* Day Selection Buttons */}
-              <div className="mb-4 lg:mb-6">
+              <div className="mb-4 lg:mb-6 sticky top-0 z-20 bg-gray-50/80 backdrop-blur supports-[backdrop-filter]:bg-gray-50/60 lg:static lg:bg-transparent lg:backdrop-blur-0">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3 lg:mb-4">Select Day</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 py-1 lg:flex-wrap lg:overflow-visible lg:mx-0 lg:px-0">
                                     {(() => {
                     // Show all 7 days with proper status
                     const lastCompletedDay = completedDays.length > 0 ? Math.max(...completedDays) : 0;
@@ -1828,7 +1828,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                             }
                           }}
                           disabled={loadingDay === dayNum}
-                          className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center relative ${
+                          className={`min-w-[44px] w-11 h-11 lg:w-12 lg:h-12 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center relative touch-manipulation ${
                             isSelected
                               ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
                               : loadingDay === dayNum

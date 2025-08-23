@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar on mobile day selector */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* Mobile-First Responsive Improvements */
 @layer base {
   * {
