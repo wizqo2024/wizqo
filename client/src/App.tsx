@@ -277,8 +277,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Wizqo - AI-Powered 7-Day Hobby Learning Plans | Learn Any Skill Fast"
-                    description="Master any hobby in 7 days with personalized AI learning plans. Get daily video tutorials, practice guides, and progress tracking for cooking, guitar, yoga, and more. Start your learning journey free!"
+                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
+                    description="Learn what a hobby really means and find your perfect match with Wizqo’s AI-powered 7-day hobby plans. Start today for free!"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
@@ -394,8 +394,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Wizqo - AI-Powered 7-Day Hobby Learning Plans | Learn Any Skill Fast"
-                    description="Master any hobby in 7 days with personalized AI learning plans. Get daily video tutorials, practice guides, and progress tracking for cooking, guitar, yoga, and more. Start your learning journey free!"
+                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
+                    description="Learn what a hobby really means and find your perfect match with Wizqo’s AI-powered 7-day hobby plans. Start today for free!"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
