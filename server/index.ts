@@ -1079,6 +1079,16 @@ app.post('/api/generate-plan', async (req, res) => {
     });
   } catch (e: any) {
     console.error('generate-plan error:', e);
+    const msg: string = String(e?.message || '');
+    if (msg.startsWith('openrouter_429') || /rate.?limit/i.test(msg)) {
+      return res.status(429).json({ error: 'rate_limited', message: 'OpenRouter rate limit. Please try again later.' });
+    }
+    if (msg.startsWith('openrouter_402') || msg.startsWith('openrouter_403') || msg.startsWith('openrouter_401')) {
+      return res.status(503).json({ error: 'ai_quota_exhausted', message: 'AI quota or authorization issue. Please try again later.' });
+    }
+    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_') ) {
+      return res.status(503).json({ error: 'ai_unavailable', message: 'AI provider unavailable. Please try again.' });
+    }
     res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e), upstream: e?.upstream || '' });
   }
 });
@@ -1228,6 +1238,16 @@ app.post('/api/generate-day', async (req, res) => {
     res.json({ day });
   } catch (e: any) {
     console.error('generate-day error:', e);
+    const msg: string = String(e?.message || '');
+    if (msg.startsWith('openrouter_429') || /rate.?limit/i.test(msg)) {
+      return res.status(429).json({ error: 'rate_limited', message: 'OpenRouter rate limit. Please try again later.' });
+    }
+    if (msg.startsWith('openrouter_402') || msg.startsWith('openrouter_403') || msg.startsWith('openrouter_401')) {
+      return res.status(503).json({ error: 'ai_quota_exhausted', message: 'AI quota or authorization issue. Please try again later.' });
+    }
+    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_') ) {
+      return res.status(503).json({ error: 'ai_unavailable', message: 'AI provider unavailable. Please try again.' });
+    }
     res.status(500).json({ error: 'failed_to_generate_day', message: String(e?.message || e), upstream: e?.upstream || '' });
   }
 });
