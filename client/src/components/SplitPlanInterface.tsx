@@ -2027,11 +2027,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 <p className="text-lg text-gray-600 mb-2 font-medium">Video tutorial coming soon!</p>
                               </div>
                             )}
-                            <div className="flex flex-wrap items-center justify-between mt-6 gap-4">
-                              <div className="flex items-center text-gray-600">
-                                <Clock className="w-5 h-5 mr-2" />
-                                <span className="font-medium">Duration: {currentDay.estimatedTime || 'TBD'}</span>
-                              </div>
+                            <div className="flex flex-wrap items-center mt-6 gap-4">
                               <span className="bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-semibold">
                                 Beginner Level
                               </span>
