@@ -2074,7 +2074,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
                                 <div className="flex items-start">
                                   <div className="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                                    <span className="text-amber-600 text-xs">💡</span>
+                                    <span className="text-amber-600 text-xs">•</span>
                                   </div>
                                   <p className="text-gray-800 text-base sm:text-sm font-medium leading-relaxed">{tip}</p>
                                 </div>
@@ -2104,7 +2104,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               <div key={index} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow border-l-3 border-red-400">
                                 <div className="flex items-start">
                                   <div className="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                                    <span className="text-red-600 text-xs">⚠️</span>
+                                    <span className="text-red-600 text-xs">•</span>
                                   </div>
                                   <p className="text-gray-800 text-base sm:text-sm font-medium leading-relaxed">{mistake}</p>
                                 </div>
