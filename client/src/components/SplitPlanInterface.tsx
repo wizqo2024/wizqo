@@ -1327,7 +1327,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const isDayCompleted = (dayNumber: number) => completedDays.includes(dayNumber);
   const isDayUnlocked = (dayNumber: number) => {
     if (dayNumber === 1) return true;
-    return user && isDayCompleted(dayNumber - 1);
+    // For days 2-7, user must be logged in AND have completed the previous day
+    if (!user) return false;
+    return isDayCompleted(dayNumber - 1);
   };
 
   const toggleDayCompletion = async (dayNumber: number) => {
@@ -1856,7 +1858,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               }
                             }
                           }}
-                          disabled={loadingDay === dayNum}
+                          disabled={loadingDay === dayNum || !isDayUnlocked(dayNum)}
                           className={`min-w-[44px] w-11 h-11 lg:w-12 lg:h-12 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center relative touch-manipulation ${
                             isSelected
                               ? 'bg-blue-500 text-white shadow-lg ring-2 ring-blue-300'
@@ -1864,9 +1866,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                 ? 'bg-gray-100 text-gray-600 border-2 border-gray-300 cursor-wait'
                                 : isCompleted
                                   ? 'bg-green-100 text-green-700 border-2 border-green-300 hover:bg-green-200'
-                                  : isNextDay
+                                  : isNextDay && isDayUnlocked(dayNum)
                                     ? 'bg-orange-50 text-orange-600 border-2 border-orange-300 hover:bg-orange-100'
-                                    : 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
+                                    : !isDayUnlocked(dayNum)
+                                      ? 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
+                                      : 'bg-gray-50 text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed'
                           }`}
                         >
                           {loadingDay === dayNum ? (
