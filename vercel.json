@@ -14,7 +14,11 @@
       "use": "@vercel/node@3.0.0",
       "config": {
         "bundle": true,
-        "includeFiles": "server/**,shared/**",
+        "includeFiles": [
+          "server/**",
+          "shared/**",
+          "server/dailyBestVideo.js"
+        ],
         "runtime": "nodejs18.x"
       }
     }

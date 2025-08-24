@@ -1,6 +1,7 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
+import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
@@ -115,6 +116,20 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Best daily unique video for a hobby (7-day uniqueness window)
+app.post('/api/best-video', async (req, res) => {
+  try {
+    const hobby: string = String(req.body?.hobby || '').trim();
+    const day: number | undefined = req.body?.day ? Number(req.body.day) : undefined;
+    if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
+    const video = await getBestUniqueVideoForHobby(hobby, day);
+    if (!video) return res.status(404).json({ error: 'no_video_found' });
+    res.json({ ok: true, hobby, day: day ?? null, video });
+  } catch (e: any) {
+    res.status(500).json({ error: 'best_video_failed', details: String(e?.message || e) });
+  }
+});
+
 // Supabase clients: anon (reads) and admin (writes)
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
@@ -122,6 +137,21 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.
 
 const supabaseAnon = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null as any;
 const supabaseAdmin = (supabaseUrl && supabaseServiceRoleKey) ? createClient(supabaseUrl, supabaseServiceRoleKey) : null as any;
+
+// Extract and verify Supabase user from Authorization header (Bearer <jwt>)
+async function getSupabaseUserIdFromRequest(req: any): Promise<string | null> {
+  try {
+    const authHeader = String(req.headers?.authorization || '');
+    const m = authHeader.match(/^Bearer\s+(.+)$/i);
+    const token = m ? m[1] : null;
+    if (!token || !supabaseAnon) return null;
+    const { data, error } = await supabaseAnon.auth.getUser(token);
+    if (error || !data?.user) return null;
+    return data.user.id as string;
+  } catch {
+    return null;
+  }
+}
 
 // Diagnostics endpoint
 app.get('/api/db-diagnostics', async (_req, res) => {
@@ -816,7 +846,7 @@ Return ONLY a JSON object with this exact structure:
   return parsed;
 }
 
-async function getYouTubeVideo(hobby: string, day: number, title: string) {
+async function getYouTubeVideo(hobby: string, day: number, title: string, excludeIds: string[] = []) {
   const apiKey = process.env.YOUTUBE_API_KEY as string | undefined;
   if (!apiKey) return null as any;
   
@@ -868,7 +898,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
     
     console.log(`🎥 Video search for Day ${day}: "${finalQuery}"`);
     
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&videoDuration=short&relevanceLanguage=en`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&relevanceLanguage=en`;
     
     const r = await fetch(url);
     if (!r.ok) throw new Error(`yt_${r.status}`);
@@ -877,21 +907,78 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
     const items = j.items || [];
     
     if (items.length === 0) return null as any;
-    
-    // Select video based on day number to ensure variety
-    const videoIndex = (day - 1) % Math.min(items.length, 5);
-    const selectedVideo = items[videoIndex];
-    
-    if (!selectedVideo) return null as any;
-    
-    const result = { 
-      id: selectedVideo.id?.videoId as string, 
-      title: selectedVideo.snippet?.title as string,
+
+    // Fetch details to enforce 5–50 minutes, >=5k views, published since 2020, public/processed/embeddable
+    const ids = items.map((it: any) => it?.id?.videoId).filter(Boolean);
+    if (ids.length === 0) return null as any;
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,status&id=${ids.join(',')}&key=${apiKey}`;
+    const dr = await fetch(detailsUrl);
+    if (!dr.ok) throw new Error(`yt_details_${dr.status}`);
+    const dj = await dr.json();
+
+    const isoToSeconds = (iso: string) => {
+      const m = String(iso || '').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+      if (!m) return 0;
+      const h = Number(m[1] || 0), min = Number(m[2] || 0), s = Number(m[3] || 0);
+      return h * 3600 + min * 60 + s;
+    };
+
+    const excludeSet = new Set(excludeIds.filter(Boolean));
+    const filtered = (dj.items || []).filter((v: any) => {
+      const lang = String(v?.snippet?.defaultAudioLanguage || v?.snippet?.defaultLanguage || '');
+      const isEnglish = /^en(\b|[-_])/i.test(lang) || (() => {
+        const text = `${v?.snippet?.title || ''} ${v?.snippet?.description || ''}`;
+        const asciiLetters = (text.match(/[A-Za-z]/g) || []).length;
+        const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
+        return asciiLetters >= 10 && nonAscii <= asciiLetters * 0.2;
+      })();
+      const durationSec = isoToSeconds(v?.contentDetails?.duration);
+      const minutes = durationSec / 60;
+      const views = Number(v?.statistics?.viewCount || 0);
+      const pub = v?.snippet?.publishedAt ? new Date(v.snippet.publishedAt).getTime() : 0;
+      const after2020 = pub >= new Date('2020-01-01T00:00:00Z').getTime();
+      const isPublic = v?.status?.privacyStatus === 'public';
+      const processed = v?.status?.uploadStatus === 'processed';
+      const embeddable = v?.status?.embeddable !== false;
+      const notLive = v?.snippet?.liveBroadcastContent !== 'live';
+      const notExcluded = !excludeSet.has(v?.id);
+      return isEnglish && minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive && notExcluded;
+    });
+
+    if (filtered.length === 0) {
+      // Fallback: choose first non-excluded from raw items
+      const excludeSet2 = new Set(excludeIds.filter(Boolean));
+      const firstNonExcluded = items.find((it: any) => it?.id?.videoId && !excludeSet2.has(it.id.videoId));
+      const selectedVideo = firstNonExcluded || items[(day - 1) % Math.min(items.length, 5)];
+      if (!selectedVideo) return null as any;
+      const result = {
+        id: selectedVideo.id?.videoId as string,
+        title: selectedVideo.snippet?.title as string,
+        searchQuery: finalQuery,
+        day: day
+      };
+      console.log(`✅ Day ${day} video (fallback, dedup) selected: ${result.title}`);
+      return result;
+    }
+
+    // Prefer most viewed, then newest
+    filtered.sort((a: any, b: any) => {
+      const av = Number(a?.statistics?.viewCount || 0);
+      const bv = Number(b?.statistics?.viewCount || 0);
+      if (bv !== av) return bv - av;
+      const ad = new Date(a?.snippet?.publishedAt || 0).getTime();
+      const bd = new Date(b?.snippet?.publishedAt || 0).getTime();
+      return bd - ad;
+    });
+
+    const pick = filtered[0];
+    const result = {
+      id: pick?.id as string,
+      title: pick?.snippet?.title as string,
       searchQuery: finalQuery,
       day: day
     };
-    
-    console.log(`✅ Day ${day} video selected: ${result.title}`);
+    console.log(`✅ Day ${day} video selected (5–50 min): ${result.title}`);
     return result;
     
   } catch (e) { 
@@ -1031,7 +1118,8 @@ app.post('/api/generate-plan', async (req, res) => {
     }
     
     const title = d1.title.trim();
-    let video = await getYouTubeVideo(hobby, dayNum, title);
+    const excludeIds1: string[] = [];
+    let video = await getYouTubeVideo(hobby, dayNum, title, excludeIds1);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
     // Validate that we have real AI-generated content
     if (!d1.mainTask && !d1.goal && !d1.objective) {
@@ -1096,6 +1184,10 @@ app.post('/api/generate-plan', async (req, res) => {
 // Generate a single day on-demand (Days 2-7)
 app.post('/api/generate-day', async (req, res) => {
   try {
+    // Require Supabase auth for days 2–7
+    const userIdFromAuth = await getSupabaseUserIdFromRequest(req);
+    if (!userIdFromAuth) return res.status(401).json({ error: 'auth_required' });
+
     const hobby = String(req.body?.hobby || '').trim();
     const experience = String(req.body?.experience || 'beginner');
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
@@ -1188,7 +1280,8 @@ app.post('/api/generate-day', async (req, res) => {
 
     // Normalize into Day structure expected by frontend
     const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
-    let video = await getYouTubeVideo(hobby, dayNumber, title);
+    const usedIds = Array.isArray(priorDays) ? priorDays.map((d: any) => d?.youtubeVideoId).filter(Boolean) : [];
+    let video = await getYouTubeVideo(hobby, dayNumber, title, usedIds);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
 
     // Derive helpful extras for UI completeness and uniqueness
