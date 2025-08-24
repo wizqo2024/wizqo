@@ -925,6 +925,13 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
 
     const excludeSet = new Set(excludeIds.filter(Boolean));
     const filtered = (dj.items || []).filter((v: any) => {
+      const lang = String(v?.snippet?.defaultAudioLanguage || v?.snippet?.defaultLanguage || '');
+      const isEnglish = /^en(\b|[-_])/i.test(lang) || (() => {
+        const text = `${v?.snippet?.title || ''} ${v?.snippet?.description || ''}`;
+        const asciiLetters = (text.match(/[A-Za-z]/g) || []).length;
+        const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
+        return asciiLetters >= 10 && nonAscii <= asciiLetters * 0.2;
+      })();
       const durationSec = isoToSeconds(v?.contentDetails?.duration);
       const minutes = durationSec / 60;
       const views = Number(v?.statistics?.viewCount || 0);
@@ -935,7 +942,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
       const embeddable = v?.status?.embeddable !== false;
       const notLive = v?.snippet?.liveBroadcastContent !== 'live';
       const notExcluded = !excludeSet.has(v?.id);
-      return minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive && notExcluded;
+      return isEnglish && minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive && notExcluded;
     });
 
     if (filtered.length === 0) {

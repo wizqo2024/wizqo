@@ -87,6 +87,14 @@ async function searchCandidates(hobby, day) {
   }
   const filtered = [];
   for (const v of details) {
+    const isEnglish = (() => {
+      const lang = (v && v.snippet && (v.snippet.defaultAudioLanguage || v.snippet.defaultLanguage)) || '';
+      if (/^en(\b|[-_])/i.test(lang)) return true;
+      const text = `${v && v.snippet && v.snippet.title || ''} ${v && v.snippet && v.snippet.description || ''}`;
+      const asciiLetters = (text.match(/[A-Za-z]/g) || []).length;
+      const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
+      return asciiLetters >= 10 && nonAscii <= asciiLetters * 0.2;
+    })();
     const durationSec = isoDurationToSeconds(v && v.contentDetails && v.contentDetails.duration);
     const minutes = durationSec / 60;
     const views = Number(v && v.statistics && v.statistics.viewCount || 0);
@@ -96,7 +104,7 @@ async function searchCandidates(hobby, day) {
     const embeddable = !(v && v.status && v.status.embeddable === false);
     const notLive = !(v && v.snippet && v.snippet.liveBroadcastContent === 'live');
     const after2020 = new Date(publishedAt).getTime() >= new Date(PUBLISHED_AFTER_ISO).getTime();
-    if (minutes >= 5 && minutes <= 50 && views >= 5000 && isPublic && processed && embeddable && notLive && after2020) {
+    if (isEnglish && minutes >= 5 && minutes <= 50 && views >= 5000 && isPublic && processed && embeddable && notLive && after2020) {
       filtered.push({
         id: v.id,
         title: v && v.snippet && v.snippet.title || '',
