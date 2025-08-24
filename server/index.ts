@@ -488,6 +488,23 @@ app.get('/api/user-progress/:userId', async (req, res) => {
   } catch { res.json([]); }
 });
 
+// Read progress for a specific user and plan
+app.get('/api/user-progress/:userId/:planId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const planId = req.params.planId;
+    if (!supabaseAnon) return res.json({});
+    const { data, error } = await supabaseAnon
+      .from('user_progress')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('plan_id', planId)
+      .maybeSingle();
+    if (error) return res.json({});
+    res.json(data || {});
+  } catch { res.json({}); }
+});
+
 // Admin delete: hobby plan
 app.delete('/api/hobby-plans/:id', async (req, res) => {
   try {
