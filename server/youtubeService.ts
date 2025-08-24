@@ -17,12 +17,11 @@ interface YouTubeVideo {
 function parseDuration(duration: string): number {
   const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
   if (!match) return 0;
-  
   const hours = parseInt(match[1] || '0', 10);
   const minutes = parseInt(match[2] || '0', 10);
   const seconds = parseInt(match[3] || '0', 10);
-  
-  return hours * 60 + minutes + (seconds > 30 ? 1 : 0); // Round up if more than 30 seconds
+  // Return whole minutes without rounding up (so 4:59 remains 4)
+  return hours * 60 + minutes + Math.floor(seconds / 60);
 }
 
 // Test if video is available and working
@@ -91,8 +90,7 @@ export async function searchYouTubeVideos(
       `type=video&` +
       `key=${youtubeApiKey}&` +
       `order=relevance&` +
-      `publishedAfter=2018-01-01T00:00:00Z&` +
-      `videoDuration=medium&` +
+      `publishedAfter=2020-01-01T00:00:00Z&` +
       `videoEmbeddable=true&` +
       `videoSyndicated=true&` +
       `regionCode=US&` +
@@ -135,12 +133,12 @@ export async function searchYouTubeVideos(
       const duration = video.contentDetails.duration;
       const title = video.snippet.title.toLowerCase();
       const publishDate = new Date(video.snippet.publishedAt);
-      const cutoffDate = new Date('2018-01-01T00:00:00Z'); // Exclude videos before 2018
+      const cutoffDate = new Date('2020-01-01T00:00:00Z');
       const durationMinutes = parseDuration(duration);
       
       // Enhanced quality filters with strict relevance checking
       const isRecentEnough = publishDate >= cutoffDate;
-      const isCorrectDuration = durationMinutes <= 45 && durationMinutes >= 3; // 3-45 minutes as requested
+      const isCorrectDuration = durationMinutes >= 5 && durationMinutes <= 50;
       const isRelevant = isVideoRelevantToDay(video.snippet.title, hobby, dayNumber);
       const isNotLive = video.snippet.liveBroadcastContent !== 'live';
       const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // 5000+ views requirement
@@ -301,8 +299,7 @@ async function searchYouTubeVideosWithCustomQuery(
       `type=video&` +
       `key=${youtubeApiKey}&` +
       `order=relevance&` +
-      `publishedAfter=2018-01-01T00:00:00Z&` +
-      `videoDuration=medium&` +
+      `publishedAfter=2020-01-01T00:00:00Z&` +
       `videoEmbeddable=true&` +
       `regionCode=US&` +
       `relevanceLanguage=en`;
@@ -339,7 +336,7 @@ async function searchYouTubeVideosWithCustomQuery(
       const duration = video.contentDetails.duration;
       const durationMinutes = parseDuration(duration);
       
-      if (durationMinutes <= 45 && durationMinutes >= 3 && parseInt(video.statistics?.viewCount || '0') >= 5000) {
+      if (durationMinutes >= 5 && durationMinutes <= 50 && parseInt(video.statistics?.viewCount || '0') >= 5000) {
         const isWorking = await isVideoWorking(video.id);
         if (isWorking) {
           qualityVideos.push({
