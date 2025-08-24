@@ -1416,7 +1416,7 @@ app.post('/api/hobby-chat', async (req, res) => {
 
     const moderation = isUnsafeQuery(message);
     if (moderation.unsafe) {
-      return res.json({ reply: "I can't assist with adult, illegal, violent, or harmful topics. Please ask hobby-related learning questions." });
+      return res.json({ reply: "Let’s keep it safe and hobby‑focused. Try a learning topic (e.g., guitar basics, yoga stretching, photography tips)." });
     }
 
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
