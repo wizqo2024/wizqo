@@ -130,6 +130,13 @@ export async function searchYouTubeVideos(
     const qualityVideos: YouTubeVideo[] = [];
     
     for (const video of detailsData.items) {
+      const lang = String(video?.snippet?.defaultAudioLanguage || video?.snippet?.defaultLanguage || '');
+      const isEnglish = /^en(\b|[-_])/i.test(lang) || (() => {
+        const text = `${video?.snippet?.title || ''} ${video?.snippet?.description || ''}`;
+        const asciiLetters = (text.match(/[A-Za-z]/g) || []).length;
+        const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
+        return asciiLetters >= 10 && nonAscii <= asciiLetters * 0.2;
+      })();
       const duration = video.contentDetails.duration;
       const title = video.snippet.title.toLowerCase();
       const publishDate = new Date(video.snippet.publishedAt);
@@ -144,7 +151,7 @@ export async function searchYouTubeVideos(
       const hasGoodStats = parseInt(video.statistics?.viewCount || '0') >= 5000; // 5000+ views requirement
       const notUsedBefore = !usedVideoIds.has(video.id);
       
-      if (isRecentEnough && isCorrectDuration && isRelevant && isNotLive && hasGoodStats && notUsedBefore) {
+      if (isEnglish && isRecentEnough && isCorrectDuration && isRelevant && isNotLive && hasGoodStats && notUsedBefore) {
         // Test video availability
         const isWorking = await isVideoWorking(video.id);
         if (isWorking) {
