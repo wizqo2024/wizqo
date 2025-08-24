@@ -1814,16 +1814,18 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   }
                                 } else {
                                   console.log('🎯 Day generation failed:', resp.statusText);
-                                  if (resp.status === 429 || resp.status === 500) {
+                                  if (resp.status === 401) {
+                                    setDayGenerationError('Sign in to generate and save plans.');
+                                  } else if (resp.status === 429 || resp.status === 500) {
                                     setDayGenerationError('Generation failed (possibly API quota). Please try again later.');
                                   } else {
-                                    setDayGenerationError('Failed to generate this day.');
+                                    setDayGenerationError('Sign in to generate and save plans.');
                                   }
                                 }
                                 setLoadingDay(null);
                               } catch (e) {
                                 setLoadingDay(null);
-                                setDayGenerationError('Failed to generate this day.');
+                                setDayGenerationError('Sign in to generate and save plans.');
                               }
                             }
                           }}
