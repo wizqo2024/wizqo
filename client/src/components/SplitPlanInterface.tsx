@@ -553,9 +553,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     try {
       console.log(`🎥 Generating video for Day ${dayNumber}...`);
       
+      // Get the current session for authentication
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        console.error('❌ No authentication token available');
+        return;
+      }
+      
       const response = await fetch('/api/generate-day', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
         body: JSON.stringify({
           hobby: planData.hobby,
           experience: 'beginner', // Default experience level
@@ -1801,7 +1811,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
                                 };
                                 console.log('🎯 Sending day generation request:', body);
-                                const resp = await fetch('/api/generate-day', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                                
+                                // Get the current session for authentication
+                                const { data: { session } } = await supabase.auth.getSession();
+                                if (!session?.access_token) {
+                                  console.error('❌ No authentication token available');
+                                  setDayGenerationError('Please sign in to generate content.');
+                                  setLoadingDay(null);
+                                  return;
+                                }
+                                
+                                const resp = await fetch('/api/generate-day', { 
+                                  method: 'POST', 
+                                  headers: { 
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${session.access_token}`
+                                  }, 
+                                  body: JSON.stringify(body) 
+                                });
                                 console.log('🎯 Day generation response status:', resp.status);
                                 if (resp.ok) {
                                   const j = await resp.json();
