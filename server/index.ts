@@ -138,6 +138,21 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.
 const supabaseAnon = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null as any;
 const supabaseAdmin = (supabaseUrl && supabaseServiceRoleKey) ? createClient(supabaseUrl, supabaseServiceRoleKey) : null as any;
 
+// Extract and verify Supabase user from Authorization header (Bearer <jwt>)
+async function getSupabaseUserIdFromRequest(req: any): Promise<string | null> {
+  try {
+    const authHeader = String(req.headers?.authorization || '');
+    const m = authHeader.match(/^Bearer\s+(.+)$/i);
+    const token = m ? m[1] : null;
+    if (!token || !supabaseAnon) return null;
+    const { data, error } = await supabaseAnon.auth.getUser(token);
+    if (error || !data?.user) return null;
+    return data.user.id as string;
+  } catch {
+    return null;
+  }
+}
+
 // Diagnostics endpoint
 app.get('/api/db-diagnostics', async (_req, res) => {
   try {
@@ -1162,6 +1177,10 @@ app.post('/api/generate-plan', async (req, res) => {
 // Generate a single day on-demand (Days 2-7)
 app.post('/api/generate-day', async (req, res) => {
   try {
+    // Require Supabase auth for days 2–7
+    const userIdFromAuth = await getSupabaseUserIdFromRequest(req);
+    if (!userIdFromAuth) return res.status(401).json({ error: 'auth_required' });
+
     const hobby = String(req.body?.hobby || '').trim();
     const experience = String(req.body?.experience || 'beginner');
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
