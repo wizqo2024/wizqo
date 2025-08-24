@@ -1,6 +1,7 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
+import { getBestUniqueVideoForHobby } from './dailyBestVideo';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
@@ -113,6 +114,20 @@ app.use(express.json({ limit: '2mb' }));
 // Health
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Best daily unique video for a hobby (7-day uniqueness window)
+app.post('/api/best-video', async (req, res) => {
+  try {
+    const hobby: string = String(req.body?.hobby || '').trim();
+    const day: number | undefined = req.body?.day ? Number(req.body.day) : undefined;
+    if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
+    const video = await getBestUniqueVideoForHobby(hobby, day);
+    if (!video) return res.status(404).json({ error: 'no_video_found' });
+    res.json({ ok: true, hobby, day: day ?? null, video });
+  } catch (e: any) {
+    res.status(500).json({ error: 'best_video_failed', details: String(e?.message || e) });
+  }
 });
 
 // Supabase clients: anon (reads) and admin (writes)
