@@ -883,7 +883,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
     
     console.log(`🎥 Video search for Day ${day}: "${finalQuery}"`);
     
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&videoDuration=short&relevanceLanguage=en`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&relevanceLanguage=en`;
     
     const r = await fetch(url);
     if (!r.ok) throw new Error(`yt_${r.status}`);
@@ -892,21 +892,68 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
     const items = j.items || [];
     
     if (items.length === 0) return null as any;
-    
-    // Select video based on day number to ensure variety
-    const videoIndex = (day - 1) % Math.min(items.length, 5);
-    const selectedVideo = items[videoIndex];
-    
-    if (!selectedVideo) return null as any;
-    
-    const result = { 
-      id: selectedVideo.id?.videoId as string, 
-      title: selectedVideo.snippet?.title as string,
+
+    // Fetch details to enforce 5–50 minutes, >=5k views, published since 2020, public/processed/embeddable
+    const ids = items.map((it: any) => it?.id?.videoId).filter(Boolean);
+    if (ids.length === 0) return null as any;
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,status&id=${ids.join(',')}&key=${apiKey}`;
+    const dr = await fetch(detailsUrl);
+    if (!dr.ok) throw new Error(`yt_details_${dr.status}`);
+    const dj = await dr.json();
+
+    const isoToSeconds = (iso: string) => {
+      const m = String(iso || '').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+      if (!m) return 0;
+      const h = Number(m[1] || 0), min = Number(m[2] || 0), s = Number(m[3] || 0);
+      return h * 3600 + min * 60 + s;
+    };
+
+    const filtered = (dj.items || []).filter((v: any) => {
+      const durationSec = isoToSeconds(v?.contentDetails?.duration);
+      const minutes = durationSec / 60;
+      const views = Number(v?.statistics?.viewCount || 0);
+      const pub = v?.snippet?.publishedAt ? new Date(v.snippet.publishedAt).getTime() : 0;
+      const after2020 = pub >= new Date('2020-01-01T00:00:00Z').getTime();
+      const isPublic = v?.status?.privacyStatus === 'public';
+      const processed = v?.status?.uploadStatus === 'processed';
+      const embeddable = v?.status?.embeddable !== false;
+      const notLive = v?.snippet?.liveBroadcastContent !== 'live';
+      return minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive;
+    });
+
+    if (filtered.length === 0) {
+      // Fallback: keep prior behavior but prefer longer ones if present
+      const videoIndex = (day - 1) % Math.min(items.length, 5);
+      const selectedVideo = items[videoIndex];
+      if (!selectedVideo) return null as any;
+      const result = {
+        id: selectedVideo.id?.videoId as string,
+        title: selectedVideo.snippet?.title as string,
+        searchQuery: finalQuery,
+        day: day
+      };
+      console.log(`✅ Day ${day} video (fallback) selected: ${result.title}`);
+      return result;
+    }
+
+    // Prefer most viewed, then newest
+    filtered.sort((a: any, b: any) => {
+      const av = Number(a?.statistics?.viewCount || 0);
+      const bv = Number(b?.statistics?.viewCount || 0);
+      if (bv !== av) return bv - av;
+      const ad = new Date(a?.snippet?.publishedAt || 0).getTime();
+      const bd = new Date(b?.snippet?.publishedAt || 0).getTime();
+      return bd - ad;
+    });
+
+    const pick = filtered[0];
+    const result = {
+      id: pick?.id as string,
+      title: pick?.snippet?.title as string,
       searchQuery: finalQuery,
       day: day
     };
-    
-    console.log(`✅ Day ${day} video selected: ${result.title}`);
+    console.log(`✅ Day ${day} video selected (5–50 min): ${result.title}`);
     return result;
     
   } catch (e) { 
