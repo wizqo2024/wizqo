@@ -1000,6 +1000,45 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       </div>
                     </div>
                   </Button>
+
+                  <Button
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white justify-start h-12 mobile-button"
+                    onClick={() => {
+                      window.open(shareData.platforms.linkedin, '_blank');
+                      setShowShareModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <ExternalLink className="h-4 w-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-medium">LinkedIn</div>
+                        <div className="text-xs opacity-90">Share with your network</div>
+                      </div>
+                    </div>
+                  </Button>
+
+                  <Button
+                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white justify-start h-12 mobile-button"
+                    onClick={() => {
+                      // For Instagram, we copy the text since Instagram doesn't have direct sharing URLs
+                      navigator.clipboard.writeText(shareData.text);
+                      setShowCopyToast(true);
+                      setTimeout(() => setShowCopyToast(false), 3000);
+                      setShowShareModal(false);
+                    }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <Share2 className="h-4 w-4" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-medium">Instagram</div>
+                        <div className="text-xs opacity-90">Copy for your story</div>
+                      </div>
+                    </div>
+                  </Button>
                 </div>
 
                 <Button
