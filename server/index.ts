@@ -831,7 +831,7 @@ Return ONLY a JSON object with this exact structure:
   return parsed;
 }
 
-async function getYouTubeVideo(hobby: string, day: number, title: string) {
+async function getYouTubeVideo(hobby: string, day: number, title: string, excludeIds: string[] = []) {
   const apiKey = process.env.YOUTUBE_API_KEY as string | undefined;
   if (!apiKey) return null as any;
   
@@ -908,6 +908,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
       return h * 3600 + min * 60 + s;
     };
 
+    const excludeSet = new Set(excludeIds.filter(Boolean));
     const filtered = (dj.items || []).filter((v: any) => {
       const durationSec = isoToSeconds(v?.contentDetails?.duration);
       const minutes = durationSec / 60;
@@ -918,13 +919,15 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
       const processed = v?.status?.uploadStatus === 'processed';
       const embeddable = v?.status?.embeddable !== false;
       const notLive = v?.snippet?.liveBroadcastContent !== 'live';
-      return minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive;
+      const notExcluded = !excludeSet.has(v?.id);
+      return minutes >= 5 && minutes <= 50 && views >= 5000 && after2020 && isPublic && processed && embeddable && notLive && notExcluded;
     });
 
     if (filtered.length === 0) {
-      // Fallback: keep prior behavior but prefer longer ones if present
-      const videoIndex = (day - 1) % Math.min(items.length, 5);
-      const selectedVideo = items[videoIndex];
+      // Fallback: choose first non-excluded from raw items
+      const excludeSet2 = new Set(excludeIds.filter(Boolean));
+      const firstNonExcluded = items.find((it: any) => it?.id?.videoId && !excludeSet2.has(it.id.videoId));
+      const selectedVideo = firstNonExcluded || items[(day - 1) % Math.min(items.length, 5)];
       if (!selectedVideo) return null as any;
       const result = {
         id: selectedVideo.id?.videoId as string,
@@ -932,7 +935,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string) {
         searchQuery: finalQuery,
         day: day
       };
-      console.log(`✅ Day ${day} video (fallback) selected: ${result.title}`);
+      console.log(`✅ Day ${day} video (fallback, dedup) selected: ${result.title}`);
       return result;
     }
 
@@ -1093,7 +1096,8 @@ app.post('/api/generate-plan', async (req, res) => {
     }
     
     const title = d1.title.trim();
-    let video = await getYouTubeVideo(hobby, dayNum, title);
+    const excludeIds1: string[] = [];
+    let video = await getYouTubeVideo(hobby, dayNum, title, excludeIds1);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNum, title);
     // Validate that we have real AI-generated content
     if (!d1.mainTask && !d1.goal && !d1.objective) {
@@ -1250,7 +1254,8 @@ app.post('/api/generate-day', async (req, res) => {
 
     // Normalize into Day structure expected by frontend
     const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
-    let video = await getYouTubeVideo(hobby, dayNumber, title);
+    const usedIds = Array.isArray(priorDays) ? priorDays.map((d: any) => d?.youtubeVideoId).filter(Boolean) : [];
+    let video = await getYouTubeVideo(hobby, dayNumber, title, usedIds);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
 
     // Derive helpful extras for UI completeness and uniqueness
