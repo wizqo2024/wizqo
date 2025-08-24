@@ -225,7 +225,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const moderation = isUnsafeQuery(message);
       if (moderation.unsafe) {
         return res.json({
-          reply: "I can't assist with adult, illegal, violent, or harmful topics. Please ask hobby-related learning questions (e.g., practice tips, techniques, resources)."
+          reply: "Let’s keep it safe and hobby‑focused. Try a learning topic (e.g., guitar basics, yoga stretching, photography tips)."
         });
       }
 
