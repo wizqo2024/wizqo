@@ -1084,6 +1084,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     addUserMessage(userInput);
     setCurrentInput('');
     if (currentStep === 'hobby') {
+      // Guard: avoid guessing for ultra-short inputs
+      if (userInput.length < 3) {
+        addAIMessage("Hi! Which hobby would you like to learn? For example: guitar, cooking, yoga, photography, or drawing.");
+        return;
+      }
       // First try OpenRouter API validation
       let validation;
       try {
@@ -1106,9 +1111,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               suggestions: [apiResult.suggestion || userInput]
             };
           } else {
-            // API validation failed, fall back to local validation
-            console.log(`❌ OpenRouter API validation failed, falling back to local validation`);
-            validation = await validateAndProcessHobby(userInput);
+            // API says invalid -> do NOT guess; ask for clarification instead
+            addAIMessage("I didn't catch a specific hobby there. Please type a clear hobby you want to learn (e.g., guitar, cooking, yoga).");
+            return;
           }
         } else {
           // API call failed, fall back to local validation
