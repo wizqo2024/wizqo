@@ -63,9 +63,13 @@ export function SmartHobbyInput({ onHobbyValidated, popularHobbies }: SmartHobby
     setInput(value);
     setShowSuggestions(false);
     
-    // Debounced validation
+    // Debounced validation with min length guard to avoid silly guesses
     const timeoutId = setTimeout(() => {
-      validateHobby(value);
+      if (value.trim().length >= 3) {
+        validateHobby(value);
+      } else {
+        setValidation(null);
+      }
     }, 500);
 
     return () => clearTimeout(timeoutId);

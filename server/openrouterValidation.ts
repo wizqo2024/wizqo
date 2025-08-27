@@ -31,6 +31,16 @@ export class OpenRouterHobbyValidator {
   async validateHobby(userInput: string): Promise<ValidationResponse> {
     const cacheKey = userInput.toLowerCase().trim();
     
+    // Treat ultra-short inputs and greetings as unknown, don't guess a hobby
+    const shortOrGreeting = /^(hi|hello|hey|yo|hola|\s*)$/i;
+    if (!cacheKey || cacheKey.length < 3 || shortOrGreeting.test(userInput.trim())) {
+      return {
+        isValid: false,
+        suggestions: ['guitar', 'cooking', 'yoga', 'photography', 'drawing', 'coding'],
+        reasoning: 'I detected a greeting or very short input. Please type a specific hobby you want to learn (e.g., guitar, cooking, yoga).'
+      };
+    }
+
     // SAFETY CHECK FIRST - Check for dangerous/harmful hobby inputs
     const dangerousHobbyResult = this.checkDangerousHobby(cacheKey);
     if (dangerousHobbyResult) {
@@ -59,7 +69,7 @@ export class OpenRouterHobbyValidator {
     try {
       console.log(`🔍 OpenRouter: Validating hobby input:`, userInput);
 
-      const prompt = `You are a hobby and activity expert. Analyze this user input and determine if it's a valid hobby or activity that someone can learn in 7 days.
+      const prompt = `You are a deterministic hobby intent validator. Analyze the user input and determine if it clearly names a valid hobby/activity someone can learn in 7 days. Do not guess a hobby from vague input.
 
 SAFETY FIRST: Immediately reject any input related to violence, weapons, explosives, illegal activities, drugs, harm to others or self, sexual content, adult entertainment, or any dangerous/harmful/inappropriate content. Only approve safe, positive learning activities.
 
@@ -72,6 +82,10 @@ Respond with JSON only:
   "suggestions": ["array of 3 similar valid hobbies if input is invalid"],
   "reasoning": "brief explanation"
 }
+
+Rules:
+- Be strict. If the input is a greeting (e.g., "hi", "hello") or too vague, set isValid=false and DO NOT infer a hobby.
+- Only mark isValid=true when the input explicitly names a hobby or a clear misspelling of one. Then include correctedHobby if applicable.
 
 Valid hobbies are safe, learnable activities like: guitar, cooking, drawing, yoga, photography, knitting, gardening, reading, writing, crafts, sports, music, etc.
 
@@ -102,7 +116,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
               content: prompt
             }
           ],
-          temperature: 0.3,
+          temperature: 0,
           max_tokens: 300
         })
       });
