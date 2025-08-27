@@ -54,6 +54,19 @@ export class OpenRouterHobbyValidator {
       console.log(`🚫 Complex hobby detected: ${userInput}`);
       return complexHobbyResult;
     }
+
+    // Local fuzzy correction for common misspellings BEFORE calling API
+    const fuzzy = this.tryFuzzyKnownHobby(cacheKey);
+    if (fuzzy) {
+      // If fuzzy maps to a complex hobby, treat as complex
+      const complex = this.checkComplexHobby(fuzzy);
+      if (complex) return complex;
+      return {
+        isValid: true,
+        correctedHobby: fuzzy,
+        reasoning: 'Corrected likely misspelling of a known hobby'
+      };
+    }
     
     // Check cache first for consistency
     const cached = this.validationCache.get(cacheKey);
@@ -159,6 +172,32 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       console.error('OpenRouter validation error:', error);
       return this.fallbackValidation(userInput);
     }
+  }
+
+  // Try to correct to a known hobby using simple similarity
+  private tryFuzzyKnownHobby(input: string): string | null {
+    const validHobbies = [
+      'guitar', 'piano', 'violin', 'drums', 'singing',
+      'cooking', 'baking', 'grilling', 'meal prep',
+      'drawing', 'painting', 'sketching', 'watercolor', 'digital art',
+      'photography', 'videography', 'photo editing',
+      'yoga', 'pilates', 'meditation', 'stretching',
+      'gardening', 'plant care', 'hydroponics',
+      'knitting', 'crocheting', 'sewing', 'embroidery',
+      'reading', 'writing', 'journaling', 'poetry',
+      'dance', 'salsa', 'ballet', 'hip hop',
+      'coding', 'programming', 'web design',
+      'woodworking', 'pottery', 'jewelry making',
+      'origami', 'calligraphy', 'lettering',
+      'fitness', 'running', 'cycling', 'swimming',
+      'robotics'
+    ];
+    let best: { hobby: string; score: number } | null = null;
+    for (const h of validHobbies) {
+      const score = this.calculateSimilarity(input, h);
+      if (score > 0.78 && (!best || score > best.score)) best = { hobby: h, score };
+    }
+    return best ? best.hobby : null;
   }
 
   private checkDangerousHobby(input: string): ValidationResponse | null {
