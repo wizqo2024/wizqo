@@ -10,15 +10,6 @@
       }
     },
     {
-      "source": "/cookies",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    },
-    {
       "src": "server/index.ts",
       "use": "@vercel/node@3.0.0",
       "config": {
@@ -93,6 +84,15 @@
     },
     {
       "source": "/contact",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "index, follow"
+        }
+      ]
+    },
+    {
+      "source": "/cookies",
       "headers": [
         {
           "key": "X-Robots-Tag",
