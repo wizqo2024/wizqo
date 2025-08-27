@@ -12,6 +12,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 
@@ -376,6 +377,17 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/terms"
                   />
                   <TermsPage />
+                </>
+              );
+            case 'cookies':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Cookie Policy - How Wizqo Uses Cookies | Transparent Data Practice"
+                    description="Understand how Wizqo uses cookies to enhance your learning experience. Comprehensive cookie policy covering types, purposes, and your control options."
+                    canonicalUrl="https://wizqo.com/cookies"
+                  />
+                  <CookiesPage />
                 </>
               );
             case 'reset-password':
