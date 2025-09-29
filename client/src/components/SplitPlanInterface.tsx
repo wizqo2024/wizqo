@@ -150,6 +150,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [isTyping, setIsTyping] = useState(false);
   useEffect(() => { setIsTyping(false); }, []);
   const [isGenerating, setIsGenerating] = useState(false);
+  // Loading progress (plan-level): 0-100%, time-based while generating
+  const [planProgressPercent, setPlanProgressPercent] = useState<number>(0);
   const [answeredSteps, setAnsweredSteps] = useState<Set<'hobby' | 'experience' | 'time' | 'goal'>>(() => new Set());
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>(() => {
@@ -237,6 +239,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const progressLoadedRef = useRef(false);
+  // Timer refs for staged progress
+  const planProgressTimerRef = useRef<number | null>(null);
+  const dayProgressTimerRef = useRef<number | null>(null);
   const { savePlan, saving } = usePlanStorage();
   const { user } = useAuth();
   useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
@@ -948,6 +953,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
     setCurrentStep('generating');
     setIsGenerating(true);
+    // Start staged progress to 85% while awaiting server
+    try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
+    setPlanProgressPercent(0);
+    planProgressTimerRef.current = window.setInterval(() => {
+      setPlanProgressPercent(prev => {
+        const next = prev < 85 ? Math.min(85, prev + 2) : prev;
+        return next;
+      });
+    }, 300);
     try {
       const plan = await onGeneratePlan(randomHobby, surpriseAnswers).catch((e: any) => {
         const msg = String(e?.message || e);
@@ -977,7 +991,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     } catch (error) {
       addAIMessage("I had trouble generating your plan. Let me try a different approach!", undefined, 500);
     } finally {
-      setIsGenerating(false);
+      // Smoothly finish progress to 100%
+      try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
+      setPlanProgressPercent(100);
+      setTimeout(() => setIsGenerating(false), 200);
     }
   };
 
@@ -1028,6 +1045,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       setAnsweredSteps(prev => new Set(prev).add('goal'));
       setCurrentStep('generating');
       setIsGenerating(true);
+      // Start staged progress to 85% while awaiting server
+      try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
+      setPlanProgressPercent(0);
+      planProgressTimerRef.current = window.setInterval(() => {
+        setPlanProgressPercent(prev => {
+          const next = prev < 85 ? Math.min(85, prev + 2) : prev;
+          return next;
+        });
+      }, 300);
       addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
       try {
         // Duplicate check
@@ -1073,7 +1099,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       } catch (error) {
         addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
       } finally {
-        setIsGenerating(false);
+        try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
+        setPlanProgressPercent(100);
+        setTimeout(() => setIsGenerating(false), 200);
       }
     }
   };
@@ -1807,6 +1835,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                               try {
                                 console.log('🎯 Generating content for day:', dayNum);
                                 setLoadingDay(dayNum);
+                                // Start lightweight local progress (visual only)
+                                try { if (dayProgressTimerRef.current) window.clearInterval(dayProgressTimerRef.current); } catch {}
+                                let localPercent = 0;
+                                dayProgressTimerRef.current = window.setInterval(() => {
+                                  localPercent = Math.min(95, localPercent + 5);
+                                  // percent rendered below in Loader section label
+                                }, 250);
                                 const prevDays = planData?.days || [];
                                 const body: any = {
                                   hobby: planData.hobby,
@@ -1856,8 +1891,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                     setDayGenerationError('Sign in to generate and save plans.');
                                   }
                                 }
+                                try { if (dayProgressTimerRef.current) window.clearInterval(dayProgressTimerRef.current); } catch {}
                                 setLoadingDay(null);
                               } catch (e) {
+                                try { if (dayProgressTimerRef.current) window.clearInterval(dayProgressTimerRef.current); } catch {}
                                 setLoadingDay(null);
                                 setDayGenerationError('Sign in to generate and save plans.');
                               }
@@ -2233,13 +2270,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       </div>
                     </div>
 
-                    {/* Animated progress bar */}
-                    <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-6">
-                      <div className="h-full w-2/3 bg-white/90 rounded-full animate-[loading_1.4s_ease_infinite]" style={{
-                        backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.1) 100%)',
-                        backgroundSize: '200% 100%'
-                      }} />
+                    {/* Determinate progress bar with percent */}
+                    <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-2">
+                      <div
+                        className="h-full bg-white/90 rounded-full transition-[width] duration-200"
+                        style={{ width: `${Math.max(0, Math.min(100, planProgressPercent))}%` }}
+                      />
                     </div>
+                    <div className="text-right text-xs text-white/80 mb-4">{Math.max(0, Math.min(100, Math.round(planProgressPercent)))}%</div>
 
                     {/* Steps */}
                     <div className="grid sm:grid-cols-3 gap-3">
