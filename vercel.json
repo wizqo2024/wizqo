@@ -1,28 +1,17 @@
-
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist/public"
-      }
-    },
-    {
-      "src": "server/index.ts",
-      "use": "@vercel/node@3.0.0",
-      "config": {
-        "bundle": true,
-        "includeFiles": [
-          "server/**",
-          "shared/**",
-          "server/dailyBestVideo.js"
-        ],
-        "runtime": "nodejs22.x"
-      }
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "dist/public",
+  "functions": {
+    "server/index.ts": {
+      "runtime": "nodejs22.x",
+      "includeFiles": [
+        "server/**",
+        "shared/**",
+        "server/dailyBestVideo.js"
+      ]
     }
-  ],
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/server/index.ts" },
     { "source": "/((?!assets/|api/).*)", "destination": "/index.html" }
