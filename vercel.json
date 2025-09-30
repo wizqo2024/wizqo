@@ -5,11 +5,7 @@
   "functions": {
     "server/index.ts": {
       "runtime": "nodejs22.x",
-      "includeFiles": [
-        "server/**",
-        "shared/**",
-        "server/dailyBestVideo.js"
-      ]
+      "includeFiles": "server/**"
     }
   },
   "rewrites": [
