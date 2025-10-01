@@ -1515,7 +1515,7 @@ app.post('/api/validate-hobby', async (req, res) => {
     };
 
     // Common variations and synonyms
-    const hobbyVariations = {
+  const hobbyVariations: Record<string, string> = {
       'coffee making': 'coffee',
       'coffee brewing': 'coffee',
       'canva editing': 'design',
@@ -1535,7 +1535,7 @@ app.post('/api/validate-hobby', async (req, res) => {
     };
 
     // Check for variations first
-    if (hobbyVariations[cleanHobby]) {
+    if (cleanHobby in hobbyVariations) {
       return res.json({
         isValid: true,
         suggestion: hobbyVariations[cleanHobby],
