@@ -1,7 +1,7 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
-import { getBestUniqueVideoForHobby } from './dailyBestVideo';
+import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
