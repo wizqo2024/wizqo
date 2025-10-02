@@ -1258,7 +1258,13 @@ app.post('/api/generate-day', async (req, res) => {
     let content = data?.choices?.[0]?.message?.content || '';
     content = String(content).trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
     const jsonMatch = content.match(/\{[\s\S]*\}/);
-    const cleaned = jsonMatch ? jsonMatch[0] : content;
+    let cleaned = jsonMatch ? jsonMatch[0] : content;
+    // Repair common JSON violations from models (e.g., stray unescaped single quotes inside strings)
+    // Convert patterns like `ram\'s head` (escaped for markdown) to `ram's head` then re-escape properly
+    cleaned = cleaned.replace(/\\'/g, "'");
+    // Escape any single quotes inside double-quoted strings cautiously
+    // This is a light repair and won't affect valid JSON
+    cleaned = cleaned.replace(/("[^"\\]*')([^"\\]*")/g, (m, p1, p2) => p1.replace(/'/g, "\'") + p2);
 
     // Safe JSON parsing with fallbacks
     const tryParse = (s: string) => {
@@ -1274,11 +1280,13 @@ app.post('/api/generate-day', async (req, res) => {
       if (match) parsed = tryParse(match[0]);
     }
 
-    // 3) Lightweight repair: attempt to balance braces
+    // 3) Lightweight repair: attempt to balance braces & fix common quote issues
     if (!parsed) {
       const open = (cleaned.match(/\{/g) || []).length;
       const close = (cleaned.match(/\}/g) || []).length;
-      let repaired = cleaned;
+      let repaired = cleaned
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '\t');
       if (open > close) {
         repaired = cleaned + '}'.repeat(open - close);
       } else if (close > open) {
