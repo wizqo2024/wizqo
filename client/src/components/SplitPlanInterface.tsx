@@ -675,7 +675,40 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
         }
       } else {
-        console.warn('🔧 Auto-generate day failed for hydration:', resp.statusText);
+        console.warn('🔧 Auto-generate day failed for hydration:', resp.status, resp.statusText);
+        // Create a minimal local fallback so the user can continue when AI is unavailable
+        if (resp.status === 503) {
+          const fallback = {
+            day: dayNumber,
+            title: `Day ${dayNumber} - Practice Session`,
+            mainTask: `Review and practice the concepts you learned on Day ${dayNumber - 1}.`,
+            explanation: `AI service is temporarily unavailable. This fallback keeps you moving.`,
+            howTo: [
+              `Warm up for 5 minutes`,
+              `Repeat the main exercise from Day ${dayNumber - 1}`,
+              `Reflect 2 minutes: one win, one improvement`
+            ],
+            checklist: [
+              `Practice complete`,
+              `Note one improvement`
+            ],
+            tips: [
+              `Stay consistent; small gains compound.`,
+              `Break into two short sessions if needed.`
+            ],
+            mistakesToAvoid: [
+              `Rushing; aim for quality reps.`,
+              `Skipping reflection.`
+            ],
+            freeResources: [],
+            affiliateProducts: [],
+            youtubeVideoId: null,
+            videoTitle: 'Video not available',
+            estimatedTime: '30-45 minutes',
+            skillLevel: planData.difficulty || 'beginner'
+          };
+          setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, fallback] } : prev);
+        }
       }
     } catch (e) {
       console.error('🔧 Auto-generate day exception:', e);
