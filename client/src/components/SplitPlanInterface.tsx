@@ -684,16 +684,47 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   };
 
+  // Track which days we already tried to hydrate to avoid loops
+  const attemptedHydrationDaysRef = useRef<Set<number>>(new Set());
+
+  // Fetch latest plan payload from API to hydrate missing day content
+  const fetchLatestPlanDataForPlanId = async () => {
+    try {
+      const planId = currentPlanId || sessionStorage.getItem('activePlanId') || '';
+      if (!planId) return;
+      const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
+      if (!r.ok) return;
+      const j = await r.json();
+      const payload = j?.plan_data || j?.planData || j;
+      if (payload && (payload.days?.length || 0) > (planData?.days?.length || 0)) {
+        const fixed = fixPlanDataFields(payload);
+        setPlanData(fixed);
+      }
+    } catch {}
+  };
+
   // When a completed day is selected but content is missing (after navigating from dashboard), generate it automatically
   useEffect(() => {
     if (!planData || !Array.isArray(planData.days)) return;
-    if (selectedDay > 1) {
-      const hasContent = planData.days.some((d: any) => d.day === selectedDay);
-      if (!hasContent && loadingDay !== selectedDay) {
-        generateContentForDayIfMissing(selectedDay);
+    if (selectedDay <= 1) return;
+    const hasContent = planData.days.some((d: any) => d.day === selectedDay);
+    if (hasContent) return;
+    if (loadingDay === selectedDay) return;
+    if (attemptedHydrationDaysRef.current.has(selectedDay)) return;
+    attemptedHydrationDaysRef.current.add(selectedDay);
+
+    (async () => {
+      // First, try to hydrate from backend (do not re-generate completed content)
+      await fetchLatestPlanDataForPlanId();
+      const existsNow = (planData?.days || []).some((d: any) => d.day === selectedDay);
+      if (existsNow) return;
+      // If still missing and not completed, generate on-demand
+      const status = getDayStatus(selectedDay);
+      if (status !== 'completed') {
+        await generateContentForDayIfMissing(selectedDay);
       }
-    }
-  }, [selectedDay, planData]);
+    })();
+  }, [selectedDay, planData, currentPlanId, loadingDay]);
 
   // AI-powered hobby validation function
   const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
