@@ -688,19 +688,24 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const attemptedHydrationDaysRef = useRef<Set<number>>(new Set());
 
   // Fetch latest plan payload from API to hydrate missing day content
-  const fetchLatestPlanDataForPlanId = async () => {
+  const fetchLatestPlanDataForPlanId = async (): Promise<any | null> => {
     try {
       const planId = currentPlanId || sessionStorage.getItem('activePlanId') || '';
-      if (!planId) return;
+      if (!planId) return null;
       const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
-      if (!r.ok) return;
+      if (!r.ok) return null;
       const j = await r.json();
       const payload = j?.plan_data || j?.planData || j;
-      if (payload && (payload.days?.length || 0) > (planData?.days?.length || 0)) {
+      if (payload) {
         const fixed = fixPlanDataFields(payload);
-        setPlanData(fixed);
+        // Only update if it's actually different/larger
+        if ((fixed.days?.length || 0) !== (planData?.days?.length || 0)) {
+          setPlanData(fixed);
+        }
+        return fixed;
       }
-    } catch {}
+      return null;
+    } catch { return null; }
   };
 
   // When a completed day is selected but content is missing (after navigating from dashboard), generate it automatically
@@ -714,15 +719,12 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     attemptedHydrationDaysRef.current.add(selectedDay);
 
     (async () => {
-      // First, try to hydrate from backend (do not re-generate completed content)
-      await fetchLatestPlanDataForPlanId();
-      const existsNow = (planData?.days || []).some((d: any) => d.day === selectedDay);
+      // First, try to hydrate from backend
+      const refreshed = await fetchLatestPlanDataForPlanId();
+      const existsNow = (refreshed?.days || planData?.days || []).some((d: any) => d.day === selectedDay);
       if (existsNow) return;
-      // If still missing and not completed, generate on-demand
-      const status = getDayStatus(selectedDay);
-      if (status !== 'completed') {
-        await generateContentForDayIfMissing(selectedDay);
-      }
+      // Still missing: generate on-demand (even if previously completed) so UI shows content
+      await generateContentForDayIfMissing(selectedDay);
     })();
   }, [selectedDay, planData, currentPlanId, loadingDay]);
 
