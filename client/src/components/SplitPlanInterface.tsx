@@ -741,7 +741,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     } catch { return null; }
   };
 
-  // When a completed day is selected but content is missing (after navigating from dashboard), generate it automatically
+  // When a day is selected but content is missing after hydration, snap to last available saved day (no auto-generate)
   useEffect(() => {
     if (!planData || !Array.isArray(planData.days)) return;
     if (selectedDay <= 1) return;
@@ -756,8 +756,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const refreshed = await fetchLatestPlanDataForPlanId();
       const existsNow = (refreshed?.days || planData?.days || []).some((d: any) => d.day === selectedDay);
       if (existsNow) return;
-      // Still missing: generate on-demand so UI shows content
-      await generateContentForDayIfMissing(selectedDay);
+      // Still missing: snap to the last available saved day to avoid placeholder
+      const availableDays = (refreshed?.days || planData?.days || []).map((d: any) => Number(d.day) || 0);
+      const maxAvailable = availableDays.length > 0 ? Math.max(...availableDays) : 1;
+      setSelectedDay(maxAvailable);
     })();
   }, [selectedDay, planData, currentPlanId, loadingDay]);
 
