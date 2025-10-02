@@ -542,15 +542,7 @@ export function BlogPage() {
             </div>
             
             <div className="prose prose-lg max-w-none">
-              {(() => {
-                let inlineIdx = 0;
-                const overrides = selectedPost.id === 'easy-hobbies-that-make-you-smarter'
-                  ? [
-                      'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80', // chess
-                      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80'  // journaling
-                    ]
-                  : [];
-                return selectedPost.content.split('\n').map((paragraph, index) => {
+              {selectedPost.content.split('\n').map((paragraph, index) => {
                 if (paragraph.trim() === '') return null;
                 
                 // Markdown image: ![alt](url "optional caption") — robust parser
@@ -574,9 +566,9 @@ export function BlogPage() {
                       if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
                     }
                     let finalUrl = pickFallback(url || undefined);
-                    if (overrides[inlineIdx]) {
-                      finalUrl = overrides[inlineIdx];
-                      inlineIdx++;
+                    if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
+                      if (index === 0) finalUrl = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
+                      if (index === 1) finalUrl = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
                     }
                     return (
                       <figure key={index} className="my-6">
@@ -661,7 +653,7 @@ export function BlogPage() {
                     {paragraph}
                   </p>
                 );
-              })()}
+              })}
             </div>
           </article>
         </div>
