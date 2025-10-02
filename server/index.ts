@@ -1356,17 +1356,26 @@ app.post('/api/generate-day', async (req, res) => {
     // Persist this generated day into the plan if a plan_id is provided
     try {
       const planId: string = String((req.body as any)?.plan_id || '').trim();
-      if (planId && supabaseAdmin) {
+      if (!planId) {
+        console.log('persist_day: no plan_id provided; skipping persist');
+      } else if (!supabaseAdmin) {
+        console.warn('persist_day: supabaseAdmin unavailable; skipping persist');
+      } else {
+        console.log(`persist_day: attempting persist for plan_id=${planId}, day=${dayNumber}`);
         // Read existing plan
         const existing = await supabaseAdmin
           .from('hobby_plans')
           .select('id, plan_data, total_days')
           .eq('id', planId)
           .maybeSingle();
-
-        if (!existing.error && existing.data) {
+        if (existing.error) {
+          console.error('persist_day: load existing plan failed', existing.error);
+        } else if (!existing.data) {
+          console.warn('persist_day: no plan found for id', planId);
+        } else {
           const currentPlanData: any = (existing.data as any).plan_data || {};
           const currentDays: any[] = Array.isArray(currentPlanData.days) ? currentPlanData.days : [];
+          console.log('persist_day: existing days count =', currentDays.length);
           // Replace same day if exists, else append
           const filtered = currentDays.filter((d: any) => Number(d?.day) !== dayNumber);
           const updatedDays = [...filtered, day].sort((a, b) => Number(a.day) - Number(b.day));
@@ -1381,10 +1390,16 @@ app.post('/api/generate-day', async (req, res) => {
             days: updatedDays
           };
 
-          await supabaseAdmin
+          const upd = await supabaseAdmin
             .from('hobby_plans')
             .update({ plan_data: updatedPlanData, total_days: Number(updatedPlanData.totalDays || updatedDays.length) })
-            .eq('id', planId);
+            .eq('id', planId)
+            .select('id');
+          if (upd.error) {
+            console.error('persist_day: update failed', upd.error);
+          } else {
+            console.log('persist_day: update ok; updated days count =', updatedDays.length);
+          }
         }
       }
     } catch (persistErr) {

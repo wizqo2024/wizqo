@@ -578,7 +578,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           goal: `Learn ${planData.hobby} fundamentals`,
           day_number: dayNumber,
           outline: planData.outline || [],
-          prior_days: planData.days?.filter((d: any) => d.day < dayNumber) || []
+          prior_days: planData.days?.filter((d: any) => d.day < dayNumber) || [],
+          plan_id: currentPlanId || sessionStorage.getItem('activePlanId') || ''
         })
       });
 
