@@ -23,7 +23,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   'Mental Wellness': 'https://wizqo.com/og-image.jpg',
   'Creative Arts': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80'
 };
-const GENERIC_BLOG_IMAGE = 'https://wizqo.com/og-image.jpg';
+const GENERIC_BLOG_IMAGE = 'https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80';
 
 function getPostImage(post: BlogPost): string {
   return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
@@ -456,7 +456,7 @@ export function BlogPage() {
               </h1>
               <figure className="mb-6">
                 <img 
-                  src={getPostImage(selectedPost)} 
+                  src={getPostImage(selectedPost) || GENERIC_BLOG_IMAGE} 
                   alt={selectedPost.imageAlt || selectedPost.title} 
                   className="w-full h-64 object-cover rounded-xl border border-slate-200"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
