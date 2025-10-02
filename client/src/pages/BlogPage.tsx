@@ -36,7 +36,7 @@ const blogPosts: BlogPost[] = [
     excerpt: "Discover 10 simple, science-backed hobbies that boost memory, focus, creativity, and overall brain health—no fancy gear required.",
     content: `We usually think of hobbies as “just for fun,” right? Something to do when you’re bored, stressed, or trying to escape work. But here’s the cool part: some easy hobbies can actually make you smarter.
 
-![Chess board with pieces in play](https://images.unsplash.com/photo-1518241353330-e2e0a2e9c3b0?auto=format&fit=crop&w=1600&q=80 "Strategic thinking with chess")
+![Chess board with pieces in play](https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80 "Strategic thinking with chess")
 
 No, really — science backs this up. Whether it’s playing a quick game of chess, doodling in a notebook, or learning a few new words in another language, these little activities can give your brain the workout it craves.
 
@@ -107,7 +107,7 @@ Final Thoughts — Smarter Living Can Be Fun
 
 The truth is, you don’t need expensive courses or complicated routines to boost your brain. Sometimes, the simplest hobbies — like doodling, playing chess, or reading a few pages — can give you the biggest long-term benefits.
 
-![Open journal with pen on desk](https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1600&q=80 "Journaling boosts clarity and memory")
+![Open journal with pen on desk](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80 "Journaling boosts clarity and memory")
 
 So, which one of these easy hobbies will you try first? Start small, stay consistent, and who knows — your “just for fun” activity might turn into your secret weapon for success.
 
