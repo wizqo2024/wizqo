@@ -779,11 +779,23 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const payload = j?.plan_data || j?.planData || j;
       if (payload) {
         const fixed = fixPlanDataFields(payload);
-        // Only update if it's actually different/larger
-        if ((fixed.days?.length || 0) !== (planData?.days?.length || 0)) {
-          setPlanData(fixed);
+        const currentDays = Array.isArray(planData?.days) ? planData!.days : [];
+        const serverDays = Array.isArray(fixed?.days) ? fixed.days : [];
+        // Merge by day number, prefer current/local content over server when conflict
+        const dayMap = new Map<number, any>();
+        for (const d of currentDays) { dayMap.set(Number(d?.day), d); }
+        for (const d of serverDays) { const k = Number(d?.day); if (!dayMap.has(k)) dayMap.set(k, d); }
+        const mergedDays = Array.from(dayMap.values()).sort((a: any, b: any) => Number(a.day) - Number(b.day));
+        const currentLen = currentDays.length;
+        const mergedLen = mergedDays.length;
+        if (mergedLen > currentLen) {
+          setPlanData(prev => {
+            const base = prev || {} as any;
+            return { ...base, ...fixed, days: mergedDays };
+          });
         }
-        return fixed;
+        // Return the server-fixed payload so callers can check
+        return { ...fixed, days: mergedDays };
       }
       return null;
     } catch { return null; }
