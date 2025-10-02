@@ -17,6 +17,18 @@ interface BlogPost {
   imageAlt?: string;
 }
 
+// Default cover images per category + generic fallback
+const CATEGORY_IMAGES: Record<string, string> = {
+  'Learning Tips': 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80',
+  'Mental Wellness': 'https://images.unsplash.com/photo-1519181245277-cffeb31da2a5?auto=format&fit=crop&w=1600&q=80',
+  'Creative Arts': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80'
+};
+const GENERIC_BLOG_IMAGE = 'https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80';
+
+function getPostImage(post: BlogPost): string {
+  return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
+}
+
 const blogPosts: BlogPost[] = [
   {
     id: "easy-hobbies-that-make-you-smarter",
@@ -117,7 +129,7 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     date: "October 2025",
     readTime: "6–7 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?q=80&w=1600&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Books, chess, and sketchbook on a desk representing smart hobbies"
   },
   {
@@ -436,14 +448,17 @@ export function BlogPage() {
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
                 {selectedPost.title}
               </h1>
-              {selectedPost.imageUrl && (
-                <figure className="mb-6">
-                  <img src={selectedPost.imageUrl} alt={selectedPost.imageAlt || selectedPost.title} className="w-full h-64 object-cover rounded-xl border border-slate-200" />
-                  {selectedPost.imageAlt && (
-                    <figcaption className="text-sm text-slate-500 mt-2">{selectedPost.imageAlt}</figcaption>
-                  )}
-                </figure>
-              )}
+              <figure className="mb-6">
+                <img 
+                  src={getPostImage(selectedPost)} 
+                  alt={selectedPost.imageAlt || selectedPost.title} 
+                  className="w-full h-64 object-cover rounded-xl border border-slate-200"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
+                />
+                {selectedPost.imageAlt && (
+                  <figcaption className="text-sm text-slate-500 mt-2">{selectedPost.imageAlt}</figcaption>
+                )}
+              </figure>
               <div className="flex items-center justify-between mb-6">
                 <p className="text-lg text-slate-600">By {selectedPost.author}</p>
                 <div className="flex items-center gap-2">
@@ -649,9 +664,12 @@ export function BlogPage() {
                     className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300"
                     onClick={() => setSelectedPost(post)}
                   >
-                    {post.imageUrl && (
-                      <img src={post.imageUrl} alt={post.imageAlt || post.title} className="w-full h-40 object-cover rounded-lg mb-4" />
-                    )}
+                    <img 
+                      src={getPostImage(post)} 
+                      alt={post.imageAlt || post.title} 
+                      className="w-full h-40 object-cover rounded-lg mb-4"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE; }}
+                    />
                     <div className="flex items-center justify-between mb-4">
                       <span className="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">
                         {post.category}
