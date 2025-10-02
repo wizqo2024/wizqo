@@ -719,6 +719,27 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   // Track which days we already tried to hydrate to avoid loops
   const attemptedHydrationDaysRef = useRef<Set<number>>(new Set());
+  
+  // Try merging missing day content from sessionStorage cache
+  const mergeDayFromSessionIfExists = (dayNumber: number): boolean => {
+    try {
+      const keys = ['activePlanData', 'currentPlanData', 'lastViewedPlanData'];
+      for (const k of keys) {
+        const raw = sessionStorage.getItem(k) || localStorage.getItem(k);
+        if (!raw) continue;
+        let cached: any = null;
+        try { cached = JSON.parse(raw); } catch {}
+        if (!cached) continue;
+        const payload = cached?.plan_data?.days ? cached.plan_data : (cached?.days ? cached : null);
+        const found = payload?.days?.find((d: any) => Number(d?.day) === Number(dayNumber));
+        if (found) {
+          setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days.filter((d: any) => d.day !== dayNumber), found] } : prev);
+          return true;
+        }
+      }
+    } catch {}
+    return false;
+  };
 
   // Fetch latest plan payload from API to hydrate missing day content
   const fetchLatestPlanDataForPlanId = async (): Promise<any | null> => {
@@ -752,6 +773,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     attemptedHydrationDaysRef.current.add(selectedDay);
 
     (async () => {
+      // First, try session cache merge (avoids re-generation if user had content locally)
+      const merged = mergeDayFromSessionIfExists(selectedDay);
+      if (merged) return;
       // First, try to hydrate from backend
       const refreshed = await fetchLatestPlanDataForPlanId();
       const existsNow = (refreshed?.days || planData?.days || []).some((d: any) => d.day === selectedDay);
