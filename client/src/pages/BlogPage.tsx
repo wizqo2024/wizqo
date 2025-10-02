@@ -510,6 +510,7 @@ export function BlogPage() {
                   {selectedPost.content.split('\n')
                     .filter(paragraph => 
                       paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') || 
+                      paragraph.includes('Why Easy Hobbies Are Brain Boosters') || paragraph.includes('10 Easy Hobbies') || paragraph.includes('How to Pick the Right Hobby for You') || paragraph.includes('Final Thoughts') || paragraph.includes('FAQs About Easy Hobbies') ||
                       paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') || 
                       paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') || 
                       paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
@@ -548,7 +549,7 @@ export function BlogPage() {
                 return lines.map((paragraph, index) => {
                   if (paragraph.trim() === '') return null;
 
-                  // Markdown image: ![alt](url "optional caption") — robust parser
+                // Markdown image: ![alt](url "optional caption") — robust parser
                   {
                     const raw = paragraph.trim();
                     const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
@@ -569,10 +570,21 @@ export function BlogPage() {
                         if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
                       }
                       let finalUrl = pickFallback(url || undefined);
+                      // Per-post overrides to ensure two distinct images
                       if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
-                        if (imageIdx === 0) finalUrl = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
-                        if (imageIdx === 1) finalUrl = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
+                        const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
+                        const overrideB = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
+                        if (imageIdx === 0) finalUrl = overrideA;
+                        if (imageIdx === 1) finalUrl = overrideB;
+                        // Avoid duplication with cover/previous by preferring a non-used candidate
+                        if (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl)) {
+                          const candidates = [overrideA, overrideB, CATEGORY_IMAGES[selectedPost.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
+                          for (const c of candidates) {
+                            if (!usedImageUrls.has(c)) { finalUrl = c; break; }
+                          }
+                        }
                       }
+                      if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                       imageIdx++;
                       return (
                         <figure key={index} className="my-6">
