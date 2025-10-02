@@ -585,51 +585,52 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       if (response.ok) {
         const dayData = await response.json();
-        
-        // Update the plan data with the new day content
-        setPlanData(prev => {
-          if (!prev) return prev;
-          
-          const updatedDays = [...(prev.days || [])];
-          const existingDayIndex = updatedDays.findIndex((d: any) => d.day === dayNumber);
-          
-          if (existingDayIndex >= 0) {
-            // Update existing day with video data
-            updatedDays[existingDayIndex] = {
-              ...updatedDays[existingDayIndex],
-              youtubeVideoId: dayData.day.youtubeVideoId,
-              videoTitle: dayData.day.videoTitle,
-              // Keep other existing data
-              title: updatedDays[existingDayIndex].title || dayData.day.title,
-              mainTask: updatedDays[existingDayIndex].mainTask || dayData.day.mainTask,
-              howTo: updatedDays[existingDayIndex].howTo || dayData.day.howTo,
-              checklist: updatedDays[existingDayIndex].checklist || dayData.day.checklist,
-              tips: updatedDays[existingDayIndex].tips || dayData.day.tips,
-              mistakesToAvoid: updatedDays[existingDayIndex].mistakesToAvoid || dayData.day.mistakesToAvoid
-            };
-          } else {
-            // Add new day data
-            updatedDays.push({
-              day: dayNumber,
-              title: dayData.day.title,
-              mainTask: dayData.day.mainTask,
-              explanation: dayData.day.explanation,
-              howTo: dayData.day.howTo,
-              checklist: dayData.day.checklist,
-              tips: dayData.day.tips,
-              mistakesToAvoid: dayData.day.mistakesToAvoid,
-              freeResources: dayData.day.freeResources || [],
-              affiliateProducts: dayData.day.affiliateProducts || [],
-              youtubeVideoId: dayData.day.youtubeVideoId,
-              videoTitle: dayData.day.videoTitle,
-              estimatedTime: dayData.day.estimatedTime,
-              skillLevel: dayData.day.skillLevel
-            });
+
+        // Merge locally
+        const mergedDays = (() => {
+          const baseDays = Array.isArray(planData?.days) ? planData.days : [];
+          const others = baseDays.filter((d: any) => Number(d?.day) !== dayNumber);
+          const next = {
+            day: dayNumber,
+            title: dayData.day.title,
+            mainTask: dayData.day.mainTask,
+            explanation: dayData.day.explanation,
+            howTo: dayData.day.howTo,
+            checklist: dayData.day.checklist,
+            tips: dayData.day.tips,
+            mistakesToAvoid: dayData.day.mistakesToAvoid,
+            freeResources: dayData.day.freeResources || [],
+            affiliateProducts: dayData.day.affiliateProducts || [],
+            youtubeVideoId: dayData.day.youtubeVideoId,
+            videoTitle: dayData.day.videoTitle,
+            estimatedTime: dayData.day.estimatedTime,
+            skillLevel: dayData.day.skillLevel
+          };
+          return [...others, next].sort((a: any, b: any) => Number(a.day) - Number(b.day));
+        })();
+
+        setPlanData(prev => prev ? { ...prev, days: mergedDays } : prev);
+
+        // Persist to DB as fallback (in case server-side persist skipped)
+        try {
+          if (currentPlanId) {
+            const payload = {
+              hobby: planData?.hobby,
+              title: planData?.title,
+              overview: planData?.overview,
+              difficulty: planData?.difficulty,
+              totalDays: Number((planData as any)?.totalDays || 7),
+              outline: Array.isArray((planData as any)?.outline) ? (planData as any).outline : [],
+              days: mergedDays
+            } as any;
+            const up = await supabase.from('hobby_plans').update({ plan_data: payload, total_days: Number(payload.totalDays || mergedDays.length) }).eq('id', currentPlanId);
+            if (up.error) console.warn('⚠️ Client persist of day failed:', up.error.message);
+            else console.log('💾 Client persist of day ok; days =', mergedDays.length);
           }
-          
-          return { ...prev, days: updatedDays };
-        });
-        
+        } catch (persistErr) {
+          console.warn('⚠️ Client persist exception:', persistErr);
+        }
+
         console.log(`✅ Video generated for Day ${dayNumber}:`, dayData.day.youtubeVideoId);
       } else {
         console.error(`❌ Failed to generate video for Day ${dayNumber}:`, response.status);
@@ -674,7 +675,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       if (resp.ok) {
         const j = await resp.json();
         if (j?.day) {
-          setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+          const mergedDays = (() => {
+            const baseDays = Array.isArray(planData?.days) ? planData.days : [];
+            const others = baseDays.filter((d: any) => Number(d?.day) !== dayNumber);
+            return [...others, j.day].sort((a: any, b: any) => Number(a.day) - Number(b.day));
+          })();
+          setPlanData((prev: any) => prev ? { ...prev, days: mergedDays } : prev);
+          // Persist to DB as fallback
+          try {
+            if (currentPlanId) {
+              const payload = {
+                hobby: planData?.hobby,
+                title: planData?.title,
+                overview: planData?.overview,
+                difficulty: planData?.difficulty,
+                totalDays: Number((planData as any)?.totalDays || 7),
+                outline: Array.isArray((planData as any)?.outline) ? (planData as any).outline : [],
+                days: mergedDays
+              } as any;
+              const up = await supabase.from('hobby_plans').update({ plan_data: payload, total_days: Number(payload.totalDays || mergedDays.length) }).eq('id', currentPlanId);
+              if (up.error) console.warn('⚠️ Client persist of day (hydrate path) failed:', up.error.message);
+              else console.log('💾 Client persist of day (hydrate path) ok; days =', mergedDays.length);
+            }
+          } catch (err) {
+            console.warn('⚠️ Client persist exception (hydrate path):', err);
+          }
         }
       } else {
         console.warn('🔧 Auto-generate day failed for hydration:', resp.status, resp.statusText);
@@ -2029,7 +2054,31 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   console.log('🎯 Day generation response:', j);
                                   if (j?.day) {
                                     console.log('🎯 Adding generated day to plan data');
-                                    setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+                                    const mergedDays = (() => {
+                                      const baseDays = Array.isArray(planData?.days) ? planData.days : [];
+                                      const others = baseDays.filter((d: any) => Number(d?.day) !== dayNum);
+                                      return [...others, j.day].sort((a: any, b: any) => Number(a.day) - Number(b.day));
+                                    })();
+                                    setPlanData((prev: any) => prev ? { ...prev, days: mergedDays } : prev);
+                                    // Persist to DB as fallback
+                                    try {
+                                      if (currentPlanId) {
+                                        const payload = {
+                                          hobby: planData?.hobby,
+                                          title: planData?.title,
+                                          overview: planData?.overview,
+                                          difficulty: planData?.difficulty,
+                                          totalDays: Number((planData as any)?.totalDays || 7),
+                                          outline: Array.isArray((planData as any)?.outline) ? (planData as any).outline : [],
+                                          days: mergedDays
+                                        } as any;
+                                        const up = await supabase.from('hobby_plans').update({ plan_data: payload, total_days: Number(payload.totalDays || mergedDays.length) }).eq('id', currentPlanId);
+                                        if (up.error) console.warn('⚠️ Client persist of day (button path) failed:', up.error.message);
+                                        else console.log('💾 Client persist of day (button path) ok; days =', mergedDays.length);
+                                      }
+                                    } catch (err) {
+                                      console.warn('⚠️ Client persist exception (button path):', err);
+                                    }
                                   } else {
                                     console.log('🎯 No day data in response');
                                   }
