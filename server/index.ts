@@ -1353,6 +1353,44 @@ app.post('/api/generate-day', async (req, res) => {
       skillLevel: experience
     };
 
+    // Persist this generated day into the plan if a plan_id is provided
+    try {
+      const planId: string = String((req.body as any)?.plan_id || '').trim();
+      if (planId && supabaseAdmin) {
+        // Read existing plan
+        const existing = await supabaseAdmin
+          .from('hobby_plans')
+          .select('id, plan_data, total_days')
+          .eq('id', planId)
+          .maybeSingle();
+
+        if (!existing.error && existing.data) {
+          const currentPlanData: any = (existing.data as any).plan_data || {};
+          const currentDays: any[] = Array.isArray(currentPlanData.days) ? currentPlanData.days : [];
+          // Replace same day if exists, else append
+          const filtered = currentDays.filter((d: any) => Number(d?.day) !== dayNumber);
+          const updatedDays = [...filtered, day].sort((a, b) => Number(a.day) - Number(b.day));
+
+          const updatedPlanData = {
+            ...currentPlanData,
+            hobby: currentPlanData.hobby || hobby,
+            title: currentPlanData.title || (goal ? `Master ${hobby} in 7 Days` : `Learn ${hobby}`),
+            overview: currentPlanData.overview || goal,
+            totalDays: Number(currentPlanData.totalDays || 7),
+            outline: Array.isArray(currentPlanData.outline) ? currentPlanData.outline : outline,
+            days: updatedDays
+          };
+
+          await supabaseAdmin
+            .from('hobby_plans')
+            .update({ plan_data: updatedPlanData, total_days: Number(updatedPlanData.totalDays || updatedDays.length) })
+            .eq('id', planId);
+        }
+      }
+    } catch (persistErr) {
+      console.error('persist_generated_day_failed', persistErr);
+    }
+
     res.json({ day });
   } catch (e: any) {
     console.error('generate-day error:', e);
