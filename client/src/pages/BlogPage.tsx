@@ -407,6 +407,8 @@ export function BlogPage() {
   };
 
   if (selectedPost) {
+    const coverUrl = getPostImage(selectedPost) || GENERIC_BLOG_IMAGE;
+    const usedImageUrls = new Set<string>([coverUrl]);
     return (
       <div className="min-h-screen bg-slate-50">
         <SEOMetaTags 
@@ -456,7 +458,7 @@ export function BlogPage() {
               </h1>
               <figure className="mb-6">
                 <img 
-                  src={getPostImage(selectedPost) || GENERIC_BLOG_IMAGE} 
+                  src={coverUrl} 
                   alt={selectedPost.imageAlt || selectedPost.title} 
                   className="w-full h-64 object-cover rounded-xl border border-slate-200"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
@@ -552,10 +554,17 @@ export function BlogPage() {
                       if (altMatch) alt = altMatch[1] || alt;
                       if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
                     }
+                    let finalUrl = url || GENERIC_BLOG_IMAGE;
+                    if (usedImageUrls.has(finalUrl)) {
+                      const catUrl = CATEGORY_IMAGES[selectedPost.category];
+                      if (catUrl && !usedImageUrls.has(catUrl)) finalUrl = catUrl;
+                      else if (!usedImageUrls.has(GENERIC_BLOG_IMAGE)) finalUrl = GENERIC_BLOG_IMAGE;
+                    }
+                    usedImageUrls.add(finalUrl);
                     return (
                       <figure key={index} className="my-6">
                         <img 
-                          src={url || GENERIC_BLOG_IMAGE} 
+                          src={finalUrl} 
                           alt={alt} 
                           loading="lazy"
                           className="w-full h-64 object-cover rounded-xl border border-slate-200"
