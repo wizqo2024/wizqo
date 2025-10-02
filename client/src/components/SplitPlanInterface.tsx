@@ -2038,10 +2038,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                           {dayGenerationError}
                         </div>
                       )}
-                      {loadingDay === selectedDay ? (
+                      {loadingDay === selectedDay || attemptedHydrationDaysRef.current.has(selectedDay) ? (
                         <div className="flex flex-col items-center space-y-3">
                           <div style={{ transform: 'scale(0.6)' }}><Loader /></div>
-                          <p className="text-gray-700 font-medium">Generating Day {selectedDay}...</p>
+                          <p className="text-gray-700 font-medium">Loading Day {selectedDay} content…</p>
                         </div>
                       ) : (
                         <>
