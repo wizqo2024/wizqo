@@ -609,13 +609,18 @@ export function BlogPage() {
                   }
 
                   // Check if it's a heading
-                  if (paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') || 
-                      paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') || 
-                      paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') || 
-                      paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
-                      paragraph.includes('Common Mistakes') || paragraph.includes('FREE 7-Day') || paragraph.includes('Just Start!') || 
-                      paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') || 
-                      paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')) {
+                  if (
+                    paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') ||
+                    // Easy Hobbies article headings
+                    paragraph.includes('Why Easy Hobbies Are Brain Boosters') || paragraph.includes('10 Easy Hobbies') || paragraph.includes('How to Pick the Right Hobby for You') || paragraph.includes('Final Thoughts') || paragraph.includes('FAQs About Easy Hobbies') ||
+                    // Other posts
+                    paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') ||
+                    paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') ||
+                    paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
+                    paragraph.includes('Common Mistakes') || paragraph.includes('FREE 7-Day') || paragraph.includes('Just Start!') ||
+                    paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') ||
+                    paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')
+                  ) {
                     const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     return (
                       <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
