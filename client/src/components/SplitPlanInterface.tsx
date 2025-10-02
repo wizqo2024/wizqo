@@ -653,7 +653,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
         day_number: dayNumber,
         outline: (planData as any).outline || [],
-        prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+        prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo })),
+        plan_id: currentPlanId || sessionStorage.getItem('activePlanId') || ''
       };
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.access_token) {
@@ -1999,7 +2000,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                   goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
                                   day_number: dayNum,
                                   outline: (planData as any).outline || [],
-                                  prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+                                  prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo })),
+                                  plan_id: currentPlanId || sessionStorage.getItem('activePlanId') || ''
                                 };
                                 console.log('🎯 Sending day generation request:', body);
                                 
