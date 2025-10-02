@@ -542,120 +542,149 @@ export function BlogPage() {
             </div>
             
             <div className="prose prose-lg max-w-none">
-              {selectedPost.content.split('\n').map((paragraph, index) => {
-                if (paragraph.trim() === '') return null;
-                
-                // Markdown image: ![alt](url "optional caption") — robust parser
-                {
-                  const raw = paragraph.trim();
-                  const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
-                  const mdLoose = /^!\[.*?\]\(.*\)$/.test(raw);
-                  if (mdStrict || mdLoose) {
-                    let alt = selectedPost.title;
-                    let url = '';
-                    let caption = '';
-                    if (mdStrict) {
-                      alt = mdStrict[1] || alt;
-                      url = mdStrict[2] || '';
-                      caption = mdStrict[3] || '';
-                    } else {
-                      // Loose fallback: extract between parentheses and between brackets
-                      const altMatch = raw.match(/^!\[(.*?)\]/);
-                      const urlMatch = raw.match(/\((.*?)\)/);
-                      if (altMatch) alt = altMatch[1] || alt;
-                      if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
+              {(() => {
+                const lines = selectedPost.content.split('\n');
+                let imageIdx = 0;
+                return lines.map((paragraph, index) => {
+                  if (paragraph.trim() === '') return null;
+
+                  // Markdown image: ![alt](url "optional caption") — robust parser
+                  {
+                    const raw = paragraph.trim();
+                    const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
+                    const mdLoose = /^!\[.*?\]\(.*\)$/.test(raw);
+                    if (mdStrict || mdLoose) {
+                      let alt = selectedPost.title;
+                      let url = '';
+                      let caption = '';
+                      if (mdStrict) {
+                        alt = mdStrict[1] || alt;
+                        url = mdStrict[2] || '';
+                        caption = mdStrict[3] || '';
+                      } else {
+                        // Loose fallback: extract between parentheses and between brackets
+                        const altMatch = raw.match(/^!\[(.*?)\]/);
+                        const urlMatch = raw.match(/\((.*?)\)/);
+                        if (altMatch) alt = altMatch[1] || alt;
+                        if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
+                      }
+                      let finalUrl = pickFallback(url || undefined);
+                      if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
+                        if (imageIdx === 0) finalUrl = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
+                        if (imageIdx === 1) finalUrl = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
+                      }
+                      imageIdx++;
+                      return (
+                        <figure key={index} className="my-6">
+                          <img 
+                            src={finalUrl} 
+                            alt={alt} 
+                            loading="lazy"
+                            className="w-full h-64 object-cover rounded-xl border border-slate-200"
+                            onError={(e) => {
+                              const img = (e.currentTarget as HTMLImageElement);
+                              const current = img.src;
+                              const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
+                              if (current !== next) img.src = next;
+                            }}
+                          />
+                          {caption && (
+                            <figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>
+                          )}
+                        </figure>
+                      );
                     }
-                    let finalUrl = pickFallback(url || undefined);
-                    if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
-                      if (index === 0) finalUrl = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
-                      if (index === 1) finalUrl = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
-                    }
+                  }
+
+                  // Check if it's a heading
+                  if (paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') || 
+                      paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') || 
+                      paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') || 
+                      paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
+                      paragraph.includes('Common Mistakes') || paragraph.includes('FREE 7-Day') || paragraph.includes('Just Start!') || 
+                      paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') || 
+                      paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')) {
+                    const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     return (
-                      <figure key={index} className="my-6">
-                        <img 
-                          src={finalUrl} 
-                          alt={alt} 
-                          loading="lazy"
-                          className="w-full h-64 object-cover rounded-xl border border-slate-200"
-                          onError={(e) => {
-                            const img = (e.currentTarget as HTMLImageElement);
-                            const current = img.src;
-                            const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
-                            if (current !== next) img.src = next;
-                          }}
-                        />
-                        {caption && (
-                          <figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>
-                        )}
-                      </figure>
+                      <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
+                        {paragraph}
+                      </h2>
                     );
                   }
-                }
-
-                // Check if it's a heading
-                if (paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') || 
-                    paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') || 
-                    paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') || 
-                    paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
-                    paragraph.includes('Common Mistakes') || paragraph.includes('FREE 7-Day') || paragraph.includes('Just Start!') || 
-                    paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') || 
-                    paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')) {
-                  const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                  
+                  // Check if it's a numbered item (1., 2., etc.)
+                  if (/^\d+\./.test(paragraph.trim())) {
+                    return (
+                      <div key={index} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
+                        <h3 className="font-bold text-purple-900 mb-2">{paragraph.split('\n')[0]}</h3>
+                        {paragraph.split('\n').slice(1).map((line, lineIndex) => (
+                          <p key={lineIndex} className="text-slate-700 leading-relaxed">{line}</p>
+                        ))}
+                      </div>
+                    );
+                  }
+                  
+                  // Check if it's a bullet point
+                  if (paragraph.startsWith('•')) {
+                    return (
+                      <div key={index} className="flex items-start mb-3">
+                        <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
+                        <p className="text-slate-700 leading-relaxed flex-1">{paragraph.slice(1).trim()}</p>
+                      </div>
+                    );
+                  }
+                  
+                  // Check if it's a call-to-action paragraph
+                  if (paragraph.includes('Ready to') || paragraph.includes('Stop waiting') || paragraph.includes('Let AI do') || paragraph.includes('Don\'t wait')) {
+                    return (
+                      <div key={index} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
+                        <p className="text-lg font-semibold text-slate-900 mb-4">{paragraph}</p>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.location.href = '/generate';
+                          }}
+                          className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+                        >
+                          Generate My Plan
+                        </button>
+                      </div>
+                    );
+                  }
+                  
                   return (
-                    <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
+                    <p key={index} className="mb-4 text-slate-700 leading-relaxed text-lg">
                       {paragraph}
-                    </h2>
+                    </p>
                   );
-                }
-                
-                // Check if it's a numbered item (1., 2., etc.)
-                if (/^\d+\./.test(paragraph.trim())) {
-                  return (
-                    <div key={index} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
-                      <h3 className="font-bold text-purple-900 mb-2">{paragraph.split('\n')[0]}</h3>
-                      {paragraph.split('\n').slice(1).map((line, lineIndex) => (
-                        <p key={lineIndex} className="text-slate-700 leading-relaxed">{line}</p>
-                      ))}
-                    </div>
-                  );
-                }
-                
-                // Check if it's a bullet point
-                if (paragraph.startsWith('•')) {
-                  return (
-                    <div key={index} className="flex items-start mb-3">
-                      <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
-                      <p className="text-slate-700 leading-relaxed flex-1">{paragraph.slice(1).trim()}</p>
-                    </div>
-                  );
-                }
-                
-                // Check if it's a call-to-action paragraph
-                if (paragraph.includes('Ready to') || paragraph.includes('Stop waiting') || paragraph.includes('Let AI do') || paragraph.includes('Don\'t wait')) {
-                  return (
-                    <div key={index} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
-                      <p className="text-lg font-semibold text-slate-900 mb-4">{paragraph}</p>
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.location.href = '/generate';
-                        }}
-                        className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
-                      >
-                        Generate My Plan
-                      </button>
-                    </div>
-                  );
-                }
-                
-                return (
-                  <p key={index} className="mb-4 text-slate-700 leading-relaxed text-lg">
-                    {paragraph}
-                  </p>
-                );
-              })}
+                });
+              })()}
             </div>
           </article>
+
+          {/* Related Articles */}
+          <aside className="mt-12">
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Keep Reading</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              {blogPosts
+                .filter(p => p.id !== selectedPost.id)
+                .slice(0, 2)
+                .map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => setSelectedPost(p)}
+                    className="text-left bg-white rounded-xl p-4 border border-slate-200 hover:border-purple-300 shadow-sm hover:shadow transition-all"
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">{p.category}</span>
+                      <span className="text-xs text-slate-500">{p.readTime}</span>
+                    </div>
+                    <div className="font-semibold text-slate-900 line-clamp-2">{p.title}</div>
+                    <div className="text-sm text-slate-600 line-clamp-2 mt-1">{p.excerpt}</div>
+                  </button>
+              ))}
+            </div>
+          </aside>
         </div>
 
         <Footer />
