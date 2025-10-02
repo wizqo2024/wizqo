@@ -20,10 +20,10 @@ interface BlogPost {
 // Default cover images per category + generic fallback
 const CATEGORY_IMAGES: Record<string, string> = {
   'Learning Tips': 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80',
-  'Mental Wellness': 'https://images.unsplash.com/photo-1519181245277-cffeb31da2a5?auto=format&fit=crop&w=1600&q=80',
+  'Mental Wellness': 'https://wizqo.com/og-image.jpg',
   'Creative Arts': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80'
 };
-const GENERIC_BLOG_IMAGE = 'https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80';
+const GENERIC_BLOG_IMAGE = 'https://wizqo.com/og-image.jpg';
 
 function getPostImage(post: BlogPost): string {
   return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
@@ -262,7 +262,9 @@ Let AI do the heavy lifting. Get a 7-day guided journaling plan with Wizqo. All 
     author: "Wizqo Team",
     date: "January 2025", 
     readTime: "4 min read",
-    category: "Mental Wellness"
+    category: "Mental Wellness",
+    imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Notebook and pen for micro journaling"
   },
   {
     id: "easy-watercolor-paintings",
