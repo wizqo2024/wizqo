@@ -638,6 +638,63 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   };
 
+  // Ensure full content exists for the currently selected day (when returning from dashboard)
+  const generateContentForDayIfMissing = async (dayNumber: number) => {
+    if (!planData || dayNumber < 2 || dayNumber > 7) return;
+    const currentDayData = (planData.days || []).find((d: any) => d.day === dayNumber);
+    if (currentDayData) return;
+    try {
+      setLoadingDay(dayNumber);
+      const prevDays = planData?.days || [];
+      const body: any = {
+        hobby: planData.hobby,
+        experience: planData.difficulty || 'beginner',
+        timeAvailable: (planData.days?.[0]?.estimatedTime || '30-60 minutes'),
+        goal: planData.overview || `Learn ${planData.hobby} fundamentals`,
+        day_number: dayNumber,
+        outline: (planData as any).outline || [],
+        prior_days: prevDays.map((d: any) => ({ day: d.day, title: d.title, mainTask: d.mainTask, howTo: d.howTo }))
+      };
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        console.error('❌ No authentication token available');
+        setLoadingDay(null);
+        return;
+      }
+      const resp = await fetch('/api/generate-day', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify(body)
+      });
+      if (resp.ok) {
+        const j = await resp.json();
+        if (j?.day) {
+          setPlanData((prev: any) => prev ? { ...prev, days: [...prev.days, j.day] } : prev);
+        }
+      } else {
+        console.warn('🔧 Auto-generate day failed for hydration:', resp.statusText);
+      }
+    } catch (e) {
+      console.error('🔧 Auto-generate day exception:', e);
+    } finally {
+      setLoadingDay(null);
+    }
+  };
+
+  // When a completed day is selected but content is missing (after navigating from dashboard), generate it automatically
+  useEffect(() => {
+    if (!planData || !Array.isArray(planData.days)) return;
+    if (selectedDay > 1) {
+      const hasContent = planData.days.some((d: any) => d.day === selectedDay);
+      if (!hasContent && loadingDay !== selectedDay) {
+        generateContentForDayIfMissing(selectedDay);
+      }
+    }
+  }, [selectedDay, planData]);
+
   // AI-powered hobby validation function
   const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
     try {
