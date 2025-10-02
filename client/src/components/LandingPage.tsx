@@ -112,7 +112,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="text-slate-600">Plans Completed</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">35+</div>
+              <div className="text-3xl font-bold text-primary mb-2">1,000+</div>
               <div className="text-slate-600">Hobbies Supported</div>
             </div>
             <div>
@@ -340,7 +340,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               
               <h3 className="text-xl font-bold text-slate-900 mb-4">Pick Your Passion</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Choose from 150+ hobbies or type your own. Answer 3 quick questions about your experience and goals.
+                Choose from 1,000+ hobbies or type your own. Answer 3 quick questions about your experience and goals.
               </p>
               <div className="flex items-center text-purple-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
