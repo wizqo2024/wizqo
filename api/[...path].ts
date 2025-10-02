@@ -4,4 +4,3 @@ export default async function handler(req: any, res: any) {
   const app = mod?.default || mod?.app || mod;
   return app(req, res);
 }
-export default app;
