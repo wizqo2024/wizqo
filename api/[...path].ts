@@ -1,7 +1,7 @@
-import app from "../server/index";
-
-// Export a handler function to avoid duplicate default export issues in ESM bundling
-export default function handler(req: any, res: any) {
-  return (app as any)(req, res);
+// Use dynamic import to avoid ESM bundler re-export collisions
+export default async function handler(req: any, res: any) {
+  const mod: any = await import("../server/index");
+  const app = mod?.default || mod?.app || mod;
+  return app(req, res);
 }
 export default app;
