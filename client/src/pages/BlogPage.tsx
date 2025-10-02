@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SEOMetaTags } from '../components/SEOMetaTags';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
@@ -12,9 +13,113 @@ interface BlogPost {
   date: string;
   readTime: string;
   category: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 const blogPosts: BlogPost[] = [
+  {
+    id: "easy-hobbies-that-make-you-smarter",
+    title: "Easy Hobbies That Make You Smarter (Backed by Science)",
+    excerpt: "Discover 10 simple, science-backed hobbies that boost memory, focus, creativity, and overall brain health—no fancy gear required.",
+    content: `We usually think of hobbies as “just for fun,” right? Something to do when you’re bored, stressed, or trying to escape work. But here’s the cool part: some easy hobbies can actually make you smarter.
+
+No, really — science backs this up. Whether it’s playing a quick game of chess, doodling in a notebook, or learning a few new words in another language, these little activities can give your brain the workout it craves.
+
+Let’s dive into some simple, low-effort hobbies that not only keep you entertained but also boost your brainpower.
+
+Why Easy Hobbies Are Brain Boosters
+
+Think of your brain like a muscle — the more you use it in different ways, the stronger it gets. The right hobbies can:
+
+• Sharpen your memory
+• Improve focus and creativity
+• Reduce stress (goodbye, burnout!)
+• Even make problem-solving feel easier
+
+And the best part? These hobbies are simple. You don’t need fancy equipment, years of training, or tons of money to get started.
+
+10 Easy Hobbies That Make You Smarter
+1. Playing Chess
+
+Chess is like the ultimate brain gym. It makes you think ahead, plan strategies, and adapt quickly. Don’t worry if you’re a total beginner — free apps make it super easy to practice. Ten minutes a day can make a difference.
+
+2. Journaling
+
+Got a notebook? Then you’ve got everything you need. Writing a few lines about your day helps improve memory and emotional intelligence. Plus, it’s one of the most therapeutic hobbies out there.
+
+3. Learning Music
+
+Ever strummed a guitar or tried tapping out beats on a table? Music activates multiple parts of your brain at once. That’s why musicians often score higher in creativity and problem-solving tests. Bonus: it’s a stress-buster.
+
+4. Reading
+
+The oldest trick in the book (pun intended). Whether it’s novels, blogs, or even short articles, reading expands your vocabulary, keeps your mind sharp, and improves focus.
+
+5. Solving Puzzles
+
+Crosswords, Sudoku, Wordle — whatever tickles your brain. Puzzles are proven to improve memory and delay mental decline. Plus, that little “aha!” moment when you solve one? Pure dopamine.
+
+6. Cooking New Recipes
+
+Cooking isn’t just about food. It teaches patience, creativity, and problem-solving — especially when you don’t have all the ingredients. Trying something new in the kitchen is a fun way to challenge your brain (and your taste buds).
+
+7. Gardening
+
+It might seem like “just planting stuff,” but gardening improves focus, patience, and mindfulness. Studies show it reduces stress too. And hey, fresh herbs for dinner? Yes, please.
+
+8. Meditation & Mindfulness
+
+Meditation is like decluttering your brain. Just 10 minutes of mindful breathing can improve focus, memory, and decision-making. It’s one of those hobbies where you notice results in all areas of life.
+
+9. Drawing or Painting
+
+You don’t have to be Picasso to grab a pencil and doodle. Art stimulates creativity and helps your brain form new connections. It’s also ridiculously calming after a long day.
+
+10. Learning a New Language
+
+This one is a powerhouse. Even learning a few words daily in Spanish, French, or Japanese can boost memory and keep your brain sharp. Apps like Duolingo make it easy (and kinda addictive).
+
+How to Pick the Right Hobby for You
+
+Not every hobby will click with you, and that’s okay. Here’s a quick cheat sheet:
+
+• Go for something you actually enjoy (not just “what sounds smart”).
+• Start small — 10 minutes is enough.
+• Pick hobbies that fit your lifestyle. Love being outside? Try gardening. Prefer indoors? Go with journaling or puzzles.
+• Mix it up! Balance fun hobbies with productive ones.
+
+Final Thoughts — Smarter Living Can Be Fun
+
+The truth is, you don’t need expensive courses or complicated routines to boost your brain. Sometimes, the simplest hobbies — like doodling, playing chess, or reading a few pages — can give you the biggest long-term benefits.
+
+So, which one of these easy hobbies will you try first? Start small, stay consistent, and who knows — your “just for fun” activity might turn into your secret weapon for success.
+
+👉 Share this with a friend who wants to get smarter while having fun!
+
+FAQs About Easy Hobbies
+
+1. What’s the easiest hobby to start at home?
+Reading or journaling. All you need is a book or a notebook.
+
+2. Do hobbies really make you smarter?
+Yep! Science shows activities like chess, music, and puzzles improve memory and cognitive skills.
+
+3. Which hobbies improve focus the most?
+Meditation, reading, and playing strategy games like chess.
+
+4. How long should I spend on a hobby each day?
+Even 15 minutes a day can give your brain a solid workout.
+
+5. Can hobbies help with stress?
+Absolutely — hobbies like gardening, journaling, and art are proven stress relievers.`,
+    author: "Wizqo Team",
+    date: "October 2025",
+    readTime: "6–7 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?q=80&w=1600&auto=format&fit=crop",
+    imageAlt: "Books, chess, and sketchbook on a desk representing smart hobbies"
+  },
   {
     id: "find-hobby-that-sticks",
     title: "How to Find a Hobby That Sticks: A Simple 7-Day AI-Powered Plan",
@@ -286,6 +391,12 @@ export function BlogPage() {
   if (selectedPost) {
     return (
       <div className="min-h-screen bg-slate-50">
+        <SEOMetaTags 
+          title={selectedPost.title}
+          description={selectedPost.excerpt}
+          ogImage={selectedPost.imageUrl}
+          canonicalUrl={`https://wizqo.com/blog?post=${selectedPost.id}`}
+        />
         <UnifiedNavigation currentPage="blog" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -325,6 +436,14 @@ export function BlogPage() {
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
                 {selectedPost.title}
               </h1>
+              {selectedPost.imageUrl && (
+                <figure className="mb-6">
+                  <img src={selectedPost.imageUrl} alt={selectedPost.imageAlt || selectedPost.title} className="w-full h-64 object-cover rounded-xl border border-slate-200" />
+                  {selectedPost.imageAlt && (
+                    <figcaption className="text-sm text-slate-500 mt-2">{selectedPost.imageAlt}</figcaption>
+                  )}
+                </figure>
+              )}
               <div className="flex items-center justify-between mb-6">
                 <p className="text-lg text-slate-600">By {selectedPost.author}</p>
                 <div className="flex items-center gap-2">
@@ -530,6 +649,9 @@ export function BlogPage() {
                     className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300"
                     onClick={() => setSelectedPost(post)}
                   >
+                    {post.imageUrl && (
+                      <img src={post.imageUrl} alt={post.imageAlt || post.title} className="w-full h-40 object-cover rounded-lg mb-4" />
+                    )}
                     <div className="flex items-center justify-between mb-4">
                       <span className="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">
                         {post.category}
