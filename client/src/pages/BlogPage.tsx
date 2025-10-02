@@ -532,26 +532,41 @@ export function BlogPage() {
               {selectedPost.content.split('\n').map((paragraph, index) => {
                 if (paragraph.trim() === '') return null;
                 
-                // Markdown image: ![alt](url "optional caption")
-                const mdImg = paragraph.trim().match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
-                if (mdImg) {
-                  const alt = mdImg[1] || selectedPost.title;
-                  const url = mdImg[2];
-                  const caption = mdImg[3];
-                  return (
-                    <figure key={index} className="my-6">
-                      <img 
-                        src={url} 
-                        alt={alt} 
-                        loading="lazy"
-                        className="w-full h-64 object-cover rounded-xl border border-slate-200"
-                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
-                      />
-                      {caption && (
-                        <figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>
-                      )}
-                    </figure>
-                  );
+                // Markdown image: ![alt](url "optional caption") — robust parser
+                {
+                  const raw = paragraph.trim();
+                  const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
+                  const mdLoose = /^!\[.*?\]\(.*\)$/.test(raw);
+                  if (mdStrict || mdLoose) {
+                    let alt = selectedPost.title;
+                    let url = '';
+                    let caption = '';
+                    if (mdStrict) {
+                      alt = mdStrict[1] || alt;
+                      url = mdStrict[2] || '';
+                      caption = mdStrict[3] || '';
+                    } else {
+                      // Loose fallback: extract between parentheses and between brackets
+                      const altMatch = raw.match(/^!\[(.*?)\]/);
+                      const urlMatch = raw.match(/\((.*?)\)/);
+                      if (altMatch) alt = altMatch[1] || alt;
+                      if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
+                    }
+                    return (
+                      <figure key={index} className="my-6">
+                        <img 
+                          src={url || GENERIC_BLOG_IMAGE} 
+                          alt={alt} 
+                          loading="lazy"
+                          className="w-full h-64 object-cover rounded-xl border border-slate-200"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
+                        />
+                        {caption && (
+                          <figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>
+                        )}
+                      </figure>
+                    );
+                  }
                 }
 
                 // Check if it's a heading
