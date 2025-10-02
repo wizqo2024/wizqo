@@ -471,7 +471,7 @@ export function BlogPage() {
                 <img 
                   src={coverUrl} 
                   alt={selectedPost.imageAlt || selectedPost.title} 
-                  className="w-full h-64 object-cover rounded-xl border border-slate-200"
+                  className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
                 />
                 {selectedPost.imageAlt && (
@@ -592,7 +592,7 @@ export function BlogPage() {
                             src={finalUrl} 
                             alt={alt} 
                             loading="lazy"
-                            className="w-full h-64 object-cover rounded-xl border border-slate-200"
+                            className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
                             onError={(e) => {
                               const img = (e.currentTarget as HTMLImageElement);
                               const current = img.src;
@@ -779,7 +779,7 @@ export function BlogPage() {
                     <img 
                       src={getPostImage(post)} 
                       alt={post.imageAlt || post.title} 
-                      className="w-full h-40 object-cover rounded-lg mb-4"
+                      className="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-lg mb-4"
                       onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE; }}
                     />
                     <div className="flex items-center justify-between mb-4">
