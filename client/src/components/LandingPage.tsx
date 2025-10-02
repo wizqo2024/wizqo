@@ -104,19 +104,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">50,000+</div>
+              <div className="text-3xl font-bold text-primary mb-2">1,200+</div>
               <div className="text-slate-600">Active Learners</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">25,000+</div>
+              <div className="text-3xl font-bold text-primary mb-2">3,500+</div>
               <div className="text-slate-600">Plans Completed</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">150+</div>
+              <div className="text-3xl font-bold text-primary mb-2">35+</div>
               <div className="text-slate-600">Hobbies Supported</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">4.9/5</div>
+              <div className="text-3xl font-bold text-primary mb-2">4.7/5</div>
               <div className="text-slate-600">User Rating</div>
             </div>
           </div>
