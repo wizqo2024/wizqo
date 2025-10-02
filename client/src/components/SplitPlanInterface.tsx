@@ -1773,7 +1773,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 <p className="text-sm text-gray-600">Your personal hobby guide</p>
               </div>
               
-              {/* Make a New Plan Button - Top Right */}
+              {/* Make a New Plan Button - Top Right (show only after a plan exists) */}
+              {planData && (
               <Button
                 onClick={() => {
                   // Reset to initial state for new plan
@@ -1814,6 +1815,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               >
                 🚀 New Plan
               </Button>
+              )}
             </div>
           </div>
 
