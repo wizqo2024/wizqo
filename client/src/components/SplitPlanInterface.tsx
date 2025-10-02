@@ -723,6 +723,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       const refreshed = await fetchLatestPlanDataForPlanId();
       const existsNow = (refreshed?.days || planData?.days || []).some((d: any) => d.day === selectedDay);
       if (existsNow) return;
+      // If completed but not saved yet, snap to last available day so UI doesn't show tip
+      const availableDays = (refreshed?.days || planData?.days || []).map((d: any) => Number(d.day) || 0);
+      const maxAvailable = availableDays.length > 0 ? Math.max(...availableDays) : 1;
+      if (getDayStatus(selectedDay) === 'completed' && maxAvailable < selectedDay && maxAvailable >= 1) {
+        setSelectedDay(maxAvailable);
+        return;
+      }
       // Still missing: generate on-demand (even if previously completed) so UI shows content
       await generateContentForDayIfMissing(selectedDay);
     })();
