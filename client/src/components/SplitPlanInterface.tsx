@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { UnifiedNavigation } from './UnifiedNavigation';
+import { WizqoLogo } from './WizqoLogo';
 import { ChevronDown, ChevronUp, CheckCircle, Circle, Lock, ExternalLink, Share,
  BookOpen, Clock, Send, Play } from 'lucide-react';
 
@@ -2534,7 +2535,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               ) : (
                 <div className="max-w-5xl mx-auto space-y-6 lg:space-y-8">
                   <div className="text-center">
-                    <div className="text-4xl lg:text-6xl mb-4 lg:mb-6">🎯</div>
+                    <div className="flex items-center justify-center mb-4 lg:mb-6">
+                      <WizqoLogo width={80} height={46} />
+                    </div>
                     <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-4">Welcome to Your Learning Journey!</h2>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. 
