@@ -428,6 +428,36 @@ export function BlogPage() {
           ogImage={selectedPost.imageUrl}
           canonicalUrl={`https://wizqo.com/blog?post=${selectedPost.id}`}
         />
+        {/* SEO JSON-LD: Article and Breadcrumbs */}
+        {(() => {
+          const canonical = `https://wizqo.com/blog?post=${selectedPost.id}`;
+          const image = selectedPost.imageUrl || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+          const articleLd = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: selectedPost.title,
+            description: selectedPost.excerpt,
+            image: [image],
+            author: { "@type": "Organization", name: "Wizqo" },
+            publisher: { "@type": "Organization", name: "Wizqo" },
+            datePublished: selectedPost.date,
+            mainEntityOfPage: { "@type": "WebPage", "@id": canonical }
+          } as any;
+          const breadcrumbLd = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Blog", item: "https://wizqo.com/blog" },
+              { "@type": "ListItem", position: 2, name: selectedPost.title, item: canonical }
+            ]
+          };
+          return (
+            <>
+              <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            </>
+          );
+        })()}
         <UnifiedNavigation currentPage="blog" />
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -622,7 +652,7 @@ export function BlogPage() {
                     paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')
                   ) {
                     const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                    return (
+                  return (
                       <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
                         {paragraph}
                       </h2>
