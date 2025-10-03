@@ -751,7 +751,8 @@ export function BlogPage() {
                       );
                     })
                     .map((paragraph, index) => {
-                      const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                      const ptrim = paragraph.trim();
+                      const headingId = ptrim.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                       return (
                         <a 
                           key={index} 
@@ -766,7 +767,7 @@ export function BlogPage() {
                           }}
                         >
                           <span className="text-purple-400">→</span>
-                          <span className="hover:underline">{paragraph}</span>
+                          <span className="hover:underline">{ptrim}</span>
                         </a>
                       );
                     })}
@@ -874,9 +875,11 @@ export function BlogPage() {
                   
                   // Check if it's a numbered item (1., 2., etc.)
                   if (/^\d+\./.test(paragraph.trim())) {
+                    const ptrim = paragraph.trim();
+                    const numHeadingId = ptrim.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     return (
                       <div key={index} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
-                        <h3 className="font-bold text-purple-900 mb-2">{paragraph.split('\n')[0]}</h3>
+                        <h3 id={numHeadingId} className="font-bold text-purple-900 mb-2">{paragraph.split('\n')[0]}</h3>
                         {paragraph.split('\n').slice(1).map((line, lineIndex) => (
                           <p key={lineIndex} className="text-slate-700 leading-relaxed">{line}</p>
                         ))}
