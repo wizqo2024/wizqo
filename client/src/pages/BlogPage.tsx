@@ -641,7 +641,27 @@ export function BlogPage() {
               ← Back to Blog
             </button>
             <div className="flex items-center gap-4">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              <button
+                onClick={async () => {
+                  try {
+                    const url = `https://wizqo.com/blog?post=${selectedPost.id}`;
+                    const title = selectedPost.title;
+                    const text = selectedPost.excerpt || title;
+                    if (navigator.share) {
+                      await navigator.share({ title, text, url });
+                      toast({ title: "Shared", description: "Thanks for sharing!" });
+                    } else if (navigator.clipboard?.writeText) {
+                      await navigator.clipboard.writeText(url);
+                      toast({ title: "Link copied", description: "Blog link copied to clipboard." });
+                    } else {
+                      window.open(url, '_blank');
+                    }
+                  } catch (e) {
+                    toast({ title: "Share failed", description: "Please try again or copy the link.", variant: "destructive" });
+                  }
+                }}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
                 Share
               </button>
             </div>
