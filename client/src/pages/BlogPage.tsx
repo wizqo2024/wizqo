@@ -369,7 +369,11 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
 function loadMarkdownPosts(): BlogPost[] {
   try {
     // Vite: import raw text
-    const modules = import.meta.glob('../../content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
+    // Resolve from Vite root (client): use absolute-from-root pattern
+    // Try multiple roots to be robust across environments
+    const modsA = import.meta.glob('/content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
+    const modsB = import.meta.glob('../../content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
+    const modules = { ...modsA, ...modsB } as Record<string, string>;
     const posts: BlogPost[] = [];
     for (const [path, raw] of Object.entries(modules)) {
       const fmMatch = raw.match(/^---[\s\S]*?---/);
