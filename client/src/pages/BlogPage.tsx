@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SEOMetaTags } from '../components/SEOMetaTags';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
@@ -420,6 +420,17 @@ export function BlogPage() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
+
+  // Preselect post from URL query (?post=slug)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const pid = params.get('post');
+      if (!pid) return;
+      const found = allPosts.find(p => p.id === pid);
+      if (found) setSelectedPost(found);
+    } catch {}
+  }, [allPosts]);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
