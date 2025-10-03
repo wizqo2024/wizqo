@@ -138,6 +138,60 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     imageAlt: "Books, chess, and sketchbook on a desk representing smart hobbies"
   },
   {
+    id: "productive-hobbies-for-students",
+    title: "7 Productive Hobbies for Students That Actually Make You Smarter",
+    excerpt: "7 fun, productive hobbies for students that boost creativity, focus, and confidence — backed by science and easy to start.",
+    content: `🎯 Why Students Need Productive Hobbies
+
+Productive hobbies make you smarter, calmer, and more creative. Research shows hobbies improve mental health, memory, and problem-solving.
+
+10 Easy Hobbies That Make You Smarter
+
+1. Geocaching: Tech-Powered Treasure Hunting
+✅ Why it’s productive: Map-reading, problem-solving, teamwork — outdoors.
+
+2. Calligraphy & Hand Lettering
+✅ Builds focus, patience, creativity; looks great on projects.
+
+3. Micro-Gardening
+✅ Responsibility, patience, sustainability — fresh herbs at home.
+
+4. Coding Mini Projects
+✅ Logical thinking, problem-solving, digital literacy.
+
+5. Puzzle-Solving & Brain Games
+✅ Critical thinking, memory, problem-solving.
+
+6. Volunteering
+✅ Leadership, empathy, teamwork — universities love it.
+
+7. Journaling
+✅ Self-awareness, focus, decision-making.
+
+How to Pick the Right Hobby for You
+
+• Choose what you enjoy • Start small (10 min) • Mix fun + skills
+
+Final Thoughts — Smarter Living Can Be Fun
+
+Start with one hobby this week and build momentum.
+
+FAQs About Productive Hobbies
+
+1) Most productive hobbies? Geocaching, calligraphy, gardening, coding, puzzles, journaling, volunteering.
+2) Improve focus? Calligraphy, journaling, puzzles.
+3) Cheap to start? Calligraphy, micro-gardening (under AED 10).
+4) Improve grades? Yes — better focus and problem-solving.
+5) Easiest at home? Journaling or micro-gardening.
+`,
+    author: "Wizqo Team",
+    date: "2025-10-02",
+    readTime: "6–7 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Productive hobbies for students"
+  },
+  {
     id: "find-hobby-that-sticks",
     title: "How to Find a Hobby That Sticks: A Simple 7-Day AI-Powered Plan",
     excerpt: "Ever picked up a hobby with excitement—only to drop it by the weekend? Learn how to find a hobby that truly fits your lifestyle with an easy, AI-powered 7-day plan.",
