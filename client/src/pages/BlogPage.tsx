@@ -410,10 +410,16 @@ function loadMarkdownPosts(): BlogPost[] {
 export function BlogPage() {
   const mdPosts = useMemo(() => loadMarkdownPosts(), []);
   const allPosts: BlogPost[] = useMemo(() => {
-    // Merge markdown posts before basePosts so new content appears first
+    // Merge markdown posts before basePosts, then sort by date desc
     const byId = new Map<string, BlogPost>();
     for (const p of [...mdPosts, ...basePosts]) byId.set(p.id, p);
-    return Array.from(byId.values());
+    const merged = Array.from(byId.values());
+    merged.sort((a, b) => {
+      const da = Date.parse(a.date || '') || 0;
+      const db = Date.parse(b.date || '') || 0;
+      return db - da;
+    });
+    return merged;
   }, [mdPosts]);
 
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
