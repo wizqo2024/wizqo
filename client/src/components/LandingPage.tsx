@@ -61,7 +61,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white"></div>
                   <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-red-400 rounded-full border-2 border-white"></div>
                 </div>
-                <span className="text-sm font-medium">50,000+ learners</span>
+                <span className="text-sm font-medium">1,200+ learners</span>
               </div>
               <div className="flex items-center space-x-1">
                 <span className="text-yellow-400">★★★★★</span>
@@ -528,9 +528,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         
         <div className="relative max-w-6xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           {/* Floating badges */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🚀 50,000+ Active Learners
+              🚀 1,200+ Active Learners
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
               ⭐ 4.9/5 Rating
