@@ -238,6 +238,18 @@ Journaling or micro-gardening. Both need minimal setup.
     imageAlt: "Productive hobbies for students"
   },
   {
+    id: "outdoor-hobbies-for-students",
+    title: "9 Outdoor Hobbies for Students That Beat Boredom (and Make You Smarter)",
+    excerpt: "9 fun outdoor hobbies for students that boost focus, creativity, and health — great alternatives to screen time.",
+    content: `🎯 The Problem: Why Students Need Outdoor Hobbies\n\nStudents fall into the loop: school → homework → phone → repeat. Outdoor hobbies wake up your body and refresh your mind.\n\n1. Geocaching: Modern‑Day Treasure Hunting \n✅ Replaces scrolling with exploration.\n\n2. Frisbee or Disc Golf \n✅ Easy, active, no expensive gear.\n\n3. Urban Gardening \n✅ Mindfulness, responsibility, fresh herbs.\n\n4. Cycling Adventures \n✅ Adventure + fitness, explore new routes.\n\n5. Photography Walks \n✅ See your world differently; pick a theme.\n\n6. Team Sports with a Twist \n✅ Casual games build friendships.\n\n7. Stargazing \n✅ Perspective and calm with a free app.\n\n8. Volunteer Clean‑Ups \n✅ Purpose, leadership, community impact.\n\n9. Hiking & Nature Trails \n✅ Stress reduction and energy boost.\n\nKey Takeaways\n• Outdoor hobbies = fun + problem‑solving + real benefits.\n• Start small; pick one and bring a friend.\n\nFAQs\n• Best outdoor hobbies? Geocaching, frisbee, gardening, cycling, hiking.\n• Cheap ones? Frisbee, walks, stargazing, volunteering.\n• Mental health? Gardening, stargazing, hiking, photography.`,
+    author: "Wizqo Team",
+    date: "2025-10-02",
+    readTime: "7–8 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1520975682031-a4c2a0d43c66?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Outdoor hobbies for students in a park"
+  },
+  {
     id: "find-hobby-that-sticks",
     title: "How to Find a Hobby That Sticks: A Simple 7-Day AI-Powered Plan",
     excerpt: "Ever picked up a hobby with excitement—only to drop it by the weekend? Learn how to find a hobby that truly fits your lifestyle with an easy, AI-powered 7-day plan.",
