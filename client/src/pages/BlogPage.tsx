@@ -371,8 +371,8 @@ function loadMarkdownPosts(): BlogPost[] {
     // Vite: import raw text
     // Resolve from Vite root (client): use absolute-from-root pattern
     // Try multiple roots to be robust across environments
-    const modsA = import.meta.glob('/content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
-    const modsB = import.meta.glob('../../content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
+    const modsA = import.meta.glob('/content/blog/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modsB = import.meta.glob('./content/blog/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
     const modules = { ...modsA, ...modsB } as Record<string, string>;
     const posts: BlogPost[] = [];
     for (const [path, raw] of Object.entries(modules)) {

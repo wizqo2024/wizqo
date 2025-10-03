@@ -34,4 +34,6 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  // Ensure blog content is included in the build output
+  publicDir: path.resolve(import.meta.dirname, "client", "public"),
 });
