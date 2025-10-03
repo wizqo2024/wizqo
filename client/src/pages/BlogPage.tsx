@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { SEOMetaTags } from '../components/SEOMetaTags';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
@@ -29,7 +29,8 @@ function getPostImage(post: BlogPost): string {
   return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
 }
 
-const blogPosts: BlogPost[] = [
+// Base posts (inline)
+const basePosts: BlogPost[] = [
   {
     id: "easy-hobbies-that-make-you-smarter",
     title: "Easy Hobbies That Make You Smarter (Backed by Science)",
@@ -364,7 +365,57 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
   }
 ];
 
+// Load Markdown posts from content folder (optional, SEO-safe)
+function loadMarkdownPosts(): BlogPost[] {
+  try {
+    // Vite: import raw text
+    const modules = import.meta.glob('../../content/blog/*.md', { as: 'raw', eager: true }) as Record<string, string>;
+    const posts: BlogPost[] = [];
+    for (const [path, raw] of Object.entries(modules)) {
+      const fmMatch = raw.match(/^---[\s\S]*?---/);
+      const fmBlock = fmMatch ? fmMatch[0].replace(/^---|---$/g, '').trim() : '';
+      const body = raw.replace(/^---[\s\S]*?---\s*/m, '');
+      const meta: any = {};
+      if (fmBlock) {
+        for (const line of fmBlock.split('\n')) {
+          const idx = line.indexOf(':');
+          if (idx > -1) {
+            const key = line.slice(0, idx).trim();
+            const value = line.slice(idx + 1).trim().replace(/^"|"$/g, '');
+            meta[key] = value;
+          }
+        }
+      }
+      const fileSlug = path.split('/').pop()?.replace(/\.md$/, '') || `post-${Date.now()}`;
+      const id = (meta.slug || fileSlug).toString();
+      posts.push({
+        id,
+        title: meta.title || id,
+        excerpt: meta.excerpt || '',
+        content: body || '',
+        author: meta.author || 'Wizqo Team',
+        date: meta.date || new Date().toISOString().slice(0, 10),
+        readTime: meta.readTime || '5 min read',
+        category: meta.category || 'Learning Tips',
+        imageUrl: meta.cover || undefined,
+        imageAlt: meta.imageAlt || undefined,
+      });
+    }
+    return posts;
+  } catch {
+    return [];
+  }
+}
+
 export function BlogPage() {
+  const mdPosts = useMemo(() => loadMarkdownPosts(), []);
+  const allPosts: BlogPost[] = useMemo(() => {
+    // Merge markdown posts before basePosts so new content appears first
+    const byId = new Map<string, BlogPost>();
+    for (const p of [...mdPosts, ...basePosts]) byId.set(p.id, p);
+    return Array.from(byId.values());
+  }, [mdPosts]);
+
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -652,9 +703,20 @@ export function BlogPage() {
                     paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')
                   ) {
                     const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                  // Autolink key terms to related posts (safe, limited)
+                  const AUTOLINKS: { term: string; slug: string }[] = [
+                    { term: 'journaling', slug: 'micro-journaling-habit' },
+                    { term: 'watercolor', slug: 'easy-watercolor-paintings' },
+                    { term: 'AI', slug: 'find-hobby-that-sticks' }
+                  ];
+                  let contentHtml = paragraph;
+                  for (const { term, slug } of AUTOLINKS) {
+                    const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
+                    contentHtml = contentHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                  }
                   return (
                       <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
-                        {paragraph}
+                      <span dangerouslySetInnerHTML={{ __html: contentHtml }} />
                       </h2>
                     );
                   }
@@ -699,11 +761,20 @@ export function BlogPage() {
                     );
                   }
                   
-                  return (
-                    <p key={index} className="mb-4 text-slate-700 leading-relaxed text-lg">
-                      {paragraph}
-                    </p>
-                  );
+                // Autolink terms within body paragraphs too (light)
+                const AUTOLINKS_BODY: { term: string; slug: string }[] = [
+                  { term: 'journaling', slug: 'micro-journaling-habit' },
+                  { term: 'watercolor', slug: 'easy-watercolor-paintings' },
+                  { term: 'AI', slug: 'find-hobby-that-sticks' }
+                ];
+                let bodyHtml = paragraph;
+                for (const { term, slug } of AUTOLINKS_BODY) {
+                  const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
+                  bodyHtml = bodyHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                }
+                return (
+                  <p key={index} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+                );
                 });
               })()}
             </div>
@@ -713,7 +784,7 @@ export function BlogPage() {
           <aside className="mt-12">
             <h3 className="text-xl font-bold text-slate-900 mb-4">Keep Reading</h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {blogPosts
+                  {allPosts
                 .filter(p => p.id !== selectedPost.id)
                 .slice(0, 2)
                 .map(p => (
@@ -753,37 +824,37 @@ export function BlogPage() {
           </p>
         </div>
 
-        {blogPosts.length > 0 ? (
+        {allPosts.length > 0 ? (
           <div className="space-y-8">
             {/* Featured Post */}
             <article 
               className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 sm:p-6 lg:p-8 text-white cursor-pointer hover:from-purple-700 hover:to-pink-700 transition-all"
-              onClick={() => setSelectedPost(blogPosts[0])}
+              onClick={() => setSelectedPost(allPosts[0])}
             >
               <span className="bg-white bg-opacity-20 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block">
                 Featured Article
               </span>
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
-                {blogPosts[0].title}
+                {allPosts[0].title}
               </h2>
               <p className="text-base sm:text-lg mb-4 sm:mb-6 opacity-90 leading-relaxed">
-                {blogPosts[0].excerpt}
+                {allPosts[0].excerpt}
               </p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-sm">
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
-                  {blogPosts[0].readTime}
+                  {allPosts[0].readTime}
                 </span>
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                   </svg>
-                  {blogPosts[0].date}
+                  {allPosts[0].date}
                 </span>
                 <span className="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">
-                  {blogPosts[0].category}
+                  {allPosts[0].category}
                 </span>
                 <div className="flex items-center gap-1 text-yellow-300">
                   {[1,2,3,4,5].map(star => (
@@ -800,7 +871,7 @@ export function BlogPage() {
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-slate-900 mb-6">More Articles</h3>
               <div className="grid md:grid-cols-2 gap-6">
-                {blogPosts.slice(1).map((post) => (
+                {allPosts.slice(1).map((post) => (
                   <article 
                     key={post.id}
                     className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300"
