@@ -246,8 +246,8 @@ Journaling or micro-gardening. Both need minimal setup.
     date: "2025-10-02",
     readTime: "7–8 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1520975682031-a4c2a0d43c66?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Outdoor hobbies for students in a park"
+    imageUrl: "https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Group of students outside enjoying a park day"
   },
   {
     id: "find-hobby-that-sticks",
