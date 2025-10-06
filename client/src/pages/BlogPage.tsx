@@ -851,157 +851,167 @@ export function BlogPage() {
               {(() => {
                 const lines = selectedPost.content.split('\n');
                 let imageIdx = 0;
-                return lines.map((paragraph, index) => {
-                  if (paragraph.trim() === '') return null;
 
-                // Markdown image: ![alt](url "optional caption") — robust parser
-                  {
-                    const raw = paragraph.trim();
-                    const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
-                    const mdLoose = /^!\[.*?\]\(.*\)$/.test(raw);
-                    if (mdStrict || mdLoose) {
-                      let alt = selectedPost.title;
-                      let url = '';
-                      let caption = '';
-                      if (mdStrict) {
-                        alt = mdStrict[1] || alt;
-                        url = mdStrict[2] || '';
-                        caption = mdStrict[3] || '';
-                      } else {
-                        // Loose fallback: extract between parentheses and between brackets
-                        const altMatch = raw.match(/^!\[(.*?)\]/);
-                        const urlMatch = raw.match(/\((.*?)\)/);
-                        if (altMatch) alt = altMatch[1] || alt;
-                        if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
-                      }
-                      let finalUrl = pickFallback(url || undefined);
-                      // Per-post overrides to ensure two distinct images
-                      if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
-                        const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
-                        const overrideB = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
-                        if (imageIdx === 0) finalUrl = overrideA;
-                        if (imageIdx === 1) finalUrl = overrideB;
-                        // Avoid duplication with cover/previous by preferring a non-used candidate
-                        if (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl)) {
-                          const candidates = [overrideA, overrideB, CATEGORY_IMAGES[selectedPost.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
-                          for (const c of candidates) {
-                            if (!usedImageUrls.has(c)) { finalUrl = c; break; }
-                          }
-                        }
-                      }
-                      if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
-                      imageIdx++;
-                      return (
-                        <figure key={index} className="my-6">
-                          <img 
-                            src={finalUrl} 
-                            alt={alt} 
-                            loading="lazy"
-                            className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
-                            onError={(e) => {
-                              const img = (e.currentTarget as HTMLImageElement);
-                              const current = img.src;
-                              const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
-                              if (current !== next) img.src = next;
-                            }}
-                          />
-                          {caption && (
-                            <figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>
-                          )}
-                        </figure>
-                      );
-                    }
-                  }
+                const isMdImage = (s: string) => {
+                  const raw = s.trim();
+                  return /^!\[.*?\]\(.*\)$/.test(raw);
+                };
 
-                  // Check if it's a heading
-                  if (
-                    paragraph.includes('Day 1:') || paragraph.includes('Day 2') || paragraph.includes('Day 3') || paragraph.includes('Day 4') || paragraph.includes('Day 5') || paragraph.includes('Day 6') || paragraph.includes('Day 7') ||
-                    // Easy Hobbies article headings
-                    paragraph.includes('Why Easy Hobbies Are Brain Boosters') || paragraph.includes('10 Easy Hobbies') || paragraph.includes('How to Pick the Right Hobby for You') || paragraph.includes('Final Thoughts') || paragraph.includes('FAQs About Easy Hobbies') ||
-                    // Other posts
-                    paragraph.includes('Why Most Hobbies Fail') || paragraph.includes('How AI Makes Hobbies') || paragraph.includes('Your 7-Day Plan') ||
-                    paragraph.includes('What Is Micro Journaling') || paragraph.includes('Why It Works') || paragraph.includes('5 Micro Journaling Prompts') ||
-                    paragraph.includes('Why Watercolor Is') || paragraph.includes('10 Easy Watercolor') || paragraph.includes('Beginner Watercolor Supplies') ||
-                    paragraph.includes('Common Mistakes') || paragraph.includes('FREE 7-Day') || paragraph.includes('Just Start!') ||
-                    paragraph.includes('The Science:') || paragraph.includes('What Hobby Have You') || paragraph.includes('Ready to Find') ||
-                    paragraph.includes('Bonus: Pair Micro') || paragraph.includes('Micro Journaling =') || paragraph.includes('Ready to Try')
-                  ) {
-                    const headingId = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                  // Autolink key terms to related posts (safe, limited)
-                  const AUTOLINKS: { term: string; slug: string }[] = [
-                    { term: 'journaling', slug: 'micro-journaling-habit' },
-                    { term: 'watercolor', slug: 'easy-watercolor-paintings' },
-                    { term: 'AI', slug: 'find-hobby-that-sticks' }
-                  ];
-                  let contentHtml = paragraph;
-                  for (const { term, slug } of AUTOLINKS) {
-                    const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-                    contentHtml = contentHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
-                  }
+                const isSectionHeading = (s: string) => {
                   return (
-                      <h2 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
-                      <span dangerouslySetInnerHTML={{ __html: contentHtml }} />
-                      </h2>
+                    s.includes('Day 1:') || s.includes('Day 2') || s.includes('Day 3') || s.includes('Day 4') || s.includes('Day 5') || s.includes('Day 6') || s.includes('Day 7') ||
+                    s.includes('Why Students Need Productive Hobbies') || s.includes('10 Easy Hobbies') || s.includes('How to Pick the Right Hobby for You') || s.includes('Final Thoughts') || s.includes('FAQs About Easy Hobbies') ||
+                    s.includes('Why Most Hobbies Fail') || s.includes('How AI Makes Hobbies') || s.includes('Your 7-Day Plan') ||
+                    s.includes('What Is Micro Journaling') || s.includes('Why It Works') || s.includes('5 Micro Journaling Prompts') ||
+                    s.includes('Why Watercolor Is') || s.includes('10 Easy Watercolor') || s.includes('Beginner Watercolor Supplies') ||
+                    s.includes('Common Mistakes') || s.includes('FREE 7-Day') || s.includes('Just Start!') ||
+                    s.includes('The Science:') || s.includes('What Hobby Have You') || s.includes('Ready to Find') ||
+                    s.includes('Bonus: Pair Micro') || s.includes('Micro Journaling =') || s.includes('Ready to Try') ||
+                    // Cheap hobbies headings
+                    s.includes('Why We Get Bored So Easily') || s.includes('Why Cheap Hobbies Work Better Than Expensive Ones') || s.includes('FAQs on Cheap Hobbies') || s.includes('FAQs on Cheap Hobbies at Home')
+                  );
+                };
+
+                const elements: JSX.Element[] = [];
+                for (let i = 0; i < lines.length; i++) {
+                  const line = lines[i];
+                  const trimmed = line.trim();
+                  if (trimmed === '') continue;
+
+                  // Markdown image handling
+                  if (isMdImage(line)) {
+                    const raw = trimmed;
+                    const mdStrict = raw.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
+                    let alt = selectedPost.title;
+                    let url = '';
+                    let caption = '';
+                    if (mdStrict) {
+                      alt = mdStrict[1] || alt;
+                      url = mdStrict[2] || '';
+                      caption = mdStrict[3] || '';
+                    } else {
+                      const altMatch = raw.match(/^!\[(.*?)\]/);
+                      const urlMatch = raw.match(/\((.*?)\)/);
+                      if (altMatch) alt = altMatch[1] || alt;
+                      if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
+                    }
+                    let finalUrl = pickFallback(url || undefined);
+                    if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
+                      const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
+                      const overrideB = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
+                      if (imageIdx === 0) finalUrl = overrideA;
+                      if (imageIdx === 1) finalUrl = overrideB;
+                      if (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl)) {
+                        const candidates = [overrideA, overrideB, CATEGORY_IMAGES[selectedPost.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
+                        for (const c of candidates) { if (!usedImageUrls.has(c)) { finalUrl = c; break; } }
+                      }
+                    }
+                    if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
+                    imageIdx++;
+                    elements.push(
+                      <figure key={`img-${i}`} className="my-6">
+                        <img src={finalUrl} alt={alt} loading="lazy" className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" onError={(e) => {
+                          const img = (e.currentTarget as HTMLImageElement);
+                          const current = img.src;
+                          const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
+                          if (current !== next) img.src = next;
+                        }} />
+                        {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
+                      </figure>
                     );
+                    continue;
                   }
-                  
-                  // Check if it's a numbered item (1., 2., etc.)
-                  if (/^\d+\./.test(paragraph.trim())) {
-                    const ptrim = paragraph.trim();
-                    const numHeadingId = ptrim.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                    return (
-                      <div key={index} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
-                        <h3 id={numHeadingId} className="font-bold text-purple-900 mb-2">{paragraph.split('\n')[0]}</h3>
-                        {paragraph.split('\n').slice(1).map((line, lineIndex) => (
-                          <p key={lineIndex} className="text-slate-700 leading-relaxed">{line}</p>
+
+                  // Numbered item (1., 2., ...). Support optional leading emoji before number as long as line contains pattern "\d+."
+                  const numMatch = trimmed.match(/\b\d+\./);
+                  if (numMatch && /^\s*\d+\./.test(trimmed) || numMatch && trimmed.indexOf(numMatch[0]) <= 4) {
+                    const headingText = trimmed;
+                    const numHeadingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+                    const contentLines: string[] = [];
+                    let j = i + 1;
+                    while (j < lines.length) {
+                      const next = lines[j].trim();
+                      if (next === '') { j++; continue; }
+                      if (/^\s*\d+\./.test(next) || isSectionHeading(next) || isMdImage(lines[j])) break;
+                      contentLines.push(lines[j]);
+                      j++;
+                    }
+
+                    elements.push(
+                      <div key={`num-${i}`} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
+                        <h3 id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>
+                        {contentLines.map((ln, k) => (
+                          <p key={`num-${i}-p-${k}`} className="text-slate-700 leading-relaxed">{ln}</p>
                         ))}
                       </div>
                     );
+                    i = j - 1; // skip consumed lines
+                    continue;
                   }
-                  
-                  // Check if it's a bullet point
-                  if (paragraph.startsWith('•')) {
-                    return (
-                      <div key={index} className="flex items-start mb-3">
+
+                  // Other section heading
+                  if (isSectionHeading(line)) {
+                    const headingId = line.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    const AUTOLINKS: { term: string; slug: string }[] = [
+                      { term: 'journaling', slug: 'micro-journaling-habit' },
+                      { term: 'watercolor', slug: 'easy-watercolor-paintings' },
+                      { term: 'AI', slug: 'find-hobby-that-sticks' }
+                    ];
+                    let contentHtml = line;
+                    for (const { term, slug } of AUTOLINKS) {
+                      const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
+                      contentHtml = contentHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                    }
+                    elements.push(
+                      <h2 key={`h-${i}`} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
+                        <span dangerouslySetInnerHTML={{ __html: contentHtml }} />
+                      </h2>
+                    );
+                    continue;
+                  }
+
+                  // Bullet line
+                  if (trimmed.startsWith('•')) {
+                    elements.push(
+                      <div key={`b-${i}`} className="flex items-start mb-3">
                         <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
-                        <p className="text-slate-700 leading-relaxed flex-1">{paragraph.slice(1).trim()}</p>
+                        <p className="text-slate-700 leading-relaxed flex-1">{trimmed.slice(1).trim()}</p>
                       </div>
                     );
+                    continue;
                   }
-                  
-                  // Check if it's a call-to-action paragraph
-                  if (paragraph.includes('Ready to') || paragraph.includes('Stop waiting') || paragraph.includes('Let AI do') || paragraph.includes('Don\'t wait')) {
-                    return (
-                      <div key={index} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
-                        <p className="text-lg font-semibold text-slate-900 mb-4">{paragraph}</p>
-                        <button 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.location.href = '/generate';
-                          }}
-                          className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
-                        >
+
+                  // CTA paragraph
+                  if (line.includes('Ready to') || line.includes('Stop waiting') || line.includes('Let AI do') || line.includes('Don\'t wait')) {
+                    elements.push(
+                      <div key={`cta-${i}`} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
+                        <p className="text-lg font-semibold text-slate-900 mb-4">{line}</p>
+                        <button onClick={(e) => { e.stopPropagation(); window.location.href = '/generate'; }} className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
                           Generate My Plan
                         </button>
                       </div>
                     );
+                    continue;
                   }
-                  
-                // Autolink terms within body paragraphs too (light)
-                const AUTOLINKS_BODY: { term: string; slug: string }[] = [
-                  { term: 'journaling', slug: 'micro-journaling-habit' },
-                  { term: 'watercolor', slug: 'easy-watercolor-paintings' },
-                  { term: 'AI', slug: 'find-hobby-that-sticks' }
-                ];
-                let bodyHtml = paragraph;
-                for (const { term, slug } of AUTOLINKS_BODY) {
-                  const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-                  bodyHtml = bodyHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+
+                  // Default body paragraph with light autolinks
+                  const AUTOLINKS_BODY: { term: string; slug: string }[] = [
+                    { term: 'journaling', slug: 'micro-journaling-habit' },
+                    { term: 'watercolor', slug: 'easy-watercolor-paintings' },
+                    { term: 'AI', slug: 'find-hobby-that-sticks' }
+                  ];
+                  let bodyHtml = line;
+                  for (const { term, slug } of AUTOLINKS_BODY) {
+                    const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
+                    bodyHtml = bodyHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                  }
+                  elements.push(
+                    <p key={`p-${i}`} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+                  );
                 }
-                return (
-                  <p key={index} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
-                );
-                });
+
+                return elements;
               })()}
             </div>
           </article>
