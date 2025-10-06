@@ -1068,6 +1068,26 @@ export function BlogPage() {
                   );
                 };
 
+                const convertInlineLinks = (text: string): string => {
+                  let out = text;
+                  // Pattern: Label → [/blog?post=slug]
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/blog\?post=[^\]]+)\]/g, (_m, label, url) => {
+                    const safeLabel = String(label).trim();
+                    const safeUrl = String(url).trim();
+                    return `<a href="${safeUrl}" class="text-purple-600 hover:underline">${safeLabel}</a>`;
+                  });
+                  // Pattern: [Label](/blog?post=slug)
+                  out = out.replace(/\[(.*?)\]\((\/blog\?post=[^\)]+)\)/g, (_m, label, url) => {
+                    return `<a href="${url}" class="text-purple-600 hover:underline">${label}</a>`;
+                  });
+                  // Pattern: [/blog?post=slug]
+                  out = out.replace(/\[(\/blog\?post=[^\]]+)\]/g, (_m, url) => {
+                    const safeUrl = String(url).trim();
+                    return `<a href="${safeUrl}" class="text-purple-600 hover:underline">${safeUrl}</a>`;
+                  });
+                  return out;
+                };
+
                 const elements: JSX.Element[] = [];
                 for (let i = 0; i < lines.length; i++) {
                   const line = lines[i];
@@ -1210,10 +1230,11 @@ export function BlogPage() {
 
                   // Bullet line
                   if (trimmed.startsWith('•')) {
+                    const bulletHtml = convertInlineLinks(trimmed.slice(1).trim());
                     elements.push(
                       <div key={`b-${i}`} className="flex items-start mb-3">
                         <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
-                        <p className="text-slate-700 leading-relaxed flex-1">{trimmed.slice(1).trim()}</p>
+                        <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
                       </div>
                     );
                     continue;
@@ -1238,7 +1259,7 @@ export function BlogPage() {
                     { term: 'watercolor', slug: 'easy-watercolor-paintings' },
                     { term: 'AI', slug: 'find-hobby-that-sticks' }
                   ];
-                  let bodyHtml = line;
+                  let bodyHtml = convertInlineLinks(line);
                   for (const { term, slug } of AUTOLINKS_BODY) {
                     const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
                     bodyHtml = bodyHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
