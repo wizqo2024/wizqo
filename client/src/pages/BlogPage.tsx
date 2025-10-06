@@ -964,7 +964,21 @@ export function BlogPage() {
                       if (altMatch) alt = altMatch[1] || alt;
                       if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
                     }
-                    let finalUrl = pickFallback(url || undefined);
+                    let finalUrl = url || undefined;
+                    // Ensure uniqueness: avoid previously used URLs and avoid category/generic defaults for inline images
+                    if (!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) {
+                      // try to perturb source.unsplash.com with a unique sig if applicable
+                      if (finalUrl && finalUrl.includes('source.unsplash.com')) {
+                        const hasSig = /[?&]sig=\d+/.test(finalUrl);
+                        finalUrl = hasSig ? finalUrl.replace(/sig=\d+/, `sig=${imageIdx + 1}`) : (finalUrl + (finalUrl.includes('?') ? '&' : '?') + `sig=${imageIdx + 1}`);
+                      } else if (finalUrl && finalUrl.includes('images.unsplash.com')) {
+                        // add query params to differentiate renders
+                        finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `uniq=${imageIdx + 1}`;
+                      }
+                    }
+                    if (!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) {
+                      finalUrl = pickFallback(undefined);
+                    }
                     if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
                       const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
                       const overrideB = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
