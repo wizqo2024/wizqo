@@ -261,9 +261,7 @@ Look around your home — paper, pens, boxes, or old magazines are all you need 
     id: "productive-hobbies-for-students",
     title: "7 Productive Hobbies for Students That Actually Make You Smarter",
     excerpt: "7 fun, productive hobbies for students that boost creativity, focus, and confidence — backed by science and easy to start.",
-    content: `Meta Description: Discover 7 fun and productive hobbies for students that boost creativity, focus, and confidence — backed by science and easy to start.
-
-🎯 Why Students Need Productive Hobbies
+    content: `🎯 Why Students Need Productive Hobbies
 Let’s be real: after school, most of us end up scrolling TikTok or bingeing Netflix. Fun? Yes. Helpful? Not really. That’s where productive hobbies come in — hobbies that not only kill boredom but also make you smarter, calmer, and more creative.
 
 Research even shows that hobbies improve mental health, memory, and problem-solving skills. So instead of wasting hours on random scrolling, why not try something fun and meaningful?
