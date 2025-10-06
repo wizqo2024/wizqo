@@ -143,9 +143,6 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     excerpt: "Feeling bored? Discover cheap hobbies at home that are fun, unique, and productive — all without breaking the bank.",
     content: `😴 The Problem: Why We Get Bored So Easily
 
-Meta Description (≤160 chars):
-Feeling bored? Discover cheap hobbies at home that are fun, unique, and productive — all without breaking the bank.
-
 Let’s be honest. We’ve all been there — sitting at home, refreshing Instagram, scrolling TikTok, and thinking: “I’m so bored, but I don’t want to spend money.”
 
 Here’s the truth: boredom isn’t a lack of things to do. It’s a lack of fun, fresh ideas. The good news? You don’t need to spend a fortune to enjoy yourself. All you need are some cheap hobbies that are fun, productive, and surprisingly rewarding.
