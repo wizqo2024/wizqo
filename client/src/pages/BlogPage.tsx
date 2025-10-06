@@ -825,6 +825,8 @@ export function BlogPage() {
                 <img 
                   src={coverUrl} 
                   alt={selectedPost.imageAlt || selectedPost.title} 
+                  width={1600}
+                  height={640}
                   className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
                   onError={(e) => {
                     const img = (e.currentTarget as HTMLImageElement);
@@ -1021,7 +1023,7 @@ export function BlogPage() {
                     imageIdx++;
                     elements.push(
                       <figure key={`img-${i}`} className="my-6">
-                        <img src={finalUrl} alt={alt} loading="lazy" className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" onError={(e) => {
+                        <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" onError={(e) => {
                           const img = (e.currentTarget as HTMLImageElement);
                           const current = img.src;
                           const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
@@ -1227,6 +1229,8 @@ export function BlogPage() {
                     <img 
                       src={getPostImage(post)} 
                       alt={post.imageAlt || post.title} 
+                      width={1200}
+                      height={540}
                       className="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-lg mb-4"
                       onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE; }}
                     />
