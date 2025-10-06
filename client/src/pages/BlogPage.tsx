@@ -147,31 +147,31 @@ Boredom isn’t a lack of things to do — it’s a lack of fresh ideas you actu
 
 1. 🎨 Doodle Like a Scientist: Zentangle Drawing
 ✅ Boosts focus and calm. Try structured patterns.
-![Zentangle doodle drawing](https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80 "Zentangle-style doodles for mindful drawing at home")
+![Zentangle doodle drawing](https://source.unsplash.com/1600x900/?zentangle,pattern,black-and-white&sig=201 "Zentangle-style doodles for mindful drawing at home")
 
 2. 🥬 Grow a Mini Salad Garden in a Jar
 ✅ Reuse jars; start with basil or mint.
-![Herbs growing in jars](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80 "Growing herbs in jars on a desk")
+![Herbs growing in jars](https://source.unsplash.com/1600x900/?indoor-garden,jar,herbs&sig=202 "Growing herbs in jars on a desk")
 
 3. 📖 Write Micro-Stories in 6 Words 
 ✅ Sharpen creativity fast.
-![Six-word story in a notebook](https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=1600&q=80 "Six-word story writing as a creative hobby")
+![Six-word story in a notebook](https://source.unsplash.com/1600x900/?notebook,writing,story&sig=203 "Six-word story writing as a creative hobby")
 
 4. 🧩 Make Your Own Puzzle Challenges
 ✅ Cut a magazine cover into pieces.
-![DIY puzzle pieces](https://images.unsplash.com/photo-1526662092594-e98c1e356d6a?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
+![DIY puzzle pieces](https://source.unsplash.com/1600x900/?puzzle,craft,magazine&sig=204 "DIY jigsaw puzzle pieces made from a magazine cover")
 
 5. 🥁 Learn Rhythms on Everyday Objects
 ✅ Tap patterns on a desk.
-![Tapping rhythms on a desk](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
+![Tapping rhythms on a desk](https://source.unsplash.com/1600x900/?rhythm,drums,desk&sig=205 "Practicing rhythms with everyday objects at home")
 
 6. 🎭 Lip-Sync Theater (Yes, Seriously)
 ✅ Practice expression and confidence.
-![Practicing acting in a mirror](https://images.unsplash.com/photo-1529336953121-ad5a0d43d0ee?auto=format&fit=crop&w=1600&q=80 "Lip-sync acting practice to boost confidence")
+![Practicing acting in a mirror](https://source.unsplash.com/1600x900/?acting,mirror,theatre&sig=206 "Lip-sync acting practice to boost confidence")
 
 7. 🎮 Create Your Own Board Game
 ✅ Cardboard + markers = endless fun.
-![DIY board game with markers and dice](https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1600&q=80 "Designing a simple DIY board game at home")
+![DIY board game with markers and dice](https://source.unsplash.com/1600x900/?board-game,dice,markers&sig=207 "Designing a simple DIY board game at home")
 
 🌟 Why Cheap Hobbies Work
 Less gear = more creativity. Start small, keep it playful, and you’ll be surprised how far it goes.
@@ -188,7 +188,7 @@ Less gear = more creativity. Start small, keep it playful, and you’ll be surpr
     date: "2025-10-06",
     readTime: "5–6 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "https://source.unsplash.com/1600x900/?creative,desk,hobbies&sig=200",
     imageAlt: "Cheap hobbies at home: creative desk with doodles, plants, and notebook"
   },
   {
@@ -801,7 +801,7 @@ export function BlogPage() {
                     .filter(paragraph => {
                       const p = paragraph.trim();
                       return (
-                        /^\d+\./.test(p) ||
+                        /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
                         p.includes('Why Students Need Productive Hobbies') ||
                         p.includes('Key Takeaways') ||
                         p.includes('FAQs About Productive Hobbies') ||
