@@ -831,7 +831,13 @@ export function BlogPage() {
                   src={coverUrl} 
                   alt={selectedPost.imageAlt || selectedPost.title} 
                   className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = GENERIC_BLOG_IMAGE; }}
+                  onError={(e) => {
+                    const img = (e.currentTarget as HTMLImageElement);
+                    const next = CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                    if (img.src !== next) {
+                      img.src = next;
+                    }
+                  }}
                 />
                 {selectedPost.imageAlt && (
                   <figcaption className="text-sm text-slate-500 mt-2">{selectedPost.imageAlt}</figcaption>
@@ -970,14 +976,26 @@ export function BlogPage() {
                       // try to perturb source.unsplash.com with a unique sig if applicable
                       if (finalUrl && finalUrl.includes('source.unsplash.com')) {
                         const hasSig = /[?&]sig=\d+/.test(finalUrl);
-                        finalUrl = hasSig ? finalUrl.replace(/sig=\d+/, `sig=${imageIdx + 1}`) : (finalUrl + (finalUrl.includes('?') ? '&' : '?') + `sig=${imageIdx + 1}`);
+                        const baseIdx = imageIdx + 1;
+                        finalUrl = hasSig ? finalUrl.replace(/sig=\d+/, `sig=${baseIdx}`) : (finalUrl + (finalUrl.includes('?') ? '&' : '?') + `sig=${baseIdx}`);
                       } else if (finalUrl && finalUrl.includes('images.unsplash.com')) {
                         // add query params to differentiate renders
-                        finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `uniq=${imageIdx + 1}`;
+                        const baseIdx = imageIdx + 1;
+                        finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `uniq=${baseIdx}`;
                       }
                     }
+                    // Final guard: always ensure unique per article
+                    let guardCounter = 0;
+                    while ((!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) && guardCounter < 5) {
+                      const baseIdx = imageIdx + 1 + guardCounter;
+                      if (!finalUrl) finalUrl = GENERIC_BLOG_IMAGE + `?v=${baseIdx}`;
+                      else if (finalUrl.includes('source.unsplash.com')) finalUrl = finalUrl.replace(/([?&]sig=)\d+/, `$1${baseIdx}`);
+                      else finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `v=${baseIdx}`;
+                      guardCounter++;
+                    }
                     if (!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) {
-                      finalUrl = pickFallback(undefined);
+                      const fb = pickFallback(undefined);
+                      finalUrl = fb && (!usedImageUrls || !usedImageUrls.has(fb)) ? fb : `${GENERIC_BLOG_IMAGE}?v=${Date.now()}-${imageIdx}`;
                     }
                     if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
                       const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
