@@ -1589,8 +1589,14 @@ app.post('/api/validate-hobby', async (req, res) => {
       'noodles': 'cooking',
       'pasta making': 'cooking',
       'sing': 'singing',
-      'tajweed': 'recitation',
-      'quran recitation': 'recitation',
+      // Quran-related
+      'tajweed': 'quran recitation',
+      'quran recitation': 'quran recitation',
+      'reading quran': 'quran recitation',
+      'quran reading': 'quran recitation',
+      'reciting quran': 'quran recitation',
+      'memorizing quran': 'quran memorization',
+      'hifz': 'quran memorization',
       'robotics': 'robotics',
       'electronics': 'electronics'
     };
@@ -1601,6 +1607,18 @@ app.post('/api/validate-hobby', async (req, res) => {
         isValid: true,
         suggestion: hobbyVariations[cleanHobby],
         category: 'variation',
+        confidence: 0.9
+      });
+    }
+
+    // Quran-specific smart mapping (handles phrases like "reading quran")
+    if (/(quran|koran)/i.test(cleanHobby)) {
+      let suggestion = 'quran recitation';
+      if (/memor/i.test(cleanHobby) || /hifz/.test(cleanHobby)) suggestion = 'quran memorization';
+      return res.json({
+        isValid: true,
+        suggestion,
+        category: 'spiritual',
         confidence: 0.9
       });
     }
