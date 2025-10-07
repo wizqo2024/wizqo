@@ -46,6 +46,28 @@ A cutting-edge AI-powered hobby learning platform that generates hyper-personali
    npm run dev
    ```
 
+## Blog Content & SEO
+
+- Location for posts: `client/content/blog/*.md`
+- Front matter template:
+  ```md
+  ---
+  title: "Post Title"
+  slug: post-slug
+  excerpt: "1–2 line meta description (<=160 chars)."
+  category: Learning Tips
+  readTime: 5–7 min read
+  cover: https://...
+  imageAlt: "Accessible description"
+  date: YYYY-MM-DD
+  ---
+  ```
+- Images: use distinct Unsplash URLs per section; avoid reuse across posts
+- Internal links: use `/blog?post=slug` (renderer auto‑links bullets/lines)
+- Canonicals: `https://wizqo.com/blog?post=slug`
+- robots.txt and sitemap: in `client/public/robots.txt` and `client/public/sitemap.xml`
+- Rendering: numbered sections render body lines beneath headings; images have width/height for low CLS; ratings vary per post automatically
+
 ## Deployment
 
 ### Vercel Deployment
@@ -104,5 +126,5 @@ A cutting-edge AI-powered hobby learning platform that generates hyper-personali
 
 ## License
 
-MIT License - see LICENSE file for details# Trigger deployment
+MIT License - see LICENSE file for details
  
