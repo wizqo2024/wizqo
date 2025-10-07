@@ -7,6 +7,10 @@
       "includeFiles": "dist/server/**"
     }
   },
+  "redirects": [
+    { "source": "/blog", "destination": "/blog", "permanent": false },
+    { "source": "/blog?post=:slug", "destination": "/blog/:slug", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
     { "source": "/blog/:slug", "destination": "/index.html" },
