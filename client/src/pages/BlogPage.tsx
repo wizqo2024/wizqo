@@ -1198,9 +1198,22 @@ export function BlogPage() {
                     elements.push(
                       <div key={`num-${i}`} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
                         <h3 id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>
-                        {contentLines.map((ln, k) => (
-                          <p key={`num-${i}-p-${k}`} className="text-slate-700 leading-relaxed">{ln}</p>
-                        ))}
+                        {contentLines.map((ln, k) => {
+                          const t = (ln || '').trim();
+                          if (t.startsWith('•')) {
+                            const bulletHtml = convertInlineLinks(t.slice(1).trim());
+                            return (
+                              <div key={`num-${i}-b-${k}`} className="flex items-start mb-3">
+                                <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
+                                <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
+                              </div>
+                            );
+                          }
+                          const paraHtml = convertInlineLinks(ln);
+                          return (
+                            <p key={`num-${i}-p-${k}`} className="text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: paraHtml }} />
+                          );
+                        })}
                       </div>
                     );
                     i = j - 1; // skip consumed lines
