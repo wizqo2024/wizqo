@@ -777,7 +777,7 @@ function loadMarkdownPosts(): BlogPost[] {
   }
 }
 
-export function BlogPage() {
+export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
   const mdPosts = useMemo(() => loadMarkdownPosts(), []);
   const allPosts: BlogPost[] = useMemo(() => {
     // Prefer Markdown posts when duplicates exist; then fallback to inline base posts
@@ -808,6 +808,13 @@ export function BlogPage() {
       if (found) setSelectedPost(found);
     } catch {}
   }, [allPosts]);
+
+  // Preselect post from pretty URL slug (/blog/:slug)
+  useEffect(() => {
+    if (!initialSlug) return;
+    const found = allPosts.find(p => p.id === initialSlug);
+    if (found) setSelectedPost(found);
+  }, [initialSlug, allPosts]);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
