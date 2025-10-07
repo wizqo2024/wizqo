@@ -115,7 +115,7 @@ Look around your home — paper, pens, boxes, or old magazines are all you need 
 
 🔗 Related Reads on Wizqo
 
-• Productive hobbies at home → [/blog?post=productive-hobbies-for-students]
-• Outdoor hobbies for weekends → [/blog?post=outdoor-hobbies-for-students]
-• Micro journaling guide → [/blog?post=micro-journaling-habit]
-• Find a hobby that sticks → [/blog?post=find-hobby-that-sticks]
+• Productive hobbies at home → [/blog/productive-hobbies-for-students]
+• Outdoor hobbies for weekends → [/blog/outdoor-hobbies-for-students]
+• Micro journaling guide → [/blog/micro-journaling-habit]
+• Find a hobby that sticks → [/blog/find-hobby-that-sticks]

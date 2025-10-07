@@ -129,7 +129,7 @@ Even 1–2 hours per week makes a noticeable difference in mood and focus.
 
 🔗 Related Reads on Wizqo
 
-• Productive hobbies at home → [/blog?post=productive-hobbies-for-students]
-• Find a hobby that sticks → [/blog?post=find-hobby-that-sticks]
-• Micro journaling guide → [/blog?post=micro-journaling-habit]
+• Productive hobbies at home → [/blog/productive-hobbies-for-students]
+• Find a hobby that sticks → [/blog/find-hobby-that-sticks]
+• Micro journaling guide → [/blog/micro-journaling-habit]
 

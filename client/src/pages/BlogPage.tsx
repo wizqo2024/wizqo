@@ -872,11 +872,11 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
           title={selectedPost.title}
           description={selectedPost.excerpt}
           ogImage={selectedPost.imageUrl}
-          canonicalUrl={`https://wizqo.com/blog?post=${selectedPost.id}`}
+          canonicalUrl={`https://wizqo.com/blog/${selectedPost.id}`}
         />
         {/* SEO JSON-LD: Article and Breadcrumbs */}
         {(() => {
-          const canonical = `https://wizqo.com/blog?post=${selectedPost.id}`;
+          const canonical = `https://wizqo.com/blog/${selectedPost.id}`;
           const image = selectedPost.imageUrl || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
           const articleLd = {
             "@context": "https://schema.org",
