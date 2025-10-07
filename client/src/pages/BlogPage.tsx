@@ -794,6 +794,11 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   }, [mdPosts]);
 
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const navigateTo = (path: string) => {
+    try {
+      window.history.pushState({}, '', path);
+    } catch {}
+  };
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
@@ -909,7 +914,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="mb-8 flex items-center justify-between">
             <button
-              onClick={() => setSelectedPost(null)}
+              onClick={() => { setSelectedPost(null); navigateTo('/blog'); }}
               className="flex items-center text-purple-600 hover:text-purple-700 transition-colors font-medium"
             >
               ← Back to Blog
@@ -1355,7 +1360,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
             {/* Featured Post */}
             <article 
               className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 sm:p-6 lg:p-8 text-white cursor-pointer hover:from-purple-700 hover:to-pink-700 transition-all"
-              onClick={() => setSelectedPost(allPosts[0])}
+                  onClick={() => { setSelectedPost(allPosts[0]); navigateTo(`/blog/${allPosts[0].id}`); }}
             >
               <span className="bg-white bg-opacity-20 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block">
                 Featured Article
@@ -1401,7 +1406,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   <article 
                     key={post.id}
                     className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300"
-                    onClick={() => setSelectedPost(post)}
+                  onClick={() => { setSelectedPost(post); navigateTo(`/blog/${post.id}`); }}
                   >
                     <img 
                       src={getPostImage(post)} 
