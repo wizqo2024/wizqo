@@ -123,7 +123,7 @@ Journaling or micro-gardening. Both need minimal setup.
 
 🔗 Related Reads on Wizqo
 
-• Boost creativity with simple daily habits → [/blog?post=find-hobby-that-sticks]
+• Boost creativity with simple daily habits → [/blog/find-hobby-that-sticks]
 
-• Micro journaling guide for busy students → [/blog?post=micro-journaling-habit]
+• Micro journaling guide for busy students → [/blog/micro-journaling-habit]
 
