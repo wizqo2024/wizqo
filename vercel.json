@@ -8,8 +8,12 @@
     }
   },
   "redirects": [
-    { "source": "/blog", "destination": "/blog", "permanent": false },
-    { "source": "/blog?post=:slug", "destination": "/blog/:slug", "permanent": true }
+    {
+      "source": "/blog",
+      "has": [ { "type": "query", "key": "post" } ],
+      "destination": "/blog/:post",
+      "permanent": true
+    }
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
