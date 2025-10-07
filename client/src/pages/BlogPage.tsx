@@ -1088,20 +1088,21 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
 
                 const convertInlineLinks = (text: string): string => {
                   let out = text;
-                  // Pattern: Label → [/blog?post=slug]
-                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/blog\?post=[^\]]+)\]/g, (_m, label, url) => {
+                  // Pattern: Label → [/blog?post=slug] -> /blog/slug
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/blog\?post=([a-z0-9-]+))\]/gi, (_m, label, _url, slug) => {
                     const safeLabel = String(label).trim();
-                    const safeUrl = String(url).trim();
-                    return `<a href="${safeUrl}" class="text-purple-600 hover:underline">${safeLabel}</a>`;
+                    const pretty = `/blog/${slug}`;
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel}</a>`;
                   });
-                  // Pattern: [Label](/blog?post=slug)
-                  out = out.replace(/\[(.*?)\]\((\/blog\?post=[^\)]+)\)/g, (_m, label, url) => {
-                    return `<a href="${url}" class="text-purple-600 hover:underline">${label}</a>`;
+                  // Pattern: [Label](/blog?post=slug) -> /blog/slug
+                  out = out.replace(/\[(.*?)\]\((\/blog\?post=([a-z0-9-]+))\)/gi, (_m, label, _url, slug) => {
+                    const pretty = `/blog/${slug}`;
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${label}</a>`;
                   });
-                  // Pattern: [/blog?post=slug]
-                  out = out.replace(/\[(\/blog\?post=[^\]]+)\]/g, (_m, url) => {
-                    const safeUrl = String(url).trim();
-                    return `<a href="${safeUrl}" class="text-purple-600 hover:underline">${safeUrl}</a>`;
+                  // Pattern: [/blog?post=slug] -> /blog/slug
+                  out = out.replace(/\[(\/blog\?post=([a-z0-9-]+))\]/gi, (_m, _url, slug) => {
+                    const pretty = `/blog/${slug}`;
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
                   return out;
                 };
