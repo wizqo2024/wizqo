@@ -983,7 +983,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const candidates = [
                       CATEGORY_IMAGES[selectedPost.category],
                       GENERIC_BLOG_IMAGE,
-                      'https://wizqo.com/og-image.jpg'
+                      ALT_GENERIC_IMAGE
                     ].filter(Boolean) as string[];
                     // Try unused first
                     let picked: string | undefined;
@@ -1246,8 +1246,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                             const candidates = [
                               CATEGORY_IMAGES[selectedPost.category],
                               GENERIC_BLOG_IMAGE,
-                              ALT_GENERIC_IMAGE,
-                              'https://wizqo.com/og-image.jpg'
+                              ALT_GENERIC_IMAGE
                             ].filter(Boolean) as string[];
                             let picked: string | undefined;
                             let pickedIndex = tried;
@@ -1308,8 +1307,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                                 const candidates = [
                                   CATEGORY_IMAGES[selectedPost.category],
                                   GENERIC_BLOG_IMAGE,
-                                  ALT_GENERIC_IMAGE,
-                                  'https://wizqo.com/og-image.jpg'
+                                  ALT_GENERIC_IMAGE
                                 ].filter(Boolean) as string[];
                                 let picked: string | undefined;
                                 let pickedIndex = tried;
