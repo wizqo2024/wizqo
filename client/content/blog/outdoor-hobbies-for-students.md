@@ -53,7 +53,7 @@ Cycling isn’t just exercise — it’s freedom. Exploring new routes, biking w
 ✅ Problem it solves: Boredom with routine → adds adventure and fitness.
 💡 How to start: Borrow or buy a basic bike, pick safe routes, and track your rides with apps like Strava.
 
-![Group of students cycling](https://images.unsplash.com/photo-1495526968767-e49356d669fb?auto=format&fit=crop&w=1600&q=80 "Cycling as a productive outdoor hobby for students")
+![Group of students cycling](https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=1600&q=80 "Cycling as a productive outdoor hobby for students")
 
 5. Photography Walks 📸
 
