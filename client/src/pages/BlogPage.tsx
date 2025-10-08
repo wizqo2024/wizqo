@@ -1478,6 +1478,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               <span className="bg-white bg-opacity-20 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block">
                 Featured Article
               </span>
+              <img
+                src={getPostImage(allPosts[0])}
+                alt={allPosts[0].imageAlt || allPosts[0].title}
+                width={1200}
+                height={540}
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-white/20"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[allPosts[0].category] || GENERIC_BLOG_IMAGE; }}
+              />
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
                 {allPosts[0].title}
               </h2>
