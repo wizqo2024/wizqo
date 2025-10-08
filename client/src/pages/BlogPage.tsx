@@ -145,8 +145,8 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     date: "October 2025",
     readTime: "6–7 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1600&q=80",
-    imageAlt: "Books, chess, and sketchbook on a desk representing smart hobbies"
+    imageUrl: "https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Chess board and notebook — smart hobbies cover"
   },
   
   {
@@ -568,7 +568,9 @@ Stop waiting for motivation to magically appear. Let Wizqo build your free 7-day
     author: "Wizqo Team",
     date: "January 2025",
     readTime: "5 min read",
-    category: "Learning Tips"
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1519687079689-5f06a3cd909c?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Notebook planning a 7-day hobby plan"
   },
   {
     id: "micro-journaling-habit",
