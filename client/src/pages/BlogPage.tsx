@@ -204,7 +204,7 @@ No drum kit? Use a table, box, or even pots and pans. Rhythm practice is a fun s
 ✅ Why it’s awesome: Improves coordination and brain timing — musicians call it “cross-training” for the mind.
 💡 Extra tip: Try following free rhythm tutorials on YouTube.
 
-![Tapping rhythms on a desk](https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
+![Tapping rhythms on a desk](https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
 
 6. 🎭 Lip-Sync Theater (Yes, Seriously)
 
