@@ -834,17 +834,10 @@ function loadMarkdownPosts(): BlogPost[] {
 export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
   const mdPosts = useMemo(() => loadMarkdownPosts(), []);
   const allPosts: BlogPost[] = useMemo(() => {
-    // For stability, prefer authored Markdown generally, but allow specific inline fallbacks to override
-    const preferBaseIds = new Set<string>(['relaxing-hobbies']);
+    // Prefer authored Markdown; use inline base posts only if missing in MD
     const byId = new Map<string, BlogPost>();
     for (const p of mdPosts) byId.set(p.id, p);
-    for (const p of basePosts) {
-      if (preferBaseIds.has(p.id)) {
-        byId.set(p.id, p); // override with inline fallback
-      } else if (!byId.has(p.id)) {
-        byId.set(p.id, p);
-      }
-    }
+    for (const p of basePosts) if (!byId.has(p.id)) byId.set(p.id, p);
     const merged = Array.from(byId.values());
     merged.sort((a, b) => {
       const da = Date.parse(a.date || '') || 0;
