@@ -1204,31 +1204,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         guardCounter++;
                       }
                     }
-                    // Curated per-heading images for cheap-hobbies to guarantee unique, headline-relevant visuals
-                    if (selectedPost.id === 'cheap-hobbies-at-home') {
-                      const curated = [
-                        'https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80', // Zentangle
-                        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80', // Herbs jar
-                        'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80', // Writing
-                        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80', // Puzzle
-                        'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1600&q=80', // Rhythm desk
-                        'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80', // Acting mirror
-                        'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80'  // Board game
-                      ];
-                      if (imageIdx >= 0 && imageIdx < curated.length) {
-                        finalUrl = curated[imageIdx];
-                      }
-                    }
-                    if (selectedPost.id === 'easy-hobbies-that-make-you-smarter') {
-                      const overrideA = 'https://images.unsplash.com/photo-1542587228-2d9950b773df?auto=format&fit=crop&w=1600&q=80';
-                      const overrideB = 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80';
-                      if (imageIdx === 0) finalUrl = overrideA;
-                      if (imageIdx === 1) finalUrl = overrideB;
-                      if (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl)) {
-                        const candidates = [overrideA, overrideB, CATEGORY_IMAGES[selectedPost.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
-                        for (const c of candidates) { if (!usedImageUrls.has(c)) { finalUrl = c; break; } }
-                      }
-                    }
+                    // Use authored Markdown image URLs as-is for all posts; only fallback when missing
+                    // No per-post overrides; use authored URLs to keep relevance and uniqueness
                     // Do not override relaxing-hobbies images; use authored Markdown URLs
                     if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                     imageIdx++;

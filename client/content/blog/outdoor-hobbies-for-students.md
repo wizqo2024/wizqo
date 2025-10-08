@@ -4,8 +4,8 @@ slug: outdoor-hobbies-for-students
 excerpt: "Discover 9 fun and productive outdoor hobbies for students that boost focus, creativity, and health — perfect alternatives to screen time."
 category: Learning Tips
 readTime: 7–8 min read
-cover: https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80
-imageAlt: "Group of students outside enjoying a park day"
+cover: https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80
+imageAlt: "Outdoor hobbies cover — scenic nature trail"
 date: 2025-10-02
 ---
 
@@ -26,7 +26,7 @@ Think treasure maps, but powered by GPS. Geocaching turns any park into an adven
 ✅ Problem it solves: Screen addiction → replaces endless scrolling with active exploration.
 💡 How to start: Download a free geocaching app, choose a beginner location, and go treasure-hunting with friends.
 
-![Students checking a geocaching app outside](https://images.unsplash.com/photo-1518176258769-f227c798150e?auto=format&fit=crop&w=1600&q=80 "Geocaching as a fun outdoor hobby for students")
+![Teen with phone and map outdoors](https://images.unsplash.com/photo-1481627834876-dccba630e2f6?auto=format&fit=crop&w=1600&q=80 "Geocaching as a fun outdoor hobby for students")
 
 2. Frisbee or Disc Golf 🥏
 
@@ -44,7 +44,7 @@ Yes, gardening counts as outdoor fun — even if it’s just pots on your balcon
 ✅ Problem it solves: Stress & low patience → teaches mindfulness, responsibility, and the joy of nurturing life.
 💡 How to start: Begin with easy plants like mint, basil, or succulents. Water lightly and watch them grow.
 
-![Student watering herbs on a balcony](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80 "Urban gardening outdoor hobby for kids and students")
+![Small balcony herb garden](https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1600&q=80 "Urban gardening outdoor hobby for kids and students")
 
 4. Cycling Adventures 🚴
 
