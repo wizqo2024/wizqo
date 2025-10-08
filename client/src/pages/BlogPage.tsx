@@ -1551,8 +1551,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       alt={post.imageAlt || post.title} 
                       width={1200}
                       height={540}
+                      referrerPolicy="no-referrer"
                       className="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-lg mb-4"
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE; }}
+                      onError={(e) => {
+                        const img = e.currentTarget as HTMLImageElement;
+                        const fallbacks = [CATEGORY_IMAGES[post.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
+                        const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                        if (tried < fallbacks.length) {
+                          img.setAttribute('data-errcount', String(tried + 1));
+                          img.src = fallbacks[tried] as string;
+                        }
+                      }}
                     />
                     <div className="flex items-center justify-between mb-4">
                       <span className="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">
