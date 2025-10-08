@@ -11,17 +11,15 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for Vercel deploy
+        run: sleep 20
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install deps (none)
-        run: |
-          echo "no deps"
       - name: Run sitemap link check
         env:
           SITE_ORIGIN: https://wizqo.com
-        run: |
-          node scripts/check-sitemap-links.js
+        run: node scripts/check-sitemap-links.js
