@@ -1227,6 +1227,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         guardCounter++;
                       }
                     }
+                    // Avoid duplicating the cover or prior images: if authored URL equals a used one (like cover), choose a safe alternative
+                    if (typeof usedImageUrls !== 'undefined' && finalUrl && usedImageUrls.has(finalUrl)) {
+                      const avoidDupCandidates = [
+                        CATEGORY_IMAGES[selectedPost.category],
+                        GENERIC_BLOG_IMAGE,
+                        ALT_GENERIC_IMAGE
+                      ].filter(Boolean) as string[];
+                      for (const c of avoidDupCandidates) {
+                        if (!usedImageUrls.has(c)) { finalUrl = c; break; }
+                      }
+                    }
                     // Use authored Markdown image URLs as-is for all posts; only fallback when missing
                     // No per-post overrides; use authored URLs to keep relevance and uniqueness
                     // Do not override relaxing-hobbies images; use authored Markdown URLs
@@ -1291,7 +1302,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         const m = tNext.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
                         let alt = selectedPost.title, url = '', caption = '';
                         if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
-                        const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                        let finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                        if (typeof usedImageUrls !== 'undefined' && finalUrl && usedImageUrls.has(finalUrl)) {
+                          const avoidDupCandidates = [
+                            CATEGORY_IMAGES[selectedPost.category],
+                            GENERIC_BLOG_IMAGE,
+                            ALT_GENERIC_IMAGE
+                          ].filter(Boolean) as string[];
+                          for (const c of avoidDupCandidates) {
+                            if (!usedImageUrls.has(c)) { finalUrl = c; break; }
+                          }
+                        }
                         if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                         sectionEls.push(
                           <figure key={`num-img-${j}`} className="my-4">
