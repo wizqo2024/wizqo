@@ -1308,10 +1308,12 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const contentLines: string[] = [];
                     let j = i + 1;
                     while (j < lines.length) {
-                      const next = lines[j].trim();
+                      const nextLineRaw = lines[j];
+                      const next = nextLineRaw.trim();
                       if (next === '') { j++; continue; }
-                      if (/^\s*\d+\./.test(next) || isSectionHeading(next) || isMdImage(lines[j])) break;
-                      contentLines.push(lines[j]);
+                      if (/^\s*\d+\./.test(next) || isSectionHeading(next)) break;
+                      if (isMdImage(nextLineRaw)) { j++; continue; }
+                      contentLines.push(nextLineRaw);
                       j++;
                     }
 
