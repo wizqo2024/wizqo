@@ -17,7 +17,7 @@ Here’s the truth: boredom isn’t a lack of things to do. It’s a lack of fun
 
 Below are hobby ideas you may not have tried yet — quirky, creative, and guaranteed to make your free time way more exciting.
 
-Also read: [7 Productive Hobbies for Students](/blog?post=productive-hobbies-for-students) and [9 Outdoor Hobbies for Students](/blog?post=outdoor-hobbies-for-students).
+Also read: [7 Productive Hobbies for Students](/blog/productive-hobbies-for-students) and [9 Outdoor Hobbies for Students](/blog/outdoor-hobbies-for-students).
 
 🎨 1. Doodle Like a Scientist: Zentangle Drawing
 
@@ -53,7 +53,7 @@ No puzzles at home? No problem. Cut up an old magazine cover or a printed photo 
 ✅ Why it’s awesome: Improves problem-solving and memory while being ridiculously cheap.
 💡 Extra twist: Make a puzzle exchange with friends — everyone creates one and swaps.
 
-![DIY puzzle pieces](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
+![Cardboard jigsaw pieces](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
 
 🥁 5. Learn Rhythms on Everyday Objects
 
@@ -62,7 +62,7 @@ No drum kit? Use a table, box, or even pots and pans. Rhythm practice is a fun s
 ✅ Why it’s awesome: Improves coordination and brain timing — musicians call it “cross-training” for the mind.
 💡 Extra tip: Try following free rhythm tutorials on YouTube.
 
-![Tapping rhythms on a desk](https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
+![Hands drumming pencils on desk](https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
 
 🎭 6. Lip-Sync Theater (Yes, Seriously)
 
@@ -71,7 +71,7 @@ Pick a famous speech, movie scene, or even a TED Talk and lip-sync it dramatical
 ✅ Why it’s awesome: Builds public speaking skills without the stress.
 💡 Extra twist: Record a 30-second lip-sync performance and share it with friends for laughs.
 
-![Practicing acting in a mirror](https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80 "Lip-sync acting practice to boost confidence")
+![Acting practice in front of mirror](https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80 "Lip-sync acting practice to boost confidence")
 
 🎮 7. Create Your Own Board Game
 
@@ -80,7 +80,7 @@ Got some cardboard, markers, and dice (or even a coin)? That’s all you need to
 ✅ Why it’s awesome: Sharpens creativity, logic, and storytelling.
 💡 Extra tip: Make “house rules” that change every round for endless variety.
 
-![DIY board game with markers and dice](https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80 "Designing a simple DIY board game at home")
+![Markers, dice and DIY board](https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80 "Designing a simple DIY board game at home")
 
 🌟 Why Cheap Hobbies Work Better Than Expensive Ones
 
