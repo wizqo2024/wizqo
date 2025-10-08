@@ -320,7 +320,7 @@ export default function App() {
                     description="Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts."
                     canonicalUrl="https://wizqo.com/blog"
                   />
-                  <BlogPage initialSlug={route.split('/')[1]} />
+                  <BlogPage initialSlug={route.replace(/^\/?/, '').split('/')[1]} />
                 </>
               );
             case 'dashboard':
