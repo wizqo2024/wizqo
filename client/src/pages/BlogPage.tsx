@@ -1190,31 +1190,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       if (urlMatch) url = (urlMatch[1] || '').split(' "')[0].trim();
                     }
                     let finalUrl = url || undefined;
-                    // Ensure uniqueness: avoid previously used URLs and avoid category/generic defaults for inline images
-                    if (!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) {
-                      // try to perturb source.unsplash.com with a unique sig if applicable
-                      if (finalUrl && finalUrl.includes('source.unsplash.com')) {
-                        const hasSig = /[?&]sig=\d+/.test(finalUrl);
-                        const baseIdx = imageIdx + 1;
-                        finalUrl = hasSig ? finalUrl.replace(/sig=\d+/, `sig=${baseIdx}`) : (finalUrl + (finalUrl.includes('?') ? '&' : '?') + `sig=${baseIdx}`);
-                      } else if (finalUrl && finalUrl.includes('images.unsplash.com')) {
-                        // add query params to differentiate renders
-                        const baseIdx = imageIdx + 1;
-                        finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `uniq=${baseIdx}`;
+                    // Respect authored image URLs. Only fallback when missing.
+                    if (!finalUrl) {
+                      finalUrl = pickFallback(undefined);
+                      // ensure different from used images if possible
+                      let guardCounter = 0;
+                      while ((typeof usedImageUrls !== 'undefined' && finalUrl && usedImageUrls.has(finalUrl)) && guardCounter < 3) {
+                        finalUrl = GENERIC_BLOG_IMAGE + `?v=${Date.now()}-${imageIdx}-${guardCounter}`;
+                        guardCounter++;
                       }
-                    }
-                    // Final guard: always ensure unique per article
-                    let guardCounter = 0;
-                    while ((!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) && guardCounter < 5) {
-                      const baseIdx = imageIdx + 1 + guardCounter;
-                      if (!finalUrl) finalUrl = GENERIC_BLOG_IMAGE + `?v=${baseIdx}`;
-                      else if (finalUrl.includes('source.unsplash.com')) finalUrl = finalUrl.replace(/([?&]sig=)\d+/, `$1${baseIdx}`);
-                      else finalUrl = finalUrl + (finalUrl.includes('?') ? '&' : '?') + `v=${baseIdx}`;
-                      guardCounter++;
-                    }
-                    if (!finalUrl || (typeof usedImageUrls !== 'undefined' && usedImageUrls.has(finalUrl))) {
-                      const fb = pickFallback(undefined);
-                      finalUrl = fb && (!usedImageUrls || !usedImageUrls.has(fb)) ? fb : `${GENERIC_BLOG_IMAGE}?v=${Date.now()}-${imageIdx}`;
                     }
                     // Curated per-heading images for cheap-hobbies to guarantee unique, headline-relevant visuals
                     if (selectedPost.id === 'cheap-hobbies-at-home') {
@@ -1241,20 +1225,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         for (const c of candidates) { if (!usedImageUrls.has(c)) { finalUrl = c; break; } }
                       }
                     }
-                    if (selectedPost.id === 'relaxing-hobbies') {
-                      const curated = [
-                        'https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1529336953121-ad5a0d43d0ee?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80',
-                        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80'
-                      ];
-                      if (imageIdx >= 0 && imageIdx < curated.length) {
-                        finalUrl = curated[imageIdx];
-                      }
-                    }
+                    // Do not override relaxing-hobbies images; use authored Markdown URLs
                     if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                     imageIdx++;
                     elements.push(
