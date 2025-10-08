@@ -1299,46 +1299,54 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     continue;
                   }
 
-                  // Numbered item (1., 2., ...). Support optional leading emoji before number as long as line contains pattern "\d+."
+                  // Numbered item (1., 2., ...) — render full section content (images, bullets, paragraphs) until next heading
                   const numMatch = trimmed.match(/\b\d+\./);
-                  if (numMatch && /^\s*\d+\./.test(trimmed) || numMatch && trimmed.indexOf(numMatch[0]) <= 4) {
+                  if ((numMatch && /^\s*\d+\./.test(trimmed)) || (numMatch && trimmed.indexOf(numMatch[0]) <= 4)) {
                     const headingText = trimmed;
                     const numHeadingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-                    const contentLines: string[] = [];
+                    const sectionEls: JSX.Element[] = [];
+                    sectionEls.push(<h3 key={`num-h-${i}`} id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>);
                     let j = i + 1;
                     while (j < lines.length) {
-                      const nextLineRaw = lines[j];
-                      const next = nextLineRaw.trim();
-                      if (next === '') { j++; continue; }
-                      if (/^\s*\d+\./.test(next) || isSectionHeading(next)) break;
-                      if (isMdImage(nextLineRaw)) { j++; continue; }
-                      contentLines.push(nextLineRaw);
+                      const rawNext = lines[j];
+                      const tNext = rawNext.trim();
+                      if (tNext === '') { j++; continue; }
+                      if (/^\s*\d+\./.test(tNext) || isSectionHeading(tNext)) break;
+                      if (isMdImage(rawNext)) {
+                        const m = tNext.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
+                        let alt = selectedPost.title, url = '', caption = '';
+                        if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
+                        const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                        sectionEls.push(
+                          <figure key={`num-img-${j}`} className="my-4">
+                            <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" />
+                            {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
+                          </figure>
+                        );
+                        j++;
+                        continue;
+                      }
+                      if (tNext.startsWith('•')) {
+                        const bulletHtml = convertInlineLinks(tNext.slice(1).trim());
+                        sectionEls.push(
+                          <div key={`num-b-${j}`} className="flex items-start mb-3">
+                            <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
+                            <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
+                          </div>
+                        );
+                        j++;
+                        continue;
+                      }
+                      const paraHtml = convertInlineLinks(rawNext);
+                      sectionEls.push(<p key={`num-p-${j}`} className="text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: paraHtml }} />);
                       j++;
                     }
-
                     elements.push(
                       <div key={`num-${i}`} className="bg-purple-50 border-l-4 border-purple-400 p-4 my-4 rounded-r-lg">
-                        <h3 id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>
-                        {contentLines.map((ln, k) => {
-                          const t = (ln || '').trim();
-                          if (t.startsWith('•')) {
-                            const bulletHtml = convertInlineLinks(t.slice(1).trim());
-                            return (
-                              <div key={`num-${i}-b-${k}`} className="flex items-start mb-3">
-                                <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
-                                <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
-                              </div>
-                            );
-                          }
-                          const paraHtml = convertInlineLinks(ln);
-                          return (
-                            <p key={`num-${i}-p-${k}`} className="text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: paraHtml }} />
-                          );
-                        })}
+                        {sectionEls}
                       </div>
                     );
-                    i = j - 1; // skip consumed lines
+                    i = j - 1;
                     continue;
                   }
 
