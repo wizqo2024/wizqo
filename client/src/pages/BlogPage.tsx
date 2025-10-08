@@ -1241,6 +1241,20 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         for (const c of candidates) { if (!usedImageUrls.has(c)) { finalUrl = c; break; } }
                       }
                     }
+                    if (selectedPost.id === 'relaxing-hobbies') {
+                      const curated = [
+                        'https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1529336953121-ad5a0d43d0ee?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80',
+                        'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80'
+                      ];
+                      if (imageIdx >= 0 && imageIdx < curated.length) {
+                        finalUrl = curated[imageIdx];
+                      }
+                    }
                     if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                     imageIdx++;
                     elements.push(
