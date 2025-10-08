@@ -12,14 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for Vercel deploy
-        run: sleep 20
+        run: sleep 90
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Run sitemap link check
+      - name: Run sitemap link check (with retry)
         env:
           SITE_ORIGIN: https://wizqo.com
-        run: node scripts/check-sitemap-links.js
+        run: |
+          for i in 1 2 3; do
+            node scripts/check-sitemap-links.js && exit 0 || echo "Retry $i..." && sleep 20
+          done
+          echo "Link check failed after retries" && exit 1
