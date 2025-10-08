@@ -76,7 +76,7 @@ There’s something about melting wax, blending scents, and watching the flame f
 💡 How to start: Try a DIY candle kit or melt old wax pieces. Add lavender oil for calm vibes.
 🌟 Bonus tip: Light your handmade candle during study or relaxation time — it becomes a personal ritual.
 
-![Relaxing hobby: DIY candle making at home](https://images.unsplash.com/photo-1502139214988-d4d2ba127de2?auto=format&fit=crop&w=1600&q=80 "Homemade candle cooling on a desk")
+![Relaxing hobby: DIY candle making at home](https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?auto=format&fit=crop&w=1600&q=80 "Homemade candle cooling on a desk")
 
 🧩 7. Puzzle Time — Solving Stress Piece by Piece
 
