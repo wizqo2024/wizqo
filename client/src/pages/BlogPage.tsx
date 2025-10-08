@@ -1163,8 +1163,65 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const pretty = `/blog/${slug}`;
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
+                  // Pattern: Label → [/blog/slug]
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/blog\/([a-z0-9-]+))\]/gi, (_m, label, url) => {
+                    const safeLabel = String(label).trim();
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel}</a>`;
+                  });
+                  // Pattern: [Label](/blog/slug)
+                  out = out.replace(/\[(.*?)\]\((\/blog\/([a-z0-9-]+))\)/gi, (_m, label, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${label}</a>`;
+                  });
+                  // Pattern: [/blog/slug]
+                  out = out.replace(/\[(\/blog\/([a-z0-9-]+))\]/gi, (_m, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
+                  });
                   return out;
                 };
+
+                // Special simple render for relaxing-hobbies to avoid any grouping issues
+                if (selectedPost.id === 'relaxing-hobbies') {
+                  const simple: JSX.Element[] = [];
+                  for (let idx = 0; idx < lines.length; idx++) {
+                    const raw = lines[idx];
+                    const t = raw.trim();
+                    if (t === '') continue;
+                    if (isMdImage(raw)) {
+                      const m = t.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
+                      let alt = selectedPost.title, url = '', caption = '';
+                      if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
+                      const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                      simple.push(
+                        <figure key={`simp-img-${idx}`} className="my-6">
+                          <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" />
+                          {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
+                        </figure>
+                      );
+                      continue;
+                    }
+                    if (/^\d+\./.test(t)) {
+                      const hId = t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                      simple.push(<h3 key={`simp-h-${idx}`} id={hId} className="font-bold text-purple-900 mb-2">{t}</h3>);
+                      continue;
+                    }
+                    if (t.startsWith('•')) {
+                      const bulletHtml = convertInlineLinks(t.slice(1).trim());
+                      simple.push(
+                        <div key={`simp-b-${idx}`} className="flex items-start mb-3">
+                          <span className="text-purple-500 text-xl mr-3 mt-1">•</span>
+                          <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
+                        </div>
+                      );
+                      continue;
+                    }
+                    const paraHtml = convertInlineLinks(raw);
+                    simple.push(<p key={`simp-p-${idx}`} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: paraHtml }} />);
+                  }
+                  return simple;
+                }
 
                 const elements: JSX.Element[] = [];
                 for (let i = 0; i < lines.length; i++) {
