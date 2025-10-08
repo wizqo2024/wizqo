@@ -25,7 +25,7 @@ Forget perfect sewing. Slow stitching is all about messy, imperfect, meditative 
 💡 How to start: Grab an old T-shirt or scrap fabric, and start stitching random patterns. No pressure. No plan. Just you and the motion.
 🌟 Bonus tip: Use old clothes or colorful threads — sustainable and relaxing at once.
 
-![Relaxing hobby: slow stitching mindfulness activity](https://source.unsplash.com/1600x900/?hand%20stitching,embroidery,needle%20and%20thread&sig=401 "Hands sewing colorful thread into fabric")
+![Relaxing hobby: slow stitching mindfulness activity](https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80 "Hands sewing colorful thread into fabric")
 
 2. 🎧 Sound Journaling — Your Ears Know What Peace Sounds Like
 
@@ -35,7 +35,7 @@ Instead of writing down your thoughts, record the sounds that relax you — the 
 💡 How to start: Use your phone’s voice recorder. Create a “sound diary” and name files like Morning Calm or Rainy Day.
 🌟 Bonus tip: Build your own “peace playlist” for moments you need to slow down.
 
-![Relaxing hobby: sound journaling nature sounds](https://source.unsplash.com/1600x900/?smartphone,voice%20recorder,rain%20on%20window&sig=402 "Phone recording ambient sounds on a window ledge")
+![Relaxing hobby: sound journaling nature sounds](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80 "Phone recording ambient sounds on a window ledge")
 
 3. 🌱 Mini Gardening — Tiny Plants, Big Calm
 
@@ -45,7 +45,7 @@ There’s something magical about watching a seed grow. Whether it’s a jar of 
 💡 How to start: Use old cups, jars, or bottles. Herbs like mint, basil, or coriander grow easily indoors.
 🌟 Bonus tip: Name your plants. (Yes, it’s silly — but it makes you smile.)
 
-![Relaxing hobby: indoor mini gardening](https://source.unsplash.com/1600x900/?herb%20jar,windowsill,basil&sig=403 "Small jar with sprouting herbs on a windowsill")
+![Relaxing hobby: indoor mini gardening](https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80 "Small jar with sprouting herbs on a windowsill")
 
 4. ✍️ Doodle Meditation — Draw Your Stress Away
 
@@ -55,7 +55,7 @@ You don’t need to be an artist. Just grab a pen and start doodling lines, loop
 💡 How to start: Try drawing without lifting your pen for one minute. Don’t judge it; just enjoy it.
 🌟 Bonus tip: Try “Zentangle” patterns if you want structured doodles that look surprisingly cool.
 
-![Relaxing hobby: doodle meditation art](https://source.unsplash.com/1600x900/?doodle,notebook,pen%20drawing&sig=404 "Notebook filled with abstract doodles")
+![Relaxing hobby: doodle meditation art](https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80 "Notebook filled with abstract doodles")
 
 5. ☁️ Cloudspotting — The Lost Art of Doing Nothing
 
@@ -65,7 +65,7 @@ Yes, literally doing nothing. Lie on the grass, look up, and let your imaginatio
 💡 How to start: Find a comfy spot outside, or even by a window. Just breathe and watch.
 🌟 Bonus tip: Snap a photo of your favorite cloud shapes. You’ll be surprised how relaxing it feels.
 
-![Relaxing hobby: cloudspotting for calmness](https://source.unsplash.com/1600x900/?person%20lying%20on%20grass,looking%20at%20clouds&sig=405 "Person lying on grass watching the sky")
+![Relaxing hobby: cloudspotting for calmness](https://images.unsplash.com/photo-1529336953121-ad5a0d43d0ee?auto=format&fit=crop&w=1600&q=80 "Person lying on grass watching the sky")
 
 6. 🕯️ Candle Making — Melt Stress Away
 
@@ -75,7 +75,7 @@ There’s something about melting wax, blending scents, and watching the flame f
 💡 How to start: Try a DIY candle kit or melt old wax pieces. Add lavender oil for calm vibes.
 🌟 Bonus tip: Light your handmade candle during study or relaxation time — it becomes a personal ritual.
 
-![Relaxing hobby: DIY candle making at home](https://source.unsplash.com/1600x900/?candle%20making,soy%20wax,pouring%20wax&sig=406 "Homemade candle cooling on a desk")
+![Relaxing hobby: DIY candle making at home](https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80 "Homemade candle cooling on a desk")
 
 7. 🧩 Puzzle Time — Solving Stress Piece by Piece
 
@@ -85,7 +85,7 @@ It’s slow, it’s simple, and it’s oddly satisfying. When you’re focused o
 💡 How to start: Begin with a small puzzle (300–500 pieces). Play soft music in the background for extra calm.
 🌟 Bonus tip: When you finish, frame it. Proof that patience literally fits together.
 
-![Relaxing hobby: jigsaw puzzle mindfulness](https://source.unsplash.com/1600x900/?jigsaw%20puzzle,cozy%20table,hands&sig=407 "Person assembling puzzle pieces at a cozy table")
+![Relaxing hobby: jigsaw puzzle mindfulness](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "Person assembling puzzle pieces at a cozy table")
 
 💬 Why These Little Moments Matter
 
