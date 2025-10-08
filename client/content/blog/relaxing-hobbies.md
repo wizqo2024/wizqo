@@ -86,7 +86,7 @@ It’s slow, it’s simple, and it’s oddly satisfying. When you’re focused o
 💡 How to start: Begin with a small puzzle (300–500 pieces). Play soft music in the background for extra calm.
 🌟 Bonus tip: When you finish, frame it. Proof that patience literally fits together.
 
-![Relaxing hobby: jigsaw puzzle mindfulness](https://images.unsplash.com/photo-1519687079689-5f06a3cd909c?auto=format&fit=crop&w=1600&q=80 "Person assembling puzzle pieces at a cozy table")
+![Relaxing hobby: jigsaw puzzle mindfulness](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "Person assembling puzzle pieces at a cozy table")
 
 💬 Why These Little Moments Matter
 
