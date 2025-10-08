@@ -1472,20 +1472,35 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
           <div className="space-y-8">
             {/* Featured Post */}
             <article 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 sm:p-6 lg:p-8 text-white cursor-pointer hover:from-purple-700 hover:to-pink-700 transition-all"
+              className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 cursor-pointer border border-slate-200 hover:border-purple-300 transition-all"
                   onClick={() => { setSelectedPost(allPosts[0]); navigateTo(`/blog/${allPosts[0].id}`); }}
             >
-              <span className="bg-white bg-opacity-20 text-white text-sm px-3 py-1 rounded-full mb-4 inline-block">
+              <span className="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full mb-4 inline-block">
                 Featured Article
               </span>
-              <img
-                src={getPostImage(allPosts[0])}
+              {(() => {
+                const firstImgMatch = (allPosts[0].content || '').match(/!\[[^\]]*\]\((\S+?)(?:\s+".*?")?\)/);
+                const firstMdUrl = firstImgMatch ? firstImgMatch[1] : undefined;
+                const cover = firstMdUrl || getPostImage(allPosts[0]);
+                return (
+                  <img
+                src={cover}
                 alt={allPosts[0].imageAlt || allPosts[0].title}
                 width={1200}
                 height={540}
-                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-white/20"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = CATEGORY_IMAGES[allPosts[0].category] || GENERIC_BLOG_IMAGE; }}
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-slate-200"
+                onError={(e) => {
+                  const img = e.currentTarget as HTMLImageElement;
+                  const fallbacks = [getPostImage(allPosts[0]), CATEGORY_IMAGES[allPosts[0].category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
+                  const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                  if (tried < fallbacks.length) {
+                    img.setAttribute('data-errcount', String(tried + 1));
+                    img.src = fallbacks[tried] as string;
+                  }
+                }}
               />
+                );
+              })()}
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
                 {allPosts[0].title}
               </h2>
