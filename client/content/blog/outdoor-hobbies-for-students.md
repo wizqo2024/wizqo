@@ -4,8 +4,8 @@ slug: outdoor-hobbies-for-students
 excerpt: "Discover 9 fun and productive outdoor hobbies for students that boost focus, creativity, and health — perfect alternatives to screen time."
 category: Learning Tips
 readTime: 7–8 min read
-cover: https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80
-imageAlt: "Outdoor hobbies cover — scenic nature trail"
+cover: https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80
+imageAlt: "Smiling students in a park — outdoor hobbies cover"
 date: 2025-10-02
 ---
 
