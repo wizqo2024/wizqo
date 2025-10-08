@@ -44,7 +44,7 @@ Hemingway once wrote: “For sale: baby shoes, never worn.” Just six words, bu
 ✅ Why it’s awesome: Sharpens creativity, storytelling, and writing skills.
 💡 Challenge yourself: Write 5 different six-word stories in 10 minutes.
 
-![Six-word story in a notebook](https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80 "Six-word story writing as a creative hobby")
+![Six-word story in a notebook](https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80 "Six-word story writing as a creative hobby")
 
 🧩 4. Make Your Own Puzzle Challenges
 
