@@ -228,7 +228,7 @@ Got some cardboard, markers, and dice (or even a coin)? That’s all you need to
 
 When you strip away fancy gear or costs, you’re left with pure creativity. Cheap hobbies force you to think outside the box, make do with what you already have, and have fun without pressure.
 
-👉 Plus, research shows hobbies reduce stress, improve focus, and boost confidence — whether you spend AED 0 or AED 500.
+👉 Plus, research shows hobbies reduce stress, improve focus, and boost confidence — whether you spend $0 or $140.
 
 📌 Key Takeaways
 
@@ -350,7 +350,7 @@ Geocaching, calligraphy, gardening, coding, puzzles, journaling, and volunteerin
 2. Which hobbies improve focus?
 Calligraphy, journaling, and puzzles are excellent for concentration.
 3. What hobbies are cheap to start?
-Calligraphy and micro-gardening can be started with less than AED 10.
+Calligraphy and micro-gardening can be started with less than $3.
 4. Can hobbies really improve grades?
 Yes! They boost focus, creativity, and problem-solving skills — all useful in academics.
 5. What is the easiest productive hobby to start at home?
@@ -395,7 +395,7 @@ Think treasure maps, but powered by GPS. Geocaching turns any park into an adven
 Forget the usual football or cricket. Frisbee (or its big brother, disc golf) is an easy-to-learn, active game you can play almost anywhere.
 
 ✅ Problem it solves: Lack of physical activity → keeps you moving without needing expensive gear.
-💡 How to start: Grab a frisbee for less than AED 20 and hit the nearest park.
+💡 How to start: Grab a frisbee for less than $6 and hit the nearest park.
 
 ![Students tossing a frisbee](https://images.unsplash.com/photo-1512551980832-13fd66915f4a?auto=format&fit=crop&w=1600&q=80 "Outdoor frisbee hobby for students")
 

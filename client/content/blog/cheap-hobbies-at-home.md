@@ -86,7 +86,7 @@ Got some cardboard, markers, and dice (or even a coin)? That’s all you need to
 
 When you strip away fancy gear or costs, you’re left with pure creativity. Cheap hobbies force you to think outside the box, make do with what you already have, and have fun without pressure.
 
-👉 Plus, research shows hobbies reduce stress, improve focus, and boost confidence — whether you spend AED 0 or AED 500.
+👉 Plus, research shows hobbies reduce stress, improve focus, and boost confidence — whether you spend $0 or $140.
 
 📌 Key Takeaways
 

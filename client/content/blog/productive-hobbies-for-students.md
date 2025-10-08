@@ -111,7 +111,7 @@ Calligraphy, journaling, and puzzles are excellent for concentration.
 
 3. What hobbies are cheap to start?
 
-Calligraphy and micro-gardening can be started with less than AED 10.
+Calligraphy and micro-gardening can be started with less than $3.
 
 4. Can hobbies really improve grades?
 
