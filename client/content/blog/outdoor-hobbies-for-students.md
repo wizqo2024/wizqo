@@ -89,7 +89,7 @@ Turn free time into impact. Park clean‑ups, beach cleaning, or helping plant t
 ✅ Problem it solves: Feeling powerless or “just wasting time” → builds responsibility, purpose, and leadership.
 💡 How to start: Join a local community initiative or create your own mini‑clean‑up with friends.
 
-![Students cleaning a park](https://images.unsplash.com/photo-1520975682031-a4c2a0d43c66?auto=format&fit=crop&w=1600&q=80 "Park clean-up volunteering for students")
+![Students cleaning a park](https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80 "Volunteering as a team for community clean-ups")
 
 9. Hiking & Nature Trails 🌳
 
