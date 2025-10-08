@@ -985,10 +985,19 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       GENERIC_BLOG_IMAGE,
                       'https://wizqo.com/og-image.jpg'
                     ].filter(Boolean) as string[];
-                    if (tried < candidates.length) {
-                      img.setAttribute('data-errcount', String(tried + 1));
-                      const next = candidates[tried];
-                      if (img.src !== next) img.src = next;
+                    // pick first candidate not used yet
+                    let picked: string | undefined;
+                    let pickedIndex = tried;
+                    for (let i = tried; i < candidates.length; i++) {
+                      const c = candidates[i]!;
+                      if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
+                    }
+                    if (picked) {
+                      img.setAttribute('data-errcount', String(pickedIndex + 1));
+                      if (img.src !== picked) {
+                        img.src = picked;
+                        usedImageUrls.add(picked);
+                      }
                     }
                   }}
                 />
@@ -1236,10 +1245,18 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                               ALT_GENERIC_IMAGE,
                               'https://wizqo.com/og-image.jpg'
                             ].filter(Boolean) as string[];
-                            if (tried < candidates.length) {
-                              img.setAttribute('data-errcount', String(tried + 1));
-                              const next = candidates[tried];
-                              if (img.src !== next) img.src = next;
+                            let picked: string | undefined;
+                            let pickedIndex = tried;
+                            for (let i = tried; i < candidates.length; i++) {
+                              const c = candidates[i]!;
+                              if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
+                            }
+                            if (picked) {
+                              img.setAttribute('data-errcount', String(pickedIndex + 1));
+                              if (img.src !== picked) {
+                                img.src = picked;
+                                usedImageUrls.add(picked);
+                              }
                             }
                           }} 
                         />
@@ -1267,6 +1284,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         let alt = selectedPost.title, url = '', caption = '';
                         if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
                         const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
+                        if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
                         sectionEls.push(
                           <figure key={`num-img-${j}`} className="my-4">
                             <img 
@@ -1286,10 +1304,18 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                                   ALT_GENERIC_IMAGE,
                                   'https://wizqo.com/og-image.jpg'
                                 ].filter(Boolean) as string[];
-                                if (tried < candidates.length) {
-                                  img.setAttribute('data-errcount', String(tried + 1));
-                                  const next = candidates[tried];
-                                  if (img.src !== next) img.src = next;
+                                let picked: string | undefined;
+                                let pickedIndex = tried;
+                                for (let i = tried; i < candidates.length; i++) {
+                                  const c = candidates[i]!;
+                                  if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
+                                }
+                                if (picked) {
+                                  img.setAttribute('data-errcount', String(pickedIndex + 1));
+                                  if (img.src !== picked) {
+                                    img.src = picked;
+                                    usedImageUrls.add(picked);
+                                  }
                                 }
                               }}
                             />
