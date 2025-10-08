@@ -734,13 +734,10 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
 // Load Markdown posts from content folder (optional, SEO-safe)
 function loadMarkdownPosts(): BlogPost[] {
   try {
-    // Vite: import raw text
-    // Resolve from Vite root (client): use absolute-from-root pattern
-    // Try multiple roots to be robust across environments
-    const modsA = import.meta.glob('/content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-    const modsB = import.meta.glob('./content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-    const modsC = import.meta.glob('../content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-    const modules = { ...modsA, ...modsB, ...modsC } as Record<string, string>;
+    // Robust glob from client root regardless of build context
+    const mods = import.meta.glob('/client/content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modsRel = import.meta.glob('./content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modules = { ...mods, ...modsRel } as Record<string, string>;
     const posts: BlogPost[] = [];
     for (const [path, raw] of Object.entries(modules)) {
       const fmMatch = raw.match(/^---[\s\S]*?---/);
