@@ -46,7 +46,7 @@ There’s something magical about watching a seed grow. Whether it’s a jar of 
 💡 How to start: Use old cups, jars, or bottles. Herbs like mint, basil, or coriander grow easily indoors.
 🌟 Bonus tip: Name your plants. (Yes, it’s silly — but it makes you smile.)
 
-![Relaxing hobby: indoor mini gardening](https://images.unsplash.com/photo-1463322526773-6bf0c3c8c6c4?auto=format&fit=crop&w=1600&q=80 "Small jar with sprouting herbs on a windowsill")
+![Relaxing hobby: indoor mini gardening](https://images.unsplash.com/photo-1457530378978-8bac673b8062?auto=format&fit=crop&w=1600&q=80 "Small jar with sprouting herbs on a windowsill")
 
 ✍️ 4. Doodle Meditation — Draw Your Stress Away
 
