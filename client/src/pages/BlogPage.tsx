@@ -985,15 +985,19 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       GENERIC_BLOG_IMAGE,
                       'https://wizqo.com/og-image.jpg'
                     ].filter(Boolean) as string[];
-                    // pick first candidate not used yet
+                    // Try unused first
                     let picked: string | undefined;
                     let pickedIndex = tried;
                     for (let i = tried; i < candidates.length; i++) {
                       const c = candidates[i]!;
                       if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
                     }
+                    // If all used, reuse first candidate to avoid a broken image
+                    if (!picked && candidates.length > 0) {
+                      picked = candidates[Math.min(tried, candidates.length - 1)] || candidates[0];
+                    }
                     if (picked) {
-                      img.setAttribute('data-errcount', String(pickedIndex + 1));
+                      img.setAttribute('data-errcount', String(Math.min(pickedIndex + 1, candidates.length)));
                       if (img.src !== picked) {
                         img.src = picked;
                         usedImageUrls.add(picked);
@@ -1251,8 +1255,11 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                               const c = candidates[i]!;
                               if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
                             }
+                            if (!picked && candidates.length > 0) {
+                              picked = candidates[Math.min(tried, candidates.length - 1)] || candidates[0];
+                            }
                             if (picked) {
-                              img.setAttribute('data-errcount', String(pickedIndex + 1));
+                              img.setAttribute('data-errcount', String(Math.min(pickedIndex + 1, candidates.length)));
                               if (img.src !== picked) {
                                 img.src = picked;
                                 usedImageUrls.add(picked);
@@ -1310,8 +1317,11 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                                   const c = candidates[i]!;
                                   if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
                                 }
+                                if (!picked && candidates.length > 0) {
+                                  picked = candidates[Math.min(tried, candidates.length - 1)] || candidates[0];
+                                }
                                 if (picked) {
-                                  img.setAttribute('data-errcount', String(pickedIndex + 1));
+                                  img.setAttribute('data-errcount', String(Math.min(pickedIndex + 1, candidates.length)));
                                   if (img.src !== picked) {
                                     img.src = picked;
                                     usedImageUrls.add(picked);
