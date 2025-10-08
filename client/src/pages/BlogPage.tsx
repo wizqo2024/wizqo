@@ -19,7 +19,7 @@ interface BlogPost {
 
 // Default cover images per category + generic fallback
 const CATEGORY_IMAGES: Record<string, string> = {
-  'Learning Tips': 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80',
+  'Learning Tips': 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80',
   'Mental Wellness': 'https://wizqo.com/og-image.jpg',
   'Creative Arts': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1600&q=80'
 };
