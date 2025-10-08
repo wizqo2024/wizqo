@@ -168,7 +168,7 @@ Forget random scribbles — Zentangle is a type of structured doodling that’s 
 ✅ Why it’s awesome: Boosts focus, relaxes the mind, and looks super aesthetic.
 💡 Extra tip: Post your creations on Instagram with #zentangle — you’ll be surprised how many people share the same hobby.
 
-![Zentangle doodle drawing](https://source.unsplash.com/1600x900/?zentangle,pattern,black-and-white&sig=201 "Zentangle-style doodles for mindful drawing at home")
+![Zentangle doodle drawing](https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80 "Zentangle-style doodles for mindful drawing at home")
 
 2. 🥬 Grow a Mini Salad Garden in a Jar
 
@@ -177,7 +177,7 @@ Think gardening is expensive? Not if you recycle jars and use seeds from your ki
 ✅ Why it’s awesome: Teaches patience, responsibility, and gives you free herbs for your noodles.
 💡 Extra tip: Track your plant’s growth with daily photos — turn it into a mini time-lapse project.
 
-![Herbs growing in jars](https://source.unsplash.com/1600x900/?indoor-garden,jar,herbs&sig=202 "Growing herbs in jars on a desk")
+![Herbs growing in jars](https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80 "Growing herbs in jars on a desk")
 
 3. 📖 Write Micro-Stories in 6 Words
 
@@ -186,7 +186,7 @@ Hemingway once wrote: “For sale: baby shoes, never worn.” Just six words, bu
 ✅ Why it’s awesome: Sharpens creativity, storytelling, and writing skills.
 💡 Challenge yourself: Write 5 different six-word stories in 10 minutes.
 
-![Six-word story in a notebook](https://source.unsplash.com/1600x900/?notebook,writing,story&sig=203 "Six-word story writing as a creative hobby")
+![Six-word story in a notebook](https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80 "Six-word story writing as a creative hobby")
 
 4. 🧩 Make Your Own Puzzle Challenges
 
@@ -195,7 +195,7 @@ No puzzles at home? No problem. Cut up an old magazine cover or a printed photo 
 ✅ Why it’s awesome: Improves problem-solving and memory while being ridiculously cheap.
 💡 Extra twist: Make a puzzle exchange with friends — everyone creates one and swaps.
 
-![DIY puzzle pieces](https://source.unsplash.com/1600x900/?puzzle,craft,magazine&sig=204 "DIY jigsaw puzzle pieces made from a magazine cover")
+![DIY puzzle pieces](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
 
 5. 🥁 Learn Rhythms on Everyday Objects
 
@@ -204,7 +204,7 @@ No drum kit? Use a table, box, or even pots and pans. Rhythm practice is a fun s
 ✅ Why it’s awesome: Improves coordination and brain timing — musicians call it “cross-training” for the mind.
 💡 Extra tip: Try following free rhythm tutorials on YouTube.
 
-![Tapping rhythms on a desk](https://source.unsplash.com/1600x900/?rhythm,drums,desk&sig=205 "Practicing rhythms with everyday objects at home")
+![Tapping rhythms on a desk](https://images.unsplash.com/photo-1571115764595-644a1f56a55c?auto=format&fit=crop&w=1600&q=80 "Practicing rhythms with everyday objects at home")
 
 6. 🎭 Lip-Sync Theater (Yes, Seriously)
 
@@ -213,7 +213,7 @@ Pick a famous speech, movie scene, or even a TED Talk and lip-sync it dramatical
 ✅ Why it’s awesome: Builds public speaking skills without the stress.
 💡 Extra twist: Record a 30-second lip-sync performance and share it with friends for laughs.
 
-![Practicing acting in a mirror](https://source.unsplash.com/1600x900/?acting,mirror,theatre&sig=206 "Lip-sync acting practice to boost confidence")
+![Practicing acting in a mirror](https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80 "Lip-sync acting practice to boost confidence")
 
 7. 🎮 Create Your Own Board Game
 
@@ -222,7 +222,7 @@ Got some cardboard, markers, and dice (or even a coin)? That’s all you need to
 ✅ Why it’s awesome: Sharpens creativity, logic, and storytelling.
 💡 Extra tip: Make “house rules” that change every round for endless variety.
 
-![DIY board game with markers and dice](https://source.unsplash.com/1600x900/?board-game,dice,markers&sig=207 "Designing a simple DIY board game at home")
+![DIY board game with markers and dice](https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80 "Designing a simple DIY board game at home")
 
 🌟 Why Cheap Hobbies Work Better Than Expensive Ones
 
@@ -257,16 +257,16 @@ Look around your home — paper, pens, boxes, or old magazines are all you need 
 
 🔗 Related Reads on Wizqo
 
-• Productive hobbies at home → [/blog?post=productive-hobbies-for-students]
-• Outdoor hobbies for weekends → [/blog?post=outdoor-hobbies-for-students]
-• Micro journaling guide → [/blog?post=micro-journaling-habit]
-• Find a hobby that sticks → [/blog?post=find-hobby-that-sticks]
+• Productive hobbies at home → [/blog/productive-hobbies-for-students]
+• Outdoor hobbies for weekends → [/blog/outdoor-hobbies-for-students]
+• Micro journaling guide → [/blog/micro-journaling-habit]
+• Find a hobby that sticks → [/blog/find-hobby-that-sticks]
 `,
     author: "Wizqo Team",
     date: "2025-10-06",
     readTime: "5–6 min read",
     category: "Learning Tips",
-    imageUrl: "https://source.unsplash.com/1600x900/?creative,desk,hobbies&sig=200",
+    imageUrl: "https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Cheap hobbies at home: creative desk with doodles, plants, and notebook"
   },
   {
