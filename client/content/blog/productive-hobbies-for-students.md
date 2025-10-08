@@ -4,8 +4,8 @@ slug: productive-hobbies-for-students
 excerpt: "Discover 7 fun and productive hobbies for students that boost creativity, focus, and confidence — backed by science and easy to start."
 category: Learning Tips
 readTime: 6–7 min read
-cover: https://images.unsplash.com/photo-1513475382585-d06e58bcb0ea?auto=format&fit=crop&w=1600&q=80
-imageAlt: "Study desk with books and notebook — productive hobbies cover"
+cover: https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80
+imageAlt: "Students working at a desk — productive hobbies cover"
 date: 2025-10-02
 ---
 
