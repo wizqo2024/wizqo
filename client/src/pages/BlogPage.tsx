@@ -975,12 +975,20 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   alt={selectedPost.imageAlt || selectedPost.title} 
                   width={1600}
                   height={640}
+                  referrerPolicy="no-referrer"
                   className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
                   onError={(e) => {
-                    const img = (e.currentTarget as HTMLImageElement);
-                    const next = CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
-                    if (img.src !== next) {
-                      img.src = next;
+                    const img = e.currentTarget as HTMLImageElement;
+                    const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                    const candidates = [
+                      CATEGORY_IMAGES[selectedPost.category],
+                      GENERIC_BLOG_IMAGE,
+                      'https://wizqo.com/og-image.jpg'
+                    ].filter(Boolean) as string[];
+                    if (tried < candidates.length) {
+                      img.setAttribute('data-errcount', String(tried + 1));
+                      const next = candidates[tried];
+                      if (img.src !== next) img.src = next;
                     }
                   }}
                 />
@@ -1211,12 +1219,30 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     imageIdx++;
                     elements.push(
                       <figure key={`img-${i}`} className="my-6">
-                        <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" onError={(e) => {
-                          const img = (e.currentTarget as HTMLImageElement);
-                          const current = img.src;
-                          const next = current === GENERIC_BLOG_IMAGE ? ALT_GENERIC_IMAGE : GENERIC_BLOG_IMAGE;
-                          if (current !== next) img.src = next;
-                        }} />
+                        <img 
+                          src={finalUrl} 
+                          alt={alt} 
+                          loading="lazy" 
+                          width={1600} 
+                          height={720} 
+                          referrerPolicy="no-referrer"
+                          className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" 
+                          onError={(e) => {
+                            const img = e.currentTarget as HTMLImageElement;
+                            const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                            const candidates = [
+                              CATEGORY_IMAGES[selectedPost.category],
+                              GENERIC_BLOG_IMAGE,
+                              ALT_GENERIC_IMAGE,
+                              'https://wizqo.com/og-image.jpg'
+                            ].filter(Boolean) as string[];
+                            if (tried < candidates.length) {
+                              img.setAttribute('data-errcount', String(tried + 1));
+                              const next = candidates[tried];
+                              if (img.src !== next) img.src = next;
+                            }
+                          }} 
+                        />
                         {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                       </figure>
                     );
@@ -1243,7 +1269,30 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
                         sectionEls.push(
                           <figure key={`num-img-${j}`} className="my-4">
-                            <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" />
+                            <img 
+                              src={finalUrl} 
+                              alt={alt} 
+                              loading="lazy" 
+                              width={1600} 
+                              height={720} 
+                              referrerPolicy="no-referrer"
+                              className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
+                              onError={(e) => {
+                                const img = e.currentTarget as HTMLImageElement;
+                                const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                                const candidates = [
+                                  CATEGORY_IMAGES[selectedPost.category],
+                                  GENERIC_BLOG_IMAGE,
+                                  ALT_GENERIC_IMAGE,
+                                  'https://wizqo.com/og-image.jpg'
+                                ].filter(Boolean) as string[];
+                                if (tried < candidates.length) {
+                                  img.setAttribute('data-errcount', String(tried + 1));
+                                  const next = candidates[tried];
+                                  if (img.src !== next) img.src = next;
+                                }
+                              }}
+                            />
                             {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                           </figure>
                         );
