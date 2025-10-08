@@ -923,7 +923,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               <button
                 onClick={async () => {
                   try {
-                    const url = `https://wizqo.com/blog?post=${selectedPost.id}`;
+                    const url = `https://wizqo.com/blog/${selectedPost.id}`;
                     const title = selectedPost.title;
                     const text = selectedPost.excerpt || title;
                     if (navigator.share) {
@@ -1255,7 +1255,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     let contentHtml = line;
                     for (const { term, slug } of AUTOLINKS) {
                       const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-                      contentHtml = contentHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                    contentHtml = contentHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
                     }
                     elements.push(
                       <h2 key={`h-${i}`} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
@@ -1299,7 +1299,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   let bodyHtml = convertInlineLinks(line);
                   for (const { term, slug } of AUTOLINKS_BODY) {
                     const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-                    bodyHtml = bodyHtml.replace(re, `<a href=\"/blog?post=${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
+                  bodyHtml = bodyHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
                   }
                   elements.push(
                     <p key={`p-${i}`} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
