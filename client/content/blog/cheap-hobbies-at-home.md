@@ -4,8 +4,8 @@ slug: cheap-hobbies-at-home
 excerpt: "Feeling bored? Discover cheap hobbies at home that are fun, unique, and productive — all without breaking the bank."
 category: Learning Tips
 readTime: 5–6 min read
-cover: https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80
-imageAlt: "Cheap hobbies at home: creative desk with doodles, plants, and notebook"
+cover: https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80
+imageAlt: "Notebook with six-word story — cheap hobbies cover"
 date: 2025-10-06
 ---
 
