@@ -35,7 +35,7 @@ Forget the usual football or cricket. Frisbee (or its big brother, disc golf) is
 ✅ Problem it solves: Lack of physical activity → keeps you moving without needing expensive gear.
 💡 How to start: Grab a frisbee for less than $6 and hit the nearest park.
 
-![Students tossing a frisbee](https://images.unsplash.com/photo-1512551980832-13fd66915f4a?auto=format&fit=crop&w=1600&q=80 "Outdoor frisbee hobby for students")
+![Students tossing a frisbee](https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80 "Outdoor frisbee hobby for students")
 
 3. Urban Gardening 🌱
 
