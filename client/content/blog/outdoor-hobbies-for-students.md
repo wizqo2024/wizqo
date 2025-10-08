@@ -33,7 +33,7 @@ Think treasure maps, but powered by GPS. Geocaching turns any park into an adven
 Forget the usual football or cricket. Frisbee (or its big brother, disc golf) is an easy-to-learn, active game you can play almost anywhere.
 
 ✅ Problem it solves: Lack of physical activity → keeps you moving without needing expensive gear.
-💡 How to start: Grab a frisbee for less than AED 20 and hit the nearest park.
+💡 How to start: Grab a frisbee for less than $6 and hit the nearest park.
 
 ![Students tossing a frisbee](https://images.unsplash.com/photo-1512551980832-13fd66915f4a?auto=format&fit=crop&w=1600&q=80 "Outdoor frisbee hobby for students")
 
