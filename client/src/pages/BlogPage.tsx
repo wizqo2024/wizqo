@@ -149,6 +149,60 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     imageAlt: "Books, chess, and sketchbook on a desk representing smart hobbies"
   },
   {
+    id: "relaxing-hobbies",
+    title: "🌿 Relaxing Hobbies to Calm Your Mind and Refresh Your Mood",
+    excerpt: "Feeling stressed? Discover relaxing hobbies that calm your mind and refresh your mood — simple ideas anyone can start today.",
+    content: `🧘 When Was the Last Time You Truly Relaxed?
+
+If your brain feels like it’s running on 87 open tabs, these relaxing hobbies help you hit pause and reset — no special gear needed.
+
+1. Slow Stitching — Mindfulness You Can Hold in Your Hands
+✅ Therapy-like calm with needle and thread.
+💡 Start with scrap fabric and random patterns.
+![Slow stitching](https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80 "Hands sewing colorful thread into fabric")
+
+2. Sound Journaling — Your Ears Know Peace
+✅ Record calming sounds; replay to soften stress.
+💡 Make a “sound diary” on your phone.
+![Sound journaling](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80 "Phone recording ambient sounds on a window ledge")
+
+3. Mini Gardening — Tiny Plants, Big Calm
+✅ Care builds patience and small wins.
+💡 Start with basil or mint indoors.
+![Mini gardening](https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1600&q=80 "Small jar with sprouting herbs")
+
+4. Doodle Meditation — Draw Your Stress Away
+✅ Move your hand, let your mind breathe.
+💡 One-minute no‑lift line doodles; try Zentangle.
+![Doodle meditation](https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1600&q=80 "Notebook of abstract doodles")
+
+5. Cloudspotting — The Lost Art of Doing Nothing
+✅ Reconnect with stillness (free!).
+💡 Watch the sky; breathe.
+![Cloudspotting](https://images.unsplash.com/photo-1529336953121-ad5a0d43d0ee?auto=format&fit=crop&w=1600&q=80 "Watching the sky on the grass")
+
+6. Candle Making — Melt Stress Away
+✅ Grounding, sensory, peaceful.
+💡 Try a kit or upcycle wax; add lavender.
+![Candle making](https://images.unsplash.com/photo-1541961017774-2034504a1262?auto=format&fit=crop&w=1600&q=80 "Homemade candle cooling on a desk")
+
+7. Puzzle Time — Solving Stress Piece by Piece
+✅ Focus without screens; frame finished puzzles.
+💡 Start with 300–500 pieces.
+![Puzzle time](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "Jigsaw puzzle at a cozy table")
+
+🔗 Internal Links
+• Cheap Hobbies You Can Start at Home → [/blog/cheap-hobbies-at-home]
+• Outdoor Hobbies to Refresh Your Mind → [/blog/outdoor-hobbies-for-students]
+`,
+    author: "Wizqo Team",
+    date: "2025-10-06",
+    readTime: "5–6 min read",
+    category: "Mental Wellness",
+    imageUrl: "https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Relaxing hobbies collage on a calm desk"
+  },
+  {
     id: "cheap-hobbies-at-home",
     title: "🎉 Bored? Try These Cheap Hobbies at Home for Instant Fun",
     excerpt: "Feeling bored? Discover cheap hobbies at home that are fun, unique, and productive — all without breaking the bank.",
