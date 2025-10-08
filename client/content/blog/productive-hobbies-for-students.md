@@ -41,7 +41,7 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 
 💡 How to start: Grab a pen and paper, follow a YouTube tutorial, and start with simple alphabet strokes.
 
-![Small potted plant on desk](https://images.unsplash.com/photo-1571019613540-996a69c42d3f?auto=format&fit=crop&w=1600&q=80 "Micro-gardening as a productive hobby for students indoors")
+![Small potted plant on desk](https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=80 "Micro-gardening as a productive hobby for students indoors")
 
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
 
