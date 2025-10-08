@@ -320,18 +320,6 @@ export default function App() {
                     description="Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts."
                     canonicalUrl="https://wizqo.com/blog"
                   />
-                  <BlogPage />
-                </>
-              );
-            // Pretty blog URLs: /blog/<slug>
-            case 'blog' && route.split('/').length > 1 ? 'blog-slug' : '':
-              return (
-                <>
-                  <SEOMetaTags 
-                    title="Hobby Learning Blog - Tips, Guides & Inspiration - Wizqo"
-                    description="Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts."
-                    canonicalUrl={route}
-                  />
                   <BlogPage initialSlug={route.split('/')[1]} />
                 </>
               );
