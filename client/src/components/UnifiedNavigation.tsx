@@ -63,7 +63,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               </button>
 
               <button onClick={() => window.location.href = '/kids'} className={`flex items-center px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
-                <span className="font-medium">Kids</span>
+                <span className="font-medium">Kids Hub</span>
               </button>
             </div>
           </div>
@@ -180,7 +180,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               }} 
               className={`w-full flex items-center px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
-              <span className="font-medium">Kids</span>
+              <span className="font-medium">Kids Hub</span>
             </button>
 
             {/* Mobile Account Section */}
