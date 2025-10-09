@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
 import { LandingPage } from './components/LandingPage';
 import { BlogPage } from './pages/BlogPage';
+import KidsPage from './pages/KidsPage';
 import Dashboard from './components/Dashboard';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
@@ -15,6 +16,7 @@ import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
+import KidsPage from './pages/KidsPage';
 
 
 type QuizAnswers = {
@@ -321,6 +323,17 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
+                </>
+              );
+            case 'kids':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Kids Hub – Play, Print, and Learn"
+                    description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+                    canonicalUrl="https://wizqo.com/kids"
+                  />
+                  <KidsPage />
                 </>
               );
             case 'dashboard':

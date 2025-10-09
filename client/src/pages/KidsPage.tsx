@@ -1,0 +1,231 @@
+import React from 'react';
+import { SEOMetaTags } from '@/components/SEOMetaTags';
+import { UnifiedNavigation } from '@/components/UnifiedNavigation';
+import MemoryMatch from '@/components/kids/MemoryMatch';
+import WordSearch from '@/components/kids/WordSearch';
+
+const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden';
+const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
+const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
+const CHIP_CLASS = 'inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700';
+
+export default function KidsPage() {
+  const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
+  const parts = path.replace(/^\/+/, '').split('/');
+  const sub1 = parts[1] || '';
+  const sub2 = parts[2] || '';
+
+  // Game pages
+  if (sub1 === 'games') {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <SEOMetaTags
+          title={`Kids Games – ${sub2 === 'word-search' ? 'Word Search' : 'Memory Match'}`}
+          description="Free kids mini‑games – fast, safe, and mobile‑friendly."
+          canonicalUrl={`https://wizqo.com/kids/games/${sub2 || 'memory'}`}
+        />
+        <UnifiedNavigation currentPage="kids" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-slate-900">
+              {sub2 === 'word-search' ? 'Word Search' : 'Memory Match'}
+            </h1>
+            <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
+          </div>
+          {sub2 === 'word-search' ? <WordSearch /> : <MemoryMatch />}
+        </div>
+      </div>
+    );
+  }
+
+  // Hub page
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <SEOMetaTags
+        title="Kids Hub – Play, Print, and Learn"
+        description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+        canonicalUrl="https://wizqo.com/kids"
+      />
+      <UnifiedNavigation currentPage="kids" />
+
+      <header className="bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Kids Hub</h1>
+          <p className="text-lg opacity-90 max-w-2xl">Play, print, and learn — new puzzles and games every week.</p>
+          <div className="mt-6 flex gap-3">
+            <a href="#print" className={BUTTON_CLASS}>Download printables</a>
+            <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+        {/* Play */}
+        <section id="play">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Play</h2>
+            <span className="text-sm text-slate-500">Fast, safe, mobile‑friendly</span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Memory Match */}
+            <article className={CARD_CLASS}>
+              <img
+                src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
+                alt="Memory match game cover"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–8</span>
+                  <span className={CHIP_CLASS}>Easy/Medium</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
+                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+
+            {/* Word Search */}
+            <article className={CARD_CLASS}>
+              <img
+                src="https://images.unsplash.com/photo-1519687079689-5f06a3cd909c?auto=format&fit=crop&w=1600&q=80"
+                alt="Word search game cover"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 9–12</span>
+                  <span className={CHIP_CLASS}>Animals/Space</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
+                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* Print */}
+        <section id="print">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Print</h2>
+            <a href="/printables/kids-pack-week1.zip" className="text-purple-600 hover:text-purple-700 font-medium">Download all (ZIP)</a>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PRINTABLES.map(p => (
+              <article key={p.id} className={CARD_CLASS}>
+                <img src={p.cover} alt={p.title} className="w-full h-36 object-cover" />
+                <div className="p-5">
+                  <div className="flex gap-2 mb-2">
+                    {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
+                  </div>
+                  <h3 className="font-semibold text-slate-900 mb-1">{p.title}</h3>
+                  <p className="text-slate-600 text-sm mb-4">{p.subtitle}</p>
+                  <a href={p.href} className={BUTTON_CLASS} download>Download PDF</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Learn */}
+        <section id="learn">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Learn</h2>
+            <a href="/blog" className="text-purple-600 hover:text-purple-700 font-medium">More on the blog</a>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {HELPERS.map(h => (
+              <article key={h.id} className={CARD_CLASS}>
+                <img src={h.cover} alt={h.title} className="w-full h-28 object-cover" />
+                <div className="p-5">
+                  <div className="flex gap-2 mb-2">
+                    <span className={CHIP_CLASS}>Kids</span>
+                  </div>
+                  <h3 className="font-semibold text-slate-900 mb-1">{h.title}</h3>
+                  <p className="text-slate-600 text-sm mb-4">{h.subtitle}</p>
+                  <a href={h.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+const PRINTABLES = [
+  {
+    id: 'ws-animals',
+    title: 'Word Search – Animals',
+    subtitle: 'Find 12 animal names',
+    chips: ['Ages 6–8', 'Easy'],
+    href: '/printables/kids-wordsearch-animals.pdf',
+    cover: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'ws-space',
+    title: 'Word Search – Space',
+    subtitle: 'Find 12 space words',
+    chips: ['Ages 9–12', 'Moderate'],
+    href: '/printables/kids-wordsearch-space.pdf',
+    cover: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'sudoku-4',
+    title: 'Sudoku – 4×4 (Easy)',
+    subtitle: 'Beginner logic puzzle',
+    chips: ['Ages 6–8', 'Easy'],
+    href: '/printables/kids-sudoku-4x4.pdf',
+    cover: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'sudoku-6',
+    title: 'Sudoku – 6×6 (Medium)',
+    subtitle: 'A bit more challenge',
+    chips: ['Ages 9–12', 'Medium'],
+    href: '/printables/kids-sudoku-6x6.pdf',
+    cover: 'https://images.unsplash.com/photo-1502136969935-8d07104f3b19?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'coloring',
+    title: 'Coloring – Cute Animals',
+    subtitle: 'Creative and calming',
+    chips: ['Ages 6–8'],
+    href: '/printables/kids-coloring-animals.pdf',
+    cover: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'spot-diff',
+    title: 'Spot the Difference – Playground',
+    subtitle: 'Find 8 differences',
+    chips: ['Ages 6–10'],
+    href: '/printables/kids-spot-the-difference-playground.pdf',
+    cover: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80'
+  }
+];
+
+const HELPERS = [
+  {
+    id: 'focus-in-10',
+    title: 'Focus in 10 (for Kids)',
+    subtitle: 'Quick routine to start homework calmly',
+    href: '/blog',
+    cover: 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'kid-note-taking',
+    title: 'Simple Note‑Taking for Homework',
+    subtitle: 'Write just what matters — with examples',
+    href: '/blog',
+    cover: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80'
+  },
+  {
+    id: 'micro-journaling-kids',
+    title: 'Micro‑Journaling for Kids',
+    subtitle: '1–2 lines that build confidence',
+    href: '/blog',
+    cover: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80'
+  }
+];
