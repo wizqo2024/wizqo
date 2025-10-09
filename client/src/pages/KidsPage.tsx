@@ -119,8 +119,15 @@ export default function KidsPage() {
       />
       <UnifiedNavigation currentPage="kids" />
 
-      <header className="bg-gradient-to-r from-purple-600 to-pink-500 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <header className="relative text-white">
+        <SmartImage
+          primary={IMG.playground}
+          alts={[IMG.classroom, IMG.kidColoring, IMG.puzzleJigsaw, IMG.childStudy]}
+          alt="Kids Hub hero background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-purple-700/40 to-pink-700/40" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Kids Hub</h1>
           <p className="text-lg opacity-90 max-w-2xl">Play, print, and learn — new puzzles and games every week.</p>
           <div className="mt-6 flex gap-3">
