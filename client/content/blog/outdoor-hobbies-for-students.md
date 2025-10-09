@@ -26,7 +26,7 @@ Think treasure maps, but powered by GPS. Geocaching turns any park into an adven
 ✅ Problem it solves: Screen addiction → replaces endless scrolling with active exploration.
 💡 How to start: Download a free geocaching app, choose a beginner location, and go treasure-hunting with friends.
 
-![Teen with phone and map outdoors](https://images.unsplash.com/photo-1481627834876-dccba630e2f6?auto=format&fit=crop&w=1600&q=80 "Geocaching as a fun outdoor hobby for students")
+![Teen with phone and map outdoors](https://images.unsplash.com/photo-1518176258769-f227c798150e?auto=format&fit=crop&w=1600&q=80 "Geocaching as a fun outdoor hobby for students")
 
 2. Frisbee or Disc Golf 🥏
 
