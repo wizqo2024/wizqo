@@ -9,29 +9,43 @@ const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
 const CHIP_CLASS = 'inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700';
 
+// Curated, kid‑safe Unsplash images (playground, puzzles, crayons, classroom)
+const KID_SAFE = {
+  coloringCrayons: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80', // crayons/kid coloring
+  classroomHands: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80', // classroom hands up
+  planetsModel: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80', // planets model
+  puzzleJigsaw: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80', // jigsaw puzzle
+  puzzleDesk: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80', // puzzle pieces on desk
+  playgroundKids: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80', // kids at playground
+  childStudyDesk: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80', // child studying
+  childWriting: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80', // child writing
+  kidJournaling: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80', // kid journaling
+  kidsWithAnimals: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80' // animals with kids
+} as const;
+
 export default function KidsPage() {
-  // Ensure kid images are unique and have graceful fallbacks
   const usedImageUrlsRef = useRef<Set<string>>(new Set());
-  const KIDS_GENERIC_IMAGE = 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80';
+  const KIDS_GENERIC_IMAGE = KID_SAFE.coloringCrayons;
   const KIDS_IMAGE_POOL = useMemo(
     () => [
-      'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80', // classroom hands up
-      'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80', // planets model
-      'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80', // jigsaw puzzle
-      'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80', // puzzle desk
-      'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80', // playground
-      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80', // child studying
-      'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80', // kid writing
-      'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80', // smiling kid journal
-      'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'  // animals with kids
+      KID_SAFE.playgroundKids,
+      KID_SAFE.classroomHands,
+      KID_SAFE.coloringCrayons,
+      KID_SAFE.puzzleJigsaw,
+      KID_SAFE.puzzleDesk,
+      KID_SAFE.childStudyDesk,
+      KID_SAFE.childWriting,
+      KID_SAFE.kidJournaling,
+      KID_SAFE.planetsModel,
+      KID_SAFE.kidsWithAnimals
     ],
     []
   );
 
-  function SmartImage({ primary, alts = [], alt, className }: { primary: string; alts?: string[]; alt: string; className?: string }) {
+  function SmartImage({ primary, alts = [], alt, className, fetchPriority }: { primary: string; alts?: string[]; alt: string; className?: string; fetchPriority?: 'auto' | 'low' | 'high' }) {
     const initialSrc = useMemo(() => {
       const set = usedImageUrlsRef.current;
-      const candidates = [primary, ...alts, KIDS_GENERIC_IMAGE];
+      const candidates = [primary, ...alts, KIDS_GENERIC_IMAGE, ...KIDS_IMAGE_POOL];
       for (const url of candidates) {
         if (!set.has(url)) {
           set.add(url);
@@ -45,8 +59,7 @@ export default function KidsPage() {
     const [idx, setIdx] = useState<number>(0);
 
     const fallbackList = useMemo(() => {
-      // filter out primary and the chosen src
-      const list = [primary, ...alts, KIDS_GENERIC_IMAGE].filter((u) => u !== src);
+      const list = [primary, ...alts, KIDS_GENERIC_IMAGE, ...KIDS_IMAGE_POOL].filter((u) => u !== src);
       return list;
     }, [primary, alts, src]);
 
@@ -61,32 +74,28 @@ export default function KidsPage() {
           return;
         }
       }
-      // exhausted unique options; reuse generic
       setSrc(KIDS_GENERIC_IMAGE);
     }
 
     return (
-      <img src={src} alt={alt} className={className} referrerPolicy="no-referrer" onError={onError} />
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        referrerPolicy="no-referrer"
+        loading={fetchPriority === 'high' ? 'eager' : 'lazy'}
+        decoding="async"
+        sizes="(min-width: 1024px) 800px, 100vw"
+        fetchPriority={fetchPriority || 'auto'}
+        onError={onError}
+      />
     );
   }
-  const IMG = {
-    puzzleDesk: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80',
-    puzzleJigsaw: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80',
-    childStudy: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80',
-    childWrite: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80',
-    kidJournal: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80',
-    kidColoring: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80',
-    playground: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80',
-    planets: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80',
-    classroom: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
-    animals: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'
-  } as const;
+
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
-  const parts = path.replace(/^\/+/, '').split('/');
+  const parts = path.replace(/^\/+/,'').split('/');
   const sub1 = parts[1] || '';
   const sub2 = parts[2] || '';
-
-  // Game pages
   if (sub1 === 'games') {
     return (
       <div className="min-h-screen bg-slate-50">
@@ -109,7 +118,10 @@ export default function KidsPage() {
     );
   }
 
+<<<<<<< HEAD
   // Hub page
+=======
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -121,10 +133,18 @@ export default function KidsPage() {
 
       <header className="relative text-white">
         <SmartImage
+<<<<<<< HEAD
           primary={IMG.playground}
           alts={[IMG.classroom, IMG.kidColoring, IMG.puzzleJigsaw, IMG.childStudy]}
           alt="Kids Hub hero background"
           className="absolute inset-0 w-full h-full object-cover"
+=======
+          primary={KID_SAFE.playground}
+          alts={[KID_SAFE.classroom, KID_SAFE.kidColoring, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudy]}
+          alt="Kids Hub hero background"
+          className="absolute inset-0 w-full h-full object-cover"
+          fetchPriority="high"
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         />
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-purple-700/40 to-pink-700/40" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -138,18 +158,28 @@ export default function KidsPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+<<<<<<< HEAD
         {/* Play */}
+=======
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="play">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Play</h2>
             <span className="text-sm text-slate-500">Fast, safe, mobile‑friendly</span>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
+<<<<<<< HEAD
             {/* Memory Match */}
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={IMG.puzzleJigsaw}
                 alts={[IMG.puzzleDesk, IMG.classroom, IMG.kidColoring]}
+=======
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.puzzleJigsaw}
+                alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
               />
@@ -164,11 +194,18 @@ export default function KidsPage() {
               </div>
             </article>
 
+<<<<<<< HEAD
             {/* Word Search */}
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={IMG.childStudy}
                 alts={[IMG.childWrite, IMG.classroom, IMG.kidJournal]}
+=======
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.childStudy}
+                alts={[KID_SAFE.childWrite, KID_SAFE.classroom, KID_SAFE.kidJournal]}
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
               />
@@ -185,7 +222,10 @@ export default function KidsPage() {
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Print */}
+=======
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="print">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Print</h2>
@@ -194,7 +234,16 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
+<<<<<<< HEAD
                 <SmartImage primary={p.cover} alts={[IMG.kidColoring, IMG.animals, IMG.classroom, IMG.puzzleDesk, IMG.puzzleJigsaw, IMG.planets, IMG.playground, IMG.childWrite, IMG.kidJournal]} alt={p.title} className="w-full h-36 object-cover" />
+=======
+                <SmartImage
+                  primary={p.cover}
+                  alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
+                  alt={p.title}
+                  className="w-full h-36 object-cover"
+                />
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
@@ -208,7 +257,10 @@ export default function KidsPage() {
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Learn */}
+=======
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="learn">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Learn</h2>
@@ -217,7 +269,16 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {HELPERS.map(h => (
               <article key={h.id} className={CARD_CLASS}>
+<<<<<<< HEAD
                 <SmartImage primary={h.cover} alts={[IMG.childStudy, IMG.childWrite, IMG.kidJournal, IMG.classroom, IMG.kidColoring]} alt={h.title} className="w-full h-28 object-cover" />
+=======
+                <SmartImage
+                  primary={h.cover}
+                  alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+                  alt={h.title}
+                  className="w-full h-28 object-cover"
+                />
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     <span className={CHIP_CLASS}>Kids</span>
@@ -242,7 +303,11 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-wordsearch-animals.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids with animal toys
+=======
+    cover: KID_SAFE.classroom
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'ws-space',
@@ -250,7 +315,11 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/printables/kids-wordsearch-space.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80' // child looking at planets model
+=======
+    cover: KID_SAFE.planets
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'sudoku-4',
@@ -258,7 +327,11 @@ const PRINTABLES = [
     subtitle: 'Beginner logic puzzle',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-sudoku-4x4.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80' // kid doing puzzle
+=======
+    cover: KID_SAFE.puzzleJigsaw
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'sudoku-6',
@@ -266,7 +339,11 @@ const PRINTABLES = [
     subtitle: 'A bit more challenge',
     chips: ['Ages 9–12', 'Medium'],
     href: '/printables/kids-sudoku-6x6.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids learning
+=======
+    cover: KID_SAFE.classroom
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'coloring',
@@ -274,7 +351,11 @@ const PRINTABLES = [
     subtitle: 'Creative and calming',
     chips: ['Ages 6–8'],
     href: '/printables/kids-coloring-animals.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80' // kid coloring
+=======
+    cover: KID_SAFE.kidColoring
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'spot-diff',
@@ -282,7 +363,11 @@ const PRINTABLES = [
     subtitle: 'Find 8 differences',
     chips: ['Ages 6–10'],
     href: '/printables/kids-spot-the-difference-playground.pdf',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80' // kids at playground
+=======
+    cover: KID_SAFE.playground
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   }
 ];
 
@@ -292,20 +377,32 @@ const HELPERS = [
     title: 'Focus in 10 (for Kids)',
     subtitle: 'Quick routine to start homework calmly',
     href: '/blog',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80' // child studying
+=======
+    cover: KID_SAFE.childStudy
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'kid-note-taking',
     title: 'Simple Note‑Taking for Homework',
     subtitle: 'Write just what matters — with examples',
     href: '/blog',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80' // kid writing notebook
+=======
+    cover: KID_SAFE.childWrite
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'micro-journaling-kids',
     title: 'Micro‑Journaling for Kids',
     subtitle: '1–2 lines that build confidence',
     href: '/blog',
+<<<<<<< HEAD
     cover: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80' // smiling kid journal
+=======
+    cover: KID_SAFE.kidJournal
+>>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   }
 ];
