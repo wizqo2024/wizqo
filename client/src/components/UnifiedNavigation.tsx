@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from './AuthModal';
 import { WizqoLogo } from './WizqoLogo';
-import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
 
 interface UnifiedNavigationProps {
   showBackButton?: boolean;
@@ -62,7 +62,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Blog</span>
               </button>
 
-              <button onClick={() => window.location.href = '/kids'} className={`flex items-center px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <button onClick={() => window.location.href = '/kids'} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+                <Puzzle className="w-4 h-4" />
                 <span className="font-medium">Kids Hub</span>
               </button>
             </div>
@@ -178,8 +179,9 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 window.location.href = '/kids';
                 setShowMobileMenu(false);
               }} 
-              className={`w-full flex items-center px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
+              <Puzzle className="w-4 h-4" />
               <span className="font-medium">Kids Hub</span>
             </button>
 
