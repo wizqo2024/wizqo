@@ -70,8 +70,9 @@ export default function KidsPage() {
             {/* Memory Match */}
             <article className={CARD_CLASS}>
               <img
-                src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80"
+                src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80"
                 alt="Memory match game cover"
+                referrerPolicy="no-referrer"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -88,8 +89,9 @@ export default function KidsPage() {
             {/* Word Search */}
             <article className={CARD_CLASS}>
               <img
-                src="https://images.unsplash.com/photo-1519687079689-5f06a3cd909c?auto=format&fit=crop&w=1600&q=80"
+                src="https://images.unsplash.com/photo-1502136969935-8d07104f3b19?auto=format&fit=crop&w=1600&q=80"
                 alt="Word search game cover"
+                referrerPolicy="no-referrer"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -114,7 +116,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
-                <img src={p.cover} alt={p.title} className="w-full h-36 object-cover" />
+                <img src={p.cover} alt={p.title} referrerPolicy="no-referrer" className="w-full h-36 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
@@ -137,7 +139,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {HELPERS.map(h => (
               <article key={h.id} className={CARD_CLASS}>
-                <img src={h.cover} alt={h.title} className="w-full h-28 object-cover" />
+                <img src={h.cover} alt={h.title} referrerPolicy="no-referrer" className="w-full h-28 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     <span className={CHIP_CLASS}>Kids</span>
@@ -162,7 +164,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-wordsearch-animals.pdf',
-    cover: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids with animal toys
   },
   {
     id: 'ws-space',
@@ -170,7 +172,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/printables/kids-wordsearch-space.pdf',
-    cover: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80' // child looking at planets model
   },
   {
     id: 'sudoku-4',
@@ -178,7 +180,7 @@ const PRINTABLES = [
     subtitle: 'Beginner logic puzzle',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-sudoku-4x4.pdf',
-    cover: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80' // kid doing puzzle
   },
   {
     id: 'sudoku-6',
@@ -186,7 +188,7 @@ const PRINTABLES = [
     subtitle: 'A bit more challenge',
     chips: ['Ages 9–12', 'Medium'],
     href: '/printables/kids-sudoku-6x6.pdf',
-    cover: 'https://images.unsplash.com/photo-1502136969935-8d07104f3b19?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids learning
   },
   {
     id: 'coloring',
@@ -194,7 +196,7 @@ const PRINTABLES = [
     subtitle: 'Creative and calming',
     chips: ['Ages 6–8'],
     href: '/printables/kids-coloring-animals.pdf',
-    cover: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80' // kid coloring
   },
   {
     id: 'spot-diff',
@@ -202,7 +204,7 @@ const PRINTABLES = [
     subtitle: 'Find 8 differences',
     chips: ['Ages 6–10'],
     href: '/printables/kids-spot-the-difference-playground.pdf',
-    cover: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80' // kids at playground
   }
 ];
 
@@ -212,20 +214,20 @@ const HELPERS = [
     title: 'Focus in 10 (for Kids)',
     subtitle: 'Quick routine to start homework calmly',
     href: '/blog',
-    cover: 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80' // child studying
   },
   {
     id: 'kid-note-taking',
     title: 'Simple Note‑Taking for Homework',
     subtitle: 'Write just what matters — with examples',
     href: '/blog',
-    cover: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80' // kid writing notebook
   },
   {
     id: 'micro-journaling-kids',
     title: 'Micro‑Journaling for Kids',
     subtitle: '1–2 lines that build confidence',
     href: '/blog',
-    cover: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80'
+    cover: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80' // smiling kid journal
   }
 ];
