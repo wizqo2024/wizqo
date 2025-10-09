@@ -1306,7 +1306,26 @@ app.post('/api/generate-day', async (req, res) => {
     // Normalize into Day structure expected by frontend
     const title = typeof parsed?.title === 'string' && parsed.title.trim() ? parsed.title.trim() : `Day ${dayNumber} - ${hobby}`;
     const usedIds = Array.isArray(priorDays) ? priorDays.map((d: any) => d?.youtubeVideoId).filter(Boolean) : [];
-    let video = await getYouTubeVideo(hobby, dayNumber, title, usedIds);
+    // EXTRA DEDUP: also exclude any video IDs already stored in this plan (server-side),
+    // in case the client forgets to pass priorDays or a refresh loses context.
+    let excludeIds: string[] = [...usedIds];
+    try {
+      const planIdForExclude: string = String((req.body as any)?.plan_id || '').trim();
+      if (planIdForExclude && supabaseAdmin) {
+        const existingForExclude = await supabaseAdmin
+          .from('hobby_plans')
+          .select('plan_data')
+          .eq('id', planIdForExclude)
+          .maybeSingle();
+        if (!existingForExclude.error && (existingForExclude.data as any)?.plan_data?.days) {
+          const priorDbIds: string[] = ((existingForExclude.data as any).plan_data.days || [])
+            .map((d: any) => d?.youtubeVideoId)
+            .filter(Boolean);
+          excludeIds = Array.from(new Set([...(excludeIds || []), ...priorDbIds]));
+        }
+      }
+    } catch {}
+    let video = await getYouTubeVideo(hobby, dayNumber, title, excludeIds);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
 
     // Derive helpful extras for UI completeness and uniqueness
