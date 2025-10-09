@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import MemoryMatch from '@/components/kids/MemoryMatch';
@@ -10,6 +10,65 @@ const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounde
 const CHIP_CLASS = 'inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700';
 
 export default function KidsPage() {
+  // Ensure kid images are unique and have graceful fallbacks
+  const usedImageUrlsRef = useRef<Set<string>>(new Set());
+  const KIDS_GENERIC_IMAGE = 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80';
+  const KIDS_IMAGE_POOL = useMemo(
+    () => [
+      'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80', // classroom hands up
+      'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80', // planets model
+      'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80', // jigsaw puzzle
+      'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80', // puzzle desk
+      'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80', // playground
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80', // child studying
+      'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80', // kid writing
+      'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80', // smiling kid journal
+      'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'  // animals with kids
+    ],
+    []
+  );
+
+  function SmartImage({ primary, alts = [], alt, className }: { primary: string; alts?: string[]; alt: string; className?: string }) {
+    const initialSrc = useMemo(() => {
+      const set = usedImageUrlsRef.current;
+      const candidates = [primary, ...alts, KIDS_GENERIC_IMAGE];
+      for (const url of candidates) {
+        if (!set.has(url)) {
+          set.add(url);
+          return url;
+        }
+      }
+      return primary;
+    }, [primary, alts]);
+
+    const [src, setSrc] = useState<string>(initialSrc);
+    const [idx, setIdx] = useState<number>(0);
+
+    const fallbackList = useMemo(() => {
+      // filter out primary and the chosen src
+      const list = [primary, ...alts, KIDS_GENERIC_IMAGE].filter((u) => u !== src);
+      return list;
+    }, [primary, alts, src]);
+
+    function onError() {
+      const set = usedImageUrlsRef.current;
+      for (let i = idx; i < fallbackList.length; i++) {
+        const candidate = fallbackList[i];
+        if (!set.has(candidate)) {
+          set.add(candidate);
+          setSrc(candidate);
+          setIdx(i + 1);
+          return;
+        }
+      }
+      // exhausted unique options; reuse generic
+      setSrc(KIDS_GENERIC_IMAGE);
+    }
+
+    return (
+      <img src={src} alt={alt} className={className} referrerPolicy="no-referrer" onError={onError} />
+    );
+  }
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
   const parts = path.replace(/^\/+/, '').split('/');
   const sub1 = parts[1] || '';
@@ -69,10 +128,10 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 gap-6">
             {/* Memory Match */}
             <article className={CARD_CLASS}>
-              <img
-                src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80"
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80"
+                alts={KIDS_IMAGE_POOL}
                 alt="Memory match game cover"
-                referrerPolicy="no-referrer"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -88,10 +147,10 @@ export default function KidsPage() {
 
             {/* Word Search */}
             <article className={CARD_CLASS}>
-              <img
-                src="https://images.unsplash.com/photo-1502136969935-8d07104f3b19?auto=format&fit=crop&w=1600&q=80"
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80"
+                alts={KIDS_IMAGE_POOL}
                 alt="Word search game cover"
-                referrerPolicy="no-referrer"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -116,7 +175,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
-                <img src={p.cover} alt={p.title} referrerPolicy="no-referrer" className="w-full h-36 object-cover" />
+                <SmartImage primary={p.cover} alts={KIDS_IMAGE_POOL} alt={p.title} className="w-full h-36 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
@@ -139,7 +198,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {HELPERS.map(h => (
               <article key={h.id} className={CARD_CLASS}>
-                <img src={h.cover} alt={h.title} referrerPolicy="no-referrer" className="w-full h-28 object-cover" />
+                <SmartImage primary={h.cover} alts={KIDS_IMAGE_POOL} alt={h.title} className="w-full h-28 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     <span className={CHIP_CLASS}>Kids</span>
