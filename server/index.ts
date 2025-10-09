@@ -963,19 +963,32 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     });
 
     if (filtered.length === 0) {
-      // Fallback: choose first non-excluded from raw items
+      // Fallback: relax criteria but still enforce >= 5 minutes and dedup
       const excludeSet2 = new Set(excludeIds.filter(Boolean));
-      const firstNonExcluded = items.find((it: any) => it?.id?.videoId && !excludeSet2.has(it.id.videoId));
-      const selectedVideo = firstNonExcluded || items[(day - 1) % Math.min(items.length, 5)];
-      if (!selectedVideo) return null as any;
-      const result = {
-        id: selectedVideo.id?.videoId as string,
-        title: selectedVideo.snippet?.title as string,
-        searchQuery: finalQuery,
-        day: day
-      };
-      console.log(`✅ Day ${day} video (fallback, dedup) selected: ${result.title}`);
-      return result;
+      const relaxed = (dj.items || []).filter((v: any) => {
+        const id = v?.id as string;
+        if (!id || excludeSet2.has(id)) return false;
+        const durationSec = isoToSeconds(v?.contentDetails?.duration || '');
+        const minutes = durationSec / 60;
+        const isPublic = v?.status?.privacyStatus === 'public';
+        const embeddable = v?.status?.embeddable !== false;
+        const notLive = v?.snippet?.liveBroadcastContent !== 'live';
+        return minutes >= 5 && isPublic && embeddable && notLive;
+      });
+      const pickRelaxed = relaxed[0];
+      if (pickRelaxed) {
+        const result = {
+          id: pickRelaxed.id as string,
+          title: pickRelaxed.snippet?.title as string,
+          searchQuery: finalQuery,
+          day: day
+        };
+        console.log(`✅ Day ${day} video (relaxed >=5min) selected: ${result.title}`);
+        return result;
+      }
+      // Nothing suitable found
+      console.warn(`⚠️ Day ${day}: no videos >=5min after relaxed filter; skipping to AI fallback.`);
+      return null as any;
     }
 
     // Prefer most viewed, then newest
@@ -1040,7 +1053,7 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
       })
     });
     
-    if (!resp.ok) return null as any;
+  if (!resp.ok) return null as any;
     
     const data = await resp.json();
     let content = data.choices?.[0]?.message?.content || '';
