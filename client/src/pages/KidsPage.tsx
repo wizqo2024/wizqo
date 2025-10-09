@@ -69,6 +69,18 @@ export default function KidsPage() {
       <img src={src} alt={alt} className={className} referrerPolicy="no-referrer" onError={onError} />
     );
   }
+  const IMG = {
+    puzzleDesk: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80',
+    puzzleJigsaw: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80',
+    childStudy: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80',
+    childWrite: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80',
+    kidJournal: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80',
+    kidColoring: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80',
+    playground: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80',
+    planets: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80',
+    classroom: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
+    animals: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'
+  } as const;
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
   const parts = path.replace(/^\/+/, '').split('/');
   const sub1 = parts[1] || '';
@@ -129,8 +141,8 @@ export default function KidsPage() {
             {/* Memory Match */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary="https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80"
-                alts={KIDS_IMAGE_POOL}
+                primary={IMG.puzzleJigsaw}
+                alts={[IMG.puzzleDesk, IMG.classroom, IMG.kidColoring]}
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
               />
@@ -148,8 +160,8 @@ export default function KidsPage() {
             {/* Word Search */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary="https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80"
-                alts={KIDS_IMAGE_POOL}
+                primary={IMG.childStudy}
+                alts={[IMG.childWrite, IMG.classroom, IMG.kidJournal]}
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
               />
@@ -175,7 +187,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
-                <SmartImage primary={p.cover} alts={KIDS_IMAGE_POOL} alt={p.title} className="w-full h-36 object-cover" />
+                <SmartImage primary={p.cover} alts={[IMG.kidColoring, IMG.animals, IMG.classroom, IMG.puzzleDesk, IMG.puzzleJigsaw, IMG.planets, IMG.playground, IMG.childWrite, IMG.kidJournal]} alt={p.title} className="w-full h-36 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
@@ -198,7 +210,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {HELPERS.map(h => (
               <article key={h.id} className={CARD_CLASS}>
-                <SmartImage primary={h.cover} alts={KIDS_IMAGE_POOL} alt={h.title} className="w-full h-28 object-cover" />
+                <SmartImage primary={h.cover} alts={[IMG.childStudy, IMG.childWrite, IMG.kidJournal, IMG.classroom, IMG.kidColoring]} alt={h.title} className="w-full h-28 object-cover" />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     <span className={CHIP_CLASS}>Kids</span>
