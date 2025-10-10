@@ -365,7 +365,7 @@ const PRINTABLES = [
     title: 'Word Search – Animals',
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
-    href: '/printables/kids-wordsearch-animals.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=animals',
     cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
@@ -373,7 +373,7 @@ const PRINTABLES = [
     title: 'Word Search – Space',
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
-    href: '/printables/kids-wordsearch-space.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=space',
     cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
@@ -381,7 +381,7 @@ const PRINTABLES = [
     title: 'Sudoku – 4×4 (Easy)',
     subtitle: 'Beginner logic puzzle',
     chips: ['Ages 6–8', 'Easy'],
-    href: '/printables/kids-sudoku-4x4.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=sudoku4',
     cover: KID_SAFE.puzzleJigsaw
   },
   {
@@ -389,7 +389,7 @@ const PRINTABLES = [
     title: 'Sudoku – 6×6 (Medium)',
     subtitle: 'A bit more challenge',
     chips: ['Ages 9–12', 'Medium'],
-    href: '/printables/kids-sudoku-6x6.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=sudoku6',
     cover: KID_SAFE.classroomHands
   },
   {
@@ -397,7 +397,7 @@ const PRINTABLES = [
     title: 'Coloring – Cute Animals',
     subtitle: 'Creative and calming',
     chips: ['Ages 6–8'],
-    href: '/printables/kids-coloring-animals.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=coloring',
     cover: KID_SAFE.coloringCrayons
   },
   {
@@ -405,7 +405,7 @@ const PRINTABLES = [
     title: 'Spot the Difference – Playground',
     subtitle: 'Find 8 differences',
     chips: ['Ages 6–10'],
-    href: '/printables/kids-spot-the-difference-playground.pdf',
+    href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf?kids=spotdiff',
     cover: KID_SAFE.playgroundKids
   }
 ];
