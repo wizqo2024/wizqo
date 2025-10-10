@@ -14,6 +14,7 @@ import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import KidsPage from './pages/KidsPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 
 
@@ -321,6 +322,17 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
+                </>
+              );
+            case 'kids':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Kids Hub – Play, Print, and Learn"
+                    description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+                    canonicalUrl="https://wizqo.com/kids"
+                  />
+                  <KidsPage />
                 </>
               );
             case 'dashboard':
