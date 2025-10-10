@@ -1449,7 +1449,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   // Numbered item (1., 2., ...) — render full section content (images, bullets, paragraphs) until next heading
                   const numMatch = trimmed.match(/\b\d+\./);
                   if ((numMatch && /^\s*\d+\./.test(trimmed)) || (numMatch && trimmed.indexOf(numMatch[0]) <= 4)) {
-                    const headingText = trimmed;
+                    const headingText = trimmed.replace(/^\*\*(.*?)\*\*$/, '$1');
                     const numHeadingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     const sectionEls: JSX.Element[] = [];
                     sectionEls.push(<h3 key={`num-h-${i}`} id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>);
@@ -1593,7 +1593,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     { term: 'watercolor', slug: 'easy-watercolor-paintings' },
                     { term: 'AI', slug: 'find-hobby-that-sticks' }
                   ];
-                  let bodyHtml = convertInlineLinks(line);
+                  // Strip bold markers **text** in final render
+                  let bodyHtml = convertInlineLinks(line).replace(/\*\*(.*?)\*\*/g, '$1');
                   for (const { term, slug } of AUTOLINKS_BODY) {
                     const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
                   bodyHtml = bodyHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
