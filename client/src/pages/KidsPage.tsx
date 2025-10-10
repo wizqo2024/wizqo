@@ -43,8 +43,9 @@ export default function KidsPage() {
     []
   );
 
-  function SmartImage({ primary, alts = [], alt, className, fetchPriority }: { primary: string; alts?: string[]; alt: string; className?: string; fetchPriority?: 'auto' | 'low' | 'high' }) {
+  function SmartImage({ primary, alts = [], alt, className, fetchPriority, disableDedup }: { primary: string; alts?: string[]; alt: string; className?: string; fetchPriority?: 'auto' | 'low' | 'high'; disableDedup?: boolean }) {
     const initialSrc = useMemo(() => {
+      if (disableDedup) return primary;
       const set = usedImageUrlsRef.current;
       const candidates = [primary, ...alts, KIDS_GENERIC_IMAGE, ...KIDS_IMAGE_POOL];
       for (const url of candidates) {
@@ -54,7 +55,7 @@ export default function KidsPage() {
         }
       }
       return primary;
-    }, [primary, alts]);
+    }, [primary, alts, disableDedup]);
 
     const [src, setSrc] = useState<string>(initialSrc);
     const [idx, setIdx] = useState<number>(0);
@@ -65,6 +66,16 @@ export default function KidsPage() {
     }, [primary, alts, src]);
 
     function onError() {
+      if (disableDedup) {
+        for (let i = idx; i < fallbackList.length; i++) {
+          const candidate = fallbackList[i];
+          setSrc(candidate);
+          setIdx(i + 1);
+          return;
+        }
+        setSrc(KIDS_GENERIC_IMAGE);
+        return;
+      }
       const set = usedImageUrlsRef.current;
       for (let i = idx; i < fallbackList.length; i++) {
         const candidate = fallbackList[i];
@@ -219,6 +230,7 @@ export default function KidsPage() {
                 alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
+                disableDedup
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
@@ -237,6 +249,7 @@ export default function KidsPage() {
                 alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
+                disableDedup
               />
               <div className="p-5">
                 <div className="flex gap-2 mb-2">
