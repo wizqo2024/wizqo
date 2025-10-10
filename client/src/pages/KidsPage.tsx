@@ -311,6 +311,33 @@ export default function KidsPage() {
             </div>
           </div>
         </section>
+
+        {/* Kids Blog Picks */}
+        <section id="kids-blog">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Kids Blog Picks</h2>
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Explore helpful reads about <strong>making learning fun</strong>, building good study habits, and simple activities kids can enjoy.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {KIDS_BLOGS.map(post => (
+              <article key={post.id} className={CARD_CLASS}>
+                <SmartImage
+                  primary={post.cover}
+                  alts={[KID_SAFE.classroomHands, KID_SAFE.childWriting, KID_SAFE.playgroundKids]}
+                  alt={`${post.title} – kids blog`}
+                  className="w-full h-32 object-cover"
+                />
+                <div className="p-5">
+                  <h3 className="font-semibold text-slate-900 mb-1">{post.title}</h3>
+                  <p className="text-slate-600 text-sm mb-4">{post.subtitle}</p>
+                  <a href={post.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   );
@@ -390,3 +417,29 @@ const HELPERS = [
     cover: KID_SAFE.kidJournaling
   }
 ];
+
+// Temporary kids-related blog picks (links to existing posts)
+const KIDS_BLOGS = [
+  {
+    id: 'relaxing-hobbies',
+    title: 'Relaxing Hobbies',
+    subtitle: 'Simple activities to unwind and focus',
+    href: '/blog/relaxing-hobbies',
+    cover: KID_SAFE.classroomHands,
+  },
+  {
+    id: 'productive-hobbies-for-students',
+    title: 'Productive Hobbies for Students',
+    subtitle: 'Grow skills with quick daily practice',
+    href: '/blog/productive-hobbies-for-students',
+    cover: KID_SAFE.childWriting,
+  },
+  {
+    id: 'outdoor-hobbies-for-students',
+    title: 'Outdoor Hobbies for Students',
+    subtitle: 'Move, explore, and learn outside',
+    href: '/blog/outdoor-hobbies-for-students',
+    cover: KID_SAFE.playgroundKids,
+  },
+];
+
