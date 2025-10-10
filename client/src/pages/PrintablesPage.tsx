@@ -3,6 +3,21 @@ import React from 'react'
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
+  function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
+    const [idx, setIdx] = React.useState(0)
+    const src = sources[idx] || sources[0]
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        referrerPolicy="no-referrer"
+        loading="eager"
+        decoding="async"
+        onError={() => setIdx((i) => Math.min(i + 1, sources.length - 1))}
+      />
+    )
+  }
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -82,21 +97,23 @@ export function PrintablesPage() {
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
           <div className="grid grid-cols-2 gap-4">
-            <img
-              src="https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=90&kidv=spot-a"
+            <SafeImg
+              sources={[
+                'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=90&kidv=spot-a',
+                'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=90&kidv=spot-a2',
+                'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=90&kidv=spot-a3'
+              ]}
               alt="Playground scene A"
               className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
-              referrerPolicy="no-referrer"
-              loading="eager"
-              decoding="async"
             />
-            <img
-              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=90&kidv=spot-b"
+            <SafeImg
+              sources={[
+                'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=90&kidv=spot-b',
+                'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=90&kidv=spot-b2',
+                'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=90&kidv=spot-b3'
+              ]}
               alt="Playground scene B"
               className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
-              referrerPolicy="no-referrer"
-              loading="eager"
-              decoding="async"
             />
           </div>
         </section>
