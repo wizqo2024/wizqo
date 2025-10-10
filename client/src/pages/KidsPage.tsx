@@ -203,6 +203,12 @@ export default function KidsPage() {
             <p className="text-white text-sm mt-1">Study</p>
           </div>
         </div>
+        <div className="absolute top-[20rem] right-[30%] z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="text-2xl">🎮</div>
+            <p className="text-white text-sm mt-1">Games</p>
+          </div>
+        </div>
       </div>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
