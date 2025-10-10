@@ -130,9 +130,9 @@ export default function KidsPage() {
 
       <header className="relative text-white">
         <SmartImage
-          primary={KID_SAFE.playground}
-          alts={[KID_SAFE.classroom, KID_SAFE.kidColoring, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudy]}
-          alt="Kids Hub hero background"
+          primary={KID_SAFE.kidColoring}
+          alts={[KID_SAFE.classroom, KID_SAFE.playground, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudy]}
+          alt="Kids Hub hero background (child coloring/crayons)"
           className="absolute inset-0 w-full h-full object-cover"
           fetchPriority="high"
         />
