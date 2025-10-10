@@ -1,0 +1,74 @@
+import React from 'react'
+
+export function PrintablesPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <header className="mb-6">
+          <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>
+          <p className="text-slate-600 mt-2">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
+        </header>
+
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
+          <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
+          <div className="grid grid-cols-12 gap-1 font-mono text-sm">
+            {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"]).map((row, r) => (
+              <React.Fragment key={r}>
+                {row.map((ch, c) => (
+                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
+          <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
+          <div className="inline-grid grid-cols-4 gap-0">
+            {Array.from({ length: 16 }).map((_, i) => (
+              <div key={i} className="w-10 h-10 border border-slate-400" />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
+          <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="aspect-video bg-slate-100 border border-slate-300 rounded" />
+            <div className="aspect-video bg-slate-100 border border-slate-300 rounded" />
+          </div>
+        </section>
+
+        <footer className="text-center text-slate-500 text-xs print:hidden">
+          Tip: Use your browser menu → Print → Save as PDF.
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+function generateWordSearchGrid(size: number, words: string[]): string[][] {
+  // very basic filler grid with words placed sequentially across rows to demonstrate printing
+  const grid: string[][] = Array.from({ length: size }, () => Array.from({ length: size }, () => ''))
+  let r = 0, c = 0
+  for (const w of words) {
+    for (let i = 0; i < w.length; i++) {
+      if (r >= size) break
+      grid[r][c] = w[i]
+      c++
+      if (c >= size) { r++; c = 0 }
+    }
+    r++; c = 0
+    if (r >= size) break
+  }
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size; j++) {
+      if (!grid[i][j]) grid[i][j] = letters[Math.floor(Math.random() * letters.length)]
+    }
+  }
+  return grid
+}

@@ -15,6 +15,7 @@ import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { PrintablesPage } from './pages/PrintablesPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
 
@@ -334,6 +335,18 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/kids"
                   />
                   <KidsPage />
+                </>
+              );
+            case 'print':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Printable Fun Learning Activities for Kids"
+                    description="Print word searches, sudoku, spot-the-difference and more kid-friendly activities."
+                    canonicalUrl="https://wizqo.com/print"
+                    noIndex={true}
+                  />
+                  <PrintablesPage />
                 </>
               );
             case 'dashboard':
