@@ -173,32 +173,32 @@ export default function KidsPage() {
       </header>
       {/* Kids-themed floating cards (desktop only) */}
       <div className="hidden lg:block">
-        <div className="pointer-events-none absolute top-[22rem] left-10 z-10">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 shadow-lg">
+        <div className="absolute top-[22rem] left-10 z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🎨</div>
             <p className="text-white text-sm mt-1">Coloring</p>
           </div>
         </div>
-        <div className="pointer-events-none absolute top-[18rem] right-16 z-10">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 shadow-lg">
+        <div className="absolute top-[18rem] right-16 z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🧩</div>
             <p className="text-white text-sm mt-1">Puzzles</p>
           </div>
         </div>
-        <div className="pointer-events-none absolute bottom-[26rem] left-1/4 z-10">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 shadow-lg">
+        <div className="absolute bottom-[26rem] left-1/4 z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🚀</div>
             <p className="text-white text-sm mt-1">Space</p>
           </div>
         </div>
-        <div className="pointer-events-none absolute bottom-[30rem] right-1/4 z-10">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 shadow-lg">
+        <div className="absolute bottom-[30rem] right-1/4 z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🐾</div>
             <p className="text-white text-sm mt-1">Animals</p>
           </div>
         </div>
-        <div className="pointer-events-none absolute top-[26rem] right-[45%] z-10">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 shadow-lg">
+        <div className="absolute top-[26rem] right-[45%] z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">📚</div>
             <p className="text-white text-sm mt-1">Study</p>
           </div>
