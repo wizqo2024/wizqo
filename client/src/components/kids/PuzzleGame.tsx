@@ -7,12 +7,12 @@ type Theme = 'Animals' | 'Nature'
 
 const THEME_IMAGES: Record<Theme, string[]> = {
   Animals: [
-    'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1200&auto=format&fit=crop'
+    'https://images.unsplash.com/photo-1739513235237-016717c6a9b8?q=80&w=1200&auto=format&fit=crop&kidv=puzzle-animals-1',
+    'https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?q=80&w=1200&auto=format&fit=crop&kidv=puzzle-animals-2'
   ],
   Nature: [
-    'https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1628308256890-e4ca276dc489?q=80&w=1200&auto=format&fit=crop'
+    'https://images.unsplash.com/photo-1630207831419-3532bcb828d7?q=80&w=1200&auto=format&fit=crop&kidv=puzzle-nature-1',
+    'https://plus.unsplash.com/premium_photo-1683133431252-7c37e0867d41?q=80&w=1200&auto=format&fit=crop&kidv=puzzle-nature-2'
   ]
 }
 
