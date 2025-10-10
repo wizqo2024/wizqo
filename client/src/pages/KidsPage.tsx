@@ -132,9 +132,9 @@ export default function KidsPage() {
       {/* Hero */}
       <header className="relative text-white">
         <SmartImage
-          primary={KID_SAFE.coloringCrayons}
-          alts={[KID_SAFE.classroomHands, KID_SAFE.playgroundKids, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudyDesk]}
-          alt="Kids Hub hero background (child coloring/crayons)"
+          primary={KID_SAFE.playgroundKids}
+          alts={[KID_SAFE.coloringCrayons, KID_SAFE.classroomHands, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudyDesk]}
+          alt="Kids Hub hero background (playground fun)"
           className="absolute inset-0 w-full h-full object-cover"
           fetchPriority="high"
         />
@@ -215,8 +215,8 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 gap-6">
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.puzzleDesk}
-                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
+                primary={KID_SAFE.puzzleJigsaw}
+                alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
               />
@@ -427,21 +427,21 @@ const KIDS_BLOGS = [
     title: 'Relaxing Hobbies',
     subtitle: 'Simple activities to unwind and focus',
     href: '/blog/relaxing-hobbies',
-    cover: KID_SAFE.classroomHands,
+    cover: KID_SAFE.coloringCrayons,
   },
   {
     id: 'productive-hobbies-for-students',
     title: 'Productive Hobbies for Students',
     subtitle: 'Grow skills with quick daily practice',
     href: '/blog/productive-hobbies-for-students',
-    cover: KID_SAFE.childWriting,
+    cover: KID_SAFE.kidJournaling,
   },
   {
     id: 'outdoor-hobbies-for-students',
     title: 'Outdoor Hobbies for Students',
     subtitle: 'Move, explore, and learn outside',
     href: '/blog/outdoor-hobbies-for-students',
-    cover: KID_SAFE.playgroundKids,
+    cover: KID_SAFE.classroomHands,
   },
 ];
 
