@@ -289,6 +289,14 @@ export default function PuzzleGame() {
         </div>
       </div>
 
+      {solved && (
+        <div className="mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-green-100 text-green-800 border border-green-200 text-sm font-semibold">
+            ✅ Solved! Great job!
+          </div>
+        </div>
+      )}
+
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
         {/* Board (left) */}
         <div
@@ -329,7 +337,7 @@ export default function PuzzleGame() {
         <aside className="space-y-3">
           <div className="rounded-xl overflow-hidden border border-slate-200">
             <div className="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-2">Reference</div>
-            <img src={imageUrl} alt="Reference" className="w-full h-40 object-cover" />
+            <img src={imageUrl} alt="Reference" className="w-full h-40 object-contain bg-white p-2" />
           </div>
 
           <div
@@ -359,13 +367,7 @@ export default function PuzzleGame() {
         </aside>
       </div>
 
-      {solved && (
-        <div className="mt-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-green-100 text-green-800 border border-green-200 text-sm font-semibold">
-            ✅ Solved! Great job!
-          </div>
-        </div>
-      )}
+      {/* solved banner moved to the top */}
     </div>
   )
 }
