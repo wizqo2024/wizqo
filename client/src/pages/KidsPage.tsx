@@ -155,7 +155,9 @@ export default function KidsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/20" />
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Fun Learning Games & Activities for Kids</h1>
+          <div className="inline-flex items-center px-3 py-1 mb-3 text-xs font-semibold uppercase tracking-wide rounded-full bg-white/15 border border-white/20 backdrop-blur">🎉 Kids Hub</div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Fun Learning Games & Activities for Kids</h1>
+          <div className="h-1 w-20 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mb-4" />
           <p className="text-lg opacity-95 max-w-3xl">
             Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,
             and short skill‑building challenges that turn study time into playtime. Perfect for ages 6–12, these activities help children
