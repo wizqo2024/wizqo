@@ -121,9 +121,11 @@ export default function KidsPage() {
         <UnifiedNavigation currentPage="kids" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-slate-900">
-              {sub2 === 'word-search' ? 'Word Search' : 'Memory Match'}
-            </h1>
+            {sub2 === 'word-search' ? (
+              <h1 className="text-2xl font-bold text-slate-900">Word Search</h1>
+            ) : (
+              <h1 className="sr-only">Memory Match</h1>
+            )}
             <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
           </div>
           {sub2 === 'word-search' ? <WordSearch /> : <MemoryMatch />}
