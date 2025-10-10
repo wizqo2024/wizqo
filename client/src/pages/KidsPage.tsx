@@ -118,10 +118,6 @@ export default function KidsPage() {
     );
   }
 
-<<<<<<< HEAD
-  // Hub page
-=======
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -133,18 +129,11 @@ export default function KidsPage() {
 
       <header className="relative text-white">
         <SmartImage
-<<<<<<< HEAD
-          primary={IMG.playground}
-          alts={[IMG.classroom, IMG.kidColoring, IMG.puzzleJigsaw, IMG.childStudy]}
-          alt="Kids Hub hero background"
-          className="absolute inset-0 w-full h-full object-cover"
-=======
-          primary={KID_SAFE.playground}
-          alts={[KID_SAFE.classroom, KID_SAFE.kidColoring, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudy]}
-          alt="Kids Hub hero background"
+          primary={KID_SAFE.coloringCrayons}
+          alts={[KID_SAFE.classroomHands, KID_SAFE.playgroundKids, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudyDesk]}
+          alt="Kids Hub hero background (child coloring/crayons)"
           className="absolute inset-0 w-full h-full object-cover"
           fetchPriority="high"
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         />
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-purple-700/40 to-pink-700/40" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -158,28 +147,16 @@ export default function KidsPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-<<<<<<< HEAD
-        {/* Play */}
-=======
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="play">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Play</h2>
             <span className="text-sm text-slate-500">Fast, safe, mobile‑friendly</span>
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
-<<<<<<< HEAD
-            {/* Memory Match */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={IMG.puzzleJigsaw}
-                alts={[IMG.puzzleDesk, IMG.classroom, IMG.kidColoring]}
-=======
-            <article className={CARD_CLASS}>
-              <SmartImage
-                primary={KID_SAFE.puzzleJigsaw}
-                alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroom, KID_SAFE.kidColoring]}
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+                primary={KID_SAFE.puzzleDesk}
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
               />
@@ -194,18 +171,10 @@ export default function KidsPage() {
               </div>
             </article>
 
-<<<<<<< HEAD
-            {/* Word Search */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={IMG.childStudy}
-                alts={[IMG.childWrite, IMG.classroom, IMG.kidJournal]}
-=======
-            <article className={CARD_CLASS}>
-              <SmartImage
-                primary={KID_SAFE.childStudy}
-                alts={[KID_SAFE.childWrite, KID_SAFE.classroom, KID_SAFE.kidJournal]}
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+                primary={KID_SAFE.planetsModel}
+                alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
               />
@@ -222,10 +191,6 @@ export default function KidsPage() {
           </div>
         </section>
 
-<<<<<<< HEAD
-        {/* Print */}
-=======
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="print">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Print</h2>
@@ -234,16 +199,12 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
-<<<<<<< HEAD
-                <SmartImage primary={p.cover} alts={[IMG.kidColoring, IMG.animals, IMG.classroom, IMG.puzzleDesk, IMG.puzzleJigsaw, IMG.planets, IMG.playground, IMG.childWrite, IMG.kidJournal]} alt={p.title} className="w-full h-36 object-cover" />
-=======
                 <SmartImage
                   primary={p.cover}
-                  alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
-                  alt={p.title}
+                  alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
+                  alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
                 />
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
@@ -257,10 +218,6 @@ export default function KidsPage() {
           </div>
         </section>
 
-<<<<<<< HEAD
-        {/* Learn */}
-=======
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
         <section id="learn">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-slate-900">Learn</h2>
@@ -269,16 +226,12 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {HELPERS.map(h => (
               <article key={h.id} className={CARD_CLASS}>
-<<<<<<< HEAD
-                <SmartImage primary={h.cover} alts={[IMG.childStudy, IMG.childWrite, IMG.kidJournal, IMG.classroom, IMG.kidColoring]} alt={h.title} className="w-full h-28 object-cover" />
-=======
                 <SmartImage
                   primary={h.cover}
-                  alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
-                  alt={h.title}
+                  alts={[KID_SAFE.childStudyDesk, KID_SAFE.childWriting, KID_SAFE.kidJournaling, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
+                  alt={`${h.title} – kids helper`}
                   className="w-full h-28 object-cover"
                 />
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
                     <span className={CHIP_CLASS}>Kids</span>
