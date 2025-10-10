@@ -141,16 +141,8 @@ export default function KidsPage() {
       <UnifiedNavigation currentPage="kids" />
 
       {/* Hero */}
-      <header className="relative text-white">
-        <SmartImage
-          primary={KID_SAFE.playgroundKids}
-          alts={[KID_SAFE.coloringCrayons, KID_SAFE.classroomHands, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudyDesk]}
-          alt="Kids Hub hero background (playground fun)"
-          className="absolute inset-0 w-full h-full object-cover"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-purple-700/40 to-pink-700/40" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <header className="relative text-slate-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Fun Learning Games & Activities for Kids</h1>
           <p className="text-lg opacity-90 max-w-3xl">
             Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,
