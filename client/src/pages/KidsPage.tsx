@@ -174,7 +174,8 @@ export default function KidsPage() {
         {/* Printable Fun Learning Activities */}
         <section id="print">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Printable Fun Learning Activities</h2>
+            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Printable Fun Learning Activities</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
               Take a break from screens with our <strong>fun learning activities for kids</strong> you can print at home.
               Download puzzles and worksheets designed to boost focus, logic, and creativity:
@@ -216,7 +217,8 @@ export default function KidsPage() {
         {/* Play Free Fun Learning Games Online */}
         <section id="play">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Play Free Fun Learning Games Online</h2>
+            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Play Free Fun Learning Games Online</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
               Keep your brain active with our <strong>fun learning games for kids online</strong>.
               Play quick, interactive games that test memory and vocabulary skills:
@@ -274,7 +276,8 @@ export default function KidsPage() {
         {/* 7‑Day Fun Skills to Learn */}
         <section id="skills">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">7‑Day Fun Skills to Learn</h2>
+            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">7‑Day Fun Skills to Learn</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
               Explore short, guided plans that help kids build new creative skills step‑by‑step.
               Each plan includes daily tasks, printable checklists, and mini‑rewards to keep kids motivated.
@@ -292,7 +295,8 @@ export default function KidsPage() {
         {/* Kids Blog Picks */}
         <section id="kids-blog">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Kids Blog Picks</h2>
+            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Kids Blog Picks</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
             <p className="mt-2 text-slate-700 max-w-3xl">
               Explore helpful reads about <strong>making learning fun</strong>, building good study habits, and simple activities kids can enjoy.
             </p>
