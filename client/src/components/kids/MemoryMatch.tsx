@@ -76,7 +76,7 @@ export default function MemoryMatch() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
       <div className="flex items-center gap-3 mb-4">
-        <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-purple-50 text-purple-700 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-gradient-to-r from-yellow-100 to-pink-100 text-purple-700 text-xs font-semibold border border-pink-200">
           🃏 Memory Match
         </div>
         <div className="ml-auto flex items-center gap-2 text-xs">

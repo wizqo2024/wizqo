@@ -376,7 +376,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/print?doc=ws-animals',
-    cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    cover: KID_SAFE.kidsWithAnimals
   },
   {
     id: 'ws-space',
@@ -384,7 +384,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/print?doc=ws-space',
-    cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    cover: KID_SAFE.planetsModel
   },
   {
     id: 'sudoku-4',
