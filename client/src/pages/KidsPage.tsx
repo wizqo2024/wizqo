@@ -192,6 +192,7 @@ export default function KidsPage() {
                   alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
                   alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
+                  disableDedup
                 />
                 <div className="p-5">
                   <div className="flex gap-2 mb-2">
@@ -365,7 +366,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-wordsearch-animals.pdf',
-    cover: KID_SAFE.kidsWithAnimals
+    cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     id: 'ws-space',
@@ -373,7 +374,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/printables/kids-wordsearch-space.pdf',
-    cover: KID_SAFE.planetsModel
+    cover: 'https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     id: 'sudoku-4',
