@@ -233,7 +233,7 @@ export default function KidsPage() {
 
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={"https://source.unsplash.com/0S7cPa_q9iU/1600x900?kidv=2"}
+                primary={"https://source.unsplash.com/0S7cPa_q9iU/1600x900?kidv=3"}
                 alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
