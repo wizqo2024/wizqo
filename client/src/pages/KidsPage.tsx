@@ -156,9 +156,9 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 gap-6">
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.puzzleJigsaw}
-                alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroom, KID_SAFE.kidColoring]}
-                alt="Memory match game cover"
+                primary={KID_SAFE.puzzleDesk}
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+                alt="Kids memory match game cover"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -174,9 +174,9 @@ export default function KidsPage() {
 
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.childStudy}
-                alts={[KID_SAFE.childWrite, KID_SAFE.classroom, KID_SAFE.kidJournal]}
-                alt="Word search game cover"
+                primary={KID_SAFE.planets}
+                alts={[KID_SAFE.classroom, KID_SAFE.childStudy, KID_SAFE.kidJournal]}
+                alt="Kids word search game cover"
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -203,7 +203,7 @@ export default function KidsPage() {
                 <SmartImage
                   primary={p.cover}
                   alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
-                  alt={p.title}
+                  alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
                 />
                 <div className="p-5">
@@ -230,7 +230,7 @@ export default function KidsPage() {
                 <SmartImage
                   primary={h.cover}
                   alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
-                  alt={h.title}
+                  alt={`${h.title} – kids helper`}
                   className="w-full h-28 object-cover"
                 />
                 <div className="p-5">
