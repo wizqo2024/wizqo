@@ -1209,7 +1209,10 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       );
                     })
                     .map((paragraph, index) => {
-                      const headingText = paragraph.trim().replace(/^#{1,6}\s+/, '');
+                      const headingText = paragraph
+                        .trim()
+                        .replace(/^#{1,6}\s+/, '')
+                        .replace(/\*\*(.*?)\*\*/g, '$1');
                       const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                       return (
                         <a 
@@ -1449,7 +1452,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   // Numbered item (1., 2., ...) — render full section content (images, bullets, paragraphs) until next heading
                   const numMatch = trimmed.match(/\b\d+\./);
                   if ((numMatch && /^\s*\d+\./.test(trimmed)) || (numMatch && trimmed.indexOf(numMatch[0]) <= 4)) {
-                    const headingText = trimmed.replace(/^\*\*(.*?)\*\*$/, '$1');
+                    const headingText = trimmed.replace(/\*\*(.*?)\*\*/g, '$1');
                     const numHeadingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     const sectionEls: JSX.Element[] = [];
                     sectionEls.push(<h3 key={`num-h-${i}`} id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>);
@@ -1543,13 +1546,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
 
                   // Other section heading
                   if (isSectionHeading(line)) {
-                    const headingId = line.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    const cleanLine = line.replace(/\*\*(.*?)\*\*/g, '$1');
+                    const headingId = cleanLine.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     const AUTOLINKS: { term: string; slug: string }[] = [
                       { term: 'journaling', slug: 'micro-journaling-habit' },
                       { term: 'watercolor', slug: 'easy-watercolor-paintings' },
                       { term: 'AI', slug: 'find-hobby-that-sticks' }
                     ];
-                    let contentHtml = line;
+                    let contentHtml = cleanLine;
                     for (const { term, slug } of AUTOLINKS) {
                       const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
                     contentHtml = contentHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
