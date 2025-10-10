@@ -11,33 +11,33 @@ const CHIP_CLASS = 'inline-flex items-center px-2 py-0.5 text-xs font-medium rou
 
 // Curated, kid‑safe Unsplash images (playground, puzzles, crayons, classroom)
 const KID_SAFE = {
-  classroom: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80',
-  planets: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80',
-  puzzleJigsaw: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80',
-  puzzleDesk: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80',
-  playground: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80',
-  kidColoring: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80',
-  childStudy: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80',
-  childWrite: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80',
-  kidJournal: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80',
-  animals: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80'
+  coloringCrayons: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80', // crayons/kid coloring
+  classroomHands: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80', // classroom hands up
+  planetsModel: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80', // planets model
+  puzzleJigsaw: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80', // jigsaw puzzle
+  puzzleDesk: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1600&q=80', // puzzle pieces on desk
+  playgroundKids: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80', // kids at playground
+  childStudyDesk: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80', // child studying
+  childWriting: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80', // child writing
+  kidJournaling: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80', // kid journaling
+  kidsWithAnimals: 'https://images.unsplash.com/photo-1477764860582-56fdf29dfc4d?auto=format&fit=crop&w=1600&q=80' // animals with kids
 } as const;
 
 export default function KidsPage() {
   const usedImageUrlsRef = useRef<Set<string>>(new Set());
-  const KIDS_GENERIC_IMAGE = KID_SAFE.kidColoring;
+  const KIDS_GENERIC_IMAGE = KID_SAFE.coloringCrayons;
   const KIDS_IMAGE_POOL = useMemo(
     () => [
-      KID_SAFE.playground,
-      KID_SAFE.classroom,
-      KID_SAFE.kidColoring,
+      KID_SAFE.playgroundKids,
+      KID_SAFE.classroomHands,
+      KID_SAFE.coloringCrayons,
       KID_SAFE.puzzleJigsaw,
       KID_SAFE.puzzleDesk,
-      KID_SAFE.childStudy,
-      KID_SAFE.childWrite,
-      KID_SAFE.kidJournal,
-      KID_SAFE.planets,
-      KID_SAFE.animals
+      KID_SAFE.childStudyDesk,
+      KID_SAFE.childWriting,
+      KID_SAFE.kidJournaling,
+      KID_SAFE.planetsModel,
+      KID_SAFE.kidsWithAnimals
     ],
     []
   );
@@ -130,8 +130,8 @@ export default function KidsPage() {
 
       <header className="relative text-white">
         <SmartImage
-          primary={KID_SAFE.kidColoring}
-          alts={[KID_SAFE.classroom, KID_SAFE.playground, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudy]}
+          primary={KID_SAFE.coloringCrayons}
+          alts={[KID_SAFE.classroomHands, KID_SAFE.playgroundKids, KID_SAFE.puzzleJigsaw, KID_SAFE.childStudyDesk]}
           alt="Kids Hub hero background (child coloring/crayons)"
           className="absolute inset-0 w-full h-full object-cover"
           fetchPriority="high"
@@ -157,7 +157,7 @@ export default function KidsPage() {
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={KID_SAFE.puzzleDesk}
-                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Kids memory match game cover"
                 className="w-full h-40 object-cover"
               />
@@ -174,8 +174,8 @@ export default function KidsPage() {
 
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.planets}
-                alts={[KID_SAFE.classroom, KID_SAFE.childStudy, KID_SAFE.kidJournal]}
+                primary={KID_SAFE.planetsModel}
+                alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Kids word search game cover"
                 className="w-full h-40 object-cover"
               />
@@ -202,7 +202,7 @@ export default function KidsPage() {
               <article key={p.id} className={CARD_CLASS}>
                 <SmartImage
                   primary={p.cover}
-                  alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
+                  alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
                   alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
                 />
@@ -229,7 +229,7 @@ export default function KidsPage() {
               <article key={h.id} className={CARD_CLASS}>
                 <SmartImage
                   primary={h.cover}
-                  alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+                  alts={[KID_SAFE.childStudyDesk, KID_SAFE.childWriting, KID_SAFE.kidJournaling, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                   alt={`${h.title} – kids helper`}
                   className="w-full h-28 object-cover"
                 />
@@ -257,7 +257,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-wordsearch-animals.pdf',
-    cover: KID_SAFE.classroom
+    cover: KID_SAFE.kidsWithAnimals
   },
   {
     id: 'ws-space',
@@ -265,7 +265,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/printables/kids-wordsearch-space.pdf',
-    cover: KID_SAFE.planets
+    cover: KID_SAFE.planetsModel
   },
   {
     id: 'sudoku-4',
