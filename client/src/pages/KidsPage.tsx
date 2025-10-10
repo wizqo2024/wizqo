@@ -161,6 +161,15 @@ export default function KidsPage() {
             <a href="#print" className={BUTTON_CLASS}>Download printables</a>
             <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
           </div>
+          <div className="mt-6">
+            <SmartImage
+              primary={"https://images.unsplash.com/premium_photo-1683140811960-956e5bbf858e?q=80&w=1177&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+              alts={[KID_SAFE.coloringCrayons, KID_SAFE.classroomHands]}
+              alt="Fun learning illustration"
+              className="w-full max-w-3xl rounded-xl shadow-lg border border-white/20"
+              disableDedup
+            />
+          </div>
         </div>
       </header>
 
