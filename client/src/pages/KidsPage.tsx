@@ -156,8 +156,13 @@ export default function KidsPage() {
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={KID_SAFE.puzzleDesk}
+<<<<<<< HEAD
                 alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Memory match game cover"
+=======
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+                alt="Kids memory match game cover"
+>>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -173,9 +178,15 @@ export default function KidsPage() {
 
             <article className={CARD_CLASS}>
               <SmartImage
+<<<<<<< HEAD
                 primary={KID_SAFE.planetsModel}
                 alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Word search game cover"
+=======
+                primary={KID_SAFE.planets}
+                alts={[KID_SAFE.classroom, KID_SAFE.childStudy, KID_SAFE.kidJournal]}
+                alt="Kids word search game cover"
+>>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
                 className="w-full h-40 object-cover"
               />
               <div className="p-5">
@@ -201,7 +212,11 @@ export default function KidsPage() {
               <article key={p.id} className={CARD_CLASS}>
                 <SmartImage
                   primary={p.cover}
+<<<<<<< HEAD
                   alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
+=======
+                  alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
+>>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
                   alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
                 />
@@ -228,7 +243,11 @@ export default function KidsPage() {
               <article key={h.id} className={CARD_CLASS}>
                 <SmartImage
                   primary={h.cover}
+<<<<<<< HEAD
                   alts={[KID_SAFE.childStudyDesk, KID_SAFE.childWriting, KID_SAFE.kidJournaling, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
+=======
+                  alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
+>>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
                   alt={`${h.title} – kids helper`}
                   className="w-full h-28 object-cover"
                 />
