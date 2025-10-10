@@ -1,6 +1,8 @@
 import React from 'react'
 
 export function PrintablesPage() {
+  const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
+  const doc = params.get('doc') || ''
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -9,6 +11,7 @@ export function PrintablesPage() {
           <p className="text-slate-600 mt-2">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
         </header>
 
+        {(!doc || doc === 'ws-animals') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
@@ -22,7 +25,9 @@ export function PrintablesPage() {
             ))}
           </div>
         </section>
+        )}
 
+        {(!doc || doc === 'sudoku4') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
           <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
@@ -32,7 +37,9 @@ export function PrintablesPage() {
             ))}
           </div>
         </section>
+        )}
 
+        {(!doc || doc === 'spotdiff') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
@@ -41,6 +48,7 @@ export function PrintablesPage() {
             <div className="aspect-video bg-slate-100 border border-slate-300 rounded" />
           </div>
         </section>
+        )}
 
         <footer className="text-center text-slate-500 text-xs print:hidden">
           Tip: Use your browser menu → Print → Save as PDF.
