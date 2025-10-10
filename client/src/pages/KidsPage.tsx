@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
 
@@ -317,44 +318,44 @@ export default function KidsPage() {
         <section id="faqs">
           <div className="mb-4">
             <h2 className="text-2xl font-bold text-slate-900">🧠 FAQs – Making Learning Fun for Kids</h2>
-            <div className="mt-3 space-y-4 text-slate-700">
-              <div>
-                <h3 className="font-semibold">How can I make learning fun for my child?</h3>
-                <p>
-                  Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges.
-                  Mix brief study sessions with <strong>fun learning games for kids</strong> that build focus and confidence.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">What are the best fun learning games for kids online?</h3>
-                <p>
-                  Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words,
-                  improve memory, and enjoy learning at their own pace.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">What printable activities help kids learn better?</h3>
-                <p>
-                  Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail.
-                  Coloring pages support creativity and relaxation — perfect for learning and play.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">What fun skills can kids learn in a week?</h3>
-                <p>
-                  Kids can build creative skills in just seven days with simple step‑by‑step plans like Origami Basics or Drawing Animals.
-                  These short challenges teach patience, focus, and creativity while keeping learning exciting.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Why is fun learning important for kids?</h3>
-                <p>
-                  Fun learning keeps kids curious, reduces study stress, and improves motivation. When children enjoy what they’re doing,
-                  they naturally absorb more and develop a love for lifelong learning.
-                </p>
-              </div>
-            </div>
           </div>
+          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+            <AccordionItem value="q1">
+              <AccordionTrigger className="px-4">How can I make learning fun for my child?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges. Mix brief study
+                sessions with <strong>fun learning games for kids</strong> that build focus and confidence.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q2">
+              <AccordionTrigger className="px-4">What are the best fun learning games for kids online?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words,
+                improve memory, and enjoy learning at their own pace.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q3">
+              <AccordionTrigger className="px-4">What printable activities help kids learn better?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail.
+                Coloring pages support creativity and relaxation — perfect for learning and play.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q4">
+              <AccordionTrigger className="px-4">What fun skills can kids learn in a week?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Kids can build creative skills in just seven days with simple step‑by‑step plans like Origami Basics or Drawing Animals.
+                These short challenges teach patience, focus, and creativity while keeping learning exciting.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q5">
+              <AccordionTrigger className="px-4">Why is fun learning important for kids?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Fun learning keeps kids curious, reduces study stress, and improves motivation. When children enjoy what they’re doing,
+                they naturally absorb more and develop a love for lifelong learning.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </section>
       </main>
       <Footer />
