@@ -187,7 +187,7 @@ export default function KidsPage() {
               <li>👀 Spot‑the‑Difference – Playground Fun</li>
             </ul>
             <div className="mt-4">
-              <a href="/printables/kids-pack-week1.zip" className={OUTLINE_BUTTON}>Download the Fun Learning Pack →</a>
+              <a href="/print" className={OUTLINE_BUTTON}>Open printable view →</a>
             </div>
           </div>
 
