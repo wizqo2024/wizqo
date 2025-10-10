@@ -268,6 +268,33 @@ export default function KidsPage() {
           </div>
         </section>
 
+        {/* Kids Blog Picks */}
+        <section id="kids-blog">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Kids Blog Picks</h2>
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Explore helpful reads about <strong>making learning fun</strong>, building good study habits, and simple activities kids can enjoy.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {KIDS_BLOGS.map(post => (
+              <article key={post.id} className={CARD_CLASS}>
+                <SmartImage
+                  primary={post.cover}
+                  alts={[KID_SAFE.classroomHands, KID_SAFE.childWriting, KID_SAFE.playgroundKids]}
+                  alt={`${post.title} – kids blog`}
+                  className="w-full h-32 object-cover"
+                />
+                <div className="p-5">
+                  <h3 className="font-semibold text-slate-900 mb-1">{post.title}</h3>
+                  <p className="text-slate-600 text-sm mb-4">{post.subtitle}</p>
+                  <a href={post.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* FAQs – Making Learning Fun for Kids */}
         <section id="faqs">
           <div className="mb-4">
@@ -309,33 +336,6 @@ export default function KidsPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Kids Blog Picks */}
-        <section id="kids-blog">
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Kids Blog Picks</h2>
-            <p className="mt-2 text-slate-700 max-w-3xl">
-              Explore helpful reads about <strong>making learning fun</strong>, building good study habits, and simple activities kids can enjoy.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {KIDS_BLOGS.map(post => (
-              <article key={post.id} className={CARD_CLASS}>
-                <SmartImage
-                  primary={post.cover}
-                  alts={[KID_SAFE.classroomHands, KID_SAFE.childWriting, KID_SAFE.playgroundKids]}
-                  alt={`${post.title} – kids blog`}
-                  className="w-full h-32 object-cover"
-                />
-                <div className="p-5">
-                  <h3 className="font-semibold text-slate-900 mb-1">{post.title}</h3>
-                  <p className="text-slate-600 text-sm mb-4">{post.subtitle}</p>
-                  <a href={post.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
-                </div>
-              </article>
-            ))}
           </div>
         </section>
       </main>
