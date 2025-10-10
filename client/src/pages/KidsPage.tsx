@@ -226,7 +226,7 @@ export default function KidsPage() {
           <div className="grid sm:grid-cols-2 gap-6">
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={"https://images.unsplash.com/photo-0S7cPa_q9iU?auto=format&fit=crop&w=1600&h=900&q=85&kidv=1"}
+                primary={"https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1600&auto=format&fit=crop&kidv=mm1"}
                 alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
                 alt="Memory match game cover"
                 className="w-full h-40 object-cover"
@@ -245,7 +245,7 @@ export default function KidsPage() {
 
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={"https://images.unsplash.com/photo-0S7cPa_q9iU?auto=format&fit=crop&w=1600&h=900&q=85&kidv=2"}
+                primary={"https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1600&auto=format&fit=crop&kidv=ws2"}
                 alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
                 alt="Word search game cover"
                 className="w-full h-40 object-cover"
