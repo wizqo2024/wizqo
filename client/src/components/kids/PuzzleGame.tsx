@@ -234,7 +234,7 @@ export default function PuzzleGame() {
     }
   }
 
-  function PieceSVG({ pieceIndex, svgId }: { pieceIndex: number; svgId: string }) {
+function PieceSVG({ pieceIndex, svgId }: { pieceIndex: number; svgId: string }) {
     const row = Math.floor(pieceIndex / size)
     const col = pieceIndex % size
     const d = buildJigsawPath(edges[row][col])
@@ -248,8 +248,25 @@ export default function PuzzleGame() {
           <clipPath id={svgId} clipPathUnits="userSpaceOnUse">
             <path d={d} />
           </clipPath>
+          <filter id={`${svgId}-shadow`} x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1" stdDeviation="2" floodColor="#000000" floodOpacity="0.28" />
+          </filter>
         </defs>
-        <image href={imageUrl} x={x} y={y} width={imgW} height={imgH} clipPath={`url(#${svgId})`} preserveAspectRatio="xMidYMid slice" />
+        <g style={{ filter: `url(#${svgId}-shadow)` }}>
+          <image href={imageUrl} x={x} y={y} width={imgW} height={imgH} clipPath={`url(#${svgId})`} preserveAspectRatio="xMidYMid slice" />
+          <path d={d} fill="none" stroke="#334155" strokeOpacity="0.45" strokeWidth={1} />
+        </g>
+      </svg>
+    )
+  }
+
+  function SlotOutline({ slotIndex }: { slotIndex: number }) {
+    const row = Math.floor(slotIndex / size)
+    const col = slotIndex % size
+    const d = buildJigsawPath(edges[row][col])
+    return (
+      <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
+        <path d={d} fill="transparent" stroke="#94a3b8" strokeWidth={1} strokeDasharray="4 3" opacity={0.6} />
       </svg>
     )
   }
@@ -316,7 +333,9 @@ export default function PuzzleGame() {
                   onDragOver={(e) => onBoardDragOver(e, slotIndex)}
                   onDrop={(e) => onBoardDrop(e, slotIndex)}
                 >
-                  {piece !== -1 && (
+                  {piece === -1 ? (
+                    <SlotOutline slotIndex={slotIndex} />
+                  ) : (
                     <div
                       role="button"
                       aria-label={`Placed piece ${piece + 1}`}
@@ -357,9 +376,11 @@ export default function PuzzleGame() {
                   aria-label={`Tray piece ${piece + 1}`}
                   draggable
                   onDragStart={(e) => onPieceDragStart(e, { piece, from: 'tray' })}
-                  className="relative aspect-square rounded-lg border border-slate-200 overflow-hidden cursor-grab active:cursor-grabbing bg-white"
+                  className="relative aspect-square cursor-grab active:cursor-grabbing flex items-center justify-center"
                 >
-                  <PieceSVG pieceIndex={piece} svgId={`p-${piece}-t`} />
+                  <div className="w-full h-full">
+                    <PieceSVG pieceIndex={piece} svgId={`p-${piece}-t`} />
+                  </div>
                 </div>
               ))}
             </div>
