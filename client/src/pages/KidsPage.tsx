@@ -122,7 +122,7 @@ export default function KidsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-6">
             {sub2 === 'word-search' ? (
-              <h1 className="text-2xl font-bold text-slate-900">Word Search</h1>
+              <h1 className="sr-only">Word Search</h1>
             ) : (
               <h1 className="sr-only">Memory Match</h1>
             )}
