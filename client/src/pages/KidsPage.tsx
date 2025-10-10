@@ -92,6 +92,7 @@ export default function KidsPage() {
     );
   }
 
+  // Support game subpages: /kids/games/memory and /kids/games/word-search
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
   const parts = path.replace(/^\/+/,'').split('/');
   const sub1 = parts[1] || '';
@@ -100,8 +101,8 @@ export default function KidsPage() {
     return (
       <div className="min-h-screen bg-slate-50">
         <SEOMetaTags
-          title={`Kids Games – ${sub2 === 'word-search' ? 'Word Search' : 'Memory Match'}`}
-          description="Free kids mini‑games – fast, safe, and mobile‑friendly."
+          title={`Kids Hub – ${sub2 === 'word-search' ? 'Word Search' : 'Memory Match'} Game`}
+          description="Play free fun learning games for kids online – Memory Match and Word Search. Kid-safe, fast, and mobile-friendly."
           canonicalUrl={`https://wizqo.com/kids/games/${sub2 || 'memory'}`}
         />
         <UnifiedNavigation currentPage="kids" />
@@ -121,12 +122,13 @@ export default function KidsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Kids Hub – Play, Print, and Learn"
-        description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+        title="Kids Hub – Fun Learning Games & Printable Activities for Kids"
+        description="Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12."
         canonicalUrl="https://wizqo.com/kids"
       />
       <UnifiedNavigation currentPage="kids" />
 
+      {/* Hero */}
       <header className="relative text-white">
         <SmartImage
           primary={KID_SAFE.coloringCrayons}
@@ -137,9 +139,13 @@ export default function KidsPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-purple-700/40 to-pink-700/40" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Kids Hub</h1>
-          <p className="text-lg opacity-90 max-w-2xl">Play, print, and learn — new puzzles and games every week.</p>
-          <div className="mt-6 flex gap-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Fun Learning Games & Activities for Kids</h1>
+          <p className="text-lg opacity-90 max-w-3xl">
+            Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,
+            and short skill‑building challenges that turn study time into playtime. Perfect for ages 6–12, these activities help children
+            focus, think, and create — all while having fun.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
             <a href="#print" className={BUTTON_CLASS}>Download printables</a>
             <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
           </div>
@@ -147,76 +153,31 @@ export default function KidsPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-        <section id="play">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Play</h2>
-            <span className="text-sm text-slate-500">Fast, safe, mobile‑friendly</span>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6">
-            <article className={CARD_CLASS}>
-              <SmartImage
-                primary={KID_SAFE.puzzleDesk}
-<<<<<<< HEAD
-                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
-                alt="Memory match game cover"
-=======
-                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroom, KID_SAFE.kidColoring]}
-                alt="Kids memory match game cover"
->>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-5">
-                <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 6–8</span>
-                  <span className={CHIP_CLASS}>Easy/Medium</span>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
-                <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
-                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
-              </div>
-            </article>
-
-            <article className={CARD_CLASS}>
-              <SmartImage
-<<<<<<< HEAD
-                primary={KID_SAFE.planetsModel}
-                alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
-                alt="Word search game cover"
-=======
-                primary={KID_SAFE.planets}
-                alts={[KID_SAFE.classroom, KID_SAFE.childStudy, KID_SAFE.kidJournal]}
-                alt="Kids word search game cover"
->>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-5">
-                <div className="flex gap-2 mb-2">
-                  <span className={CHIP_CLASS}>Ages 9–12</span>
-                  <span className={CHIP_CLASS}>Animals/Space</span>
-                </div>
-                <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
-                <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
-                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
-              </div>
-            </article>
-          </div>
-        </section>
-
+        {/* Printable Fun Learning Activities */}
         <section id="print">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Print</h2>
-            <a href="/printables/kids-pack-week1.zip" className="text-purple-600 hover:text-purple-700 font-medium">Download all (ZIP)</a>
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Printable Fun Learning Activities</h2>
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Take a break from screens with our <strong>fun learning activities for kids</strong> you can print at home.
+              Download puzzles and worksheets designed to boost focus, logic, and creativity:
+            </p>
+            <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
+              <li>🧠 Word Search – Animals & Space</li>
+              <li>🔢 Sudoku – Easy (4×4) & Medium (6×6)</li>
+              <li>🎨 Coloring Page – Creative Animals</li>
+              <li>👀 Spot‑the‑Difference – Playground Fun</li>
+            </ul>
+            <div className="mt-4">
+              <a href="/printables/kids-pack-week1.zip" className={OUTLINE_BUTTON}>Download the Fun Learning Pack →</a>
+            </div>
           </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {PRINTABLES.map(p => (
               <article key={p.id} className={CARD_CLASS}>
                 <SmartImage
                   primary={p.cover}
-<<<<<<< HEAD
                   alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
-=======
-                  alts={[KID_SAFE.kidColoring, KID_SAFE.animals, KID_SAFE.classroom, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planets, KID_SAFE.playground, KID_SAFE.childWrite, KID_SAFE.kidJournal]}
->>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
                   alt={`${p.title} – kids printable`}
                   className="w-full h-36 object-cover"
                 />
@@ -233,34 +194,121 @@ export default function KidsPage() {
           </div>
         </section>
 
-        <section id="learn">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Learn</h2>
-            <a href="/blog" className="text-purple-600 hover:text-purple-700 font-medium">More on the blog</a>
+        {/* Play Free Fun Learning Games Online */}
+        <section id="play">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">Play Free Fun Learning Games Online</h2>
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Keep your brain active with our <strong>fun learning games for kids online</strong>.
+              Play quick, interactive games that test memory and vocabulary skills:
+            </p>
+            <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
+              <li>🃏 Memory Match – Find all pairs before time runs out!</li>
+              <li>🔤 Word Search Game – Race the clock to uncover hidden words.</li>
+            </ul>
+            <div className="mt-4">
+              <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
+            </div>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {HELPERS.map(h => (
-              <article key={h.id} className={CARD_CLASS}>
-                <SmartImage
-                  primary={h.cover}
-<<<<<<< HEAD
-                  alts={[KID_SAFE.childStudyDesk, KID_SAFE.childWriting, KID_SAFE.kidJournaling, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
-=======
-                  alts={[KID_SAFE.childStudy, KID_SAFE.childWrite, KID_SAFE.kidJournal, KID_SAFE.classroom, KID_SAFE.kidColoring]}
->>>>>>> 67ac409c (fix(kids): ensure all Kids Hub covers are clearly kid-themed)
-                  alt={`${h.title} – kids helper`}
-                  className="w-full h-28 object-cover"
-                />
-                <div className="p-5">
-                  <div className="flex gap-2 mb-2">
-                    <span className={CHIP_CLASS}>Kids</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-900 mb-1">{h.title}</h3>
-                  <p className="text-slate-600 text-sm mb-4">{h.subtitle}</p>
-                  <a href={h.href} className="text-purple-600 hover:text-purple-700 font-medium">Read</a>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.puzzleDesk}
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
+                alt="Memory match game cover"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–8</span>
+                  <span className={CHIP_CLASS}>Easy/Medium</span>
                 </div>
-              </article>
-            ))}
+                <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
+                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.planetsModel}
+                alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
+                alt="Word search game cover"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 9–12</span>
+                  <span className={CHIP_CLASS}>Animals/Space</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
+                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* 7‑Day Fun Skills to Learn */}
+        <section id="skills">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">7‑Day Fun Skills to Learn</h2>
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Explore short, guided plans that help kids build new creative skills step‑by‑step.
+              Each plan includes daily tasks, printable checklists, and mini‑rewards to keep kids motivated.
+            </p>
+            <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
+              <li>✂️ Origami Basics – Fold amazing paper animals.</li>
+              <li>🐾 Drawing Animals – Learn to sketch your favorite creatures.</li>
+            </ul>
+            <div className="mt-4">
+              <a href="/generate" className={BUTTON_CLASS}>Start a 7‑Day Plan →</a>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQs – Making Learning Fun for Kids */}
+        <section id="faqs">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-slate-900">🧠 FAQs – Making Learning Fun for Kids</h2>
+            <div className="mt-3 space-y-4 text-slate-700">
+              <div>
+                <h3 className="font-semibold">How can I make learning fun for my child?</h3>
+                <p>
+                  Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges.
+                  Mix brief study sessions with <strong>fun learning games for kids</strong> that build focus and confidence.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold">What are the best fun learning games for kids online?</h3>
+                <p>
+                  Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words,
+                  improve memory, and enjoy learning at their own pace.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold">What printable activities help kids learn better?</h3>
+                <p>
+                  Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail.
+                  Coloring pages support creativity and relaxation — perfect for learning and play.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold">What fun skills can kids learn in a week?</h3>
+                <p>
+                  Kids can build creative skills in just seven days with simple step‑by‑step plans like Origami Basics or Drawing Animals.
+                  These short challenges teach patience, focus, and creativity while keeping learning exciting.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Why is fun learning important for kids?</h3>
+                <p>
+                  Fun learning keeps kids curious, reduces study stress, and improves motivation. When children enjoy what they’re doing,
+                  they naturally absorb more and develop a love for lifelong learning.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -275,11 +323,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 animal names',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-wordsearch-animals.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids with animal toys
-=======
-    cover: KID_SAFE.classroom
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.kidsWithAnimals
   },
   {
     id: 'ws-space',
@@ -287,11 +331,7 @@ const PRINTABLES = [
     subtitle: 'Find 12 space words',
     chips: ['Ages 9–12', 'Moderate'],
     href: '/printables/kids-wordsearch-space.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?auto=format&fit=crop&w=1600&q=80' // child looking at planets model
-=======
-    cover: KID_SAFE.planets
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.planetsModel
   },
   {
     id: 'sudoku-4',
@@ -299,11 +339,7 @@ const PRINTABLES = [
     subtitle: 'Beginner logic puzzle',
     chips: ['Ages 6–8', 'Easy'],
     href: '/printables/kids-sudoku-4x4.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80' // kid doing puzzle
-=======
     cover: KID_SAFE.puzzleJigsaw
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
   },
   {
     id: 'sudoku-6',
@@ -311,11 +347,7 @@ const PRINTABLES = [
     subtitle: 'A bit more challenge',
     chips: ['Ages 9–12', 'Medium'],
     href: '/printables/kids-sudoku-6x6.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80' // kids learning
-=======
-    cover: KID_SAFE.classroom
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.classroomHands
   },
   {
     id: 'coloring',
@@ -323,11 +355,7 @@ const PRINTABLES = [
     subtitle: 'Creative and calming',
     chips: ['Ages 6–8'],
     href: '/printables/kids-coloring-animals.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80' // kid coloring
-=======
-    cover: KID_SAFE.kidColoring
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.coloringCrayons
   },
   {
     id: 'spot-diff',
@@ -335,11 +363,7 @@ const PRINTABLES = [
     subtitle: 'Find 8 differences',
     chips: ['Ages 6–10'],
     href: '/printables/kids-spot-the-difference-playground.pdf',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=80' // kids at playground
-=======
-    cover: KID_SAFE.playground
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.playgroundKids
   }
 ];
 
@@ -349,32 +373,20 @@ const HELPERS = [
     title: 'Focus in 10 (for Kids)',
     subtitle: 'Quick routine to start homework calmly',
     href: '/blog',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80' // child studying
-=======
-    cover: KID_SAFE.childStudy
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.childStudyDesk
   },
   {
     id: 'kid-note-taking',
     title: 'Simple Note‑Taking for Homework',
     subtitle: 'Write just what matters — with examples',
     href: '/blog',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80' // kid writing notebook
-=======
-    cover: KID_SAFE.childWrite
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.childWriting
   },
   {
     id: 'micro-journaling-kids',
     title: 'Micro‑Journaling for Kids',
     subtitle: '1–2 lines that build confidence',
     href: '/blog',
-<<<<<<< HEAD
-    cover: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=1600&q=80' // smiling kid journal
-=======
-    cover: KID_SAFE.kidJournal
->>>>>>> 88df0f36 (feat(kids): add curated kid-safe images and SmartImage to Kids Hub)
+    cover: KID_SAFE.kidJournaling
   }
 ];
