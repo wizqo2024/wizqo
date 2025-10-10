@@ -71,15 +71,22 @@ export default function MemoryMatch() {
     setRunning(true);
   };
 
+  const bestDisplay = best !== null ? `${best}s` : '—';
+
   return (
-    <div>
-      <div className="flex items-center gap-4 mb-4">
-        <span className="text-slate-700">Time: {time}s</span>
-        <span className="text-slate-700">Moves: {moves}</span>
-        <span className="text-slate-500">Best: {best ?? '-'}s</span>
-        <button onClick={restart} className="ml-auto px-3 py-1.5 rounded-lg bg-slate-800 text-white hover:bg-slate-700">Restart</button>
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-purple-50 text-purple-700 text-xs font-semibold">
+          🃏 Memory Match
+        </div>
+        <div className="ml-auto flex items-center gap-2 text-xs">
+          <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">⏱ {time}s</span>
+          <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">🎯 {moves} moves</span>
+          <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">🏆 {bestDisplay}</span>
+          <button onClick={restart} className="ml-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90">Restart</button>
+        </div>
       </div>
-      <div className="grid grid-cols-4 gap-3 max-w-md">
+      <div className="grid grid-cols-4 gap-3 max-w-md bg-slate-50 p-3 rounded-xl border border-slate-200">
         {board.map((emoji, idx) => {
           const isFaceUp = flipped.includes(idx) || matched.has(idx);
           return (
@@ -87,7 +94,7 @@ export default function MemoryMatch() {
               key={idx}
               aria-label={isFaceUp ? `Card ${emoji}` : 'Hidden card'}
               onClick={() => handleFlip(idx)}
-              className={`aspect-square rounded-lg border text-3xl flex items-center justify-center transition-colors ${isFaceUp ? 'bg-white border-slate-300' : 'bg-purple-100 border-purple-200 hover:bg-purple-200'}`}
+              className={`aspect-square rounded-xl border text-3xl flex items-center justify-center transition-colors shadow-sm ${isFaceUp ? 'bg-white border-slate-300' : 'bg-white border-slate-200 hover:bg-purple-50'}`}
             >
               {isFaceUp ? emoji : '🎴'}
             </button>
