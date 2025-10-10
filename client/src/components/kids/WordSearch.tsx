@@ -91,17 +91,20 @@ export default function WordSearch() {
   };
 
   return (
-    <div>
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
       <div className="flex items-center gap-3 mb-4">
-        <select value={theme} onChange={(e) => { setTheme(e.target.value as any); setGrid(generateGrid(THEMES[e.target.value as any])); setSelected(new Set()); setFound(new Set()); setTime(0); setRunning(true); }} className="border rounded-lg px-2 py-1">
+        <div className="inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-purple-50 text-purple-700 text-xs font-semibold">
+          🔤 Word Search
+        </div>
+        <select value={theme} onChange={(e) => { setTheme(e.target.value as any); setGrid(generateGrid(THEMES[e.target.value as any])); setSelected(new Set()); setFound(new Set()); setTime(0); setRunning(true); }} className="border rounded-lg px-2 py-1 text-sm">
           <option>Animals</option>
           <option>Space</option>
         </select>
-        <span className="text-slate-700">Time: {time}s</span>
-        <span className="text-slate-500">Best: {best ?? '-'}s</span>
-        <button onClick={newPuzzle} className="ml-auto px-3 py-1.5 rounded-lg bg-slate-800 text-white hover:bg-slate-700">New Puzzle</button>
+        <span className="text-slate-700 text-sm">Time: {time}s</span>
+        <span className="text-slate-500 text-sm">Best: {best ?? '-'}s</span>
+        <button onClick={newPuzzle} className="ml-auto px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm hover:opacity-90">New</button>
       </div>
-      <div className="grid grid-cols-12 gap-1 select-none">
+      <div className="grid grid-cols-12 gap-1 select-none bg-slate-50 p-3 rounded-xl border border-slate-200">
         {grid.map((row, r) => row.map((ch, c) => {
           const key = `${r},${c}`;
           const isSel = selected.has(key);
@@ -116,7 +119,7 @@ export default function WordSearch() {
         <h4 className="text-sm font-semibold text-slate-700 mb-2">Words</h4>
         <div className="flex flex-wrap gap-2">
           {words.map(w => (
-            <span key={w} className={`px-2 py-1 rounded text-xs border ${found.has(w) ? 'bg-green-100 text-green-800 border-green-200' : 'bg-slate-50 text-slate-700 border-slate-200'}`}>{w}</span>
+            <span key={w} className={`px-2 py-1 rounded-full text-xs border ${found.has(w) ? 'bg-green-100 text-green-800 border-green-200' : 'bg-white text-slate-700 border-slate-200'}`}>{w}</span>
           ))}
         </div>
       </div>
