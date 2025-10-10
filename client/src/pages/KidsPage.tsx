@@ -163,7 +163,7 @@ export default function KidsPage() {
           </div>
           <div className="mt-6">
             <img
-              src="https://images.unsplash.com/premium_photo-1683140811960-956e5bbf858e?q=80&w=1177&auto=format&fit=crop"
+              src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Fun learning illustration"
               className="w-full max-w-2xl h-56 md:h-64 object-cover object-center rounded-xl shadow-lg border border-white/20"
               loading="lazy"
