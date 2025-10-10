@@ -82,8 +82,22 @@ export function PrintablesPage() {
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
           <div className="grid grid-cols-2 gap-4">
-            <div className="aspect-video bg-slate-100 border border-slate-300 rounded" />
-            <div className="aspect-video bg-slate-100 border border-slate-300 rounded" />
+            <img
+              src="https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1600&q=90&kidv=spot-a"
+              alt="Playground scene A"
+              className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
+              referrerPolicy="no-referrer"
+              loading="eager"
+              decoding="async"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=90&kidv=spot-b"
+              alt="Playground scene B"
+              className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
+              referrerPolicy="no-referrer"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </section>
         )}
