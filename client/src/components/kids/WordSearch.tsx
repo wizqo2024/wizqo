@@ -90,6 +90,12 @@ export default function WordSearch() {
     setSelected(next);
   };
 
+  const toggleWordFound = (word: string) => {
+    const up = new Set(found);
+    if (up.has(word)) up.delete(word); else up.add(word);
+    setFound(up);
+  };
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
       <div className="flex items-center gap-3 mb-4">
@@ -116,11 +122,26 @@ export default function WordSearch() {
         }))}
       </div>
       <div className="mt-4">
-        <h4 className="text-sm font-semibold text-slate-700 mb-2">Words</h4>
-        <div className="flex flex-wrap gap-2">
-          {words.map(w => (
-            <span key={w} className={`px-2 py-1 rounded-full text-xs border ${found.has(w) ? 'bg-green-100 text-green-800 border-green-200' : 'bg-white text-slate-700 border-slate-200'}`}>{w}</span>
-          ))}
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-sm font-semibold text-slate-700">Words</h4>
+          <span className="text-xs text-slate-600">{found.size}/{words.length} found</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {words.map(w => {
+            const isFound = found.has(w);
+            return (
+              <button
+                key={w}
+                onClick={() => toggleWordFound(w)}
+                className={`inline-flex items-center justify-between gap-2 px-2 py-1 rounded-full text-xs border transition-colors ${isFound ? 'bg-green-100 text-green-800 border-green-200' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}
+                aria-pressed={isFound}
+                title={isFound ? 'Marked as found' : 'Mark as found'}
+              >
+                <span className="font-medium">{w}</span>
+                <span className={`w-4 h-4 rounded-full border ${isFound ? 'bg-green-500 border-green-500' : 'border-slate-300'}`} />
+              </button>
+            )
+          })}
         </div>
       </div>
     </div>
