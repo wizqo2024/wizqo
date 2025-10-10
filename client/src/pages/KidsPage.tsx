@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
+import { Footer } from '@/components/Footer';
 import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
 
@@ -339,6 +340,7 @@ export default function KidsPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
