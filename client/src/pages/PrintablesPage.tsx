@@ -27,6 +27,22 @@ export function PrintablesPage() {
         </section>
         )}
 
+        {doc === 'ws-space' && (
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Space</h2>
+          <p className="text-slate-600 text-sm mb-3">Find 12 space words. Circle horizontally, vertically, or diagonally.</p>
+          <div className="grid grid-cols-12 gap-1 font-mono text-sm">
+            {generateWordSearchGrid(12, ["STAR","MOON","SUN","COMET","ORBIT","SPACE","ALIEN","ROVER","MARS","VENUS","NEBULA","ASTRO"]).map((row, r) => (
+              <React.Fragment key={r}>
+                {row.map((ch, c) => (
+                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+        </section>
+        )}
+
         {(!doc || doc === 'sudoku4') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
@@ -35,6 +51,28 @@ export function PrintablesPage() {
             {Array.from({ length: 16 }).map((_, i) => (
               <div key={i} className="w-10 h-10 border border-slate-400" />
             ))}
+          </div>
+        </section>
+        )}
+
+        {doc === 'sudoku6' && (
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 6×6 (Medium)</h2>
+          <p className="text-slate-600 text-sm mb-3">Fill numbers 1–6 so each row/column contains all numbers with no repeats.</p>
+          <div className="inline-grid grid-cols-6 gap-0">
+            {Array.from({ length: 36 }).map((_, i) => (
+              <div key={i} className="w-10 h-10 border border-slate-400" />
+            ))}
+          </div>
+        </section>
+        )}
+
+        {doc === 'coloring' && (
+        <section className="mb-10 break-inside-avoid">
+          <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
+          <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
+          <div className="border border-slate-300 rounded p-4 bg-white">
+            <ColoringSVG />
           </div>
         </section>
         )}
@@ -79,4 +117,27 @@ function generateWordSearchGrid(size: number, words: string[]): string[][] {
     }
   }
   return grid
+}
+
+function ColoringSVG() {
+  // Simple cat face line art for coloring
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-auto" aria-hidden>
+      <g fill="none" stroke="#111827" strokeWidth="4">
+        <circle cx="200" cy="210" r="120" />
+        <polygon points="110,120 170,80 170,150" />
+        <polygon points="290,120 230,80 230,150" />
+        <circle cx="160" cy="200" r="16" />
+        <circle cx="240" cy="200" r="16" />
+        <polygon points="200,220 190,235 210,235" />
+        <path d="M150 260 Q200 300 250 260" />
+        <line x1="120" y1="220" x2="70" y2="210" />
+        <line x1="120" y1="230" x2="70" y2="230" />
+        <line x1="120" y1="240" x2="70" y2="250" />
+        <line x1="280" y1="220" x2="330" y2="210" />
+        <line x1="280" y1="230" x2="330" y2="230" />
+        <line x1="280" y1="240" x2="330" y2="250" />
+      </g>
+    </svg>
+  )
 }
