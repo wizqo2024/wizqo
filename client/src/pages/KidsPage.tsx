@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
+import PuzzleGame from '@/components/kids/PuzzleGame';
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden';
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
@@ -128,7 +129,7 @@ export default function KidsPage() {
             )}
             <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
           </div>
-          {sub2 === 'word-search' ? <WordSearch /> : <MemoryMatch />}
+          {sub2 === 'word-search' ? <WordSearch /> : sub2 === 'puzzle' ? <PuzzleGame /> : <MemoryMatch />}
         </div>
       </div>
     );
@@ -293,6 +294,24 @@ export default function KidsPage() {
               </div>
             </article>
 
+            {/* Puzzle Game */}
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.playgroundKids}
+                alts={[KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands]}
+                alt="Puzzle game cover"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–10</span>
+                  <span className={CHIP_CLASS}>Drag & Drop</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Puzzle Game</h3>
+                <p className="text-slate-600 text-sm mb-4">Fix the picture by swapping tiles. Animals & Nature.</p>
+                <a href="/kids/games/puzzle" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={"https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
