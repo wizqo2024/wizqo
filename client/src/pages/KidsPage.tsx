@@ -141,23 +141,25 @@ export default function KidsPage() {
       <UnifiedNavigation currentPage="kids" />
 
       {/* Hero */}
-      <header className="relative text-slate-900">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">Fun Learning Games & Activities for Kids</h1>
-          <p className="text-lg opacity-90 max-w-3xl">
+      <header className="relative text-white">
+        {/* Background cover image */}
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1920&auto=format&fit=crop"
+            alt="Fun learning background"
+            className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/20" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Fun Learning Games & Activities for Kids</h1>
+          <p className="text-lg opacity-95 max-w-3xl">
             Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,
             and short skill‑building challenges that turn study time into playtime. Perfect for ages 6–12, these activities help children
             focus, think, and create — all while having fun.
           </p>
-          <div className="mt-6">
-            <img
-              src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Fun learning illustration"
-              className="w-full max-w-2xl h-56 md:h-64 object-cover object-center rounded-xl shadow-lg border border-white/20"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="#print" className={BUTTON_CLASS}>Download printables</a>
             <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
