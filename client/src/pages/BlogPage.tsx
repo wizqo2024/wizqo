@@ -1186,6 +1186,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     .filter(paragraph => {
                       const p = paragraph.trim();
                       return (
+                        /^#{1,6}\s+/.test(p) || // markdown heading like ##
                         /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
                         p.includes('Why Students Need Productive Hobbies') ||
                         p.includes('Key Takeaways') ||
@@ -1208,8 +1209,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       );
                     })
                     .map((paragraph, index) => {
-                      const ptrim = paragraph.trim();
-                      const headingId = ptrim.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                      const headingText = paragraph.trim().replace(/^#{1,6}\s+/, '');
+                      const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                       return (
                         <a 
                           key={index} 
@@ -1224,7 +1225,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           }}
                         >
                           <span className="text-purple-400">→</span>
-                          <span className="hover:underline">{ptrim}</span>
+                          <span className="hover:underline">{headingText}</span>
                         </a>
                       );
                     })}
@@ -1242,8 +1243,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   return /^!\[.*?\]\(.*\)$/.test(raw);
                 };
 
+                const parseMdHeading = (s: string): { level: number; text: string } | null => {
+                  const m = s.match(/^(#{1,6})\s+(.*)$/);
+                  if (!m) return null;
+                  return { level: m[1].length, text: m[2].trim() };
+                };
+
                 const isSectionHeading = (s: string) => {
                   return (
+                    /^#{1,6}\s+/.test(s) ||
                     s.includes('Day 1:') || s.includes('Day 2') || s.includes('Day 3') || s.includes('Day 4') || s.includes('Day 5') || s.includes('Day 6') || s.includes('Day 7') ||
                     s.includes('Why Students Need Productive Hobbies') || s.includes('10 Easy Hobbies') || s.includes('How to Pick the Right Hobby for You') || s.includes('Final Thoughts') || s.includes('FAQs About Easy Hobbies') ||
                     s.includes('Why Most Hobbies Fail') || s.includes('How AI Makes Hobbies') || s.includes('Your 7-Day Plan') ||
@@ -1340,6 +1348,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const line = lines[i];
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
+
+                  // Markdown heading handling (render actual headings; strip ## symbols in display)
+                  const mdH = parseMdHeading(line);
+                  if (mdH) {
+                    const hId = mdH.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    const HTag = mdH.level <= 2 ? 'h2' : mdH.level === 3 ? 'h3' : 'h4';
+                    elements.push(
+                      React.createElement(HTag as any, { key: `h-${i}`, id: hId, className: 'font-extrabold text-slate-900 mt-8 mb-3' }, mdH.text)
+                    );
+                    continue;
+                  }
 
                   // Markdown image handling
                   if (isMdImage(line)) {
