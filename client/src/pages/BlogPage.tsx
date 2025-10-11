@@ -3,6 +3,7 @@ import { SEOMetaTags } from '../components/SEOMetaTags';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface BlogPost {
   id: string;
@@ -1314,6 +1315,48 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const raw = lines[idx];
                     const t = raw.trim();
                     if (t === '') continue;
+                    // Simple FAQ block: detect FAQ heading then collect numbered Q/A until next section
+                    if (/^❓\s*FAQs/i.test(t) || /^##\s*.*FAQs/i.test(t)) {
+                      // push heading
+                      simple.push(<h2 key={`simp-faq-h-${idx}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>);
+                      const items: { q: string; a: string[] }[] = [];
+                      let j = idx + 1;
+                      while (j < lines.length) {
+                        const l = lines[j].trim();
+                        if (l === '') { j++; continue; }
+                        if (/^#{1,6}\s+/.test(l) || /^❓\s*FAQs/i.test(l)) break;
+                        const mQ = l.match(/^\d+\.\s*(.+)$/);
+                        if (mQ) {
+                          items.push({ q: mQ[1].trim(), a: [] });
+                          j++;
+                          while (j < lines.length) {
+                            const l2 = lines[j].trim();
+                            if (l2 === '') { j++; continue; }
+                            if (/^\d+\./.test(l2) || /^#{1,6}\s+/.test(l2) || /^❓\s*FAQs/i.test(l2)) break;
+                            items[items.length - 1].a.push(l2);
+                            j++;
+                          }
+                          continue;
+                        }
+                        j++;
+                      }
+                      simple.push(
+                        <Accordion key={`simp-faq-${idx}`} type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+                          {items.map((it, iIdx) => (
+                            <AccordionItem key={`simp-faq-item-${iIdx}`} value={`item-${iIdx}`}>
+                              <AccordionTrigger className="px-4">{it.q}</AccordionTrigger>
+                              <AccordionContent className="px-4 text-slate-700">
+                                {it.a.map((p, pIdx) => (
+                                  <p key={`simp-faq-a-${iIdx}-${pIdx}`} className="mb-3" dangerouslySetInnerHTML={{ __html: convertInlineLinks(p).replace(/\*\*(.*?)\*\*/g, '$1') }} />
+                                ))}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      );
+                      idx = j - 1;
+                      continue;
+                    }
                     if (isMdImage(raw)) {
                       const m = t.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
                       let alt = selectedPost.title, url = '', caption = '';
@@ -1352,6 +1395,50 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const line = lines[i];
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
+                  // FAQ block detection for general renderer
+                  if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed)) {
+                    // Render a consistent heading
+                    elements.push(
+                      <h2 key={`faq-h-${i}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>
+                    );
+                    const items: { q: string; a: string[] }[] = [];
+                    let j = i + 1;
+                    while (j < lines.length) {
+                      const ln = lines[j].trim();
+                      if (ln === '') { j++; continue; }
+                      if (/^#{1,6}\s+/.test(ln) || /^❓\s*FAQs/i.test(ln)) break;
+                      const mQ = ln.match(/^\d+\.\s*(.+)$/);
+                      if (mQ) {
+                        items.push({ q: mQ[1].trim(), a: [] });
+                        j++;
+                        while (j < lines.length) {
+                          const ln2 = lines[j].trim();
+                          if (ln2 === '') { j++; continue; }
+                          if (/^\d+\./.test(ln2) || /^#{1,6}\s+/.test(ln2) || /^❓\s*FAQs/i.test(ln2)) break;
+                          items[items.length - 1].a.push(ln2);
+                          j++;
+                        }
+                        continue;
+                      }
+                      j++;
+                    }
+                    elements.push(
+                      <Accordion key={`faq-${i}`} type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+                        {items.map((it, idxItem) => (
+                          <AccordionItem key={`faq-item-${idxItem}`} value={`item-${idxItem}`}>
+                            <AccordionTrigger className="px-4">{it.q}</AccordionTrigger>
+                            <AccordionContent className="px-4 text-slate-700">
+                              {it.a.map((p, pIdx) => (
+                                <p key={`faq-a-${idxItem}-${pIdx}`} className="mb-3" dangerouslySetInnerHTML={{ __html: convertInlineLinks(p).replace(/\*\*(.*?)\*\*/g, '$1') }} />
+                              ))}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    );
+                    i = j - 1;
+                    continue;
+                  }
 
                   // Markdown heading handling (render actual headings; strip ## symbols in display)
                   const mdH = parseMdHeading(line);
