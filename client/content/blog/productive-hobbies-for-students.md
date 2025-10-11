@@ -42,9 +42,9 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 
 ![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1486303954368-398fea0e72cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-calligraphy-1 "Calligraphy hobby for students to boost focus and creativity")
 
-![Small potted plant on desk](https://plus.unsplash.com/premium_photo-1679765934200-d1cb3153c631?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-garden-2 "Micro-gardening as a productive hobby for students indoors")
-
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
+
+![Small potted plant on desk](https://plus.unsplash.com/premium_photo-1679765934200-d1cb3153c631?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-garden-2 "Micro-gardening as a productive hobby for students indoors")
 
 No yard? No problem. With micro-gardening, students can grow herbs, succulents, or even microgreens right on a windowsill.
 
