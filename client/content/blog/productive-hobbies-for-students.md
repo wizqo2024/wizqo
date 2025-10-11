@@ -64,9 +64,9 @@ Coding isn’t just for techies. From building a personal website to making a si
 
 💡 How to start: Try free platforms like Scratch, Code.org, or Codecademy for beginner-friendly lessons.
 
-![Student solving a jigsaw puzzle](https://images.unsplash.com/photo-1605902394069-ff2ae2430e62?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331&kidv=prod-puzzle-3 "Brain games and puzzles as productive hobbies for students")
-
 5. Puzzle-Solving & Brain Games 🧩
+
+![Student solving a jigsaw puzzle](https://images.unsplash.com/photo-1605902394069-ff2ae2430e62?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331&kidv=prod-puzzle-3 "Brain games and puzzles as productive hobbies for students")
 
 From Sudoku to escape rooms, puzzles sharpen your brain while keeping boredom away.
 
