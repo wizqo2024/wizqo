@@ -54,9 +54,9 @@ No yard? No problem. With micro-gardening, students can grow herbs, succulents, 
 
 💡 How to start: Reuse jars or containers, start with easy herbs like basil or mint, and water lightly.
 
-![Student coding a simple Scratch project](https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-code-3 "Coding projects as productive hobbies for students")
-
 4. Coding Mini Projects 💻
+
+![Student coding a simple Scratch project](https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-code-3 "Coding projects as productive hobbies for students")
 
 Coding isn’t just for techies. From building a personal website to making a simple game, students can turn free time into a future-ready skill.
 
