@@ -66,7 +66,7 @@ Yes, literally doing nothing. Lie on the grass, look up, and let your imaginatio
 💡 How to start: Find a comfy spot outside, or even by a window. Just breathe and watch.
 🌟 Bonus tip: Snap a photo of your favorite cloud shapes. You’ll be surprised how relaxing it feels.
 
-![Relaxing hobby: cloudspotting for calmness](https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=1600&q=80 "Person lying on grass watching the sky")
+![Relaxing hobby: cloudspotting for calmness](https://images.unsplash.com/photo-1543616905-2e3733d7dfe4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=cloud-1 "Person lying on grass watching the sky")
 
 🕯️ 6. Candle Making — Melt Stress Away
 
