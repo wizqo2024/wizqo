@@ -431,7 +431,7 @@ Geocaching is like a real-world treasure hunt powered by GPS. Using your smartph
 ✨ Mini story: A group of high school friends in Dubai turned weekends into mini expeditions, competing to see who could find caches the fastest. They said it felt like “Pokémon Go, but smarter.”
 💡 How to start: Download a geocaching app, choose an easy beginner location, and head out with friends. Every find feels like a mini victory.
 
-![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80 "Calligraphy hobby for students to boost focus and creativity")
+![Calligraphy notebook and brush pens](https://plus.unsplash.com/premium_photo-1734581719247-f478d2eeb263?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1222 "Calligraphy hobby for students to boost focus and creativity")
 
 2. Calligraphy & Hand Lettering: Art with Impact ✒️
 Forget boring doodles — calligraphy is art with purpose. It trains focus, patience, and creativity, plus the results look amazing (think: cards, posters, or custom notebook covers).
@@ -440,7 +440,7 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 ✨ Real-life example: A student started practicing hand lettering during study breaks — within 6 months, she was making custom notebook covers for friends and even selling designs on Instagram.
 💡 How to start: Grab a pen and paper, follow a YouTube tutorial, and start with simple alphabet strokes.
 
-![Tiny jars with herbs sprouting on a desk](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80 "Micro-gardening as a productive hobby for students indoors")
+![Tiny jars with herbs sprouting on a desk](https://plus.unsplash.com/premium_photo-1744197738732-d857b383e4f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074 "Micro-gardening as a productive hobby for students indoors")
 
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
 No yard? No problem. With micro-gardening, students can grow herbs, succulents, or even microgreens right on a windowsill.
