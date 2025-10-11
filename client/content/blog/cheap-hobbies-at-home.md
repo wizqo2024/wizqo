@@ -96,7 +96,7 @@ Cheap hobbies like zentangle drawing, gardening in jars, and six-word stories ca
 
 The trick is to start small and just play. You’ll be surprised how much fun “cheap” can be.
 
-❓ FAQs on Cheap Hobbies at Home
+## ❓ FAQs
 
 1. What is the cheapest hobby?
 Writing, doodling, or exercising with bodyweight — all free.

@@ -126,7 +126,7 @@ So, which one of these easy hobbies will you try first? Start small, stay consis
 
 👉 Share this with a friend who wants to get smarter while having fun!
 
-FAQs About Easy Hobbies
+## ❓ FAQs
 
 1. What’s the easiest hobby to start at home?
 Reading or journaling. All you need is a book or a notebook.
