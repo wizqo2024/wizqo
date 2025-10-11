@@ -99,7 +99,7 @@ Short reflections each day help process thoughts, reduce stress, and sharpen foc
 
 👉 Start small — pick one hobby this week. You’ll be surprised how fast it grows into a passion.
 
-❓ FAQs About Productive Hobbies
+## ❓ FAQs
 
 1. What are the most productive hobbies for students?
 

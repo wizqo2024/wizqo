@@ -110,7 +110,7 @@ Exploring nature is the ultimate reset button. Hiking helps you escape routines,
 
 👉 Instead of asking “What should I do this weekend?” — pick one hobby, grab a friend, and start creating better memories than your phone screen ever could.
 
-❓ FAQs on Outdoor Hobbies for Students
+## ❓ FAQs
 
 1. What are the best outdoor hobbies for students?
 Geocaching, frisbee, gardening, cycling, and hiking are great starters.
