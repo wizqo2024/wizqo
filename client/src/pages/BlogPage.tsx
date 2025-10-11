@@ -1186,26 +1186,28 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     .filter(paragraph => {
                       const p = paragraph.trim();
                       return (
-                        /^#{1,6}\s+/.test(p) || // markdown heading like ##
-                        /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
-                        p.includes('Why Students Need Productive Hobbies') ||
-                        p.includes('Key Takeaways') ||
-                        p.includes('FAQs About Productive Hobbies') ||
-                        p.includes('Why Easy Hobbies Are Brain Boosters') ||
-                        p.includes('10 Easy Hobbies') ||
-                        p.includes('How to Pick the Right Hobby for You') ||
-                        p.includes('Final Thoughts') ||
-                        p.includes('FAQs About Easy Hobbies') ||
-                        p.includes('Why Most Hobbies Fail') || p.includes('How AI Makes Hobbies') || p.includes('Your 7-Day Plan') || 
-                        p.includes('What Is Micro Journaling') || p.includes('Why It Works') || p.includes('5 Micro Journaling Prompts') ||
-                        p.includes('Why Watercolor Is') || p.includes('10 Easy Watercolor') || p.includes('Beginner Watercolor Supplies') ||
-                        p.includes('Common Mistakes') || p.includes('FREE 7-Day') || p.includes('Just Start!') || 
-                        p.includes('The Science:') || p.includes('What Hobby Have You') || p.includes('Ready to Find') || 
-                        p.includes('Bonus: Pair Micro') || p.includes('Micro Journaling =') || p.includes('Ready to Try') ||
-                        // Cheap hobbies article
-                        p.includes('Why We Get Bored So Easily') ||
-                        p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
-                        p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
+                        (
+                          /^#{1,6}\s+/.test(p) || // markdown heading like ##
+                          /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
+                          p.includes('Why Students Need Productive Hobbies') ||
+                          p.includes('Key Takeaways') ||
+                          p.includes('FAQs About Productive Hobbies') ||
+                          p.includes('Why Easy Hobbies Are Brain Boosters') ||
+                          p.includes('10 Easy Hobbies') ||
+                          p.includes('How to Pick the Right Hobby for You') ||
+                          p.includes('Final Thoughts') ||
+                          p.includes('FAQs About Easy Hobbies') ||
+                          p.includes('Why Most Hobbies Fail') || p.includes('How AI Makes Hobbies') || p.includes('Your 7-Day Plan') || 
+                          p.includes('What Is Micro Journaling') || p.includes('Why It Works') || p.includes('5 Micro Journaling Prompts') ||
+                          p.includes('Why Watercolor Is') || p.includes('10 Easy Watercolor') || p.includes('Beginner Watercolor Supplies') ||
+                          p.includes('Common Mistakes') || p.includes('FREE 7-Day') || p.includes('Just Start!') || 
+                          p.includes('The Science:') || p.includes('What Hobby Have You') || p.includes('Ready to Find') || 
+                          p.includes('Bonus: Pair Micro') || p.includes('Micro Journaling =') || p.includes('Ready to Try') ||
+                          // Cheap hobbies article
+                          p.includes('Why We Get Bored So Easily') ||
+                          p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
+                          p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
+                        ) && !/^!\[.*?\]\(.*\)$/.test(p) // exclude markdown image lines
                       );
                     })
                     .map((paragraph, index) => {
