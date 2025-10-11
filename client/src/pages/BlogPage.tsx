@@ -238,7 +238,7 @@ After 60 days, that “tiny habit” turned into a full-blown journaling routine
 
 That’s habit building in action.
 
-![Tiny daily habits at home](https://images.unsplash.com/photo-1496306643123-7fed4c627b07?auto=format&fit=crop&w=1600&q=80&kidv=habit-home "Tiny daily habits at home")
+![Tiny daily habits at home](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80&kidv=habit-home-2 "Tiny daily habits at home")
 
 ## 🧭 Why Hobbies Help Habit Building
 
