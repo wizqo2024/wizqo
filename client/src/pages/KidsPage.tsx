@@ -213,6 +213,84 @@ export default function KidsPage() {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+        {/* Play Free Fun Learning Games Online */}
+        <section id="play">
+          <div className="mb-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Play Free Fun Learning Games Online</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Keep your brain active with our <strong>fun learning games for kids online</strong>.
+              Play quick, interactive games that test memory and vocabulary skills:
+            </p>
+            <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
+              <li>🃏 Memory Match – Find all pairs before time runs out!</li>
+              <li>🔤 Word Search Game – Race the clock to uncover hidden words.</li>
+            </ul>
+            <div className="mt-4">
+              <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={"https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1600&auto=format&fit=crop&kidv=mm1"}
+                alts={[KID_SAFE.puzzleDesk, KID_SAFE.classroomHands, KID_SAFE.coloringCrayons]}
+                alt="Memory match game cover"
+                className="w-full h-40 object-cover"
+                disableDedup
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–8</span>
+                  <span className={CHIP_CLASS}>Easy/Medium</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
+                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+
+            {/* Puzzle Game */}
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={"https://plus.unsplash.com/premium_photo-1732776567082-cbcd94f49316?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&kidv=puzzle-cover-1"}
+                alts={[KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands]}
+                alt="Puzzle game cover"
+                className="w-full h-40 object-cover"
+                disableDedup
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–10</span>
+                  <span className={CHIP_CLASS}>Drag & Drop</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Puzzle Game</h3>
+                <p className="text-slate-600 text-sm mb-4">Fix the picture by swapping tiles. Animals & Nature.</p>
+                <a href="/kids/games/puzzle" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={"https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                alts={[KID_SAFE.classroomHands, KID_SAFE.childStudyDesk, KID_SAFE.kidJournaling, KID_SAFE.childWriting]}
+                alt="Word search game cover"
+                className="w-full h-40 object-cover"
+                disableDedup
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 9–12</span>
+                  <span className={CHIP_CLASS}>Animals/Space</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
+                <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
+                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
         {/* Printable Fun Learning Activities */}
         <section id="print">
           <div className="mb-4">
@@ -256,25 +334,7 @@ export default function KidsPage() {
           </div>
         </section>
 
-        {/* Play Free Fun Learning Games Online */}
-        <section id="play">
-          <div className="mb-4">
-            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Play Free Fun Learning Games Online</h2>
-            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
-            <p className="mt-2 text-slate-700 max-w-3xl">
-              Keep your brain active with our <strong>fun learning games for kids online</strong>.
-              Play quick, interactive games that test memory and vocabulary skills:
-            </p>
-            <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-              <li>🃏 Memory Match – Find all pairs before time runs out!</li>
-              <li>🔤 Word Search Game – Race the clock to uncover hidden words.</li>
-            </ul>
-            <div className="mt-4">
-              <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6">
             <article className={CARD_CLASS}>
               <SmartImage
                 primary={"https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1600&auto=format&fit=crop&kidv=mm1"}
