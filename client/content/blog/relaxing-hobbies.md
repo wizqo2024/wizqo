@@ -76,7 +76,7 @@ There’s something about melting wax, blending scents, and watching the flame f
 💡 How to start: Try a DIY candle kit or melt old wax pieces. Add lavender oil for calm vibes.
 🌟 Bonus tip: Light your handmade candle during study or relaxation time — it becomes a personal ritual.
 
-![Relaxing hobby: DIY candle making at home](https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?auto=format&fit=crop&w=1600&q=80 "Homemade candle cooling on a desk")
+![Relaxing hobby: DIY candle making at home](https://images.unsplash.com/photo-1603218678692-3967d7523bb0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=candle-1 "Homemade candle cooling on a desk")
 
 🧩 7. Puzzle Time — Solving Stress Piece by Piece
 
@@ -86,7 +86,7 @@ It’s slow, it’s simple, and it’s oddly satisfying. When you’re focused o
 💡 How to start: Begin with a small puzzle (300–500 pieces). Play soft music in the background for extra calm.
 🌟 Bonus tip: When you finish, frame it. Proof that patience literally fits together.
 
-![Relaxing hobby: jigsaw puzzle mindfulness](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "Person assembling puzzle pieces at a cozy table")
+![Relaxing hobby: jigsaw puzzle mindfulness](https://images.unsplash.com/photo-1494059980473-813e73ee784b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169&kidv=puzzle-2 "Person assembling puzzle pieces at a cozy table")
 
 💬 Why These Little Moments Matter
 
