@@ -78,7 +78,6 @@ Helping others is one of the most rewarding hobbies. Students can tutor younger 
 
 ✅ Why it’s productive: Builds leadership, empathy, and teamwork — qualities universities and employers love.
 
-![Journal, pen, and a calming study setup](https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=1600&q=80 "Journaling as a simple productive hobby for students at home")
 
 7. Journaling: Clarity in Minutes 📓
 
