@@ -28,7 +28,7 @@ Geocaching is like a real-world treasure hunt powered by GPS. Using your smartph
 
 💡 How to start: Download a geocaching app, choose an easy beginner location, and head out with friends. Every find feels like a mini victory.
 
-![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80 "Calligraphy hobby for students to boost focus and creativity")
+![Geocaching map on phone with compass](https://images.unsplash.com/photo-1608924066819-930edc42986a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-geo-3 "Geocaching adventure for students — planning route on a map")
 
 2. Calligraphy & Hand Lettering: Art with Impact ✒️
 
