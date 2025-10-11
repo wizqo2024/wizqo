@@ -142,6 +142,49 @@ export default function KidsPage() {
         description="Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12."
         canonicalUrl="https://wizqo.com/kids"
       />
+      {(() => {
+        // Inject structured data for better indexing
+        const faqLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How can I make learning fun for my child?",
+              acceptedAnswer: { "@type": "Answer", text: "Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges." }
+            },
+            {
+              "@type": "Question",
+              name: "What are the best fun learning games for kids online?",
+              acceptedAnswer: { "@type": "Answer", text: "Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words and enjoy learning." }
+            },
+            {
+              "@type": "Question",
+              name: "What printable activities help kids learn better?",
+              acceptedAnswer: { "@type": "Answer", text: "Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail. Coloring pages support creativity and relaxation." }
+            },
+            {
+              "@type": "Question",
+              name: "What fun skills can kids learn in a week?",
+              acceptedAnswer: { "@type": "Answer", text: "Kids can build creative skills in just seven days with plans like Origami Basics or Drawing Animals that teach patience, focus, and creativity." }
+            }
+          ]
+        } as const;
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "Kids Hub", item: "https://wizqo.com/kids" }
+          ]
+        } as const;
+        return (
+          <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+          </>
+        );
+      })()}
       <UnifiedNavigation currentPage="kids" />
 
       {/* Hero */}
