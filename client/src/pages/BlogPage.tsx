@@ -1324,7 +1324,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       while (j < lines.length) {
                         const l = lines[j].trim();
                         if (l === '') { j++; continue; }
-                        if (/^#{1,6}\s+/.test(l) || /^❓\s*FAQs/i.test(l) || /^FAQs\b/i.test(l) || (/faq/i.test(l) && !/^\d+\./.test(l))) break;
+                        if (
+                          /^#{1,6}\s+/.test(l) ||
+                          /^❓\s*FAQs/i.test(l) ||
+                          /^FAQs\b/i.test(l) ||
+                          (/faq/i.test(l) && !/^\d+\./.test(l)) ||
+                          /^🔗/.test(l) ||
+                          /^👉/.test(l) ||
+                          /^📌/.test(l)
+                        ) break;
                         const mQ = l.match(/^\d+\.\s*(.+)$/);
                         if (mQ) {
                           items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
@@ -1332,7 +1340,16 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           while (j < lines.length) {
                             const l2 = lines[j].trim();
                             if (l2 === '') { j++; continue; }
-                            if (/^\d+\./.test(l2) || /^#{1,6}\s+/.test(l2) || /^❓\s*FAQs/i.test(l2) || /^FAQs\b/i.test(l2)) break;
+                            if (
+                              /^\d+\./.test(l2) ||
+                              /^#{1,6}\s+/.test(l2) ||
+                              /^❓\s*FAQs/i.test(l2) ||
+                              /^FAQs\b/i.test(l2) ||
+                              (/faq/i.test(l2) && !/^\d+\./.test(l2)) ||
+                              /^🔗/.test(l2) ||
+                              /^👉/.test(l2) ||
+                              /^📌/.test(l2)
+                            ) break;
                             items[items.length - 1].a.push(l2);
                             j++;
                           }
@@ -1406,7 +1423,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     while (j < lines.length) {
                       const ln = lines[j].trim();
                       if (ln === '') { j++; continue; }
-                      if (/^#{1,6}\s+/.test(ln) || /^❓\s*FAQs/i.test(ln) || /^FAQs\b/i.test(ln) || (/faq/i.test(ln) && !/^\d+\./.test(ln))) break;
+                      if (
+                        /^#{1,6}\s+/.test(ln) ||
+                        /^❓\s*FAQs/i.test(ln) ||
+                        /^FAQs\b/i.test(ln) ||
+                        (/faq/i.test(ln) && !/^\d+\./.test(ln)) ||
+                        /^🔗/.test(ln) ||
+                        /^👉/.test(ln) ||
+                        /^📌/.test(ln)
+                      ) break;
                       const mQ = ln.match(/^\d+\.\s*(.+)$/);
                       if (mQ) {
                         items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
@@ -1414,7 +1439,16 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         while (j < lines.length) {
                           const ln2 = lines[j].trim();
                           if (ln2 === '') { j++; continue; }
-                          if (/^\d+\./.test(ln2) || /^#{1,6}\s+/.test(ln2) || /^❓\s*FAQs/i.test(ln2)) break;
+                          if (
+                            /^\d+\./.test(ln2) ||
+                            /^#{1,6}\s+/.test(ln2) ||
+                            /^❓\s*FAQs/i.test(ln2) ||
+                            /^FAQs\b/i.test(ln2) ||
+                            (/faq/i.test(ln2) && !/^\d+\./.test(ln2)) ||
+                            /^🔗/.test(ln2) ||
+                            /^👉/.test(ln2) ||
+                            /^📌/.test(ln2)
+                          ) break;
                           items[items.length - 1].a.push(ln2);
                           j++;
                         }
