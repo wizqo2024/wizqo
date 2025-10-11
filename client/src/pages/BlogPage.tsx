@@ -310,7 +310,7 @@ Forget random scribbles — Zentangle is a type of structured doodling that’s 
 ✅ Why it’s awesome: Boosts focus, relaxes the mind, and looks super aesthetic.
 💡 Extra tip: Post your creations on Instagram with #zentangle — you’ll be surprised how many people share the same hobby.
 
-![Zentangle doodle drawing](https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80 "Zentangle-style doodles for mindful drawing at home")
+![Zentangle doodle drawing](https://plus.unsplash.com/premium_photo-1713364681469-b9a00a4accf2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170 "Zentangle-style doodles for mindful drawing at home")
 
 2. 🥬 Grow a Mini Salad Garden in a Jar
 
@@ -337,7 +337,7 @@ No puzzles at home? No problem. Cut up an old magazine cover or a printed photo 
 ✅ Why it’s awesome: Improves problem-solving and memory while being ridiculously cheap.
 💡 Extra twist: Make a puzzle exchange with friends — everyone creates one and swaps.
 
-![DIY puzzle pieces](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
+![DIY puzzle pieces](https://images.unsplash.com/photo-1590146758147-74a80644616a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171 "DIY jigsaw puzzle pieces made from a magazine cover")
 
 5. 🥁 Learn Rhythms on Everyday Objects
 
