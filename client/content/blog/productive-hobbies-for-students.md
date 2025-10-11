@@ -40,6 +40,8 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 
 💡 How to start: Grab a pen and paper, follow a YouTube tutorial, and start with simple alphabet strokes.
 
+![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1486303954368-398fea0e72cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-calligraphy-1 "Calligraphy hobby for students to boost focus and creativity")
+
 ![Small potted plant on desk](https://plus.unsplash.com/premium_photo-1679765934200-d1cb3153c631?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-garden-2 "Micro-gardening as a productive hobby for students indoors")
 
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
@@ -52,7 +54,7 @@ No yard? No problem. With micro-gardening, students can grow herbs, succulents, 
 
 💡 How to start: Reuse jars or containers, start with easy herbs like basil or mint, and water lightly.
 
-![Student coding a simple Scratch project](https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172&kidv=prod-code-2 "Coding projects as productive hobbies for students")
+![Student coding a simple Scratch project](https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-code-3 "Coding projects as productive hobbies for students")
 
 4. Coding Mini Projects 💻
 
@@ -62,7 +64,7 @@ Coding isn’t just for techies. From building a personal website to making a si
 
 💡 How to start: Try free platforms like Scratch, Code.org, or Codecademy for beginner-friendly lessons.
 
-![Student solving a jigsaw puzzle](https://plus.unsplash.com/premium_photo-1720612507865-0c20dfa77bfe?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1127&kidv=prod-puzzle-2 "Brain games and puzzles as productive hobbies for students")
+![Student solving a jigsaw puzzle](https://images.unsplash.com/photo-1605902394069-ff2ae2430e62?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331&kidv=prod-puzzle-3 "Brain games and puzzles as productive hobbies for students")
 
 5. Puzzle-Solving & Brain Games 🧩
 
