@@ -17,7 +17,7 @@ That’s the trap of passive hobbies. What you really need are outdoor hobbies �
 
 Let’s explore 9 outdoor hobbies that not only keep boredom away but also make you sharper, healthier, and more confident.
 
-![Teens smiling in a park](https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80 "Outdoor hobbies for students in a park")
+![Teens smiling in a park](https://plus.unsplash.com/premium_photo-1677456380268-813e7a11bc57?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=outdoor-hero-1 "Outdoor hobbies for students in a park")
 
 1. Geocaching: Modern-Day Treasure Hunting 🗺️
 
