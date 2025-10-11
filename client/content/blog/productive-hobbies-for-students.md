@@ -17,7 +17,6 @@ Research even shows that hobbies improve mental health, memory, and problem-solv
 
 Here are 7 hobbies that students can start right away — no big budget or fancy equipment needed.
 
-![Geocaching map on phone with compass](https://images.unsplash.com/photo-1665043133145-a4c44cca7f89?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-geo-2 "Geocaching adventure for students — planning route on a map")
 
 1. Geocaching: Tech-Powered Treasure Hunting 🗺️
 
