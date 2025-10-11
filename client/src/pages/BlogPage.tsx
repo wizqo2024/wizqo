@@ -169,7 +169,7 @@ That it only takes 21 days to form a new habit.
 
 Spoiler alert: that’s a myth. 🙃
 
-![Habit building checklist progress](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80&kidv=habit-cover "Habit building checklist progress")
+![Habit building checklist progress](https://plus.unsplash.com/premium_photo-1683749808592-aba31b4e2c17?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1112&kidv=habit-cover-2 "Habit building checklist progress")
 
 ## 🧬 The Truth About Habit Building
 
