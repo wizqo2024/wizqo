@@ -74,6 +74,8 @@ From Sudoku to escape rooms, puzzles sharpen your brain while keeping boredom aw
 
 6. Volunteering: Give Back, Gain Skills 🤝
 
+![Students volunteering together in a community cleanup](https://images.unsplash.com/photo-1758599668178-d9716bbda9d5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-volunteer-1 "Volunteering as a productive hobby for students")
+
 Helping others is one of the most rewarding hobbies. Students can tutor younger kids, help in community clean-ups, or assist in local events.
 
 ✅ Why it’s productive: Builds leadership, empathy, and teamwork — qualities universities and employers love.
