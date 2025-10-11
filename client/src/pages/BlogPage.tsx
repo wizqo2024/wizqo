@@ -169,7 +169,7 @@ That it only takes 21 days to form a new habit.
 
 Spoiler alert: that’s a myth. 🙃
 
-![Habit building checklist progress](https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80 "Habit building checklist progress")
+![Habit building checklist progress](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80&kidv=habit-cover "Habit building checklist progress")
 
 ## 🧬 The Truth About Habit Building
 
@@ -216,7 +216,7 @@ You don’t rise to the level of your goals; you fall to the level of your envir
 • Keep healthy snacks visible. Put your guitar next to your chair. Hide your phone when you work.
 • Make your environment whisper, “Hey, this is who you want to be.”
 
-![Morning habit routine journaling](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80 "Morning habit routine journaling")
+![Morning habit routine journaling](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80&kidv=habit-journal "Morning habit routine journaling")
 
 4. **Track Tiny Wins**
 
@@ -238,7 +238,7 @@ After 60 days, that “tiny habit” turned into a full-blown journaling routine
 
 That’s habit building in action.
 
-![Tiny daily habits at home](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80 "Tiny daily habits at home")
+![Tiny daily habits at home](https://images.unsplash.com/photo-1496306643123-7fed4c627b07?auto=format&fit=crop&w=1600&q=80&kidv=habit-home "Tiny daily habits at home")
 
 ## 🧭 Why Hobbies Help Habit Building
 
