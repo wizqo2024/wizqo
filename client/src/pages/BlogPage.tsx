@@ -216,7 +216,7 @@ You don’t rise to the level of your goals; you fall to the level of your envir
 • Keep healthy snacks visible. Put your guitar next to your chair. Hide your phone when you work.
 • Make your environment whisper, “Hey, this is who you want to be.”
 
-![Morning habit routine journaling](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80&kidv=habit-journal "Morning habit routine journaling")
+![Morning habit routine journaling](https://plus.unsplash.com/premium_photo-1681911111340-6a4c912c0ac8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870&kidv=habit-env "Morning habit routine journaling")
 
 4. **Track Tiny Wins**
 
