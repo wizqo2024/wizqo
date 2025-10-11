@@ -1316,7 +1316,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const t = raw.trim();
                     if (t === '') continue;
                     // Simple FAQ block: detect FAQ heading then collect numbered Q/A until next section
-                    if (/^❓\s*FAQs/i.test(t) || /^##\s*.*FAQs/i.test(t)) {
+                    if (/^❓\s*FAQs/i.test(t) || /^##\s*.*FAQs/i.test(t) || /^FAQs\b/i.test(t)) {
                       // push heading
                       simple.push(<h2 key={`simp-faq-h-${idx}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>);
                       const items: { q: string; a: string[] }[] = [];
@@ -1324,7 +1324,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       while (j < lines.length) {
                         const l = lines[j].trim();
                         if (l === '') { j++; continue; }
-                        if (/^#{1,6}\s+/.test(l) || /^❓\s*FAQs/i.test(l)) break;
+                        if (/^#{1,6}\s+/.test(l) || /^❓\s*FAQs/i.test(l) || /^FAQs\b/i.test(l)) break;
                         const mQ = l.match(/^\d+\.\s*(.+)$/);
                         if (mQ) {
                           items.push({ q: mQ[1].trim(), a: [] });
@@ -1332,7 +1332,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           while (j < lines.length) {
                             const l2 = lines[j].trim();
                             if (l2 === '') { j++; continue; }
-                            if (/^\d+\./.test(l2) || /^#{1,6}\s+/.test(l2) || /^❓\s*FAQs/i.test(l2)) break;
+                            if (/^\d+\./.test(l2) || /^#{1,6}\s+/.test(l2) || /^❓\s*FAQs/i.test(l2) || /^FAQs\b/i.test(l2)) break;
                             items[items.length - 1].a.push(l2);
                             j++;
                           }
@@ -1396,7 +1396,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
                   // FAQ block detection for general renderer
-                  if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed)) {
+                  if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed) || /^FAQs\b/i.test(trimmed)) {
                     // Render a consistent heading
                     elements.push(
                       <h2 key={`faq-h-${i}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>
@@ -1406,7 +1406,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     while (j < lines.length) {
                       const ln = lines[j].trim();
                       if (ln === '') { j++; continue; }
-                      if (/^#{1,6}\s+/.test(ln) || /^❓\s*FAQs/i.test(ln)) break;
+                      if (/^#{1,6}\s+/.test(ln) || /^❓\s*FAQs/i.test(ln) || /^FAQs\b/i.test(ln)) break;
                       const mQ = ln.match(/^\d+\.\s*(.+)$/);
                       if (mQ) {
                         items.push({ q: mQ[1].trim(), a: [] });
