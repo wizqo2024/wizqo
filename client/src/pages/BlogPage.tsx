@@ -1322,7 +1322,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       simple.push(
                         <figure key={`simp-img-${idx}`} className="my-6">
                           <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" />
-                          {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                         </figure>
                       );
                       continue;
@@ -1445,7 +1444,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                             }
                           }} 
                         />
-                        {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                       </figure>
                     );
                     continue;
