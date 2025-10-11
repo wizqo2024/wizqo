@@ -1478,17 +1478,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           }
                         }
                         if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
-                        sectionEls.push(
-                          <figure key={`num-img-${j}`} className="my-4">
-                            <img 
-                              src={finalUrl} 
-                              alt={alt} 
-                              loading="lazy" 
-                              width={1600} 
-                              height={720} 
-                              referrerPolicy="no-referrer"
-                              className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
-                              onError={(e) => {
+                      sectionEls.push(
+                        <figure key={`num-img-${j}`} className="my-4">
+                          <img 
+                            src={finalUrl} 
+                            alt={alt} 
+                            loading="lazy" 
+                            width={1600} 
+                            height={720} 
+                            referrerPolicy="no-referrer"
+                            className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
+                            onError={(e) => {
                                 const img = e.currentTarget as HTMLImageElement;
                                 const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
                                 const candidates = [
@@ -1512,10 +1512,9 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                                     usedImageUrls.add(picked);
                                   }
                                 }
-                              }}
-                            />
-                            {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
-                          </figure>
+                            }}
+                          />
+                        </figure>
                         );
                         j++;
                         continue;
