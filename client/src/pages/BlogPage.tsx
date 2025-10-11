@@ -1327,7 +1327,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         if (/^#{1,6}\s+/.test(l) || /^❓\s*FAQs/i.test(l) || /^FAQs\b/i.test(l)) break;
                         const mQ = l.match(/^\d+\.\s*(.+)$/);
                         if (mQ) {
-                          items.push({ q: mQ[1].trim(), a: [] });
+                          items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
                           j++;
                           while (j < lines.length) {
                             const l2 = lines[j].trim();
@@ -1409,7 +1409,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       if (/^#{1,6}\s+/.test(ln) || /^❓\s*FAQs/i.test(ln) || /^FAQs\b/i.test(ln)) break;
                       const mQ = ln.match(/^\d+\.\s*(.+)$/);
                       if (mQ) {
-                        items.push({ q: mQ[1].trim(), a: [] });
+                        items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
                         j++;
                         while (j < lines.length) {
                           const ln2 = lines[j].trim();
