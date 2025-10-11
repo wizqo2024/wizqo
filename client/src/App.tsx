@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
 import { LandingPage } from './components/LandingPage';
 import { BlogPage } from './pages/BlogPage';
-import KidsPage from './pages/KidsPage';
 import Dashboard from './components/Dashboard';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
@@ -17,7 +16,7 @@ import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
-import KidsPage from './pages/KidsPage';
+// (duplicate import removed)
 
 
 type QuizAnswers = {
