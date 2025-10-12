@@ -103,6 +103,8 @@ export default function TypingSafari() {
   useEffect(() => {
     const onKey = (ev: KeyboardEvent) => {
       if (!running || !target) return;
+      // If the hidden input is focused (desktop/mobile), let its onChange handler handle typing
+      if (document.activeElement === inputRef.current) return;
       if (ev.key.length !== 1) return;
       const expected = target.charAt(typedIndex);
       const ch = ev.key;
@@ -120,7 +122,8 @@ export default function TypingSafari() {
     return () => window.removeEventListener('keydown', onKey);
   }, [running, target, typedIndex]);
 
-  const accuracy = totalChars > 0 ? Math.max(0, Math.min(100, Math.round((typedIndex / (typedIndex + mistakes || 1)) * 100))) : 100;
+  const totalInputs = Math.max(typedIndex + mistakes, 1);
+  const accuracy = totalChars > 0 ? Math.max(0, Math.min(100, Math.round((typedIndex / totalInputs) * 100))) : 100;
 
   const steps = Math.max(1, totalChars);
   const position = Math.min(steps - 1, Math.floor(progress * steps));
