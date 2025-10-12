@@ -125,14 +125,19 @@ export default function TypingSafari() {
   const steps = Math.max(1, totalChars);
   const position = Math.min(steps - 1, Math.floor(progress * steps));
 
+  const denom = Math.max(1, steps - 1);
+  const leftPercent = Math.min(100, Math.max(0, (position / denom) * 100));
+
   return (
     <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 border border-slate-200 shadow-sm">
-      <div className="flex items-center justify-between gap-3 mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">Ages 7–12</span>
-          <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700">Typing</span>
-        </div>
-        <div className="flex items-center gap-2">
+          {running ? (
+            <button onClick={stopRound} className="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm">Pause</button>
+          ) : (
+            <button onClick={startRound} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">Start</button>
+          )}
+          <button onClick={nextRound} className="px-3 py-1.5 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Next</button>
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value as Difficulty)}
@@ -143,12 +148,10 @@ export default function TypingSafari() {
             <option value="easy">Easy words</option>
             <option value="medium">Medium words</option>
           </select>
-          {running ? (
-            <button onClick={stopRound} className="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm">Pause</button>
-          ) : (
-            <button onClick={startRound} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">Start</button>
-          )}
-          <button onClick={nextRound} className="px-3 py-1.5 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Next</button>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">Ages 7–12</span>
+          <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-green-100 text-green-700">Typing</span>
         </div>
       </div>
 
@@ -161,8 +164,12 @@ export default function TypingSafari() {
               <div key={i} className={`h-8 rounded-full ${i <= position ? 'bg-emerald-300' : 'bg-white/70'} border border-emerald-400`} />
             ))}
           </div>
-          <div className="absolute left-4 top-4 text-3xl select-none" style={{ transform: `translateX(calc(${position} * (100% - 32px) / ${Math.max(1, steps - 1)}))` }}>
-            <span role="img" aria-label="animal">{currentAnimal}</span>
+          <div className="absolute inset-x-4 top-4">
+            <div className="relative w-full">
+              <div className="text-3xl select-none absolute" style={{ left: `${leftPercent}%`, transform: 'translateX(-50%)' }}>
+                <span role="img" aria-label="animal">{currentAnimal}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
