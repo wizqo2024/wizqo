@@ -158,6 +158,13 @@ export default function TypingSafari() {
         </div>
       </div>
 
+      {/* Success banner at top */}
+      {!running && typedIndex > 0 && typedIndex >= totalChars && (
+        <div className="mb-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-emerald-800" role="status">
+          ✅ Great job! Your animal made it across.
+        </div>
+      )}
+
       {/* River track with stepping stones */}
       <div className="mb-6">
         <div className="h-28 rounded-xl bg-gradient-to-b from-sky-100 to-sky-200 border border-sky-200 relative overflow-hidden">
@@ -222,11 +229,7 @@ export default function TypingSafari() {
         </div>
       </div>
 
-      {!running && typedIndex > 0 && typedIndex >= totalChars && (
-        <div className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-emerald-800">
-          ✅ Great job! Your animal made it across.
-        </div>
-      )}
+      
     </div>
   );
 }
