@@ -347,7 +347,6 @@ export default function KidsPage() {
               <li>🧠 Word Search – Animals & Space</li>
               <li>🔢 Sudoku – Easy (4×4) & Medium (6×6)</li>
               <li>🎨 Coloring Page – Creative Animals</li>
-              <li>👀 Spot‑the‑Difference – Playground Fun</li>
             </ul>
             <div className="mt-4">
               <a href="/print" className={OUTLINE_BUTTON}>Open printable view →</a>
@@ -514,14 +513,7 @@ const PRINTABLES = [
     href: '/print?doc=coloring',
     cover: KID_SAFE.coloringCrayons
   },
-  {
-    id: 'spot-diff',
-    title: 'Spot the Difference – Playground',
-    subtitle: 'Find 8 differences',
-    chips: ['Ages 6–10'],
-    href: '/print?doc=spotdiff',
-    cover: KID_SAFE.playgroundKids
-  }
+  
 ];
 
 const HELPERS = [
