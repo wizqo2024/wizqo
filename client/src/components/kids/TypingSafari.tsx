@@ -28,16 +28,17 @@ export default function TypingSafari() {
   const [currentAnimal, setCurrentAnimal] = useState<string>(() => pickRandom(ANIMALS));
   const [running, setRunning] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [nowTs, setNowTs] = useState<number>(Date.now());
 
   const totalChars = target.length;
   const progress = totalChars > 0 ? Math.min(1, typedIndex / totalChars) : 0;
 
   const seconds = useMemo(() => {
-    const end = finishedAt ?? (running && startedAt ? Date.now() : null);
+    const end = finishedAt ?? (running && startedAt ? nowTs : null);
     if (!startedAt) return 0;
     if (!end) return (Date.now() - startedAt) / 1000;
     return (end - startedAt) / 1000;
-  }, [startedAt, finishedAt, running]);
+  }, [startedAt, finishedAt, running, nowTs]);
 
   const wpm = useMemo(() => {
     if (!seconds) return 0;
@@ -59,7 +60,9 @@ export default function TypingSafari() {
     setTarget(generateTarget(difficulty));
     setTypedIndex(0);
     setMistakes(0);
-    setStartedAt(Date.now());
+    const t = Date.now();
+    setStartedAt(t);
+    setNowTs(t);
     setFinishedAt(null);
     setRunning(true);
     setCurrentAnimal(pickRandom(ANIMALS));
@@ -70,7 +73,9 @@ export default function TypingSafari() {
     setTarget(generateTarget(difficulty));
     setTypedIndex(0);
     setMistakes(0);
-    setStartedAt(Date.now());
+    const t = Date.now();
+    setStartedAt(t);
+    setNowTs(t);
     setFinishedAt(null);
     setRunning(true);
     setCurrentAnimal(pickRandom(ANIMALS));
@@ -122,6 +127,13 @@ export default function TypingSafari() {
     return () => window.removeEventListener('keydown', onKey);
   }, [running, target, typedIndex]);
 
+  // Tick timer while running so Time updates even without typing
+  useEffect(() => {
+    if (!running) return;
+    const id = setInterval(() => setNowTs(Date.now()), 200);
+    return () => clearInterval(id);
+  }, [running]);
+
   const totalInputs = Math.max(typedIndex + mistakes, 1);
   const accuracy = totalChars > 0 ? Math.max(0, Math.min(100, Math.round((typedIndex / totalInputs) * 100))) : 100;
 
@@ -132,7 +144,7 @@ export default function TypingSafari() {
   const leftPercent = Math.min(100, Math.max(0, (position / denom) * 100));
 
   return (
-    <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 border border-slate-200 shadow-sm">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 border border-slate-200 shadow-sm" onClick={() => inputRef.current?.focus()}>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
           {running ? (
