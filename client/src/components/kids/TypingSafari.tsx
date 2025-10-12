@@ -29,6 +29,8 @@ export default function TypingSafari() {
   const [running, setRunning] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [nowTs, setNowTs] = useState<number>(Date.now());
+  const [soundOn, setSoundOn] = useState<boolean>(true);
+  const audioCtxRef = useRef<any>(null);
 
   const totalChars = target.length;
   const progress = totalChars > 0 ? Math.min(1, typedIndex / totalChars) : 0;
@@ -61,6 +63,7 @@ export default function TypingSafari() {
     if (target && typedIndex < target.length) {
       setFinishedAt(null);
       setRunning(true);
+      unlockAudio();
       setTimeout(() => inputRef.current?.focus(), 0);
       return;
     }
@@ -74,6 +77,7 @@ export default function TypingSafari() {
     setFinishedAt(null);
     setRunning(true);
     setCurrentAnimal(pickRandom(ANIMALS));
+    unlockAudio();
     setTimeout(() => inputRef.current?.focus(), 0);
   }
 
@@ -87,6 +91,7 @@ export default function TypingSafari() {
     setFinishedAt(null);
     setRunning(true);
     setCurrentAnimal(pickRandom(ANIMALS));
+    unlockAudio();
     setTimeout(() => inputRef.current?.focus(), 0);
   }
 
@@ -105,11 +110,13 @@ export default function TypingSafari() {
     if (ch.toLowerCase() === expected.toLowerCase()) {
       const next = typedIndex + 1;
       setTypedIndex(next);
+      playClick(true);
       if (next >= target.length) {
         stopRound();
       }
     } else {
       setMistakes((m) => m + 1);
+      playClick(false);
     }
   }
 
@@ -124,11 +131,13 @@ export default function TypingSafari() {
       if (ch.toLowerCase() === expected.toLowerCase()) {
         const next = typedIndex + 1;
         setTypedIndex(next);
+        playClick(true);
         if (next >= target.length) {
           stopRound();
         }
       } else {
         setMistakes((m) => m + 1);
+        playClick(false);
       }
     };
     window.addEventListener('keydown', onKey);
@@ -151,6 +160,35 @@ export default function TypingSafari() {
   const denom = Math.max(1, steps - 1);
   const leftPercent = Math.min(100, Math.max(0, (position / denom) * 100));
 
+  function unlockAudio() {
+    if (!soundOn) return;
+    if (audioCtxRef.current) return;
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioCtxRef.current = ctx;
+    } catch {}
+  }
+
+  function playClick(correct: boolean) {
+    if (!soundOn) return;
+    const ctx: AudioContext | undefined = audioCtxRef.current;
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    const freq = correct ? 740 : 220;
+    osc.frequency.value = freq;
+    gain.gain.value = 0.001;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    const now = ctx.currentTime;
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+    osc.start(now);
+    osc.stop(now + 0.15);
+  }
+
   return (
     <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 border border-slate-200 shadow-sm" onClick={() => inputRef.current?.focus()}>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -161,6 +199,9 @@ export default function TypingSafari() {
             <button onClick={startRound} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">{target && typedIndex > 0 && typedIndex < totalChars ? 'Resume' : 'Start'}</button>
           )}
           <button onClick={nextRound} className="px-3 py-1.5 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Next</button>
+          <button onClick={() => setSoundOn((v) => !v)} className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-pressed={soundOn} aria-label="Toggle sound">
+            {soundOn ? '🔊 Sound on' : '🔈 Sound off'}
+          </button>
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value as Difficulty)}
