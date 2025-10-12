@@ -112,6 +112,7 @@ export default function TypingSafari() {
       setTypedIndex(next);
       playClick(true);
       if (next >= target.length) {
+        playVictory();
         stopRound();
       }
     } else {
@@ -133,6 +134,7 @@ export default function TypingSafari() {
         setTypedIndex(next);
         playClick(true);
         if (next >= target.length) {
+          playVictory();
           stopRound();
         }
       } else {
@@ -175,18 +177,53 @@ export default function TypingSafari() {
     if (!ctx) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = 'sine';
-    const freq = correct ? 740 : 220;
-    osc.frequency.value = freq;
     gain.gain.value = 0.001;
     osc.connect(gain);
     gain.connect(ctx.destination);
     const now = ctx.currentTime;
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
-    osc.start(now);
-    osc.stop(now + 0.15);
+    if (correct) {
+      // Bright short blip
+      osc.type = 'sine';
+      osc.frequency.value = 880; // A5
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.09, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+      osc.start(now);
+      osc.stop(now + 0.15);
+    } else {
+      // Distinct error: short downward sweep
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(420, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.14);
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    }
+  }
+
+  function playVictory() {
+    if (!soundOn) return;
+    const ctx: AudioContext | undefined = audioCtxRef.current;
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99]; // C5 E5 G5
+    notes.forEach((f, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = f;
+      gain.gain.value = 0.001;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      const t0 = now + idx * 0.09;
+      gain.gain.setValueAtTime(0.001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.12, t0 + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.24);
+      osc.start(t0);
+      osc.stop(t0 + 0.26);
+    });
   }
 
   return (
