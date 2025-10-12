@@ -58,7 +58,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {(!doc || doc === 'sudoku4') && (
+        {(doc === 'sudoku4') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
           <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
@@ -92,7 +92,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {(!doc || doc === 'spotdiff') && (
+        {(doc === 'spotdiff') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
