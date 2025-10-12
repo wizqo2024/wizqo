@@ -353,27 +353,7 @@ export default function KidsPage() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PRINTABLES.map(p => (
-              <article key={p.id} className={CARD_CLASS}>
-                <SmartImage
-                  primary={p.cover}
-                  alts={[KID_SAFE.coloringCrayons, KID_SAFE.kidsWithAnimals, KID_SAFE.classroomHands, KID_SAFE.puzzleDesk, KID_SAFE.puzzleJigsaw, KID_SAFE.planetsModel, KID_SAFE.playgroundKids, KID_SAFE.childWriting, KID_SAFE.kidJournaling]}
-                  alt={`${p.title} – kids printable`}
-                  className="w-full h-36 object-cover"
-                  disableDedup
-                />
-                <div className="p-5">
-                  <div className="flex gap-2 mb-2">
-                    {p.chips.map((c, i) => (<span key={i} className={CHIP_CLASS}>{c}</span>))}
-                  </div>
-                  <h3 className="font-semibold text-slate-900 mb-1">{p.title}</h3>
-                  <p className="text-slate-600 text-sm mb-4">{p.subtitle}</p>
-                  <a href={p.href} className={BUTTON_CLASS}>Open printable view →</a>
-                </div>
-              </article>
-            ))}
-          </div>
+          {/* List of cards removed per request; keep only summary + CTA */}
         </section>
 
         {/* 7‑Day Fun Skills to Learn */}
