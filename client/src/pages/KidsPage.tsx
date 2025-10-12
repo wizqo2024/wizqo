@@ -335,8 +335,8 @@ export default function KidsPage() {
             {/* Typing Safari */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.childWriting}
-                alts={[KID_SAFE.kidJournaling, KID_SAFE.classroomHands]}
+                primary={"https://images.unsplash.com/photo-1708033777801-37deb9d4bec4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=typing-cover-1"}
+                alts={[KID_SAFE.childWriting, KID_SAFE.kidJournaling, KID_SAFE.classroomHands]}
                 alt="Typing safari game cover"
                 className="w-full h-40 object-cover"
                 disableDedup
