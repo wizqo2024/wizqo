@@ -122,6 +122,37 @@ export default function PuzzleGame() {
   const [solved, setSolved] = useState(false)
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null)
   const timerId = useRef<number | null>(null)
+  const audioCtxRef = useRef<any>(null)
+
+  function unlockAudio() {
+    if (audioCtxRef.current) return
+    try {
+      const ctx = new ((window as any).AudioContext || (window as any).webkitAudioContext)()
+      audioCtxRef.current = ctx
+    } catch {}
+  }
+
+  function playVictory() {
+    const ctx: AudioContext | undefined = audioCtxRef.current
+    if (!ctx) return
+    const now = ctx.currentTime
+    const notes = [523.25, 659.25, 783.99]
+    notes.forEach((f, idx) => {
+      const osc = ctx.createOscillator()
+      const gain = ctx.createGain()
+      osc.type = 'triangle'
+      osc.frequency.value = f
+      gain.gain.value = 0.001
+      osc.connect(gain)
+      gain.connect(ctx.destination)
+      const t0 = now + idx * 0.09
+      gain.gain.setValueAtTime(0.001, t0)
+      gain.gain.exponentialRampToValueAtTime(0.12, t0 + 0.04)
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.24)
+      osc.start(t0)
+      osc.stop(t0 + 0.26)
+    })
+  }
 
   useEffect(() => {
     setRunning(true)
@@ -139,6 +170,7 @@ export default function PuzzleGame() {
   }, [running])
 
   function resetWithShuffle(newImg = false) {
+    unlockAudio()
     if (newImg) setImgIndex((i) => i + 1)
     setEdges(generateEdges(size))
     setBoardSlots(Array(total).fill(-1))
@@ -156,6 +188,7 @@ export default function PuzzleGame() {
     if (isSolved) {
       setSolved(true)
       setRunning(false)
+      playVictory()
     }
   }
 
