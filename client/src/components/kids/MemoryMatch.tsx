@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 const EMOJIS = ['🐶','🐱','🦊','🐼','🐵','🦄','🐸','🐙'];
 
@@ -9,6 +9,36 @@ export default function MemoryMatch() {
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
+  const audioCtxRef = useRef<any>(null);
+  function unlockAudio() {
+    if (audioCtxRef.current) return;
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioCtxRef.current = ctx;
+    } catch {}
+  }
+
+  function playVictory() {
+    const ctx: AudioContext | undefined = audioCtxRef.current;
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99];
+    notes.forEach((f, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = f;
+      gain.gain.value = 0.001;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      const t0 = now + idx * 0.09;
+      gain.gain.setValueAtTime(0.001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.12, t0 + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.24);
+      osc.start(t0);
+      osc.stop(t0 + 0.26);
+    });
+  }
   const bestKey = 'kids_memory_best_seconds';
   const best = useMemo(() => {
     const raw = localStorage.getItem(bestKey);
@@ -38,10 +68,12 @@ export default function MemoryMatch() {
       if (!best || time < best) {
         localStorage.setItem(bestKey, String(time));
       }
+      playVictory();
     }
   }, [matched, board, time, best]);
 
   const handleFlip = (idx: number) => {
+    unlockAudio();
     if (matched.has(idx) || flipped.includes(idx) || flipped.length === 2) return;
     setFlipped(prev => [...prev, idx]);
     if (flipped.length === 1) setMoves(m => m + 1);
@@ -61,6 +93,7 @@ export default function MemoryMatch() {
   }, [flipped, board, matched]);
 
   const restart = () => {
+    unlockAudio();
     const pair = [...EMOJIS, ...EMOJIS];
     const shuffled = pair.sort(() => Math.random() - 0.5);
     setBoard(shuffled);
