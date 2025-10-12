@@ -1,4 +1,5 @@
 import React from 'react'
+import { WizqoLogo } from '@/components/WizqoLogo'
 
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
@@ -20,21 +21,26 @@ export function PrintablesPage() {
   }
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <header className="mb-6">
-          <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>
-          <p className="text-slate-600 mt-2">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
+        <header className="mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
+          <div>
+            <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>
+            <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
+          </div>
+          <div className="print:block">
+            <WizqoLogo className="w-20 h-auto opacity-80" />
+          </div>
         </header>
 
         {(!doc || doc === 'ws-animals') && (
-        <section className="mb-10 break-inside-avoid">
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
-          <div className="grid grid-cols-12 gap-1 font-mono text-sm">
+          <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
             {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"]).map((row, r) => (
               <React.Fragment key={r}>
                 {row.map((ch, c) => (
-                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
+                  <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
                 ))}
               </React.Fragment>
             ))}
@@ -58,10 +64,10 @@ export function PrintablesPage() {
         </section>
         )}
 
-        <section className="mb-10 break-inside-avoid">
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
           <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
-          <div className="inline-grid grid-cols-4 gap-0">
+          <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
             {Array.from({ length: 16 }).map((_, i) => (
               <div key={i} className="w-10 h-10 border border-slate-400" />
             ))}
@@ -80,16 +86,16 @@ export function PrintablesPage() {
         </section>
         )}
 
-        <section className="mb-10 break-inside-avoid">
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
           <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
-          <div className="border border-slate-300 rounded p-4 bg-white">
+          <div className="border border-slate-300 rounded p-4 bg-white print:border-0 print:p-0">
             <ColoringSVG />
           </div>
         </section>
 
         {(doc === 'spotdiff') && (
-        <section className="mb-10 break-inside-avoid">
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
           <div className="grid grid-cols-2 gap-4">
