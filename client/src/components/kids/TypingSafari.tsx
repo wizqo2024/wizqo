@@ -196,15 +196,30 @@ export default function TypingSafari() {
         </div>
       </div>
 
-      {/* Target word */}
+      {/* Target word - polished UI */}
       <div className="mb-4">
-        <div className="text-sm text-slate-600 mb-1">Type this:</div>
-        <div className="font-mono text-2xl sm:text-3xl tracking-wide">
-          {target.split('').map((c, i) => (
-            <span key={i} className={
-              i < typedIndex ? 'text-emerald-600' : i === typedIndex ? 'bg-yellow-200 text-slate-900 rounded px-1' : 'text-slate-500'
-            }>{c}</span>
-          ))}
+        <div className="rounded-xl border border-slate-200 bg-gradient-to-r from-purple-50 to-pink-50 p-4 shadow-sm" onClick={() => inputRef.current?.focus()}>
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm font-semibold text-slate-700">Type this</div>
+            <div className="text-xs text-slate-500">{typedIndex}/{totalChars}</div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {target
+              ? target.split('').map((c, i) => {
+                  const base = 'inline-flex items-center justify-center h-10 min-w-[2.25rem] px-2 rounded-lg border font-mono text-xl transition-colors duration-150';
+                  const state = i < typedIndex
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                    : i === typedIndex
+                      ? 'bg-yellow-50 text-slate-900 border-yellow-200 ring-2 ring-yellow-200'
+                      : 'bg-white text-slate-600 border-slate-200';
+                  return (
+                    <span key={i} className={`${base} ${state}`}>{c}</span>
+                  );
+                })
+              : (
+                <div className="text-slate-500 text-sm">Press Start to begin</div>
+              )}
+          </div>
         </div>
       </div>
 
