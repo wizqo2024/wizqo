@@ -57,6 +57,14 @@ export default function TypingSafari() {
   }
 
   function startRound() {
+    // Resume if a target exists and not finished
+    if (target && typedIndex < target.length) {
+      setFinishedAt(null);
+      setRunning(true);
+      setTimeout(() => inputRef.current?.focus(), 0);
+      return;
+    }
+    // Otherwise start a new round
     setTarget(generateTarget(difficulty));
     setTypedIndex(0);
     setMistakes(0);
@@ -150,7 +158,7 @@ export default function TypingSafari() {
           {running ? (
             <button onClick={stopRound} className="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 text-sm">Pause</button>
           ) : (
-            <button onClick={startRound} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">Start</button>
+            <button onClick={startRound} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">{target && typedIndex > 0 && typedIndex < totalChars ? 'Resume' : 'Start'}</button>
           )}
           <button onClick={nextRound} className="px-3 py-1.5 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Next</button>
           <select
