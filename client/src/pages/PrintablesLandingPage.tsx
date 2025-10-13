@@ -28,6 +28,37 @@ export function PrintablesLandingPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
+      {(() => {
+        // SEO structured data: Breadcrumbs + ItemList of printables
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "Kids Hub", item: "https://wizqo.com/kids" },
+            { "@type": "ListItem", position: 3, name: "Printable Fun Learning Activities", item: "https://wizqo.com/printables" }
+          ]
+        } as const;
+        const itemListLd = {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Printable Fun Learning Activities for Kids",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Word Search – Animals", url: "https://wizqo.com/print?doc=ws-animals" },
+            { "@type": "ListItem", position: 2, name: "Word Search – Space", url: "https://wizqo.com/print?doc=ws-space" },
+            { "@type": "ListItem", position: 3, name: "Sudoku – 4×4 (Easy)", url: "https://wizqo.com/print" },
+            { "@type": "ListItem", position: 4, name: "Sudoku – 6×6 (Medium)", url: "https://wizqo.com/print?doc=sudoku6" },
+            { "@type": "ListItem", position: 5, name: "Coloring – Cute Animals", url: "https://wizqo.com/print" },
+            { "@type": "ListItem", position: 6, name: "Spot‑the‑Difference – Playground", url: "https://wizqo.com/print?doc=spotdiff" }
+          ]
+        } as const;
+        return (
+          <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
+          </>
+        );
+      })()}
 
       <header className="relative">
         <div className="absolute inset-0 -z-10">
@@ -55,7 +86,8 @@ export function PrintablesLandingPage() {
 
         {/* 1. Educational Worksheets */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">🧠 1. Educational Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 1. Educational Worksheets</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="➕ Math Maze Adventure"
@@ -90,7 +122,8 @@ export function PrintablesLandingPage() {
 
         {/* 2. Creative & Art Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">🎨 2. Creative & Art Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 2. Creative & Art Printables</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="🖍️ Color-by-Number Pages"
@@ -125,7 +158,8 @@ export function PrintablesLandingPage() {
 
         {/* 3. Brain & Focus Activities */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">🧩 3. Brain & Focus Activities</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 3. Brain & Focus Activities</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="🧩 Logic Grid Puzzle"
@@ -153,7 +187,8 @@ export function PrintablesLandingPage() {
 
         {/* 4. Emotional & Mindfulness Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">💖 4. Emotional & Mindfulness Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">💖 4. Emotional & Mindfulness Printables</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="💌 Gratitude Jar Worksheet"
@@ -188,7 +223,8 @@ export function PrintablesLandingPage() {
 
         {/* 5. Seasonal & Holiday Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">🎉 5. Seasonal & Holiday Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 5. Seasonal & Holiday Printables</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="🎃 Halloween Puzzle Pack"
@@ -223,7 +259,8 @@ export function PrintablesLandingPage() {
 
         {/* 6. Printable Challenge Packs */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">🌍 6. Printable Challenge Packs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 6. Printable Challenge Packs</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="🧠 7-Day Brain Boost Pack"
