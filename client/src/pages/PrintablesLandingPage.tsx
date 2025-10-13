@@ -67,7 +67,7 @@ export function PrintablesLandingPage() {
           <div className="absolute -bottom-24 -left-16 w-96 h-96 rounded-full bg-amber-200/30 blur-3xl" />
         </div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="mb-4 print:hidden">
+          <div className="mb-4 print:hidden flex justify-end">
             <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back to Kids Hub">
               <span>←</span>
               <span>Back to Kids Hub</span>
