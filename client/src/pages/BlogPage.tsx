@@ -3,6 +3,7 @@ import { SEOMetaTags } from '../components/SEOMetaTags';
 import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface BlogPost {
   id: string;
@@ -125,7 +126,7 @@ So, which one of these easy hobbies will you try first? Start small, stay consis
 
 👉 Share this with a friend who wants to get smarter while having fun!
 
-FAQs About Easy Hobbies
+## ❓ FAQs
 
 1. What’s the easiest hobby to start at home?
 Reading or journaling. All you need is a book or a notebook.
@@ -148,6 +149,148 @@ Absolutely — hobbies like gardening, journaling, and art are proven stress rel
     imageUrl: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Calligraphy notebook — easy hobbies cover"
   },
+
+  {
+    id: "how-long-to-build-a-habit",
+    title: "🧠 How Long Does It Really Take to Build a Habit? (Not 21 Days!)",
+    excerpt: "Think it takes 21 days to build a habit? Think again. Learn the real science of habit building and simple steps to make habits actually stick.",
+    content: `😩 “I’ll start tomorrow...” — Said Everyone, Ever
+
+You’ve probably told yourself this before:
+
+“I’ll start waking up early.”
+“I’ll start journaling.”
+“I’ll eat healthy... on Monday.”
+
+And yet, Monday shows up, looks at you, and laughs.
+
+Don’t worry — you’re not broken. You’re just human. The reason most people fail to build habits isn’t because they’re lazy — it’s because they’re told the wrong thing:
+
+That it only takes 21 days to form a new habit.
+
+Spoiler alert: that’s a myth. 🙃
+
+![Habit building checklist progress](https://plus.unsplash.com/premium_photo-1683749808592-aba31b4e2c17?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1112&kidv=habit-cover-2 "Habit building checklist progress")
+
+## 🧬 The Truth About Habit Building
+
+The “21-day rule” came from a 1960s plastic surgeon named Dr. Maxwell Maltz. He noticed his patients took about 21 days to get used to their new look — and that number somehow turned into a “universal habit rule.”
+
+But modern research tells a different story.
+
+A 2009 study from University College London found it actually takes anywhere from 18 to 254 days to form a habit — with the average being 66 days.
+
+That’s over two months, not three weeks.
+
+Why so long? Because habits are really neural shortcuts — pathways in your brain that strengthen with repetition. The more you repeat something in the same context, the less effort it takes next time.
+
+Basically, your brain goes from “This is new and annoying” to “Ah yes, we do this automatically now.”
+
+## ⚙️ How to Build Habits That Actually Stick
+
+Here’s the honest truth: building habits isn’t about willpower — it’s about systems.
+
+Let’s break down a few that work in real life 👇
+
+1. **The 2-Minute Rule**
+
+Start so small it feels ridiculous.
+
+• Want to start running? Just put on your shoes and walk outside.
+• Want to read more? Read one page.
+
+You’re training your brain to show up, not to finish. Once you start, momentum often takes care of the rest.
+
+2. **Habit Stacking**
+
+Pair a new habit with an existing one.
+
+• “After I brush my teeth, I’ll journal for 2 minutes.”
+• “After I make coffee, I’ll stretch for 1 minute.”
+
+By anchoring new habits to old ones, you piggyback on existing brain patterns — less resistance, more consistency.
+
+3. **Environment Design**
+
+You don’t rise to the level of your goals; you fall to the level of your environment.
+
+• Keep healthy snacks visible. Put your guitar next to your chair. Hide your phone when you work.
+• Make your environment whisper, “Hey, this is who you want to be.”
+
+![Morning habit routine journaling](https://plus.unsplash.com/premium_photo-1681911111340-6a4c912c0ac8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870&kidv=habit-env "Morning habit routine journaling")
+
+4. **Track Tiny Wins**
+
+Nothing motivates the brain like progress. Use a simple notebook or app to track your streaks — even just “✅” marks on a calendar.
+
+Each tick tells your brain, “See? I’m consistent now.” And that tiny hit of dopamine keeps you going.
+
+5. **Forgive Yourself When You Miss a Day**
+
+Missed a workout? Ate the cookie? Forgot your morning meditation? Cool. Move on.
+
+Consistency isn’t about perfection — it’s about returning. Two steps forward and one step back still means you’re moving.
+
+## 💡 Real-Life Example: The 5-Minute Writer
+
+Sara, a college student from Dubai, used to say she “wasn’t disciplined enough” to write daily. So she tried something new: she wrote just five minutes every morning, right after brushing her teeth.
+
+After 60 days, that “tiny habit” turned into a full-blown journaling routine. Now, writing isn’t something she tries to do — it’s just part of who she is.
+
+That’s habit building in action.
+
+![Tiny daily habits at home](https://images.unsplash.com/photo-1456324504439-367cee3b3c32?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=habit-home-3 "Tiny daily habits at home")
+
+## 🧭 Why Hobbies Help Habit Building
+
+If you’ve been reading Wizqo, you already know: hobbies aren’t just fun — they’re mental training grounds.
+
+• Relaxing hobbies teach mindfulness and focus.
+• Productive hobbies build discipline and creativity.
+• Outdoor hobbies recharge your brain and body.
+
+Each small, joyful routine you start makes the next habit easier to form.
+
+So yes — starting that tiny balcony garden or sketchbook might just be your secret superpower for bigger goals later.
+
+## 🔚 The Takeaway
+
+Forget the 21-day myth. Building real habits takes patience, self-kindness, and consistency — not hacks.
+
+Start small. Keep showing up. Celebrate progress, not perfection.
+
+And one day, you’ll realize: the habit you struggled to start… has quietly become part of who you are. 🌱
+
+## 🧩 FAQs
+
+1. **How long does it really take to build a habit?**
+Anywhere from 18 to 254 days — about two months on average, depending on the habit and person.
+
+2. **Why do most people fail at habit building?**
+Because they go too big, too fast. Start small, stay consistent.
+
+3. **What are the easiest habits to start?**
+Drinking water in the morning, reading one page a day, or short daily walks.
+
+4. **Can I build multiple habits at once?**
+Yes — but start with one. Master consistency first, then expand.
+
+5. **Do hobbies count as habits?**
+Absolutely. Regular hobbies train your brain in discipline, focus, and joy — the building blocks of strong habits.
+
+## 🔗 Keep Exploring
+
+• [Productive Hobbies for Students](/blog/productive-hobbies-for-students)
+• [Easy Hobbies That Make You Smarter](/blog/easy-hobbies-that-make-you-smarter)
+• [Outdoor Hobbies for Students](/blog/outdoor-hobbies-for-students)
+`,
+    author: "Wizqo Team",
+    date: "October 2025",
+    readTime: "7–8 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1498079022511-d15614cb1c02?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Habit building article cover"
+  },
   
   {
     id: "cheap-hobbies-at-home",
@@ -168,7 +311,7 @@ Forget random scribbles — Zentangle is a type of structured doodling that’s 
 ✅ Why it’s awesome: Boosts focus, relaxes the mind, and looks super aesthetic.
 💡 Extra tip: Post your creations on Instagram with #zentangle — you’ll be surprised how many people share the same hobby.
 
-![Zentangle doodle drawing](https://images.unsplash.com/photo-1527254435198-6a952d2ed8c2?auto=format&fit=crop&w=1600&q=80 "Zentangle-style doodles for mindful drawing at home")
+![Zentangle doodle drawing](https://plus.unsplash.com/premium_photo-1713364681469-b9a00a4accf2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170 "Zentangle-style doodles for mindful drawing at home")
 
 2. 🥬 Grow a Mini Salad Garden in a Jar
 
@@ -195,7 +338,7 @@ No puzzles at home? No problem. Cut up an old magazine cover or a printed photo 
 ✅ Why it’s awesome: Improves problem-solving and memory while being ridiculously cheap.
 💡 Extra twist: Make a puzzle exchange with friends — everyone creates one and swaps.
 
-![DIY puzzle pieces](https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1600&q=80 "DIY jigsaw puzzle pieces made from a magazine cover")
+![DIY puzzle pieces](https://images.unsplash.com/photo-1590146758147-74a80644616a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171 "DIY jigsaw puzzle pieces made from a magazine cover")
 
 5. 🥁 Learn Rhythms on Everyday Objects
 
@@ -289,7 +432,7 @@ Geocaching is like a real-world treasure hunt powered by GPS. Using your smartph
 ✨ Mini story: A group of high school friends in Dubai turned weekends into mini expeditions, competing to see who could find caches the fastest. They said it felt like “Pokémon Go, but smarter.”
 💡 How to start: Download a geocaching app, choose an easy beginner location, and head out with friends. Every find feels like a mini victory.
 
-![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80 "Calligraphy hobby for students to boost focus and creativity")
+![Calligraphy notebook and brush pens](https://plus.unsplash.com/premium_photo-1734581719247-f478d2eeb263?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1222 "Calligraphy hobby for students to boost focus and creativity")
 
 2. Calligraphy & Hand Lettering: Art with Impact ✒️
 Forget boring doodles — calligraphy is art with purpose. It trains focus, patience, and creativity, plus the results look amazing (think: cards, posters, or custom notebook covers).
@@ -298,7 +441,7 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 ✨ Real-life example: A student started practicing hand lettering during study breaks — within 6 months, she was making custom notebook covers for friends and even selling designs on Instagram.
 💡 How to start: Grab a pen and paper, follow a YouTube tutorial, and start with simple alphabet strokes.
 
-![Tiny jars with herbs sprouting on a desk](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80 "Micro-gardening as a productive hobby for students indoors")
+![Tiny jars with herbs sprouting on a desk](https://plus.unsplash.com/premium_photo-1744197738732-d857b383e4f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074 "Micro-gardening as a productive hobby for students indoors")
 
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
 No yard? No problem. With micro-gardening, students can grow herbs, succulents, or even microgreens right on a windowsill.
@@ -1044,30 +1187,36 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     .filter(paragraph => {
                       const p = paragraph.trim();
                       return (
-                        /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
-                        p.includes('Why Students Need Productive Hobbies') ||
-                        p.includes('Key Takeaways') ||
-                        p.includes('FAQs About Productive Hobbies') ||
-                        p.includes('Why Easy Hobbies Are Brain Boosters') ||
-                        p.includes('10 Easy Hobbies') ||
-                        p.includes('How to Pick the Right Hobby for You') ||
-                        p.includes('Final Thoughts') ||
-                        p.includes('FAQs About Easy Hobbies') ||
-                        p.includes('Why Most Hobbies Fail') || p.includes('How AI Makes Hobbies') || p.includes('Your 7-Day Plan') || 
-                        p.includes('What Is Micro Journaling') || p.includes('Why It Works') || p.includes('5 Micro Journaling Prompts') ||
-                        p.includes('Why Watercolor Is') || p.includes('10 Easy Watercolor') || p.includes('Beginner Watercolor Supplies') ||
-                        p.includes('Common Mistakes') || p.includes('FREE 7-Day') || p.includes('Just Start!') || 
-                        p.includes('The Science:') || p.includes('What Hobby Have You') || p.includes('Ready to Find') || 
-                        p.includes('Bonus: Pair Micro') || p.includes('Micro Journaling =') || p.includes('Ready to Try') ||
-                        // Cheap hobbies article
-                        p.includes('Why We Get Bored So Easily') ||
-                        p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
-                        p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
+                        (
+                          /^#{1,6}\s+/.test(p) || // markdown heading like ##
+                          /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
+                          p.includes('Why Students Need Productive Hobbies') ||
+                          p.includes('Key Takeaways') ||
+                          p.includes('FAQs About Productive Hobbies') ||
+                          p.includes('Why Easy Hobbies Are Brain Boosters') ||
+                          p.includes('10 Easy Hobbies') ||
+                          p.includes('How to Pick the Right Hobby for You') ||
+                          p.includes('Final Thoughts') ||
+                          p.includes('FAQs About Easy Hobbies') ||
+                          p.includes('Why Most Hobbies Fail') || p.includes('How AI Makes Hobbies') || p.includes('Your 7-Day Plan') || 
+                          p.includes('What Is Micro Journaling') || p.includes('Why It Works') || p.includes('5 Micro Journaling Prompts') ||
+                          p.includes('Why Watercolor Is') || p.includes('10 Easy Watercolor') || p.includes('Beginner Watercolor Supplies') ||
+                          p.includes('Common Mistakes') || p.includes('FREE 7-Day') || p.includes('Just Start!') || 
+                          p.includes('The Science:') || p.includes('What Hobby Have You') || p.includes('Ready to Find') || 
+                          p.includes('Bonus: Pair Micro') || p.includes('Micro Journaling =') || p.includes('Ready to Try') ||
+                          // Cheap hobbies article
+                          p.includes('Why We Get Bored So Easily') ||
+                          p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
+                          p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
+                        ) && !/^!\[.*?\]\(.*\)$/.test(p) // exclude markdown image lines
                       );
                     })
                     .map((paragraph, index) => {
-                      const ptrim = paragraph.trim();
-                      const headingId = ptrim.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                      const headingText = paragraph
+                        .trim()
+                        .replace(/^#{1,6}\s+/, '')
+                        .replace(/\*\*(.*?)\*\*/g, '$1');
+                      const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                       return (
                         <a 
                           key={index} 
@@ -1082,7 +1231,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           }}
                         >
                           <span className="text-purple-400">→</span>
-                          <span className="hover:underline">{ptrim}</span>
+                          <span className="hover:underline">{headingText}</span>
                         </a>
                       );
                     })}
@@ -1100,8 +1249,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   return /^!\[.*?\]\(.*\)$/.test(raw);
                 };
 
+                const parseMdHeading = (s: string): { level: number; text: string } | null => {
+                  const m = s.match(/^(#{1,6})\s+(.*)$/);
+                  if (!m) return null;
+                  return { level: m[1].length, text: m[2].trim() };
+                };
+
                 const isSectionHeading = (s: string) => {
                   return (
+                    /^#{1,6}\s+/.test(s) ||
                     s.includes('Day 1:') || s.includes('Day 2') || s.includes('Day 3') || s.includes('Day 4') || s.includes('Day 5') || s.includes('Day 6') || s.includes('Day 7') ||
                     s.includes('Why Students Need Productive Hobbies') || s.includes('10 Easy Hobbies') || s.includes('How to Pick the Right Hobby for You') || s.includes('Final Thoughts') || s.includes('FAQs About Easy Hobbies') ||
                     s.includes('Why Most Hobbies Fail') || s.includes('How AI Makes Hobbies') || s.includes('Your 7-Day Plan') ||
@@ -1149,6 +1305,22 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
+                  // Generic internal links: Label → [/path]
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, label, url) => {
+                    const safeLabel = String(label).trim();
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel}</a>`;
+                  });
+                  // Generic internal links: [Label](/path)
+                  out = out.replace(/\[(.*?)\]\((\/[a-z0-9\-\/\?=&]+)\)/gi, (_m, label, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${label}</a>`;
+                  });
+                  // Generic internal links: [/path]
+                  out = out.replace(/\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
+                  });
                   return out;
                 };
 
@@ -1159,6 +1331,65 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const raw = lines[idx];
                     const t = raw.trim();
                     if (t === '') continue;
+                    // Simple FAQ block: detect FAQ heading then collect numbered Q/A until next section
+                    if (/^❓\s*FAQs/i.test(t) || /^##\s*.*FAQs/i.test(t) || /^FAQs\b/i.test(t) || (/faq/i.test(t) && !/^\d+\./.test(t))) {
+                      // push heading
+                      simple.push(<h2 key={`simp-faq-h-${idx}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>);
+                      const items: { q: string; a: string[] }[] = [];
+                      let j = idx + 1;
+                      while (j < lines.length) {
+                        const l = lines[j].trim();
+                        if (l === '') { j++; continue; }
+                        if (
+                          /^#{1,6}\s+/.test(l) ||
+                          /^❓\s*FAQs/i.test(l) ||
+                          /^FAQs\b/i.test(l) ||
+                          (/faq/i.test(l) && !/^\d+\./.test(l)) ||
+                          /^🔗/.test(l) ||
+                          /^👉/.test(l) ||
+                          /^📌/.test(l)
+                        ) break;
+                        const mQ = l.match(/^\d+\.\s*(.+)$/);
+                        if (mQ) {
+                          items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
+                          j++;
+                          while (j < lines.length) {
+                            const l2 = lines[j].trim();
+                            if (l2 === '') { j++; continue; }
+                            if (
+                              /^\d+\./.test(l2) ||
+                              /^#{1,6}\s+/.test(l2) ||
+                              /^❓\s*FAQs/i.test(l2) ||
+                              /^FAQs\b/i.test(l2) ||
+                              (/faq/i.test(l2) && !/^\d+\./.test(l2)) ||
+                              /^🔗/.test(l2) ||
+                              /^👉/.test(l2) ||
+                              /^📌/.test(l2)
+                            ) break;
+                            items[items.length - 1].a.push(l2);
+                            j++;
+                          }
+                          continue;
+                        }
+                        j++;
+                      }
+                      simple.push(
+                        <Accordion key={`simp-faq-${idx}`} type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+                          {items.map((it, iIdx) => (
+                            <AccordionItem key={`simp-faq-item-${iIdx}`} value={`item-${iIdx}`}>
+                              <AccordionTrigger className="px-4">{it.q}</AccordionTrigger>
+                              <AccordionContent className="px-4 text-slate-700">
+                                {it.a.map((p, pIdx) => (
+                                  <p key={`simp-faq-a-${iIdx}-${pIdx}`} className="mb-3" dangerouslySetInnerHTML={{ __html: convertInlineLinks(p).replace(/\*\*(.*?)\*\*/g, '$1') }} />
+                                ))}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      );
+                      idx = j - 1;
+                      continue;
+                    }
                     if (isMdImage(raw)) {
                       const m = t.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
                       let alt = selectedPost.title, url = '', caption = '';
@@ -1167,7 +1398,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       simple.push(
                         <figure key={`simp-img-${idx}`} className="my-6">
                           <img src={finalUrl} alt={alt} loading="lazy" width={1600} height={720} className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200" />
-                          {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                         </figure>
                       );
                       continue;
@@ -1198,6 +1428,78 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const line = lines[i];
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
+                  // FAQ block detection for general renderer
+                  if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed) || /^FAQs\b/i.test(trimmed) || (/faq/i.test(trimmed) && !/^\d+\./.test(trimmed))) {
+                    // Render a consistent heading
+                    elements.push(
+                      <h2 key={`faq-h-${i}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>
+                    );
+                    const items: { q: string; a: string[] }[] = [];
+                    let j = i + 1;
+                    while (j < lines.length) {
+                      const ln = lines[j].trim();
+                      if (ln === '') { j++; continue; }
+                      if (
+                        /^#{1,6}\s+/.test(ln) ||
+                        /^❓\s*FAQs/i.test(ln) ||
+                        /^FAQs\b/i.test(ln) ||
+                        (/faq/i.test(ln) && !/^\d+\./.test(ln)) ||
+                        /^🔗/.test(ln) ||
+                        /^👉/.test(ln) ||
+                        /^📌/.test(ln)
+                      ) break;
+                      const mQ = ln.match(/^\d+\.\s*(.+)$/);
+                      if (mQ) {
+                        items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
+                        j++;
+                        while (j < lines.length) {
+                          const ln2 = lines[j].trim();
+                          if (ln2 === '') { j++; continue; }
+                          if (
+                            /^\d+\./.test(ln2) ||
+                            /^#{1,6}\s+/.test(ln2) ||
+                            /^❓\s*FAQs/i.test(ln2) ||
+                            /^FAQs\b/i.test(ln2) ||
+                            (/faq/i.test(ln2) && !/^\d+\./.test(ln2)) ||
+                            /^🔗/.test(ln2) ||
+                            /^👉/.test(ln2) ||
+                            /^📌/.test(ln2)
+                          ) break;
+                          items[items.length - 1].a.push(ln2);
+                          j++;
+                        }
+                        continue;
+                      }
+                      j++;
+                    }
+                    elements.push(
+                      <Accordion key={`faq-${i}`} type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+                        {items.map((it, idxItem) => (
+                          <AccordionItem key={`faq-item-${idxItem}`} value={`item-${idxItem}`}>
+                            <AccordionTrigger className="px-4">{it.q}</AccordionTrigger>
+                            <AccordionContent className="px-4 text-slate-700">
+                              {it.a.map((p, pIdx) => (
+                                <p key={`faq-a-${idxItem}-${pIdx}`} className="mb-3" dangerouslySetInnerHTML={{ __html: convertInlineLinks(p).replace(/\*\*(.*?)\*\*/g, '$1') }} />
+                              ))}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    );
+                    i = j - 1;
+                    continue;
+                  }
+
+                  // Markdown heading handling (render actual headings; strip ## symbols in display)
+                  const mdH = parseMdHeading(line);
+                  if (mdH) {
+                    const hId = mdH.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    const HTag = mdH.level <= 2 ? 'h2' : mdH.level === 3 ? 'h3' : 'h4';
+                    elements.push(
+                      React.createElement(HTag as any, { key: `h-${i}`, id: hId, className: 'font-extrabold text-slate-900 mt-8 mb-3' }, mdH.text)
+                    );
+                    continue;
+                  }
 
                   // Markdown image handling
                   if (isMdImage(line)) {
@@ -1279,7 +1581,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                             }
                           }} 
                         />
-                        {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
                       </figure>
                     );
                     continue;
@@ -1288,7 +1589,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   // Numbered item (1., 2., ...) — render full section content (images, bullets, paragraphs) until next heading
                   const numMatch = trimmed.match(/\b\d+\./);
                   if ((numMatch && /^\s*\d+\./.test(trimmed)) || (numMatch && trimmed.indexOf(numMatch[0]) <= 4)) {
-                    const headingText = trimmed;
+                    const headingText = trimmed.replace(/\*\*(.*?)\*\*/g, '$1');
                     const numHeadingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     const sectionEls: JSX.Element[] = [];
                     sectionEls.push(<h3 key={`num-h-${i}`} id={numHeadingId} className="font-bold text-purple-900 mb-2">{headingText}</h3>);
@@ -1314,17 +1615,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           }
                         }
                         if (typeof usedImageUrls !== 'undefined') usedImageUrls.add(finalUrl);
-                        sectionEls.push(
-                          <figure key={`num-img-${j}`} className="my-4">
-                            <img 
-                              src={finalUrl} 
-                              alt={alt} 
-                              loading="lazy" 
-                              width={1600} 
-                              height={720} 
-                              referrerPolicy="no-referrer"
-                              className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
-                              onError={(e) => {
+                      sectionEls.push(
+                        <figure key={`num-img-${j}`} className="my-4">
+                          <img 
+                            src={finalUrl} 
+                            alt={alt} 
+                            loading="lazy" 
+                            width={1600} 
+                            height={720} 
+                            referrerPolicy="no-referrer"
+                            className="w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200"
+                            onError={(e) => {
                                 const img = e.currentTarget as HTMLImageElement;
                                 const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
                                 const candidates = [
@@ -1348,10 +1649,9 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                                     usedImageUrls.add(picked);
                                   }
                                 }
-                              }}
-                            />
-                            {caption && (<figcaption className="text-sm text-slate-500 mt-2">{caption}</figcaption>)}
-                          </figure>
+                            }}
+                          />
+                        </figure>
                         );
                         j++;
                         continue;
@@ -1382,13 +1682,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
 
                   // Other section heading
                   if (isSectionHeading(line)) {
-                    const headingId = line.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    const cleanLine = line.replace(/\*\*(.*?)\*\*/g, '$1');
+                    const headingId = cleanLine.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     const AUTOLINKS: { term: string; slug: string }[] = [
                       { term: 'journaling', slug: 'micro-journaling-habit' },
                       { term: 'watercolor', slug: 'easy-watercolor-paintings' },
                       { term: 'AI', slug: 'find-hobby-that-sticks' }
                     ];
-                    let contentHtml = line;
+                    let contentHtml = cleanLine;
                     for (const { term, slug } of AUTOLINKS) {
                       const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
                     contentHtml = contentHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);
@@ -1432,7 +1733,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     { term: 'watercolor', slug: 'easy-watercolor-paintings' },
                     { term: 'AI', slug: 'find-hobby-that-sticks' }
                   ];
-                  let bodyHtml = convertInlineLinks(line);
+                  // Strip bold markers **text** in final render
+                  let bodyHtml = convertInlineLinks(line).replace(/\*\*(.*?)\*\*/g, '$1');
                   for (const { term, slug } of AUTOLINKS_BODY) {
                     const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
                   bodyHtml = bodyHtml.replace(re, `<a href=\"/blog/${slug}\" class=\"text-purple-600 hover:underline\">$1</a>`);

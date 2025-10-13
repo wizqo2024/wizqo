@@ -14,7 +14,11 @@ import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { PrintablesPage } from './pages/PrintablesPage';
+import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
+import KidsPage from './pages/KidsPage';
+// (duplicate import removed)
 
 
 type QuizAnswers = {
@@ -321,6 +325,40 @@ export default function App() {
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
+                </>
+              );
+            case 'kids':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Kids Hub – Play, Print, and Learn"
+                    description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+                    canonicalUrl="https://wizqo.com/kids"
+                  />
+                  <KidsPage />
+                </>
+              );
+            case 'print':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Printable Fun Learning Activities for Kids"
+                    description="Print word searches, sudoku, spot-the-difference and more kid-friendly activities."
+                    canonicalUrl="https://wizqo.com/print"
+                    noIndex={true}
+                  />
+                  <PrintablesPage />
+                </>
+              );
+            case 'printables':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
+                    description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
+                    canonicalUrl="https://wizqo.com/printables"
+                  />
+                  <PrintablesLandingPage />
                 </>
               );
             case 'dashboard':
