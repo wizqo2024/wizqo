@@ -391,7 +391,7 @@ export default function KidsPage() {
               <li>🎨 Coloring Page – Creative Animals</li>
             </ul>
             <div className="mt-4">
-              <a href="/printables" className={OUTLINE_BUTTON}>Open printable view →</a>
+              <a href="/printables" className={OUTLINE_BUTTON}>Explore more →</a>
             </div>
           </div>
 
