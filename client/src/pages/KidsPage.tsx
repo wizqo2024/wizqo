@@ -213,7 +213,7 @@ export default function KidsPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
-            <a href="#print" className={BUTTON_CLASS}>Download printables</a>
+            <a href="/printables" className={BUTTON_CLASS}>Download printables</a>
           </div>
         </div>
       </header>
