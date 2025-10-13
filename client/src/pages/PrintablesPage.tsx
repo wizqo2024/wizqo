@@ -577,11 +577,38 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Adventure Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Mix of animal‑themed puzzles to print and enjoy.</p>
-            <ul className="list-disc list-inside space-y-1 text-sm">
-              <li>Mini maze: Help the cub reach its den.</li>
-              <li>Word list: lion, zebra, panda, eagle, whale, koala.</li>
-              <li>Draw challenge: Create your own creature by mixing two animals.</li>
-            </ul>
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Mini maze */}
+              <div>
+                <div className="text-sm font-semibold text-slate-800 mb-2">Mini maze: Help the cub reach its den</div>
+                <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <rect x="10" y="10" width="200" height="200" fill="#ffffff" stroke="#94a3b8" />
+                  {/* Simple walls */}
+                  <path d="M10 50 H170 M50 10 V100 M90 50 V210 M130 10 V160 M170 90 H210 M50 130 H210 M10 170 H130" stroke="#94a3b8" strokeWidth="4" />
+                  {/* Start and Den */}
+                  <text x="18" y="32" fontSize="12" fill="#334155">Start</text>
+                  <text x="168" y="200" fontSize="12" textAnchor="end" fill="#334155">Den</text>
+                </svg>
+              </div>
+              {/* Word list with checkboxes */}
+              <div className="md:pl-2">
+                <div className="text-sm font-semibold text-slate-800 mb-2">Word list</div>
+                <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                  <ul className="text-sm text-slate-700 space-y-1 columns-2 md:columns-1">
+                    {['lion','zebra','panda','eagle','whale','koala'].map(w => (
+                      <li key={w}>☐ {w}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {/* Draw challenge */}
+            <div className="mt-4">
+              <div className="text-sm font-semibold text-slate-800 mb-2">Draw challenge: Create your own creature</div>
+              <div className="h-40 border border-slate-300 rounded bg-white" />
+              <div className="mt-2 text-sm font-semibold text-slate-800">Creature name</div>
+              <div className="h-6 border-b border-slate-400" />
+            </div>
           </section>
         )}
 
