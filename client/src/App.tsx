@@ -354,8 +354,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Printable Fun Learning Activities – Download Kid-Friendly Puzzles"
-                    description="Word search, sudoku, coloring pages, and more. Open the printable view to print or save as PDF."
+                    title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
+                    description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
                     canonicalUrl="https://wizqo.com/printables"
                   />
                   <PrintablesLandingPage />

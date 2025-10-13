@@ -6,6 +6,24 @@ const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 
+function ItemCard({ title, description, skills, age, href }: { title: string; description: string; skills?: string; age?: string; href: string }) {
+  return (
+    <div className={CARD_CLASS}>
+      <div className="text-base font-semibold text-slate-900">{title}</div>
+      <p className="text-slate-600 text-sm mt-1">{description}</p>
+      {(skills || age) && (
+        <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
+          {skills ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Skills: {skills}</span> : null}
+          {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Age: {age}</span> : null}
+        </div>
+      )}
+      <div className="mt-3">
+        <a href={href} className={OUTLINE_BUTTON}>Open printable view →</a>
+      </div>
+    </div>
+  );
+}
+
 export function PrintablesLandingPage() {
   return (
     <div className="min-h-screen bg-slate-50">
@@ -21,54 +39,214 @@ export function PrintablesLandingPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Printable Fun Learning Activities</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 max-w-3xl">
-            Take a break from screens with our fun learning activities for kids you can print at home. 
-            Download puzzles and worksheets designed to boost focus, logic, and creativity:
+            Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens!
+            All activities are free to download, easy to print, and perfect for home, school, or travel.
           </p>
-          <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
-            <li>🧠 Word Search – Animals & Space</li>
-            <li>🔢 Sudoku – Easy (4×4) & Medium (6×6)</li>
-            <li>🎨 Coloring Page – Creative Animals</li>
-          </ul>
           <div className="mt-5">
-            <a href="/print?doc=ws-animals" className={BUTTON_CLASS}>Open printable view →</a>
+            <a href="/print" className={BUTTON_CLASS}>Open printable view →</a>
           </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
+        {/* Intro: What You'll Find */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-3">Quick links</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a className={CARD_CLASS} href="/print?doc=ws-animals">
-              <div className="text-lg font-semibold text-slate-900">🧠 Word Search – Animals</div>
-              <div className="text-slate-600 text-sm">Find 12 animal names</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
-            <a className={CARD_CLASS} href="/print?doc=ws-space">
-              <div className="text-lg font-semibold text-slate-900">🧠 Word Search – Space</div>
-              <div className="text-slate-600 text-sm">Find 12 space words</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
-            <a className={CARD_CLASS} href="/print">
-              <div className="text-lg font-semibold text-slate-900">🔢 Sudoku – 4×4 (Easy)</div>
-              <div className="text-slate-600 text-sm">Beginner logic puzzle</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
-            <a className={CARD_CLASS} href="/print?doc=sudoku6">
-              <div className="text-lg font-semibold text-slate-900">🔢 Sudoku – 6×6 (Medium)</div>
-              <div className="text-slate-600 text-sm">A bit more challenge</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
-            <a className={CARD_CLASS} href="/print">
-              <div className="text-lg font-semibold text-slate-900">🎨 Coloring – Cute Animals</div>
-              <div className="text-slate-600 text-sm">Creative and calming</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
-            <a className={CARD_CLASS} href="/print?doc=spotdiff">
-              <div className="text-lg font-semibold text-slate-900">👀 Spot‑the‑Difference – Playground</div>
-              <div className="text-slate-600 text-sm">Find 8 differences</div>
-              <div className="mt-3"><span className={OUTLINE_BUTTON}>Open</span></div>
-            </a>
+          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
+          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
+        </section>
+
+        {/* 1. Educational Worksheets */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">🧠 1. Educational Worksheets</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="➕ Math Maze Adventure"
+              description="Solve simple addition and subtraction problems to find your way through the maze! Kids answer to uncover the right path — a mix of math and logic fun."
+              skills="problem-solving, basic math, critical thinking"
+              age="6–10"
+              href="/print"
+            />
+            <ItemCard
+              title="✏️ Spelling Challenge Worksheet"
+              description="Circle correctly spelled words or fill in missing letters. Themes include animals, school items, and food."
+              skills="spelling, vocabulary, reading comprehension"
+              age="6–9"
+              href="/print"
+            />
+            <ItemCard
+              title="🔬 Science Fun Facts Match"
+              description="Match each fun fact to its correct picture — planets, weather, and ocean creatures!"
+              skills="science awareness, visual association, curiosity"
+              age="8–12"
+              href="/print"
+            />
+            <ItemCard
+              title="🕵️‍♀️ Grammar Detective"
+              description="Become a language detective! Find and correct small grammar mistakes in funny sentences."
+              skills="grammar, reading, logic"
+              age="8–12"
+              href="/print"
+            />
+          </div>
+        </section>
+
+        {/* 2. Creative & Art Printables */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">🎨 2. Creative & Art Printables</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🖍️ Color-by-Number Pages"
+              description="Color each section by number to reveal a hidden animal or scene. Includes Animals in Space and Under the Sea editions."
+              skills="color recognition, number practice, creativity"
+              age="5–9"
+              href="/print"
+            />
+            <ItemCard
+              title="📚 DIY Bookmark Templates"
+              description="Design your own bookmarks with quotes and doodles — print-ready outlines: ‘Be Kind’, ‘Keep Reading’, ‘Dream Big’."
+              skills="creativity, design, fine motor skills"
+              age="6–12"
+              href="/print"
+            />
+            <ItemCard
+              title="👾 Design Your Monster"
+              description="Print, draw, and name your own funny monster! Great for imagination and drawing practice."
+              skills="creativity, self-expression, art skills"
+              age="6–10"
+              href="/print"
+            />
+            <ItemCard
+              title="✏️ Draw the Missing Half"
+              description="Half of each image is missing — complete it! A great symmetry and observation activity."
+              skills="geometry, visual balance, focus"
+              age="7–12"
+              href="/print"
+            />
+          </div>
+        </section>
+
+        {/* 3. Brain & Focus Activities */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">🧩 3. Brain & Focus Activities</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🧩 Logic Grid Puzzle"
+              description="Read clues, think critically, and solve who owns what, where, or when!"
+              skills="logic, reading comprehension, problem-solving"
+              age="9–12"
+              href="/print"
+            />
+            <ItemCard
+              title="🔍 Find the Hidden Object"
+              description="Search and circle hidden items in a detailed scene — jungle, ocean, or city themes."
+              skills="attention to detail, focus, patience"
+              age="6–10"
+              href="/print"
+            />
+            <ItemCard
+              title="🌀 Maze of Focus"
+              description="Follow the path through distractions to reach your goal! Includes tips like ‘Take a deep breath’."
+              skills="concentration, mindfulness, planning"
+              age="6–9"
+              href="/print"
+            />
+          </div>
+        </section>
+
+        {/* 4. Emotional & Mindfulness Printables */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">💖 4. Emotional & Mindfulness Printables</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="💌 Gratitude Jar Worksheet"
+              description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
+              skills="gratitude, mindfulness, journaling"
+              age="7–12"
+              href="/print"
+            />
+            <ItemCard
+              title="🌈 Mood Tracker Coloring Page"
+              description="Track feelings for the week by coloring a section based on your mood."
+              skills="emotional awareness, reflection, art expression"
+              age="8–12"
+              href="/print"
+            />
+            <ItemCard
+              title="🕉️ Mindful Coloring Mandalas"
+              description="Relax and focus while coloring calming mandala patterns."
+              skills="focus, mindfulness, relaxation"
+              age="9–13"
+              href="/print"
+            />
+            <ItemCard
+              title="🗓️ My Goals for the Week Planner"
+              description="Write three goals, one thing to try, and one thing you’re proud of — printable motivation for kids."
+              skills="planning, reflection, motivation"
+              age="8–12"
+              href="/print"
+            />
+          </div>
+        </section>
+
+        {/* 5. Seasonal & Holiday Printables */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">🎉 5. Seasonal & Holiday Printables</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🎃 Halloween Puzzle Pack"
+              description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
+              skills="creative play, vocabulary, fine motor skills"
+              age="6–10"
+              href="/print"
+            />
+            <ItemCard
+              title="❄️ Winter Kindness Challenge"
+              description="30 simple ways to spread kindness — color one each time you complete a task!"
+              skills="empathy, kindness, social skills"
+              age="6–12"
+              href="/print"
+            />
+            <ItemCard
+              title="🌸 Spring Nature Scavenger Hunt"
+              description="Go outside and check off everything you find — leaves, flowers, clouds, bugs, and more!"
+              skills="observation, curiosity, environmental awareness"
+              age="6–12"
+              href="/print"
+            />
+            <ItemCard
+              title="☀️ Summer Adventure Pack"
+              description="Word search, beach maze, and ocean animals coloring sheet — perfect for travel."
+              skills="creativity, focus, vocabulary"
+              age="6–10"
+              href="/print"
+            />
+          </div>
+        </section>
+
+        {/* 6. Printable Challenge Packs */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-3">🌍 6. Printable Challenge Packs</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🧠 7-Day Brain Boost Pack"
+              description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
+              href="/print"
+            />
+            <ItemCard
+              title="🎨 Creative Kids Challenge"
+              description="7 days of art prompts and doodle ideas to spark creativity and reduce screen time."
+              href="/print"
+            />
+            <ItemCard
+              title="🌍 Around the World Word Search"
+              description="Learn geography through words — explore landmarks, countries, and famous animals."
+              href="/print?doc=ws-animals"
+            />
+            <ItemCard
+              title="🦁 Animal Adventure Pack"
+              description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
+              href="/print"
+            />
           </div>
         </section>
 
