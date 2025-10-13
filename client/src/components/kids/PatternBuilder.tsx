@@ -199,7 +199,8 @@ export default function PatternBuilder() {
       const next = userIndex + 1;
       if (next >= sequence.length) {
         setState('success');
-        setTimeout(() => nextLevel(), 400);
+        // Give a short breather before the next level begins
+        setTimeout(() => nextLevel(), 1500);
       } else {
         setUserIndex(next);
       }
@@ -257,6 +258,12 @@ export default function PatternBuilder() {
       {newRecord && (
         <div className="mb-2 inline-flex items-center gap-2 px-3 py-2 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-sm font-semibold">
           🏆 New record!
+        </div>
+      )}
+
+      {state === 'success' && (
+        <div className="mb-2 inline-flex items-center gap-2 px-3 py-2 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-sm font-semibold">
+          ✅ Level {level} complete — Next: Level {level + 1} starting...
         </div>
       )}
 
