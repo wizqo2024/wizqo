@@ -22,6 +22,7 @@ export function PrintablesPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
+        {/* Doc-specific back link is above header; sections appear below header */}
         <div className="mb-4 print:hidden">
           <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back to Kids Hub">
             <span>←</span>
@@ -37,6 +38,450 @@ export function PrintablesPage() {
             <WizqoLogo className="w-20 h-auto opacity-80" />
           </div>
         </header>
+
+        {/* Doc-specific sections (unique content per topic) */}
+        {doc === 'math-maze' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➕ Math Maze Adventure</h2>
+            <p className="text-slate-600 text-sm mb-3">Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!</p>
+            <div className="flex items-start gap-4">
+              <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
+                {(() => {
+                  const ops = ['+','-'] as const
+                  const cells: string[] = []
+                  for (let r=0; r<7; r++) {
+                    for (let c=0; c<7; c++) {
+                      if (r===0 && c===0) { cells.push('S'); continue }
+                      if (r===6 && c===6) { cells.push('F'); continue }
+                      const a = Math.floor(Math.random()*9)+1
+                      const b = Math.floor(Math.random()*9)+1
+                      const op = ops[Math.floor(Math.random()*ops.length)]
+                      cells.push(`${a}${op}${b}`)
+                    }
+                  }
+                  return cells.map((t,i)=> (
+                    <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
+                  ))
+                })()}
+              </div>
+              <div className="text-xs text-slate-600">
+                <div className="font-semibold mb-1">How to play</div>
+                <ol className="list-decimal list-inside space-y-1">
+                  <li>Choose a target number per row (e.g., row 1 = 6).</li>
+                  <li>Step only on equations that equal that row’s target.</li>
+                  <li>Draw your path from S to F without diagonal moves.</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'spelling' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">✏️ Spelling Challenge Worksheet</h2>
+            <p className="text-slate-600 text-sm mb-3">Circle the correctly spelled word in each group. Then write it neatly on the line.</p>
+            {[
+              ['elefant','elephant','elephent'],
+              ['becaus','because','becuase'],
+              ['skool','school','scool'],
+              ['butterflie','butterfly','buterfly'],
+              ['tommorow','tomorrow','tommorrow']
+            ].map((row, i) => (
+              <div key={i} className="flex items-center justify-between gap-3 mb-2">
+                <div className="text-sm font-mono">{i+1}.) {row.join('   ')}</div>
+                <div className="flex-1 border-b border-slate-300 ml-3" />
+              </div>
+            ))}
+          </section>
+        )}
+
+        {doc === 'science-match' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔬 Science Fun Facts Match</h2>
+            <p className="text-slate-600 text-sm mb-3">Draw a line to match each fact with its pair.</p>
+            <div className="grid grid-cols-2 gap-6">
+              <ol className="list-decimal list-inside space-y-1 text-sm">
+                <li>Mars is known as the red planet.</li>
+                <li>Whales are the largest mammals.</li>
+                <li>Lightning is a giant spark of electricity.</li>
+                <li>Penguins live in the Southern Hemisphere.</li>
+                <li>Clouds are made of tiny water droplets.</li>
+                <li>Earth orbits the Sun once a year.</li>
+              </ol>
+              <ul className="list-none space-y-1 text-sm">
+                <li>A) Weather water in the sky</li>
+                <li>B) A cold‑loving bird</li>
+                <li>C) The blue planet’s path</li>
+                <li>D) A huge ocean animal</li>
+                <li>E) A dusty red world</li>
+                <li>F) Shocking sky energy</li>
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {doc === 'grammar-detective' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🕵️‍♀️ Grammar Detective</h2>
+            <p className="text-slate-600 text-sm mb-3">Find and fix the mistake in each sentence. Rewrite it correctly on the line.</p>
+            {[
+              'we goes to the park every saturday.',
+              'The cats is sleeping under the table.',
+              'i can run faster then my friend.',
+              'There is two pencils on the desk.',
+              'She dont like broccoli.'
+            ].map((s, i) => (
+              <div key={i} className="mb-3">
+                <div className="text-sm">{i+1}.) {s}</div>
+                <div className="border-b border-slate-300 mt-2" />
+              </div>
+            ))}
+          </section>
+        )}
+
+        {doc === 'color-by-number' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🖍️ Color‑by‑Number</h2>
+            <p className="text-slate-600 text-sm mb-3">Use the legend to color the grid. Reveal the hidden scene!</p>
+            <div className="flex items-start gap-6">
+              <div className="inline-grid grid-cols-16 gap-[2px] text-[10px] font-mono">
+                {Array.from({length: 16*16}).map((_,i)=> (
+                  <div key={i} className="w-5 h-5 border border-slate-300 rounded-[2px] flex items-center justify-center bg-white">
+                    {(i*7 + i%5)%4 + 1}
+                  </div>
+                ))}
+              </div>
+              <div className="text-xs text-slate-700">
+                <div className="font-semibold mb-1">Legend</div>
+                <ul className="space-y-1">
+                  <li>1 = Yellow</li>
+                  <li>2 = Blue</li>
+                  <li>3 = Green</li>
+                  <li>4 = Red</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'bookmark-templates' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📚 DIY Bookmark Templates</h2>
+            <p className="text-slate-600 text-sm mb-3">Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!</p>
+            <div className="grid grid-cols-3 gap-4">
+              {['Be Kind','Keep Reading','Dream Big'].map((t,i)=> (
+                <div key={i} className="relative h-64 border border-slate-400 rounded bg-white">
+                  <div className="absolute inset-0 border-2 border-dashed border-slate-300 m-2 rounded" />
+                  <div className="flex items-center justify-center h-full text-slate-700 font-semibold">{t}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'design-monster' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">👾 Design Your Monster</h2>
+            <p className="text-slate-600 text-sm mb-3">Draw inside the box and give your monster a name. Check the features you used.</p>
+            <div className="h-64 border border-slate-400 rounded bg-white mb-3" />
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Features</div>
+                <div className="grid grid-cols-2 gap-1 text-slate-700">
+                  {['Horns','Spots','Stripes','Furry','Scales','One eye','Three eyes','Big teeth'].map((f)=> (
+                    <label key={f} className="inline-flex items-center gap-2"><span className="w-3 h-3 border border-slate-400 inline-block"/> {f}</label>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Monster Name</div>
+                <div className="border-b border-slate-400 h-6" />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'draw-half' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">✏️ Draw the Missing Half</h2>
+            <p className="text-slate-600 text-sm mb-3">Copy the right side to complete each picture. Use the grid as a guide.</p>
+            <div className="grid grid-cols-2 gap-6">
+              <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300">
+                <defs>
+                  <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="200" height="200" fill="url(#g1)" />
+                <path d="M40 100 C60 40, 140 40, 160 100 C140 160, 60 160, 40 100 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
+              </svg>
+              <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300">
+                <defs>
+                  <pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="200" height="200" fill="url(#g2)" />
+                <path d="M60 160 L100 40 L140 160 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
+              </svg>
+            </div>
+          </section>
+        )}
+
+        {doc === 'logic-grid' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🧩 Logic Grid Puzzle</h2>
+            <p className="text-slate-600 text-sm mb-3">Mark ✓ for matches and ✗ for no match. Use the clues to solve.</p>
+            <div className="overflow-x-auto">
+              <table className="border-collapse">
+                <thead>
+                  <tr>
+                    <th className="border border-slate-400 px-2 py-1 text-sm bg-slate-50"></th>
+                    {['Cat','Dog','Fish'].map((h)=> (
+                      <th key={h} className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {['Liam','Ava','Noah'].map((n)=> (
+                    <tr key={n}>
+                      <td className="border border-slate-400 px-2 py-1 text-sm bg-slate-50">{n}</td>
+                      {Array.from({length:3}).map((_,i)=> (
+                        <td key={i} className="border border-slate-400 w-10 h-10"></td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-3 text-xs text-slate-700">
+              <div className="font-semibold">Clues</div>
+              <ol className="list-decimal list-inside space-y-1">
+                <li>Liam does not own the dog.</li>
+                <li>The fish belongs to the youngest child.</li>
+                <li>Ava’s pet sleeps in a basket.</li>
+              </ol>
+            </div>
+          </section>
+        )}
+
+        {doc === 'hidden-object' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
+            <p className="text-slate-600 text-sm mb-3">Find and circle each item in the picture around you or in a printed scene.</p>
+            <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
+              {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
+            </ul>
+          </section>
+        )}
+
+        {doc === 'maze-focus' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌀 Maze of Focus</h2>
+            <p className="text-slate-600 text-sm mb-3">Follow the steps from START to FINISH. Skip distractions!</p>
+            <div className="grid grid-cols-4 gap-2 text-sm">
+              {['START','Deep breath','Phone buzz (skip)','One step','Snack break','Water sip','Chit‑chat (skip)','Stretch','Refocus','Tiny goal','Timer 10 min','FINISH','⭐ Great job!'].map((t,i)=> (
+                <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t)?'bg-slate-50 text-slate-400':'bg-white'}`}>{t}</div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'gratitude-jar' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">💌 Gratitude Jar</h2>
+            <p className="text-slate-600 text-sm mb-3">Write or draw one thing you’re thankful for in each circle.</p>
+            <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
+              <g fill="none" stroke="#111827" strokeWidth="3">
+                <path d="M120 70 H280" />
+                <path d="M140 70 C140 40, 260 40, 260 70" />
+                <path d="M130 70 C120 140, 120 320, 200 360 C280 320, 280 140, 270 70" />
+              </g>
+              {Array.from({length:18}).map((_,i)=> {
+                const col = i%6
+                const row = Math.floor(i/6)
+                const cx = 70 + col*50
+                const cy = 110 + row*60
+                return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" />
+              })}
+            </svg>
+          </section>
+        )}
+
+        {doc === 'mood-tracker' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌈 Mood Tracker</h2>
+            <p className="text-slate-600 text-sm mb-3">Color each day based on your mood. Use your own color legend.</p>
+            <table className="w-full border border-slate-300">
+              <thead>
+                <tr className="bg-slate-50 text-sm">
+                  <th className="border border-slate-300 px-2 py-1 text-left">Day</th>
+                  <th className="border border-slate-300 px-2 py-1 text-left">How I felt</th>
+                  <th className="border border-slate-300 px-2 py-1 text-left">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d)=> (
+                  <tr key={d} className="h-10">
+                    <td className="border border-slate-300 px-2">{d}</td>
+                    <td className="border border-slate-300" />
+                    <td className="border border-slate-300" />
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )}
+
+        {doc === 'mandalas' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🕉️ Mindful Coloring Mandalas</h2>
+            <p className="text-slate-600 text-sm mb-3">Color slowly. Start from the center and move outward.</p>
+            <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
+              <g fill="none" stroke="#111827" strokeWidth="2">
+                {Array.from({length:6}).map((_,i)=> (
+                  <circle key={i} cx={200} cy={200} r={30 + i*25} />
+                ))}
+                {Array.from({length:12}).map((_,i)=> {
+                  const ang = (i/12)*Math.PI*2
+                  const x1 = 200 + Math.cos(ang)*40
+                  const y1 = 200 + Math.sin(ang)*40
+                  const x2 = 200 + Math.cos(ang)*160
+                  const y2 = 200 + Math.sin(ang)*160
+                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />
+                })}
+                {Array.from({length:8}).map((_,i)=> {
+                  const ang = (i/8)*Math.PI*2
+                  const r=110
+                  const x = 200 + Math.cos(ang)*r
+                  const y = 200 + Math.sin(ang)*r
+                  return <polygon key={i} points={`${x},${y} ${x+8},${y+14} ${x-8},${y+14}`} />
+                })}
+              </g>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'weekly-goals' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🗓️ My Goals for the Week</h2>
+            <p className="text-slate-600 text-sm mb-3">Write 3 goals, 1 thing to try, and 1 thing you’re proud of.</p>
+            {['Goal 1','Goal 2','Goal 3','Try this','Proud of'].map((t,i)=> (
+              <div key={i} className="mb-3">
+                <div className="text-sm font-semibold text-slate-800">{t}</div>
+                <div className="h-6 border-b border-slate-400" />
+              </div>
+            ))}
+          </section>
+        )}
+
+        {doc === 'halloween-pack' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎃 Halloween Puzzle Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">Mini pack: word list + costume ideas + tiny maze.</p>
+            <div className="grid grid-cols-2 gap-6 text-sm">
+              <div>
+                <div className="font-semibold mb-1">Spooky Word List</div>
+                <ul className="list-disc list-inside space-y-1">
+                  {['ghost','pumpkin','witch','bat','candy','mask','moon','owl'].map(w=> <li key={w}>{w}</li>)}
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold mb-1">Costume Idea Box</div>
+                <div className="h-32 border border-dashed border-slate-400 rounded" />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'winter-kindness' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">❄️ Winter Kindness Challenge</h2>
+            <p className="text-slate-600 text-sm mb-3">Color a square each time you complete a kind act.</p>
+            <div className="grid grid-cols-5 gap-2">
+              {Array.from({length:25}).map((_,i)=> (
+                <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i+1}</div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'spring-scavenger' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌸 Spring Nature Scavenger Hunt</h2>
+            <p className="text-slate-600 text-sm mb-3">Go outside and check off what you discover.</p>
+            <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
+              {['Leaf with spots','Pink flower','Three smooth stones','Ant trail','Bird feather','Cloud shaped like an animal','Two kinds of grass','Buzzing insect','Tiny pinecone','Something yellow'].map(x=> <li key={x}>☐ {x}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {doc === 'summer-pack' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">☀️ Summer Adventure Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">A quick set for travel days: word list + maze box + drawing prompt.</p>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <ul className="list-disc list-inside space-y-1">
+                {['beach','shell','sand','wave','sun','boat','crab','icecream'].map(w=> <li key={w}>{w}</li>)}
+              </ul>
+              <div className="h-24 border border-dashed border-slate-400 rounded" />
+              <div>
+                <div className="font-semibold mb-1">Draw: Your best summer day</div>
+                <div className="h-24 border border-slate-300 rounded" />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'brain-boost' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🧠 7‑Day Brain Boost Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">Do one mini‑challenge each day. Track your streak!</p>
+            <ol className="list-decimal list-inside space-y-1 text-sm">
+              {['Memory pairs','Word jumble','Counting maze','Pattern copy','Quick sudoku','Riddle time','Spot the change'].map((t,i)=> <li key={i}>{t}</li>)}
+            </ol>
+          </section>
+        )}
+
+        {doc === 'creative-challenge' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎨 Creative Kids Challenge</h2>
+            <p className="text-slate-600 text-sm mb-3">7 days of quick art prompts. Spend 5–10 minutes each.</p>
+            <ol className="list-decimal list-inside space-y-1 text-sm">
+              {['Draw a robot pet','Design a flag','Invent a snack package','Doodle your name in 3 styles','Sketch a tiny house','Create a new animal','Make a comic in 3 panels'].map((t,i)=> <li key={i}>{t}</li>)}
+            </ol>
+          </section>
+        )}
+
+        {doc === 'ws-world' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌍 Around the World Word Search</h2>
+            <p className="text-slate-600 text-sm mb-3">Find all the world words hidden in the grid.</p>
+            <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+              {generateWordSearchGrid(12, ['PARIS','NILE','AFRICA','ASIA','ALPS','TOKYO','ITALY','NORTH','SOUTH','RIO','BERLIN','NILE']).map((row, r) => (
+                <React.Fragment key={r}>
+                  {row.map((ch, c) => (
+                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'animal-pack' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🦁 Animal Adventure Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">Mix of animal‑themed puzzles to print and enjoy.</p>
+            <ul className="list-disc list-inside space-y-1 text-sm">
+              <li>Mini maze: Help the cub reach its den.</li>
+              <li>Word list: lion, zebra, panda, eagle, whale, koala.</li>
+              <li>Draw challenge: Create your own creature by mixing two animals.</li>
+            </ul>
+          </section>
+        )}
 
         {(!doc || doc === 'ws-animals') && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
