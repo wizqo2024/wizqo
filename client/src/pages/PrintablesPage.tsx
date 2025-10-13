@@ -638,9 +638,11 @@ export function PrintablesPage() {
                   <rect x="10" y="10" width="200" height="200" fill="#ffffff" stroke="#94a3b8" />
                   {/* Simple walls */}
                   <path d="M10 50 H170 M50 10 V100 M90 50 V210 M130 10 V160 M170 90 H210 M50 130 H210 M10 170 H130" stroke="#94a3b8" strokeWidth="4" />
-                  {/* Start and Den */}
-                  <text x="18" y="32" fontSize="12" fill="#334155">Start</text>
-                  <text x="168" y="200" fontSize="12" textAnchor="end" fill="#334155">Den</text>
+                  {/* Start and Den with icons */}
+                  <text x="18" y="32" fontSize="13" fill="#334155">Start</text>
+                  <text x="48" y="30" fontSize="14">🐾</text>
+                  <text x="168" y="200" fontSize="13" textAnchor="end" fill="#334155">Den</text>
+                  <text x="172" y="196" fontSize="14">🏠</text>
                 </svg>
               </div>
               {/* Word list with checkboxes */}
@@ -652,6 +654,17 @@ export function PrintablesPage() {
                       <li key={w}>☐ {w}</li>
                     ))}
                   </ul>
+                  <div className="mt-3 text-sm">
+                    <div className="font-semibold text-slate-800 mb-1">Pick two animals to combine</div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span>☐</span>
+                      <div className="flex-1 border-b border-slate-400" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span>☐</span>
+                      <div className="flex-1 border-b border-slate-400" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
