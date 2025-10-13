@@ -15,6 +15,7 @@ import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
+import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
 // (duplicate import removed)
@@ -347,6 +348,17 @@ export default function App() {
                     noIndex={true}
                   />
                   <PrintablesPage />
+                </>
+              );
+            case 'printables':
+              return (
+                <>
+                  <SEOMetaTags 
+                    title="Printable Fun Learning Activities – Download Kid-Friendly Puzzles"
+                    description="Word search, sudoku, coloring pages, and more. Open the printable view to print or save as PDF."
+                    canonicalUrl="https://wizqo.com/printables"
+                  />
+                  <PrintablesLandingPage />
                 </>
               );
             case 'dashboard':
