@@ -545,11 +545,11 @@ const HELPERS = [
 // Temporary kids-related blog picks (links to existing posts)
 const KIDS_BLOGS = [
   {
-    id: 'relaxing-hobbies',
-    title: 'Relaxing Hobbies',
-    subtitle: 'Simple activities to unwind and focus',
-    href: '/blog/relaxing-hobbies',
-    cover: KID_SAFE.coloringCrayons,
+    id: 'educational-games-for-kids',
+    title: 'Educational Games for Kids',
+    subtitle: '4 fun games that build real skills',
+    href: '/blog/educational-games-for-kids',
+    cover: KID_SAFE.playgroundKids,
   },
   {
     id: 'productive-hobbies-for-students',
