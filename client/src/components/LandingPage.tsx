@@ -114,28 +114,23 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </ul>
               <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
             </div>
-            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white">
-              <img
-                src="https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1200&q=80&kidv=kids-hero-1"
-                alt="Kids playing and learning"
-                className="w-full h-56 object-cover"
-                referrerPolicy="no-referrer"
-                decoding="async"
-                loading="lazy"
-                onError={(e) => {
-                  const el = e.currentTarget as HTMLImageElement;
-                  const tried = parseInt(el.getAttribute('data-errcount') || '0', 10);
-                  const fallbacks = [
-                    'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80&kidv=kids-hero-2',
-                    'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1200&q=80&kidv=kids-hero-3',
-                    'https://wizqo.com/og-image.jpg'
-                  ];
-                  if (tried < fallbacks.length) {
-                    el.setAttribute('data-errcount', String(tried + 1));
-                    el.src = fallbacks[tried] as string;
-                  }
-                }}
-              />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+                <div className="text-2xl mb-1">🃏</div>
+                <div className="text-sm font-medium text-slate-800">Memory Match</div>
+              </div>
+              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+                <div className="text-2xl mb-1">🔤</div>
+                <div className="text-sm font-medium text-slate-800">Word Search</div>
+              </div>
+              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+                <div className="text-2xl mb-1">🧩</div>
+                <div className="text-sm font-medium text-slate-800">Puzzle</div>
+              </div>
+              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
+                <div className="text-2xl mb-1">⌨️</div>
+                <div className="text-sm font-medium text-slate-800">Typing Safari</div>
+              </div>
             </div>
           </div>
         </div>
