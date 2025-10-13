@@ -294,9 +294,12 @@ export default function PatternBuilder() {
         </div>
       )}
 
-      {/* Timer bar */}
+      {/* Timer bar (smooth, right→left) */}
       <div className="h-2 rounded bg-slate-100 overflow-hidden mb-3">
-        <div className="h-full bg-gradient-to-r from-emerald-400 to-green-500 transition-[width] duration-75" style={{ width: `${timerPct}%` }} />
+        <div
+          className="h-full bg-gradient-to-l from-emerald-400 to-green-500 will-change-transform transition-transform duration-75 ease-linear"
+          style={{ transformOrigin: 'right', transform: `scaleX(${timerPct / 100})` }}
+        />
       </div>
 
       {/* Lives and level */}
