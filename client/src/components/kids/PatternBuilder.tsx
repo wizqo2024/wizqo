@@ -225,7 +225,9 @@ export default function PatternBuilder() {
         // reset input and allow retry on same level
         setUserIndex(0);
         setTimerMs(timerMaxMs);
-        setState('playingSequence');
+        setState('fail');
+        // brief breather before replaying the pattern for a smoother transition
+        setTimeout(() => setState('playingSequence'), 1200);
       }
       return remain;
     });
