@@ -100,28 +100,28 @@ export function PrintablesLandingPage() {
               description="Solve simple addition and subtraction problems to find your way through the maze! Kids answer to uncover the right path — a mix of math and logic fun."
               skills="problem-solving, basic math, critical thinking"
               age="6–10"
-              href="/print"
+              href="/print?doc=math-maze"
             />
             <ItemCard
               title="✏️ Spelling Challenge Worksheet"
               description="Circle correctly spelled words or fill in missing letters. Themes include animals, school items, and food."
               skills="spelling, vocabulary, reading comprehension"
               age="6–9"
-              href="/print"
+              href="/print?doc=spelling"
             />
             <ItemCard
               title="🔬 Science Fun Facts Match"
               description="Match each fun fact to its correct picture — planets, weather, and ocean creatures!"
               skills="science awareness, visual association, curiosity"
               age="8–12"
-              href="/print"
+              href="/print?doc=science-match"
             />
             <ItemCard
               title="🕵️‍♀️ Grammar Detective"
               description="Become a language detective! Find and correct small grammar mistakes in funny sentences."
               skills="grammar, reading, logic"
               age="8–12"
-              href="/print"
+              href="/print?doc=grammar-detective"
             />
           </div>
         </section>
@@ -136,28 +136,28 @@ export function PrintablesLandingPage() {
               description="Color each section by number to reveal a hidden animal or scene. Includes Animals in Space and Under the Sea editions."
               skills="color recognition, number practice, creativity"
               age="5–9"
-              href="/print"
+              href="/print?doc=color-by-number"
             />
             <ItemCard
               title="📚 DIY Bookmark Templates"
               description="Design your own bookmarks with quotes and doodles — print-ready outlines: ‘Be Kind’, ‘Keep Reading’, ‘Dream Big’."
               skills="creativity, design, fine motor skills"
               age="6–12"
-              href="/print"
+              href="/print?doc=bookmark-templates"
             />
             <ItemCard
               title="👾 Design Your Monster"
               description="Print, draw, and name your own funny monster! Great for imagination and drawing practice."
               skills="creativity, self-expression, art skills"
               age="6–10"
-              href="/print"
+              href="/print?doc=design-monster"
             />
             <ItemCard
               title="✏️ Draw the Missing Half"
               description="Half of each image is missing — complete it! A great symmetry and observation activity."
               skills="geometry, visual balance, focus"
               age="7–12"
-              href="/print"
+              href="/print?doc=draw-half"
             />
           </div>
         </section>
@@ -172,21 +172,21 @@ export function PrintablesLandingPage() {
               description="Read clues, think critically, and solve who owns what, where, or when!"
               skills="logic, reading comprehension, problem-solving"
               age="9–12"
-              href="/print"
+              href="/print?doc=logic-grid"
             />
             <ItemCard
               title="🔍 Find the Hidden Object"
               description="Search and circle hidden items in a detailed scene — jungle, ocean, or city themes."
               skills="attention to detail, focus, patience"
               age="6–10"
-              href="/print"
+              href="/print?doc=hidden-object"
             />
             <ItemCard
               title="🌀 Maze of Focus"
               description="Follow the path through distractions to reach your goal! Includes tips like ‘Take a deep breath’."
               skills="concentration, mindfulness, planning"
               age="6–9"
-              href="/print"
+              href="/print?doc=maze-focus"
             />
           </div>
         </section>
@@ -201,28 +201,28 @@ export function PrintablesLandingPage() {
               description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
               skills="gratitude, mindfulness, journaling"
               age="7–12"
-              href="/print"
+              href="/print?doc=gratitude-jar"
             />
             <ItemCard
               title="🌈 Mood Tracker Coloring Page"
               description="Track feelings for the week by coloring a section based on your mood."
               skills="emotional awareness, reflection, art expression"
               age="8–12"
-              href="/print"
+              href="/print?doc=mood-tracker"
             />
             <ItemCard
               title="🕉️ Mindful Coloring Mandalas"
               description="Relax and focus while coloring calming mandala patterns."
               skills="focus, mindfulness, relaxation"
               age="9–13"
-              href="/print"
+              href="/print?doc=mandalas"
             />
             <ItemCard
               title="🗓️ My Goals for the Week Planner"
               description="Write three goals, one thing to try, and one thing you’re proud of — printable motivation for kids."
               skills="planning, reflection, motivation"
               age="8–12"
-              href="/print"
+              href="/print?doc=weekly-goals"
             />
           </div>
         </section>
@@ -237,28 +237,28 @@ export function PrintablesLandingPage() {
               description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
               skills="creative play, vocabulary, fine motor skills"
               age="6–10"
-              href="/print"
+              href="/print?doc=halloween-pack"
             />
             <ItemCard
               title="❄️ Winter Kindness Challenge"
               description="30 simple ways to spread kindness — color one each time you complete a task!"
               skills="empathy, kindness, social skills"
               age="6–12"
-              href="/print"
+              href="/print?doc=winter-kindness"
             />
             <ItemCard
               title="🌸 Spring Nature Scavenger Hunt"
               description="Go outside and check off everything you find — leaves, flowers, clouds, bugs, and more!"
               skills="observation, curiosity, environmental awareness"
               age="6–12"
-              href="/print"
+              href="/print?doc=spring-scavenger"
             />
             <ItemCard
               title="☀️ Summer Adventure Pack"
               description="Word search, beach maze, and ocean animals coloring sheet — perfect for travel."
               skills="creativity, focus, vocabulary"
               age="6–10"
-              href="/print"
+              href="/print?doc=summer-pack"
             />
           </div>
         </section>
@@ -271,22 +271,22 @@ export function PrintablesLandingPage() {
             <ItemCard
               title="🧠 7-Day Brain Boost Pack"
               description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
-              href="/print"
+              href="/print?doc=brain-boost"
             />
             <ItemCard
               title="🎨 Creative Kids Challenge"
               description="7 days of art prompts and doodle ideas to spark creativity and reduce screen time."
-              href="/print"
+              href="/print?doc=creative-challenge"
             />
             <ItemCard
               title="🌍 Around the World Word Search"
               description="Learn geography through words — explore landmarks, countries, and famous animals."
-              href="/print?doc=ws-animals"
+              href="/print?doc=ws-world"
             />
             <ItemCard
               title="🦁 Animal Adventure Pack"
               description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
-              href="/print"
+              href="/print?doc=animal-pack"
             />
           </div>
         </section>
