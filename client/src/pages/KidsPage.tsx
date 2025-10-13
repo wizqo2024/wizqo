@@ -357,8 +357,8 @@ export default function KidsPage() {
             {/* Pattern Builder */}
             <article className={CARD_CLASS}>
               <SmartImage
-                primary={KID_SAFE.planetsModel}
-                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands]}
+                primary={"https://plus.unsplash.com/premium_photo-1681400285322-048eeaa7f1c1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074&kidv=pattern-cover-1"}
+                alts={[KID_SAFE.planetsModel, KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands]}
                 alt="Pattern Builder game cover"
                 className="w-full h-40 object-cover"
                 disableDedup
