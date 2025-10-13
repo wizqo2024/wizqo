@@ -28,6 +28,7 @@ export default function PatternBuilder() {
   const seqPlayRef = useRef<number | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const [soundOn, setSoundOn] = useState(true);
+  const [newRecord, setNewRecord] = useState(false);
 
   const bestKey = 'kids_pattern_best_level';
   const best = useMemo(() => {
@@ -106,8 +107,9 @@ export default function PatternBuilder() {
     setLevel(1);
     setLives(3);
     setReplayAvailable(true);
-    setTimerMaxMs(10000);
-    setTimerMs(10000);
+    setNewRecord(false);
+    setTimerMaxMs(12000);
+    setTimerMs(12000);
     setState('playingSequence');
   }
 
@@ -116,9 +118,10 @@ export default function PatternBuilder() {
     const nextSeq = [...sequence, randomTile()];
     setSequence(nextSeq);
     setUserIndex(0);
-    setLevel((l) => l + 1);
+    const nextLevelVal = level + 1;
+    setLevel(nextLevelVal);
     setReplayAvailable(true);
-    const nextTimer = Math.max(6000, 10000 - level * 400);
+    const nextTimer = Math.max(6000, 12000 - (nextLevelVal - 1) * 600);
     setTimerMaxMs(nextTimer);
     setTimerMs(nextTimer);
     setState('playingSequence');
@@ -126,8 +129,10 @@ export default function PatternBuilder() {
 
   function endGame() {
     setState('gameover');
-    if (!best || level - 1 > best) {
-      localStorage.setItem(bestKey, String(level - 1));
+    const cleared = Math.max(0, level - 1);
+    if (!best || cleared > best) {
+      localStorage.setItem(bestKey, String(cleared));
+      setNewRecord(true);
     }
   }
 
@@ -146,13 +151,16 @@ export default function PatternBuilder() {
       const tileId = sequence[i]!;
       const idx = TILE_SET.findIndex((t) => t.id === tileId);
       setHighlightIndex(idx);
-      playTone(600 + idx * 100, 0.12);
+      // Playback speed slows on early levels, speeds up gradually
+      const hiMs = Math.max(300, 650 - (level - 1) * 50);
+      const gapMs = Math.max(120, 240 - (level - 1) * 20);
+      playTone(600 + idx * 100, hiMs / 1000 - 0.06);
       seqPlayRef.current = window.setTimeout(() => {
         setHighlightIndex(null);
         seqPlayRef.current = window.setTimeout(() => {
           i += 1; playStep();
-        }, 180);
-      }, 450);
+        }, gapMs);
+      }, hiMs);
     };
     playStep();
     return () => {
@@ -232,7 +240,7 @@ export default function PatternBuilder() {
           <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">Ages 6–10</span>
           <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700">Memory</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ml-auto">
           {state === 'idle' || state === 'gameover' ? (
             <button onClick={startGame} className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm">Start Game</button>
           ) : state === 'playingSequence' ? (
@@ -245,6 +253,12 @@ export default function PatternBuilder() {
           </button>
         </div>
       </div>
+
+      {newRecord && (
+        <div className="mb-2 inline-flex items-center gap-2 px-3 py-2 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-sm font-semibold">
+          🏆 New record!
+        </div>
+      )}
 
       {/* Timer bar */}
       <div className="h-2 rounded bg-slate-100 overflow-hidden mb-3">
