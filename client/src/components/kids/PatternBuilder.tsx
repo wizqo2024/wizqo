@@ -317,7 +317,11 @@ export default function PatternBuilder() {
 
       {state === 'gameover' && (
         <div className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-emerald-800">
-          Awesome effort! You built <strong>{Math.max(0, level - 1)}</strong> patterns correctly!
+          {Math.max(0, level - 1) > 0 ? (
+            <>Awesome effort! You built <strong>{Math.max(0, level - 1)}</strong> patterns correctly!</>
+          ) : (
+            <>Nice try! Watch the pattern closely and try again to build your first pattern.</>
+          )}
         </div>
       )}
 
