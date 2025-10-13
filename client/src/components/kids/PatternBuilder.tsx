@@ -242,6 +242,20 @@ export default function PatternBuilder() {
   const timerPct = Math.max(0, Math.min(100, (timerMs / timerMaxMs) * 100));
   const inputEnabled = state === 'waitingInput' && lives > 0;
 
+  function shapeClipPath(id: TileId): string {
+    switch (id) {
+      case 'red':
+        return 'circle(50% at 50% 50%)'; // circle
+      case 'green':
+        return 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'; // hexagon
+      case 'blue':
+        return 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'; // diamond
+      case 'yellow':
+      default:
+        return 'polygon(14% 0%, 86% 0%, 100% 14%, 100% 86%, 86% 100%, 14% 100%, 0% 86%, 0% 14%)'; // octagon
+    }
+  }
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
       {/* Header / Controls */}
@@ -299,10 +313,11 @@ export default function PatternBuilder() {
             key={t.id}
             onClick={() => handleTileClick(i)}
             style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26') }}
-            className={`h-24 w-24 sm:h-28 sm:w-28 rounded-2xl border transition-transform duration-150 ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-lg' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+            className={`h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             disabled={!inputEnabled}
             aria-label={t.label}
             aria-disabled={!inputEnabled}
+            style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'), clipPath: shapeClipPath(t.id) }}
           >
             <div className="text-2xl">{t.emoji}</div>
             <div className="text-xs mt-1 drop-shadow">{t.label}</div>
