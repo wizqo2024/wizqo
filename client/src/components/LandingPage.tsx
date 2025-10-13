@@ -114,29 +114,35 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </ul>
               <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
             </div>
-            <div className="relative h-56">
+            <div className="relative h-56 rounded-2xl overflow-hidden">
+              {/* Dark gradient background with soft blobs so translucency is visible */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+                <div className="absolute -top-6 -left-6 w-32 h-32 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30"></div>
+                <div className="absolute -bottom-6 right-8 w-28 h-28 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-30"></div>
+                <div className="absolute top-10 left-1/2 w-24 h-24 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+              </div>
               <div className="absolute top-2 left-4">
-                <div className="bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
                   <div className="text-2xl">🃏</div>
-                  <p className="text-slate-800 text-sm mt-1">Memory</p>
+                  <p className="text-white text-sm mt-1">Memory</p>
                 </div>
               </div>
               <div className="absolute top-6 right-6">
-                <div className="bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
                   <div className="text-2xl">🔤</div>
-                  <p className="text-slate-800 text-sm mt-1">Word Search</p>
+                  <p className="text-white text-sm mt-1">Word Search</p>
                 </div>
               </div>
               <div className="absolute bottom-4 left-1/3">
-                <div className="bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl">🧩</div>
-                  <p className="text-slate-800 text-sm mt-1">Puzzle</p>
+                  <p className="text-white text-sm mt-1">Puzzle</p>
                 </div>
               </div>
               <div className="absolute bottom-2 right-1/4">
-                <div className="bg-white/15 backdrop-blur-sm border border-white/30 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl">⌨️</div>
-                  <p className="text-slate-800 text-sm mt-1">Typing</p>
+                  <p className="text-white text-sm mt-1">Typing</p>
                 </div>
               </div>
             </div>
