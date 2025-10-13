@@ -321,14 +321,25 @@ export default function PatternBuilder() {
           <button
             key={t.id}
             onClick={() => handleTileClick(i)}
-            style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'), clipPath: shapeClipPath(t.id) }}
-            className={`h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+            className={`relative h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} bg-gradient-to-br from-sky-50 to-indigo-50`}
             disabled={!inputEnabled}
             aria-label={t.label}
             aria-disabled={!inputEnabled}
           >
-            <div className="text-2xl">{t.emoji}</div>
-            <div className="text-xs mt-1 drop-shadow">{t.label}</div>
+            {/* Colored shape inside the play card */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                className={`transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-110' : 'scale-100'}`}
+                style={{
+                  backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'),
+                  clipPath: shapeClipPath(t.id),
+                  width: '70%',
+                  height: '70%'
+                }}
+              />
+            </div>
+            <div className="relative text-2xl drop-shadow-sm">{t.emoji}</div>
+            <div className="relative text-xs mt-1 text-slate-800 font-semibold">{t.label}</div>
           </button>
         ))}
       </div>
