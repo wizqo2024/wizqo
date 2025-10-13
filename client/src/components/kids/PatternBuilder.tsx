@@ -31,9 +31,12 @@ export default function PatternBuilder() {
   const [newRecord, setNewRecord] = useState(false);
 
   const bestKey = 'kids_pattern_best_level';
-  const best = useMemo(() => {
-    const raw = localStorage.getItem(bestKey);
-    return raw ? Number(raw) : null;
+  const [best, setBest] = useState<number | null>(null);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(bestKey);
+      setBest(raw ? Number(raw) : null);
+    } catch {}
   }, []);
 
   function unlockAudio() {
@@ -124,6 +127,14 @@ export default function PatternBuilder() {
     const nextTimer = Math.max(6000, 12000 - (nextLevelVal - 1) * 600);
     setTimerMaxMs(nextTimer);
     setTimerMs(nextTimer);
+    // Update best on the fly (do not stop gameplay)
+    const cleared = nextLevelVal - 1;
+    if (best === null || cleared > best) {
+      setBest(cleared);
+      try { localStorage.setItem(bestKey, String(cleared)); } catch {}
+      setNewRecord(true);
+      setTimeout(() => setNewRecord(false), 1800);
+    }
     setState('playingSequence');
   }
 
@@ -134,9 +145,9 @@ export default function PatternBuilder() {
   function endGame() {
     setState('gameover');
     const cleared = Math.max(0, level - 1);
-    if (!best || cleared > best) {
-      localStorage.setItem(bestKey, String(cleared));
-      setNewRecord(true);
+    if (best === null || cleared > best) {
+      try { localStorage.setItem(bestKey, String(cleared)); } catch {}
+      setBest(cleared);
     }
   }
 
