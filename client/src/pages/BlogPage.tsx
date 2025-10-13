@@ -1305,6 +1305,22 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
+                  // Generic internal links: Label → [/path]
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, label, url) => {
+                    const safeLabel = String(label).trim();
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel}</a>`;
+                  });
+                  // Generic internal links: [Label](/path)
+                  out = out.replace(/\[(.*?)\]\((\/[a-z0-9\-\/\?=&]+)\)/gi, (_m, label, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${label}</a>`;
+                  });
+                  // Generic internal links: [/path]
+                  out = out.replace(/\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, url) => {
+                    const pretty = String(url).trim();
+                    return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
+                  });
                   return out;
                 };
 
