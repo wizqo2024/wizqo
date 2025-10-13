@@ -42,9 +42,7 @@ export function PrintablesLandingPage() {
             Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens!
             All activities are free to download, easy to print, and perfect for home, school, or travel.
           </p>
-          <div className="mt-5">
-            <a href="/print" className={BUTTON_CLASS}>Open printable view →</a>
-          </div>
+          
         </div>
       </header>
 
