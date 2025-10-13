@@ -358,7 +358,7 @@ export default function PatternBuilder() {
       </div>
       </div>
 
-      {state === 'playingSequence' && (
+      {state === 'idle' && (
         <div className="mt-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50 p-4 text-center text-indigo-900">
           <div className="flex justify-center items-center gap-2 mb-1">
             <span className="text-lg">👀</span>
