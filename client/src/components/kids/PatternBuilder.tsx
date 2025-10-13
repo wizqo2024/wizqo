@@ -359,12 +359,11 @@ export default function PatternBuilder() {
       </div>
 
       {state === 'idle' && (
-        <div className="mt-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50 p-4 text-center text-indigo-900">
-          <div className="flex justify-center items-center gap-2 mb-1">
-            <span className="text-lg">👀</span>
-            <span className="font-semibold text-base sm:text-lg">Watch the pattern…</span>
+        <div className="mt-3 rounded-lg border border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50 p-3 text-indigo-900">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="font-semibold text-sm sm:text-base">Watch the pattern…</span>
           </div>
-          <div className="text-sm sm:text-base text-indigo-700">Your turn is next!</div>
+          <div className="text-xs sm:text-sm text-indigo-700">Your turn is next!</div>
         </div>
       )}
 
