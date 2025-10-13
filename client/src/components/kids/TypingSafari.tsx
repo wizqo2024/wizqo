@@ -342,7 +342,15 @@ export default function TypingSafari() {
         </div>
       </div>
 
-      
+      {/* Try another game */}
+      <div className="mt-6 pt-4 border-t border-slate-200">
+        <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Try another game</div>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <a href="/kids/games/memory" className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">🃏 Memory Match</a>
+          <a href="/kids/games/word-search" className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">🔤 Word Search</a>
+          <a href="/kids/games/puzzle" className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">🧩 Puzzle</a>
+        </div>
+      </div>
     </div>
   );
 }
