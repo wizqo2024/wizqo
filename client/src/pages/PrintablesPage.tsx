@@ -105,6 +105,18 @@ export function PrintablesPage() {
                 <div className="flex-1 border-b border-slate-300 ml-3" />
               </div>
             ))}
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>1) elephant</li>
+                  <li>2) because</li>
+                  <li>3) school</li>
+                  <li>4) butterfly</li>
+                  <li>5) tomorrow</li>
+                </ol>
+              </div>
+            )}
           </section>
         )}
 
@@ -162,6 +174,18 @@ export function PrintablesPage() {
                 <div className="border-b border-slate-300 mt-2" />
               </div>
             ))}
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>We go to the park every Saturday.</li>
+                  <li>The cats are sleeping under the table.</li>
+                  <li>I can run faster than my friend.</li>
+                  <li>There are two pencils on the desk.</li>
+                  <li>She doesn't like broccoli.</li>
+                </ol>
+              </div>
+            )}
           </section>
         )}
 
@@ -290,6 +314,17 @@ export function PrintablesPage() {
                 <li>Ava’s pet sleeps in a basket.</li>
               </ol>
             </div>
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">One valid solution</div>
+                <ul className="list-disc list-inside">
+                  <li>Ava → Fish</li>
+                  <li>Noah → Dog</li>
+                  <li>Liam → Cat</li>
+                </ul>
+                <div className="text-xs text-emerald-900/80 mt-1">Note: Multiple solutions can satisfy the clues; this is one example.</div>
+              </div>
+            )}
           </section>
         )}
 
