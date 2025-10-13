@@ -13,6 +13,22 @@ export function PrintablesPage() {
     'math-maze',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
+  const mathMazeCells = React.useMemo(() => {
+    if (doc !== 'math-maze') return [] as string[];
+    const ops = ['+','-'] as const;
+    const cells: string[] = [];
+    for (let r = 0; r < 7; r++) {
+      for (let c = 0; c < 7; c++) {
+        if (r === 0 && c === 0) { cells.push('S'); continue; }
+        if (r === 6 && c === 6) { cells.push('F'); continue; }
+        const a = Math.floor(Math.random() * 9) + 1;
+        const b = Math.floor(Math.random() * 9) + 1;
+        const op = ops[Math.floor(Math.random() * ops.length)];
+        cells.push(`${a}${op}${b}`);
+      }
+    }
+    return cells;
+  }, [doc])
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
     const [idx, setIdx] = React.useState(0)
     const src = sources[idx] || sources[0]
@@ -69,23 +85,9 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!</p>
             <div className="flex items-start gap-4">
               <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
-                {(() => {
-                  const ops = ['+','-'] as const
-                  const cells: string[] = []
-                  for (let r=0; r<7; r++) {
-                    for (let c=0; c<7; c++) {
-                      if (r===0 && c===0) { cells.push('S'); continue }
-                      if (r===6 && c===6) { cells.push('F'); continue }
-                      const a = Math.floor(Math.random()*9)+1
-                      const b = Math.floor(Math.random()*9)+1
-                      const op = ops[Math.floor(Math.random()*ops.length)]
-                      cells.push(`${a}${op}${b}`)
-                    }
-                  }
-                  return cells.map((t,i)=> (
-                    <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
-                  ))
-                })()}
+                {mathMazeCells.map((t,i)=> (
+                  <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center bg-white">{t}</div>
+                ))}
               </div>
               <div className="text-xs text-slate-600">
                 <div className="font-semibold mb-1">How to play</div>
