@@ -549,7 +549,7 @@ const KIDS_BLOGS = [
     title: 'Educational Games for Kids',
     subtitle: '4 fun games that build real skills',
     href: '/blog/educational-games-for-kids',
-    cover: KID_SAFE.playgroundKids,
+    cover: 'https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&q=80&w=1600&kidv=edu-games-cover-2',
   },
   {
     id: 'productive-hobbies-for-students',
