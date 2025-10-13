@@ -99,6 +99,28 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         </div>
       </section>
 
+      {/* Kids Hub Teaser */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-pink-50 p-6">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">Kids Hub – Fun Learning Games & Printables</h2>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.
+              </p>
+              <ul className="text-slate-700 text-sm space-y-1 mb-5 list-disc list-inside">
+                <li>🃏 Memory Match • 🔤 Word Search • 🧩 Puzzle • ⌨️ Typing Safari</li>
+                <li>🖨️ Printables: word search, sudoku, coloring</li>
+              </ul>
+              <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white">
+              <img src="https://images.unsplash.com/photo-1519681719073-a6b3c1f0b122?auto=format&fit=crop&w=1200&q=80" alt="Kids playing and learning" className="w-full h-56 object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
