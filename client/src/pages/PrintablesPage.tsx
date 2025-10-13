@@ -22,6 +22,12 @@ export function PrintablesPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
+        <div className="mb-4 print:hidden">
+          <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back to Kids Hub">
+            <span>←</span>
+            <span>Back to Kids Hub</span>
+          </a>
+        </div>
         <header className="mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>

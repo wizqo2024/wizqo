@@ -67,6 +67,12 @@ export function PrintablesLandingPage() {
           <div className="absolute -bottom-24 -left-16 w-96 h-96 rounded-full bg-amber-200/30 blur-3xl" />
         </div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mb-4 print:hidden">
+            <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back to Kids Hub">
+              <span>←</span>
+              <span>Back to Kids Hub</span>
+            </a>
+          </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Printable Fun Learning Activities</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 max-w-3xl">
