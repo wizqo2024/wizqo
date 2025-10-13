@@ -17,7 +17,7 @@ That’s the trap of passive hobbies. What you really need are outdoor hobbies �
 
 Let’s explore 9 outdoor hobbies that not only keep boredom away but also make you sharper, healthier, and more confident.
 
-![Teens smiling in a park](https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?auto=format&fit=crop&w=1600&q=80 "Outdoor hobbies for students in a park")
+![Teens smiling in a park](https://plus.unsplash.com/premium_photo-1677456380268-813e7a11bc57?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=outdoor-hero-1 "Outdoor hobbies for students in a park")
 
 1. Geocaching: Modern-Day Treasure Hunting 🗺️
 
@@ -26,7 +26,7 @@ Think treasure maps, but powered by GPS. Geocaching turns any park into an adven
 ✅ Problem it solves: Screen addiction → replaces endless scrolling with active exploration.
 💡 How to start: Download a free geocaching app, choose a beginner location, and go treasure-hunting with friends.
 
-![Teen with phone and map outdoors](https://images.unsplash.com/photo-1518176258769-f227c798150e?auto=format&fit=crop&w=1600&q=80 "Geocaching as a fun outdoor hobby for students")
+![Teen with phone and map outdoors](https://plus.unsplash.com/premium_photo-1730157453240-4e56cb9d4bb9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1073&kidv=geo-1 "Geocaching as a fun outdoor hobby for students")
 
 2. Frisbee or Disc Golf 🥏
 
@@ -35,7 +35,7 @@ Forget the usual football or cricket. Frisbee (or its big brother, disc golf) is
 ✅ Problem it solves: Lack of physical activity → keeps you moving without needing expensive gear.
 💡 How to start: Grab a frisbee for less than $6 and hit the nearest park.
 
-![Students tossing a frisbee](https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1600&q=80 "Outdoor frisbee hobby for students")
+![Students tossing a frisbee](https://images.unsplash.com/photo-1698652381775-8923572d472e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1025&kidv=frisbee-1 "Outdoor frisbee hobby for students")
 
 3. Urban Gardening 🌱
 
@@ -44,7 +44,7 @@ Yes, gardening counts as outdoor fun — even if it’s just pots on your balcon
 ✅ Problem it solves: Stress & low patience → teaches mindfulness, responsibility, and the joy of nurturing life.
 💡 How to start: Begin with easy plants like mint, basil, or succulents. Water lightly and watch them grow.
 
-![Small balcony herb garden](https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1600&q=80 "Urban gardening outdoor hobby for kids and students")
+![Small balcony herb garden](https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171&kidv=urban-1 "Urban gardening outdoor hobby for kids and students")
 
 4. Cycling Adventures 🚴
 
@@ -53,7 +53,7 @@ Cycling isn’t just exercise — it’s freedom. Exploring new routes, biking w
 ✅ Problem it solves: Boredom with routine → adds adventure and fitness.
 💡 How to start: Borrow or buy a basic bike, pick safe routes, and track your rides with apps like Strava.
 
-![Group of students cycling](https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=1600&q=80 "Cycling as a productive outdoor hobby for students")
+![Group of students cycling](https://images.unsplash.com/photo-1574016875996-0f174122b805?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171&kidv=cycle-1 "Cycling as a productive outdoor hobby for students")
 
 5. Photography Walks 📸
 
@@ -71,7 +71,7 @@ Not everyone enjoys formal PE or competitive matches. Try casual versions: 3‑o
 ✅ Problem it solves: Feeling isolated → builds teamwork, friendships, and confidence.
 💡 How to start: Set small goals (like “first to 5 baskets”) to keep it fun and low‑pressure.
 
-![Casual outdoor basketball](https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?auto=format&fit=crop&w=1600&q=80 "Team sports as fun outdoor hobbies for students")
+![Casual outdoor basketball](https://plus.unsplash.com/premium_photo-1685366454862-7f1b2d957fb1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=team-1 "Team sports as fun outdoor hobbies for students")
 
 7. Stargazing 🌌
 
@@ -80,7 +80,7 @@ Not all outdoor hobbies need daylight. Stargazing connects science and wonder �
 ✅ Problem it solves: Stress and overthinking → gives perspective, calm, and curiosity about the universe.
 💡 How to start: Use a free stargazing app (like SkyView) and head to a dark spot at night.
 
-![Teen looking at stars on a blanket](https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80 "Stargazing outdoor hobby for students")
+![Teen looking at stars on a blanket](https://plus.unsplash.com/premium_photo-1686050878751-89499d28d153?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=star-1 "Stargazing outdoor hobby for students")
 
 8. Volunteer Clean‑Ups 🤝
 
@@ -98,7 +98,7 @@ Exploring nature is the ultimate reset button. Hiking helps you escape routines,
 ✅ Problem it solves: Academic stress → hiking reduces cortisol (stress hormone) and boosts energy.
 💡 How to start: Choose easy beginner trails, carry water/snacks, and invite a buddy.
 
-![Students hiking a forest trail](https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80 "Hiking as a productive outdoor hobby for students")
+![Students hiking a forest trail](https://images.unsplash.com/uploads/141148589884100082977/a816dbd7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=hike-1 "Hiking as a productive outdoor hobby for students")
 
 📌 Key Takeaways
 
@@ -110,7 +110,7 @@ Exploring nature is the ultimate reset button. Hiking helps you escape routines,
 
 👉 Instead of asking “What should I do this weekend?” — pick one hobby, grab a friend, and start creating better memories than your phone screen ever could.
 
-❓ FAQs on Outdoor Hobbies for Students
+## ❓ FAQs
 
 1. What are the best outdoor hobbies for students?
 Geocaching, frisbee, gardening, cycling, and hiking are great starters.

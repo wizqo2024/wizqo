@@ -17,7 +17,6 @@ Research even shows that hobbies improve mental health, memory, and problem-solv
 
 Here are 7 hobbies that students can start right away — no big budget or fancy equipment needed.
 
-![Geocaching map on phone with compass](https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1600&q=80 "Geocaching adventure for students — planning route on a map")
 
 1. Geocaching: Tech-Powered Treasure Hunting 🗺️
 
@@ -29,7 +28,7 @@ Geocaching is like a real-world treasure hunt powered by GPS. Using your smartph
 
 💡 How to start: Download a geocaching app, choose an easy beginner location, and head out with friends. Every find feels like a mini victory.
 
-![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80 "Calligraphy hobby for students to boost focus and creativity")
+![Geocaching map on phone with compass](https://images.unsplash.com/photo-1608924066819-930edc42986a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-geo-3 "Geocaching adventure for students — planning route on a map")
 
 2. Calligraphy & Hand Lettering: Art with Impact ✒️
 
@@ -41,9 +40,11 @@ Forget boring doodles — calligraphy is art with purpose. It trains focus, pati
 
 💡 How to start: Grab a pen and paper, follow a YouTube tutorial, and start with simple alphabet strokes.
 
-![Small potted plant on desk](https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=80 "Micro-gardening as a productive hobby for students indoors")
+![Calligraphy notebook and brush pens](https://images.unsplash.com/photo-1486303954368-398fea0e72cd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-calligraphy-1 "Calligraphy hobby for students to boost focus and creativity")
 
 3. Micro-Gardening: Green Thumbs in Small Spaces 🌱
+
+![Small potted plant on desk](https://plus.unsplash.com/premium_photo-1679765934200-d1cb3153c631?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=prod-garden-2 "Micro-gardening as a productive hobby for students indoors")
 
 No yard? No problem. With micro-gardening, students can grow herbs, succulents, or even microgreens right on a windowsill.
 
@@ -53,9 +54,9 @@ No yard? No problem. With micro-gardening, students can grow herbs, succulents, 
 
 💡 How to start: Reuse jars or containers, start with easy herbs like basil or mint, and water lightly.
 
-![Student coding a simple Scratch project](https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80 "Coding projects as productive hobbies for students")
-
 4. Coding Mini Projects 💻
+
+![Student coding a simple Scratch project](https://images.unsplash.com/photo-1669023414162-5bb06bbff0ec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-code-3 "Coding projects as productive hobbies for students")
 
 Coding isn’t just for techies. From building a personal website to making a simple game, students can turn free time into a future-ready skill.
 
@@ -63,23 +64,22 @@ Coding isn’t just for techies. From building a personal website to making a si
 
 💡 How to start: Try free platforms like Scratch, Code.org, or Codecademy for beginner-friendly lessons.
 
-![Student solving a jigsaw puzzle](https://images.unsplash.com/photo-1526662092594-e98c1e356d6a?auto=format&fit=crop&w=1600&q=80 "Brain games and puzzles as productive hobbies for students")
-
 5. Puzzle-Solving & Brain Games 🧩
+
+![Student solving a jigsaw puzzle](https://images.unsplash.com/photo-1605902394069-ff2ae2430e62?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331&kidv=prod-puzzle-3 "Brain games and puzzles as productive hobbies for students")
 
 From Sudoku to escape rooms, puzzles sharpen your brain while keeping boredom away.
 
 ✅ Why it’s productive: Boosts critical thinking, memory, and problem-solving — skills you’ll use in exams and life.
 
-![Students cleaning a park together](https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=1600&q=80 "Volunteering as a productive hobby for students")
-
 6. Volunteering: Give Back, Gain Skills 🤝
+
+![Students volunteering together in a community cleanup](https://images.unsplash.com/photo-1758599668178-d9716bbda9d5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332&kidv=prod-volunteer-1 "Volunteering as a productive hobby for students")
 
 Helping others is one of the most rewarding hobbies. Students can tutor younger kids, help in community clean-ups, or assist in local events.
 
 ✅ Why it’s productive: Builds leadership, empathy, and teamwork — qualities universities and employers love.
 
-![Journal, pen, and a calming study setup](https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=1600&q=80 "Journaling as a simple productive hobby for students at home")
 
 7. Journaling: Clarity in Minutes 📓
 
@@ -99,7 +99,7 @@ Short reflections each day help process thoughts, reduce stress, and sharpen foc
 
 👉 Start small — pick one hobby this week. You’ll be surprised how fast it grows into a passion.
 
-❓ FAQs About Productive Hobbies
+## ❓ FAQs
 
 1. What are the most productive hobbies for students?
 

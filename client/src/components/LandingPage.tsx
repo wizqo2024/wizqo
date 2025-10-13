@@ -99,6 +99,51 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         </div>
       </section>
 
+      {/* Kids Hub Teaser */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-pink-50 p-6">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">Kids Hub – Fun Learning Games & Printables</h2>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.
+              </p>
+              <ul className="text-slate-700 text-sm space-y-1 mb-5 list-disc list-inside">
+                <li>🃏 Memory Match • 🔤 Word Search • 🧩 Puzzle • ⌨️ Typing Safari</li>
+                <li>🖨️ Printables: word search, sudoku, coloring</li>
+              </ul>
+              <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
+            </div>
+            <div className="relative h-56 rounded-2xl overflow-hidden">
+              <div className="absolute top-2 left-4">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🃏</div>
+                  <p className="text-slate-800 text-sm mt-1">Memory</p>
+                </div>
+              </div>
+              <div className="absolute top-6 right-6">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🔤</div>
+                  <p className="text-slate-800 text-sm mt-1">Word Search</p>
+                </div>
+              </div>
+              <div className="absolute bottom-4 left-1/3">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🧩</div>
+                  <p className="text-slate-800 text-sm mt-1">Puzzle</p>
+                </div>
+              </div>
+              <div className="absolute bottom-2 right-1/4">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">⌨️</div>
+                  <p className="text-slate-800 text-sm mt-1">Typing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
