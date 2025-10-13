@@ -269,6 +269,8 @@ export default function KidsPage() {
             <ul className="mt-3 list-disc list-inside text-slate-700 space-y-1">
               <li>🃏 Memory Match – Find all pairs before time runs out!</li>
               <li>🔤 Word Search Game – Race the clock to uncover hidden words.</li>
+              <li>🧩 Puzzle Game – Fix the picture by swapping tiles.</li>
+              <li>⌨️ Typing Safari – Type letters and words to help animals cross.</li>
             </ul>
             <div className="mt-4">
               <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
