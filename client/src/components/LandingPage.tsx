@@ -114,22 +114,30 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </ul>
               <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-                <div className="text-2xl mb-1">🃏</div>
-                <div className="text-sm font-medium text-slate-800">Memory Match</div>
+            <div className="relative h-56">
+              <div className="absolute top-2 left-4">
+                <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🃏</div>
+                  <p className="text-slate-800 text-sm mt-1">Memory</p>
+                </div>
               </div>
-              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-                <div className="text-2xl mb-1">🔤</div>
-                <div className="text-sm font-medium text-slate-800">Word Search</div>
+              <div className="absolute top-6 right-6">
+                <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🔤</div>
+                  <p className="text-slate-800 text-sm mt-1">Word Search</p>
+                </div>
               </div>
-              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-                <div className="text-2xl mb-1">🧩</div>
-                <div className="text-sm font-medium text-slate-800">Puzzle</div>
+              <div className="absolute bottom-4 left-1/3">
+                <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🧩</div>
+                  <p className="text-slate-800 text-sm mt-1">Puzzle</p>
+                </div>
               </div>
-              <div className="bg-white rounded-xl border border-slate-200 p-4 text-center shadow-sm">
-                <div className="text-2xl mb-1">⌨️</div>
-                <div className="text-sm font-medium text-slate-800">Typing Safari</div>
+              <div className="absolute bottom-2 right-1/4">
+                <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">⌨️</div>
+                  <p className="text-slate-800 text-sm mt-1">Typing</p>
+                </div>
               </div>
             </div>
           </div>
