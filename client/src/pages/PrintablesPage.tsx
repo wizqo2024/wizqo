@@ -40,7 +40,7 @@ export function PrintablesPage() {
               <button
                 onClick={() => setShowAnswers((v) => !v)}
                 aria-pressed={showAnswers}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${showAnswers ? 'border-emerald-300 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
                 title="Toggle answer key visibility"
               >
                 {showAnswers ? 'Hide answers' : 'Show answers'}
