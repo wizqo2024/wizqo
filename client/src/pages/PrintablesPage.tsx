@@ -5,6 +5,12 @@ export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
   const [showAnswers, setShowAnswers] = React.useState(false)
+  const answerableDocs = new Set([
+    'science-match',
+    'spelling',
+    'logic-grid',
+  ])
+  const shouldShowAnswerToggle = answerableDocs.has(doc)
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
     const [idx, setIdx] = React.useState(0)
     const src = sources[idx] || sources[0]
@@ -36,16 +42,18 @@ export function PrintablesPage() {
             <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="print:hidden">
-              <button
-                onClick={() => setShowAnswers((v) => !v)}
-                aria-pressed={showAnswers}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
-                title="Toggle answer key visibility"
-              >
-                {showAnswers ? 'Hide answers' : 'Show answers'}
-              </button>
-            </div>
+            {shouldShowAnswerToggle && (
+              <div className="print:hidden">
+                <button
+                  onClick={() => setShowAnswers((v) => !v)}
+                  aria-pressed={showAnswers}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
+                  title="Toggle answer key visibility"
+                >
+                  {showAnswers ? 'Hide answers' : 'Show answers'}
+                </button>
+              </div>
+            )}
             <div className="print:block">
               <WizqoLogo className="w-20 h-auto opacity-80" />
             </div>
