@@ -4,6 +4,7 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
+  const [showAnswers, setShowAnswers] = React.useState(false)
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
     const [idx, setIdx] = React.useState(0)
     const src = sources[idx] || sources[0]
@@ -34,8 +35,20 @@ export function PrintablesPage() {
             <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>
             <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
           </div>
-          <div className="print:block">
-            <WizqoLogo className="w-20 h-auto opacity-80" />
+          <div className="flex items-center gap-3">
+            <div className="print:hidden">
+              <button
+                onClick={() => setShowAnswers((v) => !v)}
+                aria-pressed={showAnswers}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${showAnswers ? 'border-emerald-300 bg-emerald-50 text-emerald-800' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}
+                title="Toggle answer key visibility"
+              >
+                {showAnswers ? 'Hide answers' : 'Show answers'}
+              </button>
+            </div>
+            <div className="print:block">
+              <WizqoLogo className="w-20 h-auto opacity-80" />
+            </div>
           </div>
         </header>
 
@@ -117,6 +130,19 @@ export function PrintablesPage() {
                 <li>F) Shocking sky energy</li>
               </ul>
             </div>
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>1 → E (red planet → dusty red world)</li>
+                  <li>2 → D (largest mammals → huge ocean animal)</li>
+                  <li>3 → F (spark of electricity → shocking sky energy)</li>
+                  <li>4 → B (lives in the south → cold‑loving bird)</li>
+                  <li>5 → A (made of water droplets → weather water in the sky)</li>
+                  <li>6 → C (orbits the Sun → the blue planet’s path)</li>
+                </ol>
+              </div>
+            )}
           </section>
         )}
 
