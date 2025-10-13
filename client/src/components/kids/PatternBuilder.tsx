@@ -127,6 +127,10 @@ export default function PatternBuilder() {
     setState('playingSequence');
   }
 
+  function restartGame() {
+    startGame();
+  }
+
   function endGame() {
     setState('gameover');
     const cleared = Math.max(0, level - 1);
@@ -237,8 +241,10 @@ export default function PatternBuilder() {
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
+      {/* Header / Controls */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
+          <span className="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-gradient-to-r from-yellow-100 to-pink-100 text-purple-700 border border-pink-200">🎨 Pattern Builder</span>
           <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">Ages 6–10</span>
           <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700">Memory</span>
         </div>
@@ -249,6 +255,9 @@ export default function PatternBuilder() {
             <button disabled className="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-600 text-sm">Playing…</button>
           ) : (
             <button onClick={replayPattern} disabled={!replayAvailable} className="px-3 py-1.5 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm disabled:opacity-50">Replay pattern</button>
+          )}
+          {(state !== 'idle') && (
+            <button onClick={restartGame} className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">Restart</button>
           )}
           <button onClick={() => { setSoundOn(v => !v); unlockAudio(); }} className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-pressed={soundOn}>
             {soundOn ? '🔊' : '🔈'}
@@ -280,13 +289,14 @@ export default function PatternBuilder() {
       </div>
 
       {/* Tiles */}
+      <div className="rounded-2xl p-3 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 inline-block">
       <div className={`grid grid-cols-2 gap-3 max-w-xs ${!inputEnabled ? 'pointer-events-none' : ''}`}>
         {TILE_SET.map((t, i) => (
           <button
             key={t.id}
             onClick={() => handleTileClick(i)}
             style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26') }}
-            className={`h-24 w-24 rounded-2xl border ${highlightIndex === i ? 'border-slate-300 ring-2 ring-yellow-300' : 'border-slate-200'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+            className={`h-24 w-24 sm:h-28 sm:w-28 rounded-2xl border transition-transform duration-150 ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-lg' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             disabled={!inputEnabled}
             aria-label={t.label}
             aria-disabled={!inputEnabled}
@@ -295,6 +305,7 @@ export default function PatternBuilder() {
             <div className="text-xs mt-1 drop-shadow">{t.label}</div>
           </button>
         ))}
+      </div>
       </div>
 
       {state === 'playingSequence' && (
