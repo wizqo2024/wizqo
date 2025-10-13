@@ -233,6 +233,7 @@ export default function PatternBuilder() {
   }
 
   const timerPct = Math.max(0, Math.min(100, (timerMs / timerMaxMs) * 100));
+  const inputEnabled = state === 'waitingInput' && lives > 0;
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
@@ -279,20 +280,26 @@ export default function PatternBuilder() {
       </div>
 
       {/* Tiles */}
-      <div className="grid grid-cols-2 gap-3 max-w-xs">
+      <div className={`grid grid-cols-2 gap-3 max-w-xs ${!inputEnabled ? 'pointer-events-none' : ''}`}>
         {TILE_SET.map((t, i) => (
           <button
             key={t.id}
             onClick={() => handleTileClick(i)}
             style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26') }}
-            className={`h-24 w-24 rounded-2xl border ${highlightIndex === i ? 'border-slate-300 ring-2 ring-yellow-300' : 'border-slate-200'} flex flex-col items-center justify-center text-white font-semibold select-none`}
+            className={`h-24 w-24 rounded-2xl border ${highlightIndex === i ? 'border-slate-300 ring-2 ring-yellow-300' : 'border-slate-200'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+            disabled={!inputEnabled}
             aria-label={t.label}
+            aria-disabled={!inputEnabled}
           >
             <div className="text-2xl">{t.emoji}</div>
             <div className="text-xs mt-1 drop-shadow">{t.label}</div>
           </button>
         ))}
       </div>
+
+      {state === 'playingSequence' && (
+        <div className="mt-3 text-sm text-slate-600">Watch the pattern… your turn is next!</div>
+      )}
 
       {state === 'gameover' && (
         <div className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-emerald-800">
