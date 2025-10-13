@@ -373,6 +373,28 @@ export function PrintablesPage() {
                 <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t)?'bg-slate-50 text-slate-400':'bg-white'}`}>{t}</div>
               ))}
             </div>
+            <div className="mt-4 grid md:grid-cols-3 gap-3 text-sm">
+              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                <div className="font-semibold text-slate-800 mb-2">Progress checklist</div>
+                <ul className="space-y-1 text-slate-700">
+                  <li>☐ Started my timer</li>
+                  <li>☐ Skipped one distraction</li>
+                  <li>☐ Reached my tiny goal</li>
+                </ul>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                <div className="font-semibold text-slate-800 mb-2">Set your timer</div>
+                <div className="h-6 border-b border-slate-400" />
+                <div className="mt-3 font-semibold text-slate-800 mb-1">Reward</div>
+                <div className="h-6 border-b border-slate-400" />
+              </div>
+              <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                <div className="font-semibold text-slate-800 mb-2">Notes</div>
+                <div className="h-6 border-b border-slate-300 mb-1" />
+                <div className="h-6 border-b border-slate-300 mb-1" />
+                <div className="h-6 border-b border-slate-300" />
+              </div>
+            </div>
           </section>
         )}
 
@@ -529,6 +551,37 @@ export function PrintablesPage() {
             <ol className="list-decimal list-inside space-y-1 text-sm">
               {['Memory pairs','Word jumble','Counting maze','Pattern copy','Quick sudoku','Riddle time','Spot the change'].map((t,i)=> <li key={i}>{t}</li>)}
             </ol>
+            <div className="mt-4">
+              <div className="text-sm font-semibold text-slate-800 mb-2">Streak tracker</div>
+              <table className="w-full border border-slate-300 text-sm">
+                <thead>
+                  <tr className="bg-slate-50">
+                    {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
+                      <th key={d} className="border border-slate-300 px-2 py-1 text-center">{d}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {Array.from({length:7}).map((_,i)=> (
+                      <td key={i} className="border border-slate-300 h-8 text-center align-middle">☐</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+              <div className="mt-3 grid md:grid-cols-2 gap-3">
+                <div>
+                  <div className="text-sm font-semibold text-slate-800 mb-1">What was tricky?</div>
+                  <div className="h-6 border-b border-slate-400 mb-1" />
+                  <div className="h-6 border-b border-slate-400" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-800 mb-1">What I nailed</div>
+                  <div className="h-6 border-b border-slate-400 mb-1" />
+                  <div className="h-6 border-b border-slate-400" />
+                </div>
+              </div>
+            </div>
           </section>
         )}
 
