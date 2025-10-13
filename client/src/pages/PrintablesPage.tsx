@@ -9,6 +9,8 @@ export function PrintablesPage() {
     'science-match',
     'spelling',
     'logic-grid',
+    'grammar-detective',
+    'math-maze',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
@@ -92,6 +94,17 @@ export function PrintablesPage() {
                   <li>Step only on equations that equal that row’s target.</li>
                   <li>Draw your path from S to F without diagonal moves.</li>
                 </ol>
+                {showAnswers && (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2 text-emerald-900">
+                    <div className="font-semibold mb-1">Example target plan</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      <li>Row 1 target: 6 → valid tiles: 4+2, 8-2…</li>
+                      <li>Row 2 target: 8 → valid tiles: 6+2, 9-1…</li>
+                      <li>Row 3 target: 10 → valid tiles: 7+3, 12-2…</li>
+                    </ul>
+                    <div className="text-xs mt-1">Tip: Any path obeying row targets is correct; teacher can pick targets.</div>
+                  </div>
+                )}
               </div>
             </div>
           </section>
