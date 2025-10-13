@@ -19,6 +19,8 @@ Let’s explore four games that boost your child’s creativity, logic, and lear
 
 ## 🃏 1. Memory Match – Strengthen Focus and Recall
 
+![Memory Match cover](https://images.unsplash.com/photo-1668294141622-18e9998a00f6?q=80&w=1600&auto=format&fit=crop&kidv=mm1 "Memory Match – fun educational game for kids")
+
 Remember the classic card-flipping game? That’s Memory Match, a simple yet powerful way to train your child’s brain.
 
 Every time a child flips a card and remembers its position, they’re exercising short-term memory and improving concentration — two core cognitive skills linked to better school performance.
@@ -37,6 +39,8 @@ How to play:
 Try it now → [/kids/games/memory]
 
 ## 🧩 2. Puzzle Game – Boost Problem-Solving and Logic Skills
+
+![Puzzle Game cover](https://plus.unsplash.com/premium_photo-1732776567082-cbcd94f49316?q=80&w=1170&auto=format&fit=crop&kidv=puzzle-cover-2 "Puzzle Game – fun educational game for kids")
 
 Every puzzle is a mystery waiting to be solved — and kids love solving mysteries.
 
@@ -57,6 +61,8 @@ Try it now → [/kids/games/puzzle]
 
 ## 🔠 3. Word Search – Strengthen Language and Concentration
 
+![Word Search cover](https://plus.unsplash.com/premium_photo-1720694751690-ab68c805bf36?q=80&w=1332&auto=format&fit=crop&kidv=ws-cover-1 "Word Search – educational game for kids")
+
 Few activities combine focus and vocabulary-building like a classic Word Search.
 
 It’s not just about finding hidden words — it’s about recognizing patterns, improving spelling, and learning new words naturally. Kids get the satisfaction of discovery while subtly sharpening their reading and language skills.
@@ -75,6 +81,8 @@ How to play:
 Try it now → [/kids/games/word-search]
 
 ## ⌨️ 4. Typing Safari – Learn, Type, and Explore
+
+![Typing Safari cover](https://images.unsplash.com/photo-1708033777801-37deb9d4bec4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=typing-cover-1 "Typing Safari – educational typing game for kids")
 
 Typing is no longer optional — it’s a core 21st-century skill. Typing Safari makes learning to type fun, combining speed, accuracy, and adventure.
 
