@@ -354,15 +354,7 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
             <p className="text-slate-600 text-sm mb-3">Find and circle each item hidden in the scene below.</p>
             <div className="mb-3">
-              <SafeImg
-                sources={[
-                  'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=90&kidv=hidden-city',
-                  'https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1600&q=90&kidv=hidden-jungle',
-                  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90&kidv=hidden-ocean'
-                ]}
-                alt="Busy scene for hidden object hunt"
-                className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
-              />
+              <HiddenObjectsSceneSVG />
             </div>
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
               {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
@@ -733,6 +725,86 @@ function ColoringSVG() {
         <line x1="280" y1="220" x2="330" y2="210" />
         <line x1="280" y1="230" x2="330" y2="230" />
         <line x1="280" y1="240" x2="330" y2="250" />
+      </g>
+    </svg>
+  )
+}
+
+function HiddenObjectsSceneSVG() {
+  // Hand-drawn busy scene with hidden shapes matching the checklist
+  return (
+    <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#e0f2fe" />
+          <stop offset="100%" stopColor="#ffffff" />
+        </linearGradient>
+      </defs>
+      {/* Background sky and ground */}
+      <rect x="0" y="0" width="800" height="240" fill="url(#sky)" />
+      <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
+
+      {/* Trees */}
+      {[100, 220, 560, 700].map((x, i) => (
+        <g key={i}>
+          <rect x={x} y={220} width="10" height="40" fill="#64748b" />
+          <circle cx={x+5} cy={200} r="28" fill="#a7f3d0" />
+          <circle cx={x-15} cy={215} r="18" fill="#a7f3d0" />
+          <circle cx={x+22} cy={215} r="18" fill="#a7f3d0" />
+        </g>
+      ))}
+
+      {/* Cloud (hidden object: Cloud) */}
+      <g>
+        <ellipse cx="180" cy="90" rx="50" ry="20" fill="#ffffff" stroke="#94a3b8" />
+        <ellipse cx="210" cy="90" rx="35" ry="16" fill="#ffffff" stroke="#94a3b8" />
+        <ellipse cx="150" cy="94" rx="30" ry="14" fill="#ffffff" stroke="#94a3b8" />
+      </g>
+
+      {/* Star (hidden on tree) */}
+      <polygon points="560,160 566,176 584,176 569,186 574,202 560,192 546,202 551,186 536,176 554,176" fill="#fde68a" stroke="#b45309" />
+
+      {/* Leaf (on ground) */}
+      <path d="M300 300 C320 290, 340 310, 320 320 C330 330, 310 335, 300 320 Z" fill="#86efac" stroke="#16a34a" />
+
+      {/* Book (bench) */}
+      <g>
+        <rect x="400" y="285" width="60" height="8" fill="#94a3b8" />
+        <rect x="405" y="255" width="50" height="30" fill="#e2e8f0" stroke="#64748b" />
+        <line x1="430" y1="255" x2="430" y2="285" stroke="#64748b" />
+      </g>
+
+      {/* Car (simple) */}
+      <g>
+        <rect x="640" y="270" width="90" height="30" rx="6" fill="#c7d2fe" stroke="#64748b" />
+        <circle cx="660" cy="305" r="10" fill="#475569" />
+        <circle cx="710" cy="305" r="10" fill="#475569" />
+      </g>
+
+      {/* Key (on ground) */}
+      <g>
+        <circle cx="520" cy="330" r="8" fill="#fde68a" stroke="#b45309" />
+        <rect x="528" y="328" width="20" height="4" fill="#fde68a" stroke="#b45309" />
+        <rect x="548" y="328" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+        <rect x="553" y="328" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+      </g>
+
+      {/* Apple (on tree) */}
+      <circle cx="220" cy="205" r="8" fill="#ef4444" stroke="#991b1b" />
+
+      {/* Shell (near pond) */}
+      <g>
+        <path d="M110 320 C120 300, 150 300, 160 320 C155 330, 115 330, 110 320 Z" fill="#f5d0fe" stroke="#a855f7" />
+        <line x1="120" y1="318" x2="150" y2="318" stroke="#9333ea" />
+      </g>
+
+      {/* Ball */}
+      <circle cx="360" cy="310" r="10" fill="#fca5a5" stroke="#ef4444" />
+
+      {/* Hat (on bench) */}
+      <g>
+        <ellipse cx="475" cy="280" rx="16" ry="6" fill="#fef9c3" stroke="#a16207" />
+        <rect x="466" y="270" width="18" height="10" fill="#fde68a" stroke="#a16207" />
       </g>
     </svg>
   )
