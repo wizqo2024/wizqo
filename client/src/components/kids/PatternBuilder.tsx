@@ -339,13 +339,23 @@ export default function PatternBuilder() {
         />
       </div>
 
-      {/* Lives and level */}
-      <div className="flex items-center justify-between text-sm text-slate-600 mb-3">
-        <div>Level: <span className="font-semibold text-slate-800">{level}</span>{best !== null ? <span className="ml-2 text-xs text-slate-500">Best: {best}</span> : null}</div>
+      {/* Status: Level and Highest */}
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span className="text-slate-600">Lives:</span>
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm">
+            <span>Level</span>
+            <span className="px-1.5 rounded bg-white/20">{level}</span>
+          </span>
+          {best !== null && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+              🏆 <span>Highest level</span> <span className="ml-0.5">{best}</span>
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2 text-slate-700">
+          <span className="text-xs uppercase tracking-wide text-slate-500">Lives</span>
           {[0,1,2].map((i) => (
-            <span key={i} className={`text-lg ${i < lives ? 'text-red-500' : 'text-slate-400'}`}>❤</span>
+            <span key={i} className={`text-lg ${i < lives ? 'text-red-500' : 'text-slate-300'}`}>❤</span>
           ))}
           <span className="text-xs text-slate-500">({lives}/3)</span>
         </div>
