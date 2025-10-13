@@ -216,16 +216,19 @@ export default function PatternBuilder() {
 
   function handleFail() {
     setReplayAvailable(false);
-    const remainLives = lives - 1;
-    setLives(remainLives);
-    if (remainLives <= 0) {
-      endGame();
-      return;
-    }
-    // reset input and allow retry on same level
-    setUserIndex(0);
-    setTimerMs(timerMaxMs);
-    setState('playingSequence');
+    setLives((prev) => {
+      const remain = Math.max(0, prev - 1);
+      if (remain <= 0) {
+        // end after state updates flush
+        setTimeout(() => endGame(), 0);
+      } else {
+        // reset input and allow retry on same level
+        setUserIndex(0);
+        setTimerMs(timerMaxMs);
+        setState('playingSequence');
+      }
+      return remain;
+    });
   }
 
   function replayPattern() {
