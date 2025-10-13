@@ -269,6 +269,30 @@ export default function PatternBuilder() {
     }
   }
 
+  // Vivid per‑tile styling helpers for brighter UI
+  const TILE_STYLE: Record<TileId, { grad: [string, string, string]; border: string; shadow: string }> = {
+    red:    { grad: ['#ff6b6b', '#ef4444', '#b91c1c'], border: '#dc2626', shadow: 'rgba(239,68,68,0.55)' },
+    green:  { grad: ['#34d399', '#10b981', '#047857'], border: '#059669', shadow: 'rgba(16,185,129,0.55)' },
+    blue:   { grad: ['#60a5fa', '#3b82f6', '#1d4ed8'], border: '#2563eb', shadow: 'rgba(59,130,246,0.55)' },
+    yellow: { grad: ['#fbbf24', '#f59e0b', '#b45309'], border: '#d97706', shadow: 'rgba(245,158,11,0.55)' },
+  };
+
+  function tileGradient(id: TileId, highlighted: boolean): string {
+    const { grad } = TILE_STYLE[id];
+    // Slightly boost contrast when highlighted
+    const [a, b, c] = highlighted ? [grad[0], grad[1], grad[2]] : [grad[0], grad[1], grad[2]];
+    return `linear-gradient(145deg, ${a} 0%, ${b} 55%, ${c} 100%)`;
+  }
+
+  function tileBorder(id: TileId): string {
+    return TILE_STYLE[id].border;
+  }
+
+  function tileBoxShadow(id: TileId, highlighted: boolean): string {
+    const base = TILE_STYLE[id].shadow;
+    return highlighted ? `0 10px 22px ${base}` : `0 6px 14px ${base}`;
+  }
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4">
       {/* Header / Controls */}
@@ -334,7 +358,7 @@ export default function PatternBuilder() {
           <button
             key={t.id}
             onClick={() => handleTileClick(i)}
-            className={`relative h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} bg-gradient-to-br from-sky-50 to-indigo-50`}
+            className={`relative h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'} bg-gradient-to-br from-white to-slate-50`}
             disabled={!inputEnabled}
             aria-label={t.label}
             aria-disabled={!inputEnabled}
@@ -344,10 +368,12 @@ export default function PatternBuilder() {
               <div
                 className={`transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-110' : 'scale-100'}`}
                 style={{
-                  backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'),
+                  background: tileGradient(t.id, highlightIndex === i),
                   clipPath: shapeClipPath(t.id),
-                  width: '70%',
-                  height: '70%'
+                  width: '74%',
+                  height: '74%',
+                  border: `2px solid ${tileBorder(t.id)}`,
+                  boxShadow: tileBoxShadow(t.id, highlightIndex === i)
                 }}
               />
             </div>
