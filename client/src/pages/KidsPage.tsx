@@ -7,6 +7,7 @@ import MemoryMatch from '@/components/kids/MemoryMatch';
 import WordSearch from '@/components/kids/WordSearch';
 import PuzzleGame from '@/components/kids/PuzzleGame';
 import TypingSafari from '@/components/kids/TypingSafari';
+import PatternBuilder from '@/components/kids/PatternBuilder';
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden';
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
@@ -130,7 +131,7 @@ export default function KidsPage() {
             )}
             <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
           </div>
-          {sub2 === 'word-search' ? <WordSearch /> : sub2 === 'puzzle' ? <PuzzleGame /> : sub2 === 'typing' ? <TypingSafari /> : <MemoryMatch />}
+          {sub2 === 'word-search' ? <WordSearch /> : sub2 === 'puzzle' ? <PuzzleGame /> : sub2 === 'typing' ? <TypingSafari /> : sub2 === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
         </div>
       </div>
     );
@@ -351,6 +352,25 @@ export default function KidsPage() {
                 <h3 className="font-semibold text-slate-900 mb-1">Typing Safari</h3>
                 <p className="text-slate-600 text-sm mb-4">Type letters and words to help animals cross the river.</p>
                 <a href="/kids/games/typing" className={BUTTON_CLASS}>Play</a>
+              </div>
+            </article>
+            {/* Pattern Builder */}
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary={KID_SAFE.planetsModel}
+                alts={[KID_SAFE.puzzleJigsaw, KID_SAFE.classroomHands]}
+                alt="Pattern Builder game cover"
+                className="w-full h-40 object-cover"
+                disableDedup
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Ages 6–10</span>
+                  <span className={CHIP_CLASS}>Memory</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Pattern Builder</h3>
+                <p className="text-slate-600 text-sm mb-4">Watch the pattern and repeat it before time runs out.</p>
+                <a href="/kids/games/pattern" className={BUTTON_CLASS}>Play</a>
               </div>
             </article>
           </div>
