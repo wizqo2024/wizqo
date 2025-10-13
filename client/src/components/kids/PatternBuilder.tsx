@@ -302,7 +302,13 @@ export default function PatternBuilder() {
       {/* Lives and level */}
       <div className="flex items-center justify-between text-sm text-slate-600 mb-3">
         <div>Level: <span className="font-semibold text-slate-800">{level}</span>{best !== null ? <span className="ml-2 text-xs text-slate-500">Best: {best}</span> : null}</div>
-        <div>Lives: {'❤'.repeat(lives)}{'🖤'.repeat(Math.max(0, 3 - lives))}</div>
+        <div className="flex items-center gap-2">
+          <span className="text-slate-600">Lives:</span>
+          {[0,1,2].map((i) => (
+            <span key={i} className={`text-lg ${i < lives ? 'text-red-500' : 'text-slate-400'}`}>❤</span>
+          ))}
+          <span className="text-xs text-slate-500">({lives}/3)</span>
+        </div>
       </div>
 
       {/* Tiles */}
@@ -312,12 +318,11 @@ export default function PatternBuilder() {
           <button
             key={t.id}
             onClick={() => handleTileClick(i)}
-            style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26') }}
+            style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'), clipPath: shapeClipPath(t.id) }}
             className={`h-24 w-24 sm:h-28 sm:w-28 border transition-all duration-200 ease-out ${highlightIndex === i ? 'scale-105 border-slate-300 ring-2 ring-yellow-300 shadow-xl' : 'border-slate-200 shadow-sm'} flex flex-col items-center justify-center text-white font-semibold select-none ${!inputEnabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             disabled={!inputEnabled}
             aria-label={t.label}
             aria-disabled={!inputEnabled}
-            style={{ backgroundColor: t.color + (highlightIndex === i ? 'cc' : '26'), clipPath: shapeClipPath(t.id) }}
           >
             <div className="text-2xl">{t.emoji}</div>
             <div className="text-xs mt-1 drop-shadow">{t.label}</div>
@@ -327,7 +332,11 @@ export default function PatternBuilder() {
       </div>
 
       {state === 'playingSequence' && (
-        <div className="mt-3 text-sm text-slate-600">Watch the pattern… your turn is next!</div>
+        <div className="mt-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50 to-purple-50 p-3 flex items-center gap-2 text-indigo-900">
+          <span className="text-lg">👀</span>
+          <span className="font-semibold text-base sm:text-lg">Watch the pattern…</span>
+          <span className="ml-auto text-sm sm:text-base text-indigo-700">Your turn is next!</span>
+        </div>
       )}
 
       {state === 'gameover' && (
