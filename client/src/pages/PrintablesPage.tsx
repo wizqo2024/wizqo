@@ -515,15 +515,17 @@ export function PrintablesPage() {
         </section>
         )}
 
-        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-          <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
-          <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
-          <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-            {Array.from({ length: 16 }).map((_, i) => (
-              <div key={i} className="w-10 h-10 border border-slate-400" />
-            ))}
-          </div>
-        </section>
+        {(!doc || doc === 'sudoku4') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
+            <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
+            <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+              {Array.from({ length: 16 }).map((_, i) => (
+                <div key={i} className="w-10 h-10 border border-slate-400" />
+              ))}
+            </div>
+          </section>
+        )}
 
         {doc === 'sudoku6' && (
         <section className="mb-10 break-inside-avoid">
@@ -537,13 +539,15 @@ export function PrintablesPage() {
         </section>
         )}
 
-        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-          <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
-          <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
-          <div className="border border-slate-300 rounded p-4 bg-white print:border-0 print:p-0">
-            <ColoringSVG />
-          </div>
-        </section>
+        {doc === 'coloring' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
+            <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
+            <div className="border border-slate-300 rounded p-4 bg-white print:border-0 print:p-0">
+              <ColoringSVG />
+            </div>
+          </section>
+        )}
 
         {(doc === 'spotdiff') && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
