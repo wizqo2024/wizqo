@@ -339,7 +339,18 @@ export function PrintablesPage() {
         {doc === 'hidden-object' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
-            <p className="text-slate-600 text-sm mb-3">Find and circle each item in the picture around you or in a printed scene.</p>
+            <p className="text-slate-600 text-sm mb-3">Find and circle each item hidden in the scene below.</p>
+            <div className="mb-3">
+              <SafeImg
+                sources={[
+                  'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=90&kidv=hidden-city',
+                  'https://images.unsplash.com/photo-1527030280862-64139fba04ca?auto=format&fit=crop&w=1600&q=90&kidv=hidden-jungle',
+                  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=90&kidv=hidden-ocean'
+                ]}
+                alt="Busy scene for hidden object hunt"
+                className="w-full aspect-video object-cover bg-white border border-slate-300 rounded"
+              />
+            </div>
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
               {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
             </ul>
@@ -527,16 +538,31 @@ export function PrintablesPage() {
         {doc === 'ws-world' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌍 Around the World Word Search</h2>
-            <p className="text-slate-600 text-sm mb-3">Find all the world words hidden in the grid.</p>
-            <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-              {generateWordSearchGrid(12, ['PARIS','NILE','AFRICA','ASIA','ALPS','TOKYO','ITALY','NORTH','SOUTH','RIO','BERLIN','NILE']).map((row, r) => (
-                <React.Fragment key={r}>
-                  {row.map((ch, c) => (
-                    <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
+            <p className="text-slate-600 text-sm mb-3">Find all the world words hidden in the grid. Use the clue list to track your progress.</p>
+            {(() => {
+              const words = ['PARIS','NILE','AFRICA','ASIA','ALPS','TOKYO','ITALY','NORTH','SOUTH','RIO','BERLIN']
+              return (
+                <div className="md:flex md:items-start md:gap-6">
+                  <div className="flex-1">
+                    <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+                      {generateWordSearchGrid(12, [...words]).map((row, r) => (
+                        <React.Fragment key={r}>
+                          {row.map((ch, c) => (
+                            <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
+                          ))}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-4 md:mt-0 md:w-64 border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
+                    <div className="text-sm font-semibold text-slate-800 mb-2">Clue words</div>
+                    <ul className="text-sm text-slate-700 space-y-1">
+                      {words.map(w => (<li key={w}>☐ {w}</li>))}
+                    </ul>
+                  </div>
+                </div>
+              )
+            })()}
           </section>
         )}
 
