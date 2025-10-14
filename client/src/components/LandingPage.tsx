@@ -114,14 +114,14 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </ul>
               <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
             </div>
-            <div className="relative h-56 rounded-2xl overflow-hidden">
+            <div className="relative h-64 rounded-2xl overflow-hidden">
               <div className="absolute top-2 left-4">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
                   <div className="text-2xl">🃏</div>
                   <p className="text-slate-800 text-sm mt-1">Memory</p>
                 </div>
               </div>
-              <div className="absolute top-6 right-6">
+              <div className="absolute top-4 right-10">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
                   <div className="text-2xl">🔤</div>
                   <p className="text-slate-800 text-sm mt-1">Word Search</p>
@@ -137,6 +137,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
                   <div className="text-2xl">⌨️</div>
                   <p className="text-slate-800 text-sm mt-1">Typing</p>
+                </div>
+              </div>
+              {/* Added: Floating Printables & Coloring cards with extra spacing */}
+              <div className="absolute top-16 right-28 hidden sm:block">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-2 hover:-rotate-1 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🖨️</div>
+                  <p className="text-slate-800 text-sm mt-1">Printables</p>
+                </div>
+              </div>
+              <div className="absolute top-28 right-6 hidden sm:block">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-2 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🖍️</div>
+                  <p className="text-slate-800 text-sm mt-1">Coloring</p>
                 </div>
               </div>
             </div>
