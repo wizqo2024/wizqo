@@ -273,9 +273,7 @@ export default function KidsPage() {
               <li>🧩 Puzzle Game – Fix the picture by swapping tiles.</li>
               <li>⌨️ Typing Safari – Type letters and words to help animals cross.</li>
             </ul>
-            <div className="mt-4">
-              <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
-            </div>
+            
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
