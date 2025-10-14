@@ -10,8 +10,6 @@ author: Wizqo Team
 date: 2025-10-12
 ---
 
-# Free Printable Coloring Pages for Kids That Make Learning Fun
-
 ## ✨ Introduction: Coloring Pages That Teach and Entertain
 Looking for free printable coloring pages for kids that do more than just fill time? You’re in the right place.
 
