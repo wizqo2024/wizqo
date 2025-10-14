@@ -744,6 +744,384 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {doc === 'coloring-letters-numbers' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
+            {/* A–Z Letters grid (large) */}
+            <div className="mb-8 grid grid-cols-3 sm:grid-cols-4 gap-6 print:gap-4">
+              {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
+                <div key={i} className="aspect-square min-h-[180px] sm:min-h-[220px] border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <text x="100" y="135" textAnchor="middle" fontSize="120" fill="none" stroke="#111827" strokeWidth="4">{ch}</text>
+                  </svg>
+                </div>
+              ))}
+            </div>
+            {/* 1–10 Numbers with rocket icon (large) */}
+            <div className="grid grid-cols-5 sm:grid-cols-5 gap-6 print:gap-4">
+              {Array.from({ length: 10 }, (_, idx) => idx + 1).map((n) => (
+                <div key={n} className="aspect-square min-h-[180px] sm:min-h-[220px] border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <text x="70" y="135" textAnchor="middle" fontSize="96" fill="none" stroke="#111827" strokeWidth="4">{n}</text>
+                    {/* small rocket */}
+                    <g fill="none" stroke="#111827" strokeWidth="4">
+                      <path d="M120 70 L140 110 L120 150 L100 110 Z" />
+                      <circle cx="120" cy="110" r="8" />
+                      <path d="M100 150 L120 170 L140 150" />
+                    </g>
+                  </svg>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-animals' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Lion */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <circle cx="200" cy="150" r="70" />
+                    <circle cx="200" cy="150" r="95" strokeDasharray="8 8" />
+                    <circle cx="175" cy="140" r="8" />
+                    <circle cx="225" cy="140" r="8" />
+                    <path d="M190 165 Q200 175 210 165" />
+                    <path d="M145 200 Q200 220 255 200" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Turtle */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <ellipse cx="200" cy="180" rx="80" ry="45" />
+                    <circle cx="120" cy="175" r="20" />
+                    <line x1="155" y1="200" x2="135" y2="220" />
+                    <line x1="245" y1="200" x2="265" y2="220" />
+                    <line x1="180" y1="220" x2="170" y2="240" />
+                    <line x1="220" y1="220" x2="230" y2="240" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Dolphin */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M60 180 C120 80, 260 80, 320 160 C250 140, 180 180, 120 190 Z" />
+                    <path d="M120 190 L90 215 L140 205 Z" />
+                    <circle cx="260" cy="145" r="5" />
+                    <path d="M300 160 L340 160 L320 180 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Elephant */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M90 200 C120 120, 260 120, 300 190 C270 210, 200 220, 140 210 Z" />
+                    <circle cx="260" cy="165" r="6" />
+                    <path d="M110 190 Q100 210 120 220" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Fish */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M120 160 C180 120, 240 120, 300 160 C240 200, 180 200, 120 160 Z" />
+                    <path d="M120 160 L90 145 L95 175 Z" />
+                    <circle cx="260" cy="160" r="5" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Bird */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M90 190 C140 150, 220 150, 270 190" />
+                    <path d="M180 170 L210 150 L200 190 Z" />
+                    <circle cx="280" cy="180" r="4" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-nature' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Flower */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="130" r="14" />
+                    <circle cx="235" cy="130" r="18" />
+                    <circle cx="165" cy="130" r="18" />
+                    <circle cx="200" cy="95" r="18" />
+                    <circle cx="200" cy="165" r="18" />
+                    <path d="M200 144 L200 230" />
+                    <path d="M200 200 Q230 220 250 240" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Leaf (large) */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M120 220 C200 120, 300 120, 280 220 C220 240, 180 240, 120 220 Z" />
+                    <path d="M200 220 L200 150" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Tree */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="185" y="180" width="30" height="60" />
+                    <circle cx="200" cy="150" r="22" />
+                    <circle cx="170" cy="165" r="20" />
+                    <circle cx="230" cy="165" r="20" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Rainbow */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M80 220 Q200 100 320 220" />
+                    <path d="M100 220 Q200 120 300 220" />
+                    <path d="M120 220 Q200 140 280 220" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Mountain */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M60 220 L160 120 L200 180 L240 140 L340 220 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Sun */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="140" r="24" />
+                    {Array.from({length:12}).map((_,i)=>{const a=i*Math.PI*2/12;return <line key={i} x1={200} y1={140} x2={200+Math.cos(a)*50} y2={140+Math.sin(a)*50} />})}
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-space' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Rocket */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M200 80 L220 140 L200 200 L180 140 Z" />
+                    <circle cx="200" cy="140" r="10" />
+                    <path d="M180 200 L200 220 L220 200" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Comet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="280" cy="100" r="10" />
+                    <path d="M100 180 Q200 120 270 105" />
+                    <path d="M120 190 Q210 130 270 115" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Planet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="150" r="45" />
+                    <ellipse cx="200" cy="150" rx="80" ry="18" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Astronaut helmet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="150" r="50" />
+                    <rect x="165" y="140" width="70" height="30" rx="8" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Satellite */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="190" y="140" width="20" height="20" />
+                    <rect x="150" y="142" width="30" height="16" />
+                    <rect x="220" y="142" width="30" height="16" />
+                    <line x1="170" y1="150" x2="230" y2="150" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Star cluster */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    {Array.from({length:7}).map((_,i)=>{const x=120+i*30; const y=120+((i%2)*30);return <circle key={i} cx={x} cy={y} r={3}/>})}
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-vehicles' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🚗 Vehicles & Transport Coloring Sheets</h2>
+            <p className="text-slate-600 text-sm mb-3">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Car */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="120" y="170" width="160" height="40" rx="8" />
+                    <path d="M150 170 Q200 140 250 170" />
+                    <circle cx="160" cy="220" r="14" />
+                    <circle cx="240" cy="220" r="14" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Truck */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="110" y="170" width="130" height="40" />
+                    <rect x="240" y="180" width="40" height="30" />
+                    <circle cx="150" cy="220" r="12" />
+                    <circle cx="230" cy="220" r="12" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Airplane */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M80 180 L320 140 L320 160 L80 200 Z" />
+                    <path d="M220 150 L280 100" />
+                    <path d="M200 160 L260 210" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Train engine */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="120" y="160" width="160" height="40" />
+                    <rect x="230" y="140" width="50" height="20" />
+                    <circle cx="160" cy="210" r="12" />
+                    <circle cx="240" cy="210" r="12" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Boat */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M100 200 L300 200 L260 230 L140 230 Z" />
+                    <rect x="180" y="170" width="40" height="30" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Helicopter */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="170" y="170" width="60" height="25" />
+                    <line x1="200" y1="170" x2="200" y2="150" />
+                    <line x1="150" y1="150" x2="250" y2="150" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-heroes' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🦸 Superheroes & Everyday Heroes Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers).</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Shield */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M200 90 L260 110 L250 170 L200 210 L150 170 L140 110 Z" />
+                    <path d="M200 110 L235 125 L228 165 L200 188 L172 165 L165 125 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Firefighter helmet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M140 200 Q200 140 260 200" />
+                    <rect x="160" y="195" width="80" height="20" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Star badge */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <polygon points="200,100 215,145 260,145 225,170 240,210 200,185 160,210 175,170 140,145 185,145" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Cape */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M160 100 Q200 200 240 100 Q220 160 180 160 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Mask */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="150" y="140" width="100" height="30" rx="10" />
+                    <circle cx="175" cy="155" r="8" />
+                    <circle cx="225" cy="155" r="8" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Doctor stethoscope */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M180 120 C160 160, 240 160, 220 120" />
+                    <circle cx="250" cy="130" r="10" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
         {(doc === 'spotdiff') && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
