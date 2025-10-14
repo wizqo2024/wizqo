@@ -748,26 +748,31 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="border border-slate-300 rounded p-4 bg-white">
-                {/* Letter A outline */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="4">
-                    <path d="M120 220 L200 80 L280 220 Z" />
-                    <path d="M155 180 L245 180" />
-                    <text x="185" y="250" fontSize="18">A</text>
-                  </g>
-                </svg>
-              </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
-                {/* Number 1 with rocket */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="4">
-                    <path d="M180 80 L220 80 L220 220 L180 220 Z" />
-                    <path d="M240 100 L260 150 L240 200 L220 150 Z" />
-                  </g>
-                </svg>
-              </div>
+            {/* A–Z Letters grid */}
+            <div className="mb-6 grid grid-cols-6 sm:grid-cols-8 gap-3 print:gap-2">
+              {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
+                <div key={i} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 100 100" className="w-20 h-20">
+                    <text x="50" y="65" textAnchor="middle" fontSize="64" fill="none" stroke="#111827" strokeWidth="2">{ch}</text>
+                  </svg>
+                </div>
+              ))}
+            </div>
+            {/* 1–10 Numbers with rocket icon */}
+            <div className="grid grid-cols-5 sm:grid-cols-10 gap-3 print:gap-2">
+              {Array.from({ length: 10 }, (_, idx) => idx + 1).map((n) => (
+                <div key={n} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 100 100" className="w-20 h-20">
+                    <text x="30" y="65" textAnchor="middle" fontSize="48" fill="none" stroke="#111827" strokeWidth="2">{n}</text>
+                    {/* small rocket */}
+                    <g fill="none" stroke="#111827" strokeWidth="2">
+                      <path d="M60 30 L68 50 L60 70 L52 50 Z" />
+                      <circle cx="60" cy="50" r="4" />
+                      <path d="M52 70 L60 82 L68 70" />
+                    </g>
+                  </svg>
+                </div>
+              ))}
             </div>
           </section>
         )}
