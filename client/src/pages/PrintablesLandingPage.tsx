@@ -90,10 +90,10 @@ export function PrintablesLandingPage() {
           <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
         </section>
 
-        {/* 1. Top 5 Coloring Packs */}
+        {/* 1. Coloring Packs */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Top 5 Free Printable Coloring Pages for Kids</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
               title="🎨 Animal Friends Coloring Pages"
