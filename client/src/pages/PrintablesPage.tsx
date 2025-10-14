@@ -744,6 +744,34 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {doc === 'coloring-letters-numbers' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Letter A outline */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M120 220 L200 80 L280 220 Z" />
+                    <path d="M155 180 L245 180" />
+                    <text x="185" y="250" fontSize="18">A</text>
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Number 1 with rocket */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M180 80 L220 80 L220 220 L180 220 Z" />
+                    <path d="M240 100 L260 150 L240 200 L220 150 Z" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        )}
+
         {doc === 'coloring-animals' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>

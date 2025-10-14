@@ -116,9 +116,9 @@ export function PrintablesLandingPage() {
               href="/print?doc=coloring-vehicles"
             />
             <ItemCard
-              title="🦸 Superheroes & Everyday Heroes Coloring Pages"
-              description="Celebrate courage and kindness — color superheroes and community helpers like doctors, firefighters, and teachers."
-              href="/print?doc=coloring-heroes"
+              title="🔢 Alphabet & Number Coloring Pages"
+              description="A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers."
+              href="/print?doc=coloring-letters-numbers"
             />
           </div>
         </section>
