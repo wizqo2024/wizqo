@@ -1770,8 +1770,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">Learning Assistant</h2>
-                <p className="text-sm text-gray-600">Your personal hobby guide</p>
+                <h2 className="text-lg font-semibold text-gray-900">Your AI hobby guide</h2>
               </div>
               
               {/* Make a New Plan Button - Top Right (show only after a plan exists) */}
