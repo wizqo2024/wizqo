@@ -35,6 +35,23 @@ From A‑Z animals to 1‑10 rockets, these printable coloring pages for learnin
 - Skills: Letter recognition, number sequencing, phonics
 - Ages: 3–6
 
+Open printable view → [https://wizqo-git-feature-printables-coloring-blog-wizqos-projects.vercel.app/print?doc=coloring-letters-numbers]
+
+### 🔬 2. Science & Curiosity Pages
+Who says science can’t be artistic? Kids can color planets, weather symbols, and ocean creatures while learning facts. These printable coloring pages for kids encourage curiosity and discovery.
+- Skills: Observation, early science awareness, critical thinking
+- Ages: 6–10
+
+### 🌈 3. Mindfulness & Mood Coloring Sheets
+Perfect for after‑school or bedtime. Kids color mandalas, mood trackers, and gratitude jars — creative ways to slow down and reflect.
+- Skills: Mindfulness, self‑expression, emotional awareness
+- Ages: 8–12
+
+### 🎃 4. Seasonal & Holiday Printables
+Keep boredom at bay during holidays with themed free printable coloring pages — from spooky Halloween puzzles to cozy winter kindness challenges.
+- Skills: Creativity, focus, empathy
+- Ages: 5–10
+
 ### 1. Top 5 Free Printable Coloring Pages for Kids
 Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
 
@@ -57,21 +74,6 @@ Open printable view → [/print?doc=coloring-space]
 From speedy race cars to high‑flying airplanes, these pages keep little drivers busy and creative.
 
 Open printable view → [/print?doc=coloring-vehicles]
-
-### 🔬 2. Science & Curiosity Pages
-Who says science can’t be artistic? Kids can color planets, weather symbols, and ocean creatures while learning facts. These printable coloring pages for kids encourage curiosity and discovery.
-- Skills: Observation, early science awareness, critical thinking
-- Ages: 6–10
-
-### 🌈 3. Mindfulness & Mood Coloring Sheets
-Perfect for after‑school or bedtime. Kids color mandalas, mood trackers, and gratitude jars — creative ways to slow down and reflect.
-- Skills: Mindfulness, self‑expression, emotional awareness
-- Ages: 8–12
-
-### 🎃 4. Seasonal & Holiday Printables
-Keep boredom at bay during holidays with themed free printable coloring pages — from spooky Halloween puzzles to cozy winter kindness challenges.
-- Skills: Creativity, focus, empathy
-- Ages: 5–10
 
 ## 🖍️ How to Use Coloring Pages for Learning
 Make coloring time smart and intentional:
