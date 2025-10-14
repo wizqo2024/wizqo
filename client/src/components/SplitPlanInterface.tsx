@@ -129,13 +129,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
         options: [
           { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-          { value: 'reading', label: 'Reading', description: 'Build a daily reading habit' },
+          { value: 'reading', label: 'Reading 📚', description: 'Build a daily reading habit' },
           { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
           { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
           { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
           { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
           { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-          { value: 'cloudspotting', label: 'Cloudspotting', description: 'Learn to read the sky' },
+          { value: 'cloudspotting', label: 'Cloudspotting ☁️', description: 'Learn to read the sky' },
           { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
         ],
         step: 'hobby',
@@ -359,13 +359,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
   const hobbyOptions = [
     { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-    { value: 'reading', label: 'Reading', description: 'Build a daily reading habit' },
+    { value: 'reading', label: 'Reading 📚', description: 'Build a daily reading habit' },
     { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
     { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
     { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
     { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
     { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-    { value: 'cloudspotting', label: 'Cloudspotting', description: 'Learn to read the sky' },
+    { value: 'cloudspotting', label: 'Cloudspotting ☁️', description: 'Learn to read the sky' },
     { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
   ];
 
