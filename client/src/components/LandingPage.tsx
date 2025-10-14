@@ -139,6 +139,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   <p className="text-slate-800 text-sm mt-1">Typing</p>
                 </div>
               </div>
+              {/* Added: Floating Printables & Coloring cards */}
+              <div className="absolute top-20 right-24 hidden sm:block">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-2 hover:-rotate-1 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🖨️</div>
+                  <p className="text-slate-800 text-sm mt-1">Printables</p>
+                </div>
+              </div>
+              <div className="absolute top-24 right-2 hidden sm:block">
+                <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-2 hover:rotate-0 hover:-translate-y-1 transition">
+                  <div className="text-2xl">🖍️</div>
+                  <p className="text-slate-800 text-sm mt-1">Coloring</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
