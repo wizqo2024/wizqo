@@ -31,11 +31,11 @@ When you use educational coloring pages, you turn simple playtime into early lea
 We’ve created printable sets for every curiosity and learning goal. Here’s a peek:
 
 ### 🔢 1. Alphabet & Number Coloring Pages
-From A‑Z animals to 1‑10 rockets, these printable coloring pages for learning letters and numbers make early literacy and counting more visual and fun.
+A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.
 - Skills: Letter recognition, number sequencing, phonics
 - Ages: 3–6
 
-Open printable view → [https://wizqo-git-feature-printables-coloring-blog-wizqos-projects.vercel.app/print?doc=coloring-letters-numbers]
+Open printable view → [/print?doc=coloring-letters-numbers]
 
 ### 🔬 2. Science & Curiosity Pages
 Who says science can’t be artistic? Kids can color planets, weather symbols, and ocean creatures while learning facts. These printable coloring pages for kids encourage curiosity and discovery.
