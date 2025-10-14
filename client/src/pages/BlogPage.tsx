@@ -956,8 +956,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const filteredPosts = useMemo(() => {
     const activeCategory = filterCategory;
     const q = filterQuery.trim().toLowerCase();
+    const now = Date.now();
+    const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
     return allPosts.filter(p => {
-      const matchesCategory = activeCategory === 'All' || activeCategory === 'Recent' || p.category === activeCategory;
+      const isRecent = (() => {
+        const ts = Date.parse(p.date || '');
+        return !!ts && (now - ts) <= sevenDaysMs;
+      })();
+      const matchesCategory = (
+        activeCategory === 'All' ||
+        (activeCategory === 'Recent' ? isRecent : p.category === activeCategory)
+      );
       if (!matchesCategory) return false;
       if (!q) return true;
       const haystack = `${p.title} ${p.excerpt} ${p.content}`.toLowerCase();
