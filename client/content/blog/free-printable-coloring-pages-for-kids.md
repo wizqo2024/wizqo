@@ -52,6 +52,23 @@ Keep boredom at bay during holidays with themed free printable coloring pages �
 - Skills: Creativity, focus, empathy
 - Ages: 5–10
 
+### 💖 5. Emotional & Mindfulness Printables
+Build healthy habits with printable gratitude jars, mood trackers, mindful coloring mandalas, and weekly goal planners.
+- Skills: Mindfulness, self‑regulation, reflection
+- Ages: 7–12
+
+### 🎉 6. Seasonal & Holiday Printables
+Themed activity packs for Halloween, winter kindness, spring scavenger hunts, and summer adventures — perfect for school breaks and family fun.
+- Skills: Creativity, empathy, observation
+- Ages: 5–10
+
+### 🌍 7. Printable Challenge Packs
+Multi‑day challenges to spark curiosity: 7‑Day Brain Boost, Creative Kids Challenge, Around the World Word Search, and Animal Adventure Pack.
+- Skills: Focus, problem‑solving, creativity
+- Ages: 6–12
+
+Visit our Printables page to explore all activities → [/printables]
+
 ### 1. Top 5 Free Printable Coloring Pages for Kids
 Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
 
