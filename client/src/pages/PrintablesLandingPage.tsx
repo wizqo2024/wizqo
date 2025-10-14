@@ -84,47 +84,48 @@ export function PrintablesLandingPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
-        {/* Top 5 Free Printable Coloring Pages for Kids */}
-        <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Top 5 Free Printable Coloring Pages for Kids</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
-            <ItemCard
-              title="🎨 1. Animal Friends Coloring Pages"
-              description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
-              href="/print?doc=coloring-animals"
-            />
-            <ItemCard
-              title="🌸 2. Nature & Seasons Coloring Pack"
-              description="Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors."
-              href="/print?doc=coloring-nature"
-            />
-            <ItemCard
-              title="🚀 3. Space Adventure Coloring Pages"
-              description="Blast off into creativity — rockets, planets, and astronauts. Great for science week or STEM lessons."
-              href="/print?doc=coloring-space"
-            />
-            <ItemCard
-              title="🚗 4. Vehicles & Transport Coloring Sheets"
-              description="From race cars to airplanes, develop motor skills while exploring transportation."
-              href="/print?doc=coloring-vehicles"
-            />
-            <ItemCard
-              title="🦸 5. Superheroes & Everyday Heroes Coloring Pages"
-              description="Celebrate courage and kindness — color superheroes and community helpers like doctors, firefighters, and teachers."
-              href="/print?doc=coloring-heroes"
-            />
-          </div>
-        </section>
         {/* Intro: What You'll Find */}
         <section>
           <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
           <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
         </section>
 
-        {/* 1. Educational Worksheets */}
+        {/* 1. Top 5 Coloring Packs */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 1. Educational Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Top 5 Free Printable Coloring Pages for Kids</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🎨 Animal Friends Coloring Pages"
+              description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
+              href="/print?doc=coloring-animals"
+            />
+            <ItemCard
+              title="🌸 Nature & Seasons Coloring Pack"
+              description="Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors."
+              href="/print?doc=coloring-nature"
+            />
+            <ItemCard
+              title="🚀 Space Adventure Coloring Pages"
+              description="Blast off into creativity — rockets, planets, and astronauts. Great for science week or STEM lessons."
+              href="/print?doc=coloring-space"
+            />
+            <ItemCard
+              title="🚗 Vehicles & Transport Coloring Sheets"
+              description="From race cars to airplanes, develop motor skills while exploring transportation."
+              href="/print?doc=coloring-vehicles"
+            />
+            <ItemCard
+              title="🦸 Superheroes & Everyday Heroes Coloring Pages"
+              description="Celebrate courage and kindness — color superheroes and community helpers like doctors, firefighters, and teachers."
+              href="/print?doc=coloring-heroes"
+            />
+          </div>
+        </section>
+
+        {/* 2. Educational Worksheets */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
@@ -158,9 +159,9 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 2. Creative & Art Printables */}
+        {/* 3. Creative & Art Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 2. Creative & Art Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
@@ -194,9 +195,9 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 3. Brain & Focus Activities */}
+        {/* 4. Brain & Focus Activities */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 3. Brain & Focus Activities</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
@@ -223,9 +224,9 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 4. Emotional & Mindfulness Printables */}
+        {/* 5. Emotional & Mindfulness Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">💖 4. Emotional & Mindfulness Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
@@ -259,9 +260,9 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 5. Seasonal & Holiday Printables */}
+        {/* 6. Seasonal & Holiday Printables */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 5. Seasonal & Holiday Printables</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
@@ -295,9 +296,9 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 6. Printable Challenge Packs */}
+        {/* 7. Printable Challenge Packs */}
         <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 6. Printable Challenge Packs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
             <ItemCard
