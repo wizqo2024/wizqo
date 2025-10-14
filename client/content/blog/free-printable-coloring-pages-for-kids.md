@@ -35,7 +35,7 @@ A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers
 - Skills: Letter recognition, number sequencing, phonics
 - Ages: 3–6
 
-Open printable view → [/print?doc=coloring-letters-numbers]
+
 
 ### 🔬 2. Science & Curiosity Pages
 Who says science can’t be artistic? Kids can color planets, weather symbols, and ocean creatures while learning facts. These printable coloring pages for kids encourage curiosity and discovery.
