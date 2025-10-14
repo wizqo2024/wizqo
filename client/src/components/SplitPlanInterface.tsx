@@ -1849,7 +1849,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                         <button
                           key={option.value}
                           onClick={() => handleOptionSelect(option.value, option.label)}
-                          className={`px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-full transition-all duration-200 shadow-sm ${isDisabledForStep || isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-md'}`}
+                          className={`px-3 py-2 text-xs font-medium rounded-full transition-all duration-200 shadow-sm border ${option.value === 'surprise' ? 'text-white bg-gradient-to-r from-purple-500 to-pink-500 border-transparent hover:from-purple-600 hover:to-pink-600' : 'text-gray-700 bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700 hover:shadow-md'} ${isDisabledForStep || isGenerating ? 'opacity-50 cursor-not-allowed' : ''}`}
                           disabled={isGenerating || isDisabledForStep}
                         >
                           {option.label}
