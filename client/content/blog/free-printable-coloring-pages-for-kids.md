@@ -58,15 +58,28 @@ Make coloring time smart and intentional:
 - Gratitude Routine: Use mindful coloring pages to start or end the day calmly.
 - Family Challenge: Print a pack for each person — first to finish colors chooses tomorrow’s activity.
 
-## 🎨 Top 5 Free Printable Coloring Pages on Wizqo
-Print these now — no sign‑up required:
-- Math Maze Adventure → [/print?doc=math-maze]
-- Science Fun Facts Match → [/print?doc=science-match]
-- Color‑By‑Number Animals → [/print?doc=color-by-number]
-- Gratitude Jar Worksheet → [/print?doc=gratitude-jar]
-- Holiday Puzzle Pack → [/print?doc=halloween-pack]
+## 1. Top 5 Free Printable Coloring Pages for Kids
+Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
 
-🖨️ Open printable view → [/printables]
+### 🎨 Animal Friends Coloring Pages
+Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring.
+
+Open printable view → [/print?doc=coloring-animals]
+
+### 🌸 Nature & Seasons Coloring Pack
+Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors.
+
+Open printable view → [/print?doc=coloring-nature]
+
+### 🚀 Space Adventure Coloring Pages
+Blast off into creativity! Kids can color rockets, stars, and astronauts while exploring our solar system. Great for science week or STEM lessons.
+
+Open printable view → [/print?doc=coloring-space]
+
+### 🚗 Vehicles & Transport Coloring Sheets
+From speedy race cars to high‑flying airplanes, these pages keep little drivers busy and creative.
+
+Open printable view → [/print?doc=coloring-vehicles]
 
 ## 💡 Pro Tips for Parents & Teachers
 - Print on slightly thicker paper so colors pop.
