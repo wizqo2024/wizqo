@@ -974,7 +974,12 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     });
   }, [allPosts, filterCategory, filterQuery]);
   const isFilteringActive = filterCategory !== 'All' || (filterQuery.trim().length > 0);
-  const visibleFeaturePost = featurePost;
+  const visibleFeaturePost = useMemo(() => {
+    if (isFilteringActive && filteredPosts.length > 0) {
+      return filteredPosts[0];
+    }
+    return featurePost;
+  }, [isFilteringActive, filteredPosts, featurePost]);
   const navigateTo = (path: string) => {
     try {
       window.history.pushState({}, '', path);
