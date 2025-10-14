@@ -2545,9 +2545,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    {/* AI Personalization - Large Card */}
-                    <div className="lg:col-span-2 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                    {/* Pick Your Passion */}
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 relative overflow-hidden h-full flex flex-col min-h-[240px]">
                       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-3xl opacity-20"></div>
                       <div className="relative z-10">
                         <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4">
@@ -2558,8 +2558,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                       </div>
                     </div>
 
-                    {/* 7-Day Structure */}
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 relative overflow-hidden">
+                    {/* AI Creates Your Plan */}
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 relative overflow-hidden h-full flex flex-col min-h-[240px]">
                       <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
                       <div className="relative z-10">
                         <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4">
@@ -2572,7 +2572,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     </div>
 
                     {/* Learn & Master */}
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 relative overflow-hidden h-full flex flex-col min-h-[240px]">
                       <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full blur-2xl opacity-30"></div>
                       <div className="relative z-10">
                         <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4">
