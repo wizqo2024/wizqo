@@ -748,27 +748,27 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
-            {/* A–Z Letters grid */}
-            <div className="mb-6 grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 print:grid-cols-4 gap-4 print:gap-4">
+            {/* A–Z Letters grid (large) */}
+            <div className="mb-8 grid grid-cols-3 sm:grid-cols-4 gap-6 print:gap-4">
               {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
-                <div key={i} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <text x="50" y="65" textAnchor="middle" fontSize="64" fill="none" stroke="#111827" strokeWidth="2">{ch}</text>
+                <div key={i} className="aspect-square min-h-[180px] sm:min-h-[220px] border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <text x="100" y="135" textAnchor="middle" fontSize="120" fill="none" stroke="#111827" strokeWidth="4">{ch}</text>
                   </svg>
                 </div>
               ))}
             </div>
-            {/* 1–10 Numbers with rocket icon */}
-            <div className="grid grid-cols-5 sm:grid-cols-10 print:grid-cols-5 gap-4 print:gap-4">
+            {/* 1–10 Numbers with rocket icon (large) */}
+            <div className="grid grid-cols-5 sm:grid-cols-5 gap-6 print:gap-4">
               {Array.from({ length: 10 }, (_, idx) => idx + 1).map((n) => (
-                <div key={n} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <text x="50" y="65" textAnchor="middle" fontSize="48" fill="none" stroke="#111827" strokeWidth="2">{n}</text>
+                <div key={n} className="aspect-square min-h-[180px] sm:min-h-[220px] border border-slate-300 rounded bg-white flex items-center justify-center">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <text x="70" y="135" textAnchor="middle" fontSize="96" fill="none" stroke="#111827" strokeWidth="4">{n}</text>
                     {/* small rocket */}
-                    <g fill="none" stroke="#111827" strokeWidth="2">
-                      <path d="M60 30 L68 50 L60 70 L52 50 Z" />
-                      <circle cx="60" cy="50" r="4" />
-                      <path d="M52 70 L60 82 L68 70" />
+                    <g fill="none" stroke="#111827" strokeWidth="4">
+                      <path d="M120 70 L140 110 L120 150 L100 110 Z" />
+                      <circle cx="120" cy="110" r="8" />
+                      <path d="M100 150 L120 170 L140 150" />
                     </g>
                   </svg>
                 </div>
@@ -781,7 +781,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Lion */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -806,6 +806,36 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Elephant */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M90 200 C120 120, 260 120, 300 190 C270 210, 200 220, 140 210 Z" />
+                    <circle cx="260" cy="165" r="6" />
+                    <path d="M110 190 Q100 210 120 220" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Fish */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M120 160 C180 120, 240 120, 300 160 C240 200, 180 200, 120 160 Z" />
+                    <path d="M120 160 L90 145 L95 175 Z" />
+                    <circle cx="260" cy="160" r="5" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Bird */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <path d="M90 190 C140 150, 220 150, 270 190" />
+                    <path d="M180 170 L210 150 L200 190 Z" />
+                    <circle cx="280" cy="180" r="4" />
+                  </g>
+                </svg>
+              </div>
             </div>
           </section>
         )}
@@ -814,7 +844,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Flower */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -840,6 +870,33 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Rainbow */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M80 220 Q200 100 320 220" />
+                    <path d="M100 220 Q200 120 300 220" />
+                    <path d="M120 220 Q200 140 280 220" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Mountain */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M60 220 L160 120 L200 180 L240 140 L340 220 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Sun */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="140" r="24" />
+                    {Array.from({length:12}).map((_,i)=>{const a=i*Math.PI*2/12;return <line key={i} x1={200} y1={140} x2={200+Math.cos(a)*50} y2={140+Math.sin(a)*50} />})}
+                  </g>
+                </svg>
+              </div>
             </div>
           </section>
         )}
@@ -848,7 +905,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Rocket */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -868,6 +925,34 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Astronaut helmet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="200" cy="150" r="50" />
+                    <rect x="165" y="140" width="70" height="30" rx="8" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Satellite */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="190" y="140" width="20" height="20" />
+                    <rect x="150" y="142" width="30" height="16" />
+                    <rect x="220" y="142" width="30" height="16" />
+                    <line x1="170" y1="150" x2="230" y2="150" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Star cluster */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    {Array.from({length:7}).map((_,i)=>{const x=120+i*30; const y=120+((i%2)*30);return <circle key={i} cx={x} cy={y} r={3}/>})}
+                  </g>
+                </svg>
+              </div>
             </div>
           </section>
         )}
@@ -876,7 +961,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🚗 Vehicles & Transport Coloring Sheets</h2>
             <p className="text-slate-600 text-sm mb-3">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Car */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -898,6 +983,36 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Train engine */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="120" y="160" width="160" height="40" />
+                    <rect x="230" y="140" width="50" height="20" />
+                    <circle cx="160" cy="210" r="12" />
+                    <circle cx="240" cy="210" r="12" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Boat */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M100 200 L300 200 L260 230 L140 230 Z" />
+                    <rect x="180" y="170" width="40" height="30" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Helicopter */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="170" y="170" width="60" height="25" />
+                    <line x1="200" y1="170" x2="200" y2="150" />
+                    <line x1="150" y1="150" x2="250" y2="150" />
+                  </g>
+                </svg>
+              </div>
             </div>
           </section>
         )}
@@ -906,7 +1021,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦸 Superheroes & Everyday Heroes Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers).</p>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Shield */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -921,6 +1036,33 @@ export function PrintablesPage() {
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
                     <polygon points="200,100 215,145 260,145 225,170 240,210 200,185 160,210 175,170 140,145 185,145" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Cape */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M160 100 Q200 200 240 100 Q220 160 180 160 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Mask */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="150" y="140" width="100" height="30" rx="10" />
+                    <circle cx="175" cy="155" r="8" />
+                    <circle cx="225" cy="155" r="8" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Doctor stethoscope */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M180 120 C160 160, 240 160, 220 120" />
+                    <circle cx="250" cy="130" r="10" />
                   </g>
                 </svg>
               </div>
