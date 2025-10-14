@@ -1795,28 +1795,34 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
 
         {allPosts.length > 0 ? (
           <div className="space-y-8">
-            {/* Featured Post */}
+            {/* Featured Post (skip posts tagged as printables-only) */}
             <article 
               className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 cursor-pointer border border-slate-200 hover:border-purple-300 transition-all"
-                  onClick={() => { setSelectedPost(allPosts[0]); navigateTo(`/blog/${allPosts[0].id}`); }}
+                  onClick={() => {
+                    // find first non-printables post for feature
+                    const feature = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0];
+                    setSelectedPost(feature);
+                    navigateTo(`/blog/${feature.id}`);
+                  }}
             >
               <span className="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full mb-4 inline-block">
                 Featured Article
               </span>
               {(() => {
-                const firstImgMatch = (allPosts[0].content || '').match(/!\[[^\]]*\]\((\S+?)(?:\s+".*?")?\)/);
+                const feature = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0];
+                const firstImgMatch = (feature.content || '').match(/!\[[^\]]*\]\((\S+?)(?:\s+".*?")?\)/);
                 const firstMdUrl = firstImgMatch ? firstImgMatch[1] : undefined;
-                const cover = firstMdUrl || getPostImage(allPosts[0]);
+                const cover = firstMdUrl || getPostImage(feature);
                 return (
                   <img
                 src={cover}
-                alt={allPosts[0].imageAlt || allPosts[0].title}
+                alt={feature.imageAlt || feature.title}
                 width={1200}
                 height={540}
                 className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-slate-200"
                 onError={(e) => {
                   const img = e.currentTarget as HTMLImageElement;
-                  const fallbacks = [getPostImage(allPosts[0]), CATEGORY_IMAGES[allPosts[0].category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
+                  const fallbacks = [getPostImage(feature), CATEGORY_IMAGES[feature.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
                   const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
                   if (tried < fallbacks.length) {
                     img.setAttribute('data-errcount', String(tried + 1));
@@ -1827,26 +1833,26 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 );
               })()}
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
-                {allPosts[0].title}
+                {(allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]).title}
               </h2>
               <p className="text-base sm:text-lg mb-4 sm:mb-6 opacity-90 leading-relaxed">
-                {allPosts[0].excerpt}
+                {(allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]).excerpt}
               </p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-sm">
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
-                  {allPosts[0].readTime}
+                  {(allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]).readTime}
                 </span>
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                   </svg>
-                  {allPosts[0].date}
+                  {(allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]).date}
                 </span>
                 <span className="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">
-                  {allPosts[0].category}
+                  {(allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]).category}
                 </span>
                 <div className="flex items-center gap-1 text-yellow-300">
                   {[1,2,3,4,5].map(star => (
@@ -1854,7 +1860,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
-                  <span className="text-sm ml-1">({getPostRating(allPosts[0])})</span>
+                  <span className="text-sm ml-1">({getPostRating((allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0]))})</span>
                 </div>
               </div>
             </article>
