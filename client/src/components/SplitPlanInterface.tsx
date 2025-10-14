@@ -2545,21 +2545,52 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-                    <div className="text-center p-6 bg-blue-50 rounded-xl border border-blue-100">
-                      <div className="text-3xl mb-3">🎨</div>
-                      <h3 className="font-bold text-gray-900 mb-2">Personalized Plans</h3>
-                      <p className="text-sm text-gray-600">Every plan is tailored to your experience level, available time, and goals.</p>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    {/* AI Personalization - Large Card */}
+                    <div className="lg:col-span-2 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-6 lg:p-8 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-3xl opacity-20"></div>
+                      <div className="relative z-10">
+                        <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">🧠</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-2">Pick Your Passion</h3>
+                        <p className="text-slate-700 text-sm leading-relaxed">Choose from 1,000+ hobbies or type your own. Answer 3 quick questions about your experience and goals.</p>
+                      </div>
                     </div>
-                    <div className="text-center p-6 bg-green-50 rounded-xl border border-green-100">
-                      <div className="text-3xl mb-3">📚</div>
-                      <h3 className="font-bold text-gray-900 mb-2">Structured Learning</h3>
-                      <p className="text-sm text-gray-600">Daily lessons with tips, checklists, and resources to guide your progress.</p>
+
+                    {/* 7-Day Structure */}
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 relative overflow-hidden">
+                      <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
+                      <div className="relative z-10">
+                        <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">🤖</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-2">AI Creates Your Plan</h3>
+                        <p className="text-slate-700 text-sm leading-relaxed">Our smart AI analyzes your inputs and generates a personalized 7-day learning roadmap just for you.</p>
+                        <div className="mt-2 inline-flex items-center text-blue-600 text-xs font-medium">Powered by AI</div>
+                      </div>
                     </div>
-                    <div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
-                      <div className="text-3xl mb-3">⚡</div>
-                      <h3 className="font-bold text-gray-900 mb-2">Quick Results</h3>
-                      <p className="text-sm text-gray-600">See real progress in just 7 days with an expert-backed roadmap.</p>
+
+                    {/* Learn & Master */}
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full blur-2xl opacity-30"></div>
+                      <div className="relative z-10">
+                        <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4">
+                          <span className="text-2xl">🚀</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-2">Learn & Master</h3>
+                        <p className="text-slate-700 text-sm leading-relaxed">Follow your daily lessons, track progress, and celebrate as you master your new hobby in just one week!</p>
+                        <div className="mt-3 bg-white/60 rounded-lg p-2">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-[10px] font-medium text-slate-600">Day 5 of 7</span>
+                          </div>
+                          <div className="grid grid-cols-7 gap-1">
+                            {[1,2,3,4,5,6,7].map((d) => (
+                              <div key={d} className={`w-3 h-3 rounded ${d <= 5 ? 'bg-green-400' : 'bg-slate-200'}`}></div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
