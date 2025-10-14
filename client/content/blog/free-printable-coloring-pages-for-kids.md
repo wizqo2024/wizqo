@@ -93,8 +93,6 @@ Open printable view → [/print?doc=coloring-vehicles]
 A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.
 
 Open printable view → [/print?doc=coloring-letters-numbers]
-
->>>>>>> chore/blog-filter-ui
 ## 🖍️ How to Use Coloring Pages for Learning
 Make coloring time smart and intentional:
 - Letter & Word Match: Pair alphabet pages with word flashcards.
@@ -127,7 +125,6 @@ Yes. All Wizqo printables are clean and family‑friendly.
 Try our alphabet and color‑by‑number packs — great for early math and reading.
 
 5. Can coloring pages improve focus?
->>>>>>> chore/blog-filter-ui
 Absolutely. Coloring slows down racing thoughts, improves patience, and trains kids to notice small details.
 
 ## 🌟 Final Thoughts: Learning That Feels Like Play
