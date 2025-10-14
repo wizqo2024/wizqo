@@ -951,13 +951,13 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const [filterQuery, setFilterQuery] = useState<string>('');
   const categories = useMemo(() => {
     const unique = Array.from(new Set(allPosts.map(p => p.category))).sort();
-    return ['All', ...unique];
+    return ['All', 'Recent', ...unique];
   }, [allPosts]);
   const filteredPosts = useMemo(() => {
     const activeCategory = filterCategory;
     const q = filterQuery.trim().toLowerCase();
     return allPosts.filter(p => {
-      const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+      const matchesCategory = activeCategory === 'All' || activeCategory === 'Recent' || p.category === activeCategory;
       if (!matchesCategory) return false;
       if (!q) return true;
       const haystack = `${p.title} ${p.excerpt} ${p.content}`.toLowerCase();
@@ -965,10 +965,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     });
   }, [allPosts, filterCategory, filterQuery]);
   const isFilteringActive = filterCategory !== 'All' || (filterQuery.trim().length > 0);
-  const visibleFeaturePost = useMemo(() => {
-    if (isFilteringActive && filteredPosts.length > 0) return filteredPosts[0];
-    return featurePost;
-  }, [isFilteringActive, filteredPosts, featurePost]);
+  const visibleFeaturePost = featurePost;
   const navigateTo = (path: string) => {
     try {
       window.history.pushState({}, '', path);
@@ -1824,40 +1821,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
 
         {allPosts.length > 0 ? (
           <div className="space-y-8">
-            {/* Filters */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <label className="text-sm text-slate-600">Category</label>
-                  <select
-                    value={filterCategory}
-                    onChange={e => setFilterCategory(e.target.value)}
-                    className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-                  >
-                    {categories.map(cat => (
-                      <option key={cat} value={cat}>{cat}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex-1 flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={filterQuery}
-                    onChange={e => setFilterQuery(e.target.value)}
-                    placeholder="Search articles..."
-                    className="w-full sm:w-72 px-3 py-2 border border-slate-300 rounded-lg text-sm"
-                  />
-                  {(filterCategory !== 'All' || filterQuery) && (
-                    <button
-                      onClick={() => { setFilterCategory('All'); setFilterQuery(''); }}
-                      className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg"
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
 
             {/* Featured Post (skip posts tagged as printables-only) */}
             <article 
@@ -1927,6 +1890,41 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 </div>
               </div>
             </article>
+
+            {/* Filters (below Featured) */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <label className="text-sm text-slate-600">Category</label>
+                  <select
+                    value={filterCategory}
+                    onChange={e => setFilterCategory(e.target.value)}
+                    className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+                  >
+                    {categories.map(cat => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex-1 flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={filterQuery}
+                    onChange={e => setFilterQuery(e.target.value)}
+                    placeholder="Search articles..."
+                    className="w-full sm:w-72 px-3 py-2 border border-slate-300 rounded-lg text-sm"
+                  />
+                  {(filterCategory !== 'All' || filterQuery) && (
+                    <button
+                      onClick={() => { setFilterCategory('All'); setFilterQuery(''); }}
+                      className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
 
             {/* Other Posts - Clean List Style */}
             <div className="space-y-6">
