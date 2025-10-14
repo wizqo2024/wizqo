@@ -69,7 +69,7 @@ Multi‑day challenges to spark curiosity: 7‑Day Brain Boost, Creative Kids Ch
 
 Visit our Printables page to explore all activities → [/printables]
 
-### 1. Top 5 Free Printable Coloring Pages for Kids
+### Top 5 Free Printable Coloring Pages for Kids
 Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
 
 #### 🎨 Animal Friends Coloring Pages
