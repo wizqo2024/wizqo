@@ -274,7 +274,9 @@ export default function KidsPage() {
               <li>⌨️ Typing Safari – Type letters and words to help animals cross.</li>
             </ul>
             <div className="mt-4">
-              <a href="#play" className={OUTLINE_BUTTON}>Start Playing Now →</a>
+                <a href="#play" className={OUTLINE_BUTTON} onClick={() => {
+                  try { window.gtag && window.gtag('event', 'kids_play_cta_click'); } catch {}
+                }}>Start Playing Now →</a>
             </div>
           </div>
 
@@ -294,7 +296,7 @@ export default function KidsPage() {
                 </div>
                 <h3 className="font-semibold text-slate-900 mb-1">Memory Match</h3>
                 <p className="text-slate-600 text-sm mb-4">Find all pairs in the fewest moves. Timer + best score.</p>
-                <a href="/kids/games/memory" className={BUTTON_CLASS}>Play</a>
+                <a href="/kids/games/memory" className={BUTTON_CLASS} onClick={() => { try { window.gtag && window.gtag('event', 'game_start', { game: 'memory' }); } catch {} }}>Play</a>
               </div>
             </article>
 
@@ -314,7 +316,7 @@ export default function KidsPage() {
                 </div>
                 <h3 className="font-semibold text-slate-900 mb-1">Puzzle Game</h3>
                 <p className="text-slate-600 text-sm mb-4">Fix the picture by swapping tiles. Animals & Nature.</p>
-                <a href="/kids/games/puzzle" className={BUTTON_CLASS}>Play</a>
+                <a href="/kids/games/puzzle" className={BUTTON_CLASS} onClick={() => { try { window.gtag && window.gtag('event', 'game_start', { game: 'puzzle' }); } catch {} }}>Play</a>
               </div>
             </article>
             <article className={CARD_CLASS}>
@@ -332,7 +334,7 @@ export default function KidsPage() {
                 </div>
                 <h3 className="font-semibold text-slate-900 mb-1">Word Search</h3>
                 <p className="text-slate-600 text-sm mb-4">Find all hidden words in time. Mobile friendly.</p>
-                <a href="/kids/games/word-search" className={BUTTON_CLASS}>Play</a>
+                <a href="/kids/games/word-search" className={BUTTON_CLASS} onClick={() => { try { window.gtag && window.gtag('event', 'game_start', { game: 'word-search' }); } catch {} }}>Play</a>
               </div>
             </article>
             {/* Typing Safari */}
@@ -351,7 +353,7 @@ export default function KidsPage() {
                 </div>
                 <h3 className="font-semibold text-slate-900 mb-1">Typing Safari</h3>
                 <p className="text-slate-600 text-sm mb-4">Type letters and words to help animals cross the river.</p>
-                <a href="/kids/games/typing" className={BUTTON_CLASS}>Play</a>
+                <a href="/kids/games/typing" className={BUTTON_CLASS} onClick={() => { try { window.gtag && window.gtag('event', 'game_start', { game: 'typing' }); } catch {} }}>Play</a>
               </div>
             </article>
             {/* Pattern Builder */}
@@ -370,7 +372,7 @@ export default function KidsPage() {
                 </div>
                 <h3 className="font-semibold text-slate-900 mb-1">Pattern Builder</h3>
                 <p className="text-slate-600 text-sm mb-4">Watch the pattern and repeat it before time runs out.</p>
-                <a href="/kids/games/pattern" className={BUTTON_CLASS}>Play</a>
+                <a href="/kids/games/pattern" className={BUTTON_CLASS} onClick={() => { try { window.gtag && window.gtag('event', 'game_start', { game: 'pattern' }); } catch {} }}>Play</a>
               </div>
             </article>
           </div>
@@ -391,7 +393,7 @@ export default function KidsPage() {
               <li>🎨 Coloring Page – Creative Animals</li>
             </ul>
             <div className="mt-4">
-              <a href="/printables" className={OUTLINE_BUTTON}>Explore more →</a>
+              <a href="/printables" className={OUTLINE_BUTTON} onClick={() => { try { window.gtag && window.gtag('event', 'printables_explore_click'); } catch {} }}>Explore more →</a>
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
+import { SEOMetaTags } from '@/components/SEOMetaTags';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -18,7 +19,7 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
         </div>
       )}
       <div className="mt-3">
-        <a href={href} className={OUTLINE_BUTTON}>Open printable view →</a>
+        <a href={href} className={OUTLINE_BUTTON} onClick={() => { try { (window as any).gtag && (window as any).gtag('event', 'printable_open', { href }); } catch {} }}>Open printable view →</a>
       </div>
     </div>
   );
@@ -27,6 +28,12 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
 export function PrintablesLandingPage() {
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEOMetaTags
+        title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
+        description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot‑the‑difference games."
+        canonicalUrl="https://wizqo.com/printables"
+        ogImage="https://wizqo.com/og/printables.jpg"
+      />
       <UnifiedNavigation currentPage="kids" />
       {(() => {
         // SEO structured data: Breadcrumbs + ItemList of printables
@@ -68,7 +75,7 @@ export function PrintablesLandingPage() {
         </div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="mb-4 print:hidden flex justify-end">
-            <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back to Kids Hub">
+            <a href="/kids" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2" aria-label="Back to Kids Hub">
               <span>←</span>
               <span>Back to Kids Hub</span>
             </a>

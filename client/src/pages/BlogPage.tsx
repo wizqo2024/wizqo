@@ -1854,11 +1854,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 const firstMdUrl = firstImgMatch ? firstImgMatch[1] : undefined;
                 const cover = firstMdUrl || getPostImage(feature);
                 return (
-                  <img
+              <img
                 src={cover}
                 alt={feature.imageAlt || feature.title}
                 width={1200}
                 height={540}
+                loading="eager"
+                decoding="async"
+                sizes="(min-width: 1024px) 960px, 100vw"
                 className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-slate-200"
                 onError={(e) => {
                   const img = e.currentTarget as HTMLImageElement;
@@ -1939,7 +1942,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       const el = document.getElementById('blog-results');
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
-                    className="px-3 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                    className="px-3 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
                   >
                     Search
                   </button>
@@ -1975,14 +1978,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300"
                       onClick={() => { setSelectedPost(post); navigateTo(`/blog/${post.id}`); }}
                     >
-                      <img 
-                        src={getPostImage(post)} 
-                        alt={post.imageAlt || post.title} 
-                        width={1200}
-                        height={540}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-lg mb-4"
-                        onError={(e) => {
+                    <img 
+                      src={getPostImage(post)} 
+                      alt={post.imageAlt || post.title} 
+                      width={1200}
+                      height={540}
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 1024px) 560px, 100vw"
+                      className="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-lg mb-4"
+                      onError={(e) => {
                           const img = e.currentTarget as HTMLImageElement;
                           const fallbacks = [CATEGORY_IMAGES[post.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
                           const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
