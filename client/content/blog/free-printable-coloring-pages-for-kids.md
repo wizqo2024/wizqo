@@ -35,6 +35,29 @@ From A‑Z animals to 1‑10 rockets, these printable coloring pages for learnin
 - Skills: Letter recognition, number sequencing, phonics
 - Ages: 3–6
 
+### 1. Top 5 Free Printable Coloring Pages for Kids
+Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
+
+#### 🎨 Animal Friends Coloring Pages
+Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring.
+
+Open printable view → [/print?doc=coloring-animals]
+
+#### 🌸 Nature & Seasons Coloring Pack
+Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors.
+
+Open printable view → [/print?doc=coloring-nature]
+
+#### 🚀 Space Adventure Coloring Pages
+Blast off into creativity! Kids can color rockets, stars, and astronauts while exploring our solar system. Great for science week or STEM lessons.
+
+Open printable view → [/print?doc=coloring-space]
+
+#### 🚗 Vehicles & Transport Coloring Sheets
+From speedy race cars to high‑flying airplanes, these pages keep little drivers busy and creative.
+
+Open printable view → [/print?doc=coloring-vehicles]
+
 ### 🔬 2. Science & Curiosity Pages
 Who says science can’t be artistic? Kids can color planets, weather symbols, and ocean creatures while learning facts. These printable coloring pages for kids encourage curiosity and discovery.
 - Skills: Observation, early science awareness, critical thinking
@@ -58,28 +81,6 @@ Make coloring time smart and intentional:
 - Gratitude Routine: Use mindful coloring pages to start or end the day calmly.
 - Family Challenge: Print a pack for each person — first to finish colors chooses tomorrow’s activity.
 
-## 1. Top 5 Free Printable Coloring Pages for Kids
-Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.
-
-### 🎨 Animal Friends Coloring Pages
-Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring.
-
-Open printable view → [/print?doc=coloring-animals]
-
-### 🌸 Nature & Seasons Coloring Pack
-Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors.
-
-Open printable view → [/print?doc=coloring-nature]
-
-### 🚀 Space Adventure Coloring Pages
-Blast off into creativity! Kids can color rockets, stars, and astronauts while exploring our solar system. Great for science week or STEM lessons.
-
-Open printable view → [/print?doc=coloring-space]
-
-### 🚗 Vehicles & Transport Coloring Sheets
-From speedy race cars to high‑flying airplanes, these pages keep little drivers busy and creative.
-
-Open printable view → [/print?doc=coloring-vehicles]
 
 ## 💡 Pro Tips for Parents & Teachers
 - Print on slightly thicker paper so colors pop.
