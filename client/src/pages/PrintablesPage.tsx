@@ -796,6 +796,19 @@ export function PrintablesPage() {
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Turtle */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="4">
+                    <ellipse cx="200" cy="180" rx="80" ry="45" />
+                    <circle cx="120" cy="175" r="20" />
+                    <line x1="155" y1="200" x2="135" y2="220" />
+                    <line x1="245" y1="200" x2="265" y2="220" />
+                    <line x1="180" y1="220" x2="170" y2="240" />
+                    <line x1="220" y1="220" x2="230" y2="240" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Dolphin */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="4">
@@ -860,6 +873,15 @@ export function PrintablesPage() {
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Leaf (large) */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M120 220 C200 120, 300 120, 280 220 C220 240, 180 240, 120 220 Z" />
+                    <path d="M200 220 L200 150" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Tree */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -913,6 +935,16 @@ export function PrintablesPage() {
                     <path d="M200 80 L220 140 L200 200 L180 140 Z" />
                     <circle cx="200" cy="140" r="10" />
                     <path d="M180 200 L200 220 L220 200" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Comet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <circle cx="280" cy="100" r="10" />
+                    <path d="M100 180 Q200 120 270 105" />
+                    <path d="M120 190 Q210 130 270 115" />
                   </g>
                 </svg>
               </div>
@@ -974,6 +1006,17 @@ export function PrintablesPage() {
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Truck */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <rect x="110" y="170" width="130" height="40" />
+                    <rect x="240" y="180" width="40" height="30" />
+                    <circle cx="150" cy="220" r="12" />
+                    <circle cx="230" cy="220" r="12" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Airplane */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -1028,6 +1071,15 @@ export function PrintablesPage() {
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
                     <path d="M200 90 L260 110 L250 170 L200 210 L150 170 L140 110 Z" />
                     <path d="M200 110 L235 125 L228 165 L200 188 L172 165 L165 125 Z" />
+                  </g>
+                </svg>
+              </div>
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                {/* Firefighter helmet */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="3.5">
+                    <path d="M140 200 Q200 140 260 200" />
+                    <rect x="160" y="195" width="80" height="20" />
                   </g>
                 </svg>
               </div>
