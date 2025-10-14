@@ -1,3 +1,15 @@
+---
+title: "🖍️ Free Printable Coloring Pages for Kids That Make Learning Fun"
+slug: free-printable-coloring-pages-for-kids
+excerpt: "Free printable coloring pages for kids that teach letters, numbers, and science — download and print for fun, creative learning at home or in class."
+category: Learning Tips
+readTime: 6–7 min read
+cover: https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=1170&kidv=coloring-cover
+imageAlt: "Kids coloring with crayons – free printable coloring pages for kids"
+author: Wizqo Team
+date: 2025-10-12
+---
+
 # Free Printable Coloring Pages for Kids That Make Learning Fun
 
 Free printable coloring pages for kids that teach letters, numbers, and science — download and print for fun, creative learning at home or in class.
