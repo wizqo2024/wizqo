@@ -1769,8 +1769,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         <div className="w-full lg:w-1/2 xl:w-2/5 border-r-0 lg:border-r-2 border-gray-300 bg-white flex flex-col h-full lg:h-full min-h-[60vh] lg:min-h-0">
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white grid place-items-center shadow-sm" aria-hidden="true">🤖</div>
+              <div>
                 <h2 className="text-xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Your AI hobby guide</h2>
               </div>
               
