@@ -749,21 +749,21 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
             {/* A–Z Letters grid */}
-            <div className="mb-6 grid grid-cols-6 sm:grid-cols-8 gap-3 print:gap-2">
+            <div className="mb-6 grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 print:grid-cols-4 gap-4 print:gap-4">
               {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
                 <div key={i} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" className="w-20 h-20">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
                     <text x="50" y="65" textAnchor="middle" fontSize="64" fill="none" stroke="#111827" strokeWidth="2">{ch}</text>
                   </svg>
                 </div>
               ))}
             </div>
             {/* 1–10 Numbers with rocket icon */}
-            <div className="grid grid-cols-5 sm:grid-cols-10 gap-3 print:gap-2">
+            <div className="grid grid-cols-5 sm:grid-cols-10 print:grid-cols-5 gap-4 print:gap-4">
               {Array.from({ length: 10 }, (_, idx) => idx + 1).map((n) => (
                 <div key={n} className="aspect-square border border-slate-300 rounded bg-white flex items-center justify-center">
-                  <svg viewBox="0 0 100 100" className="w-20 h-20">
-                    <text x="30" y="65" textAnchor="middle" fontSize="48" fill="none" stroke="#111827" strokeWidth="2">{n}</text>
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <text x="50" y="65" textAnchor="middle" fontSize="48" fill="none" stroke="#111827" strokeWidth="2">{n}</text>
                     {/* small rocket */}
                     <g fill="none" stroke="#111827" strokeWidth="2">
                       <path d="M60 30 L68 50 L60 70 L52 50 Z" />
