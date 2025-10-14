@@ -110,6 +110,4 @@ Absolutely. Coloring slows down racing thoughts, improves patience, and trains k
 ## 🌟 Final Thoughts: Learning That Feels Like Play
 Coloring isn’t just a “quiet activity” — it’s a learning powerhouse. With these free printable coloring pages for kids, your child can explore science, letters, and emotions while having fun.
 
-—
-
 Visit our Printables page to explore all activities → [/printables]
