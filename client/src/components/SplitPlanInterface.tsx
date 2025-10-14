@@ -2538,7 +2538,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     <div className="flex items-center justify-center mb-4 lg:mb-6">
                       <WizqoLogo width={80} height={46} />
                     </div>
-                    <h2 className="text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Welcome to Your Learning Journey!</h2>
+                    <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2">Welcome to Your Learning Journey!</h2>
                     <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mx-auto mb-3" />
                     <p className="text-lg text-slate-700 leading-relaxed">
                       Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. 
