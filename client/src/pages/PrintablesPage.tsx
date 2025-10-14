@@ -744,6 +744,61 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {doc === 'coloring-animals' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-nature' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
+            <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-space' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-vehicles' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🚗 Vehicles & Transport Coloring Sheets</h2>
+            <p className="text-slate-600 text-sm mb-3">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'coloring-heroes' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🦸 Superheroes & Everyday Heroes Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3">Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers).</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+              <div className="border border-slate-300 rounded p-4 bg-white"><ColoringSVG /></div>
+            </div>
+          </section>
+        )}
+
         {(doc === 'spotdiff') && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>

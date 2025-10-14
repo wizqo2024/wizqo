@@ -84,6 +84,38 @@ export function PrintablesLandingPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
+        {/* Top 5 Free Printable Coloring Pages for Kids */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">Top 5 Free Printable Coloring Pages for Kids</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Five themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🎨 1. Animal Friends Coloring Pages"
+              description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
+              href="/print?doc=coloring-animals"
+            />
+            <ItemCard
+              title="🌸 2. Nature & Seasons Coloring Pack"
+              description="Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors."
+              href="/print?doc=coloring-nature"
+            />
+            <ItemCard
+              title="🚀 3. Space Adventure Coloring Pages"
+              description="Blast off into creativity — rockets, planets, and astronauts. Great for science week or STEM lessons."
+              href="/print?doc=coloring-space"
+            />
+            <ItemCard
+              title="🚗 4. Vehicles & Transport Coloring Sheets"
+              description="From race cars to airplanes, develop motor skills while exploring transportation."
+              href="/print?doc=coloring-vehicles"
+            />
+            <ItemCard
+              title="🦸 5. Superheroes & Everyday Heroes Coloring Pages"
+              description="Celebrate courage and kindness — color superheroes and community helpers like doctors, firefighters, and teachers."
+              href="/print?doc=coloring-heroes"
+            />
+          </div>
+        </section>
         {/* Intro: What You'll Find */}
         <section>
           <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
