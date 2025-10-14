@@ -92,6 +92,11 @@ From speedy race cars to high‑flying airplanes, these pages keep little driver
 
 Open printable view → [/print?doc=coloring-vehicles]
 
+#### 🔤 Alphabet & Number Coloring Pages
+A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.
+
+Open printable view → [/print?doc=coloring-letters-numbers]
+
 ## 🖍️ How to Use Coloring Pages for Learning
 Make coloring time smart and intentional:
 - Letter & Word Match: Pair alphabet pages with word flashcards.
