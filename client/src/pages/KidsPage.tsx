@@ -570,11 +570,11 @@ const KIDS_BLOGS = [
     cover: 'https://plus.unsplash.com/premium_photo-1723802502661-b7e0445732c2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170&kidv=edu-games-cover-3',
   },
   {
-    id: 'productive-hobbies-for-students',
-    title: 'Productive Hobbies for Students',
-    subtitle: 'Grow skills with quick daily practice',
-    href: '/blog/productive-hobbies-for-students',
-    cover: KID_SAFE.kidJournaling,
+    id: 'free-printable-coloring-pages-for-kids',
+    title: '🖍️ Free Printable Coloring Pages for Kids That Make Learning Fun',
+    subtitle: 'Creative, screen‑free activities that build focus and skills',
+    href: '/blog/free-printable-coloring-pages-for-kids',
+    cover: 'https://images.unsplash.com/photo-1617117206620-b01f2919ff86?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
   },
   {
     id: 'outdoor-hobbies-for-students',
