@@ -315,8 +315,8 @@ export function PrintablesPage() {
                   {lines.map((l, idx) => (
                     <line key={idx} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#475569" strokeWidth={3} strokeLinecap="round" />
                   ))}
-                  <text x={pad + 2} y={pad + 14} fontSize={12} fill="#10B981" textAnchor="start">START</text>
-                  <text x={svgW - (pad + 2)} y={svgH - (pad + 2)} fontSize={12} fill="#EC4899" textAnchor="end">FINISH</text>
+                  <text x={pad + 2} y={pad + 14} fontSize={10} fill="#10B981" textAnchor="start">START</text>
+                  <text x={svgW - (pad + 2)} y={svgH - (pad + 2)} fontSize={10} fill="#EC4899" textAnchor="end">FINISH</text>
                 </svg>
               </div>
             );
