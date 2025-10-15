@@ -254,14 +254,69 @@ export function PrintablesPage() {
               </div>
             );
           } else {
+            // Build a unique grid maze using a seeded DFS (recursive backtracker)
+            const mazeCols = isK2 ? 8 : (is35 ? 10 : 12);
+            const mazeRows = isK2 ? 8 : (is35 ? 10 : 12);
+            const total = mazeCols * mazeRows;
+            const cells = Array.from({ length: total }, () => ({ t: true, r: true, b: true, l: true })) as { t: boolean; r: boolean; b: boolean; l: boolean }[];
+            const visited = new Array(total).fill(false) as boolean[];
+            const indexOf = (x: number, y: number) => y * mazeCols + x;
+            const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < mazeCols && y < mazeRows;
+            const stack: number[] = [0];
+            visited[0] = true;
+            while (stack.length) {
+              const cur = stack[stack.length - 1];
+              const cx = cur % mazeCols;
+              const cy = Math.floor(cur / mazeCols);
+              const neigh: Array<{ i: number; dir: 't' | 'r' | 'b' | 'l' }> = [];
+              if (inBounds(cx, cy - 1) && !visited[indexOf(cx, cy - 1)]) neigh.push({ i: indexOf(cx, cy - 1), dir: 't' });
+              if (inBounds(cx + 1, cy) && !visited[indexOf(cx + 1, cy)]) neigh.push({ i: indexOf(cx + 1, cy), dir: 'r' });
+              if (inBounds(cx, cy + 1) && !visited[indexOf(cx, cy + 1)]) neigh.push({ i: indexOf(cx, cy + 1), dir: 'b' });
+              if (inBounds(cx - 1, cy) && !visited[indexOf(cx - 1, cy)]) neigh.push({ i: indexOf(cx - 1, cy), dir: 'l' });
+              if (neigh.length === 0) { stack.pop(); continue; }
+              // pick neighbor deterministically
+              const pickIdx = Math.floor(rng() * neigh.length);
+              const next = neigh[pickIdx];
+              // carve passage
+              if (next.dir === 't') { cells[cur].t = false; cells[next.i].b = false; }
+              if (next.dir === 'r') { cells[cur].r = false; cells[next.i].l = false; }
+              if (next.dir === 'b') { cells[cur].b = false; cells[next.i].t = false; }
+              if (next.dir === 'l') { cells[cur].l = false; cells[next.i].r = false; }
+              visited[next.i] = true;
+              stack.push(next.i);
+            }
+
+            // Convert walls to SVG lines
+            const cellSize = 12;
+            const pad = 6;
+            const svgW = mazeCols * cellSize + pad * 2;
+            const svgH = mazeRows * cellSize + pad * 2;
+            const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
+            for (let y = 0; y < mazeRows; y++) {
+              for (let x = 0; x < mazeCols; x++) {
+                const i = indexOf(x, y);
+                const w = cells[i];
+                const x0 = pad + x * cellSize;
+                const y0 = pad + y * cellSize;
+                const x1 = x0 + cellSize;
+                const y1 = y0 + cellSize;
+                if (w.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
+                if (w.l) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                if (w.b) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                if (w.r) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+              }
+            }
+
             items.push(
-              <div key="maze" className="border border-slate-200 rounded-lg p-5">
+              <div key="maze" className="border border-slate-200 rounded-lg p-5 sm:col-span-2">
                 <div className="font-semibold text-2xl mb-3">Quick Maze</div>
-                <svg viewBox="0 0 120 120" className="w-full h-72">
-                  <rect x="5" y="5" width="110" height="110" rx="8" fill="#fff" stroke="#cbd5e1" strokeWidth="2" />
-                  <path d={mazePath} stroke="#64748b" strokeWidth="6" strokeLinecap="round" fill="none"/>
-                  <text x="8" y="16" fontSize="12" fill="#475569">START</text>
-                  <text x="86" y="112" fontSize="12" fill="#475569">FINISH</text>
+                <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full h-96">
+                  <rect x={2} y={2} width={svgW - 4} height={svgH - 4} rx={8} fill="#fff" stroke="#cbd5e1" strokeWidth={2} />
+                  {lines.map((l, idx) => (
+                    <line key={idx} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#475569" strokeWidth={3} strokeLinecap="round" />
+                  ))}
+                  <text x={pad} y={pad - 2} fontSize={12} fill="#475569">START</text>
+                  <text x={svgW - pad - 32} y={svgH - pad + 12} fontSize={12} fill="#475569">FINISH</text>
                 </svg>
               </div>
             );
