@@ -4,7 +4,8 @@ import { WizqoLogo } from './WizqoLogo';
 // Social media configuration - easy to update
 const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/company/wizqo-hobbies/',
-  instagram: null // Will be updated when provided
+  instagram: null, // Will be updated when provided
+  pinterest: 'https://www.pinterest.com/wizqo2024/'
 };
 
 export function Footer() {
@@ -85,6 +86,18 @@ export function Footer() {
               >
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              {/* Pinterest */}
+              <a 
+                href={SOCIAL_LINKS.pinterest}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 bg-slate-800 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
+                title="Follow us on Pinterest"
+              >
+                <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 4.99 3.657 9.153 8.484 10.146-.117-.861-.223-2.186.046-3.13.242-.83 1.556-5.3 1.556-5.3s-.397-.794-.397-1.967c0-1.84 1.067-3.214 2.398-3.214 1.13 0 1.676.849 1.676 1.866 0 1.137-.725 2.838-1.098 4.415-.312 1.317.662 2.39 1.963 2.39 2.356 0 3.943-3.025 3.943-6.602 0-2.722-1.833-4.759-5.165-4.759-3.765 0-6.107 2.81-6.107 5.952 0 1.085.32 1.853.821 2.445.23.272.262.381.179.692-.06.228-.196.778-.251.996-.082.315-.334.427-.616.31-1.718-.703-2.523-2.588-2.523-4.705 0-3.501 2.954-7.704 8.807-7.704 4.703 0 7.785 3.402 7.785 7.052 0 4.835-2.689 8.443-6.648 8.443-1.331 0-2.584-.72-3.013-1.543l-.818 3.115c-.296 1.139-1.096 2.57-1.633 3.44C10.725 23.803 11.35 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
                 </svg>
               </a>
               
