@@ -26,7 +26,12 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
 
 export function PrintablesLandingPage() {
   const [filterCategory, setFilterCategory] = React.useState<string>('All');
-  const sectionVisibility = (cat: string) => (filterCategory === 'All' || filterCategory === cat ? '' : 'hidden');
+  const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
+  const sectionVisibility = (cat: string) => (
+    filterCategory === 'All' ||
+    filterCategory === cat ||
+    (filterCategory === 'Recent' && recentSet.has(cat))
+  ) ? '' : 'hidden';
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
@@ -103,6 +108,7 @@ export function PrintablesLandingPage() {
               className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
             >
               <option>All</option>
+              <option>Recent</option>
               <option>Coloring</option>
               <option>Worksheets</option>
               <option>Creative</option>
