@@ -4,6 +4,9 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
+  const packTime = params.get('time') || '5'
+  const packAge = params.get('age') || 'k2'
+  const packSkill = params.get('skill') || 'mixed'
   const [showAnswers, setShowAnswers] = React.useState(false)
   const answerableDocs = new Set([
     'science-match',
@@ -111,6 +114,43 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
+        {doc === 'pack' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Today’s 5‑Minute Print Pack</h2>
+            <div className="text-slate-600 text-sm mb-3">Time: {packTime} min • Age: {packAge.toUpperCase()} • Focus: {packSkill}</div>
+            <div className="text-slate-700 text-sm mb-3">Quick wins you can finish today. Check off as you go!</div>
+            <ul className="list-decimal list-inside text-slate-700 text-sm mb-4">
+              <li>Mini word search (animals)</li>
+              <li>Simple maze path</li>
+              <li>1 drawing prompt</li>
+            </ul>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="border border-slate-200 rounded-lg p-3">
+                <div className="font-semibold mb-1">Mini Word Search — Animals</div>
+                <div className="grid grid-cols-6 gap-1 font-mono text-xs">
+                  {['L','I','O','N','A','Z','B','E','A','R','K','D','E','L','E','P','H','A','N','T','O','W','L','M','S','Z','F','O','X','Q','M','O','L','A','M','A'].map((c,i)=>(
+                    <div key={i} className="w-5 h-5 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
+                  ))}
+                </div>
+                <div className="mt-2 text-xs text-slate-600">Find: LION, BEAR, OWL, FOX, LLAMA</div>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-3">
+                <div className="font-semibold mb-1">Quick Maze</div>
+                <svg viewBox="0 0 120 120" className="w-full h-32">
+                  <rect x="5" y="5" width="110" height="110" rx="6" fill="#fff" stroke="#cbd5e1" />
+                  <path d="M15 20h60v15H30v15h60v15H45v15h45" stroke="#94a3b8" strokeWidth="4" fill="none"/>
+                  <text x="10" y="18" fontSize="6" fill="#64748b">START</text>
+                  <text x="98" y="110" fontSize="6" fill="#64748b">FINISH</text>
+                </svg>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-3 sm:col-span-2">
+                <div className="font-semibold mb-1">Drawing Prompt</div>
+                <div className="text-sm text-slate-700">Draw a creature made from a circle, triangle, and rectangle. Add a one‑line story.</div>
+                <div className="mt-2 h-32 border border-dashed border-slate-300 rounded-md" />
+              </div>
+            </div>
+          </section>
+        )}
         {doc === 'stem-balloon-rocket' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
