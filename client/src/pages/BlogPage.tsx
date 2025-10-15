@@ -988,6 +988,22 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      try {
+        setShowBackToTop((typeof window !== 'undefined' ? window.scrollY : 0) > 400);
+      } catch {}
+    };
+    try {
+      window.addEventListener('scroll', onScroll, { passive: true } as any);
+    } catch {}
+    onScroll();
+    return () => {
+      try { window.removeEventListener('scroll', onScroll); } catch {}
+    };
+  }, []);
 
   // Preselect post from URL query (?post=slug)
   useEffect(() => {
@@ -1815,6 +1831,18 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         </div>
 
         <Footer />
+        {showBackToTop && (
+          <button
+            onClick={() => {
+              try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
+            }}
+            aria-label="Back to top"
+            title="Back to top"
+            className="fixed bottom-6 right-6 print:hidden rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 p-3"
+          >
+            ↑
+          </button>
+        )}
       </div>
     );
   }
