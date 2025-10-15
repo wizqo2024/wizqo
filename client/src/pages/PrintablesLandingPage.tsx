@@ -118,7 +118,40 @@ export function PrintablesLandingPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
-        {/* Build a 5‑Minute Pack */}
+        {/* Intro: What You'll Find */}
+        <section>
+          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
+          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
+        </section>
+
+        {/* Filter Bar */}
+        <section className="print:hidden">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
+            <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
+            <select
+              id="printables-filter"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+            >
+              <option>All</option>
+              <option>Recent</option>
+              <option>Coloring</option>
+              <option>Worksheets</option>
+              <option>Creative</option>
+              <option>Brain</option>
+              <option>Emotional</option>
+              <option>Seasonal</option>
+              <option>Challenge</option>
+              <option>One-pagers</option>
+            </select>
+            {filterCategory !== 'All' && (
+              <button onClick={() => setFilterCategory('All')} className="ml-auto px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear</button>
+            )}
+          </div>
+        </section>
+
+        {/* Build a 5‑Minute Pack (moved below What You'll Find) */}
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
           <h2 className="text-xl font-bold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick mixed printable set for today — perfect for warm‑ups, brain breaks, or homework helpers.</p>
@@ -155,44 +188,6 @@ export function PrintablesLandingPage() {
             >
               Build Pack →
             </button>
-          </div>
-        </section>
-
-        {/* What You'll Find (repeated per request) */}
-        <section>
-          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
-          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
-        </section>
-        {/* Intro: What You'll Find */}
-        <section>
-          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
-          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
-        </section>
-
-        {/* Filter Bar */}
-        <section className="print:hidden">
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
-            <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
-            <select
-              id="printables-filter"
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-            >
-              <option>All</option>
-              <option>Recent</option>
-              <option>Coloring</option>
-              <option>Worksheets</option>
-              <option>Creative</option>
-              <option>Brain</option>
-              <option>Emotional</option>
-              <option>Seasonal</option>
-              <option>Challenge</option>
-              <option>One-pagers</option>
-            </select>
-            {filterCategory !== 'All' && (
-              <button onClick={() => setFilterCategory('All')} className="ml-auto px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear</button>
-            )}
           </div>
         </section>
 
