@@ -90,6 +90,29 @@ export function PrintablesLandingPage() {
           <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
         </section>
 
+        {/* One-pagers */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 Quick STEM/Arts One‑pagers</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, print‑ready activities with 5 steps and a short “learn” takeaway.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ItemCard
+              title="STEM: Balloon Rocket"
+              description="Build a balloon rocket to learn action/reaction. 10 min • Ages 7–10"
+              href="/print?doc=stem-balloon-rocket"
+            />
+            <ItemCard
+              title="STEM: Walking Water"
+              description="Watch colors climb and mix. 15–20 min • Ages 6–10"
+              href="/print?doc=stem-walking-water"
+            />
+            <ItemCard
+              title="Arts: Draw From 3 Shapes"
+              description="Turn a circle, triangle, and rectangle into a creature. 10–15 min • Ages 6–12"
+              href="/print?doc=arts-3-shape-creature"
+            />
+          </div>
+        </section>
+
         {/* 1. Coloring Packs */}
         <section>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
@@ -320,6 +343,35 @@ export function PrintablesLandingPage() {
               title="🦁 Animal Adventure Pack"
               description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
               href="/print?doc=animal-pack"
+            />
+          </div>
+        </section>
+
+        {/* 8. Quick STEM/Arts One‑pagers */}
+        <section>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+            <ItemCard
+              title="🚀 Balloon Rocket (STEM)"
+              description="Make a balloon rocket and learn how action and reaction push it forward. 10 minutes."
+              skills="science, observation"
+              age="7–10"
+              href="/print?doc=stem-balloon-rocket"
+            />
+            <ItemCard
+              title="🌈 Walking Water (STEM)"
+              description="Watch colors climb and mix through paper towels. Learn capillary action. 15 minutes."
+              skills="science, recording results"
+              age="6–10"
+              href="/print?doc=stem-walking-water"
+            />
+            <ItemCard
+              title="🎨 Draw From 3 Shapes (Arts)"
+              description="Create a creature starting from a circle, triangle, and rectangle. Finish with a 1‑line story."
+              skills="creativity, composition"
+              age="6–12"
+              href="/print?doc=arts-3-shape-creature"
             />
           </div>
         </section>

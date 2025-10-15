@@ -13,6 +13,27 @@ export function PrintablesPage() {
     'math-maze',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
+  const docTitle = React.useMemo(() => {
+    switch (doc) {
+      case 'stem-balloon-rocket':
+        return '🚀 Balloon Rocket (STEM)'
+      case 'stem-walking-water':
+        return '🌈 Walking Water (STEM)'
+      case 'arts-3-shape-creature':
+        return '🎨 Draw From 3 Shapes (Arts)'
+      default:
+        return 'Printable Fun Learning Activities'
+    }
+  }, [doc])
+  const pinHref = React.useMemo(() => {
+    try {
+      const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
+      const desc = `${docTitle} — free printable for kids`
+      return `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(desc)}`
+    } catch {
+      return '#'
+    }
+  }, [docTitle])
   const mathMazeCells = React.useMemo(() => {
     if (doc !== 'math-maze') return [] as string[];
     const ops = ['+','-'] as const;
@@ -56,10 +77,21 @@ export function PrintablesPage() {
         </div>
         <header className="mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">Printable Fun Learning Activities</h1>
+            <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
             <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
           </div>
           <div className="flex items-center gap-3">
+            <a
+              href={pinHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden print:hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-sm"
+              title="Pin this printable"
+              aria-label="Pin this printable on Pinterest"
+            >
+              <span>📌</span>
+              <span>Pin this</span>
+            </a>
             {shouldShowAnswerToggle && (
               <div className="print:hidden">
                 <button
@@ -79,6 +111,224 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
+        {doc === 'stem-balloon-rocket' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
+            <p className="text-slate-600 text-sm mb-3">Time: 10 minutes • Ages: 7–10</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Materials</div>
+                <ul className="list-disc list-inside text-sm text-slate-700">
+                  <li>Balloon</li>
+                  <li>2–3 m string</li>
+                  <li>Plastic straw</li>
+                  <li>Clear tape</li>
+                  <li>Two chairs (to tie the string)</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Steps</div>
+                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                  <li>Thread the string through the straw.</li>
+                  <li>Tie the string tightly between two chairs.</li>
+                  <li>Tape the balloon to the straw (opening facing backward).</li>
+                  <li>Inflate (don’t knot), hold, then release.</li>
+                  <li>Measure distance and try again.</li>
+                </ol>
+              </div>
+            </div>
+            <div className="mt-3 grid sm:grid-cols-2 gap-3">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Learn</div>
+                Air pushes backward; the rocket moves forward (action/reaction).
+              </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
+                <div className="font-semibold mb-1">Try next</div>
+                Test balloon sizes, angles, or add a small paper “cargo”.
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'stem-walking-water' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
+            <p className="text-slate-600 text-sm mb-3">Time: 15–20 minutes • Ages: 6–10</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Materials</div>
+                <ul className="list-disc list-inside text-sm text-slate-700">
+                  <li>3 clear cups</li>
+                  <li>Water</li>
+                  <li>Paper towels</li>
+                  <li>Red + blue food coloring</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Steps</div>
+                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                  <li>Fill the outer cups with colored water; leave the middle empty.</li>
+                  <li>Fold paper towels into two “bridges”.</li>
+                  <li>Place bridges into the cups.</li>
+                  <li>Watch colors “walk” into the middle cup.</li>
+                  <li>Record what changed.</li>
+                </ol>
+              </div>
+            </div>
+            <div className="mt-3 grid sm:grid-cols-2 gap-3">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Learn</div>
+                Water climbs paper fibers (capillary action) and mixes colors.
+              </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
+                <div className="font-semibold mb-1">Try next</div>
+                Try different towel brands, longer gaps, or other color pairs.
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'arts-3-shape-creature' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎨 Draw From 3 Shapes (Arts)</h2>
+            <p className="text-slate-600 text-sm mb-3">Time: 10–15 minutes • Ages: 6–12</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Materials</div>
+                <ul className="list-disc list-inside text-sm text-slate-700">
+                  <li>Paper</li>
+                  <li>Pencil or markers</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Steps</div>
+                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                  <li>Draw a big circle, triangle, and rectangle anywhere.</li>
+                  <li>Turn one shape into a face (eyes/mouth).</li>
+                  <li>Connect shapes into one creature.</li>
+                  <li>Add patterns and a background.</li>
+                  <li>Name your creature and write a 1‑line story.</li>
+                </ol>
+              </div>
+            </div>
+            <div className="mt-3 grid sm:grid-cols-2 gap-3">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Learn</div>
+                Play with shape language and composition using simple constraints.
+              </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
+                <div className="font-semibold mb-1">Try next</div>
+                Mirror (symmetry) version, only curved lines, or only straight lines.
+              </div>
+            </div>
+          </section>
+        )}
+      {doc === 'stem-balloon-rocket' && (
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <h2 className="text-lg font-bold text-slate-900">STEM One‑Pager: Balloon Rocket</h2>
+          <div className="text-slate-700 text-sm mb-2">Time: 10 min • Ages: 7–10</div>
+          <div className="mb-3">
+            <div className="font-semibold">Materials</div>
+            <ul className="list-disc list-inside text-slate-700 text-sm">
+              <li>Balloon</li>
+              <li>2–3 m string</li>
+              <li>Straw</li>
+              <li>Tape</li>
+              <li>Two chairs</li>
+            </ul>
+          </div>
+          <div className="mb-3">
+            <div className="font-semibold">Steps</div>
+            <ol className="list-decimal list-inside text-slate-700 text-sm space-y-1">
+              <li>Thread the string through the straw.</li>
+              <li>Tie the string tightly between two chairs.</li>
+              <li>Tape the balloon to the straw (opening facing back).</li>
+              <li>Inflate the balloon (don’t knot), hold, then release.</li>
+              <li>Measure distance; try again with changes.</li>
+            </ol>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="border border-emerald-200 rounded-lg p-2 bg-emerald-50">
+              <div className="font-semibold text-emerald-900 mb-1">Learn</div>
+              <div className="text-slate-700 text-sm">Air pushes backward, rocket moves forward (action/reaction).</div>
+            </div>
+            <div className="border border-sky-200 rounded-lg p-2 bg-sky-50">
+              <div className="font-semibold text-sky-900 mb-1">Try next</div>
+              <div className="text-slate-700 text-sm">Different balloon sizes, angles, or carry a paper “cargo”.</div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {doc === 'stem-walking-water' && (
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <h2 className="text-lg font-bold text-slate-900">STEM One‑Pager: Walking Water</h2>
+          <div className="text-slate-700 text-sm mb-2">Time: 15–20 min • Ages: 6–10</div>
+          <div className="mb-3">
+            <div className="font-semibold">Materials</div>
+            <ul className="list-disc list-inside text-slate-700 text-sm">
+              <li>3 clear cups</li>
+              <li>Water</li>
+              <li>Paper towels</li>
+              <li>Red and blue food coloring</li>
+            </ul>
+          </div>
+          <div className="mb-3">
+            <div className="font-semibold">Steps</div>
+            <ol className="list-decimal list-inside text-slate-700 text-sm space-y-1">
+              <li>Fill the two outer cups with colored water; leave the middle empty.</li>
+              <li>Fold paper towels into bridges.</li>
+              <li>Place bridges into the cups.</li>
+              <li>Watch colors walk into the middle cup.</li>
+              <li>Record the changes.</li>
+            </ol>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="border border-emerald-200 rounded-lg p-2 bg-emerald-50">
+              <div className="font-semibold text-emerald-900 mb-1">Learn</div>
+              <div className="text-slate-700 text-sm">Water climbs paper fibers (capillary action) and mixes colors.</div>
+            </div>
+            <div className="border border-sky-200 rounded-lg p-2 bg-sky-50">
+              <div className="font-semibold text-sky-900 mb-1">Try next</div>
+              <div className="text-slate-700 text-sm">Test different towel brands, longer gaps, or other color pairs.</div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {doc === 'arts-3-shape-creature' && (
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <h2 className="text-lg font-bold text-slate-900">Art One‑Pager: Draw From 3 Shapes</h2>
+          <div className="text-slate-700 text-sm mb-2">Time: 10–15 min • Ages: 6–12</div>
+          <div className="mb-3">
+            <div className="font-semibold">Materials</div>
+            <ul className="list-disc list-inside text-slate-700 text-sm">
+              <li>Paper</li>
+              <li>Pencil or markers</li>
+            </ul>
+          </div>
+          <div className="mb-3">
+            <div className="font-semibold">Steps</div>
+            <ol className="list-decimal list-inside text-slate-700 text-sm space-y-1">
+              <li>Draw a big circle, triangle, and rectangle anywhere.</li>
+              <li>Turn one shape into a face (eyes and mouth).</li>
+              <li>Connect shapes into one creature.</li>
+              <li>Add patterns and a simple background.</li>
+              <li>Name your creature and add a 1‑line story.</li>
+            </ol>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div className="border border-emerald-200 rounded-lg p-2 bg-emerald-50">
+              <div className="font-semibold text-emerald-900 mb-1">Learn</div>
+              <div className="text-slate-700 text-sm">Creativity with constraints: shape language and composition.</div>
+            </div>
+            <div className="border border-sky-200 rounded-lg p-2 bg-sky-50">
+              <div className="font-semibold text-sky-900 mb-1">Try next</div>
+              <div className="text-slate-700 text-sm">Mirror (symmetry) version, or only curved/only straight lines.</div>
+            </div>
+          </div>
+        </section>
+      )}
         {doc === 'math-maze' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">➕ Math Maze Adventure</h2>
