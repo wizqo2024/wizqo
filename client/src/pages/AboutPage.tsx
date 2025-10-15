@@ -51,6 +51,10 @@ export function AboutPage() {
               <a href="/printables" className="text-blue-600 hover:text-blue-800 transition-colors">Explore printables</a>{' '}or{' '}
               <a href="/blog" className="text-blue-600 hover:text-blue-800 transition-colors">read the latest blog</a>.
             </p>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-emerald-800">
+              <span className="text-xs uppercase tracking-wide font-semibold">Trusted by learners</span>
+              <a href="https://www.trustpilot.com/review/wizqo.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-900 text-sm font-medium">See reviews on Trustpilot →</a>
+            </div>
           </div>
         </div>
       </div>
