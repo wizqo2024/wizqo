@@ -114,43 +114,88 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
-        {doc === 'pack' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Today’s 5‑Minute Print Pack</h2>
-            <div className="text-slate-600 text-sm mb-3">Time: {packTime} min • Age: {packAge.toUpperCase()} • Focus: {packSkill}</div>
-            <div className="text-slate-700 text-sm mb-3">Quick wins you can finish today. Check off as you go!</div>
-            <ul className="list-decimal list-inside text-slate-700 text-sm mb-4">
-              <li>Mini word search (animals)</li>
-              <li>Simple maze path</li>
-              <li>1 drawing prompt</li>
-            </ul>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="border border-slate-200 rounded-lg p-3">
-                <div className="font-semibold mb-1">Mini Word Search — Animals</div>
-                <div className="grid grid-cols-6 gap-1 font-mono text-xs">
-                  {['L','I','O','N','A','Z','B','E','A','R','K','D','E','L','E','P','H','A','N','T','O','W','L','M','S','Z','F','O','X','Q','M','O','L','A','M','A'].map((c,i)=>(
+        {doc === 'pack' && (() => {
+          // Build dynamic pack content by time/age/skill
+          const timeInt = parseInt(packTime || '5', 10);
+          const itemCount = timeInt <= 5 ? 2 : 3;
+          const isK2 = packAge === 'k2';
+          const is35 = packAge === '35';
+          const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : 'animals');
+          const words = theme === 'sight'
+            ? ['THE','AND','IS','YOU','ARE']
+            : theme === 'space'
+              ? ['STAR','MOON','ROVER','MARS','ORBIT']
+              : ['LION','BEAR','OWL','FOX','LLAMA'];
+          const grid = theme === 'sight'
+            ? ['T','H','E','A','N','D','I','S','Y','O','U','A','R','E','X','Z','Q','R','S','T','U','V','W','M','N','O','P','L','K','J','H','G','F','E','D','C']
+            : theme === 'space'
+              ? ['S','T','A','R','O','B','M','O','O','N','I','T','R','O','V','E','R','A','M','A','R','S','O','R','B','I','T','X','Y','Z','C','D','E','F','G','H']
+              : ['L','I','O','N','A','Z','B','E','A','R','K','D','O','W','L','F','O','X','L','L','A','M','A','M','S','Z','Q','P','N','R','T','U','V','W','X','Y'];
+          const drawingPrompt = packSkill === 'creativity'
+            ? 'Invent a gadget for school. Label 3 parts.'
+            : isK2
+              ? 'Draw a creature from a circle, triangle, and rectangle.'
+              : 'Draw your favorite animal and write one fact.';
+
+          const items: React.ReactNode[] = [];
+          // 1) Word Search or Reading prompt
+          if (packSkill !== 'creativity') {
+            items.push(
+              <div key="ws" className="border border-slate-200 rounded-lg p-3">
+                <div className="font-semibold mb-1">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
+                <div className={`grid ${isK2 ? 'grid-cols-6' : 'grid-cols-6'} gap-1 font-mono text-xs`}>
+                  {grid.slice(0, 36).map((c,i)=> (
                     <div key={i} className="w-5 h-5 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
                   ))}
                 </div>
-                <div className="mt-2 text-xs text-slate-600">Find: LION, BEAR, OWL, FOX, LLAMA</div>
+                <div className="mt-2 text-xs text-slate-600">Find: {words.join(', ')}</div>
               </div>
-              <div className="border border-slate-200 rounded-lg p-3">
+            );
+          }
+          // 2) Quick Maze or STEM mini-task
+          if (packSkill === 'stem') {
+            items.push(
+              <div key="stem" className="border border-slate-200 rounded-lg p-3">
+                <div className="font-semibold mb-1">STEM Mini‑Task</div>
+                <div className="text-sm text-slate-700">Balance a ruler on your finger. Slide a coin along the ruler — what happens? Write one observation.</div>
+                <div className="mt-2 h-20 border border-dashed border-slate-300 rounded-md" />
+              </div>
+            );
+          } else {
+            items.push(
+              <div key="maze" className="border border-slate-200 rounded-lg p-3">
                 <div className="font-semibold mb-1">Quick Maze</div>
                 <svg viewBox="0 0 120 120" className="w-full h-32">
                   <rect x="5" y="5" width="110" height="110" rx="6" fill="#fff" stroke="#cbd5e1" />
-                  <path d="M15 20h60v15H30v15h60v15H45v15h45" stroke="#94a3b8" strokeWidth="4" fill="none"/>
+                  <path d={`${is35 ? 'M15 20h70v15H30v15h60v15H45v15h45' : 'M15 20h60v15H30v15h50v15H45v15h45'}`} stroke="#94a3b8" strokeWidth="4" fill="none"/>
                   <text x="10" y="18" fontSize="6" fill="#64748b">START</text>
-                  <text x="98" y="110" fontSize="6" fill="#64748b">FINISH</text>
+                  <text x="95" y="110" fontSize="6" fill="#64748b">FINISH</text>
                 </svg>
               </div>
-              <div className="border border-slate-200 rounded-lg p-3 sm:col-span-2">
+            );
+          }
+          // 3) Drawing prompt (only if time allows or creativity focus)
+          if (itemCount >= 3 || packSkill === 'creativity') {
+            items.push(
+              <div key="draw" className="border border-slate-200 rounded-lg p-3 sm:col-span-2">
                 <div className="font-semibold mb-1">Drawing Prompt</div>
-                <div className="text-sm text-slate-700">Draw a creature made from a circle, triangle, and rectangle. Add a one‑line story.</div>
+                <div className="text-sm text-slate-700">{drawingPrompt}</div>
                 <div className="mt-2 h-32 border border-dashed border-slate-300 rounded-md" />
               </div>
-            </div>
-          </section>
-        )}
+            );
+          }
+
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">Today’s 5‑Minute Print Pack</h2>
+              <div className="text-slate-600 text-sm mb-3">Time: {packTime} min • Age: {packAge.toUpperCase()} • Focus: {packSkill}</div>
+              <div className="text-slate-700 text-sm mb-3">Quick wins you can finish today. Check off as you go!</div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {items.slice(0, itemCount)}
+              </div>
+            </section>
+          );
+        })()}
         {doc === 'stem-balloon-rocket' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
