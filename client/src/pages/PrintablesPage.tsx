@@ -310,13 +310,13 @@ export function PrintablesPage() {
             items.push(
               <div key="maze" className="border border-slate-200 rounded-lg p-5 sm:col-span-2">
                 <div className="font-semibold text-2xl mb-3">Quick Maze</div>
-                <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full h-96">
+                <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full h-96" preserveAspectRatio="xMinYMin meet">
                   <rect x={2} y={2} width={svgW - 4} height={svgH - 4} rx={8} fill="#fff" stroke="#cbd5e1" strokeWidth={2} />
                   {lines.map((l, idx) => (
                     <line key={idx} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#475569" strokeWidth={3} strokeLinecap="round" />
                   ))}
-                  <text x={pad} y={pad - 2} fontSize={12} fill="#475569">START</text>
-                  <text x={svgW - pad - 32} y={svgH - pad + 12} fontSize={12} fill="#475569">FINISH</text>
+                  <text x={pad + 2} y={pad + 12} fontSize={14} fill="#475569" textAnchor="start">START</text>
+                  <text x={svgW - (pad + 2)} y={svgH - (pad + 4)} fontSize={14} fill="#475569" textAnchor="end">FINISH</text>
                 </svg>
               </div>
             );
