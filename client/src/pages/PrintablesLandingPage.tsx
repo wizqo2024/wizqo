@@ -35,6 +35,30 @@ export function PrintablesLandingPage() {
     filterCategory === cat ||
     (filterCategory === 'Recent' && recentSet.has(cat))
   ) ? '' : 'hidden';
+
+  // Derive pack focus from global filter to keep results aligned
+  React.useEffect(() => {
+    const map: Record<string, typeof packSkill> = {
+      Coloring: 'creativity',
+      Worksheets: 'reading',
+      Creative: 'creativity',
+      Brain: 'focus',
+      Emotional: 'focus',
+      Seasonal: 'mixed',
+      Challenge: 'mixed',
+      'One-pagers': 'stem',
+      Recent: 'stem'
+    };
+    if (filterCategory in map) {
+      setPackSkill(map[filterCategory] as any);
+    } else if (filterCategory === 'All') {
+      setPackSkill('mixed');
+    }
+  }, [filterCategory]);
+
+  const gridClass = filterCategory === 'All'
+    ? 'grid sm:grid-cols-2 lg:grid-cols-2 gap-4'
+    : 'grid sm:grid-cols-1 lg:grid-cols-2 gap-6';
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
@@ -176,7 +200,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Coloring')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🎨 Animal Friends Coloring Pages"
               description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
@@ -209,7 +233,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Worksheets')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="➕ Math Maze Adventure"
               description="Solve simple addition and subtraction problems to find your way through the maze! Kids answer to uncover the right path — a mix of math and logic fun."
@@ -245,7 +269,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Creative')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🖍️ Color-by-Number Pages"
               description="Color each section by number to reveal a hidden animal or scene. Includes Animals in Space and Under the Sea editions."
@@ -281,7 +305,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Brain')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🧩 Logic Grid Puzzle"
               description="Read clues, think critically, and solve who owns what, where, or when!"
@@ -310,7 +334,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Emotional')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="💌 Gratitude Jar Worksheet"
               description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
@@ -346,7 +370,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Seasonal')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🎃 Halloween Puzzle Pack"
               description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
@@ -382,7 +406,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('Challenge')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🧠 7-Day Brain Boost Pack"
               description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
@@ -410,7 +434,7 @@ export function PrintablesLandingPage() {
         <section className={sectionVisibility('One-pagers')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className={gridClass}>
             <ItemCard
               title="🚀 Balloon Rocket (STEM)"
               description="Make a balloon rocket and learn how action and reaction push it forward. 10 minutes."
