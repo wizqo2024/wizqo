@@ -24,6 +24,8 @@ export function PrintablesPage() {
         return '🌈 Walking Water (STEM)'
       case 'arts-3-shape-creature':
         return '🎨 Draw From 3 Shapes (Arts)'
+      case 'pack':
+        return `Today’s ${packTime}-Minute Print Pack`
       default:
         return 'Printable Fun Learning Activities'
     }
@@ -37,6 +39,46 @@ export function PrintablesPage() {
       return '#'
     }
   }, [docTitle])
+
+  const friendlyAge = (v: string) => v === 'k2' ? 'K–2' : v === '35' ? '3–5' : v === '68' ? '6–8' : v
+  const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity' } as any)[v] || v
+
+  // Deterministic tiny RNG for repeatable print packs
+  function makeRng(seedStr: string) {
+    let seed = 0
+    for (let i = 0; i < seedStr.length; i++) seed = (seed + seedStr.charCodeAt(i)) >>> 0
+    return function rng() {
+      seed = (seed * 1664525 + 1013904223) >>> 0
+      return seed / 0xffffffff
+    }
+  }
+  function pick<T>(arr: T[], rng: () => number) { return arr[Math.floor(rng() * arr.length)] }
+  function buildWords(theme: string, age: string): string[] {
+    if (theme === 'sight') {
+      return age === 'k2' ? ['THE','AND','IS','YOU','ARE'] : ['THIS','THAT','WHEN','YOUR','WHICH']
+    }
+    if (theme === 'space') {
+      return age === 'k2' ? ['MOON','STAR','SKY','SUN'] : age === '35' ? ['MARS','COMET','ORBIT','ROVER'] : ['NEBULA','GALAXY','ROCKET','ASTRO']
+    }
+    // animals
+    return age === 'k2' ? ['CAT','DOG','OWL','PIG','ANT'] : age === '35' ? ['HORSE','TIGER','EAGLE','WHALE'] : ['LLAMA','ORCA','PANDA','LYNX','FOX']
+  }
+  function buildGridLetters(words: string[], size: number, seedStr: string): string[] {
+    const rng = makeRng(seedStr)
+    const A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const grid = new Array(size * size).fill('')
+    // place words horizontally on successive rows
+    let row = 0
+    for (const w of words) {
+      if (row >= size) break
+      const start = Math.max(0, Math.floor((size - Math.min(w.length, size)) * rng()))
+      for (let i = 0; i < Math.min(w.length, size); i++) grid[row * size + start + i] = w[i]
+      row++
+    }
+    // fill blanks with random letters
+    for (let i = 0; i < grid.length; i++) if (!grid[i]) grid[i] = A[Math.floor(rng() * A.length)]
+    return grid
+  }
   const mathMazeCells = React.useMemo(() => {
     if (doc !== 'math-maze') return [] as string[];
     const ops = ['+','-'] as const;
@@ -121,16 +163,8 @@ export function PrintablesPage() {
           const isK2 = packAge === 'k2';
           const is35 = packAge === '35';
           const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : 'animals');
-          const words = theme === 'sight'
-            ? ['THE','AND','IS','YOU','ARE']
-            : theme === 'space'
-              ? ['STAR','MOON','ROVER','MARS','ORBIT']
-              : ['LION','BEAR','OWL','FOX','LLAMA'];
-          const grid = theme === 'sight'
-            ? ['T','H','E','A','N','D','I','S','Y','O','U','A','R','E','X','Z','Q','R','S','T','U','V','W','M','N','O','P','L','K','J','H','G','F','E','D','C']
-            : theme === 'space'
-              ? ['S','T','A','R','O','B','M','O','O','N','I','T','R','O','V','E','R','A','M','A','R','S','O','R','B','I','T','X','Y','Z','C','D','E','F','G','H']
-              : ['L','I','O','N','A','Z','B','E','A','R','K','D','O','W','L','F','O','X','L','L','A','M','A','M','S','Z','Q','P','N','R','T','U','V','W','X','Y'];
+          const words = buildWords(theme, packAge);
+          const grid = buildGridLetters(words.slice(0, 5), isK2 ? 6 : 6, `${packTime}|${packAge}|${packSkill}`);
           const drawingPrompt = packSkill === 'creativity'
             ? 'Invent a gadget for school. Label 3 parts.'
             : isK2
@@ -187,10 +221,10 @@ export function PrintablesPage() {
 
           return (
             <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-lg font-bold text-slate-900">Today’s 5‑Minute Print Pack</h2>
-              <div className="text-slate-600 text-sm mb-3">Time: {packTime} min • Age: {packAge.toUpperCase()} • Focus: {packSkill}</div>
-              <div className="text-slate-700 text-sm mb-3">Quick wins you can finish today. Check off as you go!</div>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <h2 className="text-xl font-bold text-slate-900">{docTitle}</h2>
+              <div className="text-slate-700 text-base mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
+              <div className="text-slate-700 text-base mb-3">Quick wins you can finish today. Check off as you go!</div>
+              <div className="grid sm:grid-cols-2 gap-6">
                 {items.slice(0, itemCount)}
               </div>
             </section>
