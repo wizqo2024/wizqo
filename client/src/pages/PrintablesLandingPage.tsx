@@ -133,6 +133,12 @@ export function PrintablesLandingPage() {
             </button>
           </div>
         </section>
+
+        {/* What You'll Find (repeated per request) */}
+        <section>
+          <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
+          <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
+        </section>
         {/* Intro: What You'll Find */}
         <section>
           <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
