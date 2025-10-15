@@ -164,7 +164,8 @@ export function PrintablesPage() {
           const is35 = packAge === '35';
           const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : 'animals');
           const words = buildWords(theme, packAge);
-          const grid = buildGridLetters(words.slice(0, 5), isK2 ? 6 : 6, `${packTime}|${packAge}|${packSkill}`);
+          const wsSize = 8;
+          const grid = buildGridLetters(words.slice(0, 8), wsSize, `${packTime}|${packAge}|${packSkill}`);
           const drawingPrompt = packSkill === 'creativity'
             ? 'Invent a gadget for school. Label 3 parts.'
             : isK2
@@ -175,35 +176,35 @@ export function PrintablesPage() {
           // 1) Word Search or Reading prompt
           if (packSkill !== 'creativity') {
             items.push(
-              <div key="ws" className="border border-slate-200 rounded-lg p-3">
-                <div className="font-semibold mb-1">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
-                <div className={`grid ${isK2 ? 'grid-cols-6' : 'grid-cols-6'} gap-1 font-mono text-xs`}>
-                  {grid.slice(0, 36).map((c,i)=> (
-                    <div key={i} className="w-5 h-5 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
+              <div key="ws" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-lg mb-2">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
+                <div className={`grid grid-cols-8 gap-1.5 font-mono text-base`}>
+                  {grid.map((c,i)=> (
+                    <div key={i} className="w-9 h-9 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
                   ))}
                 </div>
-                <div className="mt-2 text-xs text-slate-600">Find: {words.join(', ')}</div>
+                <div className="mt-2 text-base text-slate-700">Find: {words.join(', ')}</div>
               </div>
             );
           }
           // 2) Quick Maze or STEM mini-task
           if (packSkill === 'stem') {
             items.push(
-              <div key="stem" className="border border-slate-200 rounded-lg p-3">
-                <div className="font-semibold mb-1">STEM Mini‑Task</div>
-                <div className="text-sm text-slate-700">Balance a ruler on your finger. Slide a coin along the ruler — what happens? Write one observation.</div>
-                <div className="mt-2 h-20 border border-dashed border-slate-300 rounded-md" />
+              <div key="stem" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-lg mb-2">STEM Mini‑Task</div>
+                <div className="text-base text-slate-700">Balance a ruler on your finger. Slide a coin along the ruler — what happens? Write one observation.</div>
+                <div className="mt-3 h-24 border border-dashed border-slate-300 rounded-md" />
               </div>
             );
           } else {
             items.push(
-              <div key="maze" className="border border-slate-200 rounded-lg p-3">
-                <div className="font-semibold mb-1">Quick Maze</div>
-                <svg viewBox="0 0 120 120" className="w-full h-32">
+              <div key="maze" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-lg mb-2">Quick Maze</div>
+                <svg viewBox="0 0 120 120" className="w-full h-48">
                   <rect x="5" y="5" width="110" height="110" rx="6" fill="#fff" stroke="#cbd5e1" />
                   <path d={`${is35 ? 'M15 20h70v15H30v15h60v15H45v15h45' : 'M15 20h60v15H30v15h50v15H45v15h45'}`} stroke="#94a3b8" strokeWidth="4" fill="none"/>
-                  <text x="10" y="18" fontSize="6" fill="#64748b">START</text>
-                  <text x="95" y="110" fontSize="6" fill="#64748b">FINISH</text>
+                  <text x="10" y="18" fontSize="8" fill="#64748b">START</text>
+                  <text x="92" y="110" fontSize="8" fill="#64748b">FINISH</text>
                 </svg>
               </div>
             );
@@ -211,19 +212,19 @@ export function PrintablesPage() {
           // 3) Drawing prompt (only if time allows or creativity focus)
           if (itemCount >= 3 || packSkill === 'creativity') {
             items.push(
-              <div key="draw" className="border border-slate-200 rounded-lg p-3 sm:col-span-2">
-                <div className="font-semibold mb-1">Drawing Prompt</div>
-                <div className="text-sm text-slate-700">{drawingPrompt}</div>
-                <div className="mt-2 h-32 border border-dashed border-slate-300 rounded-md" />
+              <div key="draw" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                <div className="font-semibold text-lg mb-2">Drawing Prompt</div>
+                <div className="text-base text-slate-700">{drawingPrompt}</div>
+                <div className="mt-3 h-56 border border-dashed border-slate-300 rounded-md" />
               </div>
             );
           }
 
           return (
             <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-xl font-bold text-slate-900">{docTitle}</h2>
-              <div className="text-slate-700 text-base mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
-              <div className="text-slate-700 text-base mb-3">Quick wins you can finish today. Check off as you go!</div>
+              <h2 className="text-2xl font-bold text-slate-900">{docTitle}</h2>
+              <div className="text-slate-700 text-lg mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
+              <div className="text-slate-700 text-lg mb-3">Quick wins you can finish today. Check off as you go!</div>
               <div className="grid sm:grid-cols-2 gap-6">
                 {items.slice(0, itemCount)}
               </div>
@@ -232,12 +233,12 @@ export function PrintablesPage() {
         })()}
         {doc === 'stem-balloon-rocket' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
-            <p className="text-slate-600 text-sm mb-3">Time: 10 minutes • Ages: 7–10</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <h2 className="text-2xl font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
+            <p className="text-slate-700 text-base mb-4">Time: 10 minutes • Ages: 7–10</p>
+            <div className="grid sm:grid-cols-2 gap-6">
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Materials</div>
-                <ul className="list-disc list-inside text-sm text-slate-700">
+                <div className="font-semibold text-slate-800 mb-2">Materials</div>
+                <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
                   <li>Balloon</li>
                   <li>2–3 m string</li>
                   <li>Plastic straw</li>
@@ -246,8 +247,8 @@ export function PrintablesPage() {
                 </ul>
               </div>
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Steps</div>
-                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                <div className="font-semibold text-slate-800 mb-2">Steps</div>
+                <ol className="list-decimal list-inside text-base text-slate-700 space-y-1.5">
                   <li>Thread the string through the straw.</li>
                   <li>Tie the string tightly between two chairs.</li>
                   <li>Tape the balloon to the straw (opening facing backward).</li>
@@ -256,13 +257,13 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-            <div className="mt-3 grid sm:grid-cols-2 gap-3">
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Learn</div>
+            <div className="mt-4 grid sm:grid-cols-2 gap-4">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 text-base">
+                <div className="font-semibold mb-2">Learn</div>
                 Air pushes backward; the rocket moves forward (action/reaction).
               </div>
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
-                <div className="font-semibold mb-1">Try next</div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700 text-base">
+                <div className="font-semibold mb-2">Try next</div>
                 Test balloon sizes, angles, or add a small paper “cargo”.
               </div>
             </div>
@@ -271,12 +272,12 @@ export function PrintablesPage() {
 
         {doc === 'stem-walking-water' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
-            <p className="text-slate-600 text-sm mb-3">Time: 15–20 minutes • Ages: 6–10</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <h2 className="text-2xl font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
+            <p className="text-slate-700 text-base mb-4">Time: 15–20 minutes • Ages: 6–10</p>
+            <div className="grid sm:grid-cols-2 gap-6">
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Materials</div>
-                <ul className="list-disc list-inside text-sm text-slate-700">
+                <div className="font-semibold text-slate-800 mb-2">Materials</div>
+                <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
                   <li>3 clear cups</li>
                   <li>Water</li>
                   <li>Paper towels</li>
@@ -284,8 +285,8 @@ export function PrintablesPage() {
                 </ul>
               </div>
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Steps</div>
-                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                <div className="font-semibold text-slate-800 mb-2">Steps</div>
+                <ol className="list-decimal list-inside text-base text-slate-700 space-y-1.5">
                   <li>Fill the outer cups with colored water; leave the middle empty.</li>
                   <li>Fold paper towels into two “bridges”.</li>
                   <li>Place bridges into the cups.</li>
@@ -294,13 +295,13 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-            <div className="mt-3 grid sm:grid-cols-2 gap-3">
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Learn</div>
+            <div className="mt-4 grid sm:grid-cols-2 gap-4">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 text-base">
+                <div className="font-semibold mb-2">Learn</div>
                 Water climbs paper fibers (capillary action) and mixes colors.
               </div>
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
-                <div className="font-semibold mb-1">Try next</div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700 text-base">
+                <div className="font-semibold mb-2">Try next</div>
                 Try different towel brands, longer gaps, or other color pairs.
               </div>
             </div>
@@ -309,19 +310,19 @@ export function PrintablesPage() {
 
         {doc === 'arts-3-shape-creature' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎨 Draw From 3 Shapes (Arts)</h2>
-            <p className="text-slate-600 text-sm mb-3">Time: 10–15 minutes • Ages: 6–12</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <h2 className="text-2xl font-bold text-slate-900">🎨 Draw From 3 Shapes (Arts)</h2>
+            <p className="text-slate-700 text-base mb-4">Time: 10–15 minutes • Ages: 6–12</p>
+            <div className="grid sm:grid-cols-2 gap-6">
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Materials</div>
-                <ul className="list-disc list-inside text-sm text-slate-700">
+                <div className="font-semibold text-slate-800 mb-2">Materials</div>
+                <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
                   <li>Paper</li>
                   <li>Pencil or markers</li>
                 </ul>
               </div>
               <div>
-                <div className="font-semibold text-slate-800 mb-1">Steps</div>
-                <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
+                <div className="font-semibold text-slate-800 mb-2">Steps</div>
+                <ol className="list-decimal list-inside text-base text-slate-700 space-y-1.5">
                   <li>Draw a big circle, triangle, and rectangle anywhere.</li>
                   <li>Turn one shape into a face (eyes/mouth).</li>
                   <li>Connect shapes into one creature.</li>
@@ -330,13 +331,13 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-            <div className="mt-3 grid sm:grid-cols-2 gap-3">
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Learn</div>
+            <div className="mt-4 grid sm:grid-cols-2 gap-4">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 text-base">
+                <div className="font-semibold mb-2">Learn</div>
                 Play with shape language and composition using simple constraints.
               </div>
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 text-sm">
-                <div className="font-semibold mb-1">Try next</div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700 text-base">
+                <div className="font-semibold mb-2">Try next</div>
                 Mirror (symmetry) version, only curved lines, or only straight lines.
               </div>
             </div>
