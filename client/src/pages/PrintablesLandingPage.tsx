@@ -25,6 +25,8 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
 }
 
 export function PrintablesLandingPage() {
+  const [filterCategory, setFilterCategory] = React.useState<string>('All');
+  const sectionVisibility = (cat: string) => (filterCategory === 'All' || filterCategory === cat ? '' : 'hidden');
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
@@ -90,31 +92,34 @@ export function PrintablesLandingPage() {
           <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
         </section>
 
-        {/* One-pagers */}
-        <section>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 Quick STEM/Arts One‑pagers</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, print‑ready activities with 5 steps and a short “learn” takeaway.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <ItemCard
-              title="STEM: Balloon Rocket"
-              description="Build a balloon rocket to learn action/reaction. 10 min • Ages 7–10"
-              href="/print?doc=stem-balloon-rocket"
-            />
-            <ItemCard
-              title="STEM: Walking Water"
-              description="Watch colors climb and mix. 15–20 min • Ages 6–10"
-              href="/print?doc=stem-walking-water"
-            />
-            <ItemCard
-              title="Arts: Draw From 3 Shapes"
-              description="Turn a circle, triangle, and rectangle into a creature. 10–15 min • Ages 6–12"
-              href="/print?doc=arts-3-shape-creature"
-            />
+        {/* Filter Bar */}
+        <section className="print:hidden">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
+            <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
+            <select
+              id="printables-filter"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+            >
+              <option>All</option>
+              <option>Coloring</option>
+              <option>Worksheets</option>
+              <option>Creative</option>
+              <option>Brain</option>
+              <option>Emotional</option>
+              <option>Seasonal</option>
+              <option>Challenge</option>
+              <option>One-pagers</option>
+            </select>
+            {filterCategory !== 'All' && (
+              <button onClick={() => setFilterCategory('All')} className="ml-auto px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear</button>
+            )}
           </div>
         </section>
 
         {/* 1. Coloring Packs */}
-        <section>
+        <section className={sectionVisibility('Coloring')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -147,7 +152,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 2. Educational Worksheets */}
-        <section>
+        <section className={sectionVisibility('Worksheets')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -183,7 +188,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 3. Creative & Art Printables */}
-        <section>
+        <section className={sectionVisibility('Creative')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -219,7 +224,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 4. Brain & Focus Activities */}
-        <section>
+        <section className={sectionVisibility('Brain')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -248,7 +253,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 5. Emotional & Mindfulness Printables */}
-        <section>
+        <section className={sectionVisibility('Emotional')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -284,7 +289,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 6. Seasonal & Holiday Printables */}
-        <section>
+        <section className={sectionVisibility('Seasonal')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -320,7 +325,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 7. Printable Challenge Packs */}
-        <section>
+        <section className={sectionVisibility('Challenge')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -348,7 +353,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 8. Quick STEM/Arts One‑pagers */}
-        <section>
+        <section className={sectionVisibility('One-pagers')}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
