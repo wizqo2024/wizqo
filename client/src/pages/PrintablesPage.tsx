@@ -323,6 +323,60 @@ export function PrintablesPage() {
           }
           // Build an extras pool; prioritize by focus
           const extras: React.ReactNode[] = [];
+          const pushColoring = () => {
+            const letter = (words[0] || 'A').slice(0, 1).toUpperCase();
+            const isSpace = theme === 'space';
+            const isSight = theme === 'sight';
+            const isAnimals = theme === 'animals';
+            // Seeded stars for variety
+            const stars = Array.from({ length: 14 }, () => ({ x: Math.floor(rng() * 760) + 20, y: Math.floor(rng() * 520) + 40 }));
+            extras.push(
+              <div key="coloring-sheet" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                <div className="font-semibold text-xl mb-2">Coloring Sheet — {isSpace ? 'Rocket' : isSight ? `Letter ${letter}` : 'Animal Friend'}</div>
+                <svg viewBox="0 0 800 600" className="w-full h-[28rem] sm:h-[32rem] print:h-[36rem]" fill="none" stroke="#334155" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" role="img" aria-labelledby="coloring-title">
+                  <title id="coloring-title">Big coloring illustration</title>
+                  {isSpace && (
+                    <g>
+                      {/* Rocket body */}
+                      <path d="M400 100 Q420 60 440 100 L440 360 Q420 400 400 360 Z"/>
+                      {/* Window */}
+                      <circle cx="420" cy="200" r="24" />
+                      {/* Fins */}
+                      <path d="M440 300 L500 340 L440 340 Z"/>
+                      <path d="M400 300 L340 340 L400 340 Z"/>
+                      {/* Flame */}
+                      <path d="M400 360 Q420 420 440 360"/>
+                      {/* Stars */}
+                      {stars.slice(0,10).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6} />))}
+                    </g>
+                  )}
+                  {isAnimals && (
+                    <g>
+                      {/* Simple fish */}
+                      <ellipse cx="420" cy="280" rx="150" ry="90"/>
+                      <polygon points="540,280 620,240 620,320"/>
+                      <circle cx="360" cy="260" r="10" />
+                      <path d="M320 280 Q360 300 400 280"/>
+                      <path d="M320 240 Q360 260 400 240"/>
+                      {/* Bubbles */}
+                      {stars.slice(0,6).map((s, i) => (<circle key={i} cx={280 + i*20} cy={160 + i*22} r={8} />))}
+                    </g>
+                  )}
+                  {isSight && (
+                    <g>
+                      {/* Giant letter outline */}
+                      <text x="260" y="360" fontSize="280" stroke="#334155" fill="none">{letter}</text>
+                      {/* Book */}
+                      <rect x="520" y="220" width="160" height="120" rx="8"/>
+                      <line x1="600" y1="220" x2="600" y2="340"/>
+                      <path d="M520 240 Q560 260 600 240"/>
+                      <path d="M600 240 Q640 260 680 240"/>
+                    </g>
+                  )}
+                </svg>
+              </div>
+            );
+          };
           const pushDrawing = () => extras.push(
             <div key="draw" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
               <div className="font-semibold text-xl mb-2">Drawing Prompt</div>
@@ -393,18 +447,21 @@ export function PrintablesPage() {
           };
 
           if (packSkill === 'creativity') {
+            pushColoring();
             pushDrawing();
             pushScramble();
             pushMiniMath();
             pushMiniSudoku();
             pushReading();
           } else if (packSkill === 'reading') {
+            pushColoring();
             pushReading();
             pushScramble();
             pushMiniMath();
             pushMiniSudoku();
             pushDrawing();
           } else if (packSkill === 'stem') {
+            pushColoring();
             pushMiniMath();
             pushMiniSudoku();
             pushScramble();
@@ -412,6 +469,7 @@ export function PrintablesPage() {
             pushDrawing();
           } else {
             // mixed/focus
+            pushColoring();
             pushMiniMath();
             pushScramble();
             pushReading();
