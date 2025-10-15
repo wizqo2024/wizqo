@@ -218,13 +218,13 @@ export function PrintablesPage() {
             );
           } else {
             items.push(
-              <div key="maze" className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-xl mb-2">Quick Maze</div>
-                <svg viewBox="0 0 120 120" className="w-full h-56">
-                  <rect x="5" y="5" width="110" height="110" rx="6" fill="#fff" stroke="#cbd5e1" />
-                  <path d={mazePath} stroke="#94a3b8" strokeWidth="5" fill="none"/>
-                  <text x="10" y="18" fontSize="10" fill="#64748b">START</text>
-                  <text x="90" y="110" fontSize="10" fill="#64748b">FINISH</text>
+              <div key="maze" className="border border-slate-200 rounded-lg p-5">
+                <div className="font-semibold text-2xl mb-3">Quick Maze</div>
+                <svg viewBox="0 0 120 120" className="w-full h-72">
+                  <rect x="5" y="5" width="110" height="110" rx="8" fill="#fff" stroke="#cbd5e1" strokeWidth="2" />
+                  <path d={mazePath} stroke="#64748b" strokeWidth="6" strokeLinecap="round" fill="none"/>
+                  <text x="8" y="16" fontSize="12" fill="#475569">START</text>
+                  <text x="86" y="112" fontSize="12" fill="#475569">FINISH</text>
                 </svg>
               </div>
             );
