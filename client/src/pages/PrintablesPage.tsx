@@ -159,15 +159,15 @@ export function PrintablesPage() {
         {doc === 'pack' && (() => {
           // Build dynamic pack content by time/age/skill
           const timeInt = parseInt(packTime || '5', 10);
-          const itemCount = timeInt <= 5 ? 2 : 3;
+          const itemCount = timeInt <= 5 ? 3 : (timeInt <= 10 ? 4 : 5);
           const isK2 = packAge === 'k2';
           const is35 = packAge === '35';
-          const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : 'animals');
-          const words = buildWords(theme, packAge);
           const wsSize = 8;
           const seedStr = `${packTime}|${packAge}|${packSkill}`;
-          const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
           const rng = makeRng(seedStr);
+          const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng));
+          const words = buildWords(theme, packAge);
+          const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
           // Choose a different maze path based on age and seed for variety
           let mazePath = '';
           if (isK2) {
@@ -193,6 +193,43 @@ export function PrintablesPage() {
               : 'Draw your favorite animal and write one fact.';
 
           const items: React.ReactNode[] = [];
+          // Helpers for extra activities
+          function scrambleWordLocal(w: string) {
+            const a = w.split('');
+            for (let i = a.length - 1; i > 0; i--) {
+              const j = Math.floor(rng() * (i + 1));
+              [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a.join('');
+          }
+          function buildMiniMathProblems(n: number) {
+            const out: string[] = [];
+            for (let i = 0; i < n; i++) {
+              const a = Math.floor(rng() * (isK2 ? 9 : 12)) + 1;
+              const b = Math.floor(rng() * (isK2 ? 9 : 12)) + 1;
+              const useAdd = isK2 ? true : rng() < 0.6;
+              if (useAdd) out.push(`${a} + ${b} = ____`);
+              else out.push(`${Math.max(a,b)} - ${Math.min(a,b)} = ____`);
+            }
+            return out;
+          }
+          function buildMiniSudoku() {
+            const base = [
+              [1,2,3,4],
+              [3,4,1,2],
+              [2,1,4,3],
+              [4,3,2,1],
+            ];
+            const removals = 6 + Math.floor(rng()*3);
+            const grid: number[][] = base.map(r=>r.slice());
+            let removed = 0;
+            while (removed < removals) {
+              const r = Math.floor(rng()*4);
+              const c = Math.floor(rng()*4);
+              if (grid[r][c] !== 0) { grid[r][c] = 0; removed++; }
+            }
+            return grid;
+          }
           // 1) Word Search or Reading prompt
           if (packSkill !== 'creativity') {
             items.push(
@@ -229,15 +266,108 @@ export function PrintablesPage() {
               </div>
             );
           }
-          // 3) Drawing prompt (only if time allows or creativity focus)
-          if (itemCount >= 3 || packSkill === 'creativity') {
-            items.push(
-              <div key="draw" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                <div className="font-semibold text-xl mb-2">Drawing Prompt</div>
-                <div className="text-lg text-slate-700">{drawingPrompt}</div>
-                <div className="mt-3 h-72 border border-dashed border-slate-300 rounded-md" />
+          // Build an extras pool; prioritize by focus
+          const extras: React.ReactNode[] = [];
+          const pushDrawing = () => extras.push(
+            <div key="draw" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+              <div className="font-semibold text-xl mb-2">Drawing Prompt</div>
+              <div className="text-lg text-slate-700">{drawingPrompt}</div>
+              <div className="mt-3 h-72 border border-dashed border-slate-300 rounded-md" />
+            </div>
+          );
+          const pushMiniMath = () => extras.push(
+            <div key="mini-math" className="border border-slate-200 rounded-lg p-4">
+              <div className="font-semibold text-xl mb-2">Mini Math — Quick Sums</div>
+              <div className="grid sm:grid-cols-2 gap-2 text-lg text-slate-800">
+                {buildMiniMathProblems(8).map((p, i)=> (
+                  <div key={i} className="flex items-center justify-between">
+                    <span>{p}</span>
+                    <span className="ml-3 flex-1 border-b border-slate-300" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+          const pushScramble = () => {
+            const scrambleWords = words.slice(0, Math.min(5, words.length));
+            extras.push(
+              <div key="scramble" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-xl mb-2">Word Scramble</div>
+                <div className="space-y-2 text-lg text-slate-800">
+                  {scrambleWords.map((w,i)=> (
+                    <div key={i} className="flex items-center justify-between">
+                      <span>Unscramble: {scrambleWordLocal(w)}</span>
+                      <span className="ml-3 flex-1 border-b border-slate-300" />
+                    </div>
+                  ))}
+                </div>
               </div>
             );
+          };
+          const pushReading = () => {
+            const readingSnippets = [
+              'A fox saw the moon in the pond. It tried to catch it, but the water rippled and the moon danced away.',
+              'Sara planted a tiny seed. Every day she gave it water and a song. One morning, a green leaf waved hello.'
+            ];
+            const reading = readingSnippets[Math.floor(rng()*readingSnippets.length)];
+            extras.push(
+              <div key="reading" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-xl mb-2">Mini Reading</div>
+                <p className="text-lg text-slate-800 mb-3">{reading}</p>
+                <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
+                  <li>Circle the main character.</li>
+                  <li>Underline one action word.</li>
+                </ol>
+              </div>
+            );
+          };
+          const pushMiniSudoku = () => {
+            const miniS = buildMiniSudoku();
+            extras.push(
+              <div key="mini-sudoku" className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-xl mb-2">Mini Sudoku — 4×4</div>
+                <div className="inline-grid grid-cols-4 gap-[3px] text-lg font-mono">
+                  {miniS.flat().map((v, i)=> (
+                    <div key={i} className="w-12 h-12 border border-slate-300 rounded-sm flex items-center justify-center bg-white">
+                      {v === 0 ? '' : v}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          };
+
+          if (packSkill === 'creativity') {
+            pushDrawing();
+            pushScramble();
+            pushMiniMath();
+            pushMiniSudoku();
+            pushReading();
+          } else if (packSkill === 'reading') {
+            pushReading();
+            pushScramble();
+            pushMiniMath();
+            pushMiniSudoku();
+            pushDrawing();
+          } else if (packSkill === 'stem') {
+            pushMiniMath();
+            pushMiniSudoku();
+            pushScramble();
+            pushReading();
+            pushDrawing();
+          } else {
+            // mixed/focus
+            pushMiniMath();
+            pushScramble();
+            pushReading();
+            pushMiniSudoku();
+            pushDrawing();
+          }
+
+          // Fill remaining slots from extras
+          for (const extra of extras) {
+            if (items.length >= itemCount) break;
+            items.push(extra);
           }
 
           return (
