@@ -165,7 +165,27 @@ export function PrintablesPage() {
           const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : 'animals');
           const words = buildWords(theme, packAge);
           const wsSize = 8;
-          const grid = buildGridLetters(words.slice(0, 8), wsSize, `${packTime}|${packAge}|${packSkill}`);
+          const seedStr = `${packTime}|${packAge}|${packSkill}`;
+          const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
+          const rng = makeRng(seedStr);
+          // Choose a different maze path based on age and seed for variety
+          let mazePath = '';
+          if (isK2) {
+            mazePath = pick([
+              'M10 20h80v20H30v20h60v20H40v20h50',
+              'M10 20h70v20H30v20h50v20H20v20h70'
+            ], rng);
+          } else if (is35) {
+            mazePath = pick([
+              'M10 20h90v15H20v15h80v15H30v15h70v15H40v15h60',
+              'M10 20h80v15H30v15h70v15H20v15h80v15H30v15h70'
+            ], rng);
+          } else {
+            mazePath = pick([
+              'M10 15h90v10H20v10h80v10H30v10h70v10H40v10h60v10H50v10h50',
+              'M10 15h70v10H30v10h80v10H40v10h70v10H50v10h60v10H60v10h40'
+            ], rng);
+          }
           const drawingPrompt = packSkill === 'creativity'
             ? 'Invent a gadget for school. Label 3 parts.'
             : isK2
@@ -177,13 +197,13 @@ export function PrintablesPage() {
           if (packSkill !== 'creativity') {
             items.push(
               <div key="ws" className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-lg mb-2">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
-                <div className={`grid grid-cols-8 gap-1.5 font-mono text-base`}>
+                <div className="font-semibold text-xl mb-3">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
+                <div className={`grid grid-cols-8 gap-2 font-mono text-lg`}>
                   {grid.map((c,i)=> (
-                    <div key={i} className="w-9 h-9 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
+                    <div key={i} className="w-10 h-10 border border-slate-300 rounded-sm flex items-center justify-center">{c}</div>
                   ))}
                 </div>
-                <div className="mt-2 text-base text-slate-700">Find: {words.join(', ')}</div>
+                <div className="mt-3 text-lg text-slate-700">Find: {words.join(', ')}</div>
               </div>
             );
           }
@@ -199,12 +219,12 @@ export function PrintablesPage() {
           } else {
             items.push(
               <div key="maze" className="border border-slate-200 rounded-lg p-4">
-                <div className="font-semibold text-lg mb-2">Quick Maze</div>
-                <svg viewBox="0 0 120 120" className="w-full h-48">
+                <div className="font-semibold text-xl mb-2">Quick Maze</div>
+                <svg viewBox="0 0 120 120" className="w-full h-56">
                   <rect x="5" y="5" width="110" height="110" rx="6" fill="#fff" stroke="#cbd5e1" />
-                  <path d={`${is35 ? 'M15 20h70v15H30v15h60v15H45v15h45' : 'M15 20h60v15H30v15h50v15H45v15h45'}`} stroke="#94a3b8" strokeWidth="4" fill="none"/>
-                  <text x="10" y="18" fontSize="8" fill="#64748b">START</text>
-                  <text x="92" y="110" fontSize="8" fill="#64748b">FINISH</text>
+                  <path d={mazePath} stroke="#94a3b8" strokeWidth="5" fill="none"/>
+                  <text x="10" y="18" fontSize="10" fill="#64748b">START</text>
+                  <text x="90" y="110" fontSize="10" fill="#64748b">FINISH</text>
                 </svg>
               </div>
             );
@@ -213,18 +233,18 @@ export function PrintablesPage() {
           if (itemCount >= 3 || packSkill === 'creativity') {
             items.push(
               <div key="draw" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                <div className="font-semibold text-lg mb-2">Drawing Prompt</div>
-                <div className="text-base text-slate-700">{drawingPrompt}</div>
-                <div className="mt-3 h-56 border border-dashed border-slate-300 rounded-md" />
+                <div className="font-semibold text-xl mb-2">Drawing Prompt</div>
+                <div className="text-lg text-slate-700">{drawingPrompt}</div>
+                <div className="mt-3 h-72 border border-dashed border-slate-300 rounded-md" />
               </div>
             );
           }
 
           return (
-            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-2xl font-bold text-slate-900">{docTitle}</h2>
-              <div className="text-slate-700 text-lg mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
-              <div className="text-slate-700 text-lg mb-3">Quick wins you can finish today. Check off as you go!</div>
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-5 print:border-0 print:p-0">
+              <h2 className="text-3xl font-bold text-slate-900">{docTitle}</h2>
+              <div className="text-slate-700 text-xl mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
+              <div className="text-slate-700 text-xl mb-3">Quick wins you can finish today. Check off as you go!</div>
               <div className="grid sm:grid-cols-2 gap-6">
                 {items.slice(0, itemCount)}
               </div>
