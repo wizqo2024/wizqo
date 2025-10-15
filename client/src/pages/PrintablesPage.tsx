@@ -324,12 +324,12 @@ export function PrintablesPage() {
           // Build an extras pool; prioritize by focus
           const extras: React.ReactNode[] = [];
           const pushColoring = () => {
-            const letter = (words[0] || 'A').slice(0, 1).toUpperCase();
+            const letter = (words[Math.floor(rng()*words.length)] || 'A').slice(0, 1).toUpperCase();
             const isSpace = theme === 'space';
             const isSight = theme === 'sight';
             const isAnimals = theme === 'animals';
             // Seeded stars for variety
-            const stars = Array.from({ length: 14 }, () => ({ x: Math.floor(rng() * 760) + 20, y: Math.floor(rng() * 520) + 40 }));
+            const stars = Array.from({ length: 18 }, () => ({ x: Math.floor(rng() * 760) + 20, y: Math.floor(rng() * 520) + 40 }));
             extras.push(
               <div key="coloring-sheet" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
                 <div className="font-semibold text-xl mb-2">Coloring Sheet — {isSpace ? 'Rocket' : isSight ? `Letter ${letter}` : 'Animal Friend'}</div>
@@ -347,17 +347,17 @@ export function PrintablesPage() {
                       {/* Flame */}
                       <path d="M400 360 Q420 420 440 360"/>
                       {/* Stars */}
-                      {stars.slice(0,10).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6} />))}
+                  {stars.slice(0,10).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6 + (i%3)} />))}
                     </g>
                   )}
                   {isAnimals && (
                     <g>
                       {/* Simple fish */}
-                      <ellipse cx="420" cy="280" rx="150" ry="90"/>
-                      <polygon points="540,280 620,240 620,320"/>
-                      <circle cx="360" cy="260" r="10" />
-                      <path d="M320 280 Q360 300 400 280"/>
-                      <path d="M320 240 Q360 260 400 240"/>
+                      <ellipse cx="420" cy="280" rx={140 + Math.floor(rng()*20)} ry={80 + Math.floor(rng()*20)}/>
+                      <polygon points={`540,280 ${580 + Math.floor(rng()*60)},${240 + Math.floor(rng()*40)} ${580 + Math.floor(rng()*60)},${320 - Math.floor(rng()*40)}`}/>
+                      <circle cx={350 + Math.floor(rng()*30)} cy={250 + Math.floor(rng()*30)} r="10" />
+                      <path d={`M${320 + Math.floor(rng()*10)} 280 Q${360 + Math.floor(rng()*10)} ${300 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 280`}/>
+                      <path d={`M${320 + Math.floor(rng()*10)} 240 Q${360 + Math.floor(rng()*10)} ${260 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 240`}/>
                       {/* Bubbles */}
                       {stars.slice(0,6).map((s, i) => (<circle key={i} cx={280 + i*20} cy={160 + i*22} r={8} />))}
                     </g>
