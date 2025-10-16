@@ -38,9 +38,30 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  
+  <!-- Inline posts (hardcoded in BlogPage.tsx) -->
   <url>
-    <loc>https://wizqo.com/blog/test-markdown-post</loc>
-    <lastmod>2025-10-06</lastmod>
+    <loc>https://wizqo.com/blog/easy-hobbies-that-make-you-smarter</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/blog/how-long-to-build-a-habit</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/blog/find-hobby-that-sticks</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/blog/micro-journaling-habit</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/blog/easy-watercolor-paintings</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
