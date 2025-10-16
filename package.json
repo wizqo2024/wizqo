@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "vite build",
-    "vercel-build": "npm run build",
+    "vercel-build": "npm run build && npm run build:server && npm run build:sitemap",
     "start": "node dist/index.js",
     "preview": "vite preview",
-    "build:server": "esbuild server/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/server/index.cjs"
+    "build:server": "esbuild server/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/server/index.cjs",
+    "build:sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
