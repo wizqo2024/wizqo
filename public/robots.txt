@@ -4,4 +4,4 @@ Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
 
-Sitemap: https://www.wizqo.com/sitemap.xml
+Sitemap: https://wizqo.com/sitemap.xml
