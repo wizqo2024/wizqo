@@ -7,7 +7,10 @@ export function PrintablesPage() {
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
+  const seedParam = params.get('seed') || ''
+  const variantParam = params.get('variant') || '1'
   const [showAnswers, setShowAnswers] = React.useState(false)
+  const [copiedLink, setCopiedLink] = React.useState(false)
   const answerableDocs = new Set([
     'science-match',
     'spelling',
@@ -39,6 +42,22 @@ export function PrintablesPage() {
       return '#'
     }
   }, [docTitle])
+
+  // Build a daily/variant seed: today if none provided
+  const todaySeed = React.useMemo(() => {
+    try {
+      const d = new Date()
+      const y = d.getUTCFullYear()
+      const m = String(d.getUTCMonth() + 1).padStart(2, '0')
+      const day = String(d.getUTCDate()).padStart(2, '0')
+      return `${y}-${m}-${day}`
+    } catch {
+      return '2025-01-01'
+    }
+  }, [])
+
+  const effectiveSeed = seedParam || todaySeed
+  const variant = parseInt(variantParam || '1', 10)
 
   const friendlyAge = (v: string) => v === 'k2' ? 'K–2' : v === '35' ? '3–5' : v === '68' ? '6–8' : v
   const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity' } as any)[v] || v
@@ -163,7 +182,7 @@ export function PrintablesPage() {
           const isK2 = packAge === 'k2';
           const is35 = packAge === '35';
           const wsSize = 8;
-          const seedStr = `${packTime}|${packAge}|${packSkill}`;
+          const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
           const rng = makeRng(seedStr);
           const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng));
           const words = buildWords(theme, packAge);
@@ -483,11 +502,45 @@ export function PrintablesPage() {
             items.push(extra);
           }
 
+          const buildLink = (nextVariant?: number, nextSeed?: string) => {
+            const sp = new URLSearchParams({
+              doc: 'pack',
+              time: packTime,
+              age: packAge,
+              skill: packSkill,
+              seed: nextSeed || effectiveSeed,
+              variant: String(nextVariant ?? variant)
+            })
+            return `/print?${sp.toString()}`
+          }
+
+          const shareUrl = (typeof window !== 'undefined') ? `${window.location.origin}${buildLink()}` : buildLink()
+          async function copyShare() {
+            try {
+              await navigator.clipboard.writeText(shareUrl)
+              setCopiedLink(true)
+              setTimeout(()=> setCopiedLink(false), 1500)
+            } catch {}
+          }
+
+          const nextVariantUrl = buildLink(variant + 1)
+          const todayUrl = buildLink(1, todaySeed)
+
           return (
             <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-5 print:border-0 print:p-0">
-              <h2 className="text-3xl font-bold text-slate-900">{docTitle}</h2>
-              <div className="text-slate-700 text-xl mb-3">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
-              <div className="text-slate-700 text-xl mb-3">Quick wins you can finish today. Check off as you go!</div>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-900">{docTitle}</h2>
+                  <div className="text-slate-700 text-xl">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
+                  <div className="text-slate-700 text-sm">Seed: {effectiveSeed} • Variant: {variant}</div>
+                </div>
+                <div className="print:hidden flex items-center gap-2">
+                  <a href={todayUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">Today’s Pack</a>
+                  <a href={nextVariantUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">New Pack</a>
+                  <button onClick={copyShare} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{copiedLink ? 'Link Copied!' : 'Copy Link'}</button>
+                </div>
+              </div>
+              <div className="text-slate-700 text-xl mt-3 mb-3">Quick wins you can finish today. Check off as you go!</div>
               <div className="grid sm:grid-cols-2 gap-6">
                 {items.slice(0, itemCount)}
               </div>
