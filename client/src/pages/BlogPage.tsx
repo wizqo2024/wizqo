@@ -1884,6 +1884,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 const cover = firstMdUrl || getPostImage(feature);
                 return (
                   <img
+                loading="lazy"
                 src={cover}
                 alt={feature.imageAlt || feature.title}
                 width={1200}
