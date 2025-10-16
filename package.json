@@ -13,7 +13,7 @@
     "start": "node dist/index.js",
     "preview": "vite preview",
     "build:server": "esbuild server/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/server/index.cjs",
-    "build:sitemap": "node scripts/generate-sitemap.js"
+    "build:sitemap": "node scripts/generate-sitemap.cjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

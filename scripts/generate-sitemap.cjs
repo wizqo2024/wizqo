@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 /*
   Generate sitemap.xml from Markdown and inline posts.
-  - Reads client/content/blog/*.md frontmatter for slug/date
-  - Parses inline basePosts from client/src/pages/BlogPage.tsx
-  - Writes client/public/sitemap.xml with site URLs
 */
 const fs = require('fs');
 const path = require('path');
@@ -50,7 +47,6 @@ function collectInlinePosts() {
   const file = path.join(ROOT, 'client', 'src', 'pages', 'BlogPage.tsx');
   const src = readFileSafe(file) || '';
   const ids = Array.from(src.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
-  // Known placeholders to exclude
   const exclude = new Set(['test-markdown-post']);
   return Array.from(new Set(ids)).filter(id => !exclude.has(id)).map(slug => ({ slug, date: '' }));
 }
@@ -83,13 +79,11 @@ function generate() {
     urls.push({ loc, lastmod, changefreq, priority });
   };
 
-  // Core pages
   push(`${site}/`, '2024-08-22', 'weekly', '0.8');
   push(`${site}/kids`, null, 'weekly', '0.8');
   push(`${site}/printables`, null, 'weekly', '0.7');
   push(`${site}/blog`, null, 'weekly', '0.7');
 
-  // Blog posts
   for (const p of posts) {
     const lastmod = iso(p.date);
     push(`${site}/blog/${p.slug}`, lastmod, 'weekly', '0.7');
