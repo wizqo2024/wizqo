@@ -369,11 +369,14 @@ export function PrintablesPage() {
             const isSpace = theme === 'space';
             const isSight = theme === 'sight';
             const isAnimals = theme === 'animals';
-            // Seeded stars for variety
+            // Seeded extras for variety
             const stars = Array.from({ length: 18 }, () => ({ x: Math.floor(rng() * 760) + 20, y: Math.floor(rng() * 520) + 40 }));
+            const planet = { cx: 140 + Math.floor(rng()*160), cy: 120 + Math.floor(rng()*160), r: 32 + Math.floor(rng()*24) };
+            const animalTypes = ['Fish','Turtle','Butterfly','Bird','Dino'] as const;
+            const animalPick = animalTypes[Math.floor(rng()*animalTypes.length)];
             extras.push(
               <div key="coloring-sheet" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
-                <div className="font-semibold text-xl mb-2">Coloring Sheet — {isSpace ? 'Rocket' : isSight ? `Letter ${letter}` : 'Animal Friend'}</div>
+                <div className="font-semibold text-xl mb-2">Coloring Sheet — {isSpace ? 'Rocket' : isSight ? `Letter ${letter}` : animalPick}</div>
                 <svg viewBox="0 0 800 600" className="w-full h-[28rem] sm:h-[32rem] print:h-[36rem]" fill="none" stroke="#334155" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" role="img" aria-labelledby="coloring-title">
                   <title id="coloring-title">Big coloring illustration</title>
                   {isSpace && (
@@ -387,20 +390,68 @@ export function PrintablesPage() {
                       <path d="M400 300 L340 340 L400 340 Z"/>
                       {/* Flame */}
                       <path d="M400 360 Q420 420 440 360"/>
+                      {/* Planet and ring */}
+                      <circle cx={planet.cx} cy={planet.cy} r={planet.r} />
+                      <ellipse cx={planet.cx} cy={planet.cy} rx={planet.r + 24} ry={planet.r / 2 + 8} />
                       {/* Stars */}
-                  {stars.slice(0,10).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6 + (i%3)} />))}
+                      {stars.slice(0,12).map((s, i) => (<circle key={i} cx={s.x} cy={s.y} r={6 + (i%3)} />))}
                     </g>
                   )}
                   {isAnimals && (
                     <g>
-                      {/* Simple fish */}
-                      <ellipse cx="420" cy="280" rx={140 + Math.floor(rng()*20)} ry={80 + Math.floor(rng()*20)}/>
-                      <polygon points={`540,280 ${580 + Math.floor(rng()*60)},${240 + Math.floor(rng()*40)} ${580 + Math.floor(rng()*60)},${320 - Math.floor(rng()*40)}`}/>
-                      <circle cx={350 + Math.floor(rng()*30)} cy={250 + Math.floor(rng()*30)} r="10" />
-                      <path d={`M${320 + Math.floor(rng()*10)} 280 Q${360 + Math.floor(rng()*10)} ${300 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 280`}/>
-                      <path d={`M${320 + Math.floor(rng()*10)} 240 Q${360 + Math.floor(rng()*10)} ${260 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 240`}/>
-                      {/* Bubbles */}
-                      {stars.slice(0,6).map((s, i) => (<circle key={i} cx={280 + i*20} cy={160 + i*22} r={8} />))}
+                      {animalPick === 'Fish' && (
+                        <g>
+                          <ellipse cx="420" cy="280" rx={140 + Math.floor(rng()*20)} ry={80 + Math.floor(rng()*20)}/>
+                          <polygon points={`540,280 ${580 + Math.floor(rng()*60)},${240 + Math.floor(rng()*40)} ${580 + Math.floor(rng()*60)},${320 - Math.floor(rng()*40)}`}/>
+                          <circle cx={350 + Math.floor(rng()*30)} cy={250 + Math.floor(rng()*30)} r="10" />
+                          <path d={`M${320 + Math.floor(rng()*10)} 280 Q${360 + Math.floor(rng()*10)} ${300 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 280`}/>
+                          <path d={`M${320 + Math.floor(rng()*10)} 240 Q${360 + Math.floor(rng()*10)} ${260 + Math.floor(rng()*10)} ${400 + Math.floor(rng()*10)} 240`}/>
+                          {stars.slice(0,6).map((s, i) => (<circle key={i} cx={280 + i*20} cy={160 + i*22} r={8} />))}
+                        </g>
+                      )}
+                      {animalPick === 'Turtle' && (
+                        <g>
+                          <circle cx="420" cy="300" r={100 + Math.floor(rng()*20)} />
+                          <circle cx="340" cy="300" r="22" />
+                          <ellipse cx="380" cy="360" rx="28" ry="16"/>
+                          <ellipse cx="460" cy="360" rx="28" ry="16"/>
+                          <ellipse cx="380" cy="240" rx="28" ry="16"/>
+                          <ellipse cx="460" cy="240" rx="28" ry="16"/>
+                          <path d="M360 300 H480"/>
+                          <path d="M420 240 V360"/>
+                          <path d="M380 260 L460 340"/>
+                          <path d="M460 260 L380 340"/>
+                        </g>
+                      )}
+                      {animalPick === 'Butterfly' && (
+                        <g>
+                          <line x1="420" y1="220" x2="420" y2="360"/>
+                          <path d="M420 260 Q360 220 300 260 Q360 300 420 280"/>
+                          <path d="M420 260 Q480 220 540 260 Q480 300 420 280"/>
+                          <path d="M420 300 Q360 340 300 320 Q360 300 420 320"/>
+                          <path d="M420 300 Q480 340 540 320 Q480 300 420 320"/>
+                          <circle cx="340" cy="260" r="10"/>
+                          <circle cx="500" cy="260" r="10"/>
+                        </g>
+                      )}
+                      {animalPick === 'Bird' && (
+                        <g>
+                          <ellipse cx="420" cy="300" rx="120" ry="70"/>
+                          <polygon points="520,300 560,280 560,320"/>
+                          <circle cx="360" cy="280" r="8" />
+                          <path d="M420 290 Q380 320 340 310"/>
+                          <line x1="400" y1="360" x2="390" y2="390"/>
+                          <line x1="440" y1="360" x2="450" y2="390"/>
+                        </g>
+                      )}
+                      {animalPick === 'Dino' && (
+                        <g>
+                          <ellipse cx="420" cy="340" rx="140" ry="60"/>
+                          <path d="M360 240 Q380 200 420 220 Q460 240 460 280"/>
+                          <circle cx="380" cy="220" r="8" />
+                          <path d="M500 340 Q560 320 580 300"/>
+                        </g>
+                      )}
                     </g>
                   )}
                   {isSight && (
