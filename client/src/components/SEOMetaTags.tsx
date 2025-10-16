@@ -7,6 +7,8 @@ interface SEOMetaTagsProps {
   ogImage?: string;
   canonicalUrl?: string;
   noIndex?: boolean;
+  ogType?: 'website' | 'article';
+  twitterCard?: 'summary' | 'summary_large_image';
 }
 
 export function SEOMetaTags({
@@ -15,9 +17,15 @@ export function SEOMetaTags({
   keywords = "what is a hobby, hobby definition, hobby meaning, creative hobbies, physical hobbies, cognitive hobbies, social hobbies, hobby examples, find your hobby, AI hobby planner, 7-day hobby plan",
   ogImage = "https://wizqo.com/og-image.jpg",
   canonicalUrl,
-  noIndex = false
+  noIndex = false,
+  ogType,
+  twitterCard
 }: SEOMetaTagsProps) {
   useEffect(() => {
+    // Default types
+    const computedOgType = ogType || (canonicalUrl && canonicalUrl.includes('/blog/') ? 'article' : 'website');
+    const computedTwitterCard = twitterCard || 'summary_large_image';
+
     // Update document title
     document.title = title;
     
@@ -74,6 +82,15 @@ export function SEOMetaTags({
       document.head.appendChild(ogImageMeta);
     }
     ogImageMeta.setAttribute('content', ogImage);
+
+    // Update Open Graph type
+    let ogTypeMeta = document.querySelector('meta[property="og:type"]');
+    if (!ogTypeMeta) {
+      ogTypeMeta = document.createElement('meta');
+      ogTypeMeta.setAttribute('property', 'og:type');
+      document.head.appendChild(ogTypeMeta);
+    }
+    ogTypeMeta.setAttribute('content', computedOgType);
     
     // Update Twitter title
     let twitterTitle = document.querySelector('meta[property="twitter:title"]');
@@ -101,6 +118,15 @@ export function SEOMetaTags({
       document.head.appendChild(twitterImage);
     }
     twitterImage.setAttribute('content', ogImage);
+
+    // Update Twitter card type
+    let twitterCardMeta = document.querySelector('meta[name="twitter:card"]');
+    if (!twitterCardMeta) {
+      twitterCardMeta = document.createElement('meta');
+      twitterCardMeta.setAttribute('name', 'twitter:card');
+      document.head.appendChild(twitterCardMeta);
+    }
+    twitterCardMeta.setAttribute('content', computedTwitterCard);
     
     // Update canonical URL if provided
     if (canonicalUrl) {
@@ -131,7 +157,7 @@ export function SEOMetaTags({
     }
     twitterUrl.setAttribute('content', canonicalUrl || window.location.href);
     
-  }, [title, description, keywords, ogImage, canonicalUrl, noIndex]);
+  }, [title, description, keywords, ogImage, canonicalUrl, noIndex, ogType, twitterCard]);
   
   return null; // This component doesn't render anything
 }

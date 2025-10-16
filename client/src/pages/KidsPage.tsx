@@ -143,6 +143,8 @@ export default function KidsPage() {
         title="Kids Hub – Fun Learning Games & Printable Activities for Kids"
         description="Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12."
         canonicalUrl="https://wizqo.com/kids"
+        ogType="website"
+        twitterCard="summary_large_image"
       />
       {(() => {
         // Inject structured data for better indexing
@@ -193,13 +195,17 @@ export default function KidsPage() {
       <header className="relative text-white">
         {/* Background cover image */}
         <div className="absolute inset-0 pointer-events-none">
-          <img
-            src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1920&auto=format&fit=crop"
-            alt="Fun learning background"
-            className="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-          />
+          <picture>
+            <source srcSet="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?auto=format&fit=crop&q=65&w=1920&fm=avif" type="image/avif" />
+            <source srcSet="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?auto=format&fit=crop&q=70&w=1920&fm=webp" type="image/webp" />
+            <img
+              src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1920&auto=format&fit=crop"
+              alt="Fun learning background"
+              className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/20" />
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
