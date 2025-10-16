@@ -72,15 +72,36 @@ export function PrintablesPage() {
     }
   }
   function pick<T>(arr: T[], rng: () => number) { return arr[Math.floor(rng() * arr.length)] }
+  function pickNUnique<T>(arr: T[], n: number, rng: () => number): T[] {
+    const pool = arr.slice()
+    const out: T[] = []
+    while (out.length < Math.min(n, pool.length)) {
+      const idx = Math.floor(rng() * pool.length)
+      out.push(pool.splice(idx, 1)[0])
+    }
+    return out
+  }
   function buildWords(theme: string, age: string): string[] {
     if (theme === 'sight') {
-      return age === 'k2' ? ['THE','AND','IS','YOU','ARE'] : ['THIS','THAT','WHEN','YOUR','WHICH']
+      return age === 'k2'
+        ? ['THE','AND','IS','YOU','ARE','IT','IN','TO','WE','GO']
+        : age === '35'
+          ? ['THIS','THAT','WHEN','YOUR','WHICH','WHERE','THEIR','COULD','WOULD','SHOULD']
+          : ['BECAUSE','THROUGH','BEFORE','BETWEEN','AROUND','ANOTHER','ALREADY','THOUGHT','ENOUGH','FAMILY']
     }
     if (theme === 'space') {
-      return age === 'k2' ? ['MOON','STAR','SKY','SUN'] : age === '35' ? ['MARS','COMET','ORBIT','ROVER'] : ['NEBULA','GALAXY','ROCKET','ASTRO']
+      return age === 'k2'
+        ? ['MOON','STAR','SKY','SUN','ROCK','DUST','SHIP','RING']
+        : age === '35'
+          ? ['MARS','COMET','ORBIT','ROVER','VENUS','SATURN','PLUTO','CRATER']
+          : ['NEBULA','GALAXY','ROCKET','ASTRO','QUASAR','ECLIPSE','METEOR','COSMOS']
     }
     // animals
-    return age === 'k2' ? ['CAT','DOG','OWL','PIG','ANT'] : age === '35' ? ['HORSE','TIGER','EAGLE','WHALE'] : ['LLAMA','ORCA','PANDA','LYNX','FOX']
+    return age === 'k2'
+      ? ['CAT','DOG','OWL','PIG','ANT','FOX','BEE','COW','BAT','HEN']
+      : age === '35'
+        ? ['HORSE','TIGER','EAGLE','WHALE','MOUSE','OTTER','CAMEL','ZEBRA','GORILLA']
+        : ['LLAMA','ORCA','PANDA','LYNX','HYENA','JAGUAR','RHINO','DOLPHIN','BUFFALO']
   }
   function buildGridLetters(words: string[], size: number, seedStr: string): string[] {
     const rng = makeRng(seedStr)
@@ -185,7 +206,8 @@ export function PrintablesPage() {
           const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
           const rng = makeRng(seedStr);
           const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng));
-          const words = buildWords(theme, packAge);
+          const wordsFull = buildWords(theme, packAge);
+          const words = pickNUnique(wordsFull, 8, rng);
           const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
           // Choose a different maze path based on age and seed for variety
           let mazePath = '';
