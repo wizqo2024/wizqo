@@ -1171,14 +1171,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 {selectedPost.title}
               </h1>
               <figure className="mb-6">
-                <img 
-                  src={coverUrl} 
-                  alt={selectedPost.imageAlt || selectedPost.title} 
-                  width={1600}
-                  height={640}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
-                  onError={(e) => {
+                <picture>
+                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?': '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />
+                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?': '') + 'auto=format&fit=crop&q=75&w=1600&fm=webp')} type="image/webp" />
+                  <img 
+                    src={coverUrl} 
+                    alt={selectedPost.imageAlt || selectedPost.title} 
+                    width={1600}
+                    height={640}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
+                    onError={(e) => {
                     const img = e.currentTarget as HTMLImageElement;
                     const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
                     const candidates = [
@@ -1205,7 +1208,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       }
                     }
                   }}
-                />
+                  />
+                </picture>
                 {selectedPost.imageAlt && (
                   <figcaption className="text-sm text-slate-500 mt-2">{selectedPost.imageAlt}</figcaption>
                 )}
