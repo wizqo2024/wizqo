@@ -1669,31 +1669,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                             />
                           );
                         })()}
-                            const img = e.currentTarget as HTMLImageElement;
-                            const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
-                            const candidates = [
-                              CATEGORY_IMAGES[selectedPost.category],
-                              GENERIC_BLOG_IMAGE,
-                              ALT_GENERIC_IMAGE
-                            ].filter(Boolean) as string[];
-                            let picked: string | undefined;
-                            let pickedIndex = tried;
-                            for (let i = tried; i < candidates.length; i++) {
-                              const c = candidates[i]!;
-                              if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
-                            }
-                            if (!picked && candidates.length > 0) {
-                              picked = candidates[Math.min(tried, candidates.length - 1)] || candidates[0];
-                            }
-                            if (picked) {
-                              img.setAttribute('data-errcount', String(Math.min(pickedIndex + 1, candidates.length)));
-                              if (img.src !== picked) {
-                                img.src = picked;
-                                usedImageUrls.add(picked);
-                              }
-                            }
-                          }} 
-                        />
                       </figure>
                     );
                     continue;
