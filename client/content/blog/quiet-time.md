@@ -18,7 +18,7 @@ That’s the magic of quiet time—a few moments of silence that can heal your m
 
 Quiet time isn’t about doing nothing. It’s about reconnecting with everything that truly matters.
 
-![Calm, sunlit desk for quiet time](https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1600&q=80 "A calm, sunlit desk for journaling and reflection")
+![Calm, sunlit desk for quiet time](https://images.unsplash.com/photo-1728931710024-c015ea8f4414?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170 "A calm, sunlit desk for journaling and reflection")
 
 ## 🧠 The Science of Quiet Time: How Silence Heals the Mind
 
