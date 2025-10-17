@@ -27,6 +27,34 @@ export function PrintablesPage() {
         return '🌈 Walking Water (STEM)'
       case 'arts-3-shape-creature':
         return '🎨 Draw From 3 Shapes (Arts)'
+      case 'number-tracing-1-10':
+        return '🔢 Number Tracing 1–10'
+      case 'uppercase-lowercase-match':
+        return 'Aa–Zz Upper/Lower Letter Match'
+      case 'beginning-sounds-az':
+        return '🔤 Beginning Sounds (A–Z)'
+      case 'addition-subtraction-0-10':
+        return '➕➖ Addition & Subtraction 0–10'
+      case 'ten-frames-1-10':
+        return '🔟 Ten Frames 1–10'
+      case 'shapes-colors-sort':
+        return '◻ Shapes & Colors Sort (Cut & Glue)'
+      case 'dot-to-dot-1-20':
+        return '1–20 Dot‑to‑Dot'
+      case 'tangram-animals':
+        return 'Tangram Animals (Cutouts)'
+      case 'spot-difference':
+        return '👀 Spot‑the‑Difference'
+      case 'directed-drawing-animals':
+        return '🖊️ Directed Drawing: Animals'
+      case 'cut-and-paste-crafts':
+        return '✂️ Cut‑and‑Paste Paper Crafts'
+      case 'feelings-checkin':
+        return '😊 Feelings Check‑In Meter'
+      case 'reward-chart':
+        return '⭐ Weekly Reward / Sticker Chart'
+      case 'reading-mini-1':
+        return '📖 Mini Reading Passage + 3 Questions'
       case 'pack':
         return `Today’s ${packTime}-Minute Print Pack`
       default:
@@ -196,6 +224,298 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
+        {doc === 'number-tracing-1-10' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–10</h2>
+            <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[1,2,3,4,5,6,7,8,9,10].map((n) => (
+                <svg key={n} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                    <path strokeDasharray="6 6" d={`M40 160 H360`} />
+                  </g>
+                  <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
+                    {n===1 && <path d="M120 150 L120 60" />}
+                    {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
+                    {n===3 && <path d="M90 80 Q160 60, 150 100 Q160 120, 90 140" />}
+                    {n===4 && <path d="M140 60 V150 M90 110 H170" />}
+                    {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
+                    {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
+                    {n===7 && <path d="M90 70 H170 L110 150" />}
+                    {n===8 && <path d="M140 90 A30 20 0 1 1 100 90 A30 20 0 1 1 140 90 M140 130 A30 20 0 1 1 100 130 A30 20 0 1 1 140 130" />}
+                    {n===9 && <path d="M110 100 Q140 70, 170 100 Q150 130, 120 130 Q150 150, 170 120" />}
+                    {n===10 && (
+                      <g>
+                        <path d="M90 150 L90 80" />
+                        <circle cx="140" cy="115" r="30" fill="none" />
+                      </g>
+                    )}
+                  </g>
+                  <circle cx="80" cy="70" r="6" fill="#ef4444" />
+                  <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'uppercase-lowercase-match' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Aa–Zz Upper/Lower Letter Match</h2>
+            <p className="text-slate-600 text-sm mb-3">Draw lines from uppercase to lowercase. Say the sound for each match.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m']].map(([U,l]) => (
+                <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="60" y="70" fontSize="48" fill="#111827">{U}</text>
+                  <circle cx="80" cy="90" r="6" fill="#94a3b8" />
+                  <text x="300" y="70" fontSize="48" fill="#111827">{l}</text>
+                  <circle cx="320" cy="90" r="6" fill="#94a3b8" />
+                </svg>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']].map(([U,l]) => (
+                <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="60" y="70" fontSize="48" fill="#111827">{U}</text>
+                  <circle cx="80" cy="90" r="6" fill="#94a3b8" />
+                  <text x="300" y="70" fontSize="48" fill="#111827">{l}</text>
+                  <circle cx="320" cy="90" r="6" fill="#94a3b8" />
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'beginning-sounds-az' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Beginning Sounds (A–Z)</h2>
+            <p className="text-slate-600 text-sm mb-3">Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple).</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[['A','🍎','✈️','🦋'],['B','🐝','🚲','🍌'],['C','🐱','🚗','☕'],['D','🐶','🦆','🍩']].map(([L,a,b,c]) => (
+                <svg key={String(L)} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="40" y="60" fontSize="40" fill="#111827">{String(L)}</text>
+                  <text x="140" y="60" fontSize="36">{String(a)}</text>
+                  <text x="200" y="60" fontSize="36">{String(b)}</text>
+                  <text x="260" y="60" fontSize="36">{String(c)}</text>
+                  <rect x="130" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                  <rect x="190" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                  <rect x="250" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'addition-subtraction-0-10' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Addition & Subtraction 0–10</h2>
+            <p className="text-slate-600 text-sm mb-3">Use the number line if needed. Write the answer in the box.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 12 }).map((_,i)=> (
+                <svg key={i} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                    <path d="M60 120 H340" />
+                    {Array.from({ length: 11 }).map((__,k)=> (
+                      <line key={k} x1={60 + k*28} y1={120} x2={60 + k*28} y2={110} />
+                    ))}
+                  </g>
+                  <text x="60" y="60" fontSize="32" fill="#111827">__ {i%2===0?'+':'-'} __ = ____</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'ten-frames-1-10' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–10</h2>
+            <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 10 }).map((_,n)=> (
+                <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="40" y="50" fontSize="36" fill="#111827">{n+1}</text>
+                  <g transform="translate(120,60)">
+                    {Array.from({ length: 10 }).map((__,i)=> (
+                      <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                    ))}
+                  </g>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'shapes-colors-sort' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Shapes & Colors Sort (Cut & Glue)</h2>
+            <p className="text-slate-600 text-sm mb-3">Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
+                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                  <rect x="40" y="40" width="120" height="80" />
+                  <rect x="240" y="40" width="120" height="80" />
+                  <rect x="140" y="160" width="120" height="80" />
+                </g>
+                <text x="70" y="95" fontSize="18" fill="#0ea5e9">BLUE</text>
+                <text x="280" y="95" fontSize="18" fill="#ef4444">RED</text>
+                <text x="175" y="215" fontSize="18" fill="#22c55e">GREEN</text>
+              </svg>
+              <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
+                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                  <circle cx="80" cy="60" r="20" />
+                  <rect x="40" y="110" width="60" height="40" />
+                  <polygon points="160,60 190,110 130,110" />
+                  <circle cx="250" cy="60" r="20" />
+                  <rect x="220" y="110" width="60" height="40" />
+                  <polygon points="340,60 370,110 310,110" />
+                </g>
+              </svg>
+            </div>
+          </section>
+        )}
+
+        {doc === 'dot-to-dot-1-20' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">1–20 Dot‑to‑Dot</h2>
+            <p className="text-slate-600 text-sm mb-3">Connect the dots in order to reveal the picture.</p>
+            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+              {Array.from({ length: 20 }).map((_,i)=> (
+                <g key={i}>
+                  <circle cx={60 + i*35} cy={200 + (i%2===0? -30:30)} r="4" fill="#111827" />
+                  <text x={60 + i*35 + 6} y={200 + (i%2===0? -30:30) - 6} fontSize="12">{i+1}</text>
+                </g>
+              ))}
+            </svg>
+          </section>
+        )}
+
+        {doc === 'tangram-animals' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Tangram Animals (Cutouts)</h2>
+            <p className="text-slate-600 text-sm mb-3">Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet.</p>
+            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <g fill="none" stroke="#111827" strokeWidth="3.5">
+                <polygon points="100,50 200,50 200,150 100,150" />
+                <polygon points="220,50 270,100 220,150 170,100" />
+                <polygon points="300,50 350,50 350,150 300,150" />
+                <polygon points="380,50 430,100 380,150 330,100" />
+                <polygon points="460,50 560,50 560,150 460,150" />
+              </g>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'spot-difference' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Spot‑the‑Difference (7)</h2>
+            <p className="text-slate-600 text-sm mb-3">Find 7 differences between the two pictures.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <HiddenObjectsSceneSVG />
+              <HiddenObjectsSceneSVG />
+            </div>
+          </section>
+        )}
+
+        {doc === 'directed-drawing-animals' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Directed Drawing: Animals</h2>
+            <p className="text-slate-600 text-sm mb-3">Follow each step to draw. Start with simple shapes, then add details.</p>
+            <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <g fill="none" stroke="#111827" strokeWidth="3.5">
+                <circle cx="100" cy="100" r="30" />
+                <rect x="80" y="130" width="40" height="30" />
+                <text x="90" y="190" fontSize="14">1</text>
+                <circle cx="250" cy="100" r="30" />
+                <rect x="230" y="130" width="40" height="30" />
+                <circle cx="270" cy="80" r="10" />
+                <text x="240" y="190" fontSize="14">2</text>
+                <circle cx="400" cy="100" r="30" />
+                <rect x="380" y="130" width="40" height="30" />
+                <circle cx="420" cy="80" r="10" />
+                <line x1="400" y1="130" x2="430" y2="160" />
+                <text x="390" y="190" fontSize="14">3</text>
+              </g>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'cut-and-paste-crafts' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Cut‑and‑Paste Paper Crafts</h2>
+            <p className="text-slate-600 text-sm mb-3">Cut the parts and glue them in place. Color when finished.</p>
+            <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <g fill="none" stroke="#111827" strokeWidth="3.5">
+                <rect x="80" y="60" width="80" height="80" />
+                <circle cx="220" cy="100" r="40" />
+                <polygon points="320,60 380,140 260,140" />
+                <rect x="420" y="60" width="80" height="80" />
+                <rect x="510" y="70" width="30" height="60" />
+                <rect x="550" y="70" width="30" height="60" />
+              </g>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'feelings-checkin' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Feelings Check‑In Meter</h2>
+            <p className="text-slate-600 text-sm mb-3">Point to or color how you feel today.</p>
+            <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <defs>
+                <linearGradient id="mood" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#22c55e" />
+                  <stop offset="50%" stopColor="#f59e0b" />
+                  <stop offset="100%" stopColor="#ef4444" />
+                </linearGradient>
+              </defs>
+              <rect x="100" y="120" width="600" height="40" fill="url(#mood)" rx="8" />
+              <circle cx="400" cy="140" r="56" fill="none" stroke="#111827" strokeWidth="4" />
+              <text x="90" y="190" fontSize="16">Calm</text>
+              <text x="380" y="190" fontSize="16">Okay</text>
+              <text x="680" y="190" fontSize="16">Upset</text>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'reward-chart' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Weekly Reward / Sticker Chart</h2>
+            <p className="text-slate-600 text-sm mb-3">Add a sticker or color a star each time you complete a task.</p>
+            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <g fill="none" stroke="#111827" strokeWidth="3.5">
+                <rect x="100" y="80" width="600" height="220" />
+                {Array.from({ length: 5 }).map((_,r)=> (
+                  <line key={r} x1="100" y1={80 + (r+1)*44} x2="700" y2={80 + (r+1)*44} />
+                ))}
+                {Array.from({ length: 6 }).map((_,c)=> (
+                  <line key={c} x1={100 + (c+1)*100} y1="80" x2={100 + (c+1)*100} y2="300" />
+                ))}
+              </g>
+              <text x="120" y="70" fontSize="16">Mon</text>
+              <text x="220" y="70" fontSize="16">Tue</text>
+              <text x="320" y="70" fontSize="16">Wed</text>
+              <text x="420" y="70" fontSize="16">Thu</text>
+              <text x="520" y="70" fontSize="16">Fri</text>
+              <text x="620" y="70" fontSize="16">Sat</text>
+              <text x="690" y="70" fontSize="16">Sun</text>
+            </svg>
+          </section>
+        )}
+
+        {doc === 'reading-mini-1' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Mini Reading Passage + 3 Questions</h2>
+            <p className="text-slate-600 text-sm mb-3">Read the short passage, then answer the questions in full sentences.</p>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Sara planted a tiny seed in a cup by the window. Every day, she gave it a little water and turned the cup toward the sun. One morning, she saw a green sprout peek out of the soil. Sara smiled. “Hello, little plant,” she whispered.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Sara put the cup?</li>
+                <li>What did she give the seed every day?</li>
+                <li>What did Sara see in the soil?</li>
+              </ol>
+            </div>
+          </section>
+        )}
         {doc === 'pack' && (() => {
           // Build dynamic pack content by time/age/skill
           const timeInt = parseInt(packTime || '5', 10);
