@@ -31,7 +31,7 @@ Why it helps:
 Printable idea:
 - Free alphabet tracing pages with dotted lines, arrows, and space to color each letter.
 
-![Nursery letter tracing worksheet](https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1600&q=80 "Nursery class worksheets for letter tracing and early writing skills")
+![Nursery letter tracing worksheet](https://images.unsplash.com/photo-1722962496035-d6c08f9085be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170 "Nursery class worksheets for letter tracing and early writing skills")
 
 ## ➕ 2) Counting & Number Fun: Math Made Playful
 
