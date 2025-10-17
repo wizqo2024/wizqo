@@ -1181,7 +1181,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     width={1600}
                     height={640}
                     referrerPolicy="no-referrer"
-                  className="w-full h-auto max-h-[28rem] object-contain rounded-xl border border-slate-200 bg-white"
+                    className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 object-cover rounded-xl border border-slate-200"
                     onError={(e) => {
                     const img = e.currentTarget as HTMLImageElement;
                     const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
