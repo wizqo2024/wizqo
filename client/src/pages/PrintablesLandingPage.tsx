@@ -271,6 +271,48 @@ export function PrintablesLandingPage() {
               age="9–12"
               href="/print?doc=sudoku6"
             />
+            <ItemCard
+              title="🔢 Number Tracing 1–10"
+              description="Trace numbers 1–10 with start‑point arrows and space to color."
+              skills="number sense, fine motor, counting"
+              age="3–5"
+              href="/print?doc=number-tracing-1-10"
+            />
+            <ItemCard
+              title="Aa–Zz Upper/Lower Match"
+              description="Draw lines from uppercase to lowercase letters; simple A–Z practice."
+              skills="letter recognition, pre‑reading"
+              age="3–5"
+              href="/print?doc=uppercase-lowercase-match"
+            />
+            <ItemCard
+              title="Beginning Sounds (A–Z)"
+              description="Circle pictures that start with each letter; simple phonics warm‑ups."
+              skills="phonemic awareness, vocabulary"
+              age="4–6"
+              href="/print?doc=beginning-sounds-az"
+            />
+            <ItemCard
+              title="Add/Subtract 0–10"
+              description="No‑prep practice with number lines and picture cues."
+              skills="addition, subtraction, number sense"
+              age="5–7"
+              href="/print?doc=addition-subtraction-0-10"
+            />
+            <ItemCard
+              title="Ten Frames 1–10"
+              description="Color counters to build numbers; develop subitizing quickly."
+              skills="counting, subitizing, number bonds"
+              age="4–6"
+              href="/print?doc=ten-frames-1-10"
+            />
+            <ItemCard
+              title="Shapes & Colors Sort"
+              description="Cut, sort, and glue basic shapes by color; early math + fine motor."
+              skills="sorting, shapes, colors, scissor skills"
+              age="3–5"
+              href="/print?doc=shapes-colors-sort"
+            />
           </div>
         </section>
 
@@ -307,6 +349,20 @@ export function PrintablesLandingPage() {
               age="7–12"
               href="/print?doc=draw-half"
             />
+            <ItemCard
+              title="🖊️ Directed Drawing: Animals"
+              description="Step‑by‑step drawing guides (cat, fish, rocket) with simple shapes."
+              skills="observation, shape composition, fine motor"
+              age="5–9"
+              href="/print?doc=directed-drawing-animals"
+            />
+            <ItemCard
+              title="✂️ Cut‑and‑Paste Crafts"
+              description="Print, cut, and glue simple paper crafts — build motor control and creativity."
+              skills="scissor skills, sequencing, creativity"
+              age="4–8"
+              href="/print?doc=cut-and-paste-crafts"
+            />
           </div>
         </section>
 
@@ -335,6 +391,27 @@ export function PrintablesLandingPage() {
               skills="concentration, mindfulness, planning"
               age="6–9"
               href="/print?doc=maze-focus"
+            />
+            <ItemCard
+              title="1–20 Dot‑to‑Dot"
+              description="Connect the dots to reveal animals and objects; practice number order."
+              skills="counting, attention, sequencing"
+              age="4–7"
+              href="/print?doc=dot-to-dot-1-20"
+            />
+            <ItemCard
+              title="Tangram Animals (Cutouts)"
+              description="Cut and arrange pieces to form animal silhouettes — spatial reasoning, but fun."
+              skills="spatial thinking, problem‑solving, scissors"
+              age="6–10"
+              href="/print?doc=tangram-animals"
+            />
+            <ItemCard
+              title="Spot the Difference (7)"
+              description="Find 7 differences between two pictures — visual scanning exercise."
+              skills="attention to detail, persistence"
+              age="6–10"
+              href="/print?doc=spot-difference"
             />
           </div>
         </section>
@@ -371,6 +448,20 @@ export function PrintablesLandingPage() {
               skills="planning, reflection, motivation"
               age="8–12"
               href="/print?doc=weekly-goals"
+            />
+            <ItemCard
+              title="😊 Feelings Check‑In Meter"
+              description="Point to or color how you feel — quick daily emotional check‑in."
+              skills="emotional vocabulary, self‑awareness"
+              age="4–10"
+              href="/print?doc=feelings-checkin"
+            />
+            <ItemCard
+              title="⭐ Weekly Reward/Sticker Chart"
+              description="Track small wins with stickers — build consistency with positive feedback."
+              skills="habits, motivation, reflection"
+              age="4–10"
+              href="/print?doc=reward-chart"
             />
           </div>
         </section>
@@ -464,6 +555,13 @@ export function PrintablesLandingPage() {
               skills="creativity, composition"
               age="6–12"
               href="/print?doc=arts-3-shape-creature"
+            />
+            <ItemCard
+              title="📖 Mini Reading Passage + 3 Qs"
+              description="Short passage with 3 questions — practice comprehension in 5 minutes."
+              skills="reading comprehension, evidence finding"
+              age="7–10"
+              href="/print?doc=reading-mini-1"
             />
           </div>
         </section>
