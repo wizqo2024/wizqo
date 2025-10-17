@@ -4,7 +4,7 @@ slug: quiet-time
 excerpt: "Discover how quiet time can transform your busy mind. Learn five simple daily practices backed by science and stories to help you find peace, focus, and a deeper life purpose."
 category: Mental Wellness
 readTime: 6–8 min read
-cover: https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=1600&q=80
+cover: https://images.unsplash.com/photo-1468648746436-83fc69277650?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170
 imageAlt: "A quiet, sunlit corner with a notebook and tea"
 date: 2025-10-17
 ---
