@@ -1454,19 +1454,28 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       const m = t.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
                       let alt = selectedPost.title, url = '', caption = '';
                       if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
+                      if (!alt || !alt.trim()) alt = selectedPost.title;
                       const finalUrl = url || CATEGORY_IMAGES[selectedPost.category] || GENERIC_BLOG_IMAGE;
                       simple.push(
                         <figure key={`simp-img-${idx}`} className="my-6">
-                          <img
-                            src={finalUrl}
-                            alt={alt}
-                            loading="lazy"
-                            width={1600}
-                            height={720}
-                            className={finalUrl.includes('photo-1758471995115-81c662cf949f')
+                          {(() => {
+                            const needsContain = (selectedPost.id === 'quiet-time') && (
+                              finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt||'').toLowerCase().includes('quiet'))
+                            );
+                            const imgClass = needsContain
                               ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
-                              : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200'}
-                          />
+                              : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
+                            return (
+                        <img 
+                          src={finalUrl} 
+                          alt={alt || selectedPost.title} 
+                                loading="lazy"
+                                width={1600}
+                                height={720}
+                                className={imgClass}
+                              />
+                            );
+                          })()}
                         </figure>
                       );
                       continue;
@@ -1616,17 +1625,50 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     imageIdx++;
                     elements.push(
                       <figure key={`img-${i}`} className="my-6">
-                        <img 
-                          src={finalUrl} 
-                          alt={alt} 
-                          loading="lazy" 
-                          width={1600} 
-                          height={720} 
-                          referrerPolicy="no-referrer"
-                          className={finalUrl.includes('photo-1758471995115-81c662cf949f')
+                        {(() => {
+                          const needsContain = (selectedPost.id === 'quiet-time') && (
+                            finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt||'').toLowerCase().includes('quiet'))
+                          );
+                          const imgClass = needsContain
                             ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
-                            : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200'}
-                          onError={(e) => {
+                            : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
+                          return (
+                            <img 
+                              src={finalUrl} 
+                              alt={alt || selectedPost.title} 
+                              loading="lazy" 
+                              width={1600} 
+                              height={720} 
+                              referrerPolicy="no-referrer"
+                              className={imgClass}
+                              onError={(e) => {
+                        const img = e.currentTarget as HTMLImageElement;
+                        const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
+                        const candidates = [
+                          CATEGORY_IMAGES[selectedPost.category],
+                          GENERIC_BLOG_IMAGE,
+                          ALT_GENERIC_IMAGE
+                        ].filter(Boolean) as string[];
+                        let picked: string | undefined;
+                        let pickedIndex = tried;
+                        for (let i = tried; i < candidates.length; i++) {
+                          const c = candidates[i]!;
+                          if (!usedImageUrls.has(c)) { picked = c; pickedIndex = i; break; }
+                        }
+                        if (!picked && candidates.length > 0) {
+                          picked = candidates[Math.min(tried, candidates.length - 1)] || candidates[0];
+                        }
+                        if (picked) {
+                          img.setAttribute('data-errcount', String(Math.min(pickedIndex + 1, candidates.length)));
+                          if (img.src !== picked) {
+                            img.src = picked;
+                            usedImageUrls.add(picked);
+                          }
+                        }
+                      }} 
+                            />
+                          );
+                        })()}
                             const img = e.currentTarget as HTMLImageElement;
                             const tried = parseInt(img.getAttribute('data-errcount') || '0', 10);
                             const candidates = [
