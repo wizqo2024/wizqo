@@ -257,6 +257,20 @@ export function PrintablesLandingPage() {
               age="8–12"
               href="/print?doc=grammar-detective"
             />
+            <ItemCard
+              title="🔢 Sudoku – 4×4 (Easy)"
+              description="Beginner logic and number practice in a friendly 4×4 grid."
+              skills="logic, number sense, focus"
+              age="6–8"
+              href="/print?doc=sudoku4"
+            />
+            <ItemCard
+              title="🧮 Sudoku – 6×6 (Medium)"
+              description="A bit more challenge to build sustained attention and reasoning."
+              skills="logic, number sense, perseverance"
+              age="9–12"
+              href="/print?doc=sudoku6"
+            />
           </div>
         </section>
 
