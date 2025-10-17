@@ -94,6 +94,7 @@ Life purpose doesn’t reveal itself in the noise—it’s born in the calm.
 - Mood Tracker (printable) → [/print?doc=mood-tracker](/print?doc=mood-tracker)
 - Word Search (quiet game) → [/kids/games/word-search](/kids/games/word-search)
 - Relaxing Hobbies to Calm Your Mind → [/blog/relaxing-hobbies](/blog/relaxing-hobbies)
+- Learn a Relaxing Hobby (7‑Day Plan) → [/generate](/generate)
 
 ---
 
