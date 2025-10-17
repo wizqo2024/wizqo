@@ -4,7 +4,7 @@ slug: educational-games-for-kids
 excerpt: "Discover fun, free educational games for kids that boost focus, memory, and problem-solving skills — all through play!"
 category: Learning Tips
 readTime: 6–7 min read
-cover: https://plus.unsplash.com/premium_photo-1723802502661-b7e0445732c2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170
+cover: https://images.unsplash.com/photo-1628968434441-d9c1c66dcde7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170
 imageAlt: "Kids playing educational games together"
 date: 2025-10-12
 ---
