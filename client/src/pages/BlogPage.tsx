@@ -1893,7 +1893,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 alt={feature.imageAlt || feature.title}
                 width={1200}
                 height={540}
-                className="w-full h-auto max-h-[22rem] object-contain rounded-lg mb-4 border border-slate-200 bg-white"
+                className="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover rounded-lg mb-4 border border-slate-200"
                 onError={(e) => {
                   const img = e.currentTarget as HTMLImageElement;
                   const fallbacks = [getPostImage(feature), CATEGORY_IMAGES[feature.category], GENERIC_BLOG_IMAGE].filter(Boolean) as string[];
