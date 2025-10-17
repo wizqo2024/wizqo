@@ -29,6 +29,7 @@ export function PrintablesLandingPage() {
   const [packTime, setPackTime] = React.useState<'5' | '10' | '15'>('5');
   const [packAge, setPackAge] = React.useState<'k2' | '35' | '68'>('k2');
   const [packSkill, setPackSkill] = React.useState<'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('mixed');
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
   const sectionVisibility = (cat: string) => (
     filterCategory === 'All' ||
@@ -124,32 +125,77 @@ export function PrintablesLandingPage() {
           <p className="text-slate-700 text-sm max-w-3xl">We’ve organized our printable packs by activity type so you can choose what fits your child’s interests and age group.</p>
         </section>
 
-        {/* Filter Bar */}
+        {/* Filter + Search Bar */}
         <section className="print:hidden">
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
-            <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
-            <select
-              id="printables-filter"
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
-            >
-              <option>All</option>
-              <option>Recent</option>
-              <option>Coloring</option>
-              <option>Worksheets</option>
-              <option>Creative</option>
-              <option>Brain</option>
-              <option>Emotional</option>
-              <option>Seasonal</option>
-              <option>Challenge</option>
-              <option>One-pagers</option>
-            </select>
-            {filterCategory !== 'All' && (
-              <button onClick={() => setFilterCategory('All')} className="ml-auto px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear</button>
-            )}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="flex items-center gap-2">
+              <label htmlFor="printables-filter" className="text-sm text-slate-600">Filter</label>
+              <select
+                id="printables-filter"
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+                className="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+              >
+                <option>All</option>
+                <option>Recent</option>
+                <option>Coloring</option>
+                <option>Worksheets</option>
+                <option>Creative</option>
+                <option>Brain</option>
+                <option>Emotional</option>
+                <option>Season</option>
+                <option>Challenge</option>
+                <option>One-pagers</option>
+              </select>
+            </div>
+            <div className="flex-1">
+              <input
+                type="search"
+                inputMode="search"
+                placeholder="Search printables (e.g., 'math', 'color', 'reading')"
+                value={searchQuery}
+                onChange={(e)=> setSearchQuery(e.target.value)}
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white"
+                aria-label="Search printables"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              {filterCategory !== 'All' && (
+                <button onClick={() => setFilterCategory('All')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear filter</button>
+              )}
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="px-3 py-2 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg">Clear search</button>
+              )}
+            </div>
           </div>
         </section>
+
+        {searchQuery && (
+          <section className="bg-white border border-slate-200 rounded-2xl p-4">
+            <div className="mb-2 text-slate-800 font-semibold">🔎 Results for “{searchQuery}”</div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {(
+                [
+                  { title: '🖍️ Color-by-Number Pages', href: '/print?doc=color-by-number', tags: 'color coloring art creative number' },
+                  { title: '➕ Math Maze Adventure', href: '/print?doc=math-maze', tags: 'math maze addition subtraction focus brain' },
+                  { title: '🔢 Number Tracing 1–10', href: '/print?doc=number-tracing-1-10', tags: 'number tracing math k2 fine motor' },
+                  { title: '🔟 Ten Frames 1–10', href: '/print?doc=ten-frames-1-10', tags: 'ten frames subitizing counting math' },
+                  { title: '🔤 Beginning Sounds (A–Z)', href: '/print?doc=beginning-sounds-az', tags: 'reading phonics sounds letters' },
+                  { title: 'Aa–Zz Upper/Lower Match', href: '/print?doc=uppercase-lowercase-match', tags: 'letters match uppercase lowercase reading' },
+                  { title: '👀 Spot‑the‑Difference', href: '/print?doc=spot-difference', tags: 'focus visual difference brain' },
+                  { title: '📖 Mini Reading Passage + 3 Qs', href: '/print?doc=reading-mini-1', tags: 'reading comprehension questions' },
+                  { title: '😊 Feelings Check‑In Meter', href: '/print?doc=feelings-checkin', tags: 'feelings emotional mindfulness' },
+                  { title: '⭐ Weekly Reward/Sticker Chart', href: '/print?doc=reward-chart', tags: 'reward chart sticker habit' },
+                ].filter(i => i.title.toLowerCase().includes(searchQuery.toLowerCase()) || i.tags.includes(searchQuery.toLowerCase()))
+              ).map(item => (
+                <a key={item.href} href={item.href} className="border border-slate-200 rounded-xl p-4 hover:border-purple-300">
+                  <div className="text-slate-900 font-medium">{item.title}</div>
+                  <div className="text-slate-500 text-xs mt-1">{item.href}</div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Build a 5‑Minute Pack (moved below What You'll Find) */}
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
