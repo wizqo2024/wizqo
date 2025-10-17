@@ -1094,6 +1094,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
             author: { "@type": "Organization", name: "Wizqo" },
             publisher: { "@type": "Organization", name: "Wizqo" },
             datePublished: selectedPost.date,
+            dateModified: selectedPost.date,
             mainEntityOfPage: { "@type": "WebPage", "@id": canonical }
           } as any;
           const breadcrumbLd = {
@@ -1215,7 +1216,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 )}
               </figure>
               <div className="flex items-center justify-between mb-6">
-                <p className="text-lg text-slate-600">By {selectedPost.author}</p>
+                <p className="text-lg text-slate-600">By {selectedPost.author || 'Wizqo Team'} • Last updated {selectedPost.date}</p>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1 text-yellow-500">
                     {[1,2,3,4,5].map(star => (
