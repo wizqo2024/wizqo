@@ -84,7 +84,7 @@ Life purpose doesn’t reveal itself in the noise—it’s born in the calm.
 - Dedicate a small, uncluttered space for reflection—a cozy chair, a candle, maybe a plant.
 - Let it become your sanctuary of calm in the middle of daily chaos.
 
-![Cozy quiet corner at home](https://images.unsplash.com/photo-1481277542470-605612bd2d61?auto=format&fit=crop&w=1600&q=80 "A cozy chair and plant for a quiet corner")
+![Cozy quiet corner at home](https://images.unsplash.com/photo-1758471995115-81c662cf949f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687 "A cozy chair and plant for a quiet corner")
 
 ---
 
