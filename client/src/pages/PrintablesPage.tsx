@@ -410,8 +410,8 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">Spot‑the‑Difference (7)</h2>
             <p className="text-slate-600 text-sm mb-3">Find 7 differences between the two pictures.</p>
             <div className="grid grid-cols-2 gap-4">
-              <HiddenObjectsSceneSVG />
-              <HiddenObjectsSceneSVG />
+              <HiddenObjectsSceneSVGA />
+              <HiddenObjectsSceneSVGB />
             </div>
           </section>
         )}
@@ -2177,7 +2177,7 @@ function ColoringSVG() {
   )
 }
 
-function HiddenObjectsSceneSVG() {
+function HiddenObjectsSceneSVGA() {
   // Hand-drawn busy scene with hidden shapes matching the checklist
   return (
     <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -2252,6 +2252,81 @@ function HiddenObjectsSceneSVG() {
       <g>
         <ellipse cx="475" cy="280" rx="16" ry="6" fill="#fef9c3" stroke="#a16207" />
         <rect x="466" y="270" width="18" height="10" fill="#fde68a" stroke="#a16207" />
+      </g>
+    </svg>
+  )
+}
+
+// Variant B with 7 differences from A: (1) no star, (2) leaf moved, (3) book moved, (4) car color/position, (5) key moved, (6) apple moved, (7) add a bird
+function HiddenObjectsSceneSVGB() {
+  return (
+    <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+      <defs>
+        <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#e0f2fe" />
+          <stop offset="100%" stopColor="#ffffff" />
+        </linearGradient>
+      </defs>
+      {/* Background sky and ground */}
+      <rect x="0" y="0" width="800" height="240" fill="url(#skyB)" />
+      <rect x="0" y="240" width="800" height="160" fill="#f1f5f9" />
+
+      {/* Trees */}
+      {[100, 220, 560, 700].map((x, i) => (
+        <g key={i}>
+          <rect x={x} y="220" width="10" height="40" fill="#64748b" />
+          <circle cx={x+5} cy="200" r="28" fill="#a7f3d0" />
+          <circle cx={x-15} cy="215" r="18" fill="#a7f3d0" />
+          <circle cx={x+22} cy="215" r="18" fill="#a7f3d0" />
+        </g>
+      ))}
+
+      {/* Cloud (same) */}
+      <g>
+        <ellipse cx="180" cy="90" rx="50" ry="20" fill="#ffffff" stroke="#94a3b8" />
+        <ellipse cx="210" cy="90" rx="35" ry="16" fill="#ffffff" stroke="#94a3b8" />
+        <ellipse cx="150" cy="94" rx="30" ry="14" fill="#ffffff" stroke="#94a3b8" />
+      </g>
+
+      {/* Star removed (difference 1) */}
+
+      {/* Leaf moved (difference 2) */}
+      <path d="M500 310 C520 300, 540 320, 520 330 C530 340, 510 345, 500 330 Z" fill="#86efac" stroke="#16a34a" />
+
+      {/* Book moved to ground (difference 3) */}
+      <g>
+        <rect x="460" y="310" width="60" height="8" fill="#94a3b8" />
+        <rect x="465" y="280" width="50" height="30" fill="#e2e8f0" stroke="#64748b" />
+        <line x1="490" y1="280" x2="490" y2="310" stroke="#64748b" />
+      </g>
+
+      {/* Car changed color and slightly moved (difference 4) */}
+      <g>
+        <rect x="620" y="275" width="90" height="30" rx="6" fill="#86efac" stroke="#64748b" />
+        <circle cx="640" cy="310" r="10" fill="#475569" />
+        <circle cx="690" cy="310" r="10" fill="#475569" />
+      </g>
+
+      {/* Key moved (difference 5) */}
+      <g>
+        <circle cx="140" cy="335" r="8" fill="#fde68a" stroke="#b45309" />
+        <rect x="148" y="333" width="20" height="4" fill="#fde68a" stroke="#b45309" />
+        <rect x="168" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+        <rect x="173" y="333" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+      </g>
+
+      {/* Apple moved (difference 6) */}
+      <circle cx="260" cy="190" r="8" fill="#ef4444" stroke="#991b1b" />
+
+      {/* Shell (same) */}
+      <g>
+        <path d="M110 320 C120 300, 150 300, 160 320 C155 330, 115 330, 110 320 Z" fill="#f5d0fe" stroke="#a855f7" />
+        <line x1="120" y1="318" x2="150" y2="318" stroke="#9333ea" />
+      </g>
+
+      {/* Bird in sky (difference 7) */}
+      <g>
+        <path d="M600 80 Q610 70, 620 80 M620 80 Q630 70, 640 80" fill="none" stroke="#64748b" strokeWidth="3" />
       </g>
     </svg>
   )
