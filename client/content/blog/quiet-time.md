@@ -47,7 +47,7 @@ His story reminds us: sometimes the best ideas come from doing nothing at all.
 ### Healing Through Nature’s Quiet
 Many who face depression or grief describe how silent walks in nature become their therapy. The whisper of wind, the rhythm of footsteps, the pause between thoughts—these quiet moments reconnect them to meaning and hope.
 
-![Quiet path in the woods](https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80 "A quiet forest path for a silent walk")
+![Quiet path in the woods](https://images.unsplash.com/photo-1571425046056-cfc17c664e57?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170 "A quiet forest path for a silent walk")
 
 ## 💫 Why Quiet Time Matters for Busy Lives
 
