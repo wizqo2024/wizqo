@@ -1461,7 +1461,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                         <figure key={`simp-img-${idx}`} className="my-6">
                           {(() => {
                             const needsContain = (selectedPost.id === 'quiet-time') && (
-                              finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt||'').toLowerCase().includes('quiet'))
+                              finalUrl.includes('photo-1758471995115-81c662cf949f')
                             );
                             const imgClass = needsContain
                               ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
@@ -1628,7 +1628,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       <figure key={`img-${i}`} className="my-6">
                         {(() => {
                           const needsContain = (selectedPost.id === 'quiet-time') && (
-                            finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt||'').toLowerCase().includes('quiet'))
+                            finalUrl.includes('photo-1758471995115-81c662cf949f')
                           );
                           const imgClass = needsContain
                             ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
