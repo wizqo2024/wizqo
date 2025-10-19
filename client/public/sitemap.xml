@@ -17,6 +17,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://wizqo.com/printables/math</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/printables/math/grade-2</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wizqo.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -93,5 +103,100 @@
     <loc>https://wizqo.com/blog/easy-watercolor-paintings</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=ten-frames-1-20</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=number-tracing-1-20</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=stem-balloon-rocket</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=stem-walking-water</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=arts-3-shape-creature</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=number-tracing-1-10</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=uppercase-lowercase-match</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=beginning-sounds-az</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=addition-subtraction-0-10</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=ten-frames-1-10</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=shapes-colors-sort</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=dot-to-dot-1-20</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=tangram-animals</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=spot-difference</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=directed-drawing-animals</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=cut-and-paste-crafts</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=feelings-checkin</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=reward-chart</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/print?doc=reading-mini-1</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
