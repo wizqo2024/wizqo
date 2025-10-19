@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
-  Generate sitemap.xml from Markdown, inline posts, and printables.
+  Generate sitemap.xml from Markdown and inline posts only (no print views).
 */
 const fs = require('fs');
 const path = require('path');
@@ -51,15 +51,7 @@ function collectInlinePosts() {
   return Array.from(new Set(ids)).filter(id => !exclude.has(id)).map(slug => ({ slug, date: '' }));
 }
 
-function collectPrintableDocs() {
-  // Parse the docTitle switch/cases from PrintablesPage to list supported docs
-  const file = path.join(ROOT, 'client', 'src', 'pages', 'PrintablesPage.tsx');
-  const src = readFileSafe(file) || '';
-  const cases = Array.from(src.matchAll(/case\s+'([a-z0-9-]+)'\s*:/g)).map(m => m[1]);
-  const exclude = new Set(['pack']);
-  const unique = Array.from(new Set(cases)).filter(id => !exclude.has(id));
-  return unique; // e.g., ['ten-frames-1-20', 'number-tracing-1-20', ...]
-}
+// Intentionally no printable doc collection for sitemap
 
 function uniqueBySlug(list) {
   const seen = new Set();
@@ -82,7 +74,6 @@ function iso(d) {
 function generate() {
   const md = collectMarkdownPosts();
   const inlinePosts = collectInlinePosts();
-  const printableDocs = collectPrintableDocs();
   const posts = uniqueBySlug([...md, ...inlinePosts]);
 
   const urls = [];
@@ -101,11 +92,7 @@ function generate() {
     push(`${site}/blog/${p.slug}`, lastmod, 'weekly', '0.7');
   }
 
-  // Printable documents (query URLs are acceptable in sitemaps)
-  for (const d of printableDocs) {
-    const loc = `${site}/print?doc=${encodeURIComponent(d)}`;
-    push(loc, null, 'weekly', '0.6');
-  }
+  // Skipping /print?doc=... entries on purpose
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
