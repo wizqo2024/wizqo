@@ -18,7 +18,7 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
         </div>
       )}
       <div className="mt-3">
-        <a href={href.replace('/print?', (m) => m + 'from=printables')} className={OUTLINE_BUTTON}>Open printable view →</a>
+        <a href={href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`} className={OUTLINE_BUTTON}>Open printable view →</a>
       </div>
     </div>
   );
