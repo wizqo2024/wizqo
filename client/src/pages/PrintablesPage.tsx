@@ -21,6 +21,10 @@ export function PrintablesPage() {
   const shouldShowAnswerToggle = answerableDocs.has(doc)
   const docTitle = React.useMemo(() => {
     switch (doc) {
+      case 'ten-frames-1-20':
+        return '🔟 Ten Frames 1–20'
+      case 'number-tracing-1-20':
+        return '🔢 Number Tracing 1–20'
       case 'stem-balloon-rocket':
         return '🚀 Balloon Rocket (STEM)'
       case 'stem-walking-water':
