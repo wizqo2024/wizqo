@@ -2329,57 +2329,63 @@ function HiddenObjectsSceneSVGA() {
         </g>
       ))}
 
-      {/* Cloud (hidden object: Cloud) */}
+      {/* Cloud (hidden object: Cloud) – larger for visibility */}
       <g>
-        <ellipse cx="180" cy="90" rx="50" ry="20" fill="#ffffff" stroke="#94a3b8" />
-        <ellipse cx="210" cy="90" rx="35" ry="16" fill="#ffffff" stroke="#94a3b8" />
-        <ellipse cx="150" cy="94" rx="30" ry="14" fill="#ffffff" stroke="#94a3b8" />
+        <ellipse cx="180" cy="90" rx="70" ry="28" fill="#ffffff" stroke="#64748b" strokeWidth="3" />
+        <ellipse cx="215" cy="90" rx="50" ry="22" fill="#ffffff" stroke="#64748b" strokeWidth="3" />
+        <ellipse cx="140" cy="96" rx="45" ry="18" fill="#ffffff" stroke="#64748b" strokeWidth="3" />
       </g>
 
-      {/* Star (hidden on tree) */}
-      <polygon points="560,160 566,176 584,176 569,186 574,202 560,192 546,202 551,186 536,176 554,176" fill="#fde68a" stroke="#b45309" />
+      {/* Star (hidden on tree) – bigger */}
+      <polygon points="560,145 568,170 596,170 572,186 580,210 560,196 540,210 548,186 524,170 552,170" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
 
-      {/* Leaf (on ground) */}
-      <path d="M300 300 C320 290, 340 310, 320 320 C330 330, 310 335, 300 320 Z" fill="#86efac" stroke="#16a34a" />
+      {/* Leaf (on ground) – larger */}
+      <path d="M290 300 C320 280, 360 310, 330 330 C345 345, 305 350, 290 330 Z" fill="#86efac" stroke="#16a34a" strokeWidth="3" />
 
-      {/* Book (bench) */}
+      {/* Book (bench) – larger */}
       <g>
-        <rect x="400" y="285" width="60" height="8" fill="#94a3b8" />
-        <rect x="405" y="255" width="50" height="30" fill="#e2e8f0" stroke="#64748b" />
-        <line x1="430" y1="255" x2="430" y2="285" stroke="#64748b" />
+        <rect x="392" y="285" width="80" height="10" fill="#94a3b8" />
+        <rect x="398" y="248" width="68" height="36" fill="#e2e8f0" stroke="#64748b" strokeWidth="3" />
+        <line x1="432" y1="248" x2="432" y2="284" stroke="#64748b" strokeWidth="3" />
       </g>
 
-      {/* Car (simple) */}
+      {/* Car (simple) – larger */}
       <g>
-        <rect x="640" y="270" width="90" height="30" rx="6" fill="#c7d2fe" stroke="#64748b" />
-        <circle cx="660" cy="305" r="10" fill="#475569" />
-        <circle cx="710" cy="305" r="10" fill="#475569" />
+        <rect x="620" y="265" width="120" height="36" rx="8" fill="#c7d2fe" stroke="#64748b" strokeWidth="3" />
+        <circle cx="648" cy="308" r="14" fill="#475569" />
+        <circle cx="712" cy="308" r="14" fill="#475569" />
       </g>
 
-      {/* Key (on ground) */}
+      {/* Key (on ground) – larger */}
       <g>
-        <circle cx="520" cy="330" r="8" fill="#fde68a" stroke="#b45309" />
-        <rect x="528" y="328" width="20" height="4" fill="#fde68a" stroke="#b45309" />
-        <rect x="548" y="328" width="4" height="6" fill="#fde68a" stroke="#b45309" />
-        <rect x="553" y="328" width="4" height="6" fill="#fde68a" stroke="#b45309" />
+        <circle cx="520" cy="328" r="12" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="536" y="325" width="30" height="6" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="566" y="325" width="6" height="10" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="574" y="325" width="6" height="10" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
       </g>
 
-      {/* Apple (on tree) */}
-      <circle cx="220" cy="205" r="8" fill="#ef4444" stroke="#991b1b" />
-
-      {/* Shell (near pond) */}
+      {/* Apple (on tree) – larger with leaf */}
       <g>
-        <path d="M110 320 C120 300, 150 300, 160 320 C155 330, 115 330, 110 320 Z" fill="#f5d0fe" stroke="#a855f7" />
-        <line x1="120" y1="318" x2="150" y2="318" stroke="#9333ea" />
+        <circle cx="220" cy="205" r="12" fill="#ef4444" stroke="#991b1b" strokeWidth="3" />
+        <ellipse cx="228" cy="196" rx="6" ry="3" fill="#22c55e" stroke="#15803d" strokeWidth="2" />
       </g>
 
-      {/* Ball */}
-      <circle cx="360" cy="310" r="10" fill="#fca5a5" stroke="#ef4444" />
-
-      {/* Hat (on bench) */}
+      {/* Shell (near pond) – larger */}
       <g>
-        <ellipse cx="475" cy="280" rx="16" ry="6" fill="#fef9c3" stroke="#a16207" />
-        <rect x="466" y="270" width="18" height="10" fill="#fde68a" stroke="#a16207" />
+        <path d="M100 324 C118 296, 162 296, 180 324 C172 340, 108 340, 100 324 Z" fill="#f5d0fe" stroke="#a855f7" strokeWidth="3" />
+        <line x1="115" y1="322" x2="165" y2="322" stroke="#9333ea" strokeWidth="3" />
+      </g>
+
+      {/* Ball – larger with stripe */}
+      <g>
+        <circle cx="360" cy="310" r="14" fill="#fca5a5" stroke="#ef4444" strokeWidth="3" />
+        <path d="M346 310 Q360 298 374 310" stroke="#ef4444" strokeWidth="2" fill="none" />
+      </g>
+
+      {/* Hat (on bench) – larger */}
+      <g>
+        <ellipse cx="475" cy="280" rx="22" ry="8" fill="#fef9c3" stroke="#a16207" strokeWidth="3" />
+        <rect x="462" y="266" width="26" height="14" fill="#fde68a" stroke="#a16207" strokeWidth="3" />
       </g>
     </svg>
   )
