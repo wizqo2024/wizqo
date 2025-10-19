@@ -191,6 +191,7 @@ export function PrintablesPage() {
             try {
               const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
               const from = u.searchParams.get('from')
+              // Determine category anchor by doc
               const cat = doc.startsWith('coloring') ? 'Coloring' : (
                 ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort'].includes(doc) ? 'Worksheets' : (
                   ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing'].includes(doc) ? 'Creative' : (
