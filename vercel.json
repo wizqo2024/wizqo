@@ -13,7 +13,9 @@
       "has": [ { "type": "query", "key": "post" } ],
       "destination": "/blog/:post",
       "permanent": true
-    }
+    },
+    { "source": "/printables/math", "destination": "/printables", "permanent": true },
+    { "source": "/printables/math/grade-2", "destination": "/printables", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
