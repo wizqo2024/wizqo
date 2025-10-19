@@ -93,9 +93,7 @@ function generate() {
   push(`${site}/`, '2024-08-22', 'weekly', '0.8');
   push(`${site}/kids`, null, 'weekly', '0.8');
   push(`${site}/printables`, null, 'weekly', '0.7');
-  // Math hubs
-  push(`${site}/printables/math`, null, 'weekly', '0.7');
-  push(`${site}/printables/math/grade-2`, null, 'weekly', '0.7');
+  // Intentionally excluding math hubs for now
   push(`${site}/blog`, null, 'weekly', '0.7');
 
   for (const p of posts) {

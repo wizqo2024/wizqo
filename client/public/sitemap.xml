@@ -17,16 +17,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wizqo.com/printables/math</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://wizqo.com/printables/math/grade-2</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://wizqo.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
