@@ -187,7 +187,28 @@ export function PrintablesPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
         {/* Doc-specific back link is above header; sections appear below header */}
         <div className="mb-4 print:hidden flex justify-end">
-          <a href="/printables" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back printable page">
+          <a href={(() => {
+            try {
+              const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+              const from = u.searchParams.get('from')
+              const cat = doc.startsWith('coloring') ? 'Coloring' : (
+                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort'].includes(doc) ? 'Worksheets' : (
+                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing'].includes(doc) ? 'Creative' : (
+                    ['spot-difference','logic-grid','ws-animals','ws-space','maze-focus'].includes(doc) ? 'Brain' : (
+                      ['feelings-checkin','mindful-mandalas','gratitude-jar','goals-week'].includes(doc) ? 'Emotional' : (
+                        ['halloween-pack','winter-kindness','spring-scavenger','summer-adventure'].includes(doc) ? 'Seasonal' : (
+                          ['reading-mini-1','reward-chart','one-pagers'].includes(doc) ? 'Challenge' : ''
+                        )
+                      )
+                    )
+                  )
+                ))
+              const hash = cat ? `#${encodeURIComponent(cat)}` : ''
+              return from === 'printables' ? `/printables${hash}` : '/printables'
+            } catch {
+              return '/printables'
+            }
+          })()} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back printable page">
             <span>←</span>
             <span>Back printable page</span>
           </a>
