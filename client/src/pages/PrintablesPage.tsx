@@ -1458,7 +1458,7 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
             <p className="text-slate-600 text-sm mb-3">Find and circle each item hidden in the scene below.</p>
             <div className="mb-3">
-              <HiddenObjectsSceneSVG />
+              <HiddenObjectsSceneSVGA />
             </div>
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
               {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
