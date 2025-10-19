@@ -649,7 +649,7 @@ export function PrintablesLandingPage() {
         </section>
 
         {/* 8. Quick STEM/Arts One‑pagers */}
-        <section className={sectionVisibility('One-pagers')}>
+        <section id="One-pagers" className={`scroll-mt-24 ${sectionVisibility('One-pagers')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
           <div className={gridClass}>
