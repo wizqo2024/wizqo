@@ -394,17 +394,47 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">Beginning Sounds (A–Z)</h2>
             <p className="text-slate-600 text-sm mb-3">Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple).</p>
             <div className="grid grid-cols-2 gap-4">
-              {[['A','🍎','✈️','🦋'],['B','🐝','🚲','🍌'],['C','🐱','🚗','☕'],['D','🐶','🦆','🍩']].map(([L,a,b,c]) => (
-                <svg key={String(L)} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <text x="40" y="60" fontSize="40" fill="#111827">{String(L)}</text>
-                  <text x="140" y="60" fontSize="36">{String(a)}</text>
-                  <text x="200" y="60" fontSize="36">{String(b)}</text>
-                  <text x="260" y="60" fontSize="36">{String(c)}</text>
-                  <rect x="130" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
-                  <rect x="190" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
-                  <rect x="250" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
-                </svg>
-              ))}
+              {(() => {
+                const rows: Array<[string,string,string,string]> = [
+                  ['A','🍎','✈️','🦋'],
+                  ['B','🐝','🚲','🍌'],
+                  ['C','🐱','🚗','☕'],
+                  ['D','🐶','🦆','🍩'],
+                  ['E','🥚','🦅','👂'],
+                  ['F','🐟','🦊','🏁'],
+                  ['G','🦒','👓','🦎'],
+                  ['H','🏠','🐹','🥅'],
+                  ['I','🍦','🏝️','🧊'],
+                  ['J','🤹','🧃','🕹️'],
+                  ['K','🔑','🌋','🪁'],
+                  ['L','🦁','🍋','🌿'],
+                  ['M','🐭','🌙','🍄'],
+                  ['N','🥜','巛','📓'],
+                  ['O','🐙','🧅','🍊'],
+                  ['P','🅿️','🥧','🖊️'],
+                  ['Q','👸','🧶','🧭'],
+                  ['R','🐰','🚀','🌧️'],
+                  ['S','🐍','⭐','🌞'],
+                  ['T','🐯','🌮','🌳'],
+                  ['U','☂️','🦄','⛽'],
+                  ['V','🎻','🚐','🌋'],
+                  ['W','🐳','🍉','🚶'],
+                  ['X','🪓','📦','🧪'],
+                  ['Y','🛶','🪀','🍠'],
+                  ['Z','🦓','⚡','👟'],
+                ]
+                return rows.map(([L,a,b,c]) => (
+                  <svg key={L} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <text x="40" y="60" fontSize="40" fill="#111827">{L}</text>
+                    <text x="140" y="60" fontSize="36">{a}</text>
+                    <text x="200" y="60" fontSize="36">{b}</text>
+                    <text x="260" y="60" fontSize="36">{c}</text>
+                    <rect x="130" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                    <rect x="190" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                    <rect x="250" y="80" width="40" height="40" fill="none" stroke="#94a3b8" />
+                  </svg>
+                ))
+              })()}
             </div>
           </section>
         )}
