@@ -2339,8 +2339,11 @@ function HiddenObjectsSceneSVGA() {
       {/* Star (hidden on tree) – bigger, line-art */}
       <polygon points="560,145 568,170 596,170 572,186 580,210 560,196 540,210 548,186 524,170 552,170" fill="none" stroke="#111827" strokeWidth="3.5" />
 
-      {/* Leaf (on ground) – larger, line-art */}
-      <path d="M290 300 C320 280, 360 310, 330 330 C345 345, 305 350, 290 330 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
+      {/* Leaf (on ground) – clearer outline with vein */}
+      <g>
+        <path d="M290 300 C320 280, 360 310, 330 330 C345 345, 305 350, 290 330 Z" fill="none" stroke="#111827" strokeWidth="3.5" />
+        <path d="M325 295 Q325 315 318 332" fill="none" stroke="#111827" strokeWidth="2.5" />
+      </g>
 
       {/* Book (bench) – larger, line-art with page lines */}
       <g>
@@ -2390,10 +2393,11 @@ function HiddenObjectsSceneSVGA() {
         <path d="M360 294 Q370 310 360 326" stroke="#111827" strokeWidth="2.5" fill="none" />
       </g>
 
-      {/* Hat (on bench) – larger, line-art with band */}
+      {/* Hat (on bench) – clearer fedora outline */}
       <g>
-        <ellipse cx="475" cy="280" rx="26" ry="10" fill="none" stroke="#111827" strokeWidth="3.5" />
-        <rect x="458" y="262" width="34" height="16" fill="none" stroke="#111827" strokeWidth="3.5" />
+        <ellipse cx="475" cy="282" rx="28" ry="10" fill="none" stroke="#111827" strokeWidth="3.5" />
+        <path d="M452 268 Q475 258 498 268" fill="none" stroke="#111827" strokeWidth="3.5" />
+        <rect x="458" y="264" width="34" height="14" fill="none" stroke="#111827" strokeWidth="3.5" />
         <line x1="458" y1="270" x2="492" y2="270" stroke="#111827" strokeWidth="3" />
       </g>
     </svg>
