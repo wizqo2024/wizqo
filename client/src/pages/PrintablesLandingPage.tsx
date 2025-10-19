@@ -30,6 +30,7 @@ export function PrintablesLandingPage() {
   const [packAge, setPackAge] = React.useState<'k2' | '35' | '68'>('k2');
   const [packSkill, setPackSkill] = React.useState<'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('mixed');
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
   const sectionVisibility = (cat: string) => (
     filterCategory === 'All' ||
@@ -108,17 +109,71 @@ export function PrintablesLandingPage() {
               <span>Back to Kids Hub</span>
             </a>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Printable Fun Learning Activities</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{path.startsWith('/printables/math') ? 'Math Worksheets (Free PDF)' : 'Printable Fun Learning Activities'}</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 max-w-3xl">
-            Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens!
-            All activities are free to download, easy to print, and perfect for home, school, or travel.
+            {path.startsWith('/printables/math')
+              ? 'Free, no‑prep math worksheets to build counting, number sense, addition/subtraction and more. Print‑and‑go packs for K–5.'
+              : 'Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.'}
           </p>
           
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
+        {/* Math hubs */}
+        {path === '/printables/math' && (
+          <section>
+            <div className="mb-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Math Worksheets (K–5)</h2>
+              <p className="mt-2 text-slate-700 max-w-3xl">Quick, printable math practice—no prep required. Start with a grade below or build a 5‑minute pack.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <ItemCard title="Kindergarten Math Worksheets" description="Tracing, counting, ten‑frames" href="/printables/math/kindergarten" />
+              <ItemCard title="1st Grade Math Worksheets" description="Counting to 100, add/sub within 10" href="/printables/math/grade-1" />
+              <ItemCard title="2nd Grade Math Worksheets" description="Add/sub within 20, tens/ones" href="/printables/math/grade-2" />
+              <ItemCard title="3rd Grade Math Worksheets" description="Place value, time, word problems" href="/printables/math/grade-3" />
+            </div>
+            <div className="mt-6">
+              <a href="/print?doc=pack" className={OUTLINE_BUTTON}>Build a 5‑Minute Math Pack →</a>
+            </div>
+          </section>
+        )}
+
+        {path === '/printables/math/grade-2' && (
+          <section>
+            <div className="mb-4">
+              <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free PDF)</h2>
+              <p className="mt-2 text-slate-700 max-w-3xl">No‑prep printables for daily warm‑ups, homework helpers, and brain breaks.</p>
+            </div>
+            <div className="space-y-8">
+              <div>
+                <div className="mb-2 text-slate-800 font-semibold">Number Sense</div>
+                <div className={gridClass}>
+                  <ItemCard title="Ten Frames 1–20" description="Color counters to build numbers" skills="counting, subitizing" age="6–8" href="/print?doc=ten-frames-1-20" />
+                  <ItemCard title="Number Tracing 1–20" description="Trace and say the numbers" skills="fine motor, number sense" age="6–8" href="/print?doc=number-tracing-1-20" />
+                </div>
+              </div>
+              <div>
+                <div className="mb-2 text-slate-800 font-semibold">Addition & Subtraction</div>
+                <div className={gridClass}>
+                  <ItemCard title="Add/Sub within 10" description="Write the answer; number line guide" skills="addition, subtraction" age="6–8" href="/print?doc=addition-subtraction-0-10" />
+                  <ItemCard title="Math Maze" description="Solve to reach the finish" skills="operation fluency" age="6–8" href="/print?doc=math-maze" />
+                </div>
+              </div>
+              <div>
+                <div className="mb-2 text-slate-800 font-semibold">Focus & Logic</div>
+                <div className={gridClass}>
+                  <ItemCard title="Dot‑to‑Dot 1–20" description="Connect the dots in order" skills="counting, attention" age="6–8" href="/print?doc=dot-to-dot-1-20" />
+                  <ItemCard title="Spot‑the‑Difference (7)" description="Find differences—focus exercise" skills="attention to detail" age="6–8" href="/print?doc=spot-difference" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a href="/print?doc=pack" className={BUTTON_CLASS}>Build a 5‑Minute Math Pack →</a>
+              </div>
+            </div>
+          </section>
+        )}
         {/* Intro: What You'll Find */}
         <section>
           <div className="mb-2 text-slate-800 font-semibold">🧩 What You’ll Find</div>
