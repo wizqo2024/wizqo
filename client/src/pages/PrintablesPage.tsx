@@ -193,12 +193,21 @@ export function PrintablesPage() {
               const from = u.searchParams.get('from')
               // Determine category anchor by doc
               const cat = doc.startsWith('coloring') ? 'Coloring' : (
+                // Worksheets
                 ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort'].includes(doc) ? 'Worksheets' : (
-                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing'].includes(doc) ? 'Creative' : (
-                    ['spot-difference','logic-grid','ws-animals','ws-space','maze-focus'].includes(doc) ? 'Brain' : (
-                      ['feelings-checkin','mindful-mandalas','gratitude-jar','goals-week'].includes(doc) ? 'Emotional' : (
-                        ['halloween-pack','winter-kindness','spring-scavenger','summer-adventure'].includes(doc) ? 'Seasonal' : (
-                          ['reading-mini-1','reward-chart','one-pagers'].includes(doc) ? 'Challenge' : ''
+                  // Creative & Art
+                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals'].includes(doc) ? 'Creative' : (
+                    // Brain & Focus
+                    ['spot-difference','logic-grid','ws-animals','ws-space','maze-focus','hidden-object','dot-to-dot-1-20','tangram-animals'].includes(doc) ? 'Brain' : (
+                      // Emotional & Mindfulness
+                      ['feelings-checkin','mood-tracker','mandalas','gratitude-jar','weekly-goals','reward-chart'].includes(doc) ? 'Emotional' : (
+                        // Seasonal & Holiday
+                        ['halloween-pack','winter-kindness','spring-scavenger','summer-pack'].includes(doc) ? 'Seasonal' : (
+                          // Challenge Packs
+                          ['brain-boost','creative-challenge','ws-world','animal-pack'].includes(doc) ? 'Challenge' : (
+                            // One-pagers
+                            ['stem-balloon-rocket','stem-walking-water','arts-3-shape-creature','reading-mini-1'].includes(doc) ? 'One-pagers' : ''
+                          )
                         )
                       )
                     )
