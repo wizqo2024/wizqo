@@ -1371,9 +1371,12 @@ export function PrintablesPage() {
                   <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
                     <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
                   </pattern>
+                  <clipPath id="half1"><rect x="0" y="0" width="100" height="200" /></clipPath>
                 </defs>
                 <rect x="0" y="0" width="200" height="200" fill="url(#g1)" />
-                <path d="M40 100 C60 40, 140 40, 160 100 C140 160, 60 160, 40 100 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                <g clipPath="url(#half1)">
+                  <path d="M40 100 C60 40, 140 40, 160 100 C140 160, 60 160, 40 100 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                </g>
                 <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
               </svg>
               <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300">
@@ -1381,9 +1384,12 @@ export function PrintablesPage() {
                   <pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse">
                     <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
                   </pattern>
+                  <clipPath id="half2"><rect x="0" y="0" width="100" height="200" /></clipPath>
                 </defs>
                 <rect x="0" y="0" width="200" height="200" fill="url(#g2)" />
-                <path d="M60 160 L100 40 L140 160 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                <g clipPath="url(#half2)">
+                  <path d="M60 160 L100 40 L140 160 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                </g>
                 <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
               </svg>
             </div>
