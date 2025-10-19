@@ -196,7 +196,7 @@ export function PrintablesPage() {
                 // Worksheets
                 ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort'].includes(doc) ? 'Worksheets' : (
                   // Creative & Art
-                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals'].includes(doc) ? 'Creative' : (
+                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals','cut-and-paste-crafts'].includes(doc) ? 'Creative' : (
                     // Brain & Focus
                     ['spot-difference','logic-grid','ws-animals','ws-space','maze-focus','hidden-object','dot-to-dot-1-20','tangram-animals'].includes(doc) ? 'Brain' : (
                       // Emotional & Mindfulness
