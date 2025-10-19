@@ -2349,43 +2349,49 @@ function HiddenObjectsSceneSVGA() {
         <line x1="432" y1="248" x2="432" y2="284" stroke="#64748b" strokeWidth="3" />
       </g>
 
-      {/* Car (simple) – larger */}
+      {/* Car (simple) – larger with window */}
       <g>
         <rect x="620" y="265" width="120" height="36" rx="8" fill="#c7d2fe" stroke="#64748b" strokeWidth="3" />
+        <rect x="650" y="270" width="50" height="16" rx="3" fill="#e2e8f0" stroke="#94a3b8" />
         <circle cx="648" cy="308" r="14" fill="#475569" />
         <circle cx="712" cy="308" r="14" fill="#475569" />
       </g>
 
-      {/* Key (on ground) – larger */}
+      {/* Key (on ground) – larger with teeth */}
       <g>
-        <circle cx="520" cy="328" r="12" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
-        <rect x="536" y="325" width="30" height="6" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
-        <rect x="566" y="325" width="6" height="10" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
-        <rect x="574" y="325" width="6" height="10" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <circle cx="520" cy="328" r="14" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="538" y="325" width="36" height="8" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="574" y="325" width="8" height="12" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
+        <rect x="584" y="325" width="8" height="12" fill="#fde68a" stroke="#b45309" strokeWidth="3" />
       </g>
 
-      {/* Apple (on tree) – larger with leaf */}
+      {/* Apple (on tree) – larger with stem + leaf */}
       <g>
-        <circle cx="220" cy="205" r="12" fill="#ef4444" stroke="#991b1b" strokeWidth="3" />
-        <ellipse cx="228" cy="196" rx="6" ry="3" fill="#22c55e" stroke="#15803d" strokeWidth="2" />
+        <circle cx="220" cy="205" r="14" fill="#ef4444" stroke="#991b1b" strokeWidth="3" />
+        <rect x="219" y="189" width="2" height="10" fill="#166534" />
+        <ellipse cx="228" cy="196" rx="8" ry="4" fill="#22c55e" stroke="#15803d" strokeWidth="2" />
       </g>
 
-      {/* Shell (near pond) – larger */}
+      {/* Shell (near pond) – larger with scallops */}
       <g>
         <path d="M100 324 C118 296, 162 296, 180 324 C172 340, 108 340, 100 324 Z" fill="#f5d0fe" stroke="#a855f7" strokeWidth="3" />
-        <line x1="115" y1="322" x2="165" y2="322" stroke="#9333ea" strokeWidth="3" />
+        {Array.from({length:5}).map((_,i)=>{
+          const x = 112 + i*14; return (<path key={i} d={`M${x} 322 Q${x+4} 312 ${x+8} 322`} stroke="#9333ea" fill="none" strokeWidth="2"/>);
+        })}
       </g>
 
-      {/* Ball – larger with stripe */}
+      {/* Ball – larger with stripes */}
       <g>
-        <circle cx="360" cy="310" r="14" fill="#fca5a5" stroke="#ef4444" strokeWidth="3" />
-        <path d="M346 310 Q360 298 374 310" stroke="#ef4444" strokeWidth="2" fill="none" />
+        <circle cx="360" cy="310" r="16" fill="#fca5a5" stroke="#ef4444" strokeWidth="3" />
+        <path d="M342 310 Q360 296 378 310" stroke="#ef4444" strokeWidth="2" fill="none" />
+        <path d="M360 294 Q370 310 360 326" stroke="#ef4444" strokeWidth="2" fill="none" />
       </g>
 
-      {/* Hat (on bench) – larger */}
+      {/* Hat (on bench) – larger with band */}
       <g>
-        <ellipse cx="475" cy="280" rx="22" ry="8" fill="#fef9c3" stroke="#a16207" strokeWidth="3" />
-        <rect x="462" y="266" width="26" height="14" fill="#fde68a" stroke="#a16207" strokeWidth="3" />
+        <ellipse cx="475" cy="280" rx="26" ry="10" fill="#fef9c3" stroke="#a16207" strokeWidth="3" />
+        <rect x="458" y="262" width="34" height="16" fill="#fde68a" stroke="#a16207" strokeWidth="3" />
+        <rect x="458" y="270" width="34" height="4" fill="#a16207" />
       </g>
     </svg>
   )
