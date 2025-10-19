@@ -263,6 +263,44 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {doc === 'number-tracing-1-20' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–20</h2>
+            <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[...Array(20).keys()].map((i) => {
+                const n = i + 1;
+                return (
+                  <svg key={n} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                      <path strokeDasharray="6 6" d={`M40 160 H360`} />
+                    </g>
+                    <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
+                      {n===1 && <path d="M120 150 L120 60" />}
+                      {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
+                      {n===3 && <path d="M90 80 Q160 60, 150 100 Q160 120, 90 140" />}
+                      {n===4 && <path d="M140 60 V150 M90 110 H170" />}
+                      {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
+                      {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
+                      {n===7 && <path d="M90 70 H170 L110 150" />}
+                      {n===8 && <path d="M140 90 A30 20 0 1 1 100 90 A30 20 0 1 1 140 90 M140 130 A30 20 0 1 1 100 130 A30 20 0 1 1 140 130" />}
+                      {n===9 && <path d="M110 100 Q140 70, 170 100 Q150 130, 120 130 Q150 150, 170 120" />}
+                      {n===10 && (
+                        <g>
+                          <path d="M90 150 L90 80" />
+                          <circle cx="140" cy="115" r="30" fill="none" />
+                        </g>
+                      )}
+                    </g>
+                    <circle cx="80" cy="70" r="6" fill="#ef4444" />
+                    <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
+                  </svg>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
         {doc === 'uppercase-lowercase-match' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Aa–Zz Upper/Lower Letter Match</h2>
@@ -336,6 +374,25 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
             <div className="grid grid-cols-2 gap-4">
               {Array.from({ length: 10 }).map((_,n)=> (
+                <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="40" y="50" fontSize="36" fill="#111827">{n+1}</text>
+                  <g transform="translate(120,60)">
+                    {Array.from({ length: 10 }).map((__,i)=> (
+                      <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                    ))}
+                  </g>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'ten-frames-1-20' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–20</h2>
+            <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 20 }).map((_,n)=> (
                 <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <text x="40" y="50" fontSize="36" fill="#111827">{n+1}</text>
                   <g transform="translate(120,60)">
