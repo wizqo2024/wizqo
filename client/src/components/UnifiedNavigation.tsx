@@ -66,6 +66,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <Puzzle className="w-4 h-4" />
                 <span className="font-medium">Kids Hub</span>
               </a>
+
+              <a href="/printables" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'printables' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 9V2h12v7" />
+                  <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
+                  <rect x="6" y="14" width="12" height="8" rx="1" />
+                </svg>
+                <span className="font-medium">Printables</span>
+              </a>
             </div>
           </div>
 
@@ -183,6 +192,21 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             >
               <Puzzle className="w-4 h-4" />
               <span className="font-medium">Kids Hub</span>
+            </button>
+
+            <button 
+              onClick={() => {
+                window.location.href = '/printables';
+                setShowMobileMenu(false);
+              }} 
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'printables' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 9V2h12v7" />
+                <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
+                <rect x="6" y="14" width="12" height="8" rx="1" />
+              </svg>
+              <span className="font-medium">Printables</span>
             </button>
 
             {/* Mobile Account Section */}
