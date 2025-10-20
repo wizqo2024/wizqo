@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from './AuthModal';
@@ -16,6 +16,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showKidsMenu, setShowKidsMenu] = useState(false);
+  const kidsMenuCloseTimer = useRef<number | null>(null);
 
   const handleSignOut = async () => {
     try {
@@ -62,13 +64,30 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Learn</span>
               </a>
 
-              <div className="relative group">
-                <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <div
+                className="relative"
+                onMouseEnter={() => {
+                  if (kidsMenuCloseTimer.current) {
+                    window.clearTimeout(kidsMenuCloseTimer.current);
+                    kidsMenuCloseTimer.current = null;
+                  }
+                  setShowKidsMenu(true);
+                }}
+                onMouseLeave={() => {
+                  kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 150);
+                }}
+                onFocusCapture={() => setShowKidsMenu(true)}
+                onBlurCapture={() => {
+                  kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 150);
+                }}
+              >
+                <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
                   <Puzzle className="w-4 h-4" />
                   <span className="font-medium">Kids Hub</span>
                 </a>
                 {/* Dropdown: Printables under Kids */}
-                <div className="absolute left-0 mt-2 hidden group-hover:block bg-white border border-slate-200 rounded-md shadow-lg min-w-[200px] z-50">
+                <div className={`absolute left-0 top-full ${showKidsMenu ? 'block' : 'hidden'} bg-white border border-slate-200 rounded-md shadow-lg min-w-[220px] z-50 p-2`}
+                >
                   <a href="/printables" className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 9V2h12v7" />
