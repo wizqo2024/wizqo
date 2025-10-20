@@ -15,8 +15,9 @@ export default function WorksheetsSecondGradePage() {
       <UnifiedNavigation currentPage="blog" />
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">2nd Grade Math Worksheets (Free Printables)</h1>
-          <p className="text-slate-700 mt-3 text-sm max-w-3xl">
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free Printables)</h1>
+          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
+          <p className="text-slate-700 text-sm max-w-3xl">
             Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
           </p>
           <div className="mt-4">
