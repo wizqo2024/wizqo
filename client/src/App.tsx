@@ -16,7 +16,6 @@ import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
 import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
-<<<<<<< HEAD
 import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
