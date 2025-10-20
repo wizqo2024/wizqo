@@ -16,7 +16,8 @@ import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
 import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
-import WorksheetsGrade2Page from './pages/WorksheetsGrade2Page';
+<<<<<<< HEAD
+import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
 // (duplicate import removed)
@@ -366,11 +367,11 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="2nd Grade Math Worksheets (Free PDF) – Addition, Number Sense"
-                    description="Free 2nd grade math worksheets: number sense, addition/subtraction to 100, ten‑frames, and focus/logic printables. Download printable PDFs."
+                    title="2nd Grade Math Worksheets – Free Printable PDF"
+                    description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
                     canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
                   />
-                  <WorksheetsGrade2Page />
+                  <WorksheetsSecondGradePage />
                 </>
               );
             case 'dashboard':
