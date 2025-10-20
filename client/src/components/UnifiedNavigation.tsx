@@ -64,31 +64,28 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Learn</span>
               </a>
 
-              <div
-                className="relative"
-                onMouseEnter={() => {
-                  if (kidsMenuCloseTimer.current) {
-                    window.clearTimeout(kidsMenuCloseTimer.current);
-                    kidsMenuCloseTimer.current = null;
-                  }
-                  setShowKidsMenu(true);
-                }}
-                onMouseLeave={() => {
-                  kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 150);
-                }}
-                onFocusCapture={() => setShowKidsMenu(true)}
-                onBlurCapture={() => {
-                  kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 150);
-                }}
-              >
-                <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
-                  <Puzzle className="w-4 h-4" />
-                  <span className="font-medium">Kids Hub</span>
-                </a>
+              <div className="relative">
+                <div className="flex items-center">
+                  <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
+                    <Puzzle className="w-4 h-4" />
+                    <span className="font-medium">Kids Hub</span>
+                  </a>
+                  <button
+                    type="button"
+                    aria-label="Toggle Kids menu"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowKidsMenu((v) => !v);
+                    }}
+                    className="px-1 py-2 text-slate-600 hover:text-slate-800"
+                  >
+                    <ChevronDown className={`w-4 h-4 transition-transform ${showKidsMenu ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
                 {/* Dropdown: Printables under Kids */}
-                <div className={`absolute left-0 top-full ${showKidsMenu ? 'block' : 'hidden'} bg-white border border-slate-200 rounded-md shadow-lg min-w-[220px] z-50 p-2`}
+                <div className={`absolute left-0 top-full ${showKidsMenu ? 'block' : 'hidden'} bg-white border border-slate-200 rounded-xl shadow-xl min-w-[240px] z-50 p-2`}
                 >
-                  <a href="/printables" className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50">
+                  <a href="/printables" className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M6 9V2h12v7" />
                       <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
@@ -96,7 +93,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </svg>
                     <span>Printables</span>
                   </a>
-                  <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50 border-t border-slate-100">
+                  <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 border-t border-slate-100">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M4 19h16M4 5h16M7 12h10" />
                     </svg>
