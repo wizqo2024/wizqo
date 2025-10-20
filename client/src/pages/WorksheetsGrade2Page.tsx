@@ -12,20 +12,18 @@ export default function WorksheetsGrade2Page() {
       <header className="mb-6">
         <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free Printables)</h1>
         <p className="text-slate-700 mt-3 max-w-3xl">Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.</p>
-        <div className="mt-4 flex items-center gap-3 print:hidden">
-          <a href="/print?doc=pack&age=68&time=5&skill=mixed" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">
-            Download 5‑Minute Pack →
-          </a>
-          <a href="/print?doc=number-tracing-1-20" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50">
-            Open a worksheet →
-          </a>
-        </div>
+        
       </header>
 
       <section className="space-y-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-xl font-semibold text-slate-900 mb-2">What’s Inside</h2>
           <p className="text-slate-700">Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.</p>
+          <div className="mt-3 print:hidden">
+            <a href="/print?doc=pack&age=68&time=5&skill=mixed" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">
+              Download 5‑Minute Pack →
+            </a>
+          </div>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-xl font-semibold text-slate-900">Number Sense</h2>
