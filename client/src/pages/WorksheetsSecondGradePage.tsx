@@ -13,11 +13,60 @@ export default function WorksheetsSecondGradePage() {
         canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
       />
       <UnifiedNavigation currentPage="blog" />
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <header className="mb-6">
-          <h1 className="text-3xl font-extrabold text-slate-900">2nd Grade Math Worksheets</h1>
-          <p className="text-slate-600 mt-2 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+        <header className="mb-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">2nd Grade Math Worksheets (Free Printables)</h1>
+          <p className="text-slate-700 mt-3 text-sm max-w-3xl">
+            Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
+          </p>
+          <div className="mt-4">
+            <a href="/print?doc=pack&time=5&age=k2&skill=mixed" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors">Download 5‑Minute Pack →</a>
+          </div>
         </header>
+
+        <section>
+          <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
+          <p className="text-slate-700 text-sm max-w-3xl">
+            Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.
+          </p>
+        </section>
+
+        {/* Utility card component */}
+        <section>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Number Sense</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <ItemCard title="Ten Frames 1–20" description="Color counters to build numbers; develop subitizing and number bonds." href="/print?doc=ten-frames-1-20" />
+                <ItemCard title="Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Addition & Subtraction</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <ItemCard title="Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" />
+                <ItemCard title="Math Maze" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Fluency Boosters</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <ItemCard title="Skip Counting (Dot‑to‑Dot 1–20)" description="Connect the dots to reveal a picture while you skip count." href="/print?doc=dot-to-dot-1-20" />
+                <ItemCard title="Focus: Spot‑the‑Difference" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Focus & Logic</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <ItemCard title="Logic Grid" description="Read clues and deduce the correct matches." href="/print?doc=logic-grid" />
+                <ItemCard title="Maze of Focus" description="Follow a sequence through distractions from START to FINISH." href="/print?doc=maze-focus" />
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="mb-10">
           <div className="text-slate-800 font-semibold mb-2">FAQs</div>
@@ -45,6 +94,19 @@ export default function WorksheetsSecondGradePage() {
 
       </main>
       <Footer />
+    </div>
+  )
+}
+
+const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
+function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+  return (
+    <div className={CARD_CLASS}>
+      <div className="text-base font-semibold text-slate-900">{title}</div>
+      <p className="text-slate-600 text-sm mt-1">{description}</p>
+      <div className="mt-3">
+        <a href={href} className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors">Open printable view →</a>
+      </div>
     </div>
   )
 }
