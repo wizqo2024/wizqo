@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /*
   Generate sitemap.xml from Markdown and inline posts only (no print views).
+  Note: fresh commit to retrigger deploy if Vercel had an internal error.
 */
 const fs = require('fs');
 const path = require('path');
