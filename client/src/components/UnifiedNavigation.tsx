@@ -77,6 +77,12 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </svg>
                     <span>Printables</span>
                   </a>
+                  <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-50 border-t border-slate-100">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 19h16M4 5h16M7 12h10" />
+                    </svg>
+                    <span>2nd Grade Math Worksheets</span>
+                  </a>
                 </div>
               </div>
             </div>
