@@ -35,34 +35,34 @@ export default function WorksheetsSecondGradePage() {
         <section>
           <div className="space-y-8">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Number Sense</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="Ten Frames 1–20" description="Color counters to build numbers; develop subitizing and number bonds." href="/print?doc=ten-frames-1-20" />
-                <ItemCard title="Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" />
+                <ItemCard title="🔟 Ten Frames 1–20" description="Color counters to build numbers; develop subitizing and number bonds." href="/print?doc=ten-frames-1-20" />
+                <ItemCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" />
               </div>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Addition & Subtraction</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" />
-                <ItemCard title="Math Maze" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" />
+                <ItemCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" />
+                <ItemCard title="🧮 Math Maze" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" />
               </div>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Fluency Boosters</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="Skip Counting (Dot‑to‑Dot 1–20)" description="Connect the dots to reveal a picture while you skip count." href="/print?doc=dot-to-dot-1-20" />
-                <ItemCard title="Focus: Spot‑the‑Difference" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" />
+                <ItemCard title="🔢 Skip Counting (Dot‑to‑Dot 1–20)" description="Connect the dots to reveal a picture while you skip count." href="/print?doc=dot-to-dot-1-20" />
+                <ItemCard title="🔟 Ten Frames 1–10" description="Quick subitizing warm‑ups; fill counters to match numbers 1–10." href="/print?doc=ten-frames-1-10" />
               </div>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">Focus & Logic</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="Logic Grid" description="Read clues and deduce the correct matches." href="/print?doc=logic-grid" />
-                <ItemCard title="Maze of Focus" description="Follow a sequence through distractions from START to FINISH." href="/print?doc=maze-focus" />
+                <ItemCard title="🧩 Logic Grid" description="Read clues and deduce the correct matches." href="/print?doc=logic-grid" />
+                <ItemCard title="🌀 Maze of Focus" description="Follow a sequence through distractions from START to FINISH." href="/print?doc=maze-focus" />
               </div>
             </div>
           </div>
