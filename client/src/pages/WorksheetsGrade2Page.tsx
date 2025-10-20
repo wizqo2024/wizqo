@@ -17,7 +17,7 @@ export default function WorksheetsGrade2Page() {
 
       <section className="space-y-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <h2 className="text-xl font-semibold text-slate-900 mb-2">What’s Inside</h2>
+          <h2 className="text-lg font-semibold text-slate-900 mb-2">What’s Inside</h2>
           <p className="text-slate-700">Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.</p>
           <div className="mt-3 print:hidden">
             <a href="/print?doc=pack&age=68&time=5&skill=mixed" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">
@@ -26,37 +26,31 @@ export default function WorksheetsGrade2Page() {
           </div>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <h2 className="text-xl font-semibold text-slate-900">Number Sense</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Number Sense</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=ten-frames-1-20">Ten Frames 1–20 →</a></li>
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=number-tracing-1-20">Number Tracing 1–20 →</a></li>
           </ul>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <h2 className="text-xl font-semibold text-slate-900">Addition & Subtraction</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Addition & Subtraction</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=addition-subtraction-0-10">Add/Sub within 10 →</a></li>
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=math-maze">Math Maze →</a></li>
           </ul>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <h2 className="text-xl font-semibold text-slate-900">Fluency Boosters</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Fluency Boosters</h2>
           <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=dot-to-dot-1-20">Skip Counting (Dot‑to‑Dot 1–20) →</a></li>
             <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=spot-difference">Focus: Spot‑the‑Difference →</a></li>
           </ul>
         </div>
-        <div>
-          <h2 className="text-xl font-semibold text-slate-900">Focus & Logic</h2>
-          <ul className="grid sm:grid-cols-2 gap-3 text-slate-800">
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=dot-to-dot-1-20">Dot‑to‑Dot 1–20 →</a></li>
-            <li><a className="block border border-slate-200 rounded-lg p-3 bg-white hover:bg-slate-50" href="/print?doc=spot-difference">Spot‑the‑Difference →</a></li>
-          </ul>
-        </div>
+        
       </section>
 
       <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
-        <h2 className="text-xl font-semibold text-slate-900">FAQs</h2>
+        <h2 className="text-lg font-semibold text-slate-900">FAQs</h2>
         <dl className="mt-3 space-y-3 text-slate-800">
           <div>
             <dt className="font-semibold">Can I use these in the classroom?</dt>
