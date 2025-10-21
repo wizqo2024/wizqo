@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function WorksheetsGrade2Page() {
+  const [packTime, setPackTime] = React.useState('5')
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-4 print:hidden">
@@ -19,14 +20,24 @@ export default function WorksheetsGrade2Page() {
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <h2 className="text-lg font-semibold text-slate-900 mb-2">What’s Inside</h2>
           <p className="text-slate-700">Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.</p>
-          <div className="mt-3 print:hidden">
-            <a
-              href="/print?doc=pack&age=68&time=5&skill=focus"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700"
-              aria-label="Build a 5-minute Grade 2 math print pack"
-            >
-              🧰 Build a 5‑Minute Print Pack
-            </a>
+          <div className="mt-4 print:hidden">
+            <h3 className="text-sm font-semibold text-slate-900 mb-2">🧰 Build a 5‑Minute Print Pack (Math)</h3>
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+              <label className="text-sm text-slate-600">Time
+                <select value={packTime} onChange={(e)=>setPackTime(e.target.value)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                  <option value="5">5 min</option>
+                  <option value="10">10 min</option>
+                  <option value="15">15 min</option>
+                </select>
+              </label>
+              <button
+                onClick={() => { try { window.location.href = `/print?doc=pack&time=${packTime}&age=68&skill=focus` } catch {} }}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                aria-label="Build a math print pack for Grade 2"
+              >
+                Build Pack →
+              </button>
+            </div>
           </div>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
