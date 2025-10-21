@@ -21,7 +21,7 @@ export default function WorksheetsSecondGradePage() {
             Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
           </p>
           <div className="mt-4">
-            <a href="/print?doc=pack&time=5&age=k2&skill=mixed" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors">Download 5‑Minute Pack →</a>
+            <a href="/print?doc=pack&time=5&age=68&skill=focus" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" aria-label="Build a 5-minute Grade 2 math print pack">🧰 Build a 5‑Minute Print Pack</a>
           </div>
         </header>
 
