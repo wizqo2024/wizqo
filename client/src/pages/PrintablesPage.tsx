@@ -1465,19 +1465,18 @@ export function PrintablesPage() {
               <div className="font-semibold">Clues</div>
               <ol className="list-decimal list-inside space-y-1">
                 <li>Liam does not own the dog.</li>
-                <li>The fish belongs to the youngest child.</li>
-                <li>Ava’s pet sleeps in a basket.</li>
+                <li>Ava’s pet swims.</li>
+                <li>Noah’s pet barks.</li>
               </ol>
             </div>
             {showAnswers && (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">One valid solution</div>
+                <div className="font-semibold mb-1">Answer (unique)</div>
                 <ul className="list-disc list-inside">
                   <li>Ava → Fish</li>
                   <li>Noah → Dog</li>
                   <li>Liam → Cat</li>
                 </ul>
-                <div className="text-xs text-emerald-900/80 mt-1">Note: Multiple solutions can satisfy the clues; this is one example.</div>
               </div>
             )}
           </section>
