@@ -20,9 +20,7 @@ export default function WorksheetsSecondGradePage() {
           <p className="text-slate-700 text-sm max-w-3xl">
             Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
           </p>
-          <div className="mt-4">
-            <BuildPackInline />
-          </div>
+          {/* Builder moved under What's Inside per request */}
         </header>
 
         <section>
@@ -30,6 +28,9 @@ export default function WorksheetsSecondGradePage() {
           <p className="text-slate-700 text-sm max-w-3xl">
             Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.
           </p>
+          <div className="mt-4">
+            <BuildPackInline />
+          </div>
         </section>
 
         {/* Utility card component */}
