@@ -62,8 +62,8 @@ export default function WorksheetsSecondGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🧩 Logic Grid (Math Story)" description="Use clues about numbers to decide which value fits." href="/print?doc=logic-grid" />
-                <ItemCard title="🧮 Math Maze" description="Solve equations to find a path from start to finish." href="/print?doc=math-maze" />
+                <ItemCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" />
+                <ItemCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" />
               </div>
             </div>
           </div>
