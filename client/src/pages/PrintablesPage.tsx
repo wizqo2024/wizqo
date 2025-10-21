@@ -1411,33 +1411,104 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">✏️ Draw the Missing Half</h2>
             <p className="text-slate-600 text-sm mb-3">Copy the right side to complete each picture. Use the grid as a guide.</p>
-            <div className="grid grid-cols-2 gap-6">
-              <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
                 <defs>
                   <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
                     <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
                   </pattern>
-                  <clipPath id="half1"><rect x="0" y="0" width="100" height="200" /></clipPath>
+                  <clipPath id="half1"><rect x="0" y="0" width="110" height="220" /></clipPath>
                 </defs>
-                <rect x="0" y="0" width="200" height="200" fill="url(#g1)" />
+                <rect x="0" y="0" width="220" height="220" fill="url(#g1)" />
                 <g clipPath="url(#half1)">
-                  <path d="M40 100 C60 40, 140 40, 160 100 C140 160, 60 160, 40 100 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                  <path d="M40 110 C70 40, 150 40, 180 110 C150 180, 70 180, 40 110 Z" fill="none" stroke="#111827" strokeWidth="3" />
                 </g>
-                <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
+                <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
               </svg>
-              <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300">
+              <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
                 <defs>
                   <pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse">
                     <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
                   </pattern>
-                  <clipPath id="half2"><rect x="0" y="0" width="100" height="200" /></clipPath>
+                  <clipPath id="half2"><rect x="0" y="0" width="110" height="220" /></clipPath>
                 </defs>
-                <rect x="0" y="0" width="200" height="200" fill="url(#g2)" />
+                <rect x="0" y="0" width="220" height="220" fill="url(#g2)" />
                 <g clipPath="url(#half2)">
-                  <path d="M60 160 L100 40 L140 160 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                  <path d="M70 180 L110 40 L150 180 Z" fill="none" stroke="#111827" strokeWidth="3" />
                 </g>
-                <line x1="100" y1="0" x2="100" y2="200" stroke="#9ca3af" strokeDasharray="4 4" />
+                <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
               </svg>
+              {/* Four more prompts */}
+              {[
+                (id: string) => (
+                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
+                    <defs>
+                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                      </pattern>
+                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
+                    <g clipPath={`url(#${id}-half)`}>
+                      {/* Heart */}
+                      <path d="M110 90 C90 50, 40 60, 40 95 C40 130, 110 160, 110 180" fill="none" stroke="#111827" strokeWidth="3" />
+                    </g>
+                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
+                  </svg>
+                ),
+                (id: string) => (
+                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
+                    <defs>
+                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                      </pattern>
+                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
+                    <g clipPath={`url(#${id}-half)`}>
+                      {/* House */}
+                      <path d="M60 120 L110 80 L160 120" fill="none" stroke="#111827" strokeWidth="3" />
+                      <rect x="70" y="120" width="80" height="60" fill="none" stroke="#111827" strokeWidth="3" />
+                    </g>
+                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
+                  </svg>
+                ),
+                (id: string) => (
+                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
+                    <defs>
+                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                      </pattern>
+                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
+                    <g clipPath={`url(#${id}-half)`}>
+                      {/* Rocket */}
+                      <path d="M110 70 L130 120 L110 170 L90 120 Z" fill="none" stroke="#111827" strokeWidth="3" />
+                      <circle cx="110" cy="120" r="10" fill="none" stroke="#111827" strokeWidth="3" />
+                    </g>
+                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
+                  </svg>
+                ),
+                (id: string) => (
+                  <svg key={id} viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
+                    <defs>
+                      <pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M20 0 H0 V20" fill="none" stroke="#e5e7eb" strokeWidth="1" />
+                      </pattern>
+                      <clipPath id={`${id}-half`}><rect x="0" y="0" width="110" height="220" /></clipPath>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="220" fill={`url(#${id}-g)`} />
+                    <g clipPath={`url(#${id}-half)`}>
+                      {/* Butterfly */}
+                      <path d="M110 110 Q90 80 70 100 Q90 120 110 110" fill="none" stroke="#111827" strokeWidth="3" />
+                      <path d="M110 130 Q90 160 70 140 Q90 120 110 130" fill="none" stroke="#111827" strokeWidth="3" />
+                      <line x1="110" y1="80" x2="110" y2="150" stroke="#111827" strokeWidth="3" />
+                    </g>
+                    <line x1="110" y1="0" x2="110" y2="220" stroke="#9ca3af" strokeDasharray="4 4" />
+                  </svg>
+                ),
+              ].map((fn, i) => fn(`dh-${i}`))}
             </div>
           </section>
         )}
