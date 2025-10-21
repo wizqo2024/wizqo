@@ -201,7 +201,7 @@ export function PrintablesPage() {
               // Determine category anchor by doc
               const cat = doc.startsWith('coloring') ? 'Coloring' : (
                 // Worksheets
-                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort'].includes(doc) ? 'Worksheets' : (
+                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort','ten-frames-1-20','number-tracing-1-20','place-value-hto','add-2digit-100','sub-2digit-100','skip-count-5-10-120','word-problems-100','compare-2digit'].includes(doc) ? 'Worksheets' : (
                   // Creative & Art
                   ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals','cut-and-paste-crafts'].includes(doc) ? 'Creative' : (
                     // Brain & Focus
