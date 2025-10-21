@@ -494,7 +494,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 -left-6 w-24 h-24 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)</h2>
+              <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)
+                <span className="ml-2 print:hidden inline-block animate-bounce">🔢</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
               <div className="grid grid-cols-2 gap-3">
                 {nums.map((n,i)=> (
@@ -524,7 +527,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-14 -left-10 w-36 h-36 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 right-8 w-24 h-24 rounded-full bg-rose-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)</h2>
+              <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)
+                <span className="ml-2 print:hidden inline-block animate-bounce">🔁</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
               <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
               <div className="space-y-6 text-sm">
                 <div>
@@ -570,7 +576,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-lime-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">2‑Digit Addition (No Regrouping)</h2>
+              <h2 className="text-lg font-bold text-slate-900">2‑Digit Addition (No Regrouping)
+                <span className="ml-2 print:hidden inline-block animate-bounce">➕</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
@@ -604,7 +613,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-fuchsia-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">2‑Digit Subtraction (No Regrouping)</h2>
+              <h2 className="text-lg font-bold text-slate-900">2‑Digit Subtraction (No Regrouping)
+                <span className="ml-2 print:hidden inline-block animate-bounce">➖</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-fuchsia-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
@@ -627,7 +639,10 @@ export function PrintablesPage() {
               <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
               <div className="absolute top-1/2 left-8 w-20 h-20 rounded-full bg-lime-200/40 animate-blob animation-delay-4000" />
             </div>
-            <h2 className="text-lg font-bold text-slate-900">2nd‑Grade Word Problems (within 100)</h2>
+            <h2 className="text-lg font-bold text-slate-900">2nd‑Grade Word Problems (within 100)
+              <span className="ml-2 print:hidden inline-block animate-bounce">🧮</span>
+            </h2>
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
               {[
                 'Mia has 24 marbles. She gets 15 more. How many now?',
@@ -656,7 +671,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-indigo-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-purple-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers</h2>
+              <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers
+                <span className="ml-2 print:hidden inline-block animate-bounce">⚖️</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
               <p className="text-slate-600 text-sm mb-3">Write one symbol in each box: <span className="font-mono">&gt;</span>, <span className="font-mono">&lt;</span>, or <span className="font-mono">=</span>. Tip: Compare tens first. If tens are equal, compare ones.</p>
               <div className="mb-3 text-sm text-slate-700">
                 <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
@@ -688,7 +706,10 @@ export function PrintablesPage() {
                 <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
                 <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
-              <h2 className="text-lg font-bold text-slate-900">Even or Odd? (to 100)</h2>
+              <h2 className="text-lg font-bold text-slate-900">Even or Odd? (to 100)
+                <span className="ml-2 print:hidden inline-block animate-bounce">🧲</span>
+              </h2>
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3 text-xl font-mono">
                 {nums.map((n,i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
@@ -708,7 +729,10 @@ export function PrintablesPage() {
               <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-teal-200/40 animate-blob animation-delay-2000" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-indigo-200/40 animate-blob animation-delay-4000" />
             </div>
-            <h2 className="text-lg font-bold text-slate-900">Tell Time to 5 Minutes</h2>
+            <h2 className="text-lg font-bold text-slate-900">Tell Time to 5 Minutes
+              <span className="ml-2 print:hidden inline-block animate-bounce">🕒</span>
+            </h2>
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-3">
               {['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'].map((t,i)=> (
                 <svg key={i} viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
