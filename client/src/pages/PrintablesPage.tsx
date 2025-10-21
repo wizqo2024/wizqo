@@ -230,7 +230,12 @@ export function PrintablesPage() {
             <span>Back printable page</span>
           </a>
         </div>
-        <header className="mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
+        <header className="relative mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
+          <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
+            <span className="animate-bounce">➕</span>
+            <span className="animate-bounce animation-delay-2000">🔢</span>
+            <span className="animate-bounce animation-delay-4000">🕒</span>
+          </div>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
             <p className="text-slate-600 mt-2 print:mt-1 text-sm">Print these kid‑friendly activities. Use your browser’s Print → Save as PDF to download.</p>
