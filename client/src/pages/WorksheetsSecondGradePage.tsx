@@ -21,7 +21,7 @@ export default function WorksheetsSecondGradePage() {
             Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
           </p>
           <div className="mt-4">
-            <a href="/print?doc=pack&time=5&age=68&skill=focus" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" aria-label="Build a 5-minute Grade 2 math print pack">🧰 Build a 5‑Minute Print Pack</a>
+            <BuildPackInline />
           </div>
         </header>
 
@@ -107,6 +107,40 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3">
         <a href={href} className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors">Open printable view →</a>
+      </div>
+    </div>
+  )
+}
+
+function BuildPackInline() {
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl p-4">
+      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
+      <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick Grade 2 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+        <label className="text-sm text-slate-600">Time
+          <select id="g2p-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5"
+            onChange={(e) => { (document.getElementById('g2p-time') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
+          >
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+          </select>
+        </label>
+        <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">6–8</span></div>
+        <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
+        <button
+          onClick={() => {
+            try {
+              const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
+              const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=68&skill=focus`;
+              window.location.href = url;
+            } catch {}
+          }}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+        >
+          Build Pack →
+        </button>
       </div>
     </div>
   )
