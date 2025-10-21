@@ -91,8 +91,8 @@ export function PrintablesPage() {
   const effectiveSeed = seedParam || todaySeed
   const variant = parseInt(variantParam || '1', 10)
 
-  const friendlyAge = (v: string) => v === 'k2' ? 'K–2' : v === '35' ? '3–5' : v === '68' ? '6–8' : v
-  const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity' } as any)[v] || v
+  const friendlyAge = (v: string) => v === 'k2' ? 'K–2' : v === '35' ? '3–5' : v === '68' ? '6–8' : v === 'g2' ? '2nd Grade' : v
+  const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity', math: 'Math' } as any)[v] || v
 
   // Deterministic tiny RNG for repeatable print packs
   function makeRng(seedStr: string) {
@@ -824,7 +824,7 @@ export function PrintablesPage() {
           // Build dynamic pack content by time/age/skill
           const timeInt = parseInt(packTime || '5', 10);
           const itemCount = timeInt <= 5 ? 3 : (timeInt <= 10 ? 4 : 5);
-          const isK2 = packAge === 'k2';
+          const isK2 = packAge === 'k2' || packAge === 'g2';
           const is35 = packAge === '35';
           const wsSize = 8;
           const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
@@ -896,7 +896,7 @@ export function PrintablesPage() {
             return grid;
           }
           // 1) Word Search or Reading prompt
-          if (packSkill !== 'creativity') {
+          if (packSkill !== 'creativity' && packSkill !== 'math') {
             items.push(
               <div key="ws" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-3">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
@@ -1113,6 +1113,48 @@ export function PrintablesPage() {
               </div>
             </div>
           );
+          const pushPlaceValue = () => extras.push(
+            <div key="place-value" className="border border-slate-200 rounded-lg p-4">
+              <div className="font-semibold text-xl mb-2">Place Value — Tens & Ones</div>
+              <div className="grid sm:grid-cols-2 gap-3 text-lg text-slate-800">
+                {Array.from({length:6}).map((_,i)=>{
+                  const n = 10 + Math.floor(rng()*89);
+                  const tens = Math.floor(n/10);
+                  const ones = n % 10;
+                  return (
+                    <div key={i} className="border border-slate-200 rounded p-2">
+                      <div className="flex items-center justify-between"><span>Number:</span><span className="font-semibold">{n}</span></div>
+                      <div className="flex items-center justify-between mt-1"><span>Tens:</span><span className="ml-3 flex-1 border-b border-slate-300" /></div>
+                      <div className="flex items-center justify-between mt-1"><span>Ones:</span><span className="ml-3 flex-1 border-b border-slate-300" /></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+          const pushTenFramesPractice = () => extras.push(
+            <div key="ten-frames-mini" className="border border-slate-200 rounded-lg p-4">
+              <div className="font-semibold text-xl mb-2">Ten Frames — Fill the Counters</div>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {Array.from({length:2}).map((_,i)=>{
+                  const target = 6 + Math.floor(rng()*14);
+                  return (
+                    <svg key={i} viewBox="0 0 220 110" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <text x="10" y="20" fontSize="14" fill="#111827">Make {target}</text>
+                      <g transform="translate(10,30)">
+                        {Array.from({length:10}).map((__,j)=> (
+                          <rect key={j} x={(j%5)*40} y={Math.floor(j/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                        ))}
+                        {Array.from({length:Math.min(target,10)}).map((__,k)=> (
+                          <circle key={k} cx={18 + (k%5)*40} cy={18 + Math.floor(k/5)*40} r="10" fill="#7c3aed" />
+                        ))}
+                      </g>
+                    </svg>
+                  );
+                })}
+              </div>
+            </div>
+          );
           const pushScramble = () => {
             const scrambleWords = words.slice(0, Math.min(5, words.length));
             extras.push(
@@ -1183,6 +1225,11 @@ export function PrintablesPage() {
             pushScramble();
             pushReading();
             pushDrawing();
+          } else if (packSkill === 'math') {
+            pushMiniMath();
+            pushPlaceValue();
+            pushMiniSudoku();
+            pushTenFramesPractice();
           } else {
             // mixed/focus
             pushColoring();
