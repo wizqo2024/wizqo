@@ -38,32 +38,32 @@ export default function WorksheetsSecondGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔟 Ten Frames 1–20" description="Color counters to build numbers; develop subitizing and number bonds." href="/print?doc=ten-frames-1-20" />
-                <ItemCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" />
+                <ItemCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" />
+                <ItemCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" />
-                <ItemCard title="🧮 Math Maze" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" />
+                <ItemCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" />
+                <ItemCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔢 Skip Counting (Dot‑to‑Dot 1–20)" description="Connect the dots to reveal a picture while you skip count." href="/print?doc=dot-to-dot-1-20" />
-                <ItemCard title="🔟 Ten Frames 1–10" description="Quick subitizing warm‑ups; fill counters to match numbers 1–10." href="/print?doc=ten-frames-1-10" />
+                <ItemCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" />
+                <ItemCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🧩 Logic Grid" description="Read clues and deduce the correct matches." href="/print?doc=logic-grid" />
-                <ItemCard title="🌀 Maze of Focus" description="Follow a sequence through distractions from START to FINISH." href="/print?doc=maze-focus" />
+                <ItemCard title="🧩 Logic Grid (Math Story)" description="Use clues about numbers to decide which value fits." href="/print?doc=logic-grid" />
+                <ItemCard title="🧮 Math Maze" description="Solve equations to find a path from start to finish." href="/print?doc=math-maze" />
               </div>
             </div>
           </div>
