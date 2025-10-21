@@ -485,6 +485,151 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {doc === 'place-value-hto' && (() => {
+          const nums = [12, 27, 45, 63, 84, 99, 30, 51];
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)</h2>
+              <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
+              <div className="grid grid-cols-2 gap-3">
+                {nums.map((n,i)=> (
+                  <div key={i} className="border border-slate-300 rounded-lg p-3 bg-white">
+                    <div className="text-slate-800 font-semibold mb-2">Number: {n}</div>
+                    <div className="grid grid-cols-3 gap-2 text-sm">
+                      <div className="border border-slate-300 rounded p-2">Tens: ______</div>
+                      <div className="border border-slate-300 rounded p-2">Ones: ______</div>
+                      <div className="border border-slate-300 rounded p-2">Expanded: ______ + ______</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {doc === 'skip-count-5-10-120' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)</h2>
+            <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
+            <div className="space-y-4 text-sm">
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Count by 5s to 120</div>
+                <div className="grid grid-cols-12 gap-1">
+                  {Array.from({length:25}).map((_,i)=> (
+                    <div key={i} className="h-10 border border-slate-300 rounded flex items-center justify-center bg-white w-full">{i%2===0 ? '' : ''}</div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="font-semibold text-slate-800 mb-1">Count by 10s to 120</div>
+                <div className="grid grid-cols-12 gap-1">
+                  {Array.from({length:13}).map((_,i)=> (
+                    <div key={i} className="h-10 border border-slate-300 rounded flex items-center justify-center bg-white w-full">{i%2===0 ? '' : ''}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {doc === 'add-2digit-100' && (() => {
+          function genPairs(count: number) {
+            const out: Array<[number, number]> = [];
+            while (out.length < count) {
+              const a = Math.floor(Math.random()*90) + 10;
+              const b = Math.floor(Math.random()*90) + 10;
+              if ((a%10) + (b%10) < 10 && a + b <= 100) out.push([a,b]);
+            }
+            return out;
+          }
+          const pairs = genPairs(10);
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">2‑Digit Addition (No Regrouping)</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a,b],i)=> (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>+ {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {doc === 'sub-2digit-100' && (() => {
+          function genPairs(count: number) {
+            const out: Array<[number, number]> = [];
+            while (out.length < count) {
+              const a = Math.floor(Math.random()*90) + 10;
+              const b = Math.floor(Math.random()*90) + 10;
+              if ((a%10) >= (b%10) && a >= b) out.push([a,b]);
+            }
+            return out;
+          }
+          const pairs = genPairs(10);
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">2‑Digit Subtraction (No Regrouping)</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a,b],i)=> (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>− {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {doc === 'word-problems-100' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">2nd‑Grade Word Problems (within 100)</h2>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
+              {[
+                'Mia has 24 marbles. She gets 15 more. How many now?',
+                'A class has 32 books on one shelf and 17 on another. How many in all?',
+                'Liam had 45 stickers. He gave 20 to a friend. How many left?',
+                'A box has 38 pencils. 10 were used. How many remain?',
+                'Sara read 27 pages on Monday and 22 on Tuesday. How many pages total?'
+              ].map((q,i)=> (
+                <li key={i}>
+                  {q}
+                  <div className="h-6 border-b border-slate-400 mt-1" />
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {doc === 'compare-2digit' && (() => {
+          const pairs: Array<[number, number]> = Array.from({length:10}).map(()=> {
+            const a = Math.floor(Math.random()*90)+10; const b = Math.floor(Math.random()*90)+10; return [a,b];
+          });
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers</h2>
+              <div className="grid grid-cols-2 gap-3 text-xl font-mono">
+                {pairs.map(([a,b],i)=> (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
+                    <span>{a}</span>
+                    <span className="mx-2">____</span>
+                    <span>{b}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
         {doc === 'ten-frames-1-20' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–20</h2>
