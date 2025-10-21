@@ -489,10 +489,10 @@ export function PrintablesPage() {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-pink-50 to-amber-50" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-purple-200/30 blur-3xl" />
-                <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-amber-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-purple-200/40 animate-blob" />
+                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 -left-6 w-24 h-24 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)</h2>
               <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
@@ -519,10 +519,10 @@ export function PrintablesPage() {
           const isBlank10 = (i: number) => i % 3 === 2;
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50" />
-                <div className="absolute -top-10 -right-16 w-56 h-56 rounded-full bg-fuchsia-200/30 blur-3xl" />
-                <div className="absolute -bottom-16 -left-12 w-64 h-64 rounded-full bg-amber-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-fuchsia-200/40 animate-blob" />
+                <div className="absolute -bottom-14 -left-10 w-36 h-36 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 right-8 w-24 h-24 rounded-full bg-rose-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)</h2>
               <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
@@ -565,10 +565,10 @@ export function PrintablesPage() {
           const pairs = genPairs(10);
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-emerald-50 to-lime-50" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-emerald-200/30 blur-3xl" />
-                <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-lime-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-emerald-200/40 animate-blob" />
+                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-lime-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">2‑Digit Addition (No Regrouping)</h2>
               <div className="grid grid-cols-2 gap-3">
@@ -599,10 +599,10 @@ export function PrintablesPage() {
           const pairs = genPairs(10);
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-50 via-pink-50 to-rose-50" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-pink-200/30 blur-3xl" />
-                <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-rose-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-pink-200/40 animate-blob" />
+                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-fuchsia-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">2‑Digit Subtraction (No Regrouping)</h2>
               <div className="grid grid-cols-2 gap-3">
@@ -622,10 +622,10 @@ export function PrintablesPage() {
 
         {doc === 'word-problems-100' && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <div className="absolute inset-0 -z-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-yellow-50 to-lime-50" />
-              <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-yellow-200/30 blur-3xl" />
-              <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-amber-200/30 blur-3xl" />
+            <div className="absolute inset-0 -z-10 print:hidden">
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-yellow-200/40 animate-blob" />
+              <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
+              <div className="absolute top-1/2 left-8 w-20 h-20 rounded-full bg-lime-200/40 animate-blob animation-delay-4000" />
             </div>
             <h2 className="text-lg font-bold text-slate-900">2nd‑Grade Word Problems (within 100)</h2>
             <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
@@ -651,10 +651,10 @@ export function PrintablesPage() {
           });
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-sky-50 to-purple-50" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-sky-200/30 blur-3xl" />
-                <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-indigo-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-sky-200/40 animate-blob" />
+                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-indigo-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-purple-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers</h2>
               <p className="text-slate-600 text-sm mb-3">Write one symbol in each box: <span className="font-mono">&gt;</span>, <span className="font-mono">&lt;</span>, or <span className="font-mono">=</span>. Tip: Compare tens first. If tens are equal, compare ones.</p>
@@ -683,10 +683,10 @@ export function PrintablesPage() {
           const nums = Array.from({length:20}).map(()=> Math.floor(Math.random()*100));
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-violet-50 to-sky-50" />
-                <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-violet-200/30 blur-3xl" />
-                <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-rose-200/30 blur-3xl" />
+              <div className="absolute inset-0 -z-10 print:hidden">
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-violet-200/40 animate-blob" />
+                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
+                <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Even or Odd? (to 100)</h2>
               <div className="grid grid-cols-2 gap-3 text-xl font-mono">
@@ -703,10 +703,10 @@ export function PrintablesPage() {
 
         {doc === 'time-5min' && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <div className="absolute inset-0 -z-10">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-50" />
-              <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-sky-200/30 blur-3xl" />
-              <div className="absolute -bottom-14 -left-10 w-56 h-56 rounded-full bg-teal-200/30 blur-3xl" />
+            <div className="absolute inset-0 -z-10 print:hidden">
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-sky-200/40 animate-blob" />
+              <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-teal-200/40 animate-blob animation-delay-2000" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-indigo-200/40 animate-blob animation-delay-4000" />
             </div>
             <h2 className="text-lg font-bold text-slate-900">Tell Time to 5 Minutes</h2>
             <div className="grid grid-cols-2 gap-3">
