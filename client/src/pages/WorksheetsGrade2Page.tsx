@@ -23,7 +23,7 @@ export default function WorksheetsGrade2Page() {
             <a
               href="/print?doc=pack&age=68&time=5&skill=focus"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700"
-              aria-label="Build a 5-minute math print pack"
+              aria-label="Build a 5-minute Grade 2 math print pack"
             >
               🧰 Build a 5‑Minute Print Pack
             </a>
