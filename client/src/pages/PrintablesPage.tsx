@@ -201,7 +201,7 @@ export function PrintablesPage() {
               // Determine category anchor by doc
               const cat = doc.startsWith('coloring') ? 'Coloring' : (
                 // Worksheets
-                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort','ten-frames-1-20','number-tracing-1-20','place-value-hto','add-2digit-100','sub-2digit-100','skip-count-5-10-120','word-problems-100','compare-2digit'].includes(doc) ? 'Worksheets' : (
+                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort','ten-frames-1-20','number-tracing-1-20','place-value-hto','add-2digit-100','sub-2digit-100','skip-count-5-10-120','word-problems-100','compare-2digit','even-odd-100','time-5min'].includes(doc) ? 'Worksheets' : (
                   // Creative & Art
                   ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals','cut-and-paste-crafts'].includes(doc) ? 'Creative' : (
                     // Brain & Focus
@@ -629,6 +629,40 @@ export function PrintablesPage() {
             </section>
           );
         })()}
+
+        {doc === 'even-odd-100' && (() => {
+          const nums = Array.from({length:20}).map(()=> Math.floor(Math.random()*100));
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">Even or Odd? (to 100)</h2>
+              <div className="grid grid-cols-2 gap-3 text-xl font-mono">
+                {nums.map((n,i)=> (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
+                    <span>{n}</span>
+                    <span className="mx-2">Even ☐  Odd ☐</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
+
+        {doc === 'time-5min' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Tell Time to 5 Minutes</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'].map((t,i)=> (
+                <svg key={i} viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
+                  {/* hour marks */}
+                  {Array.from({length:12}).map((_,k)=> { const a=(k/12)*Math.PI*2; const x1=100+Math.cos(a)*70; const y1=100+Math.sin(a)*70; const x2=100+Math.cos(a)*80; const y2=100+Math.sin(a)*80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
+                  <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
+                  {/* student draws hands */}
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
 
         {doc === 'ten-frames-1-20' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
