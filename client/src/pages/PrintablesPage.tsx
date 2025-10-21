@@ -627,11 +627,20 @@ export function PrintablesPage() {
           return (
             <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers</h2>
+              <p className="text-slate-600 text-sm mb-3">Write one symbol in each box: <span className="font-mono">&gt;</span>, <span className="font-mono">&lt;</span>, or <span className="font-mono">=</span>. Tip: Compare tens first. If tens are equal, compare ones.</p>
+              <div className="mb-3 text-sm text-slate-700">
+                <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
+                  <span className="font-mono">58</span>
+                  <span className="font-mono">&gt;</span>
+                  <span className="font-mono">41</span>
+                  <span className="text-slate-500">(5 tens vs 4 tens → 58 is greater)</span>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-3 text-xl font-mono">
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
                     <span>{a}</span>
-                    <span className="mx-2">____</span>
+                    <span className="mx-2 inline-block w-12 border-b-2 border-slate-400" aria-label="comparison symbol box" />
                     <span>{b}</span>
                   </div>
                 ))}
