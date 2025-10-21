@@ -127,13 +127,13 @@ function BuildPackInline() {
             <option value="15">15 min</option>
           </select>
         </label>
-        <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">6–8</span></div>
+        <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">2nd Grade</span></div>
         <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
         <button
           onClick={() => {
             try {
               const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
-              const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=68&skill=focus`;
+              const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math`;
               window.location.href = url;
             } catch {}
           }}
