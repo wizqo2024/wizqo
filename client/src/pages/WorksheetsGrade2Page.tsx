@@ -20,7 +20,11 @@ export default function WorksheetsGrade2Page() {
           <h2 className="text-lg font-semibold text-slate-900 mb-2">What’s Inside</h2>
           <p className="text-slate-700">Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.</p>
           <div className="mt-3 print:hidden">
-            <a href="/print?doc=pack&age=68&time=5&skill=focus" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">
+            <a
+              href="/print?doc=pack&age=68&time=5&skill=focus"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700"
+              aria-label="Build a 5-minute math print pack"
+            >
               🧰 Build a 5‑Minute Print Pack
             </a>
           </div>
