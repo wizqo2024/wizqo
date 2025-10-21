@@ -153,16 +153,23 @@ export function PrintablesPage() {
   }
   const mathMazeCells = React.useMemo(() => {
     if (doc !== 'math-maze') return [] as string[];
-    const ops = ['+','-'] as const;
     const cells: string[] = [];
     for (let r = 0; r < 7; r++) {
       for (let c = 0; c < 7; c++) {
         if (r === 0 && c === 0) { cells.push('S'); continue; }
         if (r === 6 && c === 6) { cells.push('F'); continue; }
-        const a = Math.floor(Math.random() * 9) + 1;
-        const b = Math.floor(Math.random() * 9) + 1;
-        const op = ops[Math.floor(Math.random() * ops.length)];
-        cells.push(`${a}${op}${b}`);
+        // Prefer non-negative, age-appropriate results (<= 18)
+        const useAddition = Math.random() < 0.7; // weight towards addition
+        if (useAddition) {
+          let a = Math.floor(Math.random() * 9) + 1; // 1..9
+          let b = Math.floor(Math.random() * 9) + 1; // 1..9
+          if (a + b > 18) b = Math.max(1, 18 - a); // clamp to <= 18
+          cells.push(`${a}+${b}`);
+        } else {
+          const big = Math.floor(Math.random() * 9) + 1; // 1..9
+          const small = Math.floor(Math.random() * (big + 1)); // 0..big (allows 0)
+          cells.push(`${big}-${small}`);
+        }
       }
     }
     return cells;
