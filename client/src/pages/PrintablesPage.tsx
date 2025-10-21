@@ -507,30 +507,40 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'skip-count-5-10-120' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)</h2>
-            <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
-            <div className="space-y-4 text-sm">
-              <div>
-                <div className="font-semibold text-slate-800 mb-1">Count by 5s to 120</div>
-                <div className="grid grid-cols-12 gap-1">
-                  {Array.from({length:25}).map((_,i)=> (
-                    <div key={i} className="h-10 border border-slate-300 rounded flex items-center justify-center bg-white w-full">{i%2===0 ? '' : ''}</div>
-                  ))}
+        {doc === 'skip-count-5-10-120' && (() => {
+          const seq5 = Array.from({ length: 24 }, (_, i) => (i + 1) * 5); // 5..120
+          const seq10 = Array.from({ length: 12 }, (_, i) => (i + 1) * 10); // 10..120
+          const isBlank5 = (i: number) => i % 3 === 1; // blank some boxes for practice
+          const isBlank10 = (i: number) => i % 3 === 2;
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)</h2>
+              <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
+              <div className="space-y-6 text-sm">
+                <div>
+                  <div className="font-semibold text-slate-800 mb-2">Count by 5s to 120</div>
+                  <div className="grid grid-cols-12 gap-1">
+                    {seq5.map((n, i) => (
+                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
+                        {isBlank5(i) ? <span className="inline-block w-14 border-b-2 border-slate-400" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="font-semibold text-slate-800 mb-2">Count by 10s to 120</div>
+                  <div className="grid grid-cols-12 gap-1">
+                    {seq10.map((n, i) => (
+                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
+                        {isBlank10(i) ? <span className="inline-block w-14 border-b-2 border-slate-400" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="font-semibold text-slate-800 mb-1">Count by 10s to 120</div>
-                <div className="grid grid-cols-12 gap-1">
-                  {Array.from({length:13}).map((_,i)=> (
-                    <div key={i} className="h-10 border border-slate-300 rounded flex items-center justify-center bg-white w-full">{i%2===0 ? '' : ''}</div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+            </section>
+          );
+        })()}
 
         {doc === 'add-2digit-100' && (() => {
           function genPairs(count: number) {
