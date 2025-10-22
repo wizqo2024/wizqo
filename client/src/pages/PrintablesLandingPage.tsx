@@ -28,7 +28,7 @@ export function PrintablesLandingPage() {
   const [filterCategory, setFilterCategory] = React.useState<string>('All');
   const [packTime, setPackTime] = React.useState<'5' | '10' | '15'>('5');
   const [packAge, setPackAge] = React.useState<'k1' | 'k2' | 'g1' | 'g2' | '35' | '68'>('k2');
-  const [packSkill, setPackSkill] = React.useState<'math' | 'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('mixed');
+  const [packSkill, setPackSkill] = React.useState<'math' | 'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('math');
   const [searchQuery, setSearchQuery] = React.useState<string>('');
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
@@ -216,7 +216,7 @@ export function PrintablesLandingPage() {
         {/* Build a 5‑Minute Pack (moved below What You'll Find) */}
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
           <h2 className="text-xl font-bold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick mixed printable set for today — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick math printable set for today — perfect for warm‑ups, brain breaks, or homework helpers.</p>
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <label className="text-sm text-slate-600">Time
               <select value={packTime} onChange={(e)=>setPackTime(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
