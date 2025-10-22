@@ -25,7 +25,7 @@ export default function WorksheetsFirstGradePage() {
         <section>
           <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
           <p className="text-slate-700 text-sm max-w-3xl">
-            Build early fluency with focused practice: ten‑frames, number tracing, addition and subtraction within 10, skip counting, and shape/logic warm‑ups. Each worksheet is one page—easy to print and use for daily practice.
+            Build Grade 1 fluency: ten‑frames, number tracing, number bonds to 10, addition/subtraction within 10, skip counting by 2s/5s, and simple shape/logic warm‑ups. One page each—no prep.
           </p>
           {/* Grade 1 Pack CTA (moved from header) */}
           <div className="mt-4 border border-slate-200 rounded-xl p-4 bg-white">
@@ -62,15 +62,15 @@ export default function WorksheetsFirstGradePage() {
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20" />
-                <ItemCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor skills." href="/print?doc=shapes-colors-sort" />
+                <ItemCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔢 Ten Frames 1–20" description="Quick warm‑ups; fill counters to match numbers 1–20." href="/print?doc=ten-frames-1-20" />
-                <ItemCard title="🧲 Even or Odd? (to 100)" description="Mark each number as even or odd; look for patterns." href="/print?doc=even-odd-100" />
+                <ItemCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" />
+                <ItemCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort" />
               </div>
             </div>
           </div>
