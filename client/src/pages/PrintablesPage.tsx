@@ -91,7 +91,14 @@ export function PrintablesPage() {
   const effectiveSeed = seedParam || todaySeed
   const variant = parseInt(variantParam || '1', 10)
 
-  const friendlyAge = (v: string) => v === 'k2' ? 'K–2' : v === '35' ? '3–5' : v === '68' ? '6–8' : v === 'g2' ? '2nd Grade' : v
+  const friendlyAge = (v: string) => 
+    v === 'k1' ? 'K–1'
+    : v === 'k2' ? 'K–2'
+    : v === 'g1' ? '1st Grade'
+    : v === 'g2' ? '2nd Grade'
+    : v === '35' ? '3–5'
+    : v === '68' ? '6–8'
+    : v
   const friendlyFocus = (v: string) => ({ mixed: 'Mixed', focus: 'Focus', reading: 'Reading', stem: 'STEM', creativity: 'Creativity', math: 'Math' } as any)[v] || v
 
   // Deterministic tiny RNG for repeatable print packs
@@ -946,7 +953,7 @@ export function PrintablesPage() {
           // Build dynamic pack content by time/age/skill
           const timeInt = parseInt(packTime || '5', 10);
           const itemCount = timeInt <= 5 ? 3 : (timeInt <= 10 ? 4 : 5);
-          const isK2 = packAge === 'k2' || packAge === 'g2';
+          const isK2 = packAge === 'k1' || packAge === 'k2' || packAge === 'g1' || packAge === 'g2';
           const is35 = packAge === '35';
           const wsSize = 8;
           const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
