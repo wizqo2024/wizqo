@@ -36,7 +36,7 @@ export default function WorksheetsFirstGradePage() {
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 1st Grade</span>
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
             </div>
-            <a href="/print?doc=pack&time=5&age=k2&skill=math" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>Build Pack →</a>
+            <a href="/print?doc=pack&time=5&age=g1&skill=math" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>Build Pack →</a>
           </div>
         </section>
 
