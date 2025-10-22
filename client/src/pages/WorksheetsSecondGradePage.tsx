@@ -128,8 +128,8 @@ function BuildPackInline() {
             <option value="15">15 min</option>
           </select>
         </label>
-        <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">2nd Grade</span></div>
-        <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
+      <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">2nd Grade</span></div>
+      <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
         <button
           onClick={() => {
             try {
