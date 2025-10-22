@@ -1939,8 +1939,8 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">💌 Gratitude Jar</h2>
             <p className="text-slate-600 text-sm mb-3">Write or draw one thing you’re thankful for in each circle.</p>
-            <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
-              <g fill="none" stroke="#111827" strokeWidth="3">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" className="w-full h-auto bg-white border border-slate-300">
+              <g fill="none" stroke="#111827" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke">
                 <path d="M120 70 H280" />
                 <path d="M140 70 C140 40, 260 40, 260 70" />
                 <path d="M130 70 C120 140, 120 320, 200 360 C280 320, 280 140, 270 70" />
@@ -1950,7 +1950,7 @@ export function PrintablesPage() {
                 const row = Math.floor(i/6)
                 const cx = 70 + col*50
                 const cy = 110 + row*60
-                return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" />
+                return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" vectorEffect="non-scaling-stroke" />
               })}
             </svg>
           </section>
