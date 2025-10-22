@@ -132,6 +132,13 @@ export default function App() {
     return [seg, params] as const;
   }, [route]);
 
+  const routeSubKey = useMemo(() => {
+    const path = route.replace(/^\/?/, '');
+    const [pathname] = path.split('?');
+    const segs = pathname.split('/');
+    return segs[1] || '';
+  }, [route]);
+
   // Persist plan_id from URL into session for downstream hydration
   useEffect(() => {
     if (routeKey === 'plan' && routeQuery) {
@@ -364,6 +371,18 @@ export default function App() {
                 </>
               );
             case 'worksheets':
+              if (routeSubKey === '1st-grade-math-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="1st Grade Math Worksheets – Free Printable PDF"
+                      description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
+                      canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
+                    />
+                    <WorksheetsFirstGradePage />
+                  </>
+                );
+              }
               return (
                 <>
                   <SEOMetaTags 
