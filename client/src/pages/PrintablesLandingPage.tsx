@@ -27,8 +27,8 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
 export function PrintablesLandingPage() {
   const [filterCategory, setFilterCategory] = React.useState<string>('All');
   const [packTime, setPackTime] = React.useState<'5' | '10' | '15'>('5');
-  const [packAge, setPackAge] = React.useState<'k2' | '35' | '68'>('k2');
-  const [packSkill, setPackSkill] = React.useState<'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('mixed');
+  const [packAge, setPackAge] = React.useState<'k1' | 'k2' | 'g1' | 'g2' | '35' | '68'>('k2');
+  const [packSkill, setPackSkill] = React.useState<'math' | 'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('mixed');
   const [searchQuery, setSearchQuery] = React.useState<string>('');
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
@@ -42,7 +42,7 @@ export function PrintablesLandingPage() {
   React.useEffect(() => {
     const map: Record<string, typeof packSkill> = {
       Coloring: 'creativity',
-      Worksheets: 'reading',
+      Worksheets: 'math',
       Creative: 'creativity',
       Brain: 'focus',
       Emotional: 'focus',
@@ -227,13 +227,17 @@ export function PrintablesLandingPage() {
             </label>
             <label className="text-sm text-slate-600">Age/Grade
               <select value={packAge} onChange={(e)=>setPackAge(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                <option value="k1">K–1</option>
                 <option value="k2">K–2</option>
+                <option value="g1">1st Grade</option>
+                <option value="g2">2nd Grade</option>
                 <option value="35">3–5</option>
                 <option value="68">6–8</option>
               </select>
             </label>
             <label className="text-sm text-slate-600">Focus
               <select value={packSkill} onChange={(e)=>setPackSkill(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                <option value="math">Math</option>
                 <option value="mixed">Mixed</option>
                 <option value="focus">Focus</option>
                 <option value="reading">Reading</option>
