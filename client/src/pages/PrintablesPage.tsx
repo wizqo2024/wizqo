@@ -955,6 +955,7 @@ export function PrintablesPage() {
           const wordsFull = buildWords(theme, packAge);
           const words = pickNUnique(wordsFull, 8, rng);
           const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
+          const treatAsMath = isK2 || packSkill === 'math';
           // Choose a different maze path based on age and seed for variety
           let mazePath = '';
           if (isK2) {
@@ -1018,7 +1019,7 @@ export function PrintablesPage() {
             return grid;
           }
           // 1) Word Search or Reading prompt
-          if (packSkill !== 'creativity' && packSkill !== 'math') {
+          if (!treatAsMath && packSkill !== 'creativity') {
             items.push(
               <div key="ws" className="border border-slate-200 rounded-lg p-4">
                 <div className="font-semibold text-xl mb-3">Mini Word Search — {theme === 'sight' ? 'Sight Words' : theme === 'space' ? 'Space' : 'Animals'}</div>
@@ -1326,7 +1327,12 @@ export function PrintablesPage() {
             );
           };
 
-          if (packSkill === 'creativity') {
+          if (treatAsMath) {
+            pushMiniMath();
+            pushPlaceValue();
+            pushMiniSudoku();
+            pushTenFramesPractice();
+          } else if (packSkill === 'creativity') {
             pushColoring();
             pushDrawing();
             pushScramble();
@@ -1392,12 +1398,13 @@ export function PrintablesPage() {
           const nextVariantUrl = buildLink(variant + 1)
           const todayUrl = buildLink(1, todaySeed)
 
+          const displayFocus = treatAsMath ? 'Math' : friendlyFocus(packSkill);
           return (
             <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-5 print:border-0 print:p-0">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-3xl font-bold text-slate-900">{docTitle}</h2>
-                  <div className="text-slate-700 text-xl">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {friendlyFocus(packSkill)}</div>
+                  <div className="text-slate-700 text-xl">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {displayFocus}</div>
                   <div className="text-slate-700 text-sm">Seed: {effectiveSeed} • Variant: {variant}</div>
                 </div>
                 <div className="print:hidden flex items-center gap-2">
