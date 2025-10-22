@@ -20,9 +20,6 @@ export default function WorksheetsFirstGradePage() {
           <p className="text-slate-700 text-sm max-w-3xl">
             Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes you can print and use at home or in class. Download as PDF.
           </p>
-          <div className="mt-4">
-            <a href="/print?doc=pack&time=5&age=k2&skill=mixed" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors">Download 5‑Minute Pack →</a>
-          </div>
         </header>
 
         <section>
@@ -30,6 +27,17 @@ export default function WorksheetsFirstGradePage() {
           <p className="text-slate-700 text-sm max-w-3xl">
             Build early fluency with focused practice: ten‑frames, number tracing, addition and subtraction within 10, skip counting, and shape/logic warm‑ups. Each worksheet is one page—easy to print and use for daily practice.
           </p>
+          {/* Grade 1 Pack CTA (moved from header) */}
+          <div className="mt-4 border border-slate-200 rounded-xl p-4 bg-white">
+            <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
+            <p className="text-slate-700 text-sm mb-3">Create a quick Grade 1 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 1st Grade</span>
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+            </div>
+            <a href="/print?doc=pack&time=5&age=k2&skill=focus" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors">Build Pack →</a>
+          </div>
         </section>
 
         <section>
