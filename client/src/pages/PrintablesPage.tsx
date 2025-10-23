@@ -1319,18 +1319,29 @@ export function PrintablesPage() {
               <div className="font-semibold text-xl mb-2">Ten Frames — Fill the Counters</div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {Array.from({length:2}).map((_,i)=>{
-                  const target = 6 + Math.floor(rng()*14);
+                  // Grade-appropriate targets: up to 10 for K–2 pack, to 20 for Grade 2
+                  const raw = packAge === 'k2' ? (4 + Math.floor(rng()*7)) : (packAge === 'g2' ? (11 + Math.floor(rng()*10)) : (6 + Math.floor(rng()*14)));
+                  const target = Math.max(1, Math.min(raw, 20));
+                  const frames = target > 10 ? 2 : 1;
+                  const viewW = frames === 2 ? 440 : 220;
                   return (
-                    <svg key={i} viewBox="0 0 220 110" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <svg key={i} viewBox={`0 0 ${viewW} 110`} className="w-full h-auto bg-white border border-slate-300 rounded">
                       <text x="10" y="20" fontSize="14" fill="#111827">Make {target}</text>
-                      <g transform="translate(10,30)">
-                        {Array.from({length:10}).map((__,j)=> (
-                          <rect key={j} x={(j%5)*40} y={Math.floor(j/5)*40} width="36" height="36" fill="none" stroke="#111827" />
-                        ))}
-                        {Array.from({length:Math.min(target,10)}).map((__,k)=> (
-                          <circle key={k} cx={18 + (k%5)*40} cy={18 + Math.floor(k/5)*40} r="10" fill="#7c3aed" />
-                        ))}
-                      </g>
+                      {Array.from({length:frames}).map((__,fIdx)=> (
+                        <g key={fIdx} transform={`translate(${10 + fIdx*210},30)`}>
+                          {Array.from({length:10}).map((__,j)=> (
+                            <rect key={j} x={(j%5)*40} y={Math.floor(j/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                          ))}
+                          {(() => {
+                            const start = fIdx*10;
+                            const end = Math.min(target, (fIdx+1)*10);
+                            const count = Math.max(0, end - start);
+                            return Array.from({length:count}).map((__,k)=> (
+                              <circle key={k} cx={18 + (k%5)*40} cy={18 + Math.floor(k/5)*40} r="10" fill="#7c3aed" />
+                            ));
+                          })()}
+                        </g>
+                      ))}
                     </svg>
                   );
                 })}
