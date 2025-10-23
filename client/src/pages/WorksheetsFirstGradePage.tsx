@@ -12,7 +12,7 @@ export default function WorksheetsFirstGradePage() {
         description="Free 1st grade math worksheets covering number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
         canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
       />
-      <UnifiedNavigation currentPage="blog" />
+      <UnifiedNavigation currentPage="kids" />
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">1st Grade Math Worksheets (Free Printables)</h1>
