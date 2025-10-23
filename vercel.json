@@ -19,6 +19,18 @@
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
+    // Serve prerendered static HTML when present; otherwise fall back to SPA index.html
+    { "source": "/kids", "destination": "/kids/index.html" },
+    { "source": "/kids/games/memory", "destination": "/kids/games/memory/index.html" },
+    { "source": "/kids/games/word-search", "destination": "/kids/games/word-search/index.html" },
+    { "source": "/kids/games/puzzle", "destination": "/kids/games/puzzle/index.html" },
+    { "source": "/kids/games/typing", "destination": "/kids/games/typing/index.html" },
+    { "source": "/kids/games/pattern", "destination": "/kids/games/pattern/index.html" },
+    { "source": "/printables", "destination": "/printables/index.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/worksheets/1st-grade-math-worksheets", "destination": "/worksheets/1st-grade-math-worksheets/index.html" },
+    { "source": "/worksheets/2nd-grade-math-worksheets", "destination": "/worksheets/2nd-grade-math-worksheets/index.html" },
+    // Blog posts: keep SPA for dynamic list; prerendered files will still be served directly
     { "source": "/((?!assets/|api/).*)", "destination": "/index.html" }
   ]
 }
