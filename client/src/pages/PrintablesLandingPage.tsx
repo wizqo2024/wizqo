@@ -170,32 +170,32 @@ export function PrintablesLandingPage() {
           <p className="text-white max-w-3xl">Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.</p>
           {/* Floating cards (desktop) */}
           <div className="hidden lg:block">
-            <div className="absolute top-2 left-8 z-0">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="absolute top-2 left-8 z-20 pointer-events-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖨️</div>
                 <p className="text-white text-sm mt-1">Print</p>
               </div>
             </div>
-            <div className="absolute top-16 right-16 z-0">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="absolute top-16 right-16 z-20 pointer-events-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖍️</div>
                 <p className="text-white text-sm mt-1">Coloring</p>
               </div>
             </div>
-            <div className="absolute top-[64%] left-[6%] z-0">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="absolute top-[64%] left-[6%] z-20 pointer-events-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-3 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🧩</div>
                 <p className="text-white text-sm mt-1">Puzzles</p>
               </div>
             </div>
-            <div className="absolute top-[66%] right-[14%] z-0">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="absolute top-[66%] right-[14%] z-20 pointer-events-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🔢</div>
                 <p className="text-white text-sm mt-1">Numbers</p>
               </div>
             </div>
-            <div className="absolute top-[18%] right-[6%] z-0">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
+            <div className="absolute top-[18%] right-[6%] z-20 pointer-events-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 hover:rotate-0 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">📖</div>
                 <p className="text-white text-sm mt-1">Reading</p>
               </div>
