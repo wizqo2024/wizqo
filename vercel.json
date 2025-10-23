@@ -18,6 +18,14 @@
     { "source": "/printables/math", "destination": "/printables", "permanent": true },
     { "source": "/printables/math/grade-2", "destination": "/printables", "permanent": true }
   ],
+  "headers": [
+    {
+      "source": "/print",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/[...path].ts" },
     { "source": "/kids", "destination": "/kids/index.html" },
