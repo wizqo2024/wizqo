@@ -4,7 +4,7 @@ slug: best-teacher
 excerpt: Discover psychology‑backed strategies to be the best teacher for every child — simple habits that build trust, motivation, and lifelong learning.
 category: teaching
 readTime: 8
-cover: https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=1600&auto=format&fit=crop
+cover: https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170
 imageAlt: Teacher smiling with students while working on a worksheet in class
 date: 2025-10-22
 ---
