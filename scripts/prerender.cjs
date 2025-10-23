@@ -11,7 +11,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = process.cwd();
-const DIST = path.join(ROOT, 'dist');
+// Vite outputs to dist/public per vite.config.ts
+const DIST = path.join(ROOT, 'dist', 'public');
 const SITE = 'https://wizqo.com';
 
 function ensureDir(p) {
@@ -115,10 +116,15 @@ function collectBlogPosts() {
 
 function main() {
   if (!fs.existsSync(DIST)) {
-    console.error('dist/ not found. Run vite build first.');
+    console.error('dist/public not found. Run vite build first.');
     process.exit(1);
   }
-  const baseHtml = read(path.join(DIST, 'index.html'));
+  const baseIndexPath = path.join(DIST, 'index.html');
+  if (!fs.existsSync(baseIndexPath)) {
+    console.error(`Base index not found at ${baseIndexPath}`);
+    process.exit(1);
+  }
+  const baseHtml = read(baseIndexPath);
 
   const routes = [];
   // Kids hub and games
