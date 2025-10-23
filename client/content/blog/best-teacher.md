@@ -96,5 +96,5 @@ Emotions drive attention — when kids feel safe and valued, they learn more.
 
 ## 🔗 Helpful Classroom Resources
 
-- Build a 5‑Minute Print Pack → /printables
-- Free printables for quick warm‑ups → /printables#Worksheets
+- Build a 5‑Minute Print Pack(/printables)
+- Free printables for quick warm‑ups(/printables#Worksheets)
