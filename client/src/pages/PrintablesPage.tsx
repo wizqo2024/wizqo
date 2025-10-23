@@ -2251,22 +2251,54 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
             <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
-            <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
+            <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
+              {/* visual subgrid lines */}
+              <div className="pointer-events-none absolute inset-3 grid grid-cols-2 grid-rows-2">
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+                <div className="border-2 border-slate-400/60" />
+              </div>
               {Array.from({ length: 16 }).map((_, i) => (
                 <div key={i} className="w-10 h-10 border border-slate-400" />
               ))}
+            </div>
+            <div className="mt-3 text-slate-700 text-sm">
+              <div className="font-medium mb-1">Clues</div>
+              <ul className="list-disc list-inside space-y-0.5">
+                <li>Start with rows or columns that already have more numbers.</li>
+                <li>Look for missing numbers in each 2×2 box.</li>
+                <li>Use elimination: if 1 and 2 exist in a row, place 3 or 4.</li>
+              </ul>
             </div>
           </section>
         )}
 
         {doc === 'sudoku6' && (
-        <section className="mb-10 break-inside-avoid">
+        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 6×6 (Medium)</h2>
           <p className="text-slate-600 text-sm mb-3">Fill numbers 1–6 so each row/column contains all numbers with no repeats.</p>
-          <div className="inline-grid grid-cols-6 gap-0">
+          <div className="inline-grid grid-cols-6 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
+            {/* visual subgrid lines (3×2 boxes) */}
+            <div className="pointer-events-none absolute inset-3 grid grid-cols-3 grid-rows-2">
+              <div className="border-2 border-slate-400/60" />
+              <div className="border-2 border-slate-400/60" />
+              <div className="border-2 border-slate-400/60" />
+              <div className="border-2 border-slate-400/60" />
+              <div className="border-2 border-slate-400/60" />
+              <div className="border-2 border-slate-400/60" />
+            </div>
             {Array.from({ length: 36 }).map((_, i) => (
               <div key={i} className="w-10 h-10 border border-slate-400" />
             ))}
+          </div>
+          <div className="mt-3 text-slate-700 text-sm">
+            <div className="font-medium mb-1">Clues</div>
+            <ul className="list-disc list-inside space-y-0.5">
+              <li>Check each 3×2 box: fill the only spot a number can go.</li>
+              <li>Scan for singles: if a row is missing only “5”, place it.</li>
+              <li>Use pencil marks lightly (mentally) to eliminate options.</li>
+            </ul>
           </div>
         </section>
         )}
