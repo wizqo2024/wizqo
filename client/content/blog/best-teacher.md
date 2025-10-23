@@ -89,6 +89,8 @@ So next Monday, don’t worry about doing it all perfectly — just focus on one
 - 💬 Encourage often.
 - ✨ Believe always.
 
+![Teaching with purpose — supportive classroom](https://images.unsplash.com/photo-1649920442906-3c8ef428fb6e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=735)
+
 ## ❓ FAQs
 
 1. What makes someone the best teacher?
