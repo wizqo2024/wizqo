@@ -158,6 +158,58 @@ export function PrintablesPage() {
     for (let i = 0; i < grid.length; i++) if (!grid[i]) grid[i] = A[Math.floor(rng() * A.length)]
     return grid
   }
+
+  // Simple Sudoku generator for 4x4 and 6x6 (non-interactive)
+  function shuffleArray<T>(arr: T[], rng: () => number): T[] {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1))
+      const tmp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = tmp
+    }
+    return arr
+  }
+  function genSudoku(side: number, boxRows: number, boxCols: number, rng: () => number, minClues: number, maxClues: number) {
+    const nums = Array.from({ length: side }, (_, i) => i + 1)
+    // Base Latin pattern that respects sub-boxes
+    const base: number[][] = Array.from({ length: side }, (_, r) =>
+      Array.from({ length: side }, (_, c) => {
+        const idx = (r * boxCols + Math.floor(r / boxRows) + c) % side
+        return nums[idx]
+      })
+    )
+    // Symbol permutation
+    const sym = shuffleArray(nums.slice(), rng)
+    let board = base.map(row => row.map(v => sym[v - 1]))
+    // Row order: shuffle within bands, then shuffle bands
+    const rowBands: number[][] = []
+    for (let b = 0; b < side; b += boxRows) {
+      const group = Array.from({ length: boxRows }, (_, i) => b + i)
+      rowBands.push(shuffleArray(group, rng))
+    }
+    shuffleArray(rowBands, rng)
+    const rowOrder = rowBands.flat()
+    // Column order: shuffle within stacks, then shuffle stacks
+    const colStacks: number[][] = []
+    for (let s = 0; s < side; s += boxCols) {
+      const group = Array.from({ length: boxCols }, (_, i) => s + i)
+      colStacks.push(shuffleArray(group, rng))
+    }
+    shuffleArray(colStacks, rng)
+    const colOrder = colStacks.flat()
+    // Apply permutations
+    board = rowOrder.map(r => colOrder.map(c => board[r][c]))
+    // Remove cells to create puzzle
+    const total = side * side
+    const clues = Math.max(minClues, Math.min(maxClues, minClues + Math.floor(rng() * (maxClues - minClues + 1))))
+    const blanks = Math.max(0, total - clues)
+    const indices = shuffleArray(Array.from({ length: total }, (_, i) => i), rng)
+    const blankSet = new Set(indices.slice(0, blanks))
+    const puzzle = Array.from({ length: side }, (_, r) =>
+      Array.from({ length: side }, (_, c) => (blankSet.has(r * side + c) ? null : board[r][c]))
+    )
+    return { puzzle, solution: board }
+  }
   const mathMazeCells = React.useMemo(() => {
     if (doc !== 'math-maze') return [] as string[];
     const cells: string[] = [];
@@ -2259,9 +2311,16 @@ export function PrintablesPage() {
                 <div className="border-2 border-slate-400/60" />
                 <div className="border-2 border-slate-400/60" />
               </div>
-              {Array.from({ length: 16 }).map((_, i) => (
-                <div key={i} className="w-10 h-10 border border-slate-400" />
-              ))}
+              {(() => {
+                const rng = makeRng(`${effectiveSeed}|s4|v${variant}`)
+                const data = genSudoku(4, 2, 2, rng, 8, 12)
+                const grid = (showAnswers ? data.solution : data.puzzle).flat()
+                return grid.map((val: number | null, i: number) => (
+                  <div key={i} className="w-10 h-10 border border-slate-400 flex items-center justify-center">
+                    {val != null ? <span className="font-semibold text-slate-900">{val}</span> : null}
+                  </div>
+                ))
+              })()}
             </div>
             <div className="mt-3 text-slate-700 text-sm">
               <div className="font-medium mb-1">Clues</div>
@@ -2288,9 +2347,16 @@ export function PrintablesPage() {
               <div className="border-2 border-slate-400/60" />
               <div className="border-2 border-slate-400/60" />
             </div>
-            {Array.from({ length: 36 }).map((_, i) => (
-              <div key={i} className="w-10 h-10 border border-slate-400" />
-            ))}
+            {(() => {
+              const rng = makeRng(`${effectiveSeed}|s6|v${variant}`)
+              const data = genSudoku(6, 2, 3, rng, 18, 24)
+              const grid = (showAnswers ? data.solution : data.puzzle).flat()
+              return grid.map((val: number | null, i: number) => (
+                <div key={i} className="w-10 h-10 border border-slate-400 flex items-center justify-center">
+                  {val != null ? <span className="font-semibold text-slate-900">{val}</span> : null}
+                </div>
+              ))
+            })()}
           </div>
           <div className="mt-3 text-slate-700 text-sm">
             <div className="font-medium mb-1">Clues</div>
