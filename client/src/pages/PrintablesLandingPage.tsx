@@ -176,7 +176,7 @@ export function PrintablesLandingPage() {
                 <p className="text-white text-sm mt-1">Print</p>
               </div>
             </div>
-            <div className="absolute top-16 right-16 z-20 pointer-events-auto">
+            <div className="absolute top-[22%] right-6 md:right-10 z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖍️</div>
                 <p className="text-white text-sm mt-1">Coloring</p>
@@ -188,10 +188,10 @@ export function PrintablesLandingPage() {
                 <p className="text-white text-sm mt-1">Puzzles</p>
               </div>
             </div>
-            <div className="absolute top-[66%] right-[14%] z-20 pointer-events-auto">
+            <div className="absolute top-[52%] right-6 md:right-10 z-20 pointer-events-auto">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 shadow-lg">
-                <div className="text-2xl">🔢</div>
-                <p className="text-white text-sm mt-1">Numbers</p>
+                <div className="text-2xl">➕</div>
+                <p className="text-white text-sm mt-1">Math</p>
               </div>
             </div>
             <div className="absolute top-[18%] right-[6%] z-20 pointer-events-auto">
