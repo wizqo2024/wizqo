@@ -110,3 +110,7 @@ Emotions drive attention — when kids feel safe and valued, they learn more.
 
 - Build a 5‑Minute Print Pack(/printables)
 - Free printables for quick warm‑ups(/printables#Worksheets)
+- Ten Frames 1–20(/print?doc=ten-frames-1-20)
+- Number Tracing 1–20(/print?doc=number-tracing-1-20)
+- 1st Grade Math Worksheets(/worksheets/1st-grade-math-worksheets)
+- 2nd Grade Math Worksheets(/worksheets/2nd-grade-math-worksheets)
