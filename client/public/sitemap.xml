@@ -12,6 +12,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://wizqo.com/kids/games/memory</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/kids/games/word-search</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/kids/games/puzzle</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/kids/games/typing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/kids/games/pattern</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://wizqo.com/printables</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

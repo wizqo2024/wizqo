@@ -84,6 +84,11 @@ function generate() {
 
   push(`${site}/`, '2024-08-22', 'weekly', '0.8');
   push(`${site}/kids`, null, 'weekly', '0.8');
+  // Kids games subpages
+  const kidsGames = ['memory', 'word-search', 'puzzle', 'typing', 'pattern'];
+  for (const slug of kidsGames) {
+    push(`${site}/kids/games/${slug}`, null, 'weekly', '0.6');
+  }
   push(`${site}/printables`, null, 'weekly', '0.7');
   // Intentionally excluding math hubs for now
   push(`${site}/blog`, null, 'weekly', '0.7');
