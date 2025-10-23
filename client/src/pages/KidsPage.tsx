@@ -108,30 +108,36 @@ export default function KidsPage() {
     );
   }
 
-  // Support game subpages: /kids/games/memory and /kids/games/word-search
+  // Support game subpages: /kids/games/<slug>
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
   const parts = path.replace(/^\/+/,'').split('/');
   const sub1 = parts[1] || '';
   const sub2 = parts[2] || '';
   if (sub1 === 'games') {
+    // Map slug -> human-readable game title for accurate SEO titles/snippets
+    const gameNameMap: Record<string, string> = {
+      'memory': 'Memory Match',
+      'word-search': 'Word Search',
+      'puzzle': 'Puzzle Game',
+      'typing': 'Typing Safari',
+      'pattern': 'Pattern Builder'
+    };
+    const gameSlug = (sub2 || 'memory').toLowerCase();
+    const gameTitle = gameNameMap[gameSlug] || 'Memory Match';
     return (
       <div className="min-h-screen bg-slate-50">
         <SEOMetaTags
-          title={`Kids Hub – ${sub2 === 'word-search' ? 'Word Search' : 'Memory Match'} Game`}
-          description="Play free fun learning games for kids online – Memory Match and Word Search. Kid-safe, fast, and mobile-friendly."
-          canonicalUrl={`https://wizqo.com/kids/games/${sub2 || 'memory'}`}
+          title={`Kids Hub – ${gameTitle}`}
+          description="Play free fun learning games for kids online – Memory Match, Word Search, Puzzle, Typing Safari, and Pattern Builder. Kid‑safe, fast, and mobile‑friendly."
+          canonicalUrl={`https://wizqo.com/kids/games/${gameSlug}`}
         />
         <UnifiedNavigation currentPage="kids" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-6">
-            {sub2 === 'word-search' ? (
-              <h1 className="sr-only">Word Search</h1>
-            ) : (
-              <h1 className="sr-only">Memory Match</h1>
-            )}
+            <h1 className="sr-only">{gameTitle}</h1>
             <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
           </div>
-          {sub2 === 'word-search' ? <WordSearch /> : sub2 === 'puzzle' ? <PuzzleGame /> : sub2 === 'typing' ? <TypingSafari /> : sub2 === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
+          {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
         </div>
       </div>
     );
