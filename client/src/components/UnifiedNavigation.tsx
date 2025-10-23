@@ -245,6 +245,16 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
             <button 
               onClick={() => {
+                window.location.href = '/worksheets/1st-grade-math-worksheets';
+                setShowMobileMenu(false);
+              }} 
+              className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+            >
+              <span className="pl-8">1st Grade Math Worksheets</span>
+            </button>
+
+            <button 
+              onClick={() => {
                 window.location.href = '/worksheets/2nd-grade-math-worksheets';
                 setShowMobileMenu(false);
               }} 
