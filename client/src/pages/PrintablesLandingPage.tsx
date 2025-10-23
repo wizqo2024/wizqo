@@ -97,6 +97,11 @@ export function PrintablesLandingPage() {
   const quickLinks: { label: string; id: string }[] = [
     { label: 'Coloring', id: 'Coloring' },
     { label: 'Worksheets', id: 'Worksheets' },
+    { label: 'Math by Grade', id: 'MathByGrade' },
+    { label: 'Grade 1', id: 'Math-G1' },
+    { label: 'Grade 2', id: 'Math-G2' },
+    { label: 'Math — Numbers', id: 'Math-Numbers' },
+    { label: 'Math — 4 Operations', id: 'Math-Operations' },
     { label: 'Creative', id: 'Creative' },
     { label: 'Brain & Focus', id: 'Brain' },
     { label: 'Emotional', id: 'Emotional' },
@@ -460,6 +465,66 @@ export function PrintablesLandingPage() {
               age="3–5"
               href="/print?doc=shapes-colors-sort"
             />
+          </div>
+        </section>
+
+        {/* Math by Grade (chips) */}
+        <section id="MathByGrade" className="scroll-mt-24">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">➗ Math by Grade</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Jump to grade‑focused math printables and build a quick pack.</p>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {[
+              { label: 'Kindergarten', id: 'Math-GK' },
+              { label: 'Grade 1', id: 'Math-G1' },
+              { label: 'Grade 2', id: 'Math-G2' },
+            ].map(g => (
+              <button key={g.id} onClick={() => scrollToSection(g.id)} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">{g.label}</button>
+            ))}
+          </div>
+        </section>
+
+        {/* Math grade sections */}
+        <section id="Math-G1" className="scroll-mt-24">
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 1</h3>
+          <div className={gridClass}>
+            <ItemCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href="/print?doc=ten-frames-1-10" />
+            <ItemCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href="/print?doc=addition-subtraction-0-10" />
+            <ItemCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href="/print?doc=number-tracing-1-20" />
+          </div>
+          <div className="mt-3 print:hidden">
+            <a href="/print?doc=pack&time=5&age=g1&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 1 Pack →</a>
+          </div>
+        </section>
+
+        <section id="Math-G2" className="scroll-mt-24">
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 2</h3>
+          <div className={gridClass}>
+            <ItemCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href="/print?doc=ten-frames-1-20" />
+            <ItemCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href="/print?doc=place-value-hto" />
+            <ItemCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href="/print?doc=addition-subtraction-0-10" />
+          </div>
+          <div className="mt-3 print:hidden">
+            <a href="/print?doc=pack&time=5&age=g2&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 2 Pack →</a>
+          </div>
+        </section>
+
+        {/* Math by Topic */}
+        <section id="Math-Numbers" className="scroll-mt-24">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Math — Numbers</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Number sense foundations — counting, comparing, and place value.</p>
+          <div className={gridClass}>
+            <ItemCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href="/print?doc=ten-frames-1-10" />
+            <ItemCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href="/print?doc=ten-frames-1-20" />
+            <ItemCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href="/print?doc=place-value-hto" />
+          </div>
+        </section>
+
+        <section id="Math-Operations" className="scroll-mt-24">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">➕ Math — 4 Operations</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Practice addition and subtraction fluency with fun mini‑challenges.</p>
+          <div className={gridClass}>
+            <ItemCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href="/print?doc=addition-subtraction-0-10" />
+            <ItemCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href="/print?doc=math-maze" />
           </div>
         </section>
 
