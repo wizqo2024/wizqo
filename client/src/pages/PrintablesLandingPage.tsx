@@ -31,6 +31,7 @@ export function PrintablesLandingPage() {
   const [packSkill, setPackSkill] = React.useState<'math' | 'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('math');
   const [searchQuery, setSearchQuery] = React.useState<string>('');
   const [showSidebar, setShowSidebar] = React.useState(false);
+  const [showBackToTop, setShowBackToTop] = React.useState<boolean>(false);
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
   const sectionVisibility = (cat: string) => (
@@ -74,6 +75,19 @@ export function PrintablesLandingPage() {
         }
       }, 0);
     } catch {}
+  }, []);
+
+  // Show a floating "Scroll up" button after scrolling down a bit
+  React.useEffect(() => {
+    const onScroll = () => {
+      try {
+        const y = window.scrollY || document.documentElement.scrollTop || 0;
+        setShowBackToTop(y > 200);
+      } catch {}
+    };
+    window.addEventListener('scroll', onScroll, { passive: true } as any);
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll as any);
   }, []);
 
   const gridClass = filterCategory === 'All'
@@ -699,6 +713,17 @@ export function PrintablesLandingPage() {
       </main>
 
       <Footer />
+      {showBackToTop && (
+        <button
+          onClick={() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }}
+          aria-label="Scroll up"
+          title="Scroll up"
+          className="fixed bottom-6 left-6 z-50 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
+        >
+          <span aria-hidden>↑</span>
+          <span className="text-sm">Scroll up</span>
+        </button>
+      )}
     </div>
   );
 }
