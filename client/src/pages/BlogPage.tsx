@@ -1375,25 +1375,25 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
-                  // Generic internal links: Label → [/path]
-                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, label, url) => {
+                  // Generic internal links: Label → [/path] (allow anchors and caps)
+                  out = out.replace(/([^\[]+?)\s*→\s*\[(\/[A-Za-z0-9_\-\/\?=&#%]+)\]/gi, (_m, label, url) => {
                     const safeLabel = String(label).trim();
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel}</a>`;
                   });
-                  // Pattern: Label(/path) => clickable label only
-                  out = out.replace(/([^\[\n]+?)\s*\((\/[a-z0-9_\-\/\?=&%]+)\)/gi, (_m, label, url) => {
+                  // Pattern: Label(/path) => clickable label only (allow anchors and caps)
+                  out = out.replace(/([^\[\n]+?)\s*\((\/[A-Za-z0-9_\-\/\?=&#%]+)\)/gi, (_m, label, url) => {
                     const safeLabel = String(label).trim();
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${safeLabel} →</a>`;
                   });
-                  // Generic internal links: [Label](/path)
-                  out = out.replace(/\[(.*?)\]\((\/[a-z0-9\-\/\?=&]+)\)/gi, (_m, label, url) => {
+                  // Generic internal links: [Label](/path) (allow anchors and caps)
+                  out = out.replace(/\[(.*?)\]\((\/[A-Za-z0-9_\-\/\?=&#%]+)\)/gi, (_m, label, url) => {
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${label}</a>`;
                   });
-                  // Generic internal links: [/path]
-                  out = out.replace(/\[(\/[a-z0-9\-\/\?=&]+)\]/gi, (_m, url) => {
+                  // Generic internal links: [/path] (allow anchors and caps)
+                  out = out.replace(/\[(\/[A-Za-z0-9_\-\/\?=&#%]+)\]/gi, (_m, url) => {
                     const pretty = String(url).trim();
                     return `<a href=\"${pretty}\" class=\"text-purple-600 hover:underline\">${pretty}</a>`;
                   });
