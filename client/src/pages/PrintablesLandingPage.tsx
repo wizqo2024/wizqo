@@ -169,7 +169,7 @@ export function PrintablesLandingPage() {
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-white max-w-3xl">Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.</p>
           {/* Floating cards (desktop) */}
-          <div className="hidden lg:block pointer-events-none">
+          <div className="hidden lg:block">
             <div className="absolute top-2 left-8 z-0">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
                 <div className="text-2xl">🖨️</div>
