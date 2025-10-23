@@ -1914,7 +1914,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         {allPosts.length > 0 ? (
           <div className="space-y-8">
 
-            {/* Featured Post (skip posts tagged as printables-only) */}
+            {/* Featured Post (skip posts tagged as printables-only and specific slugs like 'best-teacher') */}
             <article 
               className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 cursor-pointer border border-slate-200 hover:border-purple-300 transition-all"
                   onClick={() => {
@@ -1927,7 +1927,9 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 Featured Article
               </span>
               {(() => {
-                const feature = visibleFeaturePost || allPosts[0];
+                // Exclude certain slugs (do not feature these)
+                const preferred = allPosts.find(p => p.id !== 'best-teacher') || allPosts[0];
+                const feature = visibleFeaturePost && visibleFeaturePost.id !== 'best-teacher' ? visibleFeaturePost : preferred;
                 const firstImgMatch = (feature.content || '').match(/!\[[^\]]*\]\((\S+?)(?:\s+".*?")?\)/);
                 const firstMdUrl = firstImgMatch ? firstImgMatch[1] : undefined;
                 const cover = firstMdUrl || getPostImage(feature);
@@ -1952,10 +1954,10 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 );
               })()}
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 leading-tight">
-                {(visibleFeaturePost || allPosts[0]).title}
+                {(visibleFeaturePost && visibleFeaturePost.id !== 'best-teacher' ? visibleFeaturePost : preferred).title}
               </h2>
               <p className="text-base sm:text-lg mb-4 sm:mb-6 opacity-90 leading-relaxed">
-                {(visibleFeaturePost || allPosts[0]).excerpt}
+                {(visibleFeaturePost && visibleFeaturePost.id !== 'best-teacher' ? visibleFeaturePost : preferred).excerpt}
               </p>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-sm">
                 <span className="flex items-center gap-2">
