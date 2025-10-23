@@ -153,7 +153,7 @@ export function PrintablesLandingPage() {
       })()}
 
       <header className="relative">
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 pointer-events-none">
           <img
             src="https://images.unsplash.com/photo-1699347914988-c61ec13c99c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170"
             alt="Kids doing printable activities"
@@ -162,9 +162,7 @@ export function PrintablesLandingPage() {
             loading="eager"
             decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/60 via-pink-50/40 to-amber-50/30" />
-          <div className="absolute -top-16 -right-24 w-80 h-80 rounded-full bg-purple-200/30 blur-3xl" />
-          <div className="absolute -bottom-24 -left-16 w-96 h-96 rounded-full bg-amber-200/30 blur-3xl" />
+          <div className="absolute inset-0 bg-black/25 print:hidden" />
         </div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="mb-4 print:hidden flex justify-end">
