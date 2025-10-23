@@ -30,6 +30,7 @@ export function PrintablesLandingPage() {
   const [packAge, setPackAge] = React.useState<'k1' | 'k2' | 'g1' | 'g2' | '35' | '68'>('k2');
   const [packSkill, setPackSkill] = React.useState<'math' | 'focus' | 'reading' | 'stem' | 'creativity' | 'mixed'>('math');
   const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const [showSidebar, setShowSidebar] = React.useState(false);
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/printables');
   const recentSet = React.useMemo(() => new Set<string>(['One-pagers']), []);
   const sectionVisibility = (cat: string) => (
@@ -78,6 +79,25 @@ export function PrintablesLandingPage() {
   const gridClass = filterCategory === 'All'
     ? 'grid sm:grid-cols-2 lg:grid-cols-2 gap-4'
     : 'grid sm:grid-cols-1 lg:grid-cols-2 gap-6';
+
+  const quickLinks: { label: string; id: string }[] = [
+    { label: 'Coloring', id: 'Coloring' },
+    { label: 'Worksheets', id: 'Worksheets' },
+    { label: 'Creative', id: 'Creative' },
+    { label: 'Brain & Focus', id: 'Brain' },
+    { label: 'Emotional', id: 'Emotional' },
+    { label: 'Seasonal', id: 'Seasonal' },
+    { label: 'Challenge', id: 'Challenge' },
+    { label: 'One‑pagers', id: 'One-pagers' },
+  ];
+
+  const scrollToSection = (id: string) => {
+    try {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setShowSidebar(false);
+    } catch {}
+  };
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
@@ -133,7 +153,46 @@ export function PrintablesLandingPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        {/* Mobile sidebar toggle */}
+        <div className="md:hidden mb-3 print:hidden">
+          <button
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+            onClick={() => setShowSidebar(v => !v)}
+            aria-expanded={showSidebar}
+            aria-controls="printables-sidebar"
+          >
+            ☰ Browse categories
+          </button>
+          {showSidebar && (
+            <nav id="printables-sidebar" aria-label="Printables categories" className="mt-2 bg-white border border-slate-200 rounded-2xl p-3">
+              <ul className="grid grid-cols-2 gap-2 text-sm">
+                {quickLinks.map((l) => (
+                  <li key={l.label}>
+                    <button className="w-full text-left text-purple-700 hover:underline" onClick={() => scrollToSection(l.id)}>{l.label}</button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+        </div>
+
+        <div className="md:grid md:grid-cols-12 md:gap-6">
+          {/* Desktop sidebar */}
+          <aside className="hidden md:block md:col-span-3 print:hidden">
+            <nav aria-label="Printables categories" className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
+              <div className="text-slate-900 font-semibold mb-2">Browse</div>
+              <ul className="space-y-1 text-sm">
+                {quickLinks.map((l) => (
+                  <li key={l.label}>
+                    <button className="text-left text-purple-700 hover:underline" onClick={() => scrollToSection(l.id)}>{l.label}</button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+
+          <div className="md:col-span-9 space-y-10">
         {/* Math hubs removed per request */}
         {/* Intro: What You'll Find */}
         <section>
@@ -635,6 +694,8 @@ export function PrintablesLandingPage() {
         <section className="text-xs text-slate-500">
           <p className="print:hidden">Tip: Use your browser menu → Print → Save as PDF.</p>
         </section>
+          </div>
+        </div>
       </main>
 
       <Footer />
