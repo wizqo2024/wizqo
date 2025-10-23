@@ -1,5 +1,5 @@
 ---
-Title: "🍎 How to Be the Best Teacher for Every Child (Backed by Psychology)"
+title: "🍎 How to Be the Best Teacher for Every Child (Backed by Psychology)"
 slug: best-teacher
 excerpt: Discover psychology‑backed strategies to be the best teacher for every child — simple habits that build trust, motivation, and lifelong learning.
 category: teaching
