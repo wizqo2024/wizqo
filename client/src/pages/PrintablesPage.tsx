@@ -2131,9 +2131,9 @@ export function PrintablesPage() {
             <div className="mt-6">
               <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
               {(() => {
-                // Deterministic mini-maze (8x8) using a backtracker, FINISH at top-right (right edge opening)
-                const cols = 8, rows = 8;
-                const cellSize = 22;
+                // Generated mini-maze (10x10) with far-edge FINISH; true openings at START/FINISH
+                const cols = 10, rows = 10;
+                const cellSize = 20;
                 const pad = 14; // padding inside SVG
                 const svgW = cols * cellSize + pad * 2;
                 const svgH = rows * cellSize + pad * 2;
@@ -2142,7 +2142,7 @@ export function PrintablesPage() {
                 const visited = new Array(cols * rows).fill(false) as boolean[];
                 const idx = (x: number, y: number) => y * cols + x;
                 const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < cols && y < rows;
-                // Simple deterministic neighbor order pattern
+                // Depth-first backtracker (deterministic neighbor order)
                 const stack: number[] = [0];
                 visited[0] = true;
                 while (stack.length) {
@@ -2157,9 +2157,8 @@ export function PrintablesPage() {
                   ];
                   const neigh = order.filter(n => inBounds(n.x, n.y) && !visited[idx(n.x, n.y)]);
                   if (!neigh.length) { stack.pop(); continue; }
-                  const next = neigh[0]; // deterministic pick
+                  const next = neigh[0];
                   const ni = idx(next.x, next.y);
-                  // Carve
                   if (next.dir === 't') { cells[cur].t = false; cells[ni].b = false; }
                   if (next.dir === 'r') { cells[cur].r = false; cells[ni].l = false; }
                   if (next.dir === 'b') { cells[cur].b = false; cells[ni].t = false; }
@@ -2167,7 +2166,34 @@ export function PrintablesPage() {
                   visited[ni] = true;
                   stack.push(ni);
                 }
-                const exitX = cols - 1; const exitY = 0; // top-right cell
+                // BFS to pick farthest border cell (right/bottom) as FINISH
+                const dist = new Array(cols * rows).fill(Infinity) as number[];
+                const q: number[] = [];
+                dist[0] = 0; q.push(0);
+                while (q.length) {
+                  const cur = q.shift()!;
+                  const cx = cur % cols; const cy = Math.floor(cur / cols);
+                  const here = cells[cur];
+                  const tryPush = (nx: number, ny: number, open: boolean) => {
+                    if (!open || !inBounds(nx, ny)) return;
+                    const ni = idx(nx, ny);
+                    if (dist[ni] !== Infinity) return;
+                    dist[ni] = dist[cur] + 1; q.push(ni);
+                  };
+                  tryPush(cx, cy - 1, !here.t);
+                  tryPush(cx + 1, cy, !here.r ? true : false);
+                  tryPush(cx, cy + 1, !here.b);
+                  tryPush(cx - 1, cy, !here.l);
+                }
+                let exitI = cols * rows - 1; let maxD = -1;
+                for (let y = 0; y < rows; y++) {
+                  const iRight = idx(cols - 1, y); if (dist[iRight] > maxD) { maxD = dist[iRight]; exitI = iRight; }
+                }
+                for (let x = 0; x < cols; x++) {
+                  const iBottom = idx(x, rows - 1); if (dist[iBottom] > maxD) { maxD = dist[iBottom]; exitI = iBottom; }
+                }
+                const exitX = exitI % cols; const exitY = Math.floor(exitI / cols);
+                const exitSide: 'right' | 'bottom' = exitX === cols - 1 ? 'right' : 'bottom';
                 const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
                 for (let y = 0; y < rows; y++) {
                   for (let x = 0; x < cols; x++) {
@@ -2176,38 +2202,52 @@ export function PrintablesPage() {
                     const y0 = pad + y * cellSize;
                     const x1 = x0 + cellSize;
                     const y1 = y0 + cellSize;
-                    const isEntranceLeft = x === 0 && y === 0; // open left wall (START)
-                    const isExitCell = x === exitX && y === exitY; // open right wall at FINISH
+                    const isStart = x === 0 && y === 0;
+                    const isExitCell = x === exitX && y === exitY;
                     if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
-                    if (c.l && !isEntranceLeft) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
-                    if (c.b) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
-                    if (c.r && !isExitCell) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+                    if (c.l && !isStart) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                    if (c.b && !(isExitCell && exitSide === 'bottom')) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                    if (c.r && !(isExitCell && exitSide === 'right')) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
                   }
                 }
                 return (
                   <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
-                    {/* outer border with openings at START (left of 0,0) and FINISH (right of top-right) */}
+                    {/* outer border with openings at START and computed FINISH */}
                     <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
                       {/* top border */}
                       <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
-                      {/* left border (skip entrance at first cell) */}
+                      {/* left border (skip start opening) */}
                       <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
-                      {/* right border with gap at top-right for FINISH */}
-                      <line x1={pad + cols * cellSize} y1={pad + cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                      {/* bottom border */}
-                      <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                      {/* right border with optional gap for FINISH */}
+                      {exitSide === 'right' ? (
+                        <>
+                          <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + exitY * cellSize} />
+                          <line x1={pad + cols * cellSize} y1={pad + (exitY + 1) * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                        </>
+                      ) : (
+                        <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                      )}
+                      {/* bottom border with optional gap for FINISH */}
+                      {exitSide === 'bottom' ? (
+                        <>
+                          <line x1={pad} y1={pad + rows * cellSize} x2={pad + exitX * cellSize} y2={pad + rows * cellSize} />
+                          <line x1={pad + (exitX + 1) * cellSize} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                        </>
+                      ) : (
+                        <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                      )}
                     </g>
                     {/* maze walls */}
                     {lines.map((l, i) => (
                       <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
                     ))}
                     {/* labels */}
-                    {/* START label and arrow into maze */}
-                    <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight="700">START</text>
-                    <text x={pad + 6} y={pad + cellSize * 0.55} fontSize="12" fill="#10B981">→</text>
-                    {/* FINISH label and arrow to exit at top-right */}
-                    <text x={svgW - (pad - 8)} y={pad + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
-                    <text x={svgW - (pad + cellSize * 0.6)} y={pad + cellSize * 0.6} fontSize="12" fill="#ef4444">→</text>
+                    <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight={700}>START</text>
+                    {exitSide === 'right' ? (
+                      <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">FINISH</text>
+                    ) : (
+                      <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">FINISH</text>
+                    )}
                   </svg>
                 );
               })()}
