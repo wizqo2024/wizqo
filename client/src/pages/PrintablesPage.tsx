@@ -2128,7 +2128,7 @@ export function PrintablesPage() {
                 <div className="h-32 border border-dashed border-slate-400 rounded" />
               </div>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 hidden" aria-hidden>
               <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
               {(() => {
                 // Generated mini-maze (10x10) with far-edge FINISH; true openings at START/FINISH
