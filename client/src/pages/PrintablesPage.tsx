@@ -2128,6 +2128,40 @@ export function PrintablesPage() {
                 <div className="h-32 border border-dashed border-slate-400 rounded" />
               </div>
             </div>
+            <div className="mt-6">
+              <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
+              {/* Print-friendly mini maze (outer border, light grid, a few walls, START/FINISH) */}
+              <svg viewBox="0 0 240 240" className="w-full max-w-md bg-white border border-slate-300 rounded">
+                {/* light grid */}
+                <g stroke="#e5e7eb" strokeWidth="1">
+                  {Array.from({length:11}).map((_,i)=> (
+                    <>
+                      <line key={`h-${i}`} x1="10" y1={10+i*20} x2="230" y2={10+i*20} />
+                      <line key={`v-${i}`} x1={10+i*20} y1="10" x2={10+i*20} y2="230" />
+                    </>
+                  ))}
+                </g>
+                {/* outer border */}
+                <rect x="10" y="10" width="220" height="220" rx="6" fill="none" stroke="#334155" strokeWidth="3" />
+                {/* walls */}
+                <g stroke="#334155" strokeWidth="3" strokeLinecap="round">
+                  {/* horizontal walls */}
+                  <line x1="30" y1="50" x2="190" y2="50" />
+                  <line x1="50" y1="90" x2="210" y2="90" />
+                  <line x1="30" y1="130" x2="170" y2="130" />
+                  <line x1="70" y1="170" x2="210" y2="170" />
+                  <line x1="30" y1="210" x2="150" y2="210" />
+                  {/* vertical walls */}
+                  <line x1="30" y1="50" x2="30" y2="150" />
+                  <line x1="110" y1="30" x2="110" y2="130" />
+                  <line x1="150" y1="90" x2="150" y2="210" />
+                  <line x1="190" y1="50" x2="190" y2="150" />
+                </g>
+                {/* labels */}
+                <text x="16" y="32" fontSize="10" fill="#10B981" fontWeight="600">START</text>
+                <text x="180" y="228" fontSize="10" fill="#ef4444" fontWeight="600">FINISH</text>
+              </svg>
+            </div>
           </section>
         )}
 
