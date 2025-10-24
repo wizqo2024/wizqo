@@ -905,20 +905,81 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Directed Drawing: Animals</h2>
             <p className="text-slate-600 text-sm mb-3">Follow each step to draw. Start with simple shapes, then add details.</p>
-            <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
-              <g fill="none" stroke="#111827" strokeWidth="3.5">
-                <circle cx="100" cy="100" r="30" />
-                <rect x="80" y="130" width="40" height="30" />
-                <text x="90" y="190" fontSize="14">1</text>
-                <circle cx="250" cy="100" r="30" />
-                <rect x="230" y="130" width="40" height="30" />
-                <circle cx="270" cy="80" r="10" />
-                <text x="240" y="190" fontSize="14">2</text>
-                <circle cx="400" cy="100" r="30" />
-                <rect x="380" y="130" width="40" height="30" />
-                <circle cx="420" cy="80" r="10" />
-                <line x1="400" y1="130" x2="430" y2="160" />
-                <text x="390" y="190" fontSize="14">3</text>
+            {/* Full-page, 6-step grid (2x3) with thick strokes for easy tracing */}
+            <svg viewBox="0 0 900 1200" className="w-full h-auto bg-white border border-slate-300 rounded">
+              <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                {/* Panel frames */}
+                <rect x="50" y="60" width="360" height="300" rx="16" />
+                <rect x="490" y="60" width="360" height="300" rx="16" />
+                <rect x="50" y="420" width="360" height="300" rx="16" />
+                <rect x="490" y="420" width="360" height="300" rx="16" />
+                <rect x="50" y="780" width="360" height="300" rx="16" />
+                <rect x="490" y="780" width="360" height="300" rx="16" />
+
+                {/* Step numbers */}
+                <text x="70" y="100" fontSize="28" fill="#111827">1</text>
+                <text x="510" y="100" fontSize="28" fill="#111827">2</text>
+                <text x="70" y="460" fontSize="28" fill="#111827">3</text>
+                <text x="510" y="460" fontSize="28" fill="#111827">4</text>
+                <text x="70" y="820" fontSize="28" fill="#111827">5</text>
+                <text x="510" y="820" fontSize="28" fill="#111827">6</text>
+
+                {/* Directed drawing: Cat (generic animal) */}
+                {/* Step 1: head + body shapes */}
+                <circle cx="230" cy="190" r="60" />
+                <rect x="180" y="230" width="100" height="100" rx="30" />
+
+                {/* Step 2: add ear triangles and guidelines */}
+                <circle cx="670" cy="190" r="60" />
+                <polygon points="640,140 660,110 680,140" />
+                <polygon points="700,140 720,110 740,140" />
+                <rect x="620" y="230" width="100" height="100" rx="30" />
+
+                {/* Step 3: add legs and tail base */}
+                <circle cx="230" cy="550" r="60" />
+                <rect x="180" y="590" width="100" height="100" rx="30" />
+                <rect x="170" y="660" width="30" height="60" rx="10" />
+                <rect x="250" y="660" width="30" height="60" rx="10" />
+                <path d="M280 620 Q 330 620 330 660" />
+
+                {/* Step 4: face features + tail curve */}
+                <circle cx="670" cy="550" r="60" />
+                {/* eyes */}
+                <circle cx="650" cy="540" r="8" />
+                <circle cx="690" cy="540" r="8" />
+                {/* nose + mouth */}
+                <polygon points="670,550 662,560 678,560" />
+                <path d="M662 560 Q 670 568 678 560" />
+                {/* whiskers */}
+                <path d="M640 550 H 615" />
+                <path d="M640 560 H 615" />
+                <path d="M700 550 H 725" />
+                <path d="M700 560 H 725" />
+                {/* body + legs */}
+                <rect x="620" y="590" width="100" height="100" rx="30" />
+                <rect x="610" y="660" width="30" height="60" rx="10" />
+                <rect x="690" y="660" width="30" height="60" rx="10" />
+                {/* tail */}
+                <path d="M720 620 Q 780 600 760 660 Q 740 690 720 680" />
+
+                {/* Step 5: outlines and paws */}
+                <circle cx="230" cy="910" r="60" />
+                <rect x="180" y="950" width="110" height="90" rx="35" />
+                {/* paws */}
+                <rect x="170" y="1010" width="34" height="50" rx="12" />
+                <rect x="248" y="1010" width="34" height="50" rx="12" />
+                {/* ears refined */}
+                <polygon points="200,860 230,820 260,860" />
+                <polygon points="250,865 280,830 300,870" />
+
+                {/* Step 6: final clean outline */}
+                <path d="M640 880 C 650 840, 690 840, 700 880 L 720 940 C 735 980, 705 1000, 670 1000 H 670 C 635 1000, 605 980, 620 940 Z" />
+                {/* face */}
+                <circle cx="670" cy="900" r="6" />
+                <circle cx="690" cy="900" r="6" />
+                <polygon points="680,910 674,918 686,918" />
+                {/* tail */}
+                <path d="M720 940 Q 780 930 770 1000 Q 750 1040 720 1030" />
               </g>
             </svg>
           </section>
