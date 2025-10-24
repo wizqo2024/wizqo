@@ -2131,7 +2131,7 @@ export function PrintablesPage() {
             <div className="mt-6">
               <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
               {(() => {
-                // Deterministic mini-maze (8x8) using a backtracker, then render walls
+                // Deterministic mini-maze (8x8) using a backtracker, FINISH at top-right (right edge opening)
                 const cols = 8, rows = 8;
                 const cellSize = 22;
                 const pad = 14; // padding inside SVG
@@ -2167,6 +2167,7 @@ export function PrintablesPage() {
                   visited[ni] = true;
                   stack.push(ni);
                 }
+                const exitX = cols - 1; const exitY = 0; // top-right cell
                 const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
                 for (let y = 0; y < rows; y++) {
                   for (let x = 0; x < cols; x++) {
@@ -2175,26 +2176,26 @@ export function PrintablesPage() {
                     const y0 = pad + y * cellSize;
                     const x1 = x0 + cellSize;
                     const y1 = y0 + cellSize;
-                    const isEntranceLeft = x === 0 && y === 0; // open left wall
-                    const isExitBottom = x === cols - 1 && y === rows - 1; // open bottom wall
+                    const isEntranceLeft = x === 0 && y === 0; // open left wall (START)
+                    const isExitCell = x === exitX && y === exitY; // open right wall at FINISH
                     if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
                     if (c.l && !isEntranceLeft) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
-                    if (c.b && !isExitBottom) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
-                    if (c.r) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+                    if (c.b) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                    if (c.r && !isExitCell) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
                   }
                 }
                 return (
                   <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
-                    {/* outer border with openings at START/FINISH */}
+                    {/* outer border with openings at START (left of 0,0) and FINISH (right of top-right) */}
                     <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
                       {/* top border */}
                       <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
-                      {/* left border (skip top cell for entrance) */}
+                      {/* left border (skip entrance at first cell) */}
                       <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
-                      {/* right border */}
-                      <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
-                      {/* bottom border (skip last cell for exit) */}
-                      <line x1={pad} y1={pad + rows * cellSize} x2={pad + (cols - 1) * cellSize} y2={pad + rows * cellSize} />
+                      {/* right border with gap at top-right for FINISH */}
+                      <line x1={pad + cols * cellSize} y1={pad + cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                      {/* bottom border */}
+                      <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
                     </g>
                     {/* maze walls */}
                     {lines.map((l, i) => (
@@ -2204,9 +2205,9 @@ export function PrintablesPage() {
                     {/* START label and arrow into maze */}
                     <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight="700">START</text>
                     <text x={pad + 6} y={pad + cellSize * 0.55} fontSize="12" fill="#10B981">→</text>
-                    {/* FINISH label and arrow to exit */}
-                    <text x={svgW - (pad - 8)} y={svgH - 6} fontSize="12" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
-                    <text x={svgW - (pad + cellSize * 0.6)} y={svgH - (pad - 2)} fontSize="12" fill="#ef4444">↓</text>
+                    {/* FINISH label and arrow to exit at top-right */}
+                    <text x={svgW - (pad - 8)} y={pad + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
+                    <text x={svgW - (pad + cellSize * 0.6)} y={pad + cellSize * 0.6} fontSize="12" fill="#ef4444">→</text>
                   </svg>
                 );
               })()}
