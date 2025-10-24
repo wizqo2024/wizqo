@@ -2685,6 +2685,21 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
+            <div className="mb-3 print:hidden">
+              <button
+                onClick={() => {
+                  try {
+                    window.print();
+                  } catch {}
+                }}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+                aria-label="Download as PDF"
+                title="Download as PDF (uses your browser's Print to PDF)"
+              >
+                <span>⬇️</span>
+                <span>Download PDF</span>
+              </button>
+            </div>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Lion */}
