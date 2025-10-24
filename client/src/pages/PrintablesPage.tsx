@@ -2294,15 +2294,38 @@ export function PrintablesPage() {
               {/* Mini maze */}
               <div>
                 <div className="text-sm font-semibold text-slate-800 mb-2">Mini maze: Help the cub reach its den</div>
-                <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <rect x="10" y="10" width="200" height="200" fill="#ffffff" stroke="#94a3b8" />
-                  {/* Simple walls */}
-                  <path d="M10 50 H170 M50 10 V100 M90 50 V210 M130 10 V160 M170 90 H210 M50 130 H210 M10 170 H130" stroke="#94a3b8" strokeWidth="4" />
-                  {/* Start and Den with icons */}
-                  <text x="18" y="32" fontSize="13" fill="#334155">Start</text>
-                  <text x="48" y="30" fontSize="14">🐾</text>
-                  <text x="168" y="200" fontSize="13" textAnchor="end" fill="#334155">Den</text>
-                  <text x="172" y="196" fontSize="14">🏠</text>
+                {/* Clearer, larger animal-themed maze */}
+                <svg viewBox="0 0 300 300" className="w-full max-w-md bg-white border border-slate-300 rounded">
+                  {/* light grid */}
+                  <g stroke="#e5e7eb" strokeWidth="1">
+                    {Array.from({length:13}).map((_,i)=> (
+                      <>
+                        <line key={`h-${i}`} x1="15" y1={15+i*22} x2="285" y2={15+i*22} />
+                        <line key={`v-${i}`} x1={15+i*22} y1="15" x2={15+i*22} y2="285" />
+                      </>
+                    ))}
+                  </g>
+                  {/* outer border */}
+                  <rect x="15" y="15" width="270" height="270" rx="8" fill="none" stroke="#334155" strokeWidth="4" />
+                  {/* maze walls */}
+                  <g stroke="#334155" strokeWidth="4" strokeLinecap="round">
+                    {/* horizontals */}
+                    <line x1="37" y1="59" x2="215" y2="59" />
+                    <line x1="59" y1="103" x2="263" y2="103" />
+                    <line x1="37" y1="147" x2="193" y2="147" />
+                    <line x1="81" y1="191" x2="263" y2="191" />
+                    <line x1="37" y1="235" x2="171" y2="235" />
+                    {/* verticals */}
+                    <line x1="37" y1="59" x2="37" y2="169" />
+                    <line x1="125" y1="37" x2="125" y2="169" />
+                    <line x1="171" y1="103" x2="171" y2="257" />
+                    <line x1="215" y1="59" x2="215" y2="213" />
+                  </g>
+                  {/* labels/icons */}
+                  <text x="22" y="36" fontSize="12" fill="#10B981" fontWeight="600">START</text>
+                  <text x="52" y="38" fontSize="16">🐾</text>
+                  <text x="248" y="273" fontSize="12" fill="#ef4444" fontWeight="600">DEN</text>
+                  <text x="256" y="264" fontSize="16">🏠</text>
                 </svg>
               </div>
               {/* Word list with checkboxes */}
@@ -2331,7 +2354,7 @@ export function PrintablesPage() {
             {/* Draw challenge */}
             <div className="mt-4">
               <div className="text-sm font-semibold text-slate-800 mb-2">Draw challenge: Create your own creature</div>
-              <div className="h-40 border border-slate-300 rounded bg-white" />
+              <div className="h-64 sm:h-72 print:h-[26rem] border border-slate-300 rounded bg-white" />
               <div className="mt-2 text-sm font-semibold text-slate-800">Creature name</div>
               <div className="h-6 border-b border-slate-400" />
             </div>
