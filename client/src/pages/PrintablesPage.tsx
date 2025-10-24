@@ -2175,23 +2175,34 @@ export function PrintablesPage() {
                     const y0 = pad + y * cellSize;
                     const x1 = x0 + cellSize;
                     const y1 = y0 + cellSize;
+                    const isEntranceLeft = x === 0 && y === 0; // open left wall
+                    const isExitBottom = x === cols - 1 && y === rows - 1; // open bottom wall
                     if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
-                    if (c.l) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
-                    if (c.b) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                    if (c.l && !isEntranceLeft) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                    if (c.b && !isExitBottom) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
                     if (c.r) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
                   }
                 }
                 return (
                   <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
-                    {/* outer border */}
-                    <rect x={pad} y={pad} width={cols * cellSize} height={rows * cellSize} rx={6} fill="none" stroke="#334155" strokeWidth={3} />
+                    {/* outer border with openings at START/FINISH */}
+                    <g stroke="#334155" strokeWidth={3} strokeLinecap="round">
+                      {/* top border */}
+                      <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
+                      {/* left border (skip top cell for entrance) */}
+                      <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
+                      {/* right border */}
+                      <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                      {/* bottom border (skip last cell for exit) */}
+                      <line x1={pad} y1={pad + rows * cellSize} x2={pad + (cols - 1) * cellSize} y2={pad + rows * cellSize} />
+                    </g>
                     {/* maze walls */}
                     {lines.map((l, i) => (
                       <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={3} strokeLinecap="round" />
                     ))}
                     {/* labels */}
-                    <text x={pad - 2} y={pad - 4} fontSize="10" fill="#10B981" fontWeight="600">START</text>
-                    <text x={svgW - (pad - 2)} y={svgH - 2} fontSize="10" fill="#ef4444" fontWeight="600" textAnchor="end">FINISH</text>
+                    <text x={pad - 4} y={pad - 6} fontSize="11" fill="#10B981" fontWeight="700">START</text>
+                    <text x={svgW - (pad - 6)} y={svgH - 4} fontSize="11" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
                   </svg>
                 );
               })()}
