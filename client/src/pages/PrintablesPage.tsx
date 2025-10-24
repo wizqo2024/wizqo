@@ -2689,12 +2689,13 @@ export function PrintablesPage() {
               <button
                 onClick={() => {
                   try {
+                    // Fallback: open print; most browsers offer Save as PDF
                     window.print();
                   } catch {}
                 }}
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
                 aria-label="Download as PDF"
-                title="Download as PDF (uses your browser's Print to PDF)"
+                title="Download as PDF (uses your browser's Save as PDF)"
               >
                 <span>⬇️</span>
                 <span>Download PDF</span>
