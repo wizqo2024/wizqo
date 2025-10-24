@@ -2186,7 +2186,7 @@ export function PrintablesPage() {
                 return (
                   <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
                     {/* outer border with openings at START/FINISH */}
-                    <g stroke="#334155" strokeWidth={3} strokeLinecap="round">
+                    <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
                       {/* top border */}
                       <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
                       {/* left border (skip top cell for entrance) */}
@@ -2198,11 +2198,15 @@ export function PrintablesPage() {
                     </g>
                     {/* maze walls */}
                     {lines.map((l, i) => (
-                      <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={3} strokeLinecap="round" />
+                      <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
                     ))}
                     {/* labels */}
-                    <text x={pad - 4} y={pad - 6} fontSize="11" fill="#10B981" fontWeight="700">START</text>
-                    <text x={svgW - (pad - 6)} y={svgH - 4} fontSize="11" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
+                    {/* START label and arrow into maze */}
+                    <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight="700">START</text>
+                    <text x={pad + 6} y={pad + cellSize * 0.55} fontSize="12" fill="#10B981">→</text>
+                    {/* FINISH label and arrow to exit */}
+                    <text x={svgW - (pad - 8)} y={svgH - 6} fontSize="12" fill="#ef4444" fontWeight="700" textAnchor="end">FINISH</text>
+                    <text x={svgW - (pad + cellSize * 0.6)} y={svgH - (pad - 2)} fontSize="12" fill="#ef4444">↓</text>
                   </svg>
                 );
               })()}
