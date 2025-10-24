@@ -2573,7 +2573,8 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
-            <div className="grid sm:grid-cols-2 gap-6">
+            {/* Enlarge coloring pages: single column, generous spacing for easy coloring/printing */}
+            <div className="grid grid-cols-1 gap-8 print:gap-10">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Rocket */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
@@ -2584,7 +2585,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white">
                 {/* Comet */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -2594,7 +2595,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white">
                 {/* Planet */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -2603,7 +2604,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white">
                 {/* Astronaut helmet */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -2612,7 +2613,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white">
                 {/* Satellite */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -2623,7 +2624,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-4 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white">
                 {/* Star cluster */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="3.5">
