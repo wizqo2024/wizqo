@@ -2130,37 +2130,71 @@ export function PrintablesPage() {
             </div>
             <div className="mt-6">
               <div className="font-semibold mb-1 text-sm">Tiny Maze</div>
-              {/* Print-friendly mini maze (outer border, light grid, a few walls, START/FINISH) */}
-              <svg viewBox="0 0 240 240" className="w-full max-w-md bg-white border border-slate-300 rounded">
-                {/* light grid */}
-                <g stroke="#e5e7eb" strokeWidth="1">
-                  {Array.from({length:11}).map((_,i)=> (
-                    <>
-                      <line key={`h-${i}`} x1="10" y1={10+i*20} x2="230" y2={10+i*20} />
-                      <line key={`v-${i}`} x1={10+i*20} y1="10" x2={10+i*20} y2="230" />
-                    </>
-                  ))}
-                </g>
-                {/* outer border */}
-                <rect x="10" y="10" width="220" height="220" rx="6" fill="none" stroke="#334155" strokeWidth="3" />
-                {/* walls */}
-                <g stroke="#334155" strokeWidth="3" strokeLinecap="round">
-                  {/* horizontal walls */}
-                  <line x1="30" y1="50" x2="190" y2="50" />
-                  <line x1="50" y1="90" x2="210" y2="90" />
-                  <line x1="30" y1="130" x2="170" y2="130" />
-                  <line x1="70" y1="170" x2="210" y2="170" />
-                  <line x1="30" y1="210" x2="150" y2="210" />
-                  {/* vertical walls */}
-                  <line x1="30" y1="50" x2="30" y2="150" />
-                  <line x1="110" y1="30" x2="110" y2="130" />
-                  <line x1="150" y1="90" x2="150" y2="210" />
-                  <line x1="190" y1="50" x2="190" y2="150" />
-                </g>
-                {/* labels */}
-                <text x="16" y="32" fontSize="10" fill="#10B981" fontWeight="600">START</text>
-                <text x="180" y="228" fontSize="10" fill="#ef4444" fontWeight="600">FINISH</text>
-              </svg>
+              {(() => {
+                // Deterministic mini-maze (8x8) using a backtracker, then render walls
+                const cols = 8, rows = 8;
+                const cellSize = 22;
+                const pad = 14; // padding inside SVG
+                const svgW = cols * cellSize + pad * 2;
+                const svgH = rows * cellSize + pad * 2;
+                type Walls = { t: boolean; r: boolean; b: boolean; l: boolean };
+                const cells: Walls[] = Array.from({ length: cols * rows }, () => ({ t: true, r: true, b: true, l: true }));
+                const visited = new Array(cols * rows).fill(false) as boolean[];
+                const idx = (x: number, y: number) => y * cols + x;
+                const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < cols && y < rows;
+                // Simple deterministic neighbor order pattern
+                const stack: number[] = [0];
+                visited[0] = true;
+                while (stack.length) {
+                  const cur = stack[stack.length - 1];
+                  const cx = cur % cols;
+                  const cy = Math.floor(cur / cols);
+                  const order: Array<{ x: number; y: number; dir: 't'|'r'|'b'|'l' }> = [
+                    { x: cx, y: cy - 1, dir: 't' },
+                    { x: cx + 1, y: cy, dir: 'r' },
+                    { x: cx, y: cy + 1, dir: 'b' },
+                    { x: cx - 1, y: cy, dir: 'l' }
+                  ];
+                  const neigh = order.filter(n => inBounds(n.x, n.y) && !visited[idx(n.x, n.y)]);
+                  if (!neigh.length) { stack.pop(); continue; }
+                  const next = neigh[0]; // deterministic pick
+                  const ni = idx(next.x, next.y);
+                  // Carve
+                  if (next.dir === 't') { cells[cur].t = false; cells[ni].b = false; }
+                  if (next.dir === 'r') { cells[cur].r = false; cells[ni].l = false; }
+                  if (next.dir === 'b') { cells[cur].b = false; cells[ni].t = false; }
+                  if (next.dir === 'l') { cells[cur].l = false; cells[ni].r = false; }
+                  visited[ni] = true;
+                  stack.push(ni);
+                }
+                const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
+                for (let y = 0; y < rows; y++) {
+                  for (let x = 0; x < cols; x++) {
+                    const c = cells[idx(x, y)];
+                    const x0 = pad + x * cellSize;
+                    const y0 = pad + y * cellSize;
+                    const x1 = x0 + cellSize;
+                    const y1 = y0 + cellSize;
+                    if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
+                    if (c.l) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                    if (c.b) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                    if (c.r) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+                  }
+                }
+                return (
+                  <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
+                    {/* outer border */}
+                    <rect x={pad} y={pad} width={cols * cellSize} height={rows * cellSize} rx={6} fill="none" stroke="#334155" strokeWidth={3} />
+                    {/* maze walls */}
+                    {lines.map((l, i) => (
+                      <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={3} strokeLinecap="round" />
+                    ))}
+                    {/* labels */}
+                    <text x={pad - 2} y={pad - 4} fontSize="10" fill="#10B981" fontWeight="600">START</text>
+                    <text x={svgW - (pad - 2)} y={svgH - 2} fontSize="10" fill="#ef4444" fontWeight="600" textAnchor="end">FINISH</text>
+                  </svg>
+                );
+              })()}
             </div>
           </section>
         )}
