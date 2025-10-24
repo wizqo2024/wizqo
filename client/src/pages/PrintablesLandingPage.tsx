@@ -159,6 +159,8 @@ export function PrintablesLandingPage() {
             alt="Kids doing printable activities"
             aria-hidden
             className="w-full h-full object-cover"
+            width="1170"
+            height="658"
             loading="eager"
             decoding="async"
           />

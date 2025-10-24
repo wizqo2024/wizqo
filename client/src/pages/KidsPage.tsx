@@ -208,6 +208,8 @@ export default function KidsPage() {
               src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1920&auto=format&fit=crop"
               alt="Fun learning background"
               className="w-full h-full object-cover"
+              width="1920"
+              height="1080"
               loading="eager"
               decoding="async"
             />
