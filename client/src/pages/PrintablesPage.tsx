@@ -2575,60 +2575,118 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
             {/* Enlarge coloring pages: single column, generous spacing for easy coloring/printing */}
             <div className="grid grid-cols-1 gap-8 print:gap-10">
-              <div className="border border-slate-300 rounded p-4 bg-white">
-                {/* Rocket */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    <path d="M200 80 L220 140 L200 200 L180 140 Z" />
-                    <circle cx="200" cy="140" r="10" />
-                    <path d="M180 200 L200 220 L220 200" />
+              <div className="border border-slate-300 rounded p-6 bg-white">
+                {/* Rocket - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Nose cone */}
+                    <polygon points="325,150 425,80 525,150" />
+                    {/* Body */}
+                    <rect x="325" y="150" width="200" height="500" rx="100" />
+                    {/* Windows */}
+                    <circle cx="425" cy="300" r="60" />
+                    <circle cx="425" cy="420" r="35" />
+                    {/* Fins */}
+                    <polygon points="325,500 275,650 325,650" />
+                    <polygon points="525,500 575,650 525,650" />
+                    {/* Flames */}
+                    <polygon points="425,650 380,750 425,850 470,750" />
+                    {/* Stripes */}
+                    <rect x="325" y="520" width="200" height="20" />
+                    <rect x="325" y="560" width="200" height="20" />
+                    {/* Stars background */}
+                    <circle cx="120" cy="220" r="8" />
+                    <circle cx="700" cy="260" r="8" />
+                    <circle cx="660" cy="720" r="8" />
+                    <circle cx="160" cy="800" r="8" />
                   </g>
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-6 bg-white">
-                {/* Comet */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    <circle cx="280" cy="100" r="10" />
-                    <path d="M100 180 Q200 120 270 105" />
-                    <path d="M120 190 Q210 130 270 115" />
+                {/* Comet - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Head */}
+                    <circle cx="620" cy="300" r="80" />
+                    {/* Tail (layered) */}
+                    <polygon points="120,740 300,560 520,420 560,460 340,600 150,780" />
+                    <polygon points="100,680 280,520 500,400 520,430 300,570 130,730" />
+                    {/* Sparkles */}
+                    <polygon points="200,260 210,290 240,300 210,310 200,340 190,310 160,300 190,290" />
+                    <polygon points="700,700 710,720 730,730 710,740 700,760 690,740 670,730 690,720" />
                   </g>
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-6 bg-white">
-                {/* Planet */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    <circle cx="200" cy="150" r="45" />
-                    <ellipse cx="200" cy="150" rx="80" ry="18" />
+                {/* Planet with rings - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Planet */}
+                    <circle cx="425" cy="550" r="250" />
+                    {/* Rings (band between two ellipses) */}
+                    <ellipse cx="425" cy="550" rx="360" ry="90" />
+                    <ellipse cx="425" cy="550" rx="300" ry="70" />
+                    {/* Surface stripes */}
+                    <path d="M230 500 C 320 470, 530 470, 620 500" />
+                    <path d="M220 560 C 320 590, 530 590, 630 560" />
+                    <path d="M260 620 C 360 650, 490 650, 590 620" />
                   </g>
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-6 bg-white">
-                {/* Astronaut helmet */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    <circle cx="200" cy="150" r="50" />
-                    <rect x="165" y="140" width="70" height="30" rx="8" />
+                {/* Astronaut - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Helmet */}
+                    <circle cx="425" cy="250" r="180" />
+                    <rect x="320" y="220" width="210" height="80" rx="20" />
+                    {/* Torso */}
+                    <rect x="325" y="430" width="200" height="220" rx="30" />
+                    {/* Arms */}
+                    <rect x="255" y="450" width="60" height="160" rx="20" />
+                    <rect x="535" y="450" width="60" height="160" rx="20" />
+                    {/* Controls */}
+                    <circle cx="385" cy="520" r="18" />
+                    <circle cx="465" cy="520" r="18" />
+                    <rect x="365" y="560" width="120" height="40" rx="10" />
+                    {/* Legs */}
+                    <rect x="345" y="660" width="60" height="160" rx="20" />
+                    <rect x="445" y="660" width="60" height="160" rx="20" />
                   </g>
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-6 bg-white">
-                {/* Satellite */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    <rect x="190" y="140" width="20" height="20" />
-                    <rect x="150" y="142" width="30" height="16" />
-                    <rect x="220" y="142" width="30" height="16" />
-                    <line x1="170" y1="150" x2="230" y2="150" />
+                {/* Satellite - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Body */}
+                    <rect x="370" y="450" width="110" height="110" rx="10" />
+                    {/* Panels */}
+                    <rect x="160" y="440" width="180" height="130" rx="8" />
+                    <rect x="540" y="440" width="180" height="130" rx="8" />
+                    {/* Grid lines */}
+                    <line x1="210" y1="440" x2="210" y2="570" />
+                    <line x1="260" y1="440" x2="260" y2="570" />
+                    <line x1="160" y1="490" x2="340" y2="490" />
+                    <line x1="590" y1="440" x2="590" y2="570" />
+                    <line x1="640" y1="440" x2="640" y2="570" />
+                    <line x1="540" y1="490" x2="720" y2="490" />
+                    {/* Antenna */}
+                    <line x1="425" y1="450" x2="425" y2="380" />
+                    <circle cx="425" cy="360" r="14" />
                   </g>
                 </svg>
               </div>
               <div className="border border-slate-300 rounded p-6 bg-white">
-                {/* Star cluster */}
-                <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
-                  <g fill="none" stroke="#111827" strokeWidth="3.5">
-                    {Array.from({length:7}).map((_,i)=>{const x=120+i*30; const y=120+((i%2)*30);return <circle key={i} cx={x} cy={y} r={3}/>})}
+                {/* Star cluster - large coloring page */}
+                <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
+                  <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+                    {/* Large stars */}
+                    <polygon points="200,200 230,270 305,280 245,330 260,400 200,360 140,400 155,330 95,280 170,270" />
+                    <polygon points="640,260 670,330 745,340 685,390 700,460 640,420 580,460 595,390 535,340 610,330" />
+                    {/* Medium stars */}
+                    <polygon points="400,750 420,790 465,800 430,830 440,870 400,845 360,870 370,830 335,800 380,790" />
+                    <polygon points="220,760 235,790 270,795 245,815 250,850 220,830 190,850 195,815 170,795 205,790" />
                   </g>
                 </svg>
               </div>
