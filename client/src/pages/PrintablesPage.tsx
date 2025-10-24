@@ -2344,39 +2344,124 @@ export function PrintablesPage() {
               {/* Mini maze */}
               <div>
                 <div className="text-sm font-semibold text-slate-800 mb-2">Mini maze: Help the cub reach its den</div>
-                {/* Clearer, larger animal-themed maze */}
-                <svg viewBox="0 0 300 300" className="w-full max-w-md bg-white border border-slate-300 rounded">
-                  {/* light grid */}
-                  <g stroke="#e5e7eb" strokeWidth="1">
-                    {Array.from({length:13}).map((_,i)=> (
-                      <>
-                        <line key={`h-${i}`} x1="15" y1={15+i*22} x2="285" y2={15+i*22} />
-                        <line key={`v-${i}`} x1={15+i*22} y1="15" x2={15+i*22} y2="285" />
-                      </>
-                    ))}
-                  </g>
-                  {/* outer border */}
-                  <rect x="15" y="15" width="270" height="270" rx="8" fill="none" stroke="#334155" strokeWidth="4" />
-                  {/* maze walls */}
-                  <g stroke="#334155" strokeWidth="4" strokeLinecap="round">
-                    {/* horizontals */}
-                    <line x1="37" y1="59" x2="215" y2="59" />
-                    <line x1="59" y1="103" x2="263" y2="103" />
-                    <line x1="37" y1="147" x2="193" y2="147" />
-                    <line x1="81" y1="191" x2="263" y2="191" />
-                    <line x1="37" y1="235" x2="171" y2="235" />
-                    {/* verticals */}
-                    <line x1="37" y1="59" x2="37" y2="169" />
-                    <line x1="125" y1="37" x2="125" y2="169" />
-                    <line x1="171" y1="103" x2="171" y2="257" />
-                    <line x1="215" y1="59" x2="215" y2="213" />
-                  </g>
-                  {/* labels/icons */}
-                  <text x="22" y="36" fontSize="12" fill="#10B981" fontWeight="600">START</text>
-                  <text x="52" y="38" fontSize="16">🐾</text>
-                  <text x="248" y="273" fontSize="12" fill="#ef4444" fontWeight="600">DEN</text>
-                  <text x="256" y="264" fontSize="16">🏠</text>
-                </svg>
+                {(() => {
+                  // Harder mini-maze (10x10) with farthest-edge DEN from START (0,0)
+                  const cols = 10, rows = 10;
+                  const cellSize = 20;
+                  const pad = 14;
+                  const svgW = cols * cellSize + pad * 2;
+                  const svgH = rows * cellSize + pad * 2;
+                  type Walls = { t: boolean; r: boolean; b: boolean; l: boolean };
+                  const cells: Walls[] = Array.from({ length: cols * rows }, () => ({ t: true, r: true, b: true, l: true }));
+                  const visited = new Array(cols * rows).fill(false) as boolean[];
+                  const idx = (x: number, y: number) => y * cols + x;
+                  const inBounds = (x: number, y: number) => x >= 0 && y >= 0 && x < cols && y < rows;
+                  // Depth-first backtracker (deterministic neighbor order)
+                  const stack: number[] = [0];
+                  visited[0] = true;
+                  while (stack.length) {
+                    const cur = stack[stack.length - 1];
+                    const cx = cur % cols; const cy = Math.floor(cur / cols);
+                    const order: Array<{ x: number; y: number; dir: 't'|'r'|'b'|'l' }> = [
+                      { x: cx, y: cy - 1, dir: 't' },
+                      { x: cx + 1, y: cy, dir: 'r' },
+                      { x: cx, y: cy + 1, dir: 'b' },
+                      { x: cx - 1, y: cy, dir: 'l' }
+                    ];
+                    const neigh = order.filter(n => inBounds(n.x, n.y) && !visited[idx(n.x, n.y)]);
+                    if (!neigh.length) { stack.pop(); continue; }
+                    const next = neigh[0];
+                    const ni = idx(next.x, next.y);
+                    if (next.dir === 't') { cells[cur].t = false; cells[ni].b = false; }
+                    if (next.dir === 'r') { cells[cur].r = false; cells[ni].l = false; }
+                    if (next.dir === 'b') { cells[cur].b = false; cells[ni].t = false; }
+                    if (next.dir === 'l') { cells[cur].l = false; cells[ni].r = false; }
+                    visited[ni] = true;
+                    stack.push(ni);
+                  }
+                  // BFS to locate farthest border cell on right/bottom
+                  const dist = new Array(cols * rows).fill(Infinity) as number[];
+                  const q: number[] = [];
+                  dist[0] = 0; q.push(0);
+                  while (q.length) {
+                    const cur = q.shift()!;
+                    const cx = cur % cols; const cy = Math.floor(cur / cols);
+                    const here = cells[cur];
+                    const tryPush = (nx: number, ny: number, open: boolean) => {
+                      if (!open || !inBounds(nx, ny)) return;
+                      const ni = idx(nx, ny);
+                      if (dist[ni] !== Infinity) return;
+                      dist[ni] = dist[cur] + 1; q.push(ni);
+                    };
+                    tryPush(cx, cy - 1, !here.t);
+                    tryPush(cx + 1, cy, !here.r ? true : false);
+                    tryPush(cx, cy + 1, !here.b);
+                    tryPush(cx - 1, cy, !here.l);
+                  }
+                  let exitI = cols * rows - 1; let maxD = -1;
+                  for (let y = 0; y < rows; y++) {
+                    const iRight = idx(cols - 1, y); if (dist[iRight] > maxD) { maxD = dist[iRight]; exitI = iRight; }
+                  }
+                  for (let x = 0; x < cols; x++) {
+                    const iBottom = idx(x, rows - 1); if (dist[iBottom] > maxD) { maxD = dist[iBottom]; exitI = iBottom; }
+                  }
+                  const exitX = exitI % cols; const exitY = Math.floor(exitI / cols);
+                  const exitSide: 'right' | 'bottom' = exitX === cols - 1 ? 'right' : 'bottom';
+                  const lines: Array<{ x1: number; y1: number; x2: number; y2: number }> = [];
+                  for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                      const c = cells[idx(x, y)];
+                      const x0 = pad + x * cellSize; const y0 = pad + y * cellSize;
+                      const x1 = x0 + cellSize; const y1 = y0 + cellSize;
+                      const isStart = x === 0 && y === 0;
+                      const isExitCell = x === exitX && y === exitY;
+                      if (c.t) lines.push({ x1: x0, y1: y0, x2: x1, y2: y0 });
+                      if (c.l && !isStart) lines.push({ x1: x0, y1: y0, x2: x0, y2: y1 });
+                      if (c.b && !(isExitCell && exitSide === 'bottom')) lines.push({ x1: x0, y1: y1, x2: x1, y2: y1 });
+                      if (c.r && !(isExitCell && exitSide === 'right')) lines.push({ x1: x1, y1: y0, x2: x1, y2: y1 });
+                    }
+                  }
+                  return (
+                    <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-md bg-white border border-slate-300 rounded">
+                      {/* outer border with openings at START and computed DEN */}
+                      <g stroke="#334155" strokeWidth={4} strokeLinecap="round">
+                        {/* top border */}
+                        <line x1={pad} y1={pad} x2={pad + cols * cellSize} y2={pad} />
+                        {/* left border (skip start opening) */}
+                        <line x1={pad} y1={pad + cellSize} x2={pad} y2={pad + rows * cellSize} />
+                        {/* right border with optional gap for DEN */}
+                        {exitSide === 'right' ? (
+                          <>
+                            <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + exitY * cellSize} />
+                            <line x1={pad + cols * cellSize} y1={pad + (exitY + 1) * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                          </>
+                        ) : (
+                          <line x1={pad + cols * cellSize} y1={pad} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                        )}
+                        {/* bottom border with optional gap for DEN */}
+                        {exitSide === 'bottom' ? (
+                          <>
+                            <line x1={pad} y1={pad + rows * cellSize} x2={pad + exitX * cellSize} y2={pad + rows * cellSize} />
+                            <line x1={pad + (exitX + 1) * cellSize} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                          </>
+                        ) : (
+                          <line x1={pad} y1={pad + rows * cellSize} x2={pad + cols * cellSize} y2={pad + rows * cellSize} />
+                        )}
+                      </g>
+                      {/* maze walls */}
+                      {lines.map((l, i) => (
+                        <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
+                      ))}
+                      {/* labels */}
+                      <text x={pad - 6} y={pad - 8} fontSize="12" fill="#10B981" fontWeight={700}>START</text>
+                      {exitSide === 'right' ? (
+                        <text x={svgW - (pad - 8)} y={pad + exitY * cellSize + cellSize * 0.6} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="end">DEN</text>
+                      ) : (
+                        <text x={pad + exitX * cellSize + cellSize * 0.5} y={svgH - (pad - 6)} fontSize="12" fill="#ef4444" fontWeight={700} textAnchor="middle">DEN</text>
+                      )}
+                    </svg>
+                  );
+                })()}
               </div>
               {/* Word list with checkboxes */}
               <div className="md:pl-2">
