@@ -42,10 +42,30 @@ export default function ReadingComprehensionPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+        {/* What's Inside + Pack Builder */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900">What’s Inside</h2>
+          <p className="text-slate-700 text-sm mt-1 max-w-3xl">
+            Free printable reading comprehension worksheets (PDF) with answer keys — short reading
+            passages with questions and answers for Grades 1–3. Topics include main idea, details,
+            sequencing, and vocabulary in context. Open the print view to save as PDF.
+          </p>
+          <div className="mt-4">
+            <BuildPackReadingInline />
+          </div>
+        </section>
         {/* Grade 1 */}
         <section id="grade-1" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 1 Reading Comprehension</h2>
-          <p className="text-slate-700 text-sm mt-1">Short, decodable passages with picture‑supported questions. Focus: who/what/where, sequence, and one inference.</p>
+          <h2 className="text-xl font-bold text-slate-900">Grade 1 Reading Comprehension Worksheets (Free Printable PDF)</h2>
+          <p className="text-slate-700 text-sm mt-1">Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.</p>
+          {/* Quick printable link */}
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <ItemCard
+              title="📖 Grade 1 Passage + 3 Questions (PDF)"
+              description="Short reading passage with three questions and answer key. Open print view to download as PDF."
+              href="/print?doc=reading-mini-1"
+            />
+          </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <article className="border border-slate-200 rounded-xl p-4">
               <div className="text-slate-800 font-semibold mb-2">Passage A — The Lost Hat</div>
@@ -74,8 +94,16 @@ export default function ReadingComprehensionPage() {
 
         {/* Grade 2 */}
         <section id="grade-2" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 2 Reading Comprehension</h2>
-          <p className="text-slate-700 text-sm mt-1">One‑paragraph passages with who/what/why, sequence, and vocabulary in context.</p>
+          <h2 className="text-xl font-bold text-slate-900">Grade 2 Reading Comprehension Worksheets (with Answer Key, PDF)</h2>
+          <p className="text-slate-700 text-sm mt-1">One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.</p>
+          {/* Quick printable link */}
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <ItemCard
+              title="📖 Grade 2 Passage + 3 Questions (PDF)"
+              description="Printable reading comprehension worksheet with short passage, questions, and answer key."
+              href="/print?doc=reading-mini-1"
+            />
+          </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <article className="border border-slate-200 rounded-xl p-4">
               <div className="text-slate-800 font-semibold mb-2">Passage C — The Paper Bridge</div>
@@ -104,8 +132,16 @@ export default function ReadingComprehensionPage() {
 
         {/* Grade 3 */}
         <section id="grade-3" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 3 Reading Comprehension</h2>
-          <p className="text-slate-700 text-sm mt-1">Longer passages with main idea, supporting details, and a simple inference or conclusion.</p>
+          <h2 className="text-xl font-bold text-slate-900">Grade 3 Reading Comprehension — Short Passages with Questions and Answers (PDF)</h2>
+          <p className="text-slate-700 text-sm mt-1">Longer passages with main idea, supporting details, and a simple inference or conclusion. Free printable worksheets (PDF) with answer key — reading practice for 3rd grade.</p>
+          {/* Quick printable link */}
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <ItemCard
+              title="📖 Grade 3 Short Passage + Q&A (PDF)"
+              description="Short reading passage with comprehension questions and answers. Open printable PDF view."
+              href="/print?doc=reading-mini-1"
+            />
+          </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <article className="border border-slate-200 rounded-xl p-4 md:col-span-2">
               <div className="text-slate-800 font-semibold mb-2">Passage E — The Lighthouse Keeper’s Trick</div>
@@ -142,6 +178,62 @@ export default function ReadingComprehensionPage() {
       </main>
 
       <Footer />
+    </div>
+  );
+}
+
+const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
+function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+  return (
+    <div className={CARD_CLASS}>
+      <div className="text-base font-semibold text-slate-900">{title}</div>
+      <p className="text-slate-600 text-sm mt-1">{description}</p>
+      <div className="mt-3">
+        <a href={href} className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors">Open printable view →</a>
+      </div>
+    </div>
+  );
+}
+
+function BuildPackReadingInline() {
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 print:hidden">
+      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
+      <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick reading comprehension set — short passages with questions and answer keys.</p>
+      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+        <label className="text-sm text-slate-600">Time
+          <select id="rcp-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5"
+            onChange={(e) => { (document.getElementById('rcp-time') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
+          >
+            <option value="5">5 min</option>
+            <option value="10">10 min</option>
+            <option value="15">15 min</option>
+          </select>
+        </label>
+        <label className="text-sm text-slate-600">Grade
+          <select id="rcp-grade" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="g1"
+            onChange={(e) => { (document.getElementById('rcp-grade') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
+          >
+            <option value="g1">Grade 1</option>
+            <option value="g2">Grade 2</option>
+            <option value="35">Grade 3</option>
+          </select>
+        </label>
+        <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Reading</span></div>
+        <button
+          onClick={() => {
+            try {
+              const t = (document.getElementById('rcp-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
+              const g = (document.getElementById('rcp-grade') as HTMLSelectElement)?.getAttribute('data-v') || 'g1';
+              const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading`;
+              window.location.href = url;
+            } catch {}
+          }}
+          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+        >
+          Build Pack →
+        </button>
+      </div>
     </div>
   );
 }
