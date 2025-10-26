@@ -202,18 +202,14 @@ function BuildPackReadingInline() {
       <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick reading comprehension set — short passages with questions and answer keys.</p>
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
         <label className="text-sm text-slate-600">Time
-          <select id="rcp-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5"
-            onChange={(e) => { (document.getElementById('rcp-time') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
-          >
+          <select id="rcp-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5">
             <option value="5">5 min</option>
             <option value="10">10 min</option>
             <option value="15">15 min</option>
           </select>
         </label>
         <label className="text-sm text-slate-600">Grade
-          <select id="rcp-grade" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="g1"
-            onChange={(e) => { (document.getElementById('rcp-grade') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
-          >
+          <select id="rcp-grade" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="g1">
             <option value="g1">Grade 1</option>
             <option value="g2">Grade 2</option>
             <option value="35">Grade 3</option>
@@ -223,8 +219,10 @@ function BuildPackReadingInline() {
         <button
           onClick={() => {
             try {
-              const t = (document.getElementById('rcp-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
-              const g = (document.getElementById('rcp-grade') as HTMLSelectElement)?.getAttribute('data-v') || 'g1';
+              const tSel = document.getElementById('rcp-time') as HTMLSelectElement | null;
+              const gSel = document.getElementById('rcp-grade') as HTMLSelectElement | null;
+              const t = (tSel?.value || '5').trim();
+              const g = (gSel?.value || 'g1').trim();
               const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading`;
               window.location.href = url;
             } catch {}
