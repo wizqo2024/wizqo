@@ -96,15 +96,7 @@ function generate() {
   push(`${site}/worksheets/1st-grade-math-worksheets`, null, 'weekly', '0.7');
   push(`${site}/worksheets/2nd-grade-math-worksheets`, null, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, null, 'weekly', '0.7');
-  // Reading print views
-  const readingDocs = [
-    'reading-g1-lost-hat','reading-g1-ants','reading-g1-bus-ride','reading-g1-pet-fish',
-    'reading-g2-paper-bridge','reading-g2-rainy-garden','reading-g2-library-card','reading-g2-lost-and-found',
-    'reading-g3-lighthouse','reading-g3-science-fair','reading-g3-community-garden'
-  ];
-  for (const d of readingDocs) {
-    push(`${site}/print?doc=${d}`, null, 'weekly', '0.5');
-  }
+  // Intentionally exclude /print?doc=... from sitemap (non-indexed)
 
   for (const p of posts) {
     const lastmod = iso(p.date);
