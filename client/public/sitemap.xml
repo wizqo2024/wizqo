@@ -57,6 +57,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://wizqo.com/worksheets/reading-comprehension</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wizqo.com/blog/best-teacher</loc>
     <lastmod>2025-10-22</lastmod>
     <changefreq>weekly</changefreq>

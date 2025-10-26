@@ -17,6 +17,7 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
 import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
+import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
@@ -380,6 +381,18 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
                     />
                     <WorksheetsFirstGradePage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'reading-comprehension') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
+                      description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3."
+                      canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
+                    />
+                    <ReadingComprehensionPage />
                   </>
                 );
               }
