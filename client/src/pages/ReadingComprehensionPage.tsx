@@ -22,21 +22,13 @@ export default function ReadingComprehensionPage() {
 
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Free Printable Reading Comprehension Worksheets for Kids (PDF)</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Printable Reading Comprehension Worksheets for Kids (PDF)</h1>
+          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="mt-2 text-slate-700 max-w-3xl">Fun and engaging passages with questions, answers, and print‑ready PDFs. Ideal for Grades 1–3 and at‑home practice.</p>
           <div className="mt-4 flex flex-wrap gap-2 text-sm">
             <button onClick={() => scrollTo('grade-1')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 1</button>
             <button onClick={() => scrollTo('grade-2')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 2</button>
             <button onClick={() => scrollTo('grade-3')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 3</button>
-          </div>
-          <div className="mt-4 print:hidden">
-            <button
-              onClick={() => { try { window.print(); } catch {} }}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-            >
-              <span>⬇️</span>
-              <span>Download PDF</span>
-            </button>
           </div>
         </div>
       </header>
