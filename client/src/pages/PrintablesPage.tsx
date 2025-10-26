@@ -17,6 +17,19 @@ export function PrintablesPage() {
     'logic-grid',
     'grammar-detective',
     'math-maze',
+    // Reading print views
+    'reading-mini-1',
+    'reading-g1-lost-hat',
+    'reading-g1-ants',
+    'reading-g1-bus-ride',
+    'reading-g1-pet-fish',
+    'reading-g2-paper-bridge',
+    'reading-g2-rainy-garden',
+    'reading-g2-library-card',
+    'reading-g2-lost-and-found',
+    'reading-g3-lighthouse',
+    'reading-g3-science-fair',
+    'reading-g3-community-garden',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
   const docTitle = React.useMemo(() => {
