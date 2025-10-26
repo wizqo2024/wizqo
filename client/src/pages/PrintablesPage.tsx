@@ -63,12 +63,24 @@ export function PrintablesPage() {
         return '📖 Grade 1 — The Lost Hat (Reading)'
       case 'reading-g1-ants':
         return '📖 Grade 1 — Lunch for the Ants (Reading)'
+      case 'reading-g1-bus-ride':
+        return '📖 Grade 1 — The Bus Ride (Reading)'
+      case 'reading-g1-pet-fish':
+        return '📖 Grade 1 — The Pet Fish (Reading)'
       case 'reading-g2-paper-bridge':
         return '📖 Grade 2 — The Paper Bridge (Reading)'
       case 'reading-g2-rainy-garden':
         return '📖 Grade 2 — Rainy Day Garden (Reading)'
+      case 'reading-g2-library-card':
+        return '📖 Grade 2 — New Library Card (Reading)'
+      case 'reading-g2-lost-and-found':
+        return '📖 Grade 2 — Lost and Found (Reading)'
       case 'reading-g3-lighthouse':
         return '📖 Grade 3 — The Lighthouse Keeper’s Trick (Reading)'
+      case 'reading-g3-science-fair':
+        return '📖 Grade 3 — The Science Fair Plan (Reading)'
+      case 'reading-g3-community-garden':
+        return '📖 Grade 3 — The Community Garden (Reading)'
       case 'pack':
         return `Today’s ${packTime}-Minute Print Pack`
       default:
@@ -1065,6 +1077,34 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
+        {doc === 'reading-g1-bus-ride' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Bus Ride (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Eli held his mom’s hand on the bus. The seats were soft and blue. The driver rang a bell and the doors opened. “This is our stop,” Mom said. Eli smiled and waved to the driver.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What color were the seats?</li>
+                <li>Who did Eli hold hands with?</li>
+                <li>What sound did the driver make?</li>
+                <li>Why did the doors open?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g1-pet-fish' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Pet Fish (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Tara had a tiny orange fish. She named it Dot. Every morning, she shook in two flakes of food. Dot swam in little circles. Tara drew a picture of Dot for her wall.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What pet did Tara have?</li>
+                <li>What was its name?</li>
+                <li>How many flakes did she feed it?</li>
+                <li>What did Tara put on her wall?</li>
+              </ol>
+            </div>
+          </section>
+        )}
         {doc === 'reading-g2-paper-bridge' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Paper Bridge (Grade 2)</h2>
@@ -1093,6 +1133,34 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
+        {doc === 'reading-g2-library-card' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — New Library Card (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Jada visited the library with her uncle. She filled out a form and signed her name carefully. The librarian handed her a shiny new card. “Now you can borrow books,” he said. Jada chose two mysteries and a science book.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Jada go?</li>
+                <li>What did she receive from the librarian?</li>
+                <li>What kinds of books did she choose?</li>
+                <li>Why did she sign her name?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g2-lost-and-found' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — Lost and Found (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">At recess, Ben noticed a glove under the slide. He brought it to the office and wrote “blue glove” in the lost‑and‑found log. After lunch, a classmate came looking for a glove and smiled when she saw it.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Ben find the glove?</li>
+                <li>Where did he take it?</li>
+                <li>What did he write?</li>
+                <li>Who came later, and what happened?</li>
+              </ol>
+            </div>
+          </section>
+        )}
         {doc === 'reading-g3-lighthouse' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Lighthouse Keeper’s Trick (Grade 3)</h2>
@@ -1103,6 +1171,34 @@ export function PrintablesPage() {
                 <li>What “trick” did Mira use?</li>
                 <li>Why did the trick help the boat?</li>
                 <li>What does Mira’s log note tell us about her work?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g3-science-fair' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Science Fair Plan (Grade 3)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Our team listed problems we see at home. We chose one: sticky labels that won’t peel cleanly. We planned tests: different soaking times, natural oils, and gentle heat. We predicted that warm oil would loosen the glue fastest, and we wrote a careful procedure.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What problem did the team choose?</li>
+                <li>What were two variables they planned to test?</li>
+                <li>What did they predict?</li>
+                <li>Why did they write a procedure?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g3-community-garden' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Community Garden (Grade 3)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">The empty lot near our school looked messy in spring. Families asked the town for permission to plant. We drew a map with paths, a tool shed, and a compost bin. By fall, we harvested tomatoes and herbs, and we sold bundles to raise money for books.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What did families ask the town for?</li>
+                <li>What three things were on the map?</li>
+                <li>What did they harvest?</li>
+                <li>How did they use the money they earned?</li>
               </ol>
             </div>
           </section>
