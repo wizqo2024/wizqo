@@ -63,6 +63,16 @@ export default function ReadingComprehensionPage() {
               description="Short passage + 4 questions — print‑ready PDF view."
               href="/print?doc=reading-g1-ants"
             />
+            <ItemCard
+              title="📖 The Bus Ride (Grade 1)"
+              description="Short passage + 4 questions — print‑ready PDF view."
+              href="/print?doc=reading-g1-bus-ride"
+            />
+            <ItemCard
+              title="📖 The Pet Fish (Grade 1)"
+              description="Short passage + 4 questions — print‑ready PDF view."
+              href="/print?doc=reading-g1-pet-fish"
+            />
           </div>
           {/* Inline passage previews removed; use printable views above */}
         </section>
@@ -83,6 +93,16 @@ export default function ReadingComprehensionPage() {
               description="Short passage + questions — open to print‑ready PDF view."
               href="/print?doc=reading-g2-rainy-garden"
             />
+            <ItemCard
+              title="📖 New Library Card (Grade 2)"
+              description="Short passage + questions — open to print‑ready PDF view."
+              href="/print?doc=reading-g2-library-card"
+            />
+            <ItemCard
+              title="📖 Lost and Found (Grade 2)"
+              description="Short passage + questions — open to print‑ready PDF view."
+              href="/print?doc=reading-g2-lost-and-found"
+            />
           </div>
           {/* Inline passage previews removed; use printable views above */}
         </section>
@@ -97,6 +117,16 @@ export default function ReadingComprehensionPage() {
               title="📖 The Lighthouse Keeper’s Trick (Grade 3)"
               description="Short passage + Q&A — open print‑ready PDF view."
               href="/print?doc=reading-g3-lighthouse"
+            />
+            <ItemCard
+              title="📖 The Science Fair Plan (Grade 3)"
+              description="Short passage + Q&A — open print‑ready PDF view."
+              href="/print?doc=reading-g3-science-fair"
+            />
+            <ItemCard
+              title="📖 The Community Garden (Grade 3)"
+              description="Short passage + Q&A — open print‑ready PDF view."
+              href="/print?doc=reading-g3-community-garden"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
