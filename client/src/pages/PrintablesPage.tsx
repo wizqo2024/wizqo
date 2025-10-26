@@ -1059,6 +1059,16 @@ export function PrintablesPage() {
                 <li>What did she give the seed every day?</li>
                 <li>What did Sara see in the soil?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>By the window</li>
+                    <li>A little water</li>
+                    <li>A green sprout</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1073,6 +1083,17 @@ export function PrintablesPage() {
                 <li>Who found the hat?</li>
                 <li>Why did the hat fly off?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>The park</li>
+                    <li>Red</li>
+                    <li>A dog</li>
+                    <li>The wind was strong</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1087,6 +1108,17 @@ export function PrintablesPage() {
                 <li>What did Sam do while he watched?</li>
                 <li>What happened to the floor?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>A crumb</li>
+                    <li>In a line</li>
+                    <li>He watched quietly and didn’t step near them</li>
+                    <li>It was clean</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1101,6 +1133,17 @@ export function PrintablesPage() {
                 <li>What sound did the driver make?</li>
                 <li>Why did the doors open?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Blue</li>
+                    <li>His mom</li>
+                    <li>A bell</li>
+                    <li>It was their stop</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1115,6 +1158,17 @@ export function PrintablesPage() {
                 <li>How many flakes did she feed it?</li>
                 <li>What did Tara put on her wall?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>A tiny orange fish</li>
+                    <li>Dot</li>
+                    <li>Two flakes</li>
+                    <li>A picture of Dot</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1129,6 +1183,17 @@ export function PrintablesPage() {
                 <li>What change helped it work?</li>
                 <li>How many cars did it hold?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>A tiny paper bridge</li>
+                    <li>It bent and fell (too weak)</li>
+                    <li>More layers</li>
+                    <li>Three cars</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1143,6 +1208,17 @@ export function PrintablesPage() {
                 <li>What happened to her beans after a week?</li>
                 <li>What lesson did she write?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>A notebook</li>
+                    <li>A cloud</li>
+                    <li>They grew fast</li>
+                    <li>“Let the rain help”</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1157,6 +1233,17 @@ export function PrintablesPage() {
                 <li>What kinds of books did she choose?</li>
                 <li>Why did she sign her name?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>The library</li>
+                    <li>A new library card</li>
+                    <li>Two mysteries and a science book</li>
+                    <li>To complete the form and get the card</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1171,6 +1258,17 @@ export function PrintablesPage() {
                 <li>What did he write?</li>
                 <li>Who came later, and what happened?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Under the slide</li>
+                    <li>The office</li>
+                    <li>“blue glove” in the lost‑and‑found log</li>
+                    <li>A classmate; she found her glove</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1185,6 +1283,17 @@ export function PrintablesPage() {
                 <li>Why did the trick help the boat?</li>
                 <li>What does Mira’s log note tell us about her work?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>It drifted off course in thick fog</li>
+                    <li>A timed lamp flash</li>
+                    <li>It guided the boat toward the safe beam and away from rocks</li>
+                    <li>She keeps careful records and uses safe methods</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1199,6 +1308,17 @@ export function PrintablesPage() {
                 <li>What did they predict?</li>
                 <li>Why did they write a procedure?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Sticky labels that won’t peel cleanly</li>
+                    <li>Soaking time and natural oils</li>
+                    <li>Warm oil would loosen the glue fastest</li>
+                    <li>To follow steps consistently and fairly</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -1213,6 +1333,17 @@ export function PrintablesPage() {
                 <li>What did they harvest?</li>
                 <li>How did they use the money they earned?</li>
               </ol>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Permission to plant a garden</li>
+                    <li>Paths, a tool shed, and a compost bin</li>
+                    <li>Tomatoes and herbs</li>
+                    <li>For books (sold bundles to raise money)</li>
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}
