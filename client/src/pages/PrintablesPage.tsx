@@ -1040,7 +1040,7 @@ export function PrintablesPage() {
           const wordsFull = buildWords(theme, packAge);
           const words = pickNUnique(wordsFull, 8, rng);
           const grid = buildGridLetters(words.slice(0, 8), wsSize, seedStr);
-          const treatAsMath = isK2 || packSkill === 'math';
+          const treatAsMath = packSkill === 'math';
           // Choose a different maze path based on age and seed for variety
           let mazePath = '';
           if (isK2) {
@@ -1103,6 +1103,121 @@ export function PrintablesPage() {
             }
             return grid;
           }
+
+          // Reading-specific generators
+          function buildReadingPassage(age: string) {
+            const poolG1 = [
+              {
+                text: 'Liam had a blue kite. On a windy day, he ran to the park. The kite rose high. Liam laughed and waved at it.',
+                qs: ['What color was the kite?','Where did Liam go?','Why did the kite rise?']
+              },
+              {
+                text: 'Nina put seeds in a pot. She set it by the sunny window. Each morning, she gave it water. A small leaf popped up!',
+                qs: ['What did Nina put in the pot?','Where did she place the pot?','What popped up?']
+              },
+              {
+                text: 'The class made a bird feeder from a cup. They filled it with seeds and hung it on a tree. A red bird came to snack.',
+                qs: ['What did the class make?','What did they put in it?','Who came to snack?']
+              }
+            ];
+            const poolG2 = [
+              {
+                text: 'Omar wanted to fix his squeaky bike wheel. He watched a quick video and learned to add oil to the axle. After two tries, the squeak was gone.',
+                qs: ['What was Omar trying to fix?','What did he add to the axle?','What happened after two tries?']
+              },
+              {
+                text: 'Maya kept a weather chart on her wall. She drew a sun for hot days, a cloud for cool days, and a raindrop for storms. After a week, her chart had many symbols.',
+                qs: ['What did Maya keep on her wall?','What symbol did she draw for storms?','How long did she track the weather?']
+              },
+              {
+                text: 'Leo and his sister built a pillow fort. They tested two roof designs until one stayed up. They read books inside with a small lamp.',
+                qs: ['What did they build?','How many roof designs did they test?','What did they do inside the fort?']
+              }
+            ];
+            const poolG3 = [
+              {
+                text: 'A town near the river held an early‑morning clean‑up. People wore gloves and filled bags with plastic and paper. By noon, the river path looked new. One volunteer wrote, “Teamwork made a big job smaller.”',
+                qs: ['What problem were people solving?','When did they work?','What does the note tell us about the work?']
+              },
+              {
+                text: 'The lighthouse keeper tested the backup lamp once a month. During a thick fog, the main lamp flickered. The keeper calmly switched to the backup, and ships stayed safe.',
+                qs: ['How often was the backup lamp tested?','What happened during the fog?','Why did ships stay safe?']
+              },
+              {
+                text: 'At the garden market, prices were lower near closing time. Jae waited, then bought apples and carrots with the same coins. He saved money by being patient.',
+                qs: ['Where did Jae shop?','When were prices lower?','How did Jae save money?']
+              }
+            ];
+            const pool = age === 'g1' ? poolG1 : (age === 'g2' ? poolG2 : poolG3);
+            const pickIdx = Math.floor(rng() * pool.length);
+            return pool[pickIdx];
+          }
+
+          function pushReadingComprehensionFull() {
+            const p = buildReadingPassage(packAge);
+            items.push(
+              <div key={`rc-full-${variant}`} className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                <div className="font-semibold text-xl mb-2">Reading Comprehension — Passage & Questions</div>
+                <p className="text-lg text-slate-800 mb-3">{p.text}</p>
+                <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
+                  {p.qs.map((q, i) => (
+                    <li key={i}>{q}</li>
+                  ))}
+                </ol>
+              </div>
+            );
+          }
+
+          function pushSequenceTask() {
+            const seqPools: Record<string, string[][]> = {
+              g1: [
+                ['Put on boots.','Open the door.','Play in the snow.'],
+                ['Crack the egg.','Stir in a bowl.','Cook in a pan.']
+              ],
+              g2: [
+                ['Pick a book.','Find a quiet seat.','Read for ten minutes.'],
+                ['Mix soil and water.','Press seeds into soil.','Label the pot.']
+              ],
+              '35': [
+                ['Plan the route.','Pack supplies.','Start the hike.'],
+                ['List choices.','Compare costs.','Choose the best value.']
+              ]
+            };
+            const pool = seqPools[packAge as 'g1'|'g2'|'35'] || seqPools.g1;
+            const choice = pool[Math.floor(rng()*pool.length)];
+            items.push(
+              <div key={`sequence-${variant}`} className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-xl mb-2">Sequence the Steps (1–3)</div>
+                <ol className="list-decimal list-inside space-y-1 text-lg text-slate-800">
+                  {choice.map((s, i)=> (<li key={i}><span className="opacity-0">{i+1}. </span>{s}</li>))}
+                </ol>
+              </div>
+            );
+          }
+
+          function pushMainIdeaTask() {
+            const p = buildReadingPassage(packAge);
+            const distractorA = 'Fun Day';
+            const distractorB = 'The Big Storm';
+            const options = [
+              'Best Title',
+              distractorA,
+              distractorB
+            ];
+            // Shuffle options deterministically
+            const order = [0,1,2].sort(()=> (rng() < 0.5 ? -1 : 1));
+            items.push(
+              <div key={`main-idea-${variant}`} className="border border-slate-200 rounded-lg p-4">
+                <div className="font-semibold text-xl mb-2">Main Idea — Choose the Best Title</div>
+                <p className="text-base text-slate-800 mb-3">{p.text}</p>
+                <ul className="space-y-1 text-lg text-slate-800">
+                  {order.map((i)=> (
+                    <li key={i}><span className="inline-block w-4 h-4 border border-slate-400 mr-2 align-middle"/> {options[i]}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
           // 1) Word Search or Reading prompt
           if (!treatAsMath && packSkill !== 'creativity') {
             items.push(
@@ -1117,7 +1232,7 @@ export function PrintablesPage() {
               </div>
             );
           }
-          // 2) Quick Maze or STEM mini-task
+          // 2) Reading/S.T.E.M./Maze secondary item based on focus
           if (packSkill === 'stem') {
             items.push(
               <div key="stem" className="border border-slate-200 rounded-lg p-4">
@@ -1126,6 +1241,9 @@ export function PrintablesPage() {
                 <div className="mt-3 h-24 border border-dashed border-slate-300 rounded-md" />
               </div>
             );
+          } else if (packSkill === 'reading') {
+            // Add a fuller reading comprehension task instead of a maze
+            pushReadingComprehensionFull();
           } else {
             // Build a unique grid maze using a seeded DFS (recursive backtracker)
             const mazeCols = isK2 ? 8 : (is35 ? 10 : 12);
@@ -1436,12 +1554,12 @@ export function PrintablesPage() {
             pushMiniSudoku();
             pushReading();
           } else if (packSkill === 'reading') {
-            pushColoring();
-            pushReading();
-            pushScramble();
-            pushMiniMath();
-            pushMiniSudoku();
-            pushDrawing();
+            // Reading-focused extras only
+            pushColoring(); // letter/book variant if theme === 'sight'
+            pushReading(); // mini snippet + 2 questions
+            pushScramble(); // sight-word scramble
+            pushSequenceTask();
+            pushMainIdeaTask();
           } else if (packSkill === 'stem') {
             pushColoring();
             pushMiniMath();
