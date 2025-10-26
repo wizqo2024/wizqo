@@ -2,6 +2,7 @@ import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 
 export default function ReadingComprehensionPage() {
   const scrollTo = (id: string) => {
@@ -50,12 +51,17 @@ export default function ReadingComprehensionPage() {
         <section id="grade-1" className="bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900">Grade 1 Reading Comprehension Worksheets (Free Printable PDF)</h2>
           <p className="text-slate-700 text-sm mt-1">Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.</p>
-          {/* Quick printable link */}
+          {/* Quick printable links */}
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <ItemCard
-              title="📖 Grade 1 Passage + 3 Questions (PDF)"
-              description="Short reading passage with three questions and answer key. Open print view to download as PDF."
-              href="/print?doc=reading-mini-1"
+              title="📖 The Lost Hat (Grade 1)"
+              description="Short passage + 4 questions — print‑ready PDF view."
+              href="/print?doc=reading-g1-lost-hat"
+            />
+            <ItemCard
+              title="📖 Lunch for the Ants (Grade 1)"
+              description="Short passage + 4 questions — print‑ready PDF view."
+              href="/print?doc=reading-g1-ants"
             />
           </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
@@ -88,12 +94,17 @@ export default function ReadingComprehensionPage() {
         <section id="grade-2" className="bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900">Grade 2 Reading Comprehension Worksheets (with Answer Key, PDF)</h2>
           <p className="text-slate-700 text-sm mt-1">One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.</p>
-          {/* Quick printable link */}
+          {/* Quick printable links */}
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <ItemCard
-              title="📖 Grade 2 Passage + 3 Questions (PDF)"
-              description="Printable reading comprehension worksheet with short passage, questions, and answer key."
-              href="/print?doc=reading-mini-1"
+              title="📖 The Paper Bridge (Grade 2)"
+              description="Short passage + questions — open to print‑ready PDF view."
+              href="/print?doc=reading-g2-paper-bridge"
+            />
+            <ItemCard
+              title="📖 Rainy Day Garden (Grade 2)"
+              description="Short passage + questions — open to print‑ready PDF view."
+              href="/print?doc=reading-g2-rainy-garden"
             />
           </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
@@ -129,9 +140,9 @@ export default function ReadingComprehensionPage() {
           {/* Quick printable link */}
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <ItemCard
-              title="📖 Grade 3 Short Passage + Q&A (PDF)"
-              description="Short reading passage with comprehension questions and answers. Open printable PDF view."
-              href="/print?doc=reading-mini-1"
+              title="📖 The Lighthouse Keeper’s Trick (Grade 3)"
+              description="Short passage + Q&A — open print‑ready PDF view."
+              href="/print?doc=reading-g3-lighthouse"
             />
           </div>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
@@ -149,23 +160,29 @@ export default function ReadingComprehensionPage() {
           </div>
         </section>
 
-        {/* FAQs */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">FAQs</h2>
-          <div className="mt-3 space-y-3 text-sm text-slate-800">
-            <div>
-              <div className="font-semibold">How do I download the worksheets as PDF?</div>
-              <p>Use the “Download PDF” button (Print → Save as PDF) for a full‑page printable. Each section is laid out for easy printing.</p>
-            </div>
-            <div>
-              <div className="font-semibold">Can I use these in class?</div>
-              <p>Yes—feel free to use and share the worksheets in classrooms or at home.</p>
-            </div>
-            <div>
-              <div className="font-semibold">What skills do these build?</div>
-              <p>Key skills: finding details, main idea, sequence, vocabulary in context, and light inference.</p>
-            </div>
-          </div>
+        {/* FAQs (match accordion UI used elsewhere) */}
+        <section className="mb-10">
+          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
+          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+            <AccordionItem value="q1">
+              <AccordionTrigger className="px-4">How do I download the worksheets as PDF?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Open a worksheet link to the print view, then use your browser’s Print → Save as PDF.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q2">
+              <AccordionTrigger className="px-4">Can I use these in class?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes—free for personal and classroom use.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q3">
+              <AccordionTrigger className="px-4">What skills do these build?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Finding details, main idea, sequence, vocabulary in context, and light inference.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </section>
       </main>
 
