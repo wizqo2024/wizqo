@@ -95,6 +95,7 @@ function generate() {
   // Worksheets landing pages
   push(`${site}/worksheets/1st-grade-math-worksheets`, null, 'weekly', '0.7');
   push(`${site}/worksheets/2nd-grade-math-worksheets`, null, 'weekly', '0.7');
+  push(`${site}/worksheets/reading-comprehension`, null, 'weekly', '0.7');
 
   for (const p of posts) {
     const lastmod = iso(p.date);
