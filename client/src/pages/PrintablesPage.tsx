@@ -59,6 +59,16 @@ export function PrintablesPage() {
         return '⭐ Weekly Reward / Sticker Chart'
       case 'reading-mini-1':
         return '📖 Mini Reading Passage + 3 Questions'
+      case 'reading-g1-lost-hat':
+        return '📖 Grade 1 — The Lost Hat (Reading)'
+      case 'reading-g1-ants':
+        return '📖 Grade 1 — Lunch for the Ants (Reading)'
+      case 'reading-g2-paper-bridge':
+        return '📖 Grade 2 — The Paper Bridge (Reading)'
+      case 'reading-g2-rainy-garden':
+        return '📖 Grade 2 — Rainy Day Garden (Reading)'
+      case 'reading-g3-lighthouse':
+        return '📖 Grade 3 — The Lighthouse Keeper’s Trick (Reading)'
       case 'pack':
         return `Today’s ${packTime}-Minute Print Pack`
       default:
@@ -1023,6 +1033,76 @@ export function PrintablesPage() {
                 <li>Where did Sara put the cup?</li>
                 <li>What did she give the seed every day?</li>
                 <li>What did Sara see in the soil?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g1-lost-hat' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Lost Hat (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. “Thank you!”</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Mia go?</li>
+                <li>What color was the hat?</li>
+                <li>Who found the hat?</li>
+                <li>Why did the hat fly off?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g1-ants' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — Lunch for the Ants (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Sam dropped a crumb. Ants marched in a line. They carried the crumb together. Sam watched quietly. He did not step near them. Soon, the ants were gone. The floor was clean!</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What did Sam drop?</li>
+                <li>How did the ants move?</li>
+                <li>What did Sam do while he watched?</li>
+                <li>What happened to the floor?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g2-paper-bridge' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Paper Bridge (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What was Lena building?</li>
+                <li>Why did the first bridge fail?</li>
+                <li>What change helped it work?</li>
+                <li>How many cars did it hold?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g2-rainy-garden' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — Rainy Day Garden (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Asha kept a notebook for her balcony garden. On rainy days, she didn’t water her plants. She drew a cloud symbol instead. After a week of rain, her beans grew fast. Asha wrote, “Let the rain help.”</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What did Asha keep?</li>
+                <li>What symbol did she draw on rainy days?</li>
+                <li>What happened to her beans after a week?</li>
+                <li>What lesson did she write?</li>
+              </ol>
+            </div>
+          </section>
+        )}
+        {doc === 'reading-g3-lighthouse' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Lighthouse Keeper’s Trick (Grade 3)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">A storm rolled over the coast, and waves pounded the rocks. Mira checked the lighthouse lamps—bright, steady, and safe. But the fog was thick, and a fishing boat drifted off course. Mira remembered a trick her father taught her. She covered one lamp for a few seconds, then uncovered it, making a slow flash. The boat turned toward the beam and away from the rocks. When the storm passed, Mira logged the event: “Used flash method to guide a boat. Lamps steady.”</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What problem did the boat have?</li>
+                <li>What “trick” did Mira use?</li>
+                <li>Why did the trick help the boat?</li>
+                <li>What does Mira’s log note tell us about her work?</li>
               </ol>
             </div>
           </section>
