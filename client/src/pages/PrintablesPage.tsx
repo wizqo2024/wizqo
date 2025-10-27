@@ -30,6 +30,14 @@ export function PrintablesPage() {
     'reading-g3-lighthouse',
     'reading-g3-science-fair',
     'reading-g3-community-garden',
+    // 2nd grade math printables
+    'place-value-hto',
+    'skip-count-5-10-120',
+    'add-2digit-100',
+    'sub-2digit-100',
+    'word-problems-100',
+    'compare-2digit',
+    'even-odd-100',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
   const docTitle = React.useMemo(() => {
@@ -610,6 +618,19 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {nums.map((n,i)=> {
+                      const tens = Math.floor(n/10); const ones = n%10;
+                      return (
+                        <li key={i}>{n}: Tens {tens}, Ones {ones}, Expanded {tens*10} + {ones}</li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -653,6 +674,12 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -690,6 +717,14 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a,b],i)=> (<li key={i}>{a} + {b} = {a+b}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -727,6 +762,14 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a,b],i)=> (<li key={i}>{a} − {b} = {a-b}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -756,6 +799,18 @@ export function PrintablesPage() {
                 </li>
               ))}
             </ol>
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>24 + 15 = 39</li>
+                  <li>32 + 17 = 49</li>
+                  <li>45 − 20 = 25</li>
+                  <li>38 − 10 = 28</li>
+                  <li>27 + 22 = 49</li>
+                </ol>
+              </div>
+            )}
           </section>
         )}
 
@@ -792,6 +847,12 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key (sample logic)</div>
+                  <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -817,6 +878,14 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {nums.map((n,i)=> (<li key={i}>{n}: {n%2===0 ? 'Even' : 'Odd'}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
