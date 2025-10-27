@@ -51,10 +51,10 @@ const basePosts: BlogPost[] = [
     excerpt: "Learn gentle parenting techniques that actually work — real stories, science, and simple steps to replace punishment with connected, calm discipline.",
     content: "<GentleParentingFull />",
     author: "Wizqo Team",
-    date: "October 2025",
+    date: "2025-10-27T23:59:59Z",
     readTime: "7–8 min read",
     category: "Mental Wellness",
-    imageUrl: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1628191013085-990d39ec25b8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
     imageAlt: "Parent and child sharing a calm, connected moment outdoors"
   },
   {
