@@ -197,12 +197,30 @@ export function GentleParentingFull() {
         </p>
       </header>
 
+      {/* Table of Contents */}
+      <section aria-labelledby="toc-title" className="max-w-4xl mx-auto w-full">
+        <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">
+          <h3 id="toc-title" className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/></svg>
+            Table of Contents
+          </h3>
+          <nav className="flex flex-wrap gap-3">
+            <a href="#what-is-gentle-parenting" className="text-green-700 hover:underline">What Is Gentle Parenting?</a>
+            <a href="#the-science-connection-before-correction" className="text-green-700 hover:underline">The Science: Connection Before Correction</a>
+            <a href="#five-gentle-parenting-techniques" className="text-green-700 hover:underline">5 Techniques That Work</a>
+            <a href="#the-real-world-impact-by-the-numbers" className="text-green-700 hover:underline">Impact: By the Numbers</a>
+            <a href="#common-myths-vs-reality" className="text-green-700 hover:underline">Common Myths vs. Reality</a>
+            <a href="#you-can-start-today" className="text-green-700 hover:underline">You Can Start Today</a>
+          </nav>
+        </div>
+      </section>
+
       {/* What is Gentle Parenting */}
       <section>
         <div className="bg-white rounded-xl shadow-xl p-6 md:p-10 border border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-green-700 mb-3">What Is Gentle Parenting?</h2>
+              <h2 id="what-is-gentle-parenting" className="text-3xl font-bold text-green-700 mb-3">What Is Gentle Parenting?</h2>
               <p className="mb-3">
                 The goal of <strong>mindful parenting</strong> is not a “perfect” child. By applying
                 <strong> gentle parenting techniques</strong>, you build a calmer, more connected relationship.
@@ -229,7 +247,7 @@ export function GentleParentingFull() {
 
       {/* Science section */}
       <section>
-        <h2 className="text-3xl font-bold text-green-700 mb-4 text-center">The Science: Connection Before Correction</h2>
+        <h2 id="the-science-connection-before-correction" className="text-3xl font-bold text-green-700 mb-4 text-center">The Science: Connection Before Correction</h2>
         <div className="bg-white rounded-xl shadow-xl p-6 md:p-10 border border-slate-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="flex flex-col items-center">
@@ -266,7 +284,7 @@ export function GentleParentingFull() {
 
       {/* Techniques grid */}
       <section>
-        <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">5 Gentle Parenting Techniques That Work</h2>
+        <h2 id="five-gentle-parenting-techniques" className="text-3xl font-bold text-green-700 mb-6 text-center">5 Gentle Parenting Techniques That Work</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {["Pause Before Reacting","Name the Emotion","Offer Choices, Not Orders","Repair After Conflict","Set Boundaries with Love"].map((title, idx) => (
             <div key={idx} className="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
@@ -286,7 +304,7 @@ export function GentleParentingFull() {
 
       {/* By the numbers */}
       <section>
-        <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">The Real‑World Impact: By the Numbers</h2>
+        <h2 id="the-real-world-impact-by-the-numbers" className="text-3xl font-bold text-green-700 mb-6 text-center">The Real‑World Impact: By the Numbers</h2>
         <p className="text-center max-w-3xl mx-auto mb-8">
           <strong>Gentle parenting techniques</strong> are backed by science. They reduce stress hormones and improve connected cooperation over time.
         </p>
@@ -321,7 +339,7 @@ export function GentleParentingFull() {
 
       {/* Myths vs Reality */}
       <section>
-        <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">Common Myths vs. Reality</h2>
+        <h2 id="common-myths-vs-reality" className="text-3xl font-bold text-green-700 mb-6 text-center">Common Myths vs. Reality</h2>
         <div className="bg-white rounded-lg shadow-xl overflow-hidden border border-slate-200">
           <table className="w-full">
             <thead className="bg-green-500 text-white">
@@ -350,7 +368,7 @@ export function GentleParentingFull() {
 
       {/* CTA */}
       <section className="text-center">
-        <h2 className="text-3xl font-bold text-green-700 mb-4">You Can Start Today</h2>
+        <h2 id="you-can-start-today" className="text-3xl font-bold text-green-700 mb-4">You Can Start Today</h2>
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-slate-200">
           <p className="mb-6">Nobody’s perfect. The beauty of gentle parenting is you can start today, even after tough moments. You’re not raising a “good” kid — you’re raising a kind, emotionally aware human.</p>
           <h3 className="text-xl font-semibold text-green-800 mb-3">Start Small:</h3>
