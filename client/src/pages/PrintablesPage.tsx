@@ -10,7 +10,6 @@ export function PrintablesPage() {
   const seedParam = params.get('seed') || ''
   const variantParam = params.get('variant') || '1'
   const [showAnswers, setShowAnswers] = React.useState(false)
-  const [colorMode, setColorMode] = React.useState<'color' | 'ink'>('color')
   const [copiedLink, setCopiedLink] = React.useState(false)
   const answerableDocs = new Set([
     'science-match',
@@ -355,25 +354,7 @@ export function PrintablesPage() {
               <span>📌</span>
               <span>Pin this</span>
             </a>
-            {/* Color mode toggle */}
-            <div className="print:hidden">
-              <div role="group" aria-label="Color mode" className="inline-flex rounded-lg border border-slate-200 bg-white overflow-hidden text-sm">
-                <button
-                  type="button"
-                  onClick={() => setColorMode('color')}
-                  className={`px-3 py-1.5 ${colorMode==='color' ? 'bg-purple-600 text-white' : 'text-slate-700 hover:bg-slate-50'}`}
-                >
-                  Colorful
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setColorMode('ink')}
-                  className={`px-3 py-1.5 border-l border-slate-200 ${colorMode==='ink' ? 'bg-slate-800 text-white' : 'text-slate-700 hover:bg-slate-50'}`}
-                >
-                  Ink‑friendly
-                </button>
-              </div>
-            </div>
+            
             {shouldShowAnswerToggle && (
               <div className="print:hidden">
                 <button
@@ -614,7 +595,7 @@ export function PrintablesPage() {
 
         {doc === 'place-value-hto' && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
-          const isColor = colorMode === 'color';
+          const isColor = true; // default colorful visuals
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <div className="absolute inset-0 -z-10 print:hidden">
