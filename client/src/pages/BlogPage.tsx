@@ -4,6 +4,7 @@ import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { GentleParentingCharts } from '@/components/charts/GentleParentingCharts';
 
 interface BlogPost {
   id: string;
@@ -97,6 +98,8 @@ Even five seconds can reset your tone. This is calm discipline in action — a c
 - 3× better emotional vocabulary in ages 3–8  
 
 Why? Gentle parenting techniques reduce stress chemistry and build regulation skills over time.
+
+<Charts />
 
 ## Common Myths vs Reality
 
@@ -1612,6 +1615,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const line = lines[i];
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
+                  if (selectedPost.id === 'gentle-parenting-techniques' && trimmed === '<Charts />') {
+                    elements.push(
+                      <div key={`charts-${i}`} className="my-6">
+                        <GentleParentingCharts />
+                      </div>
+                    );
+                    continue;
+                  }
                   // FAQ block detection for general renderer
                   if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed) || /^FAQs\b/i.test(trimmed) || (/faq/i.test(trimmed) && !/^\d+\./.test(trimmed))) {
                     // Render a consistent heading
