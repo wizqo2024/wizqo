@@ -719,12 +719,19 @@ export function PrintablesPage() {
         })()}
 
         {doc === 'add-2digit-100' && (() => {
+          // Stable seeded RNG so toggling answers doesn't change content
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
           function genPairs(count: number) {
             const out: Array<[number, number]> = [];
-            while (out.length < count) {
-              const a = Math.floor(Math.random()*90) + 10;
-              const b = Math.floor(Math.random()*90) + 10;
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(10, 99);
+              const b = nextInt(10, 99);
               if ((a%10) + (b%10) < 10 && a + b <= 100) out.push([a,b]);
+              guard++;
             }
             return out;
           }
@@ -764,12 +771,18 @@ export function PrintablesPage() {
         })()}
 
         {doc === 'sub-2digit-100' && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
           function genPairs(count: number) {
             const out: Array<[number, number]> = [];
-            while (out.length < count) {
-              const a = Math.floor(Math.random()*90) + 10;
-              const b = Math.floor(Math.random()*90) + 10;
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(10, 99);
+              const b = nextInt(10, 99);
               if ((a%10) >= (b%10) && a >= b) out.push([a,b]);
+              guard++;
             }
             return out;
           }
@@ -849,8 +862,10 @@ export function PrintablesPage() {
         )}
 
         {doc === 'compare-2digit' && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const pairs: Array<[number, number]> = Array.from({length:10}).map(()=> {
-            const a = Math.floor(Math.random()*90)+10; const b = Math.floor(Math.random()*90)+10; return [a,b];
+            const a = nextInt(10,99); const b = nextInt(10,99); return [a,b];
           });
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
@@ -892,7 +907,8 @@ export function PrintablesPage() {
         })()}
 
         {doc === 'even-odd-100' && (() => {
-          const nums = Array.from({length:20}).map(()=> Math.floor(Math.random()*100));
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          const nums = Array.from({length:20}).map(()=> Math.floor(rng()*100));
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <div className="absolute inset-0 -z-10 print:hidden">
