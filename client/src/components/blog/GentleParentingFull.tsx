@@ -386,8 +386,10 @@ export function GentleParentingFull() {
       </section>
 
       {/* Internal Links */}
-      <section>
-        <h2 className="sr-only">Keep Exploring</h2>
+      <section aria-labelledby="keep-exploring-title" className="max-w-4xl mx-auto w-full">
+        <h2 id="keep-exploring-title" className="text-2xl font-bold text-green-700 mb-4">
+          Motivate your child with these activities
+        </h2>
         <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
           <a href="/kids" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Kids Hub – Play, Print, and Learn</a>
           <a href="/worksheets/reading-comprehension" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Reading Comprehension Worksheets</a>
