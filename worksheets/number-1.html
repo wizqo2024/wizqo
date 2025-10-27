@@ -1,0 +1,60 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tracing the number 1 (one)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      @page { size: A4; margin: 18mm; }
+      html, body { margin:0; padding:0; }
+      body { font-family: Arial, Helvetica, sans-serif; color:#111; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; }
+      h1 { font-size:22px; margin:8px 0 12px; }
+      .sub { font-size:12px; color:#3a3a3a; }
+      .sheet { border-top:3px solid #6aa0ff; padding-top:10px; }
+
+      /* tracing lines */
+      .trace-row { border-bottom:2px solid #333; margin:12px 0; height:46px; position:relative; }
+      .trace-row .mid { position:absolute; left:0; right:0; top:50%; height:0; border-top:2px dotted #9aa; }
+      .trace-cell { position:absolute; top:4px; bottom:4px; width:48px; text-align:center; font-size:36px; color:#888; }
+      .trace-cell.solid { color:#111; }
+
+      /* count box */
+      .grid-box { border:2px solid #9cc2ff; padding:10px; }
+      .grid-title { font-size:16px; margin-bottom:8px; }
+      .numbers { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; font-size:28px; text-align:center; }
+
+      .footer-word { font-size:110px; letter-spacing:4px; text-align:center; margin-top:10px; font-family: 'Century Gothic', Arial, sans-serif; }
+
+      .flex { display:flex; gap:24px; align-items:flex-start; }
+      .apple { width:90px; height:90px; border-radius:12px; background: radial-gradient(circle at 30% 30%, #ff6b6b, #b00020); position:relative; }
+      .apple:before { content:""; position:absolute; width:16px; height:16px; background:#4caf50; border-radius:3px; left:34px; top:-6px; transform:rotate(20deg); }
+      .apple:after { content:""; position:absolute; width:6px; height:22px; background:#6d4c41; border-radius:3px; left:42px; top:-22px; transform:rotate(12deg); }
+
+      .big-num { font-size:64px; float:right; margin-top:-40px; }
+    </style>
+  </head>
+  <body>
+    <div class="sheet">
+      <div class="brand">K5 Learning-like Practice</div>
+      <h1>Tracing the number 1 (one)</h1>
+      <div class="sub">Practice tracing and printing the number 1 (one). <span class="big-num">1</span></div>
+
+      <div class="trace-row"><div class="mid"></div><div class="trace-cell" style="left:0px;">1</div><div class="trace-cell" style="left:52px;">1</div><div class="trace-cell" style="left:104px;">1</div><div class="trace-cell" style="left:156px;">1</div><div class="trace-cell" style="left:208px;">1</div><div class="trace-cell" style="left:260px;">1</div><div class="trace-cell" style="left:312px;">1</div><div class="trace-cell" style="left:364px;">1</div><div class="trace-cell" style="left:416px;">1</div><div class="trace-cell" style="left:468px;">1</div></div><div class="trace-row"><div class="mid"></div><div class="trace-cell solid" style="left:0px;">1</div><div class="trace-cell solid" style="left:52px;">1</div><div class="trace-cell solid" style="left:104px;">1</div></div><div class="trace-row"><div class="mid"></div></div><div class="trace-row"><div class="mid"></div></div>
+
+      <div class="flex" style="margin-top:18px;">
+        <div>
+          <div style="font-size:16px; margin-bottom:6px;">Count the apple.</div>
+          <div class="apple" aria-label="apple"></div>
+        </div>
+        <div class="grid-box">
+          <div class="grid-title">Circle the number 1.</div>
+          <div class="numbers"><div>1</div><div>8</div><div>5</div><div>6</div><div>1</div><div>9</div><div>1</div><div>7</div><div>3</div></div>
+        </div>
+      </div>
+
+      <div class="footer-word">one</div>
+    </div>
+  </body>
+</html>
