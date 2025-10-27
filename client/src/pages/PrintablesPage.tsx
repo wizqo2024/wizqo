@@ -30,6 +30,14 @@ export function PrintablesPage() {
     'reading-g3-lighthouse',
     'reading-g3-science-fair',
     'reading-g3-community-garden',
+    // 2nd grade math printables
+    'place-value-hto',
+    'skip-count-5-10-120',
+    'add-2digit-100',
+    'sub-2digit-100',
+    'word-problems-100',
+    'compare-2digit',
+    'even-odd-100',
   ])
   const shouldShowAnswerToggle = answerableDocs.has(doc)
   const docTitle = React.useMemo(() => {
@@ -346,6 +354,7 @@ export function PrintablesPage() {
               <span>📌</span>
               <span>Pin this</span>
             </a>
+            
             {shouldShowAnswerToggle && (
               <div className="print:hidden">
                 <button
@@ -586,17 +595,31 @@ export function PrintablesPage() {
 
         {doc === 'place-value-hto' && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
+          const isColor = true; // default colorful visuals
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-purple-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 -left-6 w-24 h-24 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
+                <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${isColor ? 'bg-purple-200/40' : 'bg-slate-200/20'} animate-blob`} />
+                <div className={`absolute -bottom-12 -left-8 w-28 h-28 rounded-full ${isColor ? 'bg-amber-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-2000`} />
+                <div className={`absolute top-1/2 -left-6 w-24 h-24 rounded-full ${isColor ? 'bg-sky-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-4000`} />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)
                 <span className="ml-2 print:hidden inline-block animate-bounce">🔢</span>
               </h2>
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Visual legend */}
+              <div className="print:hidden mb-3 flex items-center gap-4 text-sm">
+                <svg viewBox="0 0 160 40" className="h-10 w-auto">
+                  {/* Tens rod */}
+                  <rect x="10" y="6" width="12" height="28" fill={isColor ? '#22c55e' : 'none'} stroke="#111827" strokeWidth="2" />
+                  <text x="30" y="24" fontSize="12" fill="#111827">Tens rod</text>
+                  {/* Ones cubes */}
+                  {Array.from({length:3}).map((_,i)=> (
+                    <rect key={i} x={86 + i*14} y={12} width="10" height="10" fill={isColor ? '#60a5fa' : 'none'} stroke="#111827" strokeWidth="2" />
+                  ))}
+                  <text x="130" y="24" fontSize="12" fill="#111827">Ones</text>
+                </svg>
+              </div>
               <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
               <div className="grid grid-cols-2 gap-3">
                 {nums.map((n,i)=> (
@@ -610,6 +633,19 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {nums.map((n,i)=> {
+                      const tens = Math.floor(n/10); const ones = n%10;
+                      return (
+                        <li key={i}>{n}: Tens {tens}, Ones {ones}, Expanded {tens*10} + {ones}</li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -653,17 +689,30 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
+                </div>
+              )}
             </section>
           );
         })()}
 
         {doc === 'add-2digit-100' && (() => {
+          // Stable seeded RNG so toggling answers doesn't change content
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
           function genPairs(count: number) {
             const out: Array<[number, number]> = [];
-            while (out.length < count) {
-              const a = Math.floor(Math.random()*90) + 10;
-              const b = Math.floor(Math.random()*90) + 10;
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(10, 99);
+              const b = nextInt(10, 99);
               if ((a%10) + (b%10) < 10 && a + b <= 100) out.push([a,b]);
+              guard++;
             }
             return out;
           }
@@ -690,17 +739,31 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a,b],i)=> (<li key={i}>{a} + {b} = {a+b}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
 
         {doc === 'sub-2digit-100' && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
           function genPairs(count: number) {
             const out: Array<[number, number]> = [];
-            while (out.length < count) {
-              const a = Math.floor(Math.random()*90) + 10;
-              const b = Math.floor(Math.random()*90) + 10;
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(10, 99);
+              const b = nextInt(10, 99);
               if ((a%10) >= (b%10) && a >= b) out.push([a,b]);
+              guard++;
             }
             return out;
           }
@@ -727,6 +790,14 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a,b],i)=> (<li key={i}>{a} − {b} = {a-b}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -756,12 +827,26 @@ export function PrintablesPage() {
                 </li>
               ))}
             </ol>
+            {showAnswers && (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>24 + 15 = 39</li>
+                  <li>32 + 17 = 49</li>
+                  <li>45 − 20 = 25</li>
+                  <li>38 − 10 = 28</li>
+                  <li>27 + 22 = 49</li>
+                </ol>
+              </div>
+            )}
           </section>
         )}
 
         {doc === 'compare-2digit' && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const pairs: Array<[number, number]> = Array.from({length:10}).map(()=> {
-            const a = Math.floor(Math.random()*90)+10; const b = Math.floor(Math.random()*90)+10; return [a,b];
+            const a = nextInt(10,99); const b = nextInt(10,99); return [a,b];
           });
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
@@ -792,12 +877,19 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key (sample logic)</div>
+                  <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
+                </div>
+              )}
             </section>
           );
         })()}
 
         {doc === 'even-odd-100' && (() => {
-          const nums = Array.from({length:20}).map(()=> Math.floor(Math.random()*100));
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          const nums = Array.from({length:20}).map(()=> Math.floor(rng()*100));
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <div className="absolute inset-0 -z-10 print:hidden">
@@ -817,6 +909,14 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {showAnswers && (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {nums.map((n,i)=> (<li key={i}>{n}: {n%2===0 ? 'Even' : 'Odd'}</li>))}
+                  </ul>
+                </div>
+              )}
             </section>
           );
         })()}
@@ -1173,9 +1273,27 @@ export function PrintablesPage() {
           </section>
         )}
         {doc === 'reading-g2-paper-bridge' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Paper Bridge (Grade 2)</h2>
+          <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <div className="absolute inset-0 -z-10 print:hidden">
+              <div className="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-amber-200/40 animate-blob" />
+              <div className="absolute -bottom-12 -right-8 w-28 h-28 rounded-full bg-sky-200/40 animate-blob animation-delay-2000" />
+            </div>
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <svg className="h-5 w-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 7h18M3 12h18M3 17h18" />
+              </svg>
+              Passage — The Paper Bridge (Grade 2)
+            </h2>
             <div className="bg-white border border-slate-300 rounded p-4">
+              {/* Small illustrative header */}
+              <div className="print:hidden mb-3">
+                <svg viewBox="0 0 500 80" className="w-full h-16">
+                  <rect x="80" y="50" width="340" height="8" fill="#94a3b8" />
+                  <rect x="100" y="30" width="80" height="20" fill="#22c55e" />
+                  <rect x="190" y="30" width="80" height="20" fill="#60a5fa" />
+                  <rect x="280" y="30" width="80" height="20" fill="#f59e0b" />
+                </svg>
+              </div>
               <p className="text-slate-800 text-base">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
                 <li>What was Lena building?</li>
