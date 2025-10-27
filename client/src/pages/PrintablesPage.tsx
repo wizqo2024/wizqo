@@ -10,6 +10,7 @@ export function PrintablesPage() {
   const seedParam = params.get('seed') || ''
   const variantParam = params.get('variant') || '1'
   const [showAnswers, setShowAnswers] = React.useState(false)
+  const [colorMode, setColorMode] = React.useState<'color' | 'ink'>('color')
   const [copiedLink, setCopiedLink] = React.useState(false)
   const answerableDocs = new Set([
     'science-match',
@@ -354,6 +355,25 @@ export function PrintablesPage() {
               <span>📌</span>
               <span>Pin this</span>
             </a>
+            {/* Color mode toggle */}
+            <div className="print:hidden">
+              <div role="group" aria-label="Color mode" className="inline-flex rounded-lg border border-slate-200 bg-white overflow-hidden text-sm">
+                <button
+                  type="button"
+                  onClick={() => setColorMode('color')}
+                  className={`px-3 py-1.5 ${colorMode==='color' ? 'bg-purple-600 text-white' : 'text-slate-700 hover:bg-slate-50'}`}
+                >
+                  Colorful
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setColorMode('ink')}
+                  className={`px-3 py-1.5 border-l border-slate-200 ${colorMode==='ink' ? 'bg-slate-800 text-white' : 'text-slate-700 hover:bg-slate-50'}`}
+                >
+                  Ink‑friendly
+                </button>
+              </div>
+            </div>
             {shouldShowAnswerToggle && (
               <div className="print:hidden">
                 <button
@@ -594,17 +614,31 @@ export function PrintablesPage() {
 
         {doc === 'place-value-hto' && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
+          const isColor = colorMode === 'color';
           return (
             <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
               <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-purple-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 -left-6 w-24 h-24 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
+                <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${isColor ? 'bg-purple-200/40' : 'bg-slate-200/20'} animate-blob`} />
+                <div className={`absolute -bottom-12 -left-8 w-28 h-28 rounded-full ${isColor ? 'bg-amber-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-2000`} />
+                <div className={`absolute top-1/2 -left-6 w-24 h-24 rounded-full ${isColor ? 'bg-sky-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-4000`} />
               </div>
               <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)
                 <span className="ml-2 print:hidden inline-block animate-bounce">🔢</span>
               </h2>
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Visual legend */}
+              <div className="print:hidden mb-3 flex items-center gap-4 text-sm">
+                <svg viewBox="0 0 160 40" className="h-10 w-auto">
+                  {/* Tens rod */}
+                  <rect x="10" y="6" width="12" height="28" fill={isColor ? '#22c55e' : 'none'} stroke="#111827" strokeWidth="2" />
+                  <text x="30" y="24" fontSize="12" fill="#111827">Tens rod</text>
+                  {/* Ones cubes */}
+                  {Array.from({length:3}).map((_,i)=> (
+                    <rect key={i} x={86 + i*14} y={12} width="10" height="10" fill={isColor ? '#60a5fa' : 'none'} stroke="#111827" strokeWidth="2" />
+                  ))}
+                  <text x="130" y="24" fontSize="12" fill="#111827">Ones</text>
+                </svg>
+              </div>
               <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
               <div className="grid grid-cols-2 gap-3">
                 {nums.map((n,i)=> (
@@ -1242,9 +1276,27 @@ export function PrintablesPage() {
           </section>
         )}
         {doc === 'reading-g2-paper-bridge' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Paper Bridge (Grade 2)</h2>
+          <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <div className="absolute inset-0 -z-10 print:hidden">
+              <div className="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-amber-200/40 animate-blob" />
+              <div className="absolute -bottom-12 -right-8 w-28 h-28 rounded-full bg-sky-200/40 animate-blob animation-delay-2000" />
+            </div>
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <svg className="h-5 w-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 7h18M3 12h18M3 17h18" />
+              </svg>
+              Passage — The Paper Bridge (Grade 2)
+            </h2>
             <div className="bg-white border border-slate-300 rounded p-4">
+              {/* Small illustrative header */}
+              <div className="print:hidden mb-3">
+                <svg viewBox="0 0 500 80" className="w-full h-16">
+                  <rect x="80" y="50" width="340" height="8" fill="#94a3b8" />
+                  <rect x="100" y="30" width="80" height="20" fill="#22c55e" />
+                  <rect x="190" y="30" width="80" height="20" fill="#60a5fa" />
+                  <rect x="280" y="30" width="80" height="20" fill="#f59e0b" />
+                </svg>
+              </div>
               <p className="text-slate-800 text-base">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
                 <li>What was Lena building?</li>
