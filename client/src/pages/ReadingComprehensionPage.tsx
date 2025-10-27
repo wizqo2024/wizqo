@@ -20,6 +20,54 @@ export default function ReadingComprehensionPage() {
         canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
       />
       <UnifiedNavigation currentPage="printables" />
+      {/* Structured data: Breadcrumbs + WebPage + FAQ */}
+      {(() => {
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
+            { "@type": "ListItem", position: 3, name: "Reading Comprehension", item: "https://wizqo.com/worksheets/reading-comprehension" }
+          ]
+        } as const;
+        const webPageLd = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Free Printable Reading Comprehension Worksheets for Kids (PDF)",
+          url: "https://wizqo.com/worksheets/reading-comprehension",
+          description: "Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.",
+          breadcrumb: { "@id": "#breadcrumbs" }
+        } as const;
+        const faqLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How do I download the worksheets as PDF?",
+              acceptedAnswer: { "@type": "Answer", text: "Open a worksheet link to the print view, then use your browser’s Print → Save as PDF." }
+            },
+            {
+              "@type": "Question",
+              name: "Can I use these in class?",
+              acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." }
+            },
+            {
+              "@type": "Question",
+              name: "What skills do these build?",
+              acceptedAnswer: { "@type": "Answer", text: "Finding details, main idea, sequence, vocabulary in context, and light inference." }
+            }
+          ]
+        } as const;
+        return (
+          <>
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+          </>
+        );
+      })()}
 
       <header className="bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -130,6 +178,17 @@ export default function ReadingComprehensionPage() {
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
+        </section>
+
+        {/* Related links */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+            <li><a className="hover:underline" href="/kids">Kids Hub – Games</a></li>
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets</a></li>
+          </ul>
         </section>
 
         {/* FAQs (match accordion UI used elsewhere) */}
