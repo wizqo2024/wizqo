@@ -4,7 +4,7 @@ import { UnifiedNavigation } from '../components/UnifiedNavigation';
 import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { GentleParentingCharts } from '@/components/charts/GentleParentingCharts';
+import GentleParentingFull from '@/components/blog/GentleParentingFull';
 
 interface BlogPost {
   id: string;
@@ -44,91 +44,12 @@ function getPostRating(post: BlogPost): string {
 
 // Base posts (inline)
 const basePosts: BlogPost[] = [
+  // Gentle parenting post is rendered with a purpose-built component instead of markdown content
   {
     id: "gentle-parenting-techniques",
     title: "Gentle Parenting Techniques That Actually Work",
     excerpt: "Learn gentle parenting techniques that actually work — real stories, science, and simple steps to replace punishment with connected, calm discipline.",
-    content: `Intro: Why Gentle Parenting Works
-
-Parenting isn’t about perfection — it’s about connection. When you use gentle parenting techniques, you trade power struggles for calm discipline and real learning. This article brings together science, examples, and simple wins you can try today.
-
-![Parent and child smiling together outdoors](https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1600&q=80 "Connection before correction")
-
-## What Is Gentle Parenting?
-
-At its core, gentle parenting is respect over fear, guidance over punishment, and empathy over control. Using gentle parenting techniques consistently builds your child’s emotional intelligence and your family’s sense of safety. These gentle parenting techniques reflect positive parenting and mindful parenting in action, helping families practice parenting without yelling.
-
-- Respect the feeling, guide the behavior  
-- Teach skills in calm moments  
-- Model the tone you want to hear
-
-## The Science: Connection Before Correction
-
-Neuroscience shows an “upstairs brain” (logic) and “downstairs brain” (emotion). When kids melt down, their downstairs brain is running the show. Gentle parenting techniques focus on connection first so kids can return to logic and learn.
-
-Real‑life snapshot:  
-“You really don’t want to stop playing, right? It’s hard to leave something fun.”  
-Validation lowers defenses — and cooperation follows.
-
-![Calm parent listening at eye level](https://images.unsplash.com/photo-1518627358661-9d6d34a7a1f3?auto=format&fit=crop&w=1600&q=80 "Listening at eye level builds safety")
-
-## 5 Gentle Parenting Techniques That Work
-
-1) Pause Before Reacting  
-Even five seconds can reset your tone. This is calm discipline in action — a core part of gentle parenting techniques.
-
-2) Name the Emotion  
-“You’re mad because your tower fell.” When feelings are seen, behavior shifts faster.
-
-3) Offer Choices, Not Orders  
-“Blocks or books first?” Choices reduce power struggles and build agency — a mindful parenting win. This is one of the gentle parenting techniques that consistently lowers conflict.
-
-4) Repair After Conflict  
-“I’m sorry I yelled.” Repair teaches accountability and shows that relationships can be fixed.
-
-5) Set Boundaries with Love  
-“I won’t let you hit. I will help you calm down.” Firm limits + warm tone = trust.
-
-![Small repair moments after conflict](https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80 "Repair strengthens connection")
-
-## The Real‑World Impact: By the Numbers
-
-- 42% fewer tantrums reported after 30 days  
-- 60% higher cooperation from improved connection  
-- 3× better emotional vocabulary in ages 3–8  
-
-Why? Gentle parenting techniques reduce stress chemistry and build regulation skills over time.
-
-<Charts />
-
-## Common Myths vs Reality
-
-- “It’s too soft.”  
-Gentle ≠ permissive. It’s firm, consistent guidance without fear tactics.
-
-- “Kids won’t respect you.”  
-Respect is modeled, not demanded. Calm authority earns trust.
-
-- “It takes too long.”  
-It’s an investment: fewer battles now, more self‑discipline later.
-
-## You Can Start Today
-
-Start tiny:
-
-- Take one deep breath before responding  
-- Validate feelings: “You’re sad it’s bedtime, huh?”  
-- Offer a choice: “Brush teeth first or PJs first?”  
-
-Gentle parenting techniques are about progress over perfection — connection over control.
-
-## Keep Exploring (Internal Links)
-
-- Kids Hub – Play, Print, and Learn: [/kids](/kids)  
-- Reading Comprehension Worksheets: [/worksheets/reading-comprehension](/worksheets/reading-comprehension)  
-- Easy Hobbies That Make You Smarter: [/blog/easy-hobbies-that-make-you-smarter](/blog/easy-hobbies-that-make-you-smarter)  
-- Printables for Kids: [/printables](/printables)
-`,
+    content: "<GentleParentingFull />",
     author: "Wizqo Team",
     date: "October 2025",
     readTime: "7–8 min read",
@@ -1615,12 +1536,9 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   const line = lines[i];
                   const trimmed = line.trim();
                   if (trimmed === '') continue;
-                  if (selectedPost.id === 'gentle-parenting-techniques' && trimmed === '<Charts />') {
-                    elements.push(
-                      <div key={`charts-${i}`} className="my-6">
-                        <GentleParentingCharts />
-                      </div>
-                    );
+                  // Render our full custom component when requested
+                  if (selectedPost.id === 'gentle-parenting-techniques' && trimmed === '<GentleParentingFull />') {
+                    elements.push(<GentleParentingFull key={`gp-full-${i}`} />);
                     continue;
                   }
                   // FAQ block detection for general renderer
