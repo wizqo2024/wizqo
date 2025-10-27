@@ -1258,16 +1258,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 </p>
               </div>
               
-              {/* Table of Contents */}
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-8">
-                <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                  </svg>
-                  Table of Contents
-                </h3>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {selectedPost.content.split('\n')
+              {/* Table of Contents (hide for custom-rendered posts) */}
+              {selectedPost.id !== 'gentle-parenting-techniques' && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-8">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                    </svg>
+                    Table of Contents
+                  </h3>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {selectedPost.content.split('\n')
                     .filter(paragraph => {
                       const p = paragraph.trim();
                       return (
@@ -1293,34 +1294,35 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                           p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
                           p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
                         ) && !/^!\[.*?\]\(.*\)$/.test(p) // exclude markdown image lines
-                      );
-                    })
-                    .map((paragraph, index) => {
-                      const headingText = paragraph
-                        .trim()
-                        .replace(/^#{1,6}\s+/, '')
-                        .replace(/\*\*(.*?)\*\*/g, '$1');
-                      const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                      return (
-                        <a 
-                          key={index} 
-                          href={`#${headingId}`}
-                          className="flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            const element = document.getElementById(headingId);
-                            if (element) {
-                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            }
-                          }}
-                        >
-                          <span className="text-purple-400">→</span>
-                          <span className="hover:underline">{headingText}</span>
-                        </a>
-                      );
-                    })}
+                        );
+                      })
+                      .map((paragraph, index) => {
+                        const headingText = paragraph
+                          .trim()
+                          .replace(/^#{1,6}\s+/, '')
+                          .replace(/\*\*(.*?)\*\*/g, '$1');
+                        const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                        return (
+                          <a 
+                            key={index} 
+                            href={`#${headingId}`}
+                            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const element = document.getElementById(headingId);
+                              if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }}
+                          >
+                            <span className="text-purple-400">→</span>
+                            <span className="hover:underline">{headingText}</span>
+                          </a>
+                        );
+                      })}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             
             <div className="prose prose-lg max-w-none">
