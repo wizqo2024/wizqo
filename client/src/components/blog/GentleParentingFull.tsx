@@ -373,7 +373,7 @@ export function GentleParentingFull() {
           <p className="mb-6">Nobody’s perfect. The beauty of gentle parenting is you can start today, even after tough moments. You’re not raising a “good” kid — you’re raising a kind, emotionally aware human.</p>
           <h3 className="text-xl font-semibold text-green-800 mb-3">Start Small:</h3>
           <ul className="space-y-3 text-left w-fit mx-auto">
-            <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🧘</span>Take one deep breath before reacting — a step toward <span className="inline font-semibold text-green-800">parenting without yelling</span>.</li>
+            <li className="flex items-center text-green-800"><span className="text-green-800 text-2xl mr-3">🧘</span><span>Take one deep breath before reacting, a step toward <span className="font-semibold">parenting without yelling</span>.</span></li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🎧</span>Listen more than you lecture.</li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">💬</span>Validate feelings: “You’re sad it’s bedtime, huh?”</li>
             <li className="flex items-center"><span className="text-green-700 text-2xl mr-3">🤗</span>Hug after hard moments.</li>
