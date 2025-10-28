@@ -157,9 +157,14 @@ export default function HandwritingMakerPage() {
         @media print {
           @page { margin: 0; size: 8.5in 11in; }
           html, body { margin: 0; padding: 0; }
-          body * { display: none !important; }
-          #handwriting-sheet, #handwriting-sheet * { display: block !important; }
-          #handwriting-sheet { width: 8.5in !important; height: 11in !important; margin: 0 auto !important; padding: 0 !important; border: 0 !important; }
+          body * { visibility: hidden !important; }
+          #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
+          #handwriting-sheet {
+            position: absolute !important;
+            left: 0 !important; top: 0 !important;
+            width: 8.5in !important; height: 11in !important;
+            margin: 0 !important; padding: 0 !important; border: 0 !important;
+          }
           #handwriting-sheet svg { width: 8.5in !important; height: 11in !important; page-break-inside: avoid; }
         }
       `}</style>
@@ -171,7 +176,7 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid md:grid-cols-2 gap-6 items-start">
+        <section className="grid sm:grid-cols-2 gap-6 items-start">
           {/* Left: Controls */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
             {/* Mode segmented control */}
