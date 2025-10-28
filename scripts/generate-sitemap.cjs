@@ -96,6 +96,7 @@ function generate() {
   push(`${site}/worksheets/1st-grade-math-worksheets`, null, 'weekly', '0.7');
   push(`${site}/worksheets/2nd-grade-math-worksheets`, null, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, null, 'weekly', '0.7');
+  push(`${site}/worksheets/handwriting-worksheet-maker`, null, 'weekly', '0.7');
   // Intentionally exclude /print?doc=... from sitemap (non-indexed)
 
   for (const p of posts) {

@@ -147,6 +147,7 @@ function main() {
   // Worksheets
   routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.' });
+  routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!' });
   // About/Contact/Legal
   routes.push({ path: '/about', title: 'About Wizqo - AI-Powered Hobby Learning Platform', description: "Learn about Wizqo's mission to make hobby learning accessible to everyone through AI-powered personalized plans and expert-curated content." });
   routes.push({ path: '/contact', title: 'Contact Wizqo – Questions, Feedback, or Hobby Ideas Welcome', description: 'Got a question or suggestion? Reach out to Wizqo\'s team — we typically respond within 24 hours. Let’s improve your hobby journey together' });
