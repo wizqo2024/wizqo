@@ -101,13 +101,16 @@ export default function WorksheetsSecondGradePage() {
 }
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
+const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
+const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
 function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
   return (
     <div className={CARD_CLASS}>
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
-      <div className="mt-3">
-        <a href={href} className="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors">Open printable view →</a>
+      <div className="mt-3 flex items-center gap-2">
+        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
+        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
       </div>
     </div>
   )
