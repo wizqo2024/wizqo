@@ -150,6 +150,14 @@ export default function HandwritingMakerPage() {
         canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
       />
       <UnifiedNavigation currentPage="kids" />
+      {/* Print-only styles to show preview only */}
+      <style>{`
+        @media print {
+          body * { visibility: hidden !important; }
+          #handwriting-preview, #handwriting-preview * { visibility: visible !important; }
+          #handwriting-preview { position: fixed; inset: 0; margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; background: #fff !important; }
+        }
+      `}</style>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
@@ -240,9 +248,9 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-24">
+            <div className="md:sticky md:top-24" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium">Preview</div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
+              <div className="bg-white border border-slate-2 00 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
               </div>
               <div className="text-xs text-slate-500 mt-2">Tip: Long text wraps to the next line automatically.</div>
