@@ -224,9 +224,9 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 items-start">
+        <section className="grid grid-cols-1 md:grid-cols-[360px_1fr] lg:grid-cols-[380px_1fr] gap-6 items-start">
           {/* Left: Controls */}
-          <div className="order-2 lg:order-1 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[380px] min-w-[360px] whitespace-normal">
+          <div className="order-2 md:order-1 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[360px] md:w-[360px] lg:w-[380px] min-w-[320px] md:min-w-[340px] whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -334,7 +334,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="order-1 lg:order-2 lg:sticky lg:top-20 w-full lg:w-[800px] min-w-0" id="handwriting-preview">
+            <div className="order-1 md:order-2 md:sticky md:top-20 w-full min-w-0" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
