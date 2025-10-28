@@ -333,15 +333,15 @@ export default function HandwritingMakerPage() {
                 </button>
               </div>
             </div>
-            {/* Right: Preview */}
-            <div className="order-1 md:order-2 md:sticky md:top-20 w-full flex-1 min-w-0" id="handwriting-preview">
+          </div>
+          {/* Right: Preview */}
+          <div className="order-1 md:order-2 md:sticky md:top-20 w-full flex-1 min-w-0" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
               </div>
               <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
             </div>
-          </div>
         </section>
 
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
