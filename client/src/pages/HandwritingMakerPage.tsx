@@ -224,8 +224,21 @@ export default function HandwritingMakerPage() {
               )}
 
               <div className="mt-4 border-t pt-3 grid grid-cols-2 gap-3">
-                <label className="text-sm text-slate-700">Font size
-                  <input type="number" min={28} max={72} value={fontSize} onChange={(e)=>setFontSize(parseInt(e.target.value||'42',10))} className="ml-2 w-20 px-2 py-1 border border-slate-300 rounded" />
+                <label className="text-sm text-slate-700">Font size <span className="text-slate-400">(28–72)</span>
+                  <input
+                    type="number"
+                    min={28}
+                    max={72}
+                    step={2}
+                    value={fontSize}
+                    onChange={(e)=>{
+                      const raw = parseInt(e.target.value || '42', 10);
+                      const safe = isNaN(raw) ? 42 : raw;
+                      const clamped = Math.max(28, Math.min(72, safe));
+                      setFontSize(clamped);
+                    }}
+                    className="ml-2 w-24 px-2 py-1 border border-slate-300 rounded"
+                  />
                 </label>
                 <label className="text-sm text-slate-700">Line style
                   <select value={lineType} onChange={(e)=>setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
