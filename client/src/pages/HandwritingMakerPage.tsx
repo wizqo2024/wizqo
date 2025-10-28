@@ -63,7 +63,8 @@ export default function HandwritingMakerPage() {
     const fontStack = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
     if (ctx) ctx.font = `${fontSize}px ${fontStack}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
-    const availableWidth = pageW - (margin + 16) - margin;
+          const availableWidth = pageW - (margin + 16) - margin;
+          const letterSpacing = fontSize * 0.08; // small spacing for readability
     const tokens = src ? src.split(' ') : [];
     const lines: string[] = [];
     let current = '';
@@ -131,7 +132,7 @@ export default function HandwritingMakerPage() {
                 strokeWidth={dotted ? 2 : 0}
                 strokeDasharray={dotted ? '3 5' : undefined}
                 strokeLinecap={dotted ? 'round' as any : undefined}
-                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill' } as any}
+                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: `${letterSpacing}px` } as any}
               >
                 {text}
               </text>
@@ -156,7 +157,7 @@ export default function HandwritingMakerPage() {
           @page { margin: 0.5in; }
           body * { visibility: hidden !important; }
           #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
-          #handwriting-sheet { position: fixed; inset: 0.5in; margin: 0 !important; padding: 0 !important; width: calc(100% - 1in) !important; height: calc(100% - 1in) !important; background: #fff !important; overflow: hidden; }
+          #handwriting-sheet { position: fixed; inset: 0.5in; margin: 0 !important; padding: 0 !important; width: calc(100% - 1in) !important; height: calc(100% - 1in) !important; background: #fff !important; overflow: hidden; page-break-before: avoid; page-break-after: avoid; }
           #handwriting-sheet svg { width: 100% !important; height: auto !important; }
         }
       `}</style>
@@ -168,9 +169,9 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-2 gap-5">
+        <section className="flex gap-5">
           {/* Left: Controls */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex-1 min-w-0">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -250,7 +251,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-24" id="handwriting-preview">
+            <div className="md:sticky md:top-24 flex-shrink-0 w-[560px] sm:w-[640px] md:w-[700px] lg:w-[800px]" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
