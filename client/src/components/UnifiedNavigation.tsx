@@ -93,6 +93,13 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </svg>
                     <span>Printables</span>
                   </a>
+                  <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 border-t border-slate-100">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 20h9" />
+                      <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
+                    </svg>
+                    <span>Handwriting Worksheet Maker</span>
+                  </a>
                   <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-700 hover:bg-slate-50 border-t border-slate-100">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M4 19h16M4 5h16M7 12h10" />
@@ -248,6 +255,16 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Printables</span>
               </span>
             </button>
+
+                <button 
+                  onClick={() => {
+                    window.location.href = '/worksheets/handwriting-worksheet-maker';
+                    setShowMobileMenu(false);
+                  }} 
+                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                >
+                  <span className="pl-8">Handwriting Worksheet Maker</span>
+                </button>
 
             <button 
               onClick={() => {

@@ -19,6 +19,7 @@ import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
+import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import KidsPage from './pages/KidsPage';
 // (duplicate import removed)
@@ -381,6 +382,18 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
                     />
                     <WorksheetsFirstGradePage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'handwriting-worksheet-maker') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets"
+                      description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!"
+                      canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
+                    />
+                    <HandwritingMakerPage />
                   </>
                 );
               }
