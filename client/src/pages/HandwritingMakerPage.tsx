@@ -105,7 +105,7 @@ export default function HandwritingMakerPage() {
     if (ctx) ctx.font = `${fontSize}px ${fontStack}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
           const availableWidth = pageW - (margin + 16) - margin;
-          const letterSpacing = fontSize * 0.08; // small spacing for readability
+          const letterSpacing = (autoSpaceLetters ? fontSize * 0.18 : fontSize * 0.08); // extra spacing when enabled
     // Include CSS letter-spacing effect in our width measurement so lines wrap correctly
     const measureWithSpacing = (t: string) => {
       const charCount = Array.from(t).length;
@@ -277,6 +277,9 @@ export default function HandwritingMakerPage() {
                     </div>
                   </div>
                   <textarea value={words} onChange={(e)=>setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                  <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                  </label>
                 </div>
               )}
               {mode==='sentences' && (
@@ -289,6 +292,9 @@ export default function HandwritingMakerPage() {
                     </div>
                   </div>
                   <textarea value={sentences} onChange={(e)=>setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                  <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                  </label>
                 </div>
               )}
 
