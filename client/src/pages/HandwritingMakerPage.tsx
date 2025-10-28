@@ -228,7 +228,7 @@ export default function HandwritingMakerPage() {
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Left: Controls */}
-          <div className="order-2 md:order-1 md:col-span-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-full whitespace-normal">
+          <div className="order-2 md:order-1 md:col-span-5 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-full whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -343,7 +343,7 @@ export default function HandwritingMakerPage() {
             </div>
           </div>
           {/* Right: Preview */}
-          <div className="order-1 md:order-2 md:col-span-8 w-full min-w-0" id="handwriting-preview">
+          <div className="order-1 md:order-2 md:col-span-7 w-full min-w-0" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
