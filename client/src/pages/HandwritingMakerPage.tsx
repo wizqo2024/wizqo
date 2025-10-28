@@ -37,9 +37,13 @@ export default function HandwritingMakerPage() {
   @page { size: 8.5in 11in; margin: 0; }
   html, body { margin: 0; padding: 0; width: 8.5in; height: 11in; }
   #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
+  /* Printed worksheet area */
   svg { position: absolute; left: 0.5in; top: 0.5in; width: 7.5in; height: 10in; }
+  /* Logo in the top-left margin */
+  #print-logo { position: absolute; top: 0.25in; left: 0.25in; width: 0.6in; height: auto; opacity: 0.95; }
+  
 </style>
-</head><body><div id=\"frame\">${content}</div></body></html>`;
+</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}</div></body></html>`;
       const iframe = document.createElement('iframe');
       iframe.style.position = 'fixed';
       iframe.style.right = '0';
@@ -216,6 +220,8 @@ export default function HandwritingMakerPage() {
             overflow: hidden !important; page-break-before: avoid; page-break-after: avoid; break-inside: avoid-page;
           }
           #handwriting-sheet svg { width: 8in !important; height: 10.5in !important; break-inside: avoid-page; }
+          /* Show small logo in top-left margin when printing from the page directly */
+          #print-logo-inline { position: fixed; top: 0.15in; left: 0.15in; width: 0.5in; height: auto; visibility: visible !important; }
         }
       `}</style>
 
@@ -344,6 +350,7 @@ export default function HandwritingMakerPage() {
           </div>
           {/* Right: Preview */}
           <div className="order-1 md:order-2 md:col-span-7 w-full min-w-0" id="handwriting-preview">
+              <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
