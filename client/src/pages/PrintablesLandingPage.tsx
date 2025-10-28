@@ -344,33 +344,7 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* 9. Geography Worksheets */}
-        <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
-          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
-          <div className={gridClass}>
-            <ItemCard
-              title="🌍 Label the 7 Continents (K–2)"
-              description="Write or trace continent names; beginner‑friendly world outline with hints."
-              href="/print?doc=geo-continents-k2"
-            />
-            <ItemCard
-              title="🧭 Compass Rose & Directions"
-              description="N, E, S, W with NE/SE/SW/NW — color and label the compass."
-              href="/print?doc=geo-compass-rose"
-            />
-            <ItemCard
-              title="🏔️ Landforms vs Water Bodies"
-              description="Match words to simple icons: mountain, valley, island, lake, river."
-              href="/print?doc=geo-landforms"
-            />
-            <ItemCard
-              title="🗺️ Latitude & Longitude Basics"
-              description="Practice reading and plotting coordinates on a simple world grid."
-              href="/print?doc=geo-latlong"
-            />
-          </div>
-        </section>
+        
 
 
         {searchQuery && (
@@ -832,6 +806,18 @@ export function PrintablesLandingPage() {
               age="7–10"
               href="/print?doc=reading-mini-1"
             />
+          </div>
+        </section>
+
+        {/* 9. Geography Worksheets */}
+        <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
+          <div className={gridClass}>
+            <ItemCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" />
+            <ItemCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" />
+            <ItemCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href="/print?doc=geo-landforms" />
+            <ItemCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href="/print?doc=geo-latlong" />
           </div>
         </section>
 
