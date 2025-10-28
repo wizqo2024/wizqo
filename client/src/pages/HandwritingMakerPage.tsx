@@ -106,6 +106,13 @@ export default function HandwritingMakerPage() {
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
           const availableWidth = pageW - (margin + 16) - margin;
           const letterSpacing = fontSize * 0.08; // small spacing for readability
+    // Include CSS letter-spacing effect in our width measurement so lines wrap correctly
+    const measureWithSpacing = (t: string) => {
+      const charCount = Array.from(t).length;
+      const base = measure(t);
+      const extra = Math.max(0, charCount - 1) * letterSpacing;
+      return base + extra;
+    };
     const tokens = src ? src.split(' ') : [];
     const lines: string[] = [];
     let current = '';
@@ -113,7 +120,7 @@ export default function HandwritingMakerPage() {
     for (let ti = 0; ti < tokens.length && lines.length < rowsCount; ti++) {
       const token = tokens[ti];
       const next = current ? `${current} ${token}` : token;
-      if (measure(next) <= availableWidth) {
+      if (measureWithSpacing(next) <= availableWidth) {
         current = next;
         continue;
       }
@@ -122,7 +129,7 @@ export default function HandwritingMakerPage() {
         let part = '';
         for (const ch of token) {
           const test = part + ch;
-          if (measure(test) <= availableWidth) {
+          if (measureWithSpacing(test) <= availableWidth) {
             part = test;
           } else {
             if (part) lines.push(part);
