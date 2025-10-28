@@ -4,6 +4,7 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
+  const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
@@ -291,6 +292,15 @@ export function PrintablesPage() {
       />
     )
   }
+  // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
+  React.useEffect(() => {
+    try {
+      if (!autoPrint) return
+      // Defer a bit to let the view render fully
+      const t = setTimeout(() => { try { window.print() } catch {} }, 400)
+      return () => clearTimeout(t)
+    } catch {}
+  }, [autoPrint])
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
