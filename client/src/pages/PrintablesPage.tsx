@@ -387,7 +387,7 @@ export function PrintablesPage() {
         {doc === 'geo-continents-k2' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
-            <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Trace or write continent names; color each continent a different color.</p>
+            <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Write each continent’s name on the lines below. Optional: color each continent a different color.</p>
             <div className="border border-slate-300 rounded p-4 bg-white">
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="continents-title">
                 <title id="continents-title">World map outline with 7 continents</title>
@@ -402,16 +402,54 @@ export function PrintablesPage() {
                   <path d="M200 320 C230 300, 270 300, 300 330 C280 360, 240 360, 220 340 Z" />
                   <path d="M380 320 C420 300, 480 300, 520 350 C500 380, 430 380, 400 350 Z" />
                 </g>
-                <g fill="#64748b" fontSize="16">
-                  <text x="150" y="135">North America</text>
-                  <text x="320" y="165">Europe</text>
-                  <text x="480" y="175">Asia</text>
-                  <text x="560" y="255">Australia</text>
-                  <text x="260" y="255">South America</text>
-                  <text x="220" y="315">Antarctica</text>
-                  <text x="390" y="315">Africa</text>
+                {/* Numbered markers for each continent */}
+                <g fill="#111827" fontSize="14" textAnchor="middle">
+                  {/* 1: North America */}
+                  <circle cx="170" cy="150" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="170" y="155">1</text>
+                  {/* 2: South America */}
+                  <circle cx="290" cy="280" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="290" y="285">2</text>
+                  {/* 3: Europe */}
+                  <circle cx="355" cy="170" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="355" y="175">3</text>
+                  {/* 4: Africa */}
+                  <circle cx="430" cy="330" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="430" y="335">4</text>
+                  {/* 5: Asia */}
+                  <circle cx="520" cy="195" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="520" y="200">5</text>
+                  {/* 6: Australia */}
+                  <circle cx="600" cy="290" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="600" y="295">6</text>
+                  {/* 7: Antarctica */}
+                  <circle cx="380" cy="430" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="380" y="435">7</text>
                 </g>
               </svg>
+            </div>
+            {/* Word bank + write lines */}
+            <div className="mt-3 grid md:grid-cols-2 gap-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <div className="text-slate-900 font-semibold mb-1">Word Bank</div>
+                <ul className="text-slate-700 text-sm grid grid-cols-2 gap-x-4 gap-y-1">
+                  <li>North America</li>
+                  <li>South America</li>
+                  <li>Europe</li>
+                  <li>Africa</li>
+                  <li>Asia</li>
+                  <li>Australia</li>
+                  <li>Antarctica</li>
+                </ul>
+              </div>
+              <div className="border border-slate-200 rounded-lg p-3">
+                <div className="text-slate-900 font-semibold mb-1">Write the Names</div>
+                <ol className="text-slate-700 text-sm space-y-1">
+                  {Array.from({ length: 7 }).map((_,i)=> (
+                    <li key={i} className="flex items-center gap-2"><span className="font-semibold">{i+1}.</span> <span className="flex-1 border-b border-slate-300 inline-block" style={{ minWidth: '10rem' }} /></li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </section>
         )}
