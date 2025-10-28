@@ -300,7 +300,52 @@ export function PrintablesLandingPage() {
             </div>
           </div>
         </section>
-        {/* Geography (moved above Build Pack) */}
+        {/* Geography (moved below Build Pack per request) */}
+        {/* Build a 5‑Minute Print Pack */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-4">
+          <h2 className="text-xl font-bold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</h2>
+          <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick math printable set for today — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <label className="text-sm text-slate-600">Time
+              <select value={packTime} onChange={(e)=>setPackTime(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                <option value="5">5 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+              </select>
+            </label>
+            <label className="text-sm text-slate-600">Age/Grade
+              <select value={packAge} onChange={(e)=>setPackAge(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                <option value="k1">K–1</option>
+                <option value="k2">K–2</option>
+                <option value="g1">1st Grade</option>
+                <option value="g2">2nd Grade</option>
+                <option value="35">3–5</option>
+                <option value="68">6–8</option>
+              </select>
+            </label>
+            <label className="text-sm text-slate-600">Focus
+              <select value={packSkill} onChange={(e)=>setPackSkill(e.target.value as any)} className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+                <option value="math">Math</option>
+                <option value="mixed">Mixed</option>
+                <option value="focus">Focus</option>
+                <option value="reading">Reading</option>
+                <option value="stem">STEM</option>
+                <option value="creativity">Creativity</option>
+              </select>
+            </label>
+            <button
+              onClick={() => {
+                const url = `/print?doc=pack&time=${packTime}&age=${packAge}&skill=${packSkill}`;
+                try { window.location.href = url; } catch {}
+              }}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              Build Pack →
+            </button>
+          </div>
+        </section>
+
+        {/* Geography */}
         <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 Geography Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
