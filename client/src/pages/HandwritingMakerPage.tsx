@@ -155,17 +155,18 @@ export default function HandwritingMakerPage() {
       {/* Print-only styles to show preview only */}
       <style>{`
         @media print {
-          @page { margin: 0; size: 8.5in 11in; }
-          html, body { margin: 0; padding: 0; }
+          @page { size: 8.5in 11in; margin: 0; }
+          html, body { margin: 0; padding: 0; overflow: hidden !important; }
           body * { visibility: hidden !important; }
           #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
           #handwriting-sheet {
-            position: absolute !important;
-            left: 0 !important; top: 0 !important;
-            width: 8.5in !important; height: 11in !important;
-            margin: 0 !important; padding: 0 !important; border: 0 !important;
+            position: fixed !important;
+            top: 0 !important; left: 0 !important;
+            width: 8in !important; height: 10.5in !important;
+            margin: 0.25in !important; padding: 0 !important; border: 0 !important;
+            overflow: hidden !important; page-break-before: avoid; page-break-after: avoid; break-inside: avoid-page;
           }
-          #handwriting-sheet svg { width: 8.5in !important; height: 11in !important; page-break-inside: avoid; }
+          #handwriting-sheet svg { width: 8in !important; height: 10.5in !important; break-inside: avoid-page; }
         }
       `}</style>
 
