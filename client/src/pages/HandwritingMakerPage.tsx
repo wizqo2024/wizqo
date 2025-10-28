@@ -14,6 +14,7 @@ export default function HandwritingMakerPage() {
   const [lineType, setLineType] = React.useState<'primary' | 'baseline'>('primary');
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
+  const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
 
   // Quick-fill helpers for nicer UX
   const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
@@ -156,9 +157,9 @@ export default function HandwritingMakerPage() {
         @media print {
           @page { margin: 0; }
           html, body { margin: 0; padding: 0; }
-          body * { display: none !important; }
-          #handwriting-sheet, #handwriting-sheet * { display: block !important; }
-          #handwriting-sheet { position: static !important; margin: 0 !important; padding: 0 !important; width: 100% !important; height: auto !important; background: #fff !important; }
+          body * { visibility: hidden !important; }
+          #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
+          #handwriting-sheet { position: fixed !important; inset: 0 !important; margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; background: #fff !important; }
           #handwriting-sheet svg { width: 100% !important; height: auto !important; page-break-inside: avoid; }
         }
       `}</style>
@@ -170,9 +171,9 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="flex flex-nowrap items-start gap-5 overflow-x-auto">
+        <section className="grid grid-cols-2 gap-4 items-start">
           {/* Left: Controls */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex-none min-w-[320px]">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm min-w-0">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -195,7 +196,22 @@ export default function HandwritingMakerPage() {
                       <button type="button" onClick={()=>setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
-                  <textarea value={letters} onChange={(e)=>setLetters(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                  <textarea
+                    value={letters}
+                    onChange={(e)=>{
+                      const v = e.target.value;
+                      if (autoSpaceLetters) {
+                        const spaced = v.replace(/\s+/g, '').split('').join(' ').replace(/\s{2,}/g,' ').trim();
+                        setLetters(spaced);
+                      } else {
+                        setLetters(v);
+                      }
+                    }}
+                    className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm"
+                  />
+                  <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> Auto‑space letters
+                  </label>
                 </div>
               )}
               {mode==='words' && (
@@ -265,10 +281,10 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-24 flex-none w-[560px] sm:w-[640px] md:w-[700px] lg:w-[800px]" id="handwriting-preview">
+            <div className="md:sticky md:top-24" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
-                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
+                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
               </div>
               <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
             </div>
