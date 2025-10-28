@@ -15,6 +15,15 @@ export default function HandwritingMakerPage() {
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
 
+  // Quick-fill helpers for nicer UX
+  const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
+    if (variant === 'lower') setLetters('a b c d e f g h i j k l m n o p q r s t u v w x y z');
+    else if (variant === 'upper') setLetters('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z');
+    else setLetters('Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz');
+  };
+  const applyWordsSample = () => setWords('cat dog sun moon book pencil apple banana red blue green');
+  const applySentencesSample = () => setSentences('I can write neatly. We like to read. Today is fun. Practice every day.');
+
   const content = React.useMemo(() => {
     if (mode === 'letters') return letters.split(/\s+/).filter(Boolean);
     if (mode === 'words') return words.split(/\s+/).filter(Boolean);
@@ -146,23 +155,33 @@ export default function HandwritingMakerPage() {
         <header>
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Handwriting Practice Sheets for Kids (Generator)</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with lines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
+          <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-4">
-          <div className="flex flex-wrap items-center gap-2 text-sm mb-3">
-            <button onClick={() => setMode('letters')} className={`px-3 py-1.5 rounded-full border ${mode==='letters'?'bg-purple-600 text-white border-purple-600':'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Letters A–Z</button>
-            <button onClick={() => setMode('words')} className={`px-3 py-1.5 rounded-full border ${mode==='words'?'bg-purple-600 text-white border-purple-600':'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Words</button>
-            <button onClick={() => setMode('sentences')} className={`px-3 py-1.5 rounded-full border ${mode==='sentences'?'bg-purple-600 text-white border-purple-600':'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>Sentences</button>
-          </div>
+        <section className="grid md:grid-cols-2 gap-5">
+          {/* Left: Controls */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+            {/* Mode segmented control */}
+            <div className="mb-4">
+              <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
+                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode==='letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Letters A–Z</button>
+                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Words</button>
+                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>Sentences</button>
+              </div>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-3">
+            {/* Inputs */}
+            <div className="space-y-4">
               {mode==='letters' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">Letters (separate by space)</label>
-                    <button type="button" onClick={()=>setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    <div className="flex items-center gap-2">
+                      <button type="button" onClick={()=>applyLettersSample('upper')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">A–Z</button>
+                      <button type="button" onClick={()=>applyLettersSample('lower')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">a–z</button>
+                      <button type="button" onClick={()=>applyLettersSample('mixed')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Aa–Zz</button>
+                      <button type="button" onClick={()=>setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    </div>
                   </div>
                   <textarea value={letters} onChange={(e)=>setLetters(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
@@ -171,7 +190,10 @@ export default function HandwritingMakerPage() {
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">Words (separate by space)</label>
-                    <button type="button" onClick={()=>setWords('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    <div className="flex items-center gap-2">
+                      <button type="button" onClick={applyWordsSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Example</button>
+                      <button type="button" onClick={()=>setWords('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    </div>
                   </div>
                   <textarea value={words} onChange={(e)=>setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
@@ -180,13 +202,16 @@ export default function HandwritingMakerPage() {
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">Sentences (separate by period)</label>
-                    <button type="button" onClick={()=>setSentences('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    <div className="flex items-center gap-2">
+                      <button type="button" onClick={applySentencesSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">Example</button>
+                      <button type="button" onClick={()=>setSentences('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                    </div>
                   </div>
                   <textarea value={sentences} onChange={(e)=>setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="mt-4 border-t pt-3 grid grid-cols-2 gap-3">
                 <label className="text-sm text-slate-700">Font size
                   <input type="number" min={28} max={72} value={fontSize} onChange={(e)=>setFontSize(parseInt(e.target.value||'42',10))} className="ml-2 w-20 px-2 py-1 border border-slate-300 rounded" />
                 </label>
@@ -204,18 +229,23 @@ export default function HandwritingMakerPage() {
                 </label>
               </div>
 
-              <div className="print:hidden">
+              <div className="print:hidden pt-2">
                 <button
                   onClick={() => { try { window.print(); } catch {} }}
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow"
                 >
                   <span>⬇️</span>
                   <span>Print / Save as PDF</span>
                 </button>
               </div>
             </div>
-            <div>
-              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
+            {/* Right: Preview */}
+            <div className="md:sticky md:top-24">
+              <div className="mb-2 text-slate-700 text-sm font-medium">Preview</div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
+                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
+              </div>
+              <div className="text-xs text-slate-500 mt-2">Tip: Long text wraps to the next line automatically.</div>
             </div>
           </div>
         </section>
