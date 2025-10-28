@@ -31,15 +31,15 @@ export default function HandwritingMakerPage() {
       if (!sheet) return;
       const svg = sheet.querySelector('svg');
       const content = svg ? (svg as SVGElement).outerHTML : sheet.innerHTML;
-      const html = `<!doctype html><html><head><meta charset="utf-8"/>
+      const html = `<!doctype html><html><head><meta charset=\"utf-8\"/>
 <title>Print</title>
 <style>
   @page { size: 8.5in 11in; margin: 0; }
-  html, body { margin: 0; padding: 0; }
-  body { width: 8.5in; height: 11in; display: flex; align-items: center; justify-content: center; }
-  svg { width: 8.1in; height: 10.6in; }
+  html, body { margin: 0; padding: 0; width: 8.5in; height: 11in; }
+  #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; }
+  svg { position: absolute; left: 0.5in; top: 0.5in; width: 7.5in; height: 10in; }
 </style>
-</head><body>${content}</body></html>`;
+</head><body><div id=\"frame\">${content}</div></body></html>`;
       const w = window.open('', '_blank', 'noopener,noreferrer,width=900,height=1200');
       if (!w) return;
       w.document.open();
@@ -201,9 +201,9 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-2 gap-6 items-start overflow-x-auto">
+        <section className="grid grid-cols-2 gap-6 items-start overflow-x-auto whitespace-nowrap">
           {/* Left: Controls */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[380px] min-w-[360px] whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -311,7 +311,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-20" id="handwriting-preview">
+            <div className="md:sticky md:top-20 w-[800px] min-w-[760px]" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
