@@ -3601,10 +3601,10 @@ export function PrintablesPage() {
         )}
 
         {doc === 'coloring-nature' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
             <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Flower */}
                 <svg viewBox="0 0 400 300" className="w-full h-auto" aria-hidden>
