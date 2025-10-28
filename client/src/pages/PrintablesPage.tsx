@@ -391,40 +391,47 @@ export function PrintablesPage() {
             <div className="border border-slate-300 rounded p-4 bg-white">
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="continents-title">
                 <title id="continents-title">World map outline with 7 continents</title>
-                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                <g fill="none" stroke="#111827" strokeWidth="4">
                   <rect x="40" y="40" width="720" height="420" rx="8" />
-                  {/* Simplified continent blobs */}
-                  <path d="M140 140 C180 120, 220 120, 260 160 C240 190, 200 200, 160 180 Z" />
-                  <path d="M300 170 C340 150, 390 150, 420 180 C400 210, 350 210, 320 190 Z" />
-                  <path d="M460 180 C500 160, 560 160, 600 200 C580 230, 520 230, 480 210 Z" />
-                  <path d="M520 260 C560 240, 600 240, 640 280 C620 310, 560 310, 540 290 Z" />
-                  <path d="M240 260 C280 240, 320 240, 350 270 C330 300, 280 300, 260 280 Z" />
-                  <path d="M200 320 C230 300, 270 300, 300 330 C280 360, 240 360, 220 340 Z" />
-                  <path d="M380 320 C420 300, 480 300, 520 350 C500 380, 430 380, 400 350 Z" />
+                  {/* Simplified continent shapes (kid-friendly) */}
+                  {/* North America */}
+                  <ellipse cx="180" cy="160" rx="70" ry="45" />
+                  {/* South America */}
+                  <ellipse cx="280" cy="285" rx="45" ry="60" />
+                  {/* Europe */}
+                  <ellipse cx="370" cy="170" rx="28" ry="18" />
+                  {/* Africa */}
+                  <ellipse cx="430" cy="305" rx="55" ry="70" />
+                  {/* Asia */}
+                  <ellipse cx="540" cy="205" rx="95" ry="60" />
+                  {/* Australia */}
+                  <ellipse cx="620" cy="320" rx="35" ry="25" />
+                  {/* Antarctica */}
+                  <rect x="160" y="430" width="480" height="18" rx="8" />
                 </g>
                 {/* Numbered markers for each continent */}
                 <g fill="#111827" fontSize="14" textAnchor="middle">
                   {/* 1: North America */}
-                  <circle cx="170" cy="150" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="170" y="155">1</text>
+                  <circle cx="180" cy="160" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="180" y="165">1</text>
                   {/* 2: South America */}
-                  <circle cx="290" cy="280" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="290" y="285">2</text>
+                  <circle cx="280" cy="285" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="280" y="290">2</text>
                   {/* 3: Europe */}
-                  <circle cx="355" cy="170" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="355" y="175">3</text>
+                  <circle cx="370" cy="170" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="370" y="175">3</text>
                   {/* 4: Africa */}
-                  <circle cx="430" cy="330" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="430" y="335">4</text>
+                  <circle cx="430" cy="305" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="430" y="310">4</text>
                   {/* 5: Asia */}
-                  <circle cx="520" cy="195" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="520" y="200">5</text>
+                  <circle cx="540" cy="205" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="540" y="210">5</text>
                   {/* 6: Australia */}
-                  <circle cx="600" cy="290" r="12" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="600" y="295">6</text>
+                  <circle cx="620" cy="320" r="12" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="620" y="325">6</text>
                   {/* 7: Antarctica */}
-                  <circle cx="380" cy="430" r="14" fill="white" stroke="#111827" strokeWidth="2" />
-                  <text x="380" y="435">7</text>
+                  <circle cx="400" cy="440" r="14" fill="white" stroke="#111827" strokeWidth="2" />
+                  <text x="400" y="445">7</text>
                 </g>
               </svg>
             </div>
