@@ -40,9 +40,9 @@ export default function HandwritingMakerPage() {
     const startY = margin + 40;
     const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
     const rows = buildRows(rowsCount);
-    const baselineColor = '#94a3b8';
-    const midlineColor = '#cbd5e1';
-    const topLineColor = '#cbd5e1';
+    const baselineColor = '#cbd5e1';
+    const midlineColor = '#e5e7eb';
+    const topLineColor = '#e5e7eb';
 
     return (
       <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white border border-slate-300 rounded" role="img" aria-label="Handwriting sheet preview">
@@ -57,13 +57,13 @@ export default function HandwritingMakerPage() {
             <g key={idx}>
               {hasPrimary && (
                 <>
-                  <line x1={margin} y1={top} x2={pageW - margin} y2={top} stroke={topLineColor} strokeWidth={2} strokeDasharray="8 6" />
-                  <line x1={margin} y1={mid} x2={pageW - margin} y2={mid} stroke={midlineColor} strokeWidth={2} strokeDasharray="6 8" />
+                  <line x1={margin} y1={top} x2={pageW - margin} y2={top} stroke={topLineColor} strokeWidth={1.5} strokeDasharray="8 8" />
+                  <line x1={margin} y1={mid} x2={pageW - margin} y2={mid} stroke={midlineColor} strokeWidth={1.5} strokeDasharray="6 10" />
                 </>
               )}
-              <line x1={margin} y1={baselineY} x2={pageW - margin} y2={baselineY} stroke={baselineColor} strokeWidth={3} />
+              <line x1={margin} y1={baselineY} x2={pageW - margin} y2={baselineY} stroke={baselineColor} strokeWidth={2} />
               {startDots && (
-                <circle cx={margin + 6} cy={baselineY - fontSize * 0.2} r={3} fill="#10b981" />
+                <circle cx={margin + 8} cy={baselineY - fontSize * 0.2} r={4} fill="#10b981" />
               )}
               <text
                 x={margin + 16}
@@ -72,8 +72,10 @@ export default function HandwritingMakerPage() {
                 fontFamily="'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial"
                 fill={dotted ? 'none' : '#0f172a'}
                 stroke={dotted ? '#0f172a' : 'none'}
-                strokeWidth={dotted ? 1.4 : 0}
-                strokeDasharray={dotted ? '2 6' : undefined}
+                strokeWidth={dotted ? 2 : 0}
+                strokeDasharray={dotted ? '3 5' : undefined}
+                strokeLinecap={dotted ? 'round' as any : undefined}
+                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill' } as any}
               >
                 {text}
               </text>
