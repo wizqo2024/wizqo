@@ -39,7 +39,54 @@ export default function HandwritingMakerPage() {
     const lineGap = Math.max(48, fontSize + 12);
     const startY = margin + 40;
     const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
-    const rows = buildRows(rowsCount);
+    // Build source text and wrap to fit page width
+    const src = (() => {
+      if (mode === 'letters') return letters.trim().replace(/\s+/g, ' ');
+      if (mode === 'words') return words.trim().replace(/\s+/g, ' ');
+      const parts = sentences
+        .split(/[\.!?]+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+      return parts.join(' ');
+    })();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const fontStack = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
+    if (ctx) ctx.font = `${fontSize}px ${fontStack}`;
+    const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
+    const availableWidth = pageW - (margin + 16) - margin;
+    const tokens = src ? src.split(' ') : [];
+    const lines: string[] = [];
+    let current = '';
+    const pushCurrent = () => { if (current) { lines.push(current); current = ''; } };
+    for (let ti = 0; ti < tokens.length && lines.length < rowsCount; ti++) {
+      const token = tokens[ti];
+      const next = current ? `${current} ${token}` : token;
+      if (measure(next) <= availableWidth) {
+        current = next;
+        continue;
+      }
+      if (!current) {
+        // token itself too long: split by characters
+        let part = '';
+        for (const ch of token) {
+          const test = part + ch;
+          if (measure(test) <= availableWidth) {
+            part = test;
+          } else {
+            if (part) lines.push(part);
+            part = ch;
+            if (lines.length >= rowsCount) break;
+          }
+        }
+        current = part;
+      } else {
+        pushCurrent();
+        ti--; // reprocess token on next line
+      }
+    }
+    if (lines.length < rowsCount && current) lines.push(current);
+    const rows = lines.slice(0, rowsCount);
     const baselineColor = '#cbd5e1';
     const midlineColor = '#e5e7eb';
     const topLineColor = '#e5e7eb';
