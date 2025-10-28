@@ -95,7 +95,7 @@ export default function HandwritingMakerPage() {
     const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
     // Build source text and wrap to fit page width
     const src = (() => {
-      if (mode === 'letters') return letters.trim().replace(/\s+/g, ' ');
+      if (mode === 'letters') return letters.replace(/\s*\n\s*/g, ' \n ').trim().replace(/\s+/g, ' ');
       if (mode === 'words') return words.trim().replace(/\s+/g, ' ');
       const parts = sentences
         .split(/[\.!?]+/)
@@ -125,6 +125,7 @@ export default function HandwritingMakerPage() {
     const pushCurrent = () => { if (current) { lines.push(current); current = ''; } };
     for (let ti = 0; ti < tokens.length && lines.length < rowsCount; ti++) {
       const token = tokens[ti];
+      if (token === '\\n') { pushCurrent(); continue; }
       const next = current ? `${current} ${token}` : token;
       if (measureWithSpacing(next) <= availableWidth) {
         current = next;
@@ -262,8 +263,12 @@ export default function HandwritingMakerPage() {
                     onChange={(e)=>{
                       const v = e.target.value;
                       if (autoSpaceLetters) {
-                        const spaced = v.replace(/\s+/g, '').split('').join(' ').replace(/\s{2,}/g,' ').trim();
-                        setLetters(spaced);
+                        // Preserve manual newlines while auto-spacing letters per line
+                        const spacedByLine = v
+                          .split(/\r?\n/)
+                          .map(line => line.replace(/\s+/g, '').split('').join(' '))
+                          .join('\n');
+                        setLetters(spacedByLine);
                       } else {
                         setLetters(v);
                       }
