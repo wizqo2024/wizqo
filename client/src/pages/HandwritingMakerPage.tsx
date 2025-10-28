@@ -99,8 +99,12 @@ export default function HandwritingMakerPage() {
         const withMarkers = letters.replace(/\r?\n/g, ' <br> ');
         return withMarkers.replace(/ {2,}/g, ' ').trim();
       }
-      if (mode === 'words') return words.trim().replace(/\s+/g, ' ');
-      const parts = sentences
+      if (mode === 'words') {
+        const withMarkers = words.replace(/\r?\n/g, ' <br> ');
+        return withMarkers.replace(/ {2,}/g, ' ').trim();
+      }
+      const sentWithMarkers = sentences.replace(/\r?\n/g, ' <br> ');
+      const parts = sentWithMarkers
         .split(/[\.!?]+/)
         .map(s => s.trim())
         .filter(Boolean);
