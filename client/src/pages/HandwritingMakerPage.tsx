@@ -153,9 +153,11 @@ export default function HandwritingMakerPage() {
       {/* Print-only styles to show preview only */}
       <style>{`
         @media print {
+          @page { margin: 0.5in; }
           body * { visibility: hidden !important; }
-          #handwriting-preview, #handwriting-preview * { visibility: visible !important; }
-          #handwriting-preview { position: fixed; inset: 0; margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; background: #fff !important; }
+          #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
+          #handwriting-sheet { position: fixed; inset: 0.5in; margin: 0 !important; padding: 0 !important; width: calc(100% - 1in) !important; height: calc(100% - 1in) !important; background: #fff !important; overflow: hidden; }
+          #handwriting-sheet svg { width: 100% !important; height: auto !important; }
         }
       `}</style>
 
@@ -166,7 +168,7 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid sm:grid-cols-2 gap-5">
+        <section className="grid grid-cols-2 gap-5">
           {/* Left: Controls */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
             {/* Mode segmented control */}
@@ -249,11 +251,11 @@ export default function HandwritingMakerPage() {
             </div>
             {/* Right: Preview */}
             <div className="md:sticky md:top-24" id="handwriting-preview">
-              <div className="mb-2 text-slate-700 text-sm font-medium">Preview</div>
-              <div className="bg-white border border-slate-2 00 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
+              <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
+              <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
               </div>
-              <div className="text-xs text-slate-500 mt-2">Tip: Long text wraps to the next line automatically.</div>
+              <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
             </div>
           </div>
         </section>
