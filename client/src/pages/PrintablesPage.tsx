@@ -516,7 +516,7 @@ export function PrintablesPage() {
         {doc === 'geo-latlong' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🗺️ Latitude & Longitude Basics</h2>
-            <p className="text-slate-600 text-sm mb-3">Read grid lines and plot simple coordinates. Practice with a minimal world grid.</p>
+            <p className="text-slate-600 text-sm mb-3">Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W).</p>
             <div className="border border-slate-300 rounded p-4 bg-white">
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="latlong-title">
                 <title id="latlong-title">Latitude and longitude grid</title>
@@ -524,9 +524,23 @@ export function PrintablesPage() {
                   {Array.from({ length: 10 }).map((_,i)=> (<line key={`h-${i}`} x1="40" y1={50+i*40} x2="760" y2={50+i*40} />))}
                   {Array.from({ length: 16 }).map((_,i)=> (<line key={`v-${i}`} x1={40+i*45} y1="50" x2={40+i*45} y2="450" />))}
                 </g>
-                <g fill="#111827" fontSize="14">
-                  <text x="380" y="30">Equator (0°)</text>
-                  <text x="10" y="260" transform="rotate(-90 10,260)">Prime Meridian (0°)</text>
+                {/* Axes labels */}
+                <g fill="#111827" fontSize="12">
+                  {/* Equator and Prime Meridian labels */}
+                  <text x="380" y="46">Equator (0°)</text>
+                  <text x="36" y="260" transform="rotate(-90 36,260)">Prime Meridian (0°)</text>
+                  {/* Latitude tick labels */}
+                  {([-60,-30,0,30,60] as number[]).map((lat) => {
+                    const y = 50 + ((90 - lat) / 180) * 400; // map -90..90 to 50..450
+                    const label = lat === 0 ? '0°' : (Math.abs(lat) + '°' + (lat > 0 ? 'N' : 'S'));
+                    return (<text key={`lat-${lat}`} x={30} y={y+4} textAnchor="end">{label}</text>);
+                  })}
+                  {/* Longitude tick labels */}
+                  {([-120,-90,-60,-30,0,30,60,90,120] as number[]).map((lon) => {
+                    const x = 40 + ((lon + 120) / 240) * 720; // map -120..120 to 40..760
+                    const label = lon === 0 ? '0°' : (Math.abs(lon) + '°' + (lon > 0 ? 'E' : 'W'));
+                    return (<text key={`lon-${lon}`} x={x} y={468} textAnchor="middle">{label}</text>);
+                  })}
                 </g>
                 <g fill="none" stroke="#111827" strokeWidth="3.5">
                   <circle cx="260" cy="170" r="18" />
@@ -537,6 +551,19 @@ export function PrintablesPage() {
                   <text x="515" y="295">B (20°S, 40°E)</text>
                 </g>
               </svg>
+            </div>
+            {/* Practice coordinates */}
+            <div className="mt-3 grid md:grid-cols-2 gap-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <div className="text-slate-900 font-semibold mb-1">Try plotting:</div>
+                <ul className="text-slate-700 text-sm list-disc list-inside">
+                  <li>C (0°, 120°E)</li>
+                  <li>D (45°N, 60°W)</li>
+                </ul>
+              </div>
+              <div className="text-slate-500 text-xs border border-slate-200 rounded-lg p-3">
+                Tip: Latitude (−90° to 90°) increases northward. Longitude (−180° to 180°) increases eastward. On this grid, we show from 120°W to 120°E.
+              </div>
             </div>
           </section>
         )}
