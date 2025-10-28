@@ -384,6 +384,117 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
+        {doc === 'geo-continents-k2' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
+            <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Trace or write continent names; color each continent a different color.</p>
+            <div className="border border-slate-300 rounded p-4 bg-white">
+              <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="continents-title">
+                <title id="continents-title">World map outline with 7 continents</title>
+                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                  <rect x="40" y="40" width="720" height="420" rx="8" />
+                  <!-- Simplified continent blobs -->
+                  <path d="M140 140 C180 120, 220 120, 260 160 C240 190, 200 200, 160 180 Z" />
+                  <path d="M300 170 C340 150, 390 150, 420 180 C400 210, 350 210, 320 190 Z" />
+                  <path d="M460 180 C500 160, 560 160, 600 200 C580 230, 520 230, 480 210 Z" />
+                  <path d="M520 260 C560 240, 600 240, 640 280 C620 310, 560 310, 540 290 Z" />
+                  <path d="M240 260 C280 240, 320 240, 350 270 C330 300, 280 300, 260 280 Z" />
+                  <path d="M200 320 C230 300, 270 300, 300 330 C280 360, 240 360, 220 340 Z" />
+                  <path d="M380 320 C420 300, 480 300, 520 350 C500 380, 430 380, 400 350 Z" />
+                </g>
+                <g fill="#64748b" fontSize="16">
+                  <text x="150" y="135">North America</text>
+                  <text x="320" y="165">Europe</text>
+                  <text x="480" y="175">Asia</text>
+                  <text x="560" y="255">Australia</text>
+                  <text x="260" y="255">South America</text>
+                  <text x="220" y="315">Antarctica</text>
+                  <text x="390" y="315">Africa</text>
+                </g>
+              </svg>
+            </div>
+          </section>
+        )}
+
+        {doc === 'geo-compass-rose' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🧭 Compass Rose & Directions</h2>
+            <p className="text-slate-600 text-sm mb-3">Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions.</p>
+            <div className="border border-slate-300 rounded p-4 bg-white">
+              <svg viewBox="0 0 600 600" className="w-full h-auto" role="img" aria-labelledby="compass-title">
+                <title id="compass-title">Compass rose</title>
+                <g fill="none" stroke="#111827" strokeWidth="4">
+                  <circle cx="300" cy="300" r="180" />
+                  <line x1="300" y1="100" x2="300" y2="500" />
+                  <line x1="100" y1="300" x2="500" y2="300" />
+                  <path d="M300 120 L330 300 L300 480 L270 300 Z" />
+                  <path d="M120 300 L300 330 L480 300 L300 270 Z" />
+                </g>
+                <g fill="#111827" fontSize="20" textAnchor="middle">
+                  <text x="300" y="80">N</text>
+                  <text x="520" y="305">E</text>
+                  <text x="300" y="540">S</text>
+                  <text x="80" y="305">W</text>
+                  <text x="410" y="170">NE</text>
+                  <text x="410" y="430">SE</text>
+                  <text x="190" y="430">SW</text>
+                  <text x="190" y="170">NW</text>
+                </g>
+              </svg>
+            </div>
+          </section>
+        )}
+
+        {doc === 'geo-landforms' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🏔️ Landforms vs Water Bodies</h2>
+            <p className="text-slate-600 text-sm mb-3">Match the labels to the icons: mountain, valley, island, lake, river.</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                { label: 'Mountain', svg: <path d="M40 160 L120 40 L200 160 Z" /> },
+                { label: 'Valley', svg: <path d="M40 100 Q120 180 200 100" /> },
+                { label: 'Island', svg: <path d="M100 140 C130 100, 170 100, 200 140 C170 160, 130 160, 100 140 Z" /> },
+                { label: 'Lake', svg: <ellipse cx="140" cy="120" rx="60" ry="30" /> },
+                { label: 'River', svg: <path d="M40 80 C80 100, 120 60, 160 80 C200 100, 160 120, 200 140" /> },
+              ].map((it) => (
+                <div key={it.label} className="border border-slate-300 rounded p-4 bg-white">
+                  <svg viewBox="0 0 240 180" className="w-full h-auto" aria-hidden>
+                    <g fill="none" stroke="#111827" strokeWidth="4">{it.svg}</g>
+                  </svg>
+                  <div className="text-center text-slate-700 text-base mt-1">{it.label}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {doc === 'geo-latlong' && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🗺️ Latitude & Longitude Basics</h2>
+            <p className="text-slate-600 text-sm mb-3">Read grid lines and plot simple coordinates. Practice with a minimal world grid.</p>
+            <div className="border border-slate-300 rounded p-4 bg-white">
+              <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="latlong-title">
+                <title id="latlong-title">Latitude and longitude grid</title>
+                <g fill="none" stroke="#94a3b8" strokeWidth="2">
+                  {Array.from({ length: 10 }).map((_,i)=> (<line key={`h-${i}`} x1="40" y1={50+i*40} x2="760" y2={50+i*40} />))}
+                  {Array.from({ length: 16 }).map((_,i)=> (<line key={`v-${i}`} x1={40+i*45} y1="50" x2={40+i*45} y2="450" />))}
+                </g>
+                <g fill="#111827" fontSize="14">
+                  <text x="380" y="30">Equator (0°)</text>
+                  <text x="10" y="260" transform="rotate(-90 10,260)">Prime Meridian (0°)</text>
+                </g>
+                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                  <circle cx="260" cy="170" r="18" />
+                  <rect x="520" y="300" width="24" height="24" />
+                </g>
+                <g fill="#111827" fontSize="14">
+                  <text x="250" y="160">A (15°N, 80°W)</text>
+                  <text x="515" y="295">B (20°S, 40°E)</text>
+                </g>
+              </svg>
+            </div>
+          </section>
+        )}
         {doc === 'number-tracing-1-10' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–10</h2>
