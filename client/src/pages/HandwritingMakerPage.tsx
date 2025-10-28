@@ -105,7 +105,9 @@ export default function HandwritingMakerPage() {
     if (ctx) ctx.font = `${fontSize}px ${fontStack}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
           const availableWidth = pageW - (margin + 16) - margin;
-          const letterSpacing = (autoSpaceLetters ? fontSize * 0.18 : fontSize * 0.08); // extra spacing when enabled
+          const letterSpacing = autoSpaceLetters
+            ? (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.35)
+            : 0; // stronger spacing for words/sentences when enabled
     // Include CSS letter-spacing effect in our width measurement so lines wrap correctly
     const measureWithSpacing = (t: string) => {
       const charCount = Array.from(t).length;
@@ -180,7 +182,7 @@ export default function HandwritingMakerPage() {
                 strokeWidth={dotted ? 2 : 0}
                 strokeDasharray={dotted ? '3 5' : undefined}
                 strokeLinecap={dotted ? 'round' as any : undefined}
-                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: `${letterSpacing}px` } as any}
+                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
               >
                 {text}
               </text>
