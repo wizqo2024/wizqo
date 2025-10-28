@@ -496,11 +496,66 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Draw a line from each word to its matching picture. (A–E)</p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
-                { label: 'Mountain', svg: <path d="M40 160 L120 40 L200 160 Z" /> },
-                { label: 'Valley', svg: <path d="M30 110 Q120 170 210 110" /> },
-                { label: 'Island', svg: <g><path d="M90 140 C120 100, 160 100, 190 140 C160 160, 120 160, 90 140 Z" /><circle cx="150" cy="130" r="2" /></g> },
-                { label: 'Lake', svg: <ellipse cx="140" cy="120" rx="60" ry="30" /> },
-                { label: 'River', svg: <path d="M30 70 C80 90, 120 50, 170 70 C210 90, 170 115, 210 135" /> },
+                {
+                  label: 'Mountain',
+                  svg: (
+                    <g>
+                      {/* twin peaks */}
+                      <path d="M40 160 L90 75 L140 160 Z" />
+                      <path d="M95 160 L135 95 L200 160 Z" />
+                      {/* ridge/snow lines */}
+                      <path d="M80 120 L90 105 L100 120" />
+                      <path d="M140 120 L150 108 L160 120" />
+                    </g>
+                  )
+                },
+                {
+                  label: 'Valley',
+                  svg: (
+                    <g>
+                      {/* two mountains with a V valley */}
+                      <path d="M30 160 L80 95 L110 160 Z" />
+                      <path d="M130 160 L170 95 L210 160 Z" />
+                      {/* valley floor curve */}
+                      <path d="M30 160 Q120 145 210 160" />
+                    </g>
+                  )
+                },
+                {
+                  label: 'Island',
+                  svg: (
+                    <g>
+                      {/* shoreline */}
+                      <path d="M80 145 C110 110, 170 110, 200 145 C175 165, 115 165, 80 145 Z" />
+                      {/* tiny palm tree */}
+                      <path d="M150 140 C145 125, 146 115, 148 105" />
+                      <path d="M148 105 C142 100, 135 100, 130 105" />
+                      <path d="M148 105 C154 100, 162 100, 168 105" />
+                    </g>
+                  )
+                },
+                {
+                  label: 'Lake',
+                  svg: (
+                    <g>
+                      {/* irregular lake outline */}
+                      <path d="M80 130 C100 110, 140 100, 180 120 C200 135, 170 160, 130 160 C110 158, 90 150, 80 130 Z" />
+                      {/* gentle waves */}
+                      <path d="M100 135 C110 140, 120 140, 130 135" />
+                      <path d="M120 145 C130 150, 140 150, 150 145" />
+                    </g>
+                  )
+                },
+                {
+                  label: 'River',
+                  svg: (
+                    <g>
+                      {/* meandering river with banks */}
+                      <path d="M40 65 C80 85, 110 55, 150 75 C190 95, 150 120, 190 140" />
+                      <path d="M30 75 C70 95, 100 65, 140 85 C180 105, 140 130, 180 150" />
+                    </g>
+                  )
+                },
               ].map((it, idx) => {
                 const letter = String.fromCharCode(65 + idx); // A, B, C, ...
                 return (
