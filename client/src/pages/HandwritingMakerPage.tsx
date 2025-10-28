@@ -25,6 +25,30 @@ export default function HandwritingMakerPage() {
   const applyWordsSample = () => setWords('cat dog sun moon book pencil apple banana red blue green');
   const applySentencesSample = () => setSentences('I can write neatly. We like to read. Today is fun. Practice every day.');
 
+  function printPreview() {
+    try {
+      const sheet = document.getElementById('handwriting-sheet');
+      if (!sheet) return;
+      const svg = sheet.querySelector('svg');
+      const content = svg ? (svg as SVGElement).outerHTML : sheet.innerHTML;
+      const html = `<!doctype html><html><head><meta charset="utf-8"/>
+<title>Print</title>
+<style>
+  @page { size: 8.5in 11in; margin: 0; }
+  html, body { margin: 0; padding: 0; }
+  body { width: 8.5in; height: 11in; display: flex; align-items: center; justify-content: center; }
+  svg { width: 8.1in; height: 10.6in; }
+</style>
+</head><body>${content}</body></html>`;
+      const w = window.open('', '_blank', 'noopener,noreferrer,width=900,height=1200');
+      if (!w) return;
+      w.document.open();
+      w.document.write(html);
+      w.document.close();
+      setTimeout(() => { try { w.focus(); w.print(); w.close(); } catch {} }, 300);
+    } catch {}
+  }
+
   const content = React.useMemo(() => {
     if (mode === 'letters') return letters.split(/\s+/).filter(Boolean);
     if (mode === 'words') return words.split(/\s+/).filter(Boolean);
@@ -177,7 +201,7 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid sm:grid-cols-2 gap-6 items-start">
+        <section className="grid grid-cols-2 gap-6 items-start overflow-x-auto">
           {/* Left: Controls */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
             {/* Mode segmented control */}
@@ -278,7 +302,7 @@ export default function HandwritingMakerPage() {
 
               <div className="print:hidden pt-2">
                 <button
-                  onClick={() => { try { window.print(); } catch {} }}
+                  onClick={printPreview}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow"
                 >
                   <span>⬇️</span>
