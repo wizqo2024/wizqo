@@ -300,7 +300,6 @@ export function PrintablesLandingPage() {
             </div>
           </div>
         </section>
-        {/* Geography (moved below Build Pack per request) */}
         {/* Build a 5‑Minute Print Pack */}
         <section className="bg-white border border-slate-200 rounded-2xl p-4">
           <h2 className="text-xl font-bold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</h2>
@@ -345,7 +344,7 @@ export function PrintablesLandingPage() {
           </div>
         </section>
 
-        {/* Geography */}
+        {/* 9. Geography Worksheets */}
         <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
