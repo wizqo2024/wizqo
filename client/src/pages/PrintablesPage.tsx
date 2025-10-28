@@ -393,7 +393,7 @@ export function PrintablesPage() {
                 <title id="continents-title">World map outline with 7 continents</title>
                 <g fill="none" stroke="#111827" strokeWidth="3.5">
                   <rect x="40" y="40" width="720" height="420" rx="8" />
-                  <!-- Simplified continent blobs -->
+                  {/* Simplified continent blobs */}
                   <path d="M140 140 C180 120, 220 120, 260 160 C240 190, 200 200, 160 180 Z" />
                   <path d="M300 170 C340 150, 390 150, 420 180 C400 210, 350 210, 320 190 Z" />
                   <path d="M460 180 C500 160, 560 160, 600 200 C580 230, 520 230, 480 210 Z" />
