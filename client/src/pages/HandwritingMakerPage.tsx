@@ -217,16 +217,16 @@ export default function HandwritingMakerPage() {
         }
       `}</style>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Handwriting Practice Sheets for Kids (Generator)</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-2 gap-6 items-start">
+        <section className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 items-start">
           {/* Left: Controls */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[380px] min-w-[360px] whitespace-normal">
+          <div className="order-2 lg:order-1 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[380px] min-w-[360px] whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -334,7 +334,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-20 w-[800px] min-w-[760px]" id="handwriting-preview">
+            <div className="order-1 lg:order-2 lg:sticky lg:top-20 w-full lg:w-[800px] min-w-0" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
