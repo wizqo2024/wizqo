@@ -493,22 +493,45 @@ export function PrintablesPage() {
         {doc === 'geo-landforms' && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🏔️ Landforms vs Water Bodies</h2>
-            <p className="text-slate-600 text-sm mb-3">Match the labels to the icons: mountain, valley, island, lake, river.</p>
+            <p className="text-slate-600 text-sm mb-3">Draw a line from each word to its matching picture. (A–E)</p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
                 { label: 'Mountain', svg: <path d="M40 160 L120 40 L200 160 Z" /> },
-                { label: 'Valley', svg: <path d="M40 100 Q120 180 200 100" /> },
-                { label: 'Island', svg: <path d="M100 140 C130 100, 170 100, 200 140 C170 160, 130 160, 100 140 Z" /> },
+                { label: 'Valley', svg: <path d="M30 110 Q120 170 210 110" /> },
+                { label: 'Island', svg: <g><path d="M90 140 C120 100, 160 100, 190 140 C160 160, 120 160, 90 140 Z" /><circle cx="150" cy="130" r="2" /></g> },
                 { label: 'Lake', svg: <ellipse cx="140" cy="120" rx="60" ry="30" /> },
-                { label: 'River', svg: <path d="M40 80 C80 100, 120 60, 160 80 C200 100, 160 120, 200 140" /> },
-              ].map((it) => (
-                <div key={it.label} className="border border-slate-300 rounded p-4 bg-white">
-                  <svg viewBox="0 0 240 180" className="w-full h-auto" aria-hidden>
-                    <g fill="none" stroke="#111827" strokeWidth="4">{it.svg}</g>
-                  </svg>
-                  <div className="text-center text-slate-700 text-base mt-1">{it.label}</div>
-                </div>
-              ))}
+                { label: 'River', svg: <path d="M30 70 C80 90, 120 50, 170 70 C210 90, 170 115, 210 135" /> },
+              ].map((it, idx) => {
+                const letter = String.fromCharCode(65 + idx); // A, B, C, ...
+                return (
+                  <div key={it.label} className="relative border border-slate-300 rounded p-4 bg-white">
+                    <div className="absolute top-2 left-2 w-6 h-6 rounded-full border border-slate-600 text-slate-800 flex items-center justify-center text-xs font-bold bg-white">
+                      {letter}
+                    </div>
+                    <svg viewBox="0 0 240 180" className="w-full h-auto" aria-hidden>
+                      <g fill="none" stroke="#111827" strokeWidth="4">{it.svg}</g>
+                    </svg>
+                  </div>
+                );
+              })}
+            </div>
+            {/* Match list */}
+            <div className="mt-3 grid md:grid-cols-2 gap-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <div className="text-slate-900 font-semibold mb-1">Words</div>
+                <ol className="text-slate-700 text-sm space-y-1">
+                  {['Mountain','Valley','Island','Lake','River'].map((w,i)=> (
+                    <li key={w} className="flex items-center gap-2">
+                      <span className="inline-block w-5 text-slate-500">{i+1}.</span>
+                      <span className="flex-1">{w}</span>
+                      <span className="inline-block w-10 text-slate-400 border-b border-slate-300" />
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div className="text-slate-500 text-xs border border-slate-200 rounded-lg p-3">
+                Tip: Landforms are parts of the land (mountain, valley, island). Water bodies hold or carry water (lake, river).
+              </div>
             </div>
           </section>
         )}
