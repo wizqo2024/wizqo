@@ -36,16 +36,32 @@ export default function HandwritingMakerPage() {
 <style>
   @page { size: 8.5in 11in; margin: 0; }
   html, body { margin: 0; padding: 0; width: 8.5in; height: 11in; }
-  #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; }
+  #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
   svg { position: absolute; left: 0.5in; top: 0.5in; width: 7.5in; height: 10in; }
 </style>
 </head><body><div id=\"frame\">${content}</div></body></html>`;
-      const w = window.open('', '_blank', 'noopener,noreferrer,width=900,height=1200');
-      if (!w) return;
-      w.document.open();
-      w.document.write(html);
-      w.document.close();
-      setTimeout(() => { try { w.focus(); w.print(); w.close(); } catch {} }, 300);
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      document.body.appendChild(iframe);
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) return;
+      doc.open();
+      doc.write(html);
+      doc.close();
+      const doPrint = () => {
+        try {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+        } catch {}
+        setTimeout(() => { try { document.body.removeChild(iframe); } catch {} }, 1000);
+      };
+      if (iframe.contentWindow?.document.readyState === 'complete') doPrint();
+      else iframe.onload = doPrint;
     } catch {}
   }
 
@@ -201,7 +217,7 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-2 gap-6 items-start overflow-x-auto whitespace-nowrap">
+        <section className="grid grid-cols-2 gap-6 items-start">
           {/* Left: Controls */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-[380px] min-w-[360px] whitespace-normal">
             {/* Mode segmented control */}
