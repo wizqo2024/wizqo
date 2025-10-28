@@ -297,7 +297,7 @@ export function PrintablesPage() {
     try {
       if (!autoPrint) return
       // Defer a bit to let the view render fully
-      const t = setTimeout(() => { try { window.print() } catch {} }, 400)
+      const t = setTimeout(() => { try { window.print() } catch {} }, 800)
       return () => clearTimeout(t)
     } catch {}
   }, [autoPrint])
@@ -2086,7 +2086,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-2xl font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
             <p className="text-slate-700 text-base mb-4">Time: 10 minutes • Ages: 7–10</p>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
               <div>
                 <div className="font-semibold text-slate-800 mb-2">Materials</div>
                 <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
@@ -2125,7 +2125,7 @@ export function PrintablesPage() {
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-2xl font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
             <p className="text-slate-700 text-base mb-4">Time: 15–20 minutes • Ages: 6–10</p>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
               <div>
                 <div className="font-semibold text-slate-800 mb-2">Materials</div>
                 <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
@@ -3248,7 +3248,7 @@ export function PrintablesPage() {
         )}
 
         {doc === 'coloring-animals' && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
             <div className="mb-3 print:hidden">
