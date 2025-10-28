@@ -158,7 +158,7 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid md:grid-cols-2 gap-5">
+        <section className="grid sm:grid-cols-2 gap-5">
           {/* Left: Controls */}
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
             {/* Mode segmented control */}
