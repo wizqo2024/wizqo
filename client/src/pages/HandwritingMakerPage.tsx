@@ -159,8 +159,8 @@ export default function HandwritingMakerPage() {
           html, body { margin: 0; padding: 0; }
           body * { visibility: hidden !important; }
           #handwriting-sheet, #handwriting-sheet * { visibility: visible !important; }
-          #handwriting-sheet { position: fixed !important; inset: 0 !important; margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; background: #fff !important; }
-          #handwriting-sheet svg { width: 100% !important; height: auto !important; page-break-inside: avoid; }
+          #handwriting-sheet { position: fixed !important; inset: 0 !important; margin: 0 !important; padding: 0 !important; width: 100vw !important; height: 100vh !important; background: #fff !important; }
+          #handwriting-sheet svg { height: 100vh !important; width: auto !important; page-break-inside: avoid; }
         }
       `}</style>
 
@@ -171,9 +171,9 @@ export default function HandwritingMakerPage() {
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>
 
-        <section className="grid grid-cols-2 gap-4 items-start">
+        <section className="flex flex-nowrap items-start gap-4 overflow-x-auto">
           {/* Left: Controls */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm min-w-0">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex-none w-[360px] min-w-[320px]">
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
@@ -281,7 +281,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             {/* Right: Preview */}
-            <div className="md:sticky md:top-24" id="handwriting-preview">
+            <div className="md:sticky md:top-24 flex-none w-[820px]" id="handwriting-preview">
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
                 <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
