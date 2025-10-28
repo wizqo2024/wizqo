@@ -347,7 +347,7 @@ export function PrintablesLandingPage() {
 
         {/* Geography */}
         <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 Geography Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
           <div className={gridClass}>
             <ItemCard
