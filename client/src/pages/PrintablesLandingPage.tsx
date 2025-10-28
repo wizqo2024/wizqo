@@ -17,8 +17,9 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
           {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Age: {age}</span> : null}
         </div>
       )}
-      <div className="mt-3">
-        <a href={href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`} className={OUTLINE_BUTTON}>Open printable view →</a>
+      <div className="mt-3 flex items-center gap-2">
+        <a href={href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
+        <a href={(href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
       </div>
     </div>
   );
