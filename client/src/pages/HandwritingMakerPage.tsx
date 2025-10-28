@@ -113,19 +113,28 @@ export default function HandwritingMakerPage() {
             <div className="space-y-3">
               {mode==='letters' && (
                 <div>
-                  <label className="block text-sm text-slate-700 mb-1">Letters (separate by space)</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-sm text-slate-700">Letters (separate by space)</label>
+                    <button type="button" onClick={()=>setLetters('')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                  </div>
                   <textarea value={letters} onChange={(e)=>setLetters(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
               )}
               {mode==='words' && (
                 <div>
-                  <label className="block text-sm text-slate-700 mb-1">Words (separate by space)</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-sm text-slate-700">Words (separate by space)</label>
+                    <button type="button" onClick={()=>setWords('')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                  </div>
                   <textarea value={words} onChange={(e)=>setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
               )}
               {mode==='sentences' && (
                 <div>
-                  <label className="block text-sm text-slate-700 mb-1">Sentences (separate by period)</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-sm text-slate-700">Sentences (separate by period)</label>
+                    <button type="button" onClick={()=>setSentences('')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                  </div>
                   <textarea value={sentences} onChange={(e)=>setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </div>
               )}
@@ -159,7 +168,7 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
             <div>
-              <PreviewSVG />
+              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}`} />
             </div>
           </div>
         </section>
