@@ -346,6 +346,16 @@ export default function HandwritingMakerPage() {
                   <span>Print / Save as PDF</span>
                 </button>
               </div>
+              {/* Tips moved here below the Print button */}
+              <div className="mt-4 print:hidden">
+                <h2 className="text-sm font-semibold text-slate-900">Tips for better handwriting</h2>
+                <ul className="mt-2 list-disc list-inside text-xs text-slate-700 space-y-1">
+                  <li>Use short sessions (5–10 minutes) with frequent praise.</li>
+                  <li>Model one clean letter, then let your child trace and copy.</li>
+                  <li>Keep wrist straight, grip relaxed; paper slightly tilted.</li>
+                  <li>Say letter strokes out loud (e.g., “down, around, close”).</li>
+                </ul>
+              </div>
             </div>
           </div>
           {/* Right: Preview */}
@@ -359,15 +369,7 @@ export default function HandwritingMakerPage() {
             </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h2 className="text-xl font-bold text-slate-900">Tips for better handwriting</h2>
-          <ul className="mt-2 list-disc list-inside text-sm text-slate-700 space-y-1">
-            <li>Use short sessions (5–10 minutes) with frequent praise.</li>
-            <li>Model one clean letter, then let your child trace and copy.</li>
-            <li>Keep wrist straight, grip relaxed; paper slightly tilted.</li>
-            <li>Say letter strokes out loud (e.g., “down, around, close”).</li>
-          </ul>
-        </section>
+        
 
       </main>
       <Footer />
