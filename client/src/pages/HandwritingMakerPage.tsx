@@ -95,7 +95,10 @@ export default function HandwritingMakerPage() {
     const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
     // Build source text and wrap to fit page width
     const src = (() => {
-      if (mode === 'letters') return letters.replace(/\s*\n\s*/g, ' \n ').trim().replace(/\s+/g, ' ');
+      if (mode === 'letters') {
+        const withMarkers = letters.replace(/\r?\n/g, ' <br> ');
+        return withMarkers.replace(/ {2,}/g, ' ').trim();
+      }
       if (mode === 'words') return words.trim().replace(/\s+/g, ' ');
       const parts = sentences
         .split(/[\.!?]+/)
@@ -125,7 +128,7 @@ export default function HandwritingMakerPage() {
     const pushCurrent = () => { if (current) { lines.push(current); current = ''; } };
     for (let ti = 0; ti < tokens.length && lines.length < rowsCount; ti++) {
       const token = tokens[ti];
-      if (token === '\\n') { pushCurrent(); continue; }
+      if (token === '<br>') { pushCurrent(); continue; }
       const next = current ? `${current} ${token}` : token;
       if (measureWithSpacing(next) <= availableWidth) {
         current = next;
