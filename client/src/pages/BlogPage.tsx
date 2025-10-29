@@ -969,7 +969,11 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const featurePost = useMemo(() => {
     if (!allPosts.length) return null;
-    const candidate = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages')) || allPosts[0];
+    // Do not feature coloring-pages or the HWT infographic per request
+    const avoidIds = new Set(['handwriting-without-tears-infographic']);
+    const candidate = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages') && !avoidIds.has(p.id))
+      || allPosts.find(p => !avoidIds.has(p.id))
+      || allPosts[0];
     return candidate;
   }, [allPosts]);
 
