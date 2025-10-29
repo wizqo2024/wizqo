@@ -213,6 +213,53 @@ export default function HandwritingMakerPage() {
         canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
       />
       <UnifiedNavigation currentPage="kids" />
+      {(() => {
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
+            { "@type": "ListItem", position: 3, name: "Handwriting Worksheet Maker", item: "https://wizqo.com/worksheets/handwriting-worksheet-maker" }
+          ]
+        } as const;
+        const webPageLd = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets",
+          url: "https://wizqo.com/worksheets/handwriting-worksheet-maker",
+          description: "Generate printable handwriting practice sheets with guidelines and dotted letters. Practice A–Z, words, or sentences and save as PDF.",
+          breadcrumb: { "@id": "#breadcrumbs" }
+        } as const;
+        const faqLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How do I download the worksheet as PDF?",
+              acceptedAnswer: { "@type": "Answer", text: "Click ‘Print / Save as PDF’ and use your browser’s Print → Save as PDF." }
+            },
+            {
+              "@type": "Question",
+              name: "Can I adjust font size and letter spacing?",
+              acceptedAnswer: { "@type": "Answer", text: "Yes. Use Font size and the Auto‑space letters toggle to increase spacing for letters, words, or sentences." }
+            },
+            {
+              "@type": "Question",
+              name: "Will it fit on one page when printing?",
+              acceptedAnswer: { "@type": "Answer", text: "Yes. The preview is sized to a single Letter page and prints without overflow." }
+            }
+          ]
+        } as const;
+        return (
+          <>
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+          </>
+        );
+      })()}
       {/* Print-only styles to show preview only */}
       <style>{`
         @media print {

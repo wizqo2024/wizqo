@@ -403,7 +403,10 @@ export default function KidsPage() {
               <li>🎨 Coloring Page – Creative Animals</li>
             </ul>
             <div className="mt-4">
-              <a href="/printables" className={OUTLINE_BUTTON}>Explore more →</a>
+              <div className="flex flex-wrap gap-2">
+                <a href="/printables" className={OUTLINE_BUTTON}>Explore more →</a>
+                <a href="/worksheets/handwriting-worksheet-maker" className={OUTLINE_BUTTON} aria-label="Open Handwriting Worksheet Maker">✍️ Handwriting Worksheet Maker</a>
+              </div>
             </div>
           </div>
 
