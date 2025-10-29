@@ -290,7 +290,7 @@ export default function HWTInfographic() {
           <img
             src="https://images.unsplash.com/photo-1613289720033-c79deb7d3fca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=736"
             alt="Handwriting practice tools laid out for step-by-step learning"
-            className="w-full h-auto rounded-xl border border-slate-200"
+            className="w-full rounded-xl border border-slate-200 object-cover max-h-72 md:max-h-96"
             loading="lazy"
             decoding="async"
             sizes="(min-width: 1024px) 900px, 100vw"
