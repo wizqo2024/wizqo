@@ -307,9 +307,24 @@ export function PrintablesPage() {
         @media print {
           @page { margin: 0; }
           html, body { margin: 0 !important; padding: 0 !important; }
+          /* Print-only name/date footer overlay (does not affect layout) */
+          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; }
+          .print-name-date .label { margin-right: 6px; }
+          .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
         }
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0">
+        {/* Print-only Name/Date footer (overlay) */}
+        <div className="hidden print:block print-name-date" aria-hidden>
+          <div>
+            <span className="label">Name</span>
+            <span className="line" />
+          </div>
+          <div>
+            <span className="label">Date</span>
+            <span className="line" />
+          </div>
+        </div>
         {/* Doc-specific back link is above header; sections appear below header */}
         <div className="mb-4 print:hidden flex justify-end">
           <a href={(() => {
