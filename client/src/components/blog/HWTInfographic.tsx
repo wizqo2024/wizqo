@@ -220,7 +220,7 @@ export default function HWTInfographic() {
 
       {/* Real-world example */}
       <section>
-        <div className="bg-rose-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-rose-300 max-w-4xl mx-auto">
+        <div className="bg-green-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-green-300 max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold mb-3 text-slate-900">💡 Real-World Example</h3>
           <p className="text-lg text-slate-800 italic">
             “After six weeks of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
