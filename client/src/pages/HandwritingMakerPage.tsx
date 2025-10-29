@@ -428,7 +428,17 @@ export default function HandwritingMakerPage() {
             </div>
         </section>
 
-        
+        {/* Related links (SEO-friendly, hidden in print) */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-4 print:hidden">
+          <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+          <ul className="mt-2 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Printable</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets – Free PDF</a></li>
+            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+          </ul>
+        </section>
+
 
       </main>
       <Footer />
