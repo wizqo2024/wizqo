@@ -52,6 +52,26 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 🚀 Start Your Journey
               </Button>
             </div>
+            {/* Above-the-fold internal links to worksheets (SEO-safe) */}
+            <nav aria-label="Popular worksheets" className="px-4 sm:px-0">
+              <ul className="flex flex-wrap justify-center gap-2 text-sm">
+                <li>
+                  <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    ✍️ Handwriting worksheets (PDF)
+                  </a>
+                </li>
+                <li>
+                  <a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    1st grade math – printable
+                  </a>
+                </li>
+                <li>
+                  <a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    Reading comprehension (free PDF)
+                  </a>
+                </li>
+              </ul>
+            </nav>
             
             {/* Social Proof */}
             <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-400 px-4">

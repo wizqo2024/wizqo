@@ -173,6 +173,14 @@ export function PrintablesLandingPage() {
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Printable Fun Learning Activities</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-white max-w-3xl">Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.</p>
+          {/* Above-the-fold quick links to worksheets */}
+          <nav aria-label="Popular worksheets" className="mt-3">
+            <ul className="flex flex-wrap gap-2 text-sm">
+              <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">✍️ Handwriting worksheets (PDF)</a></li>
+              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">1st grade math – printable</a></li>
+              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">Reading comprehension (free PDF)</a></li>
+            </ul>
+          </nav>
           {/* Floating cards (desktop) */}
           <div className="hidden lg:block">
             <div className="absolute top-2 left-8 z-20 pointer-events-auto">
