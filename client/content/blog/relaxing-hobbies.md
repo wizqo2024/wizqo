@@ -9,6 +9,8 @@ imageAlt: "Soft candlelight and tea on a calm desk"
 date: 2025-10-06
 ---
 
+> Quick links: [Handwriting Worksheet Maker (Free PDF)](/worksheets/handwriting-worksheet-maker) • [Reading Comprehension Worksheets – Free PDF](/worksheets/reading-comprehension) • [Printable Activities for Kids](/printables)
+
 🧘 When Was the Last Time You Truly Relaxed?
 
 If your brain feels like it’s running on 87 open tabs… you’re not alone. Between school, work, endless notifications, and “just one more scroll” on social media, it’s easy to feel constantly switched on.

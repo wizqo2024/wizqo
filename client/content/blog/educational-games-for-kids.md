@@ -9,6 +9,8 @@ imageAlt: "Kids playing educational games together"
 date: 2025-10-12
 ---
 
+> Quick links: [Handwriting Worksheet Maker (Free PDF)](/worksheets/handwriting-worksheet-maker) • [1st Grade Math Worksheets – Free PDF](/worksheets/1st-grade-math-worksheets) • [Reading Comprehension Worksheets – Free PDF](/worksheets/reading-comprehension)
+
 ## 🧠 Why Play Is Secretly the Best Brain Workout
 
 Kids learn best when they’re having fun — it’s science! Studies show that play activates multiple areas of the brain, improving focus, memory, and problem-solving. The right educational games don’t just keep kids busy; they help them think smarter and learn faster.

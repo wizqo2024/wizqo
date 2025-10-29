@@ -9,6 +9,8 @@ imageAlt: "Students working at a desk — productive hobbies cover"
 date: 2025-10-02
 ---
 
+> Quick links: [Handwriting Worksheet Maker (Free PDF)](/worksheets/handwriting-worksheet-maker) • [1st Grade Math Worksheets – Free PDF](/worksheets/1st-grade-math-worksheets) • [2nd Grade Math Worksheets – Free PDF](/worksheets/2nd-grade-math-worksheets)
+
 🎯 Why Students Need Productive Hobbies
 
 Let’s be real: after school, most of us end up scrolling TikTok or bingeing Netflix. Fun? Yes. Helpful? Not really. That’s where productive hobbies come in — hobbies that not only kill boredom but also make you smarter, calmer, and more creative.
