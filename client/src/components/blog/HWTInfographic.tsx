@@ -108,6 +108,61 @@ export default function HWTInfographic() {
             }
           }
         });
+
+        // Donut (composition placeholder)
+        const donutCtx = (document.getElementById('hwt-composition') as HTMLCanvasElement | null)?.getContext('2d');
+        if (donutCtx) {
+          // @ts-ignore
+          new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Tactile Play (Sensory)', 'Pencil Practice', 'Warm-up (Gross Motor)', 'Review & Reflection'],
+              datasets: [{
+                data: [40, 30, 20, 10],
+                backgroundColor: ['#FF6B6B', '#FFD166', '#06D6A0', '#118AB2'],
+                hoverOffset: 8,
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: true, position: 'bottom' as const },
+                title: { display: true, text: 'Ideal Session Time Allocation (Placeholder)', color: '#073B4C' }
+              }
+            }
+          });
+        }
+
+        // Line (trend placeholder)
+        const lineCtx = (document.getElementById('hwt-trend') as HTMLCanvasElement | null)?.getContext('2d');
+        if (lineCtx) {
+          // @ts-ignore
+          new Chart(lineCtx, {
+            type: 'line',
+            data: {
+              labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
+              datasets: [{
+                label: 'Average Score (0–100)',
+                data: [55, 62, 70, 78, 85, 90],
+                borderColor: '#FF6B6B',
+                backgroundColor: 'rgba(255,107,107,0.25)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 4,
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false }, title: { display: true, text: '6-Month Score Improvement Trend (Placeholder)', color: '#073B4C' } },
+              scales: {
+                y: { beginAtZero: true, max: 100, title: { display: true, text: 'Score (0–100)' }, grid: { color: '#e2e8f0' }, ticks: { color: '#073B4C' } },
+                x: { grid: { display: false }, ticks: { color: '#073B4C' } }
+              }
+            }
+          });
+        }
       } catch {}
     })();
     return () => {
@@ -118,10 +173,13 @@ export default function HWTInfographic() {
 
   return (
     <div className="space-y-16">
-      {/* Header */}
+      {/* Header + Intro */}
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-3">Bring Joy Back to Writing</h1>
-        <p className="text-lg md:text-xl text-slate-700">An Infographic on the Handwriting Without Tears Method</p>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3">✍️ What Is Handwriting Without Tears?</h1>
+        <h2 className="text-xl md:text-2xl font-semibold text-slate-700 max-w-4xl mx-auto">A Gentle, Science-Backed Way to Bring Joy Back to Writing</h2>
+        <p className="mt-6 text-lg text-slate-700 max-w-3xl mx-auto">
+          Writing used to be an art — not an anxiety. Handwriting Without Tears turns handwriting into a calm, structured, evidence-based practice that rebuilds confidence one letter at a time.
+        </p>
       </header>
 
       {/* Philosophy */}
@@ -160,6 +218,16 @@ export default function HWTInfographic() {
         </div>
       </section>
 
+      {/* Real-world example */}
+      <section>
+        <div className="bg-rose-50 rounded-xl shadow p-6 md:p-8 border-l-8 border-rose-300 max-w-4xl mx-auto">
+          <h3 className="text-2xl font-bold mb-3 text-slate-900">💡 Real-World Example</h3>
+          <p className="text-lg text-slate-800 italic">
+            “After six weeks of sensory-based exercises — tracing letters in sand, shaping them with dough, and singing through steps — Sam’s handwriting became legible and he smiled every time he picked up a pencil.”
+          </p>
+        </div>
+      </section>
+
       {/* Study Chart */}
       <section>
         <div className="bg-white rounded-lg shadow p-6 md:p-10">
@@ -169,6 +237,30 @@ export default function HWTInfographic() {
             <canvas ref={chartRef} aria-label="Bar chart: student improvement with HWT" role="img" />
           </div>
           <p className="text-center text-slate-600 mt-4 italic">Data from 2023 AOTA study. Chart shows percent improvement.</p>
+        </div>
+      </section>
+
+      {/* Composition Donut (placeholder) */}
+      <section>
+        <div className="bg-white rounded-lg shadow p-6 md:p-10">
+          <h2 className="text-3xl font-bold text-center mb-2">⏱️ Composition Breakdown: Suggested Session Focus</h2>
+          <p className="text-lg text-slate-700 mb-6 text-center max-w-3xl mx-auto">Illustrative time allocation prioritizing multi-sensory engagement.</p>
+          <div className="relative w-full max-w-2xl mx-auto h-[340px]">
+            <canvas id="hwt-composition" aria-label="Donut chart: session time allocation" role="img" />
+          </div>
+          <p className="text-center text-amber-600 mt-3 italic">Note: Placeholder data — can be updated with your percentages.</p>
+        </div>
+      </section>
+
+      {/* Trend Line (placeholder) */}
+      <section>
+        <div className="bg-white rounded-lg shadow p-6 md:p-10">
+          <h2 className="text-3xl font-bold text-center mb-2">📈 Temporal Trend: Writing Score Progress (6 Months)</h2>
+          <p className="text-lg text-slate-700 mb-6 text-center max-w-3xl mx-auto">Typical gains over six months using a structured HWT-inspired routine.</p>
+          <div className="relative w-full max-w-3xl mx-auto h-[380px]">
+            <canvas id="hwt-trend" aria-label="Line chart: writing score trend" role="img" />
+          </div>
+          <p className="text-center text-amber-600 mt-3 italic">Note: Placeholder data — replace with your series if available.</p>
         </div>
       </section>
 
@@ -215,6 +307,38 @@ export default function HWTInfographic() {
             ))}
           </ul>
         </div>
+      </section>
+
+      {/* Why it works + How to start */}
+      <section>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-amber-300">
+            <h2 className="text-3xl font-bold mb-4 text-slate-900">🪶 Why It Works for Everyone</h2>
+            <p className="text-slate-700">Parents, teachers, therapists, and adults all benefit. Whether it’s first letters or retraining after years on a keyboard, HWT brings clarity and calm.</p>
+            <p className="text-slate-700 mt-3 font-semibold">It’s not about handwriting — it’s about confidence in communication.</p>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 md:p-8 border-t-4 border-t-emerald-400">
+            <h2 className="text-3xl font-bold mb-4 text-slate-900">🌈 How to Start</h2>
+            <ul className="space-y-2 text-slate-700">
+              <li>• Short daily practice (10–15 minutes).</li>
+              <li>• Begin with big movement (air/board/floor).</li>
+              <li>• Add tactile fun (clay, sand, finger tracing).</li>
+              <li>• Focus on progress, not perfection.</li>
+              <li>• End with a “writing win”.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Related links */}
+      <section className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-3">Related links</h2>
+        <ul className="grid sm:grid-cols-2 gap-2 text-purple-700 text-sm">
+          <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheet Maker (Free PDF)</a></li>
+          <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
+          <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets – Free PDF</a></li>
+          <li><a className="hover:underline" href="/printables">Printable Activities for Kids</a></li>
+        </ul>
       </section>
 
       {/* Footer tagline */}
