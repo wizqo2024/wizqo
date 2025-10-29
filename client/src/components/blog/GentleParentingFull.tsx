@@ -393,6 +393,7 @@ export function GentleParentingFull() {
         <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
           <a href="/kids" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Kids Hub – Play, Print, and Learn</a>
           <a href="/worksheets/reading-comprehension" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Reading Comprehension Worksheets</a>
+          <a href="/worksheets/handwriting-worksheet-maker" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Handwriting Worksheet Maker (Free PDF)</a>
           <a href="/blog/easy-hobbies-that-make-you-smarter" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Easy Hobbies That Make You Smarter</a>
           <a href="/printables" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Printables for Kids</a>
         </div>
