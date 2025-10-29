@@ -286,6 +286,16 @@ export default function HWTInfographic() {
             </React.Fragment>
           ))}
         </div>
+        <figure className="max-w-3xl mx-auto mt-6">
+          <img
+            src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170"
+            alt="Handwriting practice tools laid out for step-by-step learning"
+            className="w-full h-auto rounded-xl border border-slate-200"
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1024px) 900px, 100vw"
+          />
+        </figure>
       </section>
 
       {/* Tips */}
