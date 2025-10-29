@@ -3482,9 +3482,9 @@ export function PrintablesPage() {
         )}
 
         {doc === 'coloring-letters-numbers' && (
-          <section className="mb-10 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900">🔢 Alphabet & Number Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
+          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
+            <h2 className="text-lg font-bold text-slate-900 print:hidden">🔢 Alphabet & Number Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3 print:hidden">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
             {/* A–Z Letters grid (large) */}
             <div className="mb-8 grid grid-cols-3 sm:grid-cols-4 gap-6 print:gap-4">
               {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
@@ -3677,9 +3677,9 @@ export function PrintablesPage() {
         )}
 
         {doc === 'coloring-space' && (
-          <section className="mb-10 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
+          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
+            <h2 className="text-lg font-bold text-slate-900 print:hidden">🚀 Space Adventure Coloring Pages</h2>
+            <p className="text-slate-600 text-sm mb-3 print:hidden">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
             {/* Enlarge coloring pages: single column, generous spacing for easy coloring/printing */}
             <div className="grid grid-cols-1 gap-8 print:gap-0">
               <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
@@ -3802,9 +3802,9 @@ export function PrintablesPage() {
         )}
 
         {doc === 'coloring-vehicles' && (
-          <section className="mb-10 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900">🚗 Vehicles & Transport Coloring Sheets</h2>
-            <p className="text-slate-600 text-sm mb-3">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
+          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
+            <h2 className="text-lg font-bold text-slate-900 print:hidden">🚗 Vehicles & Transport Coloring Sheets</h2>
+            <p className="text-slate-600 text-sm mb-3 print:hidden">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Car */}
