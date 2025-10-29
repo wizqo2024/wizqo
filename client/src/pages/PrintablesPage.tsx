@@ -342,7 +342,7 @@ export function PrintablesPage() {
             <span>Back printable page</span>
           </a>
         </div>
-        <header className="relative mb-6 print:mb-4 flex items-center justify-between border-b border-slate-200 pb-3 print:border-b-0">
+        <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
           <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
             <span className="animate-bounce">➕</span>
             <span className="animate-bounce animation-delay-2000">🔢</span>
