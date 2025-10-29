@@ -411,6 +411,16 @@ export function PrintablesLandingPage() {
         <section id="Worksheets" className={`scroll-mt-24 ${sectionVisibility('Worksheets')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
+          {/* Promote Handwriting Worksheet Maker */}
+          <div className="mb-3">
+            <div className={CARD_CLASS}>
+              <div className="text-base font-semibold text-slate-900">✍️ Handwriting Worksheet Maker</div>
+              <p className="text-slate-600 text-sm mt-1">Generate dotted A–Z letters, words, or sentences with guidelines. Adjust size and spacing, then print or save as PDF.</p>
+              <div className="mt-3 flex items-center gap-2">
+                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS}>Open worksheet maker →</a>
+              </div>
+            </div>
+          </div>
           <div className={gridClass}>
             <ItemCard
               title="➕ Math Maze Adventure"
