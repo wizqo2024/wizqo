@@ -1172,6 +1172,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
             </div>
           </div>
           
+          {/* Above-the-fold quick links to key worksheets (SEO-safe) */}
+          <nav aria-label="Popular worksheets" className="mb-4">
+            <ul className="flex flex-wrap gap-2 text-sm">
+              <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">✍️ Handwriting worksheets (PDF)</a></li>
+              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">1st grade math – printable</a></li>
+              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">Reading comprehension (free PDF)</a></li>
+            </ul>
+          </nav>
           <article className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl">
             <div className="mb-8">
               <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">

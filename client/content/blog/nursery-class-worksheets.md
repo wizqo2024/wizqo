@@ -9,6 +9,8 @@ imageAlt: "Child tracing letters on a worksheet"
 date: 2025-10-16
 ---
 
+> Quick links: [Handwriting Worksheet Maker (Free PDF)](/worksheets/handwriting-worksheet-maker) • [1st Grade Math Worksheets – Free PDF](/worksheets/1st-grade-math-worksheets) • [Printable Activities for Kids](/printables)
+
 ## 🌟 Why Nursery Class Worksheets Matter
 
 If you’ve ever watched a preschooler light up after recognizing their first letter or counting to five on their fingers — you know early learning is magical. But keeping that spark alive takes more than memorization. It’s about giving kids small, joyful wins that make them want to keep exploring.

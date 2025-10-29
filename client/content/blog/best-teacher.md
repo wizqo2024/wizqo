@@ -9,6 +9,8 @@ imageAlt: Teacher smiling with students while working on a worksheet in class
 date: 2025-10-22
 ---
 
+> Quick links: [1st Grade Math Worksheets – Free PDF](/worksheets/1st-grade-math-worksheets) • [2nd Grade Math Worksheets – Free PDF](/worksheets/2nd-grade-math-worksheets) • [Printable Activities for Kids](/printables)
+
 ## 🌟 Teaching Is More Than a Job — It’s a Relationship
 
 Every teacher remembers that one child who changed everything. The quiet one who finally raised their hand. The restless one who turned curiosity into focus. The moment you realize — teaching isn’t about knowing everything; it’s about seeing everyone.
