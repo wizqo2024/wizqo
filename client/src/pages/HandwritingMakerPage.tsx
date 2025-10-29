@@ -42,9 +42,13 @@ export default function HandwritingMakerPage() {
   svg { position: absolute; left: 0.5in; top: 0.5in; width: 7.5in; height: 10in; }
   /* Logo in the top-left margin */
   #print-logo { position: absolute; top: 0.25in; left: 0.25in; width: 0.6in; height: auto; opacity: 0.95; }
+  /* Name/Date footer */
+  #print-footer { position: absolute; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; font: 12px system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color: #334155; }
+  #print-footer .label { margin-right: 6px; }
+  #print-footer .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
   
 </style>
-</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}</div></body></html>`;
+</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}<div id=\"print-footer\"><div><span class=\"label\">Name</span><span class=\"line\"></span></div><div><span class=\"label\">Date</span><span class=\"line\"></span></div></div></div></body></html>`;
       const iframe = document.createElement('iframe');
       iframe.style.position = 'fixed';
       iframe.style.right = '0';

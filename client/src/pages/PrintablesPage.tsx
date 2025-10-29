@@ -308,7 +308,7 @@ export function PrintablesPage() {
           @page { margin: 0; }
           html, body { margin: 0 !important; padding: 0 !important; }
           /* Print-only name/date footer overlay (does not affect layout) */
-          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; }
+          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
           .print-name-date .label { margin-right: 6px; }
           .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
         }
