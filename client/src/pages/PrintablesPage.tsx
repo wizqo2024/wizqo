@@ -3681,8 +3681,8 @@ export function PrintablesPage() {
             <h2 className="text-lg font-bold text-slate-900">🚀 Space Adventure Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
             {/* Enlarge coloring pages: single column, generous spacing for easy coloring/printing */}
-            <div className="grid grid-cols-1 gap-8 print:gap-10">
-              <div className="border border-slate-300 rounded p-6 bg-white">
+            <div className="grid grid-cols-1 gap-8 print:gap-0">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Rocket - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -3709,7 +3709,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-6 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Comet - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -3724,7 +3724,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-6 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Planet with rings - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -3740,7 +3740,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-6 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Astronaut - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -3762,7 +3762,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-6 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Satellite - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -3784,7 +3784,7 @@ export function PrintablesPage() {
                   </g>
                 </svg>
               </div>
-              <div className="border border-slate-300 rounded p-6 bg-white">
+              <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
                 {/* Star cluster - large coloring page */}
                 <svg viewBox="0 0 850 1100" className="w-full h-auto" aria-hidden>
                   <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
