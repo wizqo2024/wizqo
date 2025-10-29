@@ -15,6 +15,7 @@ export default function HandwritingMakerPage() {
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
+  const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('print');
 
   // Quick-fill helpers for nicer UX
   const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
@@ -112,13 +113,20 @@ export default function HandwritingMakerPage() {
     })();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const fontStack = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
-    if (ctx) ctx.font = `${fontSize}px ${fontStack}`;
+    const fontStackPrint = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
+    const fontStackCursive = "'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive";
+    const fontFamily = textStyle === 'cursive' ? fontStackCursive : fontStackPrint;
+    const fontWeight = textStyle === 'bubble' ? '800 ' : '';
+    if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
           const availableWidth = pageW - (margin + 16) - margin;
-          const letterSpacing = autoSpaceLetters
-            ? (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.35)
-            : 0; // stronger spacing for words/sentences when enabled
+          const letterSpacing = (() => {
+            if (!autoSpaceLetters) return 0;
+            if (textStyle === 'cursive') return 0;
+            // bubble needs a little extra space for stroke outline
+            const base = (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.25);
+            return textStyle === 'bubble' ? base + fontSize * 0.05 : base;
+          })();
     // Include CSS letter-spacing effect in our width measurement so lines wrap correctly
     const measureWithSpacing = (t: string) => {
       const charCount = Array.from(t).length;
@@ -188,11 +196,23 @@ export default function HandwritingMakerPage() {
                 x={margin + 16}
                 y={baselineY - 6}
                 fontSize={fontSize}
-                fontFamily="'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial"
-                fill={dotted ? 'none' : '#0f172a'}
-                stroke={dotted ? '#0f172a' : 'none'}
-                strokeWidth={dotted ? 2 : 0}
-                strokeDasharray={dotted ? '3 5' : undefined}
+                fontFamily={fontFamily}
+                fill={(() => {
+                  if (textStyle === 'bubble') return 'none';
+                  return dotted ? 'none' : '#0f172a';
+                })()}
+                stroke={(() => {
+                  if (textStyle === 'bubble') return '#0f172a';
+                  return dotted ? '#0f172a' : 'none';
+                })()}
+                strokeWidth={(() => {
+                  if (textStyle === 'bubble') return 3;
+                  return dotted ? 2 : 0;
+                })()}
+                strokeDasharray={(() => {
+                  if (textStyle === 'bubble') return dotted ? '4 6' : undefined;
+                  return dotted ? '3 5' : undefined;
+                })()}
                 strokeLinecap={dotted ? 'round' as any : undefined}
                 style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
               >
@@ -382,6 +402,13 @@ export default function HandwritingMakerPage() {
                     className="ml-2 w-24 px-2 py-1 border border-slate-300 rounded"
                   />
                 </label>
+                <label className="text-sm text-slate-700">Text style
+                  <select value={textStyle} onChange={(e)=>setTextStyle(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
+                    <option value="print">Print</option>
+                    <option value="cursive">Cursive</option>
+                    <option value="bubble">Bubble (outline)</option>
+                  </select>
+                </label>
                 <label className="text-sm text-slate-700">Line style
                   <select value={lineType} onChange={(e)=>setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
                     <option value="primary">Primary guidelines</option>
@@ -422,7 +449,7 @@ export default function HandwritingMakerPage() {
               <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
               <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
               <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
-                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}`} />
+                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}`} />
               </div>
               <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
             </div>
