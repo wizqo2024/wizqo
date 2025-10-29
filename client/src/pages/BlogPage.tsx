@@ -5,6 +5,7 @@ import { Footer } from '../components/Footer';
 import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import GentleParentingFull from '@/components/blog/GentleParentingFull';
+import HWTInfographic from '@/components/blog/HWTInfographic';
 
 interface BlogPost {
   id: string;
@@ -56,6 +57,18 @@ const basePosts: BlogPost[] = [
     category: "Mental Wellness",
     imageUrl: "https://images.unsplash.com/photo-1628191013085-990d39ec25b8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
     imageAlt: "Parent and child sharing a calm, connected moment outdoors"
+  },
+  {
+    id: "handwriting-without-tears-infographic",
+    title: "Handwriting Without Tears: The Infographic",
+    excerpt: "Bring joy back to writing — see the philosophy, the science, and a data-backed impact of HWT in one visual post.",
+    content: "<HWTInfographic />",
+    author: "Wizqo Team",
+    date: "2025-10-28T12:00:00Z",
+    readTime: "6–7 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1519455953755-af066f52f1ea?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child practicing handwriting with a pencil and paper"
   },
   {
     id: "easy-hobbies-that-make-you-smarter",
@@ -1267,7 +1280,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               </div>
               
               {/* Table of Contents (hide for custom-rendered posts) */}
-              {selectedPost.id !== 'gentle-parenting-techniques' && (
+              {selectedPost.id !== 'gentle-parenting-techniques' && selectedPost.id !== 'handwriting-without-tears-infographic' && (
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-8">
                   <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -1549,6 +1562,10 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   // Render our full custom component when requested
                   if (selectedPost.id === 'gentle-parenting-techniques' && trimmed === '<GentleParentingFull />') {
                     elements.push(<GentleParentingFull key={`gp-full-${i}`} />);
+                    continue;
+                  }
+                  if (selectedPost.id === 'handwriting-without-tears-infographic' && trimmed === '<HWTInfographic />') {
+                    elements.push(<HWTInfographic key={`hwt-full-${i}`} />);
                     continue;
                   }
                   // FAQ block detection for general renderer
