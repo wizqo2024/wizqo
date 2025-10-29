@@ -123,6 +123,24 @@ export function PrintablesLandingPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <UnifiedNavigation currentPage="kids" />
+      {/* Print-only Name/Date overlay for this page */}
+      <style>{`
+        @media print {
+          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
+          .print-name-date .label { margin-right: 6px; }
+          .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
+        }
+      `}</style>
+      <div className="hidden print:block print-name-date" aria-hidden>
+        <div>
+          <span className="label">Name</span>
+          <span className="line" />
+        </div>
+        <div>
+          <span className="label">Date</span>
+          <span className="line" />
+        </div>
+      </div>
       {(() => {
         // SEO structured data: Breadcrumbs + ItemList of printables
         const breadcrumbLd = {

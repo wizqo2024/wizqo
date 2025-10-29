@@ -39,6 +39,24 @@ export default function WorksheetsSecondGradePage() {
         );
       })()}
       <UnifiedNavigation currentPage="kids" />
+      {/* Print-only Name/Date overlay for this page */}
+      <style>{`
+        @media print {
+          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
+          .print-name-date .label { margin-right: 6px; }
+          .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
+        }
+      `}</style>
+      <div className="hidden print:block print-name-date" aria-hidden>
+        <div>
+          <span className="label">Name</span>
+          <span className="line" />
+        </div>
+        <div>
+          <span className="label">Date</span>
+          <span className="line" />
+        </div>
+      </div>
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
           <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free Printables)</h1>
