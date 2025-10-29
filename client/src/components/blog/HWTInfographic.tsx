@@ -342,7 +342,7 @@ export default function HWTInfographic() {
 
       {/* Related links */}
       <section className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-3">Related links</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-3">Explore more printables and worksheets</h2>
         <ul className="grid sm:grid-cols-2 gap-2 text-purple-700 text-sm">
           <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheet Maker (Free PDF)</a></li>
           <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
