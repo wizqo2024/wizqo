@@ -18,6 +18,7 @@ interface BlogPost {
   category: string;
   imageUrl?: string;
   imageAlt?: string;
+  keywords?: string;
 }
 
 // Default cover images per category + generic fallback
@@ -60,15 +61,16 @@ const basePosts: BlogPost[] = [
   },
   {
     id: "handwriting-without-tears-infographic",
-    title: "Handwriting Without Tears: The Infographic",
-    excerpt: "Bring joy back to writing — see the philosophy, the science, and a data-backed impact of HWT in one visual post.",
+    title: "Handwriting Without Tears: A Gentle, Science-Backed Way",
+    excerpt: "Discover what Handwriting Without Tears is and how this gentle, science-backed method transforms handwriting from stressful to joyful. Learn simple, research-based techniques that actually work.",
     content: "<HWTInfographic />",
     author: "Wizqo Team",
     date: "2025-10-28T12:00:00Z",
     readTime: "6–7 min read",
     category: "Learning Tips",
     imageUrl: "https://images.unsplash.com/photo-1475669698648-2f144fcaaeb1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-    imageAlt: "Child practicing handwriting with a pencil and paper"
+    imageAlt: "Child practicing handwriting with a pencil and paper",
+    keywords: "handwriting without tears, handwriting without tears method, improve handwriting naturally, handwriting for beginners, fine motor skills handwriting, handwriting practice techniques, handwriting improvement guide"
   },
   {
     id: "easy-hobbies-that-make-you-smarter",
@@ -1118,6 +1120,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         <SEOMetaTags 
           title={selectedPost.title}
           description={selectedPost.excerpt}
+          keywords={selectedPost.keywords}
           ogImage={selectedPost.imageUrl}
           canonicalUrl={`https://wizqo.com/blog/${selectedPost.id}`}
         />
