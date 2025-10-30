@@ -1200,37 +1200,9 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">Reading comprehension (free PDF)</a></li>
             </ul>
           </nav>
-          {/* Post layout with left TOC on desktop */}
+          {/* Post layout without in-article sidebar (TOC disabled per request) */}
           {(() => {
-            // Build a lightweight TOC from markdown headings and numbered sections
-            const tocItems = (() => {
-              if (selectedPost.id === 'gentle-parenting-techniques' || selectedPost.id === 'handwriting-without-tears-infographic') return [] as { id: string; text: string; level: number }[];
-              const out: { id: string; text: string; level: number }[] = [];
-              const lines = selectedPost.content.split('\n');
-              const parseMdHeading = (s: string): { level: number; text: string } | null => {
-                const m = s.match(/^(#{1,6})\s+(.*)$/);
-                if (!m) return null;
-                return { level: m[1].length, text: (m[2] || '').trim() };
-              };
-              for (let i = 0; i < lines.length; i++) {
-                const raw = lines[i];
-                const t = raw.trim();
-                if (!t) continue;
-                const md = parseMdHeading(t);
-                if (md && md.level <= 3) {
-                  const id = md.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                  out.push({ id, text: md.text.replace(/\*\*(.*?)\*\*/g, '$1'), level: md.level });
-                  continue;
-                }
-                const num = t.match(/^\d+\.\s*(.+)$/);
-                if (num) {
-                  const text = (num[1] || '').trim().replace(/\*\*(.*?)\*\*/g, '$1');
-                  const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                  out.push({ id, text, level: 3 });
-                }
-              }
-              return out;
-            })();
+            const tocItems: { id: string; text: string; level: number }[] = [];
 
             return (
               <div className="grid md:grid-cols-12 gap-8 items-start">
