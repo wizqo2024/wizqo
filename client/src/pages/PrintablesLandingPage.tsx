@@ -197,8 +197,8 @@ export function PrintablesLandingPage() {
           <nav aria-label="Popular worksheets" className="mt-3">
             <ul className="flex flex-wrap gap-2 text-sm">
               <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">✍️ Handwriting worksheets (PDF)</a></li>
-              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">1st grade math – printable</a></li>
-              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">Reading comprehension (free PDF)</a></li>
+              <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">➕ 1st grade math – printable</a></li>
+              <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">📖 Reading comprehension (free PDF)</a></li>
             </ul>
           </nav>
           {/* Floating cards (desktop) */}
