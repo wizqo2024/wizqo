@@ -1927,6 +1927,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
             </div>
           </article>
             </div>
+            );
+          })()}
 
           {/* Related Articles */}
           <aside className="mt-12">
