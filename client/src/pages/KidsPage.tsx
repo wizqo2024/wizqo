@@ -11,7 +11,7 @@ import PatternBuilder from '@/components/kids/PatternBuilder';
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden';
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
-const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-800 hover:bg-purple-50 transition-colors';
+const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-800 hover:bg-purple-50 transition-colors font-semibold';
 const CHIP_CLASS = 'inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700';
 
 // Curated, kid‑safe Unsplash images (playground, puzzles, crayons, classroom)
