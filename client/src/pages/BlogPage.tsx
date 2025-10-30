@@ -1200,7 +1200,82 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">Reading comprehension (free PDF)</a></li>
             </ul>
           </nav>
-          <article className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl">
+          {/* Post layout with left TOC on desktop */}
+          {(() => {
+            // Build a lightweight TOC from markdown headings and numbered sections
+            const tocItems = (() => {
+              if (selectedPost.id === 'gentle-parenting-techniques' || selectedPost.id === 'handwriting-without-tears-infographic') return [] as { id: string; text: string; level: number }[];
+              const out: { id: string; text: string; level: number }[] = [];
+              const lines = selectedPost.content.split('\n');
+              const parseMdHeading = (s: string): { level: number; text: string } | null => {
+                const m = s.match(/^(#{1,6})\s+(.*)$/);
+                if (!m) return null;
+                return { level: m[1].length, text: (m[2] || '').trim() };
+              };
+              for (let i = 0; i < lines.length; i++) {
+                const raw = lines[i];
+                const t = raw.trim();
+                if (!t) continue;
+                const md = parseMdHeading(t);
+                if (md && md.level <= 3) {
+                  const id = md.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                  out.push({ id, text: md.text.replace(/\*\*(.*?)\*\*/g, '$1'), level: md.level });
+                  continue;
+                }
+                const num = t.match(/^\d+\.\s*(.+)$/);
+                if (num) {
+                  const text = (num[1] || '').trim().replace(/\*\*(.*?)\*\*/g, '$1');
+                  const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                  out.push({ id, text, level: 3 });
+                }
+              }
+              return out;
+            })();
+
+            return (
+              <div className="grid md:grid-cols-12 gap-8 items-start">
+                {/* Left TOC (desktop only) */}
+                {tocItems.length > 0 && (
+                  <aside className="hidden md:block md:col-span-3 print:hidden">
+                    <div className="sticky top-24 bg-white/80 backdrop-blur border border-slate-200 rounded-2xl p-4">
+                      <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">On this page</div>
+                      <nav aria-label="Table of contents">
+                        <ul className="space-y-1 text-sm">
+                          {tocItems.map((h) => (
+                            <li key={h.id} className={h.level >= 3 ? 'pl-3' : ''}>
+                              <a href={`#${h.id}`} className="block px-2 py-1 rounded hover:bg-slate-50 text-slate-700 hover:text-slate-900">
+                                {h.text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+                    </div>
+                  </aside>
+                )}
+
+                {/* Main article */}
+                <article className={`bg-white rounded-2xl p-8 lg:p-12 shadow-xl ${tocItems.length > 0 ? 'md:col-span-9' : 'md:col-span-12'}`}>
+                  {/* Mobile TOC (collapsible) */}
+                  {tocItems.length > 0 && (
+                    <div className="md:hidden print:hidden mb-6">
+                      <details className="bg-slate-50 border border-slate-200 rounded-xl">
+                        <summary className="cursor-pointer list-none px-4 py-2 text-sm font-medium text-slate-800 flex items-center justify-between">
+                          Table of contents
+                          <span className="ml-2 text-slate-500">▾</span>
+                        </summary>
+                        <ul className="px-3 pb-3 space-y-1 text-sm">
+                          {tocItems.map((h) => (
+                            <li key={`m-${h.id}`} className={h.level >= 3 ? 'pl-3' : ''}>
+                              <a href={`#${h.id}`} className="block px-2 py-1 rounded hover:bg-white text-slate-700">
+                                {h.text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    </div>
+                  )}
             <div className="mb-8">
               <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                 <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">
@@ -1286,71 +1361,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 </p>
               </div>
               
-              {/* Table of Contents (hide for custom-rendered posts) */}
-              {selectedPost.id !== 'gentle-parenting-techniques' && selectedPost.id !== 'handwriting-without-tears-infographic' && (
-                <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-8">
-                  <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                    </svg>
-                    Table of Contents
-                  </h3>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {selectedPost.content.split('\n')
-                    .filter(paragraph => {
-                      const p = paragraph.trim();
-                      return (
-                        (
-                          /^#{1,6}\s+/.test(p) || // markdown heading like ##
-                          /^\d+\./.test(p) || /\b\d+\./.test(p) || // supports emoji before number
-                          p.includes('Why Students Need Productive Hobbies') ||
-                          p.includes('Key Takeaways') ||
-                          p.includes('FAQs About Productive Hobbies') ||
-                          p.includes('Why Easy Hobbies Are Brain Boosters') ||
-                          p.includes('10 Easy Hobbies') ||
-                          p.includes('How to Pick the Right Hobby for You') ||
-                          p.includes('Final Thoughts') ||
-                          p.includes('FAQs About Easy Hobbies') ||
-                          p.includes('Why Most Hobbies Fail') || p.includes('How AI Makes Hobbies') || p.includes('Your 7-Day Plan') || 
-                          p.includes('What Is Micro Journaling') || p.includes('Why It Works') || p.includes('5 Micro Journaling Prompts') ||
-                          p.includes('Why Watercolor Is') || p.includes('10 Easy Watercolor') || p.includes('Beginner Watercolor Supplies') ||
-                          p.includes('Common Mistakes') || p.includes('FREE 7-Day') || p.includes('Just Start!') || 
-                          p.includes('The Science:') || p.includes('What Hobby Have You') || p.includes('Ready to Find') || 
-                          p.includes('Bonus: Pair Micro') || p.includes('Micro Journaling =') || p.includes('Ready to Try') ||
-                          // Cheap hobbies article
-                          p.includes('Why We Get Bored So Easily') ||
-                          p.includes('Why Cheap Hobbies Work Better Than Expensive Ones') ||
-                          p.includes('FAQs on Cheap Hobbies') || p.includes('FAQs on Cheap Hobbies at Home')
-                        ) && !/^!\[.*?\]\(.*\)$/.test(p) // exclude markdown image lines
-                        );
-                      })
-                      .map((paragraph, index) => {
-                        const headingText = paragraph
-                          .trim()
-                          .replace(/^#{1,6}\s+/, '')
-                          .replace(/\*\*(.*?)\*\*/g, '$1');
-                        const headingId = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                        return (
-                          <a 
-                            key={index} 
-                            href={`#${headingId}`}
-                            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 transition-colors"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              const element = document.getElementById(headingId);
-                              if (element) {
-                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              }
-                            }}
-                          >
-                            <span className="text-purple-400">→</span>
-                            <span className="hover:underline">{headingText}</span>
-                          </a>
-                        );
-                      })}
-                  </div>
-                </div>
-              )}
+              {/* (Inline TOC removed in favor of left sticky sidebar) */}
             </div>
             
             <div className="prose prose-lg max-w-none">
@@ -1915,6 +1926,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               })()}
             </div>
           </article>
+            </div>
 
           {/* Related Articles */}
           <aside className="mt-12">
