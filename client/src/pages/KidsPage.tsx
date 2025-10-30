@@ -202,10 +202,10 @@ export default function KidsPage() {
         {/* Background cover image */}
         <div className="absolute inset-0 pointer-events-none">
           <picture>
-            <source srcSet="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?auto=format&fit=crop&q=65&w=1920&fm=avif" type="image/avif" />
-            <source srcSet="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?auto=format&fit=crop&q=70&w=1920&fm=webp" type="image/webp" />
+            <source srcSet="https://images.unsplash.com/photo-1627163439134-7a8c47e08208?auto=format&fit=crop&q=65&w=1920&fm=avif" type="image/avif" />
+            <source srcSet="https://images.unsplash.com/photo-1627163439134-7a8c47e08208?auto=format&fit=crop&q=70&w=1920&fm=webp" type="image/webp" />
             <img
-              src="https://plus.unsplash.com/premium_photo-1727009856408-0ed31ef1e28d?q=80&w=1920&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1627163439134-7a8c47e08208?auto=format&fit=crop&q=80&w=1920"
               alt="Fun learning background"
               className="w-full h-full object-cover"
               width="1920"
