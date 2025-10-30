@@ -1988,7 +1988,37 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         </div>
 
         {allPosts.length > 0 ? (
-          <div className="space-y-8">
+          <div className="grid md:grid-cols-12 gap-8 items-start">
+            {/* Left sidebar for listing page */}
+            <aside className="hidden md:block md:col-span-3 print:hidden">
+              <div className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
+                <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">Browse</div>
+                <nav aria-label="Blog quick links">
+                  <ul className="space-y-1 text-sm">
+                    <li><a href="/worksheets/handwriting-worksheet-maker" className="block px-2 py-1 rounded hover:bg-slate-50 text-slate-700">✍️ Handwriting worksheets</a></li>
+                    <li><a href="/worksheets/1st-grade-math-worksheets" className="block px-2 py-1 rounded hover:bg-slate-50 text-slate-700">➕ 1st grade math</a></li>
+                    <li><a href="/worksheets/reading-comprehension" className="block px-2 py-1 rounded hover:bg-slate-50 text-slate-700">📖 Reading comprehension</a></li>
+                    <li><a href="/printables" className="block px-2 py-1 rounded hover:bg-slate-50 text-slate-700">🖨️ Printables</a></li>
+                  </ul>
+                </nav>
+                <div className="mt-4 text-xs font-semibold text-slate-500 tracking-wide">Popular posts</div>
+                <ul className="mt-1 space-y-1 text-sm">
+                  {allPosts.slice(0, 6).map(p => (
+                    <li key={`toc-${p.id}`}>
+                      <button
+                        className="w-full text-left px-2 py-1 rounded hover:bg-slate-50 text-slate-700"
+                        onClick={() => { setSelectedPost(p); navigateTo(`/blog/${p.id}`); }}
+                      >
+                        {p.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+
+            {/* Main listing content */}
+            <div className="md:col-span-9 space-y-8">
 
             {/* Featured Post (skip posts tagged as printables-only and specific slugs like 'best-teacher') */}
             <article 
@@ -2205,6 +2235,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                 </button>
               </form>
+            </div>
             </div>
           </div>
         ) : (
