@@ -226,11 +226,11 @@ export default function KidsPage() {
             focus, think, and create — all while having fun.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="#play" className={OUTLINE_BUTTON}>Play games</a>
-            <a href="/printables" className={OUTLINE_BUTTON}>Download printables</a>
+            <a href="#play" className={OUTLINE_BUTTON}>🎮 Play games</a>
+            <a href="/printables" className={OUTLINE_BUTTON}>🖨️ Download printables</a>
             {/* Above-the-fold links to key worksheets */}
             <a href="/worksheets/handwriting-worksheet-maker" className={OUTLINE_BUTTON} aria-label="Handwriting worksheets (PDF)">✍️ Handwriting worksheets</a>
-            <a href="/worksheets/1st-grade-math-worksheets" className={OUTLINE_BUTTON} aria-label="1st Grade Math Worksheets – Printable">1st grade math</a>
+            <a href="/worksheets/1st-grade-math-worksheets" className={OUTLINE_BUTTON} aria-label="1st Grade Math Worksheets – Printable">➕ 1st grade math</a>
           </div>
         </div>
       </header>
