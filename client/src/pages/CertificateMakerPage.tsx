@@ -15,6 +15,8 @@ export default function CertificateMakerPage() {
   const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
   const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket' | 'cap'>('star');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
+  const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'image'>('none');
+  const [bgImageUrl, setBgImageUrl] = React.useState<string>('');
 
   const colors = React.useMemo(() => {
     const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
@@ -97,6 +99,38 @@ export default function CertificateMakerPage() {
   }
 
   const renderBackground = () => {
+    if (bgStyle === 'image' && bgImageUrl.trim()) {
+      return <image href={bgImageUrl.trim()} x={0} y={0} width={1120} height={800} opacity={inkFriendly ? 0.04 : 0.08} preserveAspectRatio="xMidYMid slice" />;
+    }
+    if (bgStyle === 'bands') {
+      const band = (x: number, y: number, w: number, h: number, r: number, c: string, o: number) => (
+        <rect key={`${x}-${y}`} x={x} y={y} width={w} height={h} fill={inkFriendly ? '#94a3b8' : c} opacity={o} transform={`rotate(-20 560 400)`} />
+      );
+      return (
+        <g aria-hidden>
+          {band(-200, 100, 1400, 30, '#22d3ee', 0.08)}
+          {band(-180, 170, 1400, 20, '#a78bfa', 0.08)}
+          {band(-160, 240, 1400, 30, '#fb7185', 0.08)}
+          {band(-140, 310, 1400, 20, '#34d399', 0.08)}
+        </g>
+      );
+    }
+    if (bgStyle === 'wavy') {
+      const c = inkFriendly ? '#94a3b8' : colors.accent;
+      return (
+        <g aria-hidden opacity={0.12}>
+          <path d="M0,200 C200,120 400,280 600,200 C800,120 1000,260 1120,180 L1120,0 L0,0 Z" fill={c} />
+          <path d="M0,720 C220,660 420,780 620,720 C820,660 1020,760 1120,720 L1120,800 L0,800 Z" fill={c} />
+        </g>
+      );
+    }
+    if (bgStyle === 'rosette') {
+      const c = inkFriendly ? '#94a3b8' : colors.accent;
+      const petals = Array.from({ length: 24 }).map((_, i) => (
+        <ellipse key={`p${i}`} cx={560} cy={400} rx={220} ry={34} fill="none" stroke={c} strokeWidth={1.5} opacity={0.12} transform={`rotate(${(360/24)*i} 560 400)`} />
+      ));
+      return <g aria-hidden>{petals}</g>;
+    }
     if (theme === 'confetti') {
       const dots = Array.from({ length: 60 }).map((_, i) => {
         const x = 40 + Math.random() * 1040;
@@ -290,6 +324,20 @@ export default function CertificateMakerPage() {
               <label className="text-sm text-slate-700 inline-flex items-center gap-2">
                 <input type="checkbox" checked={inkFriendly} onChange={e=>setInkFriendly(e.target.checked)} /> Ink‑friendly colors
               </label>
+              <label className="text-sm text-slate-700">Background style
+                <select value={bgStyle} onChange={e=>setBgStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                  <option value="none">None</option>
+                  <option value="wavy">Wavy bands</option>
+                  <option value="bands">Diagonal bands</option>
+                  <option value="rosette">Center rosette</option>
+                  <option value="image">Custom image (URL)</option>
+                </select>
+              </label>
+              {bgStyle === 'image' && (
+                <label className="text-sm text-slate-700">Background image URL
+                  <input value={bgImageUrl} onChange={e=>setBgImageUrl(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="https://..." />
+                </label>
+              )}
               <label className="text-sm text-slate-700">Font style
                 <select value={fontStyle} onChange={e=>setFontStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                   <option value="print">Print (Sans)</option>
