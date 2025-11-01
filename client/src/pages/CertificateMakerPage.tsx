@@ -27,7 +27,7 @@ export default function CertificateMakerPage() {
       case 'confetti': return base({ border: '#fb7185', accent: '#22d3ee', text: '#111827', badge: '#f59e0b' });
       default: return base({ border: '#64748b', accent: '#0ea5e9', text: '#0f172a', badge: '#f59e0b' });
     }
-  }, [theme]);
+  }, [theme, inkFriendly]);
 
   const fontStacks = React.useMemo(() => ({
     print: "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial",
@@ -328,10 +328,10 @@ export default function CertificateMakerPage() {
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <label className="text-sm text-slate-700">Text color
-                  <input type="color" value={textColorOverride || ''} onChange={e=>setTextColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
+                  <input type="color" value={textColorOverride || colors.text} onChange={e=>setTextColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
                 </label>
                 <label className="text-sm text-slate-700">Name color
-                  <input type="color" value={accentColorOverride || ''} onChange={e=>setAccentColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
+                  <input type="color" value={accentColorOverride || colors.accent} onChange={e=>setAccentColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
                 </label>
               </div>
               <button
@@ -351,7 +351,7 @@ export default function CertificateMakerPage() {
           </div>
 
           {/* Right preview */}
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 md:sticky md:top-24 md:h-fit">
             <div id="certificate-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
               {svg}
             </div>
