@@ -452,7 +452,11 @@ export default function CertificateMakerPage() {
                           <option value="gold">Gold (formal)</option>
                           <option value="confetti">Confetti (colorful)</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M3.5 5.5L8 10l4.5-4.5" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -470,7 +474,11 @@ export default function CertificateMakerPage() {
                           <option value="trophy">Trophy badge (top-left)</option>
                           <option value="academic">Academic border (gold)</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M3.5 5.5L8 10l4.5-4.5" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -489,7 +497,11 @@ export default function CertificateMakerPage() {
                           <option value="rocket">Rocket badge</option>
                           <option value="cap">Graduation cap badge</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M3.5 5.5L8 10l4.5-4.5" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -506,7 +518,11 @@ export default function CertificateMakerPage() {
                           <option value="bands">Diagonal bands</option>
                           <option value="rosette">Center rosette</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M3.5 5.5L8 10l4.5-4.5" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -524,7 +540,11 @@ export default function CertificateMakerPage() {
                           <option value="comic">Comic (Playful)</option>
                           <option value="handwritten">Handwritten</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M3.5 5.5L8 10l4.5-4.5" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -580,10 +600,25 @@ export default function CertificateMakerPage() {
                     <div className="mt-auto pt-2">
                       <Button
                         onClick={printPreview}
-                        className="w-full justify-center rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
+                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
                         size="lg"
                       >
-                        <span role="img" aria-hidden>???</span>
+                        <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-5 w-5"
+                          >
+                            <path d="M7 17h10v4H7z" />
+                            <path d="M7 17H6a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1" />
+                            <path d="M7 8V3h10v5" />
+                            <path d="M17 13h.01" />
+                          </svg>
+                        </span>
                         <span>Print / Save as PDF</span>
                       </Button>
                     </div>
