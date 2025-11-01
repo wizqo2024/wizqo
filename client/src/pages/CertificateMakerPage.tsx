@@ -270,9 +270,9 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
           <div className="lg:sticky lg:top-24 lg:pr-2">
-            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:min-h-[calc(100vh-150px)] lg:max-h-[calc(100vh-150px)]">
+            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:min-h-[calc(100vh-140px)] lg:max-h-[calc(100vh-140px)]">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
-              <div className="flex-1 space-y-10 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
+              <div className="flex h-full flex-col gap-8 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
                 <section className="space-y-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">General details</p>
@@ -406,13 +406,13 @@ export default function CertificateMakerPage() {
                   </div>
                 </section>
 
-                <section className="space-y-4 lg:flex lg:flex-1 lg:flex-col lg:gap-4 lg:pb-2">
+                <section className="flex flex-1 flex-col gap-4 pb-2">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Colors &amp; print</p>
                     <h2 className="text-lg font-semibold text-slate-900">Make it print-ready</h2>
                     <p className="text-sm text-slate-500">Fine-tune colors and export settings so everything looks crisp on paper.</p>
                   </div>
-                  <div className="space-y-4 lg:flex lg:flex-1 lg:flex-col lg:gap-4">
+                  <div className="flex flex-1 flex-col gap-4">
                     <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3">
                       <div>
                         <p className="text-sm font-semibold text-slate-800">Ink-friendly colors</p>
@@ -453,7 +453,7 @@ export default function CertificateMakerPage() {
                         Reset colors to theme
                       </Button>
                     </div>
-                    <div className="pt-2 lg:mt-auto">
+                    <div className="mt-auto pt-2">
                       <Button
                         onClick={printPreview}
                         className="w-full justify-center rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
