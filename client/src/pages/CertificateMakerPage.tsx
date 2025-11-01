@@ -270,7 +270,7 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
           <div className="lg:self-stretch lg:pr-2">
-            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-200px)] lg:overflow-y-auto">
+            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-200px)] lg:min-h-[calc(100vh-200px)] lg:overflow-y-auto">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
               <div className="flex min-h-full flex-col gap-10 px-6 pb-6 pt-7 sm:px-8">
                 <section className="space-y-4">
@@ -406,7 +406,7 @@ export default function CertificateMakerPage() {
                   </div>
                 </section>
 
-                <section className="space-y-4 lg:flex lg:flex-1 lg:flex-col lg:gap-4">
+                <section className="space-y-4 lg:flex lg:flex-1 lg:flex-col lg:gap-4 lg:pb-2">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Colors &amp; print</p>
                     <h2 className="text-lg font-semibold text-slate-900">Make it print-ready</h2>
@@ -482,7 +482,7 @@ export default function CertificateMakerPage() {
             </div>
             <div className="relative h-full">
               <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
-              <div className="relative min-h-[calc(100vh-260px)] rounded-[32px] border border-white/70 bg-white/90 p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] backdrop-blur">
+              <div className="relative min-h-[calc(100vh-200px)] rounded-[32px] border border-white/70 bg-white/90 p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] backdrop-blur lg:min-h-[calc(100vh-200px)]">
                 <div className="rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
                   <div id="certificate-sheet" className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
                     {svg}
