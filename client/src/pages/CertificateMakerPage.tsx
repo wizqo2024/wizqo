@@ -99,7 +99,7 @@ export default function CertificateMakerPage() {
 
   const renderBackground = () => {
     if (bgStyle === 'bands') {
-      const band = (x: number, y: number, w: number, h: number, r: number, c: string, o: number) => (
+      const band = (x: number, y: number, w: number, h: number, c: string, o: number) => (
         <rect key={`${x}-${y}`} x={x} y={y} width={w} height={h} fill={inkFriendly ? '#94a3b8' : c} opacity={o} transform={`rotate(-20 560 400)`} />
       );
       return (
