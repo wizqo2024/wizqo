@@ -8,6 +8,7 @@ const path = require('path');
 
 const ROOT = process.cwd();
 const site = 'https://wizqo.com';
+const today = new Date().toISOString().slice(0, 10);
 
 function readFileSafe(p) {
   try { return fs.readFileSync(p, 'utf8'); } catch { return null; }
@@ -82,21 +83,21 @@ function generate() {
     urls.push({ loc, lastmod, changefreq, priority });
   };
 
-  push(`${site}/`, '2024-08-22', 'weekly', '0.8');
-  push(`${site}/kids`, null, 'weekly', '0.8');
+  push(`${site}/`, today, 'weekly', '0.8');
+  push(`${site}/kids`, today, 'weekly', '0.8');
   // Kids games subpages
   const kidsGames = ['memory', 'word-search', 'puzzle', 'typing', 'pattern'];
   for (const slug of kidsGames) {
     push(`${site}/kids/games/${slug}`, null, 'weekly', '0.6');
   }
-  push(`${site}/printables`, null, 'weekly', '0.7');
+  push(`${site}/printables`, today, 'weekly', '0.7');
   // Intentionally excluding math hubs for now
-  push(`${site}/blog`, null, 'weekly', '0.7');
+  push(`${site}/blog`, today, 'weekly', '0.7');
   // Worksheets landing pages
-  push(`${site}/worksheets/1st-grade-math-worksheets`, null, 'weekly', '0.7');
-  push(`${site}/worksheets/2nd-grade-math-worksheets`, null, 'weekly', '0.7');
-  push(`${site}/worksheets/reading-comprehension`, null, 'weekly', '0.7');
-  push(`${site}/worksheets/handwriting-worksheet-maker`, null, 'weekly', '0.7');
+  push(`${site}/worksheets/1st-grade-math-worksheets`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/2nd-grade-math-worksheets`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
   // Intentionally exclude /print?doc=... from sitemap (non-indexed)
 
   for (const p of posts) {
