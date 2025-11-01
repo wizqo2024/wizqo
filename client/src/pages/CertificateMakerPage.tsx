@@ -491,7 +491,6 @@ export default function CertificateMakerPage() {
                   </div>
                 </div>
               </div>
-              <p className="text-xs text-slate-500">Tip: After clicking print, choose “Save as PDF” in your browser to download a high-quality copy.</p>
             </div>
           </div>
         </section>
