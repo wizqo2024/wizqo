@@ -335,8 +335,8 @@ export default function CertificateMakerPage() {
   }, [badgeIcon, badgePosition, colors.accent, inkFriendly]);
 
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
-  const backgroundDefs = backgroundElements.defs;
-  const backgroundContent = backgroundElements.content;
+  const backgroundDefs = backgroundLayers.defs;
+  const backgroundContent = backgroundLayers.content;
 
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
