@@ -1,6 +1,12 @@
 import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Badge } from '@/components/ui/badge';
 
 export default function CertificateMakerPage() {
   const [recipient, setRecipient] = React.useState<string>('');
@@ -217,7 +223,7 @@ export default function CertificateMakerPage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-amber-50">
       <UnifiedNavigation currentPage="kids" />
       {/* JSON-LD Structured Data */}
       {(() => {
@@ -249,114 +255,242 @@ export default function CertificateMakerPage() {
         );
       })()}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        <header>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Printable Certificate Maker (Cute Themes)</h1>
-          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-slate-700 text-sm max-w-3xl">Create your own certificate online for free. Edit name, award reason, date, and signature — pick a cute theme and print instantly.</p>
+      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
+        <header className="space-y-4 text-center lg:text-left">
+          <Badge variant="secondary" className="mx-auto w-fit rounded-full border border-indigo-100 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 lg:mx-0">
+            Printables
+          </Badge>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
+            Design a printable certificate they&apos;ll be proud to receive
+          </h1>
+          <p className="mx-auto max-w-3xl text-sm text-slate-600 lg:mx-0 lg:text-base">
+            Personalize the name, award reason, colors, and badge. Preview updates instantly and print in one click—no design skills required.
+          </p>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-          {/* Left controls */}
-          <div className="md:col-span-4 md:pr-2">
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm md:max-h-[calc(100vh-180px)] md:overflow-y-auto md:pr-1">
-              <div className="space-y-3 pb-2">
-              <label className="text-sm text-slate-700">Recipient name
-                <input value={recipient} onChange={e=>setRecipient(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Student name" />
-              </label>
-              <label className="text-sm text-slate-700">Award title
-                <input value={awardTitle} onChange={e=>setAwardTitle(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Certificate of Achievement" />
-              </label>
-              <label className="text-sm text-slate-700">Reason/message
-                <textarea value={reason} onChange={e=>setReason(e.target.value)} className="mt-1 w-full h-20 px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="For outstanding effort and kindness" />
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="text-sm text-slate-700">Date
-                  <input type="date" value={date} onChange={e=>setDate(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
-                </label>
-                <label className="text-sm text-slate-700">Signature/Issuer
-                  <input value={issuer} onChange={e=>setIssuer(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Teacher / Parent" />
-                </label>
-              </div>
-              <label className="text-sm text-slate-700">Theme
-                <select value={theme} onChange={e=>setTheme(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="classic">Classic</option>
-                  <option value="rainbow">Rainbow</option>
-                  <option value="space">Space</option>
-                  <option value="animals">Animals</option>
-                  <option value="gold">Gold (formal)</option>
-                  <option value="confetti">Confetti (colorful)</option>
-                </select>
-              </label>
-              <label className="text-sm text-slate-700">Template
-                <select value={templateStyle} onChange={e=>setTemplateStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="simple">Simple border</option>
-                  <option value="ribbon">Corner ribbons</option>
-                  <option value="medal">Medal badge (top-left)</option>
-                  <option value="trophy">Trophy badge (top-left)</option>
-                  <option value="academic">Academic border (gold)</option>
-                </select>
-              </label>
-              <label className="text-sm text-slate-700">Badge icon
-                <select value={badgeIcon} onChange={e=>setBadgeIcon(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="star">⭐ Star</option>
-                  <option value="trophy">🏆 Trophy</option>
-                  <option value="medal">🎖️ Medal</option>
-                  <option value="book">📚 Book</option>
-                  <option value="rocket">🚀 Rocket</option>
-                  <option value="cap">🎓 Graduation cap</option>
-                </select>
-              </label>
-              <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                <input type="checkbox" checked={inkFriendly} onChange={e=>setInkFriendly(e.target.checked)} /> Ink‑friendly colors
-              </label>
-              <label className="text-sm text-slate-700">Background style
-                <select value={bgStyle} onChange={e=>setBgStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="none">None</option>
-                  <option value="wavy">Wavy bands</option>
-                  <option value="bands">Diagonal bands</option>
-                  <option value="rosette">Center rosette</option>
-                </select>
-              </label>
-              <label className="text-sm text-slate-700">Font style
-                <select value={fontStyle} onChange={e=>setFontStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="print">Print (Sans)</option>
-                  <option value="cursive">Cursive (Script)</option>
-                  <option value="serif">Serif (Formal)</option>
-                  <option value="comic">Comic (Playful)</option>
-                  <option value="handwritten">Handwritten</option>
-                </select>
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="text-sm text-slate-700">Text color
-                  <input type="color" value={textColorOverride || colors.text} onChange={e=>setTextColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
-                </label>
-                <label className="text-sm text-slate-700">Name color
-                  <input type="color" value={accentColorOverride || colors.accent} onChange={e=>setAccentColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
-                </label>
-              </div>
-              <button
-                type="button"
-                onClick={() => { setTextColorOverride(''); setAccentColorOverride(''); }}
-                className="mt-1 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs"
-              >
-                Reset colors to theme
-              </button>
-                <div className="pt-2">
-                  <button onClick={printPreview} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow">
-                    <span>🖨️</span>
-                    <span>Print / Save as PDF</span>
-                  </button>
-                </div>
+        <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
+          <div className="lg:self-stretch lg:pr-2">
+            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:max-h-[calc(100vh-200px)] lg:min-h-[calc(100vh-200px)] lg:overflow-y-auto">
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
+              <div className="space-y-10 px-6 pb-6 pt-7 sm:px-8">
+                <section className="space-y-4">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">General details</p>
+                    <h2 className="text-lg font-semibold text-slate-900">Personalize the award</h2>
+                    <p className="text-sm text-slate-500">Tell us who the certificate is for and why they&apos;re being celebrated.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="recipient" className="text-slate-700">Recipient name</Label>
+                      <Input id="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} placeholder="Student name" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="awardTitle" className="text-slate-700">Award title</Label>
+                      <Input id="awardTitle" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} placeholder="Certificate of Achievement" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="reason" className="text-slate-700">Reason / message</Label>
+                      <Textarea id="reason" value={reason} onChange={e => setReason(e.target.value)} placeholder="For outstanding effort and kindness" className="min-h-[120px]" />
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="date" className="text-slate-700">Date</Label>
+                        <Input id="date" type="date" value={date} onChange={e => setDate(e.target.value)} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="issuer" className="text-slate-700">Signature / issuer</Label>
+                        <Input id="issuer" value={issuer} onChange={e => setIssuer(e.target.value)} placeholder="Teacher / Parent" />
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="space-y-4">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Style &amp; layout</p>
+                    <h2 className="text-lg font-semibold text-slate-900">Pick the look</h2>
+                    <p className="text-sm text-slate-500">Experiment with themes, layouts, badges, and background accents.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="theme" className="text-slate-700">Theme</Label>
+                      <div className="relative">
+                        <select
+                          id="theme"
+                          value={theme}
+                          onChange={e => setTheme(e.target.value as typeof theme)}
+                          className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        >
+                          <option value="classic">Classic</option>
+                          <option value="rainbow">Rainbow</option>
+                          <option value="space">Space</option>
+                          <option value="animals">Animals</option>
+                          <option value="gold">Gold (formal)</option>
+                          <option value="confetti">Confetti (colorful)</option>
+                        </select>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="templateStyle" className="text-slate-700">Template</Label>
+                      <div className="relative">
+                        <select
+                          id="templateStyle"
+                          value={templateStyle}
+                          onChange={e => setTemplateStyle(e.target.value as typeof templateStyle)}
+                          className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        >
+                          <option value="simple">Simple border</option>
+                          <option value="ribbon">Corner ribbons</option>
+                          <option value="medal">Medal badge (top-left)</option>
+                          <option value="trophy">Trophy badge (top-left)</option>
+                          <option value="academic">Academic border (gold)</option>
+                        </select>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="badgeIcon" className="text-slate-700">Badge icon</Label>
+                      <div className="relative">
+                        <select
+                          id="badgeIcon"
+                          value={badgeIcon}
+                          onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
+                          className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        >
+                          <option value="star">⭐ Star</option>
+                          <option value="trophy">🏆 Trophy</option>
+                          <option value="medal">🎖️ Medal</option>
+                          <option value="book">📚 Book</option>
+                          <option value="rocket">🚀 Rocket</option>
+                          <option value="cap">🎓 Graduation cap</option>
+                        </select>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="bgStyle" className="text-slate-700">Background style</Label>
+                      <div className="relative">
+                        <select
+                          id="bgStyle"
+                          value={bgStyle}
+                          onChange={e => setBgStyle(e.target.value as typeof bgStyle)}
+                          className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        >
+                          <option value="none">None</option>
+                          <option value="wavy">Wavy bands</option>
+                          <option value="bands">Diagonal bands</option>
+                          <option value="rosette">Center rosette</option>
+                        </select>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="fontStyle" className="text-slate-700">Font style</Label>
+                      <div className="relative">
+                        <select
+                          id="fontStyle"
+                          value={fontStyle}
+                          onChange={e => setFontStyle(e.target.value as typeof fontStyle)}
+                          className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                        >
+                          <option value="print">Print (Sans)</option>
+                          <option value="cursive">Cursive (Script)</option>
+                          <option value="serif">Serif (Formal)</option>
+                          <option value="comic">Comic (Playful)</option>
+                          <option value="handwritten">Handwritten</option>
+                        </select>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="space-y-4">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Colors &amp; print</p>
+                    <h2 className="text-lg font-semibold text-slate-900">Make it print-ready</h2>
+                    <p className="text-sm text-slate-500">Fine-tune colors and export settings so everything looks crisp on paper.</p>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3">
+                      <div>
+                        <p className="text-sm font-semibold text-slate-800">Ink-friendly colors</p>
+                        <p className="text-xs text-slate-500">Reduce heavy fills for economical home printing.</p>
+                      </div>
+                      <Switch checked={inkFriendly} onCheckedChange={setInkFriendly} aria-label="Toggle ink-friendly colors" />
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="textColor" className="text-slate-700">Text color</Label>
+                        <input
+                          id="textColor"
+                          type="color"
+                          value={textColorOverride || colors.text}
+                          onChange={e => setTextColorOverride(e.target.value)}
+                          className="h-12 w-full cursor-pointer rounded-xl border border-slate-200 bg-white p-1 shadow-inner"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="accentColor" className="text-slate-700">Name color</Label>
+                        <input
+                          id="accentColor"
+                          type="color"
+                          value={accentColorOverride || colors.accent}
+                          onChange={e => setAccentColorOverride(e.target.value)}
+                          className="h-12 w-full cursor-pointer rounded-xl border border-slate-200 bg-white p-1 shadow-inner"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 pt-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => { setTextColorOverride(''); setAccentColorOverride(''); }}
+                        className="rounded-full border-slate-300 bg-white/80 text-slate-600 hover:bg-slate-100"
+                      >
+                        Reset colors to theme
+                      </Button>
+                    </div>
+                    <div className="pt-2">
+                      <Button
+                        onClick={printPreview}
+                        className="w-full justify-center rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
+                        size="lg"
+                      >
+                        <span role="img" aria-hidden>🖨️</span>
+                        <span>Print / Save as PDF</span>
+                      </Button>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
 
-          {/* Right preview */}
-          <div className="md:col-span-8 md:sticky md:top-24 md:h-fit">
-            <div id="certificate-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
-              {svg}
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start lg:min-h-[calc(100vh-200px)]">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+              <div className="space-y-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Live preview</p>
+                <h2 className="text-2xl font-semibold text-slate-900">Watch your certificate update in real time</h2>
+                <p className="text-sm text-slate-500">Sized perfectly for US letter paper (landscape).</p>
+              </div>
+              <div className="w-full rounded-full border border-white/80 bg-white/70 px-4 py-2 text-center text-xs font-semibold text-slate-500 shadow-sm lg:w-auto">
+                Print-ready landscape layout
+              </div>
             </div>
+            <div className="relative h-full">
+              <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
+              <div className="relative min-h-[calc(100vh-260px)] rounded-[32px] border border-white/70 bg-white/90 p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] backdrop-blur">
+                <div className="rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
+                  <div id="certificate-sheet" className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                    {svg}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500">Tip: After clicking print, choose “Save as PDF” in your browser to download a high-quality copy.</p>
           </div>
         </section>
       </main>
