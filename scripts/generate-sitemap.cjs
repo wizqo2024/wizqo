@@ -91,6 +91,7 @@ function generate() {
     push(`${site}/kids/games/${slug}`, null, 'weekly', '0.6');
   }
   push(`${site}/printables`, today, 'weekly', '0.7');
+  push(`${site}/printables/certificate-maker`, today, 'weekly', '0.7');
   // Intentionally excluding math hubs for now
   push(`${site}/blog`, today, 'weekly', '0.7');
   // Worksheets landing pages

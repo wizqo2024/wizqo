@@ -375,6 +375,21 @@ export default function App() {
                 </>
               );
             case 'printables':
+              if (routeSubKey === 'certificate-maker') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="How to Make a Certificate Online – Free Certificate Maker"
+                      description="Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options."
+                      canonicalUrl="https://wizqo.com/printables/certificate-maker"
+                    />
+                    {(() => {
+                      const CM = require('./pages/CertificateMakerPage').default;
+                      return <CM />;
+                    })()}
+                  </>
+                );
+              }
               return (
                 <>
                   <SEOMetaTags 
