@@ -270,9 +270,9 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
           <div className="lg:sticky lg:top-24 lg:pr-2">
-            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:min-h-[calc(100vh-140px)] lg:max-h-[calc(100vh-140px)]">
+            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:min-h-[calc(100vh-180px)] lg:max-h-[calc(100vh-180px)]">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
-              <div className="flex h-full flex-col gap-8 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
+              <div className="flex h-full flex-col gap-6 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
                 <section className="space-y-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">General details</p>
