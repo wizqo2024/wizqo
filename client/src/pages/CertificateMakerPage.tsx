@@ -136,16 +136,81 @@ export default function CertificateMakerPage() {
     return null;
   };
 
-  const badgeEmoji = React.useMemo(() => {
-    switch (badgeIcon) {
-      case 'trophy': return '🏆';
-      case 'medal': return '🎖️';
-      case 'book': return '📚';
-      case 'rocket': return '🚀';
-      case 'cap': return '🎓';
-      default: return '★';
+  const badgePosition = React.useMemo(() => {
+    if (templateStyle === 'medal' || templateStyle === 'trophy') {
+      return { cx: 90, cy: 100 };
     }
-  }, [badgeIcon]);
+    return { cx: 1000, cy: 100 };
+  }, [templateStyle]);
+
+  const badgeGraphic = React.useMemo(() => {
+    const baseFill = inkFriendly ? '#e2e8f0' : '#ffffff';
+    const strokeColor = inkFriendly ? '#1f2937' : '#0f172a';
+    const accentFill = inkFriendly ? '#94a3b8' : colors.accent;
+
+    const centerTransform = `translate(${badgePosition.cx} ${badgePosition.cy})`;
+
+    switch (badgeIcon) {
+      case 'trophy':
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <path d="M-16 -12h32v6c0 7-6 12-16 13s-16-6-16-13z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
+            <path d="M-20 -8c0 6 4 11 10 12" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
+            <path d="M20 -8c0 6-4 11-10 12" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
+            <rect x="-8" y="0" width="16" height="8" rx="2" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
+            <rect x="-11" y="7" width="22" height="4" rx="1.5" fill={accentFill} opacity={inkFriendly ? 0.55 : 0.85} />
+            <circle cx="0" cy="-4" r="4" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
+          </g>
+        );
+      case 'medal':
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <path d="M-10 -24h20l4 16h-12l-2-6-2 6h-12z" fill={accentFill} opacity={inkFriendly ? 0.45 : 0.75} />
+            <circle r="14" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
+            <polygon points="0,-6 4,-1 10,0 5,4 7,10 0,6 -7,10 -5,4 -10,0 -4,-1" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
+          </g>
+        );
+      case 'book':
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <path d="M-16 -14h13c3 0 5 2 5 5v20c0 3-2 5-5 5h-13z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
+            <path d="M2 -14h13c3 0 5 2 5 5v20c0 3-2 5-5 5H2z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
+            <rect x="-2" y="-14" width="4" height="24" fill={accentFill} opacity={inkFriendly ? 0.4 : 0.65} />
+            <line x1="-10" y1="-6" x2="-3" y2="-6" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
+            <line x1="-10" y1="0" x2="-3" y2="0" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
+            <line x1="4" y1="-6" x2="11" y2="-6" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
+            <line x1="4" y1="0" x2="11" y2="0" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
+          </g>
+        );
+      case 'rocket':
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <path d="M0 -18c-7 6-9 16-9 24c0 4 2 8 5 10h8c3-2 5-6 5-10c0-8-2-18-9-24z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
+            <circle cx="0" cy="-4" r="5" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
+            <path d="M-9 7l-8 10l8-2l4 6l4-6l8 2l-8-10z" fill={accentFill} opacity={inkFriendly ? 0.45 : 0.8} />
+          </g>
+        );
+      case 'cap':
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <polygon points="0,-14 22,-6 0,2 -22,-6" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
+            <path d="M-12 -4v10c0 5 6 8 12 8s12-3 12-8v-10" fill="none" stroke={strokeColor} strokeWidth={1.6} />
+            <path d="M8 -5v12l6 4" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
+            <circle cx="8" cy="-6" r="3" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
+          </g>
+        );
+      default: {
+        const outer = '0,-15 4.5,-5 15,-5 6,2 9,13 0,7 -9,13 -6,2 -15,-5 -4.5,-5';
+        const inner = '0,-8 3,-2 8,-2 4,1 5,7 0,4 -5,7 -4,1 -8,-2 -3,-2';
+        return (
+          <g transform={centerTransform} aria-hidden="true">
+            <polygon points={outer} fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
+            <polygon points={inner} fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
+          </g>
+        );
+      }
+    }
+  }, [badgeIcon, badgePosition, colors.accent, inkFriendly]);
 
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
@@ -193,8 +258,8 @@ export default function CertificateMakerPage() {
         <rect x="26" y="26" width="1068" height="748" rx="14" fill="#fff" stroke={colors.accent} strokeDasharray="12 10" strokeWidth="3" />
       )}
       {/* Badge */}
-      <circle cx={templateStyle === 'medal' || templateStyle === 'trophy' ? 90 : 1000} cy={templateStyle === 'medal' || templateStyle === 'trophy' ? 100 : 100} r={36} fill={colors.badge} />
-      <text x={templateStyle === 'medal' || templateStyle === 'trophy' ? 90 : 1000} y={110} textAnchor="middle" fontSize="28" fill="#fff">{badgeEmoji}</text>
+      <circle cx={badgePosition.cx} cy={badgePosition.cy} r={36} fill={colors.badge} />
+      {badgeGraphic}
       {/* Title */}
       <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
@@ -244,7 +309,7 @@ export default function CertificateMakerPage() {
           '@type': 'FAQPage',
           mainEntity: [
             { '@type': 'Question', name: 'Is this certificate maker free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. You can customize and print your certificates for free.' } },
-            { '@type': 'Question', name: 'How do I print or save as PDF?', acceptedAnswer: { '@type': 'Answer', text: 'Click “Print / Save as PDF” and choose your browser’s Save as PDF option.' } }
+            { '@type': 'Question', name: 'How do I print or save as PDF?', acceptedAnswer: { '@type': 'Answer', text: 'Click ?Print / Save as PDF? and choose your browser?s Save as PDF option.' } }
           ]
         } as const;
         return (
@@ -264,7 +329,7 @@ export default function CertificateMakerPage() {
             Design a printable certificate they&apos;ll be proud to receive
           </h1>
           <p className="mx-auto max-w-3xl text-sm text-slate-600 lg:mx-0 lg:text-base">
-            Personalize the name, award reason, colors, and badge. Preview updates instantly and print in one click—no design skills required.
+            Personalize the name, award reason, colors, and badge. Preview updates instantly and print in one click?no design skills required.
           </p>
         </header>
 
@@ -328,7 +393,7 @@ export default function CertificateMakerPage() {
                           <option value="gold">Gold (formal)</option>
                           <option value="confetti">Confetti (colorful)</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -346,7 +411,7 @@ export default function CertificateMakerPage() {
                           <option value="trophy">Trophy badge (top-left)</option>
                           <option value="academic">Academic border (gold)</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -365,7 +430,7 @@ export default function CertificateMakerPage() {
                           <option value="rocket">Rocket badge</option>
                           <option value="cap">Graduation cap badge</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -382,7 +447,7 @@ export default function CertificateMakerPage() {
                           <option value="bands">Diagonal bands</option>
                           <option value="rosette">Center rosette</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -400,7 +465,7 @@ export default function CertificateMakerPage() {
                           <option value="comic">Comic (Playful)</option>
                           <option value="handwritten">Handwritten</option>
                         </select>
-                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">?</span>
                       </div>
                     </div>
                   </div>
@@ -459,7 +524,7 @@ export default function CertificateMakerPage() {
                         className="w-full justify-center rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
                         size="lg"
                       >
-                        <span role="img" aria-hidden>🖨️</span>
+                        <span role="img" aria-hidden>???</span>
                         <span>Print / Save as PDF</span>
                       </Button>
                     </div>
