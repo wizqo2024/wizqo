@@ -8,17 +8,23 @@ export default function CertificateMakerPage() {
   const [reason, setReason] = React.useState<string>('For outstanding effort and kindness');
   const [date, setDate] = React.useState<string>('');
   const [issuer, setIssuer] = React.useState<string>('');
-  const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals'>('classic');
+  const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals' | 'gold' | 'confetti'>('classic');
   const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif' | 'comic' | 'handwritten'>('print');
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
+  const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy'>('simple');
+  const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket'>('star');
+  const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
 
   const colors = React.useMemo(() => {
+    const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
     switch (theme) {
-      case 'rainbow': return { border: '#f59e0b', accent: '#8b5cf6', text: '#111827', badge: '#ef4444' };
-      case 'space': return { border: '#0ea5e9', accent: '#14b8a6', text: '#0f172a', badge: '#6366f1' };
-      case 'animals': return { border: '#22c55e', accent: '#f97316', text: '#111827', badge: '#10b981' };
-      default: return { border: '#64748b', accent: '#0ea5e9', text: '#0f172a', badge: '#f59e0b' };
+      case 'rainbow': return base({ border: '#f59e0b', accent: '#8b5cf6', text: '#111827', badge: '#ef4444' });
+      case 'space': return base({ border: '#0ea5e9', accent: '#14b8a6', text: '#0f172a', badge: '#6366f1' });
+      case 'animals': return base({ border: '#22c55e', accent: '#f97316', text: '#111827', badge: '#10b981' });
+      case 'gold': return base({ border: '#d4af37', accent: '#b7791f', text: '#111827', badge: '#fbbf24' });
+      case 'confetti': return base({ border: '#fb7185', accent: '#22d3ee', text: '#111827', badge: '#f59e0b' });
+      default: return base({ border: '#64748b', accent: '#0ea5e9', text: '#0f172a', badge: '#f59e0b' });
     }
   }, [theme]);
 
@@ -90,14 +96,63 @@ export default function CertificateMakerPage() {
     } catch {}
   }
 
+  const renderBackground = () => {
+    if (theme === 'confetti') {
+      const dots = Array.from({ length: 60 }).map((_, i) => {
+        const x = 40 + Math.random() * 1040;
+        const y = 40 + Math.random() * 720;
+        const r = 2 + Math.random() * 3;
+        const palette = ['#fb7185', '#22d3ee', '#a78bfa', '#34d399', '#f59e0b'];
+        const c = palette[i % palette.length];
+        return <circle key={`c${i}`} cx={x} cy={y} r={r} fill={inkFriendly ? '#94a3b8' : c} opacity={0.35} />
+      });
+      return <g aria-hidden>{dots}</g>;
+    }
+    return null;
+  };
+
+  const badgeEmoji = React.useMemo(() => {
+    switch (badgeIcon) {
+      case 'trophy': return '🏆';
+      case 'medal': return '🎖️';
+      case 'book': return '📚';
+      case 'rocket': return '🚀';
+      default: return '★';
+    }
+  }, [badgeIcon]);
+
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
+      {renderBackground()}
       {/* Border */}
-      <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke={colors.border} strokeWidth="8" />
-      <rect x="26" y="26" width="1068" height="748" rx="14" fill="#fff" stroke={colors.accent} strokeDasharray="12 10" strokeWidth="3" />
+      {theme === 'gold' ? (
+        <>
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor={inkFriendly ? '#9ca3af' : '#fef3c7'} />
+              <stop offset="50%" stopColor={inkFriendly ? '#6b7280' : '#d4af37'} />
+              <stop offset="100%" stopColor={inkFriendly ? '#9ca3af' : '#fde68a'} />
+            </linearGradient>
+          </defs>
+          <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke="url(#goldGrad)" strokeWidth="10" />
+        </>
+      ) : (
+        <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke={colors.border} strokeWidth="8" />
+      )}
+      {/* Inner border / ribbons */}
+      {templateStyle === 'ribbon' ? (
+        <>
+          <polygon points="10,10 140,10 10,140" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+          <polygon points="1110,10 980,10 1110,140" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+          <polygon points="10,790 140,790 10,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+          <polygon points="1110,790 980,790 1110,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+        </>
+      ) : (
+        <rect x="26" y="26" width="1068" height="748" rx="14" fill="#fff" stroke={colors.accent} strokeDasharray="12 10" strokeWidth="3" />
+      )}
       {/* Badge */}
-      <circle cx="1000" cy="100" r="36" fill={colors.badge} />
-      <text x="1000" y="110" textAnchor="middle" fontSize="28" fill="#fff">★</text>
+      <circle cx={templateStyle === 'medal' || templateStyle === 'trophy' ? 90 : 1000} cy={templateStyle === 'medal' || templateStyle === 'trophy' ? 100 : 100} r={36} fill={colors.badge} />
+      <text x={templateStyle === 'medal' || templateStyle === 'trophy' ? 90 : 1000} y={110} textAnchor="middle" fontSize="28" fill="#fff">{badgeEmoji}</text>
       {/* Title */}
       <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
@@ -192,7 +247,29 @@ export default function CertificateMakerPage() {
                   <option value="rainbow">Rainbow</option>
                   <option value="space">Space</option>
                   <option value="animals">Animals</option>
+                  <option value="gold">Gold (formal)</option>
+                  <option value="confetti">Confetti (colorful)</option>
                 </select>
+              </label>
+              <label className="text-sm text-slate-700">Template
+                <select value={templateStyle} onChange={e=>setTemplateStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                  <option value="simple">Simple border</option>
+                  <option value="ribbon">Corner ribbons</option>
+                  <option value="medal">Medal badge (top-left)</option>
+                  <option value="trophy">Trophy badge (top-left)</option>
+                </select>
+              </label>
+              <label className="text-sm text-slate-700">Badge icon
+                <select value={badgeIcon} onChange={e=>setBadgeIcon(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                  <option value="star">⭐ Star</option>
+                  <option value="trophy">🏆 Trophy</option>
+                  <option value="medal">🎖️ Medal</option>
+                  <option value="book">📚 Book</option>
+                  <option value="rocket">🚀 Rocket</option>
+                </select>
+              </label>
+              <label className="text-sm text-slate-700 inline-flex items-center gap-2">
+                <input type="checkbox" checked={inkFriendly} onChange={e=>setInkFriendly(e.target.checked)} /> Ink‑friendly colors
               </label>
               <label className="text-sm text-slate-700">Font style
                 <select value={fontStyle} onChange={e=>setFontStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
