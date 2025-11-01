@@ -19,6 +19,20 @@ export default function CertificateMakerPage() {
     }
   }, [theme]);
 
+  const formattedDate = React.useMemo(() => {
+    if (!date) return '';
+    // HTML date input returns YYYY-MM-DD; format to "Mon D, YYYY"
+    try {
+      const d = new Date(date);
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      }
+      return date;
+    } catch {
+      return date;
+    }
+  }, [date]);
+
   function printPreview() {
     try {
       const sheet = document.getElementById('certificate-sheet');
@@ -82,13 +96,13 @@ export default function CertificateMakerPage() {
       </text>
       {/* Reason */}
       <foreignObject x="160" y="420" width="800" height="120">
-        <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: 'center', color: colors.text, fontSize: 24 }}>
+        <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: 'center', color: colors.text, fontSize: 24, whiteSpace: 'pre-line' }}>
           {reason || 'For outstanding effort and kindness'}
         </div>
       </foreignObject>
       {/* Footer lines */}
       <line x1="200" y1="620" x2="460" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      <text x="330" y="650" textAnchor="middle" fontSize="18" fill="#475569">Date{date ? `: ${date}` : ''}</text>
+      <text x="330" y="650" textAnchor="middle" fontSize="18" fill="#475569">Date{formattedDate ? `: ${formattedDate}` : ''}</text>
       <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
       <text x="790" y="650" textAnchor="middle" fontSize="18" fill="#475569">Signature{issuer ? `: ${issuer}` : ''}</text>
     </svg>
@@ -149,7 +163,7 @@ export default function CertificateMakerPage() {
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <label className="text-sm text-slate-700">Date
-                  <input value={date} onChange={e=>setDate(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Nov 1, 2025" />
+                  <input type="date" value={date} onChange={e=>setDate(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                 </label>
                 <label className="text-sm text-slate-700">Signature/Issuer
                   <input value={issuer} onChange={e=>setIssuer(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Teacher / Parent" />
