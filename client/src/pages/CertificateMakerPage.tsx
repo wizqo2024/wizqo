@@ -9,7 +9,7 @@ export default function CertificateMakerPage() {
   const [date, setDate] = React.useState<string>('');
   const [issuer, setIssuer] = React.useState<string>('');
   const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals'>('classic');
-  const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif'>('print');
+  const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif' | 'comic' | 'handwritten'>('print');
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
 
@@ -25,7 +25,9 @@ export default function CertificateMakerPage() {
   const fontStacks = React.useMemo(() => ({
     print: "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial",
     cursive: "'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive",
-    serif: "Georgia, 'Times New Roman', serif"
+    serif: "Georgia, 'Times New Roman', serif",
+    comic: "'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive",
+    handwritten: "'Patrick Hand', 'Indie Flower', 'Bradley Hand', cursive"
   }), []);
 
   const effective = React.useMemo(() => ({
@@ -195,8 +197,10 @@ export default function CertificateMakerPage() {
               <label className="text-sm text-slate-700">Font style
                 <select value={fontStyle} onChange={e=>setFontStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
                   <option value="print">Print (Sans)</option>
-                  <option value="cursive">Cursive</option>
-                  <option value="serif">Serif</option>
+                  <option value="cursive">Cursive (Script)</option>
+                  <option value="serif">Serif (Formal)</option>
+                  <option value="comic">Comic (Playful)</option>
+                  <option value="handwritten">Handwritten</option>
                 </select>
               </label>
               <div className="grid grid-cols-2 gap-3">
