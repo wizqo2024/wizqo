@@ -9,6 +9,9 @@ export default function CertificateMakerPage() {
   const [date, setDate] = React.useState<string>('');
   const [issuer, setIssuer] = React.useState<string>('');
   const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals'>('classic');
+  const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif'>('print');
+  const [textColorOverride, setTextColorOverride] = React.useState<string>('');
+  const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
 
   const colors = React.useMemo(() => {
     switch (theme) {
@@ -18,6 +21,18 @@ export default function CertificateMakerPage() {
       default: return { border: '#64748b', accent: '#0ea5e9', text: '#0f172a', badge: '#f59e0b' };
     }
   }, [theme]);
+
+  const fontStacks = React.useMemo(() => ({
+    print: "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial",
+    cursive: "'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive",
+    serif: "Georgia, 'Times New Roman', serif"
+  }), []);
+
+  const effective = React.useMemo(() => ({
+    text: textColorOverride || colors.text,
+    accent: accentColorOverride || colors.accent,
+    fontFamily: fontStacks[fontStyle]
+  }), [textColorOverride, accentColorOverride, colors, fontStyle, fontStacks]);
 
   const formattedDate = React.useMemo(() => {
     if (!date) return '';
@@ -82,29 +97,29 @@ export default function CertificateMakerPage() {
       <circle cx="1000" cy="100" r="36" fill={colors.badge} />
       <text x="1000" y="110" textAnchor="middle" fontSize="28" fill="#fff">★</text>
       {/* Title */}
-      <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={colors.text}
+      <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
         {awardTitle || 'Certificate of Achievement'}
       </text>
       {/* Recipient */}
-      <text x="560" y="300" textAnchor="middle" fontSize="36" fill={colors.text}>
+      <text x="560" y="300" textAnchor="middle" fontSize="36" fill={effective.text} fontFamily={effective.fontFamily}>
         Awarded to
       </text>
-      <text x="560" y="360" textAnchor="middle" fontSize="56" fontWeight="700" fill={colors.accent}
+      <text x="560" y="360" textAnchor="middle" fontSize="56" fontWeight="700" fill={effective.accent} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
         {recipient || 'Your Name Here'}
       </text>
       {/* Reason */}
       <foreignObject x="160" y="420" width="800" height="120">
-        <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: 'center', color: colors.text, fontSize: 24, whiteSpace: 'pre-line' }}>
+        <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: 'center', color: effective.text, fontSize: 24, whiteSpace: 'pre-line', fontFamily: effective.fontFamily as any }}>
           {reason || 'For outstanding effort and kindness'}
         </div>
       </foreignObject>
       {/* Footer lines */}
       <line x1="200" y1="620" x2="460" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      <text x="330" y="650" textAnchor="middle" fontSize="18" fill="#475569">Date{formattedDate ? `: ${formattedDate}` : ''}</text>
+      <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Date{formattedDate ? `: ${formattedDate}` : ''}</text>
       <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      <text x="790" y="650" textAnchor="middle" fontSize="18" fill="#475569">Signature{issuer ? `: ${issuer}` : ''}</text>
+      <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
     </svg>
   );
 
@@ -177,6 +192,28 @@ export default function CertificateMakerPage() {
                   <option value="animals">Animals</option>
                 </select>
               </label>
+              <label className="text-sm text-slate-700">Font style
+                <select value={fontStyle} onChange={e=>setFontStyle(e.target.value as any)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+                  <option value="print">Print (Sans)</option>
+                  <option value="cursive">Cursive</option>
+                  <option value="serif">Serif</option>
+                </select>
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                <label className="text-sm text-slate-700">Text color
+                  <input type="color" value={textColorOverride || ''} onChange={e=>setTextColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
+                </label>
+                <label className="text-sm text-slate-700">Name color
+                  <input type="color" value={accentColorOverride || ''} onChange={e=>setAccentColorOverride(e.target.value)} className="mt-1 h-10 w-full border border-slate-300 rounded-lg" />
+                </label>
+              </div>
+              <button
+                type="button"
+                onClick={() => { setTextColorOverride(''); setAccentColorOverride(''); }}
+                className="mt-1 inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs"
+              >
+                Reset colors to theme
+              </button>
               <div className="pt-2">
                 <button onClick={printPreview} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow">
                   <span>🖨️</span>
