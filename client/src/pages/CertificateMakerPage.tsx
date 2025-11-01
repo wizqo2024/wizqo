@@ -36,11 +36,11 @@ export default function CertificateMakerPage() {
   }, [theme, inkFriendly]);
 
   const fontStacks = React.useMemo(() => ({
-    print: "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial",
-    cursive: "'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive",
-    serif: "Georgia, 'Times New Roman', serif",
-    comic: "'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive",
-    handwritten: "'Patrick Hand', 'Indie Flower', 'Bradley Hand', cursive"
+    print: "'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif",
+    cursive: "'Pacifico', 'Dancing Script', 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', cursive",
+    serif: "'Playfair Display', 'Merriweather', Georgia, 'Times New Roman', serif",
+    comic: "'Comic Neue', 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive",
+    handwritten: "'Patrick Hand', 'Indie Flower', 'Handlee', 'Bradley Hand', cursive"
   }), []);
 
   const effective = React.useMemo(() => ({
