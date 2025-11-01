@@ -481,11 +481,11 @@ export default function CertificateMakerPage() {
                   Print-ready landscape layout
                 </div>
               </div>
-              <div className="relative flex-1 overflow-hidden">
+              <div className="relative flex-1">
                 <div className="pointer-events-none absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
-                <div className="relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)]">
-                  <div className="flex-1 overflow-auto rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
-                    <div id="certificate-sheet" className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                <div className="relative flex h-full flex-col rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)]">
+                  <div className="flex-1 rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
+                    <div id="certificate-sheet" className="h-full rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
                       {svg}
                     </div>
                   </div>
