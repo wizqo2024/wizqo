@@ -135,7 +135,14 @@ export default function CertificateMakerPage() {
 
       const content = (
         <g aria-hidden="true">
-          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} />
+          <rect
+            x="24"
+            y="24"
+            width="1072"
+            height="752"
+            fill={`url(#${gradientId})`}
+            opacity={inkFriendly ? 0.18 : 0.25}
+          />
           <g transform="rotate(-16 560 400)" opacity={inkFriendly ? 0.32 : 0.4}>
             {[0, 1, 2, 3, 4].map(index => (
               <rect
@@ -150,7 +157,7 @@ export default function CertificateMakerPage() {
               />
             ))}
           </g>
-          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.12 : 0.18} />
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.1 : 0.16} />
         </g>
       );
 
@@ -176,7 +183,14 @@ export default function CertificateMakerPage() {
 
       const content = (
         <g aria-hidden="true">
-          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} />
+          <rect
+            x="24"
+            y="24"
+            width="1072"
+            height="752"
+            fill={`url(#${gradientId})`}
+            opacity={inkFriendly ? 0.2 : 0.28}
+          />
           <path
             d="M24 220 C214 120 394 300 604 214 C814 128 994 292 1096 206 L1096 24 L24 24 Z"
             fill={paletteAccent}
@@ -226,7 +240,7 @@ export default function CertificateMakerPage() {
 
       const content = (
         <g aria-hidden="true">
-          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} />
+          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} opacity={inkFriendly ? 0.22 : 0.32} />
           {Array.from({ length: 32 }).map((_, index) => (
             <path
               key={`spoke-${index}`}
@@ -354,17 +368,6 @@ export default function CertificateMakerPage() {
         {backgroundDefs}
       </defs>
 
-      {backgroundContent && (
-        <g
-          clipPath={`url(#${backgroundClipId})`}
-          opacity={bgStyle === 'none' ? 0 : 1}
-          style={{ transition: 'opacity 0.35s ease-in-out' }}
-          pointerEvents="none"
-        >
-          {backgroundContent}
-        </g>
-      )}
-
       {/* Border */}
       {showGoldGradient ? (
         <>
@@ -384,6 +387,17 @@ export default function CertificateMakerPage() {
         </>
       ) : (
         <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke={colors.border} strokeWidth="8" />
+      )}
+
+      {backgroundContent && (
+        <g
+          clipPath={`url(#${backgroundClipId})`}
+          opacity={bgStyle === 'none' ? 0 : 1}
+          style={{ transition: 'opacity 0.35s ease-in-out', mixBlendMode: inkFriendly ? 'multiply' : 'normal' }}
+          pointerEvents="none"
+        >
+          {backgroundContent}
+        </g>
       )}
       {/* Inner border / ribbons */}
       {templateStyle === 'ribbon' ? (
