@@ -1,4 +1,3 @@
-
 {
   "version": 2,
   "buildCommand": "npm run vercel-build",
@@ -16,7 +15,11 @@
       "permanent": true
     },
     { "source": "/printables/math", "destination": "/printables", "permanent": true },
-    { "source": "/printables/math/grade-2", "destination": "/printables", "permanent": true }
+    { "source": "/printables/math/grade-2", "destination": "/printables", "permanent": true },
+    { "source": "/handwriting-worksheet-maker", "destination": "/worksheets/handwriting-worksheet-maker", "permanent": true },
+    { "source": "/handwriting-worksheet-maker/", "destination": "/worksheets/handwriting-worksheet-maker", "permanent": true },
+    { "source": "/worksheets", "destination": "/worksheets/2nd-grade-math-worksheets", "permanent": true },
+    { "source": "/worksheets/", "destination": "/worksheets/2nd-grade-math-worksheets", "permanent": true }
   ],
   "headers": [
     {
