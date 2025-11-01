@@ -270,9 +270,9 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
           <div className="lg:self-stretch lg:pr-2">
-            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-200px)] lg:min-h-[calc(100vh-200px)] lg:overflow-y-auto">
+            <div className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:sticky lg:top-24 lg:h-[calc(100vh-200px)]">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
-              <div className="flex min-h-full flex-col gap-10 px-6 pb-6 pt-7 sm:px-8">
+              <div className="flex min-h-full flex-col gap-10 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
                 <section className="space-y-4">
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">General details</p>
@@ -469,28 +469,32 @@ export default function CertificateMakerPage() {
             </div>
           </div>
 
-          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start lg:min-h-[calc(100vh-200px)]">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-              <div className="space-y-1">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Live preview</p>
-                <h2 className="text-2xl font-semibold text-slate-900">Watch your certificate update in real time</h2>
-                <p className="text-sm text-slate-500">Sized perfectly for US letter paper (landscape).</p>
-              </div>
-              <div className="w-full rounded-full border border-white/80 bg-white/70 px-4 py-2 text-center text-xs font-semibold text-slate-500 shadow-sm lg:w-auto">
-                Print-ready landscape layout
-              </div>
-            </div>
-            <div className="relative h-full">
-              <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
-              <div className="relative min-h-[calc(100vh-200px)] rounded-[32px] border border-white/70 bg-white/90 p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] backdrop-blur lg:min-h-[calc(100vh-200px)]">
-                <div className="rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
-                  <div id="certificate-sheet" className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
-                    {svg}
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+            <div className="relative h-[calc(100vh-200px)]">
+              <div className="absolute inset-0 flex flex-col">
+                <div className="flex flex-col gap-3 pb-4 lg:flex-row lg:items-end lg:justify-between">
+                  <div className="space-y-1">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Live preview</p>
+                    <h2 className="text-2xl font-semibold text-slate-900">Watch your certificate update in real time</h2>
+                    <p className="text-sm text-slate-500">Sized perfectly for US letter paper (landscape).</p>
+                  </div>
+                  <div className="w-full rounded-full border border-white/80 bg-white/70 px-4 py-2 text-center text-xs font-semibold text-slate-500 shadow-sm lg:w-auto">
+                    Print-ready landscape layout
                   </div>
                 </div>
+                <div className="relative flex-1">
+                  <div className="absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
+                  <div className="relative flex h-full flex-col rounded-[32px] border border-white/70 bg-white/90 p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)] backdrop-blur">
+                    <div className="rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
+                      <div id="certificate-sheet" className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                        {svg}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="pt-4 text-xs text-slate-500">Tip: After clicking print, choose “Save as PDF” in your browser to download a high-quality copy.</p>
               </div>
             </div>
-            <p className="text-xs text-slate-500">Tip: After clicking print, choose “Save as PDF” in your browser to download a high-quality copy.</p>
           </div>
         </section>
       </main>
