@@ -117,47 +117,45 @@ export default function CertificateMakerPage() {
 
     if (bgStyle === 'bands') {
       const gradientId = `${backgroundClipId}-bands-gradient`;
+      const stripeGradientId = `${backgroundClipId}-bands-stripe`;
       const patternId = `${backgroundClipId}-bands-pattern`;
       const defs = (
         <>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(12)">
-            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#e0f2fe'} stopOpacity={inkFriendly ? 0.6 : 0.8} />
-            <stop offset="45%" stopColor={inkFriendly ? '#e2e8f0' : colors.border} stopOpacity={0.5} />
-            <stop offset="100%" stopColor={inkFriendly ? '#cbd5f5' : '#fdf2f8'} stopOpacity={0.75} />
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(20)">
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#e0f2fe'} />
+            <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#fee2f2'} />
           </linearGradient>
-          <pattern id={patternId} width="70" height="70" patternUnits="userSpaceOnUse">
-            <circle cx="12" cy="12" r="2" fill={paletteAccent} opacity={inkFriendly ? 0.18 : 0.28} />
-            <circle cx="52" cy="36" r="1.6" fill={paletteBadge} opacity={inkFriendly ? 0.14 : 0.22} />
-            <path d="M0 70 L70 0" stroke={paletteAccent} strokeOpacity={inkFriendly ? 0.08 : 0.12} strokeWidth="0.6" />
+          <linearGradient id={stripeGradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={inkFriendly ? '#94a3b8' : '#4f46e5'} stopOpacity={inkFriendly ? 0.28 : 0.6} />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+          <pattern id={patternId} width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="8" cy="12" r="2" fill={inkFriendly ? '#64748b' : '#22d3ee'} opacity={inkFriendly ? 0.2 : 0.45} />
+            <circle cx="36" cy="40" r="1.6" fill={inkFriendly ? '#475569' : '#fdba74'} opacity={inkFriendly ? 0.15 : 0.35} />
+            <path d="M-5 65 L65 -5" stroke={inkFriendly ? '#cbd5f5' : '#a855f7'} strokeOpacity={inkFriendly ? 0.12 : 0.25} strokeWidth="1.2" />
           </pattern>
         </>
       );
 
       const content = (
         <g aria-hidden="true">
-          <rect
-            x="24"
-            y="24"
-            width="1072"
-            height="752"
-            fill={`url(#${gradientId})`}
-            opacity={inkFriendly ? 0.35 : 0.55}
-          />
-          <g transform="rotate(-16 560 400)" opacity={inkFriendly ? 0.45 : 0.65}>
-            {[0, 1, 2, 3, 4].map(index => (
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} opacity={inkFriendly ? 0.45 : 0.7} />
+          <g transform="rotate(-18 560 400)" opacity={inkFriendly ? 0.5 : 0.75}>
+            {[0, 1, 2, 3, 4, 5].map(index => (
               <rect
                 key={`band-${index}`}
-                x={-260 + index * 120}
-                y={70 + index * 78}
-                width={1300}
-                height={index % 2 === 0 ? 90 : 54}
-                rx={28}
+                x={-340 + index * 140}
+                y={40 + index * 68}
+                width={1380}
+                height={index % 2 === 0 ? 120 : 72}
+                rx={36}
                 fill={index % 2 === 0 ? paletteAccent : paletteBadge}
-                opacity={inkFriendly ? 0.3 : 0.48 - index * 0.05}
+                opacity={inkFriendly ? 0.32 : 0.55 - index * 0.04}
               />
             ))}
+            <rect x={-420} y={110} width={1500} height={160} fill={`url(#${stripeGradientId})`} opacity={inkFriendly ? 0.3 : 0.55} />
           </g>
-          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.16 : 0.26} />
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.2 : 0.35} />
         </g>
       );
 
@@ -166,16 +164,21 @@ export default function CertificateMakerPage() {
 
     if (bgStyle === 'wavy') {
       const gradientId = `${backgroundClipId}-wavy-gradient`;
+      const crestGradientId = `${backgroundClipId}-wavy-crest`;
       const bubbleGradientId = `${backgroundClipId}-wavy-bubble`;
       const defs = (
         <>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#e0f2fe'} stopOpacity={0.6} />
-            <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#fefce8'} stopOpacity={0.85} />
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#e0f2fe'} />
+            <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#fff7ed'} />
+          </linearGradient>
+          <linearGradient id={crestGradientId} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.4 : 0.65} />
+            <stop offset="100%" stopColor={paletteBadge} stopOpacity={inkFriendly ? 0.2 : 0.4} />
           </linearGradient>
           <radialGradient id={bubbleGradientId} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.24 : 0.38} />
-            <stop offset="70%" stopColor={paletteBadge} stopOpacity={inkFriendly ? 0.12 : 0.2} />
+            <stop offset="0%" stopColor={paletteBadge} stopOpacity={inkFriendly ? 0.38 : 0.55} />
+            <stop offset="65%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.22 : 0.35} />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
         </>
@@ -183,37 +186,24 @@ export default function CertificateMakerPage() {
 
       const content = (
         <g aria-hidden="true">
-          <rect
-            x="24"
-            y="24"
-            width="1072"
-            height="752"
-            fill={`url(#${gradientId})`}
-            opacity={inkFriendly ? 0.32 : 0.55}
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} opacity={inkFriendly ? 0.5 : 0.75} />
+          <path
+            d="M24 230 C224 90 404 310 604 210 C804 110 1004 290 1096 170 L1096 24 L24 24 Z"
+            fill={`url(#${crestGradientId})`}
+            opacity={inkFriendly ? 0.45 : 0.7}
           />
           <path
-            d="M24 220 C214 120 394 300 604 214 C814 128 994 292 1096 206 L1096 24 L24 24 Z"
-            fill={paletteAccent}
-            opacity={inkFriendly ? 0.35 : 0.6}
-          />
-          <path
-            d="M24 618 C214 558 404 696 604 630 C804 564 994 652 1096 620 L1096 776 L24 776 Z"
+            d="M24 650 C214 580 404 740 604 640 C804 540 1004 660 1096 600 L1096 776 L24 776 Z"
             fill={paletteBadge}
-            opacity={inkFriendly ? 0.28 : 0.48}
+            opacity={inkFriendly ? 0.35 : 0.55}
           />
-          {[{ cx: 260, cy: 340, r: 180 }, { cx: 840, cy: 280, r: 140 }, { cx: 680, cy: 560, r: 170 }].map((bubble, index) => (
-            <circle
-              key={`bubble-${index}`}
-              cx={bubble.cx}
-              cy={bubble.cy}
-              r={bubble.r}
-              fill={`url(#${bubbleGradientId})`}
-            />
+          {[{ cx: 240, cy: 320, r: 190 }, { cx: 820, cy: 260, r: 150 }, { cx: 660, cy: 570, r: 200 }, { cx: 980, cy: 420, r: 120 }].map((bubble, index) => (
+            <circle key={`bubble-${index}`} cx={bubble.cx} cy={bubble.cy} r={bubble.r} fill={`url(#${bubbleGradientId})`} opacity={inkFriendly ? 0.28 : 0.45} />
           ))}
-          <g stroke={paletteText} strokeOpacity={inkFriendly ? 0.2 : 0.25} fill="none" strokeWidth="1.3">
-            <path d="M160 360 C300 260 420 320 540 240" />
-            <path d="M300 520 C480 420 640 520 800 420" />
-            <path d="M500 650 C620 580 760 640 900 560" />
+          <g stroke={paletteText} strokeOpacity={inkFriendly ? 0.3 : 0.38} fill="none" strokeWidth="1.5">
+            <path d="M150 360 C300 250 430 330 550 210" />
+            <path d="M320 520 C490 430 640 520 820 430" />
+            <path d="M520 670 C660 590 800 660 950 560" />
           </g>
         </g>
       );
@@ -224,45 +214,50 @@ export default function CertificateMakerPage() {
     if (bgStyle === 'rosette') {
       const radialGradientId = `${backgroundClipId}-rosette-radial`;
       const spokeGradientId = `${backgroundClipId}-rosette-spoke`;
+      const sparkleGradientId = `${backgroundClipId}-rosette-sparkle`;
       const defs = (
         <>
-          <radialGradient id={radialGradientId} cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fdf2f8'} stopOpacity={0.85} />
-            <stop offset="80%" stopColor={inkFriendly ? '#e2e8f0' : '#fff7ed'} stopOpacity={0.45} />
-            <stop offset="100%" stopColor="transparent" />
+          <radialGradient id={radialGradientId} cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff7ed'} />
+            <stop offset="80%" stopColor={inkFriendly ? '#e2e8f0' : '#fde2ff'} stopOpacity={inkFriendly ? 0.55 : 0.75} />
+            <stop offset="100%" stopColor={inkFriendly ? '#cbd5e1' : '#f1f5f9'} stopOpacity={inkFriendly ? 0.35 : 0.45} />
           </radialGradient>
           <linearGradient id={spokeGradientId} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.18 : 0.32} />
+            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.35 : 0.55} />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
+          <radialGradient id={sparkleGradientId} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} stopOpacity={0.8} />
+            <stop offset="100%" stopColor="transparent" />
+          </radialGradient>
         </>
       );
 
       const content = (
         <g aria-hidden="true">
-          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} opacity={inkFriendly ? 0.32 : 0.58} />
-          {Array.from({ length: 32 }).map((_, index) => (
+          <circle cx={560} cy={400} r={320} fill={`url(#${radialGradientId})`} opacity={inkFriendly ? 0.6 : 0.85} />
+          {Array.from({ length: 36 }).map((_, index) => (
             <path
               key={`spoke-${index}`}
-              d={`M560 400 L560 ${100 + (index % 2 === 0 ? 40 : 0)} A300 300 0 0 1 560 400`}
+              d="M560 400 L560 120 A280 280 0 0 1 560 400"
               fill={`url(#${spokeGradientId})`}
-              transform={`rotate(${(360 / 32) * index} 560 400)`}
-              opacity={inkFriendly ? 0.32 : 0.52}
+              transform={`rotate(${(360 / 36) * index} 560 400)`}
+              opacity={inkFriendly ? 0.35 : 0.52}
             />
           ))}
-          {Array.from({ length: 18 }).map((_, index) => (
+          {Array.from({ length: 20 }).map((_, index) => (
             <circle
               key={`ring-${index}`}
               cx={560}
               cy={400}
-              r={80 + index * 12}
+              r={90 + index * 14}
               stroke={paletteAccent}
-              strokeOpacity={inkFriendly ? 0.22 : 0.32 - index * 0.01}
-              strokeWidth={index % 2 === 0 ? 2 : 1}
+              strokeOpacity={inkFriendly ? 0.3 : 0.42 - index * 0.012}
+              strokeWidth={index % 2 === 0 ? 2.4 : 1.4}
               fill="none"
             />
           ))}
-          <circle cx={560} cy={400} r={120} fill={inkFriendly ? '#e2e8f0' : '#fff'} opacity={inkFriendly ? 0.4 : 0.55} />
+          <circle cx={560} cy={400} r={130} fill={`url(#${sparkleGradientId})`} opacity={inkFriendly ? 0.45 : 0.6} />
         </g>
       );
 
