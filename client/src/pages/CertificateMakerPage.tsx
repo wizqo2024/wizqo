@@ -108,74 +108,155 @@ export default function CertificateMakerPage() {
   const goldGradientId = React.useMemo(() => `${backgroundClipId}-gold-gradient`, [backgroundClipId]);
 
   const backgroundElements = React.useMemo(() => {
-    if (bgStyle === 'none') return null;
+    const baseResult = { defs: null as React.ReactNode, content: null as React.ReactNode };
+    if (bgStyle === 'none') return baseResult;
+
+    const paletteAccent = inkFriendly ? '#94a3b8' : colors.accent;
+    const paletteBadge = inkFriendly ? '#cbd5f5' : colors.badge;
+    const paletteText = inkFriendly ? '#64748b' : colors.text;
 
     if (bgStyle === 'bands') {
-      const palette = inkFriendly
-        ? [
-            { color: '#cbd5f5', opacity: 0.32 },
-            { color: '#94a3b8', opacity: 0.28 },
-            { color: '#e2e8f0', opacity: 0.36 },
-            { color: '#94a3b8', opacity: 0.26 }
-          ]
-        : [
-            { color: '#22d3ee', opacity: 0.3 },
-            { color: '#a855f7', opacity: 0.26 },
-            { color: '#fb7185', opacity: 0.28 },
-            { color: '#34d399', opacity: 0.24 }
-          ];
+      const gradientId = `${backgroundClipId}-bands-gradient`;
+      const patternId = `${backgroundClipId}-bands-pattern`;
+      const defs = (
+        <>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(12)">
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#e0f2fe'} stopOpacity={inkFriendly ? 0.6 : 0.8} />
+            <stop offset="45%" stopColor={inkFriendly ? '#e2e8f0' : colors.border} stopOpacity={0.5} />
+            <stop offset="100%" stopColor={inkFriendly ? '#cbd5f5' : '#fdf2f8'} stopOpacity={0.75} />
+          </linearGradient>
+          <pattern id={patternId} width="70" height="70" patternUnits="userSpaceOnUse">
+            <circle cx="12" cy="12" r="2" fill={paletteAccent} opacity={inkFriendly ? 0.18 : 0.28} />
+            <circle cx="52" cy="36" r="1.6" fill={paletteBadge} opacity={inkFriendly ? 0.14 : 0.22} />
+            <path d="M0 70 L70 0" stroke={paletteAccent} strokeOpacity={inkFriendly ? 0.08 : 0.12} strokeWidth="0.6" />
+          </pattern>
+        </>
+      );
 
-      return (
-        <g aria-hidden="true" transform="rotate(-18 560 400)">
-          {palette.map((band, index) => (
-            <rect
-              key={`band-${index}`}
-              x={-240 + index * 46}
-              y={120 + index * 68}
-              width={1340}
-              height={54 - index * 6}
-              fill={band.color}
-              opacity={band.opacity}
-            />
-          ))}
+      const content = (
+        <g aria-hidden="true">
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} />
+          <g transform="rotate(-16 560 400)" opacity={inkFriendly ? 0.32 : 0.4}>
+            {[0, 1, 2, 3, 4].map(index => (
+              <rect
+                key={`band-${index}`}
+                x={-260 + index * 120}
+                y={70 + index * 78}
+                width={1300}
+                height={index % 2 === 0 ? 90 : 54}
+                rx={28}
+                fill={index % 2 === 0 ? paletteAccent : paletteBadge}
+                opacity={inkFriendly ? 0.2 : 0.28 - index * 0.03}
+              />
+            ))}
+          </g>
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.12 : 0.18} />
         </g>
       );
+
+      return { defs, content };
     }
 
     if (bgStyle === 'wavy') {
-      const crest = inkFriendly ? '#94a3b8' : colors.accent;
-      const trough = inkFriendly ? '#cbd5f5' : colors.badge;
-      return (
-        <g aria-hidden="true" opacity={inkFriendly ? 0.32 : 0.42}>
-          <path d="M0,220 C220,140 420,300 640,220 C860,140 1060,280 1120,200 L1120,0 L0,0 Z" fill={crest} />
-          <path d="M0,720 C220,660 420,780 620,720 C820,660 1020,760 1120,720 L1120,800 L0,800 Z" fill={trough} />
+      const gradientId = `${backgroundClipId}-wavy-gradient`;
+      const bubbleGradientId = `${backgroundClipId}-bubble-gradient`;
+      const defs = (
+        <>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#e0f2fe'} stopOpacity={0.6} />
+            <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#fefce8'} stopOpacity={0.85} />
+          </linearGradient>
+          <radialGradient id={bubbleGradientId} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.24 : 0.38} />
+            <stop offset="70%" stopColor={paletteBadge} stopOpacity={inkFriendly ? 0.12 : 0.2} />
+            <stop offset="100%" stopColor="transparent" />
+          </radialGradient>
+        </>
+      );
+
+      const content = (
+        <g aria-hidden="true">
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} />
+          <path
+            d="M24 220 C214 120 394 300 604 214 C814 128 994 292 1096 206 L1096 24 L24 24 Z"
+            fill={paletteAccent}
+            opacity={inkFriendly ? 0.22 : 0.36}
+          />
+          <path
+            d="M24 618 C214 558 404 696 604 630 C804 564 994 652 1096 620 L1096 776 L24 776 Z"
+            fill={paletteBadge}
+            opacity={inkFriendly ? 0.18 : 0.3}
+          />
+          {[{ cx: 260, cy: 340, r: 180 }, { cx: 840, cy: 280, r: 140 }, { cx: 680, cy: 560, r: 170 }].map((bubble, index) => (
+            <circle
+              key={`bubble-${index}`}
+              cx={bubble.cx}
+              cy={bubble.cy}
+              r={bubble.r}
+              fill={`url(#${bubbleGradientId})`}
+            />
+          ))}
+          <g stroke={paletteText} strokeOpacity={inkFriendly ? 0.12 : 0.18} fill="none" strokeWidth="1.2">
+            <path d="M160 360 C300 260 420 320 540 240" />
+            <path d="M300 520 C480 420 640 520 800 420" />
+            <path d="M500 650 C620 580 760 640 900 560" />
+          </g>
         </g>
       );
+
+      return { defs, content };
     }
 
     if (bgStyle === 'rosette') {
-      const stroke = inkFriendly ? '#94a3b8' : colors.accent;
-      return (
-        <g aria-hidden="true" opacity={inkFriendly ? 0.28 : 0.34}>
-          {Array.from({ length: 28 }).map((_, index) => (
-            <ellipse
-              key={`petal-${index}`}
-              cx={560}
-              cy={400}
-              rx={240}
-              ry={32 - (index % 2 === 0 ? 6 : 0)}
-              fill="none"
-              stroke={stroke}
-              strokeWidth={index % 2 === 0 ? 1.8 : 1.2}
-              transform={`rotate(${(360 / 28) * index} 560 400)`}
+      const radialGradientId = `${backgroundClipId}-rosette-radial`;
+      const spokeGradientId = `${backgroundClipId}-rosette-spoke`;
+      const defs = (
+        <>
+          <radialGradient id={radialGradientId} cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fdf2f8'} stopOpacity={0.85} />
+            <stop offset="80%" stopColor={inkFriendly ? '#e2e8f0' : '#fff7ed'} stopOpacity={0.45} />
+            <stop offset="100%" stopColor="transparent" />
+          </radialGradient>
+          <linearGradient id={spokeGradientId} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.18 : 0.32} />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </>
+      );
+
+      const content = (
+        <g aria-hidden="true">
+          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} />
+          {Array.from({ length: 32 }).map((_, index) => (
+            <path
+              key={`spoke-${index}`}
+              d={`M560 400 L560 ${100 + (index % 2 === 0 ? 40 : 0)} A300 300 0 0 1 560 400`}
+              fill={`url(#${spokeGradientId})`}
+              transform={`rotate(${(360 / 32) * index} 560 400)`}
+              opacity={inkFriendly ? 0.25 : 0.35}
             />
           ))}
+          {Array.from({ length: 18 }).map((_, index) => (
+            <circle
+              key={`ring-${index}`}
+              cx={560}
+              cy={400}
+              r={80 + index * 12}
+              stroke={paletteAccent}
+              strokeOpacity={inkFriendly ? 0.16 : 0.24 - index * 0.008}
+              strokeWidth={index % 2 === 0 ? 1.6 : 0.8}
+              fill="none"
+            />
+          ))}
+          <circle cx={560} cy={400} r={120} fill={inkFriendly ? '#e2e8f0' : '#fff'} opacity={0.35} />
         </g>
       );
+
+      return { defs, content };
     }
 
-    return null;
-  }, [bgStyle, colors, inkFriendly]);
+    return baseResult;
+  }, [bgStyle, backgroundClipId, colors, inkFriendly]);
 
   const badgePosition = React.useMemo(() => {
     if (templateStyle === 'medal' || templateStyle === 'trophy') {
@@ -254,6 +335,8 @@ export default function CertificateMakerPage() {
   }, [badgeIcon, badgePosition, colors.accent, inkFriendly]);
 
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
+  const backgroundDefs = backgroundElements.defs;
+  const backgroundContent = backgroundElements.content;
 
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
@@ -268,16 +351,17 @@ export default function CertificateMakerPage() {
             <stop offset="100%" stopColor={inkFriendly ? '#9ca3af' : '#fde68a'} />
           </linearGradient>
         ) : null}
+        {backgroundDefs}
       </defs>
 
-      {backgroundElements && (
+      {backgroundContent && (
         <g
           clipPath={`url(#${backgroundClipId})`}
           opacity={bgStyle === 'none' ? 0 : 1}
           style={{ transition: 'opacity 0.35s ease-in-out' }}
           pointerEvents="none"
         >
-          {backgroundElements}
+          {backgroundContent}
         </g>
       )}
 
