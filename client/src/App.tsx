@@ -21,6 +21,7 @@ import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
+import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
 // (duplicate import removed)
 
@@ -383,10 +384,7 @@ export default function App() {
                       description="Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options."
                       canonicalUrl="https://wizqo.com/printables/certificate-maker"
                     />
-                    {(() => {
-                      const CM = require('./pages/CertificateMakerPage').default;
-                      return <CM />;
-                    })()}
+                    <CertificateMakerPage />
                   </>
                 );
               }
