@@ -107,7 +107,7 @@ export default function CertificateMakerPage() {
   const backgroundClipId = React.useMemo(() => `certificate-bg-${reactId.replace(/:/g, '')}`, [reactId]);
   const goldGradientId = React.useMemo(() => `${backgroundClipId}-gold-gradient`, [backgroundClipId]);
 
-  const backgroundElements = React.useMemo(() => {
+  const backgroundLayers = React.useMemo(() => {
     const baseResult = { defs: null as React.ReactNode, content: null as React.ReactNode };
     if (bgStyle === 'none') return baseResult;
 
@@ -116,8 +116,8 @@ export default function CertificateMakerPage() {
     const paletteText = inkFriendly ? '#64748b' : colors.text;
 
     if (bgStyle === 'bands') {
-      const gradientId = `${backgroundClipId}-bands-gradient`;
-      const patternId = `${backgroundClipId}-bands-pattern`;
+      const gradientId = 'certificate-bands-gradient';
+      const patternId = 'certificate-bands-pattern';
       const defs = (
         <>
           <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(12)">
@@ -158,8 +158,8 @@ export default function CertificateMakerPage() {
     }
 
     if (bgStyle === 'wavy') {
-      const gradientId = `${backgroundClipId}-wavy-gradient`;
-      const bubbleGradientId = `${backgroundClipId}-bubble-gradient`;
+      const gradientId = 'certificate-wavy-gradient';
+      const bubbleGradientId = 'certificate-wavy-bubble';
       const defs = (
         <>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -208,8 +208,8 @@ export default function CertificateMakerPage() {
     }
 
     if (bgStyle === 'rosette') {
-      const radialGradientId = `${backgroundClipId}-rosette-radial`;
-      const spokeGradientId = `${backgroundClipId}-rosette-spoke`;
+      const radialGradientId = 'certificate-rosette-radial';
+      const spokeGradientId = 'certificate-rosette-spoke';
       const defs = (
         <>
           <radialGradient id={radialGradientId} cx="50%" cy="50%" r="60%">
