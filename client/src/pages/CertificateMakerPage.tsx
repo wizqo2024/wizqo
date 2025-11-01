@@ -141,9 +141,9 @@ export default function CertificateMakerPage() {
             width="1072"
             height="752"
             fill={`url(#${gradientId})`}
-            opacity={inkFriendly ? 0.18 : 0.25}
+            opacity={inkFriendly ? 0.35 : 0.55}
           />
-          <g transform="rotate(-16 560 400)" opacity={inkFriendly ? 0.32 : 0.4}>
+          <g transform="rotate(-16 560 400)" opacity={inkFriendly ? 0.45 : 0.65}>
             {[0, 1, 2, 3, 4].map(index => (
               <rect
                 key={`band-${index}`}
@@ -153,11 +153,11 @@ export default function CertificateMakerPage() {
                 height={index % 2 === 0 ? 90 : 54}
                 rx={28}
                 fill={index % 2 === 0 ? paletteAccent : paletteBadge}
-                opacity={inkFriendly ? 0.2 : 0.28 - index * 0.03}
+                opacity={inkFriendly ? 0.3 : 0.48 - index * 0.05}
               />
             ))}
           </g>
-          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.1 : 0.16} />
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${patternId})`} opacity={inkFriendly ? 0.16 : 0.26} />
         </g>
       );
 
@@ -189,17 +189,17 @@ export default function CertificateMakerPage() {
             width="1072"
             height="752"
             fill={`url(#${gradientId})`}
-            opacity={inkFriendly ? 0.2 : 0.28}
+            opacity={inkFriendly ? 0.32 : 0.55}
           />
           <path
             d="M24 220 C214 120 394 300 604 214 C814 128 994 292 1096 206 L1096 24 L24 24 Z"
             fill={paletteAccent}
-            opacity={inkFriendly ? 0.22 : 0.36}
+            opacity={inkFriendly ? 0.35 : 0.6}
           />
           <path
             d="M24 618 C214 558 404 696 604 630 C804 564 994 652 1096 620 L1096 776 L24 776 Z"
             fill={paletteBadge}
-            opacity={inkFriendly ? 0.18 : 0.3}
+            opacity={inkFriendly ? 0.28 : 0.48}
           />
           {[{ cx: 260, cy: 340, r: 180 }, { cx: 840, cy: 280, r: 140 }, { cx: 680, cy: 560, r: 170 }].map((bubble, index) => (
             <circle
@@ -210,7 +210,7 @@ export default function CertificateMakerPage() {
               fill={`url(#${bubbleGradientId})`}
             />
           ))}
-          <g stroke={paletteText} strokeOpacity={inkFriendly ? 0.12 : 0.18} fill="none" strokeWidth="1.2">
+          <g stroke={paletteText} strokeOpacity={inkFriendly ? 0.2 : 0.25} fill="none" strokeWidth="1.3">
             <path d="M160 360 C300 260 420 320 540 240" />
             <path d="M300 520 C480 420 640 520 800 420" />
             <path d="M500 650 C620 580 760 640 900 560" />
@@ -240,14 +240,14 @@ export default function CertificateMakerPage() {
 
       const content = (
         <g aria-hidden="true">
-          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} opacity={inkFriendly ? 0.22 : 0.32} />
+          <circle cx={560} cy={400} r={300} fill={`url(#${radialGradientId})`} opacity={inkFriendly ? 0.32 : 0.58} />
           {Array.from({ length: 32 }).map((_, index) => (
             <path
               key={`spoke-${index}`}
               d={`M560 400 L560 ${100 + (index % 2 === 0 ? 40 : 0)} A300 300 0 0 1 560 400`}
               fill={`url(#${spokeGradientId})`}
               transform={`rotate(${(360 / 32) * index} 560 400)`}
-              opacity={inkFriendly ? 0.25 : 0.35}
+              opacity={inkFriendly ? 0.32 : 0.52}
             />
           ))}
           {Array.from({ length: 18 }).map((_, index) => (
@@ -257,12 +257,12 @@ export default function CertificateMakerPage() {
               cy={400}
               r={80 + index * 12}
               stroke={paletteAccent}
-              strokeOpacity={inkFriendly ? 0.16 : 0.24 - index * 0.008}
-              strokeWidth={index % 2 === 0 ? 1.6 : 0.8}
+              strokeOpacity={inkFriendly ? 0.22 : 0.32 - index * 0.01}
+              strokeWidth={index % 2 === 0 ? 2 : 1}
               fill="none"
             />
           ))}
-          <circle cx={560} cy={400} r={120} fill={inkFriendly ? '#e2e8f0' : '#fff'} opacity={0.35} />
+          <circle cx={560} cy={400} r={120} fill={inkFriendly ? '#e2e8f0' : '#fff'} opacity={inkFriendly ? 0.4 : 0.55} />
         </g>
       );
 
