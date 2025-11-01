@@ -12,8 +12,8 @@ export default function CertificateMakerPage() {
   const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif' | 'comic' | 'handwritten'>('print');
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
-  const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy'>('simple');
-  const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket'>('star');
+  const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
+  const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket' | 'cap'>('star');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
 
   const colors = React.useMemo(() => {
@@ -117,6 +117,7 @@ export default function CertificateMakerPage() {
       case 'medal': return '🎖️';
       case 'book': return '📚';
       case 'rocket': return '🚀';
+      case 'cap': return '🎓';
       default: return '★';
     }
   }, [badgeIcon]);
@@ -125,7 +126,7 @@ export default function CertificateMakerPage() {
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
       {renderBackground()}
       {/* Border */}
-      {theme === 'gold' ? (
+      {theme === 'gold' || templateStyle === 'academic' ? (
         <>
           <defs>
             <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
@@ -135,6 +136,18 @@ export default function CertificateMakerPage() {
             </linearGradient>
           </defs>
           <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke="url(#goldGrad)" strokeWidth="10" />
+          {templateStyle === 'academic' && (
+            <>
+              <rect x="34" y="34" width="1052" height="732" rx="14" fill="none" stroke={inkFriendly ? '#475569' : '#b7791f'} strokeWidth="3" />
+              {/* corner ornaments */}
+              <g opacity="0.35" stroke={inkFriendly ? '#94a3b8' : '#b45309'} fill="none" strokeWidth="3">
+                <path d="M60 60 L120 60 L60 120 Z" />
+                <path d="M1060 60 L1000 60 L1060 120 Z" />
+                <path d="M60 740 L120 740 L60 680 Z" />
+                <path d="M1060 740 L1000 740 L1060 680 Z" />
+              </g>
+            </>
+          )}
         </>
       ) : (
         <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke={colors.border} strokeWidth="8" />
@@ -146,6 +159,10 @@ export default function CertificateMakerPage() {
           <polygon points="1110,10 980,10 1110,140" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
           <polygon points="10,790 140,790 10,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
           <polygon points="1110,790 980,790 1110,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+        </>
+      ) : templateStyle === 'academic' ? (
+        <>
+          <rect x="50" y="50" width="1020" height="700" rx="10" fill="#fff" stroke={colors.accent} strokeWidth="2" />
         </>
       ) : (
         <rect x="26" y="26" width="1068" height="748" rx="14" fill="#fff" stroke={colors.accent} strokeDasharray="12 10" strokeWidth="3" />
@@ -257,6 +274,7 @@ export default function CertificateMakerPage() {
                   <option value="ribbon">Corner ribbons</option>
                   <option value="medal">Medal badge (top-left)</option>
                   <option value="trophy">Trophy badge (top-left)</option>
+                  <option value="academic">Academic border (gold)</option>
                 </select>
               </label>
               <label className="text-sm text-slate-700">Badge icon
@@ -266,6 +284,7 @@ export default function CertificateMakerPage() {
                   <option value="medal">🎖️ Medal</option>
                   <option value="book">📚 Book</option>
                   <option value="rocket">🚀 Rocket</option>
+                  <option value="cap">🎓 Graduation cap</option>
                 </select>
               </label>
               <label className="text-sm text-slate-700 inline-flex items-center gap-2">
