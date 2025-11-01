@@ -268,9 +268,9 @@ export default function CertificateMakerPage() {
           </p>
         </header>
 
-        <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,440px)_1fr] items-start">
-          <div className="lg:h-[calc(100vh-200px)] lg:pr-2">
-            <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm">
+        <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start">
+          <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-200px)] lg:pr-2">
+            <div className="relative flex h-full max-h-full flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
               <div className="flex-1 space-y-10 overflow-y-auto px-6 pb-6 pt-7 sm:px-8">
                 <section className="space-y-4">
@@ -469,8 +469,8 @@ export default function CertificateMakerPage() {
             </div>
           </div>
 
-          <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-220px)]">
-            <div className="flex h-full flex-col gap-6 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-xl backdrop-blur-sm">
+          <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-200px)]">
+            <div className="relative flex h-full max-h-full flex-col gap-6 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-xl backdrop-blur-sm">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-1">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Live preview</p>
@@ -483,7 +483,7 @@ export default function CertificateMakerPage() {
               </div>
               <div className="relative flex-1 min-h-[480px]">
                 <div className="pointer-events-none absolute -inset-6 rounded-[36px] bg-gradient-to-br from-indigo-300/25 via-purple-300/20 to-amber-200/25 blur-3xl" aria-hidden />
-                <div className="relative flex h-full flex-col rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)]">
+                <div className="relative flex h-full max-h-full flex-col rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)]">
                   <div className="flex-1 overflow-hidden rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
                     <div id="certificate-sheet" className="h-full rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
                       {svg}
