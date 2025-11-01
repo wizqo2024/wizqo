@@ -1118,7 +1118,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     return (
       <div className="min-h-screen bg-slate-50">
         <SEOMetaTags 
-          title={selectedPost.title}
+          title={selectedPost.id ? `${selectedPost.title}` : selectedPost.title}
           description={selectedPost.excerpt}
           keywords={selectedPost.keywords}
           ogImage={selectedPost.imageUrl}
@@ -1269,6 +1269,15 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
                 {selectedPost.title}
               </h1>
+              {(['easy-hobbies-that-make-you-smarter','easy-watercolor-paintings'].includes(selectedPost.id)) && (
+                <nav aria-label="Quick worksheet links" className="mb-4">
+                  <ul className="flex flex-wrap gap-2 text-sm">
+                    <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">✍️ Handwriting worksheets (PDF)</a></li>
+                    <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">➕ 1st grade math – printable</a></li>
+                    <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100">📖 Reading comprehension (free PDF)</a></li>
+                  </ul>
+                </nav>
+              )}
               <figure className="mb-6">
                 <picture>
                   <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?': '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />

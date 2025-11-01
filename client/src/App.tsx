@@ -344,8 +344,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Hobby Learning Blog - Tips, Guides & Inspiration - Wizqo"
-                    description="Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts."
+                    title="Hobby Learning Blog – Tips, Guides & Free Worksheet Ideas | Wizqo"
+                    description="Learn faster with practical hobby tips and free worksheet ideas for kids. Actionable guides, gentle methods, and resources you can print today."
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
@@ -355,8 +355,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Kids Hub – Play, Print, and Learn"
-                    description="Free kids mini‑games, printable puzzles, and homework helpers. Play online or download weekly packs."
+                    title="Kids Hub – Play Games & Download Free Printables"
+                    description="Play kid‑safe mini‑games and download free printables: puzzles, handwriting, and quick math warm‑ups."
                     canonicalUrl="https://wizqo.com/kids"
                   />
                   <KidsPage />
@@ -366,8 +366,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Printable Fun Learning Activities for Kids"
-                    description="Print word searches, sudoku, spot-the-difference and more kid-friendly activities."
+                    title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
+                    description="Download free printables for kids: word searches, Sudoku, coloring, and spot‑the‑difference. Print at home in seconds."
                     canonicalUrl="https://wizqo.com/print"
                     noIndex={true}
                   />
