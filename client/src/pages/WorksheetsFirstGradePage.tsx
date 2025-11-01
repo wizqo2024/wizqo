@@ -13,9 +13,12 @@ export default function WorksheetsFirstGradePage() {
         canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
       />
       {(() => {
+        const canonical = "https://wizqo.com/worksheets/1st-grade-math-worksheets";
+        const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
             { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
@@ -33,7 +36,7 @@ export default function WorksheetsFirstGradePage() {
         } as const;
         return (
           <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
           </>
         );

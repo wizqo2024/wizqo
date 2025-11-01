@@ -42,9 +42,12 @@ export default function ReadingComprehensionPage() {
       </div>
       {/* Structured data: Breadcrumbs + WebPage + FAQ */}
       {(() => {
+        const canonical = "https://wizqo.com/worksheets/reading-comprehension";
+        const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
             { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
@@ -57,7 +60,7 @@ export default function ReadingComprehensionPage() {
           name: "Free Printable Reading Comprehension Worksheets for Kids (PDF)",
           url: "https://wizqo.com/worksheets/reading-comprehension",
           description: "Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.",
-          breadcrumb: { "@id": "#breadcrumbs" }
+          breadcrumb: { "@id": breadcrumbId }
         } as const;
         const faqLd = {
           "@context": "https://schema.org",

@@ -238,9 +238,12 @@ export default function HandwritingMakerPage() {
       />
       <UnifiedNavigation currentPage="kids" />
       {(() => {
+        const canonical = "https://wizqo.com/worksheets/handwriting-worksheet-maker";
+        const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
             { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
@@ -253,7 +256,7 @@ export default function HandwritingMakerPage() {
           name: "Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets",
           url: "https://wizqo.com/worksheets/handwriting-worksheet-maker",
           description: "Generate printable handwriting practice sheets with guidelines and dotted letters. Practice A–Z, words, or sentences and save as PDF.",
-          breadcrumb: { "@id": "#breadcrumbs" }
+          breadcrumb: { "@id": breadcrumbId }
         } as const;
         const faqLd = {
           "@context": "https://schema.org",
