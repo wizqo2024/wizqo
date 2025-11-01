@@ -141,6 +141,19 @@ export default function App() {
     return segs[1] || '';
   }, [route]);
 
+  // Redirect bare /worksheets to the preferred hub URL to avoid duplicate indexing
+  useEffect(() => {
+    try {
+      if (routeKey === 'worksheets' && !routeSubKey) {
+        const target = '/worksheets/2nd-grade-math-worksheets';
+        if (window.location.pathname !== target) {
+          window.history.replaceState({}, '', target);
+          setRoute(target);
+        }
+      }
+    } catch {}
+  }, [routeKey, routeSubKey]);
+
   // Persist plan_id from URL into session for downstream hydration
   useEffect(() => {
     if (routeKey === 'plan' && routeQuery) {
