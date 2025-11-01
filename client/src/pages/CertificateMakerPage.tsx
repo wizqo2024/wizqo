@@ -103,38 +103,79 @@ export default function CertificateMakerPage() {
     } catch {}
   }
 
-  const renderBackground = () => {
+  const reactId = React.useId();
+  const backgroundClipId = React.useMemo(() => `certificate-bg-${reactId.replace(/:/g, '')}`, [reactId]);
+  const goldGradientId = React.useMemo(() => `${backgroundClipId}-gold-gradient`, [backgroundClipId]);
+
+  const backgroundElements = React.useMemo(() => {
+    if (bgStyle === 'none') return null;
+
     if (bgStyle === 'bands') {
-      const band = (x: number, y: number, w: number, h: number, c: string, o: number) => (
-        <rect key={`${x}-${y}`} x={x} y={y} width={w} height={h} fill={inkFriendly ? '#94a3b8' : c} opacity={o} transform={`rotate(-20 560 400)`} />
-      );
+      const palette = inkFriendly
+        ? [
+            { color: '#cbd5f5', opacity: 0.32 },
+            { color: '#94a3b8', opacity: 0.28 },
+            { color: '#e2e8f0', opacity: 0.36 },
+            { color: '#94a3b8', opacity: 0.26 }
+          ]
+        : [
+            { color: '#22d3ee', opacity: 0.3 },
+            { color: '#a855f7', opacity: 0.26 },
+            { color: '#fb7185', opacity: 0.28 },
+            { color: '#34d399', opacity: 0.24 }
+          ];
+
       return (
-        <g aria-hidden>
-          {band(-200, 100, 1400, 30, '#22d3ee', 0.12)}
-          {band(-180, 170, 1400, 20, '#a78bfa', 0.12)}
-          {band(-160, 240, 1400, 30, '#fb7185', 0.12)}
-          {band(-140, 310, 1400, 20, '#34d399', 0.12)}
+        <g aria-hidden="true" transform="rotate(-18 560 400)">
+          {palette.map((band, index) => (
+            <rect
+              key={`band-${index}`}
+              x={-240 + index * 46}
+              y={120 + index * 68}
+              width={1340}
+              height={54 - index * 6}
+              fill={band.color}
+              opacity={band.opacity}
+            />
+          ))}
         </g>
       );
     }
+
     if (bgStyle === 'wavy') {
-      const c = inkFriendly ? '#94a3b8' : colors.accent;
+      const crest = inkFriendly ? '#94a3b8' : colors.accent;
+      const trough = inkFriendly ? '#cbd5f5' : colors.badge;
       return (
-        <g aria-hidden opacity={0.18}>
-          <path d="M0,200 C200,120 400,280 600,200 C800,120 1000,260 1120,180 L1120,0 L0,0 Z" fill={c} />
-          <path d="M0,720 C220,660 420,780 620,720 C820,660 1020,760 1120,720 L1120,800 L0,800 Z" fill={c} />
+        <g aria-hidden="true" opacity={inkFriendly ? 0.32 : 0.42}>
+          <path d="M0,220 C220,140 420,300 640,220 C860,140 1060,280 1120,200 L1120,0 L0,0 Z" fill={crest} />
+          <path d="M0,720 C220,660 420,780 620,720 C820,660 1020,760 1120,720 L1120,800 L0,800 Z" fill={trough} />
         </g>
       );
     }
+
     if (bgStyle === 'rosette') {
-      const c = inkFriendly ? '#94a3b8' : colors.accent;
-      const petals = Array.from({ length: 24 }).map((_, i) => (
-        <ellipse key={`p${i}`} cx={560} cy={400} rx={220} ry={34} fill="none" stroke={c} strokeWidth={1.5} opacity={0.15} transform={`rotate(${(360/24)*i} 560 400)`} />
-      ));
-      return <g aria-hidden>{petals}</g>;
+      const stroke = inkFriendly ? '#94a3b8' : colors.accent;
+      return (
+        <g aria-hidden="true" opacity={inkFriendly ? 0.28 : 0.34}>
+          {Array.from({ length: 28 }).map((_, index) => (
+            <ellipse
+              key={`petal-${index}`}
+              cx={560}
+              cy={400}
+              rx={240}
+              ry={32 - (index % 2 === 0 ? 6 : 0)}
+              fill="none"
+              stroke={stroke}
+              strokeWidth={index % 2 === 0 ? 1.8 : 1.2}
+              transform={`rotate(${(360 / 28) * index} 560 400)`}
+            />
+          ))}
+        </g>
+      );
     }
+
     return null;
-  };
+  }, [bgStyle, colors, inkFriendly]);
 
   const badgePosition = React.useMemo(() => {
     if (templateStyle === 'medal' || templateStyle === 'trophy') {
@@ -212,20 +253,38 @@ export default function CertificateMakerPage() {
     }
   }, [badgeIcon, badgePosition, colors.accent, inkFriendly]);
 
+  const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
+
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
-      {renderBackground()}
+      <defs>
+        <clipPath id={backgroundClipId}>
+          <rect x="24" y="24" width="1072" height="752" rx="18" />
+        </clipPath>
+        {showGoldGradient ? (
+          <linearGradient id={goldGradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={inkFriendly ? '#9ca3af' : '#fef3c7'} />
+            <stop offset="50%" stopColor={inkFriendly ? '#6b7280' : '#d4af37'} />
+            <stop offset="100%" stopColor={inkFriendly ? '#9ca3af' : '#fde68a'} />
+          </linearGradient>
+        ) : null}
+      </defs>
+
+      {backgroundElements && (
+        <g
+          clipPath={`url(#${backgroundClipId})`}
+          opacity={bgStyle === 'none' ? 0 : 1}
+          style={{ transition: 'opacity 0.35s ease-in-out' }}
+          pointerEvents="none"
+        >
+          {backgroundElements}
+        </g>
+      )}
+
       {/* Border */}
-      {theme === 'gold' || templateStyle === 'academic' ? (
+      {showGoldGradient ? (
         <>
-          <defs>
-            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor={inkFriendly ? '#9ca3af' : '#fef3c7'} />
-              <stop offset="50%" stopColor={inkFriendly ? '#6b7280' : '#d4af37'} />
-              <stop offset="100%" stopColor={inkFriendly ? '#9ca3af' : '#fde68a'} />
-            </linearGradient>
-          </defs>
-          <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke="url(#goldGrad)" strokeWidth="10" />
+          <rect x="10" y="10" width="1100" height="780" rx="20" fill="#fff" stroke={`url(#${goldGradientId})`} strokeWidth="10" />
           {templateStyle === 'academic' && (
             <>
               <rect x="34" y="34" width="1052" height="732" rx="14" fill="none" stroke={inkFriendly ? '#475569' : '#b7791f'} strokeWidth="3" />
