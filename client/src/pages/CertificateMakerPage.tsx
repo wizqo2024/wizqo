@@ -358,12 +358,12 @@ export default function CertificateMakerPage() {
                           onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="star">⭐ Star</option>
-                          <option value="trophy">🏆 Trophy</option>
-                          <option value="medal">🎖️ Medal</option>
-                          <option value="book">📚 Book</option>
-                          <option value="rocket">🚀 Rocket</option>
-                          <option value="cap">🎓 Graduation cap</option>
+                          <option value="star">Star badge</option>
+                          <option value="trophy">Trophy badge</option>
+                          <option value="medal">Medal badge</option>
+                          <option value="book">Book badge</option>
+                          <option value="rocket">Rocket badge</option>
+                          <option value="cap">Graduation cap badge</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">⌄</span>
                       </div>
