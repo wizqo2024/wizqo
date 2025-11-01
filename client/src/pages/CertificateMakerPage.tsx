@@ -258,8 +258,9 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Left controls */}
-          <div className="md:col-span-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-            <div className="space-y-3">
+          <div className="md:col-span-4 md:pr-2">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm md:max-h-[calc(100vh-180px)] md:overflow-y-auto md:pr-1">
+              <div className="space-y-3 pb-2">
               <label className="text-sm text-slate-700">Recipient name
                 <input value={recipient} onChange={e=>setRecipient(e.target.value)} className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" placeholder="Student name" />
               </label>
@@ -341,11 +342,12 @@ export default function CertificateMakerPage() {
               >
                 Reset colors to theme
               </button>
-              <div className="pt-2">
-                <button onClick={printPreview} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow">
-                  <span>🖨️</span>
-                  <span>Print / Save as PDF</span>
-                </button>
+                <div className="pt-2">
+                  <button onClick={printPreview} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow">
+                    <span>🖨️</span>
+                    <span>Print / Save as PDF</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
