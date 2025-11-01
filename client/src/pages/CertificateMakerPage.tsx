@@ -350,7 +350,7 @@ export default function CertificateMakerPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="badgeIcon" className="text-slate-700">Badge icon</Label>
+                      <Label htmlFor="badgeIcon" className="text-slate-700">Badges</Label>
                       <div className="relative">
                         <select
                           id="badgeIcon"
