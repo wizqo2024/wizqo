@@ -1032,35 +1032,49 @@ export default function CertificateMakerPage() {
       </main>
       <section aria-label="Explore more printables" className="mx-auto mt-12 max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 rounded-3xl border border-white/80 bg-white/70 p-8 shadow-lg backdrop-blur-sm sm:grid-cols-2 md:grid-cols-4">
-          <article className="flex flex-col gap-2">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-500">More Printables</h3>
-            <p className="text-sm text-slate-500">Discover themed worksheets, writing practice, and print-ready games.</p>
-          </article>
-          <a href="/printables" className="group flex items-start gap-3 rounded-2xl border border-indigo-100/60 bg-indigo-50/60 p-4 text-sm text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100">
-            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-500 text-white shadow-sm">
-              <span className="text-xs font-bold">PR</span>
-            </span>
-            <span>
-              <span className="font-semibold">All Printable Activities</span>
-              <br />Browse crafts, planners, and classroom printables in one place.
-            </span>
-          </a>
-          <a href="/printables/handwriting-maker" className="group flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100">
-            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm">
-              <span className="text-xs font-bold">HW</span>
-            </span>
-            <span>
-              <span className="font-semibold">Handwriting Worksheet Maker</span>
-              <br />Generate cursive or print practice sheets instantly.
+          <a
+            href="/printables"
+            className="group flex flex-col gap-2 rounded-2xl border border-indigo-100/60 bg-indigo-50/60 p-4 text-sm text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-500 text-xs font-bold text-white shadow-sm">PR</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">More Printables</span>
+            <span className="text-sm text-indigo-700/80">Discover themed worksheets, writing practice, and print-ready games.</span>
+            <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
+              Explore
+              <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 1h8v8" />
+                <path d="M11 1L1 11" />
+              </svg>
             </span>
           </a>
-          <a href="/printables/worksheets" className="group flex items-start gap-3 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100">
-            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white shadow-sm">
-              <span className="text-xs font-bold">WS</span>
+          <a
+            href="/printables/handwriting-maker"
+            className="group flex flex-col gap-2 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-sm">HW</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Handwriting Builder</span>
+            <span className="text-sm text-emerald-700/80">Generate cursive or print practice sheets instantly.</span>
+            <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
+              Start Writing
+              <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 1h8v8" />
+                <path d="M11 1L1 11" />
+              </svg>
             </span>
-            <span>
-              <span className="font-semibold">Grade-Level Worksheets</span>
-              <br />Math, reading, and comprehension sets by grade.
+          </a>
+          <a
+            href="/printables/worksheets"
+            className="group flex flex-col gap-2 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white shadow-sm">WS</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Grade-Level Worksheets</span>
+            <span className="text-sm text-amber-700/80">Math, reading, and comprehension sets curated by grade.</span>
+            <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-amber-600">
+              View Sets
+              <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 1h8v8" />
+                <path d="M11 1L1 11" />
+              </svg>
             </span>
           </a>
         </div>
