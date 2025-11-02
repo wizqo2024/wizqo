@@ -1030,6 +1030,35 @@ export default function CertificateMakerPage() {
           </div>
         </section>
       </main>
+      <section aria-label="Explore more printables" className="mx-auto mt-12 max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-6 rounded-3xl border border-white/80 bg-white/70 p-8 shadow-lg backdrop-blur-sm sm:grid-cols-2 md:grid-cols-4">
+          <article className="flex flex-col gap-2">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-500">More Printables</h3>
+            <p className="text-sm text-slate-500">Discover themed worksheets, writing practice, and print-ready games.</p>
+          </article>
+          <a href="/printables" className="group flex items-start gap-3 rounded-2xl border border-indigo-100/60 bg-indigo-50/60 p-4 text-sm text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100">
+            <span aria-hidden className="mt-0.5 text-lg">???</span>
+            <span>
+              <span className="font-semibold">All Printable Activities</span>
+              <br />Browse crafts, planners, and classroom printables in one place.
+            </span>
+          </a>
+          <a href="/printables/handwriting-maker" className="group flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100">
+            <span aria-hidden className="mt-0.5 text-lg">??</span>
+            <span>
+              <span className="font-semibold">Handwriting Worksheet Maker</span>
+              <br />Generate cursive or print practice sheets instantly.
+            </span>
+          </a>
+          <a href="/printables/worksheets" className="group flex items-start gap-3 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100">
+            <span aria-hidden className="mt-0.5 text-lg">??</span>
+            <span>
+              <span className="font-semibold">Grade-Level Worksheets</span>
+              <br />Math, reading, and comprehension sets by grade.
+            </span>
+          </a>
+        </div>
+      </section>
       <Footer />
     </div>
   );
