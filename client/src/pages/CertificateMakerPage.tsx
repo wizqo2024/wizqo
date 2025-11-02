@@ -19,7 +19,7 @@ export default function CertificateMakerPage() {
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
   const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
-  const [badgeIcon, setBadgeIcon] = React.useState<'gold-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
+  const [badgeIcon, setBadgeIcon] = React.useState<'gold-seal' | 'silver-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
 
@@ -389,6 +389,48 @@ export default function CertificateMakerPage() {
                 points="0,-10 3,-3 10,-3 4,1 7,8 0,3 -7,8 -4,1 -10,-3 -3,-3"
                 fill={inkFriendly ? '#475569' : '#fff9db'}
               />
+            </g>
+          </>
+        );
+      }
+      case 'silver-seal': {
+        const outerGradient = `${badgePrefix}-silver-outer`;
+        const innerGradient = `${badgePrefix}-silver-inner`;
+        return (
+          <>
+            <defs>
+              <radialGradient id={outerGradient} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor={inkFriendly ? '#e2e8f0' : '#f8fafc'} />
+                <stop offset="55%" stopColor={inkFriendly ? '#cbd5f5' : '#d1d5db'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#94a3b8' : '#6b7280'} />
+              </radialGradient>
+              <radialGradient id={innerGradient} cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#ffffff'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#dbeafe' : '#e5e7eb'} />
+              </radialGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              {Array.from({ length: 36 }).map((_, index) => (
+                <rect
+                  key={`silver-tooth-${index}`}
+                  x={-3.5}
+                  y={-46}
+                  width={7}
+                  height={18}
+                  rx={2.5}
+                  fill={inkFriendly ? '#94a3b8' : '#9ca3af'}
+                  opacity={inkFriendly ? 0.4 : 0.7}
+                  transform={`rotate(${(360 / 36) * index} 0 0)`}
+                />
+              ))}
+              <circle r={33} fill={`url(#${outerGradient})`} />
+              <circle r={23} fill={`url(#${innerGradient})`} />
+              <circle r={28} fill="none" stroke={inkFriendly ? '#94a3b8' : '#94a3a8'} strokeWidth={2.5} strokeOpacity={0.55} />
+              <path
+                d="M0 -12 C3 -9 6 -6 8 -2 C6 2 3 6 0 9 C-3 6 -6 2 -8 -2 C-6 -6 -3 -9 0 -12 Z"
+                fill={inkFriendly ? '#475569' : '#0f172a'}
+              />
+              <path d="M-6 4 L0 14 L6 4" stroke={inkFriendly ? '#475569' : '#0f172a'} strokeWidth={2} strokeLinecap="round" fill="none" />
             </g>
           </>
         );
@@ -822,6 +864,7 @@ export default function CertificateMakerPage() {
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="gold-seal">Gold seal (classic)</option>
+                          <option value="silver-seal">Silver seal (modern)</option>
                           <option value="blue-ribbon">Blue ribbon</option>
                           <option value="green-laurel">Emerald laurel</option>
                           <option value="red-medal">Crimson medal</option>
