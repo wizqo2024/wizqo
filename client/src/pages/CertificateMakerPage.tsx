@@ -21,7 +21,7 @@ export default function CertificateMakerPage() {
   const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
   const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket' | 'cap'>('star');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
-  const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette'>('none');
+  const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
 
   const colors = React.useMemo(() => {
     const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
@@ -258,6 +258,79 @@ export default function CertificateMakerPage() {
             />
           ))}
           <circle cx={560} cy={400} r={130} fill={`url(#${sparkleGradientId})`} opacity={inkFriendly ? 0.45 : 0.6} />
+        </g>
+      );
+
+      return { defs, content };
+    }
+
+    if (bgStyle === 'sparkle') {
+      const gradientId = `${backgroundClipId}-sparkle-base`;
+      const sparklePatternId = `${backgroundClipId}-sparkle-pattern`;
+      const defs = (
+        <>
+          <radialGradient id={gradientId} cx="50%" cy="45%" r="65%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff7ed'} />
+            <stop offset="65%" stopColor={inkFriendly ? '#e2e8f0' : '#ffe4e6'} stopOpacity={inkFriendly ? 0.55 : 0.7} />
+            <stop offset="100%" stopColor={inkFriendly ? '#cbd5e1' : '#fde68a'} stopOpacity={inkFriendly ? 0.35 : 0.5} />
+          </radialGradient>
+          <pattern id={sparklePatternId} width="80" height="80" patternUnits="userSpaceOnUse">
+            <path d="M40 0 L48 24 L72 32 L48 40 L40 64 L32 40 L8 32 L32 24 Z" fill={paletteAccent} fillOpacity={inkFriendly ? 0.2 : 0.45} />
+            <circle cx="18" cy="18" r="4" fill={paletteBadge} opacity={inkFriendly ? 0.22 : 0.55} />
+            <circle cx="62" cy="54" r="3" fill={inkFriendly ? '#94a3b8' : '#facc15'} opacity={inkFriendly ? 0.18 : 0.45} />
+          </pattern>
+        </>
+      );
+
+      const content = (
+        <g aria-hidden="true">
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${gradientId})`} opacity={inkFriendly ? 0.55 : 0.85} />
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${sparklePatternId})`} opacity={inkFriendly ? 0.25 : 0.45} />
+          {Array.from({ length: 12 }).map((_, index) => (
+            <circle
+              key={`spark-${index}`}
+              cx={160 + (index % 4) * 240}
+              cy={140 + Math.floor(index / 4) * 220}
+              r={index % 3 === 0 ? 24 : 16}
+              fill={index % 2 === 0 ? paletteAccent : paletteBadge}
+              opacity={inkFriendly ? 0.25 : 0.5}
+            />
+          ))}
+        </g>
+      );
+
+      return { defs, content };
+    }
+
+    if (bgStyle === 'sunburst') {
+      const baseGradientId = `${backgroundClipId}-sunburst-base`;
+      const rayGradientId = `${backgroundClipId}-sunburst-ray`;
+      const defs = (
+        <>
+          <radialGradient id={baseGradientId} cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#fff4d6'} />
+            <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#ffe0a3'} />
+          </radialGradient>
+          <linearGradient id={rayGradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={paletteAccent} stopOpacity={inkFriendly ? 0.35 : 0.6} />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </>
+      );
+
+      const content = (
+        <g aria-hidden="true">
+          <rect x="24" y="24" width="1072" height="752" fill={`url(#${baseGradientId})`} opacity={inkFriendly ? 0.55 : 0.85} />
+          {Array.from({ length: 24 }).map((_, index) => (
+            <path
+              key={`ray-${index}`}
+              d="M560 24 L620 200 L500 200 Z"
+              fill={`url(#${rayGradientId})`}
+              transform={`rotate(${(360 / 24) * index} 560 400)`}
+              opacity={inkFriendly ? 0.3 : 0.5}
+            />
+          ))}
+          <circle cx={560} cy={400} r={120} fill={paletteBadge} opacity={inkFriendly ? 0.28 : 0.45} />
         </g>
       );
 
@@ -642,6 +715,8 @@ export default function CertificateMakerPage() {
                           <option value="wavy">Wavy bands</option>
                           <option value="bands">Diagonal bands</option>
                           <option value="rosette">Center rosette</option>
+                          <option value="sparkle">Sparkle shimmer</option>
+                          <option value="sunburst">Sunburst rays</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
