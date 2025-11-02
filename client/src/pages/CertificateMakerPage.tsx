@@ -1037,21 +1037,27 @@ export default function CertificateMakerPage() {
             <p className="text-sm text-slate-500">Discover themed worksheets, writing practice, and print-ready games.</p>
           </article>
           <a href="/printables" className="group flex items-start gap-3 rounded-2xl border border-indigo-100/60 bg-indigo-50/60 p-4 text-sm text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100">
-            <span aria-hidden className="mt-0.5 text-lg">???</span>
+            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-500 text-white shadow-sm">
+              <span className="text-xs font-bold">PR</span>
+            </span>
             <span>
               <span className="font-semibold">All Printable Activities</span>
               <br />Browse crafts, planners, and classroom printables in one place.
             </span>
           </a>
           <a href="/printables/handwriting-maker" className="group flex items-start gap-3 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100">
-            <span aria-hidden className="mt-0.5 text-lg">??</span>
+            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm">
+              <span className="text-xs font-bold">HW</span>
+            </span>
             <span>
               <span className="font-semibold">Handwriting Worksheet Maker</span>
               <br />Generate cursive or print practice sheets instantly.
             </span>
           </a>
           <a href="/printables/worksheets" className="group flex items-start gap-3 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100">
-            <span aria-hidden className="mt-0.5 text-lg">??</span>
+            <span aria-hidden className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white shadow-sm">
+              <span className="text-xs font-bold">WS</span>
+            </span>
             <span>
               <span className="font-semibold">Grade-Level Worksheets</span>
               <br />Math, reading, and comprehension sets by grade.
