@@ -19,7 +19,7 @@ export default function CertificateMakerPage() {
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
   const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
-  const [badgeIcon, setBadgeIcon] = React.useState<'star' | 'trophy' | 'medal' | 'book' | 'rocket' | 'cap'>('star');
+  const [badgeIcon, setBadgeIcon] = React.useState<'gold-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
 
@@ -340,6 +340,7 @@ export default function CertificateMakerPage() {
     return baseResult;
   }, [bgStyle, backgroundClipId, colors, inkFriendly]);
 
+  const badgePrefix = React.useMemo(() => `badge-${reactId.replace(/:/g, '')}`, [reactId]);
   const badgePosition = React.useMemo(() => {
     if (templateStyle === 'medal' || templateStyle === 'trophy') {
       return { cx: 90, cy: 100 };
@@ -348,73 +349,205 @@ export default function CertificateMakerPage() {
   }, [templateStyle]);
 
   const badgeGraphic = React.useMemo(() => {
-    const baseFill = inkFriendly ? '#e2e8f0' : '#ffffff';
-    const strokeColor = inkFriendly ? '#1f2937' : '#0f172a';
-    const accentFill = inkFriendly ? '#94a3b8' : colors.accent;
-
     const centerTransform = `translate(${badgePosition.cx} ${badgePosition.cy})`;
 
     switch (badgeIcon) {
-      case 'trophy':
+      case 'gold-seal': {
+        const outerGradient = `${badgePrefix}-gold-outer`;
+        const innerGradient = `${badgePrefix}-gold-inner`;
         return (
-          <g transform={centerTransform} aria-hidden="true">
-            <path d="M-16 -12h32v6c0 7-6 12-16 13s-16-6-16-13z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
-            <path d="M-20 -8c0 6 4 11 10 12" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
-            <path d="M20 -8c0 6-4 11-10 12" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
-            <rect x="-8" y="0" width="16" height="8" rx="2" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
-            <rect x="-11" y="7" width="22" height="4" rx="1.5" fill={accentFill} opacity={inkFriendly ? 0.55 : 0.85} />
-            <circle cx="0" cy="-4" r="4" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
-          </g>
-        );
-      case 'medal':
-        return (
-          <g transform={centerTransform} aria-hidden="true">
-            <path d="M-10 -24h20l4 16h-12l-2-6-2 6h-12z" fill={accentFill} opacity={inkFriendly ? 0.45 : 0.75} />
-            <circle r="14" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
-            <polygon points="0,-6 4,-1 10,0 5,4 7,10 0,6 -7,10 -5,4 -10,0 -4,-1" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
-          </g>
-        );
-      case 'book':
-        return (
-          <g transform={centerTransform} aria-hidden="true">
-            <path d="M-16 -14h13c3 0 5 2 5 5v20c0 3-2 5-5 5h-13z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
-            <path d="M2 -14h13c3 0 5 2 5 5v20c0 3-2 5-5 5H2z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} />
-            <rect x="-2" y="-14" width="4" height="24" fill={accentFill} opacity={inkFriendly ? 0.4 : 0.65} />
-            <line x1="-10" y1="-6" x2="-3" y2="-6" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
-            <line x1="-10" y1="0" x2="-3" y2="0" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
-            <line x1="4" y1="-6" x2="11" y2="-6" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
-            <line x1="4" y1="0" x2="11" y2="0" stroke={accentFill} strokeWidth={2} strokeLinecap="round" />
-          </g>
-        );
-      case 'rocket':
-        return (
-          <g transform={centerTransform} aria-hidden="true">
-            <path d="M0 -18c-7 6-9 16-9 24c0 4 2 8 5 10h8c3-2 5-6 5-10c0-8-2-18-9-24z" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
-            <circle cx="0" cy="-4" r="5" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
-            <path d="M-9 7l-8 10l8-2l4 6l4-6l8 2l-8-10z" fill={accentFill} opacity={inkFriendly ? 0.45 : 0.8} />
-          </g>
-        );
-      case 'cap':
-        return (
-          <g transform={centerTransform} aria-hidden="true">
-            <polygon points="0,-14 22,-6 0,2 -22,-6" fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
-            <path d="M-12 -4v10c0 5 6 8 12 8s12-3 12-8v-10" fill="none" stroke={strokeColor} strokeWidth={1.6} />
-            <path d="M8 -5v12l6 4" stroke={accentFill} strokeWidth={2} strokeLinecap="round" fill="none" />
-            <circle cx="8" cy="-6" r="3" fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
-          </g>
-        );
-      default: {
-        const outer = '0,-15 4.5,-5 15,-5 6,2 9,13 0,7 -9,13 -6,2 -15,-5 -4.5,-5';
-        const inner = '0,-8 3,-2 8,-2 4,1 5,7 0,4 -5,7 -4,1 -8,-2 -3,-2';
-        return (
-          <g transform={centerTransform} aria-hidden="true">
-            <polygon points={outer} fill={baseFill} stroke={strokeColor} strokeWidth={1.6} strokeLinejoin="round" />
-            <polygon points={inner} fill={accentFill} opacity={inkFriendly ? 0.6 : 0.9} />
-          </g>
+          <>
+            <defs>
+              <radialGradient id={outerGradient} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor={inkFriendly ? '#e2e8f0' : '#fff9db'} />
+                <stop offset="55%" stopColor={inkFriendly ? '#cbd5f5' : '#facc15'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#94a3b8' : '#d97706'} />
+              </radialGradient>
+              <radialGradient id={innerGradient} cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#e2e8f0' : '#fde68a'} />
+              </radialGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              {Array.from({ length: 32 }).map((_, index) => (
+                <rect
+                  key={`gold-tooth-${index}`}
+                  x={-4}
+                  y={-48}
+                  width={8}
+                  height={20}
+                  rx={3}
+                  fill={inkFriendly ? '#94a3b8' : '#fbbf24'}
+                  opacity={inkFriendly ? 0.35 : 0.65}
+                  transform={`rotate(${(360 / 32) * index} 0 0)`}
+                />
+              ))}
+              <circle r={34} fill={`url(#${outerGradient})`} />
+              <circle r={24} fill={`url(#${innerGradient})`} />
+              <circle r={29} fill="none" stroke={inkFriendly ? '#94a3b8' : '#f59e0b'} strokeWidth={3} strokeOpacity={0.6} />
+              <polygon
+                points="0,-10 3,-3 10,-3 4,1 7,8 0,3 -7,8 -4,1 -10,-3 -3,-3"
+                fill={inkFriendly ? '#475569' : '#fff9db'}
+              />
+            </g>
+          </>
         );
       }
+      case 'blue-ribbon': {
+        const medallionGradient = `${badgePrefix}-blue-medal`;
+        const ribbonGradient = `${badgePrefix}-blue-ribbon`;
+        return (
+          <>
+            <defs>
+              <radialGradient id={medallionGradient} cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor={inkFriendly ? '#e0e7ff' : '#dbeafe'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#64748b' : '#2563eb'} />
+              </radialGradient>
+              <linearGradient id={ribbonGradient} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={inkFriendly ? '#64748b' : '#1d4ed8'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#475569' : '#1e3a8a'} />
+              </linearGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              <path d="M-18 26 L-30 60 L-12 46" fill={`url(#${ribbonGradient})`} opacity={inkFriendly ? 0.6 : 0.85} />
+              <path d="M18 26 L30 60 L12 46" fill={`url(#${ribbonGradient})`} opacity={inkFriendly ? 0.6 : 0.85} />
+              <circle r={30} fill={`url(#${medallionGradient})`} stroke={inkFriendly ? '#475569' : '#1e3a8a'} strokeWidth={2} />
+              <circle r={18} fill={inkFriendly ? '#f8fafc' : '#fff'} opacity={0.9} />
+              <polygon points="0,-9 2.8,-2.5 9.5,-2.5 4.2,1 6.5,7 0,3 -6.5,7 -4.2,1 -9.5,-2.5 -2.8,-2.5" fill={inkFriendly ? '#475569' : '#1d4ed8'} />
+            </g>
+          </>
+        );
+      }
+      case 'green-laurel': {
+        const crestGradient = `${badgePrefix}-laurel-crest`;
+        const leafColor = inkFriendly ? '#64748b' : '#22c55e';
+        return (
+          <>
+            <defs>
+              <linearGradient id={crestGradient} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={inkFriendly ? '#e2e8f0' : '#bbf7d0'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#94a3b8' : '#16a34a'} />
+              </linearGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              <path
+                d="M0 -28 C16 -28 28 -14 28 -2 C28 16 12 30 0 38 C-12 30 -28 16 -28 -2 C-28 -14 -16 -28 0 -28 Z"
+                fill={`url(#${crestGradient})`}
+                stroke={inkFriendly ? '#475569' : '#15803d'}
+                strokeWidth={2}
+              />
+              {Array.from({ length: 6 }).map((_, index) => {
+                const y = -18 + index * 8;
+                return (
+                  <path
+                    key={`leaf-left-${index}`}
+                    d={`M-36 ${y} C-30 ${y - 4} -24 ${y - 4} -20 ${y} C-24 ${y + 4} -30 ${y + 6} -36 ${y + 2} Z`}
+                    fill={leafColor}
+                    opacity={inkFriendly ? 0.4 : 0.75}
+                  />
+                );
+              })}
+              {Array.from({ length: 6 }).map((_, index) => {
+                const y = -18 + index * 8;
+                return (
+                  <path
+                    key={`leaf-right-${index}`}
+                    d={`M36 ${y} C30 ${y - 4} 24 ${y - 4} 20 ${y} C24 ${y + 4} 30 ${y + 6} 36 ${y + 2} Z`}
+                    fill={leafColor}
+                    opacity={inkFriendly ? 0.4 : 0.75}
+                  />
+                );
+              })}
+              <circle r={10} fill={inkFriendly ? '#475569' : '#15803d'} opacity={0.85} />
+              <path d="M-2 0 L0 -10 L2 0 Z" fill={inkFriendly ? '#f8fafc' : '#bbf7d0'} />
+            </g>
+          </>
+        );
+      }
+      case 'red-medal': {
+        const strapGradient = `${badgePrefix}-strap`;
+        const medalGradient = `${badgePrefix}-medal`;
+        return (
+          <>
+            <defs>
+              <linearGradient id={strapGradient} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={inkFriendly ? '#9ca3af' : '#ef4444'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#6b7280' : '#b91c1c'} />
+              </linearGradient>
+              <radialGradient id={medalGradient} cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff5f5'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#9ca3af' : '#ef4444'} />
+              </radialGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              <path d="M-18 -38 H18 L8 -6 H-8 Z" fill={`url(#${strapGradient})`} opacity={inkFriendly ? 0.6 : 0.85} />
+              <circle cy={12} r={30} fill={`url(#${medalGradient})`} stroke={inkFriendly ? '#6b7280' : '#991b1b'} strokeWidth={2} />
+              <circle cy={12} r={18} fill={inkFriendly ? '#e2e8f0' : '#fff'} opacity={0.9} />
+              <polygon points="0,2 4,12 14,12 6,18 9,28 0,22 -9,28 -6,18 -14,12 -4,12" fill={inkFriendly ? '#6b7280' : '#b91c1c'} />
+            </g>
+          </>
+        );
+      }
+      case 'starburst': {
+        const burstGradient = `${badgePrefix}-burst`;
+        const centerGradient = `${badgePrefix}-burst-center`;
+        return (
+          <>
+            <defs>
+              <radialGradient id={burstGradient} cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stopColor={inkFriendly ? '#e2e8f0' : '#ffe4e6'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#94a3b8' : '#f472b6'} />
+              </radialGradient>
+              <radialGradient id={centerGradient} cx="50%" cy="45%" r="45%">
+                <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#cbd5f5' : '#f9a8d4'} />
+              </radialGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              <polygon
+                points="0,-34 8,-16 28,-16 12,-4 18,16 0,6 -18,16 -12,-4 -28,-16 -8,-16"
+                fill={`url(#${burstGradient})`}
+                stroke={inkFriendly ? '#6b7280' : '#ec4899'}
+                strokeWidth={2}
+              />
+              <circle r={14} fill={`url(#${centerGradient})`} />
+              <circle r={6} fill={inkFriendly ? '#6b7280' : '#db2777'} />
+            </g>
+          </>
+        );
+      }
+      case 'shield': {
+        const shieldGradient = `${badgePrefix}-shield-base`;
+        const highlightGradient = `${badgePrefix}-shield-highlight`;
+        return (
+          <>
+            <defs>
+              <linearGradient id={shieldGradient} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={inkFriendly ? '#e2e8f0' : '#bfdbfe'} />
+                <stop offset="100%" stopColor={inkFriendly ? '#94a3b8' : '#3b82f6'} />
+              </linearGradient>
+              <linearGradient id={highlightGradient} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} stopOpacity={0.8} />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+            </defs>
+            <g transform={centerTransform} aria-hidden="true">
+              <path
+                d="M0 -32 C20 -32 32 -18 32 -2 C32 16 18 32 0 38 C-18 32 -32 16 -32 -2 C-32 -18 -20 -32 0 -32 Z"
+                fill={`url(#${shieldGradient})`}
+                stroke={inkFriendly ? '#475569' : '#1d4ed8'}
+                strokeWidth={2}
+              />
+              <path d="M0 -24 C14 -24 24 -12 24 -2 C24 12 12 24 0 30 C-12 24 -24 12 -24 -2 C-24 -12 -14 -24 0 -24 Z" fill={`url(#${highlightGradient})`} />
+              <path d="M-10 -2 H10 V10 C10 18 3 24 0 24 C-3 24 -10 18 -10 10 Z" fill={inkFriendly ? '#475569' : '#1e3a8a'} opacity={0.8} />
+            </g>
+          </>
+        );
+      }
+      default:
+        return null;
     }
-  }, [badgeIcon, badgePosition, colors.accent, inkFriendly]);
+  }, [badgeIcon, badgePosition, badgePrefix, inkFriendly]);
 
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
   const backgroundDefs = backgroundLayers.defs;
@@ -688,12 +821,12 @@ export default function CertificateMakerPage() {
                           onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="star">Star badge</option>
-                          <option value="trophy">Trophy badge</option>
-                          <option value="medal">Medal badge</option>
-                          <option value="book">Book badge</option>
-                          <option value="rocket">Rocket badge</option>
-                          <option value="cap">Graduation cap badge</option>
+                          <option value="gold-seal">Gold seal (classic)</option>
+                          <option value="blue-ribbon">Blue ribbon</option>
+                          <option value="green-laurel">Emerald laurel</option>
+                          <option value="red-medal">Crimson medal</option>
+                          <option value="starburst">Sunrise starburst</option>
+                          <option value="shield">Royal shield</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
