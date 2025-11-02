@@ -346,6 +346,8 @@ export default function CertificateMakerPage() {
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
   const backgroundDefs = backgroundLayers.defs;
   const backgroundContent = backgroundLayers.content;
+  const interiorFillColor = inkFriendly ? '#f8fafc' : '#ffffff';
+  const interiorFillOpacity = inkFriendly ? 0.9 : 0.78;
 
   const svg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
@@ -401,13 +403,43 @@ export default function CertificateMakerPage() {
           <polygon points="1110,10 980,10 1110,140" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
           <polygon points="10,790 140,790 10,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
           <polygon points="1110,790 980,790 1110,660" fill={inkFriendly ? '#94a3b8' : colors.accent} opacity={0.25} />
+          <rect
+            x="40"
+            y="40"
+            width="1040"
+            height="720"
+            rx="24"
+            fill={interiorFillColor}
+            fillOpacity={interiorFillOpacity}
+          />
         </>
       ) : templateStyle === 'academic' ? (
         <>
-          <rect x="50" y="50" width="1020" height="700" rx="10" fill="#fff" stroke={colors.accent} strokeWidth="2" />
+          <rect
+            x="50"
+            y="50"
+            width="1020"
+            height="700"
+            rx="10"
+            fill={interiorFillColor}
+            fillOpacity={interiorFillOpacity}
+            stroke={colors.accent}
+            strokeWidth="2"
+          />
         </>
       ) : (
-        <rect x="26" y="26" width="1068" height="748" rx="14" fill="#fff" stroke={colors.accent} strokeDasharray="12 10" strokeWidth="3" />
+        <rect
+          x="26"
+          y="26"
+          width="1068"
+          height="748"
+          rx="14"
+          fill={interiorFillColor}
+          fillOpacity={interiorFillOpacity}
+          stroke={colors.accent}
+          strokeDasharray="12 10"
+          strokeWidth="3"
+        />
       )}
       {/* Badge */}
       <circle cx={badgePosition.cx} cy={badgePosition.cy} r={36} fill={colors.badge} />
