@@ -429,7 +429,7 @@ export default function KidsPage() {
           <div className="grid gap-6 sm:grid-cols-3">
             <article className={CARD_CLASS}>
               <SmartImage
-                primary="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"
+                primary="https://images.unsplash.com/photo-1589330694653-ded6df03f754?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1216"
                 alts={[KID_SAFE.classroomHands, KID_SAFE.childWriting, KID_SAFE.kidsWithAnimals]}
                 alt="Certificate maker preview"
                 className="w-full h-40 object-cover"
