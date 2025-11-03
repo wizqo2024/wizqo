@@ -1063,6 +1063,21 @@ export default function CertificateMakerPage() {
             </span>
           </a>
           <a
+            href="/printables/name-tracing-generator"
+            className="group flex flex-col gap-2 rounded-2xl border border-rose-100/60 bg-rose-50/60 p-4 text-sm text-rose-700 transition hover:border-rose-300 hover:bg-rose-100"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-500 text-xs font-bold text-white shadow-sm">NT</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Name Tracing</span>
+            <span className="text-sm text-rose-700/80">Create my child's name tracing printable with dotted or bubble letters.</span>
+            <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-rose-600">
+              Try It Now
+              <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 1h8v8" />
+                <path d="M11 1L1 11" />
+              </svg>
+            </span>
+          </a>
+          <a
             href="/printables/worksheets"
             className="group flex flex-col gap-2 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100"
           >
