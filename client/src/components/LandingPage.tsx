@@ -607,13 +607,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Floating badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🚀 1,200+ Active Learners
+              🎯 Personalized AI hobby plans
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              ⭐ 4.9/5 Rating
+              🧠 Games & printables for kids
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🎯 97% Success Rate
+              🏆 Printable certificates & awards
             </div>
           </div>
           
