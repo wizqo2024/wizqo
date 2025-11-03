@@ -318,8 +318,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Generate Your 7-Day Hobby Plan - Wizqo"
-                    description="Create a personalized 7-day learning plan for any hobby. Our AI will craft the perfect curriculum with daily videos, practice guides, and progress tracking."
+                    title="Learn a New Hobby in 7 Days | AI Hobby Plan Generator"
+                    description="Ready to learn a new hobby fast? Wizqo's AI hobby plan generator builds a 7-day roadmap with lessons, videos, and daily practice prompts for beginners."
                     canonicalUrl="https://wizqo.com/generate"
                   />
                   <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />

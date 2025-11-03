@@ -1740,15 +1740,15 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     <div className="min-h-screen bg-slate-50">
       {/* SEO Meta Tags */}
       <div style={{ display: 'none' }}>
-        <title>{planData ? `${planData.title} - Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days - Personalized Learning Plans'}</title>
-        <meta name="description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan. Step-by-step guidance, daily tasks, and expert tips to help you succeed.` : 'Transform your life with personalized 7-day learning plans for any hobby. From photography to coding, get expert guidance and achieve your goals faster.'} />
-        <meta name="keywords" content={planData ? `${planData.hobby}, learning, 7-day plan, tutorial, skills, personal development` : 'hobby learning, 7-day plans, personal development, skill building, tutorials'} />
-        <meta property="og:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days'} />
-        <meta property="og:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Transform your life with personalized 7-day learning plans for any hobby.'} />
+        <title>{planData ? `${planData.title} - Learn ${planData.hobby} in 7 Days` : 'Learn a New Hobby in 7 Days | AI Hobby Plan Generator'}</title>
+        <meta name="description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan. Step-by-step guidance, daily tasks, and expert tips to help you succeed.` : "Ready to learn a new hobby fast? Build a 7-day plan with lessons, videos, and daily practice tips tailored to beginners."} />
+        <meta name="keywords" content={planData ? `${planData.hobby}, learning, 7-day plan, tutorial, skills, personal development` : 'learn a new hobby, 7-day hobby plan, ai hobby generator, hobby ideas for beginners'} />
+        <meta property="og:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn a New Hobby in 7 Days'} />
+        <meta property="og:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Create a 7-day AI hobby plan with lessons, videos, and daily practice prompts.'} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn Any Hobby in 7 Days'} />
-        <meta name="twitter:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Transform your life with personalized 7-day learning plans for any hobby.'} />
+        <meta name="twitter:title" content={planData ? `Learn ${planData.hobby} in 7 Days` : 'Learn a New Hobby in 7 Days'} />
+        <meta name="twitter:description" content={planData ? `Master ${planData.hobby} with our personalized 7-day learning plan.` : 'Create a 7-day AI hobby plan with lessons, videos, and daily practice prompts.'} />
       </div>
       <UnifiedNavigation 
         showBackButton={true} 
@@ -1824,8 +1824,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             {messages.length === 0 && (
                           <div className="text-center text-gray-500 p-4">
               <div className="lg:hidden mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">🎯 Start Your Learning Journey</h3>
-                <p className="text-sm text-gray-600">Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you!</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">🎯 Learn a New Hobby in 7 Days</h3>
+                <p className="text-sm text-gray-600">Tell me which new hobby you want to learn this week, and I'll build a personalized 7-day plan just for you!</p>
               </div>
               <div className="hidden lg:block">
                 <p>Loading conversation...</p>
@@ -2537,11 +2537,11 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     <div className="flex items-center justify-center mb-4 lg:mb-6">
                       <WizqoLogo width={80} height={46} />
                     </div>
-                    <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2">Welcome to Your Learning Journey!</h2>
+                    <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2">Learn a New Hobby in 7 Days</h2>
                     <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mx-auto mb-3" />
                     <p className="text-lg text-slate-700 leading-relaxed">
-                      Tell me what hobby you'd like to learn, and I'll create a personalized 7-day plan just for you. 
-                      Your custom learning plan will appear here once we chat!
+                      Tell me which new hobby you want to master next, and I'll create a personalized 7-day plan with daily lessons and practice prompts. 
+                      Your custom hobby roadmap will appear here as soon as we chat!
                     </p>
                   </div>
 
