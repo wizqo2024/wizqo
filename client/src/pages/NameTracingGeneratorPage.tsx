@@ -631,6 +631,38 @@ export default function NameTracingGeneratorPage() {
                 </div>
               </div>
 
+              <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-inner">
+                <h2 className="text-lg font-semibold text-slate-900 mb-4">More tools kids love</h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <a
+                    href="/printables/certificate-maker"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Certificate Maker</h3>
+                    <p className="text-xs text-slate-600 mt-1">Design printable awards with cute badges and editable text.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Create certificate →</span>
+                  </a>
+
+                  <a
+                    href="/worksheets/handwriting-worksheet-maker"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Handwriting Worksheet Maker</h3>
+                    <p className="text-xs text-slate-600 mt-1">Generate tracing rows for letters, words, or sentences in print or cursive.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Build worksheet →</span>
+                  </a>
+
+                  <a
+                    href="/kids"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Kids Hub</h3>
+                    <p className="text-xs text-slate-600 mt-1">Play free learning games, print puzzles, and explore 7-day skill plans.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Visit Kids Hub →</span>
+                  </a>
+                </div>
+              </div>
+
               <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                 <h2 className="text-lg font-semibold text-slate-900 mb-4">Frequently asked questions</h2>
                 <div className="space-y-4">
