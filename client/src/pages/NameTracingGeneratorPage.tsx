@@ -519,17 +519,6 @@ export default function NameTracingGeneratorPage() {
                           rx={28}
                         />
 
-                        <text
-                          x={margin}
-                          y={margin}
-                          fontSize={30}
-                          fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                          fill="#6366f1"
-                          fontWeight={700}
-                        >
-                          {formattedName}
-                        </text>
-
                         {rowsForPreview.map((rowType, index) => {
                           const baselineY = margin + 120 + index * rowGap;
                           const startX = margin + 40;
