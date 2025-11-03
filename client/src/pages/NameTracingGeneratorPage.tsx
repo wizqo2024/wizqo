@@ -222,6 +222,8 @@ export default function NameTracingGeneratorPage() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const displayName = formattedName || '';
+    const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
+    const isTraceRow = dominantRowType === 'trace';
     const weight = baseFontConfig.fontWeight || 600;
     if (ctx) {
       ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
@@ -230,8 +232,10 @@ export default function NameTracingGeneratorPage() {
     const charCount = Math.max(0, Array.from(displayName).length - 1);
     const baseSpacing = baseFontConfig.letterSpacing || 0;
     const totalWidth = measuredWidth + charCount * baseSpacing;
-    const baseMin = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
-    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier));
+    const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+    const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
+    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
+    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
     let fittedSize = baseFontSize;
     if (totalWidth > maxWidth && totalWidth > 0) {
       const ratio = maxWidth / totalWidth;
@@ -240,7 +244,9 @@ export default function NameTracingGeneratorPage() {
     const scale = fittedSize / baseFontSize;
     const fittedSpacing = baseSpacing * scale;
     const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
-    const fittedDashArray = baseFontConfig.dashArray ? `0 ${Math.max(12, Math.round(26 * scale))}` : undefined;
+    const fittedDashArray = baseFontConfig.dashArray
+      ? `0 ${Math.max(12, Math.round(26 * scale))}`
+      : undefined;
 
     return {
       ...baseFontConfig,
@@ -248,8 +254,9 @@ export default function NameTracingGeneratorPage() {
       letterSpacing: fittedSpacing,
       strokeWidth: fittedStrokeWidth,
       dashArray: fittedDashArray,
-    } as typeof baseFontConfig & { fontSize: number; };
-  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, sizeMultiplier, margin, pageWidth]);
+      dominantRowType,
+    } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
+  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -550,15 +557,6 @@ export default function NameTracingGeneratorPage() {
                                     strokeWidth={2}
                                     strokeDasharray="14 16"
                                   />
-                                  <text
-                                    x={startX}
-                                    y={baselineY - baselineOffset / 1.8}
-                                    fontSize={24}
-                                    fontFamily="'Patrick Hand', 'Segoe UI', sans-serif"
-                                    fill="#cbd5f5"
-                                  >
-                                    {formattedName}
-                                  </text>
                                 </>
                               ) : (
                                 <>
