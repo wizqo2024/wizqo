@@ -126,7 +126,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div>
                           <div className="text-sm font-medium">Certificate Maker</div>
-                          <div className="text-xs text-slate-500">Editable name/date ? Print PDF</div>
+                          <div className="text-xs text-slate-500">Editable name/date | Print PDF</div>
                         </div>
                       </a>
                       <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -149,7 +149,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div>
                           <div className="text-sm font-medium">1st Grade Math</div>
-                          <div className="text-xs text-slate-500">Ten?frames, add/sub within 10</div>
+                          <div className="text-xs text-slate-500">Ten-frames, add/sub within 10</div>
                         </div>
                       </a>
                       <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -167,7 +167,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div>
                           <div className="text-sm font-medium">Reading Comprehension</div>
-                          <div className="text-xs text-slate-500">G1?G3 short passages (PDF)</div>
+                          <div className="text-xs text-slate-500">G1-G3 short passages (PDF)</div>
                         </div>
                       </a>
                     </div>
