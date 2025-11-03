@@ -246,15 +246,6 @@ export default function NameTracingGeneratorPage() {
     } as typeof baseFontConfig & { fontSize: number; };
   }, [baseFontConfig, baseFontSize, formattedName, fontStyle, margin, pageWidth]);
 
-  const getRowLabel = (index: number, type: 'trace' | 'blank') => {
-    if (type === 'blank') return 'Write it yourself';
-    if (patternStyle === 'traceAndWrite') {
-      if (index % 3 === 0) return 'Trace with dots';
-      if (index % 3 === 1) return 'Trace smoothly';
-    }
-    return 'Trace the name';
-  };
-
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -502,12 +493,12 @@ export default function NameTracingGeneratorPage() {
                         <text
                           x={margin}
                           y={margin}
-                          fontSize={28}
+                          fontSize={30}
                           fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
                           fill="#6366f1"
                           fontWeight={700}
                         >
-                          {formattedName}'s tracing sheet
+                          {formattedName}
                         </text>
 
                         {rowsForPreview.map((rowType, index) => {
@@ -516,19 +507,12 @@ export default function NameTracingGeneratorPage() {
                           const endX = pageWidth - margin + 20;
                           const topLine = baselineY - baselineOffset;
                           const midLine = baselineY - baselineOffset / 2;
-                          const labelY = baselineY - baselineOffset - 24;
                           const showPrimary = lineStyle === 'primary';
+                          const accessibilityLabel = rowType === 'blank'
+                            ? 'Blank handwriting line'
+                            : 'Traceable handwriting line';
                           return (
-                            <g key={`row-${index}`}>
-                              <text
-                                x={margin - 10}
-                                y={labelY}
-                                fontSize={14}
-                                fontFamily="'Patrick Hand', 'Segoe UI', sans-serif"
-                                fill="#94a3b8"
-                              >
-                                {getRowLabel(index, rowType)}
-                              </text>
+                            <g key={`row-${index}`} aria-label={accessibilityLabel}>
                               {showPrimary && (
                                 <>
                                   <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
