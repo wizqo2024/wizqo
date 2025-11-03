@@ -416,6 +416,55 @@ export default function KidsPage() {
           {/* List of cards removed per request; keep only summary + CTA */}
         </section>
 
+        {/* Creative Generators */}
+        <section id="generators" className="mt-12">
+          <div className="mb-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Create Something Magical</h2>
+            <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-2 mb-2" />
+            <p className="mt-2 text-slate-700 max-w-3xl">
+              Use our kid-friendly generators to make printable keepsakes in minutes. Customize awards, handwriting sheets, and more — perfect for
+              classrooms, homeschool, or daily motivation.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"
+                alts={[KID_SAFE.classroomHands, KID_SAFE.childWriting, KID_SAFE.kidsWithAnimals]}
+                alt="Certificate maker preview"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Print-ready</span>
+                  <span className={CHIP_CLASS}>Custom text</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Certificate Maker</h3>
+                <p className="text-slate-600 text-sm mb-4">Celebrate big wins with personalized certificates, cute badges, and editable fields.</p>
+                <a href="/printables/certificate-maker" className={BUTTON_CLASS} aria-label="Open certificate maker">Make a certificate</a>
+              </div>
+            </article>
+
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=1200&q=80"
+                alts={[KID_SAFE.childWriting, KID_SAFE.coloringCrayons, KID_SAFE.childStudyDesk]}
+                alt="Name tracing worksheet preview"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Handwriting</span>
+                  <span className={CHIP_CLASS}>Custom name</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Name Tracing Generator</h3>
+                <p className="text-slate-600 text-sm mb-4">Type any name to create dotted, bubble, or cursive tracing sheets instantly.</p>
+                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Create worksheet</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
         {/* 7‑Day Fun Skills to Learn */}
         <section id="skills">
           <div className="mb-4">
