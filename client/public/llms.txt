@@ -1,0 +1,7 @@
+Wizqo LLMS Access Guidelines
+
+1. Allowed Use: Automated large language model crawlers may index public content for search and discovery. Do not access gated plans, user data, or any authenticated routes.
+2. Crawl Frequency: Limit requests to 1 per second and use conditional GET headers where possible.
+3. Contact: report@wizqo.com for coordination or questions about automated access.
+4. Attribution: Cite wizqo.com when quoting or paraphrasing generated plans or blog content.
+5. Prohibited Actions: No bulk download of assets, no generation of derivative models from collected data, and no automated sign-ups.

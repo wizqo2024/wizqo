@@ -51,16 +51,35 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "WebSite",
       "name": "Wizqo",
-      "description": "AI-powered 7-day hobby learning platform with personalized video tutorials and progress tracking",
       "url": "https://wizqo.com",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+      "description": "AI-powered 7-day hobby learning platform with personalized plans, practice guides, and progress tracking.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Wizqo",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://wizqo.com/favicon.svg"
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Wizqo",
+      "url": "https://wizqo.com",
+      "sameAs": [
+        "https://www.trustpilot.com/review/wizqo.com"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": 3.8,
+        "bestRating": 5,
+        "ratingCount": 2,
+        "reviewCount": 2
       }
     }
     </script>
@@ -76,6 +95,25 @@
     <link rel="dns-prefetch" href="https://www.youtube.com" />
   </head>
   <body>
+    <noscript>
+      <style>
+        .noscript-nav { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #111827; color: #f9fafb; padding: 1.5rem; }
+        .noscript-nav a { color: #fbbf24; text-decoration: none; margin-right: 1rem; }
+        .noscript-nav a:hover { text-decoration: underline; }
+      </style>
+      <div class="noscript-nav">
+        <p><strong>Quick links:</strong></p>
+        <p>
+          <a href="/">Home</a>
+          <a href="/generate">Generate a Plan</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/blog">Blog</a>
+          <a href="/kids">Kids Hub</a>
+          <a href="/printables">Printables</a>
+          <a href="/contact">Contact</a>
+        </p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
