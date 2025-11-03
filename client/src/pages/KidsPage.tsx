@@ -426,7 +426,7 @@ export default function KidsPage() {
               classrooms, homeschool, or daily motivation.
             </p>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-3">
             <article className={CARD_CLASS}>
               <SmartImage
                 primary="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"
@@ -460,6 +460,24 @@ export default function KidsPage() {
                 <h3 className="font-semibold text-slate-900 mb-1">Name Tracing Generator</h3>
                 <p className="text-slate-600 text-sm mb-4">Type any name to create dotted, bubble, or cursive tracing sheets instantly.</p>
                 <a href="/printables/name-tracing-generator" className={BUTTON_CLASS} aria-label="Open name tracing generator">Create worksheet</a>
+              </div>
+            </article>
+
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=80"
+                alts={[KID_SAFE.childWriting, KID_SAFE.childStudyDesk, KID_SAFE.kidsWithAnimals]}
+                alt="Handwriting worksheet preview"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  <span className={CHIP_CLASS}>Printables</span>
+                  <span className={CHIP_CLASS}>Letters & words</span>
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">Handwriting Worksheet Maker</h3>
+                <p className="text-slate-600 text-sm mb-4">Generate dotted letters, words, or sentences with primary line guides in seconds.</p>
+                <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Build practice sheet</a>
               </div>
             </article>
           </div>
