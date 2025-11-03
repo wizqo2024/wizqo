@@ -197,6 +197,7 @@ export function PrintablesLandingPage() {
           <nav aria-label="Popular worksheets" className="mt-3">
             <ul className="flex flex-wrap gap-2 text-sm">
               <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">✍️ Handwriting worksheets (PDF)</a></li>
+              <li><a href="/printables/name-tracing-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">🖊️ Personalized name tracing</a></li>
               <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">➕ 1st grade math – printable</a></li>
               <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">📖 Reading comprehension (free PDF)</a></li>
               <li><a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">🏅 Certificate maker (free)</a></li>
@@ -441,12 +442,19 @@ export function PrintablesLandingPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧠 2. Educational Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Short, skill‑building worksheets you can finish in minutes. Use them as warm‑ups, homework helpers, or rainy‑day challenges to grow confidence in reading, math, and science.</p>
           {/* Promote Handwriting Worksheet Maker */}
-          <div className="mb-3">
+          <div className="mb-3 space-y-3">
             <div className={CARD_CLASS}>
               <div className="text-base font-semibold text-slate-900">✍️ Handwriting Worksheet Maker</div>
               <p className="text-slate-600 text-sm mt-1">Generate dotted A–Z letters, words, or sentences with guidelines. Adjust size and spacing, then print or save as PDF.</p>
               <div className="mt-3 flex items-center gap-2">
                 <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS}>Open worksheet maker →</a>
+              </div>
+            </div>
+            <div className={CARD_CLASS}>
+              <div className="text-base font-semibold text-slate-900">🖊️ Name Tracing Generator</div>
+              <p className="text-slate-600 text-sm mt-1">Create personalized name tracing worksheets with dotted or bubble letters, friendly start dots, and printable guidelines.</p>
+              <div className="mt-3 flex items-center gap-2">
+                <a href="/printables/name-tracing-generator" className={BUTTON_CLASS}>Open name tracing tool →</a>
               </div>
             </div>
           </div>
