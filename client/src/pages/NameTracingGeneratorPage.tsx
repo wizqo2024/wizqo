@@ -164,7 +164,7 @@ export default function NameTracingGeneratorPage() {
   const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
   const rowsForPreview = practicingRows.slice(0, maxRows);
 
-  const fontConfig = React.useMemo(() => {
+  const baseFontConfig = React.useMemo(() => {
     switch (fontStyle) {
       case 'bubble':
         return {
@@ -209,7 +209,42 @@ export default function NameTracingGeneratorPage() {
     }
   }, [fontStyle]);
 
-  const fontSize = fontStyle === 'script' ? 100 : 110;
+  const baseFontSize = fontStyle === 'script' ? 100 : 110;
+
+  const fittedFontConfig = React.useMemo(() => {
+    const startX = margin + 40;
+    const endX = pageWidth - margin + 20;
+    const maxWidth = Math.max(180, endX - startX - 20);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const displayName = formattedName || '';
+    const weight = baseFontConfig.fontWeight || 600;
+    if (ctx) {
+      ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
+    }
+    const measuredWidth = ctx ? ctx.measureText(displayName).width : displayName.length * baseFontSize * 0.6;
+    const charCount = Math.max(0, Array.from(displayName).length - 1);
+    const baseSpacing = baseFontConfig.letterSpacing || 0;
+    const totalWidth = measuredWidth + charCount * baseSpacing;
+    const minFontSize = fontStyle === 'bubble' ? 70 : 60;
+    let fittedSize = baseFontSize;
+    if (totalWidth > maxWidth && totalWidth > 0) {
+      const ratio = maxWidth / totalWidth;
+      fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
+    }
+    const scale = fittedSize / baseFontSize;
+    const fittedSpacing = baseSpacing * scale;
+    const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
+    const fittedDashArray = baseFontConfig.dashArray ? `0 ${Math.max(12, Math.round(26 * scale))}` : undefined;
+
+    return {
+      ...baseFontConfig,
+      fontSize: fittedSize,
+      letterSpacing: fittedSpacing,
+      strokeWidth: fittedStrokeWidth,
+      dashArray: fittedDashArray,
+    } as typeof baseFontConfig & { fontSize: number; };
+  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, margin, pageWidth]);
 
   const getRowLabel = (index: number, type: 'trace' | 'blank') => {
     if (type === 'blank') return 'Write it yourself';
@@ -532,11 +567,11 @@ export default function NameTracingGeneratorPage() {
                                     <text
                                       x={startX}
                                       y={baselineY - 8}
-                                      fontFamily={fontConfig.fontFamily}
-                                      fontSize={fontSize}
-                                      fontWeight={fontConfig.fontWeight}
-                                      fill={fontConfig.fill}
-                                      style={{ letterSpacing: `${fontConfig.letterSpacing}px` }}
+                                      fontFamily={fittedFontConfig.fontFamily}
+                                      fontSize={fittedFontConfig.fontSize}
+                                      fontWeight={fittedFontConfig.fontWeight}
+                                      fill={fittedFontConfig.fill}
+                                      style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                     >
                                       {formattedName}
                                     </text>
@@ -544,16 +579,16 @@ export default function NameTracingGeneratorPage() {
                                   <text
                                     x={startX}
                                     y={baselineY - 8}
-                                    fontFamily={fontConfig.fontFamily}
-                                    fontSize={fontSize}
-                                    fontWeight={fontConfig.fontWeight}
-                                    fill={fontStyle === 'dotted' ? 'none' : fontConfig.fill}
-                                    stroke={fontConfig.stroke}
-                                    strokeWidth={fontConfig.strokeWidth}
+                                    fontFamily={fittedFontConfig.fontFamily}
+                                    fontSize={fittedFontConfig.fontSize}
+                                    fontWeight={fittedFontConfig.fontWeight}
+                                    fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
+                                    stroke={fittedFontConfig.stroke}
+                                    strokeWidth={fittedFontConfig.strokeWidth}
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    strokeDasharray={fontConfig.dashArray}
-                                    style={{ letterSpacing: `${fontConfig.letterSpacing}px` }}
+                                    strokeDasharray={fittedFontConfig.dashArray}
+                                    style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                   >
                                     {formattedName}
                                   </text>
