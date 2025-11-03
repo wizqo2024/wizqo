@@ -11,6 +11,7 @@ import { Download, Printer, Sparkles } from 'lucide-react';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
+type FontSizeMode = 'small' | 'medium' | 'large';
 type LineStyle = 'primary' | 'baseline';
 type PatternStyle = 'traceOnly' | 'traceAndWrite';
 
@@ -20,6 +21,7 @@ export default function NameTracingGeneratorPage() {
   const [childName, setChildName] = React.useState<string>('Ava');
   const [letterCase, setLetterCase] = React.useState<LetterCase>('title');
   const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
+  const [fontSizeMode, setFontSizeMode] = React.useState<FontSizeMode>('large');
   const [lineStyle, setLineStyle] = React.useState<LineStyle>('primary');
   const [showGuideDots, setShowGuideDots] = React.useState<boolean>(true);
   const [patternStyle, setPatternStyle] = React.useState<PatternStyle>('traceAndWrite');
@@ -209,7 +211,8 @@ export default function NameTracingGeneratorPage() {
     }
   }, [fontStyle]);
 
-  const baseFontSize = fontStyle === 'script' ? 100 : 110;
+  const sizeMultiplier = fontSizeMode === 'large' ? 1 : fontSizeMode === 'medium' ? 0.85 : 0.7;
+  const baseFontSize = (fontStyle === 'script' ? 100 : 110) * sizeMultiplier;
 
   const fittedFontConfig = React.useMemo(() => {
     const startX = margin + 40;
@@ -227,7 +230,8 @@ export default function NameTracingGeneratorPage() {
     const charCount = Math.max(0, Array.from(displayName).length - 1);
     const baseSpacing = baseFontConfig.letterSpacing || 0;
     const totalWidth = measuredWidth + charCount * baseSpacing;
-    const minFontSize = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+    const baseMin = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier));
     let fittedSize = baseFontSize;
     if (totalWidth > maxWidth && totalWidth > 0) {
       const ratio = maxWidth / totalWidth;
@@ -245,7 +249,7 @@ export default function NameTracingGeneratorPage() {
       strokeWidth: fittedStrokeWidth,
       dashArray: fittedDashArray,
     } as typeof baseFontConfig & { fontSize: number; };
-  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, margin, pageWidth]);
+  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, sizeMultiplier, margin, pageWidth]);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -341,6 +345,30 @@ export default function NameTracingGeneratorPage() {
                     </ToggleGroupItem>
                     <ToggleGroupItem value="script" className="rounded-xl">
                       Cursive Flow
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Font Size
+                    </Label>
+                  </div>
+                  <ToggleGroup
+                    type="single"
+                    value={fontSizeMode}
+                    onValueChange={(value) => value && setFontSizeMode(value as FontSizeMode)}
+                    className="grid grid-cols-3 gap-2"
+                  >
+                    <ToggleGroupItem value="small" className="rounded-xl" aria-label="Small font size">
+                      Small
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="medium" className="rounded-xl" aria-label="Medium font size">
+                      Medium
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="large" className="rounded-xl" aria-label="Large font size">
+                      Large
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -606,6 +634,9 @@ export default function NameTracingGeneratorPage() {
                   </p>
                   <p>
                     Use the <strong>fun name tracing worksheet for preschoolers</strong> as part of a morning routine. Pair it with a favorite song or timer so they know practice time is short and sweet.
+                  </p>
+                  <p>
+                    Adjust the <strong>font size</strong> toggle when you need extra breathing room or a tighter fit—large gives beginners more space, while small keeps confident writers focused on tidy letters.
                   </p>
                   <p>
                     Ready for a challenge? Switch to the <strong>personalized handwriting practice for kids</strong> mode by turning off the dotted style and letting them write on the blank lines.
