@@ -117,64 +117,76 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                  <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-400">Worksheets</div>
-                  <a href="/printables" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M6 9V2h12v7" />
-                      <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
-                      <rect x="6" y="14" width="12" height="8" rx="1" />
-                    </svg>
+                  <div className="grid gap-4 min-w-[320px]">
                     <div>
-                      <div className="text-sm font-medium">Printables</div>
-                      <div className="text-xs text-slate-500">Puzzles, coloring, quick packs</div>
+                      <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-400">Generators</div>
+                      <a href="/printables/certificate-maker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">Certificate Maker</div>
+                          <div className="text-xs text-slate-500">Editable name/date ? Print PDF</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 20h9" />
+                          <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">Handwriting Maker</div>
+                          <div className="text-xs text-slate-500">Letters, words, sentences</div>
+                        </div>
+                      </a>
                     </div>
-                  </a>
-                  <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 20h9" />
-                      <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
-                    </svg>
+
                     <div>
-                      <div className="text-sm font-medium">Handwriting Maker</div>
-                      <div className="text-xs text-slate-500">Letters, words, sentences</div>
+                      <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-400">Math &amp; Reading Printables</div>
+                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">1st Grade Math</div>
+                          <div className="text-xs text-slate-500">Ten?frames, add/sub within 10</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">2nd Grade Math</div>
+                          <div className="text-xs text-slate-500">Place value, add/sub to 100</div>
+                        </div>
+                      </a>
+                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">Reading Comprehension</div>
+                          <div className="text-xs text-slate-500">G1?G3 short passages (PDF)</div>
+                        </div>
+                      </a>
                     </div>
-                  </a>
-                  <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 19h16M4 5h16M7 12h10" />
-                    </svg>
+
                     <div>
-                      <div className="text-sm font-medium">1st Grade Math</div>
-                      <div className="text-xs text-slate-500">Ten‑frames, add/sub within 10</div>
+                      <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-400">Worksheets &amp; Quick Packs</div>
+                      <a href="/printables" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M6 9V2h12v7" />
+                          <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
+                          <rect x="6" y="14" width="12" height="8" rx="1" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-medium">Printables</div>
+                          <div className="text-xs text-slate-500">Puzzles, coloring, quick packs</div>
+                        </div>
+                      </a>
                     </div>
-                  </a>
-                  <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 19h16M4 5h16M7 12h10" />
-                    </svg>
-                    <div>
-                      <div className="text-sm font-medium">2nd Grade Math</div>
-                      <div className="text-xs text-slate-500">Place value, add/sub to 100</div>
-                    </div>
-                  </a>
-                  <a href="/worksheets/reading-comprehension" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 19h16M4 5h16M7 12h10" />
-                    </svg>
-                    <div>
-                      <div className="text-sm font-medium">Reading Comprehension</div>
-                      <div className="text-xs text-slate-500">G1–G3 short passages (PDF)</div>
-                    </div>
-                  </a>
-                  <a href="/printables/certificate-maker" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                    <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
-                    </svg>
-                    <div>
-                      <div className="text-sm font-medium">Certificate Maker</div>
-                      <div className="text-xs text-slate-500">Editable name/date • Print PDF</div>
-                    </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
