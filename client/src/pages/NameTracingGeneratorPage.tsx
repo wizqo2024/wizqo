@@ -214,7 +214,8 @@ export default function NameTracingGeneratorPage() {
   const fittedFontConfig = React.useMemo(() => {
     const startX = margin + 40;
     const endX = pageWidth - margin + 20;
-    const maxWidth = Math.max(180, endX - startX - 20);
+    const usableWidth = endX - startX;
+    const maxWidth = Math.max(140, usableWidth - 80);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const displayName = formattedName || '';
@@ -226,7 +227,7 @@ export default function NameTracingGeneratorPage() {
     const charCount = Math.max(0, Array.from(displayName).length - 1);
     const baseSpacing = baseFontConfig.letterSpacing || 0;
     const totalWidth = measuredWidth + charCount * baseSpacing;
-    const minFontSize = fontStyle === 'bubble' ? 70 : 60;
+    const minFontSize = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
     let fittedSize = baseFontSize;
     if (totalWidth > maxWidth && totalWidth > 0) {
       const ratio = maxWidth / totalWidth;
