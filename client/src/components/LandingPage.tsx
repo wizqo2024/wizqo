@@ -73,21 +73,20 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </ul>
             </nav>
             
-            {/* Social Proof */}
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-400 px-4">
+            {/* Feature highlights */}
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-200 px-4">
               <div className="flex items-center space-x-2">
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-red-400 rounded-full border-2 border-white"></div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white/60"></div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white/60"></div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-red-400 rounded-full border-2 border-white/60"></div>
                 </div>
-                <span className="text-sm font-medium">1,200+ learners</span>
+                <span className="text-sm font-medium">Loved by parents & teachers</span>
               </div>
-              <div className="flex items-center space-x-1">
-                <span className="text-yellow-400">★★★★★</span>
-                <span className="text-sm">4.9/5 rating</span>
+              <div className="flex items-center space-x-2 text-sm">
+                <span>🖨️ Printable awards & handwriting sheets</span>
               </div>
-              <div className="text-sm font-medium">🎯 97% completion rate</div>
+              <div className="text-sm font-medium">🧠 Kid-friendly games & 7-day plans</div>
             </div>
           </div>
         </div>
@@ -440,17 +439,17 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
                     <span className="text-2xl">🤖</span>
                   </div>
-                  <div className="bg-white/60 rounded-lg p-3">
-                    <div className="flex items-center mb-2 text-sm">
-                      <div className="w-3 h-1 bg-blue-400 rounded mr-2"></div>
-                      <div className="w-6 h-1 bg-blue-400 rounded mr-2"></div>
-                      <div className="w-4 h-1 bg-blue-300 rounded"></div>
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <div className="w-4 h-1 bg-blue-300 rounded mr-2"></div>
-                      <div className="w-5 h-1 bg-blue-400 rounded"></div>
-                    </div>
-                  </div>
+              <div className="bg-white/60 rounded-lg p-3">
+                <div className="flex items-center mb-2 text-sm">
+                  <div className="w-3 h-1 bg-blue-400 rounded mr-2"></div>
+                  <div className="w-6 h-1 bg-blue-400 rounded mr-2"></div>
+                  <div className="w-4 h-1 bg-blue-300 rounded"></div>
+                </div>
+                <div className="flex items-center text-sm">
+                  <div className="w-4 h-1 bg-blue-300 rounded mr-2"></div>
+                  <div className="w-5 h-1 bg-blue-400 rounded"></div>
+                </div>
+              </div>
                 </div>
               </div>
               
@@ -500,7 +499,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                97% success rate
+                Build skills one day at a time
               </div>
             </div>
           </div>
