@@ -287,7 +287,7 @@ export default function NameTracingGeneratorPage() {
               <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 space-y-6">
                 <div>
                   <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Child's Name
+                    Enter your name
                   </Label>
                   <Input
                     id="child-name"
