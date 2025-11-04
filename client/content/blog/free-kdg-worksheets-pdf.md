@@ -29,8 +29,8 @@ Target key skills:
 
 Helpful links:
 
-- **Alphabet & Handwriting Worksheet Hub:** [wizqo.com/worksheets/handwriting-worksheet-maker](https://wizqo.com/worksheets/handwriting-worksheet-maker)
-- **Name Tracing Generator:** [wizqo.com/printables/name-tracing-generator](https://wizqo.com/printables/name-tracing-generator)
+- [Alphabet & Handwriting Worksheet Hub](/worksheets/handwriting-worksheet-maker)
+- [Name Tracing Generator](/printables/name-tracing-generator)
 
 **Teacher tip:** Laminate a few alphabet pages and use dry-erase markers for morning tubs or small groups. Pair worksheets with playdough letter mats for a multi-sensory station.
 
@@ -46,8 +46,8 @@ Practice early numeracy with printable packs that cover:
 
 Helpful links:
 
-- **Math Worksheet Hub (K–1):** [wizqo.com/worksheets/1st-grade-math-worksheets](https://wizqo.com/worksheets/1st-grade-math-worksheets)
-- **Printable Packs (Ten Frames, Counting, Addition):** [wizqo.com/printables](https://wizqo.com/printables)
+- [Math Worksheet Hub (K–1)](/worksheets/1st-grade-math-worksheets)
+- [Printable Packs (Ten Frames, Counting, Addition)](/printables)
 
 **Make it engaging:** Use mini erasers, pom-poms, or bingo dabbers with ten-frame worksheets. Turn addition practice into a game by rolling dice and covering sums on the worksheet.
 
@@ -63,10 +63,10 @@ Kickstart literacy with printable activities that encourage:
 
 Helpful links:
 
-- **Reading & Sight Word Worksheet Hub:** [wizqo.com/worksheets/reading-comprehension](https://wizqo.com/worksheets/reading-comprehension)
-- **Printable Reading & Sight Word Cards:** [wizqo.com/printables](https://wizqo.com/printables)
+- [Reading & Sight Word Worksheet Hub](/worksheets/reading-comprehension)
+- [Printable Reading & Sight Word Cards](/printables)
 
-**Celebrate progress:** Use the [Certificate Maker](https://wizqo.com/printables/certificate-maker) to create “Super Reader” awards each week. Students love taking them home or placing them in a classroom brag board.
+**Celebrate progress:** Use the [Certificate Maker](/printables/certificate-maker) to create “Super Reader” awards each week. Students love taking them home or placing them in a classroom brag board.
 
 ---
 
@@ -80,10 +80,10 @@ Perfect for centers, rainy-day packets, or early finishers:
 
 Helpful links:
 
-- **Printable Early Learning Worksheet Packs:** [wizqo.com/printables](https://wizqo.com/printables)
-- **Kids Hub – Free Games & Activities:** [wizqo.com/kids](https://wizqo.com/kids)
+- [Printable Early Learning Worksheet Packs](/printables)
+- [Kids Hub – Free Games & Activities](/kids)
 
-**Extend the lesson:** Pair printable activities with a quick round of [Kids Hub Memory Match](https://wizqo.com/kids/games/memory) or Word Search to reinforce skills digitally.
+**Extend the lesson:** Pair printable activities with a quick round of [Kids Hub Memory Match](/kids/games/memory) or Word Search to reinforce skills digitally.
 
 ---
 
@@ -91,9 +91,9 @@ Helpful links:
 
 These tools help you tailor every sheet to your class or child:
 
-- **Handwriting Worksheet Maker:** [wizqo.com/worksheets/handwriting-worksheet-maker](https://wizqo.com/worksheets/handwriting-worksheet-maker)
-- **Name Tracing Generator:** [wizqo.com/printables/name-tracing-generator](https://wizqo.com/printables/name-tracing-generator)
-- **Certificate Maker:** [wizqo.com/printables/certificate-maker](https://wizqo.com/printables/certificate-maker)
+- [Handwriting Worksheet Maker](/worksheets/handwriting-worksheet-maker)
+- [Name Tracing Generator](/printables/name-tracing-generator)
+- [Certificate Maker](/printables/certificate-maker)
 
 Mix printable practice with hands-on stations—think sensory letter trays, snap cubes for counting, or sticker charts tied to completed worksheets.
 
