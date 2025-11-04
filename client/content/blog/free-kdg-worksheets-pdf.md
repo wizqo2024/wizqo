@@ -131,4 +131,4 @@ Yes! Combine the [Handwriting Worksheet Maker ->](/worksheets/handwriting-worksh
 
 **Where can I find more weekly learning ideas?**
 
-Use the [7-Day Plan Generator ->](/generate) to create themed mini units (art, music, science, etc.). Each plan includes daily tasks, printable checklists, and quick wins that keep kids excited about learning.
+Browse our Learning Tips blog for ready-to-print ideas like [Nursery Class Worksheets ->](/blog/nursery-class-worksheets) and playful follow-up activities in [Educational Games for Kids ->](/blog/educational-games-for-kids).
