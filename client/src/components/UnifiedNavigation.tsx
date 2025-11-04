@@ -182,20 +182,80 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       </a>
                     </div>
 
-                    <div>
-                      <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
-                      <a href="/printables" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M6 9V2h12v7" />
-                          <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
-                          <rect x="6" y="14" width="12" height="8" rx="1" />
-                        </svg>
-                        <div>
-                          <div className="text-sm font-semibold text-slate-800">Printables</div>
-                          <div className="text-xs text-slate-600">Puzzles, coloring, quick packs</div>
-                        </div>
-                      </a>
-                    </div>
+                      <div>
+                        <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
+                        <a href="/printables" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M6 9V2h12v7" />
+                            <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
+                            <rect x="6" y="14" width="12" height="8" rx="1" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Printables</div>
+                            <div className="text-xs text-slate-600">Puzzles, coloring, quick packs</div>
+                          </div>
+                        </a>
+                      </div>
+
+                      <div>
+                        <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
+                        <a href="/kids/games/memory" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <rect x="14" y="14" width="7" height="7" rx="1" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Memory Match</div>
+                            <div className="text-xs text-slate-600">Flip cards &amp; boost recall</div>
+                          </div>
+                        </a>
+                        <a href="/kids/games/word-search" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="7" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Word Search</div>
+                            <div className="text-xs text-slate-600">Timed vocabulary quest</div>
+                          </div>
+                        </a>
+                        <a href="/kids/games/puzzle" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Puzzle Builder</div>
+                            <div className="text-xs text-slate-600">Drag pieces to solve</div>
+                          </div>
+                        </a>
+                        <a href="/kids/games/typing" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                            <path d="M6 8h12" />
+                            <path d="M6 12h12" />
+                            <path d="M6 16h8" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Typing Safari</div>
+                            <div className="text-xs text-slate-600">Race animals while you type</div>
+                          </div>
+                        </a>
+                        <a href="/kids/games/pattern" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M4 4h4v4H4z" />
+                            <path d="M10 10h4v4h-4z" />
+                            <path d="M16 4h4v4h-4z" />
+                            <path d="M4 16h4v4H4z" />
+                            <path d="M16 16h4v4h-4z" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Pattern Builder</div>
+                            <div className="text-xs text-slate-600">Complete color sequences</div>
+                          </div>
+                        </a>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -375,15 +435,37 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <span className="pl-8">2nd Grade Math Worksheets</span>
             </button>
 
-            <button 
+            <button
               onClick={() => {
                 window.location.href = '/worksheets/reading-comprehension';
                 setShowMobileMenu(false);
-              }} 
+              }}
               className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
             >
               <span className="pl-8">Reading Comprehension</span>
             </button>
+
+            <div className="pt-2 border-t border-slate-200 mt-2">
+              <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
+              {[
+                { href: '/kids/games/memory', label: 'Memory Match' },
+                { href: '/kids/games/word-search', label: 'Word Search Game' },
+                { href: '/kids/games/puzzle', label: 'Puzzle Builder' },
+                { href: '/kids/games/typing', label: 'Typing Safari' },
+                { href: '/kids/games/pattern', label: 'Pattern Builder' },
+              ].map(({ href, label }) => (
+                <button
+                  key={href}
+                  onClick={() => {
+                    window.location.href = href;
+                    setShowMobileMenu(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+                >
+                  <span className="pl-8">{label}</span>
+                </button>
+              ))}
+            </div>
 
             {/* Mobile Account Section */}
             {user ? (
