@@ -1,5 +1,8 @@
 import React from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
+import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
+
+const BUNDLE_DOC_ALLOWLIST = new Set<string>(Object.values(PRINTABLE_BUNDLE_SECTIONS).flat())
 
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
@@ -12,6 +15,18 @@ export function PrintablesPage() {
   const variantParam = params.get('variant') || '1'
   const [showAnswers, setShowAnswers] = React.useState(false)
   const [copiedLink, setCopiedLink] = React.useState(false)
+  const bundleItemsParam = params.get('items') || ''
+  const bundleCategoryParam = params.get('category') || ''
+  const activeDocs = React.useMemo(() => {
+    if (doc === 'bundle') {
+      return bundleItemsParam
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => s && BUNDLE_DOC_ALLOWLIST.has(s))
+    }
+    return doc ? [doc] : []
+  }, [doc, bundleItemsParam])
+  const primaryDoc = activeDocs[0] || doc || ''
   const answerableDocs = new Set([
     'science-match',
     'spelling',
@@ -40,8 +55,12 @@ export function PrintablesPage() {
     'compare-2digit',
     'even-odd-100',
   ])
-  const shouldShowAnswerToggle = answerableDocs.has(doc)
+  const shouldShowAnswerToggle = activeDocs.length === 1 && answerableDocs.has(primaryDoc)
   const docTitle = React.useMemo(() => {
+    if (doc === 'bundle') {
+      if (bundleCategoryParam) return `${bundleCategoryParam} Printable Bundle`
+      return 'Printable Bundle'
+    }
     switch (doc) {
       case 'ten-frames-1-20':
         return '🔟 Ten Frames 1–20'
@@ -103,12 +122,12 @@ export function PrintablesPage() {
         return '📖 Grade 3 — The Science Fair Plan (Reading)'
       case 'reading-g3-community-garden':
         return '📖 Grade 3 — The Community Garden (Reading)'
-      case 'pack':
+        case 'pack':
         return `Today’s ${packTime}-Minute Print Pack`
       default:
         return 'Printable Fun Learning Activities'
     }
-  }, [doc])
+    }, [doc, bundleCategoryParam, packTime])
   const pinHref = React.useMemo(() => {
     try {
       const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
@@ -327,38 +346,32 @@ export function PrintablesPage() {
         </div>
         {/* Doc-specific back link is above header; sections appear below header */}
         <div className="mb-4 print:hidden flex justify-end">
-          <a href={(() => {
-            try {
-              const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-              const from = u.searchParams.get('from')
-              // Determine category anchor by doc
-              const cat = doc.startsWith('coloring') ? 'Coloring' : (
-                // Worksheets
-                ['math-maze','spelling','science-match','grammar-detective','sudoku4','sudoku6','number-tracing-1-10','uppercase-lowercase-match','beginning-sounds-az','addition-subtraction-0-10','ten-frames-1-10','shapes-colors-sort','ten-frames-1-20','number-tracing-1-20','place-value-hto','add-2digit-100','sub-2digit-100','skip-count-5-10-120','word-problems-100','compare-2digit','even-odd-100','time-5min'].includes(doc) ? 'Worksheets' : (
-                  // Creative & Art
-                  ['color-by-number','bookmark-templates','design-monster','draw-half','directed-drawing-animals','cut-and-paste-crafts'].includes(doc) ? 'Creative' : (
-                    // Brain & Focus
-                    ['spot-difference','logic-grid','ws-animals','ws-space','maze-focus','hidden-object','dot-to-dot-1-20','tangram-animals'].includes(doc) ? 'Brain' : (
-                      // Emotional & Mindfulness
-                      ['feelings-checkin','mood-tracker','mandalas','gratitude-jar','weekly-goals','reward-chart'].includes(doc) ? 'Emotional' : (
-                        // Seasonal & Holiday
-                        ['halloween-pack','winter-kindness','spring-scavenger','summer-pack'].includes(doc) ? 'Seasonal' : (
-                          // Challenge Packs
-                          ['brain-boost','creative-challenge','ws-world','animal-pack'].includes(doc) ? 'Challenge' : (
-                            // One-pagers
-                            ['stem-balloon-rocket','stem-walking-water','arts-3-shape-creature','reading-mini-1'].includes(doc) ? 'One-pagers' : ''
-                          )
-                        )
-                      )
-                    )
-                  )
-                ))
-              const hash = cat ? `#${encodeURIComponent(cat)}` : ''
-              return from === 'printables' ? `/printables${hash}` : '/printables'
-            } catch {
-              return '/printables'
-            }
-          })()} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm" aria-label="Back printable page">
+          <a
+            href={(() => {
+              try {
+                const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                const from = u.searchParams.get('from')
+                // Determine category anchor by doc or bundle selection
+                const cat = (() => {
+                  if (doc === 'bundle') {
+                    if (bundleCategoryParam) return bundleCategoryParam
+                    if (primaryDoc) {
+                      return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
+                    }
+                    return ''
+                  }
+                  if (!doc) return ''
+                  return getPrintableSectionForDoc(doc) || (doc.startsWith('coloring') ? 'Coloring' : doc.startsWith('geo-') ? 'Geography' : '')
+                })()
+                const hash = cat ? `#${encodeURIComponent(cat)}` : ''
+                return from === 'printables' ? `/printables${hash}` : '/printables'
+              } catch {
+                return '/printables'
+              }
+            })()}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
+            aria-label="Back printable page"
+          >
             <span>←</span>
             <span>Back printable page</span>
           </a>
@@ -405,7 +418,7 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
-        {doc === 'geo-continents-k2' && (
+        {activeDocs.includes('geo-continents-k2') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
             <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Write each continent’s name on the lines below. Optional: color each continent a different color.</p>
@@ -482,7 +495,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'geo-compass-rose' && (
+        {activeDocs.includes('geo-compass-rose') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🧭 Compass Rose & Directions</h2>
             <p className="text-slate-600 text-sm mb-3">Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions.</p>
@@ -511,7 +524,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'geo-landforms' && (
+        {activeDocs.includes('geo-landforms') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🏔️ Landforms vs Water Bodies</h2>
             <p className="text-slate-600 text-sm mb-3">Draw a line from each word to its matching picture. (A–E)</p>
@@ -612,7 +625,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'geo-latlong' && (
+        {activeDocs.includes('geo-latlong') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🗺️ Latitude & Longitude Basics</h2>
             <p className="text-slate-600 text-sm mb-3">Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W).</p>
@@ -666,7 +679,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'number-tracing-1-10' && (
+        {activeDocs.includes('number-tracing-1-10') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–10</h2>
             <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
@@ -716,7 +729,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'number-tracing-1-20' && (
+        {activeDocs.includes('number-tracing-1-20') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–20</h2>
             <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
@@ -769,7 +782,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'uppercase-lowercase-match' && (
+        {activeDocs.includes('uppercase-lowercase-match') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Aa–Zz Upper/Lower Letter Match</h2>
             <p className="text-slate-600 text-sm mb-3">Draw lines from uppercase to lowercase. Say the sound for each match.</p>
@@ -796,7 +809,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'beginning-sounds-az' && (
+        {activeDocs.includes('beginning-sounds-az') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Beginning Sounds (A–Z)</h2>
             <p className="text-slate-600 text-sm mb-3">Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple).</p>
@@ -846,7 +859,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'addition-subtraction-0-10' && (
+        {activeDocs.includes('addition-subtraction-0-10') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Addition & Subtraction 0–10</h2>
             <p className="text-slate-600 text-sm mb-3">Use the number line if needed. Write the answer in the box.</p>
@@ -866,7 +879,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'ten-frames-1-10' && (
+        {activeDocs.includes('ten-frames-1-10') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–10</h2>
             <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
@@ -885,7 +898,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'place-value-hto' && (() => {
+        {activeDocs.includes('place-value-hto') && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
@@ -942,7 +955,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'skip-count-5-10-120' && (() => {
+        {activeDocs.includes('skip-count-5-10-120') && (() => {
           const seq5 = Array.from({ length: 24 }, (_, i) => (i + 1) * 5); // 5..120
           const seq10 = Array.from({ length: 12 }, (_, i) => (i + 1) * 10); // 10..120
           const isBlank5 = (i: number) => i % 3 === 1; // blank some boxes for practice
@@ -991,7 +1004,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'add-2digit-100' && (() => {
+        {activeDocs.includes('add-2digit-100') && (() => {
           // Stable seeded RNG so toggling answers doesn't change content
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) {
@@ -1043,7 +1056,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'sub-2digit-100' && (() => {
+        {activeDocs.includes('sub-2digit-100') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) {
             return Math.floor(rng() * (max - min + 1)) + min;
@@ -1094,7 +1107,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'word-problems-100' && (
+        {activeDocs.includes('word-problems-100') && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <div className="absolute inset-0 -z-10 print:hidden">
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-yellow-200/40 animate-blob" />
@@ -1134,7 +1147,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'compare-2digit' && (() => {
+        {activeDocs.includes('compare-2digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const pairs: Array<[number, number]> = Array.from({length:10}).map(()=> {
@@ -1179,7 +1192,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'even-odd-100' && (() => {
+        {activeDocs.includes('even-odd-100') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           const nums = Array.from({length:20}).map(()=> Math.floor(rng()*100));
           return (
@@ -1213,7 +1226,7 @@ export function PrintablesPage() {
           );
         })()}
 
-        {doc === 'time-5min' && (
+        {activeDocs.includes('time-5min') && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <div className="absolute inset-0 -z-10 print:hidden">
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-sky-200/40 animate-blob" />
@@ -1238,7 +1251,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'ten-frames-1-20' && (
+        {activeDocs.includes('ten-frames-1-20') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–20</h2>
             <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
@@ -1257,7 +1270,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'shapes-colors-sort' && (
+        {activeDocs.includes('shapes-colors-sort') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Shapes & Colors Sort (Cut & Glue)</h2>
             <p className="text-slate-600 text-sm mb-3">Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely.</p>
@@ -1286,7 +1299,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'dot-to-dot-1-20' && (
+        {activeDocs.includes('dot-to-dot-1-20') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">1–20 Dot‑to‑Dot</h2>
             <p className="text-slate-600 text-sm mb-3">Connect the dots in order to reveal the picture.</p>
@@ -1301,7 +1314,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'tangram-animals' && (
+        {activeDocs.includes('tangram-animals') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Tangram Animals (Cutouts)</h2>
             <p className="text-slate-600 text-sm mb-3">Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet.</p>
@@ -1317,7 +1330,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'spot-difference' && (
+        {activeDocs.includes('spot-difference') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Spot‑the‑Difference (7)</h2>
             <p className="text-slate-600 text-sm mb-3">Find 7 differences between the two pictures.</p>
@@ -1328,7 +1341,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'directed-drawing-animals' && (
+        {activeDocs.includes('directed-drawing-animals') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Directed Drawing: Animals</h2>
             <p className="text-slate-600 text-sm mb-3">Follow each step to draw a fish silhouette using simple shapes. No face features (eyes, nose, mouth, ears).</p>
@@ -1377,7 +1390,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'cut-and-paste-crafts' && (
+        {activeDocs.includes('cut-and-paste-crafts') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Cut‑and‑Paste Paper Crafts</h2>
             <p className="text-slate-600 text-sm mb-3">Cut the parts and glue them in place. Color when finished.</p>
@@ -1394,7 +1407,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'feelings-checkin' && (
+        {activeDocs.includes('feelings-checkin') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Feelings Check‑In Meter</h2>
             <p className="text-slate-600 text-sm mb-3">Point to or color how you feel today.</p>
@@ -1415,7 +1428,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'reward-chart' && (
+        {activeDocs.includes('reward-chart') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Weekly Reward / Sticker Chart</h2>
             <p className="text-slate-600 text-sm mb-3">Add a sticker or color a star each time you complete a task.</p>
@@ -1440,7 +1453,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'reading-mini-1' && (
+        {activeDocs.includes('reading-mini-1') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Mini Reading Passage + 3 Questions</h2>
             <p className="text-slate-600 text-sm mb-3">Read the short passage, then answer the questions in full sentences.</p>
@@ -1464,7 +1477,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g1-lost-hat' && (
+        {activeDocs.includes('reading-g1-lost-hat') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Lost Hat (Grade 1)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1489,7 +1502,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g1-ants' && (
+        {activeDocs.includes('reading-g1-ants') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — Lunch for the Ants (Grade 1)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1514,7 +1527,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g1-bus-ride' && (
+        {activeDocs.includes('reading-g1-bus-ride') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Bus Ride (Grade 1)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1539,7 +1552,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g1-pet-fish' && (
+        {activeDocs.includes('reading-g1-pet-fish') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Pet Fish (Grade 1)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1564,7 +1577,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g2-paper-bridge' && (
+        {activeDocs.includes('reading-g2-paper-bridge') && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <div className="absolute inset-0 -z-10 print:hidden">
               <div className="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-amber-200/40 animate-blob" />
@@ -1607,7 +1620,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g2-rainy-garden' && (
+        {activeDocs.includes('reading-g2-rainy-garden') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — Rainy Day Garden (Grade 2)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1632,7 +1645,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g2-library-card' && (
+        {activeDocs.includes('reading-g2-library-card') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — New Library Card (Grade 2)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1657,7 +1670,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g2-lost-and-found' && (
+        {activeDocs.includes('reading-g2-lost-and-found') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — Lost and Found (Grade 2)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1682,7 +1695,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g3-lighthouse' && (
+        {activeDocs.includes('reading-g3-lighthouse') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Lighthouse Keeper’s Trick (Grade 3)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1707,7 +1720,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g3-science-fair' && (
+        {activeDocs.includes('reading-g3-science-fair') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Science Fair Plan (Grade 3)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1732,7 +1745,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'reading-g3-community-garden' && (
+        {activeDocs.includes('reading-g3-community-garden') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">Passage — The Community Garden (Grade 3)</h2>
             <div className="bg-white border border-slate-300 rounded p-4">
@@ -1757,7 +1770,7 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
-        {doc === 'pack' && (() => {
+        {activeDocs.includes('pack') && (() => {
           // Build dynamic pack content by time/age/skill
           const timeInt = parseInt(packTime || '5', 10);
           const itemCount = timeInt <= 5 ? 3 : (timeInt <= 10 ? 4 : 5);
@@ -2364,7 +2377,7 @@ export function PrintablesPage() {
             </section>
           );
         })()}
-        {doc === 'stem-balloon-rocket' && (
+        {activeDocs.includes('stem-balloon-rocket') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-2xl font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
             <p className="text-slate-700 text-base mb-4">Time: 10 minutes • Ages: 7–10</p>
@@ -2403,7 +2416,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'stem-walking-water' && (
+        {activeDocs.includes('stem-walking-water') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-2xl font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
             <p className="text-slate-700 text-base mb-4">Time: 15–20 minutes • Ages: 6–10</p>
@@ -2441,7 +2454,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'arts-3-shape-creature' && (
+        {activeDocs.includes('arts-3-shape-creature') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-2xl font-bold text-slate-900">🎨 Draw From 3 Shapes (Arts)</h2>
             <p className="text-slate-700 text-base mb-4">Time: 10–15 minutes • Ages: 6–12</p>
@@ -2477,7 +2490,7 @@ export function PrintablesPage() {
           </section>
         )}
       {/* (Removed legacy one-pager duplicates) */}
-        {doc === 'math-maze' && (
+        {activeDocs.includes('math-maze') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">➕ Math Maze Adventure</h2>
             <p className="text-slate-600 text-sm mb-3">Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!</p>
@@ -2510,7 +2523,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'spelling' && (
+        {activeDocs.includes('spelling') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">✏️ Spelling Challenge Worksheet</h2>
             <p className="text-slate-600 text-sm mb-3">Circle the correctly spelled word in each group. Then write it neatly on the line.</p>
@@ -2541,7 +2554,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'science-match' && (
+        {activeDocs.includes('science-match') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔬 Science Fun Facts Match</h2>
             <p className="text-slate-600 text-sm mb-3">Draw a line to match each fact with its pair.</p>
@@ -2579,7 +2592,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'grammar-detective' && (
+        {activeDocs.includes('grammar-detective') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🕵️‍♀️ Grammar Detective</h2>
             <p className="text-slate-600 text-sm mb-3">Find and fix the mistake in each sentence. Rewrite it correctly on the line.</p>
@@ -2610,7 +2623,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'color-by-number' && (
+        {activeDocs.includes('color-by-number') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🖍️ Color‑by‑Number</h2>
             <p className="text-slate-600 text-sm mb-3">Use the legend to color the grid. Reveal the hidden scene!</p>
@@ -2635,7 +2648,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'bookmark-templates' && (
+        {activeDocs.includes('bookmark-templates') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">📚 DIY Bookmark Templates</h2>
             <p className="text-slate-600 text-sm mb-3">Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!</p>
@@ -2650,7 +2663,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'design-monster' && (
+        {activeDocs.includes('design-monster') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">👾 Design Your Monster</h2>
             <p className="text-slate-600 text-sm mb-3">Draw inside the box and give your monster a name. Check the features you used.</p>
@@ -2672,7 +2685,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'draw-half' && (
+        {activeDocs.includes('draw-half') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">✏️ Draw the Missing Half</h2>
             <p className="text-slate-600 text-sm mb-3">Copy the right side to complete each picture. Use the grid as a guide.</p>
@@ -2778,7 +2791,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'logic-grid' && (
+        {activeDocs.includes('logic-grid') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🧩 Logic Grid Puzzle</h2>
             <p className="text-slate-600 text-sm mb-3">Mark ✓ for matches and ✗ for no match. Use the clues to solve.</p>
@@ -2825,7 +2838,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'hidden-object' && (
+        {activeDocs.includes('hidden-object') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
             <p className="text-slate-600 text-sm mb-3">Find and circle each item hidden in the scene below.</p>
@@ -2838,7 +2851,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'maze-focus' && (
+        {activeDocs.includes('maze-focus') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌀 Maze of Focus</h2>
             <p className="text-slate-600 text-sm mb-3">Follow the steps from START to FINISH. Skip distractions!</p>
@@ -2872,7 +2885,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'gratitude-jar' && (
+        {activeDocs.includes('gratitude-jar') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">💌 Gratitude Jar</h2>
             <p className="text-slate-600 text-sm mb-3">Write or draw one thing you’re thankful for in each circle.</p>
@@ -2893,7 +2906,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'mood-tracker' && (
+        {activeDocs.includes('mood-tracker') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌈 Mood Tracker</h2>
             <p className="text-slate-600 text-sm mb-3">Color each day based on your mood. Use your own color legend.</p>
@@ -2918,7 +2931,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'mandalas' && (
+        {activeDocs.includes('mandalas') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🕉️ Mindful Coloring Mandalas</h2>
             <p className="text-slate-600 text-sm mb-3">Color slowly. Start from the center and move outward.</p>
@@ -2947,7 +2960,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'weekly-goals' && (
+        {activeDocs.includes('weekly-goals') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🗓️ My Goals for the Week</h2>
             <p className="text-slate-600 text-sm mb-3">Write 3 goals, 1 thing to try, and 1 thing you’re proud of.</p>
@@ -2960,7 +2973,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'halloween-pack' && (
+        {activeDocs.includes('halloween-pack') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🎃 Halloween Puzzle Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Mini pack: word list + costume ideas + tiny maze.</p>
@@ -3103,7 +3116,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'winter-kindness' && (
+        {activeDocs.includes('winter-kindness') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">❄️ Winter Kindness Challenge</h2>
             <p className="text-slate-600 text-sm mb-3">Color a square each time you complete a kind act.</p>
@@ -3115,7 +3128,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'spring-scavenger' && (
+        {activeDocs.includes('spring-scavenger') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌸 Spring Nature Scavenger Hunt</h2>
             <p className="text-slate-600 text-sm mb-3">Go outside and check off what you discover.</p>
@@ -3125,7 +3138,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'summer-pack' && (
+        {activeDocs.includes('summer-pack') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">☀️ Summer Adventure Pack</h2>
             <p className="text-slate-600 text-sm mb-3">A quick set for travel days: word list + maze box + drawing prompt.</p>
@@ -3142,7 +3155,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'brain-boost' && (
+        {activeDocs.includes('brain-boost') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🧠 7‑Day Brain Boost Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Do one mini‑challenge each day. Track your streak!</p>
@@ -3183,7 +3196,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'creative-challenge' && (
+        {activeDocs.includes('creative-challenge') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🎨 Creative Kids Challenge</h2>
             <p className="text-slate-600 text-sm mb-3">7 days of quick art prompts. Spend 5–10 minutes each.</p>
@@ -3193,7 +3206,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'ws-world' && (
+        {activeDocs.includes('ws-world') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌍 Around the World Word Search</h2>
             <p className="text-slate-600 text-sm mb-3">Find all the world words hidden in the grid. Use the clue list to track your progress.</p>
@@ -3224,7 +3237,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'animal-pack' && (
+        {activeDocs.includes('animal-pack') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Adventure Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Mix of animal‑themed puzzles to print and enjoy.</p>
@@ -3384,7 +3397,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {(!doc || doc === 'ws-animals') && (
+        {(!doc || activeDocs.includes('ws-animals')) && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
@@ -3400,7 +3413,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {doc === 'ws-space' && (
+        {activeDocs.includes('ws-space') && (
         <section className="mb-10 break-inside-avoid">
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Space</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 space words. Circle horizontally, vertically, or diagonally.</p>
@@ -3416,7 +3429,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {(!doc || doc === 'sudoku4') && (
+        {(!doc || activeDocs.includes('sudoku4')) && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
             <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
@@ -3450,7 +3463,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'sudoku6' && (
+        {activeDocs.includes('sudoku6') && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 6×6 (Medium)</h2>
           <p className="text-slate-600 text-sm mb-3">Fill numbers 1–6 so each row/column contains all numbers with no repeats.</p>
@@ -3486,7 +3499,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {doc === 'coloring' && (
+        {activeDocs.includes('coloring') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
             <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
@@ -3496,7 +3509,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-letters-numbers' && (
+        {activeDocs.includes('coloring-letters-numbers') && (
           <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
             <h2 className="text-lg font-bold text-slate-900 print:hidden">🔢 Alphabet & Number Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3 print:hidden">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
@@ -3529,7 +3542,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-animals' && (
+        {activeDocs.includes('coloring-animals') && (
           <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
             <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
@@ -3621,7 +3634,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-nature' && (
+        {activeDocs.includes('coloring-nature') && (
           <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
             <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
             <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
@@ -3691,7 +3704,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-space' && (
+        {activeDocs.includes('coloring-space') && (
           <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
             <h2 className="text-lg font-bold text-slate-900 print:hidden">🚀 Space Adventure Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3 print:hidden">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
@@ -3816,7 +3829,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-vehicles' && (
+        {activeDocs.includes('coloring-vehicles') && (
           <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
             <h2 className="text-lg font-bold text-slate-900 print:hidden">🚗 Vehicles & Transport Coloring Sheets</h2>
             <p className="text-slate-600 text-sm mb-3 print:hidden">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
@@ -3887,7 +3900,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {doc === 'coloring-heroes' && (
+        {activeDocs.includes('coloring-heroes') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🦸 Superheroes & Everyday Heroes Coloring Pages</h2>
             <p className="text-slate-600 text-sm mb-3">Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers).</p>
@@ -3949,7 +3962,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {(doc === 'spotdiff') && (
+        {(activeDocs.includes('spotdiff')) && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">👀 Spot‑the‑Difference – Playground Fun</h2>
           <p className="text-slate-600 text-sm mb-3">Compare both pictures and circle 8 differences.</p>
