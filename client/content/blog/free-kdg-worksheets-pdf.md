@@ -109,20 +109,6 @@ All PDFs are **print-ready, classroom-tested, no-prep**, and perfect for centers
 
 ---
 
-## 📥 Get Your Free Kindergarten Learning Worksheets PDF
-
-Ready to download? Click the packs above or jump straight to our most popular printable bundles:
-
-- **Primary bundles:** [Free Kindergarten Worksheets PDF Download](https://wizqo.com/printables)
-- **Handwriting generator:** [Build custom KDG handwriting practice](https://wizqo.com/worksheets/handwriting-worksheet-maker)
-- **Math practice pack:** [Fun KDG Math Worksheets Free Printable PDF](https://wizqo.com/print?doc=math-kdg-pack)
-
-👉 Want a full week of learning in one place? Try the [7-Day Hobby Plan Generator](https://wizqo.com/generate) and choose art, music, or science themes for quick, confidence-building activities.
-
-Happy printing! Let me know which pack your learners love most, and I’ll keep adding more free kindergarten worksheets to this hub. 😊
-
----
-
 ## ❓ FAQs About Free Kindergarten Worksheets PDF
 
 **How can I make kindergarten worksheets fun?**
