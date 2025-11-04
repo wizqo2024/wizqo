@@ -119,6 +119,8 @@ All PDFs are **print-ready, classroom-tested, no-prep**, and perfect for centers
 
 ## ❓ FAQs About Free Kindergarten Worksheets PDF
 
+Have questions about using these **free KDG worksheets PDF** packs? Here are quick answers to the most common things teachers and parents ask before printing.
+
 **How can I make kindergarten worksheets fun?**
 
 Mix printable PDF packs with hands-on activities like playdough letters, sticker math, or art prompts from the [Kids Hub](https://wizqo.com/kids). Breaking learning into short, themed sessions keeps kids curious.
