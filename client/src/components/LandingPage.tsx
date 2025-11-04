@@ -176,25 +176,29 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Trust & Highlights Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">1,200+</div>
-              <div className="text-slate-600">Active Learners</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
+              <div className="text-3xl mb-3">🌟</div>
+              <h3 className="text-lg font-semibold text-slate-900">Loved by families & teachers</h3>
+              <p className="mt-2 text-sm text-slate-600">Feedback-driven lessons shaped by real parents, educators, and hobby mentors.</p>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">3,500+</div>
-              <div className="text-slate-600">Plans Completed</div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
+              <div className="text-3xl mb-3">🖨️</div>
+              <h3 className="text-lg font-semibold text-slate-900">Printable library ready to go</h3>
+              <p className="mt-2 text-sm text-slate-600">Grab certificates, handwriting sheets, and activity packs without any setup.</p>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">1,000+</div>
-              <div className="text-slate-600">Hobbies Supported</div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
+              <div className="text-3xl mb-3">🤖</div>
+              <h3 className="text-lg font-semibold text-slate-900">AI hobby coach on demand</h3>
+              <p className="mt-2 text-sm text-slate-600">Personalized 7-day plans and quick-start tips tailored to your interests.</p>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">4.7/5</div>
-              <div className="text-slate-600">User Rating</div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
+              <div className="text-3xl mb-3">🎯</div>
+              <h3 className="text-lg font-semibold text-slate-900">Fresh activities weekly</h3>
+              <p className="mt-2 text-sm text-slate-600">New printables, games, and challenges pushed live so you always have something fun to try.</p>
             </div>
           </div>
         </div>
