@@ -27,7 +27,7 @@ Make alphabet practice exciting with tracing worksheets that build confidence le
 - **Name Tracing Worksheet Generator** – type the child’s name and create personalized tracing sheets in seconds.
 
 
-➡️ **Download:** [Alphabet Tracing Worksheets for Kindergarten (PDF)](https://wizqo.com/print?doc=ws-letters)
+➡️ **Download:** [Alphabet Tracing Worksheets Printable PDF](https://wizqo.com/print?doc=uppercase-lowercase-match)
 
 ➡️ **Personalize:** [Name Tracing Generator](https://wizqo.com/printables/name-tracing-generator)
 
@@ -43,7 +43,7 @@ Strengthen counting, number recognition, and early math logic with fun, themed w
 - **Ten Frames (1–10 & 1–20)** – practice counting, subitizing, and number composition.
 - **Free KDG Addition Practice (0–10)** – simple equations with number lines and picture cues.
 
-➡️ **Download:** [KDG Math Worksheets – Free Printable PDF Pack](https://wizqo.com/print?doc=math-kdg-pack)
+➡️ **Download:** [KDG Math Worksheets – Ten Frames & Counting Practice](https://wizqo.com/print?doc=ten-frames-1-10)
 
 ➡️ **Explore more:** [Kindergarten Math Worksheets Printable Free PDF](https://wizqo.com/worksheets/1st-grade-math-worksheets)
 
@@ -59,7 +59,7 @@ Help early readers build confidence with simple word recognition, phonics, and c
 - **Free Kindergarten Reading Worksheets PDF** – short passages with picture clues and comprehension questions.
 - **Alphabet Sound Match** – circle the letter that matches the beginning sound picture.
 
-➡️ **Download:** [KDG Reading Worksheets PDF Download](https://wizqo.com/print?doc=reading-kdg-pack)
+➡️ **Download:** [Sight Word & Reading Practice (PDF)](https://wizqo.com/print?doc=reading-mini-1)
 
 ➡️ **Add more stories:** [Reading Comprehension Worksheets (Grades K–2)](https://wizqo.com/worksheets/reading-comprehension)
 
@@ -75,7 +75,7 @@ Need quick, low-prep activities? Try these fun kindergarten learning worksheets.
 - **Sequencing & Story Order** – arrange picture cards to tell a simple story.
 - **Early STEM Observation** – draw and label things like weather, plants, or insects.
 
-➡️ **Download:** [Printable Early Learning Worksheets PDF Pack](https://wizqo.com/print?doc=early-learning-pack)
+➡️ **Download:** [Printable Early Learning Worksheets PDF Pack](https://wizqo.com/print?doc=shapes-colors-sort)
 
 ➡️ **Don’t miss:** [Kids Hub Games & Printables](https://wizqo.com/kids) for screen-free and online activities.
 
