@@ -28,7 +28,7 @@ Make alphabet practice exciting with tracing worksheets that build confidence le
 
 
 <p>
-  ➡️ <a href="https://wizqo.com/print?doc=uppercase-lowercase-match" target="_blank" rel="noopener">Alphabet Tracing Worksheets Printable PDF</a>
+  ➡️ <a href="https://wizqo.com/worksheets/handwriting-worksheet-maker" target="_blank" rel="noopener">Alphabet &amp; Handwriting Worksheet Hub</a>
   <br />
   ➡️ <a href="https://wizqo.com/printables/name-tracing-generator" target="_blank" rel="noopener">Name Tracing Generator</a>
 </p>
@@ -46,9 +46,9 @@ Strengthen counting, number recognition, and early math logic with fun, themed w
 - **Free KDG Addition Practice (0–10)** – simple equations with number lines and picture cues.
 
 <p>
-  ➡️ <a href="https://wizqo.com/print?doc=ten-frames-1-10" target="_blank" rel="noopener">KDG Math Worksheets – Ten Frames &amp; Counting Practice</a>
+  ➡️ <a href="https://wizqo.com/worksheets/1st-grade-math-worksheets" target="_blank" rel="noopener">Math Worksheets &amp; Activities for Early Learners</a>
   <br />
-  ➡️ <a href="https://wizqo.com/worksheets/1st-grade-math-worksheets" target="_blank" rel="noopener">Kindergarten Math Worksheets Printable Free PDF</a>
+  ➡️ <a href="https://wizqo.com/printables" target="_blank" rel="noopener">Printable Packs for Counting, Ten Frames, and Addition</a>
 </p>
 
 **Tip:** Laminate the ten-frame pages and use dry-erase markers for reusable math centers.
@@ -64,9 +64,9 @@ Help early readers build confidence with simple word recognition, phonics, and c
 - **Alphabet Sound Match** – circle the letter that matches the beginning sound picture.
 
 <p>
-  ➡️ <a href="https://wizqo.com/print?doc=reading-mini-1" target="_blank" rel="noopener">Sight Word &amp; Reading Practice (PDF)</a>
+  ➡️ <a href="https://wizqo.com/worksheets/reading-comprehension" target="_blank" rel="noopener">Reading &amp; Sight Word Worksheet Hub</a>
   <br />
-  ➡️ <a href="https://wizqo.com/worksheets/reading-comprehension" target="_blank" rel="noopener">Reading Comprehension Worksheets (Grades K–2)</a>
+  ➡️ <a href="https://wizqo.com/printables" target="_blank" rel="noopener">Printable Reading Passages &amp; Sight Word Cards</a>
 </p>
 
 **Bonus activity:** Use the [Certificate Maker](https://wizqo.com/printables/certificate-maker) to celebrate reading milestones with printable awards.
@@ -82,9 +82,9 @@ Need quick, low-prep activities? Try these fun kindergarten learning worksheets.
 - **Early STEM Observation** – draw and label things like weather, plants, or insects.
 
 <p>
-  ➡️ <a href="https://wizqo.com/print?doc=shapes-colors-sort" target="_blank" rel="noopener">Printable Early Learning Worksheets PDF Pack</a>
+  ➡️ <a href="https://wizqo.com/printables" target="_blank" rel="noopener">Printable Early Learning Worksheet Packs</a>
   <br />
-  ➡️ <a href="https://wizqo.com/kids" target="_blank" rel="noopener">Kids Hub Games &amp; Printables</a>
+  ➡️ <a href="https://wizqo.com/kids" target="_blank" rel="noopener">Kids Hub – Free Games &amp; Activities</a>
 </p>
 
 **Teacher Tip:** Pair the cut-and-paste sheets with the [Kids Hub Memory Match game](https://wizqo.com/kids/games/memory) to reinforce pattern recognition.
