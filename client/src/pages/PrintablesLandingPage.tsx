@@ -1,6 +1,7 @@
 import React from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
+import { PRINTABLE_BUNDLE_SECTIONS } from '@/data/printableBundles';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -22,6 +23,28 @@ function ItemCard({ title, description, skills, age, href }: { title: string; de
         <a href={(href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
       </div>
     </div>
+  );
+}
+
+function BundleButton({ section, className }: { section: string; className?: string }) {
+  const docs = PRINTABLE_BUNDLE_SECTIONS[section];
+  if (!docs || docs.length === 0) return null;
+  const params = new URLSearchParams({
+    doc: 'bundle',
+    items: docs.join(','),
+    category: section,
+    from: 'printables',
+    autoprint: '1',
+  });
+  const url = `/print?${params.toString()}`;
+  return (
+    <a
+      href={url}
+      className={`${BUTTON_CLASS} ${className ?? ''}`.trim()}
+      aria-label={`Download the ${section} printable bundle`}
+    >
+      ⬇️ Download bundle (PDF)
+    </a>
   );
 }
 
@@ -408,6 +431,9 @@ export function PrintablesLandingPage() {
         <section id="Coloring" className={`scroll-mt-24 ${sectionVisibility('Coloring')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🖍️ 1. Printable Coloring Pages for Kids</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Themed packs to spark creativity and learning. Each pack is unique and print‑ready.</p>
+            <div className="mb-3">
+              <BundleButton section="Coloring" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🎨 Animal Friends Coloring Pages"
@@ -458,6 +484,9 @@ export function PrintablesLandingPage() {
               </div>
             </div>
           </div>
+            <div className="mb-3">
+              <BundleButton section="Worksheets" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="➕ Math Maze Adventure"
@@ -610,6 +639,9 @@ export function PrintablesLandingPage() {
         <section id="Creative" className={`scroll-mt-24 ${sectionVisibility('Creative')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎨 3. Creative & Art Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Spark imagination with low‑prep projects kids can draw, color, and customize. These printable art prompts build hand control, creativity, and a lifelong love of making things.</p>
+            <div className="mb-3">
+              <BundleButton section="Creative" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🖍️ Color-by-Number Pages"
@@ -660,6 +692,9 @@ export function PrintablesLandingPage() {
         <section id="Brain" className={`scroll-mt-24 ${sectionVisibility('Brain')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 4. Brain & Focus Activities</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Build attention and problem‑solving with puzzles that reward careful thinking. Great for quiet time, independent work, and on‑the‑go brain breaks.</p>
+            <div className="mb-3">
+              <BundleButton section="Brain" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🧩 Logic Grid Puzzle"
@@ -710,6 +745,9 @@ export function PrintablesLandingPage() {
         <section id="Emotional" className={`scroll-mt-24 ${sectionVisibility('Emotional')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">💖 5. Emotional & Mindfulness Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Simple, calming pages that help kids name feelings, practice gratitude, and reflect on wins. Perfect for bedtime routines or classroom mindfulness corners.</p>
+            <div className="mb-3">
+              <BundleButton section="Emotional" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="💌 Gratitude Jar Worksheet"
@@ -760,6 +798,9 @@ export function PrintablesLandingPage() {
         <section id="Seasonal" className={`scroll-mt-24 ${sectionVisibility('Seasonal')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🎉 6. Seasonal & Holiday Printables</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Celebrate the seasons with themed puzzles, hunts, and kindness challenges. Keep little hands busy during holidays, travel days, and family gatherings.</p>
+            <div className="mb-3">
+              <BundleButton section="Seasonal" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🎃 Halloween Puzzle Pack"
@@ -796,6 +837,9 @@ export function PrintablesLandingPage() {
         <section id="Challenge" className={`scroll-mt-24 ${sectionVisibility('Challenge')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🌍 7. Printable Challenge Packs</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Week‑long printable packs that turn practice into a friendly challenge. Each set layers small daily wins into real progress kids can feel proud of.</p>
+            <div className="mb-3">
+              <BundleButton section="Challenge" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🧠 7-Day Brain Boost Pack"
@@ -824,6 +868,9 @@ export function PrintablesLandingPage() {
         <section id="One-pagers" className={`scroll-mt-24 ${sectionVisibility('One-pagers')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧪 8. Quick STEM/Arts One‑pagers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Fast, print‑and‑go activities with 5 clear steps, simple materials, and a short “what you learned” box.</p>
+            <div className="mb-3">
+              <BundleButton section="One-pagers" />
+            </div>
           <div className={gridClass}>
             <ItemCard
               title="🚀 Balloon Rocket (STEM)"
@@ -860,6 +907,9 @@ export function PrintablesLandingPage() {
         <section id="Geography" className={`scroll-mt-24 ${sectionVisibility('Geography')}`}>
           <h2 className="text-xl font-bold text-slate-900 mb-2">🧭 9. Geography Worksheets</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Learn continents, directions, landforms, and latitude/longitude. Printable, kid‑friendly pages that build map skills.</p>
+            <div className="mb-3">
+              <BundleButton section="Geography" />
+            </div>
           <div className={gridClass}>
             <ItemCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" />
             <ItemCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" />

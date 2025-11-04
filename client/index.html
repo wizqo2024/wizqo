@@ -93,27 +93,27 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://www.youtube.com" />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <style>
+      .seo-hidden-links {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
-    <noscript>
-      <style>
-        .noscript-nav { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #111827; color: #f9fafb; padding: 1.5rem; }
-        .noscript-nav a { color: #fbbf24; text-decoration: none; margin-right: 1rem; }
-        .noscript-nav a:hover { text-decoration: underline; }
-      </style>
-      <div class="noscript-nav">
-        <p><strong>Quick links:</strong></p>
-        <p>
-          <a href="/">Home</a>
-          <a href="/generate">Generate a Plan</a>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/blog">Blog</a>
-          <a href="/kids">Kids Hub</a>
-          <a href="/printables">Printables</a>
-          <a href="/contact">Contact</a>
-        </p>
-      </div>
-    </noscript>
+    <nav class="seo-hidden-links" aria-hidden="true">
+      <a href="/">Home</a>
+      <a href="/generate">Generate a Plan</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/blog">Blog</a>
+      <a href="/kids">Kids Hub</a>
+      <a href="/printables">Printables</a>
+      <a href="/contact">Contact</a>
+    </nav>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
