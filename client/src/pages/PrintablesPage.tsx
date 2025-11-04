@@ -124,10 +124,6 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🔎 Find the Hidden Object'
     case 'maze-focus':
       return '🌀 Maze of Focus'
-    case 'dot-to-dot-1-20':
-      return '1–20 Dot-to-Dot'
-    case 'tangram-animals':
-      return 'Tangram Animals'
     case 'ws-animals':
       return '🧠 Word Search – Animals'
     case 'ws-space':
@@ -1094,7 +1090,7 @@ export function PrintablesPage() {
                     })}
                   </ul>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1143,7 +1139,7 @@ export function PrintablesPage() {
                   <div className="font-semibold mb-1">Answer key</div>
                   <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1195,7 +1191,7 @@ export function PrintablesPage() {
                     {pairs.map(([a,b],i)=> (<li key={i}>{a} + {b} = {a+b}</li>))}
                   </ul>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1246,7 +1242,7 @@ export function PrintablesPage() {
                     {pairs.map(([a,b],i)=> (<li key={i}>{a} − {b} = {a-b}</li>))}
                   </ul>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1287,7 +1283,7 @@ export function PrintablesPage() {
                   <li>27 + 22 = 49</li>
                 </ol>
               </div>
-            )}
+            ))}
           </section>
         )}
 
@@ -1331,7 +1327,7 @@ export function PrintablesPage() {
                   <div className="font-semibold mb-1">Answer key (sample logic)</div>
                   <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1365,7 +1361,7 @@ export function PrintablesPage() {
                     {nums.map((n,i)=> (<li key={i}>{n}: {n%2===0 ? 'Even' : 'Odd'}</li>))}
                   </ul>
                 </div>
-              )}
+              ))}
             </section>
           );
         })()}
@@ -1617,7 +1613,7 @@ export function PrintablesPage() {
                     <li>A green sprout</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1642,7 +1638,7 @@ export function PrintablesPage() {
                     <li>The wind was strong</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1667,7 +1663,7 @@ export function PrintablesPage() {
                     <li>It was clean</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1692,7 +1688,7 @@ export function PrintablesPage() {
                     <li>It was their stop</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1717,7 +1713,7 @@ export function PrintablesPage() {
                     <li>A picture of Dot</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1760,7 +1756,7 @@ export function PrintablesPage() {
                     <li>Three cars</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1785,7 +1781,7 @@ export function PrintablesPage() {
                     <li>“Let the rain help”</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1810,7 +1806,7 @@ export function PrintablesPage() {
                     <li>To complete the form and get the card</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1835,7 +1831,7 @@ export function PrintablesPage() {
                     <li>A classmate; she found her glove</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1860,7 +1856,7 @@ export function PrintablesPage() {
                     <li>She keeps careful records and uses safe methods</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1885,7 +1881,7 @@ export function PrintablesPage() {
                     <li>To follow steps consistently and fairly</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -1910,7 +1906,7 @@ export function PrintablesPage() {
                     <li>For books (sold bundles to raise money)</li>
                   </ol>
                 </div>
-              )}
+              ))}
             </div>
           </section>
         )}
@@ -2661,7 +2657,7 @@ export function PrintablesPage() {
                     </ul>
                     <div className="text-xs mt-1">Tip: Any path obeying row targets is correct; teacher can pick targets.</div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
           </section>
@@ -2694,7 +2690,7 @@ export function PrintablesPage() {
                   <li>5) tomorrow</li>
                 </ol>
               </div>
-            )}
+            ))}
           </section>
         )}
 
@@ -2732,7 +2728,7 @@ export function PrintablesPage() {
                   <li>6 → C (orbits the Sun → the blue planet’s path)</li>
                 </ol>
               </div>
-            )}
+            ))}
           </section>
         )}
 
@@ -2763,7 +2759,7 @@ export function PrintablesPage() {
                   <li>She doesn't like broccoli.</li>
                 </ol>
               </div>
-            )}
+            ))}
           </section>
         )}
 
@@ -2978,7 +2974,7 @@ export function PrintablesPage() {
                   <li>Liam → Cat</li>
                 </ul>
               </div>
-            )}
+            ))}
           </section>
         )}
 
