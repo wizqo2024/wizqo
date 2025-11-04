@@ -2,6 +2,175 @@ import React from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 
+function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
+  const { packTime, bundleCategory } = context
+  switch (docId) {
+    case 'bundle':
+      return bundleCategory ? `${bundleCategory} Printable Bundle` : 'Printable Bundle'
+    case 'ten-frames-1-20':
+      return '🔟 Ten Frames 1–20'
+    case 'number-tracing-1-20':
+      return '🔢 Number Tracing 1–20'
+    case 'stem-balloon-rocket':
+      return '🚀 Balloon Rocket (STEM)'
+    case 'stem-walking-water':
+      return '🌈 Walking Water (STEM)'
+    case 'arts-3-shape-creature':
+      return '🎨 Draw From 3 Shapes (Arts)'
+    case 'number-tracing-1-10':
+      return '🔢 Number Tracing 1–10'
+    case 'uppercase-lowercase-match':
+      return 'Aa–Zz Upper/Lower Letter Match'
+    case 'beginning-sounds-az':
+      return '🔤 Beginning Sounds (A–Z)'
+    case 'addition-subtraction-0-10':
+      return '➕➖ Addition & Subtraction 0–10'
+    case 'ten-frames-1-10':
+      return '🔟 Ten Frames 1–10'
+    case 'shapes-colors-sort':
+      return '◻ Shapes & Colors Sort (Cut & Glue)'
+    case 'dot-to-dot-1-20':
+      return '1–20 Dot‑to‑Dot'
+    case 'tangram-animals':
+      return 'Tangram Animals (Cutouts)'
+    case 'spot-difference':
+    case 'spotdiff':
+      return '👀 Spot‑the‑Difference'
+    case 'directed-drawing-animals':
+      return '🖊️ Directed Drawing: Animals'
+    case 'cut-and-paste-crafts':
+      return '✂️ Cut‑and‑Paste Paper Crafts'
+    case 'feelings-checkin':
+      return '😊 Feelings Check‑In Meter'
+    case 'reward-chart':
+      return '⭐ Weekly Reward / Sticker Chart'
+    case 'reading-mini-1':
+      return '📖 Mini Reading Passage + 3 Questions'
+    case 'reading-g1-lost-hat':
+      return '📖 Grade 1 — The Lost Hat (Reading)'
+    case 'reading-g1-ants':
+      return '📖 Grade 1 — Lunch for the Ants (Reading)'
+    case 'reading-g1-bus-ride':
+      return '📖 Grade 1 — The Bus Ride (Reading)'
+    case 'reading-g1-pet-fish':
+      return '📖 Grade 1 — The Pet Fish (Reading)'
+    case 'reading-g2-paper-bridge':
+      return '📖 Grade 2 — The Paper Bridge (Reading)'
+    case 'reading-g2-rainy-garden':
+      return '📖 Grade 2 — Rainy Day Garden (Reading)'
+    case 'reading-g2-library-card':
+      return '📖 Grade 2 — New Library Card (Reading)'
+    case 'reading-g2-lost-and-found':
+      return '📖 Grade 2 — Lost and Found (Reading)'
+    case 'reading-g3-lighthouse':
+      return '📖 Grade 3 — The Lighthouse Keeper’s Trick (Reading)'
+    case 'reading-g3-science-fair':
+      return '📖 Grade 3 — The Science Fair Plan (Reading)'
+    case 'reading-g3-community-garden':
+      return '📖 Grade 3 — The Community Garden (Reading)'
+    case 'pack':
+      return `Today’s ${packTime}-Minute Print Pack`
+    case 'math-maze':
+      return '➕ Math Maze Adventure'
+    case 'spelling':
+      return '✏️ Spelling Challenge Worksheet'
+    case 'science-match':
+      return '🔬 Science Fun Facts Match'
+    case 'grammar-detective':
+      return '🕵️‍♀️ Grammar Detective'
+    case 'sudoku4':
+      return '🔢 Sudoku – 4×4 (Easy)'
+    case 'sudoku6':
+      return '🧮 Sudoku – 6×6 (Medium)'
+    case 'place-value-hto':
+      return '🧮 Place Value (Tens/Ones)'
+    case 'skip-count-5-10-120':
+      return '🔁 Skip Counting by 5s & 10s'
+    case 'add-2digit-100':
+      return '➕ Add 2-Digit Numbers (to 100)'
+    case 'sub-2digit-100':
+      return '➖ Subtract 2-Digit Numbers (to 100)'
+    case 'word-problems-100':
+      return '🧠 Word Problems (within 100)'
+    case 'compare-2digit':
+      return '⚖️ Compare 2-Digit Numbers'
+    case 'even-odd-100':
+      return '🔢 Even or Odd to 100'
+    case 'time-5min':
+      return '⏰ Tell Time to 5 Minutes'
+    case 'color-by-number':
+      return '🖍️ Color-by-Number Pages'
+    case 'bookmark-templates':
+      return '📚 DIY Bookmark Templates'
+    case 'design-monster':
+      return '👾 Design Your Monster'
+    case 'draw-half':
+      return '✏️ Draw the Missing Half'
+    case 'coloring-animals':
+      return '🦁 Animal Friends Coloring'
+    case 'coloring-nature':
+      return '🌼 Nature & Seasons Coloring'
+    case 'coloring-space':
+      return '🚀 Space Adventure Coloring'
+    case 'coloring-vehicles':
+      return '🚗 Vehicles & Transport Coloring'
+    case 'coloring-letters-numbers':
+      return '🔢 Alphabet & Number Coloring'
+    case 'coloring-heroes':
+      return '🦸 Superheroes & Everyday Heroes'
+    case 'coloring':
+      return '🎨 Coloring Page – Cute Animal'
+    case 'hidden-object':
+      return '🔎 Find the Hidden Object'
+    case 'maze-focus':
+      return '🌀 Maze of Focus'
+    case 'dot-to-dot-1-20':
+      return '1–20 Dot-to-Dot'
+    case 'tangram-animals':
+      return 'Tangram Animals'
+    case 'ws-animals':
+      return '🧠 Word Search – Animals'
+    case 'ws-space':
+      return '🧠 Word Search – Space'
+    case 'logic-grid':
+      return '🧩 Logic Grid Puzzle'
+    case 'gratitude-jar':
+      return '💌 Gratitude Jar Worksheet'
+    case 'mood-tracker':
+      return '🌈 Mood Tracker Coloring Page'
+    case 'mandalas':
+      return '🕉️ Mindful Coloring Mandalas'
+    case 'weekly-goals':
+      return '🗓️ My Goals for the Week'
+    case 'halloween-pack':
+      return '🎃 Halloween Puzzle Pack'
+    case 'winter-kindness':
+      return '❄️ Winter Kindness Challenge'
+    case 'spring-scavenger':
+      return '🌸 Spring Nature Scavenger Hunt'
+    case 'summer-pack':
+      return '☀️ Summer Adventure Pack'
+    case 'brain-boost':
+      return '🧠 7-Day Brain Boost Pack'
+    case 'creative-challenge':
+      return '🎨 Creative Kids Challenge'
+    case 'ws-world':
+      return '🌍 Around the World Word Search'
+    case 'animal-pack':
+      return '🦁 Animal Adventure Pack'
+    case 'geo-continents-k2':
+      return '🌍 Label the 7 Continents (K–2)'
+    case 'geo-compass-rose':
+      return '🧭 Compass Rose & Directions'
+    case 'geo-landforms':
+      return '🏔️ Landforms vs Water Bodies'
+    case 'geo-latlong':
+      return '🗺️ Latitude & Longitude Basics'
+    default:
+      return 'Printable Fun Learning Activities'
+  }
+}
+
 const BUNDLE_DOC_ALLOWLIST = new Set<string>(Object.values(PRINTABLE_BUNDLE_SECTIONS).flat())
 
 export function PrintablesPage() {
@@ -55,79 +224,12 @@ export function PrintablesPage() {
     'compare-2digit',
     'even-odd-100',
   ])
-  const shouldShowAnswerToggle = activeDocs.length === 1 && answerableDocs.has(primaryDoc)
-  const docTitle = React.useMemo(() => {
-    if (doc === 'bundle') {
-      if (bundleCategoryParam) return `${bundleCategoryParam} Printable Bundle`
-      return 'Printable Bundle'
-    }
-    switch (doc) {
-      case 'ten-frames-1-20':
-        return '🔟 Ten Frames 1–20'
-      case 'number-tracing-1-20':
-        return '🔢 Number Tracing 1–20'
-      case 'stem-balloon-rocket':
-        return '🚀 Balloon Rocket (STEM)'
-      case 'stem-walking-water':
-        return '🌈 Walking Water (STEM)'
-      case 'arts-3-shape-creature':
-        return '🎨 Draw From 3 Shapes (Arts)'
-      case 'number-tracing-1-10':
-        return '🔢 Number Tracing 1–10'
-      case 'uppercase-lowercase-match':
-        return 'Aa–Zz Upper/Lower Letter Match'
-      case 'beginning-sounds-az':
-        return '🔤 Beginning Sounds (A–Z)'
-      case 'addition-subtraction-0-10':
-        return '➕➖ Addition & Subtraction 0–10'
-      case 'ten-frames-1-10':
-        return '🔟 Ten Frames 1–10'
-      case 'shapes-colors-sort':
-        return '◻ Shapes & Colors Sort (Cut & Glue)'
-      case 'dot-to-dot-1-20':
-        return '1–20 Dot‑to‑Dot'
-      case 'tangram-animals':
-        return 'Tangram Animals (Cutouts)'
-      case 'spot-difference':
-        return '👀 Spot‑the‑Difference'
-      case 'directed-drawing-animals':
-        return '🖊️ Directed Drawing: Animals'
-      case 'cut-and-paste-crafts':
-        return '✂️ Cut‑and‑Paste Paper Crafts'
-      case 'feelings-checkin':
-        return '😊 Feelings Check‑In Meter'
-      case 'reward-chart':
-        return '⭐ Weekly Reward / Sticker Chart'
-      case 'reading-mini-1':
-        return '📖 Mini Reading Passage + 3 Questions'
-      case 'reading-g1-lost-hat':
-        return '📖 Grade 1 — The Lost Hat (Reading)'
-      case 'reading-g1-ants':
-        return '📖 Grade 1 — Lunch for the Ants (Reading)'
-      case 'reading-g1-bus-ride':
-        return '📖 Grade 1 — The Bus Ride (Reading)'
-      case 'reading-g1-pet-fish':
-        return '📖 Grade 1 — The Pet Fish (Reading)'
-      case 'reading-g2-paper-bridge':
-        return '📖 Grade 2 — The Paper Bridge (Reading)'
-      case 'reading-g2-rainy-garden':
-        return '📖 Grade 2 — Rainy Day Garden (Reading)'
-      case 'reading-g2-library-card':
-        return '📖 Grade 2 — New Library Card (Reading)'
-      case 'reading-g2-lost-and-found':
-        return '📖 Grade 2 — Lost and Found (Reading)'
-      case 'reading-g3-lighthouse':
-        return '📖 Grade 3 — The Lighthouse Keeper’s Trick (Reading)'
-      case 'reading-g3-science-fair':
-        return '📖 Grade 3 — The Science Fair Plan (Reading)'
-      case 'reading-g3-community-garden':
-        return '📖 Grade 3 — The Community Garden (Reading)'
-        case 'pack':
-        return `Today’s ${packTime}-Minute Print Pack`
-      default:
-        return 'Printable Fun Learning Activities'
-    }
-    }, [doc, bundleCategoryParam, packTime])
+  const bundleHasAnswers = doc === 'bundle' && activeDocs.some(id => answerableDocs.has(id))
+  const shouldShowAnswerToggle = (activeDocs.length === 1 && answerableDocs.has(primaryDoc)) || bundleHasAnswers
+  const docTitle = React.useMemo(
+    () => resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined }),
+    [doc, packTime, bundleCategoryParam]
+  )
   const pinHref = React.useMemo(() => {
     try {
       const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
@@ -153,6 +255,24 @@ export function PrintablesPage() {
 
   const effectiveSeed = seedParam || todaySeed
   const variant = parseInt(variantParam || '1', 10)
+  const bundleAnswerSections: Array<{ docId: string; title: string; content: React.ReactNode }> = []
+  const showAnswersForDoc = (docId: string, factory: () => React.ReactNode) => {
+    if (!showAnswers) return null
+    const content = factory()
+    if (doc === 'bundle') {
+      const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined })
+      let summaryContent = content
+      if (React.isValidElement(content)) {
+        const existing = content.props.className || ''
+        const cleaned = existing.replace(/\bmt-\d+\b/g, '').trim()
+        summaryContent = React.cloneElement(content, {
+          className: `${cleaned} mb-0`.trim()
+        })
+      }
+      bundleAnswerSections.push({ docId, title, content: summaryContent })
+    }
+    return content
+  }
 
   const friendlyAge = (v: string) => 
     v === 'k1' ? 'K–1'
@@ -274,28 +394,28 @@ export function PrintablesPage() {
     return { puzzle, solution: board }
   }
   const mathMazeCells = React.useMemo(() => {
-    if (doc !== 'math-maze') return [] as string[];
-    const cells: string[] = [];
+    if (!activeDocs.includes('math-maze')) return [] as string[]
+    const cells: string[] = []
+    const rng = makeRng(`${effectiveSeed}|math-maze|v${variant}`)
     for (let r = 0; r < 7; r++) {
       for (let c = 0; c < 7; c++) {
-        if (r === 0 && c === 0) { cells.push('S'); continue; }
-        if (r === 6 && c === 6) { cells.push('F'); continue; }
-        // Prefer non-negative, age-appropriate results (<= 18)
-        const useAddition = Math.random() < 0.7; // weight towards addition
+        if (r === 0 && c === 0) { cells.push('S'); continue }
+        if (r === 6 && c === 6) { cells.push('F'); continue }
+        const useAddition = rng() < 0.7
         if (useAddition) {
-          let a = Math.floor(Math.random() * 9) + 1; // 1..9
-          let b = Math.floor(Math.random() * 9) + 1; // 1..9
-          if (a + b > 18) b = Math.max(1, 18 - a); // clamp to <= 18
-          cells.push(`${a}+${b}`);
+          let a = Math.floor(rng() * 9) + 1
+          let b = Math.floor(rng() * 9) + 1
+          if (a + b > 18) b = Math.max(1, 18 - a)
+          cells.push(`${a}+${b}`)
         } else {
-          const big = Math.floor(Math.random() * 9) + 1; // 1..9
-          const small = Math.floor(Math.random() * (big + 1)); // 0..big (allows 0)
-          cells.push(`${big}-${small}`);
+          const big = Math.floor(rng() * 9) + 1
+          const small = Math.floor(rng() * (big + 1))
+          cells.push(`${big}-${small}`)
         }
       }
     }
-    return cells;
-  }, [doc])
+    return cells
+  }, [activeDocs, effectiveSeed, variant])
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
     const [idx, setIdx] = React.useState(0)
     const src = sources[idx] || sources[0]
@@ -721,6 +841,10 @@ export function PrintablesPage() {
                       </g>
                     )}
                   </g>
+                  <circle cx="48" cy="54" r="4" fill="#ef4444" />
+                  <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                   <circle cx="80" cy="70" r="6" fill="#ef4444" />
                   <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
                 </svg>
@@ -773,6 +897,10 @@ export function PrintablesPage() {
                         </g>
                       )}
                     </g>
+                      <circle cx="48" cy="54" r="4" fill="#ef4444" />
+                      <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                     <circle cx="80" cy="70" r="6" fill="#ef4444" />
                     <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
                   </svg>
@@ -789,9 +917,17 @@ export function PrintablesPage() {
             <div className="grid grid-cols-2 gap-4">
               {[['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m']].map(([U,l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <circle cx="48" cy="40" r="4" fill="#ef4444" />
+                  <line x1="48" y1="40" x2="70" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="40" x2="64" y2="35" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="40" x2="64" y2="45" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                   <text x="60" y="70" fontSize="48" fill="#111827">{U}</text>
                   <circle cx="80" cy="90" r="6" fill="#94a3b8" />
                   <text x="300" y="70" fontSize="48" fill="#111827">{l}</text>
+                  <circle cx="330" cy="40" r="4" fill="#ef4444" />
+                  <line x1="330" y1="40" x2="308" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="308" y1="40" x2="314" y2="35" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="308" y1="40" x2="314" y2="45" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                   <circle cx="320" cy="90" r="6" fill="#94a3b8" />
                 </svg>
               ))}
@@ -799,9 +935,17 @@ export function PrintablesPage() {
             <div className="grid grid-cols-2 gap-4">
               {[['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']].map(([U,l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <circle cx="48" cy="40" r="4" fill="#ef4444" />
+                  <line x1="48" y1="40" x2="70" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="40" x2="64" y2="35" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="70" y1="40" x2="64" y2="45" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                   <text x="60" y="70" fontSize="48" fill="#111827">{U}</text>
                   <circle cx="80" cy="90" r="6" fill="#94a3b8" />
                   <text x="300" y="70" fontSize="48" fill="#111827">{l}</text>
+                  <circle cx="330" cy="40" r="4" fill="#ef4444" />
+                  <line x1="330" y1="40" x2="308" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="308" y1="40" x2="314" y2="35" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="308" y1="40" x2="314" y2="45" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                   <circle cx="320" cy="90" r="6" fill="#94a3b8" />
                 </svg>
               ))}
@@ -938,7 +1082,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('place-value-hto', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
@@ -994,7 +1138,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('skip-count-5-10-120', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
@@ -1044,7 +1188,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('add-2digit-100', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
@@ -1095,7 +1239,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('sub-2digit-100', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
@@ -1132,7 +1276,7 @@ export function PrintablesPage() {
                 </li>
               ))}
             </ol>
-            {showAnswers && (
+            {showAnswersForDoc('word-problems-100', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ol className="list-decimal list-inside space-y-0.5">
@@ -1182,7 +1326,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('compare-2digit', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key (sample logic)</div>
                   <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
@@ -1214,7 +1358,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswers && (
+              {showAnswersForDoc('even-odd-100', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
@@ -1464,7 +1608,7 @@ export function PrintablesPage() {
                 <li>What did she give the seed every day?</li>
                 <li>What did Sara see in the soil?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-mini-1', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1488,7 +1632,7 @@ export function PrintablesPage() {
                 <li>Who found the hat?</li>
                 <li>Why did the hat fly off?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g1-lost-hat', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1513,7 +1657,7 @@ export function PrintablesPage() {
                 <li>What did Sam do while he watched?</li>
                 <li>What happened to the floor?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g1-ants', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1538,7 +1682,7 @@ export function PrintablesPage() {
                 <li>What sound did the driver make?</li>
                 <li>Why did the doors open?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g1-bus-ride', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1563,7 +1707,7 @@ export function PrintablesPage() {
                 <li>How many flakes did she feed it?</li>
                 <li>What did Tara put on her wall?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g1-pet-fish', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1606,7 +1750,7 @@ export function PrintablesPage() {
                 <li>What change helped it work?</li>
                 <li>How many cars did it hold?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g2-paper-bridge', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1631,7 +1775,7 @@ export function PrintablesPage() {
                 <li>What happened to her beans after a week?</li>
                 <li>What lesson did she write?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g2-rainy-garden', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1656,7 +1800,7 @@ export function PrintablesPage() {
                 <li>What kinds of books did she choose?</li>
                 <li>Why did she sign her name?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g2-library-card', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1681,7 +1825,7 @@ export function PrintablesPage() {
                 <li>What did he write?</li>
                 <li>Who came later, and what happened?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g2-lost-and-found', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1706,7 +1850,7 @@ export function PrintablesPage() {
                 <li>Why did the trick help the boat?</li>
                 <li>What does Mira’s log note tell us about her work?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g3-lighthouse', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1731,7 +1875,7 @@ export function PrintablesPage() {
                 <li>What did they predict?</li>
                 <li>Why did they write a procedure?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g3-science-fair', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -1756,7 +1900,7 @@ export function PrintablesPage() {
                 <li>What did they harvest?</li>
                 <li>How did they use the money they earned?</li>
               </ol>
-              {showAnswers && (
+              {showAnswersForDoc('reading-g3-community-garden', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ol className="list-decimal list-inside space-y-0.5">
@@ -2507,7 +2651,7 @@ export function PrintablesPage() {
                   <li>Step only on equations that equal that row’s target.</li>
                   <li>Draw your path from S to F without diagonal moves.</li>
                 </ol>
-                {showAnswers && (
+                {showAnswersForDoc('math-maze', () => (
                   <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2 text-emerald-900">
                     <div className="font-semibold mb-1">Example target plan</div>
                     <ul className="list-disc list-inside space-y-0.5">
@@ -2539,7 +2683,7 @@ export function PrintablesPage() {
                 <div className="flex-1 border-b border-slate-300 ml-3" />
               </div>
             ))}
-            {showAnswers && (
+            {showAnswersForDoc('spelling', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ol className="list-decimal list-inside space-y-0.5">
@@ -2576,7 +2720,7 @@ export function PrintablesPage() {
                 <li>F) Shocking sky energy</li>
               </ul>
             </div>
-            {showAnswers && (
+            {showAnswersForDoc('science-match', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ol className="list-decimal list-inside space-y-0.5">
@@ -2608,7 +2752,7 @@ export function PrintablesPage() {
                 <div className="border-b border-slate-300 mt-2" />
               </div>
             ))}
-            {showAnswers && (
+            {showAnswersForDoc('grammar-detective', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ol className="list-decimal list-inside space-y-0.5">
@@ -2825,7 +2969,7 @@ export function PrintablesPage() {
                 <li>Noah’s pet barks.</li>
               </ol>
             </div>
-            {showAnswers && (
+            {showAnswersForDoc('logic-grid', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer (unique)</div>
                 <ul className="list-disc list-inside">
@@ -3216,7 +3360,7 @@ export function PrintablesPage() {
                 <div className="md:flex md:items-start md:gap-6">
                   <div className="flex-1">
                     <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-                      {generateWordSearchGrid(12, [...words]).map((row, r) => (
+                    {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
                         <React.Fragment key={r}>
                           {row.map((ch, c) => (
                             <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
@@ -3402,7 +3546,7 @@ export function PrintablesPage() {
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
           <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
-            {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"]).map((row, r) => (
+            {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
               <React.Fragment key={r}>
                 {row.map((ch, c) => (
                   <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
@@ -3418,7 +3562,7 @@ export function PrintablesPage() {
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Space</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 space words. Circle horizontally, vertically, or diagonally.</p>
           <div className="grid grid-cols-12 gap-1 font-mono text-sm">
-            {generateWordSearchGrid(12, ["STAR","MOON","SUN","COMET","ORBIT","SPACE","ALIEN","ROVER","MARS","VENUS","NEBULA","ASTRO"]).map((row, r) => (
+            {generateWordSearchGrid(12, ["STAR","MOON","SUN","COMET","ORBIT","SPACE","ALIEN","ROVER","MARS","VENUS","NEBULA","ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
               <React.Fragment key={r}>
                 {row.map((ch, c) => (
                   <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
@@ -3989,6 +4133,21 @@ export function PrintablesPage() {
         </section>
         )}
 
+        {doc === 'bundle' && showAnswers && bundleAnswerSections.length > 0 && (
+          <section className="mb-10 break-inside-avoid border border-emerald-200 rounded-xl p-4 bg-emerald-50 text-emerald-900 print:border-0 print:bg-white print:text-black">
+            <h2 className="text-lg font-bold mb-3 flex items-center gap-2">🧾 Bundle Answer Appendix</h2>
+            <p className="text-sm mb-4 text-emerald-900/80 print:text-slate-700">Quick glance answers for every printable in this bundle. Keep scrolling for the full worksheets, or print this page for an overview.</p>
+            <div className="space-y-4">
+              {bundleAnswerSections.map(({ docId, title, content }) => (
+                <div key={docId} className="print:break-inside-avoid">
+                  <div className="font-semibold text-emerald-900 mb-2">{title}</div>
+                  {content}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         <footer className="text-center text-slate-500 text-xs print:hidden">
           Tip: Use your browser menu → Print → Save as PDF.
         </footer>
@@ -3997,7 +4156,7 @@ export function PrintablesPage() {
   )
 }
 
-function generateWordSearchGrid(size: number, words: string[]): string[][] {
+function generateWordSearchGrid(size: number, words: string[], rng: () => number): string[][] {
   // very basic filler grid with words placed sequentially across rows to demonstrate printing
   const grid: string[][] = Array.from({ length: size }, () => Array.from({ length: size }, () => ''))
   let r = 0, c = 0
@@ -4014,7 +4173,7 @@ function generateWordSearchGrid(size: number, words: string[]): string[][] {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
-      if (!grid[i][j]) grid[i][j] = letters[Math.floor(Math.random() * letters.length)]
+      if (!grid[i][j]) grid[i][j] = letters[Math.floor(rng() * letters.length)]
     }
   }
   return grid
