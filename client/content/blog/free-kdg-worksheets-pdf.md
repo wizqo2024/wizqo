@@ -117,18 +117,18 @@ All PDFs are **print-ready, classroom-tested, and no-prep**, making them ideal f
 
 Have questions about using these **free KDG worksheets PDF** packs? Below are quick answers to common teacher and parent questions.
 
-**How can I make kindergarten worksheets fun?**
+1. **How can I make kindergarten worksheets fun?**
 
-Break learning into short, themed sessions. Pair printable packs with hands-on stations like playdough letters, sticker math, or art prompts from the [Kids Hub ->](/kids). Rotating through quick activities keeps energy high and kids curious.
+   Break learning into short, themed sessions. Pair printable packs with hands-on stations like playdough letters, sticker math, or art prompts from the [Kids Hub ->](/kids). Rotating through quick activities keeps energy high and kids curious.
 
-**Do these worksheets work for homework or centers?**
+2. **Do these worksheets work for homework or centers?**
 
-Absolutely. Every resource is no-prep and print-ready, so you can use them for morning tubs, homework folders, small-group lessons, or substitute plans. Motivation boost: hand out a quick award using the [Certificate Maker ->](/printables/certificate-maker) when students finish a set.
+   Absolutely. Every resource is no-prep and print-ready, so you can use them for morning tubs, homework folders, small-group lessons, or substitute plans. Motivation boost: hand out a quick award using the [Certificate Maker ->](/printables/certificate-maker) when students finish a set.
 
-**Can I customize the worksheets?**
+3. **Can I customize the worksheets?**
 
-Yes! Combine the [Handwriting Worksheet Maker ->](/worksheets/handwriting-worksheet-maker) with the [Name Tracing Generator ->](/printables/name-tracing-generator) to edit text, adjust fonts, and instantly download fresh PDFs tailored to your class.
+   Yes! Combine the [Handwriting Worksheet Maker ->](/worksheets/handwriting-worksheet-maker) with the [Name Tracing Generator ->](/printables/name-tracing-generator) to edit text, adjust fonts, and instantly download fresh PDFs tailored to your class.
 
-**Where can I find more weekly learning ideas?**
+4. **Where can I find more weekly learning ideas?**
 
-Browse our Learning Tips blog for ready-to-print ideas like [Nursery Class Worksheets ->](/blog/nursery-class-worksheets) and playful follow-up activities in [Educational Games for Kids ->](/blog/educational-games-for-kids).
+   Browse our Learning Tips blog for ready-to-print ideas like [Nursery Class Worksheets ->](/blog/nursery-class-worksheets) and playful follow-up activities in [Educational Games for Kids ->](/blog/educational-games-for-kids).
