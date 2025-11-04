@@ -93,18 +93,18 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     <Puzzle className="w-4 h-4" />
                     <span className="font-medium">Kids Hub</span>
                   </a>
-                  <button
-                    type="button"
-                    aria-label="Toggle Kids menu"
-                    ref={kidsToggleRef}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowKidsMenu((v) => !v);
-                    }}
-                    className="px-1 py-2 text-slate-600 hover:text-slate-800"
-                  >
-                    <ChevronDown className={`w-4 h-4 transition-transform ${showKidsMenu ? 'rotate-180' : ''}`} />
-                  </button>
+                    <button
+                      type="button"
+                      aria-label="Toggle Kids menu"
+                      ref={kidsToggleRef}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setShowKidsMenu((v) => !v);
+                      }}
+                      className="px-2 py-2 text-slate-600 hover:text-slate-800"
+                    >
+                      <ChevronDown className={`w-5 h-5 transition-transform ${showKidsMenu ? 'rotate-180' : ''}`} />
+                    </button>
                 </div>
                 {/* Dropdown: Printables under Kids */}
                 <div
