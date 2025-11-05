@@ -2,6 +2,12 @@ import express, { type Express } from 'express';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
 import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
+import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.ts';
+import {
+  INTERACTIVE_CATEGORIES,
+  INTERACTIVE_GRADE_OPTIONS,
+  type GradeBand,
+} from '../shared/interactive/interactiveWorksheets.ts';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
@@ -22,6 +28,9 @@ const affiliateHobbyToGroup: Array<{ pattern: RegExp; group: keyof typeof affili
   { pattern: /(photo|camera)/i, group: 'photography' },
   { pattern: /(coding|program|javascript|python|arduino|raspberry)/i, group: 'coding' },
 ];
+
+const INTERACTIVE_CATEGORY_IDS = new Set(INTERACTIVE_CATEGORIES.map((c) => c.id));
+const INTERACTIVE_GRADE_IDS = new Set(INTERACTIVE_GRADE_OPTIONS.map((g) => g.id));
 const affiliateVerbToTool: Array<{ pattern: RegExp; tools: string[] }> = [
   { pattern: /prun|trim|cut/i, tools: ['pruning shears', 'concave cutter'] },
   { pattern: /wire/i, tools: ['training wire'] },
@@ -115,6 +124,41 @@ app.use(express.json({ limit: '2mb' }));
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
+
+app.get('/api/interactive-worksheets', (req, res) => {
+  try {
+    const rawDate = String(req.query?.date || '').trim()
+    const date = rawDate && /^\d{4}-\d{2}-\d{2}$/.test(rawDate)
+      ? rawDate
+      : new Date().toISOString().slice(0, 10)
+
+    const rawGrade = String(req.query?.grade || 'k1').trim() as GradeBand
+    const grade = (INTERACTIVE_GRADE_IDS.has(rawGrade) ? rawGrade : 'k1') as GradeBand
+
+    const rawCategories = String(req.query?.categories || '').trim()
+    const requestedCats = rawCategories
+      ? rawCategories.split(',').map((c) => c.trim()).filter(Boolean)
+      : []
+    const categories = requestedCats.filter((id) => INTERACTIVE_CATEGORY_IDS.has(id))
+
+    const variant = Number.isFinite(Number(req.query?.variant)) ? Math.max(1, Math.floor(Number(req.query.variant))) : 1
+    const countPerCategory = Number.isFinite(Number(req.query?.countPerCategory))
+      ? Math.max(1, Math.floor(Number(req.query.countPerCategory)))
+      : 1
+
+    const pack = generateInteractiveWorksheetPack({
+      date,
+      grade,
+      categories,
+      variant,
+      countPerCategory,
+    })
+
+    res.json({ ok: true, data: pack })
+  } catch (error: any) {
+    res.status(500).json({ ok: false, error: 'interactive_generate_failed', details: String(error?.message || error) })
+  }
+})
 
 // Best daily unique video for a hobby (7-day uniqueness window)
 app.post('/api/best-video', async (req, res) => {
@@ -625,10 +669,10 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('learning') && lowerHobby.includes('language')) {
       return 'language learning';
     }
-    if (lowerHobby.includes('spanish') || lowerHobby.includes('español')) {
+    if (lowerHobby.includes('spanish') || lowerHobby.includes('espa?ol')) {
       return 'spanish';
     }
-    if (lowerHobby.includes('french') || lowerHobby.includes('français')) {
+    if (lowerHobby.includes('french') || lowerHobby.includes('fran?ais')) {
       return 'french';
     }
     if (lowerHobby.includes('german') || lowerHobby.includes('deutsch')) {
@@ -819,7 +863,7 @@ Return ONLY a JSON object with this exact structure:
   // 4) Robust retry with JSON-enforced model if initial parse failed
   if (!parsed || typeof parsed !== 'object') {
     try {
-      console.warn('⚠️ Initial model returned unparseable content. Retrying with openai/gpt-4o-mini and JSON response_format...');
+      console.warn('?? Initial model returned unparseable content. Retrying with openai/gpt-4o-mini and JSON response_format...');
       const vercelUrl2 = process.env.VERCEL_URL || '';
       const refererUrl2 = process.env.WEB_ORIGIN || process.env.NEXT_PUBLIC_SITE_URL || (vercelUrl2 ? `https://${vercelUrl2}` : 'https://wizqo.com');
       const retryResp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -856,7 +900,7 @@ Return ONLY a JSON object with this exact structure:
   }
 
   if (!parsed || typeof parsed !== 'object') {
-    console.error('❌ Plan generation failed - no mock/fallback content allowed');
+    console.error('? Plan generation failed - no mock/fallback content allowed');
     throw new Error('Failed to generate real plan content. Please try again or contact support.');
   }
 
@@ -913,7 +957,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     // Create final search query with day-specific content
     const finalQuery = `${selectedQuery} ${dayModifier}`;
     
-    console.log(`🎥 Video search for Day ${day}: "${finalQuery}"`);
+    console.log(`?? Video search for Day ${day}: "${finalQuery}"`);
     
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&relevanceLanguage=en`;
     
@@ -925,7 +969,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     
     if (items.length === 0) return null as any;
 
-    // Fetch details to enforce 5–50 minutes, >=5k views, published since 2020, public/processed/embeddable
+    // Fetch details to enforce 5?50 minutes, >=5k views, published since 2020, public/processed/embeddable
     const ids = items.map((it: any) => it?.id?.videoId).filter(Boolean);
     if (ids.length === 0) return null as any;
     const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics,status&id=${ids.join(',')}&key=${apiKey}`;
@@ -983,11 +1027,11 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
           searchQuery: finalQuery,
           day: day
         };
-        console.log(`✅ Day ${day} video (relaxed >=5min) selected: ${result.title}`);
+        console.log(`? Day ${day} video (relaxed >=5min) selected: ${result.title}`);
         return result;
       }
       // Nothing suitable found
-      console.warn(`⚠️ Day ${day}: no videos >=5min after relaxed filter; skipping to AI fallback.`);
+      console.warn(`?? Day ${day}: no videos >=5min after relaxed filter; skipping to AI fallback.`);
       return null as any;
     }
 
@@ -1008,11 +1052,11 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
       searchQuery: finalQuery,
       day: day
     };
-    console.log(`✅ Day ${day} video selected (5–50 min): ${result.title}`);
+    console.log(`? Day ${day} video selected (5?50 min): ${result.title}`);
     return result;
     
   } catch (e) { 
-    console.error(`❌ Video search error for Day ${day}:`, e);
+    console.error(`? Video search error for Day ${day}:`, e);
     return null as any; 
   }
 }
@@ -1037,7 +1081,7 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
     const promptIndex = (day - 1) % daySpecificPrompts.length;
     const selectedPrompt = daySpecificPrompts[promptIndex];
     
-    console.log(`🤖 AI Video suggestion for Day ${day}: ${selectedPrompt}`);
+    console.log(`?? AI Video suggestion for Day ${day}: ${selectedPrompt}`);
     
     const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -1067,16 +1111,16 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
           searchQuery: `AI suggested for Day ${day}`,
           day: day
         };
-        console.log(`✅ AI suggested Day ${day} video: ${parsed.title}`);
+        console.log(`? AI suggested Day ${day} video: ${parsed.title}`);
         return result;
       }
     } catch (parseError) {
-      console.error(`❌ AI video suggestion parse error for Day ${day}:`, parseError);
+      console.error(`? AI video suggestion parse error for Day ${day}:`, parseError);
     }
     
     return null as any;
   } catch (error) {
-    console.error(`❌ AI video suggestion error for Day ${day}:`, error);
+    console.error(`? AI video suggestion error for Day ${day}:`, error);
     return null as any;
   }
 }
@@ -1214,7 +1258,7 @@ app.post('/api/generate-plan', async (req, res) => {
 // Generate a single day on-demand (Days 2-7)
 app.post('/api/generate-day', async (req, res) => {
   try {
-    // Require Supabase auth for days 2–7
+    // Require Supabase auth for days 2?7
     const userIdFromAuth = await getSupabaseUserIdFromRequest(req);
     if (!userIdFromAuth) return res.status(401).json({ error: 'auth_required' });
 
@@ -1350,7 +1394,7 @@ app.post('/api/generate-day', async (req, res) => {
 
     const generatedTips: string[] = [
       primaryObjective ? `Focus on: ${primaryObjective}` : `Review yesterday briefly, then start fresh.`,
-      stepTexts[0] ? `Do this well: ${stepTexts[0]}` : `Split practice into 2×15-minute focused blocks.`,
+      stepTexts[0] ? `Do this well: ${stepTexts[0]}` : `Split practice into 2?15-minute focused blocks.`,
       `End with a 2-minute recap to reinforce learning.`
     ];
 
@@ -1526,7 +1570,7 @@ app.post('/api/hobby-chat', async (req, res) => {
 
     const moderation = isUnsafeQuery(message);
     if (moderation.unsafe) {
-      return res.json({ reply: "Let’s keep it safe and hobby‑focused. Try a learning topic (e.g., guitar basics, yoga stretching, photography tips)." });
+      return res.json({ reply: "Let?s keep it safe and hobby?focused. Try a learning topic (e.g., guitar basics, yoga stretching, photography tips)." });
     }
 
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });

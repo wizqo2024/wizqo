@@ -92,6 +92,7 @@ function generate() {
   }
   push(`${site}/printables`, today, 'weekly', '0.7');
   push(`${site}/printables/certificate-maker`, today, 'weekly', '0.7');
+  push(`${site}/interactive-worksheets-generator`, today, 'daily', '0.8');
   // Intentionally excluding math hubs for now
   push(`${site}/blog`, today, 'weekly', '0.7');
   // Worksheets landing pages

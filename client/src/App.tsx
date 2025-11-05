@@ -21,6 +21,7 @@ import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
+import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
@@ -376,6 +377,10 @@ export default function App() {
                   <PrintablesPage />
                 </>
               );
+              case 'interactive-worksheets-generator':
+                return (
+                  <InteractiveWorksheetsPage />
+                );
             case 'printables':
               if (routeSubKey === 'name-tracing-generator') {
                 return <NameTracingGeneratorPage />;
