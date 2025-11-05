@@ -225,15 +225,15 @@ export function InteractiveWorksheetsPage() {
 
   useFaqSchema()
 
-  const loadPack = React.useCallback(async () => {
+  const loadPack = React.useCallback(async (currentFilters: FiltersState) => {
     try {
       setLoading(true)
       setError(null)
       const params = new URLSearchParams()
       params.set('date', todayIso)
-      params.set('grade', filters.grade)
-      params.set('categories', filters.categories.join(','))
-      params.set('variant', String(filters.variant))
+      params.set('grade', currentFilters.grade)
+      params.set('categories', currentFilters.categories.join(','))
+      params.set('variant', String(currentFilters.variant))
       const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { cache: 'no-store' })
       if (!resp.ok) throw new Error('Failed to generate worksheets')
       const json = await resp.json()
@@ -243,11 +243,11 @@ export function InteractiveWorksheetsPage() {
     } finally {
       setLoading(false)
     }
-  }, [filters])
+  }, [])
 
   React.useEffect(() => {
     updateUrl(filters)
-    loadPack()
+    loadPack(filters)
   }, [filters, loadPack])
 
   const toggleCategory = (id: string) => {
@@ -260,7 +260,8 @@ export function InteractiveWorksheetsPage() {
         nextCategories = normalizeCategoryIds([...prev.categories, id])
       }
       if (nextCategories.length === 0) nextCategories = [id]
-      return { ...prev, categories: normalizeCategoryIds(nextCategories) }
+      // Reset variant to 1 when categories change for fresh generation
+      return { ...prev, categories: normalizeCategoryIds(nextCategories), variant: 1 }
     })
   }
 
@@ -268,6 +269,12 @@ export function InteractiveWorksheetsPage() {
     setFilters((prev) => ({ ...prev, grade, variant: 1 }))
   }
 
+  // Generate today's pack with current filters (reset variant to 1)
+  const generateTodayPack = () => {
+    setFilters((prev) => ({ ...prev, variant: 1 }))
+  }
+
+  // Regenerate with next variant for unique pack
   const regenerate = () => {
     setFilters((prev) => ({ ...prev, variant: prev.variant + 1 }))
   }
@@ -311,7 +318,7 @@ export function InteractiveWorksheetsPage() {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <button
-                    onClick={regenerate}
+                    onClick={generateTodayPack}
                     className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
                   >
                     🔄 Generate today’s interactive pack
