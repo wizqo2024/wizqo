@@ -353,10 +353,10 @@ export function InteractiveWorksheetsPage() {
                       })}
                     </dd>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <dt>Unique seed</dt>
-                    <dd className="font-mono text-xs text-slate-500">{pack?.seed || `${todayIso}|preview`}</dd>
-                  </div>
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                      <dt>Unique seed</dt>
+                      <dd className="font-mono text-xs text-slate-500 break-all sm:text-right">{pack?.seed || `${todayIso}|preview`}</dd>
+                    </div>
                   <div className="flex items-center justify-between">
                     <dt>Variant</dt>
                     <dd className="font-medium text-slate-900">{filters.variant}</dd>
