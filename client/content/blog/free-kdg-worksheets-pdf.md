@@ -17,6 +17,8 @@ Looking for **free KDG worksheets PDF** packs that feel fresh, fun, and no-prep?
 
 Each section below includes classroom-tested ideas, hands-on tips, and quick links to the main resource hubs so you can explore everything at once without endless scrolling.
 
+> ✨ Need a fresh mix every morning? Try the new **[Interactive Worksheets Generator](/interactive-worksheets-generator)** to build a grade-friendly bundle with answer keys in one click.
+
 > 🌈 **Mobile-friendly snapshot:** Save this post to your home screen or notes app so you can tap through the links during prep time.
 
 ### Inside this guide
