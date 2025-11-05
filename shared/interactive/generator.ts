@@ -50,14 +50,17 @@ function makeRng(seedStr: string) {
 
 const gradeLabelMap = new Map(INTERACTIVE_GRADE_OPTIONS.map((g) => [g.id, g.label]))
 
+const gradeCompatibility: Record<GradeBand, GradeBand[]> = {
+  preK: ['preK'],
+  k1: ['k1', 'preK'],
+  g2: ['g2', '35'],
+  '35': ['35', 'g2', '68'],
+  '68': ['68', '35'],
+}
+
 function gradeMatches(doc: InteractiveWorksheetDoc, grade: GradeBand): boolean {
-  if (doc.grades.includes(grade)) return true
-  if (grade === '35') return doc.grades.some((g) => g === 'g2' || g === '68' || g === '35')
-  if (grade === 'g2') return doc.grades.some((g) => g === 'k1' || g === '35' || g === 'g2')
-  if (grade === 'k1') return doc.grades.some((g) => g === 'preK' || g === 'g2' || g === 'k1')
-  if (grade === 'preK') return doc.grades.some((g) => g === 'preK' || g === 'k1')
-  if (grade === '68') return doc.grades.some((g) => g === '35' || g === '68')
-  return false
+  const allowed = gradeCompatibility[grade] || [grade]
+  return allowed.some((g) => doc.grades.includes(g))
 }
 
 function pickDocsForCategory(
