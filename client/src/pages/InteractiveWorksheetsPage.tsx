@@ -306,6 +306,9 @@ export function InteractiveWorksheetsPage() {
                 <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
                   Choose a grade band, mix and match in-demand categories, and get a fresh set of interactive worksheets with answer keys. Math, reading, SEL, science, and more—ready to print or share in seconds.
                 </p>
+                <p className="max-w-2xl text-sm text-slate-500">
+                  Need screen-free brain breaks too? Explore the playful activities inside our <a href="/kids" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Kids Hub</a> or build multi-day plans with grade-level packs like the <a href="/worksheets/1st-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">1st Grade Math Worksheets collection</a>.
+                </p>
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={regenerate}
