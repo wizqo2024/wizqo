@@ -50,17 +50,12 @@ function makeRng(seedStr: string) {
 
 const gradeLabelMap = new Map(INTERACTIVE_GRADE_OPTIONS.map((g) => [g.id, g.label]))
 
-const gradeCompatibility: Record<GradeBand, GradeBand[]> = {
-  preK: ['preK'],
-  k1: ['k1', 'preK'],
-  g2: ['g2', '35'],
-  '35': ['35', 'g2', '68'],
-  '68': ['68', '35'],
-}
-
-function gradeMatches(doc: InteractiveWorksheetDoc, grade: GradeBand): boolean {
-  const allowed = gradeCompatibility[grade] || [grade]
-  return allowed.some((g) => doc.grades.includes(g))
+const gradeFallback: Record<GradeBand, GradeBand[]> = {
+  preK: ['k1'],
+  k1: ['preK'],
+  g2: ['35'],
+  '35': ['g2', '68'],
+  '68': ['35'],
 }
 
 function pickDocsForCategory(
@@ -71,8 +66,13 @@ function pickDocsForCategory(
 ): { doc: InteractiveWorksheetDoc; categoryLabel: string; categoryIcon: string }[] {
   const category = getCategoryById(categoryId)
   if (!category) return []
-  const pool = category.docs.filter((doc) => gradeMatches(doc, grade))
-  const source = (pool.length ? pool : category.docs).slice()
+  const exactMatches = category.docs.filter((doc) => doc.grades.includes(grade))
+  const fallbackMatches = category.docs.filter((doc) => {
+    const fallback = gradeFallback[grade] || []
+    return doc.grades.some((g) => fallback.includes(g))
+  })
+  const pool = exactMatches.length ? exactMatches : (fallbackMatches.length ? fallbackMatches : category.docs)
+  const source = pool.slice()
   for (let i = source.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1))
     ;[source[i], source[j]] = [source[j], source[i]]
