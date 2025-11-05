@@ -187,6 +187,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
               ? Math.max(...progress.completed_days)
               : 1;
             return lastCompletedDay;
+          }
         }
       }
     } catch {}
