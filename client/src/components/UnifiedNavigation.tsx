@@ -87,18 +87,6 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">Learn</span>
               </a>
 
-                <a
-                  href="/interactive-worksheets-generator"
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'interactive-worksheets' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="14" rx="2" ry="2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M3 7h18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M7 17h2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span className="font-medium">Interactive Worksheets</span>
-                </a>
-
               <div className="relative">
                 <div className="flex items-center">
                   <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
@@ -151,6 +139,17 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-xs text-slate-600">Personalized handwriting sheets</div>
                         </div>
                       </a>
+                        <a href="/interactive-worksheets-generator" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                          <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="14" rx="2" ry="2" />
+                            <path d="M3 7h18" />
+                            <path d="M7 17h2" />
+                          </svg>
+                          <div>
+                            <div className="text-sm font-semibold text-slate-800">Interactive Worksheets Generator</div>
+                            <div className="text-xs text-slate-600">Daily fresh PDF packs with answers</div>
+                          </div>
+                        </a>
                       <a href="/printables/name-tracing-generator" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
@@ -419,23 +418,6 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
             <button 
               onClick={() => {
-                window.location.href = '/interactive-worksheets-generator';
-                setShowMobileMenu(false);
-              }} 
-              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'interactive-worksheets' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
-            >
-              <span className="pl-5 inline-flex items-center gap-2">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="14" rx="2" ry="2" />
-                  <path d="M3 7h18" />
-                  <path d="M7 17h2" />
-                </svg>
-                <span className="font-medium">Interactive Worksheets</span>
-              </span>
-            </button>
-
-            <button 
-              onClick={() => {
                 window.location.href = '/worksheets/handwriting-worksheet-maker';
                 setShowMobileMenu(false);
               }} 
@@ -444,25 +426,35 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <span className="pl-8">Handwriting Worksheet Maker</span>
             </button>
 
-            <button 
-              onClick={() => {
-                window.location.href = '/printables/name-tracing-generator';
-                setShowMobileMenu(false);
-              }} 
-              className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
-            >
-              <span className="pl-8">Name Tracing Generator</span>
-            </button>
+              <button
+                onClick={() => {
+                  window.location.href = '/printables/name-tracing-generator';
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+              >
+                <span className="pl-8">Name Tracing Generator</span>
+              </button>
 
-            <button 
-              onClick={() => {
-                window.location.href = '/worksheets/1st-grade-math-worksheets';
-                setShowMobileMenu(false);
-              }} 
-              className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
-            >
-              <span className="pl-8">1st Grade Math Worksheets</span>
-            </button>
+              <button
+                onClick={() => {
+                  window.location.href = '/interactive-worksheets-generator';
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+              >
+                <span className="pl-8">Interactive Worksheets Generator</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  window.location.href = '/worksheets/1st-grade-math-worksheets';
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
+              >
+                <span className="pl-8">1st Grade Math Worksheets</span>
+              </button>
 
             <button 
               onClick={() => {
