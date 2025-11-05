@@ -123,7 +123,6 @@ export default function App() {
 
   // NEW: Navigation function that updates URL properly
   const navigateTo = (path: string) => {
-    console.log('🔧 Navigating to:', path);
     window.history.pushState({}, '', path);
     setRoute(path);
   };
@@ -133,7 +132,6 @@ export default function App() {
     const [pathname, queryString] = path.split('?');
     const seg = pathname.split('/')[0] || '';
     const params = new URLSearchParams(queryString || '');
-    console.log('🔧 Route parsing:', { route, path, pathname, seg, queryString, params: Object.fromEntries(params) });
     return [seg, params] as const;
   }, [route]);
 
@@ -176,123 +174,60 @@ export default function App() {
         if (routeKey !== 'plan') return;
         
         const planId = routeQuery.get('plan_id') || sessionStorage.getItem('activePlanId') || '';
-        console.log('🔧 Plan hydration: planId =', planId);
         
         if (!planId) {
-          console.log('❌ Plan hydration: No plan ID found');
           return;
         }
         
         // Fetch fresh plan data from the database
-        console.log('🔍 Plan hydration: Fetching plan data from database for planId:', planId);
-        
         try {
           // First try: Fetch from API
-          console.log('🔍 Plan hydration: Trying API fetch...');
           const r = await fetch(`/api/hobby-plans/${planId}?_t=${Date.now()}`, { cache: 'no-cache' });
-          console.log('🔍 Plan hydration: API response status:', r.status);
           
           if (r.ok) {
             const j = await r.json();
-            console.log('🔍 Plan hydration: API response data:', j);
-            console.log('🔍 Plan hydration: API response data keys:', Object.keys(j));
-            console.log('🔍 Plan hydration: API response data type:', typeof j);
-            console.log('🔍 Plan hydration: API response data plan_data keys:', j?.plan_data ? Object.keys(j.plan_data) : 'NO plan_data');
-            console.log('🔍 Plan hydration: API response data planData keys:', j?.planData ? Object.keys(j.planData) : 'NO planData');
-            
             const payload = j?.plan_data || j?.planData || j;
-            console.log('🔍 Plan hydration: Extracted payload:', payload);
-            console.log('🔍 Plan hydration: Payload keys:', payload ? Object.keys(payload) : 'NO payload');
-            console.log('🔍 Plan hydration: Payload days:', payload?.days);
-            console.log('🔍 Plan hydration: Payload days type:', typeof payload?.days);
-            console.log('🔍 Plan hydration: Payload days length:', payload?.days?.length);
             
             // Handle nested plan_data structure
             let finalPayload = payload;
             if (payload?.plan_data?.days) {
-              console.log('🔍 Plan hydration: Found nested plan_data with days');
               finalPayload = payload.plan_data;
             } else if (payload?.days) {
-              console.log('🔍 Plan hydration: Found days directly in payload');
               finalPayload = payload;
             }
             
-            console.log('🔍 Plan hydration: Final payload:', finalPayload);
-            console.log('🔍 Plan hydration: Final payload days:', finalPayload?.days);
-            
             if (finalPayload && finalPayload.days) {
-              console.log('✅ Plan hydration: Using plan data from API');
-              console.log('✅ Plan hydration: Days found:', finalPayload.days.length);
-              console.log('✅ Plan hydration: First day:', finalPayload.days[0]);
               setHydratedPlan(finalPayload);
               return;
-            } else {
-              console.log('❌ Plan hydration: API payload missing days or invalid structure');
-              console.log('❌ Plan hydration: Payload structure analysis:', {
-                hasPayload: !!payload,
-                payloadType: typeof payload,
-                payloadKeys: payload ? Object.keys(payload) : [],
-                hasDays: !!(payload?.days),
-                daysType: typeof payload?.days,
-                daysLength: payload?.days?.length,
-                hasNestedPlanData: !!(payload?.plan_data),
-                nestedPlanDataKeys: payload?.plan_data ? Object.keys(payload.plan_data) : [],
-                nestedPlanDataDays: payload?.plan_data?.days
-              });
             }
-          } else {
-            console.log('❌ Plan hydration: API request failed with status:', r.status);
-            const errorText = await r.text();
-            console.log('❌ Plan hydration: API error response:', errorText);
           }
         } catch (error) {
-          console.error('❌ Plan hydration: API fetch error:', error);
+          console.error('Plan hydration: API fetch error:', error);
         }
         
         // Fallback: Try Supabase direct
         try {
-          console.log('🔍 Plan hydration: Trying Supabase direct fetch...');
           const { data, error } = await supabase
             .from('hobby_plans')
             .select('id, plan_data')
             .eq('id', planId)
             .maybeSingle();
           
-          console.log('🔍 Plan hydration: Supabase response:', { data, error });
-          
           if (!error && data && (data as any).plan_data?.days) {
-            console.log('✅ Plan hydration: Using plan data from Supabase');
             const payload = (data as any).plan_data;
-            console.log('✅ Plan hydration: Supabase payload days:', payload.days.length);
             setHydratedPlan(payload);
             return;
-          } else {
-            console.log('❌ Plan hydration: Supabase data missing or invalid:', { 
-              hasData: !!data, 
-              hasPlanData: !!(data as any)?.plan_data,
-              hasDays: !!(data as any)?.plan_data?.days,
-              error: error
-            });
-            console.log('🔍 Plan hydration: Supabase raw data:', data);
-            console.log('🔍 Plan hydration: Supabase data keys:', data ? Object.keys(data) : 'NO data');
-            console.log('🔍 Plan hydration: Supabase plan_data keys:', (data as any)?.plan_data ? Object.keys((data as any).plan_data) : 'NO plan_data');
-            console.log('🔍 Plan hydration: Supabase plan_data days:', (data as any)?.plan_data?.days);
-            
-            // Handle nested plan_data structure for Supabase
-            if ((data as any)?.plan_data?.plan_data?.days) {
-              console.log('🔍 Plan hydration: Found nested plan_data with days in Supabase');
-              const nestedPayload = (data as any).plan_data.plan_data;
-              console.log('✅ Plan hydration: Using nested plan data from Supabase');
-              console.log('✅ Plan hydration: Nested payload days:', nestedPayload.days.length);
-              setHydratedPlan(nestedPayload);
-              return;
-            }
+          }
+          
+          // Handle nested plan_data structure for Supabase
+          if ((data as any)?.plan_data?.plan_data?.days) {
+            const nestedPayload = (data as any).plan_data.plan_data;
+            setHydratedPlan(nestedPayload);
+            return;
           }
         } catch (error) {
-          console.error('❌ Plan hydration: Supabase error:', error);
+          console.error('Plan hydration: Supabase error:', error);
         }
-        
-        console.log('❌ Plan hydration: No plan data found from database');
       } finally {
         setHydrating(false);
       }

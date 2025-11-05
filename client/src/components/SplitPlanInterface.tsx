@@ -70,11 +70,6 @@ interface SplitPlanInterfaceProps {
 // Function to fix field mapping consistently across all plan data sources
 const fixPlanDataFields = (plan: any) => {
   if (!plan) return plan;
-  console.log('🔧 fixPlanDataFields input - planTotalDays:', plan.totalDays);
-  console.log('🔧 fixPlanDataFields input - planDaysLength:', plan.days?.length);
-  console.log('🔧 fixPlanDataFields input - planPlanDataDaysLength:', plan.plan_data?.days?.length);
-  console.log('🔧 fixPlanDataFields input - planTitle:', plan.title);
-  console.log('🔧 fixPlanDataFields input - planHobby:', plan.hobby);
   
   const existingDaysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
   const totalDays = plan.totalDays || 7;
@@ -102,12 +97,6 @@ const fixPlanDataFields = (plan: any) => {
       videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
     }))
   };
-  
-  console.log('🔧 fixPlanDataFields output - fixedTotalDays:', fixedPlan.totalDays);
-  console.log('🔧 fixPlanDataFields output - fixedDaysLength:', fixedPlan.days?.length);
-  console.log('🔧 fixPlanDataFields output - fixedDaysArray:', fixedPlan.days?.map((d: any) => d.day));
-  console.log('🔧 fixPlanDataFields output - fixedTitle:', fixedPlan.title);
-  console.log('🔧 fixPlanDataFields output - fixedHobby:', fixedPlan.hobby);
   
   return fixedPlan;
 };
@@ -170,7 +159,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           const sessionProgress = sessionStorage.getItem(sessionKey);
           if (sessionProgress) {
             const progress = JSON.parse(sessionProgress);
-            console.log('🚀 Initial state from session:', progress);
             return progress.completed_days || [];
           }
         }
@@ -198,13 +186,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             const lastCompletedDay = progress.completed_days && progress.completed_days.length > 0 
               ? Math.max(...progress.completed_days)
               : 1;
-            console.log('🎯 Initial selectedDay from progress:', { 
-              current_day: progress.current_day, 
-              completed_days: progress.completed_days,
-              lastCompletedDay 
-            });
             return lastCompletedDay;
-          }
         }
       }
     } catch {}
@@ -230,9 +212,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         localStorage.setItem('lastViewedPlanData', JSON.stringify(planData));
         sessionStorage.setItem('activePlanData', JSON.stringify(planData));
         sessionStorage.setItem('activePlanId', realPlanId);
-        console.log('💾 SplitPlanInterface: Storing real plan ID:', realPlanId);
-      } else {
-        console.log('⚠️ SplitPlanInterface: No real plan ID found, skipping storage');
       }
     }
   }, [planData]);
@@ -295,11 +274,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         const idFromUrl = params.get('plan_id') || '';
         const idFromSession = sessionStorage.getItem('activePlanId') || '';
         const planId = String(idFromUrl || idFromSession || '');
-        console.log('🔍 SplitPlanInterface: Hydration plan ID sources:', {
-          idFromUrl,
-          idFromSession,
-          finalPlanId: planId
-        });
         if (!planId) return;
 
         let payload: any = null;
@@ -626,13 +600,10 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
             } as any;
             const up = await supabase.from('hobby_plans').update({ plan_data: payload, total_days: Number(payload.totalDays || mergedDays.length) }).eq('id', currentPlanId);
             if (up.error) console.warn('⚠️ Client persist of day failed:', up.error.message);
-            else console.log('💾 Client persist of day ok; days =', mergedDays.length);
           }
         } catch (persistErr) {
           console.warn('⚠️ Client persist exception:', persistErr);
         }
-
-        console.log(`✅ Video generated for Day ${dayNumber}:`, dayData.day.youtubeVideoId);
       } else {
         console.error(`❌ Failed to generate video for Day ${dayNumber}:`, response.status);
       }
@@ -830,8 +801,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   // AI-powered hobby validation function
   const validateHobbyWithAI = async (input: string): Promise<{ isValid: boolean; suggestion?: string; category?: string; confidence?: number }> => {
     try {
-      console.log(`🤖 AI validating hobby: "${input}"`);
-      
       const response = await fetch('/api/validate-hobby', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -840,7 +809,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
 
       if (response.ok) {
         const result = await response.json();
-        console.log(`✅ AI validation result:`, result);
         return result;
       } else {
         console.error(`❌ AI validation failed:`, response.status);
@@ -1086,18 +1054,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     // Final fallback: Try AI validation for unrecognized inputs
     if (detected.length === 0) {
       try {
-        console.log(`🤖 Local validation failed, trying AI validation for: "${input}"`);
         const aiResult = await validateHobbyWithAI(input);
         
         if (aiResult.isValid && aiResult.suggestion) {
-          console.log(`✅ AI validation succeeded: "${input}" → "${aiResult.suggestion}"`);
           return { 
             isValid: true, 
             detectedHobbies: [aiResult.suggestion],
             suggestions: [aiResult.suggestion]
           };
-        } else {
-          console.log(`❌ AI validation failed for: "${input}"`);
         }
       } catch (aiError) {
         console.error(`❌ AI validation error:`, aiError);
@@ -1309,7 +1273,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
       // First try OpenRouter API validation
       let validation;
       try {
-        console.log(`🤖 Calling OpenRouter API for hobby validation: "${userInput}"`);
         const response = await fetch('/api/validate-hobby', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1318,7 +1281,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
         
         if (response.ok) {
           const apiResult = await response.json();
-          console.log(`✅ OpenRouter API validation result:`, apiResult);
           
           if (apiResult.isValid) {
             // API validation succeeded
@@ -1334,7 +1296,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           }
         } else {
           // API call failed, fall back to local validation
-          console.log(`❌ OpenRouter API call failed, falling back to local validation`);
           validation = await validateAndProcessHobby(userInput);
         }
       } catch (error) {
@@ -2088,16 +2049,14 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                                         } as any;
                                         const up = await supabase.from('hobby_plans').update({ plan_data: payload, total_days: Number(payload.totalDays || mergedDays.length) }).eq('id', currentPlanId);
                                         if (up.error) console.warn('⚠️ Client persist of day (button path) failed:', up.error.message);
-                                        else console.log('💾 Client persist of day (button path) ok; days =', mergedDays.length);
                                       }
                                     } catch (err) {
                                       console.warn('⚠️ Client persist exception (button path):', err);
                                     }
                                   } else {
-                                    console.log('🎯 No day data in response');
+                                    // No day data in response
                                   }
                                 } else {
-                                  console.log('🎯 Day generation failed:', resp.statusText);
                                   if (resp.status === 401) {
                                     setDayGenerationError('Sign in to generate and save plans.');
                                   } else if (resp.status === 429 || resp.status === 500) {
