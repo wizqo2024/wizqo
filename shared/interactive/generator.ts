@@ -62,22 +62,29 @@ function pickDocsForCategory(
   categoryId: string,
   grade: GradeBand,
   rng: () => number,
-  count: number
+  count: number,
+  excludeDocIds?: Set<string>
 ): { doc: InteractiveWorksheetDoc; categoryLabel: string; categoryIcon: string }[] {
   const category = getCategoryById(categoryId)
   if (!category) return []
-  const exactMatches = category.docs.filter((doc) => doc.grades.includes(grade))
+  const exactMatches = category.docs.filter((doc) => 
+    doc.grades.includes(grade) && (!excludeDocIds || !excludeDocIds.has(doc.id))
+  )
   const fallbackMatches = category.docs.filter((doc) => {
     const fallback = gradeFallback[grade] || []
-    return doc.grades.some((g) => fallback.includes(g))
+    return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
   })
-  const pool = exactMatches.length ? exactMatches : (fallbackMatches.length ? fallbackMatches : category.docs)
+  const pool = exactMatches.length ? exactMatches : (fallbackMatches.length ? fallbackMatches : category.docs.filter(d => !excludeDocIds || !excludeDocIds.has(d.id)))
+  if (pool.length === 0) return []
   const source = pool.slice()
-  for (let i = source.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[source[i], source[j]] = [source[j], source[i]]
+  // Enhanced shuffle with multiple passes for better randomization
+  for (let pass = 0; pass < 3; pass++) {
+    for (let i = source.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1))
+      ;[source[i], source[j]] = [source[j], source[i]]
+    }
   }
-  return source.slice(0, Math.max(1, count)).map((doc) => ({
+  return source.slice(0, Math.max(1, Math.min(count, source.length))).map((doc) => ({
     doc,
     categoryLabel: category.label,
     categoryIcon: category.icon,
@@ -90,16 +97,23 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const chosenCategories = (options.categories.length ? options.categories : DEFAULT_CATEGORIES).filter((id) =>
     getCategoryById(id)
   )
-  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}`
+  // Enhanced seed with timestamp to ensure uniqueness across regenerations
+  const timestamp = Date.now()
+  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|t${timestamp}`
   const rng = makeRng(seed)
   const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
 
   const items: InteractiveWorksheetItem[] = []
   const answerSummary: string[] = []
 
+  // Track used docIds to prevent duplicates within the pack
+  const usedDocIds = new Set<string>()
+
   for (const categoryId of chosenCategories) {
-    const picks = pickDocsForCategory(categoryId, grade, rng, countPerCategory)
+    const picks = pickDocsForCategory(categoryId, grade, rng, countPerCategory, usedDocIds)
     for (const { doc, categoryLabel, categoryIcon } of picks) {
+      // Add to used set to prevent duplicates
+      usedDocIds.add(doc.id)
       const previewHint = `${categoryIcon} ${doc.title} — ${doc.description}`
       items.push({
         docId: doc.id,
@@ -116,6 +130,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     }
   }
 
+  // Final deduplication pass
   const uniqueItems = items.filter(
     (item, idx, arr) => arr.findIndex((inner) => inner.docId === item.docId) === idx
   )
@@ -124,7 +139,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const printUrl = `/print?doc=bundle&items=${encodeURIComponent(docIdsParam)}&category=Interactive%20Worksheets&from=interactive`
 
   return {
-    seed,
+    seed: `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}`, // Keep readable seed without timestamp
     generatedAt: new Date().toISOString(),
     grade,
     gradeLabel: gradeLabelMap.get(grade) || 'All grades',
