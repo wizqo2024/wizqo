@@ -129,14 +129,28 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     return cat !== undefined
   })
 
+  // If no valid categories, use defaults (but prevent infinite recursion)
   if (validCategories.length === 0) {
-    // If no valid categories, use defaults
-    // Recursive call with default categories - prevent infinite loop by checking
-    if (chosenCategories.length === 0 || chosenCategories.every(c => !getCategoryById(c))) {
+    const defaultCategories = DEFAULT_CATEGORIES.filter((catId) => {
+      const cat = getCategoryById(catId)
+      return cat !== undefined
+    })
+    if (defaultCategories.length > 0 && !chosenCategories.every(c => defaultCategories.includes(c))) {
       return generateInteractiveWorksheetPack({
         ...options,
-        categories: DEFAULT_CATEGORIES,
+        categories: defaultCategories,
       })
+    }
+    // If defaults also invalid, return empty pack
+    return {
+      seed: `${date}|grade:${grade}|cats:|v${options.variant}`,
+      generatedAt: new Date().toISOString(),
+      grade,
+      gradeLabel: gradeLabelMap.get(grade) || 'All grades',
+      categories: [],
+      items: [],
+      printUrl: '',
+      answerSummary: [],
     }
   }
 
