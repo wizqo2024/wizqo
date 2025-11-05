@@ -67,15 +67,29 @@ function pickDocsForCategory(
 ): { doc: InteractiveWorksheetDoc; categoryLabel: string; categoryIcon: string }[] {
   const category = getCategoryById(categoryId)
   if (!category) return []
+  
+  // STRICT GRADE MATCHING: Only show worksheets that match the selected grade exactly
+  // Priority: exact matches > fallback matches (only if no exact matches exist)
   const exactMatches = category.docs.filter((doc) => 
     doc.grades.includes(grade) && (!excludeDocIds || !excludeDocIds.has(doc.id))
   )
-  const fallbackMatches = category.docs.filter((doc) => {
-    const fallback = gradeFallback[grade] || []
-    return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
-  })
-  const pool = exactMatches.length ? exactMatches : (fallbackMatches.length ? fallbackMatches : category.docs.filter(d => !excludeDocIds || !excludeDocIds.has(d.id)))
+  
+  // Only use fallback if there are NO exact matches for this grade
+  let pool: InteractiveWorksheetDoc[] = []
+  if (exactMatches.length > 0) {
+    // Use exact matches only - strict grade matching
+    pool = exactMatches
+  } else {
+    // Fallback: try nearby grades only if no exact match exists
+    const fallbackMatches = category.docs.filter((doc) => {
+      const fallback = gradeFallback[grade] || []
+      return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
+    })
+    pool = fallbackMatches.length > 0 ? fallbackMatches : category.docs.filter(d => !excludeDocIds || !excludeDocIds.has(d.id))
+  }
+  
   if (pool.length === 0) return []
+  
   const source = pool.slice()
   // Enhanced shuffle with multiple passes for better randomization
   for (let pass = 0; pass < 3; pass++) {
@@ -109,9 +123,45 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   // Track used docIds to prevent duplicates within the pack
   const usedDocIds = new Set<string>()
 
-  for (const categoryId of chosenCategories) {
+  // Validate that all selected categories exist and are valid
+  const validCategories = chosenCategories.filter((catId) => {
+    const cat = getCategoryById(catId)
+    return cat !== undefined
+  })
+
+  if (validCategories.length === 0) {
+    // If no valid categories, use defaults
+    // Recursive call with default categories - prevent infinite loop by checking
+    if (chosenCategories.length === 0 || chosenCategories.every(c => !getCategoryById(c))) {
+      return generateInteractiveWorksheetPack({
+        ...options,
+        categories: DEFAULT_CATEGORIES,
+      })
+    }
+  }
+
+  for (const categoryId of validCategories) {
     const picks = pickDocsForCategory(categoryId, grade, rng, countPerCategory, usedDocIds)
+    
+    // Ensure we only add worksheets that match the grade AND category
     for (const { doc, categoryLabel, categoryIcon } of picks) {
+      // Double-check: worksheet must match the category
+      const docCategory = getCategoryById(categoryId)
+      if (!docCategory || !docCategory.docs.some(d => d.id === doc.id)) {
+        continue // Skip if worksheet doesn't belong to this category
+      }
+      
+      // Double-check: worksheet must match the grade (exact match preferred)
+      const gradeMatches = doc.grades.includes(grade)
+      if (!gradeMatches) {
+        // Only allow if it's a fallback grade and no exact matches exist
+        const fallback = gradeFallback[grade] || []
+        const isFallbackMatch = doc.grades.some((g) => fallback.includes(g))
+        if (!isFallbackMatch) {
+          continue // Skip if worksheet doesn't match grade at all
+        }
+      }
+      
       // Add to used set to prevent duplicates
       usedDocIds.add(doc.id)
       const previewHint = `${categoryIcon} ${doc.title} — ${doc.description}`
