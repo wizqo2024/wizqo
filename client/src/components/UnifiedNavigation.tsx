@@ -129,16 +129,6 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-xs text-slate-600">Editable name/date | Print PDF</div>
                         </div>
                       </a>
-                      <a href="/printables/name-tracing-generator" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
-                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 20h9" />
-                          <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
-                        </svg>
-                        <div>
-                          <div className="text-sm font-semibold text-slate-800">Name Tracing Generator</div>
-                          <div className="text-xs text-slate-600">Personalized handwriting sheets</div>
-                        </div>
-                      </a>
                         <a href="/interactive-worksheets-generator" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="3" width="18" height="14" rx="2" ry="2" />
