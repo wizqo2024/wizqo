@@ -88,7 +88,7 @@ function generate() {
   // Kids games subpages
   const kidsGames = ['memory', 'word-search', 'puzzle', 'typing', 'pattern'];
   for (const slug of kidsGames) {
-    push(`${site}/kids/games/${slug}`, null, 'weekly', '0.6');
+    push(`${site}/kids/games/${slug}`, today, 'weekly', '0.6');
   }
   push(`${site}/printables`, today, 'weekly', '0.7');
   push(`${site}/printables/certificate-maker`, today, 'weekly', '0.7');
