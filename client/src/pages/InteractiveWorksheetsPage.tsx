@@ -14,6 +14,15 @@ import type {
 
 const DEFAULT_SELECTED_CATEGORIES = ['math', 'reading', 'writing', 'sel']
 
+const CATEGORY_ORDER = new Map(
+  INTERACTIVE_CATEGORIES.map((category, index) => [category.id, index] as const)
+)
+
+const normalizeCategoryIds = (ids: string[]): string[] => {
+  const unique = Array.from(new Set(ids)).filter((id) => INTERACTIVE_CATEGORIES.some((c) => c.id === id))
+  return unique.sort((a, b) => (CATEGORY_ORDER.get(a) ?? Number.MAX_SAFE_INTEGER) - (CATEGORY_ORDER.get(b) ?? Number.MAX_SAFE_INTEGER))
+}
+
 interface FiltersState {
   grade: GradeBand
   categories: string[]
@@ -29,22 +38,19 @@ function parseInitialFilters(): FiltersState {
     const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : 'k1'
     const categoriesParam = params.get('categories')
     const selectedCategories = categoriesParam
-      ? categoriesParam
-          .split(',')
-          .map((c) => c.trim())
-          .filter((c) => INTERACTIVE_CATEGORIES.some((cat) => cat.id === c))
+      ? normalizeCategoryIds(categoriesParam.split(',').map((c) => c.trim()).filter(Boolean))
       : []
     const variantParam = Number(params.get('variant') || '1')
     const variant = Number.isFinite(variantParam) && variantParam > 0 ? Math.floor(variantParam) : 1
     return {
       grade: validGrade,
-      categories: selectedCategories.length ? selectedCategories : DEFAULT_SELECTED_CATEGORIES,
+      categories: selectedCategories.length ? selectedCategories : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant,
     }
   } catch {
     return {
       grade: 'k1',
-      categories: DEFAULT_SELECTED_CATEGORIES,
+      categories: normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant: 1,
     }
   }
@@ -53,9 +59,12 @@ function parseInitialFilters(): FiltersState {
 function updateUrl(filters: FiltersState) {
   const params = new URLSearchParams()
   params.set('grade', filters.grade)
-  params.set('categories', filters.categories.join(','))
-  params.set('variant', String(filters.variant))
-  const newUrl = `/interactive-worksheets-generator?${params.toString()}`
+  const categories = normalizeCategoryIds(filters.categories)
+  if (categories.length) {
+    params.set('categories', categories.join(','))
+  }
+  const queryString = params.toString()
+  const newUrl = queryString ? `/interactive-worksheets-generator?${queryString}` : '/interactive-worksheets-generator'
   window.history.replaceState({}, '', newUrl)
 }
 
@@ -248,10 +257,10 @@ export function InteractiveWorksheetsPage() {
       if (exists) {
         nextCategories = prev.categories.filter((c) => c !== id)
       } else {
-        nextCategories = [...prev.categories, id]
+        nextCategories = normalizeCategoryIds([...prev.categories, id])
       }
       if (nextCategories.length === 0) nextCategories = [id]
-      return { ...prev, categories: nextCategories }
+      return { ...prev, categories: normalizeCategoryIds(nextCategories) }
     })
   }
 
