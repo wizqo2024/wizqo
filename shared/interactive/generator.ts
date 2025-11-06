@@ -94,12 +94,13 @@ function pickDocsForCategory(
   const source = pool.slice()
   // Enhanced shuffle with multiple passes for better randomization
   // Use variant-based rotation to ensure different order each time
-  // Consume some RNG values first to ensure different starting points
-  for (let warmup = 0; warmup < 5; warmup++) {
-    rng() // Warm up RNG to ensure different starting points
+  // Consume many RNG values first to ensure completely different starting points
+  // Timestamp-based seed ensures different RNG sequence each time
+  for (let warmup = 0; warmup < 10 + Math.floor(rng() * 10); warmup++) {
+    rng() // Warm up RNG extensively to ensure different starting points
   }
   
-  for (let pass = 0; pass < 5; pass++) {
+  for (let pass = 0; pass < 7; pass++) {
     // Fisher-Yates shuffle
     for (let i = source.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1))
@@ -124,7 +125,7 @@ function pickDocsForCategory(
     }
     // Additional random swap passes for more variation
     if (pass >= 2 && source.length > 1) {
-      const swapCount = Math.floor(rng() * Math.min(5, source.length))
+      const swapCount = Math.floor(rng() * Math.min(10, source.length))
       for (let s = 0; s < swapCount; s++) {
         const idx1 = Math.floor(rng() * source.length)
         const idx2 = Math.floor(rng() * source.length)
@@ -134,8 +135,9 @@ function pickDocsForCategory(
       }
     }
   }
-  // Consume additional RNG values before selecting to ensure different starting positions
-  for (let i = 0; i < 3; i++) {
+  // Consume many additional RNG values before selecting to ensure completely different starting positions
+  const rngOffset = Math.floor(rng() * 10)
+  for (let i = 0; i < 5 + rngOffset; i++) {
     rng()
   }
   // Select from different positions based on variant to ensure variety
@@ -154,16 +156,24 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     getCategoryById(id)
   )
   // Create deterministic seed based on variant and timestamp for uniqueness
+  // IMPORTANT: Timestamp is the PRIMARY component for uniqueness - ensures different worksheets every time
   // Use variant * large prime to ensure significant seed differences
   const variantMultiplier = options.variant * 7919 // Large prime number
-  // Include timestamp in seed if provided for guaranteed uniqueness
-  // Use timestamp as a strong multiplier to ensure significant randomization differences
-  const timestampPart = options.timestamp ? `|t${options.timestamp}` : ''
-  // Create a deterministic offset based on variant and timestamp
-  // Multiply timestamp by a large prime to maximize its impact on the hash
-  const timestampHash = options.timestamp ? (options.timestamp % 1000000) * 9973 : 0
-  const hash = (variantMultiplier * 31 + date.length + grade.length + chosenCategories.join(',').length + timestampHash) % 100000
-  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|h${hash}${timestampPart}`
+  
+  // Timestamp is the PRIMARY seed component - use it directly as the main seed base
+  const timestampBase = options.timestamp || Date.now()
+  // Create a strong hash from timestamp that dominates the seed
+  const timestampHash = timestampBase % 1000000000 // Use full timestamp range
+  const timestampMultiplier = timestampHash * 7919 // Multiply by large prime
+  
+  // Include timestamp in seed string for RNG initialization
+  const timestampPart = options.timestamp ? `|t${options.timestamp}` : `|t${Date.now()}`
+  
+  // Create hash that strongly emphasizes timestamp
+  const hash = (timestampMultiplier + variantMultiplier * 31 + date.length + grade.length + chosenCategories.join(',').length) % 100000000
+  
+  // Seed string with timestamp as PRIMARY component
+  const seed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|h${hash}${timestampPart}|date:${date}`
   const rng = makeRng(seed)
   const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
 
@@ -218,14 +228,14 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
 
   for (let catIdx = 0; catIdx < categoryOrder.length; catIdx++) {
     const categoryId = categoryOrder[catIdx]
-    // Generate a unique seed for this category based on variant, timestamp, and category index
-    // This ensures each variant and timestamp produces different worksheet selections
-    // Multiply variant by different factors for each category to maximize differences
-    const timestampOffset = options.timestamp ? options.timestamp : 0
-    // Use timestamp as a strong multiplier to ensure different selections
-    const timestampMultiplier = timestampOffset ? (timestampOffset % 1000000) * 9973 : 0
-    const variantFactor = ((options.variant * 7919 + timestampMultiplier) * (catIdx + 1)) % 10000000
-    const categorySeed = `${seed}|cat:${categoryId}|idx:${catIdx}|vf:${variantFactor}|ts:${timestampOffset}|tsm:${timestampMultiplier}|order:${categoryOrder.join(',')}`
+    // Generate a unique seed for this category based on timestamp (PRIMARY), variant, and category index
+    // Timestamp is the PRIMARY component - ensures each generation is completely different
+    const timestampBase = options.timestamp || Date.now()
+    // Use timestamp as the dominant factor in category seed
+    const categoryTimestampHash = (timestampBase % 1000000000) * 7919
+    const variantFactor = (options.variant * 7919 * (catIdx + 1)) % 10000000
+    // Category seed with timestamp as PRIMARY component
+    const categorySeed = `ts:${timestampBase}|${seed}|cat:${categoryId}|idx:${catIdx}|vf:${variantFactor}|tsh:${categoryTimestampHash}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
     const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds)
     
