@@ -142,9 +142,10 @@ app.get('/api/interactive-worksheets', (req, res) => {
     const categories = requestedCats.filter((id) => INTERACTIVE_CATEGORY_IDS.has(id))
 
     const variant = Number.isFinite(Number(req.query?.variant)) ? Math.max(1, Math.floor(Number(req.query.variant))) : 1
+    // Default to 3 worksheets per category for better variety
     const countPerCategory = Number.isFinite(Number(req.query?.countPerCategory))
       ? Math.max(1, Math.floor(Number(req.query.countPerCategory)))
-      : 1
+      : 3
     // Always generate a timestamp for uniqueness - use provided one or generate new
     const timestamp = Number.isFinite(Number(req.query?.timestamp)) 
       ? Number(req.query.timestamp) 

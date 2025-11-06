@@ -233,7 +233,9 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   // This ensures unlimited unique generations - each click creates a completely different seed
   const seed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m1:${variantMultiplier}|m2:${variantMultiplier2}|m3:${variantMultiplier3}|h${hash}${timestampPart}|date:${date}`
   const rng = makeRng(seed)
-  const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
+  // Default to 3 worksheets per category for better variety
+  // Users can still get unlimited unique sets by clicking generate multiple times
+  const countPerCategory = Math.max(1, options.countPerCategory ?? 3)
 
   const items: InteractiveWorksheetItem[] = []
   const answerSummary: string[] = []
