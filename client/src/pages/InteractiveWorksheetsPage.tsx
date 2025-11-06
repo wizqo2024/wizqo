@@ -49,8 +49,8 @@ function parseInitialFilters(): FiltersState {
     if (selectedCategories.length === 0) {
       selectedCategories = normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
     }
-    const variantParam = Number(params.get('variant') || '1')
-    const variant = Number.isFinite(variantParam) && variantParam > 0 ? Math.floor(variantParam) : 1
+    // Always start with variant 1 for SEO - variant is internal only, not in URL
+    const variant = 1
     // Generate unique timestamp on initial load for unique content
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
@@ -308,6 +308,7 @@ export function InteractiveWorksheetsPage() {
   }, [])
 
   // Sync filters with URL parameters when URL changes (e.g., browser back/forward)
+  // Note: Only syncs user-facing filters (grade, categories), not internal ones (variant, timestamp)
   React.useEffect(() => {
     const handlePopState = () => {
       const newFilters = parseInitialFilters()
@@ -315,8 +316,7 @@ export function InteractiveWorksheetsPage() {
       setFilters((prev) => {
         if (
           prev.grade !== newFilters.grade ||
-          prev.categories.join(',') !== newFilters.categories.join(',') ||
-          prev.variant !== newFilters.variant
+          prev.categories.join(',') !== newFilters.categories.join(',')
         ) {
           return newFilters
         }
