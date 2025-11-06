@@ -175,30 +175,22 @@ function pickDocsForCategory(
   const maxStart = Math.max(0, source.length - Math.min(count, source.length))
   const startIndex = Math.floor(Math.min(combinedIndex, maxStart))
   
-  // If we have fewer worksheets than needed, use modulo wrapping to ensure different selections
-  // This allows unlimited unique generations even with limited worksheets per category
-  let selectedDocs = source.slice(startIndex, startIndex + Math.max(1, Math.min(count, source.length - startIndex)))
+  // Simplified selection: if we have fewer worksheets than requested, return what we have
+  // This ensures we always return worksheets when available, even if fewer than requested
+  const availableCount = Math.min(count, source.length)
+  let selectedDocs: InteractiveWorksheetDoc[] = []
   
-  // If we need more worksheets than available, wrap around with variant-based offset
-  // This ensures each variant gets a different combination even with limited options
-  // IMPORTANT: If only 1 worksheet exists, return it (don't try to duplicate)
-  if (selectedDocs.length < count && source.length > 0) {
-    const remaining = count - selectedDocs.length
-    const wrapStart = (variantValue * 7919) % source.length
-    const wrapDocs = []
-    for (let i = 0; i < remaining && wrapDocs.length < source.length; i++) {
-      const wrapIndex = (wrapStart + i) % source.length
-      // Avoid duplicates
-      if (!selectedDocs.some(d => d.id === source[wrapIndex].id)) {
-        wrapDocs.push(source[wrapIndex])
-      }
+  if (source.length > 0) {
+    // Select worksheets starting from the calculated index
+    // Use modulo to wrap around if needed
+    for (let i = 0; i < availableCount; i++) {
+      const index = (startIndex + i) % source.length
+      selectedDocs.push(source[index])
     }
-    selectedDocs = [...selectedDocs, ...wrapDocs]
   }
   
-  // Ensure we always return at least 1 worksheet if any exist (even if count requested is higher)
+  // Final safety check: ensure we return at least 1 worksheet if any exist
   if (selectedDocs.length === 0 && source.length > 0) {
-    // Fallback: return at least the first available worksheet
     selectedDocs = [source[0]]
   }
   
@@ -346,34 +338,58 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
       addedCount++
     }
     
-    // Safety check: if no worksheets were added for this category but category has worksheets,
-    // try again without exclude filter to ensure we get at least one
+    // CRITICAL: Safety check - if no worksheets were added, ensure we get at least one
+    // This handles cases where picks exist but are filtered out, or picks is empty
     if (addedCount === 0) {
       const category = getCategoryById(categoryId)
       if (category && category.docs.length > 0) {
-        // Try picking again without exclude filter (allow duplicates across categories if needed)
-        const fallbackPicks = pickDocsForCategory(categoryId, grade, categoryRng, Math.min(countPerCategory, category.docs.length), undefined, options.variant)
-        for (const { doc, categoryLabel, categoryIcon } of fallbackPicks.slice(0, Math.min(countPerCategory, fallbackPicks.length))) {
-          // Only add if not already used
-          if (!usedDocIds.has(doc.id)) {
-            usedDocIds.add(doc.id)
-            const previewHint = `${categoryIcon} ${doc.title} — ${doc.description}`
-            items.push({
-              docId: doc.id,
-              title: doc.title,
-              description: doc.description,
-              categoryId,
-              categoryLabel,
-              gradeLabel: gradeLabelMap.get(grade) || 'All grades',
-              difficulty: doc.difficulty,
-              focus: doc.focus,
-              previewHint,
-            })
-            answerSummary.push(`${doc.title} (${categoryLabel}) — includes printable answer key.`)
-            addedCount++
-            // Break if we've added enough
-            if (addedCount >= countPerCategory) break
+        // Find any worksheet that matches the grade (with fallback)
+        let fallbackDoc: InteractiveWorksheetDoc | null = null
+        
+        // First try exact grade match (excluding already used)
+        fallbackDoc = category.docs.find(doc => 
+          doc.grades.includes(grade) && !usedDocIds.has(doc.id)
+        ) || null
+        
+        // If no exact match, try fallback grades
+        if (!fallbackDoc) {
+          const fallback = gradeFallback[grade] || []
+          fallbackDoc = category.docs.find(doc => 
+            doc.grades.some(g => fallback.includes(g)) && !usedDocIds.has(doc.id)
+          ) || null
+        }
+        
+        // Last resort: use any worksheet from category (even if already used, to ensure we have something)
+        if (!fallbackDoc) {
+          fallbackDoc = category.docs.find(doc => doc.grades.includes(grade)) || 
+                       category.docs.find(doc => {
+                         const fallback = gradeFallback[grade] || []
+                         return doc.grades.some(g => fallback.includes(g))
+                       }) ||
+                       category.docs[0] || null
+        }
+        
+        // Add the fallback worksheet if found
+        if (fallbackDoc) {
+          // Always add to usedDocIds to track it
+          if (!usedDocIds.has(fallbackDoc.id)) {
+            usedDocIds.add(fallbackDoc.id)
           }
+          const cat = getCategoryById(categoryId)
+          const previewHint = `${cat?.icon || '📄'} ${fallbackDoc.title} — ${fallbackDoc.description}`
+          items.push({
+            docId: fallbackDoc.id,
+            title: fallbackDoc.title,
+            description: fallbackDoc.description,
+            categoryId,
+            categoryLabel: cat?.label || categoryId,
+            gradeLabel: gradeLabelMap.get(grade) || 'All grades',
+            difficulty: fallbackDoc.difficulty,
+            focus: fallbackDoc.focus,
+            previewHint,
+          })
+          answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}) — includes printable answer key.`)
+          addedCount++
         }
       }
     }

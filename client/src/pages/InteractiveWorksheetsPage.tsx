@@ -327,10 +327,13 @@ export function InteractiveWorksheetsPage() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
+  // Memoize categories string to prevent unnecessary re-renders
+  const categoriesKey = React.useMemo(() => filters.categories.join(','), [filters.categories])
+  
   React.useEffect(() => {
     updateUrl(filters)
     loadPack(filters)
-  }, [filters.grade, filters.categories.join(','), filters.variant, filters._generateTimestamp, loadPack])
+  }, [filters.grade, categoriesKey, filters.variant, filters._generateTimestamp, loadPack])
 
   const toggleCategory = (id: string) => {
     setFilters((prev) => {
@@ -369,27 +372,24 @@ export function InteractiveWorksheetsPage() {
   }
 
   // Generate new unique pack with current filters (increment variant for unlimited unique generations)
-  const generateTodayPack = () => {
-    const newVariant = filters.variant + 1
-    // Use high-precision timestamp + random component + variant for guaranteed uniqueness
-    // This ensures every click generates a completely unique set
-    const now = Date.now()
-    const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
-    const variantOffset = newVariant * 1000000 // Variant contributes significantly
-    const generateTimestamp = now + randomOffset + variantOffset
-    
-    const newFilters = { 
-      ...filters, 
-      variant: newVariant,
-      _timestamp: now, // Force React to detect change
-      _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
-    }
-    
-    // Update state and immediately trigger load
-    setFilters(newFilters)
-    // Also call loadPack directly to ensure it triggers immediately
-    loadPack(newFilters)
-  }
+  const generateTodayPack = React.useCallback(() => {
+    setFilters((prev) => {
+      const newVariant = prev.variant + 1
+      // Use high-precision timestamp + random component + variant for guaranteed uniqueness
+      // This ensures every click generates a completely unique set
+      const now = Date.now()
+      const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
+      const variantOffset = newVariant * 1000000 // Variant contributes significantly
+      const generateTimestamp = now + randomOffset + variantOffset
+      
+      return { 
+        ...prev, 
+        variant: newVariant,
+        _timestamp: now, // Force React to detect change
+        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
+      }
+    })
+  }, [])
 
   // Regenerate with next variant for unique pack (for different groups/tubs)
   const regenerate = () => {
@@ -442,7 +442,7 @@ export function InteractiveWorksheetsPage() {
                     onClick={generateTodayPack}
                     className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
                   >
-                    🔄 Generate today’s interactive pack
+                    🔄 Generate new unique pack
                   </button>
                   {pack?.printUrl && (
                     <a
@@ -556,32 +556,38 @@ export function InteractiveWorksheetsPage() {
               </div>
             )}
 
-            {!error && !loading && pack?.items.length === 0 && (
+            {!error && !loading && pack && pack.items.length === 0 && (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
                 No worksheets match those filters yet. Try selecting additional categories.
               </div>
             )}
 
-            <div className="grid gap-5 md:grid-cols-2">
-              {pack?.items.map((item) => (
-                <WorksheetPreviewCard key={item.docId} item={item} />
-              ))}
-            </div>
+            {!error && !loading && pack && pack.items.length > 0 && (
+              <>
+                <div className="grid gap-5 md:grid-cols-2">
+                  {pack.items.map((item) => (
+                    <WorksheetPreviewCard key={item.docId} item={item} />
+                  ))}
+                </div>
 
-            <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-lg font-semibold text-emerald-900">Answer key ready to go</h3>
-              <p className="mt-2 text-sm text-emerald-800">
-                Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
-              </p>
-              <ul className="mt-4 grid gap-2 text-sm text-emerald-900 md:grid-cols-2">
-                {pack?.answerSummary.map((entry) => (
-                  <li key={entry} className="flex items-start gap-2">
-                    <span className="mt-1 text-emerald-600">✓</span>
-                    {entry}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
+                  <h3 className="text-lg font-semibold text-emerald-900">Answer key ready to go</h3>
+                  <p className="mt-2 text-sm text-emerald-800">
+                    Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
+                  </p>
+                  {pack.answerSummary.length > 0 && (
+                    <ul className="mt-4 grid gap-2 text-sm text-emerald-900 md:grid-cols-2">
+                      {pack.answerSummary.map((entry) => (
+                        <li key={entry} className="flex items-start gap-2">
+                          <span className="mt-1 text-emerald-600">✓</span>
+                          {entry}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </>
+            )}
           </section>
         </section>
 
