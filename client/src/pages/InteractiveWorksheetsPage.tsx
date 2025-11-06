@@ -338,21 +338,6 @@ export function InteractiveWorksheetsPage() {
     })
   }
 
-  const focusCategory = (id: string) => {
-    const cat = INTERACTIVE_CATEGORIES.find((c) => c.id === id)
-    if (!cat) return
-    // Generate unique timestamp when focusing category for unique content
-    const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
-    setFilters((prev) => ({ 
-      ...prev, 
-      categories: [id], 
-      variant: 1,
-      _timestamp: Date.now(), // Force React to detect change
-      _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
-    }))
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   const selectedCategorySet = new Set(filters.categories)
 
   return (
@@ -537,38 +522,6 @@ export function InteractiveWorksheetsPage() {
               </ul>
             </div>
           </section>
-        </section>
-
-        <section className="bg-white py-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-              {INTERACTIVE_CATEGORIES.map((category) => (
-                <article key={category.id} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{category.icon}</span>
-                    <h3 className="text-xl font-semibold text-slate-900">
-                      Interactive {category.label} Worksheets – Free PDF
-                    </h3>
-                  </div>
-                  <p className="mt-3 text-sm text-slate-600 leading-relaxed">{category.longDescription}</p>
-                  <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                    {category.topics.map((topic) => (
-                      <li key={topic} className="flex items-start gap-2">
-                        <span className="mt-1 text-purple-400">•</span>
-                        {topic}
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    onClick={() => focusCategory(category.id)}
-                    className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-300 px-4 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-50"
-                  >
-                    Generate interactive {category.label.toLowerCase()} worksheets
-                  </button>
-                </article>
-              ))}
-            </div>
-          </div>
         </section>
 
         <section className="bg-slate-900 py-16 text-slate-100">
