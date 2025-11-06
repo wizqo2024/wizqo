@@ -92,10 +92,17 @@ function pickDocsForCategory(
   
   const source = pool.slice()
   // Enhanced shuffle with multiple passes for better randomization
+  // Add variant-based offset to ensure different shuffle order each time
+  const shuffleOffset = Math.floor(rng() * source.length)
   for (let pass = 0; pass < 3; pass++) {
     for (let i = source.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1))
       ;[source[i], source[j]] = [source[j], source[i]]
+    }
+    // Additional rotation based on variant to ensure different order
+    if (pass === 0 && shuffleOffset > 0) {
+      const rotated = source.slice(shuffleOffset).concat(source.slice(0, shuffleOffset))
+      source.splice(0, source.length, ...rotated)
     }
   }
   return source.slice(0, Math.max(1, Math.min(count, source.length))).map((doc) => ({
@@ -111,9 +118,11 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const chosenCategories = (options.categories.length ? options.categories : DEFAULT_CATEGORIES).filter((id) =>
     getCategoryById(id)
   )
-  // Enhanced seed with timestamp to ensure uniqueness across regenerations
-  const timestamp = Date.now()
-  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|t${timestamp}`
+  // Enhanced seed with variant and counter to ensure uniqueness across regenerations
+  // Use variant * 1000 + a small random offset to ensure different results
+  const variantMultiplier = options.variant * 1000
+  const randomOffset = Math.floor(Math.random() * 1000)
+  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|r${randomOffset}`
   const rng = makeRng(seed)
   const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
 
@@ -203,7 +212,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const printUrl = `/print?doc=bundle&items=${encodeURIComponent(docIdsParam)}&category=Interactive%20Worksheets&from=interactive`
 
   return {
-    seed: `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}`, // Keep readable seed without timestamp
+    seed: `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}`, // Keep readable seed without internal multipliers
     generatedAt: new Date().toISOString(),
     grade,
     gradeLabel: gradeLabelMap.get(grade) || 'All grades',
