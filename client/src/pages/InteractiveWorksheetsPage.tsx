@@ -307,14 +307,15 @@ export function InteractiveWorksheetsPage() {
     })
   }
 
-  // Generate fresh pack with current filters (reset to variant 1 for today's pack)
+  // Generate new unique pack with current filters (increment variant for uniqueness)
   const generateTodayPack = () => {
     setFilters((prev) => {
-      // Reset to variant 1 with fresh timestamp for today's pack
+      const newVariant = prev.variant + 1
+      // Use Date.now() + small random component for guaranteed uniqueness
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return { 
         ...prev, 
-        variant: 1,
+        variant: newVariant,
         _timestamp: Date.now(), // Force React to detect change
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
       }
@@ -490,16 +491,9 @@ export function InteractiveWorksheetsPage() {
             <div className="rounded-2xl bg-purple-50 p-4 text-sm text-purple-800">
               <p className="font-semibold">Pro tip</p>
               <p>
-                Need different sets for multiple groups? Click "Regenerate pack" to get variant 2, 3, 4... Each variant produces unique worksheets while keeping your same grade and category filters.
+                Need different sets for multiple groups? Click "Generate new worksheet" again to get a fresh unique set with the same filters.
               </p>
             </div>
-
-            <button
-              onClick={regenerate}
-              className="w-full rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
-            >
-              🔁 Regenerate pack (variant {filters.variant + 1})
-            </button>
           </aside>
 
           <section className="space-y-6">
