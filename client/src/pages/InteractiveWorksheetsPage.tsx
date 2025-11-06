@@ -284,7 +284,11 @@ export function InteractiveWorksheetsPage() {
 
   // Regenerate with next variant for unique pack
   const regenerate = () => {
-    setFilters((prev) => ({ ...prev, variant: prev.variant + 1 }))
+    setFilters((prev) => {
+      const newVariant = prev.variant + 1
+      // Force state update by creating new object
+      return { ...prev, variant: newVariant }
+    })
   }
 
   const focusCategory = (id: string) => {
