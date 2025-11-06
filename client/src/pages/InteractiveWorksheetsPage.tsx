@@ -27,6 +27,7 @@ interface FiltersState {
   grade: GradeBand
   categories: string[]
   variant: number
+  _timestamp?: number // Force React to detect changes
 }
 
 const todayIso = new Date().toISOString().slice(0, 10)
@@ -269,25 +270,43 @@ export function InteractiveWorksheetsPage() {
       }
       if (nextCategories.length === 0) nextCategories = [id]
       // Reset variant to 1 when categories change for fresh generation
-      return { ...prev, categories: normalizeCategoryIds(nextCategories), variant: 1 }
+      return { 
+        ...prev, 
+        categories: normalizeCategoryIds(nextCategories), 
+        variant: 1,
+        _timestamp: Date.now() // Force React to detect change
+      }
     })
   }
 
   const setGrade = (grade: GradeBand) => {
-    setFilters((prev) => ({ ...prev, grade, variant: 1 }))
+    setFilters((prev) => ({ 
+      ...prev, 
+      grade, 
+      variant: 1,
+      _timestamp: Date.now() // Force React to detect change
+    }))
   }
 
   // Generate today's pack with current filters (reset variant to 1)
   const generateTodayPack = () => {
-    setFilters((prev) => ({ ...prev, variant: 1 }))
+    setFilters((prev) => ({ 
+      ...prev, 
+      variant: 1,
+      _timestamp: Date.now() // Force React to detect change
+    }))
   }
 
   // Regenerate with next variant for unique pack
   const regenerate = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
-      // Force state update by creating new object
-      return { ...prev, variant: newVariant }
+      // Force state update by creating new object with timestamp
+      return { 
+        ...prev, 
+        variant: newVariant,
+        _timestamp: Date.now() // Force React to detect change
+      }
     })
   }
 
