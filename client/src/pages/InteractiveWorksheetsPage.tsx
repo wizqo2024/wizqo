@@ -489,10 +489,6 @@ export function InteractiveWorksheetsPage() {
                       })}
                     </dd>
                   </div>
-                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-                      <dt>Unique seed</dt>
-                      <dd className="font-mono text-xs text-slate-500 break-all sm:text-right">{pack?.seed || `${todayIso}|preview`}</dd>
-                    </div>
                 </dl>
                 <p className="mt-4 rounded-xl bg-purple-50 px-3 py-2 text-xs text-purple-700">
                   💡 Tip: Click "Generate new unique pack" as many times as you want! Each click creates a completely unique set based on your grade and category filters. Perfect for multiple groups, daily practice, or unlimited variety!
