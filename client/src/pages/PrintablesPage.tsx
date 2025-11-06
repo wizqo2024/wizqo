@@ -162,6 +162,92 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🏔️ Landforms vs Water Bodies'
     case 'geo-latlong':
       return '🗺️ Latitude & Longitude Basics'
+    // Interactive Worksheets - Math
+    case 'interactive-math-rhythm':
+      return '🔢 Number Pattern Rhythm'
+    case 'interactive-math-race':
+      return '🏁 Math Race Challenge'
+    case 'interactive-math-puzzle':
+      return '🧩 Equation Puzzle Box'
+    case 'interactive-math-shapes':
+      return '🔺 Geometry Shape Challenge'
+    case 'interactive-math-money':
+      return '💰 Money Math Mastery'
+    case 'interactive-math-fractions':
+      return '🥧 Fraction Fun Practice'
+    case 'interactive-math-measurement':
+      return '📏 Measurement Mission'
+    // Interactive Worksheets - Reading
+    case 'interactive-reading-adventure':
+      return '📖 Reading Adventure Quest'
+    case 'interactive-reading-detective':
+      return '🔍 Reading Detective Challenge'
+    case 'interactive-reading-vocab':
+      return '📚 Vocabulary Builder Workshop'
+    case 'interactive-reading-summary':
+      return '📝 Summary & Main Idea'
+    case 'interactive-reading-compare':
+      return '⚖️ Compare & Contrast Passages'
+    // Interactive Worksheets - Writing
+    case 'interactive-writing-prompts':
+      return '✍️ Creative Writing Prompts'
+    case 'interactive-writing-sentences':
+      return '📝 Sentence Builder Workshop'
+    case 'interactive-writing-poetry':
+      return '🎭 Poetry Writing Practice'
+    case 'interactive-writing-opinion':
+      return '💬 Opinion Writing Framework'
+    // Interactive Worksheets - Science
+    case 'interactive-science-observation':
+      return '🔬 Science Observation Journal'
+    case 'interactive-science-lifecycle':
+      return '🌱 Life Cycle Explorer'
+    case 'interactive-science-states':
+      return '⚗️ States of Matter Lab'
+    case 'interactive-science-weather':
+      return '🌦️ Weather Watcher Journal'
+    // Interactive Worksheets - Geography
+    case 'interactive-geography-map':
+      return '🗺️ Interactive Map Skills'
+    case 'interactive-geography-culture':
+      return '🌍 Culture Explorer'
+    case 'interactive-geography-history':
+      return '📅 Historical Timeline Builder'
+    // Interactive Worksheets - Grammar
+    case 'interactive-grammar-parts':
+      return '📖 Parts of Speech Practice'
+    case 'interactive-grammar-tenses':
+      return '⏰ Verb Tense Mastery'
+    case 'interactive-grammar-antonyms':
+      return '🔤 Synonyms & Antonyms Challenge'
+    // Interactive Worksheets - Art
+    case 'interactive-art-design':
+      return '🎨 Creative Design Challenge'
+    case 'interactive-art-colorwheel':
+      return '🌈 Color Theory Practice'
+    case 'interactive-art-sketch':
+      return '✏️ Sketch & Observe'
+    // Interactive Worksheets - Early Learning
+    case 'interactive-early-phonics':
+      return '🔤 Phonics Fun Practice'
+    case 'interactive-early-counting':
+      return '🔢 Counting & Number Recognition'
+    case 'interactive-early-patterns':
+      return '🔄 Pattern Recognition Explorer'
+    // Interactive Worksheets - Logic
+    case 'interactive-logic-sequence':
+      return '📊 Sequencing Challenge'
+    case 'interactive-logic-riddles':
+      return '🧩 Brain Teaser Riddles'
+    case 'interactive-logic-deduction':
+      return '🔍 Deductive Reasoning Quest'
+    // Interactive Worksheets - SEL
+    case 'interactive-sel-mindfulness':
+      return '🧘 Mindfulness & Reflection'
+    case 'interactive-sel-empathy':
+      return '❤️ Empathy Builder'
+    case 'interactive-sel-goals':
+      return '🎯 Goal Setting & Growth'
     default:
       return 'Printable Fun Learning Activities'
   }
@@ -4127,6 +4213,126 @@ export function PrintablesPage() {
             />
           </div>
         </section>
+        )}
+
+        {/* Interactive Worksheets - Art & Coloring */}
+        {activeDocs.includes('interactive-art-design') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎨 Creative Design Challenge</h2>
+            <p className="text-slate-600 text-sm mb-3">Create unique design patterns, mandalas, and abstract art. Each generation provides new creative prompts!</p>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="border border-slate-400 rounded bg-white p-4">
+                <h3 className="font-semibold text-sm mb-2">Pattern Design</h3>
+                <div className="h-32 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-slate-400 text-xs">
+                  Design your pattern here
+                </div>
+              </div>
+              <div className="border border-slate-400 rounded bg-white p-4">
+                <h3 className="font-semibold text-sm mb-2">Mandalas</h3>
+                <div className="h-32 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-slate-400 text-xs">
+                  Create your mandala
+                </div>
+              </div>
+              <div className="border border-slate-400 rounded bg-white p-4">
+                <h3 className="font-semibold text-sm mb-2">Abstract Art</h3>
+                <div className="h-32 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-slate-400 text-xs">
+                  Express your creativity
+                </div>
+              </div>
+              <div className="border border-slate-400 rounded bg-white p-4">
+                <h3 className="font-semibold text-sm mb-2">Geometric Shapes</h3>
+                <div className="h-32 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-slate-400 text-xs">
+                  Use shapes creatively
+                </div>
+              </div>
+            </div>
+            <div className="text-xs text-slate-600">
+              <p className="font-semibold mb-1">Design Tips:</p>
+              <ul className="list-disc list-inside space-y-0.5">
+                <li>Use symmetry and repetition</li>
+                <li>Experiment with colors and patterns</li>
+                <li>Balance positive and negative space</li>
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('interactive-art-colorwheel') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🌈 Color Theory Practice</h2>
+            <p className="text-slate-600 text-sm mb-3">Learn about primary, secondary, and complementary colors with interactive exercises.</p>
+            <div className="mb-4">
+              <h3 className="font-semibold text-sm mb-2">Color Wheel</h3>
+              <div className="flex items-center justify-center">
+                <svg viewBox="0 0 300 300" className="w-full max-w-[300px] h-auto">
+                  <circle cx="150" cy="150" r="120" fill="none" stroke="#111827" strokeWidth="2" />
+                  {/* Primary Colors */}
+                  <circle cx="150" cy="60" r="25" fill="#ef4444" stroke="#111827" strokeWidth="2" />
+                  <text x="150" y="65" textAnchor="middle" fontSize="12" fill="#111827">Red</text>
+                  <circle cx="225" cy="190" r="25" fill="#3b82f6" stroke="#111827" strokeWidth="2" />
+                  <text x="225" y="195" textAnchor="middle" fontSize="12" fill="#111827">Blue</text>
+                  <circle cx="75" cy="190" r="25" fill="#eab308" stroke="#111827" strokeWidth="2" />
+                  <text x="75" y="195" textAnchor="middle" fontSize="12" fill="#111827">Yellow</text>
+                  {/* Secondary Colors */}
+                  <circle cx="105" cy="110" r="20" fill="#f97316" stroke="#111827" strokeWidth="1.5" />
+                  <text x="105" y="115" textAnchor="middle" fontSize="10" fill="#111827">Orange</text>
+                  <circle cx="195" cy="110" r="20" fill="#8b5cf6" stroke="#111827" strokeWidth="1.5" />
+                  <text x="195" y="115" textAnchor="middle" fontSize="10" fill="#111827">Violet</text>
+                  <circle cx="150" cy="220" r="20" fill="#10b981" stroke="#111827" strokeWidth="1.5" />
+                  <text x="150" y="225" textAnchor="middle" fontSize="10" fill="#111827">Green</text>
+                </svg>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="border border-slate-300 rounded p-3">
+                <h4 className="font-semibold text-xs mb-2">Primary Colors</h4>
+                <div className="flex gap-2">
+                  <div className="w-12 h-12 bg-red-500 border border-slate-400 rounded"></div>
+                  <div className="w-12 h-12 bg-blue-500 border border-slate-400 rounded"></div>
+                  <div className="w-12 h-12 bg-yellow-500 border border-slate-400 rounded"></div>
+                </div>
+                <p className="text-xs text-slate-600 mt-2">Cannot be made by mixing other colors</p>
+              </div>
+              <div className="border border-slate-300 rounded p-3">
+                <h4 className="font-semibold text-xs mb-2">Secondary Colors</h4>
+                <div className="flex gap-2">
+                  <div className="w-12 h-12 bg-orange-500 border border-slate-400 rounded"></div>
+                  <div className="w-12 h-12 bg-purple-500 border border-slate-400 rounded"></div>
+                  <div className="w-12 h-12 bg-green-500 border border-slate-400 rounded"></div>
+                </div>
+                <p className="text-xs text-slate-600 mt-2">Made by mixing two primary colors</p>
+              </div>
+            </div>
+            <div className="border border-slate-300 rounded p-3">
+              <h4 className="font-semibold text-xs mb-2">Color Mixing Practice</h4>
+              <div className="space-y-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-red-500 border border-slate-400 rounded"></div>
+                  <span>+</span>
+                  <div className="w-8 h-8 bg-yellow-500 border border-slate-400 rounded"></div>
+                  <span>=</span>
+                  <div className="w-8 h-8 bg-orange-500 border border-slate-400 rounded"></div>
+                  <span className="ml-2">Red + Yellow = Orange</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-blue-500 border border-slate-400 rounded"></div>
+                  <span>+</span>
+                  <div className="w-8 h-8 bg-yellow-500 border border-slate-400 rounded"></div>
+                  <span>=</span>
+                  <div className="w-8 h-8 bg-green-500 border border-slate-400 rounded"></div>
+                  <span className="ml-2">Blue + Yellow = Green</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-red-500 border border-slate-400 rounded"></div>
+                  <span>+</span>
+                  <div className="w-8 h-8 bg-blue-500 border border-slate-400 rounded"></div>
+                  <span>=</span>
+                  <div className="w-8 h-8 bg-purple-500 border border-slate-400 rounded"></div>
+                  <span className="ml-2">Red + Blue = Purple</span>
+                </div>
+              </div>
+            </div>
+          </section>
         )}
 
         {doc === 'bundle' && showAnswers && bundleAnswerSections.length > 0 && (

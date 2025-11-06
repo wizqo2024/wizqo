@@ -84,6 +84,56 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'geo-landforms',
     'geo-latlong',
   ],
+  'Interactive Worksheets': [
+    // Math
+    'interactive-math-rhythm',
+    'interactive-math-race',
+    'interactive-math-puzzle',
+    'interactive-math-shapes',
+    'interactive-math-money',
+    'interactive-math-fractions',
+    'interactive-math-measurement',
+    // Reading
+    'interactive-reading-adventure',
+    'interactive-reading-detective',
+    'interactive-reading-vocab',
+    'interactive-reading-summary',
+    'interactive-reading-compare',
+    // Writing
+    'interactive-writing-prompts',
+    'interactive-writing-sentences',
+    'interactive-writing-poetry',
+    'interactive-writing-opinion',
+    // Science
+    'interactive-science-observation',
+    'interactive-science-lifecycle',
+    'interactive-science-states',
+    'interactive-science-weather',
+    // Geography
+    'interactive-geography-map',
+    'interactive-geography-culture',
+    'interactive-geography-history',
+    // Grammar
+    'interactive-grammar-parts',
+    'interactive-grammar-tenses',
+    'interactive-grammar-antonyms',
+    // Art
+    'interactive-art-design',
+    'interactive-art-colorwheel',
+    'interactive-art-sketch',
+    // Early Learning
+    'interactive-early-phonics',
+    'interactive-early-counting',
+    'interactive-early-patterns',
+    // Logic
+    'interactive-logic-sequence',
+    'interactive-logic-riddles',
+    'interactive-logic-deduction',
+    // SEL
+    'interactive-sel-mindfulness',
+    'interactive-sel-empathy',
+    'interactive-sel-goals',
+  ],
 };
 
 export function getPrintableSectionForDoc(docId: string): string | undefined {
