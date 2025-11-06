@@ -557,6 +557,68 @@ export function InteractiveWorksheetsPage() {
             </dl>
           </div>
         </section>
+
+        <section className="bg-slate-50 py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">More Free Resources for Teachers</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <a
+                href="/worksheets/1st-grade-math-worksheets"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">1st Grade Math Worksheets</h3>
+                <p className="text-sm text-slate-600">
+                  Free printable math worksheets covering number sense, addition/subtraction, ten-frames, and shapes.
+                </p>
+              </a>
+              <a
+                href="/worksheets/2nd-grade-math-worksheets"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">2nd Grade Math Worksheets</h3>
+                <p className="text-sm text-slate-600">
+                  Place value, addition/subtraction within 100, skip counting, and more grade 2 math practice.
+                </p>
+              </a>
+              <a
+                href="/worksheets/handwriting-worksheet-maker"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Handwriting Worksheet Maker</h3>
+                <p className="text-sm text-slate-600">
+                  Create custom handwriting practice sheets with tracing letters, words, and sentences.
+                </p>
+              </a>
+              <a
+                href="/printables/name-tracing-generator"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Name Tracing Generator</h3>
+                <p className="text-sm text-slate-600">
+                  Generate personalized name tracing worksheets with dotted letters and friendly guidelines.
+                </p>
+              </a>
+              <a
+                href="/printables"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Free Printables Hub</h3>
+                <p className="text-sm text-slate-600">
+                  Word searches, Sudoku, coloring pages, spot-the-difference games, and more printable activities.
+                </p>
+              </a>
+              <a
+                href="/kids"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Kids Hub</h3>
+                <p className="text-sm text-slate-600">
+                  Play kid-safe mini-games and explore fun learning activities designed for elementary students.
+                </p>
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>
