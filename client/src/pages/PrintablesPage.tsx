@@ -1,6 +1,7 @@
 import React from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
+import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 
 function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
   const { packTime, bundleCategory } = context
@@ -253,7 +254,11 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
   }
 }
 
-const BUNDLE_DOC_ALLOWLIST = new Set<string>(Object.values(PRINTABLE_BUNDLE_SECTIONS).flat())
+const interactiveDocIds = INTERACTIVE_CATEGORIES.flatMap((category) => category.docs.map((doc) => doc.id))
+const BUNDLE_DOC_ALLOWLIST = new Set<string>([
+  ...Object.values(PRINTABLE_BUNDLE_SECTIONS).flat(),
+  ...interactiveDocIds,
+])
 
 export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
