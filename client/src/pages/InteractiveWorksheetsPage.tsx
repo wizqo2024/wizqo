@@ -252,46 +252,45 @@ export function InteractiveWorksheetsPage() {
     const abortController = new AbortController()
     abortControllerRef.current = abortController
     
-    try {
-      setLoading(true)
-      setError(null)
-      // Clear pack immediately when filters change to prevent showing stale data
-      setPack(null)
-      const params = new URLSearchParams()
-      params.set('date', todayIso)
-      params.set('grade', currentFilters.grade)
-      // Ensure categories array is not empty
-      const categoriesToSend = currentFilters.categories.length > 0 
-        ? currentFilters.categories 
-        : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
-      params.set('categories', categoriesToSend.join(','))
-      params.set('variant', String(currentFilters.variant))
-      // Always include timestamp for unique generation
-      // Use explicit timestamp if set, otherwise generate one
-      const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
-      params.set('timestamp', String(timestamp))
-      // Add cache-busting timestamp to prevent caching
-      params.set('_t', String(Date.now()))
-      const apiUrl = `/api/interactive-worksheets?${params.toString()}`
-      const resp = await fetch(apiUrl, { 
-        cache: 'no-store',
-        signal: abortController.signal,
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
+      try {
+        setLoading(true)
+        setError(null)
+
+        const params = new URLSearchParams()
+        params.set('date', todayIso)
+        params.set('grade', currentFilters.grade)
+
+        const categoriesToSend = currentFilters.categories.length > 0
+          ? currentFilters.categories
+          : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+        params.set('categories', categoriesToSend.join(','))
+        params.set('variant', String(currentFilters.variant))
+
+        const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
+        params.set('timestamp', String(timestamp))
+        params.set('_t', String(Date.now()))
+
+        const apiUrl = `/api/interactive-worksheets?${params.toString()}`
+        const resp = await fetch(apiUrl, {
+          cache: 'no-store',
+          signal: abortController.signal,
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            Pragma: 'no-cache',
+          },
+        })
+
+        if (!resp.ok) {
+          const errorText = await resp.text()
+          throw new Error(`Failed to generate worksheets: ${resp.status} ${errorText}`)
         }
-      })
-      if (!resp.ok) {
-        const errorText = await resp.text()
-        throw new Error(`Failed to generate worksheets: ${resp.status} ${errorText}`)
-      }
-      const json = await resp.json()
-      // Ensure we have valid data structure
-      if (json?.data) {
-        setPack(json.data)
-      } else {
-        throw new Error('Invalid response format from server')
-      }
+
+        const json = await resp.json()
+        if (json?.data) {
+          setPack(json.data)
+        } else {
+          throw new Error('Invalid response format from server')
+        }
     } catch (err: any) {
       // Don't set error if request was aborted (user changed filters)
       if (err.name === 'AbortError') {
@@ -437,7 +436,7 @@ export function InteractiveWorksheetsPage() {
                 <p className="max-w-2xl text-sm text-slate-500">
                   Need screen-free brain breaks too? Explore the playful activities inside our <a href="/kids" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Kids Hub</a> or build multi-day plans with grade-level packs like the <a href="/worksheets/1st-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">1st Grade Math Worksheets collection</a>.
                 </p>
-                <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3">
                   <button
                     onClick={generateTodayPack}
                     className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
@@ -447,6 +446,8 @@ export function InteractiveWorksheetsPage() {
                   {pack?.printUrl && (
                     <a
                       href={pack.printUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
                     >
                       ⬇️ Download free PDF
