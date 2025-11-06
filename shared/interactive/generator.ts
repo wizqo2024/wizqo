@@ -65,7 +65,8 @@ function pickDocsForCategory(
   rng: () => number,
   count: number,
   excludeDocIds?: Set<string>,
-  variant?: number
+  variant?: number,
+  categoryIndex?: number
 ): { doc: InteractiveWorksheetDoc; categoryLabel: string; categoryIcon: string }[] {
   const category = getCategoryById(categoryId)
   if (!category) return []
@@ -99,28 +100,41 @@ function pickDocsForCategory(
       : category.docs.filter((d) => !excludeDocIds || !excludeDocIds.has(d.id))
   }
   
+  if (pool.length === 0) {
+    pool = category.docs.filter((doc) => doc.grades.includes(grade))
     if (pool.length === 0) {
-      pool = category.docs.filter((doc) => doc.grades.includes(grade))
-      if (pool.length === 0) {
-        pool = category.docs.slice()
-      }
+      pool = category.docs.slice()
     }
+  }
 
-    if (pool.length === 0) return []
+  if (pool.length === 0) return []
 
-    const available = pool.slice()
-    const desiredCount = Math.min(count, available.length)
-    const selectedDocs: InteractiveWorksheetDoc[] = []
+  const orderedPool = pool.slice().sort((a, b) => a.id.localeCompare(b.id))
+  const variantBase = Math.max(0, (variant ?? 1) - 1)
+  const indexOffset = Math.max(0, categoryIndex ?? 0)
+  const offset = orderedPool.length > 0 ? (variantBase + indexOffset) % orderedPool.length : 0
+  const rotatedPool = orderedPool.length > 0
+    ? [...orderedPool.slice(offset), ...orderedPool.slice(0, offset)]
+    : orderedPool
 
-    for (let i = 0; i < desiredCount; i++) {
-      if (available.length === 0) break
+  const rotationFiltered = rotatedPool.filter((doc) => !excludeDocIds || !excludeDocIds.has(doc.id))
+  const selectedDocs: InteractiveWorksheetDoc[] = rotationFiltered.slice(0, Math.min(count, rotationFiltered.length))
+
+  if (selectedDocs.length < count) {
+    const remainingPool = pool.filter((doc) =>
+      !selectedDocs.some((selected) => selected.id === doc.id) &&
+      (!excludeDocIds || !excludeDocIds.has(doc.id))
+    )
+    const available = remainingPool.slice()
+    while (selectedDocs.length < count && available.length > 0) {
       const index = Math.floor(rng() * available.length)
       selectedDocs.push(available.splice(index, 1)[0])
     }
+  }
 
-    if (selectedDocs.length === 0 && pool.length > 0) {
-      selectedDocs.push(pool[0])
-    }
+  if (selectedDocs.length === 0 && pool.length > 0) {
+    selectedDocs.push(pool[0])
+  }
 
   return selectedDocs.map((doc) => ({
     doc,
@@ -210,7 +224,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     // This ensures unlimited unique generations - each category gets a completely different seed
       const categorySeed = `ts:${timestampBase}|pack:${packSeed}|cat:${categoryId}|idx:${catIdx}|vf1:${variantFactor1}|vf2:${variantFactor2}|vf3:${variantFactor3}|tsh1:${categoryTimestampHash}|tsh2:${categoryTimestampHash2}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
-    const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds, options.variant)
+    const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds, options.variant, catIdx)
     
     // Ensure we only add worksheets that match the category
     // Note: pickDocsForCategory already handles grade matching with fallbacks,
