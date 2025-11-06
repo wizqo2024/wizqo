@@ -64,7 +64,8 @@ function pickDocsForCategory(
   grade: GradeBand,
   rng: () => number,
   count: number,
-  excludeDocIds?: Set<string>
+  excludeDocIds?: Set<string>,
+  variant?: number
 ): { doc: InteractiveWorksheetDoc; categoryLabel: string; categoryIcon: string }[] {
   const category = getCategoryById(categoryId)
   if (!category) return []
@@ -136,12 +137,26 @@ function pickDocsForCategory(
     }
   }
   // Consume many additional RNG values before selecting to ensure completely different starting positions
+  // Use variant to create a deterministic offset for selection position
+  const variantValue = variant || 1
+  // Use variant to create a strong positional shift - ensures different worksheets per variant
+  const variantOffset = Math.floor((variantValue * 7919) % Math.max(1, source.length)) // Variant-based offset
   const rngOffset = Math.floor(rng() * 10)
-  for (let i = 0; i < 5 + rngOffset; i++) {
+  for (let i = 0; i < 5 + rngOffset + variantOffset; i++) {
     rng()
   }
-  // Select from different positions based on variant to ensure variety
-  const startIndex = Math.floor(rng() * Math.max(1, source.length - Math.min(count, source.length) + 1))
+  // Select from different positions - use variant to force different starting positions
+  // This ensures variant 1, 2, 3, etc. pick from different positions in the shuffled array
+  // Use variant directly to choose starting position, ensuring different worksheets per variant
+  const variantShift = (variantValue * 7919) % Math.max(1, source.length)
+  const randomStart = Math.floor(rng() * source.length)
+  // Combine random start with variant shift - variant ensures different starting positions
+  // Each variant will pick from a different section of the array
+  // For small arrays, ensure variant directly affects selection
+  const variantBasedIndex = variantValue % Math.max(1, source.length) // Direct variant-based index
+  const combinedIndex = (randomStart + variantShift + variantBasedIndex) % source.length
+  const maxStart = Math.max(0, source.length - Math.min(count, source.length))
+  const startIndex = Math.floor(Math.min(combinedIndex, maxStart))
   return source.slice(startIndex, startIndex + Math.max(1, Math.min(count, source.length - startIndex))).map((doc) => ({
     doc,
     categoryLabel: category.label,
@@ -237,7 +252,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     // Category seed with timestamp as PRIMARY component
     const categorySeed = `ts:${timestampBase}|${seed}|cat:${categoryId}|idx:${catIdx}|vf:${variantFactor}|tsh:${categoryTimestampHash}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
-    const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds)
+    const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds, options.variant)
     
     // Ensure we only add worksheets that match the grade AND category
     for (const { doc, categoryLabel, categoryIcon } of picks) {
