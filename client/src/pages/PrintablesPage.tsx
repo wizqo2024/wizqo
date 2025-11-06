@@ -269,6 +269,7 @@ export function PrintablesPage() {
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
   const seedParam = params.get('seed') || ''
+  const timestampParam = params.get('timestamp') || ''
   const variantParam = params.get('variant') || '1'
   const [showAnswers, setShowAnswers] = React.useState(false)
   const [copiedLink, setCopiedLink] = React.useState(false)
@@ -345,7 +346,7 @@ export function PrintablesPage() {
     }
   }, [])
 
-  const effectiveSeed = seedParam || todaySeed
+  const effectiveSeed = seedParam || (timestampParam ? `ts:${timestampParam}` : todaySeed)
   const variant = parseInt(variantParam || '1', 10)
   const bundleAnswerSections: Array<{ docId: string; title: string; content: React.ReactNode }> = []
   const showAnswersForDoc = (docId: string, factory: () => React.ReactNode) => {
