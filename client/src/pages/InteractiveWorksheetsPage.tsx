@@ -44,18 +44,23 @@ function parseInitialFilters(): FiltersState {
       : []
     const variantParam = Number(params.get('variant') || '1')
     const variant = Number.isFinite(variantParam) && variantParam > 0 ? Math.floor(variantParam) : 1
+    // Generate unique timestamp on initial load for unique content
+    const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
       grade: validGrade,
       categories: selectedCategories.length ? selectedCategories : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant,
-      _timestamp: Date.now() // Initialize with timestamp
+      _timestamp: Date.now(), // Initialize with timestamp
+      _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
     }
   } catch {
+    const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
       grade: 'k1',
       categories: normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant: 1,
-      _timestamp: Date.now() // Initialize with timestamp
+      _timestamp: Date.now(), // Initialize with timestamp
+      _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
     }
   }
 }
@@ -238,10 +243,10 @@ export function InteractiveWorksheetsPage() {
       params.set('grade', currentFilters.grade)
       params.set('categories', currentFilters.categories.join(','))
       params.set('variant', String(currentFilters.variant))
-      // Add timestamp for unique generation when generating new worksheets
-      if (currentFilters._generateTimestamp) {
-        params.set('timestamp', String(currentFilters._generateTimestamp))
-      }
+      // Always include timestamp for unique generation
+      // Use explicit timestamp if set, otherwise generate one
+      const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
+      params.set('timestamp', String(timestamp))
       // Add cache-busting timestamp to prevent caching
       params.set('_t', String(Date.now()))
       const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { 
@@ -276,25 +281,30 @@ export function InteractiveWorksheetsPage() {
         nextCategories = normalizeCategoryIds([...prev.categories, id])
       }
       if (nextCategories.length === 0) nextCategories = [id]
-      // Reset variant to 1 when categories change for fresh generation
+      // Reset variant to 1 when categories change and generate new unique timestamp
+      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return { 
         ...prev, 
         categories: normalizeCategoryIds(nextCategories), 
         variant: 1,
         _timestamp: Date.now(), // Force React to detect change
-        _generateTimestamp: undefined // Clear generate timestamp when filters change
+        _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
       }
     })
   }
 
   const setGrade = (grade: GradeBand) => {
-    setFilters((prev) => ({ 
-      ...prev, 
-      grade, 
-      variant: 1,
-      _timestamp: Date.now(), // Force React to detect change
-      _generateTimestamp: undefined // Clear generate timestamp when filters change
-    }))
+    setFilters((prev) => {
+      // Generate unique timestamp when grade changes for unique content
+      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+      return { 
+        ...prev, 
+        grade, 
+        variant: 1,
+        _timestamp: Date.now(), // Force React to detect change
+        _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
+      }
+    })
   }
 
   // Generate new unique pack with current filters (increment variant + timestamp for uniqueness)
@@ -331,12 +341,14 @@ export function InteractiveWorksheetsPage() {
   const focusCategory = (id: string) => {
     const cat = INTERACTIVE_CATEGORIES.find((c) => c.id === id)
     if (!cat) return
+    // Generate unique timestamp when focusing category for unique content
+    const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     setFilters((prev) => ({ 
       ...prev, 
       categories: [id], 
       variant: 1,
       _timestamp: Date.now(), // Force React to detect change
-      _generateTimestamp: undefined // Clear generate timestamp when filters change
+      _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
     }))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
