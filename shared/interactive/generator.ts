@@ -101,14 +101,25 @@ function pickDocsForCategory(
     }
     // Additional rotation on first pass to maximize differences
     if (pass === 0 && source.length > 1) {
+      // Use RNG to determine rotation amount - ensures different rotation per variant
       const rotationAmount = Math.floor(rng() * source.length)
       if (rotationAmount > 0) {
         const rotated = source.slice(rotationAmount).concat(source.slice(0, rotationAmount))
         source.splice(0, source.length, ...rotated)
       }
     }
+    // Additional reverse shuffle on second pass for more randomization
+    if (pass === 1 && source.length > 1) {
+      // Reverse a portion of the array based on RNG
+      const reverseStart = Math.floor(rng() * (source.length - 1))
+      const reverseEnd = Math.floor(reverseStart + 1 + rng() * (source.length - reverseStart - 1))
+      const reversed = source.slice(reverseStart, reverseEnd).reverse()
+      source.splice(reverseStart, reverseEnd - reverseStart, ...reversed)
+    }
   }
-  return source.slice(0, Math.max(1, Math.min(count, source.length))).map((doc) => ({
+  // Select from different positions based on variant to ensure variety
+  const startIndex = Math.floor(rng() * Math.max(1, source.length - Math.min(count, source.length) + 1))
+  return source.slice(startIndex, startIndex + Math.max(1, Math.min(count, source.length - startIndex))).map((doc) => ({
     doc,
     categoryLabel: category.label,
     categoryIcon: category.icon,
@@ -170,8 +181,9 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   // Process categories in a variant-dependent order to ensure different selections
   // Variant influences which category is processed first, affecting selection order
   const categoryOrder = validCategories.slice()
-  if (options.variant > 1) {
-    // Rotate category order based on variant to ensure different worksheets
+  
+  // Rotate category order based on variant to maximize differences
+  if (options.variant > 1 && categoryOrder.length > 1) {
     const rotation = (options.variant - 1) % categoryOrder.length
     if (rotation > 0) {
       categoryOrder.push(...categoryOrder.splice(0, rotation))
@@ -182,7 +194,8 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     // Generate a unique seed for this category based on variant and category index
     // This ensures each variant produces different worksheet selections
     const categoryIndex = categoryOrder.indexOf(categoryId)
-    const categorySeed = `${seed}|cat:${categoryId}|idx:${categoryIndex}|order:${categoryOrder.join(',')}`
+    // Add variant to the seed multiple times to ensure significant differences
+    const categorySeed = `${seed}|cat:${categoryId}|idx:${categoryIndex}|v${options.variant ** 2}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
     const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds)
     
