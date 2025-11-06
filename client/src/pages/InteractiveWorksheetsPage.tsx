@@ -367,17 +367,22 @@ export function InteractiveWorksheetsPage() {
     })
   }
 
-  // Generate new unique pack with current filters (increment variant for uniqueness)
+  // Generate new unique pack with current filters (increment variant for unlimited unique generations)
   const generateTodayPack = () => {
     setFilters((prev) => {
+      // Increment variant without limit - allows unlimited unique generations
       const newVariant = prev.variant + 1
-      // Use Date.now() + small random component for guaranteed uniqueness
-      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+      // Use high-precision timestamp + random component + variant for guaranteed uniqueness
+      // This ensures every click generates a completely unique set
+      const now = Date.now()
+      const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
+      const variantOffset = newVariant * 1000000 // Variant contributes significantly
+      const generateTimestamp = now + randomOffset + variantOffset
       return { 
         ...prev, 
         variant: newVariant,
-        _timestamp: Date.now(), // Force React to detect change
-        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
+        _timestamp: now, // Force React to detect change
+        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
       }
     })
   }
@@ -451,7 +456,7 @@ export function InteractiveWorksheetsPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1 text-purple-500">✔</span>
-                    Daily unique seed so your students never see repeats
+                    Unlimited unique generations—click again for a completely new set
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1 text-purple-500">✔</span>
@@ -490,7 +495,7 @@ export function InteractiveWorksheetsPage() {
                     </div>
                 </dl>
                 <p className="mt-4 rounded-xl bg-purple-50 px-3 py-2 text-xs text-purple-700">
-                  Tip: Click "Generate new worksheet" multiple times to get different unique sets with the same filters. Perfect for multiple groups or daily practice!
+                  💡 Tip: Click "Generate new unique pack" as many times as you want! Each click creates a completely unique set based on your grade and category filters. Perfect for multiple groups, daily practice, or unlimited variety!
                 </p>
               </div>
             </div>
@@ -532,7 +537,7 @@ export function InteractiveWorksheetsPage() {
             <div className="rounded-2xl bg-purple-50 p-4 text-sm text-purple-800">
               <p className="font-semibold">Pro tip</p>
               <p>
-                Need different sets for multiple groups? Click "Generate new worksheet" again to get a fresh unique set with the same filters.
+                Generate unlimited unique sets! Each time you click "Generate new unique pack", you'll get a completely different set of worksheets based on your selected grade and categories. Perfect for multiple groups, daily practice, or when you need variety!
               </p>
             </div>
           </aside>
