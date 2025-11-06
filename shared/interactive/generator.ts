@@ -99,108 +99,29 @@ function pickDocsForCategory(
       : category.docs.filter((d) => !excludeDocIds || !excludeDocIds.has(d.id))
   }
   
-  // Final safety check: if still empty, try without exclude filter (shouldn't happen, but safety net)
-  if (pool.length === 0) {
-    pool = category.docs.filter(doc => doc.grades.includes(grade))
     if (pool.length === 0) {
-      // Last resort: use any worksheet from this category
-      pool = category.docs.slice()
-    }
-  }
-  
-  // If still no worksheets available in this category, return empty
-  if (pool.length === 0) return []
-  
-  const source = pool.slice()
-  // Enhanced shuffle with multiple passes for better randomization
-  // Use variant-based rotation to ensure different order each time
-  // Consume many RNG values first to ensure completely different starting points
-  // Timestamp-based seed ensures different RNG sequence each time
-  for (let warmup = 0; warmup < 10 + Math.floor(rng() * 10); warmup++) {
-    rng() // Warm up RNG extensively to ensure different starting points
-  }
-  
-  for (let pass = 0; pass < 7; pass++) {
-    // Fisher-Yates shuffle
-    for (let i = source.length - 1; i > 0; i--) {
-      const j = Math.floor(rng() * (i + 1))
-      ;[source[i], source[j]] = [source[j], source[i]]
-    }
-    // Additional rotation on first pass to maximize differences
-    if (pass === 0 && source.length > 1) {
-      // Use RNG to determine rotation amount - ensures different rotation per variant
-      const rotationAmount = Math.floor(rng() * source.length)
-      if (rotationAmount > 0) {
-        const rotated = source.slice(rotationAmount).concat(source.slice(0, rotationAmount))
-        source.splice(0, source.length, ...rotated)
+      pool = category.docs.filter((doc) => doc.grades.includes(grade))
+      if (pool.length === 0) {
+        pool = category.docs.slice()
       }
     }
-    // Additional reverse shuffle on second pass for more randomization
-    if (pass === 1 && source.length > 1) {
-      // Reverse a portion of the array based on RNG
-      const reverseStart = Math.floor(rng() * (source.length - 1))
-      const reverseEnd = Math.floor(reverseStart + 1 + rng() * (source.length - reverseStart - 1))
-      const reversed = source.slice(reverseStart, reverseEnd).reverse()
-      source.splice(reverseStart, reverseEnd - reverseStart, ...reversed)
+
+    if (pool.length === 0) return []
+
+    const available = pool.slice()
+    const desiredCount = Math.min(count, available.length)
+    const selectedDocs: InteractiveWorksheetDoc[] = []
+
+    for (let i = 0; i < desiredCount; i++) {
+      if (available.length === 0) break
+      const index = Math.floor(rng() * available.length)
+      selectedDocs.push(available.splice(index, 1)[0])
     }
-    // Additional random swap passes for more variation
-    if (pass >= 2 && source.length > 1) {
-      const swapCount = Math.floor(rng() * Math.min(10, source.length))
-      for (let s = 0; s < swapCount; s++) {
-        const idx1 = Math.floor(rng() * source.length)
-        const idx2 = Math.floor(rng() * source.length)
-        if (idx1 !== idx2) {
-          ;[source[idx1], source[idx2]] = [source[idx2], source[idx1]]
-        }
-      }
+
+    if (selectedDocs.length === 0 && pool.length > 0) {
+      selectedDocs.push(pool[0])
     }
-  }
-  // Consume many additional RNG values before selecting to ensure completely different starting positions
-  // Use variant to create a deterministic offset for selection position
-  const variantValue = variant || 1
-  // Use variant to create a strong positional shift - ensures different worksheets per variant
-  const variantOffset = Math.floor((variantValue * 7919) % Math.max(1, source.length)) // Variant-based offset
-  const rngOffset = Math.floor(rng() * 10)
-  for (let i = 0; i < 5 + rngOffset + variantOffset; i++) {
-    rng()
-  }
-  // Select from different positions - use variant to force different starting positions
-  // This ensures variant 1, 2, 3, etc. pick from different positions in the shuffled array
-  // Enhanced algorithm for unlimited unique generations even with limited worksheets
-  const variantShift = (variantValue * 7919) % Math.max(1, source.length)
-  const randomStart = Math.floor(rng() * source.length)
-  // Combine random start with variant shift - variant ensures different starting positions
-  // Each variant will pick from a different section of the array
-  // For small arrays, ensure variant directly affects selection with multiple rotation strategies
-  const variantBasedIndex = variantValue % Math.max(1, source.length) // Direct variant-based index
-  // Use multiple prime numbers to create complex rotation patterns for unlimited uniqueness
-  const variantRotation1 = (variantValue * 7919) % Math.max(1, source.length)
-  const variantRotation2 = (variantValue * 9973) % Math.max(1, source.length) // Another large prime
-  const variantRotation3 = (variantValue * 10141) % Math.max(1, source.length) // Another large prime
-  // Combine all rotation factors for maximum uniqueness
-  const combinedIndex = (randomStart + variantShift + variantBasedIndex + variantRotation1 + variantRotation2 + variantRotation3) % source.length
-  const maxStart = Math.max(0, source.length - Math.min(count, source.length))
-  const startIndex = Math.floor(Math.min(combinedIndex, maxStart))
-  
-  // Simplified selection: if we have fewer worksheets than requested, return what we have
-  // This ensures we always return worksheets when available, even if fewer than requested
-  const availableCount = Math.min(count, source.length)
-  let selectedDocs: InteractiveWorksheetDoc[] = []
-  
-  if (source.length > 0) {
-    // Select worksheets starting from the calculated index
-    // Use modulo to wrap around if needed
-    for (let i = 0; i < availableCount; i++) {
-      const index = (startIndex + i) % source.length
-      selectedDocs.push(source[index])
-    }
-  }
-  
-  // Final safety check: ensure we return at least 1 worksheet if any exist
-  if (selectedDocs.length === 0 && source.length > 0) {
-    selectedDocs = [source[0]]
-  }
-  
+
   return selectedDocs.map((doc) => ({
     doc,
     categoryLabel: category.label,
