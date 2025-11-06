@@ -12,7 +12,8 @@ import type {
   InteractiveWorksheetPack,
 } from '@shared/interactive/generator'
 
-const DEFAULT_SELECTED_CATEGORIES = ['math', 'reading', 'writing', 'sel']
+const DEFAULT_SELECTED_CATEGORIES = ['math']
+const DEFAULT_GRADE: GradeBand = 'preK'
 
 const CATEGORY_ORDER = new Map(
   INTERACTIVE_CATEGORIES.map((category, index) => [category.id, index] as const)
@@ -20,7 +21,8 @@ const CATEGORY_ORDER = new Map(
 
 const normalizeCategoryIds = (ids: string[]): string[] => {
   const unique = Array.from(new Set(ids)).filter((id) => INTERACTIVE_CATEGORIES.some((c) => c.id === id))
-  return unique.sort((a, b) => (CATEGORY_ORDER.get(a) ?? Number.MAX_SAFE_INTEGER) - (CATEGORY_ORDER.get(b) ?? Number.MAX_SAFE_INTEGER))
+  const sorted = unique.sort((a, b) => (CATEGORY_ORDER.get(a) ?? Number.MAX_SAFE_INTEGER) - (CATEGORY_ORDER.get(b) ?? Number.MAX_SAFE_INTEGER))
+  return sorted.length > 0 ? sorted : DEFAULT_SELECTED_CATEGORIES
 }
 
 interface FiltersState {
@@ -37,7 +39,7 @@ function parseInitialFilters(): FiltersState {
   try {
     const params = new URLSearchParams(window.location.search)
     const gradeParam = params.get('grade') as GradeBand | null
-    const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : 'k1'
+      const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : DEFAULT_GRADE
     const categoriesParam = params.get('categories')
     let selectedCategories: string[] = []
     if (categoriesParam) {
@@ -63,7 +65,7 @@ function parseInitialFilters(): FiltersState {
   } catch {
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
-      grade: 'k1',
+        grade: DEFAULT_GRADE,
       categories: normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant: 1,
       _timestamp: Date.now(), // Initialize with timestamp
