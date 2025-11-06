@@ -234,7 +234,15 @@ export function InteractiveWorksheetsPage() {
       params.set('grade', currentFilters.grade)
       params.set('categories', currentFilters.categories.join(','))
       params.set('variant', String(currentFilters.variant))
-      const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { cache: 'no-store' })
+      // Add timestamp to prevent caching
+      params.set('_t', String(Date.now()))
+      const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { 
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
+      })
       if (!resp.ok) throw new Error('Failed to generate worksheets')
       const json = await resp.json()
       setPack(json?.data || null)
