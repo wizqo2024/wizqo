@@ -301,7 +301,8 @@ export function InteractiveWorksheetsPage() {
   const generateTodayPack = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
-      const generateTimestamp = Date.now()
+      // Use Date.now() + small random component for guaranteed uniqueness
+      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return { 
         ...prev, 
         variant: newVariant,
@@ -315,7 +316,8 @@ export function InteractiveWorksheetsPage() {
   const regenerate = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
-      const generateTimestamp = Date.now()
+      // Use Date.now() + small random component for guaranteed uniqueness
+      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       // Force state update by creating new object with timestamp
       return { 
         ...prev, 
