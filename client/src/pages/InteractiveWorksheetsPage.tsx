@@ -621,7 +621,7 @@ export function InteractiveWorksheetsPage() {
 
         <section className="bg-slate-50 py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6">More Free Resources for Teachers</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Related Resources</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <a
                 href="/worksheets/1st-grade-math-worksheets"
@@ -651,6 +651,15 @@ export function InteractiveWorksheetsPage() {
                 </p>
               </a>
               <a
+                href="/worksheets/reading-comprehension"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Reading Comprehension Worksheets</h3>
+                <p className="text-sm text-slate-600">
+                  Free printable reading comprehension worksheets with passages and questions for grades 1-3.
+                </p>
+              </a>
+              <a
                 href="/printables/name-tracing-generator"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
@@ -666,15 +675,6 @@ export function InteractiveWorksheetsPage() {
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Free Printables Hub</h3>
                 <p className="text-sm text-slate-600">
                   Word searches, Sudoku, coloring pages, spot-the-difference games, and more printable activities.
-                </p>
-              </a>
-              <a
-                href="/kids"
-                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
-              >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Kids Hub</h3>
-                <p className="text-sm text-slate-600">
-                  Play kid-safe mini-games and explore fun learning activities designed for elementary students.
                 </p>
               </a>
             </div>
