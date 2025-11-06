@@ -39,16 +39,23 @@ function parseInitialFilters(): FiltersState {
     const gradeParam = params.get('grade') as GradeBand | null
     const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : 'k1'
     const categoriesParam = params.get('categories')
-    const selectedCategories = categoriesParam
-      ? normalizeCategoryIds(categoriesParam.split(',').map((c) => c.trim()).filter(Boolean))
-      : []
+    let selectedCategories: string[] = []
+    if (categoriesParam) {
+      // Parse and normalize categories from URL
+      const rawCategories = categoriesParam.split(',').map((c) => c.trim()).filter(Boolean)
+      selectedCategories = normalizeCategoryIds(rawCategories)
+    }
+    // If no valid categories found in URL, use defaults
+    if (selectedCategories.length === 0) {
+      selectedCategories = normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+    }
     const variantParam = Number(params.get('variant') || '1')
     const variant = Number.isFinite(variantParam) && variantParam > 0 ? Math.floor(variantParam) : 1
     // Generate unique timestamp on initial load for unique content
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
       grade: validGrade,
-      categories: selectedCategories.length ? selectedCategories : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
+      categories: selectedCategories,
       variant,
       _timestamp: Date.now(), // Initialize with timestamp
       _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
@@ -231,17 +238,33 @@ export function InteractiveWorksheetsPage() {
   const [pack, setPack] = React.useState<InteractiveWorksheetPack | null>(null)
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
+  const abortControllerRef = React.useRef<AbortController | null>(null)
 
   useFaqSchema()
 
   const loadPack = React.useCallback(async (currentFilters: FiltersState) => {
+    // Cancel any in-flight request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+    
+    // Create new abort controller for this request
+    const abortController = new AbortController()
+    abortControllerRef.current = abortController
+    
     try {
       setLoading(true)
       setError(null)
+      // Clear pack immediately when filters change to prevent showing stale data
+      setPack(null)
       const params = new URLSearchParams()
       params.set('date', todayIso)
       params.set('grade', currentFilters.grade)
-      params.set('categories', currentFilters.categories.join(','))
+      // Ensure categories array is not empty
+      const categoriesToSend = currentFilters.categories.length > 0 
+        ? currentFilters.categories 
+        : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+      params.set('categories', categoriesToSend.join(','))
       params.set('variant', String(currentFilters.variant))
       // Always include timestamp for unique generation
       // Use explicit timestamp if set, otherwise generate one
@@ -251,19 +274,56 @@ export function InteractiveWorksheetsPage() {
       params.set('_t', String(Date.now()))
       const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { 
         cache: 'no-store',
+        signal: abortController.signal,
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache'
         }
       })
-      if (!resp.ok) throw new Error('Failed to generate worksheets')
+      if (!resp.ok) {
+        const errorText = await resp.text()
+        throw new Error(`Failed to generate worksheets: ${resp.status} ${errorText}`)
+      }
       const json = await resp.json()
-      setPack(json?.data || null)
+      // Ensure we have valid data structure
+      if (json?.data) {
+        setPack(json.data)
+      } else {
+        throw new Error('Invalid response format from server')
+      }
     } catch (err: any) {
+      // Don't set error if request was aborted (user changed filters)
+      if (err.name === 'AbortError') {
+        return
+      }
       setError(err?.message || 'Something went wrong while generating worksheets.')
+      setPack(null) // Clear pack on error
     } finally {
-      setLoading(false)
+      // Only update loading state if this is still the current request
+      if (!abortController.signal.aborted) {
+        setLoading(false)
+      }
     }
+  }, [])
+
+  // Sync filters with URL parameters when URL changes (e.g., browser back/forward)
+  React.useEffect(() => {
+    const handlePopState = () => {
+      const newFilters = parseInitialFilters()
+      // Only update if filters actually changed to avoid infinite loops
+      setFilters((prev) => {
+        if (
+          prev.grade !== newFilters.grade ||
+          prev.categories.join(',') !== newFilters.categories.join(',') ||
+          prev.variant !== newFilters.variant
+        ) {
+          return newFilters
+        }
+        return prev
+      })
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
   React.useEffect(() => {
