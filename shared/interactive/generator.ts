@@ -208,7 +208,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     const variantFactor3 = (options.variant * 10141 * (catIdx + 1)) % 100000000
     // Category seed with timestamp as PRIMARY component and multiple variant factors
     // This ensures unlimited unique generations - each category gets a completely different seed
-    const categorySeed = `ts:${timestampBase}|${seed}|cat:${categoryId}|idx:${catIdx}|vf1:${variantFactor1}|vf2:${variantFactor2}|vf3:${variantFactor3}|tsh1:${categoryTimestampHash}|tsh2:${categoryTimestampHash2}|order:${categoryOrder.join(',')}`
+      const categorySeed = `ts:${timestampBase}|pack:${packSeed}|cat:${categoryId}|idx:${catIdx}|vf1:${variantFactor1}|vf2:${variantFactor2}|vf3:${variantFactor3}|tsh1:${categoryTimestampHash}|tsh2:${categoryTimestampHash2}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
     const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds, options.variant)
     
