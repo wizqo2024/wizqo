@@ -28,6 +28,7 @@ interface FiltersState {
   categories: string[]
   variant: number
   _timestamp?: number // Force React to detect changes
+  _generateTimestamp?: number // Timestamp for seed generation when explicitly generating new
 }
 
 const todayIso = new Date().toISOString().slice(0, 10)
@@ -237,7 +238,11 @@ export function InteractiveWorksheetsPage() {
       params.set('grade', currentFilters.grade)
       params.set('categories', currentFilters.categories.join(','))
       params.set('variant', String(currentFilters.variant))
-      // Add timestamp to prevent caching
+      // Add timestamp for unique generation when generating new worksheets
+      if (currentFilters._generateTimestamp) {
+        params.set('timestamp', String(currentFilters._generateTimestamp))
+      }
+      // Add cache-busting timestamp to prevent caching
       params.set('_t', String(Date.now()))
       const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { 
         cache: 'no-store',
@@ -276,7 +281,8 @@ export function InteractiveWorksheetsPage() {
         ...prev, 
         categories: normalizeCategoryIds(nextCategories), 
         variant: 1,
-        _timestamp: Date.now() // Force React to detect change
+        _timestamp: Date.now(), // Force React to detect change
+        _generateTimestamp: undefined // Clear generate timestamp when filters change
       }
     })
   }
@@ -286,18 +292,21 @@ export function InteractiveWorksheetsPage() {
       ...prev, 
       grade, 
       variant: 1,
-      _timestamp: Date.now() // Force React to detect change
+      _timestamp: Date.now(), // Force React to detect change
+      _generateTimestamp: undefined // Clear generate timestamp when filters change
     }))
   }
 
-  // Generate new unique pack with current filters (increment variant for uniqueness)
+  // Generate new unique pack with current filters (increment variant + timestamp for uniqueness)
   const generateTodayPack = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
+      const generateTimestamp = Date.now()
       return { 
         ...prev, 
         variant: newVariant,
-        _timestamp: Date.now() // Force React to detect change
+        _timestamp: Date.now(), // Force React to detect change
+        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
       }
     })
   }
@@ -306,11 +315,13 @@ export function InteractiveWorksheetsPage() {
   const regenerate = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
+      const generateTimestamp = Date.now()
       // Force state update by creating new object with timestamp
       return { 
         ...prev, 
         variant: newVariant,
-        _timestamp: Date.now() // Force React to detect change
+        _timestamp: Date.now(), // Force React to detect change
+        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
       }
     })
   }
@@ -322,7 +333,8 @@ export function InteractiveWorksheetsPage() {
       ...prev, 
       categories: [id], 
       variant: 1,
-      _timestamp: Date.now() // Force React to detect change
+      _timestamp: Date.now(), // Force React to detect change
+      _generateTimestamp: undefined // Clear generate timestamp when filters change
     }))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
