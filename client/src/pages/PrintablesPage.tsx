@@ -1,5 +1,6 @@
 import React from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
+import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 
@@ -282,6 +283,16 @@ export function PrintablesPage() {
     }
     return doc ? [doc] : []
   }, [doc, bundleItemsParam])
+  const interactiveDocs = React.useMemo(
+    () =>
+      activeDocs.filter(
+        (id) =>
+          id.startsWith('interactive-') &&
+          id !== 'interactive-art-design' &&
+          id !== 'interactive-art-colorwheel'
+      ),
+    [activeDocs]
+  )
   const primaryDoc = activeDocs[0] || doc || ''
   const answerableDocs = new Set([
     'science-match',
@@ -625,6 +636,9 @@ export function PrintablesPage() {
         </header>
 
         {/* Doc-specific sections (unique content per topic) */}
+        {interactiveDocs.length > 0 && (
+          <InteractiveBundleSections docIds={interactiveDocs} seed={effectiveSeed} variant={variant} />
+        )}
         {activeDocs.includes('geo-continents-k2') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
