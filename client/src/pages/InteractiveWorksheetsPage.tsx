@@ -47,12 +47,14 @@ function parseInitialFilters(): FiltersState {
       grade: validGrade,
       categories: selectedCategories.length ? selectedCategories : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant,
+      _timestamp: Date.now() // Initialize with timestamp
     }
   } catch {
     return {
       grade: 'k1',
       categories: normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
       variant: 1,
+      _timestamp: Date.now() // Initialize with timestamp
     }
   }
 }
@@ -313,7 +315,12 @@ export function InteractiveWorksheetsPage() {
   const focusCategory = (id: string) => {
     const cat = INTERACTIVE_CATEGORIES.find((c) => c.id === id)
     if (!cat) return
-    setFilters((prev) => ({ ...prev, categories: [id], variant: 1 }))
+    setFilters((prev) => ({ 
+      ...prev, 
+      categories: [id], 
+      variant: 1,
+      _timestamp: Date.now() // Force React to detect change
+    }))
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
