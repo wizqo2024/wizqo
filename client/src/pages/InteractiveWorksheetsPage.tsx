@@ -535,14 +535,6 @@ export function InteractiveWorksheetsPage() {
                   </li>
                 ))}
               </ul>
-              {pack?.printUrl && (
-                <a
-                  href={pack.printUrl}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-400 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100"
-                >
-                  ⬇️ Download free PDF bundle
-                </a>
-              )}
             </div>
           </section>
         </section>
