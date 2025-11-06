@@ -210,27 +210,8 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   // Create deterministic seed based on variant and timestamp for unlimited uniqueness
   // IMPORTANT: Timestamp is the PRIMARY component for uniqueness - ensures different worksheets every time
   // Use variant * multiple large primes to ensure significant seed differences for unlimited generations
-  const variantMultiplier = options.variant * 7919 // Large prime number
-  const variantMultiplier2 = options.variant * 9973 // Another large prime for more variation
-  const variantMultiplier3 = options.variant * 10141 // Another large prime for maximum uniqueness
-  
-  // Timestamp is the PRIMARY seed component - use it directly as the main seed base
   const timestampBase = options.timestamp || Date.now()
-  // Create a strong hash from timestamp that dominates the seed
-  // Use full timestamp precision for unlimited unique generations
-  const timestampHash = timestampBase % 10000000000 // Extended range for more precision
-  const timestampMultiplier = timestampHash * 7919 // Multiply by large prime
-  const timestampMultiplier2 = timestampHash * 9973 // Additional multiplier for more variation
-  
-  // Include timestamp in seed string for RNG initialization
-  const timestampPart = options.timestamp ? `|t${options.timestamp}` : `|t${Date.now()}`
-  
-  // Create hash that strongly emphasizes timestamp and variant for unlimited uniqueness
-  const hash = (timestampMultiplier + timestampMultiplier2 + variantMultiplier * 31 + variantMultiplier2 * 47 + variantMultiplier3 * 61 + date.length + grade.length + chosenCategories.join(',').length) % 1000000000
-  
-  // Seed string with timestamp as PRIMARY component and multiple variant factors
-  // This ensures unlimited unique generations - each click creates a completely different seed
-  const seed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m1:${variantMultiplier}|m2:${variantMultiplier2}|m3:${variantMultiplier3}|h${hash}${timestampPart}|date:${date}`
+  const seed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|date:${date}`
   const rng = makeRng(seed)
   // Default to 3 worksheets per category for better variety
   // Users can still get unlimited unique sets by clicking generate multiple times
@@ -322,7 +303,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
       
       // Add to used set to prevent duplicates
       usedDocIds.add(doc.id)
-      const previewHint = `${categoryIcon} ${doc.title} — ${doc.description}`
+      const previewHint = `${categoryIcon} ${doc.title} ? ${doc.description}`
       items.push({
         docId: doc.id,
         title: doc.title,
@@ -334,7 +315,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
         focus: doc.focus,
         previewHint,
       })
-      answerSummary.push(`${doc.title} (${categoryLabel}) — includes printable answer key.`)
+      answerSummary.push(`${doc.title} (${categoryLabel}) ? includes printable answer key.`)
       addedCount++
     }
     
@@ -376,7 +357,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
             usedDocIds.add(fallbackDoc.id)
           }
           const cat = getCategoryById(categoryId)
-          const previewHint = `${cat?.icon || '📄'} ${fallbackDoc.title} — ${fallbackDoc.description}`
+          const previewHint = `${cat?.icon || '??'} ${fallbackDoc.title} ? ${fallbackDoc.description}`
           items.push({
             docId: fallbackDoc.id,
             title: fallbackDoc.title,
@@ -388,7 +369,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
             focus: fallbackDoc.focus,
             previewHint,
           })
-          answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}) — includes printable answer key.`)
+          answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}) ? includes printable answer key.`)
           addedCount++
         }
       }
