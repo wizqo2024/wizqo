@@ -87,9 +87,21 @@ function pickDocsForCategory(
       const fallback = gradeFallback[grade] || []
       return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
     })
+    // If fallback also has no matches, use ALL worksheets from this category (remove grade restriction)
+    // This ensures we ALWAYS return at least one worksheet per category if any exist
     pool = fallbackMatches.length > 0 ? fallbackMatches : category.docs.filter(d => !excludeDocIds || !excludeDocIds.has(d.id))
   }
   
+  // Final safety check: if still empty, try without exclude filter (shouldn't happen, but safety net)
+  if (pool.length === 0) {
+    pool = category.docs.filter(doc => doc.grades.includes(grade))
+    if (pool.length === 0) {
+      // Last resort: use any worksheet from this category
+      pool = category.docs.slice()
+    }
+  }
+  
+  // If still no worksheets available in this category, return empty
   if (pool.length === 0) return []
   
   const source = pool.slice()
@@ -291,7 +303,10 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     const categoryRng = makeRng(categorySeed)
     const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds, options.variant)
     
-    // Ensure we only add worksheets that match the grade AND category
+    // Ensure we only add worksheets that match the category
+    // Note: pickDocsForCategory already handles grade matching with fallbacks,
+    // so we trust its results and only verify category membership
+    let addedCount = 0
     for (const { doc, categoryLabel, categoryIcon } of picks) {
       // Double-check: worksheet must match the category
       const docCategory = getCategoryById(categoryId)
@@ -299,15 +314,9 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
         continue // Skip if worksheet doesn't belong to this category
       }
       
-      // Double-check: worksheet must match the grade (exact match preferred)
-      const gradeMatches = doc.grades.includes(grade)
-      if (!gradeMatches) {
-        // Only allow if it's a fallback grade and no exact matches exist
-        const fallback = gradeFallback[grade] || []
-        const isFallbackMatch = doc.grades.some((g) => fallback.includes(g))
-        if (!isFallbackMatch) {
-          continue // Skip if worksheet doesn't match grade at all
-        }
+      // Skip if already used (duplicate prevention)
+      if (usedDocIds.has(doc.id)) {
+        continue
       }
       
       // Add to used set to prevent duplicates
@@ -325,6 +334,37 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
         previewHint,
       })
       answerSummary.push(`${doc.title} (${categoryLabel}) — includes printable answer key.`)
+      addedCount++
+    }
+    
+    // Safety check: if no worksheets were added for this category but category has worksheets,
+    // try again without exclude filter to ensure we get at least one
+    if (addedCount === 0 && picks.length === 0) {
+      const category = getCategoryById(categoryId)
+      if (category && category.docs.length > 0) {
+        // Try picking again without exclude filter (allow duplicates across categories if needed)
+        const fallbackPicks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, undefined, options.variant)
+        for (const { doc, categoryLabel, categoryIcon } of fallbackPicks.slice(0, 1)) {
+          // Only add if not already used
+          if (!usedDocIds.has(doc.id)) {
+            usedDocIds.add(doc.id)
+            const previewHint = `${categoryIcon} ${doc.title} — ${doc.description}`
+            items.push({
+              docId: doc.id,
+              title: doc.title,
+              description: doc.description,
+              categoryId,
+              categoryLabel,
+              gradeLabel: gradeLabelMap.get(grade) || 'All grades',
+              difficulty: doc.difficulty,
+              focus: doc.focus,
+              previewHint,
+            })
+            answerSummary.push(`${doc.title} (${categoryLabel}) — includes printable answer key.`)
+            break // Only add one as fallback
+          }
+        }
+      }
     }
   }
 
