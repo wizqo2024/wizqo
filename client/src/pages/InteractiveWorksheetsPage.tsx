@@ -273,7 +273,6 @@ export function InteractiveWorksheetsPage() {
       // Add cache-busting timestamp to prevent caching
       params.set('_t', String(Date.now()))
       const apiUrl = `/api/interactive-worksheets?${params.toString()}`
-      console.log('📡 API Call - Variant:', currentFilters.variant, 'Timestamp:', timestamp, 'Categories:', categoriesToSend.join(','))
       const resp = await fetch(apiUrl, { 
         cache: 'no-store',
         signal: abortController.signal,
@@ -378,7 +377,6 @@ export function InteractiveWorksheetsPage() {
     const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
     const variantOffset = newVariant * 1000000 // Variant contributes significantly
     const generateTimestamp = now + randomOffset + variantOffset
-    console.log('🔄 Generating new pack - Variant:', newVariant, 'Timestamp:', generateTimestamp)
     
     const newFilters = { 
       ...filters, 
