@@ -181,11 +181,12 @@ function pickDocsForCategory(
   
   // If we need more worksheets than available, wrap around with variant-based offset
   // This ensures each variant gets a different combination even with limited options
+  // IMPORTANT: If only 1 worksheet exists, return it (don't try to duplicate)
   if (selectedDocs.length < count && source.length > 0) {
     const remaining = count - selectedDocs.length
     const wrapStart = (variantValue * 7919) % source.length
     const wrapDocs = []
-    for (let i = 0; i < remaining; i++) {
+    for (let i = 0; i < remaining && wrapDocs.length < source.length; i++) {
       const wrapIndex = (wrapStart + i) % source.length
       // Avoid duplicates
       if (!selectedDocs.some(d => d.id === source[wrapIndex].id)) {
@@ -193,6 +194,12 @@ function pickDocsForCategory(
       }
     }
     selectedDocs = [...selectedDocs, ...wrapDocs]
+  }
+  
+  // Ensure we always return at least 1 worksheet if any exist (even if count requested is higher)
+  if (selectedDocs.length === 0 && source.length > 0) {
+    // Fallback: return at least the first available worksheet
+    selectedDocs = [source[0]]
   }
   
   return selectedDocs.map((doc) => ({
@@ -341,12 +348,12 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     
     // Safety check: if no worksheets were added for this category but category has worksheets,
     // try again without exclude filter to ensure we get at least one
-    if (addedCount === 0 && picks.length === 0) {
+    if (addedCount === 0) {
       const category = getCategoryById(categoryId)
       if (category && category.docs.length > 0) {
         // Try picking again without exclude filter (allow duplicates across categories if needed)
-        const fallbackPicks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, undefined, options.variant)
-        for (const { doc, categoryLabel, categoryIcon } of fallbackPicks.slice(0, 1)) {
+        const fallbackPicks = pickDocsForCategory(categoryId, grade, categoryRng, Math.min(countPerCategory, category.docs.length), undefined, options.variant)
+        for (const { doc, categoryLabel, categoryIcon } of fallbackPicks.slice(0, Math.min(countPerCategory, fallbackPicks.length))) {
           // Only add if not already used
           if (!usedDocIds.has(doc.id)) {
             usedDocIds.add(doc.id)
@@ -363,7 +370,9 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
               previewHint,
             })
             answerSummary.push(`${doc.title} (${categoryLabel}) — includes printable answer key.`)
-            break // Only add one as fallback
+            addedCount++
+            // Break if we've added enough
+            if (addedCount >= countPerCategory) break
           }
         }
       }
