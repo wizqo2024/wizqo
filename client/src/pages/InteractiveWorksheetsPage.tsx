@@ -307,22 +307,21 @@ export function InteractiveWorksheetsPage() {
     })
   }
 
-  // Generate new unique pack with current filters (increment variant + timestamp for uniqueness)
+  // Generate fresh pack with current filters (reset to variant 1 for today's pack)
   const generateTodayPack = () => {
     setFilters((prev) => {
-      const newVariant = prev.variant + 1
-      // Use Date.now() + small random component for guaranteed uniqueness
+      // Reset to variant 1 with fresh timestamp for today's pack
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return { 
         ...prev, 
-        variant: newVariant,
+        variant: 1,
         _timestamp: Date.now(), // Force React to detect change
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
       }
     })
   }
 
-  // Regenerate with next variant for unique pack
+  // Regenerate with next variant for unique pack (for different groups/tubs)
   const regenerate = () => {
     setFilters((prev) => {
       const newVariant = prev.variant + 1
@@ -491,7 +490,7 @@ export function InteractiveWorksheetsPage() {
             <div className="rounded-2xl bg-purple-50 p-4 text-sm text-purple-800">
               <p className="font-semibold">Pro tip</p>
               <p>
-                Morning tubs? Homework packets? Small groups? Run two variants back-to-back—each seed keeps activities unique while matching your filters.
+                Need different sets for multiple groups? Click "Regenerate pack" to get variant 2, 3, 4... Each variant produces unique worksheets while keeping your same grade and category filters.
               </p>
             </div>
 
@@ -499,7 +498,7 @@ export function InteractiveWorksheetsPage() {
               onClick={regenerate}
               className="w-full rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
             >
-              🔁 Regenerate pack
+              🔁 Regenerate pack (variant {filters.variant + 1})
             </button>
           </aside>
 
