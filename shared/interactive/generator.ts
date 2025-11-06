@@ -92,17 +92,20 @@ function pickDocsForCategory(
   
   const source = pool.slice()
   // Enhanced shuffle with multiple passes for better randomization
-  // Add variant-based offset to ensure different shuffle order each time
-  const shuffleOffset = Math.floor(rng() * source.length)
+  // Use variant-based rotation to ensure different order each time
   for (let pass = 0; pass < 3; pass++) {
+    // Fisher-Yates shuffle
     for (let i = source.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1))
       ;[source[i], source[j]] = [source[j], source[i]]
     }
-    // Additional rotation based on variant to ensure different order
-    if (pass === 0 && shuffleOffset > 0) {
-      const rotated = source.slice(shuffleOffset).concat(source.slice(0, shuffleOffset))
-      source.splice(0, source.length, ...rotated)
+    // Additional rotation on first pass to maximize differences
+    if (pass === 0 && source.length > 1) {
+      const rotationAmount = Math.floor(rng() * source.length)
+      if (rotationAmount > 0) {
+        const rotated = source.slice(rotationAmount).concat(source.slice(0, rotationAmount))
+        source.splice(0, source.length, ...rotated)
+      }
     }
   }
   return source.slice(0, Math.max(1, Math.min(count, source.length))).map((doc) => ({
@@ -118,11 +121,12 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const chosenCategories = (options.categories.length ? options.categories : DEFAULT_CATEGORIES).filter((id) =>
     getCategoryById(id)
   )
-  // Enhanced seed with variant and counter to ensure uniqueness across regenerations
-  // Use variant * 1000 + a small random offset to ensure different results
-  const variantMultiplier = options.variant * 1000
-  const randomOffset = Math.floor(Math.random() * 1000)
-  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|r${randomOffset}`
+  // Create deterministic seed based on variant (not random)
+  // Use variant * large prime to ensure significant seed differences
+  const variantMultiplier = options.variant * 7919 // Large prime number
+  // Create a deterministic offset based on variant (not Math.random())
+  const hash = (variantMultiplier * 31 + date.length + grade.length + chosenCategories.join(',').length) % 10000
+  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|h${hash}`
   const rng = makeRng(seed)
   const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
 
@@ -163,8 +167,24 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     }
   }
 
-  for (const categoryId of validCategories) {
-    const picks = pickDocsForCategory(categoryId, grade, rng, countPerCategory, usedDocIds)
+  // Process categories in a variant-dependent order to ensure different selections
+  // Variant influences which category is processed first, affecting selection order
+  const categoryOrder = validCategories.slice()
+  if (options.variant > 1) {
+    // Rotate category order based on variant to ensure different worksheets
+    const rotation = (options.variant - 1) % categoryOrder.length
+    if (rotation > 0) {
+      categoryOrder.push(...categoryOrder.splice(0, rotation))
+    }
+  }
+
+  for (const categoryId of categoryOrder) {
+    // Generate a unique seed for this category based on variant and category index
+    // This ensures each variant produces different worksheet selections
+    const categoryIndex = categoryOrder.indexOf(categoryId)
+    const categorySeed = `${seed}|cat:${categoryId}|idx:${categoryIndex}|order:${categoryOrder.join(',')}`
+    const categoryRng = makeRng(categorySeed)
+    const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds)
     
     // Ensure we only add worksheets that match the grade AND category
     for (const { doc, categoryLabel, categoryIcon } of picks) {
