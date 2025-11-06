@@ -145,6 +145,7 @@ app.get('/api/interactive-worksheets', (req, res) => {
     const countPerCategory = Number.isFinite(Number(req.query?.countPerCategory))
       ? Math.max(1, Math.floor(Number(req.query.countPerCategory)))
       : 1
+    const timestamp = Number.isFinite(Number(req.query?.timestamp)) ? Number(req.query.timestamp) : undefined
 
     const pack = generateInteractiveWorksheetPack({
       date,
@@ -152,6 +153,7 @@ app.get('/api/interactive-worksheets', (req, res) => {
       categories,
       variant,
       countPerCategory,
+      timestamp,
     })
 
     res.json({ ok: true, data: pack })

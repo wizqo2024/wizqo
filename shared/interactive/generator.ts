@@ -12,6 +12,7 @@ export interface GenerateInteractiveOptions {
   categories: string[]
   variant: number
   countPerCategory?: number
+  timestamp?: number // Optional timestamp for unique generation
 }
 
 export interface InteractiveWorksheetItem {
@@ -132,12 +133,14 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   const chosenCategories = (options.categories.length ? options.categories : DEFAULT_CATEGORIES).filter((id) =>
     getCategoryById(id)
   )
-  // Create deterministic seed based on variant (not random)
+  // Create deterministic seed based on variant and timestamp for uniqueness
   // Use variant * large prime to ensure significant seed differences
   const variantMultiplier = options.variant * 7919 // Large prime number
+  // Include timestamp in seed if provided for guaranteed uniqueness
+  const timestampPart = options.timestamp ? `|t${options.timestamp}` : ''
   // Create a deterministic offset based on variant (not Math.random())
-  const hash = (variantMultiplier * 31 + date.length + grade.length + chosenCategories.join(',').length) % 10000
-  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|h${hash}`
+  const hash = (variantMultiplier * 31 + date.length + grade.length + chosenCategories.join(',').length + (options.timestamp || 0)) % 10000
+  const seed = `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|m${variantMultiplier}|h${hash}${timestampPart}`
   const rng = makeRng(seed)
   const countPerCategory = Math.max(1, options.countPerCategory ?? 1)
 
