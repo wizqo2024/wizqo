@@ -78,18 +78,25 @@ function pickDocsForCategory(
   
   // Only use fallback if there are NO exact matches for this grade
   let pool: InteractiveWorksheetDoc[] = []
+  const fallbackMatches = category.docs.filter((doc) => {
+    const fallback = gradeFallback[grade] || []
+    return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
+  })
+
   if (exactMatches.length > 0) {
-    // Use exact matches only - strict grade matching
-    pool = exactMatches
+    // Combine exact matches with fallback matches for broader variety while keeping grade relevance
+    const combined = [...exactMatches]
+    for (const doc of fallbackMatches) {
+      if (!combined.some((existing) => existing.id === doc.id)) {
+        combined.push(doc)
+      }
+    }
+    pool = combined
   } else {
-    // Fallback: try nearby grades only if no exact match exists
-    const fallbackMatches = category.docs.filter((doc) => {
-      const fallback = gradeFallback[grade] || []
-      return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
-    })
-    // If fallback also has no matches, use ALL worksheets from this category (remove grade restriction)
-    // This ensures we ALWAYS return at least one worksheet per category if any exist
-    pool = fallbackMatches.length > 0 ? fallbackMatches : category.docs.filter(d => !excludeDocIds || !excludeDocIds.has(d.id))
+    // No exact match for this grade; rely on fallback first, then entire category
+    pool = fallbackMatches.length > 0
+      ? fallbackMatches
+      : category.docs.filter((d) => !excludeDocIds || !excludeDocIds.has(d.id))
   }
   
   // Final safety check: if still empty, try without exclude filter (shouldn't happen, but safety net)
