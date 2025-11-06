@@ -428,13 +428,9 @@ export function InteractiveWorksheetsPage() {
                       <dt>Unique seed</dt>
                       <dd className="font-mono text-xs text-slate-500 break-all sm:text-right">{pack?.seed || `${todayIso}|preview`}</dd>
                     </div>
-                  <div className="flex items-center justify-between">
-                    <dt>Variant</dt>
-                    <dd className="font-medium text-slate-900">{filters.variant}</dd>
-                  </div>
                 </dl>
                 <p className="mt-4 rounded-xl bg-purple-50 px-3 py-2 text-xs text-purple-700">
-                  Tip: click “Regenerate” anytime you need a second or third set for differentiating groups. Every run keeps answer keys attached.
+                  Tip: Click "Generate new worksheet" multiple times to get different unique sets with the same filters. Perfect for multiple groups or daily practice!
                 </p>
               </div>
             </div>
