@@ -190,12 +190,13 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     }
   }
 
-  for (const categoryId of categoryOrder) {
+  for (let catIdx = 0; catIdx < categoryOrder.length; catIdx++) {
+    const categoryId = categoryOrder[catIdx]
     // Generate a unique seed for this category based on variant and category index
     // This ensures each variant produces different worksheet selections
-    const categoryIndex = categoryOrder.indexOf(categoryId)
-    // Add variant to the seed multiple times to ensure significant differences
-    const categorySeed = `${seed}|cat:${categoryId}|idx:${categoryIndex}|v${options.variant ** 2}|order:${categoryOrder.join(',')}`
+    // Multiply variant by different factors for each category to maximize differences
+    const variantFactor = options.variant * (catIdx + 1) * 7919
+    const categorySeed = `${seed}|cat:${categoryId}|idx:${catIdx}|vf:${variantFactor}|order:${categoryOrder.join(',')}`
     const categoryRng = makeRng(categorySeed)
     const picks = pickDocsForCategory(categoryId, grade, categoryRng, countPerCategory, usedDocIds)
     
