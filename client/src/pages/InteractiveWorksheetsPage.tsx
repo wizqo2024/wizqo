@@ -290,13 +290,16 @@ export function InteractiveWorksheetsPage() {
     }))
   }
 
-  // Generate today's pack with current filters (reset variant to 1)
+  // Generate new unique pack with current filters (increment variant for uniqueness)
   const generateTodayPack = () => {
-    setFilters((prev) => ({ 
-      ...prev, 
-      variant: 1,
-      _timestamp: Date.now() // Force React to detect change
-    }))
+    setFilters((prev) => {
+      const newVariant = prev.variant + 1
+      return { 
+        ...prev, 
+        variant: newVariant,
+        _timestamp: Date.now() // Force React to detect change
+      }
+    })
   }
 
   // Regenerate with next variant for unique pack
