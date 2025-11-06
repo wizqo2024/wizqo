@@ -272,7 +272,9 @@ export function InteractiveWorksheetsPage() {
       params.set('timestamp', String(timestamp))
       // Add cache-busting timestamp to prevent caching
       params.set('_t', String(Date.now()))
-      const resp = await fetch(`/api/interactive-worksheets?${params.toString()}`, { 
+      const apiUrl = `/api/interactive-worksheets?${params.toString()}`
+      console.log('📡 API Call - Variant:', currentFilters.variant, 'Timestamp:', timestamp, 'Categories:', categoriesToSend.join(','))
+      const resp = await fetch(apiUrl, { 
         cache: 'no-store',
         signal: abortController.signal,
         headers: {
@@ -329,7 +331,7 @@ export function InteractiveWorksheetsPage() {
   React.useEffect(() => {
     updateUrl(filters)
     loadPack(filters)
-  }, [filters, loadPack])
+  }, [filters.grade, filters.categories.join(','), filters.variant, filters._generateTimestamp, loadPack])
 
   const toggleCategory = (id: string) => {
     setFilters((prev) => {
@@ -369,22 +371,26 @@ export function InteractiveWorksheetsPage() {
 
   // Generate new unique pack with current filters (increment variant for unlimited unique generations)
   const generateTodayPack = () => {
-    setFilters((prev) => {
-      // Increment variant without limit - allows unlimited unique generations
-      const newVariant = prev.variant + 1
-      // Use high-precision timestamp + random component + variant for guaranteed uniqueness
-      // This ensures every click generates a completely unique set
-      const now = Date.now()
-      const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
-      const variantOffset = newVariant * 1000000 // Variant contributes significantly
-      const generateTimestamp = now + randomOffset + variantOffset
-      return { 
-        ...prev, 
-        variant: newVariant,
-        _timestamp: now, // Force React to detect change
-        _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
-      }
-    })
+    const newVariant = filters.variant + 1
+    // Use high-precision timestamp + random component + variant for guaranteed uniqueness
+    // This ensures every click generates a completely unique set
+    const now = Date.now()
+    const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
+    const variantOffset = newVariant * 1000000 // Variant contributes significantly
+    const generateTimestamp = now + randomOffset + variantOffset
+    console.log('🔄 Generating new pack - Variant:', newVariant, 'Timestamp:', generateTimestamp)
+    
+    const newFilters = { 
+      ...filters, 
+      variant: newVariant,
+      _timestamp: now, // Force React to detect change
+      _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
+    }
+    
+    // Update state and immediately trigger load
+    setFilters(newFilters)
+    // Also call loadPack directly to ensure it triggers immediately
+    loadPack(newFilters)
   }
 
   // Regenerate with next variant for unique pack (for different groups/tubs)
