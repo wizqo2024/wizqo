@@ -139,8 +139,8 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   // IMPORTANT: Timestamp is the PRIMARY component for uniqueness - ensures different worksheets every time
   // Use variant * multiple large primes to ensure significant seed differences for unlimited generations
   const timestampBase = options.timestamp || Date.now()
-  const seed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|date:${date}`
-  const rng = makeRng(seed)
+  const packSeed = `ts:${timestampBase}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}|date:${date}`
+  const rng = makeRng(packSeed)
   // Default to 3 worksheets per category for better variety
   // Users can still get unlimited unique sets by clicking generate multiple times
   const countPerCategory = Math.max(1, options.countPerCategory ?? 3)
@@ -199,7 +199,6 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
     // Generate a unique seed for this category based on timestamp (PRIMARY), variant, and category index
     // Timestamp is the PRIMARY component - ensures each generation is completely different
     // Enhanced with multiple variant multipliers for unlimited unique generations
-    const timestampBase = options.timestamp || Date.now()
     // Use timestamp as the dominant factor in category seed with extended precision
     const categoryTimestampHash = (timestampBase % 10000000000) * 7919
     const categoryTimestampHash2 = (timestampBase % 10000000000) * 9973
@@ -310,10 +309,10 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
   )
 
   const docIdsParam = uniqueItems.map((item) => item.docId).join(',')
-  const printUrl = `/print?doc=bundle&items=${encodeURIComponent(docIdsParam)}&category=Interactive%20Worksheets&from=interactive`
+  const printUrl = `/print?doc=bundle&items=${encodeURIComponent(docIdsParam)}&category=Interactive%20Worksheets&from=interactive&seed=${encodeURIComponent(packSeed)}&timestamp=${timestampBase}`
 
   return {
-    seed: `${date}|grade:${grade}|cats:${chosenCategories.join(',')}|v${options.variant}`, // Keep readable seed without internal multipliers
+    seed: packSeed,
     generatedAt: new Date().toISOString(),
     grade,
     gradeLabel: gradeLabelMap.get(grade) || 'All grades',
