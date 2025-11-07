@@ -10,6 +10,7 @@ type Props = {
   docIds: string[]
   seed: string
   variant: number
+  showAnswers?: boolean
 }
 
 type RenderContext = {
@@ -20,6 +21,7 @@ type RenderContext = {
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
+type AnswerRenderer = (ctx: RenderContext) => React.ReactNode
 
 const categoryByDocId = new Map<string, InteractiveCategory>()
 INTERACTIVE_CATEGORIES.forEach((category) => {
@@ -51,14 +53,158 @@ const pickMany = <T,>(rng: () => number, list: T[], count: number): T[] => {
   return results
 }
 
+type MathSequence = { values: number[]; blankIndices: number[] }
+type MathFact = { first: number; second: number; op: '+' | '-'; answer: number }
+type MathPuzzle = { prompt: string; answer: number }
+type MathShapeRow = { shape: string; color: string; count: number }
+type MathMoneyRow = { item: string; coin: string; amount: number; coinCount: number }
+type MathFractionPair = {
+  left: { num: number; den: number }
+  right: { num: number; den: number }
+  comparison: '>' | '<' | '='
+}
+type MathMeasurementRow = {
+  amount: number
+  from: string
+  to: string
+  rate: number
+  converted: number
+}
+
+const SHAPE_INFO: Record<
+  string,
+  { kind: 'flat' | 'solid'; sidesLabel: string }
+> = {
+  triangle: { kind: 'flat', sidesLabel: '3 sides' },
+  rectangle: { kind: 'flat', sidesLabel: '4 sides' },
+  pentagon: { kind: 'flat', sidesLabel: '5 sides' },
+  hexagon: { kind: 'flat', sidesLabel: '6 sides' },
+  circle: { kind: 'flat', sidesLabel: '0 straight sides (curved)' },
+  trapezoid: { kind: 'flat', sidesLabel: '4 sides' },
+}
+
+const COIN_VALUE: Record<'pennies' | 'nickels' | 'dimes' | 'quarters', number> = {
+  pennies: 1,
+  nickels: 5,
+  dimes: 10,
+  quarters: 25,
+}
+
+function buildMathRhythm(seed: string, docId: string, variant: number): MathSequence[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  return Array.from({ length: 4 }).map(() => {
+    const start = Math.floor(rng() * 9) + 1
+    const step = Math.floor(rng() * 4) + 2
+    const values = Array.from({ length: 6 }).map((_, idx) => start + step * idx)
+    const blankIndex = Math.floor(rng() * values.length)
+    const blankIndex2 = (blankIndex + 2) % values.length
+    return {
+      values,
+      blankIndices: Array.from(new Set([blankIndex, blankIndex2])).sort((a, b) => a - b),
+    }
+  })
+}
+
+function buildMathRace(seed: string, docId: string, variant: number): MathFact[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  return Array.from({ length: 12 }).map(() => {
+    const a = Math.floor(rng() * 18) + 2
+    const b = Math.floor(rng() * 12) + 1
+    const op: '+' | '-' = rng() > 0.5 ? '+' : '-'
+    const first = op === '+' ? a : Math.max(a, b)
+    const second = op === '+' ? b : Math.min(a, b)
+    const answer = op === '+' ? first + second : first - second
+    return { first, second, op, answer }
+  })
+}
+
+function buildMathPuzzle(seed: string, docId: string, variant: number): MathPuzzle[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  return Array.from({ length: 6 }).map(() => {
+    const target = Math.floor(rng() * 20) + 10
+    const missing = Math.floor(rng() * 9) + 1
+    const other = target - missing
+    const showFirstBlank = rng() > 0.5
+    if (showFirstBlank) {
+      return {
+        prompt: `${other} + ____ = ${target}`,
+        answer: missing,
+      }
+    }
+    return {
+      prompt: `____ + ${missing} = ${target + missing}`,
+      answer: target,
+    }
+  })
+}
+
+function buildMathShapes(seed: string, docId: string, variant: number): MathShapeRow[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const shapes = ['triangle', 'rectangle', 'pentagon', 'hexagon', 'circle', 'trapezoid']
+  const colors = ['sky', 'orchid', 'amber', 'emerald', 'rose', 'slate']
+  return Array.from({ length: 4 }).map(() => ({
+    shape: pick(rng, shapes),
+    color: pick(rng, colors),
+    count: Math.floor(rng() * 6) + 2,
+  }))
+}
+
+function buildMathMoney(seed: string, docId: string, variant: number): MathMoneyRow[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const coins: Array<'pennies' | 'nickels' | 'dimes' | 'quarters'> = ['nickels', 'dimes', 'quarters', 'pennies']
+  const items = ['snack', 'bookmark', 'sticker pack', 'pencil topper', 'trading card']
+  return Array.from({ length: 5 }).map(() => {
+    const coin = pick(rng, coins)
+    const amount = (Math.floor(rng() * 6) + 1) * COIN_VALUE[coin]
+    return {
+      item: pick(rng, items),
+      coin,
+      amount,
+      coinCount: amount / COIN_VALUE[coin],
+    }
+  })
+}
+
+function buildMathFractions(seed: string, docId: string, variant: number): MathFractionPair[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const numerators = [1, 2, 3, 4, 5]
+  const denominators = [2, 3, 4, 5, 6, 8]
+  return Array.from({ length: 5 }).map(() => {
+    const left = { num: pick(rng, numerators), den: pick(rng, denominators) }
+    const right = { num: pick(rng, numerators), den: pick(rng, denominators) }
+    const leftValue = left.num / left.den
+    const rightValue = right.num / right.den
+    const comparison: MathFractionPair['comparison'] =
+      Math.abs(leftValue - rightValue) < 1e-6 ? '=' : leftValue > rightValue ? '>' : '<'
+    return { left, right, comparison }
+  })
+}
+
+function buildMathMeasurement(seed: string, docId: string, variant: number): MathMeasurementRow[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const units = [
+    { from: 'inches', to: 'feet', rate: 12 },
+    { from: 'minutes', to: 'hours', rate: 60 },
+    { from: 'centimeters', to: 'meters', rate: 100 },
+    { from: 'cups', to: 'pints', rate: 2 },
+    { from: 'ounces', to: 'pounds', rate: 16 },
+  ] as const
+  const selected = pickMany(rng, units as unknown as typeof units[number][], Math.min(4, units.length))
+  return selected.map((unit) => {
+    const amount = (Math.floor(rng() * 4) + 1) * unit.rate
+    return {
+      amount,
+      from: unit.from,
+      to: unit.to,
+      rate: unit.rate,
+      converted: amount / unit.rate,
+    }
+  })
+}
+
 const renderers: Record<string, Renderer> = {
   'interactive-math-rhythm': ({ doc, category, seed, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const sequences = Array.from({ length: 4 }).map(() => {
-      const start = Math.floor(rng() * 9) + 1
-      const step = Math.floor(rng() * 4) + 2
-      return Array.from({ length: 6 }).map((_, idx) => start + step * idx)
-    })
+    const sequences = buildMathRhythm(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -66,18 +212,17 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="grid gap-3">
           {sequences.map((sequence, rowIdx) => {
-            const blankIndex = Math.floor(rng() * sequence.length)
-            const blankIndex2 = (blankIndex + 2) % sequence.length
+            const blanks = new Set(sequence.blankIndices)
             return (
               <div key={rowIdx} className="flex items-center gap-2 text-lg font-semibold text-purple-800">
-                {sequence.map((value, idx) => (
+                {sequence.values.map((value, idx) => (
                   <span
                     key={idx}
                     className={`inline-block min-w-[2.5rem] rounded border border-dashed border-purple-300 px-2 py-1 text-center ${
-                      idx === blankIndex || idx === blankIndex2 ? 'bg-white text-slate-400' : 'bg-purple-50'
+                      blanks.has(idx) ? 'bg-white text-slate-400' : 'bg-purple-50'
                     }`}
                   >
-                    {idx === blankIndex || idx === blankIndex2 ? '____' : value}
+                    {blanks.has(idx) ? '____' : value}
                   </span>
                 ))}
               </div>
@@ -91,15 +236,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-race': ({ doc, category, seed, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const problems = Array.from({ length: 12 }).map(() => {
-      const a = Math.floor(rng() * 18) + 2
-      const b = Math.floor(rng() * 12) + 1
-      const op = rng() > 0.5 ? '+' : '-'
-      const first = op === '+' ? a : Math.max(a, b)
-      const second = op === '+' ? b : Math.min(a, b)
-      return `${first} ${op} ${second} =`
-    })
+    const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -108,7 +245,7 @@ const renderers: Record<string, Renderer> = {
         <div className="grid grid-cols-3 gap-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-center text-lg font-semibold tracking-wide">
-              {prob}
+              {prob.first} {prob.op} {prob.second} =
             </div>
           ))}
         </div>
@@ -120,14 +257,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-puzzle': ({ doc, seed, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const puzzles = Array.from({ length: 6 }).map(() => {
-      const target = Math.floor(rng() * 20) + 10
-      const missing = Math.floor(rng() * 9) + 1
-      const other = target - missing
-      const format = rng() > 0.5 ? `${other} + ____ = ${target}` : `____ + ${missing} = ${target + missing}`
-      return format
-    })
+    const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -136,7 +266,7 @@ const renderers: Record<string, Renderer> = {
         <div className="grid grid-cols-2 gap-4">
           {puzzles.map((puzzle, idx) => (
             <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-5 text-center text-lg font-semibold text-amber-800">
-              {puzzle}
+              {puzzle.prompt}
             </div>
           ))}
         </div>
@@ -144,15 +274,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-shapes': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const shapes = ['triangle', 'rectangle', 'pentagon', 'hexagon', 'circle', 'trapezoid']
-    const colors = ['sky', 'orchid', 'amber', 'emerald', 'rose', 'slate']
-    const rows = Array.from({ length: 4 }).map(() => {
-      const shape = pick(rng, shapes)
-      const color = pick(rng, colors)
-      const count = Math.floor(rng() * 6) + 2
-      return { shape, color, count }
-    })
+    const rows = buildMathShapes(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -184,14 +306,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-money': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const coins = ['nickels', 'dimes', 'quarters', 'pennies']
-    const prompts = Array.from({ length: 5 }).map(() => {
-      const item = pick(rng, ['snack', 'bookmark', 'sticker pack', 'pencil topper', 'trading card'])
-      const coin = pick(rng, coins)
-      const amount = (Math.floor(rng() * 6) + 1) * (coin === 'quarters' ? 25 : coin === 'dimes' ? 10 : coin === 'nickels' ? 5 : 1)
-      return { item, coin, amount }
-    })
+    const prompts = buildMathMoney(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -204,9 +319,9 @@ const renderers: Record<string, Renderer> = {
                 The {prompt.item} costs ${prompt.amount / 100}. Pay using {prompt.coin}. Draw your coins below and write the total.
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-              <div className="mt-2 text-xs text-emerald-700">
+                <div className="mt-2 text-xs text-emerald-700">
                 Total: ________ • Change: ________
-              </div>
+                </div>
             </li>
           ))}
         </ol>
@@ -214,21 +329,14 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-fractions': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const numerators = [1, 2, 3, 4, 5]
-    const denominators = [2, 3, 4, 5, 6, 8]
-    const pairs = Array.from({ length: 5 }).map(() => {
-      const a = { num: pick(rng, numerators), den: pick(rng, denominators) }
-      const b = { num: pick(rng, numerators), den: pick(rng, denominators) }
-      return [a, b]
-    })
+    const pairs = buildMathFractions(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
           Compare each pair of fractions. Shade the bar models to help you decide, then write &lt;, &gt;, or =.
         </p>
         <div className="space-y-4">
-          {pairs.map(([a, b], idx) => (
+          {pairs.map(({ left: a, right: b }, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <div className="flex items-center justify-between text-lg font-semibold text-purple-800">
                 <span>{a.num}/{a.den}</span>
@@ -252,18 +360,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-measurement': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const units = [
-      { from: 'inches', to: 'feet', rate: 12 },
-      { from: 'minutes', to: 'hours', rate: 60 },
-      { from: 'centimeters', to: 'meters', rate: 100 },
-      { from: 'cups', to: 'pints', rate: 2 },
-      { from: 'ounces', to: 'pounds', rate: 16 },
-    ]
-    const problems = pickMany(rng, units, 4).map((unit) => {
-      const amount = (Math.floor(rng() * 4) + 1) * unit.rate
-      return { amount, unit }
-    })
+    const problems = buildMathMeasurement(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -278,10 +375,10 @@ const renderers: Record<string, Renderer> = {
             </tr>
           </thead>
           <tbody>
-            {problems.map(({ amount, unit }, idx) => (
+            {problems.map((problem, idx) => (
               <tr key={idx} className="border-t border-slate-200">
-                <td className="px-3 py-2">{amount} {unit.from}</td>
-                <td className="px-3 py-2">_____ {unit.to}</td>
+                <td className="px-3 py-2">{problem.amount} {problem.from}</td>
+                <td className="px-3 py-2">_____ {problem.to}</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
                 </td>
@@ -453,7 +550,7 @@ const renderers: Record<string, Renderer> = {
     const prompts = [
       'Write about a time your class invented something helpful.',
       'Describe a secret door you discover during recess.',
-      'Imagine the library books come alive at night—what happens?',
+      'Imagine the library books come alive at night?what happens?',
       'Create a story where your pet becomes the substitute teacher.',
       'Explain how to care for a tiny dragon who loves math.',
       'Describe a neighborhood celebration that you design.',
@@ -516,7 +613,7 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
           <p className="font-semibold">Word Bank</p>
-          <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
+          <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' ? ')}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
@@ -632,12 +729,12 @@ const renderers: Record<string, Renderer> = {
     const scenarios = pickMany(
       rng,
       [
-        { description: 'Ice cube melting on a sunny windowsill', answer: 'solid ➜ liquid' },
-        { description: 'Steam rising from hot cocoa', answer: 'liquid ➜ gas' },
-        { description: 'Water droplets forming on a cold can', answer: 'gas ➜ liquid' },
-        { description: 'Chocolate bar in a warm pocket', answer: 'solid ➜ liquid' },
-        { description: 'Puddle freezing overnight', answer: 'liquid ➜ solid' },
-        { description: 'Perfume sprayed into the air', answer: 'liquid ➜ gas' },
+        { description: 'Ice cube melting on a sunny windowsill', answer: 'solid ? liquid' },
+        { description: 'Steam rising from hot cocoa', answer: 'liquid ? gas' },
+        { description: 'Water droplets forming on a cold can', answer: 'gas ? liquid' },
+        { description: 'Chocolate bar in a warm pocket', answer: 'solid ? liquid' },
+        { description: 'Puddle freezing overnight', answer: 'liquid ? solid' },
+        { description: 'Perfume sprayed into the air', answer: 'liquid ? gas' },
       ],
       5
     )
@@ -677,7 +774,7 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Track the week’s weather. Record the temperature, sketch the sky, and write one safety tip.
+          Track the week?s weather. Record the temperature, sketch the sky, and write one safety tip.
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
@@ -692,7 +789,7 @@ const renderers: Record<string, Renderer> = {
             {tracker.map((entry, idx) => (
               <tr key={idx} className="border-t border-slate-200">
                 <td className="px-3 py-2">{entry.day}</td>
-                <td className="px-3 py-2">{entry.temp}°F</td>
+                <td className="px-3 py-2">{entry.temp}?F</td>
                 <td className="px-3 py-2">
                   <div className="h-12 rounded border border-dashed border-slate-300 bg-white" />
                   <p className="text-xs text-slate-500">{entry.condition}</p>
@@ -819,7 +916,7 @@ const renderers: Record<string, Renderer> = {
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">Label: __________ • Extra word: __________</div>
+              <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
             </li>
           ))}
         </ul>
@@ -959,7 +1056,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold capitalize">{subject}</p>
               <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
-              <p className="text-xs text-slate-500">Details to include: texture • highlights • shadows</p>
+              <p className="text-xs text-slate-500">Details to include: texture ? highlights ? shadows</p>
             </div>
           ))}
         </div>
@@ -1025,7 +1122,7 @@ const renderers: Record<string, Renderer> = {
                   <div key={boxIdx} className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`} />
                 ))}
               </div>
-              <p className="mt-2 text-xs text-emerald-700">Number: ______ • Word: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
             </div>
           ))}
         </div>
@@ -1035,7 +1132,7 @@ const renderers: Record<string, Renderer> = {
   'interactive-early-patterns': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
-    const symbols = ['🔺', '🟣', '🟩', '⭐', '🟠', '⬛']
+    const symbols = ['??', '??', '??', '?', '??', '?']
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1050,7 +1147,7 @@ const renderers: Record<string, Renderer> = {
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
                 <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
-                <p className="mt-2 text-2xl">{patternSymbols.join(' ')} …</p>
+                <p className="mt-2 text-2xl">{patternSymbols.join(' ')} ?</p>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
               </div>
             )
@@ -1173,8 +1270,8 @@ const renderers: Record<string, Renderer> = {
           <thead className="bg-slate-100">
             <tr>
               <th className="px-3 py-2">Breathing Strategy</th>
-              <th className="px-3 py-2">Before I feel…</th>
-              <th className="px-3 py-2">After I feel…</th>
+              <th className="px-3 py-2">Before I feel?</th>
+              <th className="px-3 py-2">After I feel?</th>
             </tr>
           </thead>
           <tbody>
@@ -1241,19 +1338,146 @@ const renderers: Record<string, Renderer> = {
   },
 }
 
-function InteractiveWorksheetSection({ docId, seed, variant }: { docId: string; seed: string; variant: number }) {
+const answerRenderers: Record<string, AnswerRenderer> = {
+  'interactive-math-rhythm': ({ doc, seed, variant }) => {
+    const sequences = buildMathRhythm(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {sequences.map((sequence, idx) => {
+          const missing = sequence.blankIndices.map((blankIdx) => sequence.values[blankIdx])
+          return (
+            <li key={idx}>
+              <span className="font-semibold">Pattern {idx + 1}:</span>{' '}
+              {sequence.values.join(', ')}{' '}
+              <span className="text-emerald-700">
+                (missing {missing.join(' & ')})
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+    )
+  },
+  'interactive-math-race': ({ doc, seed, variant }) => {
+    const problems = buildMathRace(seed, doc.id, variant)
+    return (
+      <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
+        {problems.map((prob, idx) => (
+          <div key={idx} className="rounded border border-emerald-200 bg-white px-3 py-2 font-semibold text-emerald-800">
+            {prob.first} {prob.op} {prob.second} = {prob.answer}
+          </div>
+        ))}
+      </div>
+    )
+  },
+  'interactive-math-puzzle': ({ doc, seed, variant }) => {
+    const puzzles = buildMathPuzzle(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {puzzles.map((puzzle, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Puzzle {idx + 1} answer:</span> {puzzle.answer}
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-shapes': ({ doc, seed, variant }) => {
+    const rows = buildMathShapes(seed, doc.id, variant)
+    return (
+      <ul className="space-y-2 text-sm">
+        {rows.map((row, idx) => {
+          const info = SHAPE_INFO[row.shape] ?? { kind: 'flat', sidesLabel: '' }
+          return (
+            <li key={idx}>
+              <span className="font-semibold capitalize">{row.shape}</span> — {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  },
+  'interactive-math-money': ({ doc, seed, variant }) => {
+    const prompts = buildMathMoney(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {prompts.map((prompt, idx) => (
+          <li key={idx}>
+            <span className="font-semibold capitalize">{prompt.item}</span>: use {prompt.coinCount}{' '}
+            {prompt.coin} (${(prompt.amount / 100).toFixed(2)}).
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-fractions': ({ doc, seed, variant }) => {
+    const pairs = buildMathFractions(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {pairs.map((pair, idx) => {
+          const leftValue = pair.left.num / pair.left.den
+          const rightValue = pair.right.num / pair.right.den
+          const formatValue = (value: number) => (Number.isInteger(value) ? value.toString() : value.toFixed(2))
+          return (
+            <li key={idx}>
+              {pair.left.num}/{pair.left.den} {pair.comparison} {pair.right.num}/{pair.right.den}{' '}
+              <span className="text-emerald-700">
+                ({formatValue(leftValue)} vs {formatValue(rightValue)})
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+    )
+  },
+  'interactive-math-measurement': ({ doc, seed, variant }) => {
+    const problems = buildMathMeasurement(seed, doc.id, variant)
+    return (
+      <ul className="space-y-2 text-sm">
+        {problems.map((problem, idx) => {
+          const formatted = Number.isInteger(problem.converted)
+            ? problem.converted.toString()
+            : problem.converted.toFixed(2)
+          return (
+            <li key={idx}>
+              {problem.amount} {problem.from} = {formatted} {problem.to}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  },
+}
+
+function InteractiveWorksheetSection({
+  docId,
+  seed,
+  variant,
+  showAnswers,
+}: {
+  docId: string
+  seed: string
+  variant: number
+  showAnswers?: boolean
+}) {
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
   if (!doc || !category) return null
 
   const renderer = renderers[docId]
+  const answerRenderer = answerRenderers[docId]
 
   if (!renderer) {
     return (
       <section className="mb-10 break-inside-avoid rounded-xl border border-slate-200 bg-white p-5 print:border-0 print:p-0">
         <h2 className="text-lg font-semibold text-slate-900">{category.icon} {doc.title}</h2>
         <p className="text-sm text-slate-600">Coming soon: printable activity for this interactive worksheet.</p>
+        {showAnswers && (
+          <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+            Answers will be added once this activity is available.
+          </div>
+        )}
       </section>
     )
   }
@@ -1271,17 +1495,33 @@ function InteractiveWorksheetSection({ docId, seed, variant }: { docId: string; 
       </header>
       <p className="mb-4 text-sm text-slate-600">{doc.description}</p>
       {renderer({ doc, category, seed, variant })}
+      {showAnswers && (
+        <div className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+          <p className="mb-2 font-semibold text-emerald-900">Answer key & teacher notes</p>
+          {answerRenderer ? (
+            answerRenderer({ doc, category, seed, variant })
+          ) : (
+            <p>Student responses may vary. Use the prompts above to guide discussion and feedback.</p>
+          )}
+        </div>
+      )}
     </section>
   )
 }
 
-export default function InteractiveBundleSections({ docIds, seed, variant }: Props) {
+export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers }: Props) {
   if (docIds.length === 0) return null
 
   return (
     <>
       {docIds.map((docId) => (
-        <InteractiveWorksheetSection key={docId} docId={docId} seed={seed} variant={variant} />
+        <InteractiveWorksheetSection
+          key={docId}
+          docId={docId}
+          seed={seed}
+          variant={variant}
+          showAnswers={showAnswers}
+        />
       ))}
     </>
   )

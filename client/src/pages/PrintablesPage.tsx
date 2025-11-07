@@ -632,7 +632,12 @@ export function PrintablesPage() {
 
         {/* Doc-specific sections (unique content per topic) */}
         {interactiveDocs.length > 0 && (
-          <InteractiveBundleSections docIds={interactiveDocs} seed={effectiveSeed} variant={variant} />
+          <InteractiveBundleSections
+            docIds={interactiveDocs}
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswers={showAnswers}
+          />
         )}
         {activeDocs.includes('geo-continents-k2') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
