@@ -14,6 +14,7 @@ import type {
 
 const DEFAULT_SELECTED_CATEGORIES = ['math']
 const DEFAULT_GRADE: GradeBand = 'preK'
+const MAX_DUPLICATE_ATTEMPTS = 4
 
 const CATEGORY_ORDER = new Map(
   INTERACTIVE_CATEGORIES.map((category, index) => [category.id, index] as const)
@@ -241,6 +242,13 @@ export function InteractiveWorksheetsPage() {
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
   const abortControllerRef = React.useRef<AbortController | null>(null)
+  const lastDocKeyRef = React.useRef<string | null>(null)
+  const duplicateAttemptsRef = React.useRef<number>(0)
+
+  const resetDuplicateTracking = React.useCallback(() => {
+    duplicateAttemptsRef.current = 0
+    lastDocKeyRef.current = null
+  }, [])
 
   useFaqSchema()
 
@@ -289,6 +297,39 @@ export function InteractiveWorksheetsPage() {
 
         const json = await resp.json()
         if (json?.data) {
+          const items: InteractiveWorksheetItem[] = Array.isArray(json.data?.items)
+            ? json.data.items
+            : []
+          const docKey =
+            items.length > 0
+              ? items
+                  .map((item) => item.docId)
+                  .slice()
+                  .sort()
+                  .join('|')
+              : ''
+
+          if (
+            docKey &&
+            docKey === lastDocKeyRef.current &&
+            duplicateAttemptsRef.current < MAX_DUPLICATE_ATTEMPTS
+          ) {
+            duplicateAttemptsRef.current += 1
+            setFilters((prev) => {
+              const nextVariant = prev.variant + 1
+              const nextGenerateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+              return {
+                ...prev,
+                variant: nextVariant,
+                _timestamp: Date.now(),
+                _generateTimestamp: nextGenerateTimestamp,
+              }
+            })
+            return
+          }
+
+          duplicateAttemptsRef.current = 0
+          lastDocKeyRef.current = docKey || null
           setPack(json.data)
         } else {
           throw new Error('Invalid response format from server')
@@ -337,6 +378,7 @@ export function InteractiveWorksheetsPage() {
   }, [filters.grade, categoriesKey, filters.variant, filters._generateTimestamp, loadPack])
 
   const toggleCategory = (id: string) => {
+    resetDuplicateTracking()
     setFilters((prev) => {
       const exists = prev.categories.includes(id)
       let nextCategories: string[]
@@ -359,6 +401,7 @@ export function InteractiveWorksheetsPage() {
   }
 
   const setGrade = (grade: GradeBand) => {
+    resetDuplicateTracking()
     setFilters((prev) => {
       // Generate unique timestamp when grade changes for unique content
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
@@ -374,6 +417,7 @@ export function InteractiveWorksheetsPage() {
 
   // Generate new unique pack with current filters (increment variant for unlimited unique generations)
   const generateTodayPack = React.useCallback(() => {
+    resetDuplicateTracking()
     setFilters((prev) => {
       const newVariant = prev.variant + 1
       // Use high-precision timestamp + random component + variant for guaranteed uniqueness
@@ -390,10 +434,11 @@ export function InteractiveWorksheetsPage() {
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
       }
     })
-  }, [])
+  }, [resetDuplicateTracking])
 
   // Regenerate with next variant for unique pack (for different groups/tubs)
-  const regenerate = () => {
+  const regenerate = React.useCallback(() => {
+    resetDuplicateTracking()
     setFilters((prev) => {
       const newVariant = prev.variant + 1
       // Use Date.now() + small random component for guaranteed uniqueness
@@ -406,7 +451,7 @@ export function InteractiveWorksheetsPage() {
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
       }
     })
-  }
+  }, [resetDuplicateTracking])
 
   const selectedCategorySet = new Set(filters.categories)
 
