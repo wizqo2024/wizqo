@@ -4,6 +4,36 @@ import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 
+const INTERACTIVE_DOC_IDS = INTERACTIVE_CATEGORIES.flatMap((category) => category.docs.map((doc) => doc.id))
+const ANSWERABLE_BASE_DOC_IDS = [
+  'science-match',
+  'spelling',
+  'logic-grid',
+  'grammar-detective',
+  'math-maze',
+  // Reading print views
+  'reading-mini-1',
+  'reading-g1-lost-hat',
+  'reading-g1-ants',
+  'reading-g1-bus-ride',
+  'reading-g1-pet-fish',
+  'reading-g2-paper-bridge',
+  'reading-g2-rainy-garden',
+  'reading-g2-library-card',
+  'reading-g2-lost-and-found',
+  'reading-g3-lighthouse',
+  'reading-g3-science-fair',
+  'reading-g3-community-garden',
+  // 2nd grade math printables
+  'place-value-hto',
+  'skip-count-5-10-120',
+  'add-2digit-100',
+  'sub-2digit-100',
+  'word-problems-100',
+  'compare-2digit',
+  'even-odd-100',
+]
+
 function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
   const { packTime, bundleCategory } = context
   switch (docId) {
@@ -289,34 +319,10 @@ export function PrintablesPage() {
     [activeDocs]
   )
   const primaryDoc = activeDocs[0] || doc || ''
-  const answerableDocs = new Set([
-    'science-match',
-    'spelling',
-    'logic-grid',
-    'grammar-detective',
-    'math-maze',
-    // Reading print views
-    'reading-mini-1',
-    'reading-g1-lost-hat',
-    'reading-g1-ants',
-    'reading-g1-bus-ride',
-    'reading-g1-pet-fish',
-    'reading-g2-paper-bridge',
-    'reading-g2-rainy-garden',
-    'reading-g2-library-card',
-    'reading-g2-lost-and-found',
-    'reading-g3-lighthouse',
-    'reading-g3-science-fair',
-    'reading-g3-community-garden',
-    // 2nd grade math printables
-    'place-value-hto',
-    'skip-count-5-10-120',
-    'add-2digit-100',
-    'sub-2digit-100',
-    'word-problems-100',
-    'compare-2digit',
-    'even-odd-100',
-  ])
+  const answerableDocs = React.useMemo(
+    () => new Set([...ANSWERABLE_BASE_DOC_IDS, ...INTERACTIVE_DOC_IDS]),
+    []
+  )
   const bundleHasAnswers = doc === 'bundle' && activeDocs.some(id => answerableDocs.has(id))
   const shouldShowAnswerToggle = (activeDocs.length === 1 && answerableDocs.has(primaryDoc)) || bundleHasAnswers
   const docTitle = React.useMemo(
