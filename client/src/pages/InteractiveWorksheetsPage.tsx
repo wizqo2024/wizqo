@@ -3,6 +3,14 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import {
   INTERACTIVE_CATEGORIES,
   INTERACTIVE_GRADE_OPTIONS,
   type GradeBand,
@@ -35,6 +43,71 @@ interface FiltersState {
   variant: number
   _timestamp?: number // Force React to detect changes
   _generateTimestamp?: number // Timestamp for seed generation when explicitly generating new
+}
+
+// Favorites/Collections storage helpers
+const FAVORITES_STORAGE_KEY = 'wizqo-interactive-worksheets-favorites'
+const CUSTOMIZATION_STORAGE_KEY = 'wizqo-interactive-worksheets-customization'
+
+interface FavoriteWorksheet {
+  docId: string
+  title: string
+  categoryLabel: string
+  gradeLabel: string
+  addedAt: number
+}
+
+interface CustomizationData {
+  studentNames: string[]
+  teacherName: string
+  className: string
+}
+
+function loadFavorites(): FavoriteWorksheet[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const stored = localStorage.getItem(FAVORITES_STORAGE_KEY)
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+}
+
+function saveFavorites(favorites: FavoriteWorksheet[]) {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites))
+  } catch {}
+}
+
+function loadCustomization(): CustomizationData {
+  if (typeof window === 'undefined') return { studentNames: [], teacherName: '', className: '' }
+  try {
+    const stored = localStorage.getItem(CUSTOMIZATION_STORAGE_KEY)
+    return stored ? JSON.parse(stored) : { studentNames: [], teacherName: '', className: '' }
+  } catch {
+    return { studentNames: [], teacherName: '', className: '' }
+  }
+}
+
+function saveCustomization(data: CustomizationData) {
+  if (typeof window === 'undefined') return
+  try {
+    localStorage.setItem(CUSTOMIZATION_STORAGE_KEY, JSON.stringify(data))
+  } catch {}
+}
+
+// Search helper function
+function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boolean {
+  if (!searchQuery.trim()) return true
+  const query = searchQuery.toLowerCase()
+  return (
+    item.title.toLowerCase().includes(query) ||
+    item.description.toLowerCase().includes(query) ||
+    item.categoryLabel.toLowerCase().includes(query) ||
+    item.gradeLabel.toLowerCase().includes(query) ||
+    item.focus.some((tag) => tag.toLowerCase().includes(query))
+  )
 }
 
 const todayIso = new Date().toISOString().slice(0, 10)
@@ -141,17 +214,43 @@ function CategoryToggle({
   )
 }
 
-function WorksheetPreviewCard({ item }: { item: InteractiveWorksheetItem }) {
+function WorksheetPreviewCard({ 
+  item, 
+  onToggleFavorite, 
+  isFavorite,
+  onPreview,
+}: { 
+  item: InteractiveWorksheetItem
+  onToggleFavorite: (item: InteractiveWorksheetItem) => void
+  isFavorite: boolean
+  onPreview: (item: InteractiveWorksheetItem) => void
+}) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
-        <div>
+        <div className="flex-1">
           <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{item.categoryLabel}</p>
           <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
         </div>
-        <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
-          {item.difficulty}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
+            {item.difficulty}
+          </span>
+          <button
+            onClick={() => onToggleFavorite(item)}
+            className={`p-2 rounded-full transition-colors ${
+              isFavorite 
+                ? 'text-yellow-500 hover:text-yellow-600' 
+                : 'text-slate-400 hover:text-yellow-500'
+            }`}
+            aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <svg className="w-5 h-5" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+          </button>
+        </div>
       </div>
       <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
       {item.focus.length > 0 && (
@@ -166,9 +265,17 @@ function WorksheetPreviewCard({ item }: { item: InteractiveWorksheetItem }) {
           ))}
         </div>
       )}
-      <div className="flex items-center justify-between text-xs text-slate-500">
-        <span>{item.gradeLabel}</span>
-        <span>Answer key included</span>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4 text-xs text-slate-500">
+          <span>{item.gradeLabel}</span>
+          <span>Answer key included</span>
+        </div>
+        <button
+          onClick={() => onPreview(item)}
+          className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+        >
+          👁️ Preview
+        </button>
       </div>
     </article>
   )
@@ -247,6 +354,14 @@ export function InteractiveWorksheetsPage() {
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const lastDocKeyRef = React.useRef<string | null>(null)
   const duplicateAttemptsRef = React.useRef<number>(0)
+  
+  // New feature states
+  const [searchQuery, setSearchQuery] = React.useState('')
+  const [favorites, setFavorites] = React.useState<FavoriteWorksheet[]>(() => loadFavorites())
+  const [previewItem, setPreviewItem] = React.useState<InteractiveWorksheetItem | null>(null)
+  const [showCustomization, setShowCustomization] = React.useState(false)
+  const [customization, setCustomization] = React.useState<CustomizationData>(() => loadCustomization())
+  const [showFavorites, setShowFavorites] = React.useState(false)
 
   const resetDuplicateTracking = React.useCallback(() => {
     duplicateAttemptsRef.current = 0
@@ -546,6 +661,84 @@ export function InteractiveWorksheetsPage() {
 
   const selectedCategorySet = new Set(filters.categories)
 
+  // Favorites handlers
+  const toggleFavorite = React.useCallback((item: InteractiveWorksheetItem) => {
+    setFavorites((prev) => {
+      const exists = prev.some((fav) => fav.docId === item.docId)
+      let next: FavoriteWorksheet[]
+      if (exists) {
+        next = prev.filter((fav) => fav.docId !== item.docId)
+      } else {
+        next = [
+          ...prev,
+          {
+            docId: item.docId,
+            title: item.title,
+            categoryLabel: item.categoryLabel,
+            gradeLabel: item.gradeLabel,
+            addedAt: Date.now(),
+          },
+        ]
+      }
+      saveFavorites(next)
+      return next
+    })
+  }, [])
+
+  const isFavorite = React.useCallback(
+    (docId: string) => favorites.some((fav) => fav.docId === docId),
+    [favorites]
+  )
+
+  // Preview handler
+  const handlePreview = React.useCallback((item: InteractiveWorksheetItem) => {
+    setPreviewItem(item)
+  }, [])
+
+  // Customization handlers
+  const handleCustomizationChange = React.useCallback((field: keyof CustomizationData, value: string | string[]) => {
+    setCustomization((prev) => {
+      const next = { ...prev, [field]: value }
+      saveCustomization(next)
+      return next
+    })
+  }, [])
+
+  const addStudentName = React.useCallback(() => {
+    const name = prompt('Enter student name:')
+    if (name && name.trim()) {
+      handleCustomizationChange('studentNames', [...customization.studentNames, name.trim()])
+    }
+  }, [customization.studentNames, handleCustomizationChange])
+
+  const removeStudentName = React.useCallback(
+    (index: number) => {
+      handleCustomizationChange(
+        'studentNames',
+        customization.studentNames.filter((_, i) => i !== index)
+      )
+    },
+    [customization.studentNames, handleCustomizationChange]
+  )
+
+  // Filter worksheets by search query
+  const filteredItems = React.useMemo(() => {
+    if (!pack) return []
+    return pack.items.filter((item) => matchesSearch(item, searchQuery))
+  }, [pack, searchQuery])
+
+  // Generate print URL with customization
+  const getPrintUrl = React.useCallback(() => {
+    if (!pack?.printUrl) return ''
+    const url = new URL(pack.printUrl, window.location.origin)
+    if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
+    if (customization.className) url.searchParams.set('class', customization.className)
+    if (customization.studentNames.length > 0) {
+      url.searchParams.set('students', customization.studentNames.join(','))
+    }
+    return url.toString()
+  }, [pack, customization])
+
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -581,10 +774,22 @@ export function InteractiveWorksheetsPage() {
                   >
                     🔄 Generate new unique pack
                   </button>
+                  <button
+                    onClick={() => setShowCustomization(true)}
+                    className="inline-flex items-center gap-2 rounded-full border border-purple-300 bg-purple-50 px-5 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-100 transition"
+                  >
+                    ✏️ Customize
+                  </button>
+                  <button
+                    onClick={() => setShowFavorites(true)}
+                    className="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-5 py-2 text-sm font-semibold text-yellow-700 hover:bg-yellow-100 transition"
+                  >
+                    ⭐ Favorites ({favorites.length})
+                  </button>
                   {pack?.printUrl && (
                     <>
                       <a
-                        href={pack.printUrl}
+                        href={getPrintUrl()}
                           target="_blank"
                           rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
@@ -741,7 +946,7 @@ export function InteractiveWorksheetsPage() {
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-xl font-semibold text-slate-900">Today’s interactive worksheets</h2>
               <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
-                {loading ? 'Generating…' : `${pack?.items.length || 0} worksheets ready`}
+                {loading ? 'Generating…' : `${searchQuery ? filteredItems.length : pack?.items.length || 0}${searchQuery && pack ? ` of ${pack.items.length}` : ''} worksheets ready`}
               </span>
             </div>
 
@@ -759,28 +964,42 @@ export function InteractiveWorksheetsPage() {
 
             {!error && !loading && pack && pack.items.length > 0 && (
               <>
-                <div className="grid gap-5 md:grid-cols-2">
-                  {pack.items.map((item) => (
-                    <WorksheetPreviewCard key={item.docId} item={item} />
-                  ))}
-                </div>
-
-                <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
-                  <h3 className="text-lg font-semibold text-emerald-900">Answer key ready to go</h3>
-                  <p className="mt-2 text-sm text-emerald-800">
-                    Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
-                  </p>
-                  {pack.answerSummary.length > 0 && (
-                    <ul className="mt-4 grid gap-2 text-sm text-emerald-900 md:grid-cols-2">
-                      {pack.answerSummary.map((entry) => (
-                        <li key={entry} className="flex items-start gap-2">
-                          <span className="mt-1 text-emerald-600">✓</span>
-                          {entry}
-                        </li>
+                {filteredItems.length === 0 ? (
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
+                    No worksheets match your search query "{searchQuery}". Try a different search term.
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid gap-5 md:grid-cols-2">
+                      {filteredItems.map((item) => (
+                        <WorksheetPreviewCard 
+                          key={item.docId} 
+                          item={item}
+                          onToggleFavorite={toggleFavorite}
+                          isFavorite={isFavorite(item.docId)}
+                          onPreview={handlePreview}
+                        />
                       ))}
-                    </ul>
-                  )}
-                </div>
+                    </div>
+
+                    <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
+                      <h3 className="text-lg font-semibold text-emerald-900">Answer key ready to go</h3>
+                      <p className="mt-2 text-sm text-emerald-800">
+                        Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
+                      </p>
+                      {pack.answerSummary.length > 0 && (
+                        <ul className="mt-4 grid gap-2 text-sm text-emerald-900 md:grid-cols-2">
+                          {pack.answerSummary.map((entry) => (
+                            <li key={entry} className="flex items-start gap-2">
+                              <span className="mt-1 text-emerald-600">✓</span>
+                              {entry}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </>
+                )}
               </>
             )}
           </section>
@@ -883,6 +1102,174 @@ export function InteractiveWorksheetsPage() {
         </section>
       </main>
       <Footer />
+      
+      {/* Preview Modal */}
+      <Dialog open={!!previewItem} onOpenChange={(open) => !open && setPreviewItem(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{previewItem?.title}</DialogTitle>
+            <DialogDescription>
+              {previewItem?.description} • {previewItem?.categoryLabel} • {previewItem?.gradeLabel}
+            </DialogDescription>
+          </DialogHeader>
+          {previewItem && (
+            <div className="mt-4 rounded-xl border border-slate-200 bg-white p-6">
+              <p className="text-sm text-slate-600 mb-4">
+                This is a preview of the worksheet content. The actual worksheet will include interactive exercises and activities.
+              </p>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Focus Areas:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {previewItem.focus.map((tag) => (
+                      <span key={tag} className="inline-flex items-center rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Difficulty:</p>
+                  <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
+                    {previewItem.difficulty}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Preview Hint:</p>
+                  <p className="text-sm text-slate-700">{previewItem.previewHint}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Customization Modal */}
+      <Dialog open={showCustomization} onOpenChange={setShowCustomization}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Customize Worksheets</DialogTitle>
+            <DialogDescription>
+              Add student names, teacher name, and class name to personalize your worksheets before downloading.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-6 mt-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Teacher Name</label>
+              <input
+                type="text"
+                value={customization.teacherName}
+                onChange={(e) => handleCustomizationChange('teacherName', e.target.value)}
+                placeholder="Enter teacher name"
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Class Name</label>
+              <input
+                type="text"
+                value={customization.className}
+                onChange={(e) => handleCustomizationChange('className', e.target.value)}
+                placeholder="Enter class name (e.g., Grade 3A)"
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+              />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-slate-700">Student Names</label>
+                <button
+                  onClick={addStudentName}
+                  className="text-sm font-medium text-purple-600 hover:text-purple-700"
+                >
+                  + Add Student
+                </button>
+              </div>
+              {customization.studentNames.length === 0 ? (
+                <p className="text-sm text-slate-500 italic">No students added yet. Click "Add Student" to add names.</p>
+              ) : (
+                <div className="space-y-2">
+                  {customization.studentNames.map((name, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => {
+                          const updated = [...customization.studentNames]
+                          updated[index] = e.target.value
+                          handleCustomizationChange('studentNames', updated)
+                        }}
+                        className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                      />
+                      <button
+                        onClick={() => removeStudentName(index)}
+                        className="p-2 text-red-600 hover:text-red-700 rounded-lg hover:bg-red-50"
+                        aria-label="Remove student"
+                      >
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="rounded-xl bg-purple-50 p-4 text-sm text-purple-800">
+              <p className="font-semibold mb-1">💡 Tip:</p>
+              <p>Customization data is saved locally and will be included in your PDF download URL. You can add up to 30 student names.</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Favorites Modal */}
+      <Dialog open={showFavorites} onOpenChange={setShowFavorites}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>My Favorite Worksheets</DialogTitle>
+            <DialogDescription>
+              {favorites.length === 0 
+                ? 'You haven\'t saved any favorite worksheets yet. Click the star icon on any worksheet to add it to your favorites.'
+                : `You have ${favorites.length} favorite worksheet${favorites.length === 1 ? '' : 's'}.`}
+            </DialogDescription>
+          </DialogHeader>
+          {favorites.length === 0 ? (
+            <div className="text-center py-12">
+              <svg className="mx-auto h-12 w-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+              <p className="text-slate-600">Start favoriting worksheets to build your collection!</p>
+            </div>
+          ) : (
+            <div className="mt-4 space-y-3">
+              {favorites.map((fav) => (
+                <div key={fav.docId} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-900">{fav.title}</h3>
+                    <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
+                      <span>{fav.categoryLabel}</span>
+                      <span>•</span>
+                      <span>{fav.gradeLabel}</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const item = pack?.items.find((i) => i.docId === fav.docId)
+                      if (item) toggleFavorite(item)
+                    }}
+                    className="p-2 text-yellow-500 hover:text-yellow-600 rounded-lg hover:bg-yellow-50"
+                    aria-label="Remove from favorites"
+                  >
+                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
