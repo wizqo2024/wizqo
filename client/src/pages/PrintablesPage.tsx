@@ -588,25 +588,46 @@ export function PrintablesPage() {
         @media print {
           @page { 
             margin: 0.5in 0.5in 0.75in 0.5in;
+            /* Try to remove browser headers/footers */
+            margin-top: 0.5in;
+            margin-bottom: 0.5in;
+            margin-left: 0.5in;
+            margin-right: 0.5in;
           }
           /* Remove browser-generated headers and footers */
           @page :first {
             margin-top: 0.5in;
+            margin-bottom: 0.5in;
           }
           @page :left {
             margin-left: 0.5in;
             margin-right: 0.5in;
+            margin-bottom: 0.5in;
           }
           @page :right {
             margin-left: 0.5in;
             margin-right: 0.5in;
+            margin-bottom: 0.5in;
           }
-          html, body { margin: 0 !important; padding: 0 !important; }
+          html, body { 
+            margin: 0 !important; 
+            padding: 0 !important; 
+            height: 100% !important;
+            overflow: visible !important;
+          }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
           /* Hide any browser-generated content */
           body::before, body::after { display: none !important; content: none !important; }
+          html::before, html::after { display: none !important; content: none !important; }
+          /* Hide any elements that might contain URLs */
+          *::before, *::after {
+            content: none !important;
+          }
+          a[href]::before, a[href]::after {
+            content: none !important;
+          }
           /* Customization header at top of page */
           .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
@@ -706,7 +727,7 @@ export function PrintablesPage() {
               <button
                 onClick={() => window.print()}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
-                title="Download as PDF"
+                title="Download as PDF - In print dialog, uncheck 'Headers and footers' to remove URLs"
                 aria-label="Download as PDF"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
