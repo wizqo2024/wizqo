@@ -141,6 +141,14 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
         focus: ['text evidence', 'critical thinking', 'inference'],
       }),
       makeDoc({
+        id: 'interactive-reading-storymap',
+        title: 'Story Map Builders',
+        description: 'Retell fiction stories with beginning, middle, and ending organizers plus clue gathering practice.',
+        grades: ['k1', 'g2'],
+        difficulty: 'Beginner',
+        focus: ['story structure', 'retelling', 'comprehension'],
+      }),
+      makeDoc({
         id: 'interactive-reading-vocab',
         title: 'Vocabulary Builder Workshop',
         description: 'Context clues exercises with word matching and sentence completion.',

@@ -71,6 +71,20 @@ type MathMeasurementRow = {
   converted: number
 }
 
+type ReadingStoryMap = {
+  hero: string
+  friend: string
+  setting: string
+  goal: string
+  obstacle: string
+  helper: string
+  lesson: string
+  beginning: string
+  middle: string
+  ending: string
+  clues: string[]
+}
+
 const SHAPE_INFO: Record<
   string,
   { kind: 'flat' | 'solid'; sidesLabel: string }
@@ -265,6 +279,67 @@ function buildMathMeasurement(seed: string, docId: string, variant: number): Mat
   })
 }
 
+function buildReadingStoryMap(seed: string, docId: string, variant: number): ReadingStoryMap {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const heroNames = ['Avery', 'Noah', 'Lia', 'Cam', 'Riya', 'Kai']
+  const settings = ['forest reading nook', 'floating lighthouse library', 'whispering museum wing', 'desert stargazer observatory', 'undersea story dome']
+  const goals = [
+    'collect three clues for the class mystery board',
+    'finish a story map for tomorrow\'s share circle',
+    'find a book that unlocks the next riddle',
+    'record new vocabulary for the reading club',
+    'deliver a message hidden between the pages',
+  ]
+  const obstacles = [
+    'a gust of wind that scatters the pages',
+    'lights that flicker and hide the aisle numbers',
+    'a friendly dragon who blocks the doorway until someone explains the story',
+    'a puzzle door that only opens with the right sequence of events',
+    'a maze of shelves that shift like a puzzle',
+  ]
+  const helpers = ['a whispering bookworm guide', 'an owl librarian', 'a friendly janitor robot', 'a hologram teacher', 'a chorus of page sprites']
+  const lessons = [
+    'that careful reading reveals important clues',
+    'that sharing ideas helps them solve problems',
+    'that brave readers ask questions when stuck',
+    'that staying calm helps them notice details',
+    'that teamwork makes challenging stories easier',
+  ]
+  const cluePool = [
+    'glowing footprints between shelves',
+    'a bookmark with a secret symbol',
+    'a note written in invisible ink',
+    'a humming sound near the atlas section',
+    'a set of color-coded shelf markers',
+    'a compass etched into the floor tiles',
+  ]
+  const hero = pick(rng, heroNames)
+  const friendOptions = heroNames.filter((name) => name !== hero)
+  const friend = pick(rng, friendOptions)
+  const setting = pick(rng, settings)
+  const goal = pick(rng, goals)
+  const obstacle = pick(rng, obstacles)
+  const helper = pick(rng, helpers)
+  const lesson = pick(rng, lessons)
+  const clues = pickMany(rng, cluePool, 2)
+  const middle = `They notice ${clues[0]} and ${clues[1]}, but ${obstacle}. ${helper} shows them how to keep going.`
+  const ending = `They complete their mission and learn ${lesson}.`
+
+  return {
+    hero,
+    friend,
+    setting,
+    goal,
+    obstacle,
+    helper,
+    lesson,
+    clues,
+    beginning: `${hero} and ${friend} arrive at the ${setting} to ${goal}.`,
+    middle,
+    ending,
+  }
+}
+
 const renderers: Record<string, Renderer> = {
   'interactive-math-rhythm': ({ doc, category, seed, variant }) => {
     const sequences = buildMathRhythm(seed, doc.id, variant)
@@ -314,7 +389,7 @@ const renderers: Record<string, Renderer> = {
         </div>
           <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
             <p className="font-semibold">Reflection</p>
-            <p>How many facts did you solve? ______ ? Which strategy helped you most? ____________________</p>
+            <p>How many facts did you solve? ______ • Which strategy helped you most? ____________________</p>
           </div>
       </div>
     )
@@ -383,7 +458,7 @@ const renderers: Record<string, Renderer> = {
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
               <div className="mt-2 text-xs text-emerald-700">
-                Total: ________ ? Change: ________
+                Total: ________ • Change: ________
               </div>
             </li>
           ))}
@@ -504,6 +579,56 @@ const renderers: Record<string, Renderer> = {
         <div className="rounded-lg border border-dashed border-indigo-300 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
           Draw your evidence board below and label each clue.
           <div className="mt-2 h-28 rounded border border-indigo-200 bg-white" />
+        </div>
+      </div>
+    )
+  },
+  'interactive-reading-storymap': ({ seed, doc, variant }) => {
+    const story = buildReadingStoryMap(seed, doc.id, variant)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm leading-relaxed text-slate-700">
+          {story.beginning} {story.middle} {story.ending}
+        </p>
+        <div className="grid gap-3 md:grid-cols-3">
+          {[
+            { title: 'Beginning', prompt: 'Who are the characters? Where are they?' },
+            { title: 'Middle', prompt: 'What problem appears? What clues help?' },
+            { title: 'Ending', prompt: 'How do they solve it? What is the lesson?' },
+          ].map((section) => (
+            <div key={section.title} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+              <p className="font-semibold text-slate-900">{section.title}</p>
+              <p className="text-xs text-slate-500">{section.prompt}</p>
+              <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
+            </div>
+          ))}
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+            <p className="font-semibold">Clue Log</p>
+            <p className="text-xs uppercase tracking-wide text-purple-500">Look back at the story</p>
+            <ol className="mt-2 list-decimal list-inside space-y-2 text-purple-900">
+              <li>Clue 1: _____________________________________________</li>
+              <li>Clue 2: _____________________________________________</li>
+            </ol>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+            <p className="font-semibold text-slate-900">Retell in Your Own Words</p>
+            <p className="text-xs text-slate-500">Write three sentences that cover beginning, middle, and ending.</p>
+            <div className="mt-3 space-y-2">
+              <div className="h-10 rounded border border-dashed border-slate-300" />
+              <div className="h-10 rounded border border-dashed border-slate-300" />
+              <div className="h-10 rounded border border-dashed border-slate-300" />
+            </div>
+          </div>
+        </div>
+        <div className="space-y-2 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Comprehension Checks</p>
+          <ol className="list-decimal list-inside space-y-1">
+            <li>Why did {story.hero} and {story.friend} visit the {story.setting}?</li>
+            <li>What problem slowed them down in the middle of the story?</li>
+            <li>How did {story.helper} help them finish their goal? What lesson did they learn?</li>
+          </ol>
         </div>
       </div>
     )
@@ -676,7 +801,7 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
           <p className="font-semibold">Word Bank</p>
-          <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' ? ')}</p>
+          <p className="mt-1 uppercase tracking-wide text-xs">{wordBank.join(' • ')}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
@@ -1083,7 +1208,7 @@ const renderers: Record<string, Renderer> = {
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
+              <div className="mt-1 text-xs text-slate-500">Label: __________ • Extra word: __________</div>
             </li>
           ))}
         </ul>
@@ -1223,7 +1348,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold capitalize">{subject}</p>
               <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
-              <p className="text-xs text-slate-500">Details to include: texture ? highlights ? shadows</p>
+              <p className="text-xs text-slate-500">Details to include: texture • highlights • shadows</p>
             </div>
           ))}
         </div>
@@ -1292,7 +1417,7 @@ const renderers: Record<string, Renderer> = {
                   />
                 ))}
               </div>
-              <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">Number: ______ • Word: __________________</p>
             </div>
           ))}
         </div>
@@ -1582,7 +1707,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           const info = SHAPE_INFO[row.shape] ?? { kind: 'flat', sidesLabel: '' }
           return (
             <li key={idx}>
-                <span className="font-semibold capitalize">{row.shape}</span> ? {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
+                <span className="font-semibold capitalize">{row.shape}</span> • {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
             </li>
           )
         })}
@@ -1639,6 +1764,47 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
+  'interactive-reading-storymap': ({ doc, seed, variant }) => {
+    const story = buildReadingStoryMap(seed, doc.id, variant)
+    return (
+      <div className="space-y-3 text-sm">
+        <div>
+          <p className="font-semibold text-emerald-900">Story outline</p>
+          <ol className="list-decimal list-inside space-y-1">
+            <li>
+              <span className="font-semibold">Beginning:</span> {story.beginning}
+            </li>
+            <li>
+              <span className="font-semibold">Middle:</span> {story.middle}
+            </li>
+            <li>
+              <span className="font-semibold">Ending:</span> {story.ending}
+            </li>
+          </ol>
+        </div>
+        <div>
+          <p className="font-semibold text-emerald-900">Clues spotted</p>
+          <ol className="list-decimal list-inside space-y-1">
+            {story.clues.map((clue, idx) => (
+              <li key={idx}>{clue}</li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <p className="font-semibold text-emerald-900">Comprehension guide</p>
+          <ol className="list-decimal list-inside space-y-1">
+            <li>
+              They visit the {story.setting} to {story.goal}.
+            </li>
+            <li>{story.obstacle}</li>
+            <li>
+              {story.helper} helps them; they complete the goal and learn {story.lesson}.
+            </li>
+          </ol>
+        </div>
+      </div>
+    )
+  },
 }
 
 function InteractiveWorksheetSection({
@@ -1682,7 +1848,7 @@ function InteractiveWorksheetSection({
           <h2 className="text-lg font-semibold text-slate-900">{category.icon} {doc.title}</h2>
         </div>
         <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
-          {doc.difficulty} ? {doc.grades.map((grade) => grade.toUpperCase()).join(' / ')}
+          {doc.difficulty} • {doc.grades.map((grade) => grade.toUpperCase()).join(' / ')}
         </span>
       </header>
       <p className="mb-4 text-sm text-slate-600">{doc.description}</p>
