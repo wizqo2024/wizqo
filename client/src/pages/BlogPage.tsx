@@ -2087,7 +2087,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       Clear
                     </button>
                   )}
-                </div>
               </div>
             </div>
 
