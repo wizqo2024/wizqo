@@ -587,27 +587,42 @@ export function PrintablesPage() {
       <style>{`
         @media print {
           @page { 
-            margin: 0.5in 0.5in 0.75in 0.5in;
-            /* Try to remove browser headers/footers */
-            margin-top: 0.5in;
-            margin-bottom: 0.5in;
-            margin-left: 0.5in;
-            margin-right: 0.5in;
+            margin: 0.5in 0.5in 0.5in 0.5in;
+            /* Try to remove browser headers/footers using margin-box */
+            @top-left { content: ""; }
+            @top-center { content: ""; }
+            @top-right { content: ""; }
+            @bottom-left { content: ""; }
+            @bottom-center { content: ""; }
+            @bottom-right { content: ""; }
+            size: A4;
           }
           /* Remove browser-generated headers and footers */
           @page :first {
             margin-top: 0.5in;
             margin-bottom: 0.5in;
+            @top-left { content: ""; }
+            @top-center { content: ""; }
+            @top-right { content: ""; }
+            @bottom-left { content: ""; }
+            @bottom-center { content: ""; }
+            @bottom-right { content: ""; }
           }
           @page :left {
             margin-left: 0.5in;
             margin-right: 0.5in;
             margin-bottom: 0.5in;
+            @bottom-left { content: ""; }
+            @bottom-center { content: ""; }
+            @bottom-right { content: ""; }
           }
           @page :right {
             margin-left: 0.5in;
             margin-right: 0.5in;
             margin-bottom: 0.5in;
+            @bottom-left { content: ""; }
+            @bottom-center { content: ""; }
+            @bottom-right { content: ""; }
           }
           html, body { 
             margin: 0 !important; 
