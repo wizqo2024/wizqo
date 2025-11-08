@@ -115,6 +115,25 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
   // Search in category ID (e.g., "math", "reading", "science")
   if (item.categoryId.toLowerCase().includes(query)) return true
   
+  // Also check all categories from INTERACTIVE_CATEGORIES for direct matches
+  for (const category of INTERACTIVE_CATEGORIES) {
+    const categoryIdLower = category.id.toLowerCase()
+    const categoryLabelLower = category.label.toLowerCase()
+    // Check if query matches category ID or label
+    if (query === categoryIdLower || 
+        query === categoryLabelLower ||
+        query.includes(categoryIdLower) || 
+        categoryIdLower.includes(query) ||
+        query.includes(categoryLabelLower) || 
+        categoryLabelLower.includes(query)) {
+      // Check if this item belongs to this category
+      if (item.categoryId.toLowerCase() === categoryIdLower || 
+          item.categoryLabel.toLowerCase() === categoryLabelLower) {
+        return true
+      }
+    }
+  }
+  
   // Search in grade label (e.g., "Preschool", "K–1", "2nd–3rd", or "Preschool / K–1 / G2")
   // Normalize dashes (en dash – and hyphen -) for consistent matching
   const gradeLabelLower = item.gradeLabel.toLowerCase().replace(/[–—]/g, '-')
@@ -198,6 +217,7 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
   
   // Check if query matches any category variation
   for (const [categoryId, variations] of Object.entries(categoryVariations)) {
+    // Check if query matches any variation
     if (variations.some(v => query.includes(v) || v.includes(query))) {
       if (item.categoryId.toLowerCase().includes(categoryId.toLowerCase()) || 
           item.categoryLabel.toLowerCase().includes(categoryId.toLowerCase())) {
