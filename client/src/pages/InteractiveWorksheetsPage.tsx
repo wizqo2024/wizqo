@@ -870,10 +870,7 @@ export function InteractiveWorksheetsPage() {
   }, [])
 
   const addStudentName = React.useCallback(() => {
-    const name = prompt('Enter student name:')
-    if (name && name.trim()) {
-      handleCustomizationChange('studentNames', [...customization.studentNames, name.trim()])
-    }
+    handleCustomizationChange('studentNames', [...customization.studentNames, ''])
   }, [customization.studentNames, handleCustomizationChange])
 
   const removeStudentName = React.useCallback(

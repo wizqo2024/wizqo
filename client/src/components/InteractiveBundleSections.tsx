@@ -5501,14 +5501,14 @@ function InteractiveWorksheetSection({
     <section className="mb-10 break-inside-avoid rounded-xl border border-slate-200 bg-white p-5 print:border-0 print:p-0">
       {/* Customization header */}
       {(teacherName || className || (studentNames && studentNames.length > 0)) && (
-        <div className="mb-3 pb-2 border-b border-slate-200 print:border-slate-300">
-          {teacherName && <div className="text-xs text-slate-600 print:text-slate-700"><strong>Teacher:</strong> {teacherName}</div>}
-          {className && <div className="text-xs text-slate-600 print:text-slate-700"><strong>Class:</strong> {className}</div>}
-          {studentNames && studentNames.length > 0 && (
-            <div className="text-xs text-slate-600 print:text-slate-700 mt-1">
-              <strong>Student:</strong> {studentNames.length === 1 ? studentNames[0] : `${studentNames.length} students`}
-            </div>
-          )}
+        <div className="mb-2 pb-1 border-b border-slate-200 print:border-slate-300 text-xs text-slate-600 print:text-slate-700 break-inside-avoid">
+          <div className="flex flex-wrap gap-x-3 gap-y-0.5">
+            {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
+            {className && <span><strong>Class:</strong> {className}</span>}
+            {studentNames && studentNames.length > 0 && (
+              <span><strong>Student:</strong> {studentNames.length === 1 ? studentNames[0] : `${studentNames.length} students`}</span>
+            )}
+          </div>
         </div>
       )}
       <header className="mb-3 flex items-start justify-between gap-3">
