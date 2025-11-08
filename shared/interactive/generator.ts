@@ -239,7 +239,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
       // Add to used set to prevent duplicates
       usedDocIds.add(doc.id)
         const docGradeLabel = toGradeLabel(doc.grades)
-        const previewHint = `${categoryIcon} ${doc.title} ? ${docGradeLabel}`
+        const previewHint = `${categoryIcon} ${doc.title} • ${docGradeLabel}`
       items.push({
         docId: doc.id,
         title: doc.title,
@@ -282,7 +282,7 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
           }
           const cat = getCategoryById(categoryId)
             const docGradeLabel = toGradeLabel(fallbackDoc.grades)
-            const previewHint = `${cat?.icon || '??'} ${fallbackDoc.title} ? ${docGradeLabel}`
+            const previewHint = `${cat?.icon || '•'} ${fallbackDoc.title} • ${docGradeLabel}`
           items.push({
             docId: fallbackDoc.id,
             title: fallbackDoc.title,
