@@ -658,16 +658,18 @@ export function PrintablesPage() {
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-12 print-content-start">
         {/* Print instruction banner - hidden in print */}
-        <div className="print:hidden mb-4 rounded-xl border-2 border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+        <div className="print:hidden mb-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900">
           <div className="flex items-start gap-3">
-            <span className="text-xl">⚠️</span>
+            <span className="text-xl">🚨</span>
             <div className="flex-1">
-              <p className="font-semibold mb-1">To remove URLs from printed pages:</p>
-              <ul className="list-disc list-inside space-y-1 text-xs">
-                <li><strong>Chrome/Edge:</strong> Print dialog → "More settings" → Uncheck "Headers and footers"</li>
-                <li><strong>Firefox:</strong> Print dialog → "Page Setup" → Uncheck "Print headers and footers"</li>
-                <li><strong>Safari:</strong> Print dialog → "Show Details" → Uncheck "Print headers and footers"</li>
+              <p className="font-bold mb-2 text-base">CRITICAL: Remove URLs from Printed Pages</p>
+              <p className="mb-2 font-semibold">The URLs at the bottom are added by your browser. To remove them:</p>
+              <ul className="list-disc list-inside space-y-1 text-xs font-medium">
+                <li><strong>Chrome/Edge:</strong> Print dialog → Click "More settings" → Uncheck "Headers and footers" → Print</li>
+                <li><strong>Firefox:</strong> Print dialog → Click "Page Setup" → Uncheck "Print headers and footers" → Print</li>
+                <li><strong>Safari:</strong> Print dialog → Click "Show Details" → Uncheck "Print headers and footers" → Print</li>
               </ul>
+              <p className="mt-2 text-xs italic">⚠️ This cannot be removed with code - it's a browser security feature. You must disable it in the print dialog.</p>
             </div>
           </div>
         </div>
@@ -754,9 +756,23 @@ export function PrintablesPage() {
             )}
             <div className="print:hidden">
               <button
-                onClick={() => window.print()}
+                onClick={() => {
+                  // Show prominent instruction before printing
+                  const confirmed = confirm(
+                    '⚠️ IMPORTANT: To remove URLs from printed pages:\n\n' +
+                    'In the print dialog that opens:\n' +
+                    '1. Look for "More settings" or "Options"\n' +
+                    '2. Find "Headers and footers" checkbox\n' +
+                    '3. UNCHECK it\n' +
+                    '4. Then click Print\n\n' +
+                    'Click OK to open print dialog.'
+                  );
+                  if (confirmed) {
+                    window.print();
+                  }
+                }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
-                title="Download as PDF - In print dialog, uncheck 'Headers and footers' to remove URLs"
+                title="Download as PDF - Uncheck 'Headers and footers' in print dialog to remove URLs"
                 aria-label="Download as PDF"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
