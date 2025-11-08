@@ -1316,74 +1316,78 @@ const renderers: Record<string, Renderer> = {
     ], 4)
     
     const ShapeSVG = ({ shape }: { shape: string }) => {
-      const size = 120
+      const size = 250
+      const strokeWidth = 4
       if (shape === 'star') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <polygon points="60,10 70,45 110,45 78,68 88,105 60,80 32,105 42,68 10,45 50,45" 
-              fill="none" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <polygon points="125,20 145,90 220,90 160,135 175,210 125,170 75,210 90,135 30,90 105,90" 
+              fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'flower') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <circle cx="60" cy="60" r="25" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="60" cy="30" rx="15" ry="20" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="60" cy="90" rx="15" ry="20" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="30" cy="60" rx="20" ry="15" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="90" cy="60" rx="20" ry="15" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="40" cy="40" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="80" cy="40" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="40" cy="80" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="80" cy="80" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <circle cx="125" cy="125" r="50" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="125" cy="60" rx="30" ry="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="125" cy="190" rx="30" ry="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="60" cy="125" rx="40" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="190" cy="125" rx="40" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="85" cy="85" rx="25" ry="35" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="165" cy="85" rx="25" ry="35" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="85" cy="165" rx="25" ry="35" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="165" cy="165" rx="25" ry="35" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'rainbow') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <path d="M 20 80 Q 60 20, 100 80" fill="none" stroke="#333" strokeWidth="3" />
-            <path d="M 25 75 Q 60 25, 95 75" fill="none" stroke="#333" strokeWidth="3" />
-            <path d="M 30 70 Q 60 30, 90 70" fill="none" stroke="#333" strokeWidth="3" />
-            <path d="M 35 65 Q 60 35, 85 65" fill="none" stroke="#333" strokeWidth="3" />
-            <path d="M 40 60 Q 60 40, 80 60" fill="none" stroke="#333" strokeWidth="3" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <path d="M 40 170 Q 125 40, 210 170" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 50 160 Q 125 50, 200 160" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 60 150 Q 125 60, 190 150" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 70 140 Q 125 70, 180 140" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 80 130 Q 125 80, 170 130" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 90 120 Q 125 90, 160 120" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'heart') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <path d="M 60 100 C 60 100, 20 70, 20 50 C 20 35, 35 30, 50 40 C 55 25, 70 20, 80 30 C 95 20, 100 35, 100 50 C 100 70, 60 100, 60 100 Z" 
-              fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 40 50 C 40 50, 50 45, 55 50 C 60 45, 70 50, 70 50" 
-              fill="none" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <path d="M 125 210 C 125 210, 40 145, 40 105 C 40 75, 70 60, 105 85 C 115 50, 145 40, 165 60 C 195 40, 210 75, 210 105 C 210 145, 125 210, 125 210 Z" 
+              fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 85 105 C 85 105, 105 95, 115 105 C 125 95, 145 105, 145 105" 
+              fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'mandala') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <circle cx="60" cy="60" r="50" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="60" cy="60" r="40" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="60" cy="60" r="30" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="60" cy="60" r="20" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="60" cy="60" r="10" fill="none" stroke="#333" strokeWidth="2" />
-            <line x1="60" y1="10" x2="60" y2="110" stroke="#333" strokeWidth="2" />
-            <line x1="10" y1="60" x2="110" y2="60" stroke="#333" strokeWidth="2" />
-            <line x1="20" y1="20" x2="100" y2="100" stroke="#333" strokeWidth="2" />
-            <line x1="100" y1="20" x2="20" y2="100" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <circle cx="125" cy="125" r="105" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <circle cx="125" cy="125" r="85" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <circle cx="125" cy="125" r="65" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <circle cx="125" cy="125" r="45" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <circle cx="125" cy="125" r="25" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="125" y1="20" x2="125" y2="230" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="20" y1="125" x2="230" y2="125" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="40" y1="40" x2="210" y2="210" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="210" y1="40" x2="40" y2="210" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'leaf') {
         return (
-          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
-            <path d="M 60 20 Q 40 40, 30 60 Q 20 80, 40 100 Q 60 90, 60 100 Q 60 90, 80 100 Q 100 80, 90 60 Q 80 40, 60 20 Z" 
-              fill="none" stroke="#333" strokeWidth="2" />
-            <line x1="60" y1="20" x2="60" y2="100" stroke="#333" strokeWidth="2" />
-            <path d="M 50 50 Q 45 55, 50 60" fill="none" stroke="#333" strokeWidth="1.5" />
-            <path d="M 70 50 Q 75 55, 70 60" fill="none" stroke="#333" strokeWidth="1.5" />
+          <svg width={size} height={size} viewBox="0 0 250 250" className="mx-auto">
+            <path d="M 125 40 Q 85 85, 60 125 Q 40 165, 85 210 Q 125 190, 125 210 Q 125 190, 165 210 Q 210 165, 190 125 Q 170 85, 125 40 Z" 
+              fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="125" y1="40" x2="125" y2="210" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 105 105 Q 95 110, 105 120" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 145 105 Q 155 110, 145 120" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 110 130 Q 105 140, 110 150" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 140 130 Q 145 140, 140 150" fill="none" stroke="#333" strokeWidth="3" />
           </svg>
         )
       }
@@ -1400,7 +1404,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-slate-700 mb-1">{page.title}</p>
               <p className="text-xs text-slate-600 mb-3">{page.description}</p>
-              <div className="mt-3 h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
+              <div className="mt-3 min-h-[280px] rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center p-4">
                 <ShapeSVG shape={page.shape} />
               </div>
               <p className="mt-2 text-xs text-purple-600 text-center">Color inside the shape!</p>
@@ -1422,38 +1426,41 @@ const renderers: Record<string, Renderer> = {
     ], 6)
     
     const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
-      const size = 100
+      const size = 200
+      const strokeWidth = 4
       if (shape === 'circle') {
         return (
-          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#333" strokeWidth="3" />
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'rectangle') {
         return (
-          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
-            <rect x="10" y="10" width="80" height="80" rx="5" fill="none" stroke="#333" strokeWidth="3" />
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+            <rect x="20" y="20" width="160" height="160" rx="10" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
       if (shape === 'leaf') {
         return (
-          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
-            <path d="M 50 10 Q 30 30, 20 50 Q 10 70, 30 85 Q 50 80, 50 90 Q 50 80, 70 85 Q 90 70, 80 50 Q 70 30, 50 10 Z" 
-              fill="none" stroke="#333" strokeWidth="3" />
-            <line x1="50" y1="10" x2="50" y2="90" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+            <path d="M 100 20 Q 60 60, 40 100 Q 20 140, 60 170 Q 100 160, 100 180 Q 100 160, 140 170 Q 180 140, 160 100 Q 140 60, 100 20 Z" 
+              fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <line x1="100" y1="20" x2="100" y2="180" stroke="#333" strokeWidth={strokeWidth} />
+            <path d="M 90 90 Q 85 95, 90 100" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 110 90 Q 115 95, 110 100" fill="none" stroke="#333" strokeWidth="3" />
           </svg>
         )
       }
       if (shape === 'flower') {
         return (
-          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
-            <circle cx="50" cy="50" r="20" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="50" cy="25" rx="12" ry="15" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="50" cy="75" rx="12" ry="15" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="25" cy="50" rx="15" ry="12" fill="none" stroke="#333" strokeWidth="2" />
-            <ellipse cx="75" cy="50" rx="15" ry="12" fill="none" stroke="#333" strokeWidth="2" />
+          <svg width={size} height={size} viewBox="0 0 200 200" className="mx-auto">
+            <circle cx="100" cy="100" r="40" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="100" cy="50" rx="24" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="100" cy="150" rx="24" ry="30" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="50" cy="100" rx="30" ry="24" fill="none" stroke="#333" strokeWidth={strokeWidth} />
+            <ellipse cx="150" cy="100" rx="30" ry="24" fill="none" stroke="#333" strokeWidth={strokeWidth} />
           </svg>
         )
       }
@@ -1470,7 +1477,7 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
               <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{activity.item}</p>
               <p className="text-xs text-slate-600 mb-2">Color: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
-              <div className="h-28 rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2">
+              <div className="min-h-[240px] rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2 p-4">
                 <ColorShapeSVG shape={activity.shape} color={activity.color} />
               </div>
               <p className="text-xs text-slate-500">Color inside the shape!</p>
