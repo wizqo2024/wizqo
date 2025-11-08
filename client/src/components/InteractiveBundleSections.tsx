@@ -2531,15 +2531,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   },
   'interactive-reading-prek': ({ doc, seed, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const stories = pickMany(
-      rng,
-      [
-        { title: 'The Happy Cat', images: ['cat', 'sun', 'ball'], questions: ['Is the cat happy?', 'What color is the sun?'] },
-        { title: 'A Big Dog', images: ['dog', 'bone', 'house'], questions: ['Is the dog big?', 'What does the dog have?'] },
-        { title: 'The Red Car', images: ['car', 'road', 'tree'], questions: ['What color is the car?', 'Where is the car?'] },
-      ],
-      3
-    )
+    const stories = [
+      { title: 'The Red Car', questions: ['What color is the car?', 'Where is the car?'] },
+      { title: 'The Sunny Day', questions: ['Is it sunny?', 'What do you see?'] },
+      { title: 'The Big Tree', questions: ['Is the tree big?', 'What is near the tree?'] },
+    ]
     return (
       <ul className="space-y-2 text-sm">
         {stories.map((story, idx) => (
@@ -2547,7 +2543,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             <span className="font-semibold">{story.title}:</span>
             <ul className="ml-4 mt-1 list-disc space-y-1">
               {story.questions.map((q, qIdx) => (
-                <li key={qIdx}>{q} - Accept yes/no answers based on picture clues</li>
+                <li key={qIdx}>{q} - Accept yes/no answers based on picture clues. Students should look at the pictures to answer.</li>
               ))}
             </ul>
           </li>
