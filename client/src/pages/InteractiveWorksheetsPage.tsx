@@ -101,14 +101,115 @@ function saveCustomization(data: CustomizationData) {
 // Search helper function
 function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boolean {
   if (!searchQuery.trim()) return true
-  const query = searchQuery.toLowerCase()
-  return (
-    item.title.toLowerCase().includes(query) ||
-    item.description.toLowerCase().includes(query) ||
-    item.categoryLabel.toLowerCase().includes(query) ||
-    item.gradeLabel.toLowerCase().includes(query) ||
-    item.focus.some((tag) => tag.toLowerCase().includes(query))
-  )
+  const query = searchQuery.toLowerCase().trim()
+  
+  // Search in title
+  if (item.title.toLowerCase().includes(query)) return true
+  
+  // Search in description
+  if (item.description.toLowerCase().includes(query)) return true
+  
+  // Search in category label (e.g., "Math", "Reading")
+  if (item.categoryLabel.toLowerCase().includes(query)) return true
+  
+  // Search in category ID (e.g., "math", "reading", "science")
+  if (item.categoryId.toLowerCase().includes(query)) return true
+  
+  // Search in grade label (e.g., "Preschool", "K–1", "2nd–3rd", or "Preschool / K–1 / G2")
+  // Normalize dashes (en dash – and hyphen -) for consistent matching
+  const gradeLabelLower = item.gradeLabel.toLowerCase().replace(/[–—]/g, '-')
+  const normalizedQuery = query.replace(/[–—]/g, '-')
+  if (gradeLabelLower.includes(normalizedQuery)) return true
+  
+  // Map grade search terms to grade labels
+  // gradeLabel can be like "Preschool / K–1 / G2", so we need to check each part
+  const gradeSearchMap: Record<string, string[]> = {
+    // Search terms -> grade labels they should match (normalized with hyphens)
+    'preschool': ['preschool', 'prek', 'pre-k'],
+    'prek': ['preschool', 'prek'],
+    'pre-k': ['preschool', 'prek'],
+    'k1': ['k-1', 'k 1'],
+    'k-1': ['k-1', 'k 1'],
+    'k 1': ['k-1', 'k 1'],
+    'kindergarten': ['k-1'],
+    'first grade': ['k-1'],
+    'g2': ['2nd-3rd', '2nd 3rd'],
+    '2nd': ['2nd-3rd'],
+    '3rd': ['2nd-3rd'],
+    'second': ['2nd-3rd'],
+    'third': ['2nd-3rd'],
+    '2nd-3rd': ['2nd-3rd'],
+    '35': ['4th-5th', '4th 5th'],
+    '4th': ['4th-5th'],
+    '5th': ['4th-5th'],
+    'fourth': ['4th-5th'],
+    'fifth': ['4th-5th'],
+    '4th-5th': ['4th-5th'],
+    '68': ['6th-8th', '6th 8th'],
+    '6th': ['6th-8th'],
+    '7th': ['6th-8th'],
+    '8th': ['6th-8th'],
+    'sixth': ['6th-8th'],
+    'seventh': ['6th-8th'],
+    'eighth': ['6th-8th'],
+    '6th-8th': ['6th-8th'],
+  }
+  
+  // Check if query matches any grade search term
+  for (const [searchTerm, gradeLabels] of Object.entries(gradeSearchMap)) {
+    if (normalizedQuery.includes(searchTerm) || searchTerm.includes(normalizedQuery)) {
+      // Check if item's gradeLabel contains any of the matching grade labels
+      if (gradeLabels.some(label => gradeLabelLower.includes(label.toLowerCase()))) {
+        return true
+      }
+    }
+  }
+  
+  // Also check against INTERACTIVE_GRADE_OPTIONS directly
+  for (const gradeOption of INTERACTIVE_GRADE_OPTIONS) {
+    // Normalize grade option label (replace en dash with hyphen)
+    const gradeLabelLowerOption = gradeOption.label.toLowerCase().replace(/[–—]/g, '-')
+    const gradeIdLower = gradeOption.id.toLowerCase()
+    // Check if query matches grade option label or ID
+    if (normalizedQuery.includes(gradeLabelLowerOption) || 
+        gradeLabelLowerOption.includes(normalizedQuery) ||
+        normalizedQuery.includes(gradeIdLower) ||
+        gradeIdLower.includes(normalizedQuery)) {
+      // Check if item's gradeLabel contains this grade
+      if (gradeLabelLower.includes(gradeLabelLowerOption)) {
+        return true
+      }
+    }
+  }
+  
+  // Search in category name variations
+  const categoryVariations: Record<string, string[]> = {
+    'math': ['mathematics', 'arithmetic', 'numbers', 'calculation'],
+    'reading': ['read', 'comprehension', 'literacy', 'books', 'stories'],
+    'writing': ['write', 'essay', 'composition', 'creative'],
+    'science': ['scientific', 'experiment', 'biology', 'chemistry', 'physics'],
+    'social studies': ['geography', 'history', 'culture', 'social'],
+    'grammar': ['language', 'vocabulary', 'words', 'english'],
+    'art': ['drawing', 'coloring', 'creative', 'design'],
+    'early learning': ['early', 'preschool', 'toddler', 'beginner'],
+    'critical thinking': ['logic', 'puzzle', 'problem solving', 'reasoning'],
+    'social emotional': ['sel', 'emotions', 'feelings', 'mindfulness', 'empathy'],
+  }
+  
+  // Check if query matches any category variation
+  for (const [categoryId, variations] of Object.entries(categoryVariations)) {
+    if (variations.some(v => query.includes(v) || v.includes(query))) {
+      if (item.categoryId.toLowerCase().includes(categoryId.toLowerCase()) || 
+          item.categoryLabel.toLowerCase().includes(categoryId.toLowerCase())) {
+        return true
+      }
+    }
+  }
+  
+  // Search in focus tags
+  if (item.focus.some((tag) => tag.toLowerCase().includes(query))) return true
+  
+  return false
 }
 
 const todayIso = new Date().toISOString().slice(0, 10)
