@@ -608,14 +608,14 @@ export function PrintablesPage() {
         </div>
         {/* Customization header (print view) */}
         {(teacherName || className || studentNames.length > 0) && (
-          <div className="hidden print:block mb-4 pb-2 border-b border-slate-300">
-            {teacherName && <div className="text-sm text-slate-700"><strong>Teacher:</strong> {teacherName}</div>}
-            {className && <div className="text-sm text-slate-700"><strong>Class:</strong> {className}</div>}
-            {studentNames.length > 0 && (
-              <div className="text-sm text-slate-700 mt-1">
-                <strong>Students:</strong> {studentNames.join(', ')}
-              </div>
-            )}
+          <div className="hidden print:block mb-2 pb-1 border-b border-slate-300 text-xs text-slate-700 break-inside-avoid">
+            <div className="flex flex-wrap gap-x-4 gap-y-0.5">
+              {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
+              {className && <span><strong>Class:</strong> {className}</span>}
+              {studentNames.length > 0 && (
+                <span><strong>Students:</strong> {studentNames.join(', ')}</span>
+              )}
+            </div>
           </div>
         )}
         {/* Doc-specific back link is above header; sections appear below header */}
