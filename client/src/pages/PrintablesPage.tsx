@@ -333,6 +333,11 @@ export function PrintablesPage() {
   const [copiedLink, setCopiedLink] = React.useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
+  // Customization parameters
+  const teacherName = params.get('teacher') || ''
+  const className = params.get('class') || ''
+  const studentsParam = params.get('students') || ''
+  const studentNames = studentsParam ? studentsParam.split(',').map(s => s.trim()).filter(Boolean) : []
   const activeDocs = React.useMemo(() => {
     if (doc === 'bundle') {
       return bundleItemsParam
@@ -601,6 +606,18 @@ export function PrintablesPage() {
             <span className="line" />
           </div>
         </div>
+        {/* Customization header (print view) */}
+        {(teacherName || className || studentNames.length > 0) && (
+          <div className="hidden print:block mb-4 pb-2 border-b border-slate-300">
+            {teacherName && <div className="text-sm text-slate-700"><strong>Teacher:</strong> {teacherName}</div>}
+            {className && <div className="text-sm text-slate-700"><strong>Class:</strong> {className}</div>}
+            {studentNames.length > 0 && (
+              <div className="text-sm text-slate-700 mt-1">
+                <strong>Students:</strong> {studentNames.join(', ')}
+              </div>
+            )}
+          </div>
+        )}
         {/* Doc-specific back link is above header; sections appear below header */}
         <div className="mb-4 print:hidden flex justify-end">
           <a
@@ -694,6 +711,9 @@ export function PrintablesPage() {
             seed={effectiveSeed}
             variant={variant}
             showAnswers={showAnswers}
+            teacherName={teacherName}
+            className={className}
+            studentNames={studentNames}
           />
         )}
         {activeDocs.includes('geo-continents-k2') && (

@@ -11,6 +11,9 @@ type Props = {
   seed: string
   variant: number
   showAnswers?: boolean
+  teacherName?: string
+  className?: string
+  studentNames?: string[]
 }
 
 type RenderContext = {
@@ -5460,11 +5463,17 @@ function InteractiveWorksheetSection({
   seed,
   variant,
   showAnswers,
+  teacherName,
+  className,
+  studentNames,
 }: {
   docId: string
   seed: string
   variant: number
   showAnswers?: boolean
+  teacherName?: string
+  className?: string
+  studentNames?: string[]
 }) {
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
@@ -5490,6 +5499,18 @@ function InteractiveWorksheetSection({
 
   return (
     <section className="mb-10 break-inside-avoid rounded-xl border border-slate-200 bg-white p-5 print:border-0 print:p-0">
+      {/* Customization header */}
+      {(teacherName || className || (studentNames && studentNames.length > 0)) && (
+        <div className="mb-3 pb-2 border-b border-slate-200 print:border-slate-300">
+          {teacherName && <div className="text-xs text-slate-600 print:text-slate-700"><strong>Teacher:</strong> {teacherName}</div>}
+          {className && <div className="text-xs text-slate-600 print:text-slate-700"><strong>Class:</strong> {className}</div>}
+          {studentNames && studentNames.length > 0 && (
+            <div className="text-xs text-slate-600 print:text-slate-700 mt-1">
+              <strong>Student:</strong> {studentNames.length === 1 ? studentNames[0] : `${studentNames.length} students`}
+            </div>
+          )}
+        </div>
+      )}
       <header className="mb-3 flex items-start justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{category.label}</p>
@@ -5515,7 +5536,7 @@ function InteractiveWorksheetSection({
   )
 }
 
-export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers }: Props) {
+export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers, teacherName, className, studentNames }: Props) {
   if (docIds.length === 0) return null
 
   return (
@@ -5527,6 +5548,9 @@ export default function InteractiveBundleSections({ docIds, seed, variant, showA
           seed={seed}
           variant={variant}
           showAnswers={showAnswers}
+          teacherName={teacherName}
+          className={className}
+          studentNames={studentNames}
         />
       ))}
     </>
