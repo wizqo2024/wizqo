@@ -768,8 +768,8 @@ export function InteractiveWorksheetsPage() {
   const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
     if (!pack?.printUrl) return ''
     const url = new URL(pack.printUrl, window.location.origin)
-    // Add docId parameter to show only this worksheet
-    url.searchParams.set('docId', docId)
+    // Replace items parameter to show only this single worksheet
+    url.searchParams.set('items', docId)
     if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
     if (customization.className) url.searchParams.set('class', customization.className)
     if (customization.studentNames.length > 0) {
