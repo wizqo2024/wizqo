@@ -76,38 +76,20 @@ function pickDocsForCategory(
   const category = getCategoryById(categoryId)
   if (!category) return []
   
-  // STRICT GRADE MATCHING: Only show worksheets that match the selected grade exactly
-  // Priority: exact matches > fallback matches (only if no exact matches exist)
+  // STRICT GRADE MATCHING: Only show worksheets that explicitly include the selected grade
+  // Worksheets must have the exact selected grade in their grades array
   const exactMatches = category.docs.filter(
     (doc) => doc.grades.includes(grade) && (!excludeDocIds || !excludeDocIds.has(doc.id))
-  )
-  const fallbackGrades = gradeFallback[grade] || []
-  const fallbackMatches = category.docs.filter(
-    (doc) =>
-      doc.grades.some((g) => fallbackGrades.includes(g)) &&
-      (!excludeDocIds || !excludeDocIds.has(doc.id))
   )
 
   let pool: InteractiveWorksheetDoc[] = []
   if (exactMatches.length > 0) {
-    // Combine exact matches with fallback matches for broader variety while keeping grade relevance
-    pool = [...exactMatches]
-    for (const doc of fallbackMatches) {
-      if (!pool.some((existing) => existing.id === doc.id)) {
-        pool.push(doc)
-      }
-    }
-  } else if (fallbackMatches.length > 0) {
-    pool = fallbackMatches
+    // Use only exact grade matches - no fallbacks
+    pool = exactMatches
   } else {
-    // Last resort: if no exact or fallback matches, try to find ANY worksheet in the category
-    // This ensures every category always has at least some worksheets available
-    const anyMatches = category.docs.filter(
-      (doc) => !excludeDocIds || !excludeDocIds.has(doc.id)
-    )
-    if (anyMatches.length > 0) {
-      pool = anyMatches
-    }
+    // Last resort: if no exact matches exist for this grade, return empty
+    // This ensures worksheets shown are always relevant to the selected grade
+    pool = []
   }
 
   const orderedPool = pool.slice().sort((a, b) => a.id.localeCompare(b.id))
@@ -262,46 +244,38 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
       addedCount++
     }
     
-    // CRITICAL: Safety check - if no worksheets were added, ensure we get at least one
-    // This handles cases where picks exist but are filtered out, or picks is empty
+    // CRITICAL: Safety check - if no worksheets were added, try to find exact grade match
+    // Only use worksheets that explicitly include the selected grade (strict matching)
     if (addedCount === 0) {
       const category = getCategoryById(categoryId)
       if (category && category.docs.length > 0) {
-        // Find any worksheet that matches the grade (with fallback)
-        let fallbackDoc: InteractiveWorksheetDoc | null = null
-        
-          const fallbackGrades = gradeFallback[grade] || []
+        // Find worksheets that explicitly include the selected grade (strict matching only)
+        const exactGradeDocs = category.docs.filter(
+          (doc) => doc.grades.includes(grade) && !usedDocIds.has(doc.id)
+        )
 
-          const gradeAlignedDocs = category.docs.filter(
-            (doc) =>
-              (doc.grades.includes(grade) ||
-                doc.grades.some((g) => fallbackGrades.includes(g))) &&
-              !usedDocIds.has(doc.id)
-          )
-
-          fallbackDoc = gradeAlignedDocs[0] || null
-
-          // Add the fallback worksheet if found
-          if (fallbackDoc) {
+        // Add the first exact match worksheet if found
+        if (exactGradeDocs.length > 0) {
+          const exactDoc = exactGradeDocs[0]
           // Always add to usedDocIds to track it
-          if (!usedDocIds.has(fallbackDoc.id)) {
-            usedDocIds.add(fallbackDoc.id)
+          if (!usedDocIds.has(exactDoc.id)) {
+            usedDocIds.add(exactDoc.id)
           }
           const cat = getCategoryById(categoryId)
-            const docGradeLabel = toGradeLabel(fallbackDoc.grades)
-            const previewHint = `${cat?.icon || '•'} ${fallbackDoc.title} • ${docGradeLabel}`
+          const docGradeLabel = toGradeLabel(exactDoc.grades)
+          const previewHint = `${cat?.icon || '•'} ${exactDoc.title} • ${docGradeLabel}`
           items.push({
-            docId: fallbackDoc.id,
-            title: fallbackDoc.title,
-            description: fallbackDoc.description,
+            docId: exactDoc.id,
+            title: exactDoc.title,
+            description: exactDoc.description,
             categoryId,
             categoryLabel: cat?.label || categoryId,
-              gradeLabel: docGradeLabel,
-            difficulty: fallbackDoc.difficulty,
-            focus: fallbackDoc.focus,
+            gradeLabel: docGradeLabel,
+            difficulty: exactDoc.difficulty,
+            focus: exactDoc.focus,
             previewHint,
           })
-            answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}, ${docGradeLabel})`)
+          answerSummary.push(`${exactDoc.title} (${cat?.label || categoryId}, ${docGradeLabel})`)
           addedCount++
         }
       }
