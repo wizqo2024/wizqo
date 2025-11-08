@@ -109,17 +109,19 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
   // Search in description
   if (item.description.toLowerCase().includes(query)) return true
   
-  // Search in category label (e.g., "Math", "Reading")
-  if (item.categoryLabel.toLowerCase().includes(query)) return true
+  // Search in category label (e.g., "Math", "Reading") - exact and partial match
+  const categoryLabelLower = item.categoryLabel.toLowerCase()
+  if (categoryLabelLower === query || categoryLabelLower.includes(query) || query.includes(categoryLabelLower)) return true
   
-  // Search in category ID (e.g., "math", "reading", "science")
-  if (item.categoryId.toLowerCase().includes(query)) return true
+  // Search in category ID (e.g., "math", "reading", "science") - exact and partial match
+  const categoryIdLower = item.categoryId.toLowerCase()
+  if (categoryIdLower === query || categoryIdLower.includes(query) || query.includes(categoryIdLower)) return true
   
   // Also check all categories from INTERACTIVE_CATEGORIES for direct matches
   for (const category of INTERACTIVE_CATEGORIES) {
     const categoryIdLower = category.id.toLowerCase()
     const categoryLabelLower = category.label.toLowerCase()
-    // Check if query matches category ID or label
+    // Check if query matches category ID or label (exact or partial)
     if (query === categoryIdLower || 
         query === categoryLabelLower ||
         query.includes(categoryIdLower) || 
@@ -138,7 +140,7 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
   // Normalize dashes (en dash – and hyphen -) for consistent matching
   const gradeLabelLower = item.gradeLabel.toLowerCase().replace(/[–—]/g, '-')
   const normalizedQuery = query.replace(/[–—]/g, '-')
-  if (gradeLabelLower.includes(normalizedQuery)) return true
+  if (gradeLabelLower.includes(normalizedQuery) || normalizedQuery.includes(gradeLabelLower)) return true
   
   // Map grade search terms to grade labels
   // gradeLabel can be like "Preschool / K–1 / G2", so we need to check each part
