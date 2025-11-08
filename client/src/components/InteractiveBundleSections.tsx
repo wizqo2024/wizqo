@@ -230,11 +230,20 @@ function buildMathMoney(seed: string, docId: string, variant: number): MathMoney
   const rng = makeRng(`${seed}|${docId}|${variant}`)
   const coins: Array<'pennies' | 'nickels' | 'dimes' | 'quarters'> = ['nickels', 'dimes', 'quarters', 'pennies']
   const items = ['snack', 'bookmark', 'sticker pack', 'pencil topper', 'trading card']
+  const usedItems = new Set<string>()
   return Array.from({ length: 5 }).map(() => {
     const coin = pick(rng, coins)
     const amount = (Math.floor(rng() * 6) + 1) * COIN_VALUE[coin]
+    // Avoid duplicate items in the same worksheet
+    let item = pick(rng, items)
+    let attempts = 0
+    while (usedItems.has(item) && attempts < 10) {
+      item = pick(rng, items)
+      attempts++
+    }
+    usedItems.add(item)
     return {
-      item: pick(rng, items),
+      item,
       coin,
       amount,
       coinCount: amount / COIN_VALUE[coin],
@@ -247,8 +256,16 @@ function buildMathFractions(seed: string, docId: string, variant: number): MathF
   const numerators = [1, 2, 3, 4, 5]
   const denominators = [2, 3, 4, 5, 6, 8]
   return Array.from({ length: 5 }).map(() => {
-    const left = { num: pick(rng, numerators), den: pick(rng, denominators) }
-    const right = { num: pick(rng, numerators), den: pick(rng, denominators) }
+    // Ensure proper fractions (numerator < denominator) for easier visualization
+    let left = { num: pick(rng, numerators), den: pick(rng, denominators) }
+    let right = { num: pick(rng, numerators), den: pick(rng, denominators) }
+    // If improper fraction, swap or regenerate to make it proper
+    while (left.num >= left.den) {
+      left = { num: pick(rng, numerators.filter(n => n < left.den)), den: left.den }
+    }
+    while (right.num >= right.den) {
+      right = { num: pick(rng, numerators.filter(n => n < right.den)), den: right.den }
+    }
     const leftValue = left.num / left.den
     const rightValue = right.num / right.den
     const comparison: MathFractionPair['comparison'] =
@@ -454,7 +471,7 @@ const renderers: Record<string, Renderer> = {
           {prompts.map((prompt, idx) => (
             <li key={idx} className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3">
               <p>
-                The {prompt.item} costs ${prompt.amount / 100}. Pay using {prompt.coin}. Draw your coins below and write the total.
+                The {prompt.item} costs ${(prompt.amount / 100).toFixed(2)}. Pay using {prompt.coin}. Draw your coins below and write the total.
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
               <div className="mt-2 text-xs text-emerald-700">
@@ -2186,12 +2203,16 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const prompts = buildMathMoney(seed, doc.id, variant)
     return (
       <ol className="list-decimal list-inside space-y-2">
-        {prompts.map((prompt, idx) => (
-          <li key={idx}>
-            <span className="font-semibold capitalize">{prompt.item}</span>: use {prompt.coinCount}{' '}
-            {prompt.coin} (${(prompt.amount / 100).toFixed(2)}).
-          </li>
-        ))}
+        {prompts.map((prompt, idx) => {
+          const coinWord = prompt.coinCount === 1 
+            ? prompt.coin.replace(/s$/, '') // Remove 's' for singular
+            : prompt.coin
+          return (
+            <li key={idx}>
+              <span className="font-semibold capitalize">{prompt.item}</span>: use {prompt.coinCount} {coinWord} (${(prompt.amount / 100).toFixed(2)}).
+            </li>
+          )
+        })}
       </ol>
     )
   },
@@ -2223,9 +2244,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           const formatted = Number.isInteger(problem.converted)
             ? problem.converted.toString()
             : problem.converted.toFixed(2)
+          // Handle singular/plural correctly
+          const unit = problem.converted === 1 ? problem.to.replace(/s$/, '') : problem.to
           return (
             <li key={idx}>
-              {problem.amount} {problem.from} = {formatted} {problem.to}
+              {problem.amount} {problem.from} = {formatted} {unit}
             </li>
           )
         })}
