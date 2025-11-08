@@ -588,6 +588,9 @@ export function PrintablesPage() {
         @media print {
           @page { margin: 0.5in 0.5in 0.75in 0.5in; }
           html, body { margin: 0 !important; padding: 0 !important; }
+          /* Hide URLs in print */
+          a[href]::after { content: none !important; }
+          a { text-decoration: none !important; }
           /* Print-only name/date footer overlay (does not affect layout) */
           .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
           .print-name-date .label { margin-right: 6px; }
