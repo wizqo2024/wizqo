@@ -651,6 +651,7 @@ export function PrintablesPage() {
           .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
         }
       `}</style>
+      {/* Print layout optimized - updated 2025-01-11 */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4">
         {/* Print instruction banner - hidden in print */}
         <div className="print:hidden mb-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900">
