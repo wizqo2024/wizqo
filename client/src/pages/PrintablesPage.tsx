@@ -591,8 +591,19 @@ export function PrintablesPage() {
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
-          /* Customization header at top of page */
-          .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
+          /* Customization header at top of page - only appears once, not fixed */
+          .print-customization-header { 
+            display: block;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid #cbd5e1;
+            font-size: 11px; 
+            color: #1e293b; 
+            line-height: 1.4; 
+            font-weight: 500;
+            page-break-after: avoid;
+            break-after: avoid;
+          }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
           /* Better spacing for print */
           section { margin-bottom: 1rem !important; page-break-inside: avoid; }
@@ -619,7 +630,7 @@ export function PrintablesPage() {
             </div>
           </div>
         </div>
-        {/* Customization header (print view - fixed at top) */}
+        {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
             <div className="flex flex-wrap gap-x-3 items-center">
