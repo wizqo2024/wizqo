@@ -979,7 +979,7 @@ const renderers: Record<string, Renderer> = {
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-              <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
+                <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
             </li>
           ))}
         </ul>
@@ -1185,7 +1185,7 @@ const renderers: Record<string, Renderer> = {
                   <div key={boxIdx} className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`} />
                 ))}
               </div>
-              <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
+                <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
             </div>
           ))}
         </div>
