@@ -274,10 +274,10 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
       makeDoc({
         id: 'interactive-science-lifecycle',
         title: 'Life Cycle Explorer',
-        description: 'Interactive worksheets exploring plant, animal, and insect life cycles.',
+        description: 'Interactive worksheets exploring plant life cycles. Learn how plants grow!',
         grades: ['k1', 'g2', '35'],
         difficulty: 'Beginner',
-        focus: ['life cycles', 'biology', 'sequencing'],
+        focus: ['life cycles', 'plants', 'growth'],
       }),
       makeDoc({
         id: 'interactive-science-states',
@@ -556,7 +556,7 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
       makeDoc({
         id: 'interactive-sel-prek',
         title: 'Feelings & Emotions Explorer',
-        description: 'Identify and express feelings through pictures, simple words, and activities.',
+        description: 'Identify and express feelings through colors and shapes.',
         grades: ['preK', 'k1'],
         difficulty: 'Beginner',
         focus: ['emotions', 'feelings', 'self-expression'],
