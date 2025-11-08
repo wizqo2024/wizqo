@@ -586,34 +586,72 @@ export function PrintablesPage() {
     <div className="min-h-screen bg-white">
       <style>{`
         @media print {
-          @page { margin: 0; }
-          html, body { margin: 0 !important; padding: 0 !important; }
+          @page { 
+            margin: 0;
+            size: A4;
+          }
+          html, body { 
+            margin: 0 !important; 
+            padding: 0 !important; 
+            font-size: 12pt;
+            line-height: 1.5;
+          }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
-          /* Customization header at top of page - only appears once, not fixed */
+          /* Remove backgrounds and borders in print for cleaner look */
+          * {
+            box-shadow: none !important;
+          }
+          section, div[class*="rounded"], div[class*="border"] {
+            border: none !important;
+            border-radius: 0 !important;
+          }
+          /* Customization header at top of page - only appears once */
           .print-customization-header { 
             display: block;
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.25rem;
-            border-bottom: 1px solid #cbd5e1;
-            font-size: 11px; 
+            margin-bottom: 1rem;
+            padding: 0.5rem 0.5in;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 10pt; 
             color: #1e293b; 
             line-height: 1.4; 
             font-weight: 500;
             page-break-after: avoid;
-            break-after: avoid;
           }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
           /* Better spacing for print */
-          section { margin-bottom: 1rem !important; page-break-inside: avoid; }
-          .break-inside-avoid { page-break-inside: avoid !important; break-inside: avoid !important; }
-          /* Prevent text merging */
-          p, div, span { line-height: 1.5 !important; }
-          h1, h2, h3 { page-break-after: avoid !important; margin-bottom: 0.5rem !important; }
+          section { 
+            margin-bottom: 1.5rem !important; 
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            padding: 0 0.5in;
+          }
+          .break-inside-avoid { 
+            page-break-inside: avoid !important; 
+            break-inside: avoid !important; 
+          }
+          /* Prevent text merging and improve readability */
+          p { 
+            line-height: 1.6 !important; 
+            margin: 0.75rem 0 !important;
+          }
+          div, span { 
+            line-height: 1.5 !important; 
+          }
+          h1, h2, h3 { 
+            page-break-after: avoid !important; 
+            margin-bottom: 0.75rem !important;
+            margin-top: 1rem !important;
+          }
+          /* Clean up excessive spacing */
+          .mb-10 { margin-bottom: 1.5rem !important; }
+          .mb-4, .mb-6 { margin-bottom: 1rem !important; }
+          .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
+          .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
         }
       `}</style>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4">
         {/* Print instruction banner - hidden in print */}
         <div className="print:hidden mb-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900">
           <div className="flex items-start gap-3">
