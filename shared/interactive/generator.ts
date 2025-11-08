@@ -99,9 +99,16 @@ function pickDocsForCategory(
     }
   } else if (fallbackMatches.length > 0) {
     pool = fallbackMatches
+  } else {
+    // Last resort: if no exact or fallback matches, try to find ANY worksheet in the category
+    // This ensures every category always has at least some worksheets available
+    const anyMatches = category.docs.filter(
+      (doc) => !excludeDocIds || !excludeDocIds.has(doc.id)
+    )
+    if (anyMatches.length > 0) {
+      pool = anyMatches
+    }
   }
-
-  if (pool.length === 0) return []
 
   const orderedPool = pool.slice().sort((a, b) => a.id.localeCompare(b.id))
   const variantBase = Math.max(0, (variant ?? 1) - 1)
