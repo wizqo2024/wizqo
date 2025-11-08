@@ -1485,8 +1485,13 @@ export function InteractiveWorksheetsPage() {
           ) : (
             <div className="mt-4 space-y-3">
               {favorites.map((fav) => (
-                <div key={fav.docId} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4">
-                  <div className="flex-1">
+                <div key={fav.docId} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 hover:bg-slate-50 transition-colors">
+                  <div className="flex-1 cursor-pointer" onClick={() => {
+                    // Generate URL for this favorite worksheet
+                    const url = new URL(window.location.href)
+                    url.searchParams.set('items', fav.docId)
+                    window.location.href = url.toString()
+                  }}>
                     <h3 className="font-semibold text-slate-900">{fav.title}</h3>
                     <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
                       <span>{fav.categoryLabel}</span>
@@ -1494,18 +1499,34 @@ export function InteractiveWorksheetsPage() {
                       <span>{fav.gradeLabel}</span>
                     </div>
                   </div>
-                  <button
-                    onClick={() => {
-                      const item = pack?.items.find((i) => i.docId === fav.docId)
-                      if (item) toggleFavorite(item)
-                    }}
-                    className="p-2 text-yellow-500 hover:text-yellow-600 rounded-lg hover:bg-yellow-50"
-                    aria-label="Remove from favorites"
-                  >
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                    </svg>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={getSingleWorksheetPrintUrl(fav.docId)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 text-sm font-medium text-purple-700 hover:text-purple-800 border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Open
+                    </a>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        // Remove favorite directly by docId without needing pack
+                        setFavorites((prev) => {
+                          const next = prev.filter((f) => f.docId !== fav.docId)
+                          saveFavorites(next)
+                          return next
+                        })
+                      }}
+                      className="p-2 text-yellow-500 hover:text-yellow-600 rounded-lg hover:bg-yellow-50"
+                      aria-label="Remove from favorites"
+                    >
+                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
