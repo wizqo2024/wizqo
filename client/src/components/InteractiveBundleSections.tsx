@@ -2537,6 +2537,270 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ul>
     )
   },
+  'interactive-reading-adventure': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const heroes = ['Maya', 'Jasper', 'Alani', 'Theo', 'Priya', 'Leo']
+    const settings = ['hidden treehouse', 'floating library', 'midnight carnival', 'desert lab', 'mountain observatory']
+    const quests = ['recover a lost map', 'decode a riddle', 'repair the story fountain', 'help a time-traveling turtle', 'track a glowing comet']
+    const hero = pick(rng, heroes)
+    const partner = pick(rng, heroes.filter((name) => name !== hero))
+    const setting = pick(rng, settings)
+    const quest = pick(rng, quests)
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Problem:</span> {hero} and {partner} need to {quest}.</p>
+        <p><span className="font-semibold">Setting:</span> The {setting} provides clues and challenges.</p>
+        <p className="text-emerald-800">Note: Answers will vary based on student interpretation. Look for evidence from the story and logical reasoning.</p>
+      </div>
+    )
+  },
+  'interactive-reading-detective': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const mysteries = [
+      { title: 'The Missing Lab Goggles', culprit: 'an absent-minded janitor', clue: 'a trail of glitter', setting: 'science fair' },
+      { title: 'Case of the Empty Birdhouse', culprit: 'a helpful raccoon', clue: 'muddy paw prints', setting: 'school garden' },
+      { title: 'The Whispering Lockers', culprit: 'a friendly robot', clue: 'battery crumbs', setting: 'hallway' },
+    ]
+    const caseFile = pick(rng, mysteries)
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Culprit:</span> {caseFile.culprit}</p>
+        <p><span className="font-semibold">Key clue:</span> {caseFile.clue}</p>
+        <p className="text-emerald-800">Note: Students should use text evidence to support their inferences. Accept reasonable answers that reference the clues.</p>
+      </div>
+    )
+  },
+  'interactive-reading-vocab': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Vocabulary Strategy:</span> Use context clues from surrounding words and sentences to determine word meaning.</p>
+        <p className="text-emerald-800">Note: Answers will vary. Accept definitions that show understanding of context clues and word relationships.</p>
+      </div>
+    )
+  },
+  'interactive-reading-summary': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Summary Guidelines:</span> Include who, what, where, when, and why. Focus on main events, not details.</p>
+        <p className="text-emerald-800">Note: Summaries will vary. Look for inclusion of main ideas and key events in student's own words.</p>
+      </div>
+    )
+  },
+  'interactive-reading-compare': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Compare & Contrast:</span> Look for similarities (alike) and differences between the two texts.</p>
+        <p className="text-emerald-800">Note: Answers will vary. Accept comparisons that reference specific details from both texts.</p>
+      </div>
+    )
+  },
+  'interactive-writing-sentences': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Sentence Building:</span> Complete sentences should have a subject and predicate. Compound sentences use conjunctions (and, but, or).</p>
+        <p className="text-emerald-800">Note: Answers will vary. Check for complete thoughts, proper punctuation, and varied sentence structure.</p>
+      </div>
+    )
+  },
+  'interactive-science-observation': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Observation Skills:</span> Students should record what they see, hear, smell, touch, or measure accurately.</p>
+        <p className="text-emerald-800">Note: Observations will vary. Look for detailed, factual descriptions and use of scientific vocabulary.</p>
+      </div>
+    )
+  },
+  'interactive-science-lifecycle': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Life Cycle Stages:</span> Typical stages include: egg/seed → young/hatchling → juvenile → adult. Stages vary by organism.</p>
+        <p className="text-emerald-800">Note: Accept accurate stage names and descriptions. Students should show understanding of growth and development.</p>
+      </div>
+    )
+  },
+  'interactive-science-states': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">States of Matter:</span> Solid → Liquid (melting), Liquid → Gas (evaporation), Liquid → Solid (freezing), Gas → Liquid (condensation).</p>
+        <p className="text-emerald-800">Note: Particle diagrams should show particles closer together in solids, further apart in gases.</p>
+      </div>
+    )
+  },
+  'interactive-science-weather': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Weather Safety:</span> Examples: Stay indoors during storms, wear sunscreen on sunny days, dress warmly in snow.</p>
+        <p className="text-emerald-800">Note: Safety tips will vary. Accept reasonable safety advice appropriate for each weather condition.</p>
+      </div>
+    )
+  },
+  'interactive-geography-map': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Map Skills:</span> Use coordinates (letter + number) to locate places. Check that students can read the grid correctly.</p>
+        <p className="text-emerald-800">Note: Map content will vary. Verify coordinate reading accuracy and landmark identification.</p>
+      </div>
+    )
+  },
+  'interactive-geography-culture': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Cultural Research:</span> Students should research authentic information about foods, celebrations, and facts for each region.</p>
+        <p className="text-emerald-800">Note: Answers will vary based on research. Encourage accuracy and respect for different cultures.</p>
+      </div>
+    )
+  },
+  'interactive-geography-history': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Historical Impact:</span> Students should explain how each event changed society, technology, or daily life.</p>
+        <p className="text-emerald-800">Note: Impact descriptions will vary. Look for thoughtful connections between events and their consequences.</p>
+      </div>
+    )
+  },
+  'interactive-grammar-parts': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Parts of Speech:</span> Noun (person/place/thing), Verb (action), Adjective (describes noun), Adverb (describes verb).</p>
+        <p className="text-emerald-800">Note: Answers will vary based on sentence content. Check for correct identification of parts of speech.</p>
+      </div>
+    )
+  },
+  'interactive-grammar-tenses': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Verb Tenses:</span> Past (add -ed or irregular forms), Present (base form or -s for he/she/it), Future (will + base form).</p>
+        <p className="text-emerald-800">Note: Conjugations will vary. Verify correct tense formation and usage in sentences.</p>
+      </div>
+    )
+  },
+  'interactive-grammar-antonyms': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Antonyms:</span> timid/confident, ancient/modern, dull/vibrant, brisk/lazy, polite/rude.</p>
+        <p className="text-emerald-800">Note: Sentences will vary. Check that antonyms are used correctly and sentences make sense.</p>
+      </div>
+    )
+  },
+  'interactive-art-colorwheel': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Color Mixing:</span> yellow + violet = brown/gray, red + green = brown, turquoise + coral = brown/orange.</p>
+        <p className="text-emerald-800">Note: Actual results may vary. Focus on understanding complementary colors and color theory concepts.</p>
+      </div>
+    )
+  },
+  'interactive-early-phonics': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const sounds = pickMany(rng, ['m', 's', 't', 'b', 'p', 'n', 'f', 'r'], 4)
+    const words = {
+      m: ['moon', 'map', 'mouse'],
+      s: ['sun', 'sock', 'seal'],
+      t: ['tree', 'toy', 'turtle'],
+      b: ['ball', 'bus', 'bug'],
+      p: ['panda', 'pie', 'pen'],
+      n: ['nest', 'net', 'nose'],
+      f: ['fish', 'fan', 'frog'],
+      r: ['rain', 'robot', 'ring'],
+    } as Record<string, string[]>
+    return (
+      <ul className="space-y-2 text-sm">
+        {sounds.map((sound) => (
+          <li key={sound}>
+            <span className="font-semibold">Letter {sound.toUpperCase()}:</span> Sound: /{sound}/. Example words: {words[sound].join(', ')}. Students should trace the letter correctly and draw a picture starting with {sound}.
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-early-counting': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const rows = Array.from({ length: 4 }).map(() => ({
+      objects: pick(rng, ['stars', 'shells', 'dice', 'hearts', 'cars']),
+      count: Math.floor(rng() * 7) + 3,
+    }))
+    return (
+      <ul className="space-y-2 text-sm">
+        {rows.map((row, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Count {row.count} {row.objects}:</span> Students should count accurately, fill {row.count} boxes in the ten frame, write the number {row.count}, and write the number word "{numberWords[row.count - 1] || row.count}".
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-early-patterns': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
+    return (
+      <ul className="space-y-2 text-sm">
+        {patterns.map((pattern, idx) => {
+          const first = pick(rng, SHAPE_TOKENS)
+          const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
+          const third = pattern === 'ABC' ? pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key && token.key !== second.key)) : second
+          const nextItem = pattern === 'AB' ? first : pattern === 'AAB' ? second : pattern === 'ABC' ? third : second
+          return (
+            <li key={idx}>
+              <span className="font-semibold">Pattern {pattern}:</span> Continue with {nextItem.label}. Students should identify and extend the pattern correctly.
+            </li>
+          )
+        })}
+      </ul>
+    )
+  },
+  'interactive-logic-sequence': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const tasks = pickMany(
+      rng,
+      [
+        ['Mix batter', 'Pour into pan', 'Bake', 'Decorate'],
+        ['Plant seed', 'Water daily', 'Sprout appears', 'Measure growth'],
+        ['Pack backpack', 'Catch the bus', 'Arrive at museum', 'Meet the guide'],
+        ['Turn on tablet', 'Open coding app', 'Debug program', 'Share project'],
+      ],
+      3
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {tasks.map((task, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Sequence {idx + 1}:</span> Correct order: {task.join(' → ')}. Students should sequence steps logically and write a summary sentence.
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-logic-riddles': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const riddles = pickMany(
+      rng,
+      [
+        ['I have keys but open no doors. What am I?', 'A piano'],
+        ['I orbit but never land. What am I?', 'A satellite'],
+        ['I get wetter the more I dry. What am I?', 'A towel'],
+        ['I speak without a mouth. What am I?', 'An echo'],
+        ['I have hands but cannot clap. What am I?', 'A clock'],
+      ],
+      4
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {riddles.map(([riddle, answer], idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Riddle {idx + 1}:</span> {riddle} <span className="text-emerald-700">Answer: {answer}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-logic-deduction': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Deductive Reasoning:</span> Use the clues to eliminate possibilities and determine who borrowed what and where.</p>
+        <p className="text-emerald-800">Note: Answers will vary based on clue interpretation. Look for logical reasoning and use of all clues provided.</p>
+      </div>
+    )
+  },
 }
 
 function InteractiveWorksheetSection({
