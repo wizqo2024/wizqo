@@ -26,6 +26,9 @@ const normalizeCategoryIds = (ids: string[]): string[] => {
   return sorted.length > 0 ? sorted : DEFAULT_SELECTED_CATEGORIES
 }
 
+const DEFAULT_NORMALIZED_CATEGORIES = normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+const DEFAULT_CATEGORIES_KEY = DEFAULT_NORMALIZED_CATEGORIES.join(',')
+
 interface FiltersState {
   grade: GradeBand
   categories: string[]
@@ -42,7 +45,7 @@ function parseInitialFilters(): FiltersState {
     const gradeParam = params.get('grade') as GradeBand | null
       const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : DEFAULT_GRADE
     const categoriesParam = params.get('categories')
-    let selectedCategories: string[] = []
+      let selectedCategories: string[] = []
     if (categoriesParam) {
       // Parse and normalize categories from URL
       const rawCategories = categoriesParam.split(',').map((c) => c.trim()).filter(Boolean)
@@ -50,7 +53,7 @@ function parseInitialFilters(): FiltersState {
     }
     // If no valid categories found in URL, use defaults
     if (selectedCategories.length === 0) {
-      selectedCategories = normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+        selectedCategories = DEFAULT_NORMALIZED_CATEGORIES.slice()
     }
     // Always start with variant 1 for SEO - variant is internal only, not in URL
     const variant = 1
@@ -58,7 +61,7 @@ function parseInitialFilters(): FiltersState {
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
       grade: validGrade,
-      categories: selectedCategories,
+        categories: selectedCategories.slice(),
       variant,
       _timestamp: Date.now(), // Initialize with timestamp
       _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
@@ -66,11 +69,11 @@ function parseInitialFilters(): FiltersState {
   } catch {
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
-        grade: DEFAULT_GRADE,
-      categories: normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES),
+      grade: DEFAULT_GRADE,
+      categories: DEFAULT_NORMALIZED_CATEGORIES.slice(),
       variant: 1,
       _timestamp: Date.now(), // Initialize with timestamp
-      _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
+      _generateTimestamp: generateTimestamp, // Generate unique timestamp for initial load
     }
   }
 }
@@ -261,7 +264,7 @@ export function InteractiveWorksheetsPage() {
     // Create new abort controller for this request
     const abortController = new AbortController()
     abortControllerRef.current = abortController
-    
+      
       try {
         setLoading(true)
         setError(null)
@@ -270,9 +273,10 @@ export function InteractiveWorksheetsPage() {
         params.set('date', todayIso)
         params.set('grade', currentFilters.grade)
 
-        const categoriesToSend = currentFilters.categories.length > 0
-          ? currentFilters.categories
-          : normalizeCategoryIds(DEFAULT_SELECTED_CATEGORIES)
+        const categoriesToSend =
+          currentFilters.categories.length > 0
+            ? currentFilters.categories
+            : DEFAULT_NORMALIZED_CATEGORIES
         params.set('categories', categoriesToSend.join(','))
         params.set('variant', String(currentFilters.variant))
 
@@ -371,7 +375,8 @@ export function InteractiveWorksheetsPage() {
 
   // Memoize categories string to prevent unnecessary re-renders
   const categoriesKey = React.useMemo(() => filters.categories.join(','), [filters.categories])
-  
+  const hasCustomCategories = categoriesKey !== DEFAULT_CATEGORIES_KEY
+
   React.useEffect(() => {
     updateUrl(filters)
     loadPack(filters)
@@ -399,6 +404,21 @@ export function InteractiveWorksheetsPage() {
       }
     })
   }
+
+    const resetCategories = React.useCallback(() => {
+      resetDuplicateTracking()
+      setFilters((prev) => {
+        if (prev.categories.join(',') === DEFAULT_CATEGORIES_KEY) return prev
+        const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+        return {
+          ...prev,
+          categories: DEFAULT_NORMALIZED_CATEGORIES.slice(),
+          variant: 1,
+          _timestamp: Date.now(),
+          _generateTimestamp: generateTimestamp,
+        }
+      })
+    }, [resetDuplicateTracking])
 
   const setGrade = (grade: GradeBand) => {
     resetDuplicateTracking()
@@ -567,7 +587,18 @@ export function InteractiveWorksheetsPage() {
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">2. Choose categories</h3>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">2. Choose categories</h3>
+                {hasCustomCategories && (
+                  <button
+                    type="button"
+                    onClick={resetCategories}
+                    className="text-xs font-semibold text-purple-600 hover:text-purple-700"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
               <p className="text-xs text-slate-500">Select as many as you like—each pack pulls one unique worksheet per category.</p>
               <div className="grid gap-2">
                 {INTERACTIVE_CATEGORIES.map((cat) => (
