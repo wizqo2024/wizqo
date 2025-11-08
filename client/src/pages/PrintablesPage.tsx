@@ -671,7 +671,7 @@ export function PrintablesPage() {
             <div className="print:hidden">
               <button
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm bg-purple-600 hover:bg-purple-700 text-white border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1"
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-700`}
                 title="Download as PDF"
                 aria-label="Download as PDF"
               >
