@@ -1035,7 +1035,14 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   useEffect(() => {
     const onScroll = () => {
       try {
-        setShowBackToTop((typeof window !== 'undefined' ? window.scrollY : 0) > 240);
+        const y =
+          typeof window !== 'undefined'
+            ? window.scrollY ||
+              (typeof document !== 'undefined'
+                ? document.documentElement.scrollTop || document.body.scrollTop || 0
+                : 0)
+            : 0;
+        setShowBackToTop(y > 180);
       } catch {}
     };
     try {
@@ -1945,7 +1952,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
               }}
               aria-label="Scroll up"
               title="Scroll up"
-              className="fixed bottom-6 left-6 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
+              className="fixed bottom-6 left-6 z-40 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
             >
               <span aria-hidden>↑</span>
               <span className="text-sm">Scroll up</span>
