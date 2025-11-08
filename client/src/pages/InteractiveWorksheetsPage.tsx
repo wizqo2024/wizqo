@@ -220,11 +220,15 @@ function WorksheetPreviewCard({
   onToggleFavorite, 
   isFavorite,
   onPreview,
+  onDownload,
+  pack,
 }: { 
   item: InteractiveWorksheetItem
   onToggleFavorite: (item: InteractiveWorksheetItem) => void
   isFavorite: boolean
   onPreview: (item: InteractiveWorksheetItem) => void
+  onDownload: (docId: string) => string
+  pack: InteractiveWorksheetPack | null
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -271,12 +275,24 @@ function WorksheetPreviewCard({
           <span>{item.gradeLabel}</span>
           <span>Answer key included</span>
         </div>
-        <button
-          onClick={() => onPreview(item)}
-          className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-        >
-          👁️ Preview
-        </button>
+        <div className="flex items-center gap-2">
+          {pack?.printUrl && (
+            <a
+              href={onDownload(item.docId)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            >
+              ⬇️ Download
+            </a>
+          )}
+          <button
+            onClick={() => onPreview(item)}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ Preview
+          </button>
+        </div>
       </div>
     </article>
   )
@@ -748,6 +764,20 @@ export function InteractiveWorksheetsPage() {
     return url.toString()
   }, [pack, customization])
 
+  // Generate print URL for a single worksheet
+  const getSingleWorksheetPrintUrl = React.useCallback((docId: string) => {
+    if (!pack?.printUrl) return ''
+    const url = new URL(pack.printUrl, window.location.origin)
+    // Add docId parameter to show only this worksheet
+    url.searchParams.set('docId', docId)
+    if (customization.teacherName) url.searchParams.set('teacher', customization.teacherName)
+    if (customization.className) url.searchParams.set('class', customization.className)
+    if (customization.studentNames.length > 0) {
+      url.searchParams.set('students', customization.studentNames.join(','))
+    }
+    return url.toString()
+  }, [pack, customization])
+
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -1021,6 +1051,8 @@ export function InteractiveWorksheetsPage() {
                           onToggleFavorite={toggleFavorite}
                           isFavorite={isFavorite(item.docId)}
                           onPreview={handlePreview}
+                          onDownload={getSingleWorksheetPrintUrl}
+                          pack={pack}
                         />
                       ))}
                     </div>
@@ -1159,37 +1191,22 @@ export function InteractiveWorksheetsPage() {
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+                <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-slate-900">{previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
                     {previewItem.description} • {previewItem.categoryLabel} • {previewItem.gradeLabel}
                   </p>
                 </div>
-                <div className="flex items-center gap-3 ml-4">
-                  {pack?.printUrl && (
-                    <a
-                      href={getPrintUrl()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 transition-colors"
-                    >
-                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      📦 Bulk Download ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})
-                    </a>
-                  )}
-                  <button
-                    onClick={() => setPreviewItem(null)}
-                    className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
-                    aria-label="Close preview"
-                  >
-                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
+                <button
+                  onClick={() => setPreviewItem(null)}
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
               
               {/* Scrollable Content */}
@@ -1197,13 +1214,29 @@ export function InteractiveWorksheetsPage() {
                 <div className="mx-auto max-w-3xl px-6 py-8">
                   {/* Print Layout Preview */}
                   <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
-                    {pack && (
-                      <InteractiveBundleSections
-                        docIds={[previewItem.docId]}
-                        seed={pack.seed}
-                        variant={filters.variant}
-                        showAnswers={false}
-                      />
+                    {pack && previewItem && (
+                      <>
+                        {/* Download button inside print layout */}
+                        <div className="mb-6 flex justify-end">
+                          <a
+                            href={getSingleWorksheetPrintUrl(previewItem.docId)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 transition-colors"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            ⬇️ Download PDF
+                          </a>
+                        </div>
+                        <InteractiveBundleSections
+                          docIds={[previewItem.docId]}
+                          seed={pack.seed}
+                          variant={filters.variant}
+                          showAnswers={false}
+                        />
+                      </>
                     )}
                   </div>
                   
