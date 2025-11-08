@@ -867,15 +867,29 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-geography-map': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const coordinates = Array.from({ length: 6 }).map(() => ({
-      letter: String.fromCharCode(65 + Math.floor(rng() * 6)),
-      number: Math.floor(rng() * 6) + 1,
-      place: pick(rng, ['museum', 'fire station', 'library', 'market', 'park', 'bridge', 'sports field', 'hospital']),
-    }))
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F']
+    const numbers = [1, 2, 3, 4, 5, 6]
+    const usedCells = new Set<string>()
+    const coordinates: Array<{ letter: string; number: number; place: string }> = []
+    const places = ['museum', 'fire station', 'library', 'market', 'park', 'bridge', 'sports field', 'hospital']
+
+    while (coordinates.length < 6) {
+      const letter = pick(rng, letters)
+      const number = pick(rng, numbers)
+      const key = `${letter}${number}`
+      if (usedCells.has(key)) continue
+      usedCells.add(key)
+      coordinates.push({
+        letter,
+        number,
+        place: pick(rng, places),
+      })
+    }
+
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Plot each location on a coordinate grid. Label and describe what is found at that spot.
+          Plot each location on the grid below. Label and describe what is found at each spot.
         </p>
         <table className="w-full border border-slate-300 text-sm">
           <thead className="bg-slate-100">
@@ -895,8 +909,33 @@ const renderers: Record<string, Renderer> = {
             ))}
           </tbody>
         </table>
-        <div className="mt-2 h-40 rounded border border-dashed border-slate-300 bg-white" />
-        <p className="text-xs text-slate-500">Draw your map grid here and mark each coordinate.</p>
+          <div className="overflow-hidden rounded-2xl border border-slate-300">
+            <table className="w-full border-collapse text-xs">
+              <thead className="bg-slate-100">
+                <tr>
+                  <th className="w-10 border border-slate-200 px-2 py-2" />
+                  {letters.map((letter) => (
+                    <th key={letter} className="border border-slate-200 px-2 py-2 text-center font-semibold">
+                      {letter}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {numbers.map((num) => (
+                  <tr key={num}>
+                    <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
+                      {num}
+                    </th>
+                    {letters.map((letter) => (
+                      <td key={`${letter}${num}`} className="h-12 border border-slate-200" />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-slate-500">Use the grid to draw landmarks and label each coordinate.</p>
       </div>
     )
   },
