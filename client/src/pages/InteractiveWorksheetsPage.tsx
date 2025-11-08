@@ -508,6 +508,31 @@ export function InteractiveWorksheetsPage() {
     lastDocKeyRef.current = null
   }, [])
 
+  // Helper function to detect if search query matches a category
+  const getCategoriesFromSearch = React.useCallback((query: string): string[] => {
+    if (!query.trim()) return []
+    const queryLower = query.toLowerCase().trim()
+    const matchedCategories: string[] = []
+    
+    // Check all categories from INTERACTIVE_CATEGORIES
+    for (const category of INTERACTIVE_CATEGORIES) {
+      const categoryIdLower = category.id.toLowerCase()
+      const categoryLabelLower = category.label.toLowerCase()
+      
+      // Check if query matches category ID or label (exact or partial)
+      if (queryLower === categoryIdLower || 
+          queryLower === categoryLabelLower ||
+          queryLower.includes(categoryIdLower) || 
+          categoryIdLower.includes(queryLower) ||
+          queryLower.includes(categoryLabelLower) || 
+          categoryLabelLower.includes(queryLower)) {
+        matchedCategories.push(category.id)
+      }
+    }
+    
+    return matchedCategories
+  }, [])
+
   useFaqSchema()
 
   const loadPack = React.useCallback(async (currentFilters: FiltersState) => {
@@ -528,11 +553,11 @@ export function InteractiveWorksheetsPage() {
         params.set('date', todayIso)
         params.set('grade', currentFilters.grade)
 
-        const categoriesToSend =
-          currentFilters.categories.length > 0
-            ? currentFilters.categories
-            : DEFAULT_NORMALIZED_CATEGORIES
-        params.set('categories', categoriesToSend.join(','))
+        // Get effective categories (selected + searched)
+        const searchCategories = getCategoriesFromSearch(searchQuery)
+        const categoriesToSend = [...new Set([...currentFilters.categories, ...searchCategories])]
+        const finalCategories = categoriesToSend.length > 0 ? categoriesToSend : DEFAULT_NORMALIZED_CATEGORIES
+        params.set('categories', finalCategories.join(','))
         params.set('variant', String(currentFilters.variant))
 
         const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
@@ -606,7 +631,7 @@ export function InteractiveWorksheetsPage() {
         setLoading(false)
       }
     }
-  }, [])
+  }, [searchQuery, getCategoriesFromSearch])
 
   // Sync filters with URL parameters when URL changes (e.g., browser back/forward)
   // Note: Only syncs user-facing filters (grade, categories), not internal ones (variant, timestamp)
@@ -635,7 +660,7 @@ export function InteractiveWorksheetsPage() {
   React.useEffect(() => {
     updateUrl(filters)
     loadPack(filters)
-  }, [filters.grade, categoriesKey, filters.variant, filters._generateTimestamp, loadPack])
+  }, [filters.grade, categoriesKey, filters.variant, filters._generateTimestamp, searchQuery, loadPack, getCategoriesFromSearch])
 
   const toggleCategory = (id: string) => {
     resetDuplicateTracking()
@@ -864,7 +889,12 @@ export function InteractiveWorksheetsPage() {
   // Filter worksheets by search query
   const filteredItems = React.useMemo(() => {
     if (!pack) return []
-    return pack.items.filter((item) => matchesSearch(item, searchQuery))
+    // If there's a search query, filter the pack items
+    if (searchQuery.trim()) {
+      return pack.items.filter((item) => matchesSearch(item, searchQuery))
+    }
+    // Otherwise return all pack items
+    return pack.items
   }, [pack, searchQuery])
 
   // Get the count of worksheets that will be downloaded (based on selected categories)
