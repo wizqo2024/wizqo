@@ -728,6 +728,14 @@ export function InteractiveWorksheetsPage() {
     return pack.items.filter((item) => matchesSearch(item, searchQuery))
   }, [pack, searchQuery])
 
+  // Get the count of worksheets that will be downloaded (based on actual pack items)
+  const downloadSheetCount = React.useMemo(() => {
+    if (!pack) return 0
+    // Use actual pack items count since that's what will be downloaded
+    // Some categories might not have worksheets for the selected grade
+    return pack.items.length
+  }, [pack])
+
   // Generate print URL with customization
   const getPrintUrl = React.useCallback(() => {
     if (!pack?.printUrl) return ''
@@ -795,7 +803,7 @@ export function InteractiveWorksheetsPage() {
                           rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
                       >
-                        📦 Bulk Download free PDF ({pack.items.length} {pack.items.length === 1 ? 'sheet' : 'sheets'})
+                        📦 Bulk Download free PDF ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})
                       </a>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-slate-500">Share:</span>
@@ -1169,7 +1177,7 @@ export function InteractiveWorksheetsPage() {
                       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
-                      📦 Bulk Download ({pack.items.length} {pack.items.length === 1 ? 'sheet' : 'sheets'})
+                      📦 Bulk Download ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})
                     </a>
                   )}
                   <button
