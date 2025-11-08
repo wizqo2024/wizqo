@@ -1307,17 +1307,17 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-design': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringPages = pickMany(rng, [
-      { title: 'Happy Sun', emoji: '☀️', description: 'Color the sun yellow and orange. Add a smile!' },
-      { title: 'Rainbow', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
-      { title: 'Butterfly', emoji: '🦋', description: 'Color the butterfly wings with your favorite colors' },
-      { title: 'Flower Garden', emoji: '🌸', description: 'Color the flowers pink, yellow, and purple' },
-      { title: 'Star Pattern', emoji: '⭐', description: 'Color the stars yellow and add sparkles' },
+      { title: 'Geometric Star', emoji: '⭐', description: 'Color the star pattern with your favorite colors!' },
+      { title: 'Flower Pattern', emoji: '🌸', description: 'Color the flower petals: pink, yellow, and purple' },
+      { title: 'Rainbow Pattern', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
       { title: 'Heart Design', emoji: '❤️', description: 'Color the hearts red and pink' },
+      { title: 'Circle Mandala', emoji: '⭕', description: 'Color the circles with different colors' },
+      { title: 'Leaf Pattern', emoji: '🍃', description: 'Color the leaves green' },
     ], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each picture! Use your favorite colors and make it beautiful.
+          Color each pattern! Use your favorite colors and make it beautiful.
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {coloringPages.map((page, idx) => (
@@ -1340,10 +1340,10 @@ const renderers: Record<string, Renderer> = {
     const coloringActivities = pickMany(rng, [
       { item: 'Apple', color: 'red', emoji: '🍎' },
       { item: 'Sun', color: 'yellow', emoji: '☀️' },
-      { item: 'Grass', color: 'green', emoji: '🌱' },
+      { item: 'Leaf', color: 'green', emoji: '🍃' },
       { item: 'Sky', color: 'blue', emoji: '☁️' },
       { item: 'Flower', color: 'purple', emoji: '🌺' },
-      { item: 'Orange', color: 'orange', emoji: '🍊' },
+      { item: 'Orange Fruit', color: 'orange', emoji: '🍊' },
     ], 6)
     return (
       <div className="space-y-3">
@@ -1369,12 +1369,12 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-sketch': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const drawingPrompts = pickMany(rng, [
-      { prompt: 'Draw your favorite animal', emoji: '🐶', hint: 'Think about what it looks like!' },
-      { prompt: 'Draw a house with windows', emoji: '🏠', hint: 'Add a door and a roof!' },
+      { prompt: 'Draw a beautiful flower', emoji: '🌺', hint: 'Add petals and a stem!' },
       { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
-      { prompt: 'Draw a flower garden', emoji: '🌺', hint: 'Add lots of colorful flowers!' },
-      { prompt: 'Draw a rainbow in the sky', emoji: '🌈', hint: 'Use all the colors!' },
-      { prompt: 'Draw a smiling face', emoji: '😊', hint: 'Add eyes, nose, and a big smile!' },
+      { prompt: 'Draw geometric shapes', emoji: '⬜', hint: 'Draw circles, squares, and triangles!' },
+      { prompt: 'Draw a rainbow', emoji: '🌈', hint: 'Use all the colors!' },
+      { prompt: 'Draw a pattern', emoji: '✨', hint: 'Create your own design!' },
+      { prompt: 'Draw a garden scene', emoji: '🌻', hint: 'Add flowers and plants!' },
     ], 3)
     return (
       <div className="space-y-3">
@@ -2708,18 +2708,18 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-art-design': ({ doc, seed, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringPages = pickMany(rng, [
-      { title: 'Happy Sun', emoji: '☀️', description: 'Color the sun yellow and orange. Add a smile!' },
-      { title: 'Rainbow', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
-      { title: 'Butterfly', emoji: '🦋', description: 'Color the butterfly wings with your favorite colors' },
-      { title: 'Flower Garden', emoji: '🌸', description: 'Color the flowers pink, yellow, and purple' },
-      { title: 'Star Pattern', emoji: '⭐', description: 'Color the stars yellow and add sparkles' },
+      { title: 'Geometric Star', emoji: '⭐', description: 'Color the star pattern with your favorite colors!' },
+      { title: 'Flower Pattern', emoji: '🌸', description: 'Color the flower petals: pink, yellow, and purple' },
+      { title: 'Rainbow Pattern', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
       { title: 'Heart Design', emoji: '❤️', description: 'Color the hearts red and pink' },
+      { title: 'Circle Mandala', emoji: '⭕', description: 'Color the circles with different colors' },
+      { title: 'Leaf Pattern', emoji: '🍃', description: 'Color the leaves green' },
     ], 4)
     return (
       <ul className="space-y-2 text-sm">
         {coloringPages.map((page, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{page.title}:</span> {page.description}. Students should color the picture following the instructions. Encourage creativity!
+            <span className="font-semibold">{page.title}:</span> {page.description}. Students should color the pattern following the instructions. Encourage creativity!
           </li>
         ))}
         <li className="mt-2 text-emerald-800">All coloring efforts are wonderful! Focus on staying within lines and using appropriate colors.</li>
@@ -2729,12 +2729,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-art-sketch': ({ doc, seed, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const drawingPrompts = pickMany(rng, [
-      { prompt: 'Draw your favorite animal', emoji: '🐶', hint: 'Think about what it looks like!' },
-      { prompt: 'Draw a house with windows', emoji: '🏠', hint: 'Add a door and a roof!' },
+      { prompt: 'Draw a beautiful flower', emoji: '🌺', hint: 'Add petals and a stem!' },
       { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
-      { prompt: 'Draw a flower garden', emoji: '🌺', hint: 'Add lots of colorful flowers!' },
-      { prompt: 'Draw a rainbow in the sky', emoji: '🌈', hint: 'Use all the colors!' },
-      { prompt: 'Draw a smiling face', emoji: '😊', hint: 'Add eyes, nose, and a big smile!' },
+      { prompt: 'Draw geometric shapes', emoji: '⬜', hint: 'Draw circles, squares, and triangles!' },
+      { prompt: 'Draw a rainbow', emoji: '🌈', hint: 'Use all the colors!' },
+      { prompt: 'Draw a pattern', emoji: '✨', hint: 'Create your own design!' },
+      { prompt: 'Draw a garden scene', emoji: '🌻', hint: 'Add flowers and plants!' },
     ], 3)
     return (
       <ul className="space-y-2 text-sm">
