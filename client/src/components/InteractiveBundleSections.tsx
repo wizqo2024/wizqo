@@ -5115,6 +5115,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           <div className="flex flex-wrap gap-2">
             {['Atlantic', 'Pacific', 'Indian', 'Arctic', 'Southern'].map((ocean, idx) => (
               <span key={idx} className="text-xs px-2 py-1 bg-amber-100 rounded border border-amber-300 text-amber-700">{ocean}</span>
+            ))}
           </div>
         </div>
       </div>
@@ -5310,101 +5311,6 @@ const answerRenderers: Record<string, AnswerRenderer> = {
                 <p className="p-2 text-xs text-pink-600">Practice {technique}</p>
               </div>
               <p className="text-xs text-pink-600">Notes: ________________________________</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  },
-  // NEW LOGIC WORKSHEETS
-  'interactive-logic-matching': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const pairs = pickMany(rng, [
-      { item1: 'apple', item2: 'fruit' },
-      { item1: 'car', item2: 'vehicle' },
-      { item1: 'book', item2: 'reading' },
-      { item1: 'sun', item2: 'day' },
-    ], 4)
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
-          Match objects, pictures, and concepts. Practice memory and recognition skills.
-        </p>
-        <div className="grid gap-3 md:grid-cols-2">
-          {pairs.map((pair, idx) => (
-            <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item1}</p>
-                </div>
-                <span className="text-slate-400">→</span>
-                <div className="flex-1 bg-white rounded border border-slate-200 p-2 text-center">
-                  <p className="text-sm text-slate-700">{pair.item2}</p>
-                </div>
-              </div>
-              <div className="h-16 rounded border border-dashed border-slate-300 bg-white">
-                <p className="p-2 text-xs text-slate-500">Draw a line to match</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  },
-  'interactive-logic-classification': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const categories = pickMany(rng, [
-      { name: 'Animals', items: ['dog', 'cat', 'bird'] },
-      { name: 'Food', items: ['apple', 'bread', 'milk'] },
-      { name: 'Colors', items: ['red', 'blue', 'green'] },
-    ], 3)
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
-          Sort and classify objects, pictures, and concepts into groups.
-        </p>
-        <div className="space-y-3">
-          {categories.map((category, idx) => (
-            <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-700 mb-2">{category.name}</p>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {category.items.map((item, iIdx) => (
-                  <span key={iIdx} className="text-xs px-2 py-1 bg-white rounded border border-slate-300 text-slate-700">{item}</span>
-                ))}
-              </div>
-              <p className="text-xs text-slate-600">Add more {category.name.toLowerCase()}: ________________</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  },
-  'interactive-logic-analogies': ({ seed, doc, variant }) => {
-    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const analogies = pickMany(rng, [
-      { first: 'cat', second: 'kitten', third: 'dog', answer: 'puppy' },
-      { first: 'sun', second: 'day', third: 'moon', answer: 'night' },
-      { first: 'book', second: 'read', third: 'food', answer: 'eat' },
-    ], 3)
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600">
-          Practice identifying relationships and completing analogies.
-        </p>
-        <div className="space-y-3">
-          {analogies.map((analogy, idx) => (
-            <div key={idx} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-semibold text-slate-700 mb-2">Analogy {idx + 1}</p>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-slate-700">{analogy.first}</span>
-                <span className="text-slate-400">is to</span>
-                <span className="text-sm text-slate-700">{analogy.second}</span>
-                <span className="text-slate-400">as</span>
-                <span className="text-sm text-slate-700">{analogy.third}</span>
-                <span className="text-slate-400">is to</span>
-                <div className="h-8 w-20 border border-dashed border-slate-400 bg-white rounded"></div>
-              </div>
-              <p className="text-xs text-slate-600">Answer: {analogy.answer}</p>
             </div>
           ))}
         </div>
