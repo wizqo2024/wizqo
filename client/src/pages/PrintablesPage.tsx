@@ -660,7 +660,7 @@ export function PrintablesPage() {
             )}
             <button
               onClick={() => window.print()}
-              className="print:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold shadow-sm transition-colors"
+              className="print:hidden inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-purple-500 bg-purple-600 hover:bg-purple-700 text-white text-sm shadow-sm transition-colors"
               title="Download as PDF"
               aria-label="Download as PDF"
             >
