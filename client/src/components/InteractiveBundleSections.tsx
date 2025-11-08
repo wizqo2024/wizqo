@@ -1306,18 +1306,29 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-art-design': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const prompts = pickMany(rng, ['radial symmetry mandala', 'pattern inspired by music', 'tile design using two shapes', 'poster for a kindness campaign', 'emoji pattern', 'maze-style illustration'], 4)
+    const coloringPages = pickMany(rng, [
+      { title: 'Happy Sun', emoji: '☀️', description: 'Color the sun yellow and orange. Add a smile!' },
+      { title: 'Rainbow', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
+      { title: 'Butterfly', emoji: '🦋', description: 'Color the butterfly wings with your favorite colors' },
+      { title: 'Flower Garden', emoji: '🌸', description: 'Color the flowers pink, yellow, and purple' },
+      { title: 'Star Pattern', emoji: '⭐', description: 'Color the stars yellow and add sparkles' },
+      { title: 'Heart Design', emoji: '❤️', description: 'Color the hearts red and pink' },
+    ], 4)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Experiment with texture, line, and balance. Sketch ideas in each mini canvas, then choose a favorite to finish at full scale.
+          Color each picture! Use your favorite colors and make it beautiful.
         </p>
         <div className="grid gap-4 md:grid-cols-2">
-          {prompts.map((prompt, idx) => (
+          {coloringPages.map((page, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-xs uppercase tracking-wide text-purple-500">Design Prompt {idx + 1}</p>
-              <p className="text-sm text-slate-700">{prompt}</p>
-              <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
+              <p className="text-lg mb-1">{page.emoji}</p>
+              <p className="text-sm font-semibold text-slate-700">{page.title}</p>
+              <p className="text-xs text-slate-600 mb-2">{page.description}</p>
+              <div className="mt-3 h-32 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
+                <span className="text-4xl text-slate-300">{page.emoji}</span>
+              </div>
+              <p className="mt-2 text-xs text-purple-600">Color here!</p>
             </div>
           ))}
         </div>
@@ -1326,26 +1337,29 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-art-colorwheel': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const complements = pickMany(rng, [
-      ['red', 'green'],
-      ['blue', 'orange'],
-      ['yellow', 'violet'],
-      ['turquoise', 'coral'],
-    ], 3)
+    const coloringActivities = pickMany(rng, [
+      { item: 'Apple', color: 'red', emoji: '🍎' },
+      { item: 'Sun', color: 'yellow', emoji: '☀️' },
+      { item: 'Grass', color: 'green', emoji: '🌱' },
+      { item: 'Sky', color: 'blue', emoji: '☁️' },
+      { item: 'Flower', color: 'purple', emoji: '🌺' },
+      { item: 'Orange', color: 'orange', emoji: '🍊' },
+    ], 6)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Mix and label color pairs. Experiment with warm, cool, and complementary colors.
+          Color each picture with the correct color! Practice your colors.
         </p>
-        <div className="grid gap-4 md:grid-cols-3">
-          {complements.map(([a, b], idx) => (
-            <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 text-center text-sm text-slate-700">
-              <p className="font-semibold capitalize">{a} + {b}</p>
-              <div className="mt-2 flex justify-center gap-2">
-                <div className="h-10 w-10 rounded-full border border-slate-300" style={{ background: a }} />
-                <div className="h-10 w-10 rounded-full border border-slate-300" style={{ background: b }} />
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
+          {coloringActivities.map((activity, idx) => (
+            <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
+              <div className="text-4xl mb-2">{activity.emoji}</div>
+              <p className="text-sm font-semibold text-slate-700 capitalize">{activity.item}</p>
+              <p className="text-xs text-slate-600 mb-2">Color: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
+              <div className="h-20 rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center">
+                <span className="text-3xl text-slate-200">{activity.emoji}</span>
               </div>
-              <p className="mt-2 text-xs text-slate-500">Blend to make: ____________________</p>
+              <p className="mt-1 text-xs text-slate-500">Color here!</p>
             </div>
           ))}
         </div>
@@ -1354,18 +1368,27 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-art-sketch': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const subjects = pickMany(rng, ['botanical specimen', 'favorite snack', 'pair of sneakers', 'pet portrait', 'miniature city', 'tiny robot'], 3)
+    const drawingPrompts = pickMany(rng, [
+      { prompt: 'Draw your favorite animal', emoji: '🐶', hint: 'Think about what it looks like!' },
+      { prompt: 'Draw a house with windows', emoji: '🏠', hint: 'Add a door and a roof!' },
+      { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
+      { prompt: 'Draw a flower garden', emoji: '🌺', hint: 'Add lots of colorful flowers!' },
+      { prompt: 'Draw a rainbow in the sky', emoji: '🌈', hint: 'Use all the colors!' },
+      { prompt: 'Draw a smiling face', emoji: '😊', hint: 'Add eyes, nose, and a big smile!' },
+    ], 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Practice observation drawing. Sketch each subject from a different angle and add shading.
+          Draw each picture! Take your time and use your imagination.
         </p>
         <div className="grid gap-4 md:grid-cols-3">
-          {subjects.map((subject, idx) => (
-            <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
-              <p className="font-semibold capitalize">{subject}</p>
-              <div className="mt-3 h-24 rounded border border-dashed border-slate-300" />
-              <p className="text-xs text-slate-500">Details to include: texture • highlights • shadows</p>
+          {drawingPrompts.map((item, idx) => (
+            <div key={idx} className="rounded-xl border-2 border-purple-200 bg-purple-50 p-4">
+              <p className="text-2xl mb-2">{item.emoji}</p>
+              <p className="text-sm font-semibold text-slate-700 mb-1">{item.prompt}</p>
+              <p className="text-xs text-slate-600 mb-3">{item.hint}</p>
+              <div className="h-32 rounded border-2 border-dashed border-purple-300 bg-white" />
+              <p className="mt-2 text-xs text-purple-600 text-center">Draw here!</p>
             </div>
           ))}
         </div>
@@ -2682,12 +2705,46 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-art-colorwheel': ({ doc, seed, variant }) => {
+  'interactive-art-design': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const coloringPages = pickMany(rng, [
+      { title: 'Happy Sun', emoji: '☀️', description: 'Color the sun yellow and orange. Add a smile!' },
+      { title: 'Rainbow', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
+      { title: 'Butterfly', emoji: '🦋', description: 'Color the butterfly wings with your favorite colors' },
+      { title: 'Flower Garden', emoji: '🌸', description: 'Color the flowers pink, yellow, and purple' },
+      { title: 'Star Pattern', emoji: '⭐', description: 'Color the stars yellow and add sparkles' },
+      { title: 'Heart Design', emoji: '❤️', description: 'Color the hearts red and pink' },
+    ], 4)
     return (
-      <div className="space-y-2 text-sm">
-        <p><span className="font-semibold">Color Mixing:</span> yellow + violet = brown/gray, red + green = brown, turquoise + coral = brown/orange.</p>
-        <p className="text-emerald-800">Note: Actual results may vary. Focus on understanding complementary colors and color theory concepts.</p>
-      </div>
+      <ul className="space-y-2 text-sm">
+        {coloringPages.map((page, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{page.title}:</span> {page.description}. Students should color the picture following the instructions. Encourage creativity!
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">All coloring efforts are wonderful! Focus on staying within lines and using appropriate colors.</li>
+      </ul>
+    )
+  },
+  'interactive-art-sketch': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const drawingPrompts = pickMany(rng, [
+      { prompt: 'Draw your favorite animal', emoji: '🐶', hint: 'Think about what it looks like!' },
+      { prompt: 'Draw a house with windows', emoji: '🏠', hint: 'Add a door and a roof!' },
+      { prompt: 'Draw a tree with leaves', emoji: '🌳', hint: 'Make it big and green!' },
+      { prompt: 'Draw a flower garden', emoji: '🌺', hint: 'Add lots of colorful flowers!' },
+      { prompt: 'Draw a rainbow in the sky', emoji: '🌈', hint: 'Use all the colors!' },
+      { prompt: 'Draw a smiling face', emoji: '😊', hint: 'Add eyes, nose, and a big smile!' },
+    ], 3)
+    return (
+      <ul className="space-y-2 text-sm">
+        {drawingPrompts.map((item, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{item.prompt}:</span> {item.hint} Students should draw their own interpretation. All drawings are great!
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">Encourage students to use their imagination and have fun drawing!</li>
+      </ul>
     )
   },
   'interactive-early-phonics': ({ doc, seed, variant }) => {
