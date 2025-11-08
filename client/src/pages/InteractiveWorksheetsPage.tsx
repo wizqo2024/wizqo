@@ -744,13 +744,13 @@ export function InteractiveWorksheetsPage() {
     return pack.items.filter((item) => matchesSearch(item, searchQuery))
   }, [pack, searchQuery])
 
-  // Get the count of worksheets that will be downloaded (based on actual pack items)
+  // Get the count of worksheets that will be downloaded (based on selected categories)
   const downloadSheetCount = React.useMemo(() => {
     if (!pack) return 0
-    // Use actual pack items count since that's what will be downloaded
-    // Some categories might not have worksheets for the selected grade
-    return pack.items.length
-  }, [pack])
+    // Count should match the number of selected categories (one worksheet per category)
+    // Use filters.categories.length to show what user selected, not pack.items.length
+    return filters.categories.length > 0 ? filters.categories.length : pack.items.length
+  }, [pack, filters.categories])
 
   // Generate print URL with customization
   const getPrintUrl = React.useCallback(() => {
