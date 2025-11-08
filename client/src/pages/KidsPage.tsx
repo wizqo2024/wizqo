@@ -480,8 +480,30 @@ export default function KidsPage() {
                 <a href="/worksheets/handwriting-worksheet-maker" className={BUTTON_CLASS} aria-label="Open handwriting worksheet maker">Build practice sheet</a>
               </div>
             </article>
-          </div>
-        </section>
+
+          <article className={CARD_CLASS}>
+            <SmartImage
+              primary="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80"
+              alts={[KID_SAFE.planetsModel, KID_SAFE.childStudyDesk, KID_SAFE.childWriting]}
+              alt="Interactive worksheets generator preview"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-5">
+              <div className="flex gap-2 mb-2">
+                <span className={CHIP_CLASS}>Print-ready</span>
+                <span className={CHIP_CLASS}>Daily refresh</span>
+              </div>
+              <h3 className="font-semibold text-slate-900 mb-1">Interactive Worksheets Generator</h3>
+              <p className="text-slate-600 text-sm mb-4">
+                Mix math, reading, science, SEL, and logic pages for any grade. Each pack includes matching answer keys.
+              </p>
+              <a href="/interactive-worksheets-generator" className={BUTTON_CLASS} aria-label="Open interactive worksheets generator">
+                Build worksheets
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
 
         {/* 7‑Day Fun Skills to Learn */}
         <section id="skills">
