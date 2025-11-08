@@ -90,6 +90,69 @@ const COIN_VALUE: Record<'pennies' | 'nickels' | 'dimes' | 'quarters', number> =
   quarters: 25,
 }
 
+type ShapeToken = {
+  key: string
+  label: string
+  render: React.ReactNode
+}
+
+const SHAPE_TOKENS: ShapeToken[] = [
+  {
+    key: 'diamond-blue',
+    label: 'blue diamond',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
+        <span className="block h-4 w-4 rotate-45 rounded-sm border border-sky-600 bg-sky-300" />
+      </span>
+    ),
+  },
+  {
+    key: 'circle-red',
+    label: 'red circle',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
+        <span className="block h-4 w-4 rounded-full border border-rose-600 bg-rose-400" />
+      </span>
+    ),
+  },
+  {
+    key: 'square-yellow',
+    label: 'yellow square',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
+        <span className="block h-4 w-4 rounded-sm border border-amber-500 bg-amber-300" />
+      </span>
+    ),
+  },
+  {
+    key: 'circle-green',
+    label: 'green circle',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center" aria-hidden>
+        <span className="block h-4 w-4 rounded-full border border-emerald-600 bg-emerald-300" />
+      </span>
+    ),
+  },
+  {
+    key: 'star-yellow',
+    label: 'yellow star',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-amber-400" aria-hidden>
+        ?
+      </span>
+    ),
+  },
+  {
+    key: 'heart-pink',
+    label: 'pink heart',
+    render: (
+      <span className="inline-flex h-6 w-6 items-center justify-center text-lg text-pink-400" aria-hidden>
+        ?
+      </span>
+    ),
+  },
+]
+
 function buildMathRhythm(seed: string, docId: string, variant: number): MathSequence[] {
   const rng = makeRng(`${seed}|${docId}|${variant}`)
   return Array.from({ length: 4 }).map(() => {
@@ -1132,14 +1195,6 @@ const renderers: Record<string, Renderer> = {
   'interactive-early-patterns': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
-    const symbols = [
-      { glyph: '??', label: 'blue diamond' },
-      { glyph: '??', label: 'red circle' },
-      { glyph: '??', label: 'yellow square' },
-      { glyph: '??', label: 'green circle' },
-      { glyph: '?', label: 'yellow star' },
-      { glyph: '??', label: 'pink heart' },
-    ]
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1147,24 +1202,36 @@ const renderers: Record<string, Renderer> = {
         </p>
         <div className="space-y-3">
           {patterns.map((pattern, idx) => {
-            const first = pick(rng, symbols)
-            const second = pick(rng, symbols.filter((s) => s !== first))
-            const third = pick(rng, symbols.filter((s) => s !== first && s !== second))
-            const preview = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
-            const joinWithSpaces = preview.map((entry) => entry.glyph).join('   ')
+            const first = pick(rng, SHAPE_TOKENS)
+            const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
+            const third = pick(
+              rng,
+              SHAPE_TOKENS.filter((token) => token.key !== first.key && token.key !== second.key)
+            )
+            const previewTokens = pattern
+              .split('')
+              .map((char) => (char === 'A' ? first : char === 'B' ? second : third))
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
                 <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
-                <div className="mt-2 text-2xl font-semibold tracking-wide text-slate-900">
-                  <span>{joinWithSpaces}</span>
-                  <span className="text-slate-400">   ?</span>
+                <div className="mt-3 flex items-center gap-2">
+                  {previewTokens.map((token, tokenIdx) => (
+                    <span
+                      key={`${token.key}-${tokenIdx}`}
+                      className="relative inline-flex items-center justify-center"
+                    >
+                      <span className="sr-only">{token.label}</span>
+                      {token.render}
+                    </span>
+                  ))}
+                  <span className="text-lg font-semibold text-slate-400">?</span>
                 </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
                 <p className="mt-2 text-xs text-slate-500">
                   Try building your own using:{' '}
                   <span className="font-medium text-slate-700">
                     {first.label}, {second.label}
-                    {preview.length > 2 ? `, ${third.label}` : ''}
+                    {previewTokens.length > 2 ? `, ${third.label}` : ''}
                   </span>
                 </p>
               </div>
