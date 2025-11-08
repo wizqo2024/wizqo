@@ -1886,6 +1886,9 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           Draw a picture and label it with the word. Perfect for early writers.
         </p>
+        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
+          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
+        </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
@@ -1918,6 +1921,9 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
           Simple nature observation activities with pictures and basic questions.
+        </p>
+        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
+          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
         </p>
         {observations.map((obs, idx) => (
           <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
