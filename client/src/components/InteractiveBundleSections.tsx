@@ -1803,7 +1803,7 @@ const renderers: Record<string, Renderer> = {
             { name: 'road', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
             { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['What color is the car?', 'Where is the car?'] 
+          questions: ['Do you see a car?', 'Is the car on the road?'] 
         },
         { 
           title: 'The Sunny Day', 
@@ -1812,7 +1812,7 @@ const renderers: Record<string, Renderer> = {
             { name: 'flower', svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'ball', svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
           ], 
-          questions: ['Is it sunny?', 'What do you see?'] 
+          questions: ['Do you see the sun?', 'Is there a flower?'] 
         },
         { 
           title: 'The Big Tree', 
@@ -1821,7 +1821,7 @@ const renderers: Record<string, Renderer> = {
             { name: 'house', svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
             { name: 'flower', svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
           ], 
-          questions: ['Is the tree big?', 'What is near the tree?'] 
+          questions: ['Is the tree big?', 'Do you see a house?'] 
         },
       ],
       3
@@ -2532,9 +2532,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-reading-prek': ({ doc, seed, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const stories = [
-      { title: 'The Red Car', questions: ['What color is the car?', 'Where is the car?'] },
-      { title: 'The Sunny Day', questions: ['Is it sunny?', 'What do you see?'] },
-      { title: 'The Big Tree', questions: ['Is the tree big?', 'What is near the tree?'] },
+      { title: 'The Red Car', questions: ['Do you see a car?', 'Is the car on the road?'] },
+      { title: 'The Sunny Day', questions: ['Do you see the sun?', 'Is there a flower?'] },
+      { title: 'The Big Tree', questions: ['Is the tree big?', 'Do you see a house?'] },
     ]
     return (
       <ul className="space-y-2 text-sm">
