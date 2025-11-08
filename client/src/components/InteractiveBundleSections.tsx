@@ -1889,9 +1889,6 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           Draw a picture and label it with the word. Perfect for early writers.
         </p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
-          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
-        </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
@@ -1924,9 +1921,6 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
           Simple nature observation activities with pictures and basic questions.
-        </p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
-          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
         </p>
         {observations.map((obs, idx) => (
           <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
@@ -3914,7 +3908,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {prompts.map((prompt, idx) => (
           <li key={idx}>
-            <span className="font-semibold">Word {prompt.word}:</span> Students should draw a picture representing {prompt.word} and label it with the word "{prompt.word}". <span className="text-emerald-800">Note: When drawing animals, do not include eyes, ears, nose, or mouth.</span> Accept any recognizable drawing and correct spelling of the word.
+            <span className="font-semibold">Word {prompt.word}:</span> Students should draw a picture representing {prompt.word} and label it with the word "{prompt.word}". Accept any recognizable drawing and correct spelling of the word.
           </li>
         ))}
       </ul>
@@ -3936,7 +3930,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {observations.map((obs, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic. <span className="text-emerald-800">{obs.topic === 'Animals' ? 'Note: When drawing animals, do not include eyes, ears, nose, or mouth.' : ''}</span>
+            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic.
           </li>
         ))}
       </ul>
@@ -4588,9 +4582,6 @@ const answerRenderers: Record<string, AnswerRenderer> = {
         <p className="text-sm text-slate-600">
           Look at each picture prompt and write simple sentences or a short story about what you see.
         </p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
-          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
-        </p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
@@ -4923,9 +4914,6 @@ const answerRenderers: Record<string, AnswerRenderer> = {
         <p className="text-sm text-slate-600">
           Explore the five senses through hands-on activities and observation exercises.
         </p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
-          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
-        </p>
         <div className="grid gap-3 md:grid-cols-2">
           {senses.map((sense, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
@@ -5006,9 +4994,6 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <div className="space-y-4">
         <p className="text-sm text-slate-600">
           Learn about different types of animals, their habitats, and characteristics.
-        </p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">
-          💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {animals.map((animal, idx) => (
@@ -5333,7 +5318,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   },
   'interactive-writing-pictures': ({ doc, seed, variant }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for complete sentences, relevant descriptions, and appropriate drawings. Ensure drawings follow halal guidelines (no faces on animals).</p>
+      <p className="text-sm">Student responses may vary. Check for complete sentences, relevant descriptions, and appropriate drawings.</p>
     )
   },
   'interactive-writing-narrative': ({ doc, seed, variant }) => {
@@ -5383,7 +5368,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   },
   'interactive-science-animals': ({ doc, seed, variant }) => {
     return (
-      <p className="text-sm">Student responses may vary. Check for accurate animal identification, correct habitat matching, and understanding of animal features. Ensure drawings follow halal guidelines.</p>
+      <p className="text-sm">Student responses may vary. Check for accurate animal identification, correct habitat matching, and understanding of animal features.</p>
     )
   },
   'interactive-geography-seasons': ({ doc, seed, variant }) => {
