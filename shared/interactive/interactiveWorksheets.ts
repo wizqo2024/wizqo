@@ -556,7 +556,7 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
       makeDoc({
         id: 'interactive-sel-prek',
         title: 'Feelings & Emotions Explorer',
-        description: 'Identify and express feelings through colors and shapes.',
+        description: 'Identify and express feelings through pictures, simple words, and activities.',
         grades: ['preK', 'k1'],
         difficulty: 'Beginner',
         focus: ['emotions', 'feelings', 'self-expression'],
