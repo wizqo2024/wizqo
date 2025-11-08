@@ -912,14 +912,14 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-science-lifecycle': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const cycles = ['sunflower', 'apple tree', 'bean plant', 'tomato plant', 'rose bush']
+    const cycles = ['butterfly', 'sunflower', 'frog', 'apple tree', 'bean plant']
     const cycle = pick(rng, cycles)
     const stagesMap: Record<string, string[]> = {
+      butterfly: ['Egg', 'Caterpillar', 'Chrysalis', 'Butterfly'],
       sunflower: ['Seed', 'Sprout', 'Budding', 'Bloom'],
+      frog: ['Egg', 'Tadpole', 'Froglet', 'Adult frog'],
       'apple tree': ['Seed', 'Sapling', 'Young tree', 'Fruit tree'],
       'bean plant': ['Seed', 'Sprout', 'Flowering', 'Bean pod'],
-      'tomato plant': ['Seed', 'Seedling', 'Flowering', 'Fruit'],
-      'rose bush': ['Seed', 'Sprout', 'Budding', 'Bloom'],
     }
     const stages = stagesMap[cycle]
     return (
@@ -1872,12 +1872,12 @@ const renderers: Record<string, Renderer> = {
     const prompts = pickMany(
       rng,
       [
+        { word: 'cat', picture: 'Draw a cat' },
+        { word: 'dog', picture: 'Draw a dog' },
         { word: 'sun', picture: 'Draw the sun' },
         { word: 'car', picture: 'Draw a car' },
         { word: 'tree', picture: 'Draw a tree' },
         { word: 'flower', picture: 'Draw a flower' },
-        { word: 'house', picture: 'Draw a house' },
-        { word: 'ball', picture: 'Draw a ball' },
       ],
       4
     )
@@ -1908,9 +1908,9 @@ const renderers: Record<string, Renderer> = {
       rng,
       [
         { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
+        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
         { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
         { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
-        { topic: 'Trees', question: 'What do trees have?', options: ['leaves', 'branches', 'roots'] },
       ],
       3
     )
@@ -2015,12 +2015,12 @@ const renderers: Record<string, Renderer> = {
     const words = pickMany(
       rng,
       [
+        { word: 'cat', picture: '🐱' },
+        { word: 'dog', picture: '🐶' },
         { word: 'sun', picture: '☀️' },
         { word: 'car', picture: '🚗' },
         { word: 'tree', picture: '🌳' },
         { word: 'flower', picture: '🌸' },
-        { word: 'house', picture: '🏠' },
-        { word: 'ball', picture: '⚽' },
       ],
       4
     )
@@ -2572,12 +2572,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const prompts = pickMany(
       rng,
       [
+        { word: 'cat', picture: 'Draw a cat' },
+        { word: 'dog', picture: 'Draw a dog' },
         { word: 'sun', picture: 'Draw the sun' },
         { word: 'car', picture: 'Draw a car' },
         { word: 'tree', picture: 'Draw a tree' },
         { word: 'flower', picture: 'Draw a flower' },
-        { word: 'house', picture: 'Draw a house' },
-        { word: 'ball', picture: 'Draw a ball' },
       ],
       4
     )
@@ -2585,7 +2585,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {prompts.map((prompt, idx) => (
           <li key={idx}>
-            <span className="font-semibold">Word {prompt.word}:</span> Students should draw a picture representing {prompt.word} and label it with the word "{prompt.word}". Accept any recognizable drawing and correct spelling of the word.
+            <span className="font-semibold">Word {prompt.word}:</span> Students should draw a picture representing {prompt.word} and label it with the word "{prompt.word}". <span className="text-emerald-800">Note: When drawing animals, do not include eyes, ears, nose, or mouth.</span> Accept any recognizable drawing and correct spelling of the word.
           </li>
         ))}
       </ul>
@@ -2597,9 +2597,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       rng,
       [
         { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
+        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
         { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
         { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
-        { topic: 'Trees', question: 'What do trees have?', options: ['leaves', 'branches', 'roots'] },
       ],
       3
     )
@@ -2607,7 +2607,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {observations.map((obs, idx) => (
           <li key={idx}>
-            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic.
+            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic. <span className="text-emerald-800">{obs.topic === 'Animals' ? 'Note: When drawing animals, do not include eyes, ears, nose, or mouth.' : ''}</span>
           </li>
         ))}
       </ul>
@@ -2662,12 +2662,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const words = pickMany(
       rng,
       [
+        { word: 'cat', picture: '🐱' },
+        { word: 'dog', picture: '🐶' },
         { word: 'sun', picture: '☀️' },
         { word: 'car', picture: '🚗' },
         { word: 'tree', picture: '🌳' },
         { word: 'flower', picture: '🌸' },
-        { word: 'house', picture: '🏠' },
-        { word: 'ball', picture: '⚽' },
       ],
       4
     )

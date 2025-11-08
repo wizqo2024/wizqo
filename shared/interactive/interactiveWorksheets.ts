@@ -274,10 +274,10 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
       makeDoc({
         id: 'interactive-science-lifecycle',
         title: 'Life Cycle Explorer',
-        description: 'Interactive worksheets exploring plant life cycles. Learn how plants grow!',
+        description: 'Interactive worksheets exploring plant and animal life cycles.',
         grades: ['k1', 'g2', '35'],
         difficulty: 'Beginner',
-        focus: ['life cycles', 'plants', 'growth'],
+        focus: ['life cycles', 'biology', 'sequencing'],
       }),
       makeDoc({
         id: 'interactive-science-states',
