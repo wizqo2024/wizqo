@@ -1035,7 +1035,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   useEffect(() => {
     const onScroll = () => {
       try {
-        setShowBackToTop((typeof window !== 'undefined' ? window.scrollY : 0) > 400);
+        setShowBackToTop((typeof window !== 'undefined' ? window.scrollY : 0) > 240);
       } catch {}
     };
     try {
