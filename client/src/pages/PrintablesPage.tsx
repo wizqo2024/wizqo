@@ -591,10 +591,6 @@ export function PrintablesPage() {
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
-          /* Print-only name/date footer overlay (does not affect layout) */
-          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
-          .print-name-date .label { margin-right: 6px; }
-          .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
           /* Customization header at top of page */
           .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
@@ -609,17 +605,6 @@ export function PrintablesPage() {
         }
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-12 print-content-start">
-        {/* Print-only Name/Date footer (overlay) */}
-        <div className="hidden print:block print-name-date" aria-hidden>
-          <div>
-            <span className="label">Name</span>
-            <span className="line" />
-          </div>
-          <div>
-            <span className="label">Date</span>
-            <span className="line" />
-          </div>
-        </div>
         {/* Customization header (print view - fixed at top) */}
         {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
