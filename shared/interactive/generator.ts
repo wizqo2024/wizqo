@@ -59,6 +59,11 @@ const gradeFallback: Record<GradeBand, GradeBand[]> = {
   '68': ['35'],
 }
 
+const toGradeLabel = (grades: GradeBand[]) =>
+  grades
+    .map((g) => gradeLabelMap.get(g) || g.toUpperCase())
+    .join(' / ')
+
 function pickDocsForCategory(
   categoryId: string,
   grade: GradeBand,
@@ -73,38 +78,27 @@ function pickDocsForCategory(
   
   // STRICT GRADE MATCHING: Only show worksheets that match the selected grade exactly
   // Priority: exact matches > fallback matches (only if no exact matches exist)
-  const exactMatches = category.docs.filter((doc) => 
-    doc.grades.includes(grade) && (!excludeDocIds || !excludeDocIds.has(doc.id))
+  const exactMatches = category.docs.filter(
+    (doc) => doc.grades.includes(grade) && (!excludeDocIds || !excludeDocIds.has(doc.id))
   )
-  
-  // Only use fallback if there are NO exact matches for this grade
-  let pool: InteractiveWorksheetDoc[] = []
-  const fallbackMatches = category.docs.filter((doc) => {
-    const fallback = gradeFallback[grade] || []
-    return doc.grades.some((g) => fallback.includes(g)) && (!excludeDocIds || !excludeDocIds.has(doc.id))
-  })
+  const fallbackGrades = gradeFallback[grade] || []
+  const fallbackMatches = category.docs.filter(
+    (doc) =>
+      doc.grades.some((g) => fallbackGrades.includes(g)) &&
+      (!excludeDocIds || !excludeDocIds.has(doc.id))
+  )
 
+  let pool: InteractiveWorksheetDoc[] = []
   if (exactMatches.length > 0) {
     // Combine exact matches with fallback matches for broader variety while keeping grade relevance
-    const combined = [...exactMatches]
+    pool = [...exactMatches]
     for (const doc of fallbackMatches) {
-      if (!combined.some((existing) => existing.id === doc.id)) {
-        combined.push(doc)
+      if (!pool.some((existing) => existing.id === doc.id)) {
+        pool.push(doc)
       }
     }
-    pool = combined
-  } else {
-    // No exact match for this grade; rely on fallback first, then entire category
-    pool = fallbackMatches.length > 0
-      ? fallbackMatches
-      : category.docs.filter((d) => !excludeDocIds || !excludeDocIds.has(d.id))
-  }
-  
-  if (pool.length === 0) {
-    pool = category.docs.filter((doc) => doc.grades.includes(grade))
-    if (pool.length === 0) {
-      pool = category.docs.slice()
-    }
+  } else if (fallbackMatches.length > 0) {
+    pool = fallbackMatches
   }
 
   if (pool.length === 0) return []
@@ -244,19 +238,20 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
       
       // Add to used set to prevent duplicates
       usedDocIds.add(doc.id)
-      const previewHint = `${categoryIcon} ${doc.title} ? ${doc.description}`
+        const docGradeLabel = toGradeLabel(doc.grades)
+        const previewHint = `${categoryIcon} ${doc.title} ? ${docGradeLabel}`
       items.push({
         docId: doc.id,
         title: doc.title,
         description: doc.description,
         categoryId,
         categoryLabel,
-        gradeLabel: gradeLabelMap.get(grade) || 'All grades',
+          gradeLabel: docGradeLabel,
         difficulty: doc.difficulty,
         focus: doc.focus,
         previewHint,
       })
-      answerSummary.push(`${doc.title} (${categoryLabel}) ? includes printable answer key.`)
+        answerSummary.push(`${doc.title} (${categoryLabel}, ${docGradeLabel})`)
       addedCount++
     }
     
@@ -268,49 +263,38 @@ export function generateInteractiveWorksheetPack(options: GenerateInteractiveOpt
         // Find any worksheet that matches the grade (with fallback)
         let fallbackDoc: InteractiveWorksheetDoc | null = null
         
-        // First try exact grade match (excluding already used)
-        fallbackDoc = category.docs.find(doc => 
-          doc.grades.includes(grade) && !usedDocIds.has(doc.id)
-        ) || null
-        
-        // If no exact match, try fallback grades
-        if (!fallbackDoc) {
-          const fallback = gradeFallback[grade] || []
-          fallbackDoc = category.docs.find(doc => 
-            doc.grades.some(g => fallback.includes(g)) && !usedDocIds.has(doc.id)
-          ) || null
-        }
-        
-        // Last resort: use any worksheet from category (even if already used, to ensure we have something)
-        if (!fallbackDoc) {
-          fallbackDoc = category.docs.find(doc => doc.grades.includes(grade)) || 
-                       category.docs.find(doc => {
-                         const fallback = gradeFallback[grade] || []
-                         return doc.grades.some(g => fallback.includes(g))
-                       }) ||
-                       category.docs[0] || null
-        }
-        
-        // Add the fallback worksheet if found
-        if (fallbackDoc) {
+          const fallbackGrades = gradeFallback[grade] || []
+
+          const gradeAlignedDocs = category.docs.filter(
+            (doc) =>
+              (doc.grades.includes(grade) ||
+                doc.grades.some((g) => fallbackGrades.includes(g))) &&
+              !usedDocIds.has(doc.id)
+          )
+
+          fallbackDoc = gradeAlignedDocs[0] || null
+
+          // Add the fallback worksheet if found
+          if (fallbackDoc) {
           // Always add to usedDocIds to track it
           if (!usedDocIds.has(fallbackDoc.id)) {
             usedDocIds.add(fallbackDoc.id)
           }
           const cat = getCategoryById(categoryId)
-          const previewHint = `${cat?.icon || '??'} ${fallbackDoc.title} ? ${fallbackDoc.description}`
+            const docGradeLabel = toGradeLabel(fallbackDoc.grades)
+            const previewHint = `${cat?.icon || '??'} ${fallbackDoc.title} ? ${docGradeLabel}`
           items.push({
             docId: fallbackDoc.id,
             title: fallbackDoc.title,
             description: fallbackDoc.description,
             categoryId,
             categoryLabel: cat?.label || categoryId,
-            gradeLabel: gradeLabelMap.get(grade) || 'All grades',
+              gradeLabel: docGradeLabel,
             difficulty: fallbackDoc.difficulty,
             focus: fallbackDoc.focus,
             previewHint,
           })
-          answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}) ? includes printable answer key.`)
+            answerSummary.push(`${fallbackDoc.title} (${cat?.label || categoryId}, ${docGradeLabel})`)
           addedCount++
         }
       }
