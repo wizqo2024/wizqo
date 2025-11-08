@@ -2331,6 +2331,469 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-math-algebra': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const a = Math.floor(rng() * 10) + 1
+      const b = Math.floor(rng() * 10) + 1
+      const c = Math.floor(rng() * 20) + 1
+      const type = pick(rng, ['solve', 'evaluate', 'simplify'])
+      if (type === 'solve') {
+        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: (c - b) / a }
+      } else if (type === 'evaluate') {
+        return { type: 'evaluate', expr: `${a}x + ${b}`, x: b, answer: a * b + b }
+      } else {
+        return { type: 'simplify', expr: `${a}x + ${b}x`, answer: a + b }
+      }
+    })
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Solve each equation, evaluate each expression, or simplify as indicated.
+        </p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">
+                {prob.type === 'solve' && `Solve: ${prob.eq}`}
+                {prob.type === 'evaluate' && `Evaluate ${prob.expr} when x = ${prob.x}`}
+                {prob.type === 'simplify' && `Simplify: ${prob.expr}`}
+              </p>
+              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-percentages': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const type = pick(rng, ['percent', 'ratio', 'proportion'])
+      if (type === 'percent') {
+        const num = Math.floor(rng() * 50) + 10
+        const total = Math.floor(rng() * 100) + 50
+        return { type: 'percent', q: `What percent is ${num} of ${total}?`, answer: ((num / total) * 100).toFixed(1) + '%' }
+      } else if (type === 'ratio') {
+        const a = Math.floor(rng() * 10) + 2
+        const b = Math.floor(rng() * 10) + 2
+        return { type: 'ratio', q: `Simplify the ratio ${a * 2}:${b * 2}`, answer: `${a}:${b}` }
+      } else {
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 5) + 2
+        const c = Math.floor(rng() * 10) + 5
+        return { type: 'proportion', q: `Solve: ${a}/${b} = x/${c}`, answer: ((a * c) / b).toFixed(1) }
+      }
+    })
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Calculate percentages, simplify ratios, and solve proportions.
+        </p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
+              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-geometry': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const type = pick(rng, ['area', 'perimeter', 'volume', 'angle'])
+      if (type === 'area') {
+        const l = Math.floor(rng() * 10) + 5
+        const w = Math.floor(rng() * 10) + 5
+        return { type: 'area', q: `Find the area of a rectangle: length = ${l}cm, width = ${w}cm`, answer: `${l * w} cm²` }
+      } else if (type === 'perimeter') {
+        const s = Math.floor(rng() * 10) + 5
+        return { type: 'perimeter', q: `Find the perimeter of a square with side length ${s}cm`, answer: `${s * 4} cm` }
+      } else if (type === 'volume') {
+        const l = Math.floor(rng() * 5) + 3
+        const w = Math.floor(rng() * 5) + 3
+        const h = Math.floor(rng() * 5) + 3
+        return { type: 'volume', q: `Find the volume: length = ${l}cm, width = ${w}cm, height = ${h}cm`, answer: `${l * w * h} cm³` }
+      } else {
+        const angle = Math.floor(rng() * 60) + 30
+        return { type: 'angle', q: `If two angles are supplementary and one is ${angle}°, find the other`, answer: `${180 - angle}°` }
+      }
+    })
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Calculate area, perimeter, volume, and work with angles.
+        </p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">{prob.q}</p>
+              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-statistics': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const datasets = Array.from({ length: 3 }, () => {
+      const nums = Array.from({ length: 6 }, () => Math.floor(rng() * 20) + 10).sort((a, b) => a - b)
+      const mean = (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(1)
+      const median = ((nums[2] + nums[3]) / 2).toFixed(1)
+      const mode = nums[Math.floor(nums.length / 2)]
+      return { data: nums.join(', '), mean, median, mode }
+    })
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Analyze each data set. Calculate mean, median, and mode. Then create a bar graph.
+        </p>
+        <div className="space-y-4">
+          {datasets.map((set, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">Data Set {idx + 1}: {set.data}</p>
+              <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
+                <div>
+                  <p className="text-slate-600">Mean:</p>
+                  <p className="text-slate-400">________</p>
+                </div>
+                <div>
+                  <p className="text-slate-600">Median:</p>
+                  <p className="text-slate-400">________</p>
+                </div>
+                <div>
+                  <p className="text-slate-600">Mode:</p>
+                  <p className="text-slate-400">________</p>
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-slate-500">Graph space:</p>
+              <div className="mt-1 h-24 border-2 border-dashed border-slate-300 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-word-problems': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = [
+      { q: 'A store sells 3 notebooks for $12. How much would 7 notebooks cost?', answer: '$28' },
+      { q: 'A train travels 240 miles in 4 hours. At this rate, how far will it travel in 6 hours?', answer: '360 miles' },
+      { q: 'Sarah has $45. She spends 2/5 of it on books. How much does she have left?', answer: '$27' },
+      { q: 'A rectangle has length 8cm and width 5cm. If the length is doubled, what is the new area?', answer: '80 cm²' },
+      { q: 'In a class of 30 students, 60% are girls. How many boys are in the class?', answer: '12 boys' },
+    ]
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Solve each multi-step word problem. Show your work.
+        </p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">Problem {idx + 1}</p>
+              <p className="mt-1 text-sm text-slate-700">{prob.q}</p>
+              <div className="mt-3 h-16 border border-slate-200 rounded bg-slate-50"></div>
+              <p className="mt-2 text-xs text-slate-500">Answer: _______________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-reading-literary-analysis': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const elements = pickMany(rng, ['theme', 'symbolism', 'character development', 'author\'s purpose', 'figurative language'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Read the passage and analyze the literary elements below. Provide evidence from the text.
+        </p>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 mb-4">
+          <p className="text-xs text-slate-500 italic">[Passage will be provided]</p>
+        </div>
+        <div className="space-y-3">
+          {elements.map((elem, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
+              <p className="text-sm font-semibold text-blue-800 capitalize">{elem}</p>
+              <p className="mt-2 text-xs text-slate-500">Analysis: ________________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Text Evidence: ___________________________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-reading-research': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const topics = pickMany(rng, ['climate change', 'ancient civilizations', 'space exploration', 'renewable energy'], 3)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Research each topic using multiple sources. Find evidence and cite your sources.
+        </p>
+        <div className="space-y-4">
+          {topics.map((topic, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
+              <p className="text-sm font-semibold text-blue-800 capitalize">Topic: {topic}</p>
+              <div className="mt-3 space-y-2 text-xs">
+                <p className="text-slate-600">Key Fact 1: ________________________________</p>
+                <p className="text-slate-600">Source: ___________________________________</p>
+                <p className="text-slate-600">Key Fact 2: ________________________________</p>
+                <p className="text-slate-600">Source: ___________________________________</p>
+                <p className="text-slate-600 mt-2">Your Argument: ___________________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-writing-research': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Plan your research paper. Organize your research, create an outline, and plan citations.
+        </p>
+        <div className="space-y-4">
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Research Topic:</p>
+            <p className="mt-1 text-xs text-slate-500">________________________________</p>
+            <p className="mt-3 text-sm font-semibold text-emerald-800">Thesis Statement:</p>
+            <p className="mt-1 text-xs text-slate-500">________________________________</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Outline:</p>
+            <div className="mt-2 space-y-2 text-xs">
+              <p className="text-slate-600">I. Introduction: ________________________</p>
+              <p className="text-slate-600 ml-4">A. Hook: ___________________________</p>
+              <p className="text-slate-600 ml-4">B. Background: ______________________</p>
+              <p className="text-slate-600">II. Body Paragraph 1: ___________________</p>
+              <p className="text-slate-600 ml-4">A. Main idea: _______________________</p>
+              <p className="text-slate-600 ml-4">B. Evidence: _______________________</p>
+              <p className="text-slate-600">III. Conclusion: ________________________</p>
+            </div>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Sources:</p>
+            <div className="mt-2 space-y-2 text-xs">
+              <p className="text-slate-600">1. Author, Title. URL: _______________</p>
+              <p className="text-slate-600">2. Author, Title. URL: _______________</p>
+              <p className="text-slate-600">3. Author, Title. URL: _______________</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-writing-essay': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const prompts = pickMany(rng, [
+      'Should students have homework on weekends?',
+      'What is the most important quality in a friend?',
+      'How does technology affect our daily lives?',
+    ], 1)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Write a structured essay responding to the prompt below.
+        </p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 mb-4">
+          <p className="text-sm font-semibold text-emerald-900">Prompt: {prompts[0]}</p>
+        </div>
+        <div className="space-y-4">
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Introduction</p>
+            <p className="mt-2 text-xs text-slate-500">Hook: ________________________________</p>
+            <p className="mt-1 text-xs text-slate-500">Thesis Statement: _____________________</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Body Paragraph 1</p>
+            <p className="mt-2 text-xs text-slate-500">Topic Sentence: _______________________</p>
+            <p className="mt-1 text-xs text-slate-500">Evidence: _____________________________</p>
+            <p className="mt-1 text-xs text-slate-500">Explanation: ___________________________</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Body Paragraph 2</p>
+            <p className="mt-2 text-xs text-slate-500">Topic Sentence: _______________________</p>
+            <p className="mt-1 text-xs text-slate-500">Evidence: _____________________________</p>
+            <p className="mt-1 text-xs text-slate-500">Explanation: ___________________________</p>
+          </div>
+          <div className="rounded-xl border border-emerald-200 bg-white p-4">
+            <p className="text-sm font-semibold text-emerald-800">Conclusion</p>
+            <p className="mt-2 text-xs text-slate-500">Restate Thesis: ______________________</p>
+            <p className="mt-1 text-xs text-slate-500">Summary: ____________________________</p>
+            <p className="mt-1 text-xs text-slate-500">Final Thought: _______________________</p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-science-chemistry': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const concepts = pickMany(rng, ['atoms', 'molecules', 'chemical reactions', 'periodic table', 'elements'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Explore chemistry concepts. Define terms, draw diagrams, and explain processes.
+        </p>
+        <div className="space-y-3">
+          {concepts.map((concept, idx) => (
+            <div key={idx} className="rounded-xl border border-green-200 bg-white p-4">
+              <p className="text-sm font-semibold text-green-800 capitalize">{concept}</p>
+              <p className="mt-2 text-xs text-slate-500">Definition: ___________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Example: ____________________________</p>
+              <div className="mt-2 h-20 border border-slate-200 rounded bg-slate-50"></div>
+              <p className="mt-1 text-xs text-slate-400">Diagram space</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-science-physics': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const topics = pickMany(rng, ['forces', 'motion', 'energy', 'simple machines'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Learn about physics concepts. Explain how forces, motion, and energy work.
+        </p>
+        <div className="space-y-3">
+          {topics.map((topic, idx) => (
+            <div key={idx} className="rounded-xl border border-green-200 bg-white p-4">
+              <p className="text-sm font-semibold text-green-800 capitalize">{topic}</p>
+              <p className="mt-2 text-xs text-slate-500">Explain: _____________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Real-world example: _________________</p>
+              <p className="mt-1 text-xs text-slate-500">Formula (if applicable): ______________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-science-ecology': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const topics = pickMany(rng, ['ecosystems', 'food webs', 'environmental issues', 'conservation'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Explore ecology and environmental science. Analyze ecosystems and environmental challenges.
+        </p>
+        <div className="space-y-3">
+          {topics.map((topic, idx) => (
+            <div key={idx} className="rounded-xl border border-green-200 bg-white p-4">
+              <p className="text-sm font-semibold text-green-800 capitalize">{topic}</p>
+              <p className="mt-2 text-xs text-slate-500">Description: _________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Impact: ____________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Solutions: __________________________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-geography-government': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const topics = pickMany(rng, ['government structure', 'citizenship', 'rights and responsibilities', 'branches of government'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Learn about government and civics. Understand how government works and your role as a citizen.
+        </p>
+        <div className="space-y-3">
+          {topics.map((topic, idx) => (
+            <div key={idx} className="rounded-xl border border-amber-200 bg-white p-4">
+              <p className="text-sm font-semibold text-amber-800 capitalize">{topic}</p>
+              <p className="mt-2 text-xs text-slate-500">Key Points: _________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Examples: __________________________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-geography-economics': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const concepts = pickMany(rng, ['supply and demand', 'budgeting', 'saving and spending', 'economic systems'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Explore economics basics. Learn about money, budgeting, and how economies work.
+        </p>
+        <div className="space-y-3">
+          {concepts.map((concept, idx) => (
+            <div key={idx} className="rounded-xl border border-amber-200 bg-white p-4">
+              <p className="text-sm font-semibold text-amber-800 capitalize">{concept}</p>
+              <p className="mt-2 text-xs text-slate-500">Definition: ___________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Example: ____________________________</p>
+              {concept === 'budgeting' && (
+                <>
+                  <p className="mt-2 text-xs text-slate-500">Income: $________ Expenses: $________</p>
+                  <p className="mt-1 text-xs text-slate-500">Savings: $_______________________</p>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-grammar-advanced': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const sentences = [
+      'The book that I read yesterday was fascinating.',
+      'Although it was raining, we decided to go outside.',
+      'She walked quickly because she was late.',
+      'The students, who studied hard, passed the test.',
+      'Running every morning, he improved his health.',
+    ]
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Identify clauses, phrases, and advanced sentence structures in each sentence.
+        </p>
+        <div className="space-y-3">
+          {sentences.map((sentence, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
+              <p className="text-sm text-slate-700">{sentence}</p>
+              <div className="mt-2 space-y-1 text-xs">
+                <p className="text-slate-500">Independent clause: ________________</p>
+                <p className="text-slate-500">Dependent clause: _________________</p>
+                <p className="text-slate-500">Phrases: _________________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-grammar-vocab': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const words = pickMany(rng, ['analyze', 'evaluate', 'synthesize', 'hypothesize', 'conclude', 'demonstrate'], 5)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Learn academic vocabulary words. Use context clues and practice using them in sentences.
+        </p>
+        <div className="space-y-3">
+          {words.map((word, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-white p-4">
+              <p className="text-sm font-semibold text-blue-800 capitalize">{word}</p>
+              <p className="mt-2 text-xs text-slate-500">Definition: ___________________________</p>
+              <p className="mt-1 text-xs text-slate-500">Context clue: _______________________</p>
+              <p className="mt-1 text-xs text-slate-500">Your sentence: ______________________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
 }
 
 const answerRenderers: Record<string, AnswerRenderer> = {
@@ -3027,6 +3490,179 @@ const answerRenderers: Record<string, AnswerRenderer> = {
         <p><span className="font-semibold">Deductive Reasoning:</span> Use the clues to eliminate possibilities and determine who borrowed what and where.</p>
         <p className="text-emerald-800">Note: Answers will vary based on clue interpretation. Look for logical reasoning and use of all clues provided.</p>
       </div>
+    )
+  },
+  'interactive-math-algebra': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const a = Math.floor(rng() * 10) + 1
+      const b = Math.floor(rng() * 10) + 1
+      const c = Math.floor(rng() * 20) + 1
+      const type = pick(rng, ['solve', 'evaluate', 'simplify'])
+      if (type === 'solve') {
+        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: (c - b) / a }
+      } else if (type === 'evaluate') {
+        return { type: 'evaluate', expr: `${a}x + ${b}`, x: b, answer: a * b + b }
+      } else {
+        return { type: 'simplify', expr: `${a}x + ${b}x`, answer: a + b }
+      }
+    })
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.type === 'solve' && `${prob.eq} → x = ${prob.answer.toFixed(1)}`}
+            {prob.type === 'evaluate' && `${prob.expr} when x = ${prob.x} → ${prob.answer}`}
+            {prob.type === 'simplify' && `${prob.expr} → ${prob.answer}x`}
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-percentages': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const type = pick(rng, ['percent', 'ratio', 'proportion'])
+      if (type === 'percent') {
+        const num = Math.floor(rng() * 50) + 10
+        const total = Math.floor(rng() * 100) + 50
+        return { type: 'percent', q: `What percent is ${num} of ${total}?`, answer: ((num / total) * 100).toFixed(1) + '%' }
+      } else if (type === 'ratio') {
+        const a = Math.floor(rng() * 10) + 2
+        const b = Math.floor(rng() * 10) + 2
+        return { type: 'ratio', q: `Simplify the ratio ${a * 2}:${b * 2}`, answer: `${a}:${b}` }
+      } else {
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 5) + 2
+        const c = Math.floor(rng() * 10) + 5
+        return { type: 'proportion', q: `Solve: ${a}/${b} = x/${c}`, answer: ((a * c) / b).toFixed(1) }
+      }
+    })
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {problems.map((prob, idx) => (
+          <li key={idx}>{prob.q} → <span className="text-emerald-700">{prob.answer}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-geometry': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const problems = Array.from({ length: 5 }, () => {
+      const type = pick(rng, ['area', 'perimeter', 'volume', 'angle'])
+      if (type === 'area') {
+        const l = Math.floor(rng() * 10) + 5
+        const w = Math.floor(rng() * 10) + 5
+        return { type: 'area', q: `Find the area of a rectangle: length = ${l}cm, width = ${w}cm`, answer: `${l * w} cm²` }
+      } else if (type === 'perimeter') {
+        const s = Math.floor(rng() * 10) + 5
+        return { type: 'perimeter', q: `Find the perimeter of a square with side length ${s}cm`, answer: `${s * 4} cm` }
+      } else if (type === 'volume') {
+        const l = Math.floor(rng() * 5) + 3
+        const w = Math.floor(rng() * 5) + 3
+        const h = Math.floor(rng() * 5) + 3
+        return { type: 'volume', q: `Find the volume: length = ${l}cm, width = ${w}cm, height = ${h}cm`, answer: `${l * w * h} cm³` }
+      } else {
+        const angle = Math.floor(rng() * 60) + 30
+        return { type: 'angle', q: `If two angles are supplementary and one is ${angle}°, find the other`, answer: `${180 - angle}°` }
+      }
+    })
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {problems.map((prob, idx) => (
+          <li key={idx}>{prob.q} → <span className="text-emerald-700">{prob.answer}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-statistics': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const datasets = Array.from({ length: 3 }, () => {
+      const nums = Array.from({ length: 6 }, () => Math.floor(rng() * 20) + 10).sort((a, b) => a - b)
+      const mean = (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(1)
+      const median = ((nums[2] + nums[3]) / 2).toFixed(1)
+      const mode = nums[Math.floor(nums.length / 2)]
+      return { data: nums.join(', '), mean, median, mode }
+    })
+    return (
+      <ul className="space-y-3">
+        {datasets.map((set, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Data Set {idx + 1}:</span> Mean = {set.mean}, Median = {set.median}, Mode = {set.mode}
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-math-word-problems': ({ doc, seed, variant }) => {
+    const problems = [
+      { q: 'A store sells 3 notebooks for $12. How much would 7 notebooks cost?', answer: '$28' },
+      { q: 'A train travels 240 miles in 4 hours. At this rate, how far will it travel in 6 hours?', answer: '360 miles' },
+      { q: 'Sarah has $45. She spends 2/5 of it on books. How much does she have left?', answer: '$27' },
+      { q: 'A rectangle has length 8cm and width 5cm. If the length is doubled, what is the new area?', answer: '80 cm²' },
+      { q: 'In a class of 30 students, 60% are girls. How many boys are in the class?', answer: '12 boys' },
+    ]
+    return (
+      <ol className="list-decimal list-inside space-y-2">
+        {problems.map((prob, idx) => (
+          <li key={idx}>{prob.q} → <span className="text-emerald-700">{prob.answer}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-reading-literary-analysis': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Look for evidence-based analysis, identification of literary elements, and clear connections between text evidence and interpretations.</p>
+    )
+  },
+  'interactive-reading-research': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on quality of sources, relevance of facts, proper citation format, and logical argument construction.</p>
+    )
+  },
+  'interactive-writing-research': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for clear thesis statement, logical outline structure, relevant sources with proper citations, and coherent organization.</p>
+    )
+  },
+  'interactive-writing-essay': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on clear thesis, well-structured paragraphs, use of evidence, logical flow, and strong conclusion.</p>
+    )
+  },
+  'interactive-science-chemistry': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for accurate definitions, clear examples, correct diagrams, and understanding of chemical concepts.</p>
+    )
+  },
+  'interactive-science-physics': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on accurate explanations, relevant real-world examples, correct formula usage, and understanding of physics principles.</p>
+    )
+  },
+  'interactive-science-ecology': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Look for accurate descriptions, understanding of impacts, thoughtful solutions, and awareness of environmental issues.</p>
+    )
+  },
+  'interactive-geography-government': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for understanding of government structure, citizenship concepts, rights and responsibilities, and branches of government.</p>
+    )
+  },
+  'interactive-geography-economics': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on accurate definitions, relevant examples, understanding of economic concepts, and practical budgeting skills.</p>
+    )
+  },
+  'interactive-grammar-advanced': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for correct identification of independent/dependent clauses, phrases, and understanding of complex sentence structures.</p>
+    )
+  },
+  'interactive-grammar-vocab': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on accurate definitions, use of context clues, correct usage in sentences, and understanding of academic vocabulary.</p>
     )
   },
 }
