@@ -85,6 +85,35 @@ type ReadingStoryMap = {
   clues: string[]
 }
 
+type BridgeReading = {
+  passage: string
+  focusWord: { word: string; definition: string; synonym: string }
+  questions: Array<{ prompt: string; answer: string }>
+  storyMap: { beginning: string; middle: string; ending: string }
+  mainIdea: string
+  lesson: string
+  setting: string
+  mission: string
+  clue: string
+}
+
+type BridgeMathProblem = {
+  prompt: string
+  answer: number
+  kind: 'addition' | 'subtraction' | 'word'
+}
+
+type BridgeWritingPlan = {
+  prompt: string
+  topic: string
+  audience: string
+  goal: string
+  starters: string[]
+  transitions: string[]
+  checklist: string[]
+  sampleOutline: string[]
+}
+
 const SHAPE_INFO: Record<
   string,
   { kind: 'flat' | 'solid'; sidesLabel: string }
@@ -337,6 +366,192 @@ function buildReadingStoryMap(seed: string, docId: string, variant: number): Rea
     beginning: `${hero} and ${friend} arrive at the ${setting} to ${goal}.`,
     middle,
     ending,
+  }
+}
+
+function buildBridgeReading(seed: string, docId: string, variant: number): BridgeReading {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const heroes = ['Maya', 'Eli', 'Jonah', 'Sofia', 'Aria', 'Miles']
+  const partners = ['Noah', 'Luca', 'Priya', 'Kai', 'Zara', 'Theo']
+  const settings = ['community garden', 'school innovation lab', 'storytelling corner', 'science greenhouse', 'music room']
+  const missions = [
+    'prepare a display that inspires classmates to read more',
+    'collect facts for the morning announcement show',
+    'design a mini poster that explains the big idea',
+    'solve the daily clue hidden inside the chapter books',
+    'find evidence to support their classroom debate'
+  ]
+  const helpers = ['their librarian', 'Mr. Chen the art mentor', 'Coach Alana', 'the robotics club captain', 'Ms. Rivera the music teacher']
+  const clues = [
+    'a sticky note that says "check page 12"',
+    'a pattern of highlighted sentences',
+    'footprints made of glitter glue',
+    'a melody recorded on the class tablet',
+    'a stack of books arranged from shortest to tallest'
+  ]
+  const lessons = [
+    'slowing down to notice details helps them understand the text',
+    'asking questions gives them stronger answers',
+    'working together makes tough tasks feel possible',
+    'evidence from the book supports their ideas',
+    'explaining their thinking out loud keeps them focused'
+  ]
+  const vocabChoices = [
+    { word: 'investigate', definition: 'to study something carefully to learn the facts', synonym: 'examine' },
+    { word: 'evidence', definition: 'information that proves or explains something', synonym: 'clue' },
+    { word: 'summarize', definition: 'to tell the main points of a story in a shorter way', synonym: 'restate' },
+    { word: 'collaborate', definition: 'to work with someone to reach the same goal', synonym: 'cooperate' },
+  ]
+
+  const hero = pick(rng, heroes)
+  const partner = pick(rng, partners.filter((name) => name !== hero))
+  const setting = pick(rng, settings)
+  const mission = pick(rng, missions)
+  const helper = pick(rng, helpers)
+  const clue = pick(rng, clues)
+  const lesson = pick(rng, lessons)
+  const focusWord = pick(rng, vocabChoices)
+
+  const beginning = `${hero} and ${partner} visited the ${setting} to ${mission}.`
+  const middle = `They noticed ${clue}, but the information felt confusing until ${helper} reminded them to use their close-reading steps.`
+  const ending = `After rereading, they collected the best details, shared their ideas, and agreed that ${lesson}.`
+  const passage = `${beginning} ${middle} ${ending}`
+  const mainIdea = `${hero} and ${partner} learn that ${lesson}.`
+
+  const questions = [
+    {
+      prompt: `Why did ${hero} and ${partner} go to the ${setting}?`,
+      answer: `They went to ${mission}.`,
+    },
+    {
+      prompt: `What clue helped them make sense of the text?`,
+      answer: `They paid attention to ${clue}.`,
+    },
+    {
+      prompt: `What lesson did they learn at the end?`,
+      answer: `They discovered that ${lesson}.`,
+    },
+  ]
+
+  return {
+    passage,
+    focusWord,
+    questions,
+    storyMap: { beginning, middle, ending },
+    mainIdea,
+    lesson,
+    setting,
+    mission,
+    clue,
+  }
+}
+
+function buildBridgeMath(seed: string, docId: string, variant: number): BridgeMathProblem[] {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const additionProblems = Array.from({ length: 2 }).map(() => {
+    const a = Math.floor(rng() * 40) + 20
+    const b = Math.floor(rng() * 40) + 20
+    return {
+      kind: 'addition' as const,
+      prompt: `${a} + ${b} = __________`,
+      answer: a + b,
+    }
+  })
+
+  const subtractionProblems = Array.from({ length: 2 }).map(() => {
+    const minuend = Math.floor(rng() * 40) + 50
+    const subtrahend = Math.floor(rng() * 25) + 10
+    const a = Math.max(minuend, subtrahend)
+    const b = Math.min(minuend, subtrahend)
+    return {
+      kind: 'subtraction' as const,
+      prompt: `${a} - ${b} = __________`,
+      answer: a - b,
+    }
+  })
+
+  const wordScenarios = [
+    {
+      template: (start: number, change: number) =>
+        `The class planted ${start} seeds on Monday and ${change} more on Tuesday. How many seeds did they plant altogether?`,
+      solve: (start: number, change: number) => start + change,
+    },
+    {
+      template: (start: number, change: number) =>
+        `${start} books were on the reading cart. Students borrowed ${change} of them. How many books are left?`,
+      solve: (start: number, change: number) => start - change,
+    },
+    {
+      template: (start: number, change: number) =>
+        `${start} students collected stickers. ${change} more students joined the challenge. How many students are collecting now?`,
+      solve: (start: number, change: number) => start + change,
+    },
+  ]
+
+  const wordProblems = Array.from({ length: 2 }).map(() => {
+    const base = Math.floor(rng() * 30) + 20
+    const change = Math.floor(rng() * 20) + 5
+    const scenario = pick(rng, wordScenarios)
+    return {
+      kind: 'word' as const,
+      prompt: `${scenario.template(base, change)} __________`,
+      answer: scenario.solve(base, change),
+    }
+  })
+
+  return [...additionProblems, ...subtractionProblems, ...wordProblems]
+}
+
+function buildBridgeWriting(seed: string, docId: string, variant: number): BridgeWritingPlan {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const topics = [
+    'designing a class kindness challenge',
+    'organizing the reading corner',
+    'teaching a younger buddy how to play a new game',
+    'keeping the science lab tidy',
+    'celebrating everyone\'s creative ideas'
+  ]
+  const audiences = ['your teacher', 'your classmates', 'families at open house', 'the student council', 'new students']
+  const goals = [
+    'explain how your idea helps everyone',
+    'share three reasons your plan will work',
+    'describe the steps people should follow',
+    'persuade them to join your project',
+    'celebrate progress and invite more ideas'
+  ]
+  const transitions = [
+    ['First', 'Next', 'Finally'],
+    ['To begin with', 'In addition', 'In the end'],
+    ['One reason', 'Another reason', 'As a result'],
+    ['First of all', 'After that', 'Lastly'],
+  ]
+  const checklist = [
+    'My topic sentence tells the main idea.',
+    'Each detail sentence explains or gives an example.',
+    'I used transition words to guide the reader.',
+    'I checked capitals, punctuation, and spelling.',
+    'My closing sentence restates the main idea.'
+  ]
+
+  const topic = pick(rng, topics)
+  const audience = pick(rng, audiences)
+  const goal = pick(rng, goals)
+  const starterSet = pick(rng, transitions)
+  const outline = [
+    `${starterSet[0]}: Introduce the topic and why it matters.`,
+    `${starterSet[1]}: Give a detailed example or step.`,
+    `${starterSet[2]}: Explain the last step and how it helps ${audience}.`,
+  ]
+
+  return {
+    prompt: `Write a paragraph to ${audience} about ${topic}. Make sure you ${goal}.`,
+    topic,
+    audience,
+    goal,
+    starters: starterSet,
+    transitions: ['because', 'so', 'for example', 'also'],
+    checklist,
+    sampleOutline: outline,
   }
 }
 
@@ -1432,7 +1647,7 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           Continue each pattern and create your own using shapes, colors, or stickers.
         </p>
-        <div className="space-y-3">
+      <div className="space-y-3">
           {patterns.map((pattern, idx) => {
             const first = pick(rng, SHAPE_TOKENS)
             const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
@@ -1469,6 +1684,142 @@ const renderers: Record<string, Renderer> = {
               </div>
             )
           })}
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-reading-bridge': ({ seed, doc, variant }) => {
+    const story = buildBridgeReading(seed, doc.id, variant)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm leading-relaxed text-slate-700">{story.passage}</p>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-indigo-800">
+          <p className="font-semibold">Vocabulary boost</p>
+          <p className="mt-2">
+            <span className="font-semibold uppercase tracking-wide text-xs text-indigo-500">Focus word:</span>{' '}
+            <span className="font-semibold">{story.focusWord.word}</span> - {story.focusWord.definition} (Synonym:{' '}
+            {story.focusWord.synonym})
+          </p>
+          <p className="mt-1 text-xs text-indigo-600">
+            Highlight the focus word in the passage, then use it in your own sentence.
+          </p>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          {([
+            { label: 'Beginning', text: story.storyMap.beginning },
+            { label: 'Middle', text: story.storyMap.middle },
+            { label: 'Ending', text: story.storyMap.ending },
+          ] as const).map((section) => (
+            <div key={section.label} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+              <p className="font-semibold text-slate-900">{section.label}</p>
+              <p className="mt-2 text-slate-600">{section.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="space-y-2 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Comprehension questions</p>
+          <ol className="list-decimal list-inside space-y-1">
+            {story.questions.map((question, idx) => (
+              <li key={idx}>
+                {question.prompt}{' '}
+                <span className="text-slate-400">Answer: ____________________________________________</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+            <p className="font-semibold text-emerald-900">Main idea & lesson</p>
+            <p className="mt-2">{story.mainIdea}</p>
+            <p className="mt-2 text-xs text-emerald-700">
+              Write your own sentence that tells what {story.setting} taught the readers.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+            <p className="font-semibold text-slate-900">Retell planner</p>
+            <ul className="mt-2 space-y-2 text-sm text-slate-600">
+              <li>Who: {story.mission}</li>
+              <li>Helpful clue: {story.clue}</li>
+              <li>Lesson: {story.lesson}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-math-bridge': ({ seed, doc, variant }) => {
+    const problems = buildBridgeMath(seed, doc.id, variant)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Solve each problem. Show your work with quick sketches, number lines, or equations in the workspace.
+        </p>
+        <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+          <ol className="list-decimal list-inside space-y-2">
+            {problems.map((problem, idx) => (
+              <li key={idx}>
+                <p className="font-semibold text-slate-900">{problem.prompt}</p>
+                <div className="mt-2 min-h-[2.5rem] rounded border border-dashed border-slate-300 bg-slate-50" />
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-indigo-800">
+          <p className="font-semibold">Strategy suggestions</p>
+          <ul className="mt-2 space-y-1 text-indigo-900">
+            <li>• Break numbers into tens and ones.</li>
+            <li>• Use a number line or friendly numbers.</li>
+            <li>• For word problems, underline what is asked and circle the numbers.</li>
+          </ul>
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-writing-bridge': ({ seed, doc, variant }) => {
+    const plan = buildBridgeWriting(seed, doc.id, variant)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">{plan.prompt}</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Use these sentence starters</p>
+          <ul className="mt-2 space-y-1">
+            {plan.starters.map((starter, idx) => (
+              <li key={idx}>
+                {starter}: ________________________________________________
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+          <p className="font-semibold">Transition ideas</p>
+          <p className="mt-1 text-purple-900">
+            Try using words like <span className="font-semibold">{plan.transitions.join(', ')}</span> to connect your
+            ideas.
+          </p>
+        </div>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+          <p className="font-semibold text-emerald-900">Revision checklist</p>
+          <ul className="mt-2 space-y-1">
+            {plan.checklist.map((item, idx) => (
+              <li key={idx}>
+                <span className="inline-block h-4 w-4 rounded border border-emerald-400 bg-white align-middle" /> {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Planning outline</p>
+          <ul className="mt-2 space-y-1 text-slate-600">
+            {plan.sampleOutline.map((line, idx) => (
+              <li key={idx}>{line}</li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-slate-500">Use the lines below to draft your paragraph.</p>
+          <div className="mt-2 space-y-2">
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <div key={idx} className="h-10 rounded border border-dashed border-slate-300" />
+            ))}
+          </div>
         </div>
       </div>
     )
@@ -1526,7 +1877,7 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           Solve each brain teaser. Write your guess, then reveal the answer.
         </p>
-        <div className="space-y-3">
+      <div className="space-y-3">
           {riddles.map(([riddle, answer], idx) => (
             <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
               <p className="font-semibold text-slate-900">Riddle {idx + 1}</p>
@@ -1640,7 +1991,7 @@ const renderers: Record<string, Renderer> = {
         <p className="text-sm text-slate-600">
           Set a weekly goal in the areas below. Plan small steps and reflect at the end of the week.
         </p>
-        <div className="space-y-3">
+      <div className="space-y-3">
           {focuses.map((focus, idx) => (
             <div key={idx} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
               <p className="font-semibold text-emerald-900">Goal area: {focus}</p>
@@ -1802,6 +2153,55 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             </li>
           </ol>
         </div>
+      </div>
+    )
+  },
+  'interactive-early-reading-bridge': ({ doc, seed, variant }) => {
+    const story = buildBridgeReading(seed, doc.id, variant)
+    return (
+      <div className="space-y-2 text-sm">
+        <p className="font-semibold text-emerald-900">Main idea</p>
+        <p>{story.mainIdea}</p>
+        <p className="font-semibold text-emerald-900">Vocabulary</p>
+        <p>
+          {story.focusWord.word}: {story.focusWord.definition} (synonym: {story.focusWord.synonym})
+        </p>
+        <p className="font-semibold text-emerald-900">Question guide</p>
+        <ol className="list-decimal list-inside space-y-1">
+          {story.questions.map((question, idx) => (
+            <li key={idx}>{question.answer}</li>
+          ))}
+        </ol>
+      </div>
+    )
+  },
+  'interactive-early-math-bridge': ({ doc, seed, variant }) => {
+    const problems = buildBridgeMath(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((problem, idx) => (
+          <li key={idx}>
+            {problem.prompt.replace(' __________', '')} ={' '}
+            <span className="font-semibold text-emerald-900">{problem.answer}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-early-writing-bridge': ({ doc, seed, variant }) => {
+    const plan = buildBridgeWriting(seed, doc.id, variant)
+    return (
+      <div className="space-y-2 text-sm">
+        <p className="font-semibold text-emerald-900">Outline suggestion</p>
+        <ol className="list-decimal list-inside space-y-1">
+          {plan.sampleOutline.map((line, idx) => (
+            <li key={idx}>{line}</li>
+          ))}
+        </ol>
+        <p className="font-semibold text-emerald-900">Closing idea</p>
+        <p>
+          This paragraph can end with a reminder that {plan.audience} can support the plan so everyone benefits.
+        </p>
       </div>
     )
   },
