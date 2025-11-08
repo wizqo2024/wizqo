@@ -1969,7 +1969,31 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
           </div>
 
         {allPosts.length > 0 ? (
-            <div className="space-y-8">
+              <div className="grid md:grid-cols-12 gap-8 items-start">
+
+              {/* Left sidebar with popular posts */}
+              <aside className="hidden md:block md:col-span-3 print:hidden">
+                <div className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
+                  <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">Popular posts</div>
+                  <ul className="mt-1 space-y-1 text-sm">
+                    {allPosts.slice(0, 6).map((p) => (
+                      <li key={`toc-${p.id}`}>
+                        <button
+                          className="w-full text-left px-2 py-1 rounded hover:bg-slate-50 text-slate-700"
+                          onClick={() => {
+                            setSelectedPost(p);
+                            navigateTo(`/blog/${p.id}`);
+                          }}
+                        >
+                          {p.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+
+              <div className="md:col-span-9 space-y-8">
 
             {/* Featured Post (skip posts tagged as printables-only and specific slugs like 'best-teacher') */}
             <article 
@@ -2087,6 +2111,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                       Clear
                     </button>
                   )}
+                  </div>
               </div>
             </div>
 
@@ -2186,8 +2211,8 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                 </button>
               </form>
             </div>
+              </div>
             </div>
-          </div>
         ) : (
           <div className="bg-white rounded-2xl p-12 shadow-xl text-center">
             <div className="text-6xl mb-8">📝</div>
