@@ -642,6 +642,20 @@ export function PrintablesPage() {
         }
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-12 print-content-start">
+        {/* Print instruction banner - hidden in print */}
+        <div className="print:hidden mb-4 rounded-xl border-2 border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+          <div className="flex items-start gap-3">
+            <span className="text-xl">⚠️</span>
+            <div className="flex-1">
+              <p className="font-semibold mb-1">To remove URLs from printed pages:</p>
+              <ul className="list-disc list-inside space-y-1 text-xs">
+                <li><strong>Chrome/Edge:</strong> Print dialog → "More settings" → Uncheck "Headers and footers"</li>
+                <li><strong>Firefox:</strong> Print dialog → "Page Setup" → Uncheck "Print headers and footers"</li>
+                <li><strong>Safari:</strong> Print dialog → "Show Details" → Uncheck "Print headers and footers"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         {/* Customization header (print view - fixed at top) */}
         {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
