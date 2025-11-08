@@ -593,7 +593,8 @@ export function PrintablesPage() {
           .print-name-date .label { margin-right: 6px; }
           .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
           /* Customization header at top of page */
-          .print-customization-header { position: fixed; top: 0.2in; left: 0.5in; right: 0.5in; font-size: 10px; color: #334155; z-index: 9998; pointer-events: none; line-height: 1.2; }
+          .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
+          .print-customization-header strong { font-weight: 600; color: #0f172a; }
         }
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-8">
@@ -611,9 +612,11 @@ export function PrintablesPage() {
         {/* Customization header (print view - fixed at top) */}
         {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
-            <div className="flex flex-wrap gap-x-3">
+            <div className="flex flex-wrap gap-x-3 items-center">
               {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
+              {className && teacherName && <span className="text-slate-400">•</span>}
               {className && <span><strong>Class:</strong> {className}</span>}
+              {studentNames.length > 0 && (teacherName || className) && <span className="text-slate-400">•</span>}
               {studentNames.length > 0 && (
                 <span><strong>Students:</strong> {studentNames.join(', ')}</span>
               )}
