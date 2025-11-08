@@ -586,68 +586,14 @@ export function PrintablesPage() {
     <div className="min-h-screen bg-white">
       <style>{`
         @media print {
-          @page { 
-            margin: 0.5in 0.5in 0.5in 0.5in;
-            /* Try to remove browser headers/footers using margin-box */
-            @top-left { content: ""; }
-            @top-center { content: ""; }
-            @top-right { content: ""; }
-            @bottom-left { content: ""; }
-            @bottom-center { content: ""; }
-            @bottom-right { content: ""; }
-            size: A4;
-          }
-          /* Remove browser-generated headers and footers */
-          @page :first {
-            margin-top: 0.5in;
-            margin-bottom: 0.5in;
-            @top-left { content: ""; }
-            @top-center { content: ""; }
-            @top-right { content: ""; }
-            @bottom-left { content: ""; }
-            @bottom-center { content: ""; }
-            @bottom-right { content: ""; }
-          }
-          @page :left {
-            margin-left: 0.5in;
-            margin-right: 0.5in;
-            margin-bottom: 0.5in;
-            @bottom-left { content: ""; }
-            @bottom-center { content: ""; }
-            @bottom-right { content: ""; }
-          }
-          @page :right {
-            margin-left: 0.5in;
-            margin-right: 0.5in;
-            margin-bottom: 0.5in;
-            @bottom-left { content: ""; }
-            @bottom-center { content: ""; }
-            @bottom-right { content: ""; }
-          }
-          html, body { 
-            margin: 0 !important; 
-            padding: 0 !important; 
-            height: 100% !important;
-            overflow: visible !important;
-          }
+          @page { margin: 0; }
+          html, body { margin: 0 !important; padding: 0 !important; }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
-          /* Hide any browser-generated content */
-          body::before, body::after { display: none !important; content: none !important; }
-          html::before, html::after { display: none !important; content: none !important; }
-          /* Hide any elements that might contain URLs */
-          *::before, *::after {
-            content: none !important;
-          }
-          a[href]::before, a[href]::after {
-            content: none !important;
-          }
           /* Customization header at top of page */
           .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
-          /* Ensure content starts below header */
-          .print-content-start { margin-top: 0.5in !important; }
           /* Better spacing for print */
           section { margin-bottom: 1rem !important; page-break-inside: avoid; }
           .break-inside-avoid { page-break-inside: avoid !important; break-inside: avoid !important; }
@@ -656,7 +602,7 @@ export function PrintablesPage() {
           h1, h2, h3 { page-break-after: avoid !important; margin-bottom: 0.5rem !important; }
         }
       `}</style>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-12 print-content-start">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-8">
         {/* Print instruction banner - hidden in print */}
         <div className="print:hidden mb-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900">
           <div className="flex items-start gap-3">
