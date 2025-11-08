@@ -197,22 +197,33 @@ function buildMathRace(seed: string, docId: string, variant: number): MathFact[]
 
 function buildMathPuzzle(seed: string, docId: string, variant: number): MathPuzzle[] {
   const rng = makeRng(`${seed}|${docId}|${variant}`)
-  return Array.from({ length: 6 }).map(() => {
+  const usedPrompts = new Set<string>()
+  const puzzles: MathPuzzle[] = []
+  
+  while (puzzles.length < 6) {
     const target = Math.floor(rng() * 20) + 10
     const missing = Math.floor(rng() * 9) + 1
     const other = target - missing
     const showFirstBlank = rng() > 0.5
+    let prompt: string
+    let answer: number
+    
     if (showFirstBlank) {
-      return {
-        prompt: `${other} + ____ = ${target}`,
-        answer: missing,
-      }
+      prompt = `${other} + ____ = ${target}`
+      answer = missing
+    } else {
+      prompt = `____ + ${missing} = ${target}`
+      answer = other
     }
-    return {
-      prompt: `____ + ${missing} = ${target + missing}`,
-      answer: target,
+    
+    // Avoid duplicates
+    if (!usedPrompts.has(prompt)) {
+      usedPrompts.add(prompt)
+      puzzles.push({ prompt, answer })
     }
-  })
+  }
+  
+  return puzzles
 }
 
 function buildMathShapes(seed: string, docId: string, variant: number): MathShapeRow[] {
@@ -901,14 +912,14 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-science-lifecycle': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
-    const cycles = ['butterfly', 'sunflower', 'frog', 'ladybug', 'penguin']
+    const cycles = ['sunflower', 'apple tree', 'bean plant', 'tomato plant', 'rose bush']
     const cycle = pick(rng, cycles)
     const stagesMap: Record<string, string[]> = {
-      butterfly: ['Egg', 'Caterpillar', 'Chrysalis', 'Butterfly'],
       sunflower: ['Seed', 'Sprout', 'Budding', 'Bloom'],
-      frog: ['Egg', 'Tadpole', 'Froglet', 'Adult frog'],
-      ladybug: ['Egg', 'Larva', 'Pupa', 'Adult'],
-      penguin: ['Egg', 'Hatchling', 'Juvenile', 'Adult'],
+      'apple tree': ['Seed', 'Sapling', 'Young tree', 'Fruit tree'],
+      'bean plant': ['Seed', 'Sprout', 'Flowering', 'Bean pod'],
+      'tomato plant': ['Seed', 'Seedling', 'Flowering', 'Fruit'],
+      'rose bush': ['Seed', 'Sprout', 'Budding', 'Bloom'],
     }
     const stages = stagesMap[cycle]
     return (
@@ -1861,10 +1872,12 @@ const renderers: Record<string, Renderer> = {
     const prompts = pickMany(
       rng,
       [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
         { word: 'sun', picture: 'Draw the sun' },
         { word: 'car', picture: 'Draw a car' },
+        { word: 'tree', picture: 'Draw a tree' },
+        { word: 'flower', picture: 'Draw a flower' },
+        { word: 'house', picture: 'Draw a house' },
+        { word: 'ball', picture: 'Draw a ball' },
       ],
       4
     )
@@ -1895,8 +1908,9 @@ const renderers: Record<string, Renderer> = {
       rng,
       [
         { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
         { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
+        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topic: 'Trees', question: 'What do trees have?', options: ['leaves', 'branches', 'roots'] },
       ],
       3
     )
@@ -2001,10 +2015,12 @@ const renderers: Record<string, Renderer> = {
     const words = pickMany(
       rng,
       [
-        { word: 'cat', picture: '🐱' },
-        { word: 'dog', picture: '🐶' },
         { word: 'sun', picture: '☀️' },
         { word: 'car', picture: '🚗' },
+        { word: 'tree', picture: '🌳' },
+        { word: 'flower', picture: '🌸' },
+        { word: 'house', picture: '🏠' },
+        { word: 'ball', picture: '⚽' },
       ],
       4
     )
@@ -2087,25 +2103,49 @@ const renderers: Record<string, Renderer> = {
     const feelings = pickMany(
       rng,
       [
-        { feeling: 'happy', emoji: '😊', color: 'yellow' },
-        { feeling: 'sad', emoji: '😢', color: 'blue' },
-        { feeling: 'angry', emoji: '😠', color: 'red' },
-        { feeling: 'excited', emoji: '🤩', color: 'orange' },
+        { feeling: 'happy', color: 'yellow', shape: 'sun' },
+        { feeling: 'sad', color: 'blue', shape: 'cloud' },
+        { feeling: 'angry', color: 'red', shape: 'fire' },
+        { feeling: 'excited', color: 'orange', shape: 'star' },
+        { feeling: 'calm', color: 'green', shape: 'leaf' },
+        { feeling: 'worried', color: 'purple', shape: 'circle' },
       ],
       4
     )
+    
+    const FeelingShape = ({ shape, color }: { shape: string; color: string }) => {
+      if (shape === 'sun') {
+        return <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="none" stroke={color} strokeWidth="2"/><line x1="20" y1="2" x2="20" y2="8" stroke={color} strokeWidth="2"/><line x1="20" y1="32" x2="20" y2="38" stroke={color} strokeWidth="2"/><line x1="2" y1="20" x2="8" y2="20" stroke={color} strokeWidth="2"/><line x1="32" y1="20" x2="38" y2="20" stroke={color} strokeWidth="2"/></svg>
+      }
+      if (shape === 'cloud') {
+        return <svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="15" ry="10" fill="none" stroke={color} strokeWidth="2"/><ellipse cx="12" cy="18" rx="8" ry="6" fill="none" stroke={color} strokeWidth="2"/><ellipse cx="28" cy="18" rx="8" ry="6" fill="none" stroke={color} strokeWidth="2"/></svg>
+      }
+      if (shape === 'fire') {
+        return <svg width="40" height="40" viewBox="0 0 40 40"><path d="M 20 35 L 15 25 L 20 15 L 25 25 Z" fill="none" stroke={color} strokeWidth="2"/><path d="M 20 30 L 18 22 L 20 18 L 22 22 Z" fill="none" stroke={color} strokeWidth="1.5"/></svg>
+      }
+      if (shape === 'star') {
+        return <svg width="40" height="40" viewBox="0 0 40 40"><polygon points="20,5 23,15 33,15 25,21 28,31 20,25 12,31 15,21 7,15 17,15" fill="none" stroke={color} strokeWidth="2"/></svg>
+      }
+      if (shape === 'leaf') {
+        return <svg width="40" height="40" viewBox="0 0 40 40"><path d="M 20 5 Q 10 15, 8 25 Q 6 35, 15 38 Q 20 35, 20 38 Q 20 35, 25 38 Q 34 35, 32 25 Q 30 15, 20 5 Z" fill="none" stroke={color} strokeWidth="2"/></svg>
+      }
+      return <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke={color} strokeWidth="2"/></svg>
+    }
+    
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Identify and express feelings through pictures, simple words, and activities.
+          Identify and express feelings through colors and shapes.
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {feelings.map((feeling, idx) => (
             <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
               <div className="flex items-center gap-3">
-                <span className="text-3xl">{feeling.emoji}</span>
+                <div style={{ color: feeling.color }}>
+                  <FeelingShape shape={feeling.shape} color={feeling.color} />
+                </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-pink-700">Feeling: {feeling.feeling}</p>
+                  <p className="text-sm font-semibold text-pink-700 capitalize">Feeling: {feeling.feeling}</p>
                   <p className="text-xs text-pink-600">Color: {feeling.color}</p>
                 </div>
               </div>
@@ -2120,7 +2160,9 @@ const renderers: Record<string, Renderer> = {
           <div className="mt-2 flex gap-2">
             {feelings.map((feeling, idx) => (
               <div key={idx} className="flex flex-col items-center">
-                <span className="text-2xl">{feeling.emoji}</span>
+                <div style={{ color: feeling.color }}>
+                  <FeelingShape shape={feeling.shape} color={feeling.color} />
+                </div>
                 <div className="mt-1 h-4 w-4 rounded border border-pink-300" />
               </div>
             ))}
@@ -2556,10 +2598,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const prompts = pickMany(
       rng,
       [
-        { word: 'cat', picture: 'Draw a cat' },
-        { word: 'dog', picture: 'Draw a dog' },
         { word: 'sun', picture: 'Draw the sun' },
         { word: 'car', picture: 'Draw a car' },
+        { word: 'tree', picture: 'Draw a tree' },
+        { word: 'flower', picture: 'Draw a flower' },
+        { word: 'house', picture: 'Draw a house' },
+        { word: 'ball', picture: 'Draw a ball' },
       ],
       4
     )
@@ -2579,8 +2623,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       rng,
       [
         { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
-        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
         { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
+        { topic: 'Seasons', question: 'What season is it?', options: ['spring', 'summer', 'fall', 'winter'] },
+        { topic: 'Trees', question: 'What do trees have?', options: ['leaves', 'branches', 'roots'] },
       ],
       3
     )
@@ -2643,10 +2688,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const words = pickMany(
       rng,
       [
-        { word: 'cat', picture: '🐱' },
-        { word: 'dog', picture: '🐶' },
         { word: 'sun', picture: '☀️' },
         { word: 'car', picture: '🚗' },
+        { word: 'tree', picture: '🌳' },
+        { word: 'flower', picture: '🌸' },
+        { word: 'house', picture: '🏠' },
+        { word: 'ball', picture: '⚽' },
       ],
       4
     )
@@ -2686,10 +2733,12 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     const feelings = pickMany(
       rng,
       [
-        { feeling: 'happy', emoji: '😊', color: 'yellow' },
-        { feeling: 'sad', emoji: '😢', color: 'blue' },
-        { feeling: 'angry', emoji: '😠', color: 'red' },
-        { feeling: 'excited', emoji: '🤩', color: 'orange' },
+        { feeling: 'happy', color: 'yellow', shape: 'sun' },
+        { feeling: 'sad', color: 'blue', shape: 'cloud' },
+        { feeling: 'angry', color: 'red', shape: 'fire' },
+        { feeling: 'excited', color: 'orange', shape: 'star' },
+        { feeling: 'calm', color: 'green', shape: 'leaf' },
+        { feeling: 'worried', color: 'purple', shape: 'circle' },
       ],
       4
     )
@@ -2697,7 +2746,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ul className="space-y-2 text-sm">
         {feelings.map((feeling, idx) => (
           <li key={idx}>
-            <span className="font-semibold capitalize">{feeling.feeling}:</span> {feeling.emoji} - Color: {feeling.color}. Students should identify the feeling and draw a time they felt {feeling.feeling}.
+            <span className="font-semibold capitalize">{feeling.feeling}:</span> Color: {feeling.color} • Shape: {feeling.shape}. Students should identify the feeling and draw a time they felt {feeling.feeling}.
           </li>
         ))}
         <li className="mt-2 text-emerald-800">How I Feel Today: Students can circle any feeling they're experiencing. All feelings are valid. Encourage discussion about emotions.</li>
