@@ -1198,12 +1198,6 @@ export function InteractiveWorksheetsPage() {
                       />
                     )}
                   </div>
-                  
-                  {/* Info Footer */}
-                  <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
-                    <p className="font-semibold mb-2">📄 Print Preview</p>
-                    <p>This is how the worksheet will appear when printed. Scroll down to see the full layout.</p>
-                  </div>
                 </div>
               </div>
             </div>
