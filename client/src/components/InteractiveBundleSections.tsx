@@ -2334,15 +2334,22 @@ const renderers: Record<string, Renderer> = {
   'interactive-math-algebra': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
-      const a = Math.floor(rng() * 10) + 1
-      const b = Math.floor(rng() * 10) + 1
-      const c = Math.floor(rng() * 20) + 1
       const type = pick(rng, ['solve', 'evaluate', 'simplify'])
       if (type === 'solve') {
-        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: (c - b) / a }
+        // Ensure integer solutions: ax + b = c, so x = (c-b)/a must be integer
+        const x = Math.floor(rng() * 10) + 1 // x will be 1-10
+        const a = Math.floor(rng() * 5) + 2 // a will be 2-6
+        const b = Math.floor(rng() * 10) + 1 // b will be 1-10
+        const c = a * x + b // Calculate c to ensure integer solution
+        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: x }
       } else if (type === 'evaluate') {
-        return { type: 'evaluate', expr: `${a}x + ${b}`, x: b, answer: a * b + b }
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 10) + 1
+        const x = Math.floor(rng() * 10) + 1
+        return { type: 'evaluate', expr: `${a}x + ${b}`, x, answer: a * x + b }
       } else {
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 5) + 2
         return { type: 'simplify', expr: `${a}x + ${b}x`, answer: a + b }
       }
     })
@@ -2507,6 +2514,21 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-reading-literary-analysis': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const passages = [
+      {
+        title: 'The Old Lighthouse',
+        text: 'The lighthouse stood tall on the rocky cliff, its beam cutting through the fog like a sword. For fifty years, it had guided ships safely to shore. But tonight, the light was dimming, and the old keeper knew his time was ending. He looked out at the endless ocean, remembering all the lives he had saved, all the storms he had weathered. The lighthouse was more than stone and glass—it was a promise kept, a beacon of hope in the darkness.',
+      },
+      {
+        title: 'The Garden Gate',
+        text: 'Every morning, Maria opened the rusty gate to her grandmother\'s garden. The hinges creaked like an old song, welcoming her to a world of color and life. Sunflowers reached for the sky, roses bloomed in perfect rows, and butterflies danced between the petals. But today, something was different. A single withered rose lay at the gate, its petals brown and curled. Maria knew that change was coming, and the garden would never be the same.',
+      },
+      {
+        title: 'The Last Train',
+        text: 'The station was empty except for Sarah and her suitcase. The last train to the city was leaving in ten minutes, and with it, her childhood. She looked back at the small town where she had grown up—the bakery where she learned to bake, the library where she discovered books, the park where she had her first kiss. The train whistle blew, sharp and clear, calling her forward into the unknown. She took a deep breath and stepped onto the platform, ready to begin.',
+      },
+    ]
+    const passage = pick(rng, passages)
     const elements = pickMany(rng, ['theme', 'symbolism', 'character development', 'author\'s purpose', 'figurative language'], 4)
     return (
       <div className="space-y-3">
@@ -2514,7 +2536,8 @@ const renderers: Record<string, Renderer> = {
           Read the passage and analyze the literary elements below. Provide evidence from the text.
         </p>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 mb-4">
-          <p className="text-xs text-slate-500 italic">[Passage will be provided]</p>
+          <p className="text-sm font-semibold text-slate-900 mb-2">{passage.title}</p>
+          <p className="text-xs text-slate-700 leading-relaxed">{passage.text}</p>
         </div>
         <div className="space-y-3">
           {elements.map((elem, idx) => (
@@ -3495,15 +3518,22 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-math-algebra': ({ doc, seed, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
-      const a = Math.floor(rng() * 10) + 1
-      const b = Math.floor(rng() * 10) + 1
-      const c = Math.floor(rng() * 20) + 1
       const type = pick(rng, ['solve', 'evaluate', 'simplify'])
       if (type === 'solve') {
-        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: (c - b) / a }
+        // Ensure integer solutions: ax + b = c, so x = (c-b)/a must be integer
+        const x = Math.floor(rng() * 10) + 1 // x will be 1-10
+        const a = Math.floor(rng() * 5) + 2 // a will be 2-6
+        const b = Math.floor(rng() * 10) + 1 // b will be 1-10
+        const c = a * x + b // Calculate c to ensure integer solution
+        return { type: 'solve', eq: `${a}x + ${b} = ${c}`, answer: x }
       } else if (type === 'evaluate') {
-        return { type: 'evaluate', expr: `${a}x + ${b}`, x: b, answer: a * b + b }
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 10) + 1
+        const x = Math.floor(rng() * 10) + 1
+        return { type: 'evaluate', expr: `${a}x + ${b}`, x, answer: a * x + b }
       } else {
+        const a = Math.floor(rng() * 5) + 2
+        const b = Math.floor(rng() * 5) + 2
         return { type: 'simplify', expr: `${a}x + ${b}x`, answer: a + b }
       }
     })
@@ -3511,7 +3541,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ol className="list-decimal list-inside space-y-2">
         {problems.map((prob, idx) => (
           <li key={idx}>
-            {prob.type === 'solve' && `${prob.eq} → x = ${prob.answer.toFixed(1)}`}
+            {prob.type === 'solve' && `${prob.eq} → x = ${prob.answer}`}
             {prob.type === 'evaluate' && `${prob.expr} when x = ${prob.x} → ${prob.answer}`}
             {prob.type === 'simplify' && `${prob.expr} → ${prob.answer}x`}
           </li>
