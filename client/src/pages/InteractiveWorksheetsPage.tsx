@@ -2,6 +2,7 @@ import React from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
+import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import {
   Dialog,
   DialogContent,
@@ -949,6 +950,40 @@ export function InteractiveWorksheetsPage() {
                 {loading ? 'Generating…' : `${searchQuery ? filteredItems.length : pack?.items.length || 0}${searchQuery && pack ? ` of ${pack.items.length}` : ''} worksheets ready`}
               </span>
             </div>
+            
+            {/* Search Bar */}
+            {pack && pack.items.length > 0 && (
+              <div className="flex justify-end">
+                <div className="relative w-full max-w-md">
+                  <input
+                    type="text"
+                    placeholder="🔍 Search worksheets..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-full border border-slate-300 bg-white px-4 py-2 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200 shadow-sm"
+                  />
+                  <svg
+                    className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      aria-label="Clear search"
+                    >
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {error && (
               <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -1103,46 +1138,63 @@ export function InteractiveWorksheetsPage() {
       </main>
       <Footer />
       
-      {/* Preview Modal */}
-      <Dialog open={!!previewItem} onOpenChange={(open) => !open && setPreviewItem(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>{previewItem?.title}</DialogTitle>
-            <DialogDescription>
-              {previewItem?.description} • {previewItem?.categoryLabel} • {previewItem?.gradeLabel}
-            </DialogDescription>
-          </DialogHeader>
-          {previewItem && (
-            <div className="mt-4 rounded-xl border border-slate-200 bg-white p-6">
-              <p className="text-sm text-slate-600 mb-4">
-                This is a preview of the worksheet content. The actual worksheet will include interactive exercises and activities.
-              </p>
-              <div className="space-y-3">
-                <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Focus Areas:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {previewItem.focus.map((tag) => (
-                      <span key={tag} className="inline-flex items-center rounded-full bg-purple-100 px-2 py-1 text-xs text-purple-700">
-                        {tag}
-                      </span>
-                    ))}
+      {/* Preview Side Panel */}
+      {previewItem && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={() => setPreviewItem(null)}
+          />
+          
+          {/* Side Panel */}
+          <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="flex h-full flex-col">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-slate-900">{previewItem.title}</h2>
+                  <p className="text-sm text-slate-600 mt-1">
+                    {previewItem.description} • {previewItem.categoryLabel} • {previewItem.gradeLabel}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setPreviewItem(null)}
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto bg-slate-50">
+                <div className="mx-auto max-w-3xl px-6 py-8">
+                  {/* Print Layout Preview */}
+                  <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
+                    {pack && (
+                      <InteractiveBundleSections
+                        docIds={[previewItem.docId]}
+                        seed={pack.seed}
+                        variant={filters.variant}
+                        showAnswers={false}
+                      />
+                    )}
                   </div>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Difficulty:</p>
-                  <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
-                    {previewItem.difficulty}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Preview Hint:</p>
-                  <p className="text-sm text-slate-700">{previewItem.previewHint}</p>
+                  
+                  {/* Info Footer */}
+                  <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+                    <p className="font-semibold mb-2">📄 Print Preview</p>
+                    <p>This is how the worksheet will appear when printed. Scroll down to see the full layout.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          )}
-        </DialogContent>
-      </Dialog>
+          </div>
+        </div>
+      )}
 
       {/* Customization Modal */}
       <Dialog open={showCustomization} onOpenChange={setShowCustomization}>
