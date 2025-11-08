@@ -2866,7 +2866,6 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Look at each picture prompt and write simple sentences or a short story about what you see.</p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.</p>
         <div className="grid gap-4 md:grid-cols-2">
           {prompts.map((prompt, idx) => (
             <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
@@ -3137,7 +3136,6 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Explore the five senses through hands-on activities and observation exercises.</p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.</p>
         <div className="grid gap-3 md:grid-cols-2">
           {senses.map((sense, idx) => (
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
@@ -3209,7 +3207,6 @@ const renderers: Record<string, Renderer> = {
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Learn about different types of animals, their habitats, and characteristics.</p>
-        <p className="text-xs text-emerald-700 bg-emerald-50 p-2 rounded border border-emerald-200">💡 <strong>Note:</strong> When drawing animals, do not include eyes, ears, nose, or mouth.</p>
         <div className="grid gap-4 md:grid-cols-2">
           {animals.map((animal, idx) => (
             <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
