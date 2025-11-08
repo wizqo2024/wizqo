@@ -312,10 +312,10 @@ const renderers: Record<string, Renderer> = {
             </div>
           ))}
         </div>
-        <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
-          <p className="font-semibold">Reflection</p>
-          <p>How many facts did you solve? ______ ? Which strategy helped you most? ____________________</p>
-        </div>
+          <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
+            <p className="font-semibold">Reflection</p>
+            <p>How many facts did you solve? ______ ? Which strategy helped you most? ____________________</p>
+          </div>
       </div>
     )
   },
@@ -383,7 +383,7 @@ const renderers: Record<string, Renderer> = {
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
                 <div className="mt-2 text-xs text-emerald-700">
-                Total: ________ ? Change: ________
+                  Total: ________ ? Change: ________
                 </div>
             </li>
           ))}
