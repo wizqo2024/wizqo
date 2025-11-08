@@ -382,9 +382,9 @@ const renderers: Record<string, Renderer> = {
                 The {prompt.item} costs ${prompt.amount / 100}. Pay using {prompt.coin}. Draw your coins below and write the total.
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
-                <div className="mt-2 text-xs text-emerald-700">
-                  Total: ________ ? Change: ________
-                </div>
+              <div className="mt-2 text-xs text-emerald-700">
+                Total: ________ ? Change: ________
+              </div>
             </li>
           ))}
         </ol>
@@ -792,12 +792,12 @@ const renderers: Record<string, Renderer> = {
     const scenarios = pickMany(
       rng,
       [
-        { description: 'Ice cube melting on a sunny windowsill', answer: 'solid ? liquid' },
-        { description: 'Steam rising from hot cocoa', answer: 'liquid ? gas' },
-        { description: 'Water droplets forming on a cold can', answer: 'gas ? liquid' },
-        { description: 'Chocolate bar in a warm pocket', answer: 'solid ? liquid' },
-        { description: 'Puddle freezing overnight', answer: 'liquid ? solid' },
-        { description: 'Perfume sprayed into the air', answer: 'liquid ? gas' },
+        { description: 'Ice cube melting on a sunny windowsill', answer: 'solid -> liquid' },
+        { description: 'Steam rising from hot cocoa', answer: 'liquid -> gas' },
+        { description: 'Water droplets forming on a cold can', answer: 'gas -> liquid' },
+        { description: 'Chocolate bar in a warm pocket', answer: 'solid -> liquid' },
+        { description: 'Puddle freezing overnight', answer: 'liquid -> solid' },
+        { description: 'Perfume sprayed into the air', answer: 'liquid -> gas' },
       ],
       5
     )
@@ -870,8 +870,18 @@ const renderers: Record<string, Renderer> = {
     const letters = ['A', 'B', 'C', 'D', 'E', 'F']
     const numbers = [1, 2, 3, 4, 5, 6]
     const usedCells = new Set<string>()
-    const coordinates: Array<{ letter: string; number: number; place: string }> = []
-    const places = ['museum', 'fire station', 'library', 'market', 'park', 'bridge', 'sports field', 'hospital']
+    const placeIcons: Record<string, string> = {
+      museum: 'M',
+      'fire station': 'F',
+      library: 'L',
+      market: '$',
+      park: 'P',
+      bridge: 'B',
+      'sports field': 'S',
+      hospital: 'H',
+    }
+    const coordinates: Array<{ letter: string; number: number; place: string; icon: string }> = []
+    const places = Object.keys(placeIcons)
 
     while (coordinates.length < 6) {
       const letter = pick(rng, letters)
@@ -879,10 +889,12 @@ const renderers: Record<string, Renderer> = {
       const key = `${letter}${number}`
       if (usedCells.has(key)) continue
       usedCells.add(key)
+      const place = pick(rng, places)
       coordinates.push({
         letter,
         number,
-        place: pick(rng, places),
+        place,
+        icon: placeIcons[place] || '?',
       })
     }
 
@@ -909,33 +921,86 @@ const renderers: Record<string, Renderer> = {
             ))}
           </tbody>
         </table>
-          <div className="overflow-hidden rounded-2xl border border-slate-300">
-            <table className="w-full border-collapse text-xs">
-              <thead className="bg-slate-100">
-                <tr>
-                  <th className="w-10 border border-slate-200 px-2 py-2" />
-                  {letters.map((letter) => (
-                    <th key={letter} className="border border-slate-200 px-2 py-2 text-center font-semibold">
-                      {letter}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {numbers.map((num) => (
-                  <tr key={num}>
-                    <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
-                      {num}
-                    </th>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Example map</p>
+            <div className="overflow-hidden rounded-2xl border border-slate-300">
+              <table className="w-full border-collapse text-xs">
+                <thead className="bg-slate-100">
+                  <tr>
+                    <th className="w-10 border border-slate-200 px-2 py-2" />
                     {letters.map((letter) => (
-                      <td key={`${letter}${num}`} className="h-12 border border-slate-200" />
+                      <th
+                        key={`ex-head-${letter}`}
+                        className="border border-slate-200 px-2 py-2 text-center font-semibold"
+                      >
+                        {letter}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {numbers.map((num) => (
+                    <tr key={`ex-row-${num}`}>
+                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
+                        {num}
+                      </th>
+                      {letters.map((letter) => {
+                        const match = coordinates.find(
+                          (coord) => coord.letter === letter && coord.number === num
+                        )
+                        return (
+                          <td
+                            key={`ex-cell-${letter}${num}`}
+                            className="h-10 border border-slate-200 text-center align-middle text-lg"
+                          >
+                            {match ? <span aria-label={match.place}>{match.icon}</span> : ''}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Use this sample to double-check coordinates and landmarks.
+            </p>
           </div>
-          <p className="text-xs text-slate-500">Use the grid to draw landmarks and label each coordinate.</p>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Your map grid</p>
+            <div className="overflow-hidden rounded-2xl border border-slate-300">
+              <table className="w-full border-collapse text-xs">
+                <thead className="bg-slate-100">
+                  <tr>
+                    <th className="w-10 border border-slate-200 px-2 py-2" />
+                    {letters.map((letter) => (
+                      <th
+                        key={`student-head-${letter}`}
+                        className="border border-slate-200 px-2 py-2 text-center font-semibold"
+                      >
+                        {letter}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {numbers.map((num) => (
+                    <tr key={`student-row-${num}`}>
+                      <th className="border border-slate-200 px-2 py-2 text-center font-semibold bg-slate-50">
+                        {num}
+                      </th>
+                      {letters.map((letter) => (
+                        <td key={`student-cell-${letter}${num}`} className="h-10 border border-slate-200" />
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">Draw landmarks, create a legend, and label each coordinate.</p>
+          </div>
+        </div>
       </div>
     )
   },
@@ -1018,7 +1083,7 @@ const renderers: Record<string, Renderer> = {
           {sentences.map((sentence, idx) => (
             <li key={idx} className="rounded border border-slate-200 bg-white px-4 py-3">
               {sentence}
-                <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
+              <div className="mt-1 text-xs text-slate-500">Label: __________ ? Extra word: __________</div>
             </li>
           ))}
         </ul>
@@ -1221,10 +1286,13 @@ const renderers: Record<string, Renderer> = {
               <p className="font-semibold text-emerald-800">Count {row.count} {row.objects}</p>
               <div className="mt-2 grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
-                  <div key={boxIdx} className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`} />
+                  <div
+                    key={boxIdx}
+                    className={`h-8 border ${boxIdx < row.count ? 'bg-emerald-200 border-emerald-400' : 'border-emerald-200'}`}
+                  />
                 ))}
               </div>
-                <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
+              <p className="mt-2 text-xs text-emerald-700">Number: ______ ? Word: __________________</p>
             </div>
           ))}
         </div>
@@ -1514,7 +1582,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           const info = SHAPE_INFO[row.shape] ?? { kind: 'flat', sidesLabel: '' }
           return (
             <li key={idx}>
-              <span className="font-semibold capitalize">{row.shape}</span> ? {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
+                <span className="font-semibold capitalize">{row.shape}</span> ? {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
             </li>
           )
         })}
