@@ -1458,7 +1458,7 @@ export function InteractiveWorksheetsPage() {
             </div>
             <div className="rounded-xl bg-purple-50 p-4 text-sm text-purple-800">
               <p className="font-semibold mb-1">💡 Tip:</p>
-              <p>Customization data is saved locally and will be included in your PDF download URL. You can add up to 30 student names.</p>
+              <p>Your customization will be included in your PDF download URL. You can add up to 30 student names.</p>
             </div>
           </div>
         </DialogContent>
