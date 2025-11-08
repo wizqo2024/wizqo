@@ -1796,32 +1796,59 @@ const renderers: Record<string, Renderer> = {
     const stories = pickMany(
       rng,
       [
-        { title: 'The Happy Cat', images: ['cat', 'sun', 'ball'], questions: ['Is the cat happy?', 'What color is the sun?'] },
-        { title: 'A Big Dog', images: ['dog', 'bone', 'house'], questions: ['Is the dog big?', 'What does the dog have?'] },
-        { title: 'The Red Car', images: ['car', 'road', 'tree'], questions: ['What color is the car?', 'Where is the car?'] },
+        { 
+          title: 'The Red Car', 
+          images: [
+            { name: 'car', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="10" y="25" width="60" height="25" rx="3" fill="none" stroke="#333" strokeWidth="2"/><rect x="15" y="15" width="50" height="15" rx="2" fill="none" stroke="#333" strokeWidth="2"/><circle cx="20" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/><circle cx="60" cy="50" r="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { name: 'road', svg: <svg width="80" height="60" viewBox="0 0 80 60"><rect x="0" y="25" width="80" height="10" fill="none" stroke="#333" strokeWidth="2"/><line x1="10" y1="30" x2="20" y2="30" stroke="#333" strokeWidth="1"/><line x1="30" y1="30" x2="40" y2="30" stroke="#333" strokeWidth="1"/><line x1="50" y1="30" x2="60" y2="30" stroke="#333" strokeWidth="1"/><line x1="70" y1="30" x2="80" y2="30" stroke="#333" strokeWidth="1"/></svg> },
+            { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> }
+          ], 
+          questions: ['What color is the car?', 'Where is the car?'] 
+        },
+        { 
+          title: 'The Sunny Day', 
+          images: [
+            { name: 'sun', svg: <svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="20" fill="none" stroke="#333" strokeWidth="2"/><line x1="35" y1="5" x2="35" y2="15" stroke="#333" strokeWidth="2"/><line x1="35" y1="55" x2="35" y2="65" stroke="#333" strokeWidth="2"/><line x1="5" y1="35" x2="15" y2="35" stroke="#333" strokeWidth="2"/><line x1="55" y1="35" x2="65" y2="35" stroke="#333" strokeWidth="2"/><line x1="12" y1="12" x2="18" y2="18" stroke="#333" strokeWidth="2"/><line x1="52" y1="52" x2="58" y2="58" stroke="#333" strokeWidth="2"/><line x1="52" y1="12" x2="58" y2="18" stroke="#333" strokeWidth="2"/><line x1="12" y1="52" x2="18" y2="58" stroke="#333" strokeWidth="2"/></svg> },
+            { name: 'flower', svg: <svg width="60" height="70" viewBox="0 0 60 70"><line x1="30" y1="50" x2="30" y2="70" stroke="#333" strokeWidth="2"/><circle cx="30" cy="30" r="12" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="15" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="45" rx="8" ry="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="15" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="45" cy="30" rx="10" ry="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { name: 'ball', svg: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#333" strokeWidth="2"/><path d="M 30 5 Q 15 15, 5 30 Q 15 45, 30 55 Q 45 45, 55 30 Q 45 15, 30 5" fill="none" stroke="#333" strokeWidth="1.5"/></svg> }
+          ], 
+          questions: ['Is it sunny?', 'What do you see?'] 
+        },
+        { 
+          title: 'The Big Tree', 
+          images: [
+            { name: 'tree', svg: <svg width="60" height="80" viewBox="0 0 60 80"><rect x="25" y="50" width="10" height="30" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="30" cy="40" rx="20" ry="25" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { name: 'house', svg: <svg width="70" height="70" viewBox="0 0 70 70"><rect x="15" y="35" width="40" height="35" fill="none" stroke="#333" strokeWidth="2"/><polygon points="15,35 35,15 55,35" fill="none" stroke="#333" strokeWidth="2"/><rect x="25" y="45" width="12" height="20" fill="none" stroke="#333" strokeWidth="2"/><rect x="42" y="50" width="8" height="8" fill="none" stroke="#333" strokeWidth="2"/></svg> },
+            { name: 'flower', svg: <svg width="50" height="60" viewBox="0 0 50 60"><line x1="25" y1="40" x2="25" y2="60" stroke="#333" strokeWidth="2"/><circle cx="25" cy="25" r="10" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="12" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="25" cy="38" rx="6" ry="8" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="12" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/><ellipse cx="38" cy="25" rx="8" ry="6" fill="none" stroke="#333" strokeWidth="2"/></svg> }
+          ], 
+          questions: ['Is the tree big?', 'What is near the tree?'] 
+        },
       ],
       3
     )
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <p className="text-sm text-slate-600">
           Look at the pictures and answer yes/no questions about the story.
         </p>
         {stories.map((story, idx) => (
           <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
-            <p className="text-sm font-semibold text-rose-700">{story.title}</p>
-            <div className="mt-2 flex gap-2">
+            <p className="text-sm font-semibold text-rose-700 mb-3">{story.title}</p>
+            <div className="mt-2 flex gap-3 justify-center flex-wrap">
               {story.images.map((img, imgIdx) => (
-                <div key={imgIdx} className="h-16 w-16 rounded border border-rose-300 bg-white">
-                  <p className="text-center text-xs text-rose-600">{img}</p>
+                <div key={imgIdx} className="flex flex-col items-center">
+                  <div className="h-20 w-20 rounded border-2 border-rose-300 bg-white flex items-center justify-center p-2">
+                    {img.svg}
+                  </div>
+                  <p className="text-xs text-rose-600 mt-1 capitalize">{img.name}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-3 space-y-1">
+            <div className="mt-4 space-y-2">
               {story.questions.map((q, qIdx) => (
-                <p key={qIdx} className="text-xs text-rose-700">
-                  {q} <span className="text-rose-500">Yes / No</span>
-                </p>
+                <div key={qIdx} className="text-xs text-rose-700">
+                  {q} <span className="text-rose-500 font-semibold">Yes / No</span>
+                </div>
               ))}
             </div>
           </div>
