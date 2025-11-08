@@ -251,7 +251,7 @@ const renderers: Record<string, Renderer> = {
         </div>
         <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
           <p className="font-semibold">Reflection</p>
-          <p>How many facts did you solve? ______ • Which strategy helped you most? ____________________</p>
+          <p>How many facts did you solve? ______ ? Which strategy helped you most? ____________________</p>
         </div>
       </div>
     )
@@ -320,7 +320,7 @@ const renderers: Record<string, Renderer> = {
               </p>
               <div className="mt-2 h-16 rounded border border-dashed border-emerald-300 bg-white" />
                 <div className="mt-2 text-xs text-emerald-700">
-                Total: ________ • Change: ________
+                Total: ________ ? Change: ________
                 </div>
             </li>
           ))}
@@ -1132,7 +1132,14 @@ const renderers: Record<string, Renderer> = {
   'interactive-early-patterns': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['AB', 'AAB', 'ABC', 'ABB', 'AABB'], 4)
-    const symbols = ['??', '??', '??', '?', '??', '?']
+    const symbols = [
+      { glyph: '??', label: 'blue diamond' },
+      { glyph: '??', label: 'red circle' },
+      { glyph: '??', label: 'yellow square' },
+      { glyph: '??', label: 'green circle' },
+      { glyph: '?', label: 'yellow star' },
+      { glyph: '??', label: 'pink heart' },
+    ]
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1143,12 +1150,23 @@ const renderers: Record<string, Renderer> = {
             const first = pick(rng, symbols)
             const second = pick(rng, symbols.filter((s) => s !== first))
             const third = pick(rng, symbols.filter((s) => s !== first && s !== second))
-            const patternSymbols = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
+            const preview = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
+            const joinWithSpaces = preview.map((entry) => entry.glyph).join('   ')
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
                 <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
-                <p className="mt-2 text-2xl">{patternSymbols.join(' ')} ?</p>
+                <div className="mt-2 text-2xl font-semibold tracking-wide text-slate-900">
+                  <span>{joinWithSpaces}</span>
+                  <span className="text-slate-400">   ?</span>
+                </div>
                 <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
+                <p className="mt-2 text-xs text-slate-500">
+                  Try building your own using:{' '}
+                  <span className="font-medium text-slate-700">
+                    {first.label}, {second.label}
+                    {preview.length > 2 ? `, ${third.label}` : ''}
+                  </span>
+                </p>
               </div>
             )
           })}
@@ -1390,7 +1408,7 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           const info = SHAPE_INFO[row.shape] ?? { kind: 'flat', sidesLabel: '' }
           return (
             <li key={idx}>
-              <span className="font-semibold capitalize">{row.shape}</span> — {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
+              <span className="font-semibold capitalize">{row.shape}</span> ? {info.kind === 'flat' ? 'Flat shape' : 'Solid shape'}; {info.sidesLabel}
             </li>
           )
         })}
@@ -1490,7 +1508,7 @@ function InteractiveWorksheetSection({
           <h2 className="text-lg font-semibold text-slate-900">{category.icon} {doc.title}</h2>
         </div>
         <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
-          {doc.difficulty} • {doc.grades.map((grade) => grade.toUpperCase()).join(' / ')}
+          {doc.difficulty} ? {doc.grades.map((grade) => grade.toUpperCase()).join(' / ')}
         </span>
       </header>
       <p className="mb-4 text-sm text-slate-600">{doc.description}</p>
