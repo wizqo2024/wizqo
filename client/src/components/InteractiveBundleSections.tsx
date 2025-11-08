@@ -1307,13 +1307,89 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-design': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringPages = pickMany(rng, [
-      { title: 'Geometric Star', emoji: '⭐', description: 'Color the star pattern with your favorite colors!' },
-      { title: 'Flower Pattern', emoji: '🌸', description: 'Color the flower petals: pink, yellow, and purple' },
-      { title: 'Rainbow Pattern', emoji: '🌈', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
-      { title: 'Heart Design', emoji: '❤️', description: 'Color the hearts red and pink' },
-      { title: 'Circle Mandala', emoji: '⭕', description: 'Color the circles with different colors' },
-      { title: 'Leaf Pattern', emoji: '🍃', description: 'Color the leaves green' },
+      { title: 'Geometric Star', shape: 'star', description: 'Color the star pattern with your favorite colors!' },
+      { title: 'Flower Pattern', shape: 'flower', description: 'Color the flower petals: pink, yellow, and purple' },
+      { title: 'Rainbow Pattern', shape: 'rainbow', description: 'Color each stripe: red, orange, yellow, green, blue, purple' },
+      { title: 'Heart Design', shape: 'heart', description: 'Color the hearts red and pink' },
+      { title: 'Circle Mandala', shape: 'mandala', description: 'Color the circles with different colors' },
+      { title: 'Leaf Pattern', shape: 'leaf', description: 'Color the leaves green' },
     ], 4)
+    
+    const ShapeSVG = ({ shape }: { shape: string }) => {
+      const size = 120
+      if (shape === 'star') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <polygon points="60,10 70,45 110,45 78,68 88,105 60,80 32,105 42,68 10,45 50,45" 
+              fill="none" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      if (shape === 'flower') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <circle cx="60" cy="60" r="25" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="60" cy="30" rx="15" ry="20" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="60" cy="90" rx="15" ry="20" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="30" cy="60" rx="20" ry="15" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="90" cy="60" rx="20" ry="15" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="40" cy="40" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="80" cy="40" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="40" cy="80" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="80" cy="80" rx="12" ry="18" fill="none" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      if (shape === 'rainbow') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <path d="M 20 80 Q 60 20, 100 80" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 25 75 Q 60 25, 95 75" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 30 70 Q 60 30, 90 70" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 35 65 Q 60 35, 85 65" fill="none" stroke="#333" strokeWidth="3" />
+            <path d="M 40 60 Q 60 40, 80 60" fill="none" stroke="#333" strokeWidth="3" />
+          </svg>
+        )
+      }
+      if (shape === 'heart') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <path d="M 60 100 C 60 100, 20 70, 20 50 C 20 35, 35 30, 50 40 C 55 25, 70 20, 80 30 C 95 20, 100 35, 100 50 C 100 70, 60 100, 60 100 Z" 
+              fill="none" stroke="#333" strokeWidth="2" />
+            <path d="M 40 50 C 40 50, 50 45, 55 50 C 60 45, 70 50, 70 50" 
+              fill="none" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      if (shape === 'mandala') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#333" strokeWidth="2" />
+            <circle cx="60" cy="60" r="40" fill="none" stroke="#333" strokeWidth="2" />
+            <circle cx="60" cy="60" r="30" fill="none" stroke="#333" strokeWidth="2" />
+            <circle cx="60" cy="60" r="20" fill="none" stroke="#333" strokeWidth="2" />
+            <circle cx="60" cy="60" r="10" fill="none" stroke="#333" strokeWidth="2" />
+            <line x1="60" y1="10" x2="60" y2="110" stroke="#333" strokeWidth="2" />
+            <line x1="10" y1="60" x2="110" y2="60" stroke="#333" strokeWidth="2" />
+            <line x1="20" y1="20" x2="100" y2="100" stroke="#333" strokeWidth="2" />
+            <line x1="100" y1="20" x2="20" y2="100" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      if (shape === 'leaf') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 120 120" className="mx-auto">
+            <path d="M 60 20 Q 40 40, 30 60 Q 20 80, 40 100 Q 60 90, 60 100 Q 60 90, 80 100 Q 100 80, 90 60 Q 80 40, 60 20 Z" 
+              fill="none" stroke="#333" strokeWidth="2" />
+            <line x1="60" y1="20" x2="60" y2="100" stroke="#333" strokeWidth="2" />
+            <path d="M 50 50 Q 45 55, 50 60" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 70 50 Q 75 55, 70 60" fill="none" stroke="#333" strokeWidth="1.5" />
+          </svg>
+        )
+      }
+      return null
+    }
+    
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
@@ -1322,13 +1398,12 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           {coloringPages.map((page, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-lg mb-1">{page.emoji}</p>
-              <p className="text-sm font-semibold text-slate-700">{page.title}</p>
-              <p className="text-xs text-slate-600 mb-2">{page.description}</p>
-              <div className="mt-3 h-32 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
-                <span className="text-4xl text-slate-300">{page.emoji}</span>
+              <p className="text-sm font-semibold text-slate-700 mb-1">{page.title}</p>
+              <p className="text-xs text-slate-600 mb-3">{page.description}</p>
+              <div className="mt-3 h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
+                <ShapeSVG shape={page.shape} />
               </div>
-              <p className="mt-2 text-xs text-purple-600">Color here!</p>
+              <p className="mt-2 text-xs text-purple-600 text-center">Color inside the shape!</p>
             </div>
           ))}
         </div>
@@ -1338,28 +1413,67 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-colorwheel': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const coloringActivities = pickMany(rng, [
-      { item: 'Apple', color: 'red', emoji: '🍎' },
-      { item: 'Sun', color: 'yellow', emoji: '☀️' },
-      { item: 'Leaf', color: 'green', emoji: '🍃' },
-      { item: 'Sky', color: 'blue', emoji: '☁️' },
-      { item: 'Flower', color: 'purple', emoji: '🌺' },
-      { item: 'Orange Fruit', color: 'orange', emoji: '🍊' },
+      { item: 'Apple', color: 'red', shape: 'circle' },
+      { item: 'Sun', color: 'yellow', shape: 'circle' },
+      { item: 'Leaf', color: 'green', shape: 'leaf' },
+      { item: 'Sky', color: 'blue', shape: 'rectangle' },
+      { item: 'Flower', color: 'purple', shape: 'flower' },
+      { item: 'Orange Fruit', color: 'orange', shape: 'circle' },
     ], 6)
+    
+    const ColorShapeSVG = ({ shape, color }: { shape: string; color: string }) => {
+      const size = 100
+      if (shape === 'circle') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#333" strokeWidth="3" />
+          </svg>
+        )
+      }
+      if (shape === 'rectangle') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
+            <rect x="10" y="10" width="80" height="80" rx="5" fill="none" stroke="#333" strokeWidth="3" />
+          </svg>
+        )
+      }
+      if (shape === 'leaf') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
+            <path d="M 50 10 Q 30 30, 20 50 Q 10 70, 30 85 Q 50 80, 50 90 Q 50 80, 70 85 Q 90 70, 80 50 Q 70 30, 50 10 Z" 
+              fill="none" stroke="#333" strokeWidth="3" />
+            <line x1="50" y1="10" x2="50" y2="90" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      if (shape === 'flower') {
+        return (
+          <svg width={size} height={size} viewBox="0 0 100 100" className="mx-auto">
+            <circle cx="50" cy="50" r="20" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="50" cy="25" rx="12" ry="15" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="50" cy="75" rx="12" ry="15" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="25" cy="50" rx="15" ry="12" fill="none" stroke="#333" strokeWidth="2" />
+            <ellipse cx="75" cy="50" rx="15" ry="12" fill="none" stroke="#333" strokeWidth="2" />
+          </svg>
+        )
+      }
+      return null
+    }
+    
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Color each picture with the correct color! Practice your colors.
+          Color each shape with the correct color! Practice your colors.
         </p>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
           {coloringActivities.map((activity, idx) => (
             <div key={idx} className="rounded-xl border-2 border-slate-200 bg-white p-4 text-center">
-              <div className="text-4xl mb-2">{activity.emoji}</div>
-              <p className="text-sm font-semibold text-slate-700 capitalize">{activity.item}</p>
+              <p className="text-sm font-semibold text-slate-700 capitalize mb-1">{activity.item}</p>
               <p className="text-xs text-slate-600 mb-2">Color: <span className="font-semibold capitalize" style={{ color: activity.color }}>{activity.color}</span></p>
-              <div className="h-20 rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center">
-                <span className="text-3xl text-slate-200">{activity.emoji}</span>
+              <div className="h-28 rounded border-2 border-dashed border-slate-300 bg-white flex items-center justify-center my-2">
+                <ColorShapeSVG shape={activity.shape} color={activity.color} />
               </div>
-              <p className="mt-1 text-xs text-slate-500">Color here!</p>
+              <p className="text-xs text-slate-500">Color inside the shape!</p>
             </div>
           ))}
         </div>
