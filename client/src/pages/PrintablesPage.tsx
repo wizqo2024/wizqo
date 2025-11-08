@@ -586,7 +586,7 @@ export function PrintablesPage() {
     <div className="min-h-screen bg-white">
       <style>{`
         @media print {
-          @page { margin: 0; }
+          @page { margin: 0.5in 0.5in 0.75in 0.5in; }
           html, body { margin: 0 !important; padding: 0 !important; }
           /* Print-only name/date footer overlay (does not affect layout) */
           .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
@@ -595,9 +595,17 @@ export function PrintablesPage() {
           /* Customization header at top of page */
           .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
+          /* Ensure content starts below header */
+          .print-content-start { margin-top: 0.5in !important; }
+          /* Better spacing for print */
+          section { margin-bottom: 1rem !important; page-break-inside: avoid; }
+          .break-inside-avoid { page-break-inside: avoid !important; break-inside: avoid !important; }
+          /* Prevent text merging */
+          p, div, span { line-height: 1.5 !important; }
+          h1, h2, h3 { page-break-after: avoid !important; margin-bottom: 0.5rem !important; }
         }
       `}</style>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:pt-12 print-content-start">
         {/* Print-only Name/Date footer (overlay) */}
         <div className="hidden print:block print-name-date" aria-hidden>
           <div>
