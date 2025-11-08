@@ -586,11 +586,27 @@ export function PrintablesPage() {
     <div className="min-h-screen bg-white">
       <style>{`
         @media print {
-          @page { margin: 0.5in 0.5in 0.75in 0.5in; }
+          @page { 
+            margin: 0.5in 0.5in 0.75in 0.5in;
+          }
+          /* Remove browser-generated headers and footers */
+          @page :first {
+            margin-top: 0.5in;
+          }
+          @page :left {
+            margin-left: 0.5in;
+            margin-right: 0.5in;
+          }
+          @page :right {
+            margin-left: 0.5in;
+            margin-right: 0.5in;
+          }
           html, body { margin: 0 !important; padding: 0 !important; }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
+          /* Hide any browser-generated content */
+          body::before, body::after { display: none !important; content: none !important; }
           /* Customization header at top of page */
           .print-customization-header { position: fixed; top: 0.25in; left: 0.5in; right: 0.5in; font-size: 11px; color: #1e293b; z-index: 9998; pointer-events: none; line-height: 1.4; font-weight: 500; }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
