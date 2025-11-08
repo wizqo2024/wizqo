@@ -2272,7 +2272,23 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
             </div>
           </div>
         )}
-      </div>
+        </div>
+
+        {showBackToTop && (
+          <button
+            onClick={() => {
+              try {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } catch {}
+            }}
+            aria-label="Scroll up"
+            title="Scroll up"
+            className="fixed bottom-6 left-6 z-40 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"
+          >
+            <span aria-hidden>↑</span>
+            <span className="text-sm">Scroll up</span>
+          </button>
+        )}
 
       <Footer />
     </div>
