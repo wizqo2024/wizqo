@@ -220,6 +220,10 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '📝 Summary & Main Idea'
     case 'interactive-reading-compare':
       return '⚖️ Compare & Contrast Passages'
+    case 'interactive-reading-prek':
+      return '📖 Picture Story Time'
+    case 'interactive-reading-storymap':
+      return '🗺️ Story Map Builders'
     // Interactive Worksheets - Writing
     case 'interactive-writing-prompts':
       return '✍️ Creative Writing Prompts'
@@ -229,6 +233,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🎭 Poetry Writing Practice'
     case 'interactive-writing-opinion':
       return '💬 Opinion Writing Framework'
+    case 'interactive-writing-prek':
+      return '✏️ Drawing & Labeling'
     // Interactive Worksheets - Science
     case 'interactive-science-observation':
       return '🔬 Science Observation Journal'
@@ -238,6 +244,10 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '⚗️ States of Matter Lab'
     case 'interactive-science-weather':
       return '🌦️ Weather Watcher Journal'
+    case 'interactive-science-prek':
+      return '🌱 Nature Explorer'
+    case 'interactive-science-space':
+      return '🚀 Space & Astronomy Explorer'
     // Interactive Worksheets - Geography
     case 'interactive-geography-map':
       return '🗺️ Interactive Map Skills'
@@ -245,6 +255,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🌍 Culture Explorer'
     case 'interactive-geography-history':
       return '📅 Historical Timeline Builder'
+    case 'interactive-geography-prek':
+      return '🏘️ My Community Explorer'
     // Interactive Worksheets - Grammar
     case 'interactive-grammar-parts':
       return '📖 Parts of Speech Practice'
@@ -252,6 +264,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '⏰ Verb Tense Mastery'
     case 'interactive-grammar-antonyms':
       return '🔤 Synonyms & Antonyms Challenge'
+    case 'interactive-grammar-prek':
+      return '🔤 Word & Picture Match'
     // Interactive Worksheets - Art
     case 'interactive-art-design':
       return '🎨 Creative Design Challenge'
@@ -266,6 +280,16 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🔢 Counting & Number Recognition'
     case 'interactive-early-patterns':
       return '🔄 Pattern Recognition Explorer'
+    case 'interactive-early-shapes':
+      return '◻️ Shape & Color Explorer'
+    case 'interactive-early-letters':
+      return '✍️ Letter Formation Practice'
+    case 'interactive-early-numbers':
+      return '🔢 Number Writing & Recognition'
+    case 'interactive-early-foundations':
+      return '📚 Foundational Skills Review'
+    case 'interactive-early-basics':
+      return '🌟 Basic Skills Practice'
     // Interactive Worksheets - Logic
     case 'interactive-logic-sequence':
       return '📊 Sequencing Challenge'
@@ -273,6 +297,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🧩 Brain Teaser Riddles'
     case 'interactive-logic-deduction':
       return '🔍 Deductive Reasoning Quest'
+    case 'interactive-logic-prek':
+      return '🧩 Simple Patterns & Sorting'
     // Interactive Worksheets - SEL
     case 'interactive-sel-mindfulness':
       return '🧘 Mindfulness & Reflection'
@@ -280,6 +306,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '❤️ Empathy Builder'
     case 'interactive-sel-goals':
       return '🎯 Goal Setting & Growth'
+    case 'interactive-sel-prek':
+      return '😊 Feelings & Emotions Explorer'
     default:
       return 'Printable Fun Learning Activities'
   }
