@@ -1473,6 +1473,474 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-early-shapes': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
+    const colors = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Identify each shape, color it, then sort shapes by type and color.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {shapes.map((shape, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <p className="text-sm font-semibold text-purple-700">Shape {idx + 1}: {shape}</p>
+              <div className="mt-2 h-20 rounded border border-dashed border-purple-300 bg-white" />
+              <p className="mt-2 text-xs text-purple-600">Color: {colors[idx]}</p>
+              <p className="mt-1 text-xs text-purple-600">Draw 2 more {shape}s below:</p>
+              <div className="mt-1 flex gap-2">
+                <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
+                <div className="h-12 w-12 rounded border border-dashed border-purple-300" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50 p-4">
+          <p className="text-sm font-semibold text-purple-700">Sorting Activity</p>
+          <p className="mt-2 text-xs text-purple-600">Sort by shape: ________________________________</p>
+          <p className="mt-1 text-xs text-purple-600">Sort by color: ________________________________</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-letters': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Trace each letter, then write it 3 times. Draw a picture that starts with that letter.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {letters.map((letter) => (
+            <div key={letter} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <p className="text-lg font-semibold text-blue-700">{letter} / {letter.toLowerCase()}</p>
+              <div className="mt-2 grid grid-cols-3 gap-2">
+                <div className="flex flex-col">
+                  <p className="text-xs text-blue-500">Trace</p>
+                  <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-blue-500">Write</p>
+                  <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-blue-500">Draw</p>
+                  <div className="mt-1 h-16 rounded border border-dashed border-blue-300 bg-white" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-numbers': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const numbers = pickMany(rng, Array.from({ length: 20 }, (_, i) => i + 1), 4)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Trace each number, write it, then draw that many objects.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {numbers.map((num) => (
+            <div key={num} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <p className="text-lg font-semibold text-emerald-700">Number: {num}</p>
+              <div className="mt-2 grid grid-cols-3 gap-2">
+                <div className="flex flex-col">
+                  <p className="text-xs text-emerald-500">Trace</p>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white text-center text-lg font-bold text-emerald-700">{num}</div>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-emerald-500">Write</p>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-xs text-emerald-500">Draw {num}</p>
+                  <div className="mt-1 h-12 rounded border border-dashed border-emerald-300 bg-white" />
+                </div>
+              </div>
+              <p className="mt-2 text-xs text-emerald-600">Number word: {numberWords[num - 1] || num}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-foundations': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const activities = [
+      { type: 'letter', items: pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], 4) },
+      { type: 'number', items: pickMany(rng, Array.from({ length: 10 }, (_, i) => i + 1), 4) },
+      { type: 'shape', items: pickMany(rng, ['circle', 'square', 'triangle', 'star'], 4) },
+    ]
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Review basic skills: identify letters, numbers, and shapes. Perfect for remediation or review.
+        </p>
+        {activities.map((activity, actIdx) => (
+          <div key={actIdx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-sm font-semibold text-amber-700">Review: {activity.type}s</p>
+            <div className="mt-2 flex flex-wrap gap-3">
+              {activity.items.map((item, idx) => (
+                <div key={idx} className="rounded border border-amber-300 bg-white px-4 py-2 text-center">
+                  <p className="font-semibold text-amber-800">{item}</p>
+                  <p className="mt-1 text-xs text-amber-600">Identify: ______</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+          <p className="text-sm font-semibold text-amber-700">Practice Writing</p>
+          <p className="mt-2 text-xs text-amber-600">Write your name: ________________________</p>
+          <p className="mt-1 text-xs text-amber-600">Count to 10: ________________________________</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-early-basics': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const skills = [
+      { skill: 'Letter Sounds', examples: pickMany(rng, ['A says /a/', 'B says /b/', 'C says /c/', 'D says /d/'], 3) },
+      { skill: 'Counting', examples: pickMany(rng, ['Count 1-5', 'Count 5-10', 'Count objects'], 3) },
+      { skill: 'Patterns', examples: pickMany(rng, ['AB pattern', 'ABC pattern', 'Color patterns'], 3) },
+    ]
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Essential early learning skills review. Practice letter sounds, counting, and basic patterns.
+        </p>
+        {skills.map((skillGroup, idx) => (
+          <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+            <p className="text-sm font-semibold text-indigo-700">{skillGroup.skill}</p>
+            <div className="mt-2 space-y-2">
+              {skillGroup.examples.map((example, exIdx) => (
+                <div key={exIdx} className="rounded border border-indigo-300 bg-white px-3 py-2">
+                  <p className="text-xs text-indigo-800">{example}</p>
+                  <div className="mt-1 h-8 rounded border border-dashed border-indigo-300" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  'interactive-reading-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const stories = pickMany(
+      rng,
+      [
+        { title: 'The Happy Cat', images: ['cat', 'sun', 'ball'], questions: ['Is the cat happy?', 'What color is the sun?'] },
+        { title: 'A Big Dog', images: ['dog', 'bone', 'house'], questions: ['Is the dog big?', 'What does the dog have?'] },
+        { title: 'The Red Car', images: ['car', 'road', 'tree'], questions: ['What color is the car?', 'Where is the car?'] },
+      ],
+      3
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Look at the pictures and answer yes/no questions about the story.
+        </p>
+        {stories.map((story, idx) => (
+          <div key={idx} className="rounded-xl border border-rose-200 bg-rose-50 p-4">
+            <p className="text-sm font-semibold text-rose-700">{story.title}</p>
+            <div className="mt-2 flex gap-2">
+              {story.images.map((img, imgIdx) => (
+                <div key={imgIdx} className="h-16 w-16 rounded border border-rose-300 bg-white">
+                  <p className="text-center text-xs text-rose-600">{img}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 space-y-1">
+              {story.questions.map((q, qIdx) => (
+                <p key={qIdx} className="text-xs text-rose-700">
+                  {q} <span className="text-rose-500">Yes / No</span>
+                </p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  'interactive-writing-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const prompts = pickMany(
+      rng,
+      [
+        { word: 'cat', picture: 'Draw a cat' },
+        { word: 'dog', picture: 'Draw a dog' },
+        { word: 'sun', picture: 'Draw the sun' },
+        { word: 'car', picture: 'Draw a car' },
+      ],
+      4
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Draw a picture and label it with the word. Perfect for early writers.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {prompts.map((prompt, idx) => (
+            <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
+              <p className="text-sm font-semibold text-green-700">Word: {prompt.word}</p>
+              <div className="mt-2">
+                <p className="text-xs text-green-600">{prompt.picture}</p>
+                <div className="mt-1 h-24 rounded border border-dashed border-green-300 bg-white" />
+              </div>
+              <p className="mt-2 text-xs text-green-600">Label: <span className="font-semibold">{prompt.word}</span></p>
+              <div className="mt-1 h-8 rounded border border-dashed border-green-300 bg-white" />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-science-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const observations = pickMany(
+      rng,
+      [
+        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
+        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
+        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
+      ],
+      3
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Simple nature observation activities with pictures and basic questions.
+        </p>
+        {observations.map((obs, idx) => (
+          <div key={idx} className="rounded-xl border border-teal-200 bg-teal-50 p-4">
+            <p className="text-sm font-semibold text-teal-700">{obs.topic}</p>
+            <div className="mt-2 h-20 rounded border border-teal-300 bg-white">
+              <p className="p-2 text-xs text-teal-600">Draw or paste a picture</p>
+            </div>
+            <p className="mt-2 text-xs text-teal-700">{obs.question}</p>
+            <div className="mt-1 flex flex-wrap gap-2">
+              {obs.options.map((opt, optIdx) => (
+                <span key={optIdx} className="rounded border border-teal-300 bg-white px-2 py-1 text-xs text-teal-700">
+                  {opt}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  'interactive-science-space': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const planets = pickMany(
+      rng,
+      [
+        { name: 'Mercury', fact: 'Closest to the sun', distance: '36 million miles' },
+        { name: 'Venus', fact: 'Hottest planet', distance: '67 million miles' },
+        { name: 'Mars', fact: 'The red planet', distance: '142 million miles' },
+        { name: 'Jupiter', fact: 'Largest planet', distance: '484 million miles' },
+      ],
+      4
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Learn about planets, stars, and space phenomena with interactive activities.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {planets.map((planet, idx) => (
+            <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+              <p className="text-sm font-semibold text-indigo-700">{planet.name}</p>
+              <div className="mt-2 h-16 rounded border border-indigo-300 bg-white">
+                <p className="p-2 text-xs text-indigo-600">Draw {planet.name}</p>
+              </div>
+              <p className="mt-2 text-xs text-indigo-700">Fact: {planet.fact}</p>
+              <p className="mt-1 text-xs text-indigo-600">Distance from sun: {planet.distance}</p>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+          <p className="text-sm font-semibold text-indigo-700">Space Questions</p>
+          <p className="mt-2 text-xs text-indigo-700">What is a star? ________________________</p>
+          <p className="mt-1 text-xs text-indigo-700">Name one planet: ________________________</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-geography-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const places = pickMany(
+      rng,
+      [
+        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
+        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
+        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+      ],
+      3
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Learn about places in the community, home, and school with simple maps and pictures.
+        </p>
+        {places.map((place, idx) => (
+          <div key={idx} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-sm font-semibold text-amber-700">{place.name}</p>
+            <p className="text-xs text-amber-600">{place.type}</p>
+            <div className="mt-2 h-16 rounded border border-amber-300 bg-white">
+              <p className="p-2 text-xs text-amber-600">Draw a simple map</p>
+            </div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {place.features.map((feature, featIdx) => (
+                <span key={featIdx} className="rounded border border-amber-300 bg-white px-2 py-1 text-xs text-amber-700">
+                  {feature}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  'interactive-grammar-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const words = pickMany(
+      rng,
+      [
+        { word: 'cat', picture: '🐱' },
+        { word: 'dog', picture: '🐶' },
+        { word: 'sun', picture: '☀️' },
+        { word: 'car', picture: '🚗' },
+      ],
+      4
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Match simple words with pictures and identify basic word types.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {words.map((item, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{item.picture}</span>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-purple-700">Word: {item.word}</p>
+                  <p className="mt-1 text-xs text-purple-600">Match: <span className="font-semibold">{item.word}</span></p>
+                  <div className="mt-1 h-8 rounded border border-dashed border-purple-300 bg-white" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+          <p className="text-sm font-semibold text-purple-700">Word Practice</p>
+          <p className="mt-2 text-xs text-purple-700">Circle the word that matches the picture:</p>
+          <div className="mt-1 flex flex-wrap gap-2">
+            {words.map((item, idx) => (
+              <span key={idx} className="rounded border border-purple-300 bg-white px-3 py-1 text-xs text-purple-700">
+                {item.word}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-logic-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const patterns = pickMany(rng, ['AB', 'AAB', 'ABC'], 3)
+    const sortingItems = pickMany(rng, ['red', 'blue', 'yellow', 'big', 'small', 'round', 'square'], 6)
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Complete simple patterns and sort objects by color, size, or type.
+        </p>
+        <div className="space-y-3">
+          {patterns.map((pattern, idx) => {
+            const first = pick(rng, SHAPE_TOKENS)
+            const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
+            const third = pattern === 'ABC' ? pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key && token.key !== second.key)) : second
+            const previewTokens = pattern.split('').map((char) => (char === 'A' ? first : char === 'B' ? second : third))
+            return (
+              <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4">
+                <p className="text-xs uppercase text-slate-500">Pattern {pattern}</p>
+                <div className="mt-3 flex items-center gap-2">
+                  {previewTokens.map((token, tokenIdx) => (
+                    <span key={`${token.key}-${tokenIdx}`} className="relative inline-flex items-center justify-center">
+                      <span className="sr-only">{token.label}</span>
+                      {token.render}
+                    </span>
+                  ))}
+                  <span className="text-lg font-semibold text-slate-400">?</span>
+                </div>
+                <div className="mt-2 h-10 rounded border border-dashed border-slate-300" />
+              </div>
+            )
+          })}
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
+          <p className="text-sm font-semibold text-slate-700">Sorting Activity</p>
+          <p className="mt-2 text-xs text-slate-600">Sort by color: {sortingItems.slice(0, 3).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">Sort by size: {sortingItems.slice(3, 5).join(', ')}</p>
+          <p className="mt-1 text-xs text-slate-600">Sort by shape: {sortingItems.slice(5).join(', ')}</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-prek': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const feelings = pickMany(
+      rng,
+      [
+        { feeling: 'happy', emoji: '😊', color: 'yellow' },
+        { feeling: 'sad', emoji: '😢', color: 'blue' },
+        { feeling: 'angry', emoji: '😠', color: 'red' },
+        { feeling: 'excited', emoji: '🤩', color: 'orange' },
+      ],
+      4
+    )
+    return (
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600">
+          Identify and express feelings through pictures, simple words, and activities.
+        </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {feelings.map((feeling, idx) => (
+            <div key={idx} className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{feeling.emoji}</span>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-pink-700">Feeling: {feeling.feeling}</p>
+                  <p className="text-xs text-pink-600">Color: {feeling.color}</p>
+                </div>
+              </div>
+              <div className="mt-2 h-12 rounded border border-dashed border-pink-300 bg-white">
+                <p className="p-2 text-xs text-pink-600">Draw a time you felt {feeling.feeling}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+          <p className="text-sm font-semibold text-pink-700">How I Feel Today</p>
+          <div className="mt-2 flex gap-2">
+            {feelings.map((feeling, idx) => (
+              <div key={idx} className="flex flex-col items-center">
+                <span className="text-2xl">{feeling.emoji}</span>
+                <div className="mt-1 h-4 w-4 rounded border border-pink-300" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
   'interactive-logic-sequence': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const tasks = pickMany(
@@ -1803,6 +2271,247 @@ const answerRenderers: Record<string, AnswerRenderer> = {
           </ol>
         </div>
       </div>
+    )
+  },
+  'interactive-early-shapes': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const shapes = pickMany(rng, ['circle', 'square', 'triangle', 'rectangle', 'star', 'heart'], 4)
+    const colors = pickMany(rng, ['red', 'blue', 'yellow', 'green', 'purple', 'orange'], 4)
+    return (
+      <ul className="space-y-2 text-sm">
+        {shapes.map((shape, idx) => (
+          <li key={idx}>
+            <span className="font-semibold capitalize">Shape {idx + 1}:</span> {shape} • Color: {colors[idx]} • Students should identify the shape, color it {colors[idx]}, and draw 2 more {shape}s
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">Sorting: Students can sort by shape type (circles together, squares together) or by color (all red shapes, all blue shapes)</li>
+      </ul>
+    )
+  },
+  'interactive-early-letters': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const letters = pickMany(rng, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 4)
+    return (
+      <ul className="space-y-2 text-sm">
+        {letters.map((letter) => (
+          <li key={letter}>
+            <span className="font-semibold">Letter {letter}:</span> Students should trace uppercase and lowercase {letter}, write it 3 times, and draw a picture starting with {letter} (e.g., {letter === 'A' ? 'apple' : letter === 'B' ? 'ball' : letter === 'C' ? 'cat' : 'word'})
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-early-numbers': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const numbers = pickMany(rng, Array.from({ length: 20 }, (_, i) => i + 1), 4)
+    return (
+      <ul className="space-y-2 text-sm">
+        {numbers.map((num) => (
+          <li key={num}>
+            <span className="font-semibold">Number {num}:</span> Students should trace {num}, write it, draw {num} objects, and recognize the number word "{numberWords[num - 1] || num}"
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-early-foundations': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Letters:</span> Students identify and name letters correctly</p>
+        <p><span className="font-semibold">Numbers:</span> Students identify and name numbers correctly</p>
+        <p><span className="font-semibold">Shapes:</span> Students identify and name shapes correctly</p>
+        <p className="mt-2 text-emerald-800">Note: This is a review/remediation worksheet. Accept correct identification of letters, numbers, and shapes. For writing practice, check that students can write their name and count to 10.</p>
+      </div>
+    )
+  },
+  'interactive-early-basics': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Letter Sounds:</span> Students should recognize beginning sounds (/a/ for apple, /b/ for ball, etc.)</p>
+        <p><span className="font-semibold">Counting:</span> Students should count accurately 1-5, 5-10, and count objects with one-to-one correspondence</p>
+        <p><span className="font-semibold">Patterns:</span> Students should identify and continue AB, ABC, and color patterns</p>
+        <p className="mt-2 text-emerald-800">Note: These are foundational skills. Provide support as needed and celebrate progress.</p>
+      </div>
+    )
+  },
+  'interactive-reading-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const stories = pickMany(
+      rng,
+      [
+        { title: 'The Happy Cat', images: ['cat', 'sun', 'ball'], questions: ['Is the cat happy?', 'What color is the sun?'] },
+        { title: 'A Big Dog', images: ['dog', 'bone', 'house'], questions: ['Is the dog big?', 'What does the dog have?'] },
+        { title: 'The Red Car', images: ['car', 'road', 'tree'], questions: ['What color is the car?', 'Where is the car?'] },
+      ],
+      3
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {stories.map((story, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{story.title}:</span>
+            <ul className="ml-4 mt-1 list-disc space-y-1">
+              {story.questions.map((q, qIdx) => (
+                <li key={qIdx}>{q} - Accept yes/no answers based on picture clues</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-writing-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const prompts = pickMany(
+      rng,
+      [
+        { word: 'cat', picture: 'Draw a cat' },
+        { word: 'dog', picture: 'Draw a dog' },
+        { word: 'sun', picture: 'Draw the sun' },
+        { word: 'car', picture: 'Draw a car' },
+      ],
+      4
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {prompts.map((prompt, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Word {prompt.word}:</span> Students should draw a picture representing {prompt.word} and label it with the word "{prompt.word}". Accept any recognizable drawing and correct spelling of the word.
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-science-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const observations = pickMany(
+      rng,
+      [
+        { topic: 'Plants', question: 'What do plants need?', options: ['water', 'sun', 'soil'] },
+        { topic: 'Animals', question: 'Where do animals live?', options: ['forest', 'ocean', 'farm'] },
+        { topic: 'Weather', question: 'What is the weather like?', options: ['sunny', 'rainy', 'cloudy'] },
+      ],
+      3
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {observations.map((obs, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{obs.topic}:</span> {obs.question} - Accept any of: {obs.options.join(', ')}. Students should draw or paste a picture related to the topic.
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-science-space': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const planets = pickMany(
+      rng,
+      [
+        { name: 'Mercury', fact: 'Closest to the sun', distance: '36 million miles' },
+        { name: 'Venus', fact: 'Hottest planet', distance: '67 million miles' },
+        { name: 'Mars', fact: 'The red planet', distance: '142 million miles' },
+        { name: 'Jupiter', fact: 'Largest planet', distance: '484 million miles' },
+      ],
+      4
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {planets.map((planet, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{planet.name}:</span> {planet.fact}. Distance from sun: {planet.distance}. Students should draw the planet and remember the key fact.
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">Space Questions: A star is a hot ball of gas that gives off light. Any planet name is acceptable (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune).</li>
+      </ul>
+    )
+  },
+  'interactive-geography-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const places = pickMany(
+      rng,
+      [
+        { name: 'Home', type: 'Where I live', features: ['bedroom', 'kitchen'] },
+        { name: 'School', type: 'Where I learn', features: ['classroom', 'playground'] },
+        { name: 'Park', type: 'Where I play', features: ['swings', 'slides'] },
+      ],
+      3
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {places.map((place, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">{place.name}:</span> {place.type}. Features include: {place.features.join(', ')}. Students should draw a simple map showing these features.
+          </li>
+        ))}
+      </ul>
+    )
+  },
+  'interactive-grammar-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const words = pickMany(
+      rng,
+      [
+        { word: 'cat', picture: '🐱' },
+        { word: 'dog', picture: '🐶' },
+        { word: 'sun', picture: '☀️' },
+        { word: 'car', picture: '🚗' },
+      ],
+      4
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {words.map((item, idx) => (
+          <li key={idx}>
+            <span className="font-semibold">Word {item.word}:</span> Match the picture ({item.picture}) with the word "{item.word}". Students should circle the correct word.
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">All words are nouns (naming words). Students are learning basic word recognition and matching.</li>
+      </ul>
+    )
+  },
+  'interactive-logic-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const patterns = pickMany(rng, ['AB', 'AAB', 'ABC'], 3)
+    return (
+      <div className="space-y-2 text-sm">
+        {patterns.map((pattern, idx) => {
+          const first = pick(rng, SHAPE_TOKENS)
+          const second = pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key))
+          const third = pattern === 'ABC' ? pick(rng, SHAPE_TOKENS.filter((token) => token.key !== first.key && token.key !== second.key)) : second
+          const nextItem = pattern === 'AB' ? first : pattern === 'AAB' ? second : third
+          return (
+            <p key={idx}>
+              <span className="font-semibold">Pattern {pattern}:</span> Continue the pattern. Next item should be: {nextItem.label}
+            </p>
+          )
+        })}
+        <p className="mt-2 text-emerald-800">Sorting: Students can sort by color (red, blue, yellow), size (big, small), or shape (round, square). Accept any logical sorting.</p>
+      </div>
+    )
+  },
+  'interactive-sel-prek': ({ doc, seed, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const feelings = pickMany(
+      rng,
+      [
+        { feeling: 'happy', emoji: '😊', color: 'yellow' },
+        { feeling: 'sad', emoji: '😢', color: 'blue' },
+        { feeling: 'angry', emoji: '😠', color: 'red' },
+        { feeling: 'excited', emoji: '🤩', color: 'orange' },
+      ],
+      4
+    )
+    return (
+      <ul className="space-y-2 text-sm">
+        {feelings.map((feeling, idx) => (
+          <li key={idx}>
+            <span className="font-semibold capitalize">{feeling.feeling}:</span> {feeling.emoji} - Color: {feeling.color}. Students should identify the feeling and draw a time they felt {feeling.feeling}.
+          </li>
+        ))}
+        <li className="mt-2 text-emerald-800">How I Feel Today: Students can circle any feeling they're experiencing. All feelings are valid. Encourage discussion about emotions.</li>
+      </ul>
     )
   },
 }
