@@ -653,22 +653,6 @@ export function PrintablesPage() {
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4">
-        {/* Print instruction banner - hidden in print */}
-        <div className="print:hidden mb-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-sm text-red-900">
-          <div className="flex items-start gap-3">
-            <span className="text-xl">🚨</span>
-            <div className="flex-1">
-              <p className="font-bold mb-2 text-base">CRITICAL: Remove URLs from Printed Pages</p>
-              <p className="mb-2 font-semibold">The URLs at the bottom are added by your browser. To remove them:</p>
-              <ul className="list-disc list-inside space-y-1 text-xs font-medium">
-                <li><strong>Chrome/Edge:</strong> Print dialog → Click "More settings" → Uncheck "Headers and footers" → Print</li>
-                <li><strong>Firefox:</strong> Print dialog → Click "Page Setup" → Uncheck "Print headers and footers" → Print</li>
-                <li><strong>Safari:</strong> Print dialog → Click "Show Details" → Uncheck "Print headers and footers" → Print</li>
-              </ul>
-              <p className="mt-2 text-xs italic">⚠️ This cannot be removed with code - it's a browser security feature. You must disable it in the print dialog.</p>
-            </div>
-          </div>
-        </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
