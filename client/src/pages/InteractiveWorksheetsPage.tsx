@@ -956,6 +956,101 @@ export function InteractiveWorksheetsPage() {
                 <p className="max-w-2xl text-sm text-slate-500">
                   Need screen-free brain breaks too? Explore the playful activities inside our <a href="/kids" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Kids Hub</a> or build multi-day plans with grade-level packs like the <a href="/worksheets/1st-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">1st Grade Math Worksheets collection</a>.
                 </p>
+                <div className="mt-6 space-y-4">
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      onClick={generateTodayPack}
+                      className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
+                    >
+                      🔄 Generate new unique pack
+                    </button>
+                    <button
+                      onClick={() => setShowCustomization(true)}
+                      className="inline-flex items-center gap-2 rounded-full border border-purple-300 bg-purple-50 px-5 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-100 transition"
+                    >
+                      ✏️ Customize
+                    </button>
+                    <button
+                      onClick={() => setShowFavorites(true)}
+                      className="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-5 py-2 text-sm font-semibold text-yellow-700 hover:bg-yellow-100 transition"
+                    >
+                      ⭐ Favorites ({favorites.length})
+                    </button>
+                    {pack?.printUrl && (
+                      <>
+                        <a
+                          href={getPrintUrl()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
+                        >
+                          📦 Bulk Download free PDF ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})
+                        </a>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-slate-500">Share:</span>
+                          <button
+                            onClick={() => handleShare('facebook')}
+                            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                            aria-label="Share on Facebook"
+                            title="Share on Facebook"
+                          >
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleShare('twitter')}
+                            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-500 text-white hover:bg-sky-600 transition-colors"
+                            aria-label="Share on Twitter"
+                            title="Share on Twitter"
+                          >
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleShare('pinterest')}
+                            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
+                            aria-label="Share on Pinterest"
+                            title="Share on Pinterest"
+                          >
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.487.535 6.624 0 11.99-5.367 11.99-11.988C23.97 5.39 18.565.026 11.985.026L12.017 0z"/>
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleShare('copy')}
+                            className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-slate-600 text-white hover:bg-slate-700 transition-colors"
+                            aria-label="Copy link or share"
+                            title="Copy link"
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <ul className="grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 text-purple-500">✔</span>
+                      Free interactive worksheets with printable answer keys
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 text-purple-500">✔</span>
+                      Unlimited unique generations—click again for a completely new set
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 text-purple-500">✔</span>
+                      10 high-demand categories across math, literacy, SEL, STEM
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-1 text-purple-500">✔</span>
+                      One-click PDF download or shareable link for families
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div className="rounded-3xl border border-purple-200 bg-white/70 p-6 shadow-xl shadow-purple-100 backdrop-blur">
                 <h2 className="text-lg font-semibold text-slate-900 mb-4">Filters at a glance</h2>
@@ -1135,104 +1230,6 @@ export function InteractiveWorksheetsPage() {
               </>
             )}
           </section>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="space-y-6">
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={generateTodayPack}
-                className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-purple-600/20 transition hover:bg-purple-700"
-              >
-                🔄 Generate new unique pack
-              </button>
-              <button
-                onClick={() => setShowCustomization(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-purple-300 bg-purple-50 px-5 py-2 text-sm font-semibold text-purple-700 hover:bg-purple-100 transition"
-              >
-                ✏️ Customize
-              </button>
-              <button
-                onClick={() => setShowFavorites(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-yellow-300 bg-yellow-50 px-5 py-2 text-sm font-semibold text-yellow-700 hover:bg-yellow-100 transition"
-              >
-                ⭐ Favorites ({favorites.length})
-              </button>
-              {pack?.printUrl && (
-                <>
-                  <a
-                    href={getPrintUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
-                  >
-                    📦 Bulk Download free PDF ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})
-                  </a>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-500">Share:</span>
-                    <button
-                      onClick={() => handleShare('facebook')}
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-                      aria-label="Share on Facebook"
-                      title="Share on Facebook"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => handleShare('twitter')}
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sky-500 text-white hover:bg-sky-600 transition-colors"
-                      aria-label="Share on Twitter"
-                      title="Share on Twitter"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => handleShare('pinterest')}
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
-                      aria-label="Share on Pinterest"
-                      title="Share on Pinterest"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.487.535 6.624 0 11.99-5.367 11.99-11.988C23.97 5.39 18.565.026 11.985.026L12.017 0z"/>
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => handleShare('copy')}
-                      className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-slate-600 text-white hover:bg-slate-700 transition-colors"
-                      aria-label="Copy link or share"
-                      title="Copy link"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                      </svg>
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-            <ul className="grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 text-purple-500">✔</span>
-                Free interactive worksheets with printable answer keys
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 text-purple-500">✔</span>
-                Unlimited unique generations—click again for a completely new set
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 text-purple-500">✔</span>
-                10 high-demand categories across math, literacy, SEL, STEM
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 text-purple-500">✔</span>
-                One-click PDF download or shareable link for families
-              </li>
-            </ul>
-          </div>
         </section>
 
         <section className="bg-slate-900 py-16 text-slate-100">
