@@ -3126,6 +3126,13 @@ const renderers: Record<string, Renderer> = {
   'interactive-science-senses': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const senses = ['sight', 'hearing', 'touch', 'taste', 'smell']
+    const senseVerbs: Record<string, string> = {
+      'sight': 'see',
+      'hearing': 'hear',
+      'touch': 'touch',
+      'taste': 'taste',
+      'smell': 'smell'
+    }
     const objects = pickMany(rng, [
       { name: 'apple', sense: 'taste', description: 'sweet' },
       { name: 'flower', sense: 'smell', description: 'fragrant' },
@@ -3141,9 +3148,9 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
               <p className="text-sm font-semibold text-green-700 capitalize mb-2">{sense}</p>
               <div className="mt-2 h-16 rounded border border-green-300 bg-white">
-                <p className="p-2 text-xs text-green-600">Draw something you {sense}</p>
+                <p className="p-2 text-xs text-green-600">Draw something you {senseVerbs[sense]}</p>
               </div>
-              <p className="mt-2 text-xs text-green-600">What do you {sense}? ________________</p>
+              <p className="mt-2 text-xs text-green-600">What do you {senseVerbs[sense]}? ________________</p>
             </div>
           ))}
         </div>
@@ -4899,6 +4906,13 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-science-senses': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const senses = ['sight', 'hearing', 'touch', 'taste', 'smell']
+    const senseVerbs: Record<string, string> = {
+      'sight': 'see',
+      'hearing': 'hear',
+      'touch': 'touch',
+      'taste': 'taste',
+      'smell': 'smell'
+    }
     const objects = pickMany(rng, [
       { name: 'apple', sense: 'taste', description: 'sweet' },
       { name: 'flower', sense: 'smell', description: 'fragrant' },
@@ -4916,9 +4930,9 @@ const answerRenderers: Record<string, AnswerRenderer> = {
             <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
               <p className="text-sm font-semibold text-green-700 capitalize mb-2">{sense}</p>
               <div className="mt-2 h-16 rounded border border-green-300 bg-white">
-                <p className="p-2 text-xs text-green-600">Draw something you {sense}</p>
+                <p className="p-2 text-xs text-green-600">Draw something you {senseVerbs[sense]}</p>
               </div>
-              <p className="mt-2 text-xs text-green-600">What do you {sense}? ________________</p>
+              <p className="mt-2 text-xs text-green-600">What do you {senseVerbs[sense]}? ________________</p>
             </div>
           ))}
         </div>
