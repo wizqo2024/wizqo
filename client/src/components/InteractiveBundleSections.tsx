@@ -310,6 +310,163 @@ function buildMathMeasurement(seed: string, docId: string, variant: number): Mat
   })
 }
 
+function buildMathCounting(seed: string, docId: string, variant: number): Array<{ number: number; objects: string[] }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const objectTypes = ['stars', 'hearts', 'circles', 'apples', 'balls', 'flowers', 'butterflies', 'fish']
+  const numbers = [3, 4, 5, 6, 7, 8, 9, 10]
+  const selected = pickMany(rng, numbers, 4)
+  return selected.map((num) => ({
+    number: num,
+    objects: pickMany(rng, objectTypes, 1),
+  }))
+}
+
+function buildMathTensFrames(seed: string, docId: string, variant: number): Array<{ total: number; filled: number; operation: '+' | '-' }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ total: number; filled: number; operation: '+' | '-' }> = []
+  for (let i = 0; i < 4; i++) {
+    const total = Math.floor(rng() * 10) + 5
+    const filled = Math.floor(rng() * (total - 1)) + 1
+    const operation = pick(rng, ['+', '-'] as const)
+    problems.push({ total, filled, operation })
+  }
+  return problems
+}
+
+function buildMathMultiplication(seed: string, docId: string, variant: number): Array<{ factor1: number; factor2: number; answer: number; arrayRows: number; arrayCols: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ factor1: number; factor2: number; answer: number; arrayRows: number; arrayCols: number }> = []
+  for (let i = 0; i < 6; i++) {
+    const factor1 = Math.floor(rng() * 8) + 2
+    const factor2 = Math.floor(rng() * 8) + 2
+    problems.push({
+      factor1,
+      factor2,
+      answer: factor1 * factor2,
+      arrayRows: factor1,
+      arrayCols: factor2,
+    })
+  }
+  return problems
+}
+
+function buildMathDivision(seed: string, docId: string, variant: number): Array<{ dividend: number; divisor: number; quotient: number; remainder: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ dividend: number; divisor: number; quotient: number; remainder: number }> = []
+  for (let i = 0; i < 6; i++) {
+    const divisor = Math.floor(rng() * 8) + 2
+    const quotient = Math.floor(rng() * 8) + 2
+    const remainder = Math.floor(rng() * divisor)
+    const dividend = divisor * quotient + remainder
+    problems.push({ dividend, divisor, quotient, remainder })
+  }
+  return problems
+}
+
+function buildMathPlaceValue(seed: string, docId: string, variant: number): Array<{ number: number; place: string; digit: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const numbers = [12, 34, 56, 123, 234, 456, 1234, 2345, 3456]
+  const places = ['ones', 'tens', 'hundreds', 'thousands']
+  const selected = pickMany(rng, numbers, 4)
+  return selected.map((num) => {
+    const numStr = String(num)
+    const placeIdx = Math.floor(rng() * Math.min(numStr.length, places.length))
+    const place = places[placeIdx]
+    const digit = parseInt(numStr[numStr.length - 1 - placeIdx])
+    return { number: num, place, digit }
+  })
+}
+
+function buildMathTime(seed: string, docId: string, variant: number): Array<{ hours: number; minutes: number; question: string; answer: string }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ hours: number; minutes: number; question: string; answer: string }> = []
+  for (let i = 0; i < 4; i++) {
+    const hours = Math.floor(rng() * 12)
+    const minutes = Math.floor(rng() * 60)
+    const elapsedHours = Math.floor(rng() * 3) + 1
+    const elapsedMinutes = Math.floor(rng() * 30)
+    const endHours = (hours + elapsedHours) % 12
+    const endMinutes = minutes + elapsedMinutes
+    const finalMinutes = endMinutes % 60
+    const finalHours = endHours + Math.floor(endMinutes / 60)
+    problems.push({
+      hours,
+      minutes,
+      question: `What time is it ${elapsedHours} hour${elapsedHours > 1 ? 's' : ''} and ${elapsedMinutes} minute${elapsedMinutes !== 1 ? 's' : ''} later?`,
+      answer: `${finalHours % 12 || 12}:${String(finalMinutes).padStart(2, '0')}`,
+    })
+  }
+  return problems
+}
+
+function buildMathGraphing(seed: string, docId: string, variant: number): { categories: string[]; values: number[]; maxValue: number } {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const categories = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+  const values = categories.map(() => Math.floor(rng() * 20) + 1)
+  const maxValue = Math.max(...values)
+  return { categories, values, maxValue }
+}
+
+function buildMathRounding(seed: string, docId: string, variant: number): Array<{ number: number; roundTo: string; answer: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const numbers = [23, 47, 156, 234, 567, 1234, 2345, 3456]
+  const roundTos = ['ten', 'hundred', 'thousand']
+  const selected = pickMany(rng, numbers, 4)
+  return selected.map((num) => {
+    const roundTo = pick(rng, roundTos)
+    let answer = 0
+    if (roundTo === 'ten') answer = Math.round(num / 10) * 10
+    else if (roundTo === 'hundred') answer = Math.round(num / 100) * 100
+    else answer = Math.round(num / 1000) * 1000
+    return { number: num, roundTo, answer }
+  })
+}
+
+function buildMathDecimals(seed: string, docId: string, variant: number): Array<{ num1: number; num2: number; op: '+' | '-' | '×' | '÷'; answer: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ num1: number; num2: number; op: '+' | '-' | '×' | '÷'; answer: number }> = []
+  for (let i = 0; i < 5; i++) {
+    const num1 = Math.round((rng() * 10 + 1) * 100) / 100
+    const num2 = Math.round((rng() * 10 + 1) * 100) / 100
+    const op = pick(rng, ['+', '-', '×', '÷'] as const)
+    let answer = 0
+    if (op === '+') answer = Math.round((num1 + num2) * 100) / 100
+    else if (op === '-') answer = Math.round((num1 - num2) * 100) / 100
+    else if (op === '×') answer = Math.round((num1 * num2) * 100) / 100
+    else answer = Math.round((num1 / num2) * 100) / 100
+    problems.push({ num1, num2, op, answer })
+  }
+  return problems
+}
+
+function buildMathIntegers(seed: string, docId: string, variant: number): Array<{ num1: number; num2: number; op: '+' | '-' | '×'; answer: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ num1: number; num2: number; op: '+' | '-' | '×'; answer: number }> = []
+  for (let i = 0; i < 5; i++) {
+    const num1 = Math.floor(rng() * 20) - 10
+    const num2 = Math.floor(rng() * 20) - 10
+    const op = pick(rng, ['+', '-', '×'] as const)
+    let answer = 0
+    if (op === '+') answer = num1 + num2
+    else if (op === '-') answer = num1 - num2
+    else answer = num1 * num2
+    problems.push({ num1, num2, op, answer })
+  }
+  return problems
+}
+
+function buildMathExponents(seed: string, docId: string, variant: number): Array<{ base: number; exponent: number; answer: number }> {
+  const rng = makeRng(`${seed}|${docId}|${variant}`)
+  const problems: Array<{ base: number; exponent: number; answer: number }> = []
+  for (let i = 0; i < 5; i++) {
+    const base = Math.floor(rng() * 8) + 2
+    const exponent = Math.floor(rng() * 4) + 2
+    const answer = Math.pow(base, exponent)
+    problems.push({ base, exponent, answer })
+  }
+  return problems
+}
+
 function buildReadingStoryMap(seed: string, docId: string, variant: number): ReadingStoryMap {
   const rng = makeRng(`${seed}|${docId}|${variant}`)
   const heroNames = ['Avery', 'Noah', 'Lia', 'Cam', 'Riya', 'Kai']
@@ -2509,6 +2666,203 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-math-counting': ({ seed, doc, variant }) => {
+    const problems = buildMathCounting(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Count the objects and write the number.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <p className="text-sm font-semibold text-purple-700 mb-2">Count the {prob.objects[0]}</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {Array.from({ length: prob.number }).map((_, i) => (
+                  <span key={i} className="text-2xl">⭐</span>
+                ))}
+              </div>
+              <p className="text-sm text-purple-800">Number: ________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-tens-frames': ({ seed, doc, variant }) => {
+    const problems = buildMathTensFrames(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Fill in the tens frame and solve the problem.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <p className="text-sm font-semibold text-purple-700 mb-2">
+                {prob.operation === '+' ? `Fill ${prob.filled} more to make ${prob.total}` : `Start with ${prob.total}, take away ${prob.total - prob.filled}`}
+              </p>
+              <div className="grid grid-cols-5 gap-1 mb-3 w-32">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div key={i} className={`aspect-square border-2 border-purple-300 rounded ${i < prob.filled ? 'bg-purple-400' : 'bg-white'}`}></div>
+                ))}
+              </div>
+              <p className="text-sm text-purple-800">Answer: ________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-multiplication': ({ seed, doc, variant }) => {
+    const problems = buildMathMultiplication(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Solve each multiplication problem. Draw an array to help you.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.factor1} × {prob.factor2} = ________</p>
+              <p className="text-xs text-slate-600 mb-2">Draw an array: {prob.arrayRows} rows × {prob.arrayCols} columns</p>
+              <div className="h-20 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-division': ({ seed, doc, variant }) => {
+    const problems = buildMathDivision(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Solve each division problem. Show your work.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.dividend} ÷ {prob.divisor} = ________</p>
+              {prob.remainder > 0 && <p className="text-xs text-slate-600">Remainder: ________</p>}
+              <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-place-value': ({ seed, doc, variant }) => {
+    const problems = buildMathPlaceValue(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Identify the digit in each place value.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
+              <p className="text-sm text-purple-700">What digit is in the {prob.place} place? ________</p>
+              <p className="text-xs text-slate-600 mt-1">Expanded form: ________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-time': ({ seed, doc, variant }) => {
+    const problems = buildMathTime(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Read the clock and solve the time problems.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">Time: {prob.hours}:{String(prob.minutes).padStart(2, '0')}</p>
+              <p className="text-sm text-slate-700 mb-2">{prob.question}</p>
+              <p className="text-sm text-purple-700">Answer: ________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-graphing': ({ seed, doc, variant }) => {
+    const data = buildMathGraphing(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Create a bar graph from the data below.</p>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 mb-4">
+          <p className="text-sm font-semibold text-purple-700 mb-2">Data:</p>
+          <div className="space-y-1 text-sm">
+            {data.categories.map((cat, idx) => (
+              <p key={idx} className="text-purple-800">{cat}: {data.values[idx]}</p>
+            ))}
+          </div>
+        </div>
+        <div className="h-48 border border-purple-300 rounded bg-white">
+          <p className="p-2 text-xs text-slate-500">Draw your bar graph here</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-rounding': ({ seed, doc, variant }) => {
+    const problems = buildMathRounding(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Round each number to the nearest {problems[0]?.roundTo}.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800">{prob.number} rounded to the nearest {prob.roundTo} = ________</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-decimals': ({ seed, doc, variant }) => {
+    const problems = buildMathDecimals(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Solve each decimal operation.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.num1} {prob.op} {prob.num2} = ________</p>
+              <div className="mt-2 h-12 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-integers': ({ seed, doc, variant }) => {
+    const problems = buildMathIntegers(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Solve each integer operation.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">
+                {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = ________
+              </p>
+              <div className="mt-2 h-12 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-math-exponents': ({ seed, doc, variant }) => {
+    const problems = buildMathExponents(seed, doc.id, variant)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Evaluate each exponent expression.</p>
+        <div className="space-y-3">
+          {problems.map((prob, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.base}<sup>{prob.exponent}</sup> = ________</p>
+              <p className="text-xs text-slate-600">Show your work: {prob.base} × {prob.base} × ... ({prob.exponent} times)</p>
+              <div className="mt-2 h-12 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
   'interactive-reading-literary-analysis': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const passages = [
@@ -4471,6 +4825,132 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <ol className="list-decimal list-inside space-y-2">
         {problems.map((prob, idx) => (
           <li key={idx}>{prob.q} → <span className="text-emerald-700">{prob.answer}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-counting': ({ doc, seed, variant }) => {
+    const problems = buildMathCounting(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>Count the {prob.objects[0]}: <span className="text-emerald-700">{prob.number}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-tens-frames': ({ doc, seed, variant }) => {
+    const problems = buildMathTensFrames(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => {
+          const missing = prob.total - prob.filled
+          const answer = prob.operation === '+' ? missing : prob.filled
+          return (
+            <li key={idx}>
+              {prob.total} {prob.operation} {missing} = <span className="text-emerald-700">{answer}</span>
+            </li>
+          )
+        })}
+      </ol>
+    )
+  },
+  'interactive-math-multiplication': ({ doc, seed, variant }) => {
+    const problems = buildMathMultiplication(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>{prob.factor1} × {prob.factor2} = <span className="text-emerald-700">{prob.answer}</span></li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-division': ({ doc, seed, variant }) => {
+    const problems = buildMathDivision(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.dividend} ÷ {prob.divisor} = <span className="text-emerald-700">{prob.quotient}</span>
+            {prob.remainder > 0 && <span className="text-emerald-700"> (remainder: {prob.remainder})</span>}
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-place-value': ({ doc, seed, variant }) => {
+    const problems = buildMathPlaceValue(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.number}: {prob.place} place = <span className="text-emerald-700">{prob.digit}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-time': ({ doc, seed, variant }) => {
+    const problems = buildMathTime(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.question} Answer: <span className="text-emerald-700">{prob.answer}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-graphing': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Students should create a bar graph with appropriate scale and labels. Check that bars match the data values correctly.</p>
+    )
+  },
+  'interactive-math-rounding': ({ doc, seed, variant }) => {
+    const problems = buildMathRounding(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.number} rounded to the nearest {prob.roundTo} = <span className="text-emerald-700">{prob.answer}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-decimals': ({ doc, seed, variant }) => {
+    const problems = buildMathDecimals(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.num1} {prob.op} {prob.num2} = <span className="text-emerald-700">{prob.answer}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-integers': ({ doc, seed, variant }) => {
+    const problems = buildMathIntegers(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = <span className="text-emerald-700">{prob.answer}</span>
+          </li>
+        ))}
+      </ol>
+    )
+  },
+  'interactive-math-exponents': ({ doc, seed, variant }) => {
+    const problems = buildMathExponents(seed, doc.id, variant)
+    return (
+      <ol className="list-decimal list-inside space-y-1 text-sm">
+        {problems.map((prob, idx) => (
+          <li key={idx}>
+            {prob.base}<sup>{prob.exponent}</sup> = <span className="text-emerald-700">{prob.answer}</span>
+          </li>
         ))}
       </ol>
     )
