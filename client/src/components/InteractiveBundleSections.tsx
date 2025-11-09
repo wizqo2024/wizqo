@@ -321,14 +321,14 @@ function buildMathCounting(seed: string, docId: string, variant: number): Array<
   }))
 }
 
-function buildMathTensFrames(seed: string, docId: string, variant: number): Array<{ total: number; filled: number; operation: '+' | '-' }> {
+function buildMathTensFrames(seed: string, docId: string, variant: number): Array<{ filled: number; missing: number; operation: '+' | '-' }> {
   const rng = makeRng(`${seed}|${docId}|${variant}`)
-  const problems: Array<{ total: number; filled: number; operation: '+' | '-' }> = []
+  const problems: Array<{ filled: number; missing: number; operation: '+' | '-' }> = []
   for (let i = 0; i < 4; i++) {
-    const total = Math.floor(rng() * 10) + 5
-    const filled = Math.floor(rng() * (total - 1)) + 1
+    const filled = Math.floor(rng() * 7) + 1 // 1-7 filled
+    const missing = Math.floor(rng() * (10 - filled)) + 1 // 1 to (10-filled)
     const operation = pick(rng, ['+', '-'] as const)
-    problems.push({ total, filled, operation })
+    problems.push({ filled, missing, operation })
   }
   return problems
 }
@@ -381,19 +381,21 @@ function buildMathTime(seed: string, docId: string, variant: number): Array<{ ho
   const rng = makeRng(`${seed}|${docId}|${variant}`)
   const problems: Array<{ hours: number; minutes: number; question: string; answer: string }> = []
   for (let i = 0; i < 4; i++) {
-    const hours = Math.floor(rng() * 12)
+    const hours = Math.floor(rng() * 12) + 1 // 1-12
     const minutes = Math.floor(rng() * 60)
     const elapsedHours = Math.floor(rng() * 3) + 1
     const elapsedMinutes = Math.floor(rng() * 30)
-    const endHours = (hours + elapsedHours) % 12
-    const endMinutes = minutes + elapsedMinutes
-    const finalMinutes = endMinutes % 60
-    const finalHours = endHours + Math.floor(endMinutes / 60)
+    
+    // Calculate total minutes
+    const totalMinutes = minutes + elapsedMinutes
+    const finalMinutes = totalMinutes % 60
+    const finalHours = ((hours - 1 + elapsedHours + Math.floor(totalMinutes / 60)) % 12) + 1
+    
     problems.push({
       hours,
       minutes,
       question: `What time is it ${elapsedHours} hour${elapsedHours > 1 ? 's' : ''} and ${elapsedMinutes} minute${elapsedMinutes !== 1 ? 's' : ''} later?`,
-      answer: `${finalHours % 12 || 12}:${String(finalMinutes).padStart(2, '0')}`,
+      answer: `${finalHours}:${String(finalMinutes).padStart(2, '0')}`,
     })
   }
   return problems
@@ -2693,19 +2695,23 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Fill in the tens frame and solve the problem.</p>
         <div className="grid gap-4 md:grid-cols-2">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700 mb-2">
-                {prob.operation === '+' ? `Fill ${prob.filled} more to make ${prob.total}` : `Start with ${prob.total}, take away ${prob.total - prob.filled}`}
-              </p>
-              <div className="grid grid-cols-5 gap-1 mb-3 w-32">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <div key={i} className={`aspect-square border-2 border-purple-300 rounded ${i < prob.filled ? 'bg-purple-400' : 'bg-white'}`}></div>
-                ))}
+          {problems.map((prob, idx) => {
+            const total = prob.filled + prob.missing
+            const showFilled = prob.operation === '+' ? prob.filled : total
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+                <p className="text-sm font-semibold text-purple-700 mb-2">
+                  {prob.operation === '+' ? `There are ${prob.filled} filled. Fill ${prob.missing} more to make ${total}.` : `Start with ${total}. Take away ${prob.missing}.`}
+                </p>
+                <div className="grid grid-cols-5 gap-1 mb-3 w-32">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <div key={i} className={`aspect-square border-2 border-purple-300 rounded ${i < showFilled ? 'bg-purple-400' : 'bg-white'}`}></div>
+                  ))}
+                </div>
+                <p className="text-sm text-purple-800">Answer: {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = ________</p>
               </div>
-              <p className="text-sm text-purple-800">Answer: ________</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
@@ -4844,11 +4850,11 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     return (
       <ol className="list-decimal list-inside space-y-1 text-sm">
         {problems.map((prob, idx) => {
-          const missing = prob.total - prob.filled
-          const answer = prob.operation === '+' ? missing : prob.filled
+          const total = prob.filled + prob.missing
+          const answer = prob.operation === '+' ? total : prob.filled
           return (
             <li key={idx}>
-              {prob.total} {prob.operation} {missing} = <span className="text-emerald-700">{answer}</span>
+              {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = <span className="text-emerald-700">{answer}</span>
             </li>
           )
         })}
