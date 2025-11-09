@@ -61,7 +61,15 @@ const gradeFallback: Record<GradeBand, GradeBand[]> = {
 
 const toGradeLabel = (grades: GradeBand[]) =>
   grades
-    .map((g) => gradeLabelMap.get(g) || g.toUpperCase())
+    .map((g) => {
+      const label = gradeLabelMap.get(g)
+      // If label exists, use it; otherwise try to format the grade ID nicely
+      if (label) return label
+      // Fallback: convert numeric grades like "35" to "G3" format, or uppercase others
+      if (g === '35') return '4th–5th'
+      if (g === '68') return '6th–8th'
+      return g.toUpperCase()
+    })
     .join(' / ')
 
 function pickDocsForCategory(
