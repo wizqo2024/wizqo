@@ -593,8 +593,8 @@ export function PrintablesPage() {
           html, body { 
             margin: 0 !important; 
             padding: 0 !important; 
-            font-size: 12pt;
-            line-height: 1.5;
+            font-size: 11pt;
+            line-height: 1.3;
           }
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
@@ -610,19 +610,19 @@ export function PrintablesPage() {
           /* Customization header at top of page - only appears once */
           .print-customization-header { 
             display: block;
-            margin-bottom: 1rem;
-            padding: 0.5rem 0.5in;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0.5in;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 10pt; 
+            font-size: 9pt; 
             color: #1e293b; 
-            line-height: 1.4; 
+            line-height: 1.3; 
             font-weight: 500;
             page-break-after: avoid;
           }
           .print-customization-header strong { font-weight: 600; color: #0f172a; }
-          /* Better spacing for print */
+          /* Better spacing for print - more compact */
           section { 
-            margin-bottom: 1.5rem !important; 
+            margin-bottom: 0.75rem !important; 
             page-break-inside: avoid !important;
             break-inside: avoid !important;
             padding: 0 0.5in;
@@ -631,24 +631,25 @@ export function PrintablesPage() {
             page-break-inside: avoid !important; 
             break-inside: avoid !important; 
           }
-          /* Prevent text merging and improve readability */
+          /* Prevent text merging and improve readability - tighter spacing */
           p { 
-            line-height: 1.6 !important; 
-            margin: 0.75rem 0 !important;
+            line-height: 1.4 !important; 
+            margin: 0.25rem 0 !important;
           }
           div, span { 
-            line-height: 1.5 !important; 
+            line-height: 1.3 !important; 
           }
           h1, h2, h3 { 
             page-break-after: avoid !important; 
-            margin-bottom: 0.75rem !important;
-            margin-top: 1rem !important;
+            margin-bottom: 0.25rem !important;
+            margin-top: 0.5rem !important;
+            line-height: 1.2 !important;
           }
-          /* Clean up excessive spacing */
-          .mb-10 { margin-bottom: 1.5rem !important; }
-          .mb-4, .mb-6 { margin-bottom: 1rem !important; }
-          .p-4, .p-5, .p-6 { padding: 0.75rem !important; }
-          .py-10 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+          /* Clean up excessive spacing - reduced */
+          .mb-10 { margin-bottom: 0.75rem !important; }
+          .mb-4, .mb-6 { margin-bottom: 0.5rem !important; }
+          .p-4, .p-5, .p-6 { padding: 0.5rem !important; }
+          .py-10 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
         }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
