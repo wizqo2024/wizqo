@@ -558,7 +558,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
@@ -585,62 +585,6 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </div>
               <p className="text-slate-600 leading-relaxed">
                 "Wizqo made it so easy to pick up guitar. The daily challenges helped me build skills without feeling overwhelmed."
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold">
-                  M
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-bold text-slate-900">Maria L.</h4>
-                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
-                </div>
-              </div>
-              <p className="text-slate-600 leading-relaxed">
-                "As a busy parent, I love how Wizqo's 7-day plans fit into my schedule. I learned photography basics and now take amazing photos of my kids!"
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
-                  J
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-bold text-slate-900">James T.</h4>
-                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
-                </div>
-              </div>
-              <p className="text-slate-600 leading-relaxed">
-                "The AI personalized my coding plan perfectly. I went from zero to building my first website in just 7 days!"
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full flex items-center justify-center text-white font-bold">
-                  E
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-bold text-slate-900">Emma R.</h4>
-                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
-                </div>
-              </div>
-              <p className="text-slate-600 leading-relaxed">
-                "Wizqo helped me discover yoga, and I'm hooked! The daily practice guides made it so easy to get started."
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold">
-                  D
-                </div>
-                <div className="ml-4">
-                  <h4 className="font-bold text-slate-900">David C.</h4>
-                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
-                </div>
-              </div>
-              <p className="text-slate-600 leading-relaxed">
-                "I've tried learning cooking before, but Wizqo's structured approach finally made it stick. Now I cook delicious meals every week!"
               </p>
             </div>
           </div>
@@ -722,7 +666,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           </h2>
           
           <p className="text-lg lg:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Join 10,000+ users who've transformed their lives with our AI-powered learning system.
+            Join our community of learners who've transformed their lives with our AI-powered learning system.
             <br className="hidden lg:block" />
             Your first day is <strong className="text-white">completely free</strong> - no strings attached.
           </p>
