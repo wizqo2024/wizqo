@@ -33,6 +33,186 @@ INTERACTIVE_CATEGORIES.forEach((category) => {
   })
 })
 
+// Category-specific themes for colorful, high-quality designs
+type CategoryTheme = {
+  primary: string
+  secondary: string
+  accent: string
+  background: string
+  gradient: string
+  border: string
+  text: string
+  lightBg: string
+  emojiSize: string
+  cornerAccent: string
+  cornerAccent2: string
+}
+
+const CATEGORY_THEMES: Record<string, CategoryTheme> = {
+  math: {
+    primary: 'purple',
+    secondary: 'indigo',
+    accent: 'pink',
+    background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
+    gradient: 'from-purple-500 via-indigo-500 to-pink-500',
+    border: 'border-purple-300',
+    text: 'text-purple-800',
+    lightBg: 'bg-purple-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-purple-200/30',
+    cornerAccent2: 'bg-pink-200/20',
+  },
+  reading: {
+    primary: 'blue',
+    secondary: 'cyan',
+    accent: 'sky',
+    background: 'bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50',
+    gradient: 'from-blue-500 via-cyan-500 to-sky-500',
+    border: 'border-blue-300',
+    text: 'text-blue-800',
+    lightBg: 'bg-blue-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-blue-200/30',
+    cornerAccent2: 'bg-sky-200/20',
+  },
+  writing: {
+    primary: 'emerald',
+    secondary: 'teal',
+    accent: 'green',
+    background: 'bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50',
+    gradient: 'from-emerald-500 via-teal-500 to-green-500',
+    border: 'border-emerald-300',
+    text: 'text-emerald-800',
+    lightBg: 'bg-emerald-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-emerald-200/30',
+    cornerAccent2: 'bg-green-200/20',
+  },
+  science: {
+    primary: 'green',
+    secondary: 'lime',
+    accent: 'emerald',
+    background: 'bg-gradient-to-br from-green-50 via-lime-50 to-emerald-50',
+    gradient: 'from-green-500 via-lime-500 to-emerald-500',
+    border: 'border-green-300',
+    text: 'text-green-800',
+    lightBg: 'bg-green-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-green-200/30',
+    cornerAccent2: 'bg-emerald-200/20',
+  },
+  geography: {
+    primary: 'amber',
+    secondary: 'orange',
+    accent: 'yellow',
+    background: 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50',
+    gradient: 'from-amber-500 via-orange-500 to-yellow-500',
+    border: 'border-amber-300',
+    text: 'text-amber-800',
+    lightBg: 'bg-amber-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-amber-200/30',
+    cornerAccent2: 'bg-yellow-200/20',
+  },
+  grammar: {
+    primary: 'rose',
+    secondary: 'pink',
+    accent: 'fuchsia',
+    background: 'bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50',
+    gradient: 'from-rose-500 via-pink-500 to-fuchsia-500',
+    border: 'border-rose-300',
+    text: 'text-rose-800',
+    lightBg: 'bg-rose-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-rose-200/30',
+    cornerAccent2: 'bg-fuchsia-200/20',
+  },
+  art: {
+    primary: 'pink',
+    secondary: 'purple',
+    accent: 'fuchsia',
+    background: 'bg-gradient-to-br from-pink-50 via-purple-50 to-fuchsia-50',
+    gradient: 'from-pink-500 via-purple-500 to-fuchsia-500',
+    border: 'border-pink-300',
+    text: 'text-pink-800',
+    lightBg: 'bg-pink-50',
+    emojiSize: 'text-5xl',
+    cornerAccent: 'bg-pink-200/30',
+    cornerAccent2: 'bg-fuchsia-200/20',
+  },
+  'early-learning': {
+    primary: 'yellow',
+    secondary: 'amber',
+    accent: 'orange',
+    background: 'bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50',
+    gradient: 'from-yellow-400 via-amber-400 to-orange-400',
+    border: 'border-yellow-300',
+    text: 'text-yellow-900',
+    lightBg: 'bg-yellow-50',
+    emojiSize: 'text-5xl',
+    cornerAccent: 'bg-yellow-200/30',
+    cornerAccent2: 'bg-orange-200/20',
+  },
+  logic: {
+    primary: 'slate',
+    secondary: 'gray',
+    accent: 'zinc',
+    background: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+    gradient: 'from-slate-500 via-gray-500 to-zinc-500',
+    border: 'border-slate-300',
+    text: 'text-slate-800',
+    lightBg: 'bg-slate-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-slate-200/30',
+    cornerAccent2: 'bg-zinc-200/20',
+  },
+  sel: {
+    primary: 'indigo',
+    secondary: 'violet',
+    accent: 'purple',
+    background: 'bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50',
+    gradient: 'from-indigo-500 via-violet-500 to-purple-500',
+    border: 'border-indigo-300',
+    text: 'text-indigo-800',
+    lightBg: 'bg-indigo-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-indigo-200/30',
+    cornerAccent2: 'bg-purple-200/20',
+  },
+}
+
+function getCategoryTheme(categoryId: string): CategoryTheme {
+  return CATEGORY_THEMES[categoryId] || {
+    primary: 'slate',
+    secondary: 'gray',
+    accent: 'zinc',
+    background: 'bg-gradient-to-br from-slate-50 to-gray-50',
+    gradient: 'from-slate-500 to-gray-500',
+    border: 'border-slate-300',
+    text: 'text-slate-800',
+    lightBg: 'bg-slate-50',
+    emojiSize: 'text-4xl',
+    cornerAccent: 'bg-slate-200/30',
+    cornerAccent2: 'bg-zinc-200/20',
+  }
+}
+
+function getCornerAccentColor(categoryId: string): { topRight: string; bottomLeft: string } {
+  const colorMap: Record<string, { topRight: string; bottomLeft: string }> = {
+    math: { topRight: 'rgba(196, 181, 253, 0.3)', bottomLeft: 'rgba(251, 207, 232, 0.2)' },
+    reading: { topRight: 'rgba(191, 219, 254, 0.3)', bottomLeft: 'rgba(186, 230, 253, 0.2)' },
+    writing: { topRight: 'rgba(167, 243, 208, 0.3)', bottomLeft: 'rgba(134, 239, 172, 0.2)' },
+    science: { topRight: 'rgba(187, 247, 208, 0.3)', bottomLeft: 'rgba(167, 243, 208, 0.2)' },
+    geography: { topRight: 'rgba(253, 230, 138, 0.3)', bottomLeft: 'rgba(254, 243, 199, 0.2)' },
+    grammar: { topRight: 'rgba(254, 205, 211, 0.3)', bottomLeft: 'rgba(240, 171, 252, 0.2)' },
+    art: { topRight: 'rgba(251, 207, 232, 0.3)', bottomLeft: 'rgba(240, 171, 252, 0.2)' },
+    'early-learning': { topRight: 'rgba(254, 243, 199, 0.3)', bottomLeft: 'rgba(255, 237, 213, 0.2)' },
+    logic: { topRight: 'rgba(226, 232, 240, 0.3)', bottomLeft: 'rgba(241, 245, 249, 0.2)' },
+    sel: { topRight: 'rgba(199, 210, 254, 0.3)', bottomLeft: 'rgba(196, 181, 253, 0.2)' },
+  }
+  return colorMap[categoryId] || { topRight: 'rgba(226, 232, 240, 0.3)', bottomLeft: 'rgba(241, 245, 249, 0.2)' }
+}
+
 function makeRng(seedStr: string) {
   let seed = 0
   for (let i = 0; i < seedStr.length; i++) seed = (seed + seedStr.charCodeAt(i)) >>> 0
@@ -2565,29 +2745,38 @@ const renderers: Record<string, Renderer> = {
     ], 5)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.</p>
-        <table className="w-full border border-pink-300 text-sm">
-          <thead className="bg-pink-100">
-            <tr>
-              <th className="px-3 py-2 text-left">Kindness Act</th>
-              <th className="px-3 py-2 text-left">When I did this...</th>
-              <th className="px-3 py-2 text-left">How did it make others feel?</th>
-              <th className="px-3 py-2 text-left">How did it make me feel?</th>
-            </tr>
-          </thead>
-          <tbody>
-            {acts.map((act, idx) => (
-              <tr key={idx} className="border-t border-pink-200">
-                <td className="px-3 py-2">{act}</td>
-                <td className="px-3 py-2">_______________________</td>
-                <td className="px-3 py-2">_______________________</td>
-                <td className="px-3 py-2">_______________________</td>
+        <p className="text-base font-semibold text-indigo-800">Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.</p>
+        <div className="rounded-xl border-2 border-indigo-300 bg-gradient-to-br from-indigo-50 via-violet-50 to-purple-50 p-5 shadow-lg">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-4xl">💝</span>
+            <p className="text-xl font-bold text-indigo-800">Kindness Challenge</p>
+          </div>
+          <table className="w-full border-2 border-indigo-300 text-sm bg-white rounded-lg overflow-hidden shadow-md">
+            <thead className="bg-gradient-to-r from-indigo-400 to-violet-400 text-white">
+              <tr>
+                <th className="px-4 py-3 text-left font-bold">Kindness Act</th>
+                <th className="px-4 py-3 text-left font-bold">When I did this...</th>
+                <th className="px-4 py-3 text-left font-bold">How did it make others feel?</th>
+                <th className="px-4 py-3 text-left font-bold">How did it make me feel?</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="rounded-lg border border-pink-200 bg-pink-50 px-4 py-3 text-xs text-pink-700">
-          💡 Kindness is contagious! When you're kind, others are more likely to be kind too.
+            </thead>
+            <tbody>
+              {acts.map((act, idx) => (
+                <tr key={idx} className={`border-t-2 border-indigo-200 ${idx % 2 === 0 ? 'bg-indigo-50/50' : 'bg-white'} hover:bg-indigo-100 transition-colors`}>
+                  <td className="px-4 py-3 font-semibold text-indigo-900">{act}</td>
+                  <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
+                  <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
+                  <td className="px-4 py-3"><span className="border-b-2 border-indigo-300 border-dashed inline-block min-w-[120px]">_______________________</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-r from-pink-100 to-rose-100 px-6 py-4 text-sm text-pink-800 shadow-md">
+          <p className="font-bold text-base flex items-center gap-2">
+            <span className="text-2xl">💡</span>
+            <span>Kindness is contagious! When you're kind, others are more likely to be kind too.</span>
+          </p>
         </div>
       </div>
     )
@@ -2907,14 +3096,19 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => {
             const emoji = objectEmojis[prob.objects[0]] || '⭐'
             return (
-              <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-                <p className="text-sm font-semibold text-purple-700 mb-2">Count the {prob.objects[0]}</p>
-                <div className="flex flex-wrap gap-2 mb-3">
+              <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
+                <p className="text-base font-bold text-purple-800 mb-3 flex items-center gap-2">
+                  <span className="text-2xl">{emoji}</span>
+                  <span>Count the {prob.objects[0]}</span>
+                </p>
+                <div className="flex flex-wrap gap-3 mb-4 bg-white/80 rounded-lg p-4 border-2 border-purple-200">
                   {Array.from({ length: prob.number }).map((_, i) => (
-                    <span key={i} className="text-2xl">{emoji}</span>
+                    <span key={i} className="text-4xl animate-pulse" style={{ animationDelay: `${i * 0.1}s`, animationDuration: '2s' }}>{emoji}</span>
                   ))}
                 </div>
-                <p className="text-sm text-purple-800">Number: ________</p>
+                <div className="bg-white rounded-lg border-2 border-purple-300 p-3">
+                  <p className="text-base font-bold text-purple-800">Number: <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
+                </div>
               </div>
             )
           })}
@@ -2953,26 +3147,34 @@ const renderers: Record<string, Renderer> = {
     const problems = buildMathMultiplication(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Solve each multiplication problem. Draw an array to help you.</p>
-        <div className="space-y-3">
+        <p className="text-base font-semibold text-purple-800">Solve each multiplication problem. Draw an array to help you!</p>
+        <div className="space-y-4">
           {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">{prob.factor1} × {prob.factor2} = ________</p>
-              <p className="text-xs text-slate-600 mb-2">Draw an array: {prob.arrayRows} rows × {prob.arrayCols} columns</p>
-              <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                <p className="text-xs text-purple-700 mb-1 font-semibold">Visual example:</p>
-                <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${Math.min(prob.arrayCols, 8)}, 1fr)`, maxWidth: '200px' }}>
+            <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-5 shadow-md hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-3xl">✖️</span>
+                <p className="text-lg font-bold text-purple-900">{prob.factor1} × {prob.factor2} = <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
+              </div>
+              <p className="text-sm font-semibold text-purple-700 mb-3">Draw an array: {prob.arrayRows} rows × {prob.arrayCols} columns</p>
+              <div className="mb-3 p-4 bg-white/90 rounded-xl border-2 border-purple-200 shadow-inner">
+                <p className="text-sm text-purple-800 mb-2 font-bold flex items-center gap-2">
+                  <span>📊</span>
+                  <span>Visual example:</span>
+                </p>
+                <div className="grid gap-2 p-2 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg" style={{ gridTemplateColumns: `repeat(${Math.min(prob.arrayCols, 8)}, 1fr)`, maxWidth: '280px' }}>
                   {Array.from({ length: Math.min(prob.arrayRows * prob.arrayCols, 24) }).map((_, i) => (
-                    <div key={i} className="aspect-square bg-purple-300 border border-purple-400 rounded text-xs flex items-center justify-center text-purple-800 font-bold">
-                      {i < 8 ? '●' : ''}
+                    <div key={i} className="aspect-square bg-gradient-to-br from-purple-400 to-indigo-400 border-2 border-purple-500 rounded-lg text-xs flex items-center justify-center text-white font-bold shadow-sm hover:scale-110 transition-transform">
+                      ●
                     </div>
                   ))}
                 </div>
                 {prob.arrayRows * prob.arrayCols > 24 && (
-                  <p className="text-xs text-purple-600 mt-1">... ({prob.arrayRows} rows × {prob.arrayCols} columns = {prob.answer} total)</p>
+                  <p className="text-xs text-purple-700 mt-2 font-semibold">... ({prob.arrayRows} rows × {prob.arrayCols} columns = {prob.answer} total)</p>
                 )}
               </div>
-              <div className="h-20 border border-dashed border-purple-300 rounded bg-purple-50"></div>
+              <div className="h-24 border-2 border-dashed border-purple-300 rounded-xl bg-white/80 flex items-center justify-center">
+                <p className="text-purple-600 text-sm font-semibold">Draw your array here!</p>
+              </div>
             </div>
           ))}
         </div>
@@ -4164,34 +4366,43 @@ const renderers: Record<string, Renderer> = {
   'interactive-art-color-by-number': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
-      { num: 1, color: 'red', emoji: '🔴' },
-      { num: 2, color: 'blue', emoji: '🔵' },
-      { num: 3, color: 'green', emoji: '🟢' },
-      { num: 4, color: 'yellow', emoji: '🟡' },
-      { num: 5, color: 'purple', emoji: '🟣' },
-      { num: 6, color: 'orange', emoji: '🟠' },
+      { num: 1, color: 'red', emoji: '🔴', bgColor: 'bg-red-500' },
+      { num: 2, color: 'blue', emoji: '🔵', bgColor: 'bg-blue-500' },
+      { num: 3, color: 'green', emoji: '🟢', bgColor: 'bg-green-500' },
+      { num: 4, color: 'yellow', emoji: '🟡', bgColor: 'bg-yellow-400' },
+      { num: 5, color: 'purple', emoji: '🟣', bgColor: 'bg-purple-500' },
+      { num: 6, color: 'orange', emoji: '🟠', bgColor: 'bg-orange-500' },
     ]
     const selectedCodes = pickMany(rng, colorCodes, 4)
     const designs = pickMany(rng, ['butterfly', 'flower', 'star', 'heart', 'rainbow', 'tree'], 1)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Color the picture using the number codes below. Match each number to its color!</p>
-        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-          <p className="text-sm font-semibold text-purple-700 mb-3">Color Key:</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+        <p className="text-base font-semibold text-pink-800">Color the picture using the number codes below. Match each number to its color!</p>
+        <div className="rounded-xl border-2 border-pink-300 bg-gradient-to-br from-pink-100 via-purple-100 to-fuchsia-100 p-6 shadow-lg">
+          <p className="text-lg font-bold text-pink-800 mb-4 flex items-center gap-2">
+            <span className="text-2xl">🎨</span>
+            <span>Color Key:</span>
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {selectedCodes.map((code) => (
-              <div key={code.num} className="flex items-center gap-2 bg-white rounded border border-purple-200 p-2">
-                <span className="text-lg">{code.emoji}</span>
+              <div key={code.num} className={`flex items-center gap-3 bg-white rounded-xl border-2 border-pink-300 p-4 shadow-md hover:shadow-lg transition-shadow ${code.bgColor} bg-opacity-10`}>
+                <span className="text-3xl">{code.emoji}</span>
                 <div>
-                  <p className="text-xs font-semibold">{code.num} = {code.color}</p>
+                  <p className="text-lg font-bold text-pink-900">{code.num} = {code.color}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="h-64 rounded border-2 border-purple-300 bg-white flex items-center justify-center">
-            <p className="text-purple-600 text-sm">Draw a {designs[0]} design with numbers 1-{selectedCodes.length}</p>
+          <div className="h-80 rounded-xl border-4 border-pink-300 bg-gradient-to-br from-white to-pink-50 flex items-center justify-center shadow-inner">
+            <div className="text-center">
+              <p className="text-6xl mb-4">🎨</p>
+              <p className="text-pink-700 text-lg font-bold">Draw a {designs[0]} design with numbers 1-{selectedCodes.length}</p>
+              <p className="text-pink-600 text-sm mt-2">Use the color key above!</p>
+            </div>
           </div>
-          <p className="mt-2 text-xs text-purple-600 text-center">Color each section according to the number code!</p>
+          <p className="mt-4 text-center text-base font-semibold text-pink-800 bg-white/80 rounded-lg p-3 border-2 border-pink-200">
+            ✨ Color each section according to the number code!
+          </p>
         </div>
       </div>
     )
@@ -6637,11 +6848,13 @@ function InteractiveWorksheetSection({
 
   const renderer = renderers[docId]
   const answerRenderer = answerRenderers[docId]
+  const theme = getCategoryTheme(category.id)
+  const cornerColors = getCornerAccentColor(category.id)
 
   if (!renderer) {
     return (
-      <section className="mb-10 break-inside-avoid rounded-xl border border-slate-200 bg-white p-5 print:border-0 print:p-0">
-        <h2 className="text-lg font-semibold text-slate-900">{category.icon} {doc.title}</h2>
+      <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-5 print:border-0 print:p-0 print:bg-white shadow-lg`}>
+        <h2 className={`text-lg font-semibold ${theme.text}`}>{category.icon} {doc.title}</h2>
         <p className="text-sm text-slate-600">Coming soon: printable activity for this interactive worksheet.</p>
         {showAnswers && (
           <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
@@ -6653,26 +6866,44 @@ function InteractiveWorksheetSection({
   }
 
   return (
-    <section className="mb-10 break-inside-avoid rounded-xl border border-slate-200 bg-white p-5 print:border-0 print:p-0">
-      <header className="mb-3 flex items-start justify-between gap-3">
+    <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden`}>
+      {/* Decorative corner accent */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
+      
+      <header className="mb-4 flex items-start justify-between gap-3 relative z-10">
         <div>
-          <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{category.label}</p>
-          <h2 className="text-lg font-semibold text-slate-900">{category.icon} {doc.title}</h2>
+          <p className={`text-xs uppercase tracking-wide font-bold ${theme.text} opacity-80`}>{category.label}</p>
+          <h2 className={`text-xl font-bold ${theme.text} mt-1 flex items-center gap-2`}>
+            <span className={theme.emojiSize}>{category.icon}</span>
+            <span>{doc.title}</span>
+          </h2>
+          <p className={`text-sm ${theme.text} opacity-70 mt-1`}>{doc.description}</p>
         </div>
-        <span className="inline-flex items-center rounded-full border border-purple-100 bg-purple-50 px-3 py-1 text-xs font-medium text-purple-700">
-          {doc.difficulty} • {doc.grades.map((grade) => grade.toUpperCase()).join(' / ')}
-        </span>
+        <div className="flex flex-col items-end gap-2">
+          <span className={`inline-flex items-center rounded-full border-2 ${theme.border} bg-white px-3 py-1 text-xs font-bold ${theme.text} shadow-sm`}>
+            {doc.difficulty}
+          </span>
+          <span className={`text-xs font-medium ${theme.text} opacity-60`}>
+            {doc.grades.map((g) => {
+              const gradeMap: Record<string, string> = { preK: 'Preschool', k1: 'K–1', g2: '2nd–3rd', '35': '4th–5th', '68': '6th–8th' }
+              return gradeMap[g] || g
+            }).join(' / ')}
+          </span>
+        </div>
       </header>
-      <p className="mb-4 text-sm text-slate-600">{doc.description}</p>
-      {renderer({ doc, category, seed, variant })}
-      {showAnswers && (
-        <div className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-          <p className="mb-2 font-semibold text-emerald-900">Answer key & teacher notes</p>
-          {answerRenderer ? (
-            answerRenderer({ doc, category, seed, variant })
-          ) : (
-            <p>Student responses may vary. Use the prompts above to guide discussion and feedback.</p>
-          )}
+      
+      <div className="relative z-10">
+        {renderer({ doc, category, seed, variant })}
+      </div>
+
+      {showAnswers && answerRenderer && (
+        <div className={`mt-6 rounded-xl border-2 ${theme.border} bg-white p-5 shadow-md relative z-10`}>
+          <h3 className={`text-sm font-bold ${theme.text} mb-3 flex items-center gap-2`}>
+            <span>✓</span>
+            Answer key & teacher notes
+          </h3>
+          {answerRenderer({ doc, category, seed, variant })}
         </div>
       )}
     </section>
