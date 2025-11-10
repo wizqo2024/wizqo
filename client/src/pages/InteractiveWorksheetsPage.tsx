@@ -385,8 +385,10 @@ function WorksheetPreviewCard({
         </div>
       </div>
       
-      {/* Thumbnail Preview */}
-      {pack && pack.seed && (
+      <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      {pack && pack.seed ? (
         <div 
           className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
           onClick={() => onPreview(item)}
@@ -428,25 +430,9 @@ function WorksheetPreviewCard({
           {/* Corner fold effect for document look */}
           <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
         </div>
-      )}
-      
-      <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
-      
-      {/* Worksheet Thumbnail Preview */}
-      {pack && (
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 overflow-hidden">
-          <div className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">Preview</div>
-          <div className="relative max-h-40 overflow-hidden rounded border border-slate-200 bg-white p-3">
-            <div className="transform scale-[0.35] origin-top-left" style={{ width: '285%', height: '285%' }}>
-              <InteractiveBundleSections
-                docIds={[item.docId]}
-                seed={pack.seed}
-                variant={filters.variant}
-                showAnswers={false}
-              />
-            </div>
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-slate-50" />
-          </div>
+      ) : (
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 flex items-center justify-center" style={{ height: '140px' }}>
+          <p className="text-xs text-slate-400">Preview will appear after generation</p>
         </div>
       )}
       
