@@ -599,13 +599,30 @@ export function PrintablesPage() {
           /* Hide URLs in print */
           a[href]::after { content: none !important; }
           a { text-decoration: none !important; }
-          /* Remove backgrounds and borders in print for cleaner look */
+          /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
           * {
             box-shadow: none !important;
           }
-          section, div[class*="rounded"], div[class*="border"] {
+          /* Remove borders from navigation and UI elements, but keep worksheet content borders */
+          header, .print\\:hidden, nav, button {
             border: none !important;
             border-radius: 0 !important;
+          }
+          /* Preserve worksheet section borders and styling for readability */
+          section[class*="break-inside-avoid"] {
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 4px !important;
+            background: white !important;
+          }
+          /* Preserve content borders within worksheets */
+          section[class*="break-inside-avoid"] div[class*="border"],
+          section[class*="break-inside-avoid"] div[class*="rounded"] {
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 4px !important;
+          }
+          /* Remove decorative corner accents in print */
+          section[class*="break-inside-avoid"] > div[class*="absolute"] {
+            display: none !important;
           }
           /* Customization header at top of page - only appears once */
           .print-customization-header { 
