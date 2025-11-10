@@ -3738,15 +3738,9 @@ const renderers: Record<string, Renderer> = {
                 <div className="bg-white rounded-lg p-3 border border-blue-200">
                   <p className="text-xs text-blue-600 mb-2 text-center">Write 3 times:</p>
                   <div className="flex gap-2">
-                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">{letter}</span>
-                    </div>
-                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">{letter}</span>
-                    </div>
-                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
-                      <span className="text-xs text-blue-400">{letter}</span>
-                    </div>
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded"></div>
                   </div>
                 </div>
               </div>
@@ -3759,9 +3753,7 @@ const renderers: Record<string, Renderer> = {
           <div className="bg-white rounded-lg p-3 border border-blue-200">
             <div className="flex flex-wrap gap-1 text-xs">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
-                <div key={idx} className="h-6 w-6 border border-dashed border-blue-300 rounded flex items-center justify-center">
-                  <span className="text-blue-400">{ltr}</span>
-                </div>
+                <div key={idx} className="h-6 w-6 border border-dashed border-blue-300 rounded"></div>
               ))}
             </div>
           </div>
