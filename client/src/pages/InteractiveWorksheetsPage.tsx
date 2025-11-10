@@ -346,6 +346,7 @@ function WorksheetPreviewCard({
   onPreview,
   onDownload,
   pack,
+  variant = 1,
 }: { 
   item: InteractiveWorksheetItem
   onToggleFavorite: (item: InteractiveWorksheetItem) => void
@@ -353,6 +354,7 @@ function WorksheetPreviewCard({
   onPreview: (item: InteractiveWorksheetItem) => void
   onDownload: (docId: string) => string
   pack: InteractiveWorksheetPack | null
+  variant?: number
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -381,6 +383,48 @@ function WorksheetPreviewCard({
           </button>
         </div>
       </div>
+      
+      {/* Thumbnail Preview */}
+      {pack && pack.seed && (
+        <div 
+          className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+          onClick={() => onPreview(item)}
+          style={{ minHeight: '140px', maxHeight: '200px' }}
+        >
+          {/* Document-like background */}
+          <div className="absolute inset-0 flex items-start justify-center p-2">
+            <div 
+              className="origin-top-left bg-white shadow-lg rounded-sm"
+              style={{
+                transform: 'scale(0.28)',
+                transformOrigin: 'top center',
+                width: '357%', // ~8.5in at 0.28 scale
+                minHeight: '1100%', // ~11in at 0.28 scale
+                overflow: 'hidden',
+                pointerEvents: 'none',
+              }}
+            >
+              <div className="bg-white p-6" style={{ width: '100%', minHeight: '100%' }}>
+                <InteractiveBundleSections
+                  docIds={[item.docId]}
+                  seed={pack.seed}
+                  variant={variant}
+                  showAnswers={false}
+                />
+              </div>
+            </div>
+          </div>
+          {/* Overlay on hover */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg">
+              👁️ Click to preview full worksheet
+            </div>
+          </div>
+          {/* Corner fold effect for document look */}
+          <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+        </div>
+      )}
+      
       <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
       {item.focus.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -1217,6 +1261,7 @@ export function InteractiveWorksheetsPage() {
                           onPreview={handlePreview}
                           onDownload={getSingleWorksheetPrintUrl}
                           pack={pack}
+                          variant={filters.variant}
                         />
                       ))}
                     </div>
