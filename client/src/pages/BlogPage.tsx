@@ -69,7 +69,7 @@ const basePosts: BlogPost[] = [
     date: "2025-11-10T12:00:00Z",
     readTime: "6-7 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "https://images.pexels.com/photos/5412081/pexels-photo-5412081.jpeg",
     imageAlt: "Child practicing multiplication on printable worksheet",
     keywords: "multiplication worksheets, free printable multiplication worksheets pdf, times tables worksheets for practice, math multiplication activities printable, multiplication facts worksheets download, printable math worksheets for beginners, classroom multiplication resources"
   },
