@@ -3751,11 +3751,11 @@ const renderers: Record<string, Renderer> = {
           <p className="text-sm font-semibold text-blue-700 mb-2">Practice All Letters</p>
           <p className="text-xs text-blue-600 mb-3">Write the entire lowercase alphabet:</p>
           <div className="bg-white rounded-lg p-3 border border-blue-200">
-            <div className="flex flex-wrap gap-2 text-xs">
+            <div className="flex flex-wrap gap-2">
               {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
                 <div key={idx} className="flex flex-col items-center gap-1">
-                  <span className="text-sm text-blue-700 font-bold">{ltr}</span>
-                  <div className="h-6 w-6 border border-dashed border-blue-300 rounded"></div>
+                  <span className="text-base text-blue-800 font-bold leading-none">{ltr}</span>
+                  <div className="h-7 w-7 border-2 border-dashed border-blue-400 rounded bg-white"></div>
                 </div>
               ))}
             </div>
