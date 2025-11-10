@@ -1191,13 +1191,6 @@ export function InteractiveWorksheetsPage() {
                 ))}
               </div>
             </div>
-
-            <div className="rounded-2xl bg-purple-50 p-4 text-sm text-purple-800">
-              <p className="font-semibold">Pro tip</p>
-              <p>
-                Generate unlimited unique sets! Each time you click "Generate new unique pack", you'll get a completely different set of worksheets based on your selected grade and categories. Perfect for multiple groups, daily practice, or when you need variety!
-              </p>
-            </div>
           </aside>
 
           <section className="space-y-6">
