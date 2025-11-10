@@ -389,6 +389,14 @@ export const INTERACTIVE_CATEGORIES: InteractiveCategory[] = [
         focus: ['handwriting', 'letter formation', 'fine motor'],
       }),
       makeDoc({
+        id: 'interactive-writing-lowercase-trace',
+        title: 'Neat Handwriting Practice – Lowercase Alphabet Tracing',
+        description: 'Practice tracing lowercase letters with guided lines. Perfect for developing neat handwriting skills.',
+        grades: ['preK', 'k1'],
+        difficulty: 'Beginner',
+        focus: ['handwriting', 'lowercase letters', 'letter formation', 'fine motor'],
+      }),
+      makeDoc({
         id: 'interactive-writing-sentences',
         title: 'Sentence Builder Workshop',
         description: 'Practice building complete sentences with varied structures and punctuation.',

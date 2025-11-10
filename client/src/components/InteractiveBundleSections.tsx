@@ -3715,6 +3715,60 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-writing-lowercase-trace': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Practice tracing lowercase letters neatly. Follow the dotted lines, then write each letter 3 times on your own.</p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {lowercaseLetters.map((letter, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <p className="text-sm font-semibold text-blue-700 mb-3 text-center">Letter: {letter}</p>
+              <div className="space-y-3">
+                <div className="bg-white rounded-lg p-3 border border-blue-200">
+                  <p className="text-xs text-blue-600 mb-2 text-center">Trace the letter:</p>
+                  <div className="flex items-center justify-center">
+                    <span className="text-4xl text-blue-400 font-light" style={{ fontFamily: 'monospace' }}>{letter}</span>
+                    <div className="ml-2 flex-1 h-10 border-2 border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
+                      <span className="text-xs text-blue-400">Trace here</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-blue-200">
+                  <p className="text-xs text-blue-600 mb-2 text-center">Write 3 times:</p>
+                  <div className="flex gap-2">
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
+                      <span className="text-xs text-blue-400">{letter}</span>
+                    </div>
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
+                      <span className="text-xs text-blue-400">{letter}</span>
+                    </div>
+                    <div className="flex-1 h-8 border border-dashed border-blue-300 bg-white rounded flex items-center justify-center">
+                      <span className="text-xs text-blue-400">{letter}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 mt-4">
+          <p className="text-sm font-semibold text-blue-700 mb-2">Practice All Letters</p>
+          <p className="text-xs text-blue-600 mb-3">Write the entire lowercase alphabet:</p>
+          <div className="bg-white rounded-lg p-3 border border-blue-200">
+            <div className="flex flex-wrap gap-1 text-xs">
+              {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].map((ltr, idx) => (
+                <div key={idx} className="h-6 w-6 border border-dashed border-blue-300 rounded flex items-center justify-center">
+                  <span className="text-blue-400">{ltr}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
   'interactive-writing-pictures': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const prompts = pickMany(rng, [
@@ -5841,10 +5895,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     )
   },
   // ANSWER RENDERERS FOR NEW WORKSHEETS
-  // ANSWER RENDERERS FOR NEW WORKSHEETS
   'interactive-writing-trace': ({ doc, seed, variant }) => {
     return (
       <p className="text-sm">Students should trace letters correctly, write them 3 times each, and trace/write words. Check for proper letter formation and legibility.</p>
+    )
+  },
+  'interactive-writing-lowercase-trace': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Students should trace lowercase letters neatly, following the dotted lines. Check for proper letter formation, consistent size, and legibility. Letters should sit on the baseline correctly.</p>
     )
   },
   'interactive-writing-pictures': ({ doc, seed, variant }) => {
