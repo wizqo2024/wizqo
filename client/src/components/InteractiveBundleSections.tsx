@@ -2739,6 +2739,19 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800 mb-2">{prob.factor1} × {prob.factor2} = ________</p>
               <p className="text-xs text-slate-600 mb-2">Draw an array: {prob.arrayRows} rows × {prob.arrayCols} columns</p>
+              <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                <p className="text-xs text-purple-700 mb-1 font-semibold">Visual example:</p>
+                <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${Math.min(prob.arrayCols, 8)}, 1fr)`, maxWidth: '200px' }}>
+                  {Array.from({ length: Math.min(prob.arrayRows * prob.arrayCols, 24) }).map((_, i) => (
+                    <div key={i} className="aspect-square bg-purple-300 border border-purple-400 rounded text-xs flex items-center justify-center text-purple-800 font-bold">
+                      {i < 8 ? '●' : ''}
+                    </div>
+                  ))}
+                </div>
+                {prob.arrayRows * prob.arrayCols > 24 && (
+                  <p className="text-xs text-purple-600 mt-1">... ({prob.arrayRows} rows × {prob.arrayCols} columns = {prob.answer} total)</p>
+                )}
+              </div>
               <div className="h-20 border border-dashed border-purple-300 rounded bg-purple-50"></div>
             </div>
           ))}
@@ -2756,6 +2769,16 @@ const renderers: Record<string, Renderer> = {
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800 mb-2">{prob.dividend} ÷ {prob.divisor} = ________</p>
               {prob.remainder > 0 && <p className="text-xs text-slate-600">Remainder: ________</p>}
+              <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                <p className="text-xs text-purple-700 mb-1 font-semibold">Visual grouping:</p>
+                <div className="flex flex-wrap gap-1">
+                  {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
+                    <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
+                  ))}
+                  {prob.dividend > 20 && <span className="text-xs text-purple-600 ml-1">... ({prob.dividend} total)</span>}
+                </div>
+                <p className="text-xs text-purple-600 mt-1">Group into {prob.divisor}s: {prob.quotient} groups{prob.remainder > 0 ? ` + ${prob.remainder} left over` : ''}</p>
+              </div>
               <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
             </div>
           ))}
@@ -2769,13 +2792,33 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Identify the digit in each place value.</p>
         <div className="space-y-3">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
-              <p className="text-sm text-purple-700">What digit is in the {prob.place} place? ________</p>
-              <p className="text-xs text-slate-600 mt-1">Expanded form: ________</p>
-            </div>
-          ))}
+          {problems.map((prob, idx) => {
+            const numStr = String(prob.number)
+            const placeOrder = ['ones', 'tens', 'hundreds', 'thousands']
+            const placeIndex = placeOrder.indexOf(prob.place)
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+                <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
+                <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
+                  <p className="text-xs text-purple-700 mb-1 font-semibold">Place value chart:</p>
+                  <div className="flex gap-1 justify-start items-end">
+                    {numStr.split('').reverse().map((digit, i) => {
+                      const placeName = placeOrder[i] || ''
+                      const isHighlighted = i === placeIndex
+                      return (
+                        <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300 border-2 border-purple-600' : 'bg-white border border-purple-200'} rounded p-1 min-w-[50px]`}>
+                          <div className="text-xs text-purple-600">{placeName}</div>
+                          <div className={`text-lg font-bold ${isHighlighted ? 'text-purple-900' : 'text-purple-700'}`}>{digit}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+                <p className="text-sm text-purple-700">What digit is in the {prob.place} place? ________</p>
+                <p className="text-xs text-slate-600 mt-1">Expanded form: ________</p>
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -2786,13 +2829,35 @@ const renderers: Record<string, Renderer> = {
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Read the clock and solve the time problems.</p>
         <div className="space-y-3">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800 mb-2">Time: {prob.hours}:{String(prob.minutes).padStart(2, '0')}</p>
-              <p className="text-sm text-slate-700 mb-2">{prob.question}</p>
-              <p className="text-sm text-purple-700">Answer: ________</p>
-            </div>
-          ))}
+          {problems.map((prob, idx) => {
+            const hourAngle = (prob.hours % 12) * 30 + prob.minutes * 0.5
+            const minuteAngle = prob.minutes * 6
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
+                <div className="flex items-start gap-4 mb-2">
+                  <div className="relative w-20 h-20 flex-shrink-0">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <circle cx="50" cy="50" r="45" fill="white" stroke="currentColor" strokeWidth="2" className="text-purple-300"/>
+                      {Array.from({ length: 12 }).map((_, i) => {
+                        const angle = (i * 30 - 90) * Math.PI / 180
+                        const x = 50 + 35 * Math.cos(angle)
+                        const y = 50 + 35 * Math.sin(angle)
+                        return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" className="text-xs fill-purple-700 font-semibold">{i || 12}</text>
+                      })}
+                      <line x1="50" y1="50" x2={50 + 25 * Math.cos((hourAngle - 90) * Math.PI / 180)} y2={50 + 25 * Math.sin((hourAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="3" className="text-purple-800"/>
+                      <line x1="50" y1="50" x2={50 + 35 * Math.cos((minuteAngle - 90) * Math.PI / 180)} y2={50 + 35 * Math.sin((minuteAngle - 90) * Math.PI / 180)} stroke="currentColor" strokeWidth="2" className="text-purple-600"/>
+                      <circle cx="50" cy="50" r="3" fill="currentColor" className="text-purple-800"/>
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-purple-800 mb-1">Time: {prob.hours}:{String(prob.minutes).padStart(2, '0')}</p>
+                    <p className="text-sm text-slate-700 mb-2">{prob.question}</p>
+                    <p className="text-sm text-purple-700">Answer: ________</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -4851,74 +4916,127 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-math-counting': ({ doc, seed, variant }) => {
     const problems = buildMathCounting(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>Count the {prob.objects[0]}: <span className="text-emerald-700">{prob.number}</span></li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => (
+            <li key={idx} className="mb-3">
+              <span className="font-semibold">Count the {prob.objects[0]}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+              <p className="text-xs text-slate-600 mt-1 ml-4">Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     )
   },
   'interactive-math-tens-frames': ({ doc, seed, variant }) => {
     const problems = buildMathTensFrames(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => {
-          const total = prob.filled + prob.missing
-          const answer = prob.operation === '+' ? total : prob.filled
-          return (
-            <li key={idx}>
-              {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = <span className="text-emerald-700">{answer}</span>
-            </li>
-          )
-        })}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            const total = prob.filled + prob.missing
+            const answer = prob.operation === '+' ? total : prob.filled
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.operation === '+' ? `${prob.filled} + ${prob.missing}` : `${total} - ${prob.missing}`} = <span className="text-emerald-700 font-bold">{answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  {prob.operation === '+' 
+                    ? `Strategy: Start with ${prob.filled} filled boxes. Count on ${prob.missing} more to reach ${total}. Use the tens frame to visualize: fill ${prob.missing} empty boxes.`
+                    : `Strategy: Start with ${total} filled boxes. Remove ${prob.missing} boxes. Count how many remain: ${prob.filled}. This shows subtraction as "taking away."`}
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-multiplication': ({ doc, seed, variant }) => {
     const problems = buildMathMultiplication(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>{prob.factor1} × {prob.factor2} = <span className="text-emerald-700">{prob.answer}</span></li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => (
+            <li key={idx} className="mb-3">
+              <span className="font-semibold">Problem {idx + 1}:</span> {prob.factor1} × {prob.factor2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+              <p className="text-xs text-slate-600 mt-1 ml-4">
+                <span className="font-semibold">Solution:</span> Draw an array with {prob.arrayRows} rows and {prob.arrayCols} columns. Count all the objects: {prob.arrayRows} groups of {prob.arrayCols} = {prob.answer}. 
+                <span className="block mt-1">Alternative strategies: Skip count by {prob.factor2}, {prob.factor2} times. Or use repeated addition: {prob.factor2} + {prob.factor2} + ... ({prob.arrayRows} times) = {prob.answer}.</span>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
     )
   },
   'interactive-math-division': ({ doc, seed, variant }) => {
     const problems = buildMathDivision(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.dividend} ÷ {prob.divisor} = <span className="text-emerald-700">{prob.quotient}</span>
-            {prob.remainder > 0 && <span className="text-emerald-700"> (remainder: {prob.remainder})</span>}
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => (
+            <li key={idx} className="mb-3">
+              <span className="font-semibold">Problem {idx + 1}:</span> {prob.dividend} ÷ {prob.divisor} = <span className="text-emerald-700 font-bold">{prob.quotient}</span>
+              {prob.remainder > 0 && <span className="text-emerald-700"> (remainder: {prob.remainder})</span>}
+              <p className="text-xs text-slate-600 mt-1 ml-4">
+                <span className="font-semibold">Solution:</span> Divide {prob.dividend} into groups of {prob.divisor}. You can make {prob.quotient} complete groups.
+                {prob.remainder > 0 ? ` There are ${prob.remainder} left over that don't make a complete group.` : ' All items are grouped evenly.'}
+                <span className="block mt-1">Strategy: Use repeated subtraction ({prob.dividend} - {prob.divisor} - {prob.divisor} - ...) or think "How many {prob.divisor}s fit into {prob.dividend}?"</span>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
     )
   },
   'interactive-math-place-value': ({ doc, seed, variant }) => {
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.number}: {prob.place} place = <span className="text-emerald-700">{prob.digit}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            const numStr = String(prob.number)
+            const expandedForm = numStr.split('').reverse().map((digit, i) => {
+              const place = ['ones', 'tens', 'hundreds', 'thousands'][i] || ''
+              return `${digit} × ${Math.pow(10, i)}`
+            }).reverse().join(' + ')
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number}: {prob.place} place = <span className="text-emerald-700 font-bold">{prob.digit}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Explanation:</span> In the number {prob.number}, read from right to left: ones place, tens place, hundreds place, etc. The digit in the {prob.place} place is {prob.digit}.
+                  <span className="block mt-1"><span className="font-semibold">Expanded form:</span> {expandedForm} = {prob.number}</span>
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-time': ({ doc, seed, variant }) => {
     const problems = buildMathTime(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.question} Answer: <span className="text-emerald-700">{prob.answer}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            const [startHours, startMins] = [prob.hours, prob.minutes]
+            const elapsedMatch = prob.question.match(/(\d+)\s+hour.*?(\d+)\s+minute/)
+            const elapsedHours = elapsedMatch ? parseInt(elapsedMatch[1]) : 0
+            const elapsedMinutes = elapsedMatch ? parseInt(elapsedMatch[2]) : 0
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.question} Answer: <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Solution:</span> Start time: {startHours}:{String(startMins).padStart(2, '0')}. Add {elapsedHours} hour{elapsedHours !== 1 ? 's' : ''} and {elapsedMinutes} minute{elapsedMinutes !== 1 ? 's' : ''}.
+                  <span className="block mt-1">Step 1: Add minutes: {startMins} + {elapsedMinutes} = {(startMins + elapsedMinutes) % 60} (carry over {Math.floor((startMins + elapsedMinutes) / 60)} hour if needed).</span>
+                  <span className="block mt-1">Step 2: Add hours: {startHours} + {elapsedHours} + {Math.floor((startMins + elapsedMinutes) / 60)} = Final time: {prob.answer}</span>
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-graphing': ({ doc, seed, variant }) => {
@@ -4929,49 +5047,121 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-math-rounding': ({ doc, seed, variant }) => {
     const problems = buildMathRounding(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.number} rounded to the nearest {prob.roundTo} = <span className="text-emerald-700">{prob.answer}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            let roundingRule = ''
+            let stepByStep = ''
+            if (prob.roundTo === 'ten') {
+              const onesDigit = prob.number % 10
+              roundingRule = onesDigit >= 5 ? `Round up because ${onesDigit} ≥ 5` : `Round down because ${onesDigit} < 5`
+              stepByStep = `Look at the ones digit (${onesDigit}). ${onesDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace ones with 0: ${prob.answer}`
+            } else if (prob.roundTo === 'hundred') {
+              const tensDigit = Math.floor((prob.number % 100) / 10)
+              roundingRule = tensDigit >= 5 ? `Round up because tens digit ${tensDigit} ≥ 5` : `Round down because tens digit ${tensDigit} < 5`
+              stepByStep = `Look at the tens digit (${tensDigit}). ${tensDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace tens and ones with 00: ${prob.answer}`
+            } else {
+              const hundredsDigit = Math.floor((prob.number % 1000) / 100)
+              roundingRule = hundredsDigit >= 5 ? `Round up because hundreds digit ${hundredsDigit} ≥ 5` : `Round down because hundreds digit ${hundredsDigit} < 5`
+              stepByStep = `Look at the hundreds digit (${hundredsDigit}). ${hundredsDigit >= 5 ? 'Since it\'s 5 or greater, round up' : 'Since it\'s less than 5, round down'}. Replace hundreds, tens, and ones with 000: ${prob.answer}`
+            }
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.number} rounded to the nearest {prob.roundTo} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Rule:</span> {roundingRule}
+                  <span className="block mt-1"><span className="font-semibold">Step-by-step:</span> {stepByStep}</span>
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-decimals': ({ doc, seed, variant }) => {
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.num1} {prob.op} {prob.num2} = <span className="text-emerald-700">{prob.answer}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            let explanation = ''
+            if (prob.op === '+') {
+              explanation = `Add: ${prob.num1} + ${prob.num2} = ${prob.answer}. Line up decimal points and add each place value.`
+            } else if (prob.op === '-') {
+              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Line up decimal points and subtract each place value.`
+            } else if (prob.op === '×') {
+              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply as whole numbers, then count total decimal places and place decimal point.`
+            } else {
+              explanation = `Divide: ${prob.num1} ÷ ${prob.num2} = ${prob.answer}. Move decimal points to make divisor whole, then divide normally.`
+            }
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1} {prob.op} {prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Solution:</span> {explanation}
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-integers': ({ doc, seed, variant }) => {
     const problems = buildMathIntegers(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = <span className="text-emerald-700">{prob.answer}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            let explanation = ''
+            if (prob.op === '+') {
+              if (prob.num1 < 0 && prob.num2 < 0) {
+                explanation = `Add two negatives: (${prob.num1}) + (${prob.num2}) = ${prob.answer}. Add absolute values, keep negative sign.`
+              } else if (prob.num1 < 0 || prob.num2 < 0) {
+                explanation = `Add positive and negative: ${prob.num1} + ${prob.num2} = ${prob.answer}. Subtract absolute values, keep sign of larger number.`
+              } else {
+                explanation = `Add two positives: ${prob.num1} + ${prob.num2} = ${prob.answer}.`
+              }
+            } else if (prob.op === '-') {
+              explanation = `Subtract: ${prob.num1} - ${prob.num2} = ${prob.answer}. Change subtraction to addition: ${prob.num1} + (${-prob.num2}) = ${prob.answer}.`
+            } else {
+              const sign = (prob.num1 < 0) !== (prob.num2 < 0) ? 'negative' : 'positive'
+              explanation = `Multiply: ${prob.num1} × ${prob.num2} = ${prob.answer}. Multiply absolute values: ${Math.abs(prob.num1)} × ${Math.abs(prob.num2)} = ${Math.abs(prob.answer)}. Result is ${sign} because ${(prob.num1 < 0) !== (prob.num2 < 0) ? 'one number is negative' : 'both numbers have the same sign'}.`
+            }
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.num1 < 0 ? `(${prob.num1})` : prob.num1} {prob.op} {prob.num2 < 0 ? `(${prob.num2})` : prob.num2} = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Solution:</span> {explanation}
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-math-exponents': ({ doc, seed, variant }) => {
     const problems = buildMathExponents(seed, doc.id, variant)
     return (
-      <ol className="list-decimal list-inside space-y-1 text-sm">
-        {problems.map((prob, idx) => (
-          <li key={idx}>
-            {prob.base}<sup>{prob.exponent}</sup> = <span className="text-emerald-700">{prob.answer}</span>
-          </li>
-        ))}
-      </ol>
+      <div className="space-y-2">
+        <ol className="list-decimal list-inside space-y-2 text-sm">
+          {problems.map((prob, idx) => {
+            const expansion = Array(prob.exponent).fill(prob.base).join(' × ')
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">Problem {idx + 1}:</span> {prob.base}<sup>{prob.exponent}</sup> = <span className="text-emerald-700 font-bold">{prob.answer}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">
+                  <span className="font-semibold">Solution:</span> {prob.base}<sup>{prob.exponent}</sup> means multiply {prob.base} by itself {prob.exponent} times.
+                  <span className="block mt-1"><span className="font-semibold">Expansion:</span> {expansion} = {prob.answer}</span>
+                  <span className="block mt-1"><span className="font-semibold">Tip:</span> The exponent tells you how many times to multiply the base. {prob.base}<sup>{prob.exponent}</sup> = {prob.base} × {prob.base} × ... ({prob.exponent} times).</span>
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </div>
     )
   },
   'interactive-reading-literary-analysis': ({ doc, seed, variant }) => {
