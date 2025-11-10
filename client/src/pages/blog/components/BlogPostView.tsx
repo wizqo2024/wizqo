@@ -1,7 +1,7 @@
 import React from 'react';
-import { SEOMetaTags } from '../../components/SEOMetaTags';
-import { UnifiedNavigation } from '../../components/UnifiedNavigation';
-import { Footer } from '../../components/Footer';
+import { SEOMetaTags } from '@/components/SEOMetaTags';
+import { UnifiedNavigation } from '@/components/UnifiedNavigation';
+import { Footer } from '@/components/Footer';
 import { useToast } from '@/hooks/use-toast';
 import { BlogPost } from '../types';
 import { getPostImage, getPostRating } from '../utils';
