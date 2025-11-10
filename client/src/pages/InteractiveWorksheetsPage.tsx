@@ -389,22 +389,26 @@ function WorksheetPreviewCard({
         <div 
           className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
           onClick={() => onPreview(item)}
-          style={{ minHeight: '140px', maxHeight: '200px' }}
+          style={{ 
+            height: '140px',
+            aspectRatio: '2.5/1', // Wide landscape ratio
+          }}
         >
           {/* Document-like background - Landscape/Fit-to-screen view */}
-          <div className="absolute inset-0 flex items-center justify-center p-2">
+          <div className="absolute inset-0 flex items-center justify-start p-2 overflow-hidden">
             <div 
-              className="origin-center bg-white shadow-lg rounded-sm"
+              className="bg-white shadow-lg rounded-sm"
               style={{
-                transform: 'scale(0.22)',
-                transformOrigin: 'center center',
-                width: '454%', // Landscape width (~11in at 0.22 scale)
-                height: '454%', // Landscape height (~8.5in at 0.22 scale)
+                transform: 'scale(0.15)',
+                transformOrigin: 'top left',
+                width: '666%', // Much wider for landscape view
+                height: 'auto',
+                minHeight: '666%',
                 overflow: 'hidden',
                 pointerEvents: 'none',
               }}
             >
-              <div className="bg-white p-4" style={{ width: '100%', height: '100%' }}>
+              <div className="bg-white p-2" style={{ width: '100%' }}>
                 <InteractiveBundleSections
                   docIds={[item.docId]}
                   seed={pack.seed}
