@@ -244,8 +244,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="What Hobby Means ? Discover Your Ideal Hobby with Wizqo AI"
-                    description="Learn what a hobby really means and find your perfect match with Wizqo?s AI-powered 7-day hobby plans. Start today for free!"
+                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
+                    description="Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />

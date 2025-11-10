@@ -8,8 +8,41 @@ interface LandingPageProps {
 }
 
 export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
+  // JSON-LD Structured Data for Organization
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Wizqo",
+    "url": "https://wizqo.com",
+    "logo": "https://wizqo.com/og-image.jpg",
+    "description": "AI-powered 7-day hobby learning plans. Discover your ideal hobby with personalized learning paths.",
+    "sameAs": [],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "url": "https://wizqo.com/contact"
+    }
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Wizqo",
+    "url": "https://wizqo.com",
+    "description": "Discover your ideal hobby with AI-powered 7-day learning plans",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://wizqo.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      
       {/* Unified Navigation */}
       <UnifiedNavigation currentPage="home" />
 
@@ -27,7 +60,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             {/* Trendy Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-              <span className="text-sm font-medium">✨ AI-Powered • Personalized • Free</span>
+              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> AI-Powered • Personalized • Free</span>
             </div>
             
             {/* Main Headline */}
@@ -49,7 +82,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
               >
-                🚀 Start Your Journey
+                <span aria-hidden="true">🚀</span> Start Your Journey
               </Button>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) */}
@@ -57,7 +90,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <ul className="flex flex-wrap justify-center gap-2 text-sm">
                 <li>
                   <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    ✍️ Handwriting worksheets (PDF)
+                    <span aria-hidden="true">✍️</span> Handwriting worksheets (PDF)
                   </a>
                 </li>
                 <li>
@@ -84,35 +117,35 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <span className="text-sm font-medium">Loved by parents & teachers</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
-                <span>🖨️ Printable awards & handwriting sheets</span>
+                <span aria-hidden="true">🖨️</span> Printable awards & handwriting sheets
               </div>
-              <div className="text-sm font-medium">🧠 Kid-friendly games & 7-day plans</div>
+              <div className="text-sm font-medium"><span aria-hidden="true">🧠</span> Kid-friendly games & 7-day plans</div>
             </div>
           </div>
         </div>
         
         {/* Floating Elements */}
         <div className="absolute top-1/4 left-10 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300">
-            <span className="text-2xl">🎸</span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Guitar hobby example">
+            <span className="text-2xl" aria-hidden="true">🎸</span>
             <p className="text-white text-sm mt-1">Guitar</p>
           </div>
         </div>
         <div className="absolute top-1/3 right-16 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300">
-            <span className="text-2xl">📸</span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300" aria-label="Photography hobby example">
+            <span className="text-2xl" aria-hidden="true">📸</span>
             <p className="text-white text-sm mt-1">Photography</p>
           </div>
         </div>
         <div className="absolute bottom-1/4 left-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300">
-            <span className="text-2xl">🍳</span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300" aria-label="Cooking hobby example">
+            <span className="text-2xl" aria-hidden="true">🍳</span>
             <p className="text-white text-sm mt-1">Cooking</p>
           </div>
         </div>
         <div className="absolute bottom-1/3 right-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300">
-            <span className="text-2xl">💻</span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300" aria-label="Coding hobby example">
+            <span className="text-2xl" aria-hidden="true">💻</span>
             <p className="text-white text-sm mt-1">Coding</p>
           </div>
         </div>
@@ -128,49 +161,49 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.
               </p>
               <ul className="text-slate-700 text-sm space-y-1 mb-5 list-disc list-inside">
-                <li>🃏 Memory Match • 🔤 Word Search • 🧩 Puzzle • ⌨️ Typing Safari</li>
-                <li>🖨️ Printables: word search, sudoku, coloring • 📚 Interactive Worksheets Generator</li>
+                <li><span aria-hidden="true">🃏</span> Memory Match • <span aria-hidden="true">🔤</span> Word Search • <span aria-hidden="true">🧩</span> Puzzle • <span aria-hidden="true">⌨️</span> Typing Safari</li>
+                <li><span aria-hidden="true">🖨️</span> Printables: word search, sudoku, coloring • <span aria-hidden="true">📚</span> Interactive Worksheets Generator</li>
               </ul>
               <div className="flex flex-wrap gap-3">
                 <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
-                <a href="/interactive-worksheets-generator" className="inline-flex items-center px-4 py-2 rounded-lg border border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100">📚 Interactive Worksheets →</a>
+                <a href="/interactive-worksheets-generator" className="inline-flex items-center px-4 py-2 rounded-lg border border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100"><span aria-hidden="true">📚</span> Interactive Worksheets →</a>
               </div>
             </div>
             <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden">
               <div className="absolute top-2 left-4">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-6 hover:-rotate-2 hover:-translate-y-1 transition">
-                  <div className="text-2xl">🃏</div>
+                  <div className="text-2xl" aria-hidden="true">🃏</div>
                   <p className="text-slate-800 text-sm mt-1">Memory</p>
                 </div>
               </div>
               <div className="absolute top-6 right-12">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-6 hover:-rotate-1 hover:-translate-y-1 transition">
-                  <div className="text-2xl">🔤</div>
+                  <div className="text-2xl" aria-hidden="true">🔤</div>
                   <p className="text-slate-800 text-sm mt-1">Word Search</p>
                 </div>
               </div>
               <div className="absolute bottom-8 left-1/4">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
-                  <div className="text-2xl">🧩</div>
+                  <div className="text-2xl" aria-hidden="true">🧩</div>
                   <p className="text-slate-800 text-sm mt-1">Puzzle</p>
                 </div>
               </div>
               <div className="absolute bottom-6 right-32">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-3 hover:rotate-0 hover:-translate-y-1 transition">
-                  <div className="text-2xl">⌨️</div>
+                  <div className="text-2xl" aria-hidden="true">⌨️</div>
                   <p className="text-slate-800 text-sm mt-1">Typing</p>
                 </div>
               </div>
               {/* Added: Floating Printables & Coloring cards with extra spacing */}
               <div className="absolute top-24 right-40 hidden sm:block">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform rotate-2 hover:-rotate-1 hover:-translate-y-1 transition">
-                  <div className="text-2xl">🖨️</div>
+                  <div className="text-2xl" aria-hidden="true">🖨️</div>
                   <p className="text-slate-800 text-sm mt-1">Printables</p>
                 </div>
               </div>
               <div className="absolute top-40 right-10 hidden sm:block">
                 <div className="bg-white/60 backdrop-blur-sm border border-slate-300/60 rounded-2xl p-4 shadow-lg transform -rotate-2 hover:rotate-0 hover:-translate-y-1 transition">
-                  <div className="text-2xl">🖍️</div>
+                  <div className="text-2xl" aria-hidden="true">🖍️</div>
                   <p className="text-slate-800 text-sm mt-1">Coloring</p>
                 </div>
               </div>
@@ -184,22 +217,22 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
-              <div className="text-3xl mb-3">🌟</div>
+              <div className="text-3xl mb-3" aria-hidden="true">🌟</div>
               <h3 className="text-lg font-semibold text-slate-900">Loved by families & teachers</h3>
               <p className="mt-2 text-sm text-slate-600">Feedback-driven lessons shaped by real parents, educators, and hobby mentors.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
-              <div className="text-3xl mb-3">🖨️</div>
+              <div className="text-3xl mb-3" aria-hidden="true">🖨️</div>
               <h3 className="text-lg font-semibold text-slate-900">Printable library ready to go</h3>
               <p className="mt-2 text-sm text-slate-600">Grab certificates, handwriting sheets, and activity packs without any setup.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
-              <div className="text-3xl mb-3">🤖</div>
+              <div className="text-3xl mb-3" aria-hidden="true">🤖</div>
               <h3 className="text-lg font-semibold text-slate-900">AI hobby coach on demand</h3>
               <p className="mt-2 text-sm text-slate-600">Personalized 7-day plans and quick-start tips tailored to your interests.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
-              <div className="text-3xl mb-3">🎯</div>
+              <div className="text-3xl mb-3" aria-hidden="true">🎯</div>
               <h3 className="text-lg font-semibold text-slate-900">Fresh activities weekly</h3>
               <p className="mt-2 text-sm text-slate-600">New printables, games, and challenges pushed live so you always have something fun to try.</p>
             </div>
@@ -222,22 +255,22 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Common Types of Hobbies */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4">🎨</div>
+              <div className="text-4xl mb-4" aria-hidden="true">🎨</div>
               <h3 className="font-bold text-slate-900 mb-2">Creative</h3>
               <p className="text-slate-600 text-sm">Painting, crafting, journaling</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4">🚴</div>
+              <div className="text-4xl mb-4" aria-hidden="true">🚴</div>
               <h3 className="font-bold text-slate-900 mb-2">Physical</h3>
               <p className="text-slate-600 text-sm">Cycling, hiking, gardening</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4">🧩</div>
+              <div className="text-4xl mb-4" aria-hidden="true">🧩</div>
               <h3 className="font-bold text-slate-900 mb-2">Cognitive</h3>
               <p className="text-slate-600 text-sm">Coding, puzzles, songwriting</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4">🤝</div>
+              <div className="text-4xl mb-4" aria-hidden="true">🤝</div>
               <h3 className="font-bold text-slate-900 mb-2">Social</h3>
               <p className="text-slate-600 text-sm">Clubs, workshops, community volunteering</p>
             </div>
@@ -260,12 +293,12 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">🎯</div>
+              <div className="text-3xl mb-4" aria-hidden="true">🎯</div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">Personalized Plans</h3>
               <p className="text-slate-600 leading-relaxed">Our AI analyzes your interests, goals, and schedule to recommend the perfect hobby for you.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">⚡</div>
+              <div className="text-3xl mb-4" aria-hidden="true">⚡</div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">7-Day Challenge</h3>
               <p className="text-slate-600 leading-relaxed">Get bite-sized daily activities designed to help you get started fast and stay motivated.</p>
             </div>
@@ -275,17 +308,17 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-slate-600 leading-relaxed">Chat with our assistant anytime for tips, guidance, and answers to your questions.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">📊</div>
+              <div className="text-3xl mb-4" aria-hidden="true">📊</div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">Progress Tracking</h3>
               <p className="text-slate-600 leading-relaxed">Visualize your milestones and keep your hobby journey on track.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">📱</div>
+              <div className="text-3xl mb-4" aria-hidden="true">📱</div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">Mobile Friendly</h3>
               <p className="text-slate-600 leading-relaxed">Learn anytime, anywhere, on any device.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">🎁</div>
+              <div className="text-3xl mb-4" aria-hidden="true">🎁</div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">100% Free to Start</h3>
               <p className="text-slate-600 leading-relaxed">No credit card required — try Wizqo risk-free.</p>
             </div>
@@ -298,7 +331,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-3xl opacity-20"></div>
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-2xl">🧠</span>
+                  <span className="text-2xl" aria-hidden="true">🧠</span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">Smart AI Personalization</h3>
                 <p className="text-slate-700 text-base leading-relaxed mb-6">
@@ -326,7 +359,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-2xl">📅</span>
+                  <span className="text-2xl" aria-hidden="true">📅</span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">Perfect 7-Day Structure</h3>
                 <p className="text-slate-700 leading-relaxed">
@@ -347,7 +380,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full blur-2xl opacity-30"></div>
               <div className="relative z-10">
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-xl">🎯</span>
+                  <span className="text-xl" aria-hidden="true">🎯</span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Track Progress</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
@@ -364,7 +397,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="absolute -bottom-5 -right-5 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full opacity-30"></div>
               <div className="relative z-10">
                 <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-xl">👥</span>
+                  <span className="text-xl" aria-hidden="true">👥</span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Join Community</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
@@ -407,16 +440,16 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    <span className="text-2xl">🎯</span>
+                    <span className="text-2xl" aria-hidden="true">🎯</span>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span>🎸 Guitar</span>
-                      <span>📸 Photo</span>
+                      <span aria-hidden="true">🎸</span> Guitar
+                      <span aria-hidden="true">📸</span> Photo
                     </div>
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span>👨‍🍳 Cook</span>
-                      <span>💻 Code</span>
+                      <span aria-hidden="true">👨‍🍳</span> Cook
+                      <span aria-hidden="true">💻</span> Code
                     </div>
                   </div>
                 </div>
@@ -444,7 +477,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    <span className="text-2xl">🤖</span>
+                    <span className="text-2xl" aria-hidden="true">🤖</span>
                   </div>
               <div className="bg-white/60 rounded-lg p-3">
                 <div className="flex items-center mb-2 text-sm">
@@ -525,7 +558,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
@@ -533,7 +566,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
                 <div className="ml-4">
                   <h4 className="font-bold text-slate-900">Sarah M.</h4>
-                  <div className="text-yellow-400">★★★★★</div>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
                 </div>
               </div>
               <p className="text-slate-600 leading-relaxed">
@@ -547,11 +580,67 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
                 <div className="ml-4">
                   <h4 className="font-bold text-slate-900">Ahmed K.</h4>
-                  <div className="text-yellow-400">★★★★★</div>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
                 </div>
               </div>
               <p className="text-slate-600 leading-relaxed">
                 "Wizqo made it so easy to pick up guitar. The daily challenges helped me build skills without feeling overwhelmed."
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white font-bold">
+                  M
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-bold text-slate-900">Maria L.</h4>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
+                </div>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                "As a busy parent, I love how Wizqo's 7-day plans fit into my schedule. I learned photography basics and now take amazing photos of my kids!"
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
+                  J
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-bold text-slate-900">James T.</h4>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
+                </div>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                "The AI personalized my coding plan perfectly. I went from zero to building my first website in just 7 days!"
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full flex items-center justify-center text-white font-bold">
+                  E
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-bold text-slate-900">Emma R.</h4>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
+                </div>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                "Wizqo helped me discover yoga, and I'm hooked! The daily practice guides made it so easy to get started."
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold">
+                  D
+                </div>
+                <div className="ml-4">
+                  <h4 className="font-bold text-slate-900">David C.</h4>
+                  <div className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</div>
+                </div>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                "I've tried learning cooking before, but Wizqo's structured approach finally made it stick. Now I cook delicious meals every week!"
               </p>
             </div>
           </div>
@@ -614,13 +703,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Floating badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🎯 Personalized AI hobby plans
+              <span aria-hidden="true">🎯</span> Personalized AI hobby plans
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🧠 Games & printables for kids
+              <span aria-hidden="true">🧠</span> Games & printables for kids
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              🏆 Printable certificates & awards
+              <span aria-hidden="true">🏆</span> Printable certificates & awards
             </div>
           </div>
           
@@ -633,7 +722,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           </h2>
           
           <p className="text-lg lg:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Join thousands who've transformed their lives with our AI-powered learning system.
+            Join 10,000+ users who've transformed their lives with our AI-powered learning system.
             <br className="hidden lg:block" />
             Your first day is <strong className="text-white">completely free</strong> - no strings attached.
           </p>
@@ -645,11 +734,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               size="lg"
               className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
             >
-              🎯 Start Learning Now
+              <span aria-hidden="true">🎯</span> Start Learning Now
             </Button>
             <div className="text-center">
               <p className="text-gray-300 text-sm">
-                ✓ No credit card required • ✓ Day 1 completely free • ✓ Cancel anytime
+                <span aria-hidden="true">✓</span> No credit card required • <span aria-hidden="true">✓</span> Day 1 completely free • <span aria-hidden="true">✓</span> Cancel anytime
               </p>
             </div>
           </div>
@@ -661,21 +750,21 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="text-3xl font-black text-white mb-2">Sarah</div>
                 <div className="text-gray-300 text-sm mb-3">"Learned guitar in 7 days!"</div>
                 <div className="flex justify-center">
-                  <span className="text-yellow-400">★★★★★</span>
+                  <span className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</span>
                 </div>
               </div>
               <div>
                 <div className="text-3xl font-black text-white mb-2">Mike</div>
                 <div className="text-gray-300 text-sm mb-3">"Photography skills transformed"</div>
                 <div className="flex justify-center">
-                  <span className="text-yellow-400">★★★★★</span>
+                  <span className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</span>
                 </div>
               </div>
               <div>
                 <div className="text-3xl font-black text-white mb-2">Lisa</div>
                 <div className="text-gray-300 text-sm mb-3">"Coding from zero to hero"</div>
                 <div className="flex justify-center">
-                  <span className="text-yellow-400">★★★★★</span>
+                  <span className="text-yellow-400" aria-label="5 out of 5 stars">★★★★★</span>
                 </div>
               </div>
             </div>
