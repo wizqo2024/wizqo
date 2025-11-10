@@ -1282,16 +1282,6 @@ export function InteractiveWorksheetsPage() {
                       <p className="mt-2 text-sm text-emerald-800">
                         Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
                       </p>
-                      {pack.answerSummary.length > 0 && (
-                        <ul className="mt-4 grid gap-2 text-sm text-emerald-900 md:grid-cols-2">
-                          {pack.answerSummary.map((entry) => (
-                            <li key={entry} className="flex items-start gap-2">
-                              <span className="mt-1 text-emerald-600">✓</span>
-                              {entry}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
                     </div>
                   </>
                 )}
