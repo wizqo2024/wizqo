@@ -1270,12 +1270,6 @@ export function InteractiveWorksheetsPage() {
                       ))}
                     </div>
 
-                    <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
-                      <h3 className="text-lg font-semibold text-emerald-900">Answer key ready to go</h3>
-                      <p className="mt-2 text-sm text-emerald-800">
-                        Downloading the PDF automatically adds a printable answer appendix summarizing every interactive worksheet in this pack. Perfect for quick grading or take-home review.
-                      </p>
-                    </div>
                   </>
                 )}
               </>
