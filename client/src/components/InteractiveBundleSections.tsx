@@ -2487,6 +2487,226 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-sel-conflict': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const scenarios = pickMany(rng, [
+      'Two friends want to play different games at recess.',
+      'Someone cuts in line in front of you.',
+      'A classmate takes your pencil without asking.',
+      'You and a friend disagree about a group project idea.',
+      'Someone says something unkind about your friend.',
+    ], 3)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Learn strategies to resolve conflicts peacefully. Think about how to communicate effectively.</p>
+        <div className="space-y-3">
+          {scenarios.map((scenario, idx) => (
+            <div key={idx} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <p className="text-sm font-semibold text-blue-700 mb-2">Scenario {idx + 1}:</p>
+              <p className="text-sm text-blue-800 mb-3">{scenario}</p>
+              <div className="space-y-2 text-xs">
+                <p className="text-blue-700">What are your feelings? ______________________________</p>
+                <p className="text-blue-700">What could you say to express your feelings? ________________</p>
+                <p className="text-blue-700">What is a peaceful solution? ______________________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
+          💡 Remember: Use "I" statements, listen actively, and find win-win solutions!
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-regulation': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const strategies = pickMany(rng, [
+      { name: 'Take deep breaths', emoji: '🫁', steps: 'Breathe in for 4, hold for 4, breathe out for 4' },
+      { name: 'Count to 10', emoji: '🔢', steps: 'Slowly count from 1 to 10' },
+      { name: 'Use a calm-down corner', emoji: '🧘', steps: 'Find a quiet space to relax' },
+      { name: 'Think of happy thoughts', emoji: '😊', steps: 'Picture something that makes you smile' },
+      { name: 'Squeeze a stress ball', emoji: '🤲', steps: 'Use your hands to release tension' },
+      { name: 'Take a walk', emoji: '🚶', steps: 'Move your body to calm your mind' },
+    ], 4)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Practice self-regulation strategies. These techniques help you manage big feelings and make thoughtful choices.</p>
+        <div className="grid gap-3 md:grid-cols-2">
+          {strategies.map((strategy, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xl">{strategy.emoji}</span>
+                <p className="text-sm font-semibold text-purple-700">{strategy.name}</p>
+              </div>
+              <p className="text-xs text-purple-600 mb-2">{strategy.steps}</p>
+              <div className="mt-2 rounded border border-purple-200 bg-white p-2">
+                <p className="text-xs text-purple-600">When I tried this, I felt: ________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
+          💡 Practice these strategies when you feel calm, so they're easier to use when you need them!
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-kindness': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const acts = pickMany(rng, [
+      'Help someone with their work',
+      'Say something kind to a classmate',
+      'Share something with a friend',
+      'Help clean up without being asked',
+      'Write a thank-you note',
+      'Include someone who looks lonely',
+      'Give someone a compliment',
+      'Hold the door for someone',
+    ], 5)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Complete acts of kindness this week! Track your kindness and reflect on how it makes you and others feel.</p>
+        <table className="w-full border border-pink-300 text-sm">
+          <thead className="bg-pink-100">
+            <tr>
+              <th className="px-3 py-2 text-left">Kindness Act</th>
+              <th className="px-3 py-2 text-left">When I did this...</th>
+              <th className="px-3 py-2 text-left">How did it make others feel?</th>
+              <th className="px-3 py-2 text-left">How did it make me feel?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {acts.map((act, idx) => (
+              <tr key={idx} className="border-t border-pink-200">
+                <td className="px-3 py-2">{act}</td>
+                <td className="px-3 py-2">_______________________</td>
+                <td className="px-3 py-2">_______________________</td>
+                <td className="px-3 py-2">_______________________</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="rounded-lg border border-pink-200 bg-pink-50 px-4 py-3 text-xs text-pink-700">
+          💡 Kindness is contagious! When you're kind, others are more likely to be kind too.
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-growth-mindset': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const fixedStatements = pickMany(rng, [
+      'I\'m not good at math',
+      'I can\'t do this',
+      'This is too hard',
+      'I give up',
+      'I\'m not smart enough',
+    ], 3)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Transform fixed mindset thoughts into growth mindset thoughts! Learn to embrace challenges and learn from mistakes.</p>
+        <div className="space-y-3">
+          {fixedStatements.map((statement, idx) => (
+            <div key={idx} className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+              <p className="text-sm font-semibold text-orange-700 mb-2">Fixed Mindset:</p>
+              <p className="text-sm text-orange-800 mb-3">"{statement}"</p>
+              <p className="text-sm font-semibold text-green-700 mb-2">Growth Mindset:</p>
+              <p className="text-sm text-green-800 mb-2">Rewrite this thought: ________________________________</p>
+              <div className="mt-2 rounded border border-green-200 bg-white p-2">
+                <p className="text-xs text-green-600">What can I learn from this challenge? ________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-xs text-green-700">
+          💡 Remember: Your brain grows stronger when you practice! Mistakes are opportunities to learn.
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-stress': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const triggers = pickMany(rng, [
+      'Too much homework',
+      'Test anxiety',
+      'Conflict with friends',
+      'Feeling overwhelmed',
+      'Time pressure',
+    ], 3)
+    const copingStrategies = pickMany(rng, [
+      'Deep breathing exercises',
+      'Physical activity or exercise',
+      'Talking to someone you trust',
+      'Taking breaks',
+      'Organizing your tasks',
+      'Mindfulness or meditation',
+    ], 4)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Identify stress triggers and practice healthy coping strategies. Learn to manage anxiety and stress effectively.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+            <p className="text-sm font-semibold text-red-700 mb-3">Stress Triggers:</p>
+            <div className="space-y-2">
+              {triggers.map((trigger, idx) => (
+                <div key={idx} className="bg-white rounded border border-red-200 p-2">
+                  <p className="text-xs text-red-700">{trigger}</p>
+                  <p className="text-xs text-red-600 mt-1">How does this make me feel? ________________</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+            <p className="text-sm font-semibold text-green-700 mb-3">Healthy Coping Strategies:</p>
+            <div className="space-y-2">
+              {copingStrategies.map((strategy, idx) => (
+                <div key={idx} className="bg-white rounded border border-green-200 p-2">
+                  <p className="text-xs text-green-700">{strategy}</p>
+                  <p className="text-xs text-green-600 mt-1">When I can use this: ________________</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-xs text-blue-700">
+          💡 It's okay to feel stressed sometimes. The important thing is knowing how to manage it in healthy ways.
+        </div>
+      </div>
+    )
+  },
+  'interactive-sel-character': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const traits = pickMany(rng, [
+      { name: 'Honesty', description: 'Telling the truth even when it\'s hard', emoji: '💎' },
+      { name: 'Respect', description: 'Treating others with kindness and consideration', emoji: '🤝' },
+      { name: 'Responsibility', description: 'Doing what you\'re supposed to do', emoji: '📋' },
+      { name: 'Integrity', description: 'Doing the right thing even when no one is watching', emoji: '⭐' },
+      { name: 'Courage', description: 'Facing fears and standing up for what\'s right', emoji: '🦁' },
+      { name: 'Compassion', description: 'Caring about others and their feelings', emoji: '❤️' },
+    ], 4)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Explore important character traits and values. Think about how these traits help you and others.</p>
+        <div className="grid gap-3 md:grid-cols-2">
+          {traits.map((trait, idx) => (
+            <div key={idx} className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xl">{trait.emoji}</span>
+                <p className="text-sm font-semibold text-indigo-700">{trait.name}</p>
+              </div>
+              <p className="text-xs text-indigo-600 mb-3">{trait.description}</p>
+              <div className="space-y-2 text-xs">
+                <p className="text-indigo-700">How can I show {trait.name.toLowerCase()}? ________________</p>
+                <p className="text-indigo-700">When have I seen someone show {trait.name.toLowerCase()}? ________________</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
+          💡 Character traits are like muscles—the more you practice them, the stronger they become!
+        </div>
+      </div>
+    )
+  },
   'interactive-math-algebra': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const problems = Array.from({ length: 5 }, () => {
@@ -3937,6 +4157,196 @@ const renderers: Record<string, Renderer> = {
               <p className="text-xs text-pink-600">Notes: ________________________________</p>
             </div>
           ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-color-by-number': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const colorCodes = [
+      { num: 1, color: 'red', emoji: '🔴' },
+      { num: 2, color: 'blue', emoji: '🔵' },
+      { num: 3, color: 'green', emoji: '🟢' },
+      { num: 4, color: 'yellow', emoji: '🟡' },
+      { num: 5, color: 'purple', emoji: '🟣' },
+      { num: 6, color: 'orange', emoji: '🟠' },
+    ]
+    const selectedCodes = pickMany(rng, colorCodes, 4)
+    const designs = pickMany(rng, ['butterfly', 'flower', 'star', 'heart', 'rainbow', 'tree'], 1)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Color the picture using the number codes below. Match each number to its color!</p>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+          <p className="text-sm font-semibold text-purple-700 mb-3">Color Key:</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+            {selectedCodes.map((code) => (
+              <div key={code.num} className="flex items-center gap-2 bg-white rounded border border-purple-200 p-2">
+                <span className="text-lg">{code.emoji}</span>
+                <div>
+                  <p className="text-xs font-semibold">{code.num} = {code.color}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="h-64 rounded border-2 border-purple-300 bg-white flex items-center justify-center">
+            <p className="text-purple-600 text-sm">Draw a {designs[0]} design with numbers 1-{selectedCodes.length}</p>
+          </div>
+          <p className="mt-2 text-xs text-purple-600 text-center">Color each section according to the number code!</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-mandala': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const patterns = pickMany(rng, ['circles', 'petals', 'geometric', 'spiral'], 1)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Create a beautiful mandala design with {patterns[0]} patterns. Focus on symmetry and mindfulness.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+            <p className="text-sm font-semibold text-pink-700 mb-2">Mandala Template</p>
+            <div className="h-64 rounded border-2 border-pink-300 bg-white flex items-center justify-center">
+              <div className="text-center">
+                <p className="text-4xl mb-2">⭕</p>
+                <p className="text-xs text-pink-600">Draw your mandala here</p>
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-pink-600">Start from the center and work outward. Use patterns and symmetry!</p>
+          </div>
+          <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+            <p className="text-sm font-semibold text-pink-700 mb-2">Pattern Ideas:</p>
+            <ul className="space-y-2 text-xs text-pink-700">
+              <li>• Circles and dots</li>
+              <li>• Petals and flowers</li>
+              <li>• Geometric shapes</li>
+              <li>• Spiral patterns</li>
+              <li>• Lines and curves</li>
+            </ul>
+            <p className="mt-4 text-xs text-pink-600">Reflection: How did creating this mandala make you feel?</p>
+            <div className="mt-2 h-16 rounded border border-dashed border-pink-300 bg-white"></div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-doodle': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const prompts = pickMany(rng, [
+      'Doodle your favorite animal',
+      'Create patterns with lines',
+      'Draw shapes that connect',
+      'Make a zentangle design',
+      'Doodle things that make you happy',
+      'Create a border pattern',
+    ], 3)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Free-form doodling! No rules, just creativity. Let your imagination flow.</p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {prompts.map((prompt, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <p className="text-sm font-semibold text-purple-700 mb-2">{prompt}</p>
+              <div className="h-40 rounded border-2 border-dashed border-purple-300 bg-white flex items-center justify-center">
+                <p className="text-xs text-purple-500">Doodle here!</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-xs text-purple-700">
+          💡 Tip: There are no mistakes in doodling! Just keep your pen moving and see what emerges.
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-seasonal': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const seasons = pickMany(rng, [
+      { name: 'Spring', themes: ['flowers', 'butterflies', 'rainbows'], emoji: '🌸' },
+      { name: 'Summer', themes: ['sun', 'beach', 'ice cream'], emoji: '☀️' },
+      { name: 'Fall', themes: ['leaves', 'pumpkins', 'apples'], emoji: '🍂' },
+      { name: 'Winter', themes: ['snowflakes', 'snowman', 'mittens'], emoji: '❄️' },
+    ], 2)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Color these seasonal pictures! Each season has its own special themes and colors.</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          {seasons.map((season, idx) => (
+            <div key={idx} className="rounded-xl border border-green-200 bg-green-50 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">{season.emoji}</span>
+                <p className="text-sm font-semibold text-green-700">{season.name} Coloring</p>
+              </div>
+              <p className="text-xs text-green-600 mb-2">Themes: {season.themes.join(', ')}</p>
+              <div className="h-48 rounded border-2 border-green-300 bg-white flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-3xl mb-2">{season.emoji}</p>
+                  <p className="text-xs text-green-600">Draw and color a {season.name.toLowerCase()} scene!</p>
+                </div>
+              </div>
+              <p className="mt-2 text-xs text-green-600 text-center">Use colors that remind you of {season.name.toLowerCase()}!</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-comic': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const panelCount = pick(rng, [3, 4, 6])
+    const themes = pickMany(rng, ['adventure', 'friendship', 'superhero', 'animals', 'school'], 1)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Create your own comic strip! Tell a story with pictures, speech bubbles, and action.</p>
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+          <p className="text-sm font-semibold text-blue-700 mb-2">Comic Strip: {themes[0]} story</p>
+          <div className={`grid gap-2 ${panelCount === 3 ? 'grid-cols-3' : panelCount === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+            {Array.from({ length: panelCount }).map((_, idx) => (
+              <div key={idx} className="border-2 border-blue-300 bg-white rounded p-2">
+                <div className="h-32 rounded border border-dashed border-blue-200 mb-1">
+                  <p className="text-xs text-blue-500 p-1">Panel {idx + 1}</p>
+                </div>
+                <div className="h-8 rounded border border-dashed border-blue-200 bg-blue-50">
+                  <p className="text-xs text-blue-400 p-1">💬 Speech bubble</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 rounded border border-blue-200 bg-white p-3">
+            <p className="text-xs font-semibold text-blue-700 mb-1">Story Elements:</p>
+            <ul className="text-xs text-blue-600 space-y-1">
+              <li>• Characters: ________________</li>
+              <li>• Setting: ________________</li>
+              <li>• Problem/Conflict: ________________</li>
+              <li>• Solution: ________________</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-art-critique': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const artElements = pickMany(rng, ['line', 'color', 'shape', 'texture', 'space', 'form'], 4)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">Observe and analyze artwork using art vocabulary. Look closely and describe what you see.</p>
+        <div className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+          <p className="text-sm font-semibold text-purple-700 mb-3">Artwork Analysis</p>
+          <div className="h-48 rounded border-2 border-purple-300 bg-white flex items-center justify-center mb-3">
+            <p className="text-purple-600 text-sm">[Artwork image or description]</p>
+          </div>
+          <div className="space-y-2 text-sm">
+            {artElements.map((element, idx) => (
+              <div key={idx} className="bg-white rounded border border-purple-200 p-2">
+                <p className="text-xs font-semibold text-purple-700 capitalize mb-1">{element}:</p>
+                <p className="text-xs text-purple-600">Describe how {element} is used: ________________________________</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 rounded border border-purple-200 bg-white p-3">
+            <p className="text-xs font-semibold text-purple-700 mb-1">Overall Impression:</p>
+            <p className="text-xs text-purple-600">What does this artwork make you think or feel? ________________</p>
+          </div>
         </div>
       </div>
     )
@@ -6139,6 +6549,66 @@ const answerRenderers: Record<string, AnswerRenderer> = {
   'interactive-sel-gratitude': ({ doc, seed, variant }) => {
     return (
       <p className="text-sm">Student responses may vary. Check for thoughtful reflection, genuine gratitude expression, and understanding of positive thinking and appreciation.</p>
+    )
+  },
+  'interactive-art-color-by-number': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Students should color each section according to the number code provided. Check that colors match the key (1=red, 2=blue, etc.) and that students follow directions accurately.</p>
+    )
+  },
+  'interactive-art-mandala': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on symmetry, pattern consistency, creativity, and mindfulness reflection. Encourage students to start from the center and work outward.</p>
+    )
+  },
+  'interactive-art-doodle': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. There are no wrong answers in doodling! Evaluate based on creativity, engagement, and willingness to experiment. Encourage free expression.</p>
+    )
+  },
+  'interactive-art-seasonal': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for appropriate seasonal themes, color choices that match the season, and creative expression. Encourage students to think about what makes each season special.</p>
+    )
+  },
+  'interactive-art-comic': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on story structure (beginning/middle/end), character development, use of speech bubbles, visual narrative flow, and creativity. Check that panels tell a coherent story.</p>
+    )
+  },
+  'interactive-art-critique': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Evaluate based on use of art vocabulary, detailed observations, thoughtful analysis of art elements (line, color, shape, etc.), and ability to express personal impressions. Encourage specific, descriptive language.</p>
+    )
+  },
+  'interactive-sel-conflict': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for understanding of conflict resolution strategies, use of "I" statements, identification of feelings, and ability to propose peaceful solutions. Encourage empathy and effective communication.</p>
+    )
+  },
+  'interactive-sel-regulation': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for understanding of self-regulation strategies, ability to identify when strategies are needed, and reflection on how strategies help manage emotions. Encourage practice of techniques.</p>
+    )
+  },
+  'interactive-sel-kindness': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for completion of kindness acts, reflection on impact on self and others, and understanding of how kindness creates positive connections. Encourage genuine acts of kindness.</p>
+    )
+  },
+  'interactive-sel-growth-mindset': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for transformation of fixed mindset thoughts into growth mindset thoughts, understanding that challenges help us grow, and recognition that mistakes are learning opportunities. Encourage persistence and effort.</p>
+    )
+  },
+  'interactive-sel-stress': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for identification of stress triggers, understanding of healthy coping strategies, and ability to match strategies to situations. Encourage self-awareness and healthy stress management.</p>
+    )
+  },
+  'interactive-sel-character': ({ doc, seed, variant }) => {
+    return (
+      <p className="text-sm">Student responses may vary. Check for understanding of character traits, ability to identify ways to demonstrate traits, and recognition of these traits in others. Encourage reflection on how character traits help build strong relationships and communities.</p>
     )
   },
 }
