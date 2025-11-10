@@ -402,16 +402,16 @@ function WorksheetPreviewCard({
             <div 
               className="bg-white shadow-lg rounded-sm"
               style={{
-                transform: 'scale(0.15)',
+                transform: 'scale(0.2)',
                 transformOrigin: 'top left',
-                width: '666%', // Much wider for landscape view
+                width: '500%',
                 height: 'auto',
-                minHeight: '666%',
-                overflow: 'hidden',
+                minHeight: '500%',
+                overflow: 'visible',
                 pointerEvents: 'none',
               }}
             >
-              <div className="bg-white p-2" style={{ width: '100%' }}>
+              <div className="bg-white p-3" style={{ width: '100%', minHeight: '100%' }}>
                 <InteractiveBundleSections
                   docIds={[item.docId]}
                   seed={pack.seed}
