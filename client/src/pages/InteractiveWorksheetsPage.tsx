@@ -3,6 +3,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
+import Shuffle from '@/components/Shuffle'
 import {
   Dialog,
   DialogContent,
@@ -947,7 +948,18 @@ export function InteractiveWorksheetsPage() {
                   ✨ Free interactive worksheets • New every day
                 </span>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                  Interactive Worksheets Generator
+                  <Shuffle 
+                    text="Interactive Worksheets Generator"
+                    tag="span"
+                    className="block"
+                    textAlign="left"
+                    duration={0.4}
+                    stagger={0.02}
+                    shuffleDirection="right"
+                    scrambleCharset="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                    triggerOnce={true}
+                    threshold={0.2}
+                  />
                   <span className="block text-purple-600">Free printable PDFs tailored to your class.</span>
                 </h1>
                 <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
