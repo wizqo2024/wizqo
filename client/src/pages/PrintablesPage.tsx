@@ -692,6 +692,10 @@ export function PrintablesPage() {
               try {
                 const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
                 const from = u.searchParams.get('from')
+                // If coming from interactive worksheets generator, go back there
+                if (from === 'interactive') {
+                  return '/interactive-worksheets-generator'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
@@ -714,7 +718,18 @@ export function PrintablesPage() {
             aria-label="Back printable page"
           >
             <span>←</span>
-            <span>Back printable page</span>
+            <span>{(() => {
+              try {
+                const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                const from = u.searchParams.get('from')
+                if (from === 'interactive') {
+                  return 'Back to Interactive Worksheets Generator'
+                }
+                return 'Back printable page'
+              } catch {
+                return 'Back printable page'
+              }
+            })()}</span>
           </a>
         </div>
         <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
