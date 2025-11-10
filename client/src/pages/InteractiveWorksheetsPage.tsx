@@ -397,46 +397,38 @@ function WorksheetPreviewCard({
             aspectRatio: '2.5/1',
           }}
         >
-          {/* Document-like background - Landscape/Fit-to-screen view */}
-          <div className="absolute inset-0 p-2 overflow-hidden">
+          {/* Thumbnail content container */}
+          <div className="absolute inset-0 p-3 overflow-hidden">
             <div 
-              className="bg-white shadow-lg rounded-sm"
+              className="bg-white rounded shadow-sm"
               style={{
-                transform: 'scale(0.18)',
+                transform: 'scale(0.25)',
                 transformOrigin: 'top left',
-                width: '555%',
+                width: '400%',
                 height: 'auto',
-                minHeight: '555%',
-                overflow: 'hidden',
+                minHeight: '400%',
                 pointerEvents: 'none',
               }}
             >
-              <div className="bg-white p-2" style={{ width: '100%' }}>
-                {(() => {
-                  try {
-                    return (
-                      <InteractiveBundleSections
-                        docIds={[item.docId]}
-                        seed={pack.seed}
-                        variant={filters.variant}
-                        showAnswers={false}
-                      />
-                    )
-                  } catch (error) {
-                    console.error('Error rendering thumbnail:', error)
-                    return <div className="text-xs text-slate-400 p-2">Preview unavailable</div>
-                  }
-                })()}
+              <div className="bg-white p-4" style={{ width: '100%' }}>
+                <InteractiveBundleSections
+                  docIds={[item.docId]}
+                  seed={pack.seed}
+                  variant={filters.variant}
+                  showAnswers={false}
+                />
               </div>
             </div>
           </div>
+          {/* Gradient fade at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
           {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
               👁️ Click to preview full worksheet
             </div>
           </div>
-          {/* Corner fold effect for document look */}
+          {/* Corner fold effect */}
           <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
         </div>
       ) : (
