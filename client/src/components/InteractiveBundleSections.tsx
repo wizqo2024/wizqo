@@ -2670,21 +2670,34 @@ const renderers: Record<string, Renderer> = {
   },
   'interactive-math-counting': ({ seed, doc, variant }) => {
     const problems = buildMathCounting(seed, doc.id, variant)
+    const objectEmojis: Record<string, string> = {
+      'stars': '⭐',
+      'hearts': '❤️',
+      'circles': '⭕',
+      'apples': '🍎',
+      'balls': '⚽',
+      'flowers': '🌸',
+      'butterflies': '🦋',
+      'fish': '🐟'
+    }
     return (
       <div className="space-y-4">
         <p className="text-sm text-slate-600">Count the objects and write the number.</p>
         <div className="grid gap-4 md:grid-cols-2">
-          {problems.map((prob, idx) => (
-            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
-              <p className="text-sm font-semibold text-purple-700 mb-2">Count the {prob.objects[0]}</p>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {Array.from({ length: prob.number }).map((_, i) => (
-                  <span key={i} className="text-2xl">⭐</span>
-                ))}
+          {problems.map((prob, idx) => {
+            const emoji = objectEmojis[prob.objects[0]] || '⭐'
+            return (
+              <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+                <p className="text-sm font-semibold text-purple-700 mb-2">Count the {prob.objects[0]}</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {Array.from({ length: prob.number }).map((_, i) => (
+                    <span key={i} className="text-2xl">{emoji}</span>
+                  ))}
+                </div>
+                <p className="text-sm text-purple-800">Number: ________</p>
               </div>
-              <p className="text-sm text-purple-800">Number: ________</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
