@@ -412,12 +412,21 @@ function WorksheetPreviewCard({
               }}
             >
               <div className="bg-white p-2" style={{ width: '100%' }}>
-                <InteractiveBundleSections
-                  docIds={[item.docId]}
-                  seed={pack.seed}
-                  variant={filters.variant}
-                  showAnswers={false}
-                />
+                {(() => {
+                  try {
+                    return (
+                      <InteractiveBundleSections
+                        docIds={[item.docId]}
+                        seed={pack.seed}
+                        variant={filters.variant}
+                        showAnswers={false}
+                      />
+                    )
+                  } catch (error) {
+                    console.error('Error rendering thumbnail:', error)
+                    return <div className="text-xs text-slate-400 p-2">Preview unavailable</div>
+                  }
+                })()}
               </div>
             </div>
           </div>
