@@ -129,9 +129,12 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </p>
               <ul className="text-slate-700 text-sm space-y-1 mb-5 list-disc list-inside">
                 <li>🃏 Memory Match • 🔤 Word Search • 🧩 Puzzle • ⌨️ Typing Safari</li>
-                <li>🖨️ Printables: word search, sudoku, coloring</li>
+                <li>🖨️ Printables: word search, sudoku, coloring • 📚 Interactive Worksheets Generator</li>
               </ul>
-              <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
+              <div className="flex flex-wrap gap-3">
+                <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
+                <a href="/interactive-worksheets-generator" className="inline-flex items-center px-4 py-2 rounded-lg border border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100">📚 Interactive Worksheets →</a>
+              </div>
             </div>
             <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden">
               <div className="absolute top-2 left-4">
