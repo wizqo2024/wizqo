@@ -3715,7 +3715,7 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-writing-lowercase-trace': ({ seed, doc, variant, category }) => {
+  'interactive-writing-lowercase-trace': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const lowercaseLetters = pickMany(rng, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
     return (
