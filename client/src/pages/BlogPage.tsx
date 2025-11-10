@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import GentleParentingFull from '@/components/blog/GentleParentingFull';
 import HWTInfographic from '@/components/blog/HWTInfographic';
+import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksheetsBlog';
 
 interface BlogPost {
   id: string;
@@ -60,17 +61,17 @@ const basePosts: BlogPost[] = [
     imageAlt: "Parent and child sharing a calm, connected moment outdoors"
   },
   {
-    id: "handwriting-without-tears-infographic",
-    title: "Handwriting Without Tears: A Gentle, Science-Backed Way",
-    excerpt: "Discover what Handwriting Without Tears is and how this gentle, science-backed method transforms handwriting from stressful to joyful. Learn simple, research-based techniques that actually work.",
-    content: "<HWTInfographic />",
+    id: "free-multiplication-worksheets-pdf",
+    title: "Free Multiplication Worksheets (PDF) | Fun Printable Math Practice",
+    excerpt: "Download free printable multiplication worksheets to make math simple and fun. Build confidence with times tables, word problems, and creative activities — ready to print and learn anywhere!",
+    content: "<MultiplicationWorksheetsBlog />",
     author: "Wizqo Team",
-    date: "2025-10-28T12:00:00Z",
-    readTime: "6–7 min read",
+    date: "2025-11-10T12:00:00Z",
+    readTime: "6-7 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1475669698648-2f144fcaaeb1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
-    imageAlt: "Child practicing handwriting with a pencil and paper",
-    keywords: "handwriting without tears, handwriting without tears method, improve handwriting naturally, handwriting for beginners, fine motor skills handwriting, handwriting practice techniques, handwriting improvement guide"
+    imageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child practicing multiplication on printable worksheet",
+    keywords: "multiplication worksheets, free printable multiplication worksheets pdf, times tables worksheets for practice, math multiplication activities printable, multiplication facts worksheets download, printable math worksheets for beginners, classroom multiplication resources"
   },
   {
     id: "easy-hobbies-that-make-you-smarter",
@@ -972,7 +973,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const featurePost = useMemo(() => {
     if (!allPosts.length) return null;
     // Do not feature coloring-pages or the HWT infographic per request
-    const avoidIds = new Set(['handwriting-without-tears-infographic', 'free-kdg-worksheets-pdf']);
+    const avoidIds = new Set(['handwriting-without-tears-infographic', 'free-kdg-worksheets-pdf', 'free-multiplication-worksheets-pdf']);
     const candidate = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages') && !avoidIds.has(p.id))
       || allPosts.find(p => !avoidIds.has(p.id))
       || allPosts[0];
@@ -1572,6 +1573,10 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
                   }
                   if (selectedPost.id === 'handwriting-without-tears-infographic' && trimmed === '<HWTInfographic />') {
                     elements.push(<HWTInfographic key={`hwt-full-${i}`} />);
+                    continue;
+                  }
+                  if (selectedPost.id === 'free-multiplication-worksheets-pdf' && trimmed === '<MultiplicationWorksheetsBlog />') {
+                    elements.push(<MultiplicationWorksheetsBlog key={`multiplication-blog-${i}`} />);
                     continue;
                   }
                   // FAQ block detection for general renderer
