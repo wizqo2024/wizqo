@@ -1,0 +1,63 @@
+import { BlogPost } from './types';
+import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from './constants';
+
+export function getPostImage(post: BlogPost): string {
+  return post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
+}
+
+export function getPostRating(post: BlogPost): string {
+  const key = (post.id || post.title || '').toString();
+  let hash = 0 >>> 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = ((hash << 5) - hash + key.charCodeAt(i)) >>> 0; // djb2 variant
+  }
+  const choices = [4.6, 4.7, 4.8, 4.9];
+  const rating = choices[hash % choices.length];
+  return rating.toFixed(1);
+}
+
+// Load Markdown posts from content folder (optional, SEO-safe)
+export function loadMarkdownPosts(): BlogPost[] {
+  try {
+    // Try multiple roots so Vercel build always bundles Markdown
+    const modsRoot = import.meta.glob('/content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modsClient = import.meta.glob('/client/content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modsRel = import.meta.glob('./content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modsParent = import.meta.glob('../content/blog/**/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+    const modules = { ...modsRoot, ...modsClient, ...modsRel, ...modsParent } as Record<string, string>;
+    const posts: BlogPost[] = [];
+    for (const [path, raw] of Object.entries(modules)) {
+      const fmMatch = raw.match(/^---[\s\S]*?---/);
+      const fmBlock = fmMatch ? fmMatch[0].replace(/^---|---$/g, '').trim() : '';
+      const body = raw.replace(/^---[\s\S]*?---\s*/m, '');
+      const meta: any = {};
+      if (fmBlock) {
+        for (const line of fmBlock.split('\n')) {
+          const idx = line.indexOf(':');
+          if (idx > -1) {
+            const key = line.slice(0, idx).trim();
+            const value = line.slice(idx + 1).trim().replace(/^"|"$/g, '');
+            meta[key] = value;
+          }
+        }
+      }
+      const fileSlug = path.split('/').pop()?.replace(/\.md$/, '') || `post-${Date.now()}`;
+      const id = (meta.slug || fileSlug).toString();
+      posts.push({
+        id,
+        title: meta.title || id,
+        excerpt: meta.excerpt || '',
+        content: body || '',
+        author: meta.author || 'Wizqo Team',
+        date: meta.date || new Date().toISOString().slice(0, 10),
+        readTime: meta.readTime || '5 min read',
+        category: meta.category || 'Learning Tips',
+        imageUrl: meta.cover || undefined,
+        imageAlt: meta.imageAlt || undefined,
+      });
+    }
+    return posts;
+  } catch {
+    return [];
+  }
+}
