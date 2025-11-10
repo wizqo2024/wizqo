@@ -1,6 +1,6 @@
 import React from 'react';
-import { UnifiedNavigation } from '../../components/UnifiedNavigation';
-import { Footer } from '../../components/Footer';
+import { UnifiedNavigation } from '@/components/UnifiedNavigation';
+import { Footer } from '@/components/Footer';
 import { BlogPost } from '../types';
 import { getPostImage, getPostRating } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
