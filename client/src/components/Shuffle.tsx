@@ -115,21 +115,42 @@ const Shuffle: React.FC<ShuffleProps> = ({
         try {
           splitRef.current?.revert();
         } catch {}
-        splitRef.current = null;
         playingRef.current = false;
       };
 
       const build = () => {
         teardown();
 
-        splitRef.current = new GSAPSplitText(el, {
-          type: 'chars',
-          charsClass: 'shuffle-char',
-          wordsClass: 'shuffle-word',
-          linesClass: 'shuffle-line',
-          smartWrap: true,
-          reduceWhiteSpace: false
-        });
+        try {
+          splitRef.current = new GSAPSplitText(el, {
+            type: 'chars',
+            charsClass: 'shuffle-char',
+            wordsClass: 'shuffle-word',
+            linesClass: 'shuffle-line',
+            smartWrap: true,
+            reduceWhiteSpace: false
+          });
+        } catch (error) {
+          console.warn('GSAP SplitText not available, using fallback:', error);
+          // Fallback: manually split text into characters
+          const textContent = el.textContent || '';
+          el.innerHTML = '';
+          const chars: HTMLElement[] = [];
+          for (let i = 0; i < textContent.length; i++) {
+            const char = textContent[i];
+            if (char === ' ') {
+              const space = document.createTextNode(' ');
+              el.appendChild(space);
+            } else {
+              const span = document.createElement('span');
+              span.className = 'shuffle-char';
+              span.textContent = char;
+              el.appendChild(span);
+              chars.push(span);
+            }
+          }
+          (splitRef.current as any) = { chars };
+        }
 
         const chars = (splitRef.current.chars || []) as HTMLElement[];
         wrappersRef.current = [];
