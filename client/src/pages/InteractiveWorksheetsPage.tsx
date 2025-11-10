@@ -20,6 +20,7 @@ import type {
   InteractiveWorksheetItem,
   InteractiveWorksheetPack,
 } from '@shared/interactive/generator'
+import { getDocMeta } from '@shared/interactive/interactiveWorksheets'
 
 const DEFAULT_SELECTED_CATEGORIES = ['math']
 const DEFAULT_GRADE: GradeBand = 'preK'
@@ -345,6 +346,7 @@ function WorksheetPreviewCard({
   onPreview,
   onDownload,
   pack,
+  filters,
 }: { 
   item: InteractiveWorksheetItem
   onToggleFavorite: (item: InteractiveWorksheetItem) => void
@@ -352,6 +354,7 @@ function WorksheetPreviewCard({
   onPreview: (item: InteractiveWorksheetItem) => void
   onDownload: (docId: string) => string
   pack: InteractiveWorksheetPack | null
+  filters: FiltersState
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -381,6 +384,25 @@ function WorksheetPreviewCard({
         </div>
       </div>
       <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      {pack && (
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 overflow-hidden">
+          <div className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wide">Preview</div>
+          <div className="relative max-h-40 overflow-hidden rounded border border-slate-200 bg-white p-3">
+            <div className="transform scale-[0.35] origin-top-left" style={{ width: '285%', height: '285%' }}>
+              <InteractiveBundleSections
+                docIds={[item.docId]}
+                seed={pack.seed}
+                variant={filters.variant}
+                showAnswers={false}
+              />
+            </div>
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-slate-50" />
+          </div>
+        </div>
+      )}
+      
       {item.focus.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {item.focus.map((tag) => (
@@ -1205,6 +1227,7 @@ export function InteractiveWorksheetsPage() {
                           onPreview={handlePreview}
                           onDownload={getSingleWorksheetPrintUrl}
                           pack={pack}
+                          filters={filters}
                         />
                       ))}
                     </div>
