@@ -319,7 +319,6 @@ export default function App() {
                       title="Free Interactive Worksheets Generator | Create Custom PDFs Instantly"
                       description="Generate unlimited unique worksheets for math, reading, writing, science, and more. Free printable PDFs with answer keys. Perfect for teachers, parents, and homeschoolers."
                       canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
-                      keywords="interactive worksheets, worksheet generator, free printable worksheets, math worksheets, reading worksheets, worksheet maker, PDF worksheets, educational worksheets"
                     />
                     <InteractiveWorksheetsPage />
                   </>
