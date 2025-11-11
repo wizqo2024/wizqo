@@ -18,88 +18,11 @@ import { supabase } from '@/lib/supabase';
 import Loader from './Loader';
 import { Confetti } from './Confetti';
 
-interface QuizAnswers {
-  experience: string;
-  timeAvailable: string;
-  goal: string;
-}
+// Import types from centralized location
+import type { QuizAnswers, ChatMessage, Day, PlanData, SplitPlanInterfaceProps } from '@/types/plan';
 
-interface ChatMessage {
-  id: string;
-  sender: 'ai' | 'user';
-  content: string;
-  options?: { value: string; label: string; description?: string }[];
-  isTyping?: boolean;
-  timestamp: Date;
-  step?: 'hobby' | 'experience' | 'time' | 'goal';
-}
-
-interface Day {
-  day: number;
-  title: string;
-  mainTask: string;
-  explanation: string;
-  howTo: string[];
-  checklist: string[];
-  tips: string[];
-  mistakesToAvoid: string[];
-  freeResources: { title: string; link: string }[];
-  affiliateProducts: { title: string; link: string; price: string }[];
-  youtubeVideoId?: string;
-  youtubeSearchUrl?: string;
-  videoTitle?: string;
-  estimatedTime: string;
-  skillLevel: string;
-}
-
-interface PlanData {
-  hobby: string;
-  title: string;
-  overview: string;
-  difficulty: string;
-  totalDays: number;
-  days: Day[];
-}
-
-interface SplitPlanInterfaceProps {
-  onGeneratePlan: (hobby: string, answers: QuizAnswers) => Promise<any>;
-  onNavigateBack: () => void;
-  initialPlanData?: PlanData;
-}
-
-// Function to fix field mapping consistently across all plan data sources
-const fixPlanDataFields = (plan: any) => {
-  if (!plan) return plan;
-  
-  const existingDaysArray = plan.days || plan.plan_data?.days || plan.plan_data?.plan_data?.days || [];
-  const totalDays = plan.totalDays || 7;
-  
-  // Only include days that actually exist in the plan data
-  const daysArray = existingDaysArray || [];
-  
-  const fixedPlan = {
-    ...plan,
-    difficulty: plan.difficulty || plan.plan_data?.difficulty || 'beginner',
-    overview: plan.overview || plan.plan_data?.overview || plan.description || `Learn ${plan.hobby} with this comprehensive plan`,
-    totalDays: plan.totalDays || 7,
-    days: daysArray.map((day: any) => ({
-      ...day,
-      commonMistakes: (day.commonMistakes && day.commonMistakes.length > 0)
-        ? day.commonMistakes
-        : (day.mistakesToAvoid && day.mistakesToAvoid.length > 0)
-          ? day.mistakesToAvoid
-          : [
-              'Rushing through exercises without understanding concepts',
-              'Skipping practice time or cutting sessions short',
-              'Not taking notes or tracking your improvement'
-            ],
-      youtubeVideoId: day.youtubeVideoId || (day.freeResources?.[0]?.link?.match(/v=([^&]+)/)?.[1]) || null,
-      videoTitle: day.videoTitle || `${plan.hobby || 'Tutorial'} - Day ${day.day}`
-    }))
-  };
-  
-  return fixedPlan;
-};
+// Import utility function from centralized location
+import { fixPlanDataFields } from '@/utils/planDataFix';
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const [isPlanRoute, setIsPlanRoute] = useState(false);
