@@ -127,6 +127,13 @@ function main() {
   const baseHtml = read(baseIndexPath);
 
   const routes = [];
+  // Homepage - MUST be first
+  routes.push({ 
+    path: '/', 
+    title: 'What Hobby Means – Discover Your Ideal Hobby with Wizqo AI', 
+    description: "Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!",
+    ogImage: `${SITE}/og-image.jpg`
+  });
   // Kids hub and games
   routes.push({ path: '/kids', title: 'Kids Hub – Fun Learning Games & Printable Activities for Kids', description: 'Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12.' });
   const gameDesc = 'Play free fun learning games for kids online – Memory Match, Word Search, Puzzle, Typing Safari, and Pattern Builder. Kid‑safe, fast, and mobile‑friendly.';
@@ -148,6 +155,8 @@ function main() {
   routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.' });
   routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!' });
+  routes.push({ path: '/worksheets/reading-comprehension', title: 'Reading Comprehension Worksheets – Free Printable PDF', description: 'Free reading comprehension worksheets for kids. Practice reading skills with engaging passages and questions. Print or save as PDF.' });
+  routes.push({ path: '/interactive-worksheets-generator', title: 'Interactive Worksheets Generator – Create Custom Printable Worksheets', description: 'Generate custom interactive worksheets for kids. Create handwriting practice, math worksheets, reading comprehension, and more. Free printable PDF worksheets.' });
   // About/Contact/Legal
   routes.push({ path: '/about', title: 'About Wizqo - AI-Powered Hobby Learning Platform', description: "Learn about Wizqo's mission to make hobby learning accessible to everyone through AI-powered personalized plans and expert-curated content." });
   routes.push({ path: '/contact', title: 'Contact Wizqo – Questions, Feedback, or Hobby Ideas Welcome', description: 'Got a question or suggestion? Reach out to Wizqo\'s team — we typically respond within 24 hours. Let’s improve your hobby journey together' });
