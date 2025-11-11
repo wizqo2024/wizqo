@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
@@ -7,6 +7,7 @@ import { BlogPost } from '../types';
 import { getPostImage, getPostRating } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 import { MarkdownRenderer } from './MarkdownRenderer';
+import { trackBlogPostView } from '@/utils/analytics';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -62,6 +63,12 @@ export function BlogPostView({
 
   const canonical = `https://wizqo.com/blog/${post.id}`;
   const image = post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
+  
+  // Track blog post view (doesn't affect SEO)
+  useEffect(() => {
+    trackBlogPostView(post.id, post.title);
+  }, [post.id, post.title]);
+  
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",

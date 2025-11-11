@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
+import { trackWorksheetGenerated } from '@/utils/analytics'
 import {
   Dialog,
   DialogContent,
@@ -717,6 +718,9 @@ export function InteractiveWorksheetsPage() {
           duplicateAttemptsRef.current = 0
           lastDocKeyRef.current = docKey || null
           setPack(json.data)
+          
+          // Track worksheet generation (doesn't affect SEO)
+          trackWorksheetGenerated(currentFilters.grade, finalCategories)
         } else {
           throw new Error('Invalid response format from server')
         }

@@ -25,6 +25,8 @@ import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { initAnalytics, trackPageView } from './utils/analytics';
 // (duplicate import removed)
 
 
@@ -235,10 +237,21 @@ export default function App() {
     hydrate();
   }, [routeKey, routeQuery]);
 
+  // Initialize analytics after component mounts (doesn't affect SEO)
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  // Track page views on route change (doesn't affect SEO)
+  useEffect(() => {
+    trackPageView(route);
+  }, [route]);
+
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-slate-50">
-        {(() => {
+      <ErrorBoundary>
+        <div className="min-h-screen bg-slate-50">
+          {(() => {
           switch (routeKey) {
             case '': // home
               return (
@@ -498,9 +511,10 @@ export default function App() {
                 </>
               );
           }
-        })()}
-        <Toaster />
-      </div>
+          })()}
+          <Toaster />
+        </div>
+      </ErrorBoundary>
     </AuthProvider>
   );
 }
