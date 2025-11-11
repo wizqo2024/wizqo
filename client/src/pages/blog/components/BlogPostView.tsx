@@ -96,7 +96,7 @@ export function BlogPostView({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <UnifiedNavigation currentPage="blog" />
       
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className={`${post.id === 'what-are-cognitive-skills' ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
         <div className="mb-8 flex items-center justify-between">
           <button
             onClick={onBack}

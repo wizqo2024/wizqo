@@ -151,7 +151,7 @@ export default function CognitiveSkillsBlog() {
   }, []);
 
   return (
-    <div className="w-full -mx-8 lg:-mx-12 px-8 lg:px-12 py-8">
+    <div className="w-full py-8">
       <header className="text-center mb-12 md:mb-16">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900 leading-tight">
           🧠 What Are Cognitive Skills? How to Strengthen Your Mind and Unlock Your True Potential
