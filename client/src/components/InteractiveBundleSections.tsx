@@ -2589,6 +2589,349 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
+  'interactive-cognitive-memory': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const sequences = [
+      { type: 'numbers', items: pickMany(rng, ['2', '4', '6', '8', '10', '12'], 4) },
+      { type: 'colors', items: pickMany(rng, ['red', 'blue', 'green', 'yellow', 'purple', 'orange'], 4) },
+      { type: 'shapes', items: pickMany(rng, ['circle', 'square', 'triangle', 'star', 'heart', 'diamond'], 4) },
+    ]
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Study each sequence carefully, then cover it and write what you remember. This strengthens your working memory!
+        </p>
+        <div className="space-y-4">
+          {sequences.map((seq, idx) => (
+            <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
+              <p className="text-sm font-semibold text-purple-700 mb-2">Sequence {idx + 1}: {seq.type.charAt(0).toUpperCase() + seq.type.slice(1)}</p>
+              <div className="bg-white rounded-lg p-3 border border-purple-200 mb-2">
+                <div className="flex gap-2 flex-wrap">
+                  {seq.items.map((item, i) => (
+                    <span key={i} className="px-3 py-1 bg-purple-100 rounded text-sm font-semibold text-purple-800">{item}</span>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-purple-600 mb-1">Now cover the sequence above and write what you remember:</p>
+              <div className="flex gap-2 flex-wrap">
+                {seq.items.map((_, i) => (
+                  <div key={i} className="flex-1 min-w-[80px] h-8 border border-dashed border-purple-300 bg-white rounded"></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-lg border border-purple-200 bg-white px-4 py-3 text-xs text-purple-700">
+          <p className="font-semibold mb-1">Memory Challenge:</p>
+          <p>Try to remember all three sequences in order. Write them here:</p>
+          <div className="mt-2 space-y-1">
+            <p>Sequence 1: ________________________________________________</p>
+            <p>Sequence 2: ________________________________________________</p>
+            <p>Sequence 3: ________________________________________________</p>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-cognitive-attention': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const targetItems = pickMany(rng, ['star', 'circle', 'triangle', 'heart'], 1)[0]
+    const gridItems = Array.from({ length: 25 }, (_, i) => {
+      const items = ['star', 'circle', 'triangle', 'heart', 'square', 'diamond']
+      return pick(rng, items)
+    })
+    const differences = [
+      { image1: 'A sunny park with 3 trees', image2: 'A sunny park with 4 trees' },
+      { image1: 'A cat with a red collar', image2: 'A cat with a blue collar' },
+      { image1: 'A house with 2 windows', image2: 'A house with 3 windows' },
+    ]
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Practice focusing your attention with visual scanning and spot-the-difference exercises.
+        </p>
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+          <p className="text-sm font-semibold text-blue-700 mb-2">Visual Scanning Challenge</p>
+          <p className="text-xs text-blue-600 mb-3">Find and circle all the <span className="font-bold">{targetItems}</span> shapes in the grid below:</p>
+          <div className="bg-white rounded-lg p-3 border border-blue-200">
+            <div className="grid grid-cols-5 gap-1">
+              {gridItems.map((item, idx) => (
+                <div key={idx} className="aspect-square border border-blue-200 rounded flex items-center justify-center text-xs">
+                  {item === targetItems ? <span className="font-bold text-blue-700">{item}</span> : <span className="text-blue-400">{item}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-blue-600 mt-2">Count how many {targetItems} you found: _______</p>
+        </div>
+        <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+          <p className="text-sm font-semibold text-green-700 mb-2">Spot the Difference</p>
+          <p className="text-xs text-green-600 mb-3">Compare the two images and find the differences:</p>
+          <div className="space-y-3">
+            {differences.map((diff, idx) => (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-green-200">
+                <div className="grid grid-cols-2 gap-3 mb-2">
+                  <div>
+                    <p className="text-xs text-green-600 mb-1">Image 1:</p>
+                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500">
+                      {diff.image1}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-green-600 mb-1">Image 2:</p>
+                    <div className="h-20 border border-dashed border-green-300 rounded flex items-center justify-center text-xs text-green-500">
+                      {diff.image2}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-xs text-green-600">Difference: ________________________________</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-cognitive-executive': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const tasks = pickMany(rng, [
+      'Complete math homework',
+      'Read chapter 5',
+      'Practice piano',
+      'Clean room',
+      'Pack backpack',
+      'Call grandma',
+    ], 4)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Practice planning, organizing, and completing tasks. This builds executive function skills!
+        </p>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+          <p className="text-sm font-semibold text-indigo-700 mb-3">Task Planning</p>
+          <p className="text-xs text-indigo-600 mb-3">Plan your tasks for today. Break each task into steps:</p>
+          <div className="space-y-3">
+            {tasks.map((task, idx) => (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-200">
+                <p className="text-sm font-semibold text-indigo-800 mb-2">Task {idx + 1}: {task}</p>
+                <p className="text-xs text-indigo-600 mb-1">Steps to complete:</p>
+                <div className="space-y-1">
+                  <p className="text-xs text-slate-500">Step 1: ________________________________</p>
+                  <p className="text-xs text-slate-500">Step 2: ________________________________</p>
+                  <p className="text-xs text-slate-500">Step 3: ________________________________</p>
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="text-xs text-indigo-600">Priority:</span>
+                  <div className="flex gap-1">
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">High</span>
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">Medium</span>
+                    <span className="text-xs px-2 py-1 border border-indigo-300 rounded">Low</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl border border-indigo-200 bg-white p-4">
+          <p className="text-sm font-semibold text-indigo-700 mb-2">Daily Schedule</p>
+          <p className="text-xs text-indigo-600 mb-3">Organize your tasks into a schedule:</p>
+          <div className="space-y-2 text-xs">
+            <div className="flex gap-2">
+              <span className="w-20 font-semibold">Morning:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-20 font-semibold">Afternoon:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+            </div>
+            <div className="flex gap-2">
+              <span className="w-20 font-semibold">Evening:</span>
+              <div className="flex-1 border border-dashed border-indigo-300 rounded p-1"></div>
+            </div>
+          </div>
+        </div>
+        <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
+          <p className="font-semibold mb-1">Reflection:</p>
+          <p>What helped you complete your tasks? What would you do differently next time?</p>
+          <div className="mt-2 h-16 border border-dashed border-indigo-300 bg-white rounded"></div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-cognitive-processing': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const symbols = ['★', '●', '▲', '■', '◆', '♥']
+    const quickItems = Array.from({ length: 20 }, () => pick(rng, symbols))
+    const words = pickMany(rng, ['cat', 'dog', 'bird', 'fish', 'tree', 'car', 'book', 'star'], 8)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Improve your processing speed by quickly identifying and responding to visual information.
+        </p>
+        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+          <p className="text-sm font-semibold text-orange-700 mb-2">Quick Symbol Recognition</p>
+          <p className="text-xs text-orange-600 mb-3">Circle all the ★ (stars) as quickly as you can:</p>
+          <div className="bg-white rounded-lg p-3 border border-orange-200">
+            <div className="flex flex-wrap gap-2">
+              {quickItems.map((symbol, idx) => (
+                <span key={idx} className="text-2xl">{symbol === '★' ? <span className="font-bold text-orange-700">{symbol}</span> : <span className="text-orange-300">{symbol}</span>}</span>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-orange-600 mt-2">Time yourself: _______ seconds</p>
+        </div>
+        <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+          <p className="text-sm font-semibold text-orange-700 mb-2">Rapid Word Identification</p>
+          <p className="text-xs text-orange-600 mb-3">Quickly find and circle words that start with "b":</p>
+          <div className="bg-white rounded-lg p-3 border border-orange-200">
+            <div className="flex flex-wrap gap-2">
+              {words.map((word, idx) => (
+                <span key={idx} className={`px-2 py-1 rounded text-sm ${word.startsWith('b') ? 'bg-orange-200 font-bold text-orange-800' : 'text-orange-400'}`}>
+                  {word}
+                </span>
+              ))}
+            </div>
+          </div>
+          <p className="text-xs text-orange-600 mt-2">How many "b" words did you find? _______</p>
+        </div>
+        <div className="rounded-lg border border-orange-200 bg-white px-4 py-3 text-xs text-orange-700">
+          <p className="font-semibold mb-1">Speed Challenge:</p>
+          <p>Try to complete both exercises faster each time you practice!</p>
+        </div>
+      </div>
+    )
+  },
+  'interactive-cognitive-visual': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const patterns = [
+      { original: ['red', 'blue', 'red', 'blue'], match: ['red', 'blue', 'red', 'green'] },
+      { original: ['circle', 'square', 'circle', 'square'], match: ['circle', 'square', 'triangle', 'square'] },
+      { original: ['big', 'small', 'big', 'small'], match: ['big', 'small', 'big', 'big'] },
+    ]
+    const spatialItems = [
+      { position: 'above', item: 'star' },
+      { position: 'below', item: 'circle' },
+      { position: 'left', item: 'triangle' },
+      { position: 'right', item: 'square' },
+    ]
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Strengthen visual processing skills through pattern matching and spatial reasoning exercises.
+        </p>
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+          <p className="text-sm font-semibold text-pink-700 mb-3">Visual Pattern Matching</p>
+          <p className="text-xs text-pink-600 mb-3">Compare the two patterns. Circle what's different:</p>
+          <div className="space-y-3">
+            {patterns.map((pattern, idx) => (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-pink-200">
+                <p className="text-xs text-pink-600 mb-2">Pattern {idx + 1}:</p>
+                <div className="flex gap-4 mb-2">
+                  <div>
+                    <p className="text-xs text-pink-600 mb-1">Original:</p>
+                    <div className="flex gap-1">
+                      {pattern.original.map((item, i) => (
+                        <span key={i} className="px-2 py-1 bg-pink-100 rounded text-xs font-semibold text-pink-800">{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-pink-600 mb-1">Match:</p>
+                    <div className="flex gap-1">
+                      {pattern.match.map((item, i) => (
+                        <span key={i} className={`px-2 py-1 rounded text-xs font-semibold ${item !== pattern.original[i] ? 'bg-pink-200 text-pink-900 border-2 border-pink-500' : 'bg-pink-100 text-pink-800'}`}>{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-xs text-pink-600">What's different? Position: _______ Item: _______</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+          <p className="text-sm font-semibold text-pink-700 mb-3">Spatial Reasoning</p>
+          <p className="text-xs text-pink-600 mb-3">Draw each item in the correct position:</p>
+          <div className="bg-white rounded-lg p-3 border border-pink-200">
+            <div className="grid grid-cols-2 gap-4">
+              {spatialItems.map((item, idx) => (
+                <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
+                  <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.position} the line:</p>
+                  <div className="h-16 border border-pink-200 rounded flex items-center justify-center">
+                    <span className="text-xs text-pink-400">Draw here</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  },
+  'interactive-cognitive-flexibility': ({ seed, doc, variant }) => {
+    const rng = makeRng(`${seed}|${doc.id}|${variant}`)
+    const tasks = [
+      { task: 'Sort by color', rule: 'Group red items together', switch: 'Now sort by size instead' },
+      { task: 'Count forward', rule: 'Count 1, 2, 3...', switch: 'Now count backward from 10' },
+      { task: 'Name animals', rule: 'List farm animals', switch: 'Now list ocean animals' },
+    ]
+    const perspectives = pickMany(rng, [
+      'A new student joins your class',
+      'Your favorite game is cancelled',
+      'You have to work with someone you disagree with',
+    ], 2)
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600">
+          Practice cognitive flexibility by switching between tasks and thinking from different perspectives.
+        </p>
+        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
+          <p className="text-sm font-semibold text-teal-700 mb-3">Task Switching Challenge</p>
+          <p className="text-xs text-teal-600 mb-3">Complete each task, then switch to the new rule:</p>
+          <div className="space-y-3">
+            {tasks.map((taskItem, idx) => (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
+                <p className="text-sm font-semibold text-teal-800 mb-2">Task {idx + 1}: {taskItem.task}</p>
+                <div className="mb-2">
+                  <p className="text-xs text-teal-600 mb-1">First rule: {taskItem.rule}</p>
+                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
+                </div>
+                <div>
+                  <p className="text-xs text-teal-600 mb-1">Switch! New rule: {taskItem.switch}</p>
+                  <div className="h-12 border border-dashed border-teal-300 rounded bg-teal-50"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
+          <p className="text-sm font-semibold text-teal-700 mb-3">Perspective-Taking Practice</p>
+          <p className="text-xs text-teal-600 mb-3">Think about each situation from different points of view:</p>
+          <div className="space-y-3">
+            {perspectives.map((perspective, idx) => (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-teal-200">
+                <p className="text-sm font-semibold text-teal-800 mb-2">Situation: {perspective}</p>
+                <div className="space-y-2 text-xs">
+                  <div>
+                    <p className="text-teal-600 mb-1">Your perspective:</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                  </div>
+                  <div>
+                    <p className="text-teal-600 mb-1">Another person's perspective:</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                  </div>
+                  <div>
+                    <p className="text-teal-600 mb-1">What's a solution that works for both?</p>
+                    <div className="h-10 border border-dashed border-teal-300 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  },
   'interactive-sel-mindfulness': ({ seed, doc, variant }) => {
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const breaths = pickMany(rng, ['rainbow breathing', 'box breathing', 'five-finger breathing', 'balloon breath'], 3)
@@ -5455,6 +5798,54 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       <div className="space-y-2 text-sm">
         <p><span className="font-semibold">Deductive Reasoning:</span> Use the clues to eliminate possibilities and determine who borrowed what and where.</p>
         <p className="text-emerald-800">Note: Answers will vary based on clue interpretation. Look for logical reasoning and use of all clues provided.</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-memory': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Working Memory:</span> Students should recall sequences accurately. Check for correct order and items.</p>
+        <p className="text-emerald-800">Note: Answers will vary based on generated sequences. Focus on accuracy of recall and order rather than exact matches.</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-attention': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Attention & Focus:</span> Students should correctly identify target items in visual scanning and spot differences between images.</p>
+        <p className="text-emerald-800">Note: Visual scanning answers depend on generated grid. Spot-the-difference answers should identify the specific differences described (e.g., number of trees, color of collar, number of windows).</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-executive': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Executive Function:</span> Students should demonstrate planning skills by breaking tasks into steps and organizing them into a schedule.</p>
+        <p className="text-emerald-800">Note: Answers will vary. Look for logical step sequences, appropriate task prioritization, and realistic scheduling. Focus on planning and organization skills rather than specific answers.</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-processing': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Processing Speed:</span> Students should quickly identify target symbols and words. Speed and accuracy both matter.</p>
+        <p className="text-emerald-800">Note: Answers depend on generated content. For symbol recognition, count all star symbols (★). For word identification, count words starting with "b". Encourage students to track their time and improve speed.</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-visual': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Visual Processing:</span> Students should identify differences in patterns and demonstrate spatial reasoning by drawing items in correct positions.</p>
+        <p className="text-emerald-800">Note: Pattern differences are: Pattern 1 - position 4 (green vs blue), Pattern 2 - position 3 (triangle vs circle), Pattern 3 - position 4 (big vs small). Spatial reasoning drawings should show items in correct relative positions.</p>
+      </div>
+    )
+  },
+  'interactive-cognitive-flexibility': ({ doc, seed, variant }) => {
+    return (
+      <div className="space-y-2 text-sm">
+        <p><span className="font-semibold">Cognitive Flexibility:</span> Students should demonstrate ability to switch between tasks and consider multiple perspectives.</p>
+        <p className="text-emerald-800">Note: Answers will vary. For task switching, look for completion of both rules. For perspective-taking, check that students consider different viewpoints and propose solutions that work for multiple parties.</p>
       </div>
     )
   },
