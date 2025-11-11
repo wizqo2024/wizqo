@@ -39,6 +39,19 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   
+  // Define refs and hooks that are needed by usePlanChat
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const progressLoadedRef = useRef(false);
+  // Timer refs for staged progress
+  const planProgressTimerRef = useRef<number | null>(null);
+  const dayProgressTimerRef = useRef<number | null>(null);
+  const { savePlan, saving } = usePlanStorage();
+  const { user } = useAuth();
+  
+  // Plan state (not chat-related)
+  const [planData, setPlanData] = useState<PlanData | null>(null);
+  
   useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
   
   // Use chat hook for all chat-related functionality
@@ -141,18 +154,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [planData]);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const progressLoadedRef = useRef(false);
-  // Timer refs for staged progress
-  const planProgressTimerRef = useRef<number | null>(null);
-  const dayProgressTimerRef = useRef<number | null>(null);
-  const { savePlan, saving } = usePlanStorage();
-  const { user } = useAuth();
-  
-  // Plan state (not chat-related)
-  const [planData, setPlanData] = useState<PlanData | null>(null);
-  
   // Store user ID in session storage for initial state loading
   useEffect(() => {
     if (user?.id) {
