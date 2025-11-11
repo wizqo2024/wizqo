@@ -2857,9 +2857,26 @@ const renderers: Record<string, Renderer> = {
               {spatialItems.map((item, idx) => (
                 <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
                   <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.text} the line:</p>
-                  <div className="h-16 border border-pink-200 rounded flex items-center justify-center">
-                    <span className="text-xs text-pink-400">Draw here</span>
-                  </div>
+                  {item.position === 'above' && (
+                    <div className="h-20 border border-pink-200 rounded relative">
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                    </div>
+                  )}
+                  {item.position === 'below' && (
+                    <div className="h-20 border border-pink-200 rounded relative">
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-pink-600"></div>
+                    </div>
+                  )}
+                  {item.position === 'left' && (
+                    <div className="h-20 border border-pink-200 rounded relative">
+                      <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-pink-600"></div>
+                    </div>
+                  )}
+                  {item.position === 'right' && (
+                    <div className="h-20 border border-pink-200 rounded relative">
+                      <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-pink-600"></div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
