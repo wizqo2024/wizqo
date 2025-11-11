@@ -868,7 +868,7 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
     date: "2025-11-10T12:00:00Z",
     readTime: "6–7 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1623908277264-f123c5d7d441?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
     imageAlt: "Brain and cognitive skills visualization",
     keywords: "cognitive skills, what are cognitive skills, memory training, attention exercises, brain training, cognitive development, working memory, executive function, processing speed, visual processing, cognitive flexibility, brain games, printable brain exercises"
   }
