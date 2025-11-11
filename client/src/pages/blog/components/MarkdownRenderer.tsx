@@ -3,6 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import GentleParentingFull from '@/components/blog/GentleParentingFull';
 import HWTInfographic from '@/components/blog/HWTInfographic';
 import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksheetsBlog';
+import CognitiveSkillsBlog from '@/components/blog/CognitiveSkillsBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -224,6 +225,10 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     }
     if (post.id === 'free-multiplication-worksheets-pdf' && trimmed === '<MultiplicationWorksheetsBlog />') {
       elements.push(<MultiplicationWorksheetsBlog key={`multiplication-blog-${i}`} />);
+      continue;
+    }
+    if (post.id === 'what-are-cognitive-skills' && trimmed === '<CognitiveSkillsBlog />') {
+      elements.push(<CognitiveSkillsBlog key={`cognitive-skills-blog-${i}`} />);
       continue;
     }
     
