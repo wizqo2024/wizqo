@@ -70,3 +70,13 @@ wizqo-download/
 # Temporary files
 tmp/
 temp/
+
+# Backup directories
+backup-*/
+backup-complete-*/
+backup-snapshot-*/
+backup-working-*/
+
+# Archive files (base64 encoded backups)
+*_base64.txt
+docs/archives/
