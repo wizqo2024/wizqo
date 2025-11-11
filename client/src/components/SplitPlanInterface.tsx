@@ -23,7 +23,9 @@ import type { QuizAnswers, ChatMessage, Day, PlanData, SplitPlanInterfaceProps }
 
 // Import utility functions from centralized locations
 import { fixPlanDataFields } from '@/utils/planDataFix';
-import { validateAndProcessHobby, validateHobbyWithAI, highlightHobby } from '@/utils/planValidation';
+
+// Import custom hooks
+import { usePlanChat } from '@/hooks/usePlanChat';
 
 export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlanData }: SplitPlanInterfaceProps) {
   const [isPlanRoute, setIsPlanRoute] = useState(false);
@@ -34,40 +36,40 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     } catch {}
   }, []);
 
-  const [messages, setMessages] = useState<ChatMessage[]>(() => {
-    if (!initialPlanData && !((typeof window !== 'undefined' ? window.location.hash : '').includes('#/plan'))) {
-      return [{
-        id: '1',
-        sender: 'ai' as const,
-        content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
-        options: [
-          { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-          { value: 'reading', label: 'Reading 📚', description: 'Build a daily reading habit' },
-          { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
-          { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
-          { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
-          { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
-          { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-          { value: 'cloudspotting', label: 'Cloudspotting ☁️', description: 'Learn to read the sky' },
-          { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
-        ],
-        step: 'hobby',
-        timestamp: new Date()
-      }];
-    }
-    return [];
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
+  
+  useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
+  
+  // Use chat hook for all chat-related functionality
+  const chat = usePlanChat({
+    onGeneratePlan,
+    initialPlanData,
+    planData,
+    onPlanGenerated: (plan) => setPlanData(plan),
+    onPlanIdSet: (planId) => setCurrentPlanId(planId),
+    onShowAuthModal: (show) => setShowAuthModal(show),
+    planProgressTimerRef,
   });
-  const [currentInput, setCurrentInput] = useState('');
-  const [selectedHobby, setSelectedHobby] = useState('');
-  const [quizAnswers, setQuizAnswers] = useState<Partial<QuizAnswers>>({});
-  const [currentStep, setCurrentStep] = useState<'hobby' | 'experience' | 'time' | 'goal' | 'generating'>('hobby');
-  const [isTyping, setIsTyping] = useState(false);
-  useEffect(() => { setIsTyping(false); }, []);
-  const [isGenerating, setIsGenerating] = useState(false);
-  // Loading progress (plan-level): 0-100%, time-based while generating
-  const [planProgressPercent, setPlanProgressPercent] = useState<number>(0);
-  const [answeredSteps, setAnsweredSteps] = useState<Set<'hobby' | 'experience' | 'time' | 'goal'>>(() => new Set());
-  const [planData, setPlanData] = useState<PlanData | null>(null);
+  
+  // Extract chat state and handlers from hook
+  const {
+    messages,
+    currentInput,
+    setCurrentInput,
+    selectedHobby,
+    quizAnswers,
+    currentStep,
+    isTyping,
+    isGenerating,
+    planProgressPercent,
+    answeredSteps,
+    addUserMessage,
+    addAIMessage,
+    handleSendMessage,
+    handleOptionSelect,
+    handleSurpriseMe,
+  } = chat;
   const [completedDays, setCompletedDays] = useState<number[]>(() => {
     // Try to get initial progress from session storage
     try {
@@ -119,8 +121,6 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   });
   const [progressLoaded, setProgressLoaded] = useState(false);
   const [progressLoading, setProgressLoading] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [isSavingProgress, setIsSavingProgress] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(false);
   const [loadingDay, setLoadingDay] = useState<number | null>(null);
@@ -149,7 +149,9 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
   const dayProgressTimerRef = useRef<number | null>(null);
   const { savePlan, saving } = usePlanStorage();
   const { user } = useAuth();
-  useEffect(() => { if (user && showAuthModal) setShowAuthModal(false); }, [user]);
+  
+  // Plan state (not chat-related)
+  const [planData, setPlanData] = useState<PlanData | null>(null);
   
   // Store user ID in session storage for initial state loading
   useEffect(() => {
@@ -256,38 +258,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [initialPlanData, planData, user]);
 
-  const hobbyOptions = [
-    { value: 'photography', label: 'Photography 📸', description: 'Capture amazing moments' },
-    { value: 'reading', label: 'Reading 📚', description: 'Build a daily reading habit' },
-    { value: 'cooking', label: 'Cooking 👨‍🍳', description: 'Create delicious meals' },
-    { value: 'drawing', label: 'Drawing 🎨', description: 'Express your creativity' },
-    { value: 'yoga', label: 'Yoga 🧘', description: 'Find balance and peace' },
-    { value: 'gardening', label: 'Gardening 🌱', description: 'Grow your own plants' },
-    { value: 'coding', label: 'Coding 💻', description: 'Build your first app' },
-    { value: 'cloudspotting', label: 'Cloudspotting ☁️', description: 'Learn to read the sky' },
-    { value: 'surprise', label: 'Surprise Me! 🎲', description: 'Let AI pick for me' }
-  ];
-
-  const surpriseHobbies = [
-    'photography', 'smartphone photography', 'photo editing', 'video editing',
-    'guitar', 'piano', 'ukulele', 'violin', 'drums', 'harmonica', 'singing',
-    'music production', 'dj mixing', 'beatboxing',
-    'cooking', 'baking', 'bread baking', 'sourdough', 'coffee brewing', 'latte art', 'tea tasting',
-    'drawing', 'sketching', 'painting', 'watercolor', 'acrylic painting', 'oil painting',
-    'calligraphy', 'hand lettering', 'graphic design', 'logo design', 'animation', '3d modeling',
-    'origami', 'paper crafts', 'pottery', 'ceramics', 'woodworking', 'carpentry', 'leathercraft',
-    'knitting', 'crochet', 'sewing', 'embroidery', 'quilting', 'quilling', 'jewelry making',
-    'candle making', 'soap making', 'resin art',
-    'gardening', 'indoor plants', 'succulents', 'bonsai', 'terrarium building',
-    'yoga', 'meditation', 'pilates', 'calisthenics', 'weight training',
-    'running', 'cycling', 'hiking', 'swimming', 'jump rope',
-    'table tennis', 'badminton', 'basketball shooting', 'football juggling',
-    'chess', 'rubiks cube', 'speed cubing', 'sudoku', 'crossword puzzles',
-    'blogging', 'journaling', 'creative writing', 'poetry', 'public speaking',
-    'coding', 'web development', 'app development', 'game development',
-    'bird watching', 'astronomy', 'stargazing', 'kite flying', 'calligraphy practice', 'reading'
-  ];
-  const surpriseAnswers: QuizAnswers = { experience: 'beginner', timeAvailable: '1 hour', goal: 'personal enjoyment' };
+  // Chat-related constants and functions are now in usePlanChat hook
 
   useEffect(() => {
     if (initialPlanData && !progressLoaded) {
@@ -414,7 +385,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           content: `Welcome back to your ${initialPlanData.hobby} learning plan! 🌟\n\nI'm here to help you with any questions about your 7-day journey. Feel free to ask me about:\n\n• Daily tasks and how to complete them\n• Tips for better practice\n• Troubleshooting common challenges\n• Resources and recommendations\n\nHow can I assist you today?`,
           timestamp: new Date()
         };
-        setMessages([welcomeMessage]);
+        chat.setMessages([welcomeMessage]);
       }
       if (user?.id) {
         setTimeout(async () => {
@@ -433,8 +404,8 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
           } catch {}
         }, 100);
       }
-      setCurrentStep('generating');
-      setIsGenerating(false);
+      chat.setCurrentStep('generating');
+      chat.setIsGenerating(false);
     }
   }, [initialPlanData]);
 
@@ -723,305 +694,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     })();
   }, [selectedDay, planData, currentPlanId, loadingDay]);
 
-  // Validation functions are now imported from @/utils/planValidation
-
-  const addUserMessage = (content: string) => {
-    const userMessage: ChatMessage = { id: Date.now().toString(), sender: 'user', content, timestamp: new Date() };
-    setMessages(prev => [...prev, userMessage]);
-    return userMessage;
-  };
-
-  const addAIMessage = (content: string, options?: { value: string; label: string; description?: string }[], delay = 1000, step?: 'hobby' | 'experience' | 'time' | 'goal') => {
-    setTimeout(() => {
-      setIsTyping(true);
-      setTimeout(() => {
-        const aiMessage: ChatMessage = { id: Date.now().toString(), sender: 'ai', content, options, timestamp: new Date(), step };
-        setMessages(prev => [...prev, aiMessage]);
-        setIsTyping(false);
-      }, delay);
-    }, 300);
-  };
-
-  const handleSurpriseMe = async () => {
-    const randomHobby = surpriseHobbies[Math.floor(Math.random() * surpriseHobbies.length)];
-    addUserMessage("Surprise Me! 🎲");
-    addAIMessage(`Perfect! I've chosen ${highlightHobby(randomHobby, randomHobby)} for you. Creating your 7-day plan now... ✨`, undefined, 800);
-    setSelectedHobby(randomHobby);
-    setQuizAnswers(surpriseAnswers);
-    // Duplicate check
-    if (await precheckDuplicate(randomHobby)) {
-      addAIMessage(`⚠️ You already have a ${highlightHobby(randomHobby, randomHobby)} plan in your dashboard. Open it to continue learning!`);
-      return;
-    }
-    // Block if user has reached plan limit
-    if (await precheckPlanLimit()) {
-      addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
-      return;
-    }
-    setCurrentStep('generating');
-    setIsGenerating(true);
-    // Start staged progress to 85% while awaiting server
-    try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
-    setPlanProgressPercent(0);
-    planProgressTimerRef.current = window.setInterval(() => {
-      setPlanProgressPercent(prev => {
-        const next = prev < 85 ? Math.min(85, prev + 2) : prev;
-        return next;
-      });
-    }, 300);
-    try {
-      const plan = await onGeneratePlan(randomHobby, surpriseAnswers).catch((e: any) => {
-        const msg = String(e?.message || e);
-        if (msg.toLowerCase().includes('duplicate') || msg.toLowerCase().includes('already have a learning plan')) {
-          addAIMessage(`⚠️ You already have a ${highlightHobby(randomHobby, randomHobby)} plan in your dashboard. Open it to continue learning!`);
-        }
-        if (msg.includes('Plan limit reached')) {
-          addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
-        }
-        throw e;
-      });
-      const correctedPlanData = fixPlanDataFields(plan);
-      setPlanData(correctedPlanData);
-      if (user?.id) {
-        try {
-          const planDataWithCorrectFields = fixPlanDataFields(plan);
-          const savedPlan = await hobbyPlanService.savePlan({ hobby: randomHobby, title: plan.title, overview: plan.overview, plan_data: planDataWithCorrectFields }, user.id);
-          setCurrentPlanId(savedPlan.id.toString());
-          await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-          addAIMessage(`Your ${randomHobby} plan is ready and saved! 🎉 Check it out on the right side. Your progress will be tracked automatically!`, undefined, 500);
-        } catch (saveError) {
-          addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Progress tracking is unavailable right now, but you can still use your plan!`, undefined, 500);
-        }
-      } else {
-        addAIMessage(`Your ${randomHobby} plan is ready! 🎉 Check it out on the right side. Sign up to save your progress!`, undefined, 500);
-      }
-    } catch (error) {
-      addAIMessage("I had trouble generating your plan. Let me try a different approach!", undefined, 500);
-    } finally {
-      // Smoothly finish progress to 100%
-      try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
-      setPlanProgressPercent(100);
-      setTimeout(() => setIsGenerating(false), 200);
-    }
-  };
-
-  const handleOptionSelect = async (value: string, label: string) => {
-    // Prevent double-clicks on the same step
-    if (answeredSteps.has(currentStep as any)) {
-      return;
-    }
-    if (value === 'surprise') {
-      await handleSurpriseMe();
-      return;
-    }
-    addUserMessage(label);
-    if (currentStep === 'hobby') {
-      setSelectedHobby(value);
-      setAnsweredSteps(prev => new Set(prev).add('hobby'));
-      setCurrentStep('experience');
-      const experienceOptions = [
-        { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-        { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-        { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-      ];
-                        addAIMessage(`Great choice! ${highlightHobby(value, value)} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
-    } else if (currentStep === 'experience') {
-      setQuizAnswers(prev => ({ ...prev, experience: value }));
-      setAnsweredSteps(prev => new Set(prev).add('experience'));
-      setCurrentStep('time');
-      const timeOptions = [
-        { value: '30 minutes', label: '30 minutes/day', description: 'Quick daily sessions' },
-        { value: '1 hour', label: '1 hour/day', description: 'Solid practice time' },
-        { value: '2+ hours', label: '2+ hours/day', description: 'Deep dive sessions' }
-      ];
-      addAIMessage("Got it! How much time can you spend learning each day?", timeOptions, 1000, 'time');
-    } else if (currentStep === 'time') {
-      setQuizAnswers(prev => ({ ...prev, timeAvailable: value }));
-      setAnsweredSteps(prev => new Set(prev).add('time'));
-      setCurrentStep('goal');
-      const goalOptions = [
-        { value: 'personal enjoyment', label: 'Personal Enjoyment', description: 'Just for fun and relaxation' },
-        { value: 'skill building', label: 'Skill Building', description: 'Develop expertise and technique' },
-        { value: 'social connection', label: 'Social Connection', description: 'Meet people and share experiences' },
-        { value: 'career change', label: 'Career Change', description: 'Explore new professional paths' }
-      ];
-      addAIMessage("Perfect! What's your main goal for learning this hobby?", goalOptions, 1000, 'goal');
-    } else if (currentStep === 'goal') {
-      const finalAnswers = { ...quizAnswers, goal: value } as QuizAnswers;
-      setQuizAnswers(finalAnswers);
-      setAnsweredSteps(prev => new Set(prev).add('goal'));
-      setCurrentStep('generating');
-      setIsGenerating(true);
-      // Start staged progress to 85% while awaiting server
-      try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
-      setPlanProgressPercent(0);
-      planProgressTimerRef.current = window.setInterval(() => {
-        setPlanProgressPercent(prev => {
-          const next = prev < 85 ? Math.min(85, prev + 2) : prev;
-          return next;
-        });
-      }, 300);
-      addAIMessage(`Perfect! Creating your personalized ${selectedHobby} plan now... ✨`);
-      try {
-        // Duplicate check
-        if (await precheckDuplicate(selectedHobby)) {
-          addAIMessage(`⚠️ You already have a ${highlightHobby(selectedHobby, selectedHobby)} plan in your dashboard. Open it to continue learning!`);
-          setIsGenerating(false);
-          setCurrentStep('review');
-          return;
-        }
-        // Block if user has reached plan limit
-        if (await precheckPlanLimit()) {
-          addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
-          setIsGenerating(false);
-          setCurrentStep('review');
-          return;
-        }
-        const plan = await onGeneratePlan(selectedHobby, finalAnswers).catch((e: any) => {
-          const msg = String(e?.message || e);
-          if (msg.toLowerCase().includes('duplicate') || msg.toLowerCase().includes('already have a learning plan')) {
-            addAIMessage(`⚠️ You already have a ${highlightHobby(selectedHobby, selectedHobby)} plan in your dashboard. Open it to continue learning!`);
-          }
-          if (msg.includes('Plan limit reached')) {
-            addAIMessage("⚠️ Plan limit reached (5 per account). Subscription plans coming soon.");
-          }
-          throw e;
-        });
-        const fixedStandardPlan = fixPlanDataFields(plan);
-        setPlanData(fixedStandardPlan);
-        if (user?.id) {
-          try {
-            const savedPlan = await hobbyPlanService.savePlan({ hobby: selectedHobby, title: plan.title, overview: plan.overview, plan_data: plan }, user.id);
-            setCurrentPlanId(savedPlan.id.toString());
-            await hobbyPlanService.initializeProgress(user.id, savedPlan.id);
-            setTimeout(async () => { await loadProgressFromDatabase(savedPlan.id); }, 500);
-            addAIMessage(`Your ${selectedHobby} plan is ready and saved! 🎉 Your progress will be tracked automatically. Need help with anything? Just ask!`);
-          } catch (saveError) {
-            let errorMessage = `Your ${selectedHobby} plan is ready! 🎉 Note: Progress tracking is temporarily unavailable, but you can still use your plan.`;
-            addAIMessage(errorMessage + ' Need help with anything? Just ask!');
-          }
-        } else {
-          addAIMessage(`Your ${selectedHobby} plan is ready! 🎉 Sign up to save your progress and unlock advanced features. Need help with anything? Just ask!`);
-        }
-      } catch (error) {
-        addAIMessage("Sorry, I had trouble creating your plan. Let me try again!");
-      } finally {
-        try { if (planProgressTimerRef.current) window.clearInterval(planProgressTimerRef.current); } catch {}
-        setPlanProgressPercent(100);
-        setTimeout(() => setIsGenerating(false), 200);
-      }
-    }
-  };
-
-  const handleSendMessage = async () => {
-    if (!currentInput.trim()) return;
-    const userInput = currentInput.trim();
-    addUserMessage(userInput);
-    setCurrentInput('');
-    if (currentStep === 'hobby') {
-      // Guard: avoid guessing for ultra-short inputs
-      if (userInput.length < 3) {
-        addAIMessage("Hi! Which hobby would you like to learn? For example: guitar, cooking, yoga, photography, or drawing.");
-        return;
-      }
-      // First try OpenRouter API validation
-      let validation;
-      try {
-        const response = await fetch('/api/validate-hobby', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ hobby: userInput })
-        });
-        
-        if (response.ok) {
-          const apiResult = await response.json();
-          
-          if (apiResult.isValid) {
-            // API validation succeeded
-            validation = {
-              isValid: true,
-              detectedHobbies: [apiResult.suggestion || userInput],
-              suggestions: [apiResult.suggestion || userInput]
-            };
-          } else {
-            // API says invalid -> do NOT guess; ask for clarification instead
-            addAIMessage("I didn't catch a specific hobby there. Please type a clear hobby you want to learn (e.g., guitar, cooking, yoga).");
-            return;
-          }
-        } else {
-          // API call failed, fall back to local validation
-          validation = await validateAndProcessHobby(userInput);
-        }
-      } catch (error) {
-        // API error, fall back to local validation
-        console.error(`❌ OpenRouter API error:`, error);
-        validation = await validateAndProcessHobby(userInput);
-      }
-      if ((validation as any).unsafe) {
-        // Show suggestions if available, otherwise show default message
-        if (validation.suggestions && validation.suggestions.length > 0) {
-          const suggestionOptions = validation.suggestions.map(s => ({ 
-            value: s, 
-            label: s.charAt(0).toUpperCase() + s.slice(1), 
-            description: 'Safe and beginner-friendly' 
-          }));
-          addAIMessage("🎯 That's not a hobby - it's inappropriate content. Here are some great, safe hobbies you can actually learn in a week! 🌟", suggestionOptions, 800, 'hobby');
-        } else {
-          addAIMessage("🎯 That's not a hobby - it's inappropriate content. How about trying something safe and fun like photography, guitar, cooking, drawing, yoga, gardening, or coding? 🌟");
-        }
-        return;
-      }
-      
-      if ((validation as any).reason === 'complex_hobby') {
-        addAIMessage("🎯 Great choice! That's a fascinating hobby, but it might be a bit complex for a 7-day beginner plan. Here are some related alternatives that are perfect for getting started in just a week! 🌟");
-        return;
-      }
-      if (validation.isValid && validation.detectedHobbies) {
-        if (validation.detectedHobbies.length === 1) {
-          const hobby = validation.detectedHobbies[0];
-          setSelectedHobby(hobby);
-          setAnsweredSteps(prev => new Set(prev).add('hobby'));
-          setCurrentStep('experience');
-          const experienceOptions = [
-            { value: 'beginner', label: 'Complete Beginner', description: 'Never tried this before' },
-            { value: 'some', label: 'Some Experience', description: 'Tried it a few times' },
-            { value: 'intermediate', label: 'Intermediate', description: 'Have some solid basics' }
-          ];
-          addAIMessage(`Great choice! ${highlightHobby(hobby, hobby)} is really fun to learn.\n\nWhat's your experience level?`, experienceOptions, 1000, 'experience');
-        } else {
-          const hobbyOptions = validation.detectedHobbies.map(h => ({ value: h, label: `🎨 Start with ${h.charAt(0).toUpperCase() + h.slice(1)}`, description: `Focus on ${h} first` }));
-          addAIMessage(`I found multiple hobbies! Which one would you like to start with?`, hobbyOptions, 1000, 'hobby');
-        }
-      } else {
-        const fallbackList = (validation.suggestions && validation.suggestions.length > 0)
-          ? validation.suggestions.slice(0, 8)
-          : ['photography','guitar','cooking','drawing','yoga','gardening','coding','language learning'];
-        const suggestionOptions = fallbackList.map(s => ({ value: s, label: s.charAt(0).toUpperCase() + s.slice(1), description: 'Explore this hobby' }));
-        addAIMessage("I didn't quite catch that hobby. Did you mean one of these?", suggestionOptions, 800, 'hobby');
-      }
-    } else {
-      // Post-plan smart chat with server AI
-      try {
-        const resp = await fetch('/api/hobby-chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: userInput,
-            hobby: selectedHobby || planData?.hobby || '',
-            plan: planData || null
-          })
-        });
-        if (resp.ok) {
-          const data = await resp.json();
-          addAIMessage(data?.reply || "I'm here to help. What would you like to know about your hobby?");
-        } else {
-          addAIMessage("I'm here to help. What would you like to know about your hobby?");
-        }
-      } catch {
-        addAIMessage("I'm here to help. What would you like to know about your hobby?");
-      }
-    }
-  };
+  // Chat functions are now in usePlanChat hook - all removed
 
   const loadProgressFromDatabase = async (planId: string) => {
     if (!user?.id) return;
@@ -1318,38 +991,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
     }
   }, [completedDays.length, progressPercentage]);
 
-  const precheckPlanLimit = async () => {
-    try {
-      if (!user?.id) return false;
-      const r = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
-      if (!r.ok) return false;
-      const arr = await r.json();
-      return Array.isArray(arr) && arr.length >= 5;
-    } catch {
-      return false;
-    }
-  };
-
-  const precheckDuplicate = async (hobbyName: string) => {
-    try {
-      if (!user?.id) return false;
-      const r = await fetch(`/api/hobby-plans?user_id=${user.id}&_t=${Date.now()}`, { cache: 'no-cache' });
-      if (!r.ok) return false;
-      const arr = await r.json();
-      const normalize = (s: any) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
-      const target = normalize(hobbyName);
-      return (Array.isArray(arr) ? arr : []).some((p: any) => {
-        const h1 = normalize(p.hobby);
-        const h2 = normalize(p.hobby_name);
-        const hp = normalize(p.plan_data?.hobby || p.plan_data?.hobby_name);
-        const m = String(p.title || '').match(/(?:Learn|Master)\s+(.+?)\s+in/i);
-        const ht = m ? normalize(m[1]) : '';
-        return [h1, h2, hp, ht].some(v => v && v === target);
-      });
-    } catch {
-      return false;
-    }
-  };
+  // Precheck functions are now in usePlanChat hook - removed
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -1394,7 +1036,7 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                 onClick={() => {
                   // Reset to initial state for new plan
                   setPlanData(null);
-                  setMessages([{
+                  chat.setMessages([{
                     id: '1',
                     sender: 'ai' as const,
                     content: "Hi! 👋 I'm here to help you learn any hobby in just 7 days.\n\nI'll create a personalized learning plan just for you. What would you like to learn?",
@@ -1412,13 +1054,13 @@ export function SplitPlanInterface({ onGeneratePlan, onNavigateBack, initialPlan
                     step: 'hobby',
                     timestamp: new Date()
                   }]);
-                  setCurrentStep('hobby');
-                  setSelectedHobby('');
-                  setQuizAnswers({});
-                  setAnsweredSteps(new Set());
+                  chat.setCurrentStep('hobby');
+                  chat.setSelectedHobby('');
+                  chat.setQuizAnswers({});
+                  chat.setAnsweredSteps(new Set());
                   setCompletedDays([]);
                   setSelectedDay(1);
-                  setCurrentInput('');
+                  chat.setCurrentInput('');
                   // Clear any existing plan data from storage
                   sessionStorage.removeItem('activePlanData');
                   sessionStorage.removeItem('currentPlanData');
