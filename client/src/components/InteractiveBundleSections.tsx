@@ -2662,7 +2662,7 @@ const renderers: Record<string, Renderer> = {
               ))}
             </div>
           </div>
-          <p className="text-xs text-blue-600 mt-2">Count how many {targetItems} you found: _______</p>
+          <p className="text-xs text-blue-600 mt-2">Count how many {targetItems} shapes you found: _______</p>
         </div>
         <div className="rounded-xl border border-green-200 bg-green-50 p-4">
           <p className="text-sm font-semibold text-green-700 mb-2">Spot the Difference</p>
