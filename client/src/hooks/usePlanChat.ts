@@ -1,5 +1,32 @@
-// Custom hook for managing plan chat interface
-// Extracted from SplitPlanInterface.tsx for better organization
+/**
+ * Custom hook for managing plan chat interface
+ * 
+ * Extracted from SplitPlanInterface.tsx for better organization and reusability.
+ * 
+ * This hook manages all chat-related state and logic including:
+ * - Chat messages and conversation flow
+ * - User input and validation
+ * - Plan generation workflow
+ * - Quiz answers and step progression
+ * 
+ * @example
+ * ```tsx
+ * // IMPORTANT: Declare these BEFORE calling usePlanChat:
+ * const { user } = useAuth();
+ * const [planData, setPlanData] = useState<PlanData | null>(null);
+ * const planProgressTimerRef = useRef<number | null>(null);
+ * 
+ * const chat = usePlanChat({
+ *   onGeneratePlan,
+ *   initialPlanData,
+ *   planData,
+ *   onPlanGenerated: (plan) => setPlanData(plan),
+ *   onPlanIdSet,
+ *   onShowAuthModal,
+ *   planProgressTimerRef,
+ * });
+ * ```
+ */
 
 import { useState, useRef } from 'react';
 import type { ChatMessage, QuizAnswers, PlanData } from '@/types/plan';
@@ -8,13 +35,23 @@ import { fixPlanDataFields } from '@/utils/planDataFix';
 import { hobbyPlanService } from '@/services/hobbyPlanService';
 import { useAuth } from '@/hooks/useAuth';
 
+/**
+ * Props for the usePlanChat hook
+ */
 interface UsePlanChatProps {
+  /** Function to generate a plan based on hobby and quiz answers */
   onGeneratePlan: (hobby: string, answers: QuizAnswers) => Promise<any>;
+  /** Initial plan data if loading an existing plan */
   initialPlanData?: PlanData;
-  planData?: PlanData | null; // For post-plan chat
+  /** Current plan data for post-plan chat */
+  planData?: PlanData | null;
+  /** Callback when a plan is generated */
   onPlanGenerated: (plan: PlanData) => void;
+  /** Callback when plan ID is set */
   onPlanIdSet: (planId: string) => void;
+  /** Callback to show/hide auth modal */
   onShowAuthModal: (show: boolean) => void;
+  /** Ref for plan progress timer */
   planProgressTimerRef: React.MutableRefObject<number | null>;
 }
 
@@ -416,26 +453,31 @@ export function usePlanChat({
     }
   };
 
+  /**
+   * Return value of usePlanChat hook
+   */
   return {
-    // State
+    // State values
     messages,
-    setMessages,
     currentInput,
-    setCurrentInput,
     selectedHobby,
-    setSelectedHobby,
     quizAnswers,
-    setQuizAnswers,
     currentStep,
-    setCurrentStep,
     isTyping,
     isGenerating,
-    setIsGenerating,
     planProgressPercent,
     answeredSteps,
+    
+    // State setters (exposed for external control when needed)
+    setMessages,
+    setCurrentInput,
+    setSelectedHobby,
+    setQuizAnswers,
+    setCurrentStep,
+    setIsGenerating,
     setAnsweredSteps,
     
-    // Handlers
+    // Event handlers
     addUserMessage,
     addAIMessage,
     handleSendMessage,
