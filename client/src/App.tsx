@@ -244,8 +244,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
-                    description="Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!"
+                    title="Wizqo: Free Interactive Worksheets & AI-Powered Learning Hub"
+                    description="Create personalized worksheets in seconds. Free printable PDFs for math, reading, writing, science, and more. AI-powered worksheet generator with answer keys for teachers and parents."
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
@@ -314,7 +314,15 @@ export default function App() {
               );
               case 'interactive-worksheets-generator':
                 return (
-                  <InteractiveWorksheetsPage />
+                  <>
+                    <SEOMetaTags 
+                      title="Free Interactive Worksheets Generator | Create Custom PDFs Instantly"
+                      description="Generate unlimited unique worksheets for math, reading, writing, science, and more. Free printable PDFs with answer keys. Perfect for teachers, parents, and homeschoolers."
+                      canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
+                      keywords="interactive worksheets, worksheet generator, free printable worksheets, math worksheets, reading worksheets, worksheet maker, PDF worksheets, educational worksheets"
+                    />
+                    <InteractiveWorksheetsPage />
+                  </>
                 );
             case 'printables':
               if (routeSubKey === 'name-tracing-generator') {
