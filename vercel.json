@@ -34,12 +34,6 @@
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]
-    },
-    {
-      "source": "/blog/handwriting-without-tears-infographic",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
     }
   ],
   "rewrites": [

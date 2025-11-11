@@ -871,5 +871,18 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
     imageUrl: "https://images.unsplash.com/photo-1623908277264-f123c5d7d441?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
     imageAlt: "Brain and cognitive skills visualization",
     keywords: "cognitive skills, what are cognitive skills, memory training, attention exercises, brain training, cognitive development, working memory, executive function, processing speed, visual processing, cognitive flexibility, brain games, printable brain exercises"
+  },
+  {
+    id: "handwriting-without-tears-infographic",
+    title: "✍️ What Is Handwriting Without Tears? A Gentle, Science-Backed Way to Bring Joy Back to Writing",
+    excerpt: "Writing used to be an art — not an anxiety. Handwriting Without Tears turns handwriting into a calm, structured, evidence-based practice that rebuilds confidence one letter at a time.",
+    content: "<HWTInfographic />",
+    author: "Wizqo Team",
+    date: "2025-10-15T12:00:00Z",
+    readTime: "8–9 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1613289720033-c79deb7d3fca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+    imageAlt: "Handwriting practice tools laid out for step-by-step learning",
+    keywords: "handwriting without tears, handwriting practice, handwriting worksheets, handwriting improvement, handwriting for kids, handwriting instruction, handwriting method, handwriting curriculum"
   }
 ];
