@@ -509,7 +509,7 @@ const FAQ_SCRIPT_ID = 'interactive-worksheets-faq-schema'
 
 function useFaqSchema() {
   React.useEffect(() => {
-    const schema = {
+    const faqSchema = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: FAQ_ITEMS.map((item) => ({
@@ -522,21 +522,67 @@ function useFaqSchema() {
       })),
     }
 
-    const existing = document.getElementById(FAQ_SCRIPT_ID)
-    if (existing) {
-      existing.textContent = JSON.stringify(schema)
-      return
+    const howToSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'How to Create Free Interactive Worksheets',
+      description: 'Generate unlimited unique worksheets for math, reading, writing, and more in seconds',
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Select Grade Level',
+          text: 'Choose your grade level from Preschool, K-1, 2nd-3rd, 4th-5th, or Middle School',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Choose Subjects',
+          text: 'Select one or more subjects like Math, Reading, Writing, Science, or Critical Thinking',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Generate Worksheets',
+          text: 'Click Generate to create your personalized worksheet pack with answer keys',
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'Download PDF',
+          text: 'Download your worksheets as a printable PDF and print as many copies as needed',
+        },
+      ],
     }
 
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.id = FAQ_SCRIPT_ID
-    script.textContent = JSON.stringify(schema)
-    document.head.appendChild(script)
+    const existingFaq = document.getElementById(FAQ_SCRIPT_ID)
+    if (existingFaq) {
+      existingFaq.textContent = JSON.stringify(faqSchema)
+    } else {
+      const faqScript = document.createElement('script')
+      faqScript.type = 'application/ld+json'
+      faqScript.id = FAQ_SCRIPT_ID
+      faqScript.textContent = JSON.stringify(faqSchema)
+      document.head.appendChild(faqScript)
+    }
+
+    const existingHowTo = document.getElementById('interactive-worksheets-howto-schema')
+    if (existingHowTo) {
+      existingHowTo.textContent = JSON.stringify(howToSchema)
+    } else {
+      const howToScript = document.createElement('script')
+      howToScript.type = 'application/ld+json'
+      howToScript.id = 'interactive-worksheets-howto-schema'
+      howToScript.textContent = JSON.stringify(howToSchema)
+      document.head.appendChild(howToScript)
+    }
 
     return () => {
       try {
-        document.head.removeChild(script)
+        const faq = document.getElementById(FAQ_SCRIPT_ID)
+        if (faq) document.head.removeChild(faq)
+        const howTo = document.getElementById('interactive-worksheets-howto-schema')
+        if (howTo) document.head.removeChild(howTo)
       } catch {}
     }
   }, [])
@@ -987,8 +1033,8 @@ export function InteractiveWorksheetsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Interactive Worksheets Generator | Free Printable PDF Activities"
-        description="Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade."
+        title="Free Interactive Worksheets Generator | Create Custom PDFs Instantly"
+        description="Generate unlimited unique worksheets for math, reading, writing, science, and more. Free printable PDFs with answer keys. Perfect for teachers, parents, and homeschoolers."
         canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
         keywords="interactive worksheets, free worksheets pdf, interactive math worksheets, interactive reading worksheets, printable interactive worksheets"
       />

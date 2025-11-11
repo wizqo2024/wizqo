@@ -15,7 +15,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
     "name": "Wizqo",
     "url": "https://wizqo.com",
     "logo": "https://wizqo.com/og-image.jpg",
-    "description": "AI-powered 7-day hobby learning plans. Discover your ideal hobby with personalized learning paths.",
+    "description": "AI-powered worksheet generator and learning tools. Create personalized worksheets for math, reading, writing, and more.",
     "sameAs": [],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -29,7 +29,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
     "@type": "WebSite",
     "name": "Wizqo",
     "url": "https://wizqo.com",
-    "description": "Discover your ideal hobby with AI-powered 7-day learning plans",
+    "description": "Free interactive worksheets and AI-powered learning tools for teachers and parents",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://wizqo.com/search?q={search_term_string}",
@@ -37,11 +37,51 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
     }
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I create free printable worksheets?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use our Interactive Worksheets Generator to create unlimited unique worksheets for math, reading, writing, science, and more. Select your grade level and subjects, then generate and download PDFs instantly with answer keys included."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the worksheets free to download?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! All worksheets are completely free. Generate unlimited worksheets, download as PDFs, and print as many copies as you need. No sign-up required for basic access."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What subjects are available?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer worksheets for Math, Reading, Writing, Science, Social Studies, Art & Coloring, Critical Thinking, and more. Worksheets are available for Preschool, K-1, 2nd-3rd, 4th-5th, and Middle School grade levels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do worksheets include answer keys?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Every worksheet automatically includes a printable answer key appendix, making grading quick and easy for teachers and parents."
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">
       {/* JSON-LD Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       
       {/* Unified Navigation */}
       <UnifiedNavigation currentPage="home" />
