@@ -1033,8 +1033,8 @@ export function InteractiveWorksheetsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Free Interactive Worksheets Generator | Create Custom PDFs Instantly"
-        description="Generate unlimited unique worksheets for math, reading, writing, science, and more. Free printable PDFs with answer keys. Perfect for teachers, parents, and homeschoolers."
+        title="Interactive Worksheets Generator | Free Printable PDF Activities"
+        description="Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade."
         canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
       />
       <UnifiedNavigation currentPage="interactive-worksheets" />

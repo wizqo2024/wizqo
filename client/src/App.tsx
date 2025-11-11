@@ -244,8 +244,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Wizqo: Free Interactive Worksheets & AI-Powered Learning Hub"
-                    description="Create personalized worksheets in seconds. Free printable PDFs for math, reading, writing, science, and more. AI-powered worksheet generator with answer keys for teachers and parents."
+                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
+                    description="Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
@@ -316,8 +316,8 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Interactive Worksheets Generator | Create Custom PDFs Instantly"
-                      description="Generate unlimited unique worksheets for math, reading, writing, science, and more. Free printable PDFs with answer keys. Perfect for teachers, parents, and homeschoolers."
+                      title="Interactive Worksheets Generator | Free Printable PDF Activities"
+                      description="Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade."
                       canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
                     />
                     <InteractiveWorksheetsPage />
