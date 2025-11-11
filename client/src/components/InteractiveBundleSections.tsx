@@ -2809,10 +2809,10 @@ const renderers: Record<string, Renderer> = {
       { original: ['big', 'small', 'big', 'small'], match: ['big', 'small', 'big', 'big'] },
     ]
     const spatialItems = [
-      { position: 'above', item: 'star' },
-      { position: 'below', item: 'circle' },
-      { position: 'left', item: 'triangle' },
-      { position: 'right', item: 'square' },
+      { position: 'above', item: 'star', text: 'above' },
+      { position: 'below', item: 'circle', text: 'below' },
+      { position: 'left', item: 'triangle', text: 'to the left of' },
+      { position: 'right', item: 'square', text: 'to the right of' },
     ]
     return (
       <div className="space-y-4">
@@ -2856,7 +2856,7 @@ const renderers: Record<string, Renderer> = {
             <div className="grid grid-cols-2 gap-4">
               {spatialItems.map((item, idx) => (
                 <div key={idx} className="border border-dashed border-pink-300 rounded p-3">
-                  <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.position} the line:</p>
+                  <p className="text-xs text-pink-600 mb-2">Draw a {item.item} {item.text} the line:</p>
                   <div className="h-16 border border-pink-200 rounded flex items-center justify-center">
                     <span className="text-xs text-pink-400">Draw here</span>
                   </div>
