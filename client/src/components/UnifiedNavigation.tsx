@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from './AuthModal';
 import { WizqoLogo } from './WizqoLogo';
 import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface UnifiedNavigationProps {
   showBackButton?: boolean;
@@ -60,6 +61,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           <div className="flex items-center space-x-8">
             {/* Logo */}
             <a href="/" className="flex items-center space-x-3 cursor-pointer">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
+                <DotLottieReact
+                  src="https://lottie.host/68a4c537-7180-4d34-88b5-42687154f283/HRE0iWTPqz.lottie"
+                  loop
+                  autoplay
+                  className="w-full h-full"
+                />
+              </div>
               <WizqoLogo width={40} height={23} className="hover:opacity-80 transition-opacity" />
               <span className="text-xl font-bold text-slate-800">Wizqo</span>
             </a>
