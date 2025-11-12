@@ -117,13 +117,12 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             
             {/* CTA Button */}
             <div className="flex justify-center mb-12 sm:mb-16 px-4">
-              <Button 
-                onClick={onNavigateToGenerate}
-                size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
+              <a 
+                href="/interactive-worksheets-generator"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
               >
                 <span aria-hidden="true">📚</span> Browse Free Worksheets
-              </Button>
+              </a>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) */}
             <nav aria-label="Popular worksheets" className="px-4 sm:px-0">
@@ -149,7 +148,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </a>
                 </li>
                 <li>
-                  <a href="/interactive-worksheets-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                  <a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
                     <span aria-hidden="true">🎨</span> Worksheet Generator
                   </a>
                 </li>
@@ -754,13 +753,12 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <Button 
-              onClick={onNavigateToGenerate}
-              size="lg"
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
+            <a 
+              href="/interactive-worksheets-generator"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
             >
               <span aria-hidden="true">📚</span> Browse Free Worksheets
-            </Button>
+            </a>
             <div className="text-center">
               <p className="text-gray-300 text-sm">
                 <span aria-hidden="true">✓</span> No sign-up required • <span aria-hidden="true">✓</span> 100% free forever • <span aria-hidden="true">✓</span> Answer keys included
