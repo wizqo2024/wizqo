@@ -268,7 +268,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🌟</div>
               <h3 className="text-lg font-semibold text-slate-900">Loved by families & teachers</h3>
-              <p className="mt-2 text-sm text-slate-600">Feedback-driven lessons shaped by real parents, educators, and hobby mentors.</p>
+              <p className="mt-2 text-sm text-slate-600">Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🖨️</div>
@@ -277,8 +277,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🤖</div>
-              <h3 className="text-lg font-semibold text-slate-900">AI hobby coach on demand</h3>
-              <p className="mt-2 text-sm text-slate-600">Personalized 7-day plans and quick-start tips tailored to your interests.</p>
+              <h3 className="text-lg font-semibold text-slate-900">AI worksheet generator</h3>
+              <p className="mt-2 text-sm text-slate-600">Create unlimited custom worksheets instantly with our AI-powered generator. Perfect for any grade or subject.</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🎯</div>
@@ -407,22 +407,22 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-2xl" aria-hidden="true">🧠</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Smart AI Personalization</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Smart AI Worksheet Generator</h3>
                 <p className="text-slate-700 text-base leading-relaxed mb-6">
-                  Our AI analyzes your experience, time, and goals to create a learning path that's perfectly tailored to you.
+                  Our AI creates worksheets perfectly matched to your grade level and subject. Each worksheet is unique and includes answer keys.
                 </p>
                 <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4">
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Experience Level: Beginner</span>
+                    <span className="text-sm font-medium text-slate-700">Grade Level: K-5</span>
                   </div>
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Daily Time: 30-45 minutes</span>
+                    <span className="text-sm font-medium text-slate-700">Subjects: Math, Reading, Writing</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
-                    <span className="text-sm font-medium text-slate-700">Goal: Create my first project</span>
+                    <span className="text-sm font-medium text-slate-700">Answer Keys: Included</span>
                   </div>
                 </div>
               </div>
@@ -435,9 +435,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-2xl" aria-hidden="true">📅</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Perfect 7-Day Structure</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">All Grade Levels Covered</h3>
                 <p className="text-slate-700 leading-relaxed">
-                  Science-backed learning methodology that turns overwhelming hobbies into bite-sized daily wins.
+                  Worksheets available for every grade from Kindergarten through 5th grade. Perfect for classroom use, homework, or extra practice.
                 </p>
                 <div className="grid grid-cols-7 gap-2 mt-6">
                   {[1,2,3,4,5,6,7].map((day) => (
@@ -456,9 +456,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-xl" aria-hidden="true">🎯</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Track Progress</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Answer Keys Included</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  Visual progress tracking keeps you motivated and on track.
+                  Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.
                 </p>
                 <div className="mt-4 bg-white/60 rounded-lg p-2">
                   <div className="bg-green-400 h-2 rounded-full" style={{width: '70%'}}></div>
@@ -473,9 +473,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-xl" aria-hidden="true">👥</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Join Community</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Trusted by Teachers</h3>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  Connect with fellow learners and share your progress.
+                  Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.
                 </p>
                 <div className="flex -space-x-2 mt-4">
                   <div className="w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white"></div>
@@ -496,15 +496,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              How Wizqo Works — Simple, Smart, and Fun
+              How to Generate Free Worksheets - 3 Simple Steps
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              From hobby discovery to mastery in just 3 steps
+              Create unlimited printable worksheets with answer keys in seconds
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Step 1: Pick Your Passion */}
+            {/* Step 1: Choose Grade & Subject */}
             <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 1
@@ -518,30 +518,30 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span aria-hidden="true">🎸</span> Guitar
-                      <span aria-hidden="true">📸</span> Photo
+                      <span aria-hidden="true">🔢</span> Math
+                      <span aria-hidden="true">📖</span> Reading
                     </div>
                     <div className="flex items-center justify-between bg-white/60 rounded-lg p-2 text-sm">
-                      <span aria-hidden="true">👨‍🍳</span> Cook
-                      <span aria-hidden="true">💻</span> Code
+                      <span aria-hidden="true">✍️</span> Writing
+                      <span aria-hidden="true">🔬</span> Science
                     </div>
                   </div>
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Pick Your Passion</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Choose Grade & Subject</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Choose from 1,000+ hobbies or type your own. Answer 3 quick questions about your experience and goals.
+                Select your grade level (Kindergarten through 5th grade) and choose from math, reading, writing, science, and more.
               </p>
               <div className="flex items-center text-purple-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Takes 30 seconds
+                Takes 10 seconds
               </div>
             </div>
 
-            {/* Step 2: AI Creates Your Plan */}
+            {/* Step 2: Generate Worksheets */}
             <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 2
@@ -567,9 +567,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">AI Creates Your Plan</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Generate Worksheets</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Our smart AI analyzes your inputs and generates a personalized 7-day learning roadmap just for you.
+                Our AI instantly creates unique worksheets tailored to your selected grade and subject. Each worksheet includes answer keys.
               </p>
               <div className="flex items-center text-blue-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -579,7 +579,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </div>
             </div>
 
-            {/* Step 3: Learn & Master */}
+            {/* Step 3: Download & Print */}
             <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group">
               <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mb-6 group-hover:scale-110 transition-transform duration-300">
                 3
@@ -589,31 +589,29 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full opacity-20"></div>
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                    <span className="text-2xl">🚀</span>
+                    <span className="text-2xl">🖨️</span>
                   </div>
                   <div className="bg-white/60 rounded-lg p-3">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs font-medium text-slate-600">Day 5 of 7</span>
+                      <span className="text-xs font-medium text-slate-600">PDF Ready</span>
                     </div>
-                    <div className="grid grid-cols-7 gap-1">
-                      {[1,2,3,4,5,6,7].map((day) => (
-                        <div key={day} className={`w-4 h-4 rounded ${day <= 5 ? 'bg-green-400' : 'bg-slate-200'}`}>
-                        </div>
-                      ))}
+                    <div className="flex items-center justify-center">
+                      <span className="text-lg" aria-hidden="true">📄</span>
+                      <span className="ml-2 text-xs text-slate-600">Answer Key Included</span>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Learn & Master</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Download & Print</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Follow your daily lessons, track progress, and celebrate as you master your new hobby in just one week!
+                Download your worksheets as PDFs instantly. Print as many copies as you need for your classroom or home. Answer keys included!
               </p>
               <div className="flex items-center text-green-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Build skills one day at a time
+                Ready in seconds
               </div>
             </div>
           </div>
@@ -625,10 +623,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Real Stories from Wizqo Users
+              Real Stories from Teachers & Parents
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              See how our AI-powered hobby plans have transformed learning experiences
+              See how Wizqo worksheets are helping educators and families every day
             </p>
           </div>
           
@@ -644,7 +642,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               <p className="text-slate-600 leading-relaxed">
-                "I never knew how to start a hobby until Wizqo's AI suggested painting for me. The 7-day plan kept me excited, and now I paint weekly!"
+                "Wizqo worksheets have been a lifesaver for my 2nd grade class! The math worksheets with answer keys save me hours of prep time. My students love the variety."
               </p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg">
@@ -658,7 +656,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               <p className="text-slate-600 leading-relaxed">
-                "Wizqo made it so easy to pick up guitar. The daily challenges helped me build skills without feeling overwhelmed."
+                "As a homeschooling parent, I use Wizqo worksheets daily. The reading comprehension worksheets are perfect for my kids, and having answer keys makes grading so easy!"
               </p>
             </div>
           </div>
