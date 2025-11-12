@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
+import { WorksheetThumbnailCard } from '@/components/WorksheetThumbnailCard'
+import { UnifiedNavigation } from '@/components/UnifiedNavigation'
+import { Footer } from '@/components/Footer'
 
 const INTERACTIVE_DOC_IDS = INTERACTIVE_CATEGORIES.flatMap((category) => category.docs.map((doc) => doc.id))
 const ANSWERABLE_BASE_DOC_IDS = [
@@ -658,8 +661,102 @@ export function PrintablesPage() {
       return () => clearTimeout(t)
     } catch {}
   }, [autoPrint])
+
+  // Build list of all printable worksheets for the grid
+  const allWorksheets = useMemo(() => {
+    const worksheets: Array<{ docId: string; title: string; description: string; category: string }> = []
+    
+    // Add all worksheets from PRINTABLE_BUNDLE_SECTIONS
+    Object.entries(PRINTABLE_BUNDLE_SECTIONS).forEach(([category, docIds]) => {
+      docIds.forEach(docId => {
+        if (!docId.startsWith('interactive-') && docId !== 'bundle' && docId !== 'pack') {
+          const title = resolveDocTitle(docId, { packTime, bundleCategory: category })
+          // Generate description based on docId
+          const descriptions: Record<string, string> = {
+            'place-value-hto': 'Break numbers into tens and ones; compare and build numbers.',
+            'skip-count-5-10-120': 'Count on using number charts and dot‑paths to reach 120.',
+            'expanded-form-200': 'Write numbers in expanded form (100+20+5); understand place value.',
+            'number-patterns-200': 'Identify and extend number patterns; build number sense.',
+            'rounding-nearest-10': 'Round 2-digit numbers to the nearest 10; estimation skills.',
+            'add-2digit-100': 'Practice adding two 2‑digit numbers within 100 (no carry).',
+            'sub-2digit-100': 'Subtract within 100 using number lines and base‑ten models.',
+            'add-three-numbers': 'Add three single-digit or two-digit numbers; mental math practice.',
+            'missing-addends': 'Find the missing number in addition equations; inverse operations.',
+            'fact-families-20': 'Complete fact families showing addition and subtraction relationships.',
+            'compare-2digit': 'Use >, <, = to compare numbers; explain using tens and ones.',
+            'word-problems-100': 'Mixed add/sub word problems within 100 (no regrouping).',
+            'mental-math-20': 'Quick recall of addition and subtraction facts; build speed.',
+            'number-line-200': 'Use number lines to solve problems and locate numbers up to 200.',
+            'doubles-near-doubles': 'Master doubles facts and near doubles (doubles +1) strategies.',
+            'even-odd-100': 'Sort numbers into even and odd; explain patterns you notice.',
+            'time-5min': 'Read times to the nearest 5 minutes; draw hands to match.',
+            'money-coins-bills': 'Count coins (pennies, nickels, dimes, quarters) and make change.',
+            'measurement-length': 'Compare lengths using inches and centimeters; measurement practice.',
+            'bar-graphs-data': 'Read and create simple bar graphs; interpret data.',
+            'ten-frames-1-10': 'Color counters to build numbers 1–10; develop subitizing and number bonds.',
+            'number-tracing-1-20': 'Trace numbers 1–20 with start points and big writing space.',
+            'number-bonds-10': 'Complete number bonds showing parts that make 10; build fact fluency.',
+            'count-write-30': 'Count objects and write the number; practice one-to-one correspondence.',
+            'missing-numbers-50': 'Fill in missing numbers on number lines; practice sequencing.',
+            'addition-subtraction-0-10': 'No‑prep practice with number lines and picture cues.',
+            'math-maze': 'Solve simple equations to find a path from start to finish.',
+            'picture-addition-10': 'Count pictures and add them together; visual math practice.',
+            'subtraction-stories': 'Solve subtraction problems using picture stories and number lines.',
+            'balance-equations-10': 'Find missing numbers to balance addition and subtraction equations.',
+            'skip-count-2s': 'Practice counting by 2s from 2 to 20; build pattern recognition.',
+            'number-line-add': 'Use number lines to solve addition problems within 15.',
+            'doubles-facts': 'Master doubles (1+1, 2+2, etc.) with fun visual activities.',
+            'pattern-complete': 'Complete AB, ABC, and AAB patterns using shapes and colors.',
+            'missing-shape': 'Identify which shape comes next in a sequence; logic practice.',
+            'size-comparison': 'Compare objects by size (big/small, long/short); measurement basics.',
+            'spot-difference': 'Find differences to build attention and visual scanning.',
+            'shapes-colors-sort': 'Cut, sort, and glue basic shapes by color; early math + fine motor.',
+            'dot-to-dot-1-20': 'Connect the dots to reveal a picture while you count to 20.',
+            'color-by-number': 'Follow the key to color simple scenes; practice number recognition.',
+          }
+          const description = descriptions[docId] || 'Free printable worksheet for kids.'
+          worksheets.push({ docId, title, description, category })
+        }
+      })
+    })
+    
+    return worksheets
+  }, [packTime])
+
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  
+  const categories = useMemo(() => {
+    const cats = new Set(allWorksheets.map(w => w.category))
+    return ['All', ...Array.from(cats).sort()]
+  }, [allWorksheets])
+
+  const filteredWorksheets = useMemo(() => {
+    let filtered = allWorksheets
+
+    // Filter by category
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(ws => ws.category === selectedCategory)
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(ws => 
+        ws.title.toLowerCase().includes(query) ||
+        ws.description.toLowerCase().includes(query) ||
+        ws.category.toLowerCase().includes(query)
+      )
+    }
+
+    return filtered
+  }, [allWorksheets, searchQuery, selectedCategory])
+
+  const hasSelectedDoc = Boolean(doc && doc !== 'bundle' && doc !== 'pack')
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50/70 via-white to-white">
+      <UnifiedNavigation currentPage="printables" />
       <style>{`
         @media print {
           @page { 
@@ -745,10 +842,132 @@ export function PrintablesPage() {
           .py-10 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
         }
       `}</style>
-      {/* Print layout optimized - updated 2025-01-11 */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4">
-        {/* Customization header (print view - appears once at top) */}
-        {(teacherName || className || studentNames.length > 0) && (
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+              ✨ Free printable worksheets • All grades
+            </span>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              Free Printable Worksheets
+              <span className="block text-purple-600">Download PDFs with answer keys.</span>
+            </h1>
+            <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+              Browse our collection of free printable worksheets covering math, reading, writing, science, and more. Ready to print or download as PDF.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content with Sidebar */}
+      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:px-8">
+        {/* Sidebar */}
+        <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm print:hidden">
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Filter by Category</h3>
+            <div className="space-y-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`w-full rounded-xl border px-3 py-2 text-left text-sm font-medium transition-colors ${
+                    selectedCategory === cat
+                      ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                      : 'bg-white text-slate-700 border-slate-300 hover:border-purple-300 hover:bg-purple-50'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <section className="space-y-6">
+          {!hasSelectedDoc && (
+            <>
+              <div className="flex flex-wrap items-center gap-3">
+                <h2 className="text-xl font-semibold text-slate-900">Printable Worksheets</h2>
+                <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
+                  {filteredWorksheets.length} {filteredWorksheets.length === 1 ? 'worksheet' : 'worksheets'} {searchQuery || selectedCategory !== 'All' ? 'found' : 'available'}
+                </span>
+              </div>
+            </>
+          )}
+          
+          {hasSelectedDoc && (
+            <>
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <h2 className="text-xl font-semibold text-slate-900">More Printable Worksheets</h2>
+                <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
+                  {filteredWorksheets.length} {filteredWorksheets.length === 1 ? 'worksheet' : 'worksheets'} {searchQuery || selectedCategory !== 'All' ? 'found' : 'available'}
+                </span>
+              </div>
+            </>
+          )}
+            
+          {/* Search Bar */}
+          <div className="flex justify-end print:hidden">
+            <div className="relative w-full max-w-md">
+              <input
+                type="text"
+                placeholder="🔍 Search worksheets..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-full border border-slate-300 bg-white px-4 py-2 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200 shadow-sm"
+              />
+              <svg
+                className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  aria-label="Clear search"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {filteredWorksheets.length === 0 ? (
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
+              {searchQuery ? `No worksheets match your search query "${searchQuery}". Try a different search term.` : 'No worksheets found.'}
+            </div>
+          ) : (
+            <div className="grid gap-5 md:grid-cols-2 print:hidden">
+              {filteredWorksheets.map((worksheet) => (
+                <WorksheetThumbnailCard
+                  key={worksheet.docId}
+                  title={worksheet.title}
+                  description={worksheet.description}
+                  href={`/print?doc=${worksheet.docId}`}
+                  docId={worksheet.docId}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      </section>
+      
+      {/* Show worksheet content when doc is selected - full width below grid */}
+      {hasSelectedDoc && (
+        <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto print:mx-0 print:max-w-none py-10 print:p-0 print:py-4">
+            {/* Customization header (print view - appears once at top) */}
+            {(teacherName || className || studentNames.length > 0) && (
           <div className="hidden print:block print-customization-header" aria-hidden>
             <div className="flex flex-wrap gap-x-3 items-center">
               {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
@@ -5342,10 +5561,13 @@ export function PrintablesPage() {
           </section>
         )}
 
-        <footer className="text-center text-slate-500 text-xs print:hidden">
-          Tip: Use your browser menu → Print → Save as PDF.
-        </footer>
-      </div>
+              <footer className="text-center text-slate-500 text-xs print:hidden">
+                Tip: Use your browser menu → Print → Save as PDF.
+              </footer>
+            </div>
+          </div>
+        )}
+      <Footer />
     </div>
   )
 }
