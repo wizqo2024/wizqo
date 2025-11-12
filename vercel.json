@@ -47,7 +47,7 @@
     { "source": "/printables", "destination": "/printables/index.html" },
     { "source": "/printables/name-tracing-generator", "destination": "/printables/name-tracing-generator/index.html" },
     { "source": "/blog", "destination": "/blog/index.html" },
-    { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
+    { "source": "/blog/:slug*", "destination": "/blog/:slug*/index.html" },
     { "source": "/worksheets/1st-grade-math-worksheets", "destination": "/worksheets/1st-grade-math-worksheets/index.html" },
     { "source": "/worksheets/2nd-grade-math-worksheets", "destination": "/worksheets/2nd-grade-math-worksheets/index.html" },
     { "source": "/worksheets/handwriting-worksheet-maker", "destination": "/worksheets/handwriting-worksheet-maker/index.html" },
