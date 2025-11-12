@@ -3,6 +3,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
+import { WorksheetThumbnailCard } from '@/components/WorksheetThumbnailCard'
 
 export default function WorksheetsSecondGradePage() {
   return (
@@ -87,45 +88,45 @@ export default function WorksheetsSecondGradePage() {
           <div className="space-y-8">
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" />
-                <ItemCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" />
-                <ItemCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" />
-                <ItemCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" />
-                <ItemCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <WorksheetThumbnailCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" emoji="🔟" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" emoji="➡️" />
+                <WorksheetThumbnailCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" emoji="🔢" />
+                <WorksheetThumbnailCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" emoji="📊" />
+                <WorksheetThumbnailCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" emoji="🔍" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" />
-                <ItemCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" />
-                <ItemCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" />
-                <ItemCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" />
-                <ItemCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" emoji="➕" />
+                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" emoji="➖" />
+                <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" emoji="➕" />
+                <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" emoji="➖" />
+                <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" emoji="⚖️" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" />
-                <ItemCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" />
-                <ItemCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" />
-                <ItemCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" />
-                <ItemCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <WorksheetThumbnailCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" emoji="📊" />
+                <WorksheetThumbnailCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" emoji="🧮" />
+                <WorksheetThumbnailCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" emoji="🔢" />
+                <WorksheetThumbnailCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" emoji="📈" />
+                <WorksheetThumbnailCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" emoji="🎯" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" />
-                <ItemCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" />
-                <ItemCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" />
-                <ItemCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" />
-                <ItemCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <WorksheetThumbnailCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" emoji="🔢" />
+                <WorksheetThumbnailCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" emoji="🕒" />
+                <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" emoji="💰" />
+                <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" emoji="📏" />
+                <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" emoji="📊" />
               </div>
             </div>
           </div>
@@ -161,21 +162,6 @@ export default function WorksheetsSecondGradePage() {
   )
 }
 
-const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
-const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
-const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
-function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
-  return (
-    <div className={CARD_CLASS}>
-      <div className="text-base font-semibold text-slate-900">{title}</div>
-      <p className="text-slate-600 text-sm mt-1">{description}</p>
-      <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
-      </div>
-    </div>
-  )
-}
 
 function BuildPackInline() {
   return (
