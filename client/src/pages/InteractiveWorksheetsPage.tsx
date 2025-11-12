@@ -1053,7 +1053,7 @@ export function InteractiveWorksheetsPage() {
                 </span>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                   <Shuffle 
-                    text="Interactive Worksheets Generator"
+                    text="Free Interactive Worksheets Generator"
                     tag="span"
                     className="block"
                     textAlign="left"
@@ -1064,13 +1064,13 @@ export function InteractiveWorksheetsPage() {
                     triggerOnce={true}
                     threshold={0.2}
                   />
-                  <span className="block text-purple-600">Free printable PDFs tailored to your class.</span>
+                  <span className="block text-purple-600">Create printable PDFs with answer keys for every grade.</span>
                 </h1>
                 <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
                   Choose a grade band, mix and match in-demand categories, and get a fresh set of interactive worksheets with answer keys. Math, reading, SEL, science, and more—ready to print or share in seconds.
                 </p>
                 <p className="max-w-2xl text-sm text-slate-500">
-                  Need screen-free brain breaks too? Explore the playful activities inside our <a href="/kids" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Kids Hub</a> or build multi-day plans with grade-level packs like the <a href="/worksheets/1st-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">1st Grade Math Worksheets collection</a>.
+                  Browse our <a href="/" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">free printable worksheets</a> by grade: <a href="/worksheets/1st-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">1st Grade Math</a>, <a href="/worksheets/2nd-grade-math-worksheets" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">2nd Grade Math</a>, <a href="/worksheets/reading-comprehension" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Reading Comprehension</a>, or explore <a href="/kids" className="text-purple-600 hover:text-purple-700 underline underline-offset-2">Kids Hub</a> for games and activities.
                 </p>
                 <div className="mt-6 space-y-4">
                   <div className="flex flex-wrap gap-3">
@@ -1362,7 +1362,7 @@ export function InteractiveWorksheetsPage() {
 
         <section className="bg-slate-50 py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Related Resources</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Browse More Free Worksheets by Grade & Subject</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <a
                 href="/worksheets/1st-grade-math-worksheets"
@@ -1416,6 +1416,15 @@ export function InteractiveWorksheetsPage() {
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Free Printables Hub</h3>
                 <p className="text-sm text-slate-600">
                   Word searches, Sudoku, coloring pages, spot-the-difference games, and more printable activities.
+                </p>
+              </a>
+              <a
+                href="/"
+                className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
+              >
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">All Free Worksheets</h3>
+                <p className="text-sm text-slate-600">
+                  Browse our complete collection of free printable worksheets for all grades K-5 and subjects.
                 </p>
               </a>
             </div>
