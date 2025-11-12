@@ -321,7 +321,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
-                    description="Download free printables for kids: word searches, Sudoku, coloring, and spot?the?difference. Print at home in seconds."
+                    description="Download free printables for kids: word searches, Sudoku, coloring, and spot-the-difference. Print at home in seconds."
                     canonicalUrl="https://wizqo.com/print"
                     noIndex={true}
                   />
@@ -356,7 +356,7 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="How to Make a Certificate Online ? Free Certificate Maker"
+                      title="How to Make a Certificate Online - Free Certificate Maker"
                       description="Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options."
                       canonicalUrl="https://wizqo.com/printables/certificate-maker"
                     />
@@ -368,7 +368,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
-                    description="Download free printable fun learning activities for kids ? word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
+                    description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
                     canonicalUrl="https://wizqo.com/printables"
                   />
                   <PrintablesLandingPage />
@@ -379,8 +379,8 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="1st Grade Math Worksheets ? Free Printable PDF"
-                      description="Free 1st grade math worksheets?number sense, addition/subtraction within 10, ten?frames, skip counting, and shapes. Print or save as PDF."
+                      title="1st Grade Math Worksheets – Free Printable PDF"
+                      description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
                       canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
                     />
                     <WorksheetsFirstGradePage />
@@ -392,7 +392,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
-                      description="Download free printable handwriting practice sheets for kids. Trace letters A?Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!"
+                      description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!"
                       canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
                     />
                     <HandwritingMakerPage />
@@ -404,7 +404,7 @@ export default function App() {
                   <>
                     <SEOMetaTags 
                       title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
-                      description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1?3."
+                      description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3."
                       canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
                     />
                     <ReadingComprehensionPage />
@@ -414,7 +414,7 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="2nd Grade Math Worksheets ? Free Printable PDF"
+                    title="2nd Grade Math Worksheets – Free Printable PDF"
                     description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
                     canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
                   />
@@ -425,8 +425,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="1st Grade Math Worksheets ? Free Printable PDF"
-                    description="Free 1st grade math worksheets?number sense, addition/subtraction within 10, ten?frames, skip counting, and shapes. Print or save as PDF."
+                    title="1st Grade Math Worksheets – Free Printable PDF"
+                    description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
                     canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
                   />
                   <WorksheetsFirstGradePage />
