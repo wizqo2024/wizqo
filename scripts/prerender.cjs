@@ -219,6 +219,7 @@ function main() {
 
   // Blog posts (from inline list)
   const posts = collectBlogPosts();
+  console.log(`Found ${posts.length} blog posts to prerender`);
   for (const p of posts) {
     routes.push({ path: `/blog/${p.id}`, title: p.title, description: p.excerpt, ogImage: p.imageUrl, ogType: 'article' });
   }
@@ -229,6 +230,9 @@ function main() {
     const out = routeOutPath(DIST, r.path);
     write(out, html);
     count++;
+    if (r.path.startsWith('/blog/')) {
+      console.log(`  Prerendered blog post: ${r.path} -> ${out}`);
+    }
   }
   console.log(`Prerendered ${count} routes into dist/`);
 }
