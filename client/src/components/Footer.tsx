@@ -135,13 +135,6 @@ export function Footer() {
                 </div>
               )}
             </div>
-            
-            <a 
-              href="/generate"
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white text-sm font-medium rounded-lg transition-all"
-            >
-              Get Started
-            </a>
           </div>
         </div>
 
