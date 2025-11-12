@@ -149,7 +149,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </li>
                 <li>
                   <a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">🎨</span> Worksheet Generator
+                    <span aria-hidden="true">🎨</span> Certificate Maker
                   </a>
                 </li>
               </ul>
