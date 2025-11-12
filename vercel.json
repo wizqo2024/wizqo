@@ -48,6 +48,7 @@
     { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/worksheets/1st-grade-math-worksheets", "destination": "/worksheets/1st-grade-math-worksheets/index.html" },
     { "source": "/worksheets/2nd-grade-math-worksheets", "destination": "/worksheets/2nd-grade-math-worksheets/index.html" },
+    { "source": "/interactive-worksheets-generator", "destination": "/interactive-worksheets-generator/index.html" },
     { "source": "/((?!assets/|api/).*)", "destination": "/index.html" }
   ]
 }
