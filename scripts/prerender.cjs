@@ -142,7 +142,7 @@ function main() {
     ogImage: `${SITE}/og-image.jpg`
   });
   // Kids hub and games
-  routes.push({ path: '/kids', title: 'Kids Hub – Fun Learning Games & Printable Activities for Kids', description: 'Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12.' });
+  routes.push({ path: '/kids', title: 'Kids Hub - Play Games & Download Free Printables', description: 'Play kid-safe mini-games and download free printables: puzzles, handwriting, and quick math warm-ups.' });
   const gameDesc = 'Play free fun learning games for kids online – Memory Match, Word Search, Puzzle, Typing Safari, and Pattern Builder. Kid‑safe, fast, and mobile‑friendly.';
   const games = [
     ['memory', 'Memory Match'],
@@ -163,7 +163,7 @@ function main() {
   routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.' });
   routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!' });
-  routes.push({ path: '/worksheets/reading-comprehension', title: 'Reading Comprehension Worksheets – Free Printable PDF', description: 'Free reading comprehension worksheets for kids. Practice reading skills with engaging passages and questions. Print or save as PDF.' });
+  routes.push({ path: '/worksheets/reading-comprehension', title: 'Free Printable Reading Comprehension Worksheets for Kids (PDF)', description: 'Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.' });
   routes.push({ path: '/interactive-worksheets-generator', title: 'Interactive Worksheets Generator | Free Printable PDF Activities', description: 'Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade.' });
   // About/Contact/Legal
   routes.push({ path: '/about', title: 'About Wizqo - Free Printable Worksheets for Teachers & Parents', description: "Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality worksheets for math, reading, writing, and more with answer keys included." });
