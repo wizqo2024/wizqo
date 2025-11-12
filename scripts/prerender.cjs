@@ -92,25 +92,68 @@ function routeOutPath(distRoot, routePath) {
 }
 
 function collectBlogPosts() {
+  const posts = [];
   try {
-    const file = path.join(ROOT, 'client', 'src', 'pages', 'BlogPage.tsx');
-    const src = read(file);
-    // naive extraction: id, title, excerpt, imageUrl
-    const posts = [];
-    const re = /\{\s*id:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*"([\s\S]*?)"[\s\S]*?(?:imageUrl:\s*"([^"]+)")?/g;
-    let m;
-    while ((m = re.exec(src))) {
-      const id = m[1];
-      const title = m[2];
-      const excerpt = m[3].replace(/\s+/g, ' ').trim().slice(0, 300);
-      const imageUrl = m[4] || `${SITE}/og-image.jpg`;
-      posts.push({ id, title, excerpt, imageUrl });
+    // Read from basePosts.ts
+    const basePostsFile = path.join(ROOT, 'client', 'src', 'pages', 'blog', 'basePosts.ts');
+    if (fs.existsSync(basePostsFile)) {
+      const src = read(basePostsFile);
+      // Extract blog posts: id, title, excerpt, imageUrl
+      const re = /\{\s*id:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*"([\s\S]*?)"[\s\S]*?(?:imageUrl:\s*"([^"]+)")?/g;
+      let m;
+      while ((m = re.exec(src))) {
+        const id = m[1];
+        const title = m[2];
+        const excerpt = m[3].replace(/\s+/g, ' ').trim().slice(0, 300);
+        const imageUrl = m[4] || `${SITE}/og-image.jpg`;
+        posts.push({ id, title, excerpt, imageUrl });
+      }
     }
+    
+    // Also check for markdown files in content/blog directory
+    const contentDirs = [
+      path.join(ROOT, 'content', 'blog'),
+      path.join(ROOT, 'client', 'content', 'blog'),
+      path.join(ROOT, 'client', 'src', 'pages', 'blog', 'content'),
+    ];
+    
+    for (const contentDir of contentDirs) {
+      if (fs.existsSync(contentDir)) {
+        const files = fs.readdirSync(contentDir, { recursive: true });
+        for (const file of files) {
+          if (file.endsWith('.md')) {
+            const filePath = path.join(contentDir, file);
+            const content = read(filePath);
+            const fmMatch = content.match(/^---[\s\S]*?---/);
+            if (fmMatch) {
+              const fmBlock = fmMatch[0].replace(/^---|---$/g, '').trim();
+              const meta = {};
+              for (const line of fmBlock.split('\n')) {
+                const idx = line.indexOf(':');
+                if (idx > -1) {
+                  const key = line.slice(0, idx).trim();
+                  const value = line.slice(idx + 1).trim().replace(/^"|"$/g, '');
+                  meta[key] = value;
+                }
+              }
+              const fileSlug = file.replace(/\.md$/, '');
+              const id = meta.slug || fileSlug;
+              const title = meta.title || id;
+              const excerpt = meta.excerpt || '';
+              const imageUrl = meta.cover || `${SITE}/og-image.jpg`;
+              posts.push({ id, title, excerpt, imageUrl });
+            }
+          }
+        }
+      }
+    }
+    
     // de-duplicate by id
     const seen = new Set();
     return posts.filter(p => (seen.has(p.id) ? false : (seen.add(p.id), true)));
-  } catch {
-    return [];
+  } catch (err) {
+    console.error('Error collecting blog posts:', err);
+    return posts; // Return what we have so far
   }
 }
 
