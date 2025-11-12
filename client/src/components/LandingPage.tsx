@@ -428,21 +428,21 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </div>
             </div>
             
-            {/* 7-Day Structure */}
+            {/* Grade Levels Card */}
             <div className="lg:col-span-2 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 relative overflow-hidden group hover:scale-105 transition-all duration-300">
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full opacity-20"></div>
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                  <span className="text-2xl" aria-hidden="true">📅</span>
+                  <span className="text-2xl" aria-hidden="true">📚</span>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-4">All Grade Levels Covered</h3>
-                <p className="text-slate-700 leading-relaxed">
+                <p className="text-slate-700 leading-relaxed mb-4">
                   Worksheets available for every grade from Kindergarten through 5th grade. Perfect for classroom use, homework, or extra practice.
                 </p>
-                <div className="grid grid-cols-7 gap-2 mt-6">
-                  {[1,2,3,4,5,6,7].map((day) => (
-                    <div key={day} className="w-8 h-8 bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-lg flex items-center justify-center text-sm font-bold">
-                      {day}
+                <div className="grid grid-cols-5 gap-2 mt-6">
+                  {['K', '1st', '2nd', '3rd', '4th-5th'].map((grade) => (
+                    <div key={grade} className="px-3 py-2 bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-lg flex items-center justify-center text-xs font-bold">
+                      {grade}
                     </div>
                   ))}
                 </div>
