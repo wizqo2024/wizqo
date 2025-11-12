@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { UnifiedNavigation } from './UnifiedNavigation';
 import { Footer } from './Footer';
+import GradientText from './GradientText';
 
 interface LandingPageProps {
   onNavigateToGenerate: () => void;
@@ -104,8 +105,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </div>
             
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
-              Free Printable Worksheets for Teachers & Parents
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
+              <GradientText 
+                colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
+                animationSpeed={8}
+              >
+                Free Printable Worksheets for Teachers & Parents
+              </GradientText>
             </h1>
             
             {/* Subheading */}
