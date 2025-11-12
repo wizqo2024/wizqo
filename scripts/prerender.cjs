@@ -156,6 +156,7 @@ function main() {
   }
   // Printables
   routes.push({ path: '/printables', title: 'Printable Fun Learning Activities for Kids | Free Worksheets & Games', description: 'Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!' });
+  routes.push({ path: '/printables/certificate-maker', title: 'How to Make a Certificate Online - Free Certificate Maker', description: 'Create your own certificate online for free! Learn how to make a certificate with editable names, cute themes, and instant download options.' });
   // Blog root
   routes.push({ path: '/blog', title: 'Free Worksheet Ideas & Learning Tips Blog | Wizqo', description: 'Discover free printable worksheet ideas, teaching tips, and educational resources for teachers and parents. Download worksheets for math, reading, writing, and more.' });
   // Worksheets
