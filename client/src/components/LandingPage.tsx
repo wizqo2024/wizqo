@@ -100,19 +100,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             {/* Trendy Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> AI-Powered • Personalized • Free</span>
+              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> Free • Printable • Answer Keys Included</span>
             </div>
             
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-white mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
-              What Hobby Means – Discover Your Ideal Hobby with Wizqo AI
+              Free Printable Worksheets for Teachers & Parents
             </h1>
             
             {/* Subheading */}
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
-              Wondering what hobby means and how to find one you'll truly enjoy? A hobby is more than just a pastime — it's a meaningful activity that boosts creativity, relaxation, and personal growth. 
+              Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. 
               <br className="hidden lg:block" />
-              At Wizqo, we use AI technology to help you discover your ideal hobby and create a personalized 7-day learning plan tailored to your goals, schedule, and experience level.
+              <strong className="text-white">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
             </p>
             
             {/* CTA Button */}
@@ -122,25 +122,35 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
               >
-                <span aria-hidden="true">🚀</span> Start Your Journey
+                <span aria-hidden="true">📚</span> Browse Free Worksheets
               </Button>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) */}
             <nav aria-label="Popular worksheets" className="px-4 sm:px-0">
               <ul className="flex flex-wrap justify-center gap-2 text-sm">
                 <li>
-                  <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">✍️</span> Handwriting worksheets (PDF)
+                  <a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    <span aria-hidden="true">🔢</span> 1st Grade Math Worksheets
                   </a>
                 </li>
                 <li>
-                  <a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    1st grade math – printable
+                  <a href="/worksheets/2nd-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    <span aria-hidden="true">➕</span> 2nd Grade Math Worksheets
+                  </a>
+                </li>
+                <li>
+                  <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    <span aria-hidden="true">✍️</span> Handwriting Worksheets
                   </a>
                 </li>
                 <li>
                   <a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    Reading comprehension (free PDF)
+                    <span aria-hidden="true">📖</span> Reading Comprehension
+                  </a>
+                </li>
+                <li>
+                  <a href="/interactive-worksheets-generator" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
+                    <span aria-hidden="true">🎨</span> Worksheet Generator
                   </a>
                 </li>
               </ul>
@@ -159,34 +169,34 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="flex items-center space-x-2 text-sm">
                 <span aria-hidden="true">🖨️</span> Printable awards & handwriting sheets
               </div>
-              <div className="text-sm font-medium"><span aria-hidden="true">🧠</span> Kid-friendly games & 7-day plans</div>
+              <div className="text-sm font-medium"><span aria-hidden="true">📚</span> Worksheets for all grades K-5</div>
             </div>
           </div>
         </div>
         
         {/* Floating Elements */}
         <div className="absolute top-1/4 left-10 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Guitar hobby example">
-            <span className="text-2xl" aria-hidden="true">🎸</span>
-            <p className="text-white text-sm mt-1">Guitar</p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Math worksheets example">
+            <span className="text-2xl" aria-hidden="true">🔢</span>
+            <p className="text-white text-sm mt-1">Math</p>
           </div>
         </div>
         <div className="absolute top-1/3 right-16 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300" aria-label="Photography hobby example">
-            <span className="text-2xl" aria-hidden="true">📸</span>
-            <p className="text-white text-sm mt-1">Photography</p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300" aria-label="Reading worksheets example">
+            <span className="text-2xl" aria-hidden="true">📖</span>
+            <p className="text-white text-sm mt-1">Reading</p>
           </div>
         </div>
         <div className="absolute bottom-1/4 left-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300" aria-label="Cooking hobby example">
-            <span className="text-2xl" aria-hidden="true">🍳</span>
-            <p className="text-white text-sm mt-1">Cooking</p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300" aria-label="Writing worksheets example">
+            <span className="text-2xl" aria-hidden="true">✍️</span>
+            <p className="text-white text-sm mt-1">Writing</p>
           </div>
         </div>
         <div className="absolute bottom-1/3 right-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300" aria-label="Coding hobby example">
-            <span className="text-2xl" aria-hidden="true">💻</span>
-            <p className="text-white text-sm mt-1">Coding</p>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300" aria-label="Science worksheets example">
+            <span className="text-2xl" aria-hidden="true">🔬</span>
+            <p className="text-white text-sm mt-1">Science</p>
           </div>
         </div>
       </section>
@@ -280,40 +290,65 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         </div>
       </section>
 
-      {/* What Is a Hobby Section */}
+      {/* Browse Worksheets by Grade Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              What Is a Hobby? Definition, Benefits & Examples
+              Browse Worksheets by Grade & Subject
             </h2>
             <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              A hobby is a regular activity done for pleasure, self-expression, or relaxation — not for financial gain. Hobbies range from creative arts like painting and writing to physical activities like gardening or yoga. Engaging in hobbies improves mental health, reduces stress, and brings joy into your everyday life.
+              Find the perfect worksheets for your students. We offer free printable worksheets for kindergarten through 5th grade, covering math, reading, writing, science, and more. All worksheets include answer keys and are ready to print.
             </p>
           </div>
           
-          {/* Common Types of Hobbies */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:scale-105 transition-all duration-300">
+          {/* Grade Levels */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+            <a href="/worksheets/kindergarten-math" className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:scale-105 transition-all duration-300 border border-purple-100 hover:border-purple-300">
+              <div className="text-4xl mb-4" aria-hidden="true">👶</div>
+              <h3 className="font-bold text-slate-900 mb-2">Kindergarten</h3>
+              <p className="text-slate-600 text-sm">Math, Reading, Writing</p>
+            </a>
+            <a href="/worksheets/1st-grade-math-worksheets" className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:scale-105 transition-all duration-300 border border-blue-100 hover:border-blue-300">
+              <div className="text-4xl mb-4" aria-hidden="true">1️⃣</div>
+              <h3 className="font-bold text-slate-900 mb-2">1st Grade</h3>
+              <p className="text-slate-600 text-sm">Addition, Subtraction, Reading</p>
+            </a>
+            <a href="/worksheets/2nd-grade-math-worksheets" className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:scale-105 transition-all duration-300 border border-green-100 hover:border-green-300">
+              <div className="text-4xl mb-4" aria-hidden="true">2️⃣</div>
+              <h3 className="font-bold text-slate-900 mb-2">2nd Grade</h3>
+              <p className="text-slate-600 text-sm">Multiplication, Division, Word Problems</p>
+            </a>
+            <a href="/worksheets/3rd-grade-math" className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:scale-105 transition-all duration-300 border border-yellow-100 hover:border-yellow-300">
+              <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
+              <h3 className="font-bold text-slate-900 mb-2">3rd Grade</h3>
+              <p className="text-slate-600 text-sm">Fractions, Multiplication, Reading</p>
+            </a>
+            <a href="/interactive-worksheets-generator" className="text-center p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-red-50 hover:scale-105 transition-all duration-300 border border-pink-100 hover:border-pink-300">
               <div className="text-4xl mb-4" aria-hidden="true">🎨</div>
-              <h3 className="font-bold text-slate-900 mb-2">Creative</h3>
-              <p className="text-slate-600 text-sm">Painting, crafting, journaling</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4" aria-hidden="true">🚴</div>
-              <h3 className="font-bold text-slate-900 mb-2">Physical</h3>
-              <p className="text-slate-600 text-sm">Cycling, hiking, gardening</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4" aria-hidden="true">🧩</div>
-              <h3 className="font-bold text-slate-900 mb-2">Cognitive</h3>
-              <p className="text-slate-600 text-sm">Coding, puzzles, songwriting</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:scale-105 transition-all duration-300">
-              <div className="text-4xl mb-4" aria-hidden="true">🤝</div>
-              <h3 className="font-bold text-slate-900 mb-2">Social</h3>
-              <p className="text-slate-600 text-sm">Clubs, workshops, community volunteering</p>
-            </div>
+              <h3 className="font-bold text-slate-900 mb-2">All Grades</h3>
+              <p className="text-slate-600 text-sm">Create Custom Worksheets</p>
+            </a>
+          </div>
+
+          {/* Subject Categories */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="/worksheets/1st-grade-math-worksheets" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+              <div className="text-2xl mb-2" aria-hidden="true">🔢</div>
+              <h4 className="font-semibold text-slate-900 text-sm">Math Worksheets</h4>
+            </a>
+            <a href="/worksheets/reading-comprehension" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+              <div className="text-2xl mb-2" aria-hidden="true">📖</div>
+              <h4 className="font-semibold text-slate-900 text-sm">Reading Worksheets</h4>
+            </a>
+            <a href="/worksheets/handwriting-worksheet-maker" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+              <div className="text-2xl mb-2" aria-hidden="true">✍️</div>
+              <h4 className="font-semibold text-slate-900 text-sm">Writing Worksheets</h4>
+            </a>
+            <a href="/interactive-worksheets-generator" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+              <div className="text-2xl mb-2" aria-hidden="true">🔬</div>
+              <h4 className="font-semibold text-slate-900 text-sm">Science Worksheets</h4>
+            </a>
           </div>
         </div>
       </section>
@@ -323,44 +358,44 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Why Choose Wizqo to Find Your Hobby?
+              Why Teachers & Parents Choose Wizqo Worksheets
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Discover your perfect hobby with AI-powered personalization and structured learning
+              Get high-quality, free printable worksheets with answer keys for every grade level. Perfect for classroom use, homework, or homeschooling.
             </p>
           </div>
           
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4" aria-hidden="true">🎯</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Personalized Plans</h3>
-              <p className="text-slate-600 leading-relaxed">Our AI analyzes your interests, goals, and schedule to recommend the perfect hobby for you.</p>
+              <div className="text-3xl mb-4" aria-hidden="true">🖨️</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Printable PDFs</h3>
+              <p className="text-slate-600 leading-relaxed">Download worksheets instantly as PDFs. Print as many copies as you need for your classroom or home.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4" aria-hidden="true">⚡</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">7-Day Challenge</h3>
-              <p className="text-slate-600 leading-relaxed">Get bite-sized daily activities designed to help you get started fast and stay motivated.</p>
+              <div className="text-3xl mb-4" aria-hidden="true">✅</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Answer Keys Included</h3>
+              <p className="text-slate-600 leading-relaxed">Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4">🤖</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">AI-Powered Support</h3>
-              <p className="text-slate-600 leading-relaxed">Chat with our assistant anytime for tips, guidance, and answers to your questions.</p>
+              <div className="text-3xl mb-4">🎨</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">All Grades K-5</h3>
+              <p className="text-slate-600 leading-relaxed">Find worksheets for kindergarten, 1st grade, 2nd grade, 3rd grade, and more. Covering math, reading, writing, and science.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4" aria-hidden="true">📊</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Progress Tracking</h3>
-              <p className="text-slate-600 leading-relaxed">Visualize your milestones and keep your hobby journey on track.</p>
+              <div className="text-3xl mb-4" aria-hidden="true">🚀</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Generate Unlimited</h3>
+              <p className="text-slate-600 leading-relaxed">Use our worksheet generator to create unlimited unique worksheets. Perfect for daily practice and homework.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4" aria-hidden="true">📱</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Mobile Friendly</h3>
-              <p className="text-slate-600 leading-relaxed">Learn anytime, anywhere, on any device.</p>
+              <div className="text-3xl mb-4" aria-hidden="true">💯</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">100% Free</h3>
+              <p className="text-slate-600 leading-relaxed">All worksheets are completely free. No sign-up required, no credit card needed. Start downloading right away.</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-3xl mb-4" aria-hidden="true">🎁</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">100% Free to Start</h3>
-              <p className="text-slate-600 leading-relaxed">No credit card required — try Wizqo risk-free.</p>
+              <div className="text-3xl mb-4" aria-hidden="true">👥</div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Trusted by Teachers</h3>
+              <p className="text-slate-600 leading-relaxed">Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.</p>
             </div>
           </div>
           
@@ -636,36 +671,42 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Frequently Asked Questions (FAQ)
+              Frequently Asked Questions About Free Worksheets
             </h2>
             <p className="text-lg text-slate-600">
-              Everything you need to know about hobbies and Wizqo
+              Everything you need to know about our free printable worksheets
             </p>
           </div>
           
           <div className="space-y-8">
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">What exactly is a hobby?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Are the worksheets free to download?</h3>
               <p className="text-slate-600 leading-relaxed">
-                A hobby is an activity you enjoy doing regularly for fun, relaxation, or creativity—not for money.
+                Yes! All worksheets are completely free. Generate unlimited worksheets, download as PDFs, and print as many copies as you need. No sign-up required for basic access.
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">How does Wizqo's AI help me find a hobby?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">What subjects and grades are available?</h3>
               <p className="text-slate-600 leading-relaxed">
-                Our AI asks about your preferences and lifestyle, then generates a customized plan with daily tasks to help you start and stick with your new hobby.
+                We offer worksheets for Math, Reading, Writing, Science, and more. Worksheets are available for Kindergarten, 1st grade, 2nd grade, 3rd grade, and up to 5th grade. All worksheets include answer keys.
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Can I try Wizqo for free?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Do worksheets include answer keys?</h3>
               <p className="text-slate-600 leading-relaxed">
-                Yes! You can start any hobby plan without a credit card or commitment.
+                Yes! Every worksheet automatically includes a printable answer key appendix, making grading quick and easy for teachers and parents.
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">What kinds of hobbies can Wizqo recommend?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Can I use these worksheets in my classroom?</h3>
               <p className="text-slate-600 leading-relaxed">
-                From painting and gardening to coding and yoga, Wizqo covers a wide variety of hobbies based on your interests.
+                Absolutely! All worksheets are free for personal and classroom use. Print as many copies as you need for your students. Perfect for homework, classwork, or extra practice.
+              </p>
+            </div>
+            <div className="bg-slate-50 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">How do I generate custom worksheets?</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Use our Interactive Worksheets Generator to create unlimited unique worksheets. Select your grade level and subjects, then generate and download PDFs instantly with answer keys included.
               </p>
             </div>
           </div>
@@ -687,28 +728,28 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Floating badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">🎯</span> Personalized AI hobby plans
+              <span aria-hidden="true">📚</span> Free worksheets for all grades
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">🧠</span> Games & printables for kids
+              <span aria-hidden="true">✅</span> Answer keys included
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">🏆</span> Printable certificates & awards
+              <span aria-hidden="true">🖨️</span> Printable PDF downloads
             </div>
           </div>
           
           <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
-            Start Your
+            Start Using Free
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 animate-gradient-x">
-              Learning Journey
+              Printable Worksheets Today
             </span>
           </h2>
           
           <p className="text-lg lg:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Join our community of learners who've transformed their lives with our AI-powered learning system.
+            Join thousands of teachers and parents who use Wizqo worksheets every day.
             <br className="hidden lg:block" />
-            Your first day is <strong className="text-white">completely free</strong> - no strings attached.
+            All worksheets are <strong className="text-white">completely free</strong> - no sign-up required, no credit card needed.
           </p>
           
           {/* CTA Buttons */}
@@ -718,11 +759,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               size="lg"
               className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
             >
-              <span aria-hidden="true">🎯</span> Start Learning Now
+              <span aria-hidden="true">📚</span> Browse Free Worksheets
             </Button>
             <div className="text-center">
               <p className="text-gray-300 text-sm">
-                <span aria-hidden="true">✓</span> No credit card required • <span aria-hidden="true">✓</span> Day 1 completely free • <span aria-hidden="true">✓</span> Cancel anytime
+                <span aria-hidden="true">✓</span> No sign-up required • <span aria-hidden="true">✓</span> 100% free forever • <span aria-hidden="true">✓</span> Answer keys included
               </p>
             </div>
           </div>

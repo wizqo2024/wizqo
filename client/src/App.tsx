@@ -257,8 +257,9 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="What Hobby Means – Discover Your Ideal Hobby with Wizqo AI"
-                    description="Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!"
+                    title="Free Printable Worksheets for Teachers & Kids | Wizqo"
+                    description="Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!"
+                    keywords="free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />

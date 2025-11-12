@@ -12,9 +12,9 @@ interface SEOMetaTagsProps {
 }
 
 export function SEOMetaTags({
-  title = "Wizqo - AI-Powered 7-Day Hobby Learning Plans | Learn Any Skill Fast",
-  description = "Master any hobby in 7 days with personalized AI learning plans. Get daily video tutorials, practice guides, and progress tracking for cooking, guitar, yoga, and more. Start your learning journey free!",
-  keywords = "what is a hobby, hobby definition, hobby meaning, creative hobbies, physical hobbies, cognitive hobbies, social hobbies, hobby examples, find your hobby, AI hobby planner, 7-day hobby plan",
+  title = "Free Printable Worksheets for Teachers & Kids | Wizqo",
+  description = "Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!",
+  keywords = "free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets",
   ogImage = "https://wizqo.com/og-image.jpg",
   canonicalUrl,
   noIndex = false,
