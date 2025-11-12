@@ -32,6 +32,32 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'word-problems-100',
   'compare-2digit',
   'even-odd-100',
+  // New 1st Grade worksheets
+  'number-bonds-10',
+  'count-write-30',
+  'missing-numbers-50',
+  'picture-addition-10',
+  'subtraction-stories',
+  'balance-equations-10',
+  'skip-count-2s',
+  'number-line-add',
+  'doubles-facts',
+  'pattern-complete',
+  'missing-shape',
+  'size-comparison',
+  // New 2nd Grade worksheets
+  'expanded-form-200',
+  'number-patterns-200',
+  'rounding-nearest-10',
+  'add-three-numbers',
+  'missing-addends',
+  'fact-families-20',
+  'mental-math-20',
+  'number-line-200',
+  'doubles-near-doubles',
+  'money-coins-bills',
+  'measurement-length',
+  'bar-graphs-data',
 ]
 
 function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
@@ -4435,6 +4461,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('number-bonds-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[7, 3, 5, 8, 4, 6, 2, 9].map((n, i) => (
+                    <li key={i}>10 = {n} + {10 - n}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4458,6 +4494,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('count-write-30', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[5, 8, 12, 15, 18, 20, 23, 25].map((count, i) => (
+                    <li key={i}>Box {i + 1}: {count} objects</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4488,6 +4534,17 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('missing-numbers-50', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => {
+                    const missing = Array.from({ length: end - start + 1 }, (_, i) => start + i).filter(n => n % 5 !== 0 && n !== start && n !== end)
+                    return <li key={idx}>Line {idx + 1}: Missing numbers are {missing.join(', ')}</li>
+                  })}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4515,6 +4572,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('picture-addition-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
+                    <li key={idx}>{a} + {b} = {a + b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4542,6 +4609,21 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('subtraction-stories', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[
+                    { total: 8, take: 3 },
+                    { total: 7, take: 2 },
+                    { total: 9, take: 4 },
+                    { total: 10, take: 5 }
+                  ].map(({ total, take }, idx) => (
+                    <li key={idx}>{total} - {take} = {total - take}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4551,10 +4633,10 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Find the missing number to make both sides equal.</p>
             <div className="space-y-4">
               {[
-                { left: '3 + 2', right: '__ + 1' },
-                { left: '5 + __', right: '4 + 3' },
-                { left: '6 - 2', right: '__ - 1' },
-                { left: '8 - __', right: '10 - 3' }
+                { left: '3 + 2', right: '__ + 1', answer: 4 },
+                { left: '5 + __', right: '4 + 3', answer: 2 },
+                { left: '6 - 2', right: '__ - 1', answer: 5 },
+                { left: '8 - __', right: '10 - 3', answer: 5 }
               ].map((eq, idx) => (
                 <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="none" stroke="#111827" strokeWidth="3">
@@ -4568,6 +4650,21 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('balance-equations-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[
+                    { left: '3 + 2', right: '__ + 1', answer: 4 },
+                    { left: '5 + __', right: '4 + 3', answer: 2 },
+                    { left: '6 - 2', right: '__ - 1', answer: 5 },
+                    { left: '8 - __', right: '10 - 3', answer: 5 }
+                  ].map((eq, idx) => (
+                    <li key={idx}>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4596,6 +4693,12 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('skip-count-2s', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <p className="text-sm">Complete sequence: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20</p>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4623,6 +4726,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('number-line-add', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[[3, 4], [5, 3], [2, 6], [4, 5]].map(([a, b], idx) => (
+                    <li key={idx}>{a} + {b} = {a + b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4645,6 +4758,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('doubles-facts', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    <li key={n}>{n} + {n} = {n * 2}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4654,9 +4777,9 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Complete each pattern. Draw or color the missing shapes.</p>
             <div className="space-y-4">
               {[
-                { pattern: ['circle', 'square', 'circle', 'square'], type: 'AB' },
-                { pattern: ['red', 'blue', 'green', 'red', 'blue'], type: 'ABC' },
-                { pattern: ['triangle', 'triangle', 'circle', 'triangle'], type: 'AAB' }
+                { pattern: ['circle', 'square', 'circle', 'square'], type: 'AB', next: 'circle' },
+                { pattern: ['red', 'blue', 'green', 'red', 'blue'], type: 'ABC', next: 'green' },
+                { pattern: ['triangle', 'triangle', 'circle', 'triangle'], type: 'AAB', next: 'triangle' }
               ].map(({ pattern, type }, idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <p className="text-slate-700 text-sm mb-2 font-semibold">{type} Pattern</p>
@@ -4678,6 +4801,16 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('pattern-complete', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>AB Pattern: Next shape is circle</li>
+                  <li>ABC Pattern: Next color is green</li>
+                  <li>AAB Pattern: Next shape is triangle</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4706,6 +4839,12 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {showAnswersForDoc('missing-shape', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <p className="text-sm">Pattern: circle, square, triangle, circle, square. Missing shape: triangle</p>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4715,10 +4854,10 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Compare the objects. Circle the bigger one or the smaller one.</p>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Circle the bigger', items: [30, 50] },
-                { label: 'Circle the smaller', items: [40, 25] },
-                { label: 'Circle the longer', items: [60, 35] },
-                { label: 'Circle the shorter', items: [45, 70] }
+                { label: 'Circle the bigger', items: [30, 50], answer: 'B' },
+                { label: 'Circle the smaller', items: [40, 25], answer: 'B' },
+                { label: 'Circle the longer', items: [60, 35], answer: 'A' },
+                { label: 'Circle the shorter', items: [45, 70], answer: 'A' }
               ].map(({ label, items }, idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <p className="text-slate-700 text-sm mb-2 font-semibold">{label}</p>
@@ -4735,6 +4874,17 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('size-comparison', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>Circle the bigger: B (50px &gt; 30px)</li>
+                  <li>Circle the smaller: B (25px &lt; 40px)</li>
+                  <li>Circle the longer: A (60px &gt; 35px)</li>
+                  <li>Circle the shorter: A (45px &lt; 70px)</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4756,6 +4906,19 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {showAnswersForDoc('expanded-form-200', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[125, 143, 167, 189, 152, 176].map((num) => {
+                    const hundreds = Math.floor(num / 100)
+                    const tens = Math.floor((num % 100) / 10)
+                    const ones = num % 10
+                    return <li key={num}>{num} = {hundreds * 100} + {tens * 10} + {ones}</li>
+                  })}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4765,9 +4928,9 @@ export function PrintablesPage() {
             <p className="text-slate-600 text-sm mb-3">Find the pattern and fill in the missing numbers.</p>
             <div className="space-y-4">
               {[
-                { pattern: [10, 20, 30, '__', 50, '__', 70], rule: '+10' },
-                { pattern: [5, 10, 15, '__', 25, '__', 35], rule: '+5' },
-                { pattern: [100, 110, 120, '__', 140, '__', 160], rule: '+10' }
+                { pattern: [10, 20, 30, '__', 50, '__', 70], rule: '+10', answers: [40, 60] },
+                { pattern: [5, 10, 15, '__', 25, '__', 35], rule: '+5', answers: [20, 30] },
+                { pattern: [100, 110, 120, '__', 140, '__', 160], rule: '+10', answers: [130, 150] }
               ].map(({ pattern, rule }, idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <p className="text-slate-700 text-sm mb-2">Pattern: {rule}</p>
@@ -4781,6 +4944,16 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('number-patterns-200', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>Pattern +10: Missing numbers are 40, 60</li>
+                  <li>Pattern +5: Missing numbers are 20, 30</li>
+                  <li>Pattern +10: Missing numbers are 130, 150</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4799,6 +4972,17 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {showAnswersForDoc('rounding-nearest-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
+                    const rounded = Math.round(num / 10) * 10
+                    return <li key={num}>{num} rounds to {rounded}</li>
+                  })}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4813,6 +4997,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('add-three-numbers', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => (
+                    <li key={idx}>{nums[0]} + {nums[1]} + {nums[2]} = {nums[0] + nums[1] + nums[2]}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4834,6 +5028,23 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('missing-addends', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[
+                    { a: 3, sum: 8 },
+                    { a: 5, sum: 12 },
+                    { a: 4, sum: 10 },
+                    { a: 6, sum: 15 },
+                    { a: 7, sum: 14 },
+                    { a: 2, sum: 9 }
+                  ].map(({ a, sum }, idx) => (
+                    <li key={idx}>{a} + {sum - a} = {sum}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4854,6 +5065,16 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('fact-families-20', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
+                    <li key={idx}>Family {idx + 1}: {a}+{b}={sum}, {b}+{a}={sum}, {sum}-{a}={b}, {sum}-{b}={a}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4871,6 +5092,29 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('mental-math-20', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5 columns-2">
+                  {[
+                    { prob: '7+5', ans: 12 },
+                    { prob: '9+4', ans: 13 },
+                    { prob: '8+6', ans: 14 },
+                    { prob: '12-5', ans: 7 },
+                    { prob: '15-7', ans: 8 },
+                    { prob: '18-9', ans: 9 },
+                    { prob: '6+7', ans: 13 },
+                    { prob: '5+8', ans: 13 },
+                    { prob: '11-4', ans: 7 },
+                    { prob: '14-6', ans: 8 },
+                    { prob: '16-8', ans: 8 },
+                    { prob: '20-9', ans: 11 }
+                  ].map(({ prob, ans }, idx) => (
+                    <li key={idx}>{prob} = {ans}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4898,6 +5142,12 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('number-line-200', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <p className="text-sm">Number lines show intervals of 10. Students can locate any number within each range.</p>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4918,6 +5168,17 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('doubles-near-doubles', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>6 + 6 = 12 (Double)</li>
+                  <li>7 + 7 = 14 (Double)</li>
+                  <li>6 + 7 = 13 (Near Double: 6+6+1)</li>
+                  <li>8 + 9 = 17 (Near Double: 8+8+1)</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4948,6 +5209,22 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {showAnswersForDoc('money-coins-bills', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[
+                    { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
+                    { coins: [10, 5, 1], label: '1 dime, 1 nickel, 1 penny' },
+                    { coins: [25, 10, 5], label: '1 quarter, 1 dime, 1 nickel' },
+                    { coins: [10, 10, 5, 1, 1], label: '2 dimes, 1 nickel, 2 pennies' }
+                  ].map(({ coins }, idx) => {
+                    const total = coins.reduce((a, b) => a + b, 0)
+                    return <li key={idx}>Total: {total}¢</li>
+                  })}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -4977,6 +5254,16 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {showAnswersForDoc('measurement-length', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>5 inches vs 8 inches: B is longer (8 &gt; 5)</li>
+                  <li>12 cm vs 7 cm: A is longer (12 &gt; 7)</li>
+                  <li>10 inches vs 15 inches: B is longer (15 &gt; 10)</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
@@ -5012,6 +5299,16 @@ export function PrintablesPage() {
                 <p className="text-slate-700 text-sm">3. How many more chose Yellow than Green? __</p>
               </div>
             </div>
+            {showAnswersForDoc('bar-graphs-data', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>1. Yellow is most popular (tallest bar)</li>
+                  <li>2. Red: approximately 8 votes</li>
+                  <li>3. Yellow has approximately 6 more votes than Green</li>
+                </ul>
+              </div>
+            ))}
           </section>
         )}
 
