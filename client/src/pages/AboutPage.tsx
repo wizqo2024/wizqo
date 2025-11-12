@@ -13,37 +13,42 @@ export function AboutPage() {
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Wizqo</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            We help people learn a new hobby fast — with clear 7‑day plans, kid‑friendly games, and printable activities that make learning feel fun.
+            We provide free printable worksheets for teachers and parents. Create unlimited worksheets for math, reading, writing, and more — with answer keys included. Perfect for classroom use, homework, or homeschooling.
           </p>
         </div>
 
         <div className="bg-white rounded-2xl p-8 shadow-xl prose prose-lg mx-auto">
           <div className="text-gray-900">
             <p className="text-lg mb-6 text-gray-700">
-              Wizqo is your personal AI‑powered learning companion. We create simple, guided 7‑day plans for any hobby — while our Kids Hub adds playful mini‑games and rich printables to build skills away from screens.
+              Wizqo is a free educational resource platform providing printable worksheets for teachers, parents, and homeschoolers. We offer high-quality worksheets for math, reading, writing, science, and more — covering kindergarten through 5th grade. All worksheets include answer keys and are ready to print.
             </p>
 
             <h2 className="text-2xl font-semibold mt-8 mb-2">🚀 Our Mission</h2>
             <p className="mb-4 text-gray-700">
-              Make learning approachable for everyone. We remove the overwhelm and replace it with short, structured steps — supported by AI guidance, games that improve focus and memory, and printable activities you can use at home or in class.
+              Make quality educational resources accessible to everyone. We provide free printable worksheets that teachers and parents can use immediately — no sign-up required, no credit card needed. Our goal is to support educators and families with high-quality, ready-to-use worksheets that save time and enhance learning.
             </p>
 
             <h2 className="text-2xl font-semibold mt-8 mb-2">💡 What Makes Wizqo Different?</h2>
             <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li>AI‑customized 7‑day learning plans with daily checklists</li>
-              <li>Kid‑friendly mini‑games and printables to reinforce skills</li>
-              <li>Fast, mobile‑friendly experience with offline‑ready print views</li>
-              <li>Real‑time tips, progress cues, and motivation to finish</li>
+              <li><strong>100% Free:</strong> All worksheets are completely free with no hidden costs</li>
+              <li><strong>Answer Keys Included:</strong> Every worksheet comes with a complete answer key for easy grading</li>
+              <li><strong>All Grades K-5:</strong> Worksheets for kindergarten, 1st, 2nd, 3rd, 4th, and 5th grade</li>
+              <li><strong>Multiple Subjects:</strong> Math, reading, writing, science, and more</li>
+              <li><strong>Worksheet Generator:</strong> Create unlimited custom worksheets with our AI-powered generator</li>
+              <li><strong>Printable PDFs:</strong> Download and print as many copies as you need</li>
             </ul>
 
             <h2 className="text-2xl font-semibold mt-8 mb-2">🌍 Who We Help</h2>
             <p className="mb-4 text-gray-700">
-              Students starting fresh, busy parents looking for screen‑free activities, teachers seeking quick resources, and lifelong learners who want a clear weekly plan — Wizqo is for everyone who learns best with small wins.
+              <strong>Teachers:</strong> Find ready-to-use worksheets for your classroom. Perfect for homework, classwork, or extra practice.<br/><br/>
+              <strong>Parents:</strong> Support your child's learning at home with free worksheets covering all major subjects.<br/><br/>
+              <strong>Homeschoolers:</strong> Access comprehensive worksheet collections for every grade level and subject.<br/><br/>
+              <strong>Students:</strong> Get extra practice with worksheets that include answer keys for self-checking.
             </p>
 
-            <h2 className="text-2xl font-semibold mt-8 mb-2">🤖 Powered by AI, Driven by Play</h2>
+            <h2 className="text-2xl font-semibold mt-8 mb-2">🎨 Also Available: AI Learning Plans</h2>
             <p className="mb-8 text-gray-700">
-              Our system adapts to your pace and helps you build momentum. With human‑friendly design and playful elements, learning new skills stays simple, focused, and fun for both adults and kids.
+              In addition to worksheets, Wizqo also offers AI-powered 7-day learning plans for hobbies and skills. Whether you want to learn guitar, photography, coding, or any other hobby, our AI creates personalized learning plans tailored to your goals and schedule. This feature complements our worksheet offerings, providing a complete learning platform for both academic and personal development.
             </p>
 
             <p className="text-base text-gray-600">
