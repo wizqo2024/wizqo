@@ -304,51 +304,51 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           
           {/* Grade Levels */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
-            <a href="/worksheets/kindergarten-math" className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 hover:scale-105 transition-all duration-300 border border-purple-100 hover:border-purple-300">
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100">
               <div className="text-4xl mb-4" aria-hidden="true">👶</div>
               <h3 className="font-bold text-slate-900 mb-2">Kindergarten</h3>
               <p className="text-slate-600 text-sm">Math, Reading, Writing</p>
-            </a>
-            <a href="/worksheets/1st-grade-math-worksheets" className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:scale-105 transition-all duration-300 border border-blue-100 hover:border-blue-300">
+            </div>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
               <div className="text-4xl mb-4" aria-hidden="true">1️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">1st Grade</h3>
               <p className="text-slate-600 text-sm">Addition, Subtraction, Reading</p>
-            </a>
-            <a href="/worksheets/2nd-grade-math-worksheets" className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 hover:scale-105 transition-all duration-300 border border-green-100 hover:border-green-300">
+            </div>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
               <div className="text-4xl mb-4" aria-hidden="true">2️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">2nd Grade</h3>
               <p className="text-slate-600 text-sm">Multiplication, Division, Word Problems</p>
-            </a>
-            <a href="/worksheets/3rd-grade-math" className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:scale-105 transition-all duration-300 border border-yellow-100 hover:border-yellow-300">
+            </div>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100">
               <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">3rd Grade</h3>
               <p className="text-slate-600 text-sm">Fractions, Multiplication, Reading</p>
-            </a>
-            <a href="/interactive-worksheets-generator" className="text-center p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-red-50 hover:scale-105 transition-all duration-300 border border-pink-100 hover:border-pink-300">
+            </div>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-red-50 border border-pink-100">
               <div className="text-4xl mb-4" aria-hidden="true">🎨</div>
               <h3 className="font-bold text-slate-900 mb-2">All Grades</h3>
               <p className="text-slate-600 text-sm">Create Custom Worksheets</p>
-            </a>
+            </div>
           </div>
 
           {/* Subject Categories */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <a href="/worksheets/1st-grade-math-worksheets" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+            <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">🔢</div>
               <h4 className="font-semibold text-slate-900 text-sm">Math Worksheets</h4>
-            </a>
-            <a href="/worksheets/reading-comprehension" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+            </div>
+            <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">📖</div>
               <h4 className="font-semibold text-slate-900 text-sm">Reading Worksheets</h4>
-            </a>
-            <a href="/worksheets/handwriting-worksheet-maker" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+            </div>
+            <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">✍️</div>
               <h4 className="font-semibold text-slate-900 text-sm">Writing Worksheets</h4>
-            </a>
-            <a href="/interactive-worksheets-generator" className="text-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-200">
+            </div>
+            <div className="text-center p-4 rounded-xl bg-slate-50 border border-slate-200">
               <div className="text-2xl mb-2" aria-hidden="true">🔬</div>
               <h4 className="font-semibold text-slate-900 text-sm">Science Worksheets</h4>
-            </a>
+            </div>
           </div>
         </div>
       </section>
