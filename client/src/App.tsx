@@ -339,7 +339,16 @@ export default function App() {
                 );
             case 'printables':
               if (routeSubKey === 'name-tracing-generator') {
-                return <NameTracingGeneratorPage />;
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Name Tracing Generator - Create Personalized Handwriting Sheets"
+                      description="Create free personalized name tracing worksheets for kids! Customize font styles, sizes, and patterns. Perfect for teaching handwriting and name recognition. Print instantly!"
+                      canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
+                    />
+                    <NameTracingGeneratorPage />
+                  </>
+                );
               }
               if (routeSubKey === 'certificate-maker') {
                 return (
