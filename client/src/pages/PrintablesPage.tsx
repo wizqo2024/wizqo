@@ -4977,14 +4977,12 @@ export function PrintablesPage() {
         {activeDocs.includes('rounding-nearest-10') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔍 Rounding to Nearest 10</h2>
-            <p className="text-slate-600 text-sm mb-3">Round each number to the nearest 10.</p>
+            <p className="text-slate-600 text-sm mb-3">Round each number to the nearest 10. Look at the ones digit: if it's 0-4, round down; if it's 5-9, round up.</p>
             <div className="grid grid-cols-2 gap-4">
               {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
-                const rounded = Math.round(num / 10) * 10
                 return (
                   <div key={num} className="border border-slate-300 rounded p-4 bg-white">
-                    <p className="text-slate-700 text-lg mb-2">{num} rounds to __</p>
-                    <p className="text-slate-600 text-sm">Hint: {num} is closer to {rounded}</p>
+                    <p className="text-slate-700 text-lg">{num} rounds to __</p>
                   </div>
                 )
               })}
