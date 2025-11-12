@@ -437,8 +437,9 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="About Wizqo - AI-Powered Hobby Learning Platform"
-                    description="Learn about Wizqo's mission to make hobby learning accessible to everyone through AI-powered personalized plans and expert-curated content."
+                    title="About Wizqo - Free Printable Worksheets for Teachers & Parents"
+                    description="Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality worksheets for math, reading, writing, and more with answer keys included."
+                    keywords="about wizqo, free worksheets, printable worksheets, educational resources, teachers worksheets, homeschool worksheets, free math worksheets"
                     canonicalUrl="https://wizqo.com/about"
                   />
                   <AboutPage />
