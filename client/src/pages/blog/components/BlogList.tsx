@@ -182,6 +182,11 @@ export function BlogList({
               />
 
               <div className="space-y-6">
+                <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6 sm:p-8 mb-6">
+                  <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-4xl">
+                    Welcome to Wizqo's Learning Blog — your home for <strong className="text-slate-900">free printable worksheets</strong>, creative classroom ideas, hobby tips, and educational wellness guides. Explore fresh resources for teachers, parents, and students every week.
+                  </p>
+                </div>
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">More Articles</h2>
                 <div id="blog-results" className="grid md:grid-cols-2 gap-6">
                   {(() => {
