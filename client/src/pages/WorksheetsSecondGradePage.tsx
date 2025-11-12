@@ -89,44 +89,44 @@ export default function WorksheetsSecondGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" emoji="🔟" />
-                <WorksheetThumbnailCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" emoji="➡️" />
-                <WorksheetThumbnailCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" emoji="🔢" />
-                <WorksheetThumbnailCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" emoji="📊" />
-                <WorksheetThumbnailCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" emoji="🔍" />
+                <WorksheetThumbnailCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" docId="place-value-hto" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" docId="skip-count-5-10-120" />
+                <WorksheetThumbnailCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" docId="expanded-form-200" />
+                <WorksheetThumbnailCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" docId="number-patterns-200" />
+                <WorksheetThumbnailCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" docId="rounding-nearest-10" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" emoji="➕" />
-                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" emoji="➖" />
-                <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" emoji="➕" />
-                <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" emoji="➖" />
-                <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" emoji="⚖️" />
+                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" docId="add-2digit-100" />
+                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" docId="sub-2digit-100" />
+                <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" docId="add-three-numbers" />
+                <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" docId="missing-addends" />
+                <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" docId="fact-families-20" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" emoji="📊" />
-                <WorksheetThumbnailCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" emoji="🧮" />
-                <WorksheetThumbnailCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" emoji="🔢" />
-                <WorksheetThumbnailCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" emoji="📈" />
-                <WorksheetThumbnailCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" emoji="🎯" />
+                <WorksheetThumbnailCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" docId="compare-2digit" />
+                <WorksheetThumbnailCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" docId="word-problems-100" />
+                <WorksheetThumbnailCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" docId="mental-math-20" />
+                <WorksheetThumbnailCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" docId="number-line-200" />
+                <WorksheetThumbnailCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" docId="doubles-near-doubles" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" emoji="🔢" />
-                <WorksheetThumbnailCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" emoji="🕒" />
-                <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" emoji="💰" />
-                <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" emoji="📏" />
-                <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" emoji="📊" />
+                <WorksheetThumbnailCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" docId="even-odd-100" />
+                <WorksheetThumbnailCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" docId="time-5min" />
+                <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" docId="money-coins-bills" />
+                <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" docId="measurement-length" />
+                <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" docId="bar-graphs-data" />
               </div>
             </div>
           </div>

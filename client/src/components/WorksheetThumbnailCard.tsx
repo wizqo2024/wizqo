@@ -1,9 +1,11 @@
 import React from 'react'
+import { PrintableWorksheetThumbnail } from './PrintableWorksheetThumbnail'
 
 interface WorksheetThumbnailCardProps {
   title: string
   description: string
   href: string
+  docId?: string
   previewContent?: React.ReactNode
   emoji?: string
 }
@@ -12,9 +14,15 @@ export function WorksheetThumbnailCard({
   title, 
   description, 
   href, 
+  docId,
   previewContent,
   emoji 
 }: WorksheetThumbnailCardProps) {
+  // Extract docId from href if not provided
+  const extractedDocId = docId || (href.includes('doc=') ? new URLSearchParams(href.split('?')[1] || '').get('doc') || '' : '')
+  
+  // Use previewContent if provided, otherwise use PrintableWorksheetThumbnail
+  const actualPreviewContent = previewContent || (extractedDocId ? <PrintableWorksheetThumbnail docId={extractedDocId} /> : null)
   const CARD_CLASS = 'bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col'
   const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors text-sm font-medium'
   const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors text-sm font-medium'
@@ -36,7 +44,7 @@ export function WorksheetThumbnailCard({
             aspectRatio: '2.5/1',
           }}
         >
-          {previewContent ? (
+          {actualPreviewContent ? (
             <>
               {/* Thumbnail content container */}
               <div className="absolute inset-0 p-3 overflow-hidden">
@@ -52,7 +60,7 @@ export function WorksheetThumbnailCard({
                   }}
                 >
                   <div className="bg-white p-4" style={{ width: '100%' }}>
-                    {previewContent}
+                    {actualPreviewContent}
                   </div>
                 </div>
               </div>

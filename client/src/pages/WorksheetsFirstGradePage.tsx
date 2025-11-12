@@ -95,44 +95,44 @@ export default function WorksheetsFirstGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10" emoji="🔟" />
-                <WorksheetThumbnailCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" emoji="✏️" />
-                <WorksheetThumbnailCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10" emoji="🔢" />
-                <WorksheetThumbnailCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30" emoji="📊" />
-                <WorksheetThumbnailCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50" emoji="🔍" />
+                <WorksheetThumbnailCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
+                <WorksheetThumbnailCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" docId="number-tracing-1-20" />
+                <WorksheetThumbnailCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10" docId="number-bonds-10" />
+                <WorksheetThumbnailCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30" docId="count-write-30" />
+                <WorksheetThumbnailCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50" docId="missing-numbers-50" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" emoji="➕" />
-                <WorksheetThumbnailCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" emoji="🧮" />
-                <WorksheetThumbnailCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10" emoji="➕" />
-                <WorksheetThumbnailCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories" emoji="➖" />
-                <WorksheetThumbnailCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10" emoji="⚖️" />
+                <WorksheetThumbnailCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
+                <WorksheetThumbnailCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" docId="math-maze" />
+                <WorksheetThumbnailCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10" docId="picture-addition-10" />
+                <WorksheetThumbnailCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories" docId="subtraction-stories" />
+                <WorksheetThumbnailCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10" docId="balance-equations-10" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20" emoji="🔢" />
-                <WorksheetThumbnailCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number" emoji="🎨" />
-                <WorksheetThumbnailCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s" emoji="➡️" />
-                <WorksheetThumbnailCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add" emoji="🔢" />
-                <WorksheetThumbnailCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts" emoji="🎯" />
+                <WorksheetThumbnailCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20" docId="dot-to-dot-1-20" />
+                <WorksheetThumbnailCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number" docId="color-by-number" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s" docId="skip-count-2s" />
+                <WorksheetThumbnailCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add" docId="number-line-add" />
+                <WorksheetThumbnailCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts" docId="doubles-facts" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" emoji="👀" />
-                <WorksheetThumbnailCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort" emoji="🟩" />
-                <WorksheetThumbnailCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete" emoji="🧩" />
-                <WorksheetThumbnailCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape" emoji="🔍" />
-                <WorksheetThumbnailCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison" emoji="📏" />
+                <WorksheetThumbnailCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" docId="spot-difference" />
+                <WorksheetThumbnailCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort" docId="shapes-colors-sort" />
+                <WorksheetThumbnailCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete" docId="pattern-complete" />
+                <WorksheetThumbnailCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape" docId="missing-shape" />
+                <WorksheetThumbnailCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison" docId="size-comparison" />
               </div>
             </div>
           </div>
