@@ -269,8 +269,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Learn a New Hobby in 7 Days | AI Hobby Plan Generator"
-                    description="Ready to learn a new hobby fast? Wizqo's AI hobby plan generator builds a 7-day roadmap with lessons, videos, and daily practice prompts for beginners."
+                    title="AI Learning Plan Generator | Create Personalized 7-Day Plans"
+                    description="Create personalized 7-day learning plans with AI. Generate custom learning roadmaps with lessons, videos, and daily practice prompts tailored to your goals."
                     canonicalUrl="https://wizqo.com/generate"
                   />
                   <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
@@ -280,8 +280,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Your Hobby Learning Plan - Wizqo"
-                    description="Your personalized 7-day hobby learning plan with daily videos, practice guides, and progress tracking."
+                    title="Your Learning Plan - Wizqo"
+                    description="Your personalized 7-day learning plan with daily videos, practice guides, and progress tracking."
                     canonicalUrl="https://wizqo.com/plan"
                     noIndex={true}
                   />
@@ -426,7 +426,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Your Learning Dashboard - Wizqo"
-                    description="Track your hobby learning progress, manage your plans, and access your personalized learning resources."
+                    description="Track your learning progress, manage your plans, and access your personalized educational resources and worksheets."
                     canonicalUrl="https://wizqo.com/dashboard"
                     noIndex={true}
                   />
@@ -449,8 +449,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Contact Wizqo ? Questions, Feedback, or Hobby Ideas Welcome"
-                    description="Got a question or suggestion? Reach out to Wizqo's team ? we typically respond within 24 hours. Let?s improve your hobby journey together"
+                    title="Contact Wizqo - Questions & Feedback Welcome"
+                    description="Got a question or suggestion about our worksheets or learning tools? Reach out to Wizqo's team - we typically respond within 24 hours."
                     canonicalUrl="https://wizqo.com/contact"
                   />
                   <ContactPage />
@@ -461,7 +461,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Privacy Policy - Wizqo"
-                    description="Learn how Wizqo protects your privacy and handles your data while providing personalized hobby learning experiences."
+                    description="Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences."
                     canonicalUrl="https://wizqo.com/privacy"
                   />
                   <PrivacyPage />
@@ -472,7 +472,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Terms of Service - Wizqo"
-                    description="Read Wizqo's terms of service and understand the rules and guidelines for using our hobby learning platform."
+                    description="Read Wizqo's terms of service and understand the rules and guidelines for using our educational platform and worksheet generator."
                     canonicalUrl="https://wizqo.com/terms"
                   />
                   <TermsPage />
@@ -494,7 +494,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Reset Your Password - Wizqo"
-                    description="Reset your Wizqo account password securely and continue your hobby learning journey."
+                    description="Reset your Wizqo account password securely and continue accessing free printable worksheets and learning resources."
                     canonicalUrl="https://wizqo.com/reset-password"
                     noIndex={true}
                   />
@@ -505,8 +505,9 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="What Hobby Means ? Discover Your Ideal Hobby with Wizqo AI"
-                    description="Learn what a hobby really means and find your perfect match with Wizqo?s AI-powered 7-day hobby plans. Start today for free!"
+                    title="Free Printable Worksheets for Teachers & Kids | Wizqo"
+                    description="Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!"
+                    keywords="free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
