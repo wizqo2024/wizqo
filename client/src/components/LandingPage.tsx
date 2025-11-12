@@ -129,7 +129,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 href="/interactive-worksheets-generator"
                 className="inline-flex items-center gap-2 justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
               >
-                <div className="w-5 h-5 flex items-center justify-center">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
                   <DotLottieReact
                     src="https://lottie.host/765d5fff-4a5e-4cb5-a3a1-91f5413be22e/tpoLOKOFhP.json"
                     loop
