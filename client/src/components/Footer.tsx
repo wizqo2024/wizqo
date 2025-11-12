@@ -21,7 +21,7 @@ export function Footer() {
               <span className="text-xl font-bold">Wizqo</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Master any hobby in just 7 days with AI-powered personalized learning plans.
+              Create unlimited free printable worksheets with AI-powered personalized learning tools for teachers and parents.
             </p>
           </div>
 
