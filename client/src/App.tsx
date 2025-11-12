@@ -390,7 +390,7 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets"
+                      title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
                       description="Download free printable handwriting practice sheets for kids. Trace letters A?Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!"
                       canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
                     />
