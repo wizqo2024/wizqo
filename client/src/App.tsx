@@ -296,8 +296,9 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Free Worksheet Ideas & Learning Tips Blog | Wizqo"
-                    description="Discover free printable worksheet ideas, teaching tips, and educational resources for teachers and parents. Download worksheets for math, reading, writing, and more."
+                    title="Free Printable Worksheet Ideas, Teaching Tips & Learning Blog | Wizqo"
+                    description="Explore Wizqo's free educational blog — full of printable worksheet ideas, teaching hacks, learning tips, student hobbies, and classroom inspiration for teachers and parents."
+                    keywords="free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student hobbies, homeschool worksheets"
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
