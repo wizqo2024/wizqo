@@ -128,28 +128,43 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             <nav aria-label="Popular worksheets" className="px-4 sm:px-0">
               <ul className="flex flex-wrap justify-center gap-2 text-sm">
                 <li>
-                  <a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">🔢</span> 1st Grade Math Worksheets
+                  <a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 transition-all">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                    </svg>
+                    1st Grade Math Worksheets
                   </a>
                 </li>
                 <li>
-                  <a href="/worksheets/2nd-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">➕</span> 2nd Grade Math Worksheets
+                  <a href="/worksheets/2nd-grade-math-worksheets" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 transition-all">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    2nd Grade Math Worksheets
                   </a>
                 </li>
                 <li>
-                  <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">✍️</span> Handwriting Worksheets
+                  <a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 transition-all">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    Handwriting Worksheets
                   </a>
                 </li>
                 <li>
-                  <a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">📖</span> Reading Comprehension
+                  <a href="/worksheets/reading-comprehension" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 transition-all">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Reading Comprehension
                   </a>
                 </li>
                 <li>
-                  <a href="/printables/certificate-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15">
-                    <span aria-hidden="true">🎨</span> Certificate Maker
+                  <a href="/printables/certificate-maker" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/15 transition-all">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                    Certificate Maker
                   </a>
                 </li>
               </ul>
@@ -166,9 +181,17 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <span className="text-sm font-medium">Loved by parents & teachers</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
-                <span aria-hidden="true">🖨️</span> Printable awards & handwriting sheets
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                Printable awards & handwriting sheets
               </div>
-              <div className="text-sm font-medium"><span aria-hidden="true">📚</span> Worksheets for all grades K-5</div>
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                Worksheets for all grades K-5
+              </div>
             </div>
           </div>
         </div>
