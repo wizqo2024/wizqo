@@ -1,11 +1,72 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { WorksheetThumbnailCard } from '@/components/WorksheetThumbnailCard'
 
+interface Worksheet {
+  title: string
+  description: string
+  href: string
+  docId: string
+  category: string
+}
+
+const ALL_WORKSHEETS: Worksheet[] = [
+  // Number Sense
+  { title: '🔟 Place Value (Tens/Ones) to 99', description: 'Break numbers into tens and ones; compare and build numbers.', href: '/print?doc=place-value-hto', docId: 'place-value-hto', category: 'Number Sense' },
+  { title: '➡️ Skip Counting by 5s/10s to 120', description: 'Count on using number charts and dot‑paths to reach 120.', href: '/print?doc=skip-count-5-10-120', docId: 'skip-count-5-10-120', category: 'Number Sense' },
+  { title: '🔢 Expanded Form to 200', description: 'Write numbers in expanded form (100+20+5); understand place value.', href: '/print?doc=expanded-form-200', docId: 'expanded-form-200', category: 'Number Sense' },
+  { title: '📊 Number Patterns to 200', description: 'Identify and extend number patterns; build number sense.', href: '/print?doc=number-patterns-200', docId: 'number-patterns-200', category: 'Number Sense' },
+  { title: '🔍 Rounding to Nearest 10', description: 'Round 2-digit numbers to the nearest 10; estimation skills.', href: '/print?doc=rounding-nearest-10', docId: 'rounding-nearest-10', category: 'Number Sense' },
+  // Addition & Subtraction
+  { title: '➕ 2‑Digit Addition (No Regrouping)', description: 'Practice adding two 2‑digit numbers within 100 (no carry).', href: '/print?doc=add-2digit-100', docId: 'add-2digit-100', category: 'Addition & Subtraction' },
+  { title: '➖ 2‑Digit Subtraction (No Regrouping)', description: 'Subtract within 100 using number lines and base‑ten models.', href: '/print?doc=sub-2digit-100', docId: 'sub-2digit-100', category: 'Addition & Subtraction' },
+  { title: '➕ Adding 3 Numbers', description: 'Add three single-digit or two-digit numbers; mental math practice.', href: '/print?doc=add-three-numbers', docId: 'add-three-numbers', category: 'Addition & Subtraction' },
+  { title: '➖ Missing Addends', description: 'Find the missing number in addition equations; inverse operations.', href: '/print?doc=missing-addends', docId: 'missing-addends', category: 'Addition & Subtraction' },
+  { title: '⚖️ Fact Families (to 20)', description: 'Complete fact families showing addition and subtraction relationships.', href: '/print?doc=fact-families-20', docId: 'fact-families-20', category: 'Addition & Subtraction' },
+  // Fluency Boosters
+  { title: '📊 Compare 2‑Digit Numbers', description: 'Use >, <, = to compare numbers; explain using tens and ones.', href: '/print?doc=compare-2digit', docId: 'compare-2digit', category: 'Fluency Boosters' },
+  { title: '🧮 2nd‑Grade Word Problems', description: 'Mixed add/sub word problems within 100 (no regrouping).', href: '/print?doc=word-problems-100', docId: 'word-problems-100', category: 'Fluency Boosters' },
+  { title: '🔢 Mental Math (Add/Sub to 20)', description: 'Quick recall of addition and subtraction facts; build speed.', href: '/print?doc=mental-math-20', docId: 'mental-math-20', category: 'Fluency Boosters' },
+  { title: '📈 Number Line to 200', description: 'Use number lines to solve problems and locate numbers up to 200.', href: '/print?doc=number-line-200', docId: 'number-line-200', category: 'Fluency Boosters' },
+  { title: '🎯 Doubles & Near Doubles', description: 'Master doubles facts and near doubles (doubles +1) strategies.', href: '/print?doc=doubles-near-doubles', docId: 'doubles-near-doubles', category: 'Fluency Boosters' },
+  // Focus & Logic
+  { title: '🔢 Even/Odd Sorting (to 100)', description: 'Sort numbers into even and odd; explain patterns you notice.', href: '/print?doc=even-odd-100', docId: 'even-odd-100', category: 'Focus & Logic' },
+  { title: '🕒 Time to 5 Minutes', description: 'Read times to the nearest 5 minutes; draw hands to match.', href: '/print?doc=time-5min', docId: 'time-5min', category: 'Focus & Logic' },
+  { title: '💰 Money: Coins & Bills', description: 'Count coins (pennies, nickels, dimes, quarters) and make change.', href: '/print?doc=money-coins-bills', docId: 'money-coins-bills', category: 'Focus & Logic' },
+  { title: '📏 Measurement: Length', description: 'Compare lengths using inches and centimeters; measurement practice.', href: '/print?doc=measurement-length', docId: 'measurement-length', category: 'Focus & Logic' },
+  { title: '📊 Bar Graphs & Data', description: 'Read and create simple bar graphs; interpret data.', href: '/print?doc=bar-graphs-data', docId: 'bar-graphs-data', category: 'Focus & Logic' },
+]
+
+const CATEGORIES = ['All', 'Number Sense', 'Addition & Subtraction', 'Fluency Boosters', 'Focus & Logic']
+
 export default function WorksheetsSecondGradePage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  const filteredWorksheets = useMemo(() => {
+    let filtered = ALL_WORKSHEETS
+
+    // Filter by category
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(ws => ws.category === selectedCategory)
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(ws => 
+        ws.title.toLowerCase().includes(query) ||
+        ws.description.toLowerCase().includes(query) ||
+        ws.category.toLowerCase().includes(query)
+      )
+    }
+
+    return filtered
+  }, [searchQuery, selectedCategory])
+
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -30,7 +91,7 @@ export default function WorksheetsSecondGradePage() {
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser’s Print → Save as PDF to download." } },
+            { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser's Print → Save as PDF to download." } },
             { "@type": "Question", name: "Can I use these in the classroom?", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
             { "@type": "Question", name: "What skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Counting, number sense, place value (tens/ones), addition/subtraction within 20 and 100, and focus/logic practice." } }
           ]
@@ -63,136 +124,162 @@ export default function WorksheetsSecondGradePage() {
           <span className="line" />
         </div>
       </div>
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-        <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free Printables)</h1>
-          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-slate-700 text-sm max-w-3xl">
-            Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
-          </p>
-          {/* Builder moved under What's Inside per request */}
-        </header>
-
-        <section>
-          <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
-          <p className="text-slate-700 text-sm max-w-3xl">
-            Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.
-          </p>
-          <div className="mt-4">
-            <BuildPackInline />
-          </div>
-        </section>
-
-        {/* Utility card component */}
-        <section>
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" docId="place-value-hto" />
-                <WorksheetThumbnailCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" docId="skip-count-5-10-120" />
-                <WorksheetThumbnailCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" docId="expanded-form-200" />
-                <WorksheetThumbnailCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" docId="number-patterns-200" />
-                <WorksheetThumbnailCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" docId="rounding-nearest-10" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" docId="add-2digit-100" />
-                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" docId="sub-2digit-100" />
-                <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" docId="add-three-numbers" />
-                <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" docId="missing-addends" />
-                <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" docId="fact-families-20" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" docId="compare-2digit" />
-                <WorksheetThumbnailCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" docId="word-problems-100" />
-                <WorksheetThumbnailCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" docId="mental-math-20" />
-                <WorksheetThumbnailCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" docId="number-line-200" />
-                <WorksheetThumbnailCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" docId="doubles-near-doubles" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <WorksheetThumbnailCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" docId="even-odd-100" />
-                <WorksheetThumbnailCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" docId="time-5min" />
-                <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" docId="money-coins-bills" />
-                <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" docId="measurement-length" />
-                <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" docId="bar-graphs-data" />
+      
+      <main className="bg-gradient-to-b from-purple-50/70 via-white to-white">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+                ✨ Free printable worksheets • 2nd Grade Math
+              </span>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                2nd Grade Math Worksheets
+                <span className="block text-purple-600">Free printable PDFs with answer keys.</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+                Build fluency with focused practice: place value (tens/ones), ten‑frames, number lines, addition and subtraction within 20, and attention‑boosting puzzles. Each worksheet is one page, easy to print, and designed for quick daily practice.
+              </p>
+              <div className="mt-4 border border-slate-200 rounded-xl p-4 bg-white">
+                <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
+                <p className="text-slate-700 text-sm mb-3">Create a quick Grade 2 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd Grade</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+                </div>
+                <button
+                  onClick={() => {
+                    try {
+                      const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
+                      const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math`;
+                      window.location.href = url;
+                    } catch {}
+                  }}
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors"
+                >
+                  Build Pack →
+                </button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mb-10">
-          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
-          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Can I use these in the classroom?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Yes, they’re free for personal and classroom use.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What skills are covered?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Counting, number sense, place value, addition/subtraction within 20 and 100, focus and attention.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Are these worksheets printable as PDF?</AccordionTrigger>
-              <AccordionContent className="px-4 text-slate-700">
-                Yes. Open any worksheet and use your browser’s Print → Save as PDF to download.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+        {/* Main Content with Sidebar */}
+        <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:px-8">
+          {/* Sidebar */}
+          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Filter by Category</h3>
+              <div className="space-y-2">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`w-full rounded-xl border px-3 py-2 text-left text-sm font-medium transition-colors ${
+                      selectedCategory === cat
+                        ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                        : 'bg-white text-slate-700 border-slate-300 hover:border-purple-300 hover:bg-purple-50'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <section className="space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="text-xl font-semibold text-slate-900">2nd Grade Math Worksheets</h2>
+              <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
+                {filteredWorksheets.length} {filteredWorksheets.length === 1 ? 'worksheet' : 'worksheets'} {searchQuery || selectedCategory !== 'All' ? 'found' : 'available'}
+              </span>
+            </div>
+            
+            {/* Search Bar */}
+            <div className="flex justify-end">
+              <div className="relative w-full max-w-md">
+                <input
+                  type="text"
+                  placeholder="🔍 Search worksheets..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-full border border-slate-300 bg-white px-4 py-2 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200 shadow-sm"
+                />
+                <svg
+                  className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    aria-label="Clear search"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {filteredWorksheets.length === 0 ? (
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
+                {searchQuery ? `No worksheets match your search query "${searchQuery}". Try a different search term.` : 'No worksheets found.'}
+              </div>
+            ) : (
+              <div className="grid gap-5 md:grid-cols-2">
+                {filteredWorksheets.map((worksheet) => (
+                  <WorksheetThumbnailCard
+                    key={worksheet.docId}
+                    title={worksheet.title}
+                    description={worksheet.description}
+                    href={worksheet.href}
+                    docId={worksheet.docId}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
         </section>
 
+        {/* FAQs Section */}
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Frequently Asked Questions</h2>
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="q1" className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
+                <AccordionTrigger className="font-semibold text-slate-900">Can I use these in the classroom?</AccordionTrigger>
+                <AccordionContent className="text-sm text-slate-600 mt-2">
+                  Yes, they're free for personal and classroom use.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2" className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
+                <AccordionTrigger className="font-semibold text-slate-900">What skills are covered?</AccordionTrigger>
+                <AccordionContent className="text-sm text-slate-600 mt-2">
+                  Counting, number sense, place value, addition/subtraction within 20 and 100, focus and attention.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3" className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
+                <AccordionTrigger className="font-semibold text-slate-900">Are these worksheets printable as PDF?</AccordionTrigger>
+                <AccordionContent className="text-sm text-slate-600 mt-2">
+                  Yes. Open any worksheet and use your browser's Print → Save as PDF to download.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </section>
       </main>
       <Footer />
-    </div>
-  )
-}
-
-
-function BuildPackInline() {
-  return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4">
-      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
-      <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick Grade 2 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
-      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-        <label className="text-sm text-slate-600">Time
-          <select id="g2p-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5"
-            onChange={(e) => { (document.getElementById('g2p-time') as HTMLSelectElement).setAttribute('data-v', e.target.value); }}
-          >
-            <option value="5">5 min</option>
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-          </select>
-        </label>
-      <div className="text-sm text-slate-600">Age/Grade <span className="font-medium ml-2">2nd Grade</span></div>
-      <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Math</span></div>
-        <button
-          onClick={() => {
-            try {
-              const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
-              const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math`;
-              window.location.href = url;
-            } catch {}
-          }}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-        >
-          Build Pack →
-        </button>
-      </div>
     </div>
   )
 }
