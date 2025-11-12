@@ -3877,7 +3877,7 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {(!doc || activeDocs.includes('ws-animals')) && (
+        {(activeDocs.length === 0 || activeDocs.includes('ws-animals')) && (
         <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
           <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
           <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
@@ -3909,7 +3909,7 @@ export function PrintablesPage() {
         </section>
         )}
 
-        {(!doc || activeDocs.includes('sudoku4')) && (
+        {(activeDocs.length === 0 || activeDocs.includes('sudoku4')) && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
             <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
             <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
