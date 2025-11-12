@@ -755,9 +755,37 @@ export function PrintablesPage() {
   const hasSelectedDoc = Boolean(doc && doc !== 'bundle' && doc !== 'pack')
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50/70 via-white to-white">
-      <UnifiedNavigation currentPage="printables" />
+    <div className={`min-h-screen bg-gradient-to-b from-purple-50/70 via-white to-white ${autoPrint ? 'autoprint-mode' : ''}`}>
+      {!autoPrint && <UnifiedNavigation currentPage="printables" />}
       <style>{`
+        /* Apply print layout when autoprint mode is active */
+        .autoprint-mode [class*="print:hidden"] {
+          display: none !important;
+        }
+        .autoprint-mode [class*="print:block"] {
+          display: block !important;
+        }
+        .autoprint-mode header,
+        .autoprint-mode nav,
+        .autoprint-mode aside,
+        .autoprint-mode .mb-4.print\\:hidden {
+          display: none !important;
+        }
+        .autoprint-mode section {
+          margin-bottom: 0.75rem !important;
+          padding: 0 0.5in;
+        }
+        .autoprint-mode {
+          background: white !important;
+        }
+        .autoprint-mode section:first-of-type {
+          padding-top: 0.5in;
+        }
+        /* Hide buttons and links in autoprint mode except print:block ones */
+        .autoprint-mode button:not([class*="print:block"]),
+        .autoprint-mode a:not([class*="print:block"]) {
+          display: none !important;
+        }
         @media print {
           @page { 
             margin: 0;
@@ -843,6 +871,7 @@ export function PrintablesPage() {
         }
       `}</style>
       {/* Hero Section */}
+      {!autoPrint && (
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
@@ -860,10 +889,12 @@ export function PrintablesPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Main Content with Sidebar */}
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:px-8">
+      <section className={`mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 ${autoPrint ? '' : 'lg:grid-cols-[320px_minmax(0,1fr)]'}`}>
         {/* Sidebar */}
+        {!autoPrint && (
         <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm print:hidden">
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Filter by Category</h3>
@@ -885,6 +916,7 @@ export function PrintablesPage() {
             </div>
           </div>
         </aside>
+        )}
 
         {/* Main Content */}
         <section className="space-y-6">
