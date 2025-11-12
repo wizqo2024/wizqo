@@ -47,11 +47,15 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
-function setMeta(html, { title, description, canonical, ogImage, ogType = 'website', twitterCard = 'summary_large_image', robots = 'index, follow' }) {
+function setMeta(html, { title, description, canonical, ogImage, ogType = 'website', twitterCard = 'summary_large_image', robots = 'index, follow', keywords }) {
   let out = html;
   out = setTitle(out, title);
   // description
   out = upsertTag(out, /<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${escapeHtml(description)}">`);
+  // keywords (if provided)
+  if (keywords) {
+    out = upsertTag(out, /<meta\s+name=["']keywords["'][^>]*>/i, `<meta name="keywords" content="${escapeHtml(keywords)}">`);
+  }
   // robots
   out = upsertTag(out, /<meta\s+name=["']robots["'][^>]*>/i, `<meta name="robots" content="${robots}">`);
   // canonical
@@ -81,7 +85,8 @@ function cloneForRoute(baseHtml, route) {
     ogImage,
     ogType: route.ogType || (route.path.startsWith('/blog/') ? 'article' : 'website'),
     twitterCard: 'summary_large_image',
-    robots: route.noIndex ? 'noindex, nofollow' : 'index, follow'
+    robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
+    keywords: route.keywords
   });
 }
 
@@ -214,10 +219,10 @@ function main() {
   // Blog root
   routes.push({ path: '/blog', title: 'Free Printable Worksheet Ideas, Teaching Tips & Learning Blog | Wizqo', description: 'Explore Wizqo\'s free educational blog — full of printable worksheet ideas, teaching hacks, learning tips, student hobbies, and classroom inspiration for teachers and parents.', keywords: 'free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student hobbies, homeschool worksheets' });
   // Worksheets
-  routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
-  routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.' });
-  routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!' });
-  routes.push({ path: '/worksheets/reading-comprehension', title: 'Free Printable Reading Comprehension Worksheets for Kids (PDF)', description: 'Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.' });
+  routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.', keywords: '1st grade math worksheets, first grade math worksheets, free 1st grade math worksheets PDF, printable math worksheets grade 1, addition worksheets first grade, subtraction worksheets grade 1, number sense worksheets, ten frames worksheets, skip counting worksheets' });
+  routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.', keywords: '2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2' });
+  routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting and name recognition!', keywords: 'handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF' });
+  routes.push({ path: '/worksheets/reading-comprehension', title: 'Free Printable Reading Comprehension Worksheets for Kids (PDF)', description: 'Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.', keywords: 'reading comprehension worksheets, free reading comprehension worksheets PDF, reading comprehension for kids, reading passages with questions, reading worksheets grade 1, reading worksheets grade 2, reading worksheets grade 3, printable reading comprehension' });
   routes.push({ path: '/worksheets-1', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/interactive-worksheets-generator', title: 'Interactive Worksheets Generator | Free Printable PDF Activities', description: 'Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade.' });
   // About/Contact/Legal

@@ -232,8 +232,9 @@ export default function HandwritingMakerPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets"
-        description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!"
+        title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
+        description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting and name recognition!"
+        keywords="handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF"
         canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
       />
       <UnifiedNavigation currentPage="kids" />
