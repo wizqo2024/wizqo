@@ -189,8 +189,9 @@ function main() {
   // Generate route (AI Learning Plan Generator)
   routes.push({ 
     path: '/generate', 
-    title: 'AI Learning Plan Generator | Create Personalized 7-Day Plans', 
-    description: 'Create personalized 7-day learning plans with AI. Generate custom learning roadmaps with lessons, videos, and daily practice prompts tailored to your goals.',
+    title: 'My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo', 
+    description: 'Create my learning plan instantly with AI! Generate personalized 7-day learning plans with daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners.',
+    keywords: 'my learning plan, learning plan generator, create learning plan, personalized learning plan, 7-day learning plan, AI learning plan, free learning plan generator',
     ogImage: `${SITE}/og-image.jpg`
   });
   // Kids hub and games
