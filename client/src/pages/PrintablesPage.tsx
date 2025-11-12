@@ -4595,19 +4595,37 @@ export function PrintablesPage() {
                 { total: 7, take: 2, story: '7 birds, 2 flew away' },
                 { total: 9, take: 4, story: '9 flowers, 4 picked' },
                 { total: 10, take: 5, story: '10 cookies, 5 shared' }
-              ].map(({ total, take, story }, idx) => (
-                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                  <p className="text-slate-700 text-sm mb-2">{story}</p>
-                  <svg viewBox="0 0 500 120" className="w-full h-auto">
-                    <g fill="#111827">
-                      {Array.from({ length: total }).map((_, i) => (
-                        <circle key={i} cx={50 + i * 40} cy="60" r="12" fill={i < take ? '#ef4444' : '#111827'} opacity={i < take ? 0.3 : 1} />
-                      ))}
-                    </g>
-                    <text x="250" y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
-                  </svg>
-                </div>
-              ))}
+              ].map(({ total, take, story }, idx) => {
+                // Calculate spacing to prevent overlap
+                const circleRadius = 12
+                const minSpacing = circleRadius * 2.5 // Ensure circles don't overlap
+                const availableWidth = 400 // Leave space for text on right
+                const maxSpacing = availableWidth / (total - 1 || 1)
+                const spacing = Math.min(maxSpacing, minSpacing)
+                const startX = 30
+                const circlesWidth = (total - 1) * spacing
+                
+                return (
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                    <p className="text-slate-700 text-sm mb-2">{story}</p>
+                    <svg viewBox="0 0 600 120" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+                      <g fill="#111827">
+                        {Array.from({ length: total }).map((_, i) => (
+                          <circle 
+                            key={i} 
+                            cx={startX + i * spacing} 
+                            cy="60" 
+                            r={circleRadius} 
+                            fill={i < take ? '#ef4444' : '#111827'} 
+                            opacity={i < take ? 0.3 : 1} 
+                          />
+                        ))}
+                      </g>
+                      <text x={Math.max(startX + circlesWidth + 40, 450)} y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
+                    </svg>
+                  </div>
+                )
+              })}
             </div>
             {showAnswersForDoc('subtraction-stories', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
