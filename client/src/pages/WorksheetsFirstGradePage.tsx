@@ -96,6 +96,9 @@ export default function WorksheetsFirstGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10" />
                 <ItemCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20" />
+                <ItemCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10" />
+                <ItemCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30" />
+                <ItemCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50" />
               </div>
             </div>
 
@@ -104,6 +107,9 @@ export default function WorksheetsFirstGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10" />
                 <ItemCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze" />
+                <ItemCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10" />
+                <ItemCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories" />
+                <ItemCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10" />
               </div>
             </div>
 
@@ -112,6 +118,9 @@ export default function WorksheetsFirstGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20" />
                 <ItemCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number" />
+                <ItemCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s" />
+                <ItemCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add" />
+                <ItemCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts" />
               </div>
             </div>
 
@@ -120,6 +129,9 @@ export default function WorksheetsFirstGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference" />
                 <ItemCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort" />
+                <ItemCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete" />
+                <ItemCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape" />
+                <ItemCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison" />
               </div>
             </div>
           </div>
