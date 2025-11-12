@@ -991,6 +991,13 @@ export function PrintablesPage() {
                 if (from === 'interactive') {
                   return '/interactive-worksheets-generator'
                 }
+                // If coming from grade pages, go back to the appropriate grade page
+                if (from === '1st-grade') {
+                  return '/worksheets/1st-grade-math-worksheets'
+                }
+                if (from === '2nd-grade') {
+                  return '/worksheets/2nd-grade-math-worksheets'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
@@ -1019,6 +1026,12 @@ export function PrintablesPage() {
                 const from = u.searchParams.get('from')
                 if (from === 'interactive') {
                   return 'Back to Interactive Worksheets Generator'
+                }
+                if (from === '1st-grade') {
+                  return 'Back to 1st Grade Math Worksheets'
+                }
+                if (from === '2nd-grade') {
+                  return 'Back to 2nd Grade Math Worksheets'
                 }
                 return 'Back printable page'
               } catch {

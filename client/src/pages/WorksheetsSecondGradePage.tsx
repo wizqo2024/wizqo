@@ -15,29 +15,29 @@ interface Worksheet {
 
 const ALL_WORKSHEETS: Worksheet[] = [
   // Number Sense
-  { title: '🔟 Place Value (Tens/Ones) to 99', description: 'Break numbers into tens and ones; compare and build numbers.', href: '/print?doc=place-value-hto', docId: 'place-value-hto', category: 'Number Sense' },
-  { title: '➡️ Skip Counting by 5s/10s to 120', description: 'Count on using number charts and dot‑paths to reach 120.', href: '/print?doc=skip-count-5-10-120', docId: 'skip-count-5-10-120', category: 'Number Sense' },
-  { title: '🔢 Expanded Form to 200', description: 'Write numbers in expanded form (100+20+5); understand place value.', href: '/print?doc=expanded-form-200', docId: 'expanded-form-200', category: 'Number Sense' },
-  { title: '📊 Number Patterns to 200', description: 'Identify and extend number patterns; build number sense.', href: '/print?doc=number-patterns-200', docId: 'number-patterns-200', category: 'Number Sense' },
-  { title: '🔍 Rounding to Nearest 10', description: 'Round 2-digit numbers to the nearest 10; estimation skills.', href: '/print?doc=rounding-nearest-10', docId: 'rounding-nearest-10', category: 'Number Sense' },
+  { title: '🔟 Place Value (Tens/Ones) to 99', description: 'Break numbers into tens and ones; compare and build numbers.', href: '/print?doc=place-value-hto&from=2nd-grade', docId: 'place-value-hto', category: 'Number Sense' },
+  { title: '➡️ Skip Counting by 5s/10s to 120', description: 'Count on using number charts and dot‑paths to reach 120.', href: '/print?doc=skip-count-5-10-120&from=2nd-grade', docId: 'skip-count-5-10-120', category: 'Number Sense' },
+  { title: '🔢 Expanded Form to 200', description: 'Write numbers in expanded form (100+20+5); understand place value.', href: '/print?doc=expanded-form-200&from=2nd-grade', docId: 'expanded-form-200', category: 'Number Sense' },
+  { title: '📊 Number Patterns to 200', description: 'Identify and extend number patterns; build number sense.', href: '/print?doc=number-patterns-200&from=2nd-grade', docId: 'number-patterns-200', category: 'Number Sense' },
+  { title: '🔍 Rounding to Nearest 10', description: 'Round 2-digit numbers to the nearest 10; estimation skills.', href: '/print?doc=rounding-nearest-10&from=2nd-grade', docId: 'rounding-nearest-10', category: 'Number Sense' },
   // Addition & Subtraction
-  { title: '➕ 2‑Digit Addition (No Regrouping)', description: 'Practice adding two 2‑digit numbers within 100 (no carry).', href: '/print?doc=add-2digit-100', docId: 'add-2digit-100', category: 'Addition & Subtraction' },
-  { title: '➖ 2‑Digit Subtraction (No Regrouping)', description: 'Subtract within 100 using number lines and base‑ten models.', href: '/print?doc=sub-2digit-100', docId: 'sub-2digit-100', category: 'Addition & Subtraction' },
-  { title: '➕ Adding 3 Numbers', description: 'Add three single-digit or two-digit numbers; mental math practice.', href: '/print?doc=add-three-numbers', docId: 'add-three-numbers', category: 'Addition & Subtraction' },
-  { title: '➖ Missing Addends', description: 'Find the missing number in addition equations; inverse operations.', href: '/print?doc=missing-addends', docId: 'missing-addends', category: 'Addition & Subtraction' },
-  { title: '⚖️ Fact Families (to 20)', description: 'Complete fact families showing addition and subtraction relationships.', href: '/print?doc=fact-families-20', docId: 'fact-families-20', category: 'Addition & Subtraction' },
+  { title: '➕ 2‑Digit Addition (No Regrouping)', description: 'Practice adding two 2‑digit numbers within 100 (no carry).', href: '/print?doc=add-2digit-100&from=2nd-grade', docId: 'add-2digit-100', category: 'Addition & Subtraction' },
+  { title: '➖ 2‑Digit Subtraction (No Regrouping)', description: 'Subtract within 100 using number lines and base‑ten models.', href: '/print?doc=sub-2digit-100&from=2nd-grade', docId: 'sub-2digit-100', category: 'Addition & Subtraction' },
+  { title: '➕ Adding 3 Numbers', description: 'Add three single-digit or two-digit numbers; mental math practice.', href: '/print?doc=add-three-numbers&from=2nd-grade', docId: 'add-three-numbers', category: 'Addition & Subtraction' },
+  { title: '➖ Missing Addends', description: 'Find the missing number in addition equations; inverse operations.', href: '/print?doc=missing-addends&from=2nd-grade', docId: 'missing-addends', category: 'Addition & Subtraction' },
+  { title: '⚖️ Fact Families (to 20)', description: 'Complete fact families showing addition and subtraction relationships.', href: '/print?doc=fact-families-20&from=2nd-grade', docId: 'fact-families-20', category: 'Addition & Subtraction' },
   // Fluency Boosters
-  { title: '📊 Compare 2‑Digit Numbers', description: 'Use >, <, = to compare numbers; explain using tens and ones.', href: '/print?doc=compare-2digit', docId: 'compare-2digit', category: 'Fluency Boosters' },
-  { title: '🧮 2nd‑Grade Word Problems', description: 'Mixed add/sub word problems within 100 (no regrouping).', href: '/print?doc=word-problems-100', docId: 'word-problems-100', category: 'Fluency Boosters' },
-  { title: '🔢 Mental Math (Add/Sub to 20)', description: 'Quick recall of addition and subtraction facts; build speed.', href: '/print?doc=mental-math-20', docId: 'mental-math-20', category: 'Fluency Boosters' },
-  { title: '📈 Number Line to 200', description: 'Use number lines to solve problems and locate numbers up to 200.', href: '/print?doc=number-line-200', docId: 'number-line-200', category: 'Fluency Boosters' },
-  { title: '🎯 Doubles & Near Doubles', description: 'Master doubles facts and near doubles (doubles +1) strategies.', href: '/print?doc=doubles-near-doubles', docId: 'doubles-near-doubles', category: 'Fluency Boosters' },
+  { title: '📊 Compare 2‑Digit Numbers', description: 'Use >, <, = to compare numbers; explain using tens and ones.', href: '/print?doc=compare-2digit&from=2nd-grade', docId: 'compare-2digit', category: 'Fluency Boosters' },
+  { title: '🧮 2nd‑Grade Word Problems', description: 'Mixed add/sub word problems within 100 (no regrouping).', href: '/print?doc=word-problems-100&from=2nd-grade', docId: 'word-problems-100', category: 'Fluency Boosters' },
+  { title: '🔢 Mental Math (Add/Sub to 20)', description: 'Quick recall of addition and subtraction facts; build speed.', href: '/print?doc=mental-math-20&from=2nd-grade', docId: 'mental-math-20', category: 'Fluency Boosters' },
+  { title: '📈 Number Line to 200', description: 'Use number lines to solve problems and locate numbers up to 200.', href: '/print?doc=number-line-200&from=2nd-grade', docId: 'number-line-200', category: 'Fluency Boosters' },
+  { title: '🎯 Doubles & Near Doubles', description: 'Master doubles facts and near doubles (doubles +1) strategies.', href: '/print?doc=doubles-near-doubles&from=2nd-grade', docId: 'doubles-near-doubles', category: 'Fluency Boosters' },
   // Focus & Logic
-  { title: '🔢 Even/Odd Sorting (to 100)', description: 'Sort numbers into even and odd; explain patterns you notice.', href: '/print?doc=even-odd-100', docId: 'even-odd-100', category: 'Focus & Logic' },
-  { title: '🕒 Time to 5 Minutes', description: 'Read times to the nearest 5 minutes; draw hands to match.', href: '/print?doc=time-5min', docId: 'time-5min', category: 'Focus & Logic' },
-  { title: '💰 Money: Coins & Bills', description: 'Count coins (pennies, nickels, dimes, quarters) and make change.', href: '/print?doc=money-coins-bills', docId: 'money-coins-bills', category: 'Focus & Logic' },
-  { title: '📏 Measurement: Length', description: 'Compare lengths using inches and centimeters; measurement practice.', href: '/print?doc=measurement-length', docId: 'measurement-length', category: 'Focus & Logic' },
-  { title: '📊 Bar Graphs & Data', description: 'Read and create simple bar graphs; interpret data.', href: '/print?doc=bar-graphs-data', docId: 'bar-graphs-data', category: 'Focus & Logic' },
+  { title: '🔢 Even/Odd Sorting (to 100)', description: 'Sort numbers into even and odd; explain patterns you notice.', href: '/print?doc=even-odd-100&from=2nd-grade', docId: 'even-odd-100', category: 'Focus & Logic' },
+  { title: '🕒 Time to 5 Minutes', description: 'Read times to the nearest 5 minutes; draw hands to match.', href: '/print?doc=time-5min&from=2nd-grade', docId: 'time-5min', category: 'Focus & Logic' },
+  { title: '💰 Money: Coins & Bills', description: 'Count coins (pennies, nickels, dimes, quarters) and make change.', href: '/print?doc=money-coins-bills&from=2nd-grade', docId: 'money-coins-bills', category: 'Focus & Logic' },
+  { title: '📏 Measurement: Length', description: 'Compare lengths using inches and centimeters; measurement practice.', href: '/print?doc=measurement-length&from=2nd-grade', docId: 'measurement-length', category: 'Focus & Logic' },
+  { title: '📊 Bar Graphs & Data', description: 'Read and create simple bar graphs; interpret data.', href: '/print?doc=bar-graphs-data&from=2nd-grade', docId: 'bar-graphs-data', category: 'Focus & Logic' },
 ]
 
 const CATEGORIES = ['All', 'Number Sense', 'Addition & Subtraction', 'Fluency Boosters', 'Focus & Logic']
@@ -153,7 +153,7 @@ export default function WorksheetsSecondGradePage() {
                   onClick={() => {
                     try {
                       const v = (document.getElementById('g2p-time') as HTMLSelectElement)?.getAttribute('data-v') || '5';
-                      const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math`;
+                      const url = `/print?doc=pack&time=${encodeURIComponent(v)}&age=g2&skill=math&from=2nd-grade`;
                       window.location.href = url;
                     } catch {}
                   }}

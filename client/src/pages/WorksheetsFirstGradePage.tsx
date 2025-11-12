@@ -15,29 +15,29 @@ interface Worksheet {
 
 const ALL_WORKSHEETS: Worksheet[] = [
   // Number Sense
-  { title: '🔟 Ten Frames 1–10', description: 'Color counters to build numbers 1–10; develop subitizing and number bonds.', href: '/print?doc=ten-frames-1-10', docId: 'ten-frames-1-10', category: 'Number Sense' },
-  { title: '✏️ Number Tracing 1–20', description: 'Trace numbers 1–20 with start points and big writing space.', href: '/print?doc=number-tracing-1-20', docId: 'number-tracing-1-20', category: 'Number Sense' },
-  { title: '🔢 Number Bonds to 10', description: 'Complete number bonds showing parts that make 10; build fact fluency.', href: '/print?doc=number-bonds-10', docId: 'number-bonds-10', category: 'Number Sense' },
-  { title: '📊 Count & Write 1–30', description: 'Count objects and write the number; practice one-to-one correspondence.', href: '/print?doc=count-write-30', docId: 'count-write-30', category: 'Number Sense' },
-  { title: '🔍 Missing Numbers 1–50', description: 'Fill in missing numbers on number lines; practice sequencing.', href: '/print?doc=missing-numbers-50', docId: 'missing-numbers-50', category: 'Number Sense' },
+  { title: '🔟 Ten Frames 1–10', description: 'Color counters to build numbers 1–10; develop subitizing and number bonds.', href: '/print?doc=ten-frames-1-10&from=1st-grade', docId: 'ten-frames-1-10', category: 'Number Sense' },
+  { title: '✏️ Number Tracing 1–20', description: 'Trace numbers 1–20 with start points and big writing space.', href: '/print?doc=number-tracing-1-20&from=1st-grade', docId: 'number-tracing-1-20', category: 'Number Sense' },
+  { title: '🔢 Number Bonds to 10', description: 'Complete number bonds showing parts that make 10; build fact fluency.', href: '/print?doc=number-bonds-10&from=1st-grade', docId: 'number-bonds-10', category: 'Number Sense' },
+  { title: '📊 Count & Write 1–30', description: 'Count objects and write the number; practice one-to-one correspondence.', href: '/print?doc=count-write-30&from=1st-grade', docId: 'count-write-30', category: 'Number Sense' },
+  { title: '🔍 Missing Numbers 1–50', description: 'Fill in missing numbers on number lines; practice sequencing.', href: '/print?doc=missing-numbers-50&from=1st-grade', docId: 'missing-numbers-50', category: 'Number Sense' },
   // Addition & Subtraction
-  { title: '➕ Add/Sub within 10', description: 'No‑prep practice with number lines and picture cues.', href: '/print?doc=addition-subtraction-0-10', docId: 'addition-subtraction-0-10', category: 'Addition & Subtraction' },
-  { title: '🧮 Math Maze (Within 18)', description: 'Solve simple equations to find a path from start to finish.', href: '/print?doc=math-maze', docId: 'math-maze', category: 'Addition & Subtraction' },
-  { title: '➕ Picture Addition to 10', description: 'Count pictures and add them together; visual math practice.', href: '/print?doc=picture-addition-10', docId: 'picture-addition-10', category: 'Addition & Subtraction' },
-  { title: '➖ Subtraction Stories', description: 'Solve subtraction problems using picture stories and number lines.', href: '/print?doc=subtraction-stories', docId: 'subtraction-stories', category: 'Addition & Subtraction' },
-  { title: '⚖️ Balance Equations (to 10)', description: 'Find missing numbers to balance addition and subtraction equations.', href: '/print?doc=balance-equations-10', docId: 'balance-equations-10', category: 'Addition & Subtraction' },
+  { title: '➕ Add/Sub within 10', description: 'No‑prep practice with number lines and picture cues.', href: '/print?doc=addition-subtraction-0-10&from=1st-grade', docId: 'addition-subtraction-0-10', category: 'Addition & Subtraction' },
+  { title: '🧮 Math Maze (Within 18)', description: 'Solve simple equations to find a path from start to finish.', href: '/print?doc=math-maze&from=1st-grade', docId: 'math-maze', category: 'Addition & Subtraction' },
+  { title: '➕ Picture Addition to 10', description: 'Count pictures and add them together; visual math practice.', href: '/print?doc=picture-addition-10&from=1st-grade', docId: 'picture-addition-10', category: 'Addition & Subtraction' },
+  { title: '➖ Subtraction Stories', description: 'Solve subtraction problems using picture stories and number lines.', href: '/print?doc=subtraction-stories&from=1st-grade', docId: 'subtraction-stories', category: 'Addition & Subtraction' },
+  { title: '⚖️ Balance Equations (to 10)', description: 'Find missing numbers to balance addition and subtraction equations.', href: '/print?doc=balance-equations-10&from=1st-grade', docId: 'balance-equations-10', category: 'Addition & Subtraction' },
   // Fluency Boosters
-  { title: '🔢 Dot‑to‑Dot 1–20', description: 'Connect the dots to reveal a picture while you count to 20.', href: '/print?doc=dot-to-dot-1-20', docId: 'dot-to-dot-1-20', category: 'Fluency Boosters' },
-  { title: '🎨 Color‑by‑Number (1–4)', description: 'Follow the key to color simple scenes; practice number recognition.', href: '/print?doc=color-by-number', docId: 'color-by-number', category: 'Fluency Boosters' },
-  { title: '➡️ Skip Counting by 2s', description: 'Practice counting by 2s from 2 to 20; build pattern recognition.', href: '/print?doc=skip-count-2s', docId: 'skip-count-2s', category: 'Fluency Boosters' },
-  { title: '🔢 Number Line Addition', description: 'Use number lines to solve addition problems within 15.', href: '/print?doc=number-line-add', docId: 'number-line-add', category: 'Fluency Boosters' },
-  { title: '🎯 Doubles Facts Practice', description: 'Master doubles (1+1, 2+2, etc.) with fun visual activities.', href: '/print?doc=doubles-facts', docId: 'doubles-facts', category: 'Fluency Boosters' },
+  { title: '🔢 Dot‑to‑Dot 1–20', description: 'Connect the dots to reveal a picture while you count to 20.', href: '/print?doc=dot-to-dot-1-20&from=1st-grade', docId: 'dot-to-dot-1-20', category: 'Fluency Boosters' },
+  { title: '🎨 Color‑by‑Number (1–4)', description: 'Follow the key to color simple scenes; practice number recognition.', href: '/print?doc=color-by-number&from=1st-grade', docId: 'color-by-number', category: 'Fluency Boosters' },
+  { title: '➡️ Skip Counting by 2s', description: 'Practice counting by 2s from 2 to 20; build pattern recognition.', href: '/print?doc=skip-count-2s&from=1st-grade', docId: 'skip-count-2s', category: 'Fluency Boosters' },
+  { title: '🔢 Number Line Addition', description: 'Use number lines to solve addition problems within 15.', href: '/print?doc=number-line-add&from=1st-grade', docId: 'number-line-add', category: 'Fluency Boosters' },
+  { title: '🎯 Doubles Facts Practice', description: 'Master doubles (1+1, 2+2, etc.) with fun visual activities.', href: '/print?doc=doubles-facts&from=1st-grade', docId: 'doubles-facts', category: 'Fluency Boosters' },
   // Focus & Logic
-  { title: '👀 Spot‑the‑Difference (7)', description: 'Find differences to build attention and visual scanning.', href: '/print?doc=spot-difference', docId: 'spot-difference', category: 'Focus & Logic' },
-  { title: '🟩 Shapes & Colors Sort', description: 'Cut, sort, and glue basic shapes by color; early math + fine motor.', href: '/print?doc=shapes-colors-sort', docId: 'shapes-colors-sort', category: 'Focus & Logic' },
-  { title: '🧩 Pattern Completion', description: 'Complete AB, ABC, and AAB patterns using shapes and colors.', href: '/print?doc=pattern-complete', docId: 'pattern-complete', category: 'Focus & Logic' },
-  { title: '🔍 Find the Missing Shape', description: 'Identify which shape comes next in a sequence; logic practice.', href: '/print?doc=missing-shape', docId: 'missing-shape', category: 'Focus & Logic' },
-  { title: '📏 Size Comparison', description: 'Compare objects by size (big/small, long/short); measurement basics.', href: '/print?doc=size-comparison', docId: 'size-comparison', category: 'Focus & Logic' },
+  { title: '👀 Spot‑the‑Difference (7)', description: 'Find differences to build attention and visual scanning.', href: '/print?doc=spot-difference&from=1st-grade', docId: 'spot-difference', category: 'Focus & Logic' },
+  { title: '🟩 Shapes & Colors Sort', description: 'Cut, sort, and glue basic shapes by color; early math + fine motor.', href: '/print?doc=shapes-colors-sort&from=1st-grade', docId: 'shapes-colors-sort', category: 'Focus & Logic' },
+  { title: '🧩 Pattern Completion', description: 'Complete AB, ABC, and AAB patterns using shapes and colors.', href: '/print?doc=pattern-complete&from=1st-grade', docId: 'pattern-complete', category: 'Focus & Logic' },
+  { title: '🔍 Find the Missing Shape', description: 'Identify which shape comes next in a sequence; logic practice.', href: '/print?doc=missing-shape&from=1st-grade', docId: 'missing-shape', category: 'Focus & Logic' },
+  { title: '📏 Size Comparison', description: 'Compare objects by size (big/small, long/short); measurement basics.', href: '/print?doc=size-comparison&from=1st-grade', docId: 'size-comparison', category: 'Focus & Logic' },
 ]
 
 const CATEGORIES = ['All', 'Number Sense', 'Addition & Subtraction', 'Fluency Boosters', 'Focus & Logic']
@@ -149,7 +149,7 @@ export default function WorksheetsFirstGradePage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 1st Grade</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
                 </div>
-                <a href="/print?doc=pack&time=5&age=g1&skill=math" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>Build Pack →</a>
+                <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>Build Pack →</a>
               </div>
             </div>
           </div>
