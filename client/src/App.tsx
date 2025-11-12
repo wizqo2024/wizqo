@@ -296,8 +296,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Hobby Learning Blog ? Tips, Guides & Free Worksheet Ideas | Wizqo"
-                    description="Learn faster with practical hobby tips and free worksheet ideas for kids. Actionable guides, gentle methods, and resources you can print today."
+                    title="Free Worksheet Ideas & Learning Tips Blog | Wizqo"
+                    description="Discover free printable worksheet ideas, teaching tips, and educational resources for teachers and parents. Download worksheets for math, reading, writing, and more."
                     canonicalUrl="https://wizqo.com/blog"
                   />
                   <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />
@@ -307,8 +307,8 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Kids Hub ? Play Games & Download Free Printables"
-                    description="Play kid?safe mini?games and download free printables: puzzles, handwriting, and quick math warm?ups."
+                    title="Kids Hub - Play Games & Download Free Printables"
+                    description="Play kid-safe mini-games and download free printables: puzzles, handwriting, and quick math warm-ups."
                     canonicalUrl="https://wizqo.com/kids"
                   />
                   <KidsPage />
