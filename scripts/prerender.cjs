@@ -182,7 +182,7 @@ function main() {
   // Homepage - MUST be first
   routes.push({ 
     path: '/', 
-    title: 'Free Multiplication Worksheets & Math Worksheets for All Grades | Wizqo', 
+    title: 'Free Multiplication & Math Worksheets for All Grades | Wizqo', 
     description: "Transform your child's learning journey with free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for teachers and parents - watch your students build confidence and master math skills. No sign-up required!",
     ogImage: `${SITE}/og-image.jpg`
   });
