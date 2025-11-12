@@ -130,8 +130,8 @@ function main() {
   // Homepage - MUST be first
   routes.push({ 
     path: '/', 
-    title: 'What Hobby Means – Discover Your Ideal Hobby with Wizqo AI', 
-    description: "Learn what a hobby really means and find your perfect match with Wizqo's AI-powered 7-day hobby plans. Start today for free!",
+    title: 'Free Multiplication Worksheets & Math Worksheets for All Grades | Wizqo', 
+    description: "Transform your child's learning journey with free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for teachers and parents - watch your students build confidence and master math skills. No sign-up required!",
     ogImage: `${SITE}/og-image.jpg`
   });
   // Kids hub and games
@@ -150,18 +150,18 @@ function main() {
   // Printables
   routes.push({ path: '/printables', title: 'Printable Fun Learning Activities for Kids | Free Worksheets & Games', description: 'Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!' });
   // Blog root
-  routes.push({ path: '/blog', title: 'Hobby Learning Blog - Tips, Guides & Inspiration - Wizqo', description: 'Discover expert tips, comprehensive guides, and inspiring stories to help you master new hobbies. Learn from our community of hobby enthusiasts.' });
+  routes.push({ path: '/blog', title: 'Free Worksheet Ideas & Learning Tips Blog | Wizqo', description: 'Discover free printable worksheet ideas, teaching tips, and educational resources for teachers and parents. Download worksheets for math, reading, writing, and more.' });
   // Worksheets
   routes.push({ path: '/worksheets/1st-grade-math-worksheets', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.' });
   routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, simple words, and sentences in both print and cursive. Fun and easy handwriting worksheets for young learners!' });
   routes.push({ path: '/worksheets/reading-comprehension', title: 'Reading Comprehension Worksheets – Free Printable PDF', description: 'Free reading comprehension worksheets for kids. Practice reading skills with engaging passages and questions. Print or save as PDF.' });
-  routes.push({ path: '/interactive-worksheets-generator', title: 'Interactive Worksheets Generator – Create Custom Printable Worksheets', description: 'Generate custom interactive worksheets for kids. Create handwriting practice, math worksheets, reading comprehension, and more. Free printable PDF worksheets.' });
+  routes.push({ path: '/interactive-worksheets-generator', title: 'Free Worksheet Generator Online | Create Math, Reading & Writing Worksheets', description: 'Create your own math worksheet online, free worksheet maker for teachers. Generate free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, reading comprehension worksheets PDF, handwriting practice worksheets, and more. All grades K-5 with answer keys included.' });
   // About/Contact/Legal
-  routes.push({ path: '/about', title: 'About Wizqo - AI-Powered Hobby Learning Platform', description: "Learn about Wizqo's mission to make hobby learning accessible to everyone through AI-powered personalized plans and expert-curated content." });
+  routes.push({ path: '/about', title: 'About Wizqo - Free Printable Worksheets for Teachers & Parents', description: "Learn about Wizqo's mission to provide free printable worksheets for teachers, parents, and homeschoolers. High-quality worksheets for math, reading, writing, and more with answer keys included." });
   routes.push({ path: '/contact', title: 'Contact Wizqo – Questions, Feedback, or Hobby Ideas Welcome', description: 'Got a question or suggestion? Reach out to Wizqo\'s team — we typically respond within 24 hours. Let’s improve your hobby journey together' });
-  routes.push({ path: '/privacy', title: 'Privacy Policy - Wizqo', description: 'Learn how Wizqo protects your privacy and handles your data while providing personalized hobby learning experiences.' });
-  routes.push({ path: '/terms', title: 'Terms of Service - Wizqo', description: "Read Wizqo's terms of service and understand the rules and guidelines for using our hobby learning platform." });
+  routes.push({ path: '/privacy', title: 'Privacy Policy - Wizqo', description: 'Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences.' });
+  routes.push({ path: '/terms', title: 'Terms of Service - Wizqo', description: "Read Wizqo's terms of service and understand the rules and guidelines for using our educational platform and worksheet generator." });
   routes.push({ path: '/cookies', title: 'Cookie Policy - How Wizqo Uses Cookies | Transparent Data Practice', description: 'Understand how Wizqo uses cookies to enhance your learning experience. Comprehensive cookie policy covering types, purposes, and your control options.' });
 
   // Blog posts (from inline list)
