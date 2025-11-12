@@ -119,31 +119,40 @@ function collectBlogPosts() {
     
     for (const contentDir of contentDirs) {
       if (fs.existsSync(contentDir)) {
-        const files = fs.readdirSync(contentDir, { recursive: true });
-        for (const file of files) {
-          if (file.endsWith('.md')) {
-            const filePath = path.join(contentDir, file);
-            const content = read(filePath);
-            const fmMatch = content.match(/^---[\s\S]*?---/);
-            if (fmMatch) {
-              const fmBlock = fmMatch[0].replace(/^---|---$/g, '').trim();
-              const meta = {};
-              for (const line of fmBlock.split('\n')) {
-                const idx = line.indexOf(':');
-                if (idx > -1) {
-                  const key = line.slice(0, idx).trim();
-                  const value = line.slice(idx + 1).trim().replace(/^"|"$/g, '');
-                  meta[key] = value;
+        try {
+          const files = fs.readdirSync(contentDir, { recursive: true });
+          for (const file of files) {
+            if (typeof file === 'string' && file.endsWith('.md')) {
+              const filePath = path.isAbsolute(file) ? file : path.join(contentDir, file);
+              try {
+                const content = read(filePath);
+                const fmMatch = content.match(/^---[\s\S]*?---/);
+                if (fmMatch) {
+                  const fmBlock = fmMatch[0].replace(/^---|---$/g, '').trim();
+                  const meta = {};
+                  for (const line of fmBlock.split('\n')) {
+                    const idx = line.indexOf(':');
+                    if (idx > -1) {
+                      const key = line.slice(0, idx).trim();
+                      let value = line.slice(idx + 1).trim();
+                      value = value.replace(/^["']|["']$/g, '');
+                      meta[key] = value;
+                    }
+                  }
+                  const fileSlug = file.replace(/\.md$/, '').replace(/.*\//, '');
+                  const id = meta.slug || fileSlug;
+                  const title = meta.title || id;
+                  const excerpt = (meta.excerpt || '').replace(/\s+/g, ' ').trim().slice(0, 300);
+                  const imageUrl = meta.cover || meta.imageUrl || `${SITE}/og-image.jpg`;
+                  posts.push({ id, title, excerpt, imageUrl });
                 }
+              } catch (fileErr) {
+                console.warn(`Warning: Could not read markdown file ${filePath}:`, fileErr.message);
               }
-              const fileSlug = file.replace(/\.md$/, '');
-              const id = meta.slug || fileSlug;
-              const title = meta.title || id;
-              const excerpt = meta.excerpt || '';
-              const imageUrl = meta.cover || `${SITE}/og-image.jpg`;
-              posts.push({ id, title, excerpt, imageUrl });
             }
           }
+        } catch (dirErr) {
+          console.warn(`Warning: Could not read directory ${contentDir}:`, dirErr.message);
         }
       }
     }
