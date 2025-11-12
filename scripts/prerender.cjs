@@ -134,6 +134,13 @@ function main() {
     description: "Transform your child's learning journey with free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for teachers and parents - watch your students build confidence and master math skills. No sign-up required!",
     ogImage: `${SITE}/og-image.jpg`
   });
+  // Generate route (AI Learning Plan Generator)
+  routes.push({ 
+    path: '/generate', 
+    title: 'AI Learning Plan Generator | Create Personalized 7-Day Plans', 
+    description: 'Create personalized 7-day learning plans with AI. Generate custom learning roadmaps with lessons, videos, and daily practice prompts tailored to your goals.',
+    ogImage: `${SITE}/og-image.jpg`
+  });
   // Kids hub and games
   routes.push({ path: '/kids', title: 'Kids Hub – Fun Learning Games & Printable Activities for Kids', description: 'Discover our Kids Hub: free fun learning games, printable puzzles, and creative 7-day skill plans that make learning fun for children ages 6–12.' });
   const gameDesc = 'Play free fun learning games for kids online – Memory Match, Word Search, Puzzle, Typing Safari, and Pattern Builder. Kid‑safe, fast, and mobile‑friendly.';
