@@ -397,39 +397,62 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Browse Worksheets by Grade & Subject
+              Free Math Worksheets for Every Grade: Multiplication, Addition, Subtraction & More
             </h2>
             <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              Find the perfect worksheets for your students. We offer free printable worksheets for kindergarten through 5th grade, covering math, reading, writing, science, and more. All worksheets include answer keys and are ready to print.
+              Help your child excel in math with our free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for building confidence and mastering essential math skills - no sign-up required!
             </p>
           </div>
           
           {/* Grade Levels */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100">
               <div className="text-4xl mb-4" aria-hidden="true">👶</div>
-              <h3 className="font-bold text-slate-900 mb-2">Kindergarten</h3>
-              <p className="text-slate-600 text-sm">Math, Reading, Writing</p>
+              <h3 className="font-bold text-slate-900 mb-2">Kindergarten Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free printable kindergarten math worksheets with answer keys</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
               <div className="text-4xl mb-4" aria-hidden="true">1️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">1st Grade</h3>
-              <p className="text-slate-600 text-sm">Addition, Subtraction, Reading</p>
+              <h3 className="font-bold text-slate-900 mb-2">1st Grade Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free 1st grade math worksheets PDF with answer keys</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
               <div className="text-4xl mb-4" aria-hidden="true">2️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">2nd Grade</h3>
-              <p className="text-slate-600 text-sm">Multiplication, Division, Word Problems</p>
+              <h3 className="font-bold text-slate-900 mb-2">2nd Grade Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free multiplication worksheets for 2nd grade with answer keys</p>
             </div>
             <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100">
               <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
-              <h3 className="font-bold text-slate-900 mb-2">3rd Grade</h3>
-              <p className="text-slate-600 text-sm">Fractions, Multiplication, Reading</p>
+              <h3 className="font-bold text-slate-900 mb-2">3rd Grade Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free 3rd grade math worksheets PDF with answer keys</p>
             </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-red-50 border border-pink-100">
-              <div className="text-4xl mb-4" aria-hidden="true">🎨</div>
-              <h3 className="font-bold text-slate-900 mb-2">All Grades</h3>
-              <p className="text-slate-600 text-sm">Create Custom Worksheets</p>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100">
+              <div className="text-4xl mb-4" aria-hidden="true">4️⃣</div>
+              <h3 className="font-bold text-slate-900 mb-2">4th Grade Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free 4th grade math worksheets PDF with answer keys</p>
+            </div>
+            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100">
+              <div className="text-4xl mb-4" aria-hidden="true">5️⃣</div>
+              <h3 className="font-bold text-slate-900 mb-2">5th Grade Math Worksheets</h3>
+              <p className="text-slate-600 text-sm">Free 5th grade math worksheets PDF with answer keys</p>
+            </div>
+          </div>
+          
+          {/* Multiplication Worksheets Highlight Section */}
+          <div className="bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 rounded-3xl p-8 mb-12 border-2 border-purple-200">
+            <div className="text-center">
+              <h3 className="text-2xl lg:text-3xl font-black text-slate-900 mb-4">
+                Free Multiplication Worksheets - Most Popular! 🔥
+              </h3>
+              <p className="text-lg text-slate-700 mb-6 max-w-3xl mx-auto">
+                Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs with answer keys - perfect for building confidence and math fluency.
+              </p>
+              <a 
+                href="/interactive-worksheets-generator" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+              >
+                Get Free Multiplication Worksheets →
+              </a>
             </div>
           </div>
 

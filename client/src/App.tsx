@@ -257,9 +257,9 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Free Printable Worksheets for Teachers & Kids | Wizqo"
-                    description="Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!"
-                    keywords="free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets"
+                    title="Free Multiplication Worksheets & Math Worksheets for All Grades | Wizqo"
+                    description="Transform your child's learning journey with free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for teachers and parents - watch your students build confidence and master math skills. No sign-up required!"
+                    keywords="multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, 3rd grade math worksheets, kindergarten math worksheets, 4th grade math worksheets, 5th grade math worksheets, free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, free math worksheets PDF, printable math worksheets with answer keys, grade 1 math worksheets, grade 2 math worksheets, grade 3 math worksheets, grade 4 math worksheets, grade 5 math worksheets, kindergarten printable worksheets free, math practice worksheets, addition worksheets, division worksheets"
                     canonicalUrl="https://wizqo.com/"
                   />
                   <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
