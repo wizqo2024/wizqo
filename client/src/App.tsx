@@ -330,9 +330,8 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Worksheet Generator Online | Create Math, Reading & Writing Worksheets"
-                      description="Create your own math worksheet online, free worksheet maker for teachers. Generate free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, reading comprehension worksheets PDF, handwriting practice worksheets, and more. All grades K-5 with answer keys included."
-                      keywords="create your own math worksheet online, free worksheet maker for teachers, free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, reading comprehension worksheets PDF, printable cursive handwriting worksheets, free writing practice worksheets for kindergarten, 1st grade math worksheets PDF, kindergarten printable worksheets free, 3rd grade reading worksheets with answers, worksheet generator, create worksheets online"
+                      title="Interactive Worksheets Generator | Free Printable PDF Activities"
+                      description="Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade."
                       canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
                     />
                     <InteractiveWorksheetsPage />
