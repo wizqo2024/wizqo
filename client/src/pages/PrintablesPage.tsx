@@ -132,6 +132,56 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '⏰ Tell Time to 5 Minutes'
     case 'color-by-number':
       return '🖍️ Color-by-Number Pages'
+    // New 1st Grade worksheets
+    case 'number-bonds-10':
+      return '🔢 Number Bonds to 10'
+    case 'count-write-30':
+      return '📊 Count & Write 1–30'
+    case 'missing-numbers-50':
+      return '🔍 Missing Numbers 1–50'
+    case 'picture-addition-10':
+      return '➕ Picture Addition to 10'
+    case 'subtraction-stories':
+      return '➖ Subtraction Stories'
+    case 'balance-equations-10':
+      return '⚖️ Balance Equations (to 10)'
+    case 'skip-count-2s':
+      return '➡️ Skip Counting by 2s'
+    case 'number-line-add':
+      return '🔢 Number Line Addition'
+    case 'doubles-facts':
+      return '🎯 Doubles Facts Practice'
+    case 'pattern-complete':
+      return '🧩 Pattern Completion'
+    case 'missing-shape':
+      return '🔍 Find the Missing Shape'
+    case 'size-comparison':
+      return '📏 Size Comparison'
+    // New 2nd Grade worksheets
+    case 'expanded-form-200':
+      return '🔢 Expanded Form to 200'
+    case 'number-patterns-200':
+      return '📊 Number Patterns to 200'
+    case 'rounding-nearest-10':
+      return '🔍 Rounding to Nearest 10'
+    case 'add-three-numbers':
+      return '➕ Adding 3 Numbers'
+    case 'missing-addends':
+      return '➖ Missing Addends'
+    case 'fact-families-20':
+      return '⚖️ Fact Families (to 20)'
+    case 'mental-math-20':
+      return '🔢 Mental Math (Add/Sub to 20)'
+    case 'number-line-200':
+      return '📈 Number Line to 200'
+    case 'doubles-near-doubles':
+      return '🎯 Doubles & Near Doubles'
+    case 'money-coins-bills':
+      return '💰 Money: Coins & Bills'
+    case 'measurement-length':
+      return '📏 Measurement: Length'
+    case 'bar-graphs-data':
+      return '📊 Bar Graphs & Data'
     case 'bookmark-templates':
       return '📚 DIY Bookmark Templates'
     case 'design-monster':
@@ -4366,7 +4416,604 @@ export function PrintablesPage() {
           </section>
         )}
 
+        {/* New 1st Grade Worksheets */}
+        {activeDocs.includes('number-bonds-10') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Number Bonds to 10</h2>
+            <p className="text-slate-600 text-sm mb-3">Complete each number bond. Write the missing part that makes 10.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[7, 3, 5, 8, 4, 6, 2, 9].map((n) => (
+                <svg key={n} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <circle cx="200" cy="60" r="35" fill="none" stroke="#111827" strokeWidth="3" />
+                  <text x="200" y="70" fontSize="32" fill="#111827" textAnchor="middle">10</text>
+                  <circle cx="120" cy="130" r="25" fill="none" stroke="#111827" strokeWidth="2.5" />
+                  <text x="120" y="140" fontSize="24" fill="#111827" textAnchor="middle">{n}</text>
+                  <circle cx="280" cy="130" r="25" fill="none" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="4 4" />
+                  <text x="280" y="140" fontSize="24" fill="#94a3b8" textAnchor="middle">__</text>
+                  <line x1="175" y1="85" x2="135" y2="105" stroke="#111827" strokeWidth="2" />
+                  <line x1="225" y1="85" x2="265" y2="105" stroke="#111827" strokeWidth="2" />
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
 
+        {activeDocs.includes('count-write-30') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📊 Count & Write 1–30</h2>
+            <p className="text-slate-600 text-sm mb-3">Count the objects and write the number in the box.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[5, 8, 12, 15, 18, 20, 23, 25].map((count) => (
+                <svg key={count} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="#111827">
+                    {Array.from({ length: count }).map((_, i) => {
+                      const cols = Math.ceil(Math.sqrt(count))
+                      const row = Math.floor(i / cols)
+                      const col = i % cols
+                      return <circle key={i} cx={80 + col * 25} cy={60 + row * 25} r="8" />
+                    })}
+                  </g>
+                  <rect x="280" y="40" width="80" height="50" fill="none" stroke="#111827" strokeWidth="2.5" />
+                  <text x="320" y="75" fontSize="28" fill="#94a3b8" textAnchor="middle">__</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('missing-numbers-50') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔍 Missing Numbers 1–50</h2>
+            <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers on each number line.</p>
+            <div className="space-y-4">
+              {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => (
+                <svg key={idx} viewBox="0 0 600 100" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#111827" strokeWidth="3">
+                    <line x1="50" y1="50" x2="550" y2="50" />
+                    {Array.from({ length: end - start + 1 }).map((_, i) => {
+                      const num = start + i
+                      const x = 50 + (i * 500) / (end - start)
+                      return (
+                        <g key={i}>
+                          <line x1={x} y1="50" x2={x} y2="40" />
+                          {num % 5 === 0 || num === start || num === end ? (
+                            <text x={x} y="30" fontSize="18" fill="#111827" textAnchor="middle">{num}</text>
+                          ) : (
+                            <text x={x} y="30" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
+                          )}
+                        </g>
+                      )
+                    })}
+                  </g>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('picture-addition-10') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➕ Picture Addition to 10</h2>
+            <p className="text-slate-600 text-sm mb-3">Count the pictures in each group and add them together.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
+                <svg key={idx} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="#111827">
+                    {Array.from({ length: a }).map((_, i) => (
+                      <circle key={i} cx={60 + i * 30} cy="60" r="10" />
+                    ))}
+                  </g>
+                  <text x="200" y="70" fontSize="32" fill="#111827" textAnchor="middle">+</text>
+                  <g fill="#111827">
+                    {Array.from({ length: b }).map((_, i) => (
+                      <circle key={i} cx={240 + i * 30} cy="60" r="10" />
+                    ))}
+                  </g>
+                  <line x1="50" y1="120" x2="350" y2="120" stroke="#111827" strokeWidth="2" />
+                  <rect x="160" y="130" width="80" height="40" fill="none" stroke="#111827" strokeWidth="2.5" />
+                  <text x="200" y="160" fontSize="28" fill="#94a3b8" textAnchor="middle">__</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('subtraction-stories') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➖ Subtraction Stories</h2>
+            <p className="text-slate-600 text-sm mb-3">Read the story and solve the subtraction problem.</p>
+            <div className="space-y-4">
+              {[
+                { total: 8, take: 3, story: '8 apples, 3 eaten' },
+                { total: 7, take: 2, story: '7 birds, 2 flew away' },
+                { total: 9, take: 4, story: '9 flowers, 4 picked' },
+                { total: 10, take: 5, story: '10 cookies, 5 shared' }
+              ].map(({ total, take, story }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2">{story}</p>
+                  <svg viewBox="0 0 500 120" className="w-full h-auto">
+                    <g fill="#111827">
+                      {Array.from({ length: total }).map((_, i) => (
+                        <circle key={i} cx={50 + i * 40} cy="60" r="12" fill={i < take ? '#ef4444' : '#111827'} opacity={i < take ? 0.3 : 1} />
+                      ))}
+                    </g>
+                    <text x="250" y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
+                  </svg>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('balance-equations-10') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">⚖️ Balance Equations (to 10)</h2>
+            <p className="text-slate-600 text-sm mb-3">Find the missing number to make both sides equal.</p>
+            <div className="space-y-4">
+              {[
+                { left: '3 + 2', right: '__ + 1' },
+                { left: '5 + __', right: '4 + 3' },
+                { left: '6 - 2', right: '__ - 1' },
+                { left: '8 - __', right: '10 - 3' }
+              ].map((eq, idx) => (
+                <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#111827" strokeWidth="3">
+                    <path d="M100 80 L400 80" />
+                    <path d="M250 40 L250 80" />
+                    <circle cx="150" cy="60" r="20" />
+                    <circle cx="350" cy="60" r="20" />
+                  </g>
+                  <text x="150" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.left}</text>
+                  <text x="350" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.right}</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('skip-count-2s') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➡️ Skip Counting by 2s</h2>
+            <p className="text-slate-600 text-sm mb-3">Count by 2s. Fill in the missing numbers.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <svg key={idx} viewBox="0 0 500 100" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="#111827">
+                    {[2, 4, 6, 8, 10, 12, 14, 16, 18, 20].map((num, i) => {
+                      const x = 40 + i * 42
+                      return (
+                        <g key={i}>
+                          <circle cx={x} cy="50" r="15" fill="none" stroke="#111827" strokeWidth="2" />
+                          {i % 2 === idx % 2 ? (
+                            <text x={x} y="58" fontSize="18" fill="#111827" textAnchor="middle">{num}</text>
+                          ) : (
+                            <text x={x} y="58" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
+                          )}
+                        </g>
+                      )
+                    })}
+                  </g>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('number-line-add') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Number Line Addition</h2>
+            <p className="text-slate-600 text-sm mb-3">Use the number line to solve each addition problem.</p>
+            <div className="space-y-4">
+              {[[3, 4], [5, 3], [2, 6], [4, 5]].map(([a, b], idx) => (
+                <svg key={idx} viewBox="0 0 600 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#111827" strokeWidth="2">
+                    <line x1="50" y1="60" x2="550" y2="60" />
+                    {Array.from({ length: 16 }).map((_, i) => (
+                      <line key={i} x1={50 + i * 33.3} y1="60" x2={50 + i * 33.3} y2="50" />
+                    ))}
+                  </g>
+                  <text x="50" y="80" fontSize="20" fill="#111827">{a} + {b} = __</text>
+                  <circle cx={50 + a * 33.3} cy="60" r="8" fill="#3b82f6" />
+                  <path d={`M${50 + a * 33.3} 60 L${50 + (a + b) * 33.3} 60`} stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrowhead)" />
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                      <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
+                    </marker>
+                  </defs>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('doubles-facts') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎯 Doubles Facts Practice</h2>
+            <p className="text-slate-600 text-sm mb-3">Practice doubles: 1+1, 2+2, 3+3, and so on.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <svg key={n} viewBox="0 0 400 140" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="#111827">
+                    {Array.from({ length: n * 2 }).map((_, i) => {
+                      const cols = Math.ceil(Math.sqrt(n * 2))
+                      const row = Math.floor(i / cols)
+                      const col = i % cols
+                      return <circle key={i} cx={60 + col * 25} cy={40 + row * 25} r="8" />
+                    })}
+                  </g>
+                  <text x="200" y="100" fontSize="28" fill="#111827" textAnchor="middle">{n} + {n} = __</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('pattern-complete') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🧩 Pattern Completion</h2>
+            <p className="text-slate-600 text-sm mb-3">Complete each pattern. Draw or color the missing shapes.</p>
+            <div className="space-y-4">
+              {[
+                { pattern: ['circle', 'square', 'circle', 'square'], type: 'AB' },
+                { pattern: ['red', 'blue', 'green', 'red', 'blue'], type: 'ABC' },
+                { pattern: ['triangle', 'triangle', 'circle', 'triangle'], type: 'AAB' }
+              ].map(({ pattern, type }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2 font-semibold">{type} Pattern</p>
+                  <div className="flex items-center gap-3">
+                    {pattern.map((shape, i) => (
+                      <div key={i} className="w-16 h-16 border-2 border-slate-400 rounded flex items-center justify-center">
+                        {shape === 'circle' && <div className="w-12 h-12 rounded-full border-2 border-slate-600" />}
+                        {shape === 'square' && <div className="w-12 h-12 border-2 border-slate-600" />}
+                        {shape === 'triangle' && <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 border-transparent border-b-slate-600" />}
+                        {shape === 'red' && <div className="w-12 h-12 bg-red-400 rounded" />}
+                        {shape === 'blue' && <div className="w-12 h-12 bg-blue-400 rounded" />}
+                        {shape === 'green' && <div className="w-12 h-12 bg-green-400 rounded" />}
+                      </div>
+                    ))}
+                    <div className="w-16 h-16 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
+                      <span className="text-slate-400">__</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('missing-shape') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔍 Find the Missing Shape</h2>
+            <p className="text-slate-600 text-sm mb-3">Look at the pattern and draw the missing shape.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {Array.from({ length: 6 }).map((_, idx) => {
+                const shapes = ['circle', 'square', 'triangle', 'circle', 'square']
+                return (
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="flex items-center gap-2 mb-2">
+                      {shapes.map((shape, i) => (
+                        <div key={i} className="w-12 h-12 border-2 border-slate-600 rounded flex items-center justify-center">
+                          {shape === 'circle' && <div className="w-8 h-8 rounded-full border-2 border-slate-600" />}
+                          {shape === 'square' && <div className="w-8 h-8 border-2 border-slate-600" />}
+                          {shape === 'triangle' && <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent border-b-slate-600" />}
+                        </div>
+                      ))}
+                      <div className="w-12 h-12 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
+                        <span className="text-slate-400">?</span>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('size-comparison') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📏 Size Comparison</h2>
+            <p className="text-slate-600 text-sm mb-3">Compare the objects. Circle the bigger one or the smaller one.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: 'Circle the bigger', items: [30, 50] },
+                { label: 'Circle the smaller', items: [40, 25] },
+                { label: 'Circle the longer', items: [60, 35] },
+                { label: 'Circle the shorter', items: [45, 70] }
+              ].map(({ label, items }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2 font-semibold">{label}</p>
+                  <div className="flex items-end gap-4 justify-center">
+                    <div className="text-center">
+                      <div className={`w-${items[0]} h-${items[0]} bg-blue-400 rounded mb-2`} style={{ width: `${items[0]}px`, height: `${items[0]}px` }} />
+                      <span className="text-xs">A</span>
+                    </div>
+                    <div className="text-center">
+                      <div className={`w-${items[1]} h-${items[1]} bg-green-400 rounded mb-2`} style={{ width: `${items[1]}px`, height: `${items[1]}px` }} />
+                      <span className="text-xs">B</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* New 2nd Grade Worksheets */}
+        {activeDocs.includes('expanded-form-200') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Expanded Form to 200</h2>
+            <p className="text-slate-600 text-sm mb-3">Write each number in expanded form (100+20+5).</p>
+            <div className="space-y-4">
+              {[125, 143, 167, 189, 152, 176].map((num) => {
+                const hundreds = Math.floor(num / 100)
+                const tens = Math.floor((num % 100) / 10)
+                const ones = num % 10
+                return (
+                  <div key={num} className="border border-slate-300 rounded p-4 bg-white">
+                    <p className="text-slate-700 text-lg mb-2 font-semibold">{num} = __ + __ + __</p>
+                    <p className="text-slate-600 text-sm">Hint: {hundreds}00 + {tens}0 + {ones}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('number-patterns-200') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📊 Number Patterns to 200</h2>
+            <p className="text-slate-600 text-sm mb-3">Find the pattern and fill in the missing numbers.</p>
+            <div className="space-y-4">
+              {[
+                { pattern: [10, 20, 30, '__', 50, '__', 70], rule: '+10' },
+                { pattern: [5, 10, 15, '__', 25, '__', 35], rule: '+5' },
+                { pattern: [100, 110, 120, '__', 140, '__', 160], rule: '+10' }
+              ].map(({ pattern, rule }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2">Pattern: {rule}</p>
+                  <div className="flex gap-2">
+                    {pattern.map((num, i) => (
+                      <div key={i} className="w-16 h-16 border-2 border-slate-600 rounded flex items-center justify-center">
+                        <span className="text-slate-900 font-semibold">{typeof num === 'number' ? num : '__'}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('rounding-nearest-10') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔍 Rounding to Nearest 10</h2>
+            <p className="text-slate-600 text-sm mb-3">Round each number to the nearest 10.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
+                const rounded = Math.round(num / 10) * 10
+                return (
+                  <div key={num} className="border border-slate-300 rounded p-4 bg-white">
+                    <p className="text-slate-700 text-lg mb-2">{num} rounds to __</p>
+                    <p className="text-slate-600 text-sm">Hint: {num} is closer to {rounded}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('add-three-numbers') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➕ Adding 3 Numbers</h2>
+            <p className="text-slate-600 text-sm mb-3">Add three numbers together.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => (
+                <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="200" y="60" fontSize="32" fill="#111827" textAnchor="middle">{nums[0]} + {nums[1]} + {nums[2]} = __</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('missing-addends') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">➖ Missing Addends</h2>
+            <p className="text-slate-600 text-sm mb-3">Find the missing number in each addition equation.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { a: 3, sum: 8 },
+                { a: 5, sum: 12 },
+                { a: 4, sum: 10 },
+                { a: 6, sum: 15 },
+                { a: 7, sum: 14 },
+                { a: 2, sum: 9 }
+              ].map(({ a, sum }, idx) => (
+                <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <text x="200" y="60" fontSize="32" fill="#111827" textAnchor="middle">{a} + __ = {sum}</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('fact-families-20') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">⚖️ Fact Families (to 20)</h2>
+            <p className="text-slate-600 text-sm mb-3">Complete each fact family with 4 related equations.</p>
+            <div className="space-y-4">
+              {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2 font-semibold">Fact Family: {a}, {b}, {sum}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <p className="text-slate-900">{a} + {b} = __</p>
+                    <p className="text-slate-900">{b} + {a} = __</p>
+                    <p className="text-slate-900">{sum} - {a} = __</p>
+                    <p className="text-slate-900">{sum} - {b} = __</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('mental-math-20') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🔢 Mental Math (Add/Sub to 20)</h2>
+            <p className="text-slate-600 text-sm mb-3">Solve these quickly in your head!</p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
+                '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
+              ].map((prob, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-3 bg-white text-center">
+                  <p className="text-slate-900 text-lg font-semibold">{prob} = __</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('number-line-200') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📈 Number Line to 200</h2>
+            <p className="text-slate-600 text-sm mb-3">Use the number line to solve problems and locate numbers.</p>
+            <div className="space-y-4">
+              {[0, 50, 100, 150, 200].map((start) => (
+                <svg key={start} viewBox="0 0 600 100" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#111827" strokeWidth="2">
+                    <line x1="50" y1="50" x2="550" y2="50" />
+                    {Array.from({ length: 6 }).map((_, i) => {
+                      const num = start + i * 10
+                      const x = 50 + i * 100
+                      return (
+                        <g key={i}>
+                          <line x1={x} y1="50" x2={x} y2="40" />
+                          <text x={x} y="30" fontSize="16" fill="#111827" textAnchor="middle">{num}</text>
+                        </g>
+                      )
+                    })}
+                  </g>
+                  <text x="300" y="80" fontSize="18" fill="#94a3b8" textAnchor="middle">Locate: __</text>
+                </svg>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('doubles-near-doubles') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">🎯 Doubles & Near Doubles</h2>
+            <p className="text-slate-600 text-sm mb-3">Practice doubles and near doubles (doubles +1).</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { type: 'Double', a: 6 },
+                { type: 'Double', a: 7 },
+                { type: 'Near Double', a: 6 },
+                { type: 'Near Double', a: 8 }
+              ].map(({ type, a }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2 font-semibold">{type}</p>
+                  <p className="text-slate-900 text-lg">{a} + {type === 'Double' ? a : a + 1} = __</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('money-coins-bills') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">💰 Money: Coins & Bills</h2>
+            <p className="text-slate-600 text-sm mb-3">Count the coins and write the total amount.</p>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
+                { coins: [10, 5, 1], label: '1 dime, 1 nickel, 1 penny' },
+                { coins: [25, 10, 5], label: '1 quarter, 1 dime, 1 nickel' },
+                { coins: [10, 10, 5, 1, 1], label: '2 dimes, 1 nickel, 2 pennies' }
+              ].map(({ coins, label }, idx) => {
+                const total = coins.reduce((a, b) => a + b, 0)
+                return (
+                  <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                    <p className="text-slate-700 text-sm mb-2">{label}</p>
+                    <div className="flex gap-2 mb-2">
+                      {coins.map((val, i) => (
+                        <div key={i} className="w-12 h-12 rounded-full border-2 border-slate-600 flex items-center justify-center text-xs">
+                          {val}¢
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-slate-900 text-lg font-semibold">Total: __¢</p>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('measurement-length') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📏 Measurement: Length</h2>
+            <p className="text-slate-600 text-sm mb-3">Compare lengths using inches and centimeters.</p>
+            <div className="space-y-4">
+              {[
+                { a: 5, b: 8, unit: 'inches' },
+                { a: 12, b: 7, unit: 'cm' },
+                { a: 10, b: 15, unit: 'inches' }
+              ].map(({ a, b, unit }, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <p className="text-slate-700 text-sm mb-2">Which is longer?</p>
+                  <div className="flex items-end gap-4">
+                    <div>
+                      <div className="bg-blue-400 mb-2" style={{ width: `${a * 10}px`, height: '20px' }} />
+                      <span className="text-xs">A: {a} {unit}</span>
+                    </div>
+                    <div>
+                      <div className="bg-green-400 mb-2" style={{ width: `${b * 10}px`, height: '20px' }} />
+                      <span className="text-xs">B: {b} {unit}</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-900 mt-2">Answer: __</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeDocs.includes('bar-graphs-data') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">📊 Bar Graphs & Data</h2>
+            <p className="text-slate-600 text-sm mb-3">Read the bar graph and answer the questions.</p>
+            <div className="border border-slate-300 rounded p-4 bg-white">
+              <p className="text-slate-700 text-sm mb-3 font-semibold">Favorite Colors</p>
+              <svg viewBox="0 0 500 300" className="w-full h-auto">
+                <g fill="#3b82f6">
+                  <rect x="50" y="200" width="60" height="80" />
+                  <text x="80" y="295" fontSize="14" fill="#111827" textAnchor="middle">Red</text>
+                </g>
+                <g fill="#10b981">
+                  <rect x="130" y="150" width="60" height="130" />
+                  <text x="160" y="295" fontSize="14" fill="#111827" textAnchor="middle">Blue</text>
+                </g>
+                <g fill="#f59e0b">
+                  <rect x="210" y="180" width="60" height="100" />
+                  <text x="240" y="295" fontSize="14" fill="#111827" textAnchor="middle">Green</text>
+                </g>
+                <g fill="#ef4444">
+                  <rect x="290" y="120" width="60" height="160" />
+                  <text x="320" y="295" fontSize="14" fill="#111827" textAnchor="middle">Yellow</text>
+                </g>
+                <line x1="40" y1="280" x2="360" y2="280" stroke="#111827" strokeWidth="2" />
+                <line x1="40" y1="280" x2="40" y2="100" stroke="#111827" strokeWidth="2" />
+              </svg>
+              <div className="mt-3 space-y-1">
+                <p className="text-slate-700 text-sm">1. Which color is most popular? __</p>
+                <p className="text-slate-700 text-sm">2. How many chose Red? __</p>
+                <p className="text-slate-700 text-sm">3. How many more chose Yellow than Green? __</p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {doc === 'bundle' && showAnswers && bundleAnswerSections.length > 0 && (
           <section className="mb-10 break-inside-avoid border border-emerald-200 rounded-xl p-4 bg-emerald-50 text-emerald-900 print:border-0 print:bg-white print:text-black">
