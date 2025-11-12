@@ -4596,19 +4596,18 @@ export function PrintablesPage() {
                 { total: 9, take: 4, story: '9 flowers, 4 picked' },
                 { total: 10, take: 5, story: '10 cookies, 5 shared' }
               ].map(({ total, take, story }, idx) => {
-                // Calculate spacing to prevent overlap
+                // Calculate spacing to prevent overlap - circles on left, text on right
                 const circleRadius = 12
-                const minSpacing = circleRadius * 2.5 // Ensure circles don't overlap
-                const availableWidth = 400 // Leave space for text on right
-                const maxSpacing = availableWidth / (total - 1 || 1)
-                const spacing = Math.min(maxSpacing, minSpacing)
-                const startX = 30
-                const circlesWidth = (total - 1) * spacing
+                const minSpacing = circleRadius * 2.8 // Ensure circles don't overlap
+                const circlesAreaWidth = 280 // Fixed width for circles area
+                const spacing = total > 1 ? Math.min(circlesAreaWidth / (total - 1), minSpacing) : minSpacing
+                const startX = 20
+                const textX = 350 // Fixed position for equation text
                 
                 return (
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <p className="text-slate-700 text-sm mb-2">{story}</p>
-                    <svg viewBox="0 0 600 120" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+                    <svg viewBox="0 0 500 120" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
                       <g fill="#111827">
                         {Array.from({ length: total }).map((_, i) => (
                           <circle 
@@ -4621,7 +4620,7 @@ export function PrintablesPage() {
                           />
                         ))}
                       </g>
-                      <text x={Math.max(startX + circlesWidth + 40, 450)} y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
+                      <text x={textX} y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
                     </svg>
                   </div>
                 )
