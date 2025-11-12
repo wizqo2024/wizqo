@@ -90,6 +90,9 @@ export default function WorksheetsSecondGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto" />
                 <ItemCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120" />
+                <ItemCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200" />
+                <ItemCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200" />
+                <ItemCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10" />
               </div>
             </div>
 
@@ -98,6 +101,9 @@ export default function WorksheetsSecondGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100" />
                 <ItemCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100" />
+                <ItemCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers" />
+                <ItemCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends" />
+                <ItemCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20" />
               </div>
             </div>
 
@@ -106,6 +112,9 @@ export default function WorksheetsSecondGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit" />
                 <ItemCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100" />
+                <ItemCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20" />
+                <ItemCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200" />
+                <ItemCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles" />
               </div>
             </div>
 
@@ -114,6 +123,9 @@ export default function WorksheetsSecondGradePage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <ItemCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100" />
                 <ItemCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min" />
+                <ItemCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills" />
+                <ItemCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length" />
+                <ItemCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data" />
               </div>
             </div>
           </div>
