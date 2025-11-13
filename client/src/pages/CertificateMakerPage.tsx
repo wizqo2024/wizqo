@@ -23,7 +23,7 @@ export default function CertificateMakerPage() {
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
   const [showSeal, setShowSeal] = React.useState<boolean>(false);
-  const [sealPosition, setSealPosition] = React.useState<'bottom-left' | 'bottom-right' | 'bottom-center'>('bottom-right');
+  const [sealPosition, setSealPosition] = React.useState<'bottom-left' | 'bottom-right' | 'bottom-center'>('bottom-center');
 
   const colors = React.useMemo(() => {
     const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
@@ -609,77 +609,174 @@ export default function CertificateMakerPage() {
   const sealGraphic = React.useMemo(() => {
     if (!showSeal) return null;
     const sealPrefix = `seal-${reactId.replace(/:/g, '')}`;
-    const sealGradient = `${sealPrefix}-gradient`;
-    const sealInner = `${sealPrefix}-inner`;
+    const sealOuterGradient = `${sealPrefix}-outer-grad`;
+    const sealInnerGradient = `${sealPrefix}-inner-grad`;
+    const sealEmbossGradient = `${sealPrefix}-emboss`;
+    const sealShadowGradient = `${sealPrefix}-shadow`;
     const sealColor = inkFriendly ? '#64748b' : '#d97706';
     const sealLight = inkFriendly ? '#cbd5e1' : '#fef3c7';
     const sealDark = inkFriendly ? '#475569' : '#b45309';
+    const sealMid = inkFriendly ? '#94a3b8' : '#f59e0b';
     
     return (
       <g transform={`translate(${sealPositionCoords.x} ${sealPositionCoords.y})`} aria-label="Official seal">
         <defs>
-          <radialGradient id={sealGradient} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={sealLight} />
-            <stop offset="60%" stopColor={sealColor} />
-            <stop offset="100%" stopColor={sealDark} />
+          {/* Outer ring gradient - realistic embossed effect */}
+          <radialGradient id={sealOuterGradient} cx="45%" cy="45%" r="60%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#fff9db'} stopOpacity="1" />
+            <stop offset="30%" stopColor={sealLight} stopOpacity="0.9" />
+            <stop offset="60%" stopColor={sealColor} stopOpacity="0.85" />
+            <stop offset="85%" stopColor={sealMid} stopOpacity="0.9" />
+            <stop offset="100%" stopColor={sealDark} stopOpacity="1" />
           </radialGradient>
-          <radialGradient id={sealInner} cx="50%" cy="45%" r="55%">
-            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} />
-            <stop offset="100%" stopColor={sealLight} />
+          {/* Inner circle gradient */}
+          <radialGradient id={sealInnerGradient} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={inkFriendly ? '#ffffff' : '#ffffff'} stopOpacity="1" />
+            <stop offset="50%" stopColor={sealLight} stopOpacity="0.6" />
+            <stop offset="100%" stopColor={sealColor} stopOpacity="0.3" />
+          </radialGradient>
+          {/* Embossed highlight effect */}
+          <radialGradient id={sealEmbossGradient} cx="40%" cy="40%" r="45%">
+            <stop offset="0%" stopColor={inkFriendly ? '#ffffff' : '#ffffff'} stopOpacity="0.8" />
+            <stop offset="60%" stopColor={inkFriendly ? '#ffffff' : '#ffffff'} stopOpacity="0.3" />
+            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+          </radialGradient>
+          {/* Shadow for depth */}
+          <radialGradient id={sealShadowGradient} cx="55%" cy="55%" r="50%">
+            <stop offset="0%" stopColor="transparent" stopOpacity="0" />
+            <stop offset="70%" stopColor={inkFriendly ? '#1e293b' : '#78350f'} stopOpacity="0.2" />
+            <stop offset="100%" stopColor={inkFriendly ? '#0f172a' : '#451a03'} stopOpacity="0.4" />
           </radialGradient>
         </defs>
-        {/* Outer ring with decorative teeth */}
-        {Array.from({ length: 24 }).map((_, index) => (
-          <rect
-            key={`seal-tooth-${index}`}
-            x={-3}
-            y={-38}
-            width={6}
-            height={16}
-            rx={2}
-            fill={sealColor}
-            opacity={inkFriendly ? 0.4 : 0.7}
-            transform={`rotate(${(360 / 24) * index} 0 0)`}
+        
+        {/* Drop shadow for realistic effect */}
+        <circle r={42} fill={`url(#${sealShadowGradient})`} opacity="0.6" />
+        
+        {/* Outer decorative ring with embossed teeth */}
+        <g opacity={inkFriendly ? 0.5 : 0.85}>
+          {Array.from({ length: 36 }).map((_, index) => {
+            const angle = (360 / 36) * index;
+            const isEven = index % 2 === 0;
+            return (
+              <rect
+                key={`seal-tooth-${index}`}
+                x={-2.5}
+                y={-40}
+                width={5}
+                height={isEven ? 14 : 12}
+                rx={2}
+                fill={isEven ? sealLight : sealColor}
+                opacity={isEven ? 0.9 : 0.7}
+                transform={`rotate(${angle} 0 0)`}
+              />
+            );
+          })}
+        </g>
+        
+        {/* Main seal body with embossed effect */}
+        <circle r={40} fill={`url(#${sealOuterGradient})`} />
+        <circle r={40} fill="none" stroke={sealDark} strokeWidth={1.5} opacity={0.4} />
+        
+        {/* Inner raised circle */}
+        <circle r={30} fill={`url(#${sealInnerGradient})`} />
+        <circle r={30} fill="none" stroke={sealDark} strokeWidth={1} opacity={0.3} />
+        
+        {/* Embossed highlight overlay */}
+        <circle r={30} fill={`url(#${sealEmbossGradient})`} />
+        
+        {/* Decorative inner ring pattern */}
+        <circle r={26} fill="none" stroke={sealDark} strokeWidth={0.8} opacity={0.25} strokeDasharray="2 3" />
+        <circle r={22} fill="none" stroke={sealDark} strokeWidth={0.8} opacity={0.2} />
+        
+        {/* Central emblem - detailed star with inner circle */}
+        <g opacity={inkFriendly ? 0.7 : 0.9}>
+          {/* Outer star */}
+          <polygon
+            points="0,-12 3.5,-3.5 12,-3.5 5,1 7,10 0,5 -7,10 -5,1 -12,-3.5 -3.5,-3.5"
+            fill={sealDark}
+            stroke={sealLight}
+            strokeWidth={0.5}
           />
-        ))}
-        {/* Main seal circle */}
-        <circle r={32} fill={`url(#${sealGradient})`} />
-        <circle r={22} fill={`url(#${sealInner})`} />
-        <circle r={28} fill="none" stroke={sealDark} strokeWidth={2.5} strokeOpacity={0.6} />
-        {/* Inner design - star or emblem */}
-        <polygon
-          points="0,-8 2.5,-2.5 8,-2.5 3.5,1 6,7 0,3 -6,7 -3.5,1 -8,-2.5 -2.5,-2.5"
-          fill={sealDark}
-          opacity={inkFriendly ? 0.6 : 0.8}
-        />
-        {/* Text ring (simplified) */}
-        <text
-          x="0"
-          y="-20"
-          textAnchor="middle"
-          fontSize="8"
-          fill={sealDark}
-          opacity={inkFriendly ? 0.5 : 0.7}
-          fontFamily="serif"
-          fontWeight="bold"
-        >
-          OFFICIAL
-        </text>
-        <text
-          x="0"
-          y="18"
-          textAnchor="middle"
-          fontSize="8"
-          fill={sealDark}
-          opacity={inkFriendly ? 0.5 : 0.7}
-          fontFamily="serif"
-          fontWeight="bold"
-        >
-          SEAL
-        </text>
+          {/* Inner circle */}
+          <circle r={6} fill={sealLight} opacity={0.9} />
+          <circle r={6} fill="none" stroke={sealDark} strokeWidth={0.8} />
+          {/* Inner star */}
+          <polygon
+            points="0,-4 1.5,-1.5 4,-1.5 2,0.5 2.5,3.5 0,2 -2.5,3.5 -2,0.5 -4,-1.5 -1.5,-1.5"
+            fill={sealDark}
+          />
+        </g>
+        
+        {/* Curved text around perimeter - "OFFICIAL SEAL" */}
+        <g opacity={inkFriendly ? 0.6 : 0.85}>
+          {/* Top arc text */}
+          <path
+            id={`${sealPrefix}-top-text-path`}
+            d="M -28,0 A 28,28 0 0,1 28,0"
+            fill="none"
+          />
+          <text
+            fontSize="9"
+            fill={sealDark}
+            fontFamily="serif"
+            fontWeight="bold"
+            letterSpacing="1.5"
+          >
+            <textPath href={`#${sealPrefix}-top-text-path`} startOffset="50%" textAnchor="middle">
+              ✦ OFFICIAL SEAL ✦
+            </textPath>
+          </text>
+          
+          {/* Bottom arc text - date or additional text */}
+          <path
+            id={`${sealPrefix}-bottom-text-path`}
+            d="M 28,0 A 28,28 0 0,1 -28,0"
+            fill="none"
+          />
+          {date && (
+            <text
+              fontSize="7"
+              fill={sealDark}
+              fontFamily="serif"
+              fontWeight="600"
+              letterSpacing="1"
+              opacity="0.7"
+            >
+              <textPath href={`#${sealPrefix}-bottom-text-path`} startOffset="50%" textAnchor="middle">
+                {(() => {
+                  try {
+                    const d = new Date(date);
+                    if (!isNaN(d.getTime())) {
+                      return d.getFullYear();
+                    }
+                  } catch {}
+                  return '';
+                })()}
+              </textPath>
+            </text>
+          )}
+        </g>
+        
+        {/* Additional decorative dots around perimeter */}
+        {Array.from({ length: 8 }).map((_, index) => {
+          const angle = (360 / 8) * index;
+          const radius = 34;
+          const x = Math.cos((angle * Math.PI) / 180) * radius;
+          const y = Math.sin((angle * Math.PI) / 180) * radius;
+          return (
+            <circle
+              key={`seal-dot-${index}`}
+              cx={x}
+              cy={y}
+              r={1.5}
+              fill={sealDark}
+              opacity={inkFriendly ? 0.4 : 0.6}
+            />
+          );
+        })}
       </g>
     );
-  }, [showSeal, sealPositionCoords, inkFriendly, reactId]);
+  }, [showSeal, sealPositionCoords, inkFriendly, reactId, date]);
 
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
   const backgroundDefs = backgroundLayers.defs;
