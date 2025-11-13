@@ -88,44 +88,44 @@ export default function WorksheetsSecondGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto&from=2nd-grade" />
-                <ItemCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120&from=2nd-grade" />
-                <ItemCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200&from=2nd-grade" />
-                <ItemCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200&from=2nd-grade" />
-                <ItemCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10&from=2nd-grade" />
+                <WorksheetThumbnailCard title="🔟 Place Value (Tens/Ones) to 99" description="Break numbers into tens and ones; compare and build numbers." href="/print?doc=place-value-hto&from=2nd-grade" docId="place-value-hto" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 5s/10s to 120" description="Count on using number charts and dot‑paths to reach 120." href="/print?doc=skip-count-5-10-120&from=2nd-grade" docId="skip-count-5-10-120" />
+                <WorksheetThumbnailCard title="🔢 Expanded Form to 200" description="Write numbers in expanded form (100+20+5); understand place value." href="/print?doc=expanded-form-200&from=2nd-grade" docId="expanded-form-200" />
+                <WorksheetThumbnailCard title="📊 Number Patterns to 200" description="Identify and extend number patterns; build number sense." href="/print?doc=number-patterns-200&from=2nd-grade" docId="number-patterns-200" />
+                <WorksheetThumbnailCard title="🔍 Rounding to Nearest 10" description="Round 2-digit numbers to the nearest 10; estimation skills." href="/print?doc=rounding-nearest-10&from=2nd-grade" docId="rounding-nearest-10" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100&from=2nd-grade" />
-                <ItemCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100&from=2nd-grade" />
-                <ItemCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers&from=2nd-grade" />
-                <ItemCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends&from=2nd-grade" />
-                <ItemCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20&from=2nd-grade" />
+                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100&from=2nd-grade" docId="add-2digit-100" />
+                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100&from=2nd-grade" docId="sub-2digit-100" />
+                <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers&from=2nd-grade" docId="add-three-numbers" />
+                <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends&from=2nd-grade" docId="missing-addends" />
+                <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20&from=2nd-grade" docId="fact-families-20" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit&from=2nd-grade" />
-                <ItemCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100&from=2nd-grade" />
-                <ItemCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20&from=2nd-grade" />
-                <ItemCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200&from=2nd-grade" />
-                <ItemCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles&from=2nd-grade" />
+                <WorksheetThumbnailCard title="📊 Compare 2‑Digit Numbers" description="Use >, <, = to compare numbers; explain using tens and ones." href="/print?doc=compare-2digit&from=2nd-grade" docId="compare-2digit" />
+                <WorksheetThumbnailCard title="🧮 2nd‑Grade Word Problems" description="Mixed add/sub word problems within 100 (no regrouping)." href="/print?doc=word-problems-100&from=2nd-grade" docId="word-problems-100" />
+                <WorksheetThumbnailCard title="🔢 Mental Math (Add/Sub to 20)" description="Quick recall of addition and subtraction facts; build speed." href="/print?doc=mental-math-20&from=2nd-grade" docId="mental-math-20" />
+                <WorksheetThumbnailCard title="📈 Number Line to 200" description="Use number lines to solve problems and locate numbers up to 200." href="/print?doc=number-line-200&from=2nd-grade" docId="number-line-200" />
+                <WorksheetThumbnailCard title="🎯 Doubles & Near Doubles" description="Master doubles facts and near doubles (doubles +1) strategies." href="/print?doc=doubles-near-doubles&from=2nd-grade" docId="doubles-near-doubles" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100&from=2nd-grade" />
-                <ItemCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min&from=2nd-grade" />
-                <ItemCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills&from=2nd-grade" />
-                <ItemCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length&from=2nd-grade" />
-                <ItemCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data&from=2nd-grade" />
+                <WorksheetThumbnailCard title="🔢 Even/Odd Sorting (to 100)" description="Sort numbers into even and odd; explain patterns you notice." href="/print?doc=even-odd-100&from=2nd-grade" docId="even-odd-100" />
+                <WorksheetThumbnailCard title="🕒 Time to 5 Minutes" description="Read times to the nearest 5 minutes; draw hands to match." href="/print?doc=time-5min&from=2nd-grade" docId="time-5min" />
+                <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills&from=2nd-grade" docId="money-coins-bills" />
+                <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length&from=2nd-grade" docId="measurement-length" />
+                <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data&from=2nd-grade" docId="bar-graphs-data" />
               </div>
             </div>
           </div>
@@ -174,6 +174,76 @@ function ItemCard({ title, description, href }: { title: string; description: st
         <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
       </div>
     </div>
+  )
+}
+
+function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
+  
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        </div>
+      </div>
+      
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      <div 
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+        onClick={() => window.open(href, '_blank')}
+        style={{ 
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`Preview of ${title}`}
+          loading="lazy"
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+            👁️ Click to view full worksheet
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+      </div>
+      
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <a
+            href={href}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ Preview
+          </a>
+          <a
+            href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            ⬇️ Download
+          </a>
+        </div>
+      </div>
+    </article>
   )
 }
 

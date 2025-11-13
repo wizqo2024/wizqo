@@ -94,44 +94,44 @@ export default function WorksheetsFirstGradePage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10&from=1st-grade" />
-                <ItemCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20&from=1st-grade" />
-                <ItemCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10&from=1st-grade" />
-                <ItemCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30&from=1st-grade" />
-                <ItemCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50&from=1st-grade" />
+                <WorksheetThumbnailCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10&from=1st-grade" docId="ten-frames-1-10" />
+                <WorksheetThumbnailCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20&from=1st-grade" docId="number-tracing-1-20" />
+                <WorksheetThumbnailCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10&from=1st-grade" docId="number-bonds-10" />
+                <WorksheetThumbnailCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30&from=1st-grade" docId="count-write-30" />
+                <WorksheetThumbnailCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50&from=1st-grade" docId="missing-numbers-50" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10&from=1st-grade" />
-                <ItemCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze&from=1st-grade" />
-                <ItemCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10&from=1st-grade" />
-                <ItemCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories&from=1st-grade" />
-                <ItemCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10&from=1st-grade" />
+                <WorksheetThumbnailCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10&from=1st-grade" docId="addition-subtraction-0-10" />
+                <WorksheetThumbnailCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze&from=1st-grade" docId="math-maze" />
+                <WorksheetThumbnailCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10&from=1st-grade" docId="picture-addition-10" />
+                <WorksheetThumbnailCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories&from=1st-grade" docId="subtraction-stories" />
+                <WorksheetThumbnailCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10&from=1st-grade" docId="balance-equations-10" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20&from=1st-grade" />
-                <ItemCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number&from=1st-grade" />
-                <ItemCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s&from=1st-grade" />
-                <ItemCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add&from=1st-grade" />
-                <ItemCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts&from=1st-grade" />
+                <WorksheetThumbnailCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20&from=1st-grade" docId="dot-to-dot-1-20" />
+                <WorksheetThumbnailCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number&from=1st-grade" docId="color-by-number" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s&from=1st-grade" docId="skip-count-2s" />
+                <WorksheetThumbnailCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add&from=1st-grade" docId="number-line-add" />
+                <WorksheetThumbnailCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts&from=1st-grade" docId="doubles-facts" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <ItemCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference&from=1st-grade" />
-                <ItemCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort&from=1st-grade" />
-                <ItemCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete&from=1st-grade" />
-                <ItemCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape&from=1st-grade" />
-                <ItemCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison&from=1st-grade" />
+                <WorksheetThumbnailCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference&from=1st-grade" docId="spot-difference" />
+                <WorksheetThumbnailCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort&from=1st-grade" docId="shapes-colors-sort" />
+                <WorksheetThumbnailCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete&from=1st-grade" docId="pattern-complete" />
+                <WorksheetThumbnailCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape&from=1st-grade" docId="missing-shape" />
+                <WorksheetThumbnailCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison&from=1st-grade" docId="size-comparison" />
               </div>
             </div>
           </div>
@@ -179,5 +179,75 @@ function ItemCard({ title, description, href }: { title: string; description: st
         <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
       </div>
     </div>
+  )
+}
+
+function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
+  
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        </div>
+      </div>
+      
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      <div 
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+        onClick={() => window.open(href, '_blank')}
+        style={{ 
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`Preview of ${title}`}
+          loading="lazy"
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+            👁️ Click to view full worksheet
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+      </div>
+      
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <a
+            href={href}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ Preview
+          </a>
+          <a
+            href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            ⬇️ Download
+          </a>
+        </div>
+      </div>
+    </article>
   )
 }
