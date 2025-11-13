@@ -5,19 +5,24 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { InteractiveWorksheetsPage } from './InteractiveWorksheetsPage';
 
 export default function MultiplicationWorksheetsPage() {
-  // Pre-fill URL params for multiplication if not already set
+  // Pre-fill URL params for multiplication on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    let needsUpdate = false;
+    
     // Set default filters for multiplication if not present
     if (!params.get('grade')) {
       params.set('grade', 'g2'); // Default to 2nd-3rd grade
+      needsUpdate = true;
     }
     if (!params.get('categories')) {
       params.set('categories', 'math');
+      needsUpdate = true;
     }
+    
     // Update URL without page reload if params changed
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    if (window.location.search !== `?${params.toString()}`) {
+    if (needsUpdate) {
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
       window.history.replaceState({}, '', newUrl);
     }
   }, []);
