@@ -114,15 +114,34 @@ function collectBlogPosts() {
     const basePostsFile = path.join(ROOT, 'client', 'src', 'pages', 'blog', 'basePosts.ts');
     if (fs.existsSync(basePostsFile)) {
       const src = read(basePostsFile);
-      // Extract blog posts: id, title, excerpt, imageUrl
-      const re = /\{\s*id:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*"([\s\S]*?)"[\s\S]*?(?:imageUrl:\s*"([^"]+)")?/g;
-      let m;
-      while ((m = re.exec(src))) {
-        const id = m[1];
-        const title = m[2];
-        const excerpt = m[3].replace(/\s+/g, ' ').trim().slice(0, 300);
-        const imageUrl = m[4] || `${SITE}/og-image.jpg`;
-        posts.push({ id, title, excerpt, imageUrl });
+      // Extract blog posts: id, title, excerpt, imageUrl, keywords
+      // Find all post objects by looking for id: "..." patterns
+      const idPattern = /id:\s*"([^"]+)"/g;
+      let idMatch;
+      const postStarts = [];
+      while ((idMatch = idPattern.exec(src))) {
+        postStarts.push({ index: idMatch.index, id: idMatch[1] });
+      }
+      
+      // For each post, extract its fields
+      for (let i = 0; i < postStarts.length; i++) {
+        const start = postStarts[i].index;
+        const end = i < postStarts.length - 1 ? postStarts[i + 1].index : src.length;
+        const postBlock = src.substring(start, end);
+        
+        const id = postStarts[i].id;
+        const titleMatch = postBlock.match(/title:\s*"([^"]+)"/);
+        const excerptMatch = postBlock.match(/excerpt:\s*"([\s\S]*?)"(?:\s*[,}])/);
+        const imageUrlMatch = postBlock.match(/imageUrl:\s*"([^"]+)"/);
+        const keywordsMatch = postBlock.match(/keywords:\s*"([^"]+)"/);
+        
+        if (titleMatch && excerptMatch) {
+          const title = titleMatch[1];
+          const excerpt = excerptMatch[1].replace(/\s+/g, ' ').trim().slice(0, 300);
+          const imageUrl = imageUrlMatch ? imageUrlMatch[1] : `${SITE}/og-image.jpg`;
+          const keywords = keywordsMatch ? keywordsMatch[1] : undefined;
+          posts.push({ id, title, excerpt, imageUrl, keywords });
+        }
       }
     }
     
@@ -160,7 +179,8 @@ function collectBlogPosts() {
                   const title = meta.title || id;
                   const excerpt = (meta.excerpt || '').replace(/\s+/g, ' ').trim().slice(0, 300);
                   const imageUrl = meta.cover || meta.imageUrl || `${SITE}/og-image.jpg`;
-                  posts.push({ id, title, excerpt, imageUrl });
+                  const keywords = meta.keywords || undefined;
+                  posts.push({ id, title, excerpt, imageUrl, keywords });
                 }
               } catch (fileErr) {
                 console.warn(`Warning: Could not read markdown file ${filePath}:`, fileErr.message);
@@ -234,6 +254,7 @@ function main() {
   routes.push({ path: '/worksheets/2nd-grade-math-worksheets', title: '2nd Grade Math Worksheets – Free Printable PDF', description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.', keywords: '2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2' });
   routes.push({ path: '/worksheets/handwriting-worksheet-maker', title: 'Free Handwriting Practice Sheets | Printable Tracing Worksheets', description: 'Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting!', keywords: 'handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF' });
   routes.push({ path: '/worksheets/reading-comprehension', title: 'Free Printable Reading Comprehension Worksheets for Kids (PDF)', description: 'Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3.', keywords: 'reading comprehension worksheets, free reading comprehension worksheets PDF, reading comprehension for kids, reading passages with questions, reading worksheets grade 1, reading worksheets grade 2, reading worksheets grade 3, printable reading comprehension' });
+  routes.push({ path: '/worksheets/multiplication-worksheets', title: 'Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo', description: 'Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!', keywords: 'multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills' });
   routes.push({ path: '/worksheets-1', title: '1st Grade Math Worksheets – Free Printable PDF', description: 'Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF.' });
   routes.push({ path: '/interactive-worksheets-generator', title: 'Interactive Worksheets Generator | Free Printable PDF Activities', description: 'Generate interactive worksheets for math, reading, science, SEL, and more. Free printable PDFs with daily refresh and answer keys for every grade.' });
   // About/Contact/Legal
@@ -247,7 +268,14 @@ function main() {
   const posts = collectBlogPosts();
   console.log(`Found ${posts.length} blog posts to prerender`);
   for (const p of posts) {
-    routes.push({ path: `/blog/${p.id}`, title: p.title, description: p.excerpt, ogImage: p.imageUrl, ogType: 'article' });
+    routes.push({ 
+      path: `/blog/${p.id}`, 
+      title: p.title, 
+      description: p.excerpt, 
+      ogImage: p.imageUrl, 
+      ogType: 'article',
+      keywords: p.keywords
+    });
   }
 
   let count = 0;
