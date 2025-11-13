@@ -124,6 +124,69 @@ export default function CertificateMakerPage() {
     } catch {}
   }
 
+  function downloadPNG() {
+    try {
+      const sheet = document.getElementById('certificate-sheet');
+      if (!sheet) return;
+      const svg = sheet.querySelector('svg');
+      if (!svg) return;
+
+      // Get SVG dimensions
+      const svgElement = svg as SVGElement;
+      const viewBox = svgElement.getAttribute('viewBox');
+      const [x, y, width, height] = viewBox ? viewBox.split(' ').map(Number) : [0, 0, 1120, 800];
+      
+      // Create a canvas
+      const canvas = document.createElement('canvas');
+      const scale = 2; // Higher resolution (2x)
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Set white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Convert SVG to image
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+
+      const img = new Image();
+      img.onload = () => {
+        try {
+          // Draw the image on canvas
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(url);
+
+          // Convert canvas to blob and download
+          canvas.toBlob((blob) => {
+            if (!blob) return;
+            const downloadUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `certificate-${recipient || 'certificate'}-${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(downloadUrl);
+          }, 'image/png');
+        } catch (error) {
+          console.error('Error creating PNG:', error);
+          URL.revokeObjectURL(url);
+        }
+      };
+      img.onerror = () => {
+        console.error('Error loading SVG image');
+        URL.revokeObjectURL(url);
+      };
+      img.src = url;
+    } catch (error) {
+      console.error('Download PNG error:', error);
+    }
+  }
+
   const reactId = React.useId();
   const backgroundClipId = React.useMemo(() => `certificate-bg-${reactId.replace(/:/g, '')}`, [reactId]);
   const goldGradientId = React.useMemo(() => `${backgroundClipId}-gold-gradient`, [backgroundClipId]);
