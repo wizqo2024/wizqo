@@ -116,7 +116,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Printables under Kids */}
                 <div
                   ref={kidsMenuRef}
-                  className={`absolute left-0 top-full mt-2 ${showKidsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[680px] z-50 p-2`}
+                  className={`absolute left-0 top-full mt-2 ${showKidsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[750px] z-50 p-2`}
                   role="menu"
                   aria-label="Kids Hub menu"
                   onMouseEnter={() => { if (kidsMenuCloseTimer.current) { window.clearTimeout(kidsMenuCloseTimer.current); kidsMenuCloseTimer.current = null; }}}
@@ -124,7 +124,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                    <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_1.8fr] md:max-w-[680px]">
+                    <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.2fr] md:max-w-[750px]">
                       <div>
                         <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
                       <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -192,7 +192,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Reading Comprehension</div>
+                          <div className="text-xs font-semibold text-slate-800">Reading Comprehension Worksheets</div>
                           <div className="text-[10px] text-slate-600 truncate">G1-G3 passages</div>
                         </div>
                       </a>
