@@ -1200,6 +1200,26 @@ export default function NameTracingGeneratorPage() {
                           aria-label="Name tracing worksheets preview"
                           className="w-full h-auto"
                         >
+                          <defs>
+                            {formattedNames.map((_, nameIndex) => {
+                              const totalNames = formattedNames.length;
+                              let worksheetWidth = pageWidth - margin * 2;
+                              let worksheetHeight = pageHeight - margin * 2;
+                              
+                              if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
+                                worksheetHeight = (pageHeight - margin * 2) / 2;
+                              } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
+                                worksheetWidth = (pageWidth - margin * 2) / 2;
+                                worksheetHeight = (pageHeight - margin * 2) / 2;
+                              }
+                              
+                              return (
+                                <clipPath key={`clip-def-${nameIndex}`} id={`clip-${nameIndex}`}>
+                                  <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
+                                </clipPath>
+                              );
+                            })}
+                          </defs>
                           <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
                           <rect
                             x={margin - 24}
@@ -1257,7 +1277,7 @@ export default function NameTracingGeneratorPage() {
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
                             return (
-                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`}>
+                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#clip-${nameIndex})`}>
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
