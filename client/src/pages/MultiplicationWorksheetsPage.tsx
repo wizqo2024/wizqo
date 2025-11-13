@@ -4,6 +4,28 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { InteractiveWorksheetsPage } from './InteractiveWorksheetsPage';
 
+// Set URL params synchronously before component renders
+if (typeof window !== 'undefined') {
+  const params = new URLSearchParams(window.location.search);
+  let needsUpdate = false;
+  
+  // Set default filters for multiplication if not present
+  if (!params.get('grade')) {
+    params.set('grade', 'g2'); // Default to 2nd-3rd grade
+    needsUpdate = true;
+  }
+  if (!params.get('categories')) {
+    params.set('categories', 'math');
+    needsUpdate = true;
+  }
+  
+  // Update URL without page reload if params changed
+  if (needsUpdate) {
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+  }
+}
+
 export default function MultiplicationWorksheetsPage() {
   // Prevent URL from changing to /interactive-worksheets-generator
   useEffect(() => {
@@ -40,24 +62,6 @@ export default function MultiplicationWorksheetsPage() {
       }
       return originalPushState.apply(window.history, args);
     };
-    
-    // Set initial URL params if not present
-    const params = new URLSearchParams(window.location.search);
-    let needsUpdate = false;
-    
-    if (!params.get('grade')) {
-      params.set('grade', 'g2');
-      needsUpdate = true;
-    }
-    if (!params.get('categories')) {
-      params.set('categories', 'math');
-      needsUpdate = true;
-    }
-    
-    if (needsUpdate) {
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      originalReplaceState.apply(window.history, [{}, '', newUrl]);
-    }
     
     return () => {
       // Restore original methods on unmount
