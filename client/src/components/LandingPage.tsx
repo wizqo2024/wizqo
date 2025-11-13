@@ -226,13 +226,6 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     </div>
                     <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">2nd Grade Math Worksheets</h3>
                     <p className="text-xs text-gray-600">Multiplication, division, word problems</p>
-                    <a 
-                      href="/worksheets/multiplication-worksheets"
-                      className="mt-2 inline-block text-xs text-purple-600 hover:text-purple-700 font-medium"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      🔥 Multiplication Worksheets →
-                    </a>
                   </div>
                 </a>
 
