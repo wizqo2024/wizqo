@@ -19,6 +19,7 @@ export default function CertificateMakerPage() {
   const [showSignatureDrawer, setShowSignatureDrawer] = React.useState<boolean>(false);
   const signatureCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = React.useState<boolean>(false);
+  const [isDownloadingPNG, setIsDownloadingPNG] = React.useState<boolean>(false);
   const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals' | 'gold' | 'confetti'>('classic');
 
   // Initialize canvas when signature drawer opens
@@ -128,14 +129,19 @@ export default function CertificateMakerPage() {
     try {
       const sheet = document.getElementById('certificate-sheet');
       if (!sheet) {
+        alert('Certificate not found. Please refresh the page and try again.');
         console.error('Certificate sheet not found');
         return;
       }
       const svg = sheet.querySelector('svg');
       if (!svg) {
+        alert('SVG not found. Please refresh the page and try again.');
         console.error('SVG not found');
         return;
       }
+
+      // Show loading indicator
+      setIsDownloadingPNG(true);
 
       // Clone the SVG to avoid modifying the original
       const svgClone = svg.cloneNode(true) as SVGElement;
@@ -156,22 +162,20 @@ export default function CertificateMakerPage() {
         }
         
         if (href) {
-          const promise = new Promise<void>((resolve, reject) => {
+          const promise = new Promise<void>((resolve) => {
             const imgElement = new Image();
             imgElement.crossOrigin = 'anonymous';
             imgElement.onload = () => {
               try {
-                const canvas = document.createElement('canvas');
-                canvas.width = imgElement.width;
-                canvas.height = imgElement.height;
-                const ctx = canvas.getContext('2d');
-                if (ctx) {
-                  ctx.drawImage(imgElement, 0, 0);
-                  const dataURL = canvas.toDataURL('image/png');
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = imgElement.width || 200;
+                tempCanvas.height = imgElement.height || 50;
+                const tempCtx = tempCanvas.getContext('2d');
+                if (tempCtx) {
+                  tempCtx.drawImage(imgElement, 0, 0);
+                  const dataURL = tempCanvas.toDataURL('image/png');
                   img.setAttribute('href', dataURL);
-                  if (img.hasAttribute('xlink:href')) {
-                    img.setAttribute('xlink:href', dataURL);
-                  }
+                  img.removeAttribute('xlink:href');
                 }
                 resolve();
               } catch (error) {
@@ -199,7 +203,9 @@ export default function CertificateMakerPage() {
           canvas.height = height * scale;
           const ctx = canvas.getContext('2d');
           if (!ctx) {
+            alert('Could not create canvas. Please try a different browser.');
             console.error('Could not get canvas context');
+            setIsDownloadingPNG(false);
             return;
           }
 
@@ -207,9 +213,11 @@ export default function CertificateMakerPage() {
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-          // Convert SVG to image
+          // Convert SVG to image - ensure proper namespace
           const svgData = new XMLSerializer().serializeToString(svgClone);
-          const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+          // Fix namespace issues
+          const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
+          const svgBlob = new Blob([fixedSvgData], { type: 'image/svg+xml;charset=utf-8' });
           const url = URL.createObjectURL(svgBlob);
 
           const img = new Image();
@@ -222,7 +230,9 @@ export default function CertificateMakerPage() {
               // Convert canvas to blob and download
               canvas.toBlob((blob) => {
                 if (!blob) {
+                  alert('Failed to create PNG file. Please try again.');
                   console.error('Failed to create blob');
+                  setIsDownloadingPNG(false);
                   return;
                 }
                 const downloadUrl = URL.createObjectURL(blob);
@@ -230,32 +240,43 @@ export default function CertificateMakerPage() {
                 link.href = downloadUrl;
                 const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
                 link.download = filename;
+                link.style.display = 'none';
                 document.body.appendChild(link);
                 link.click();
                 setTimeout(() => {
                   document.body.removeChild(link);
                   URL.revokeObjectURL(downloadUrl);
+                  setIsDownloadingPNG(false);
                 }, 100);
               }, 'image/png', 1.0);
             } catch (error) {
               console.error('Error creating PNG:', error);
+              alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
               URL.revokeObjectURL(url);
+              setIsDownloadingPNG(false);
             }
           };
           img.onerror = (error) => {
             console.error('Error loading SVG image:', error);
+            alert('Failed to load SVG. Please try again.');
             URL.revokeObjectURL(url);
+            setIsDownloadingPNG(false);
           };
           img.src = url;
         } catch (error) {
           console.error('Error in PNG conversion:', error);
+          alert('Error converting to PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
+          setIsDownloadingPNG(false);
         }
       }).catch((error) => {
         console.error('Error processing images:', error);
+        alert('Error processing images: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        setIsDownloadingPNG(false);
       });
     } catch (error) {
       console.error('Download PNG error:', error);
-      alert('Failed to download PNG. Please try again or use Print/Save as PDF instead.');
+      alert('Failed to download PNG: ' + (error instanceof Error ? error.message : 'Unknown error') + '. Please try again or use Print/Save as PDF instead.');
+      setIsDownloadingPNG(false);
     }
   }
 
@@ -1626,26 +1647,38 @@ export default function CertificateMakerPage() {
                     </div>
                     <div className="mt-auto pt-2 space-y-2">
                       <Button
-                        onClick={downloadPNG}
-                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-sm font-semibold shadow-lg hover:from-emerald-600/90 hover:via-teal-600/90 hover:to-cyan-600/90"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          downloadPNG();
+                        }}
+                        disabled={isDownloadingPNG}
+                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-sm font-semibold shadow-lg hover:from-emerald-600/90 hover:via-teal-600/90 hover:to-cyan-600/90 disabled:opacity-50 disabled:cursor-not-allowed"
                         size="lg"
+                        type="button"
                       >
                         <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="h-5 w-5"
-                          >
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" y1="15" x2="12" y2="3" />
-                          </svg>
+                          {isDownloadingPNG ? (
+                            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                          ) : (
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="h-5 w-5"
+                            >
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                              <polyline points="7 10 12 15 17 10" />
+                              <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                          )}
                         </span>
-                        <span>Download PNG</span>
+                        <span>{isDownloadingPNG ? 'Generating PNG...' : 'Download PNG'}</span>
                       </Button>
                       <Button
                         onClick={printPreview}
