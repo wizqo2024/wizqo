@@ -532,7 +532,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, generateSVGForName, formatName, letterCase, toast]);
+  }, [batchMode, multipleNames, generateSVGForName, formatName, letterCase, safeFileName, svgRef, toast]);
 
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
