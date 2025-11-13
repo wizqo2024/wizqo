@@ -286,7 +286,12 @@ function updateUrl(filters: FiltersState) {
     params.set('categories', categories.join(','))
   }
   const queryString = params.toString()
-  const newUrl = queryString ? `/interactive-worksheets-generator?${queryString}` : '/interactive-worksheets-generator'
+  // Check if we're on the multiplication worksheets page - keep that path
+  const currentPath = window.location.pathname
+  const basePath = currentPath.includes('/worksheets/multiplication-worksheets') 
+    ? '/worksheets/multiplication-worksheets' 
+    : '/interactive-worksheets-generator'
+  const newUrl = queryString ? `${basePath}?${queryString}` : basePath
   window.history.replaceState({}, '', newUrl)
 }
 
