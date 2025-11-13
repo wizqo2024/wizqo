@@ -327,6 +327,26 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '📏 Measurement: Length'
     case 'bar-graphs-data':
       return '📊 Bar Graphs & Data'
+    case 'add-2digit-regrouping':
+      return '➕ 2‑Digit Addition (WITH Regrouping)'
+    case 'sub-2digit-regrouping':
+      return '➖ 2‑Digit Subtraction (WITH Regrouping)'
+    case 'fractions-halves-thirds-fourths':
+      return '🍕 Fractions: Halves, Thirds, Fourths'
+    case 'rhyming-words':
+      return '🎵 Rhyming Words'
+    case 'cvc-words':
+      return '📚 CVC Words (Consonant-Vowel-Consonant)'
+    case 'sight-words-pre-primer':
+      return '👁️ Sight Words (Dolch Pre-Primer)'
+    case 'letter-tracing-az':
+      return '✏️ Letter Tracing A–Z'
+    case 'more-less-equal-10':
+      return '⚖️ More, Less, or Equal? (1–10)'
+    case 'counting-objects-20':
+      return '🔢 Count the Objects (1–20)'
+    case 'sentence-building':
+      return '📝 Sentence Building'
     case 'bookmark-templates':
       return '📚 DIY Bookmark Templates'
     case 'design-monster':
@@ -5468,6 +5488,519 @@ export function PrintablesPage() {
               </div>
             ))}
           </section>
+        )}
+
+        {/* NEW CRITICAL WORKSHEETS - Fresh and Unique, No Duplicates */}
+        
+        {activeDocs.includes('add-2digit-regrouping') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
+          function genPairsWithRegrouping(count: number) {
+            const out: Array<[number, number]> = [];
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(15, 99);
+              const b = nextInt(6, 99);
+              if (a + b <= 100 && ((a % 10) + (b % 10)) >= 10) {
+                out.push([a, b]);
+              }
+              guard++;
+            }
+            return out;
+          }
+          const pairs = genPairsWithRegrouping(10);
+          return (
+            <WorksheetSectionWrapper
+              docId="add-2digit-regrouping"
+              title="2‑Digit Addition (WITH Regrouping)"
+              emoji="➕"
+              description="Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>+ {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('add-2digit-regrouping', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a, b], i) => (<li key={i}>{a} + {b} = {a + b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('sub-2digit-regrouping') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) {
+            return Math.floor(rng() * (max - min + 1)) + min;
+          }
+          function genPairsWithRegrouping(count: number) {
+            const out: Array<[number, number]> = [];
+            let guard = 0;
+            while (out.length < count && guard < 10000) {
+              const a = nextInt(20, 99);
+              const b = nextInt(1, a - 1);
+              if ((a % 10) < (b % 10)) {
+                out.push([a, b]);
+              }
+              guard++;
+            }
+            return out;
+          }
+          const pairs = genPairsWithRegrouping(10);
+          return (
+            <WorksheetSectionWrapper
+              docId="sub-2digit-regrouping"
+              title="2‑Digit Subtraction (WITH Regrouping)"
+              emoji="➖"
+              description="Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>− {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('sub-2digit-regrouping', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {pairs.map(([a, b], i) => (<li key={i}>{a} − {b} = {a - b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('fractions-halves-thirds-fourths') && (
+          <WorksheetSectionWrapper
+            docId="fractions-halves-thirds-fourths"
+            title="Fractions: Halves, Thirds, Fourths"
+            emoji="🍕"
+            description="Color the fraction shown. Then write the fraction name."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: '1/2', parts: 2, filled: 1 },
+                { label: '1/3', parts: 3, filled: 1 },
+                { label: '2/3', parts: 3, filled: 2 },
+                { label: '1/4', parts: 4, filled: 1 },
+                { label: '2/4', parts: 4, filled: 2 },
+                { label: '3/4', parts: 4, filled: 3 },
+              ].map((frac, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <svg viewBox="0 0 200 200" className="w-full h-auto mb-2">
+                    <rect x="20" y="20" width="160" height="160" fill="none" stroke="#111827" strokeWidth="3" />
+                    {Array.from({ length: frac.parts }).map((_, i) => {
+                      const isFilled = i < frac.filled;
+                      const width = 160 / frac.parts;
+                      const x = 20 + i * width;
+                      return (
+                        <rect
+                          key={i}
+                          x={x}
+                          y={20}
+                          width={width}
+                          height={160}
+                          fill={isFilled ? '#3b82f6' : '#e5e7eb'}
+                          stroke="#111827"
+                          strokeWidth={i === 0 || i === frac.parts ? 0 : 2}
+                        />
+                      );
+                    })}
+                  </svg>
+                  <p className="text-center text-slate-700 font-semibold">{frac.label}</p>
+                  <p className="text-center text-slate-600 text-sm mt-1">Write: "____"</p>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>1/2 = one half</li>
+                  <li>1/3 = one third</li>
+                  <li>2/3 = two thirds</li>
+                  <li>1/4 = one fourth (or one quarter)</li>
+                  <li>2/4 = two fourths (or one half)</li>
+                  <li>3/4 = three fourths (or three quarters)</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('rhyming-words') && (
+          <WorksheetSectionWrapper
+            docId="rhyming-words"
+            title="Rhyming Words"
+            emoji="🎵"
+            description="Circle the word that rhymes with the picture. Say both words out loud."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { word: 'cat', options: ['bat', 'dog', 'car'], correct: 0 },
+                { word: 'hat', options: ['mat', 'cup', 'tree'], correct: 0 },
+                { word: 'sun', options: ['run', 'bed', 'car'], correct: 0 },
+                { word: 'cake', options: ['lake', 'book', 'ball'], correct: 0 },
+                { word: 'bee', options: ['tree', 'cat', 'dog'], correct: 0 },
+                { word: 'boat', options: ['goat', 'car', 'house'], correct: 0 },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="text-center mb-2">
+                    <div className="text-4xl mb-2">
+                      {item.word === 'cat' && '🐱'}
+                      {item.word === 'hat' && '🎩'}
+                      {item.word === 'sun' && '☀️'}
+                      {item.word === 'cake' && '🎂'}
+                      {item.word === 'bee' && '🐝'}
+                      {item.word === 'boat' && '⛵'}
+                    </div>
+                    <p className="text-xl font-bold text-slate-900">{item.word}</p>
+                  </div>
+                  <div className="space-y-2">
+                    {item.options.map((opt, optIdx) => (
+                      <label key={optIdx} className="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name={`rhyme-${idx}`} value={optIdx} className="w-4 h-4" />
+                        <span className="text-slate-700">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('rhyming-words', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>cat → bat</li>
+                  <li>hat → mat</li>
+                  <li>sun → run</li>
+                  <li>cake → lake</li>
+                  <li>bee → tree</li>
+                  <li>boat → goat</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('cvc-words') && (
+          <WorksheetSectionWrapper
+            docId="cvc-words"
+            title="CVC Words (Consonant-Vowel-Consonant)"
+            emoji="📚"
+            description="Read each CVC word. Match it to the picture. Then write the word."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { word: 'cat', emoji: '🐱' },
+                { word: 'dog', emoji: '🐶' },
+                { word: 'sun', emoji: '☀️' },
+                { word: 'hat', emoji: '🎩' },
+                { word: 'pen', emoji: '✏️' },
+                { word: 'cup', emoji: '☕' },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="text-center mb-3">
+                    <div className="text-5xl mb-2">{item.emoji}</div>
+                    <div className="text-2xl font-bold text-slate-900 mb-2">{item.word}</div>
+                    <div className="flex gap-2 justify-center">
+                      {item.word.split('').map((letter, i) => (
+                        <div key={i} className="w-10 h-12 border-2 border-slate-400 rounded flex items-center justify-center">
+                          <span className="text-xl font-semibold text-slate-700">{letter}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-600 text-sm mb-1">Write the word:</p>
+                    <div className="h-8 border-b-2 border-slate-400 w-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('cvc-words', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>cat, dog, sun, hat, pen, cup</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('sight-words-pre-primer') && (
+          <WorksheetSectionWrapper
+            docId="sight-words-pre-primer"
+            title="Sight Words (Dolch Pre-Primer)"
+            emoji="👁️"
+            description="Read each sight word. Trace it, then write it three times."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {['the', 'and', 'to', 'a', 'I', 'you', 'it', 'in', 'said', 'for', 'up', 'look'].map((word, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="text-center mb-3">
+                    <p className="text-3xl font-bold text-slate-900 mb-2">{word}</p>
+                    <div className="flex gap-1 justify-center mb-2">
+                      <span className="text-slate-400 text-sm">Trace:</span>
+                      <span className="text-2xl font-light text-slate-500" style={{ fontFamily: 'monospace' }}>{word}</span>
+                    </div>
+                    <div className="space-y-1">
+                      {[1, 2, 3].map((i) => (
+                        <div key={i} className="h-8 border-b border-slate-300" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('sight-words-pre-primer', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Teaching tip</div>
+                <p className="text-sm">These are high-frequency words that children should recognize instantly. Practice reading them in context, not just in isolation.</p>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('letter-tracing-az') && (
+          <WorksheetSectionWrapper
+            docId="letter-tracing-az"
+            title="Letter Tracing A–Z"
+            emoji="✏️"
+            description="Trace each letter. Start at the dot. Say the letter name and sound."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map((letter, idx) => (
+                <svg key={idx} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                    <path strokeDasharray="6 6" d={`M40 160 H360`} />
+                  </g>
+                  <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
+                    {letter === 'A' && <path d="M200 40 L160 160 M200 40 L240 160 M180 120 L220 120" />}
+                    {letter === 'B' && <path d="M160 40 L160 160 M160 40 Q200 40, 200 80 Q200 120, 160 120 M160 120 Q200 120, 200 160" />}
+                    {letter === 'C' && <path d="M240 60 Q200 40, 160 60 Q140 100, 160 140 Q200 160, 240 140" />}
+                    {letter === 'D' && <path d="M160 40 L160 160 M160 40 Q200 40, 240 80 Q240 120, 200 160 Q160 160, 160 120" />}
+                    {letter === 'E' && <path d="M160 40 L160 160 M160 40 L240 40 M160 100 L220 100 M160 160 L240 160" />}
+                    {letter === 'F' && <path d="M160 40 L160 160 M160 40 L240 40 M160 100 L220 100" />}
+                    {letter === 'G' && <path d="M240 60 Q200 40, 160 60 Q140 100, 160 140 Q200 160, 240 140 M240 120 L200 120" />}
+                    {letter === 'H' && <path d="M160 40 L160 160 M240 40 L240 160 M160 100 L240 100" />}
+                    {letter === 'I' && <path d="M200 40 L200 160 M180 40 L220 40 M180 160 L220 160" />}
+                    {letter === 'J' && <path d="M240 40 L240 140 Q240 160, 200 160 L160 160" />}
+                    {letter === 'K' && <path d="M160 40 L160 160 M160 100 L240 40 M160 100 L240 160" />}
+                    {letter === 'L' && <path d="M160 40 L160 160 L240 160" />}
+                    {letter === 'M' && <path d="M160 160 L160 40 L200 100 L240 40 L240 160" />}
+                    {letter === 'N' && <path d="M160 160 L160 40 L240 160 L240 40" />}
+                    {letter === 'O' && <ellipse cx="200" cy="100" rx="40" ry="60" />}
+                    {letter === 'P' && <path d="M160 40 L160 160 M160 40 Q200 40, 200 80 Q200 120, 160 120" />}
+                    {letter === 'Q' && <ellipse cx="200" cy="100" rx="40" ry="60" />}
+                    {letter === 'R' && <path d="M160 40 L160 160 M160 40 Q200 40, 200 80 Q200 120, 160 120 M160 120 L240 160" />}
+                    {letter === 'S' && <path d="M240 60 Q200 40, 160 60 Q140 80, 180 100 Q220 120, 240 140 Q260 160, 200 160" />}
+                    {letter === 'T' && <path d="M200 40 L200 160 M160 40 L240 40" />}
+                    {letter === 'U' && <path d="M160 40 L160 120 Q160 160, 200 160 Q240 160, 240 120 L240 40" />}
+                    {letter === 'V' && <path d="M160 40 L200 160 L240 40" />}
+                    {letter === 'W' && <path d="M160 40 L180 160 L200 100 L220 160 L240 40" />}
+                    {letter === 'X' && <path d="M160 40 L240 160 M240 40 L160 160" />}
+                    {letter === 'Y' && <path d="M200 40 L200 100 M160 40 L200 100 L240 40 M200 100 L200 160" />}
+                    {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
+                  </g>
+                  <circle cx="200" cy="50" r="4" fill="#ef4444" />
+                  <text x="200" y="190" fontSize="24" fill="#111827" textAnchor="middle">{letter}</text>
+                </svg>
+              ))}
+            </div>
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('more-less-equal-10') && (
+          <WorksheetSectionWrapper
+            docId="more-less-equal-10"
+            title="More, Less, or Equal? (1–10)"
+            emoji="⚖️"
+            description="Compare the two groups. Circle: more, less, or equal."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { left: 3, right: 5 },
+                { left: 7, right: 4 },
+                { left: 6, right: 6 },
+                { left: 8, right: 3 },
+                { left: 2, right: 9 },
+                { left: 5, right: 5 },
+              ].map((pair, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="flex items-center justify-around mb-3">
+                    <div className="text-center">
+                      <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
+                        {Array.from({ length: pair.left }).map((_, i) => (
+                          <div key={i} className="w-6 h-6 rounded-full bg-blue-500" />
+                        ))}
+                      </div>
+                      <p className="text-xl font-bold text-slate-900">{pair.left}</p>
+                    </div>
+                    <div className="text-2xl text-slate-400">vs</div>
+                    <div className="text-center">
+                      <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
+                        {Array.from({ length: pair.right }).map((_, i) => (
+                          <div key={i} className="w-6 h-6 rounded-full bg-green-500" />
+                        ))}
+                      </div>
+                      <p className="text-xl font-bold text-slate-900">{pair.right}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 justify-center">
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name={`compare-${idx}`} value="more" className="w-4 h-4" />
+                      <span className="text-slate-700">More</span>
+                    </label>
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name={`compare-${idx}`} value="less" className="w-4 h-4" />
+                      <span className="text-slate-700">Less</span>
+                    </label>
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name={`compare-${idx}`} value="equal" className="w-4 h-4" />
+                      <span className="text-slate-700">Equal</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('more-less-equal-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>3 vs 5: Less (3 &lt; 5)</li>
+                  <li>7 vs 4: More (7 &gt; 4)</li>
+                  <li>6 vs 6: Equal (6 = 6)</li>
+                  <li>8 vs 3: More (8 &gt; 3)</li>
+                  <li>2 vs 9: Less (2 &lt; 9)</li>
+                  <li>5 vs 5: Equal (5 = 5)</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('counting-objects-20') && (
+          <WorksheetSectionWrapper
+            docId="counting-objects-20"
+            title="Count the Objects (1–20)"
+            emoji="🔢"
+            description="Count each group of objects. Write the number in the box."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-4">
+              {[4, 7, 12, 9, 15, 18, 6, 11, 14, 20].map((count, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="flex flex-wrap gap-2 justify-center mb-3" style={{ minHeight: '80px' }}>
+                    {Array.from({ length: count }).map((_, i) => {
+                      const shapes = ['⭐', '🔴', '🟢', '🔵', '🟡', '🟣', '🟠', '⚫'];
+                      return (
+                        <span key={i} className="text-2xl">
+                          {shapes[i % shapes.length]}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-600 text-sm mb-1">How many?</p>
+                    <div className="inline-block border-2 border-slate-400 rounded px-4 py-2">
+                      <span className="text-2xl font-bold text-slate-900">__</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('counting-objects-20', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[4, 7, 12, 9, 15, 18, 6, 11, 14, 20].map((count, i) => (
+                    <li key={i}>Group {i + 1}: {count} objects</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('sentence-building') && (
+          <WorksheetSectionWrapper
+            docId="sentence-building"
+            title="Sentence Building"
+            emoji="📝"
+            description="Put the words in order to make a sentence. Write the sentence on the line."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              {[
+                { words: ['The', 'cat', 'is', 'sleeping', '.'], sentence: 'The cat is sleeping.' },
+                { words: ['I', 'like', 'to', 'read', '.'], sentence: 'I like to read.' },
+                { words: ['We', 'play', 'at', 'the', 'park', '.'], sentence: 'We play at the park.' },
+                { words: ['She', 'has', 'a', 'red', 'ball', '.'], sentence: 'She has a red ball.' },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="mb-3">
+                    <p className="text-slate-600 text-sm mb-2">Words (put in order):</p>
+                    <div className="flex flex-wrap gap-2">
+                      {item.words.map((word, wIdx) => (
+                        <span key={wIdx} className="px-3 py-1 border-2 border-slate-400 rounded text-slate-700 font-semibold">
+                          {word}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-slate-600 text-sm mb-1">Write the sentence:</p>
+                    <div className="h-10 border-b-2 border-slate-400 w-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('sentence-building', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  {[
+                    'The cat is sleeping.',
+                    'I like to read.',
+                    'We play at the park.',
+                    'She has a red ball.',
+                  ].map((sent, i) => (
+                    <li key={i}>{sent}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {doc === 'bundle' && showAnswers && bundleAnswerSections.length > 0 && (
