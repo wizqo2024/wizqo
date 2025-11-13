@@ -127,63 +127,135 @@ export default function CertificateMakerPage() {
   function downloadPNG() {
     try {
       const sheet = document.getElementById('certificate-sheet');
-      if (!sheet) return;
+      if (!sheet) {
+        console.error('Certificate sheet not found');
+        return;
+      }
       const svg = sheet.querySelector('svg');
-      if (!svg) return;
+      if (!svg) {
+        console.error('SVG not found');
+        return;
+      }
 
+      // Clone the SVG to avoid modifying the original
+      const svgClone = svg.cloneNode(true) as SVGElement;
+      
       // Get SVG dimensions
-      const svgElement = svg as SVGElement;
-      const viewBox = svgElement.getAttribute('viewBox');
+      const viewBox = svgClone.getAttribute('viewBox');
       const [x, y, width, height] = viewBox ? viewBox.split(' ').map(Number) : [0, 0, 1120, 800];
       
-      // Create a canvas
-      const canvas = document.createElement('canvas');
-      const scale = 2; // Higher resolution (2x)
-      canvas.width = width * scale;
-      canvas.height = height * scale;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      // Set white background
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Convert SVG to image
-      const svgData = new XMLSerializer().serializeToString(svgElement);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(svgBlob);
-
-      const img = new Image();
-      img.onload = () => {
-        try {
-          // Draw the image on canvas
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          URL.revokeObjectURL(url);
-
-          // Convert canvas to blob and download
-          canvas.toBlob((blob) => {
-            if (!blob) return;
-            const downloadUrl = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = `certificate-${recipient || 'certificate'}-${Date.now()}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(downloadUrl);
-          }, 'image/png');
-        } catch (error) {
-          console.error('Error creating PNG:', error);
-          URL.revokeObjectURL(url);
+      // Ensure all images in the SVG are loaded and converted to data URLs
+      const images = svgClone.querySelectorAll('image');
+      const imagePromises: Promise<void>[] = [];
+      
+      images.forEach((img) => {
+        const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+        if (href && href.startsWith('data:')) {
+          // Already a data URL, no conversion needed
+          return;
         }
-      };
-      img.onerror = () => {
-        console.error('Error loading SVG image');
-        URL.revokeObjectURL(url);
-      };
-      img.src = url;
+        
+        if (href) {
+          const promise = new Promise<void>((resolve, reject) => {
+            const imgElement = new Image();
+            imgElement.crossOrigin = 'anonymous';
+            imgElement.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                canvas.width = imgElement.width;
+                canvas.height = imgElement.height;
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                  ctx.drawImage(imgElement, 0, 0);
+                  const dataURL = canvas.toDataURL('image/png');
+                  img.setAttribute('href', dataURL);
+                  if (img.hasAttribute('xlink:href')) {
+                    img.setAttribute('xlink:href', dataURL);
+                  }
+                }
+                resolve();
+              } catch (error) {
+                console.error('Error converting image to data URL:', error);
+                resolve(); // Continue even if one image fails
+              }
+            };
+            imgElement.onerror = () => {
+              console.error('Error loading image:', href);
+              resolve(); // Continue even if image fails to load
+            };
+            imgElement.src = href;
+          });
+          imagePromises.push(promise);
+        }
+      });
+
+      // Wait for all images to be converted, then proceed
+      Promise.all(imagePromises).then(() => {
+        try {
+          // Create a canvas
+          const canvas = document.createElement('canvas');
+          const scale = 2; // Higher resolution (2x)
+          canvas.width = width * scale;
+          canvas.height = height * scale;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            console.error('Could not get canvas context');
+            return;
+          }
+
+          // Set white background
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Convert SVG to image
+          const svgData = new XMLSerializer().serializeToString(svgClone);
+          const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(svgBlob);
+
+          const img = new Image();
+          img.onload = () => {
+            try {
+              // Draw the image on canvas
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              URL.revokeObjectURL(url);
+
+              // Convert canvas to blob and download
+              canvas.toBlob((blob) => {
+                if (!blob) {
+                  console.error('Failed to create blob');
+                  return;
+                }
+                const downloadUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(() => {
+                  document.body.removeChild(link);
+                  URL.revokeObjectURL(downloadUrl);
+                }, 100);
+              }, 'image/png', 1.0);
+            } catch (error) {
+              console.error('Error creating PNG:', error);
+              URL.revokeObjectURL(url);
+            }
+          };
+          img.onerror = (error) => {
+            console.error('Error loading SVG image:', error);
+            URL.revokeObjectURL(url);
+          };
+          img.src = url;
+        } catch (error) {
+          console.error('Error in PNG conversion:', error);
+        }
+      }).catch((error) => {
+        console.error('Error processing images:', error);
+      });
     } catch (error) {
       console.error('Download PNG error:', error);
+      alert('Failed to download PNG. Please try again or use Print/Save as PDF instead.');
     }
   }
 
