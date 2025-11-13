@@ -124,7 +124,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                    <div className="grid gap-3 min-w-[280px] md:grid-cols-[1fr_1.4fr] md:max-w-[520px]">
+                    <div className="grid gap-3 min-w-[280px] md:grid-cols-[1fr_1.8fr] md:max-w-[580px]">
                       <div>
                         <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
                       <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
