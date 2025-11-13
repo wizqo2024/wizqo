@@ -1282,6 +1282,10 @@ export default function NameTracingGeneratorPage() {
                             
                             return (
                               <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#clip-${nameIndex})`}>
+                                {/* Debug: Visual border for worksheet area (remove in production) */}
+                                {process.env.NODE_ENV === 'development' && (
+                                  <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
+                                )}
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
