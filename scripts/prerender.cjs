@@ -75,42 +75,10 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
   return out;
 }
 
-function addH2Content(html, route) {
-  // Only add H2 content for homepage
-  if (route.path !== '/') {
-    return html;
-  }
-  
-  const h2Content = `
-    <main id="seo-h2-content" style="position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden;">
-      <h2>1st Grade Math Worksheets</h2>
-      <p>Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.</p>
-      
-      <h2>2nd Grade Math Worksheets</h2>
-      <p>Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.</p>
-      
-      <h2>3rd Grade Math Worksheets</h2>
-      <p>Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.</p>
-      
-      <h2>Kindergarten Math Worksheets</h2>
-      <p>Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.</p>
-      
-      <h2>4th Grade Math Worksheets</h2>
-      <p>Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.</p>
-      
-      <h2>5th Grade Math Worksheets</h2>
-      <p>Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.</p>
-    </main>
-  `;
-  
-  // Insert H2 content before the root div
-  return html.replace(/<div id="root"><\/div>/i, h2Content + '\n    <div id="root"></div>');
-}
-
 function cloneForRoute(baseHtml, route) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
-  let html = setMeta(baseHtml, {
+  return setMeta(baseHtml, {
     title: route.title,
     description: route.description,
     canonical,
@@ -120,11 +88,6 @@ function cloneForRoute(baseHtml, route) {
     robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
     keywords: route.keywords
   });
-  
-  // Add H2 content for homepage
-  html = addH2Content(html, route);
-  
-  return html;
 }
 
 function routeOutPath(distRoot, routePath) {
