@@ -179,7 +179,6 @@ export default function WorksheetsFirstGradePage() {
             </AccordionItem>
           </Accordion>
         </section>
-        </div>
       </main>
       <Footer />
     </div>
