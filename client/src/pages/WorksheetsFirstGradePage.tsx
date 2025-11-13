@@ -134,6 +134,25 @@ export default function WorksheetsFirstGradePage() {
                 <WorksheetThumbnailCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison&from=1st-grade" docId="size-comparison" />
               </div>
             </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">📚 Early Literacy</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="🎵 Rhyming Words" description="Circle the word that rhymes with the picture. Say both words out loud." href="/print?doc=rhyming-words&from=1st-grade" docId="rhyming-words" />
+                <WorksheetThumbnailCard title="📚 CVC Words" description="Read each CVC word. Match it to the picture. Then write the word." href="/print?doc=cvc-words&from=1st-grade" docId="cvc-words" />
+                <WorksheetThumbnailCard title="👁️ Sight Words (Pre-Primer)" description="Read each sight word. Trace it, then write it three times." href="/print?doc=sight-words-pre-primer&from=1st-grade" docId="sight-words-pre-primer" />
+                <WorksheetThumbnailCard title="✏️ Letter Tracing A–Z" description="Trace each letter. Start at the dot. Say the letter name and sound." href="/print?doc=letter-tracing-az&from=1st-grade" docId="letter-tracing-az" />
+                <WorksheetThumbnailCard title="📝 Sentence Building" description="Put the words in order to make a sentence. Write the sentence on the line." href="/print?doc=sentence-building&from=1st-grade" docId="sentence-building" />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Early Math Skills</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="⚖️ More, Less, or Equal? (1–10)" description="Compare the two groups. Circle: more, less, or equal." href="/print?doc=more-less-equal-10&from=1st-grade" docId="more-less-equal-10" />
+                <WorksheetThumbnailCard title="🔢 Count the Objects (1–20)" description="Count each group of objects. Write the number in the box." href="/print?doc=counting-objects-20&from=1st-grade" docId="counting-objects-20" />
+              </div>
+            </div>
           </div>
         </section>
 
