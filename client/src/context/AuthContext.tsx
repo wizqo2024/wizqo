@@ -21,7 +21,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
-  const welcomeToastShownRef = React.useRef<string | null>(null);
+
+  // Helper function to check if welcome toast was already shown for this user in this session
+  const hasShownWelcomeToast = (userId: string): boolean => {
+    if (typeof window === 'undefined') return false;
+    const shownUserId = sessionStorage.getItem('welcomeToastShown');
+    return shownUserId === userId;
+  };
+
+  // Helper function to mark welcome toast as shown for this user
+  const markWelcomeToastShown = (userId: string): void => {
+    if (typeof window === 'undefined') return;
+    sessionStorage.setItem('welcomeToastShown', userId);
+  };
+
+  // Helper function to clear welcome toast tracking
+  const clearWelcomeToastTracking = (): void => {
+    if (typeof window === 'undefined') return;
+    sessionStorage.removeItem('welcomeToastShown');
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -51,7 +69,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const currentUserId = session?.user?.id ?? null;
       const isNewSignIn = previousUserId === null && currentUserId !== null;
-      const isSameUser = previousUserId === currentUserId && currentUserId !== null;
 
       setSession(session);
       setUser(session?.user ?? null);
@@ -62,15 +79,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Only show welcome toast for actual new sign-ins, not session restores
         // Check if this is a new sign-in (transition from no user to user)
-        // and we haven't already shown the toast for this user session
-        if (isNewSignIn && welcomeToastShownRef.current !== session.user.id) {
+        // and we haven't already shown the toast for this user in this browser session
+        if (isNewSignIn && !hasShownWelcomeToast(session.user.id)) {
           // Show success notification
           setTimeout(() => {
             toast({
               title: "Welcome back!",
               description: "You've been successfully signed in.",
             });
-            welcomeToastShownRef.current = session.user.id;
+            markWelcomeToastShown(session.user.id);
           }, 500);
         }
 
@@ -98,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
         setSession(null);
         previousUserId = null;
-        welcomeToastShownRef.current = null; // Reset welcome toast tracking
+        clearWelcomeToastTracking(); // Clear welcome toast tracking on sign out
 
         // Show sign out notification
         toast({
@@ -158,6 +175,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Force clear local state immediately
       setUser(null);
       setSession(null);
+
+      // Clear welcome toast tracking
+      clearWelcomeToastTracking();
 
       // Clear only auth-related data, preserve other app data
       const keysToRemove = [];
