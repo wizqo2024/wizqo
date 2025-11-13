@@ -1085,7 +1085,7 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-          </WorksheetSectionWrapper>
+          </section>
         )}
 
         {activeDocs.includes('geo-compass-rose') && (
