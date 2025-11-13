@@ -1223,16 +1223,17 @@ export default function NameTracingGeneratorPage() {
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                             // Calculate position based on layout
                             // For preview, use a smart layout based on number of names
-                            let worksheetX = margin;
-                            let worksheetY = margin;
+                            const totalNames = formattedNames.length;
+                            
+                            let worksheetX = 0;
+                            let worksheetY = 0;
                             let worksheetWidth = pageWidth - margin * 2;
                             let worksheetHeight = pageHeight - margin * 2;
-                            
-                            const totalNames = formattedNames.length;
                             
                             if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
                               // Two names: stack vertically
                               worksheetHeight = (pageHeight - margin * 2) / 2;
+                              worksheetX = margin;
                               worksheetY = margin + nameIndex * worksheetHeight;
                             } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
                               // Four names or more: use 2x2 grid
@@ -1240,6 +1241,10 @@ export default function NameTracingGeneratorPage() {
                               worksheetHeight = (pageHeight - margin * 2) / 2;
                               worksheetX = margin + (nameIndex % 2) * worksheetWidth;
                               worksheetY = margin + Math.floor(nameIndex / 2) * worksheetHeight;
+                            } else {
+                              // Single name: full page
+                              worksheetX = margin;
+                              worksheetY = margin;
                             }
                             
                             // Adjust row calculations for smaller worksheets
@@ -1252,7 +1257,7 @@ export default function NameTracingGeneratorPage() {
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
                             return (
-                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
+                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`}>
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
