@@ -96,7 +96,10 @@ export default function App() {
   })();
 
   // NEW: Use proper URL routing instead of hash routing
-  const [route, setRoute] = useState<string>(() => window.location.pathname + window.location.search || '/');
+  const [route, setRoute] = useState<string>(() => {
+    const path = window.location.pathname + window.location.search;
+    return path || '/';
+  });
   const [isNavigating, setIsNavigating] = useState(false);
   
   // NEW: Navigation function that updates URL properly
@@ -179,7 +182,9 @@ export default function App() {
   }, [navigateTo]);
 
   const [routeKey, routeQuery] = useMemo(() => {
-    const path = route.replace(/^\/?/, '');
+    // Ensure we use the actual current URL if route is empty or just '/'
+    const currentRoute = route || window.location.pathname + window.location.search;
+    const path = currentRoute.replace(/^\/?/, '');
     const [pathname, queryString] = path.split('?');
     const seg = pathname.split('/')[0] || '';
     const params = new URLSearchParams(queryString || '');
@@ -187,7 +192,8 @@ export default function App() {
   }, [route]);
 
   const routeSubKey = useMemo(() => {
-    const path = route.replace(/^\/?/, '');
+    const currentRoute = route || window.location.pathname + window.location.search;
+    const path = currentRoute.replace(/^\/?/, '');
     const [pathname] = path.split('?');
     const segs = pathname.split('/');
     return segs[1] || '';
