@@ -1085,10 +1085,8 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-            </div>
-          </section>
-          )
-        })()}
+          </WorksheetSectionWrapper>
+        )}
 
         {activeDocs.includes('geo-compass-rose') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
