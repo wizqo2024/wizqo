@@ -779,6 +779,9 @@ export function PrintablesPage() {
                 if (from === '2nd-grade') {
                   return '/worksheets/2nd-grade-math-worksheets'
                 }
+                if (from === 'reading-comprehension') {
+                  return '/worksheets/reading-comprehension'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
@@ -813,6 +816,9 @@ export function PrintablesPage() {
                 }
                 if (from === '2nd-grade') {
                   return 'Back to 2nd Grade Math Worksheets'
+                }
+                if (from === 'reading-comprehension') {
+                  return 'Back to Reading Comprehension Worksheets'
                 }
                 return 'Back printable page'
               } catch {
