@@ -43,7 +43,7 @@ export default function MultiplicationWorksheetsPage() {
           </>
         );
       })()}
-      <UnifiedNavigation currentPage="worksheets" />
+      <UnifiedNavigation />
       {/* Print-only Name/Date overlay for this page */}
       <style>{`
         @media print {
