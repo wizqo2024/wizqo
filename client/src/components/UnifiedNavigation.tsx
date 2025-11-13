@@ -95,7 +95,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       All Worksheets Generator
                     </a>
                     <a href="/worksheets/multiplication-worksheets" className="block px-4 py-2 text-sm text-slate-700 hover:bg-purple-50 hover:text-purple-700">
-                      🔥 Multiplication Worksheets
+                      🔥 Multiplication Worksheets (2nd-5th Grade)
                     </a>
                     <a href="/worksheets/2nd-grade-math-worksheets" className="block px-4 py-2 text-sm text-slate-700 hover:bg-purple-50 hover:text-purple-700">
                       2nd Grade Math
@@ -186,6 +186,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
                     <div>
                       <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Math &amp; Reading Printables</div>
+                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19h16M4 5h16M7 12h10" />
+                        </svg>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-800">🔥 Multiplication Worksheets</div>
+                          <div className="text-xs text-slate-600">Free PDFs for 2nd-5th grade with answer keys</div>
+                        </div>
+                      </a>
                       <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
