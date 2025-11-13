@@ -5,20 +5,13 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { InteractiveWorksheetsPage } from './InteractiveWorksheetsPage';
 
 export default function MultiplicationWorksheetsPage() {
-  // Pre-fill URL params for multiplication if not already set
+  // Redirect to generator with pre-filled filters for multiplication
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    // Set default filters for multiplication if not present
-    if (!params.get('grade')) {
-      params.set('grade', 'g2'); // Default to 2nd-3rd grade
-    }
-    if (!params.get('categories')) {
-      params.set('categories', 'math');
-    }
-    // Update URL without page reload if params changed
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    if (window.location.search !== `?${params.toString()}`) {
-      window.history.replaceState({}, '', newUrl);
+    // Redirect to generator with multiplication filters pre-filled
+    const targetUrl = '/interactive-worksheets-generator?grade=g2&categories=math';
+    if (window.location.pathname !== '/interactive-worksheets-generator' || 
+        window.location.search !== '?grade=g2&categories=math') {
+      window.location.href = targetUrl;
     }
   }, []);
 
