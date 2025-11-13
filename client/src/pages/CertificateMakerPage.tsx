@@ -7,12 +7,24 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 
 export default function CertificateMakerPage() {
+  const { toast } = useToast();
+  
+  // Initialize date with today's date
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const [recipient, setRecipient] = React.useState<string>('');
   const [awardTitle, setAwardTitle] = React.useState<string>('Certificate of Achievement');
   const [reason, setReason] = React.useState<string>('For outstanding effort and kindness');
-  const [date, setDate] = React.useState<string>('');
+  const [date, setDate] = React.useState<string>(getTodayDate());
   const [issuer, setIssuer] = React.useState<string>('');
   const [signatureImage, setSignatureImage] = React.useState<string | null>(null);
   const [signatureMode, setSignatureMode] = React.useState<'text' | 'upload' | 'draw'>('text');
@@ -129,13 +141,21 @@ export default function CertificateMakerPage() {
     try {
       const sheet = document.getElementById('certificate-sheet');
       if (!sheet) {
-        alert('Certificate not found. Please refresh the page and try again.');
+        toast({
+          title: 'Error',
+          description: 'Certificate not found. Please refresh the page and try again.',
+          variant: 'destructive',
+        });
         console.error('Certificate sheet not found');
         return;
       }
       const svg = sheet.querySelector('svg');
       if (!svg) {
-        alert('SVG not found. Please refresh the page and try again.');
+        toast({
+          title: 'Error',
+          description: 'SVG not found. Please refresh the page and try again.',
+          variant: 'destructive',
+        });
         console.error('SVG not found');
         return;
       }
@@ -243,7 +263,11 @@ export default function CertificateMakerPage() {
           canvas.height = height * scale;
           const ctx = canvas.getContext('2d');
           if (!ctx) {
-            alert('Could not create canvas. Please try a different browser.');
+            toast({
+              title: 'Error',
+              description: 'Could not create canvas. Please try a different browser.',
+              variant: 'destructive',
+            });
             console.error('Could not get canvas context');
             setIsDownloadingPNG(false);
             return;
@@ -285,6 +309,10 @@ export default function CertificateMakerPage() {
                   setTimeout(() => {
                     document.body.removeChild(link);
                     setIsDownloadingPNG(false);
+                    toast({
+                      title: 'Download Complete',
+                      description: 'Your certificate has been downloaded successfully.',
+                    });
                   }, 100);
                   downloadSuccess = true;
                 }
@@ -297,7 +325,11 @@ export default function CertificateMakerPage() {
                 try {
                   canvas.toBlob((blob) => {
                     if (!blob) {
-                      alert('Failed to create PNG file. The canvas may be tainted. Please try using Print/Save as PDF instead.');
+                      toast({
+                        title: 'Export Failed',
+                        description: 'Failed to create PNG file. The canvas may be tainted. Please try using Print/Save as PDF instead.',
+                        variant: 'destructive',
+                      });
                       console.error('Failed to create blob');
                       setIsDownloadingPNG(false);
                       return;
@@ -314,39 +346,67 @@ export default function CertificateMakerPage() {
                       document.body.removeChild(link);
                       URL.revokeObjectURL(downloadUrl);
                       setIsDownloadingPNG(false);
+                      toast({
+                        title: 'Download Complete',
+                        description: 'Your certificate has been downloaded successfully.',
+                      });
                     }, 100);
                   }, 'image/png', 1.0);
                 } catch (toBlobError) {
                   console.error('toBlob also failed:', toBlobError);
-                  alert('Failed to export PNG due to security restrictions. Please use Print/Save as PDF instead, or try removing any uploaded signature images.');
+                  toast({
+                    title: 'Export Failed',
+                    description: 'Failed to export PNG due to security restrictions. Please use Print/Save as PDF instead, or try removing any uploaded signature images.',
+                    variant: 'destructive',
+                  });
                   setIsDownloadingPNG(false);
                 }
               }
             } catch (error) {
               console.error('Error creating PNG:', error);
-              alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error') + '. Please try Print/Save as PDF instead.');
+              toast({
+                title: 'Error',
+                description: `Error creating PNG: ${error instanceof Error ? error.message : 'Unknown error'}. Please try Print/Save as PDF instead.`,
+                variant: 'destructive',
+              });
               setIsDownloadingPNG(false);
             }
           };
           img.onerror = (error) => {
             console.error('Error loading SVG image:', error);
-            alert('Failed to load SVG. Please try again.');
+            toast({
+              title: 'Error',
+              description: 'Failed to load SVG. Please try again.',
+              variant: 'destructive',
+            });
             setIsDownloadingPNG(false);
           };
           img.src = svgDataURL;
         } catch (error) {
           console.error('Error in PNG conversion:', error);
-          alert('Error converting to PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
+          toast({
+            title: 'Error',
+            description: `Error converting to PNG: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            variant: 'destructive',
+          });
           setIsDownloadingPNG(false);
         }
       }).catch((error) => {
         console.error('Error processing images:', error);
-        alert('Error processing images: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        toast({
+          title: 'Error',
+          description: `Error processing images: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          variant: 'destructive',
+        });
         setIsDownloadingPNG(false);
       });
     } catch (error) {
       console.error('Download PNG error:', error);
-      alert('Failed to download PNG: ' + (error instanceof Error ? error.message : 'Unknown error') + '. Please try again or use Print/Save as PDF instead.');
+      toast({
+        title: 'Error',
+        description: `Failed to download PNG: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or use Print/Save as PDF instead.`,
+        variant: 'destructive',
+      });
       setIsDownloadingPNG(false);
     }
   }
@@ -1337,7 +1397,7 @@ export default function CertificateMakerPage() {
 
         <section className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,420px)_1fr] items-start lg:items-stretch lg:pb-12">
           <div className="lg:sticky lg:top-24 lg:pr-2">
-            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-8rem)] lg:min-h-[680px]">
+            <div className="relative flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-8rem)] lg:min-h-[680px] max-h-[90vh] sm:max-h-none">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400" aria-hidden />
               <div className="flex flex-col gap-4 px-6 pb-6 pt-7 sm:px-8 lg:flex-1 lg:overflow-y-auto">
                 <section className="space-y-4">
@@ -1431,9 +1491,44 @@ export default function CertificateMakerPage() {
                                 onChange={(e) => {
                                   const file = e.target.files?.[0];
                                   if (file) {
+                                    // Validate file size (max 5MB)
+                                    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                                    if (file.size > maxSize) {
+                                      toast({
+                                        title: 'File Too Large',
+                                        description: 'Please select an image smaller than 5MB.',
+                                        variant: 'destructive',
+                                      });
+                                      // Reset the input
+                                      e.target.value = '';
+                                      return;
+                                    }
+                                    
+                                    // Validate file type
+                                    if (!file.type.startsWith('image/')) {
+                                      toast({
+                                        title: 'Invalid File Type',
+                                        description: 'Please select a valid image file.',
+                                        variant: 'destructive',
+                                      });
+                                      e.target.value = '';
+                                      return;
+                                    }
+                                    
                                     const reader = new FileReader();
                                     reader.onload = (event) => {
                                       setSignatureImage(event.target?.result as string);
+                                      toast({
+                                        title: 'Signature Uploaded',
+                                        description: 'Your signature image has been uploaded successfully.',
+                                      });
+                                    };
+                                    reader.onerror = () => {
+                                      toast({
+                                        title: 'Upload Failed',
+                                        description: 'Failed to read the image file. Please try again.',
+                                        variant: 'destructive',
+                                      });
                                     };
                                     reader.readAsDataURL(file);
                                   }
@@ -1519,6 +1614,92 @@ export default function CertificateMakerPage() {
                     <p className="text-sm text-slate-500">Experiment with themes, layouts, badges, and background accents.</p>
                   </div>
                   <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label className="text-slate-700">Quick Start Templates</Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAwardTitle('Student of the Month');
+                            setReason('For exceptional academic achievement and positive attitude');
+                            setTheme('gold');
+                            setTemplateStyle('academic');
+                            setBadgeIcon('gold-seal');
+                            setShowSeal(true);
+                            setSealStyle('academic');
+                            setFontStyle('serif');
+                            setBgStyle('none');
+                            toast({
+                              title: 'Template Applied',
+                              description: 'Student of the Month template has been applied.',
+                            });
+                          }}
+                          className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+                        >
+                          Student of the Month
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAwardTitle('Perfect Attendance');
+                            setReason('For attending every day this school year');
+                            setTheme('classic');
+                            setTemplateStyle('simple');
+                            setBadgeIcon('blue-ribbon');
+                            setShowSeal(false);
+                            setFontStyle('print');
+                            setBgStyle('none');
+                            toast({
+                              title: 'Template Applied',
+                              description: 'Perfect Attendance template has been applied.',
+                            });
+                          }}
+                          className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+                        >
+                          Perfect Attendance
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAwardTitle('Certificate of Excellence');
+                            setReason('For outstanding effort and dedication');
+                            setTheme('rainbow');
+                            setTemplateStyle('ribbon');
+                            setBadgeIcon('starburst');
+                            setShowSeal(false);
+                            setFontStyle('cursive');
+                            setBgStyle('sparkle');
+                            toast({
+                              title: 'Template Applied',
+                              description: 'Certificate of Excellence template has been applied.',
+                            });
+                          }}
+                          className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+                        >
+                          Excellence Award
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAwardTitle('Reading Achievement');
+                            setReason('For completing the reading challenge');
+                            setTheme('animals');
+                            setTemplateStyle('medal');
+                            setBadgeIcon('green-laurel');
+                            setShowSeal(false);
+                            setFontStyle('comic');
+                            setBgStyle('wavy');
+                            toast({
+                              title: 'Template Applied',
+                              description: 'Reading Achievement template has been applied.',
+                            });
+                          }}
+                          className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+                        >
+                          Reading Achievement
+                        </button>
+                      </div>
+                    </div>
                     <div className="space-y-2">
                       <Label htmlFor="theme" className="text-slate-700">Theme</Label>
                       <div className="relative">
@@ -1970,6 +2151,10 @@ export default function CertificateMakerPage() {
                     const dataURL = signatureCanvasRef.current.toDataURL('image/png');
                     setSignatureImage(dataURL);
                     setShowSignatureDrawer(false);
+                    toast({
+                      title: 'Signature Saved',
+                      description: 'Your drawn signature has been saved successfully.',
+                    });
                   }
                 }}
                 className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
