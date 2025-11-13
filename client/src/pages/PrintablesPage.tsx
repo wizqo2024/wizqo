@@ -591,8 +591,8 @@ export function PrintablesPage() {
 
   const effectiveSeed = seedParam || (timestampParam ? `ts:${timestampParam}` : todaySeed)
   const variant = parseInt(variantParam || '1', 10)
-  const bundleAnswerSections: Array<{ docId: string; title: string; content: React.ReactNode }> = []
-  const showAnswersForDoc = (docId: string, factory: () => React.ReactNode) => {
+  const bundleAnswerSections: Array<{ docId: string; title: string; content: ReactNode }> = []
+  const showAnswersForDoc = (docId: string, factory: () => ReactNode) => {
     if (!showAnswers) return null
     const content = factory()
     if (doc === 'bundle') {
@@ -2429,7 +2429,7 @@ export function PrintablesPage() {
               ? 'Draw a creature from a circle, triangle, and rectangle.'
               : 'Draw your favorite animal and write one fact.';
 
-          const items: React.ReactNode[] = [];
+          const items: ReactNode[] = [];
           // Helpers for extra activities
           function scrambleWordLocal(w: string) {
             const a = w.split('');
@@ -2677,7 +2677,7 @@ export function PrintablesPage() {
             );
           }
           // Build an extras pool; prioritize by focus
-          const extras: React.ReactNode[] = [];
+          const extras: ReactNode[] = [];
           const pushColoring = () => {
             const letter = (words[Math.floor(rng()*words.length)] || 'A').slice(0, 1).toUpperCase();
             const isSpace = theme === 'space';
