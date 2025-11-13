@@ -188,7 +188,7 @@ function main() {
   routes.push({ 
     path: '/', 
     title: 'Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade | Wizqo', 
-    description: "Make learning fun with free PDF math and multiplication worksheets, including kindergarten math worksheets, for Kindergarten to 5th grade – boost confidence and enjoy every lesson!",
+    description: "Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!",
     ogImage: `${SITE}/og-image.jpg`
   });
   // Generate route (AI Learning Plan Generator)
