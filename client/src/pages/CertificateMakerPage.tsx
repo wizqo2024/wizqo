@@ -19,7 +19,7 @@ export default function CertificateMakerPage() {
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
   const [templateStyle, setTemplateStyle] = React.useState<'simple' | 'ribbon' | 'medal' | 'trophy' | 'academic'>('simple');
-  const [badgeIcon, setBadgeIcon] = React.useState<'gold-seal' | 'silver-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
+  const [badgeIcon, setBadgeIcon] = React.useState<'none' | 'gold-seal' | 'silver-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
   const [showSeal, setShowSeal] = React.useState<boolean>(false);
@@ -351,6 +351,7 @@ export default function CertificateMakerPage() {
   }, [templateStyle]);
 
   const badgeGraphic = React.useMemo(() => {
+    if (badgeIcon === 'none') return null;
     const centerTransform = `translate(${badgePosition.cx} ${badgePosition.cy})`;
 
     switch (badgeIcon) {
@@ -988,8 +989,12 @@ export default function CertificateMakerPage() {
         />
       )}
       {/* Badge */}
-      <circle cx={badgePosition.cx} cy={badgePosition.cy} r={36} fill={colors.badge} />
-      {badgeGraphic}
+      {badgeIcon !== 'none' && (
+        <>
+          <circle cx={badgePosition.cx} cy={badgePosition.cy} r={36} fill={colors.badge} />
+          {badgeGraphic}
+        </>
+      )}
       {/* Title */}
       <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
@@ -1163,6 +1168,7 @@ export default function CertificateMakerPage() {
                           onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
+                          <option value="none">None (no badge)</option>
                           <option value="gold-seal">Gold seal (classic)</option>
                           <option value="silver-seal">Silver seal (modern)</option>
                           <option value="blue-ribbon">Blue ribbon</option>
