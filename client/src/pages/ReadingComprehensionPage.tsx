@@ -127,22 +127,22 @@ export default function ReadingComprehensionPage() {
             <ItemCard
               title="📖 The Lost Hat (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-lost-hat"
+              href="/print?doc=reading-g1-lost-hat&from=reading-comprehension"
             />
             <ItemCard
               title="📖 Lunch for the Ants (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-ants"
+              href="/print?doc=reading-g1-ants&from=reading-comprehension"
             />
             <ItemCard
               title="📖 The Bus Ride (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-bus-ride"
+              href="/print?doc=reading-g1-bus-ride&from=reading-comprehension"
             />
             <ItemCard
               title="📖 The Pet Fish (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-pet-fish"
+              href="/print?doc=reading-g1-pet-fish&from=reading-comprehension"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
@@ -157,22 +157,22 @@ export default function ReadingComprehensionPage() {
             <ItemCard
               title="📖 The Paper Bridge (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-paper-bridge"
+              href="/print?doc=reading-g2-paper-bridge&from=reading-comprehension"
             />
             <ItemCard
               title="📖 Rainy Day Garden (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-rainy-garden"
+              href="/print?doc=reading-g2-rainy-garden&from=reading-comprehension"
             />
             <ItemCard
               title="📖 New Library Card (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-library-card"
+              href="/print?doc=reading-g2-library-card&from=reading-comprehension"
             />
             <ItemCard
               title="📖 Lost and Found (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-lost-and-found"
+              href="/print?doc=reading-g2-lost-and-found&from=reading-comprehension"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
@@ -289,7 +289,7 @@ function BuildPackReadingInline() {
               const gSel = document.getElementById('rcp-grade') as HTMLSelectElement | null;
               const t = (tSel?.value || '5').trim();
               const g = (gSel?.value || 'g1').trim();
-              const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading`;
+              const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading&from=reading-comprehension`;
               window.location.href = url;
             } catch {}
           }}
