@@ -1238,6 +1238,7 @@ export default function NameTracingGeneratorPage() {
                             // Debug logging
                             if (process.env.NODE_ENV === 'development') {
                               console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
+                              console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
                             }
                             
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
