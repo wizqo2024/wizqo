@@ -5836,6 +5836,12 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('letter-tracing-az', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Teaching tip</div>
+                <p className="text-sm">Start at the red dot and follow the arrow direction. Practice saying the letter name and sound while tracing. Use proper pencil grip and take your time.</p>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
