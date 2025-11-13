@@ -100,7 +100,9 @@ export default function WorksheetsSecondGradePage() {
               <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 <WorksheetThumbnailCard title="➕ 2‑Digit Addition (No Regrouping)" description="Practice adding two 2‑digit numbers within 100 (no carry)." href="/print?doc=add-2digit-100&from=2nd-grade" docId="add-2digit-100" />
+                <WorksheetThumbnailCard title="➕ 2‑Digit Addition (WITH Regrouping)" description="Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more." href="/print?doc=add-2digit-regrouping&from=2nd-grade" docId="add-2digit-regrouping" />
                 <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (No Regrouping)" description="Subtract within 100 using number lines and base‑ten models." href="/print?doc=sub-2digit-100&from=2nd-grade" docId="sub-2digit-100" />
+                <WorksheetThumbnailCard title="➖ 2‑Digit Subtraction (WITH Regrouping)" description="Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller." href="/print?doc=sub-2digit-regrouping&from=2nd-grade" docId="sub-2digit-regrouping" />
                 <WorksheetThumbnailCard title="➕ Adding 3 Numbers" description="Add three single-digit or two-digit numbers; mental math practice." href="/print?doc=add-three-numbers&from=2nd-grade" docId="add-three-numbers" />
                 <WorksheetThumbnailCard title="➖ Missing Addends" description="Find the missing number in addition equations; inverse operations." href="/print?doc=missing-addends&from=2nd-grade" docId="missing-addends" />
                 <WorksheetThumbnailCard title="⚖️ Fact Families (to 20)" description="Complete fact families showing addition and subtraction relationships." href="/print?doc=fact-families-20&from=2nd-grade" docId="fact-families-20" />
@@ -126,6 +128,7 @@ export default function WorksheetsSecondGradePage() {
                 <WorksheetThumbnailCard title="💰 Money: Coins & Bills" description="Count coins (pennies, nickels, dimes, quarters) and make change." href="/print?doc=money-coins-bills&from=2nd-grade" docId="money-coins-bills" />
                 <WorksheetThumbnailCard title="📏 Measurement: Length" description="Compare lengths using inches and centimeters; measurement practice." href="/print?doc=measurement-length&from=2nd-grade" docId="measurement-length" />
                 <WorksheetThumbnailCard title="📊 Bar Graphs & Data" description="Read and create simple bar graphs; interpret data." href="/print?doc=bar-graphs-data&from=2nd-grade" docId="bar-graphs-data" />
+                <WorksheetThumbnailCard title="🍕 Fractions: Halves, Thirds, Fourths" description="Color the fraction shown. Then write the fraction name." href="/print?doc=fractions-halves-thirds-fourths&from=2nd-grade" docId="fractions-halves-thirds-fourths" />
               </div>
             </div>
           </div>
