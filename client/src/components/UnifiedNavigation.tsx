@@ -165,7 +165,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">🔥 Multiplication</div>
+                          <div className="text-xs font-semibold text-slate-800">Multiplication</div>
                           <div className="text-[10px] text-slate-600 truncate">2nd-5th grade PDFs</div>
                         </div>
                       </a>
