@@ -5,6 +5,124 @@ import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/pri
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 
 const INTERACTIVE_DOC_IDS = INTERACTIVE_CATEGORIES.flatMap((category) => category.docs.map((doc) => doc.id))
+
+// Helper function to get theme for regular worksheets based on docId
+function getWorksheetTheme(docId: string): {
+  background: string
+  border: string
+  text: string
+  cornerAccent: string
+  cornerAccent2: string
+} {
+  // Math worksheets
+  if (docId.includes('math') || docId.includes('number') || docId.includes('addition') || docId.includes('subtraction') || 
+      docId.includes('place-value') || docId.includes('counting') || docId.includes('skip-count') || docId.includes('expanded') ||
+      docId.includes('rounding') || docId.includes('fact') || docId.includes('mental-math') || docId.includes('doubles') ||
+      docId.includes('compare') || docId.includes('word-problems') || docId.includes('number-line') || docId.includes('number-patterns') ||
+      docId.includes('missing-addends') || docId.includes('add-three') || docId.includes('balance-equations') || docId.includes('picture-addition') ||
+      docId.includes('subtraction-stories') || docId.includes('number-bonds') || docId.includes('count-write') || docId.includes('missing-numbers') ||
+      docId.includes('ten-frames') || docId.includes('number-tracing') || docId.includes('dot-to-dot') || docId.includes('color-by-number')) {
+    return {
+      background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
+      border: 'border-purple-300',
+      text: 'text-purple-800',
+      cornerAccent: 'rgba(196, 181, 253, 0.3)',
+      cornerAccent2: 'rgba(251, 207, 232, 0.2)',
+    }
+  }
+  // Reading worksheets
+  if (docId.includes('reading') || docId.includes('comprehension')) {
+    return {
+      background: 'bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50',
+      border: 'border-blue-300',
+      text: 'text-blue-800',
+      cornerAccent: 'rgba(191, 219, 254, 0.3)',
+      cornerAccent2: 'rgba(186, 230, 253, 0.2)',
+    }
+  }
+  // Writing/Handwriting worksheets
+  if (docId.includes('writing') || docId.includes('handwriting') || docId.includes('tracing') || docId.includes('spelling') || docId.includes('grammar')) {
+    return {
+      background: 'bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50',
+      border: 'border-emerald-300',
+      text: 'text-emerald-800',
+      cornerAccent: 'rgba(167, 243, 208, 0.3)',
+      cornerAccent2: 'rgba(134, 239, 172, 0.2)',
+    }
+  }
+  // Science worksheets
+  if (docId.includes('science') || docId.includes('stem')) {
+    return {
+      background: 'bg-gradient-to-br from-green-50 via-lime-50 to-emerald-50',
+      border: 'border-green-300',
+      text: 'text-green-800',
+      cornerAccent: 'rgba(187, 247, 208, 0.3)',
+      cornerAccent2: 'rgba(167, 243, 208, 0.2)',
+    }
+  }
+  // Geography worksheets
+  if (docId.includes('geo') || docId.includes('geography') || docId.includes('continents') || docId.includes('map')) {
+    return {
+      background: 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50',
+      border: 'border-amber-300',
+      text: 'text-amber-800',
+      cornerAccent: 'rgba(253, 230, 138, 0.3)',
+      cornerAccent2: 'rgba(254, 243, 199, 0.2)',
+    }
+  }
+  // Logic/Focus worksheets
+  if (docId.includes('logic') || docId.includes('spot-difference') || docId.includes('pattern') || docId.includes('maze') || 
+      docId.includes('missing-shape') || docId.includes('size-comparison') || docId.includes('shapes-colors-sort')) {
+    return {
+      background: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+      border: 'border-slate-300',
+      text: 'text-slate-800',
+      cornerAccent: 'rgba(226, 232, 240, 0.3)',
+      cornerAccent2: 'rgba(241, 245, 249, 0.2)',
+    }
+  }
+  // Default theme
+  return {
+    background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
+    border: 'border-purple-300',
+    text: 'text-purple-800',
+    cornerAccent: 'rgba(196, 181, 253, 0.3)',
+    cornerAccent2: 'rgba(251, 207, 232, 0.2)',
+  }
+}
+
+// Helper component to wrap worksheet sections with nice styling
+function WorksheetSectionWrapper({ 
+  docId, 
+  title, 
+  emoji, 
+  description, 
+  children 
+}: { 
+  docId: string
+  title: string
+  emoji?: string
+  description?: string
+  children: React.ReactNode 
+}) {
+  const theme = getWorksheetTheme(docId)
+  return (
+    <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden`}>
+      {/* Decorative corner accent */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
+      <div className="relative z-10">
+        <h2 className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}>
+          {emoji && <span className="text-4xl">{emoji}</span>}
+          <span>{title}</span>
+        </h2>
+        {description && <p className={`text-sm ${theme.text} opacity-70 mb-4`}>{description}</p>}
+        {children}
+      </div>
+    </section>
+  )
+}
+
 const ANSWERABLE_BASE_DOC_IDS = [
   'science-match',
   'spelling',
@@ -967,8 +1085,10 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
+            </div>
           </section>
-        )}
+          )
+        })()}
 
         {activeDocs.includes('geo-compass-rose') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
@@ -1379,9 +1499,12 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('ten-frames-1-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–10</h2>
-            <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
+          <WorksheetSectionWrapper
+            docId="ten-frames-1-10"
+            title="Ten Frames 1–10"
+            emoji="🔟"
+            description="Color the circles to match each number. Say how many are filled and how many are empty."
+          >
             <div className="grid grid-cols-2 gap-4">
               {Array.from({ length: 10 }).map((_,n)=> (
                 <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -1394,22 +1517,19 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('place-value-hto') && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
           const isColor = true; // default colorful visuals
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${isColor ? 'bg-purple-200/40' : 'bg-slate-200/20'} animate-blob`} />
-                <div className={`absolute -bottom-12 -left-8 w-28 h-28 rounded-full ${isColor ? 'bg-amber-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-2000`} />
-                <div className={`absolute top-1/2 -left-6 w-24 h-24 rounded-full ${isColor ? 'bg-sky-200/40' : 'bg-slate-200/20'} animate-blob animation-delay-4000`} />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">Place Value – Tens and Ones (to 99)
-                <span className="ml-2 print:hidden inline-block animate-bounce">🔢</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="place-value-hto"
+              title="Place Value – Tens and Ones (to 99)"
+              emoji="🔢"
+              description="Write how many tens and ones. Then write the number in expanded form."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Visual legend */}
               <div className="print:hidden mb-3 flex items-center gap-4 text-sm">
@@ -1424,7 +1544,6 @@ export function PrintablesPage() {
                   <text x="130" y="24" fontSize="12" fill="#111827">Ones</text>
                 </svg>
               </div>
-              <p className="text-slate-600 text-sm mb-3">Write how many tens and ones. Then write the number in expanded form.</p>
               <div className="grid grid-cols-2 gap-3">
                 {nums.map((n,i)=> (
                   <div key={i} className="border border-slate-300 rounded-lg p-3 bg-white">
@@ -1450,7 +1569,7 @@ export function PrintablesPage() {
                   </ul>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -1460,17 +1579,13 @@ export function PrintablesPage() {
           const isBlank5 = (i: number) => i % 3 === 1; // blank some boxes for practice
           const isBlank10 = (i: number) => i % 3 === 2;
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-fuchsia-200/40 animate-blob" />
-                <div className="absolute -bottom-14 -left-10 w-36 h-36 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 right-8 w-24 h-24 rounded-full bg-rose-200/40 animate-blob animation-delay-4000" />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">Skip Counting by 5s and 10s (to 120)
-                <span className="ml-2 print:hidden inline-block animate-bounce">🔁</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="skip-count-5-10-120"
+              title="Skip Counting by 5s and 10s (to 120)"
+              emoji="🔁"
+              description="Fill in the missing numbers."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
-              <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers.</p>
               <div className="space-y-6 text-sm">
                 <div>
                   <div className="font-semibold text-slate-800 mb-2">Count by 5s to 120</div>
@@ -1499,7 +1614,7 @@ export function PrintablesPage() {
                   <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -1751,9 +1866,12 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('ten-frames-1-20') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Ten Frames 1–20</h2>
-            <p className="text-slate-600 text-sm mb-3">Color the circles to match each number. Say how many are filled and how many are empty.</p>
+          <WorksheetSectionWrapper
+            docId="ten-frames-1-20"
+            title="Ten Frames 1–20"
+            emoji="🔟"
+            description="Color the circles to match each number. Say how many are filled and how many are empty."
+          >
             <div className="grid grid-cols-2 gap-4">
               {Array.from({ length: 20 }).map((_,n)=> (
                 <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -1766,7 +1884,7 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('shapes-colors-sort') && (
