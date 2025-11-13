@@ -197,13 +197,15 @@ export default function ReadingComprehensionPage() {
               description="Short passage + Q&A — open print‑ready PDF view."
               href="/print?doc=reading-g3-lighthouse&from=reading-comprehension"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Science Fair Plan (Grade 3)"
+              docId="reading-g3-science-fair"
               description="Short passage + Q&A — open print‑ready PDF view."
               href="/print?doc=reading-g3-science-fair&from=reading-comprehension"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Community Garden (Grade 3)"
+              docId="reading-g3-community-garden"
               description="Short passage + Q&A — open print‑ready PDF view."
               href="/print?doc=reading-g3-community-garden&from=reading-comprehension"
             />
