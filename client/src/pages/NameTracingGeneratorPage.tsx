@@ -1146,7 +1146,7 @@ export default function NameTracingGeneratorPage() {
                       <h2 className="text-lg font-semibold text-slate-900">Live preview</h2>
                       <p className="text-xs text-slate-500">
                         {batchMode === 'batch' 
-                          ? `Showing preview of first name. Everything prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
+                          ? `Showing preview of ${formattedNames.length} name${formattedNames.length > 1 ? 's' : ''} (${batchLayout === 'two-per-page' ? '2 per page' : batchLayout === 'four-per-page' ? '4 per page' : '1 per page'}). Everything prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
                           : `Everything you see prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
                         }
                       </p>
