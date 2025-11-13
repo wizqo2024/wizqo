@@ -23,7 +23,7 @@ export default function CertificateMakerPage() {
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
   const [showSeal, setShowSeal] = React.useState<boolean>(false);
-  const [sealPosition, setSealPosition] = React.useState<'bottom-left' | 'bottom-right' | 'bottom-center'>('bottom-center');
+  const [sealStyle, setSealStyle] = React.useState<'classic-official' | 'notary' | 'academic' | 'government' | 'corporate' | 'medallion'>('classic-official');
 
   const colors = React.useMemo(() => {
     const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
@@ -593,37 +593,74 @@ export default function CertificateMakerPage() {
     }
   }, [badgeIcon, badgePosition, badgePrefix, inkFriendly]);
 
-  const sealPositionCoords = React.useMemo(() => {
-    switch (sealPosition) {
-      case 'bottom-left':
-        return { x: 200, y: 680 };
-      case 'bottom-right':
-        return { x: 920, y: 680 };
-      case 'bottom-center':
-        return { x: 560, y: 680 };
-      default:
-        return { x: 920, y: 680 };
-    }
-  }, [sealPosition]);
+  // Seal is always positioned at center-bottom
+  const sealPositionCoords = React.useMemo(() => ({ x: 560, y: 680 }), []);
 
   const sealGraphic = React.useMemo(() => {
     if (!showSeal) return null;
     const sealPrefix = `seal-${reactId.replace(/:/g, '')}`;
+    const sealSize = 55; // Increased from 40 to 55 for bigger seal
     const sealOuterGradient = `${sealPrefix}-outer-grad`;
     const sealInnerGradient = `${sealPrefix}-inner-grad`;
     const sealEmbossGradient = `${sealPrefix}-emboss`;
     const sealShadowGradient = `${sealPrefix}-shadow`;
-    const sealColor = inkFriendly ? '#64748b' : '#d97706';
-    const sealLight = inkFriendly ? '#cbd5e1' : '#fef3c7';
-    const sealDark = inkFriendly ? '#475569' : '#b45309';
-    const sealMid = inkFriendly ? '#94a3b8' : '#f59e0b';
+    
+    // Color schemes for different seal styles
+    const getSealColors = () => {
+      switch (sealStyle) {
+        case 'notary':
+          return {
+            color: inkFriendly ? '#64748b' : '#1e40af',
+            light: inkFriendly ? '#cbd5e1' : '#dbeafe',
+            dark: inkFriendly ? '#475569' : '#1e3a8a',
+            mid: inkFriendly ? '#94a3b8' : '#3b82f6'
+          };
+        case 'academic':
+          return {
+            color: inkFriendly ? '#64748b' : '#d97706',
+            light: inkFriendly ? '#cbd5e1' : '#fef3c7',
+            dark: inkFriendly ? '#475569' : '#b45309',
+            mid: inkFriendly ? '#94a3b8' : '#f59e0b'
+          };
+        case 'government':
+          return {
+            color: inkFriendly ? '#64748b' : '#059669',
+            light: inkFriendly ? '#cbd5e1' : '#d1fae5',
+            dark: inkFriendly ? '#475569' : '#047857',
+            mid: inkFriendly ? '#94a3b8' : '#10b981'
+          };
+        case 'corporate':
+          return {
+            color: inkFriendly ? '#64748b' : '#7c3aed',
+            light: inkFriendly ? '#cbd5e1' : '#ede9fe',
+            dark: inkFriendly ? '#475569' : '#5b21b6',
+            mid: inkFriendly ? '#94a3b8' : '#8b5cf6'
+          };
+        case 'medallion':
+          return {
+            color: inkFriendly ? '#64748b' : '#dc2626',
+            light: inkFriendly ? '#cbd5e1' : '#fee2e2',
+            dark: inkFriendly ? '#475569' : '#991b1b',
+            mid: inkFriendly ? '#94a3b8' : '#ef4444'
+          };
+        default: // classic-official
+          return {
+            color: inkFriendly ? '#64748b' : '#d97706',
+            light: inkFriendly ? '#cbd5e1' : '#fef3c7',
+            dark: inkFriendly ? '#475569' : '#b45309',
+            mid: inkFriendly ? '#94a3b8' : '#f59e0b'
+          };
+      }
+    };
+    
+    const { color: sealColor, light: sealLight, dark: sealDark, mid: sealMid } = getSealColors();
     
     return (
       <g transform={`translate(${sealPositionCoords.x} ${sealPositionCoords.y})`} aria-label="Official seal">
         <defs>
           {/* Outer ring gradient - realistic embossed effect */}
           <radialGradient id={sealOuterGradient} cx="45%" cy="45%" r="60%">
-            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : '#fff9db'} stopOpacity="1" />
+            <stop offset="0%" stopColor={inkFriendly ? '#f1f5f9' : sealLight} stopOpacity="1" />
             <stop offset="30%" stopColor={sealLight} stopOpacity="0.9" />
             <stop offset="60%" stopColor={sealColor} stopOpacity="0.85" />
             <stop offset="85%" stopColor={sealMid} stopOpacity="0.9" />
@@ -644,139 +681,213 @@ export default function CertificateMakerPage() {
           {/* Shadow for depth */}
           <radialGradient id={sealShadowGradient} cx="55%" cy="55%" r="50%">
             <stop offset="0%" stopColor="transparent" stopOpacity="0" />
-            <stop offset="70%" stopColor={inkFriendly ? '#1e293b' : '#78350f'} stopOpacity="0.2" />
-            <stop offset="100%" stopColor={inkFriendly ? '#0f172a' : '#451a03'} stopOpacity="0.4" />
+            <stop offset="70%" stopColor={sealDark} stopOpacity="0.2" />
+            <stop offset="100%" stopColor={sealDark} stopOpacity="0.4" />
           </radialGradient>
         </defs>
         
         {/* Drop shadow for realistic effect */}
-        <circle r={42} fill={`url(#${sealShadowGradient})`} opacity="0.6" />
+        <circle r={sealSize + 8} fill={`url(#${sealShadowGradient})`} opacity="0.6" />
         
-        {/* Outer decorative ring with embossed teeth */}
-        <g opacity={inkFriendly ? 0.5 : 0.85}>
-          {Array.from({ length: 36 }).map((_, index) => {
-            const angle = (360 / 36) * index;
-            const isEven = index % 2 === 0;
-            return (
-              <rect
-                key={`seal-tooth-${index}`}
-                x={-2.5}
-                y={-40}
-                width={5}
-                height={isEven ? 14 : 12}
-                rx={2}
-                fill={isEven ? sealLight : sealColor}
-                opacity={isEven ? 0.9 : 0.7}
-                transform={`rotate(${angle} 0 0)`}
-              />
-            );
-          })}
-        </g>
-        
-        {/* Main seal body with embossed effect */}
-        <circle r={40} fill={`url(#${sealOuterGradient})`} />
-        <circle r={40} fill="none" stroke={sealDark} strokeWidth={1.5} opacity={0.4} />
-        
-        {/* Inner raised circle */}
-        <circle r={30} fill={`url(#${sealInnerGradient})`} />
-        <circle r={30} fill="none" stroke={sealDark} strokeWidth={1} opacity={0.3} />
-        
-        {/* Embossed highlight overlay */}
-        <circle r={30} fill={`url(#${sealEmbossGradient})`} />
-        
-        {/* Decorative inner ring pattern */}
-        <circle r={26} fill="none" stroke={sealDark} strokeWidth={0.8} opacity={0.25} strokeDasharray="2 3" />
-        <circle r={22} fill="none" stroke={sealDark} strokeWidth={0.8} opacity={0.2} />
-        
-        {/* Central emblem - detailed star with inner circle */}
-        <g opacity={inkFriendly ? 0.7 : 0.9}>
-          {/* Outer star */}
-          <polygon
-            points="0,-12 3.5,-3.5 12,-3.5 5,1 7,10 0,5 -7,10 -5,1 -12,-3.5 -3.5,-3.5"
-            fill={sealDark}
-            stroke={sealLight}
-            strokeWidth={0.5}
-          />
-          {/* Inner circle */}
-          <circle r={6} fill={sealLight} opacity={0.9} />
-          <circle r={6} fill="none" stroke={sealDark} strokeWidth={0.8} />
-          {/* Inner star */}
-          <polygon
-            points="0,-4 1.5,-1.5 4,-1.5 2,0.5 2.5,3.5 0,2 -2.5,3.5 -2,0.5 -4,-1.5 -1.5,-1.5"
-            fill={sealDark}
-          />
-        </g>
-        
-        {/* Curved text around perimeter - "OFFICIAL SEAL" */}
-        <g opacity={inkFriendly ? 0.6 : 0.85}>
-          {/* Top arc text */}
-          <path
-            id={`${sealPrefix}-top-text-path`}
-            d="M -28,0 A 28,28 0 0,1 28,0"
-            fill="none"
-          />
-          <text
-            fontSize="9"
-            fill={sealDark}
-            fontFamily="serif"
-            fontWeight="bold"
-            letterSpacing="1.5"
-          >
-            <textPath href={`#${sealPrefix}-top-text-path`} startOffset="50%" textAnchor="middle">
-              ✦ OFFICIAL SEAL ✦
-            </textPath>
-          </text>
-          
-          {/* Bottom arc text - date or additional text */}
-          <path
-            id={`${sealPrefix}-bottom-text-path`}
-            d="M 28,0 A 28,28 0 0,1 -28,0"
-            fill="none"
-          />
-          {date && (
-            <text
-              fontSize="7"
-              fill={sealDark}
-              fontFamily="serif"
-              fontWeight="600"
-              letterSpacing="1"
-              opacity="0.7"
-            >
-              <textPath href={`#${sealPrefix}-bottom-text-path`} startOffset="50%" textAnchor="middle">
-                {(() => {
-                  try {
-                    const d = new Date(date);
-                    if (!isNaN(d.getTime())) {
-                      return d.getFullYear();
-                    }
-                  } catch {}
-                  return '';
-                })()}
-              </textPath>
+        {/* Render different seal styles */}
+        {sealStyle === 'classic-official' && (
+          <>
+            {/* Outer decorative ring with embossed teeth */}
+            <g opacity={inkFriendly ? 0.5 : 0.85}>
+              {Array.from({ length: 40 }).map((_, index) => {
+                const angle = (360 / 40) * index;
+                const isEven = index % 2 === 0;
+                return (
+                  <rect
+                    key={`seal-tooth-${index}`}
+                    x={-3}
+                    y={-sealSize - 2}
+                    width={6}
+                    height={isEven ? 18 : 15}
+                    rx={2.5}
+                    fill={isEven ? sealLight : sealColor}
+                    opacity={isEven ? 0.9 : 0.7}
+                    transform={`rotate(${angle} 0 0)`}
+                  />
+                );
+              })}
+            </g>
+            {/* Main seal body */}
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={2} opacity={0.4} />
+            {/* Inner raised circle */}
+            <circle r={sealSize * 0.7} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.7} fill="none" stroke={sealDark} strokeWidth={1.2} opacity={0.3} />
+            <circle r={sealSize * 0.7} fill={`url(#${sealEmbossGradient})`} />
+            {/* Decorative inner rings */}
+            <circle r={sealSize * 0.6} fill="none" stroke={sealDark} strokeWidth={1} opacity={0.25} strokeDasharray="2 3" />
+            <circle r={sealSize * 0.5} fill="none" stroke={sealDark} strokeWidth={1} opacity={0.2} />
+            {/* Central star emblem */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <polygon points="0,-16 4.5,-4.5 16,-4.5 6.5,1.5 9,13 0,6.5 -9,13 -6.5,1.5 -16,-4.5 -4.5,-4.5" fill={sealDark} stroke={sealLight} strokeWidth={0.8} />
+              <circle r={8} fill={sealLight} opacity={0.9} />
+              <circle r={8} fill="none" stroke={sealDark} strokeWidth={1} />
+              <polygon points="0,-5.5 2,-2 5.5,-2 2.5,0.5 3.5,4.5 0,2.5 -3.5,4.5 -2.5,0.5 -5.5,-2 -2,-2" fill={sealDark} />
+            </g>
+            {/* Curved text */}
+            <path id={`${sealPrefix}-top-text-path`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="11" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="2" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-top-text-path`} startOffset="50%" textAnchor="middle">✦ OFFICIAL SEAL ✦</textPath>
             </text>
-          )}
-        </g>
+            {date && (
+              <>
+                <path id={`${sealPrefix}-bottom-text-path`} d={`M ${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 -${sealSize * 0.7},0`} fill="none" />
+                <text fontSize="8" fill={sealDark} fontFamily="serif" fontWeight="600" letterSpacing="1.5" opacity="0.7">
+                  <textPath href={`#${sealPrefix}-bottom-text-path`} startOffset="50%" textAnchor="middle">
+                    {(() => { try { return new Date(date).getFullYear(); } catch {} return ''; })()}
+                  </textPath>
+                </text>
+              </>
+            )}
+            {/* Decorative dots */}
+            {Array.from({ length: 12 }).map((_, index) => {
+              const angle = (360 / 12) * index;
+              const radius = sealSize * 0.75;
+              return <circle key={`dot-${index}`} cx={Math.cos((angle * Math.PI) / 180) * radius} cy={Math.sin((angle * Math.PI) / 180) * radius} r={2} fill={sealDark} opacity={inkFriendly ? 0.4 : 0.6} />;
+            })}
+          </>
+        )}
         
-        {/* Additional decorative dots around perimeter */}
-        {Array.from({ length: 8 }).map((_, index) => {
-          const angle = (360 / 8) * index;
-          const radius = 34;
-          const x = Math.cos((angle * Math.PI) / 180) * radius;
-          const y = Math.sin((angle * Math.PI) / 180) * radius;
-          return (
-            <circle
-              key={`seal-dot-${index}`}
-              cx={x}
-              cy={y}
-              r={1.5}
-              fill={sealDark}
-              opacity={inkFriendly ? 0.4 : 0.6}
-            />
-          );
-        })}
+        {sealStyle === 'notary' && (
+          <>
+            {/* Notary seal - blue with scales of justice */}
+            <g opacity={inkFriendly ? 0.5 : 0.85}>
+              {Array.from({ length: 32 }).map((_, index) => {
+                const angle = (360 / 32) * index;
+                return <rect key={`tooth-${index}`} x={-2.5} y={-sealSize - 2} width={5} height={16} rx={2} fill={sealColor} opacity={0.7} transform={`rotate(${angle} 0 0)`} />;
+              })}
+            </g>
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={2.5} opacity={0.5} />
+            <circle r={sealSize * 0.75} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.75} fill={`url(#${sealEmbossGradient})`} />
+            {/* Scales of justice */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <path d="M0,-20 L0,8 M-12,-8 L12,-8 M-12,-8 L-8,-4 L-4,-4 L0,-8 L4,-4 L8,-4 L12,-8" stroke={sealDark} strokeWidth={2} fill="none" strokeLinecap="round" />
+              <circle cx={-6} cy={-4} r={3} fill={sealDark} opacity={0.8} />
+              <circle cx={6} cy={-4} r={3} fill={sealDark} opacity={0.8} />
+            </g>
+            <path id={`${sealPrefix}-notary-top`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="10" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="1.8" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-notary-top`} startOffset="50%" textAnchor="middle">NOTARY PUBLIC</textPath>
+            </text>
+          </>
+        )}
+        
+        {sealStyle === 'academic' && (
+          <>
+            {/* Academic seal - with laurel wreath */}
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={2.5} opacity={0.5} />
+            {/* Laurel wreath */}
+            <g opacity={inkFriendly ? 0.6 : 0.85}>
+              {Array.from({ length: 16 }).map((_, index) => {
+                const angle = (360 / 16) * index;
+                const radius = sealSize * 0.8;
+                const x = Math.cos((angle * Math.PI) / 180) * radius;
+                const y = Math.sin((angle * Math.PI) / 180) * radius;
+                return <ellipse key={`leaf-${index}`} cx={x} cy={y} rx={4} ry={8} fill={sealDark} opacity={0.6} transform={`rotate(${angle} ${x} ${y})`} />;
+              })}
+            </g>
+            <circle r={sealSize * 0.6} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.6} fill={`url(#${sealEmbossGradient})`} />
+            {/* Open book emblem */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <rect x={-12} y={-4} width={24} height={16} rx={1} fill={sealLight} stroke={sealDark} strokeWidth={1.5} />
+              <line x1={0} y1={-4} x2={0} y2={12} stroke={sealDark} strokeWidth={1.5} />
+              <line x1={-8} y1={2} x2={-2} y2={2} stroke={sealDark} strokeWidth={1} />
+              <line x1={2} y1={2} x2={8} y2={2} stroke={sealDark} strokeWidth={1} />
+            </g>
+            <path id={`${sealPrefix}-academic-top`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="10" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="1.8" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-academic-top`} startOffset="50%" textAnchor="middle">ACADEMIC EXCELLENCE</textPath>
+            </text>
+          </>
+        )}
+        
+        {sealStyle === 'government' && (
+          <>
+            {/* Government seal - with eagle/shield */}
+            <g opacity={inkFriendly ? 0.5 : 0.85}>
+              {Array.from({ length: 44 }).map((_, index) => {
+                const angle = (360 / 44) * index;
+                return <rect key={`tooth-${index}`} x={-2} y={-sealSize - 2} width={4} height={14} rx={2} fill={sealColor} opacity={0.6} transform={`rotate(${angle} 0 0)`} />;
+              })}
+            </g>
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={2.5} opacity={0.5} />
+            <circle r={sealSize * 0.7} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.7} fill={`url(#${sealEmbossGradient})`} />
+            {/* Shield emblem */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <path d="M0,-14 L-8,0 L-6,8 L0,12 L6,8 L8,0 Z" fill={sealDark} stroke={sealLight} strokeWidth={1} />
+              <polygon points="0,-10 -4,0 0,6 4,0" fill={sealLight} opacity={0.8} />
+            </g>
+            <path id={`${sealPrefix}-gov-top`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="9" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="1.5" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-gov-top`} startOffset="50%" textAnchor="middle">OFFICIAL GOVERNMENT SEAL</textPath>
+            </text>
+          </>
+        )}
+        
+        {sealStyle === 'corporate' && (
+          <>
+            {/* Corporate seal - modern with building/star */}
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={2} opacity={0.4} />
+            <circle r={sealSize * 0.75} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.75} fill={`url(#${sealEmbossGradient})`} />
+            {/* Corporate building/tower emblem */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <rect x={-10} y={-2} width={6} height={14} fill={sealDark} />
+              <rect x={-2} y={-4} width={4} height={16} fill={sealDark} />
+              <rect x={4} y={0} width={6} height={12} fill={sealDark} />
+              <polygon points="0,-8 3,-5 0,-2 -3,-5" fill={sealLight} />
+            </g>
+            <path id={`${sealPrefix}-corp-top`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="9" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="1.5" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-corp-top`} startOffset="50%" textAnchor="middle">CORPORATE SEAL</textPath>
+            </text>
+          </>
+        )}
+        
+        {sealStyle === 'medallion' && (
+          <>
+            {/* Medallion seal - ornate with ribbon */}
+            <g opacity={inkFriendly ? 0.5 : 0.85}>
+              {Array.from({ length: 48 }).map((_, index) => {
+                const angle = (360 / 48) * index;
+                const isEven = index % 3 === 0;
+                return <rect key={`tooth-${index}`} x={-2} y={-sealSize - 2} width={4} height={isEven ? 16 : 12} rx={2} fill={isEven ? sealLight : sealColor} opacity={0.8} transform={`rotate(${angle} 0 0)`} />;
+              })}
+            </g>
+            <circle r={sealSize} fill={`url(#${sealOuterGradient})`} />
+            <circle r={sealSize} fill="none" stroke={sealDark} strokeWidth={3} opacity={0.5} />
+            <circle r={sealSize * 0.85} fill="none" stroke={sealDark} strokeWidth={1.5} opacity={0.3} />
+            <circle r={sealSize * 0.7} fill={`url(#${sealInnerGradient})`} />
+            <circle r={sealSize * 0.7} fill={`url(#${sealEmbossGradient})`} />
+            {/* Ribbon banner */}
+            <g opacity={inkFriendly ? 0.7 : 0.9}>
+              <path d="M-18,4 Q-18,0 0,0 Q18,0 18,4 L18,8 Q18,12 0,12 Q-18,12 -18,8 Z" fill={sealDark} />
+              <text x="0" y="9" textAnchor="middle" fontSize="8" fill={sealLight} fontFamily="serif" fontWeight="bold">AWARD</text>
+            </g>
+            {/* Central medallion star */}
+            <polygon points="0,-14 4,-4 14,-4 6,1 9,11 0,6 -9,11 -6,1 -14,-4 -4,-4" fill={sealDark} stroke={sealLight} strokeWidth={1} />
+            <circle r={6} fill={sealLight} opacity={0.9} />
+            <path id={`${sealPrefix}-med-top`} d={`M -${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 ${sealSize * 0.7},0`} fill="none" />
+            <text fontSize="9" fill={sealDark} fontFamily="serif" fontWeight="bold" letterSpacing="1.5" opacity={inkFriendly ? 0.6 : 0.85}>
+              <textPath href={`#${sealPrefix}-med-top`} startOffset="50%" textAnchor="middle">CERTIFICATE OF MERIT</textPath>
+            </text>
+          </>
+        )}
       </g>
     );
-  }, [showSeal, sealPositionCoords, inkFriendly, reactId, date]);
+  }, [showSeal, sealPositionCoords, inkFriendly, reactId, date, sealStyle]);
 
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
   const backgroundDefs = backgroundLayers.defs;
@@ -1076,17 +1187,20 @@ export default function CertificateMakerPage() {
                     </div>
                     {showSeal && (
                       <div className="space-y-2">
-                        <Label htmlFor="sealPosition" className="text-slate-700">Seal position</Label>
+                        <Label htmlFor="sealStyle" className="text-slate-700">Seal style</Label>
                         <div className="relative">
                           <select
-                            id="sealPosition"
-                            value={sealPosition}
-                            onChange={e => setSealPosition(e.target.value as typeof sealPosition)}
+                            id="sealStyle"
+                            value={sealStyle}
+                            onChange={e => setSealStyle(e.target.value as typeof sealStyle)}
                             className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                           >
-                            <option value="bottom-right">Bottom right</option>
-                            <option value="bottom-left">Bottom left</option>
-                            <option value="bottom-center">Bottom center</option>
+                            <option value="classic-official">Classic Official Seal</option>
+                            <option value="notary">Notary Public Seal</option>
+                            <option value="academic">Academic Excellence Seal</option>
+                            <option value="government">Government Official Seal</option>
+                            <option value="corporate">Corporate Seal</option>
+                            <option value="medallion">Medallion Award Seal</option>
                           </select>
                           <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
