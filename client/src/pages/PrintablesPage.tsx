@@ -988,6 +988,9 @@ export function PrintablesPage() {
                 if (from === 'reading-comprehension') {
                   return '/worksheets/reading-comprehension'
                 }
+                if (from === 'multiplication') {
+                  return '/worksheets/multiplication-worksheets'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
@@ -1025,6 +1028,9 @@ export function PrintablesPage() {
                 }
                 if (from === 'reading-comprehension') {
                   return 'Back to Reading Comprehension Worksheets'
+                }
+                if (from === 'multiplication') {
+                  return 'Back to Multiplication Worksheets'
                 }
                 return 'Back printable page'
               } catch {
