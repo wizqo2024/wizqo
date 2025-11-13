@@ -1099,24 +1099,25 @@ export default function CertificateMakerPage() {
       {/* Footer lines */}
       <line x1="200" y1="620" x2="460" y2="620" stroke="#94a3b8" strokeWidth="2" />
       <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Date{formattedDate ? `: ${formattedDate}` : ''}</text>
-      <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      {/* Signature area */}
+      {/* Signature area - signature above the line */}
       {signatureImage ? (
         <g>
           <image
             href={signatureImage}
             x={660}
-            y={630}
+            y={580}
             width={260}
             height={40}
             preserveAspectRatio="xMidYMid meet"
             opacity="0.9"
           />
           {issuer && (
-            <text x="790" y="680" textAnchor="middle" fontSize="16" fill={effective.text} fontFamily={effective.fontFamily}>{issuer}</text>
+            <text x="790" y="575" textAnchor="middle" fontSize="16" fill={effective.text} fontFamily={effective.fontFamily}>{issuer}</text>
           )}
         </g>
-      ) : (
+      ) : null}
+      <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
+      {!signatureImage && (
         <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
       )}
       {/* Official Seal/Stamp */}
