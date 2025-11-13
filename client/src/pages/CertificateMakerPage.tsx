@@ -257,16 +257,17 @@ export default function CertificateMakerPage() {
           const svgData = new XMLSerializer().serializeToString(svgClone);
           // Fix namespace issues
           const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
-          const svgBlob = new Blob([fixedSvgData], { type: 'image/svg+xml;charset=utf-8' });
-          const url = URL.createObjectURL(svgBlob);
+          
+          // Convert SVG to data URL directly instead of blob URL to avoid CORS issues
+          const svgBase64 = btoa(unescape(encodeURIComponent(fixedSvgData)));
+          const svgDataURL = `data:image/svg+xml;base64,${svgBase64}`;
 
           const img = new Image();
-          // Don't set crossOrigin for blob URLs - they're same-origin
+          // No need to set crossOrigin for data URLs
           img.onload = () => {
             try {
               // Draw the image on canvas
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-              URL.revokeObjectURL(url);
 
               // Try toDataURL first (works even with some tainted canvases in some browsers)
               let downloadSuccess = false;
@@ -324,17 +325,15 @@ export default function CertificateMakerPage() {
             } catch (error) {
               console.error('Error creating PNG:', error);
               alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error') + '. Please try Print/Save as PDF instead.');
-              URL.revokeObjectURL(url);
               setIsDownloadingPNG(false);
             }
           };
           img.onerror = (error) => {
             console.error('Error loading SVG image:', error);
             alert('Failed to load SVG. Please try again.');
-            URL.revokeObjectURL(url);
             setIsDownloadingPNG(false);
           };
-          img.src = url;
+          img.src = svgDataURL;
         } catch (error) {
           console.error('Error in PNG conversion:', error);
           alert('Error converting to PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
