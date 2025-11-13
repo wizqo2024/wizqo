@@ -1259,8 +1259,11 @@ export default function NameTracingGeneratorPage() {
                               // Four names or more: use 2x2 grid
                               worksheetWidth = (pageWidth - margin * 2) / 2;
                               worksheetHeight = (pageHeight - margin * 2) / 2;
-                              worksheetX = margin + (nameIndex % 2) * worksheetWidth;
-                              worksheetY = margin + Math.floor(nameIndex / 2) * worksheetHeight;
+                              // Calculate grid position: column (0 or 1) and row (0 or 1)
+                              const col = nameIndex % 2;
+                              const row = Math.floor(nameIndex / 2);
+                              worksheetX = margin + col * worksheetWidth;
+                              worksheetY = margin + row * worksheetHeight;
                             } else {
                               // Single name: full page
                               worksheetX = margin;
