@@ -1214,7 +1214,7 @@ export default function NameTracingGeneratorPage() {
                               }
                               
                               return (
-                                <clipPath key={`clip-def-${nameIndex}`} id={`clip-${nameIndex}`}>
+                                <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
                                   <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
                                 </clipPath>
                               );
@@ -1281,7 +1281,7 @@ export default function NameTracingGeneratorPage() {
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
                             return (
-                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#clip-${nameIndex})`}>
+                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
                                 {/* Debug: Visual border for worksheet area (remove in production) */}
                                 {process.env.NODE_ENV === 'development' && (
                                   <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
@@ -1289,7 +1289,7 @@ export default function NameTracingGeneratorPage() {
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
-                                  const endX = worksheetWidth - 20;
+                                  const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
                                   const topLine = baselineY - baselineOffset;
                                   const midLine = baselineY - baselineOffset / 2;
                                   const showPrimary = lineStyle === 'primary';
@@ -1345,6 +1345,7 @@ export default function NameTracingGeneratorPage() {
                                     </g>
                                   );
                                 })}
+                                </g>
                               </g>
                             );
                           })}
