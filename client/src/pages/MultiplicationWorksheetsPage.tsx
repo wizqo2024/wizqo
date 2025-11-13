@@ -135,7 +135,6 @@ export default function MultiplicationWorksheetsPage() {
                 <WorksheetThumbnailCard title="📈 Multiplication Patterns" description="Identify and extend multiplication patterns and number sequences to build algebraic thinking." href="/print?doc=mult-patterns&from=multiplication" docId="mult-patterns" />
               </div>
             </div>
-          </div>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">

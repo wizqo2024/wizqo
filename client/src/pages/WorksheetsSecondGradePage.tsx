@@ -157,7 +157,6 @@ export default function WorksheetsSecondGradePage() {
             </AccordionItem>
           </Accordion>
         </section>
-        </div>
       </main>
       <Footer />
     </div>
