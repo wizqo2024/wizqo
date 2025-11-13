@@ -124,25 +124,29 @@ export default function ReadingComprehensionPage() {
           <p className="text-slate-700 text-sm mt-1">Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.</p>
           {/* Quick printable links */}
           <div className="mt-4 grid md:grid-cols-2 gap-4">
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Lost Hat (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
               href="/print?doc=reading-g1-lost-hat&from=reading-comprehension"
+              docId="reading-g1-lost-hat"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 Lunch for the Ants (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
               href="/print?doc=reading-g1-ants&from=reading-comprehension"
+              docId="reading-g1-ants"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Bus Ride (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
               href="/print?doc=reading-g1-bus-ride&from=reading-comprehension"
+              docId="reading-g1-bus-ride"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Pet Fish (Grade 1)"
               description="Short passage + 4 questions — print‑ready PDF view."
               href="/print?doc=reading-g1-pet-fish&from=reading-comprehension"
+              docId="reading-g1-pet-fish"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
@@ -154,25 +158,29 @@ export default function ReadingComprehensionPage() {
           <p className="text-slate-700 text-sm mt-1">One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.</p>
           {/* Quick printable links */}
           <div className="mt-4 grid md:grid-cols-2 gap-4">
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 The Paper Bridge (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
               href="/print?doc=reading-g2-paper-bridge&from=reading-comprehension"
+              docId="reading-g2-paper-bridge"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 Rainy Day Garden (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
               href="/print?doc=reading-g2-rainy-garden&from=reading-comprehension"
+              docId="reading-g2-rainy-garden"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 New Library Card (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
               href="/print?doc=reading-g2-library-card&from=reading-comprehension"
+              docId="reading-g2-library-card"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 Lost and Found (Grade 2)"
               description="Short passage + questions — open to print‑ready PDF view."
               href="/print?doc=reading-g2-lost-and-found&from=reading-comprehension"
+              docId="reading-g2-lost-and-found"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
@@ -259,6 +267,76 @@ function ItemCard({ title, description, href }: { title: string; description: st
       </div>
     </div>
   );
+}
+
+function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
+  
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        </div>
+      </div>
+      
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      <div 
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+        onClick={() => window.open(href, '_blank')}
+        style={{ 
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`Preview of ${title}`}
+          loading="lazy"
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+            👁️ Click to view full worksheet
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+      </div>
+      
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <a
+            href={href}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ Preview
+          </a>
+          <a
+            href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            ⬇️ Download
+          </a>
+        </div>
+      </div>
+    </article>
+  )
 }
 
 function BuildPackReadingInline() {

@@ -518,6 +518,7 @@ export function PrintablesPage() {
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
   const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
+  const isPreview = (params.get('preview') || '').toLowerCase() === '1' || (params.get('preview') || '').toLowerCase() === 'true'
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
@@ -863,11 +864,26 @@ export function PrintablesPage() {
           .p-4, .p-5, .p-6 { padding: 0.5rem !important; }
           .py-10 { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
         }
+        /* Preview mode - hide navigation and UI elements for thumbnail previews */
+        .preview-mode header,
+        .preview-mode .mb-4,
+        .preview-mode nav,
+        .preview-mode button,
+        .preview-mode a[href*="pinterest"],
+        .preview-mode a[aria-label*="Back"],
+        .preview-mode a[aria-label*="Pin"],
+        .preview-mode a[aria-label*="Download"] {
+          display: none !important;
+        }
+        .preview-mode {
+          padding: 0.5rem !important;
+          max-width: 100% !important;
+        }
       `}</style>
       {/* Print layout optimized - updated 2025-01-11 */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4">
+      <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-4 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Customization header (print view - appears once at top) */}
-        {(teacherName || className || studentNames.length > 0) && (
+        {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
             <div className="flex flex-wrap gap-x-3 items-center">
               {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
@@ -881,6 +897,7 @@ export function PrintablesPage() {
           </div>
         )}
         {/* Doc-specific back link is above header; sections appear below header */}
+        {!isPreview && (
         <div className="mb-4 print:hidden flex justify-end">
           <a
             href={(() => {
@@ -946,6 +963,8 @@ export function PrintablesPage() {
             })()}</span>
           </a>
         </div>
+        )}
+        {!isPreview && (
         <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
           <div className="print:hidden absolute -top-3 right-0 flex items-center gap-2 opacity-70 pointer-events-none">
             <span className="animate-bounce">➕</span>
@@ -999,6 +1018,7 @@ export function PrintablesPage() {
             </div>
           </div>
         </header>
+        )}
 
         {/* Doc-specific sections (unique content per topic) */}
         {interactiveDocs.length > 0 && (
