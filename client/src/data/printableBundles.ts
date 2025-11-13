@@ -58,6 +58,17 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'money-coins-bills',
     'measurement-length',
     'bar-graphs-data',
+    // New critical worksheets
+    'add-2digit-regrouping',
+    'sub-2digit-regrouping',
+    'fractions-halves-thirds-fourths',
+    'rhyming-words',
+    'cvc-words',
+    'sight-words-pre-primer',
+    'letter-tracing-az',
+    'more-less-equal-10',
+    'counting-objects-20',
+    'sentence-building',
   ],
   Creative: [
     'color-by-number',
@@ -233,4 +244,15 @@ export const PRINTABLE_DOC_META: Record<string, { level: PrintableDifficulty }> 
   'geo-compass-rose': { level: 'Beginner' },
   'geo-landforms': { level: 'Beginner' },
   'geo-latlong': { level: 'Intermediate' },
+  // New critical worksheets metadata
+  'add-2digit-regrouping': { level: 'Intermediate' },
+  'sub-2digit-regrouping': { level: 'Intermediate' },
+  'fractions-halves-thirds-fourths': { level: 'Intermediate' },
+  'rhyming-words': { level: 'Beginner' },
+  'cvc-words': { level: 'Beginner' },
+  'sight-words-pre-primer': { level: 'Beginner' },
+  'letter-tracing-az': { level: 'Beginner' },
+  'more-less-equal-10': { level: 'Beginner' },
+  'counting-objects-20': { level: 'Beginner' },
+  'sentence-building': { level: 'Beginner' },
 };
