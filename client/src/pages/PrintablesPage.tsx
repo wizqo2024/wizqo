@@ -1841,15 +1841,12 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('time-5min') && (
-          <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <div className="absolute inset-0 -z-10 print:hidden">
-              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-sky-200/40 animate-blob" />
-              <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-teal-200/40 animate-blob animation-delay-2000" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-indigo-200/40 animate-blob animation-delay-4000" />
-            </div>
-            <h2 className="text-lg font-bold text-slate-900">Tell Time to 5 Minutes
-              <span className="ml-2 print:hidden inline-block animate-bounce">🕒</span>
-            </h2>
+          <WorksheetSectionWrapper
+            docId="time-5min"
+            title="Tell Time to 5 Minutes"
+            emoji="🕒"
+            description="Draw the clock hands to show each time."
+          >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-3">
               {['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'].map((t,i)=> (
@@ -1862,7 +1859,7 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('ten-frames-1-20') && (
@@ -1888,9 +1885,12 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('shapes-colors-sort') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Shapes & Colors Sort (Cut & Glue)</h2>
-            <p className="text-slate-600 text-sm mb-3">Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely.</p>
+          <WorksheetSectionWrapper
+            docId="shapes-colors-sort"
+            title="Shapes & Colors Sort (Cut & Glue)"
+            emoji="🟩"
+            description="Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely."
+          >
             <div className="grid grid-cols-2 gap-4">
               <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
                 <g fill="none" stroke="#111827" strokeWidth="3.5">
@@ -1913,13 +1913,16 @@ export function PrintablesPage() {
                 </g>
               </svg>
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('dot-to-dot-1-20') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">1–20 Dot‑to‑Dot</h2>
-            <p className="text-slate-600 text-sm mb-3">Connect the dots in order to reveal the picture.</p>
+          <WorksheetSectionWrapper
+            docId="dot-to-dot-1-20"
+            title="1–20 Dot‑to‑Dot"
+            emoji="🔢"
+            description="Connect the dots in order to reveal the picture."
+          >
             <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
               {Array.from({ length: 20 }).map((_,i)=> (
                 <g key={i}>
@@ -1928,13 +1931,16 @@ export function PrintablesPage() {
                 </g>
               ))}
             </svg>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('tangram-animals') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Tangram Animals (Cutouts)</h2>
-            <p className="text-slate-600 text-sm mb-3">Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet.</p>
+          <WorksheetSectionWrapper
+            docId="tangram-animals"
+            title="Tangram Animals (Cutouts)"
+            emoji="🧩"
+            description="Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet."
+          >
             <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
               <g fill="none" stroke="#111827" strokeWidth="3.5">
                 <polygon points="100,50 200,50 200,150 100,150" />
@@ -1944,18 +1950,21 @@ export function PrintablesPage() {
                 <polygon points="460,50 560,50 560,150 460,150" />
               </g>
             </svg>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('spot-difference') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Spot‑the‑Difference (7)</h2>
-            <p className="text-slate-600 text-sm mb-3">Find 7 differences between the two pictures.</p>
+          <WorksheetSectionWrapper
+            docId="spot-difference"
+            title="Spot‑the‑Difference (7)"
+            emoji="👀"
+            description="Find 7 differences between the two pictures."
+          >
             <div className="grid grid-cols-2 gap-4">
               <HiddenObjectsSceneSVGA />
               <HiddenObjectsSceneSVGB />
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('directed-drawing-animals') && (
