@@ -22,6 +22,8 @@ export default function CertificateMakerPage() {
   const [badgeIcon, setBadgeIcon] = React.useState<'gold-seal' | 'silver-seal' | 'blue-ribbon' | 'green-laurel' | 'red-medal' | 'starburst' | 'shield'>('gold-seal');
   const [inkFriendly, setInkFriendly] = React.useState<boolean>(false);
   const [bgStyle, setBgStyle] = React.useState<'none' | 'wavy' | 'bands' | 'rosette' | 'sparkle' | 'sunburst'>('none');
+  const [showSeal, setShowSeal] = React.useState<boolean>(false);
+  const [sealPosition, setSealPosition] = React.useState<'bottom-left' | 'bottom-right' | 'bottom-center'>('bottom-right');
 
   const colors = React.useMemo(() => {
     const base = (obj: any) => inkFriendly ? { ...obj, border: '#64748b', accent: '#111827', badge: '#64748b' } : obj;
@@ -591,6 +593,94 @@ export default function CertificateMakerPage() {
     }
   }, [badgeIcon, badgePosition, badgePrefix, inkFriendly]);
 
+  const sealPositionCoords = React.useMemo(() => {
+    switch (sealPosition) {
+      case 'bottom-left':
+        return { x: 200, y: 680 };
+      case 'bottom-right':
+        return { x: 920, y: 680 };
+      case 'bottom-center':
+        return { x: 560, y: 680 };
+      default:
+        return { x: 920, y: 680 };
+    }
+  }, [sealPosition]);
+
+  const sealGraphic = React.useMemo(() => {
+    if (!showSeal) return null;
+    const sealPrefix = `seal-${reactId.replace(/:/g, '')}`;
+    const sealGradient = `${sealPrefix}-gradient`;
+    const sealInner = `${sealPrefix}-inner`;
+    const sealColor = inkFriendly ? '#64748b' : '#d97706';
+    const sealLight = inkFriendly ? '#cbd5e1' : '#fef3c7';
+    const sealDark = inkFriendly ? '#475569' : '#b45309';
+    
+    return (
+      <g transform={`translate(${sealPositionCoords.x} ${sealPositionCoords.y})`} aria-label="Official seal">
+        <defs>
+          <radialGradient id={sealGradient} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={sealLight} />
+            <stop offset="60%" stopColor={sealColor} />
+            <stop offset="100%" stopColor={sealDark} />
+          </radialGradient>
+          <radialGradient id={sealInner} cx="50%" cy="45%" r="55%">
+            <stop offset="0%" stopColor={inkFriendly ? '#f8fafc' : '#fff'} />
+            <stop offset="100%" stopColor={sealLight} />
+          </radialGradient>
+        </defs>
+        {/* Outer ring with decorative teeth */}
+        {Array.from({ length: 24 }).map((_, index) => (
+          <rect
+            key={`seal-tooth-${index}`}
+            x={-3}
+            y={-38}
+            width={6}
+            height={16}
+            rx={2}
+            fill={sealColor}
+            opacity={inkFriendly ? 0.4 : 0.7}
+            transform={`rotate(${(360 / 24) * index} 0 0)`}
+          />
+        ))}
+        {/* Main seal circle */}
+        <circle r={32} fill={`url(#${sealGradient})`} />
+        <circle r={22} fill={`url(#${sealInner})`} />
+        <circle r={28} fill="none" stroke={sealDark} strokeWidth={2.5} strokeOpacity={0.6} />
+        {/* Inner design - star or emblem */}
+        <polygon
+          points="0,-8 2.5,-2.5 8,-2.5 3.5,1 6,7 0,3 -6,7 -3.5,1 -8,-2.5 -2.5,-2.5"
+          fill={sealDark}
+          opacity={inkFriendly ? 0.6 : 0.8}
+        />
+        {/* Text ring (simplified) */}
+        <text
+          x="0"
+          y="-20"
+          textAnchor="middle"
+          fontSize="8"
+          fill={sealDark}
+          opacity={inkFriendly ? 0.5 : 0.7}
+          fontFamily="serif"
+          fontWeight="bold"
+        >
+          OFFICIAL
+        </text>
+        <text
+          x="0"
+          y="18"
+          textAnchor="middle"
+          fontSize="8"
+          fill={sealDark}
+          opacity={inkFriendly ? 0.5 : 0.7}
+          fontFamily="serif"
+          fontWeight="bold"
+        >
+          SEAL
+        </text>
+      </g>
+    );
+  }, [showSeal, sealPositionCoords, inkFriendly, reactId]);
+
   const showGoldGradient = theme === 'gold' || templateStyle === 'academic';
   const backgroundDefs = backgroundLayers.defs;
   const backgroundContent = backgroundLayers.content;
@@ -716,6 +806,8 @@ export default function CertificateMakerPage() {
       <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Date{formattedDate ? `: ${formattedDate}` : ''}</text>
       <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
       <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
+      {/* Official Seal/Stamp */}
+      {sealGraphic}
     </svg>
   );
 
@@ -878,6 +970,35 @@ export default function CertificateMakerPage() {
                         </span>
                       </div>
                     </div>
+                    <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3">
+                      <div>
+                        <Label htmlFor="showSeal" className="text-slate-700 font-semibold">Official seal/stamp</Label>
+                        <p className="text-xs text-slate-500">Add an official seal or stamp to the certificate</p>
+                      </div>
+                      <Switch checked={showSeal} onCheckedChange={setShowSeal} aria-label="Toggle official seal" />
+                    </div>
+                    {showSeal && (
+                      <div className="space-y-2">
+                        <Label htmlFor="sealPosition" className="text-slate-700">Seal position</Label>
+                        <div className="relative">
+                          <select
+                            id="sealPosition"
+                            value={sealPosition}
+                            onChange={e => setSealPosition(e.target.value as typeof sealPosition)}
+                            className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
+                          >
+                            <option value="bottom-right">Bottom right</option>
+                            <option value="bottom-left">Bottom left</option>
+                            <option value="bottom-center">Bottom center</option>
+                          </select>
+                          <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                              <path d="M3.5 5.5L8 10l4.5-4.5" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <Label htmlFor="bgStyle" className="text-slate-700">Background style</Label>
                       <div className="relative">
