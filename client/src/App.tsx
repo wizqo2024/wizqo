@@ -25,6 +25,7 @@ import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
+import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView } from './utils/analytics';
 // (duplicate import removed)
@@ -375,6 +376,19 @@ export default function App() {
                 </>
               );
             case 'worksheets':
+              if (routeSubKey === 'multiplication-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
+                      description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
+                      keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
+                      canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
+                    />
+                    <MultiplicationWorksheetsPage />
+                  </>
+                );
+              }
               if (routeSubKey === '1st-grade-math-worksheets') {
                 return (
                   <>
