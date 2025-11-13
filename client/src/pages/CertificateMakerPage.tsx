@@ -1315,7 +1315,20 @@ export default function CertificateMakerPage() {
                           </div>
                           
                           {signatureMode === 'text' && (
-                            <Input id="issuer" value={issuer} onChange={e => setIssuer(e.target.value)} placeholder="Teacher / Parent" />
+                            <div className="space-y-1">
+                              <Input 
+                                id="issuer" 
+                                value={issuer} 
+                                onChange={e => {
+                                  if (e.target.value.length <= 30) {
+                                    setIssuer(e.target.value);
+                                  }
+                                }} 
+                                placeholder="Teacher / Parent"
+                                maxLength={30}
+                              />
+                              <p className="text-xs text-slate-500">{issuer.length}/30 characters</p>
+                            </div>
                           )}
                           
                           {signatureMode === 'upload' && (
@@ -1351,12 +1364,19 @@ export default function CertificateMakerPage() {
                                   </button>
                                 </div>
                               )}
-                              <Input
-                                value={issuer}
-                                onChange={e => setIssuer(e.target.value)}
-                                placeholder="Name (optional)"
-                                className="mt-2"
-                              />
+                              <div className="mt-2 space-y-1">
+                                <Input
+                                  value={issuer}
+                                  onChange={e => {
+                                    if (e.target.value.length <= 30) {
+                                      setIssuer(e.target.value);
+                                    }
+                                  }}
+                                  placeholder="Name (optional)"
+                                  maxLength={30}
+                                />
+                                <p className="text-xs text-slate-500">{issuer.length}/30 characters</p>
+                              </div>
                             </div>
                           )}
                           
@@ -1379,12 +1399,19 @@ export default function CertificateMakerPage() {
                               ) : (
                                 <div className="text-sm text-slate-500">Click "Draw" button above to open signature pad</div>
                               )}
-                              <Input
-                                value={issuer}
-                                onChange={e => setIssuer(e.target.value)}
-                                placeholder="Name (optional)"
-                                className="mt-2"
-                              />
+                              <div className="mt-2 space-y-1">
+                                <Input
+                                  value={issuer}
+                                  onChange={e => {
+                                    if (e.target.value.length <= 30) {
+                                      setIssuer(e.target.value);
+                                    }
+                                  }}
+                                  placeholder="Name (optional)"
+                                  maxLength={30}
+                                />
+                                <p className="text-xs text-slate-500">{issuer.length}/30 characters</p>
+                              </div>
                             </div>
                           )}
                         </div>
