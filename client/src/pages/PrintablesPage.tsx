@@ -174,6 +174,23 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mental-math-20',
   'number-line-200',
   'doubles-near-doubles',
+  // Multiplication worksheets
+  'mult-facts-1-5',
+  'mult-arrays-2-5',
+  'skip-count-mult',
+  'mult-word-problems-2-3',
+  'mult-facts-6-12',
+  'mult-arrays-models',
+  'mult-multi-step-word',
+  'mult-fact-families',
+  'mult-2x1',
+  'mult-2x2',
+  'mult-area-model',
+  'mult-complex-word',
+  'mult-fact-fluency',
+  'mult-mixed-review',
+  'mult-strategies',
+  'mult-patterns',
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
@@ -347,6 +364,39 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🔢 Count the Objects (1–20)'
     case 'sentence-building':
       return '📝 Sentence Building'
+    // Multiplication worksheets
+    case 'mult-facts-1-5':
+      return '✖️ Basic Multiplication Facts (1-5)'
+    case 'mult-arrays-2-5':
+      return '📊 Multiplication Arrays (2-5)'
+    case 'skip-count-mult':
+      return '➡️ Skip Counting for Multiplication'
+    case 'mult-word-problems-2-3':
+      return '🧮 Multiplication Word Problems (2nd-3rd)'
+    case 'mult-facts-6-12':
+      return '✖️ Advanced Multiplication Facts (6-12)'
+    case 'mult-arrays-models':
+      return '📊 Multiplication Arrays & Models'
+    case 'mult-multi-step-word':
+      return '🧮 Multi-Step Word Problems'
+    case 'mult-fact-families':
+      return '⚖️ Fact Families (Multiplication & Division)'
+    case 'mult-2x1':
+      return '✖️ Multi-Digit Multiplication (2×1)'
+    case 'mult-2x2':
+      return '✖️ Multi-Digit Multiplication (2×2)'
+    case 'mult-area-model':
+      return '📊 Area Model Multiplication'
+    case 'mult-complex-word':
+      return '🧮 Complex Word Problems'
+    case 'mult-fact-fluency':
+      return '⏱️ Multiplication Fact Fluency'
+    case 'mult-mixed-review':
+      return '🔢 Mixed Multiplication Review'
+    case 'mult-strategies':
+      return '🎯 Multiplication Strategies'
+    case 'mult-patterns':
+      return '📈 Multiplication Patterns'
     case 'bookmark-templates':
       return '📚 DIY Bookmark Templates'
     case 'design-monster':
@@ -5645,6 +5695,622 @@ export function PrintablesPage() {
                   <li>1/4 = one fourth (or one quarter)</li>
                   <li>2/4 = two fourths (or one half)</li>
                   <li>3/4 = three fourths (or three quarters)</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {/* Multiplication Worksheets */}
+        {activeDocs.includes('mult-facts-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-facts-1-5"
+              title="Basic Multiplication Facts (1-5)"
+              emoji="✖️"
+              description="Solve each multiplication problem. Practice facts from 1×1 to 5×5."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-center">
+                      <div>{a} × {b} = ____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-facts-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-arrays-2-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const arrays: Array<[number, number]> = Array.from({length: 6}).map(() => {
+            const rows = nextInt(2, 5); const cols = nextInt(2, 5); return [rows, cols];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-arrays-2-5"
+              title="Multiplication Arrays (2-5)"
+              emoji="📊"
+              description="Draw an array for each multiplication problem. Count the total."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {arrays.map(([rows, cols], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = ____</div>
+                    <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
+                      {Array.from({length: rows * cols}).map((_, idx) => (
+                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-arrays-2-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {arrays.map(([rows, cols], i) => (<li key={i}>{rows} × {cols} = {rows * cols}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('skip-count-mult') && (
+          <WorksheetSectionWrapper
+            docId="skip-count-mult"
+            title="Skip Counting for Multiplication"
+            emoji="➡️"
+            description="Skip count to find the missing numbers. Then write the multiplication fact."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              {[
+                { pattern: [2, 4, '__', 8, '__', 12], mult: '2 × __ = __' },
+                { pattern: [3, '__', 9, '__', 15, 18], mult: '3 × __ = __' },
+                { pattern: [5, 10, '__', 20, '__', 30], mult: '5 × __ = __' },
+                { pattern: [10, '__', 30, 40, '__', 60], mult: '10 × __ = __' },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="font-mono text-xl mb-2">
+                    {item.pattern.map((n, i) => (
+                      <span key={i} className="inline-block w-12 text-center border-b-2 border-slate-400 mx-1">
+                        {typeof n === 'number' ? n : '__'}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="text-center text-slate-700">{item.mult}</div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('skip-count-mult', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>2, 4, 6, 8, 10, 12 (2 × 6 = 12)</li>
+                  <li>3, 6, 9, 12, 15, 18 (3 × 6 = 18)</li>
+                  <li>5, 10, 15, 20, 25, 30 (5 × 6 = 30)</li>
+                  <li>10, 20, 30, 40, 50, 60 (10 × 6 = 60)</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('mult-word-problems-2-3') && (
+          <WorksheetSectionWrapper
+            docId="mult-word-problems-2-3"
+            title="Multiplication Word Problems (2nd-3rd)"
+            emoji="🧮"
+            description="Read each problem. Write a multiplication equation and solve."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+            <ol className="list-decimal list-inside space-y-3 text-sm text-slate-800">
+              {[
+                'Emma has 3 bags. Each bag has 4 apples. How many apples in all?',
+                'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?',
+                'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?',
+                'A classroom has 4 tables. Each table seats 5 students. How many students can sit?',
+                'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?',
+              ].map((q, i) => (
+                <li key={i}>
+                  {q}
+                  <div className="h-8 border-b border-slate-400 mt-1" />
+                </li>
+              ))}
+            </ol>
+            {showAnswersForDoc('mult-word-problems-2-3', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>3 × 4 = 12 apples</li>
+                  <li>5 × 3 = 15 flowers</li>
+                  <li>2 × 6 = 12 stickers</li>
+                  <li>4 × 5 = 20 students</li>
+                  <li>3 × 8 = 24 cookies</li>
+                </ol>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('mult-facts-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-facts-6-12"
+              title="Advanced Multiplication Facts (6-12)"
+              emoji="✖️"
+              description="Solve each multiplication problem. Practice facts from 6×6 to 12×12."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-center">
+                      <div>{a} × {b} = ____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-facts-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-arrays-models') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const arrays: Array<[number, number]> = Array.from({length: 6}).map(() => {
+            const rows = nextInt(3, 6); const cols = nextInt(3, 6); return [rows, cols];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-arrays-models"
+              title="Multiplication Arrays & Models"
+              emoji="📊"
+              description="Draw an array for each problem. Use the array to solve."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {arrays.map(([rows, cols], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = ____</div>
+                    <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
+                      {Array.from({length: rows * cols}).map((_, idx) => (
+                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-arrays-models', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {arrays.map(([rows, cols], i) => (<li key={i}>{rows} × {cols} = {rows * cols}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-multi-step-word') && (
+          <WorksheetSectionWrapper
+            docId="mult-multi-step-word"
+            title="Multi-Step Word Problems"
+            emoji="🧮"
+            description="Read each problem carefully. Show your work and solve."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+            <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {[
+                'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?',
+                'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?',
+                'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?',
+                'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?',
+              ].map((q, i) => (
+                <li key={i}>
+                  {q}
+                  <div className="h-12 border-b border-slate-400 mt-2" />
+                </li>
+              ))}
+            </ol>
+            {showAnswersForDoc('mult-multi-step-word', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>4 × 6 × 5 = 120 toys</li>
+                  <li>3 × 8 × 2 = 48 students</li>
+                  <li>5 × 3 = 15 flowers</li>
+                  <li>6 × 12 - 20 = 52 cookies left</li>
+                </ol>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('mult-fact-families') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const families: Array<[number, number]> = Array.from({length: 6}).map(() => {
+            const a = nextInt(2, 6); const b = nextInt(2, 6); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-fact-families"
+              title="Fact Families (Multiplication & Division)"
+              emoji="⚖️"
+              description="Complete each fact family. Write all four related facts."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {families.map(([a, b], i) => {
+                  const product = a * b;
+                  return (
+                    <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                      <div className="font-semibold mb-2 text-slate-800">Fact Family for {product}:</div>
+                      <div className="grid grid-cols-2 gap-2 text-lg font-mono">
+                        <div>{a} × {b} = ____</div>
+                        <div>{b} × {a} = ____</div>
+                        <div>{product} ÷ {a} = ____</div>
+                        <div>{product} ÷ {b} = ____</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {showAnswersForDoc('mult-fact-families', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {families.map(([a, b], i) => {
+                      const product = a * b;
+                      return (
+                        <li key={i}>{a} × {b} = {product}, {b} × {a} = {product}, {product} ÷ {a} = {b}, {product} ÷ {b} = {a}</li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-2x1') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<[number, number]> = Array.from({length: 8}).map(() => {
+            const a = nextInt(10, 99); const b = nextInt(2, 9); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-2x1"
+              title="Multi-Digit Multiplication (2×1)"
+              emoji="✖️"
+              description="Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-2x1', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-2x2') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<[number, number]> = Array.from({length: 6}).map(() => {
+            const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-2x2"
+              title="Multi-Digit Multiplication (2×2)"
+              emoji="✖️"
+              description="Multiply 2-digit numbers by 2-digit numbers using the standard algorithm."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-2x2', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-area-model') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<[number, number]> = Array.from({length: 4}).map(() => {
+            const a = nextInt(12, 35); const b = nextInt(12, 35); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-area-model"
+              title="Area Model Multiplication"
+              emoji="📊"
+              description="Use the area model to solve each multiplication problem. Break numbers into tens and ones."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {problems.map(([a, b], i) => {
+                  const aTens = Math.floor(a / 10); const aOnes = a % 10;
+                  const bTens = Math.floor(b / 10); const bOnes = b % 10;
+                  return (
+                    <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                      <div className="font-semibold mb-2 text-slate-800 text-center">{a} × {b} = ____</div>
+                      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
+                        <div className="border-2 border-slate-400 rounded p-2 text-center">
+                          <div className="text-xs text-slate-600">{aTens}0 × {bTens}0 = ____</div>
+                        </div>
+                        <div className="border-2 border-slate-400 rounded p-2 text-center">
+                          <div className="text-xs text-slate-600">{aTens}0 × {bOnes} = ____</div>
+                        </div>
+                        <div className="border-2 border-slate-400 rounded p-2 text-center">
+                          <div className="text-xs text-slate-600">{aOnes} × {bTens}0 = ____</div>
+                        </div>
+                        <div className="border-2 border-slate-400 rounded p-2 text-center">
+                          <div className="text-xs text-slate-600">{aOnes} × {bOnes} = ____</div>
+                        </div>
+                      </div>
+                      <div className="text-center mt-2 text-slate-700">Total: ____</div>
+                    </div>
+                  );
+                })}
+              </div>
+              {showAnswersForDoc('mult-area-model', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(([a, b], i) => {
+                      const aTens = Math.floor(a / 10); const aOnes = a % 10;
+                      const bTens = Math.floor(b / 10); const bOnes = b % 10;
+                      return (
+                        <li key={i}>{a} × {b} = {a * b} (Area: {aTens * 10}×{bTens * 10} + {aTens * 10}×{bOnes} + {aOnes}×{bTens * 10} + {aOnes}×{bOnes})</li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-complex-word') && (
+          <WorksheetSectionWrapper
+            docId="mult-complex-word"
+            title="Complex Word Problems"
+            emoji="🧮"
+            description="Solve each multi-step problem. Show all your work."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+            <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {[
+                'A school has 8 classrooms. Each classroom has 25 students. If each student needs 3 pencils, how many pencils are needed in all?',
+                'A factory makes 12 boxes per hour. Each box contains 24 items. If they work for 5 hours, how many items are made?',
+                'A store sells 15 packs of markers. Each pack has 8 markers. If 20 markers are sold separately, how many markers are left?',
+                'A garden has 6 rows of vegetables. Each row has 18 plants. If 3 plants in each row are tomatoes, how many non-tomato plants are there?',
+              ].map((q, i) => (
+                <li key={i}>
+                  {q}
+                  <div className="h-12 border-b border-slate-400 mt-2" />
+                </li>
+              ))}
+            </ol>
+            {showAnswersForDoc('mult-complex-word', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ol className="list-decimal list-inside space-y-0.5">
+                  <li>8 × 25 × 3 = 600 pencils</li>
+                  <li>12 × 24 × 5 = 1,440 items</li>
+                  <li>15 × 8 - 20 = 100 markers left</li>
+                  <li>6 × (18 - 3) = 90 non-tomato plants</li>
+                </ol>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('mult-fact-fluency') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-fact-fluency"
+              title="Multiplication Fact Fluency"
+              emoji="⏱️"
+              description="Solve as many facts as you can quickly. Practice all facts 1-12."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg">{a} × {b} = ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-fact-fluency', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <div className="grid grid-cols-4 gap-2 text-xs">
+                    {facts.map(([a, b], i) => (
+                      <div key={i}>{a} × {b} = {a * b}</div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-mixed-review') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 16}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-mixed-review"
+              title="Mixed Multiplication Review"
+              emoji="🔢"
+              description="Mixed practice with all multiplication facts. Review everything you've learned."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg">{a} × {b} = ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-mixed-review', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <div className="grid grid-cols-4 gap-2 text-xs">
+                    {facts.map(([a, b], i) => (
+                      <div key={i}>{a} × {b} = {a * b}</div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-strategies') && (
+          <WorksheetSectionWrapper
+            docId="mult-strategies"
+            title="Multiplication Strategies"
+            emoji="🎯"
+            description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              {[
+                { problem: '4 × 5', strategy: 'Skip count by 5s: ____' },
+                { problem: '3 × 6', strategy: 'Draw an array: ____ rows × ____ columns' },
+                { problem: '7 × 2', strategy: 'Repeated addition: ____ + ____ = ____' },
+                { problem: '5 × 8', strategy: 'Use doubles: 5 × 4 = ____, so 5 × 8 = ____' },
+                { problem: '6 × 9', strategy: 'Break apart: 6 × 10 = ____, so 6 × 9 = ____' },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="font-semibold text-slate-800 mb-2">{item.problem} = ____</div>
+                  <div className="text-slate-700">{item.strategy}</div>
+                  <div className="h-6 border-b border-slate-400 mt-2" />
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('mult-strategies', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>4 × 5 = 20 (5, 10, 15, 20)</li>
+                  <li>3 × 6 = 18 (3 rows × 6 columns)</li>
+                  <li>7 × 2 = 14 (2 + 2 + 2 + 2 + 2 + 2 + 2)</li>
+                  <li>5 × 8 = 40 (5 × 4 = 20, so 5 × 8 = 40)</li>
+                  <li>6 × 9 = 54 (6 × 10 = 60, so 6 × 9 = 54)</li>
+                </ul>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('mult-patterns') && (
+          <WorksheetSectionWrapper
+            docId="mult-patterns"
+            title="Multiplication Patterns"
+            emoji="📈"
+            description="Identify and extend the multiplication patterns. What do you notice?"
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              {[
+                { pattern: '2 × 1 = 2, 2 × 2 = 4, 2 × 3 = 6, 2 × 4 = ___, 2 × 5 = ___' },
+                { pattern: '5 × 2 = 10, 5 × 4 = 20, 5 × 6 = 30, 5 × 8 = ___, 5 × 10 = ___' },
+                { pattern: '3 × 3 = 9, 3 × 6 = 18, 3 × 9 = 27, 3 × 12 = ___, 3 × 15 = ___' },
+                { pattern: '10 × 1 = 10, 10 × 2 = 20, 10 × 3 = 30, 10 × 4 = ___, 10 × 5 = ___' },
+              ].map((item, idx) => (
+                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                  <div className="text-slate-800 font-mono">{item.pattern}</div>
+                </div>
+              ))}
+            </div>
+            {showAnswersForDoc('mult-patterns', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5">
+                  <li>2 × 4 = 8, 2 × 5 = 10 (pattern: add 2 each time)</li>
+                  <li>5 × 8 = 40, 5 × 10 = 50 (pattern: even numbers, add 10)</li>
+                  <li>3 × 12 = 36, 3 × 15 = 45 (pattern: multiples of 3)</li>
+                  <li>10 × 4 = 40, 10 × 5 = 50 (pattern: add 10 each time)</li>
                 </ul>
               </div>
             ))}
