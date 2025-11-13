@@ -55,44 +55,73 @@ export default function NameTracingGeneratorPage() {
   // Get names for preview (multiple in batch mode, single otherwise)
   const previewNames = React.useMemo(() => {
     if (batchMode === 'batch') {
-      const names = multipleNames
-        .split('\n')
+      // Handle all types of line endings (Windows \r\n, Mac \r, Unix \n)
+      const normalized = multipleNames.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      const rawNames = normalized.split('\n');
+      const names = rawNames
         .map(n => n.trim())
         .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH);
+      
+      // Debug logging
+      if (process.env.NODE_ENV === 'development') {
+        console.log('multipleNames raw:', JSON.stringify(multipleNames));
+        console.log('rawNames after split:', rawNames);
+        console.log('names after trim/filter:', names);
+        console.log('batchLayout:', batchLayout);
+      }
+      
       if (names.length === 0) return ['Your Name'];
       
       // Return names based on layout
+      let result: string[];
       if (batchLayout === 'two-per-page') {
-        return names.slice(0, 2);
+        result = names.slice(0, 2);
       } else if (batchLayout === 'four-per-page') {
-        return names.slice(0, 4);
+        result = names.slice(0, 4);
       } else {
         // one-per-page: show first name
-        return [names[0]];
+        result = [names[0]];
       }
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log('previewNames result:', result);
+      }
+      
+      return result;
     }
     return [childName.trim() || 'Your Name'];
   }, [batchMode, multipleNames, childName, batchLayout]);
 
   // Format names for display
   const formattedNames = React.useMemo(() => {
-    return previewNames.map(name => {
+    const formatted = previewNames.map((name, index) => {
       const trimmed = name.trim();
       if (!trimmed) return 'Your Name';
+      let result: string;
       switch (letterCase) {
         case 'title':
-          return trimmed
+          result = trimmed
             .split(/\s+/)
             .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
             .join(' ');
+          break;
         case 'upper':
-          return trimmed.toUpperCase();
+          result = trimmed.toUpperCase();
+          break;
         case 'lower':
-          return trimmed.toLowerCase();
+          result = trimmed.toLowerCase();
+          break;
         default:
-          return trimmed;
+          result = trimmed;
       }
+      return result;
     });
+    // Debug logging (remove in production if needed)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('previewNames:', previewNames);
+      console.log('formattedNames:', formatted);
+    }
+    return formatted;
   }, [previewNames, letterCase]);
 
   // For backward compatibility, keep formattedName as first name
@@ -1180,9 +1209,13 @@ export default function NameTracingGeneratorPage() {
                             rx={28}
                           />
                           {formattedNames.map((name, nameIndex) => {
-                            // Ensure we're using the correct name for this index
-                            const currentName = formattedNames[nameIndex];
-                            if (!currentName) return null;
+                            // Use the name from the map parameter directly - it's already the correct value
+                            if (!name) return null;
+                            
+                            // Debug logging
+                            if (process.env.NODE_ENV === 'development') {
+                              console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
+                            }
                             
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                             // Calculate position based on layout
@@ -1207,7 +1240,7 @@ export default function NameTracingGeneratorPage() {
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
                             return (
-                              <g key={`worksheet-${nameIndex}-${currentName}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
+                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
@@ -1243,7 +1276,7 @@ export default function NameTracingGeneratorPage() {
                                               fill={nameConfig.fill}
                                               style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                             >
-                                              {currentName}
+                                              {name}
                                             </text>
                                           )}
                                           <text
@@ -1260,7 +1293,7 @@ export default function NameTracingGeneratorPage() {
                                             strokeDasharray={nameConfig.dashArray}
                                             style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                           >
-                                            {currentName}
+                                            {name}
                                           </text>
                                         </>
                                       )}
