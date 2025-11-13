@@ -1,7 +1,13 @@
 User-agent: *
+Allow: /
 Disallow: /dashboard
 Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
 
+# Explicitly allow Yahoo's crawler
+User-agent: Slurp
+Allow: /
+
+User-agent: *
 Sitemap: https://wizqo.com/sitemap.xml
