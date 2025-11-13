@@ -187,9 +187,23 @@ export default function CertificateMakerPage() {
                   tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
                   // Then draw the image
                   tempCtx.drawImage(imgElement, 0, 0);
-                  const dataURL = tempCanvas.toDataURL('image/png');
-                  img.setAttribute('href', dataURL);
-                  img.removeAttribute('xlink:href');
+                  
+                  // Try to get data URL - if it fails due to tainted canvas, use the original data URL if available
+                  try {
+                    const dataURL = tempCanvas.toDataURL('image/png');
+                    img.setAttribute('href', dataURL);
+                    img.removeAttribute('xlink:href');
+                  } catch (toDataURLError) {
+                    // If toDataURL fails (tainted canvas), check if we have the original data URL
+                    if (href.startsWith('data:')) {
+                      // Keep the original data URL
+                      img.setAttribute('href', href);
+                    } else {
+                      // Remove the image if we can't convert it
+                      console.warn('Cannot convert image to data URL, removing:', href);
+                      img.remove();
+                    }
+                  }
                 }
                 resolve();
               } catch (error) {
@@ -247,40 +261,21 @@ export default function CertificateMakerPage() {
           const url = URL.createObjectURL(svgBlob);
 
           const img = new Image();
-          // Don't set crossOrigin for blob URLs
+          // Don't set crossOrigin for blob URLs - they're same-origin
           img.onload = () => {
             try {
               // Draw the image on canvas
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
               URL.revokeObjectURL(url);
 
-              // Use toDataURL instead of toBlob to avoid tainted canvas issues
+              // Try toDataURL first (works even with some tainted canvases in some browsers)
+              let downloadSuccess = false;
               try {
                 const dataURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.href = dataURL;
-                const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
-                link.download = filename;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => {
-                  document.body.removeChild(link);
-                  setIsDownloadingPNG(false);
-                }, 100);
-              } catch (dataURLError) {
-                // If toDataURL fails, try toBlob as fallback
-                console.warn('toDataURL failed, trying toBlob:', dataURLError);
-                canvas.toBlob((blob) => {
-                  if (!blob) {
-                    alert('Failed to create PNG file. Please try again.');
-                    console.error('Failed to create blob');
-                    setIsDownloadingPNG(false);
-                    return;
-                  }
-                  const downloadUrl = URL.createObjectURL(blob);
+                // Check if dataURL is valid (not the default empty image)
+                if (dataURL && dataURL !== 'data:,') {
                   const link = document.createElement('a');
-                  link.href = downloadUrl;
+                  link.href = dataURL;
                   const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
                   link.download = filename;
                   link.style.display = 'none';
@@ -288,14 +283,47 @@ export default function CertificateMakerPage() {
                   link.click();
                   setTimeout(() => {
                     document.body.removeChild(link);
-                    URL.revokeObjectURL(downloadUrl);
                     setIsDownloadingPNG(false);
                   }, 100);
-                }, 'image/png', 1.0);
+                  downloadSuccess = true;
+                }
+              } catch (dataURLError) {
+                console.warn('toDataURL failed:', dataURLError);
+              }
+              
+              // If toDataURL failed, try toBlob as fallback
+              if (!downloadSuccess) {
+                try {
+                  canvas.toBlob((blob) => {
+                    if (!blob) {
+                      alert('Failed to create PNG file. The canvas may be tainted. Please try using Print/Save as PDF instead.');
+                      console.error('Failed to create blob');
+                      setIsDownloadingPNG(false);
+                      return;
+                    }
+                    const downloadUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
+                    link.download = filename;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    setTimeout(() => {
+                      document.body.removeChild(link);
+                      URL.revokeObjectURL(downloadUrl);
+                      setIsDownloadingPNG(false);
+                    }, 100);
+                  }, 'image/png', 1.0);
+                } catch (toBlobError) {
+                  console.error('toBlob also failed:', toBlobError);
+                  alert('Failed to export PNG due to security restrictions. Please use Print/Save as PDF instead, or try removing any uploaded signature images.');
+                  setIsDownloadingPNG(false);
+                }
               }
             } catch (error) {
               console.error('Error creating PNG:', error);
-              alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
+              alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error') + '. Please try Print/Save as PDF instead.');
               URL.revokeObjectURL(url);
               setIsDownloadingPNG(false);
             }
