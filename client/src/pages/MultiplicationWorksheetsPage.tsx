@@ -64,17 +64,28 @@ export default function MultiplicationWorksheetsPage() {
           <span className="line" />
         </div>
       </div>
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-        <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">Free Multiplication Worksheets (Printable PDFs)</h1>
-          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-purple-300 to-pink-400 mt-3 mb-3" />
-          <p className="text-slate-700 text-sm max-w-3xl">
-            Free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade—multiplication facts, arrays, word problems, and visual models you can print and use at home or in class. Download as PDF with answer keys included.
-          </p>
-        </header>
-
-        <section>
-          <div className="text-slate-800 font-semibold mb-1">What's Inside</div>
+      <main className="bg-gradient-to-b from-purple-50/70 via-white to-white">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+                ✨ Free multiplication worksheets • 2nd-5th grade
+              </span>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                Free Multiplication Worksheets
+                <span className="block text-purple-600">Printable PDFs with answer keys for every grade.</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+                Free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade—multiplication facts, arrays, word problems, and visual models you can print and use at home or in class. Download as PDF with answer keys included.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">What's Inside</h2>
           <p className="text-slate-700 text-sm max-w-3xl">
             Build multiplication fluency with focused practice: multiplication facts 1-12, visual arrays, skip counting patterns, multiplication word problems, and fact families. Each worksheet is one page, easy to print, and designed for quick daily practice with answer keys included.
           </p>
@@ -84,10 +95,9 @@ export default function MultiplicationWorksheetsPage() {
         </section>
 
         {/* 2nd & 3rd Grade Multiplication Worksheets */}
-        <section>
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 2nd & 3rd Grade Multiplication</h2>
+        <section className="space-y-8">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 2nd & 3rd Grade Multiplication</h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 <WorksheetThumbnailCard title="✖️ Basic Multiplication Facts (1-5)" description="Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences. Perfect for building foundational multiplication skills." href="/print?doc=mult-facts-1-5&from=multiplication" docId="mult-facts-1-5" />
                 <WorksheetThumbnailCard title="📊 Multiplication Arrays (2-5)" description="Draw arrays to solve multiplication problems; understand multiplication as repeated addition with visual models." href="/print?doc=mult-arrays-2-5&from=multiplication" docId="mult-arrays-2-5" />
@@ -128,8 +138,8 @@ export default function MultiplicationWorksheetsPage() {
           </div>
         </section>
 
-        <section className="mb-10">
-          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
+        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
               <AccordionTrigger className="px-4">Are multiplication worksheets free to download?</AccordionTrigger>
@@ -157,6 +167,7 @@ export default function MultiplicationWorksheetsPage() {
             </AccordionItem>
           </Accordion>
         </section>
+        </div>
       </main>
       <Footer />
     </div>

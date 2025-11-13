@@ -156,8 +156,8 @@ export default function WorksheetsFirstGradePage() {
           </div>
         </section>
 
-        <section className="mb-10">
-          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
+        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
               <AccordionTrigger className="px-4">Can I use these in the classroom?</AccordionTrigger>
@@ -179,6 +179,7 @@ export default function WorksheetsFirstGradePage() {
             </AccordionItem>
           </Accordion>
         </section>
+        </div>
       </main>
       <Footer />
     </div>

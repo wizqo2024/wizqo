@@ -92,20 +92,31 @@ export default function ReadingComprehensionPage() {
         );
       })()}
 
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Printable Reading Comprehension Worksheets for Kids (PDF)</h1>
-          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
-          <p className="mt-2 text-slate-700 max-w-3xl">Fun and engaging passages with questions, answers, and print‑ready PDFs. Ideal for Grades 1–3 and at‑home practice.</p>
-          <div className="mt-4 flex flex-wrap gap-2 text-sm">
-            <button onClick={() => scrollTo('grade-1')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 1</button>
-            <button onClick={() => scrollTo('grade-2')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 2</button>
-            <button onClick={() => scrollTo('grade-3')} className="px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:bg-slate-50">Grade 3</button>
+      <main className="bg-gradient-to-b from-purple-50/70 via-white to-white">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+                ✨ Free reading comprehension worksheets • G1-G3 passages free PDF
+              </span>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                Free Printable Reading Comprehension Worksheets
+                <span className="block text-purple-600">Fun passages with questions and answer keys for grades 1–3.</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+                Fun and engaging passages with questions, answers, and print‑ready PDFs. Ideal for Grades 1–3 and at‑home practice.
+              </p>
+              <div className="flex flex-wrap gap-2 text-sm">
+                <button onClick={() => scrollTo('grade-1')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 1</button>
+                <button onClick={() => scrollTo('grade-2')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 2</button>
+                <button onClick={() => scrollTo('grade-3')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 3</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </header>
-
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+        </section>
+        
+        <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
         {/* What's Inside + Pack Builder */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900">What’s Inside</h2>
@@ -225,8 +236,8 @@ export default function ReadingComprehensionPage() {
         </section>
 
         {/* FAQs (match accordion UI used elsewhere) */}
-        <section className="mb-10">
-          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
+        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
               <AccordionTrigger className="px-4">How do I download the worksheets as PDF?</AccordionTrigger>
@@ -248,6 +259,7 @@ export default function ReadingComprehensionPage() {
             </AccordionItem>
           </Accordion>
         </section>
+        </div>
       </main>
 
       <Footer />
