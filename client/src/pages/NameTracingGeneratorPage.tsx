@@ -105,6 +105,9 @@ export default function NameTracingGeneratorPage() {
     }
   }, []);
 
+  // Use a ref to store the generateSVGForName function so it can be accessed by callbacks defined earlier
+  const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
+
   const handlePrint = React.useCallback(() => {
     try {
       if (batchMode === 'single') {
@@ -200,6 +203,16 @@ export default function NameTracingGeneratorPage() {
           return;
         }
 
+        const generateFn = generateSVGForNameRef.current;
+        if (!generateFn) {
+          toast({
+            title: 'Error',
+            description: 'SVG generator not ready. Please refresh the page.',
+            variant: 'destructive',
+          });
+          return;
+        }
+
         const paperSizes = {
           'us-letter': { width: 8.5, height: 11 },
           'a4': { width: 8.27, height: 11.69 },
@@ -213,7 +226,7 @@ export default function NameTracingGeneratorPage() {
         if (batchLayout === 'one-per-page') {
           // One name per page
           names.forEach((name) => {
-            const svg = generateSVGForName(name);
+            const svg = generateFn(name);
             htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;"><div style="position: absolute; inset: 0; width: 100%; height: 100%;">${svg}</div></div>`;
           });
         } else if (batchLayout === 'two-per-page') {
@@ -221,8 +234,8 @@ export default function NameTracingGeneratorPage() {
           for (let i = 0; i < names.length; i += 2) {
             const name1 = names[i];
             const name2 = names[i + 1];
-            const svg1 = generateSVGForName(name1);
-            const svg2 = name2 ? generateSVGForName(name2) : '';
+            const svg1 = generateFn(name1);
+            const svg2 = name2 ? generateFn(name2) : '';
             htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
               <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50%;">${svg1}</div>
               ${svg2 ? `<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50%;">${svg2}</div>` : ''}
@@ -235,10 +248,10 @@ export default function NameTracingGeneratorPage() {
             const name2 = names[i + 1];
             const name3 = names[i + 2];
             const name4 = names[i + 3];
-            const svg1 = generateSVGForName(name1);
-            const svg2 = name2 ? generateSVGForName(name2) : '';
-            const svg3 = name3 ? generateSVGForName(name3) : '';
-            const svg4 = name4 ? generateSVGForName(name4) : '';
+            const svg1 = generateFn(name1);
+            const svg2 = name2 ? generateFn(name2) : '';
+            const svg3 = name3 ? generateFn(name3) : '';
+            const svg4 = name4 ? generateFn(name4) : '';
             htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
               <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;">${svg1}</div>
               ${svg2 ? `<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%;">${svg2}</div>` : ''}
@@ -301,7 +314,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, generateSVGForName, toast]);
+  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
@@ -326,11 +339,21 @@ export default function NameTracingGeneratorPage() {
           description: `Generating ${names.length} PNG file${names.length > 1 ? 's' : ''}... This may take a moment.`,
         });
 
+        const generateFn = generateSVGForNameRef.current;
+        if (!generateFn) {
+          toast({
+            title: 'Error',
+            description: 'SVG generator not ready. Please refresh the page.',
+            variant: 'destructive',
+          });
+          return;
+        }
+
         // Download each name as a separate PNG
         names.forEach((name, index) => {
           setTimeout(() => {
             try {
-              const svgString = generateSVGForName(name);
+              const svgString = generateFn(name);
               const parser = new DOMParser();
               const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
               const svgElement = svgDoc.documentElement as SVGSVGElement;
@@ -436,7 +459,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, generateSVGForName, formatName, letterCase, safeFileName, svgRef, toast]);
+  }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast]);
 
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
@@ -576,7 +599,7 @@ export default function NameTracingGeneratorPage() {
     } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
   }, [baseFontConfig, baseFontSize, formattedName, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
 
-  // Helper function to generate SVG for a given name (moved here so it can access baseFontConfig, etc.)
+  // Helper function to generate SVG for a given name (defined here after all dependencies)
   const generateSVGForName = React.useCallback((name: string): string => {
     const formatted = formatName(name, letterCase);
     const practicingRows = (() => {
@@ -671,6 +694,11 @@ export default function NameTracingGeneratorPage() {
 
     return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
   }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, fontStyle, lineStyle, showGuideDots]);
+
+  // Store the function in ref so it can be accessed by callbacks
+  React.useEffect(() => {
+    generateSVGForNameRef.current = generateSVGForName;
+  }, [generateSVGForName]);
 
   return (
     <div className="min-h-screen bg-slate-50">
