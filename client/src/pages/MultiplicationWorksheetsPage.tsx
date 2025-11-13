@@ -4,24 +4,28 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { InteractiveWorksheetsPage } from './InteractiveWorksheetsPage';
 
-// Set URL params synchronously before component renders
-if (typeof window !== 'undefined') {
+// Set URL params synchronously before component renders - CRITICAL for parseInitialFilters
+if (typeof window !== 'undefined' && window.location.pathname.includes('/worksheets/multiplication-worksheets')) {
   const params = new URLSearchParams(window.location.search);
   let needsUpdate = false;
   
-  // Set default filters for multiplication if not present
-  if (!params.get('grade')) {
+  // Force set filters for multiplication - always ensure they're present
+  const currentGrade = params.get('grade');
+  const currentCategories = params.get('categories');
+  
+  if (currentGrade !== 'g2') {
     params.set('grade', 'g2'); // Default to 2nd-3rd grade
     needsUpdate = true;
   }
-  if (!params.get('categories')) {
+  if (currentCategories !== 'math') {
     params.set('categories', 'math');
     needsUpdate = true;
   }
   
-  // Update URL without page reload if params changed
+  // Update URL synchronously if params changed - this must happen before any component renders
   if (needsUpdate) {
     const newUrl = `${window.location.pathname}?${params.toString()}`;
+    // Use replaceState synchronously - this happens before React renders
     window.history.replaceState({}, '', newUrl);
   }
 }
