@@ -158,7 +158,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       </a>
                     </div>
 
-                    <div>
+                    <div className="pl-4">
                       <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
                       <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -198,7 +198,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       </a>
                     </div>
 
-                      <div>
+                      <div className="pl-4">
                         <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
                         <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -213,7 +213,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </a>
                       </div>
 
-                      <div>
+                      <div className="pl-4">
                         <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
                         <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
