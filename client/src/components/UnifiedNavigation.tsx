@@ -166,7 +166,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div className="min-w-0">
                           <div className="text-xs font-semibold text-slate-800">Multiplication Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">2nd-5th grade PDFs</div>
+                          <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
                         </div>
                       </a>
                       <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -175,7 +175,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div className="min-w-0">
                           <div className="text-xs font-semibold text-slate-800">1st Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub</div>
+                          <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
                         </div>
                       </a>
                       <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -184,7 +184,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div className="min-w-0">
                           <div className="text-xs font-semibold text-slate-800">2nd Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Place value, add/sub</div>
+                          <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
                         </div>
                       </a>
                       <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -193,7 +193,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         </svg>
                         <div>
                           <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Reading Comprehension Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">G1-G3 passages</div>
+                          <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
                         </div>
                       </a>
                     </div>
