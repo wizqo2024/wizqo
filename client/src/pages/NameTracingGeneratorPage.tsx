@@ -1345,7 +1345,6 @@ export default function NameTracingGeneratorPage() {
                                     </g>
                                   );
                                 })}
-                                </g>
                               </g>
                             );
                           })}
