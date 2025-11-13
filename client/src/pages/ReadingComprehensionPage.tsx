@@ -187,17 +187,17 @@ export default function ReadingComprehensionPage() {
             <ItemCard
               title="📖 The Lighthouse Keeper’s Trick (Grade 3)"
               description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-lighthouse"
+              href="/print?doc=reading-g3-lighthouse&from=reading-comprehension"
             />
             <ItemCard
               title="📖 The Science Fair Plan (Grade 3)"
               description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-science-fair"
+              href="/print?doc=reading-g3-science-fair&from=reading-comprehension"
             />
             <ItemCard
               title="📖 The Community Garden (Grade 3)"
               description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-community-garden"
+              href="/print?doc=reading-g3-community-garden&from=reading-comprehension"
             />
           </div>
           {/* Inline passage previews removed; use printable views above */}
