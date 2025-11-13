@@ -191,7 +191,7 @@
     </nav>
     
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
-    <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    <main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade
       </h1>
@@ -252,18 +252,14 @@
       </style>
     </noscript>
     <script>
-      // Hide fallback content once React fully loads (for users with JS enabled)
-      // This ensures crawlers always see the content, but users see the enhanced React version
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          const root = document.getElementById('root');
-          const fallback = document.getElementById('seo-fallback');
-          if (root && root.children.length > 0 && fallback) {
-            // Only hide if React has rendered content
-            fallback.style.display = 'none';
-          }
-        }, 100);
-      });
+      // Hide fallback content immediately for users with JS enabled
+      // This prevents flash of unstyled content while keeping it visible for crawlers
+      (function() {
+        const fallback = document.getElementById('seo-fallback');
+        if (fallback) {
+          fallback.style.display = 'none';
+        }
+      })();
     </script>
   </body>
 </html>
