@@ -72,15 +72,18 @@ export default function NameTracingGeneratorPage() {
       
       if (names.length === 0) return ['Your Name'];
       
-      // Return names based on layout
+      // For preview, show all names (up to 4) regardless of print layout
+      // The print layout only affects the actual print/download, not the preview
       let result: string[];
       if (batchLayout === 'two-per-page') {
+        // Show up to 2 names in preview for 2-per-page layout
         result = names.slice(0, 2);
       } else if (batchLayout === 'four-per-page') {
+        // Show up to 4 names in preview for 4-per-page layout
         result = names.slice(0, 4);
       } else {
-        // one-per-page: show first name
-        result = [names[0]];
+        // one-per-page: show all names (up to 4) in preview so user can see what they entered
+        result = names.slice(0, 4);
       }
       
       if (process.env.NODE_ENV === 'development') {
@@ -1188,8 +1191,8 @@ export default function NameTracingGeneratorPage() {
                 <div className="bg-slate-100 p-4">
                   <div className="bg-white rounded-2xl shadow-inner border border-slate-200">
                     <div id="name-tracing-sheet" className="p-4">
-                      {batchMode === 'batch' && batchLayout !== 'one-per-page' ? (
-                        // Show multiple names in batch mode
+                      {batchMode === 'batch' && formattedNames.length > 1 ? (
+                        // Show multiple names in batch mode when there are multiple names
                         <svg
                           ref={svgRef}
                           viewBox={`0 0 ${pageWidth} ${pageHeight}`}
@@ -1219,15 +1222,20 @@ export default function NameTracingGeneratorPage() {
                             
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                             // Calculate position based on layout
+                            // For preview, use a smart layout based on number of names
                             let worksheetX = margin;
                             let worksheetY = margin;
                             let worksheetWidth = pageWidth - margin * 2;
                             let worksheetHeight = pageHeight - margin * 2;
                             
-                            if (batchLayout === 'two-per-page') {
+                            const totalNames = formattedNames.length;
+                            
+                            if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
+                              // Two names: stack vertically
                               worksheetHeight = (pageHeight - margin * 2) / 2;
                               worksheetY = margin + nameIndex * worksheetHeight;
-                            } else if (batchLayout === 'four-per-page') {
+                            } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
+                              // Four names or more: use 2x2 grid
                               worksheetWidth = (pageWidth - margin * 2) / 2;
                               worksheetHeight = (pageHeight - margin * 2) / 2;
                               worksheetX = margin + (nameIndex % 2) * worksheetWidth;
@@ -1235,7 +1243,11 @@ export default function NameTracingGeneratorPage() {
                             }
                             
                             // Adjust row calculations for smaller worksheets
-                            const adjustedRowGap = batchLayout === 'two-per-page' ? rowGap * 0.8 : batchLayout === 'four-per-page' ? rowGap * 0.6 : rowGap;
+                            const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2) 
+                              ? rowGap * 0.8 
+                              : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
+                              ? rowGap * 0.6 
+                              : rowGap;
                             const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
