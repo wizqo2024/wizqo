@@ -89,40 +89,40 @@ export default function MultiplicationWorksheetsPage() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 2nd & 3rd Grade Multiplication</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="✖️ Basic Multiplication Facts (1-5)" description="Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences. Perfect for building foundational multiplication skills." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="📊 Multiplication Arrays (2-5)" description="Draw arrays to solve multiplication problems; understand multiplication as repeated addition with visual models." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="➡️ Skip Counting for Multiplication" description="Practice skip counting by 2s, 3s, 5s, and 10s to build multiplication foundation and pattern recognition." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="🧮 Multiplication Word Problems (2nd-3rd)" description="Solve simple multiplication word problems with pictures and number sentences for 2nd and 3rd graders." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
+                <WorksheetThumbnailCard title="✖️ Basic Multiplication Facts (1-5)" description="Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences. Perfect for building foundational multiplication skills." href="/print?doc=mult-facts-1-5&from=multiplication" docId="mult-facts-1-5" />
+                <WorksheetThumbnailCard title="📊 Multiplication Arrays (2-5)" description="Draw arrays to solve multiplication problems; understand multiplication as repeated addition with visual models." href="/print?doc=mult-arrays-2-5&from=multiplication" docId="mult-arrays-2-5" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting for Multiplication" description="Practice skip counting by 2s, 3s, 5s, and 10s to build multiplication foundation and pattern recognition." href="/print?doc=skip-count-mult&from=multiplication" docId="skip-count-mult" />
+                <WorksheetThumbnailCard title="🧮 Multiplication Word Problems (2nd-3rd)" description="Solve simple multiplication word problems with pictures and number sentences for 2nd and 3rd graders." href="/print?doc=mult-word-problems-2-3&from=multiplication" docId="mult-word-problems-2-3" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ 3rd & 4th Grade Multiplication</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="✖️ Advanced Multiplication Facts (6-12)" description="Master multiplication facts 6×6 through 12×12 with timed practice and fact fluency drills." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="📊 Multiplication Arrays & Models" description="Create and solve multiplication problems using larger arrays and visual models for deeper understanding." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="🧮 Multi-Step Word Problems" description="Solve multi-step multiplication word problems with real-world scenarios for 3rd and 4th graders." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="⚖️ Fact Families (Multiplication & Division)" description="Complete multiplication and division fact families to understand inverse operations and number relationships." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
+                <WorksheetThumbnailCard title="✖️ Advanced Multiplication Facts (6-12)" description="Master multiplication facts 6×6 through 12×12 with timed practice and fact fluency drills." href="/print?doc=mult-facts-6-12&from=multiplication" docId="mult-facts-6-12" />
+                <WorksheetThumbnailCard title="📊 Multiplication Arrays & Models" description="Create and solve multiplication problems using larger arrays and visual models for deeper understanding." href="/print?doc=mult-arrays-models&from=multiplication" docId="mult-arrays-models" />
+                <WorksheetThumbnailCard title="🧮 Multi-Step Word Problems" description="Solve multi-step multiplication word problems with real-world scenarios for 3rd and 4th graders." href="/print?doc=mult-multi-step-word&from=multiplication" docId="mult-multi-step-word" />
+                <WorksheetThumbnailCard title="⚖️ Fact Families (Multiplication & Division)" description="Complete multiplication and division fact families to understand inverse operations and number relationships." href="/print?doc=mult-fact-families&from=multiplication" docId="mult-fact-families" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🚀 4th & 5th Grade Multiplication</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×1)" description="Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×2)" description="Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="📊 Area Model Multiplication" description="Use area models to visualize and solve multi-digit multiplication problems with visual understanding." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="🧮 Complex Word Problems" description="Solve complex multiplication word problems with multiple steps and real-world contexts for 4th and 5th graders." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
+                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×1)" description="Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery." href="/print?doc=mult-2x1&from=multiplication" docId="mult-2x1" />
+                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×2)" description="Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models." href="/print?doc=mult-2x2&from=multiplication" docId="mult-2x2" />
+                <WorksheetThumbnailCard title="📊 Area Model Multiplication" description="Use area models to visualize and solve multi-digit multiplication problems with visual understanding." href="/print?doc=mult-area-model&from=multiplication" docId="mult-area-model" />
+                <WorksheetThumbnailCard title="🧮 Complex Word Problems" description="Solve complex multiplication word problems with multiple steps and real-world contexts for 4th and 5th graders." href="/print?doc=mult-complex-word&from=multiplication" docId="mult-complex-word" />
               </div>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">🎯 Multiplication Fluency & Practice</h2>
               <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="⏱️ Multiplication Fact Fluency" description="Build speed and accuracy with multiplication fact practice covering all facts 1-12 for complete mastery." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="🔢 Mixed Multiplication Review" description="Mixed practice with all multiplication facts for comprehensive review and retention." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="🎯 Multiplication Strategies" description="Learn and practice different multiplication strategies (skip counting, arrays, repeated addition, distributive property)." href="/interactive-worksheets-generator?grade=g2&categories=math" docId="interactive-math-multiplication" />
-                <WorksheetThumbnailCard title="📈 Multiplication Patterns" description="Identify and extend multiplication patterns and number sequences to build algebraic thinking." href="/interactive-worksheets-generator?grade=35&categories=math" docId="interactive-math-multiplication" />
+                <WorksheetThumbnailCard title="⏱️ Multiplication Fact Fluency" description="Build speed and accuracy with multiplication fact practice covering all facts 1-12 for complete mastery." href="/print?doc=mult-fact-fluency&from=multiplication" docId="mult-fact-fluency" />
+                <WorksheetThumbnailCard title="🔢 Mixed Multiplication Review" description="Mixed practice with all multiplication facts for comprehensive review and retention." href="/print?doc=mult-mixed-review&from=multiplication" docId="mult-mixed-review" />
+                <WorksheetThumbnailCard title="🎯 Multiplication Strategies" description="Learn and practice different multiplication strategies (skip counting, arrays, repeated addition, distributive property)." href="/print?doc=mult-strategies&from=multiplication" docId="mult-strategies" />
+                <WorksheetThumbnailCard title="📈 Multiplication Patterns" description="Identify and extend multiplication patterns and number sequences to build algebraic thinking." href="/print?doc=mult-patterns&from=multiplication" docId="mult-patterns" />
               </div>
             </div>
           </div>
@@ -250,7 +250,7 @@ function BuildPackInline() {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd-5th Grade</span>
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Multiplication</span>
       </div>
-      <a href="/interactive-worksheets-generator?grade=g2&categories=math" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{} }}>Build Pack →</a>
+      <a href="/print?doc=pack&time=5&age=g2&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{} }}>Build Pack →</a>
     </div>
   )
 }
