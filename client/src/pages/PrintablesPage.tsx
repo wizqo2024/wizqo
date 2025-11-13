@@ -1757,7 +1757,7 @@ export function PrintablesPage() {
                 </ol>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('compare-2digit') && (() => {
@@ -1767,17 +1767,13 @@ export function PrintablesPage() {
             const a = nextInt(10,99); const b = nextInt(10,99); return [a,b];
           });
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-sky-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-indigo-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-purple-200/40 animate-blob animation-delay-4000" />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">Compare 2‑Digit Numbers
-                <span className="ml-2 print:hidden inline-block animate-bounce">⚖️</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="compare-2digit"
+              title="Compare 2‑Digit Numbers"
+              emoji="⚖️"
+              description="Write one symbol in each box: >, <, or =. Tip: Compare tens first. If tens are equal, compare ones."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
-              <p className="text-slate-600 text-sm mb-3">Write one symbol in each box: <span className="font-mono">&gt;</span>, <span className="font-mono">&lt;</span>, or <span className="font-mono">=</span>. Tip: Compare tens first. If tens are equal, compare ones.</p>
               <div className="mb-3 text-sm text-slate-700">
                 <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
                   <span className="font-mono">58</span>
