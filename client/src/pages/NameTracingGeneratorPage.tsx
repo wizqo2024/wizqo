@@ -52,8 +52,20 @@ export default function NameTracingGeneratorPage() {
 
   const svgRef = React.useRef<SVGSVGElement | null>(null);
 
+  // Get the name to display in preview (first name in batch mode, or single name)
+  const previewName = React.useMemo(() => {
+    if (batchMode === 'batch') {
+      const names = multipleNames
+        .split('\n')
+        .map(n => n.trim())
+        .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH);
+      return names.length > 0 ? names[0] : 'Your Name';
+    }
+    return childName.trim() || 'Your Name';
+  }, [batchMode, multipleNames, childName]);
+
   const formattedName = React.useMemo(() => {
-    const trimmed = childName.trim();
+    const trimmed = previewName.trim();
     if (!trimmed) return 'Your Name';
     switch (letterCase) {
       case 'title':
@@ -68,7 +80,7 @@ export default function NameTracingGeneratorPage() {
       default:
         return trimmed;
     }
-  }, [childName, letterCase]);
+  }, [previewName, letterCase]);
 
   const practicingRows = React.useMemo(() => {
     const sequence = patternStyle === 'traceOnly'
@@ -1112,10 +1124,15 @@ export default function NameTracingGeneratorPage() {
                     <div>
                       <h2 className="text-lg font-semibold text-slate-900">Live preview</h2>
                       <p className="text-xs text-slate-500">
-                        Everything you see prints beautifully on {paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper ({printOrientation}).
+                        {batchMode === 'batch' 
+                          ? `Showing preview of first name. Everything prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
+                          : `Everything you see prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
+                        }
                       </p>
                     </div>
-                    <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">Ready to trace</span>
+                    <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">
+                      {batchMode === 'batch' ? 'Batch mode' : 'Ready to trace'}
+                    </span>
                   </div>
                 </div>
                 <div className="bg-slate-100 p-4">
