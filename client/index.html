@@ -162,6 +162,17 @@
         height: 1px;
         overflow: hidden;
       }
+      /* Critical CSS to prevent FOUC */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #root {
+        min-height: 100vh;
+        background-color: #f8fafc;
+      }
     </style>
   </head>
   <body>

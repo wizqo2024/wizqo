@@ -203,6 +203,20 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    /* Prevent flash of unstyled content */
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Ensure content is styled immediately */
+  html {
+    background-color: hsl(210, 40%, 98%);
+  }
+  
+  /* Smooth page transitions */
+  #root {
+    min-height: 100vh;
+    transition: opacity 0.2s ease-in-out;
   }
 }
 
