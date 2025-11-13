@@ -1,400 +1,263 @@
-import React, { useEffect } from 'react';
-import { UnifiedNavigation } from '@/components/UnifiedNavigation';
-import { Footer } from '@/components/Footer';
-import { SEOMetaTags } from '@/components/SEOMetaTags';
-import { Button } from '@/components/ui/button';
+import React from 'react'
+import { UnifiedNavigation } from '@/components/UnifiedNavigation'
+import { Footer } from '@/components/Footer'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { SEOMetaTags } from '@/components/SEOMetaTags'
 
 export default function MultiplicationWorksheetsPage() {
-  // Pre-fill URL params for generator if not already set
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    // Set default filters for multiplication if not present
-    if (!params.get('grade')) {
-      params.set('grade', 'g2'); // Default to 2nd-3rd grade
-    }
-    if (!params.get('categories')) {
-      params.set('categories', 'math');
-    }
-    // Update URL without page reload if params changed
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    if (window.location.search !== `?${params.toString()}`) {
-      window.history.replaceState({}, '', newUrl);
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
         title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
-        description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
+        description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
         keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
         canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
       />
-      
-      {/* Structured Data for SEO */}
       {(() => {
+        const canonical = "https://wizqo.com/worksheets/multiplication-worksheets";
+        const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
             { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/interactive-worksheets-generator" },
             { "@type": "ListItem", position: 3, name: "Multiplication Worksheets", item: "https://wizqo.com/worksheets/multiplication-worksheets" }
           ]
-        };
-        
+        } as const;
         const faqLd = {
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            {
-              "@type": "Question",
-              name: "Are multiplication worksheets free to download?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes! All multiplication worksheets are completely free. Generate unlimited unique multiplication worksheets, download as PDFs, and print as many copies as you need. No sign-up required."
-              }
-            },
-            {
-              "@type": "Question",
-              name: "What grade levels are multiplication worksheets available for?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "Our multiplication worksheets are perfect for 2nd grade, 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with multiplication facts, arrays, and word problems."
-              }
-            },
-            {
-              "@type": "Question",
-              name: "Do multiplication worksheets include answer keys?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes! Every multiplication worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents."
-              }
-            },
-            {
-              "@type": "Question",
-              name: "What multiplication skills are covered?",
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: "Our multiplication worksheets cover multiplication facts, arrays, multiplication word problems, fact fluency, and visual multiplication models. Perfect for building confidence and mastering multiplication skills."
-              }
-            }
+            { "@type": "Question", name: "Are multiplication worksheets free to download?", acceptedAnswer: { "@type": "Answer", text: "Yes! All multiplication worksheets are completely free. Generate unlimited unique multiplication worksheets, download as PDFs, and print as many copies as you need. No sign-up required." } },
+            { "@type": "Question", name: "What grade levels are multiplication worksheets available for?", acceptedAnswer: { "@type": "Answer", text: "Our multiplication worksheets are perfect for 2nd grade, 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with multiplication facts, arrays, and word problems." } },
+            { "@type": "Question", name: "Do multiplication worksheets include answer keys?", acceptedAnswer: { "@type": "Answer", text: "Yes! Every multiplication worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents." } },
+            { "@type": "Question", name: "What multiplication skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Our multiplication worksheets cover multiplication facts, arrays, multiplication word problems, fact fluency, and visual multiplication models. Perfect for building confidence and mastering multiplication skills." } }
           ]
-        };
-
-        const howToLd = {
-          "@context": "https://schema.org",
-          "@type": "HowTo",
-          name: "How to Get Free Multiplication Worksheets",
-          description: "Generate unlimited unique multiplication worksheets with answer keys in seconds",
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Select Grade Level",
-              text: "Choose your grade level (2nd-3rd or 4th-5th) from the filter sidebar"
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Generate Worksheets",
-              text: "Click Generate to create your personalized multiplication worksheet pack with answer keys"
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Download PDF",
-              text: "Download your multiplication worksheets as a printable PDF and print as many copies as needed"
-            }
-          ]
-        };
-
+        } as const;
         return (
           <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
           </>
         );
       })()}
-
       <UnifiedNavigation currentPage="worksheets" />
-      
-      {/* Hero Section with SEO Content */}
-      <section className="bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 border-b border-purple-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-purple-200 text-purple-700 mb-6">
-              <span className="text-sm font-semibold">🔥 Most Popular - 22,000+ Monthly Searches</span>
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
-              Free Multiplication Worksheets
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-slate-700 mb-8 leading-relaxed">
-              Help your child <strong className="text-purple-700">master multiplication</strong> with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Perfect for <strong className="text-pink-700">building confidence</strong> and <strong className="text-purple-700">math fluency</strong> - no sign-up required!
-            </p>
+      {/* Print-only Name/Date overlay for this page */}
+      <style>{`
+        @media print {
+          @page { margin: 0; }
+          html, body { margin: 0 !important; padding: 0 !important; }
+          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
+          .print-name-date .label { margin-right: 6px; }
+          .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
+        }
+      `}</style>
+      <div className="hidden print:block print-name-date" aria-hidden>
+        <div>
+          <span className="label">Name</span>
+          <span className="line" />
+        </div>
+        <div>
+          <span className="label">Date</span>
+          <span className="line" />
+        </div>
+      </div>
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+        <header className="mb-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">Free Multiplication Worksheets (Printable PDFs)</h1>
+          <div className="h-1 w-16 rounded-full bg-gradient-to-r from-purple-300 to-pink-400 mt-3 mb-3" />
+          <p className="text-slate-700 text-sm max-w-3xl">
+            Free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade—multiplication facts, arrays, word problems, and visual models you can print and use at home or in class. Download as PDF with answer keys included.
+          </p>
+        </header>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-purple-200 shadow-sm">
-                <span className="text-2xl">✅</span>
-                <span className="text-sm font-medium text-slate-700">Answer Keys Included</span>
+        <section>
+          <div className="text-slate-800 font-semibold mb-1">What's Inside</div>
+          <p className="text-slate-700 text-sm max-w-3xl">
+            Build multiplication fluency with focused practice: multiplication facts 1-12, visual arrays, skip counting patterns, multiplication word problems, and fact families. Each worksheet is one page, easy to print, and designed for quick daily practice with answer keys included.
+          </p>
+          <div className="mt-4">
+            <BuildPackInline />
+          </div>
+        </section>
+
+        {/* 2nd & 3rd Grade Multiplication Worksheets */}
+        <section>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 2nd & 3rd Grade Multiplication</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="✖️ Basic Multiplication Facts (1-5)" description="Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences." href="/print?doc=multiplication-facts-1-5&from=multiplication" docId="multiplication-facts-1-5" />
+                <WorksheetThumbnailCard title="📊 Multiplication Arrays (2-5)" description="Draw arrays to solve multiplication problems; understand multiplication as repeated addition." href="/print?doc=multiplication-arrays-2-5&from=multiplication" docId="multiplication-arrays-2-5" />
+                <WorksheetThumbnailCard title="➡️ Skip Counting by 2s, 3s, 5s" description="Practice skip counting patterns to build multiplication foundation." href="/print?doc=skip-count-multiplication&from=multiplication" docId="skip-count-multiplication" />
+                <WorksheetThumbnailCard title="✖️ Multiplication Tables (1-10)" description="Fill in multiplication tables to memorize basic facts." href="/print?doc=multiplication-tables-1-10&from=multiplication" docId="multiplication-tables-1-10" />
+                <WorksheetThumbnailCard title="🧮 Multiplication Word Problems (2nd-3rd)" description="Solve simple multiplication word problems with pictures and number sentences." href="/print?doc=multiplication-word-problems-g2&from=multiplication" docId="multiplication-word-problems-g2" />
+                <WorksheetThumbnailCard title="🎯 Doubles Multiplication" description="Practice multiplying by 2 using doubles facts and visual models." href="/print?doc=doubles-multiplication&from=multiplication" docId="doubles-multiplication" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-purple-200 shadow-sm">
-                <span className="text-2xl">🖨️</span>
-                <span className="text-sm font-medium text-slate-700">Printable PDFs</span>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ 3rd & 4th Grade Multiplication</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="✖️ Multiplication Facts (6-10)" description="Master multiplication facts 6×6 through 10×10 with timed practice." href="/print?doc=multiplication-facts-6-10&from=multiplication" docId="multiplication-facts-6-10" />
+                <WorksheetThumbnailCard title="📊 Advanced Arrays (6-12)" description="Create and solve multiplication problems using larger arrays." href="/print?doc=multiplication-arrays-6-12&from=multiplication" docId="multiplication-arrays-6-12" />
+                <WorksheetThumbnailCard title="✖️ Multiplication Tables (1-12)" description="Complete full multiplication tables from 1 to 12 for fact fluency." href="/print?doc=multiplication-tables-1-12&from=multiplication" docId="multiplication-tables-1-12" />
+                <WorksheetThumbnailCard title="🧮 Multiplication Word Problems (3rd-4th)" description="Solve multi-step multiplication word problems with real-world scenarios." href="/print?doc=multiplication-word-problems-g3&from=multiplication" docId="multiplication-word-problems-g3" />
+                <WorksheetThumbnailCard title="⚖️ Fact Families (Multiplication & Division)" description="Complete multiplication and division fact families to understand inverse operations." href="/print?doc=multiplication-fact-families&from=multiplication" docId="multiplication-fact-families" />
+                <WorksheetThumbnailCard title="🔢 Missing Factors" description="Find the missing number in multiplication equations; build algebraic thinking." href="/print?doc=missing-factors&from=multiplication" docId="missing-factors" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-purple-200 shadow-sm">
-                <span className="text-2xl">🎯</span>
-                <span className="text-sm font-medium text-slate-700">All Grades 2nd-5th</span>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🚀 4th & 5th Grade Multiplication</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×1)" description="Multiply 2-digit numbers by 1-digit numbers with regrouping." href="/print?doc=multi-digit-multiply-2x1&from=multiplication" docId="multi-digit-multiply-2x1" />
+                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (2×2)" description="Multiply 2-digit numbers by 2-digit numbers using standard algorithm." href="/print?doc=multi-digit-multiply-2x2&from=multiplication" docId="multi-digit-multiply-2x2" />
+                <WorksheetThumbnailCard title="✖️ Multi-Digit Multiplication (3×1)" description="Multiply 3-digit numbers by 1-digit numbers with step-by-step practice." href="/print?doc=multi-digit-multiply-3x1&from=multiplication" docId="multi-digit-multiply-3x1" />
+                <WorksheetThumbnailCard title="🧮 Advanced Word Problems (4th-5th)" description="Solve complex multiplication word problems with multiple steps and real-world contexts." href="/print?doc=multiplication-word-problems-g4&from=multiplication" docId="multiplication-word-problems-g4" />
+                <WorksheetThumbnailCard title="📊 Area Model Multiplication" description="Use area models to visualize and solve multi-digit multiplication problems." href="/print?doc=area-model-multiplication&from=multiplication" docId="area-model-multiplication" />
+                <WorksheetThumbnailCard title="⚡ Multiplication Properties" description="Practice commutative, associative, and distributive properties of multiplication." href="/print?doc=multiplication-properties&from=multiplication" docId="multiplication-properties" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-purple-200 shadow-sm">
-                <span className="text-2xl">💯</span>
-                <span className="text-sm font-medium text-slate-700">100% Free</span>
+            </div>
+
+            <div>
+              <h2 className="text-xl font-bold text-slate-900 mb-2">🎯 Multiplication Fluency & Drills</h2>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <WorksheetThumbnailCard title="⏱️ Timed Multiplication Drills (1-5)" description="Build speed and accuracy with timed multiplication fact practice." href="/print?doc=timed-multiplication-1-5&from=multiplication" docId="timed-multiplication-1-5" />
+                <WorksheetThumbnailCard title="⏱️ Timed Multiplication Drills (6-10)" description="Advanced timed drills for multiplication facts 6 through 10." href="/print?doc=timed-multiplication-6-10&from=multiplication" docId="timed-multiplication-6-10" />
+                <WorksheetThumbnailCard title="⏱️ Timed Multiplication Drills (1-12)" description="Complete timed drills covering all multiplication facts 1-12." href="/print?doc=timed-multiplication-1-12&from=multiplication" docId="timed-multiplication-1-12" />
+                <WorksheetThumbnailCard title="🔢 Mixed Multiplication Review" description="Mixed practice with all multiplication facts for comprehensive review." href="/print?doc=mixed-multiplication-review&from=multiplication" docId="mixed-multiplication-review" />
+                <WorksheetThumbnailCard title="🎯 Multiplication Strategies" description="Learn and practice different multiplication strategies (skip counting, arrays, repeated addition)." href="/print?doc=multiplication-strategies&from=multiplication" docId="multiplication-strategies" />
+                <WorksheetThumbnailCard title="📈 Multiplication Patterns" description="Identify and extend multiplication patterns and number sequences." href="/print?doc=multiplication-patterns&from=multiplication" docId="multiplication-patterns" />
               </div>
             </div>
+          </div>
+        </section>
 
-            <a 
-              href="#generator"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg text-lg"
-            >
-              <span>🚀</span>
-              Generate Free Multiplication Worksheets Now
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Master Multiplication Facts</h3>
-              <p className="text-slate-700 text-sm leading-relaxed">
-                Build fluency with multiplication facts through engaging practice sheets. Each worksheet is unique and designed to help students memorize multiplication tables with confidence.
-              </p>
-            </div>
-            
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
-              <div className="text-4xl mb-4">📊</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Visual Learning with Arrays</h3>
-              <p className="text-slate-700 text-sm leading-relaxed">
-                Understand multiplication through visual arrays and models. Perfect for 2nd and 3rd grade students who are just learning multiplication concepts.
-              </p>
-            </div>
-            
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
-              <div className="text-4xl mb-4">📝</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Real-World Word Problems</h3>
-              <p className="text-slate-700 text-sm leading-relaxed">
-                Apply multiplication skills to solve word problems. Build critical thinking and problem-solving abilities while mastering multiplication.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Grade-Specific Content */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-slate-900 mb-8 text-center">
-            Multiplication Worksheets for Every Grade Level
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">2nd & 3rd Grade Multiplication Worksheets</h3>
-              <p className="text-slate-700 mb-4 leading-relaxed">
-                Perfect for students just starting to learn multiplication! Our <strong>free multiplication worksheets for 2nd grade</strong> and 3rd grade focus on:
-              </p>
-              <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
-                <li>Basic multiplication facts (1-10)</li>
-                <li>Visual arrays and models</li>
-                <li>Skip counting patterns</li>
-                <li>Simple multiplication word problems</li>
-                <li>Building fact fluency</li>
-              </ul>
-              <a 
-                href="/interactive-worksheets-generator?grade=g2&categories=math"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Get 2nd-3rd Grade Worksheets →
-              </a>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-              <h3 className="text-2xl font-bold text-slate-900 mb-3">4th & 5th Grade Multiplication Worksheets</h3>
-              <p className="text-slate-700 mb-4 leading-relaxed">
-                Advanced multiplication practice for older students! Our 4th and 5th grade multiplication worksheets include:
-              </p>
-              <ul className="list-disc list-inside text-slate-700 space-y-2 mb-4">
-                <li>Multi-digit multiplication</li>
-                <li>Multiplication with regrouping</li>
-                <li>Complex word problems</li>
-                <li>Multiplication properties</li>
-                <li>Problem-solving challenges</li>
-              </ul>
-              <a 
-                href="/interactive-worksheets-generator?grade=35&categories=math"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Get 4th-5th Grade Worksheets →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Generator Section - Embed Interactive Worksheets Generator */}
-      <section id="generator" className="py-12 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-black text-slate-900 mb-4">
-              Generate Unlimited Multiplication Worksheets
-            </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-6">
-              Use our interactive worksheet generator below to create unlimited unique multiplication worksheets. Each worksheet is different, includes answer keys, and is perfect for daily practice, homework, or classroom use.
-            </p>
-            
-            {/* Quick Grade Links */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <a 
-                href="#generator"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = '/interactive-worksheets-generator?grade=g2&categories=math';
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
-              >
-                <span>🚀</span>
-                2nd-3rd Grade Multiplication
-              </a>
-              
-              <a 
-                href="#generator"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.href = '/interactive-worksheets-generator?grade=35&categories=math';
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg"
-              >
-                <span>📚</span>
-                4th-5th Grade Multiplication
-              </a>
-            </div>
-          </div>
-          
-          {/* Direct link to generator with pre-filled filters */}
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 mb-8 text-center">
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">
-              Ready to Generate Multiplication Worksheets?
-            </h3>
-            <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
-              Click below to open our interactive worksheet generator. The filters will be pre-set for multiplication worksheets, so you can start generating immediately!
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a 
-                href="/interactive-worksheets-generator?grade=g2&categories=math"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg text-lg"
-              >
-                <span>🚀</span>
-                Open Generator (2nd-3rd Grade)
-              </a>
-              <a 
-                href="/interactive-worksheets-generator?grade=35&categories=math"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg text-lg"
-              >
-                <span>📚</span>
-                Open Generator (4th-5th Grade)
-              </a>
-            </div>
-            <p className="text-sm text-slate-600 mt-4">
-              The generator will open with multiplication worksheets pre-selected. You can then generate, preview, and download unlimited unique worksheets with answer keys.
-            </p>
-          </div>
-          
-          {/* Preview/Info Cards */}
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
-              <h3 className="font-bold text-slate-900 mb-3">What You'll Get</h3>
-              <ul className="text-sm text-slate-700 space-y-2 list-disc list-inside">
-                <li>Multiplication facts practice</li>
-                <li>Array models and visual aids</li>
-                <li>Word problems</li>
-                <li>Complete answer keys</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
-              <h3 className="font-bold text-slate-900 mb-3">Perfect For</h3>
-              <ul className="text-sm text-slate-700 space-y-2 list-disc list-inside">
-                <li>Daily math practice</li>
-                <li>Homework assignments</li>
-                <li>Classroom activities</li>
-                <li>Test preparation</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
-              <h3 className="font-bold text-slate-900 mb-3">Features</h3>
-              <ul className="text-sm text-slate-700 space-y-2 list-disc list-inside">
-                <li>Unlimited unique worksheets</li>
-                <li>Instant PDF download</li>
-                <li>No sign-up required</li>
-                <li>100% free forever</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Section */}
-      <section className="py-12 bg-gradient-to-br from-purple-50 to-pink-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-slate-900 mb-8 text-center">
-            Why Teachers & Parents Love Our Multiplication Worksheets
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 border border-purple-100 shadow-sm">
-              <div className="text-3xl mb-3">🔄</div>
-              <h3 className="font-bold text-slate-900 mb-2">Unlimited Unique Worksheets</h3>
-              <p className="text-sm text-slate-600">
-                Generate as many multiplication worksheets as you need. Each one is unique, so students never run out of practice material.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl p-6 border border-purple-100 shadow-sm">
-              <div className="text-3xl mb-3">✅</div>
-              <h3 className="font-bold text-slate-900 mb-2">Answer Keys Included</h3>
-              <p className="text-sm text-slate-600">
-                Every multiplication worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl p-6 border border-purple-100 shadow-sm">
-              <div className="text-3xl mb-3">📱</div>
-              <h3 className="font-bold text-slate-900 mb-2">Instant Download</h3>
-              <p className="text-sm text-slate-600">
-                Download multiplication worksheets as PDFs instantly. No waiting, no sign-up required. Print and use immediately.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-xl p-6 border border-purple-100 shadow-sm">
-              <div className="text-3xl mb-3">🎓</div>
-              <h3 className="font-bold text-slate-900 mb-2">Grade-Appropriate</h3>
-              <p className="text-sm text-slate-600">
-                Worksheets are tailored to each grade level, ensuring students practice multiplication skills that match their learning stage.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+        <section className="mb-10">
+          <div className="text-slate-800 font-semibold mb-2">FAQs</div>
+          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+            <AccordionItem value="q1">
+              <AccordionTrigger className="px-4">Are multiplication worksheets free to download?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes! All multiplication worksheets are completely free. Generate unlimited unique multiplication worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q2">
+              <AccordionTrigger className="px-4">What grade levels are multiplication worksheets available for?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Our multiplication worksheets are perfect for 2nd grade, 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with multiplication facts, arrays, and word problems.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q3">
+              <AccordionTrigger className="px-4">Do multiplication worksheets include answer keys?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes! Every multiplication worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q4">
+              <AccordionTrigger className="px-4">What multiplication skills are covered?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Our multiplication worksheets cover multiplication facts, arrays, multiplication word problems, fact fluency, multi-digit multiplication, and visual multiplication models. Perfect for building confidence and mastering multiplication skills.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </section>
+      </main>
       <Footer />
     </div>
-  );
+  )
+}
+
+const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
+const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
+const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
+
+function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
+  
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        </div>
+      </div>
+      
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      
+      {/* Worksheet Thumbnail Preview */}
+      <div 
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+        onClick={() => window.open(href, '_blank')}
+        style={{ 
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`Preview of ${title}`}
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+            👁️ Click to preview full worksheet
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+      </div>
+      
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4 text-xs text-slate-500">
+          <span>Answer key included</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            ⬇️ Download
+          </a>
+          <button
+            onClick={() => window.open(href, '_blank')}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+          >
+            👁️ Preview
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function BuildPackInline() {
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl p-4">
+      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
+      <p className="text-slate-700 text-sm mb-3">Create a quick multiplication practice set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd-5th Grade</span>
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Multiplication</span>
+      </div>
+      <a href="/interactive-worksheets-generator?grade=g2&categories=math" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{} }}>Build Pack →</a>
+    </div>
+  )
 }
