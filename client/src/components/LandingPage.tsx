@@ -79,12 +79,50 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
     ]
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://wizqo.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Math Worksheets",
+        "item": "https://wizqo.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "1st Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/1st-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "2nd Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/2nd-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "3rd Grade Math Worksheets",
+        "item": "https://wizqo.com/interactive-worksheets-generator?grade=g2&categories=math"
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden">
       {/* JSON-LD Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       
       {/* Unified Navigation */}
       <UnifiedNavigation currentPage="home" />
@@ -112,7 +150,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                 animationSpeed={8}
               >
-                Free Multiplication & Math Worksheets for All Grades
+                Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade
               </GradientText>
             </h1>
             
@@ -417,7 +455,52 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </p>
           </div>
           
-          {/* Grade Levels */}
+          {/* Grade-Specific H2 Sections with SEO Content */}
+          <div className="space-y-16 mb-16">
+            {/* 1st Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">1st Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.
+              </p>
+              <a 
+                href="/worksheets/1st-grade-math-worksheets"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all"
+              >
+                View 1st Grade Worksheets →
+              </a>
+            </div>
+
+            {/* 2nd Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">2nd Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.
+              </p>
+              <a 
+                href="/worksheets/2nd-grade-math-worksheets"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all"
+              >
+                View 2nd Grade Worksheets →
+              </a>
+            </div>
+
+            {/* 3rd Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-8 border border-yellow-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">3rd Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+              </p>
+              <a 
+                href="/interactive-worksheets-generator?grade=g2&categories=math"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-600 text-white font-bold rounded-xl hover:bg-yellow-700 transition-all"
+              >
+                View 3rd Grade Worksheets →
+              </a>
+            </div>
+          </div>
+          
+          {/* Grade Levels Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
             <a 
               href="/interactive-worksheets-generator?grade=preK&categories=math"
