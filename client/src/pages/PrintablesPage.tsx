@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type ReactNode } from 'react'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
@@ -103,7 +103,7 @@ function WorksheetSectionWrapper({
   title: string
   emoji?: string
   description?: string
-  children: React.ReactNode 
+  children: ReactNode 
 }) {
   const theme = getWorksheetTheme(docId)
   return (
