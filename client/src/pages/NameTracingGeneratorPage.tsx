@@ -1180,6 +1180,10 @@ export default function NameTracingGeneratorPage() {
                             rx={28}
                           />
                           {formattedNames.map((name, nameIndex) => {
+                            // Ensure we're using the correct name for this index
+                            const currentName = formattedNames[nameIndex];
+                            if (!currentName) return null;
+                            
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                             // Calculate position based on layout
                             let worksheetX = margin;
@@ -1203,7 +1207,7 @@ export default function NameTracingGeneratorPage() {
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
                             
                             return (
-                              <g key={`worksheet-${nameIndex}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
+                              <g key={`worksheet-${nameIndex}-${currentName}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
                                 {adjustedRows.map((rowType, rowIndex) => {
                                   const baselineY = 120 + rowIndex * adjustedRowGap;
                                   const startX = 40;
@@ -1239,7 +1243,7 @@ export default function NameTracingGeneratorPage() {
                                               fill={nameConfig.fill}
                                               style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                             >
-                                              {name}
+                                              {currentName}
                                             </text>
                                           )}
                                           <text
@@ -1256,7 +1260,7 @@ export default function NameTracingGeneratorPage() {
                                             strokeDasharray={nameConfig.dashArray}
                                             style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                           >
-                                            {name}
+                                            {currentName}
                                           </text>
                                         </>
                                       )}
