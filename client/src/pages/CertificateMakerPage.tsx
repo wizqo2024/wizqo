@@ -1461,7 +1461,29 @@ export default function CertificateMakerPage() {
                         Reset colors to theme
                       </Button>
                     </div>
-                    <div className="mt-auto pt-2">
+                    <div className="mt-auto pt-2 space-y-2">
+                      <Button
+                        onClick={downloadPNG}
+                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-sm font-semibold shadow-lg hover:from-emerald-600/90 hover:via-teal-600/90 hover:to-cyan-600/90"
+                        size="lg"
+                      >
+                        <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-5 w-5"
+                          >
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                          </svg>
+                        </span>
+                        <span>Download PNG</span>
+                      </Button>
                       <Button
                         onClick={printPreview}
                         className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
