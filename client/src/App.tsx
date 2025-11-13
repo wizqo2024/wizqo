@@ -97,38 +97,86 @@ export default function App() {
 
   // NEW: Use proper URL routing instead of hash routing
   const [route, setRoute] = useState<string>(() => window.location.pathname + window.location.search || '/');
+  const [isNavigating, setIsNavigating] = useState(false);
+  
+  // NEW: Navigation function that updates URL properly
+  const navigateTo = React.useCallback((path: string) => {
+    window.history.pushState({}, '', path);
+    setRoute(path);
+  }, []);
   
   useEffect(() => {
-    const onPopState = () => setRoute(window.location.pathname + window.location.search || '/');
-    const onLocationChange = () => setRoute(window.location.pathname + window.location.search || '/');
+    const onPopState = () => {
+      setIsNavigating(true);
+      setRoute(window.location.pathname + window.location.search || '/');
+      // Small delay to ensure smooth transition
+      setTimeout(() => setIsNavigating(false), 50);
+    };
+    const onLocationChange = () => {
+      setIsNavigating(true);
+      setRoute(window.location.pathname + window.location.search || '/');
+      setTimeout(() => setIsNavigating(false), 50);
+    };
     
     window.addEventListener('popstate', onPopState);
     window.addEventListener('locationchange', onLocationChange);
     
-    // Also listen for clicks on links that might change the URL
+    // Intercept all link clicks to prevent full page reloads
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'A' || target.closest('a')) {
-        setTimeout(() => {
-          setRoute(window.location.pathname + window.location.search || '/');
-        }, 100);
+      const link = target.closest('a') as HTMLAnchorElement;
+      
+      if (link && link.href) {
+        try {
+          // Skip special protocols (mailto:, tel:, javascript:, etc.)
+          if (link.protocol && !['http:', 'https:', ''].includes(link.protocol)) {
+            return;
+          }
+          
+          const url = new URL(link.href);
+          const currentOrigin = window.location.origin;
+          
+          // Only intercept internal links
+          if (url.origin === currentOrigin && !link.hasAttribute('data-external')) {
+            // Don't intercept if it has target="_blank" or other special attributes
+            if (link.target && link.target !== '_self') return;
+            
+            // Don't intercept if it's a download link
+            if (link.hasAttribute('download')) return;
+            
+            // Don't intercept if it's just a hash link (same page anchor)
+            if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash) {
+              return; // Let browser handle hash navigation
+            }
+            
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const newPath = url.pathname + url.search + url.hash;
+            
+            // Only navigate if it's a different path
+            if (newPath !== (window.location.pathname + window.location.search + window.location.hash)) {
+              setIsNavigating(true);
+              navigateTo(newPath);
+              // Small delay to ensure smooth transition
+              setTimeout(() => setIsNavigating(false), 100);
+            }
+          }
+        } catch (err) {
+          // If URL parsing fails, let the browser handle it normally
+          console.warn('Navigation intercept error:', err);
+        }
       }
     };
     
-    document.addEventListener('click', handleClick);
+    document.addEventListener('click', handleClick, true); // Use capture phase
     
     return () => {
       window.removeEventListener('popstate', onPopState);
       window.removeEventListener('locationchange', onLocationChange);
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('click', handleClick, true);
     };
-  }, []);
-
-  // NEW: Navigation function that updates URL properly
-  const navigateTo = (path: string) => {
-    window.history.pushState({}, '', path);
-    setRoute(path);
-  };
+  }, [navigateTo]);
 
   const [routeKey, routeQuery] = useMemo(() => {
     const path = route.replace(/^\/?/, '');
@@ -251,7 +299,11 @@ export default function App() {
   return (
     <AuthProvider>
       <ErrorBoundary>
-        <div className="min-h-screen bg-slate-50">
+        <div className={`min-h-screen bg-slate-50 relative transition-opacity duration-200 ${isNavigating ? 'opacity-95' : 'opacity-100'}`}>
+          {/* Loading overlay during navigation */}
+          {isNavigating && (
+            <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[9999] pointer-events-none transition-opacity duration-200" />
+          )}
           {(() => {
           switch (routeKey) {
             case '': // home
