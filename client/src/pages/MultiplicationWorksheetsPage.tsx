@@ -1,32 +1,70 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { InteractiveWorksheetsPage } from './InteractiveWorksheetsPage';
 
-// Set URL params synchronously before component renders
-if (typeof window !== 'undefined') {
-  const params = new URLSearchParams(window.location.search);
-  let needsUpdate = false;
-  
-  // Set default filters for multiplication if not present
-  if (!params.get('grade')) {
-    params.set('grade', 'g2'); // Default to 2nd-3rd grade
-    needsUpdate = true;
-  }
-  if (!params.get('categories')) {
-    params.set('categories', 'math');
-    needsUpdate = true;
-  }
-  
-  // Update URL without page reload if params changed
-  if (needsUpdate) {
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState({}, '', newUrl);
-  }
-}
-
 export default function MultiplicationWorksheetsPage() {
+  // Prevent URL from changing to /interactive-worksheets-generator
+  useEffect(() => {
+    const originalReplaceState = window.history.replaceState;
+    const originalPushState = window.history.pushState;
+    
+    // Override history methods to prevent URL changes
+    window.history.replaceState = function(...args) {
+      const [state, , url] = args;
+      // Only allow URL updates if they keep the multiplication-worksheets path
+      if (typeof url === 'string' && url.includes('/worksheets/multiplication-worksheets')) {
+        return originalReplaceState.apply(window.history, args);
+      }
+      // Block URL changes to interactive-worksheets-generator
+      if (typeof url === 'string' && url.includes('/interactive-worksheets-generator')) {
+        // Convert to multiplication-worksheets path
+        const newUrl = url.replace('/interactive-worksheets-generator', '/worksheets/multiplication-worksheets');
+        return originalReplaceState.apply(window.history, [state, '', newUrl]);
+      }
+      return originalReplaceState.apply(window.history, args);
+    };
+    
+    window.history.pushState = function(...args) {
+      const [state, , url] = args;
+      // Only allow URL updates if they keep the multiplication-worksheets path
+      if (typeof url === 'string' && url.includes('/worksheets/multiplication-worksheets')) {
+        return originalPushState.apply(window.history, args);
+      }
+      // Block URL changes to interactive-worksheets-generator
+      if (typeof url === 'string' && url.includes('/interactive-worksheets-generator')) {
+        // Convert to multiplication-worksheets path
+        const newUrl = url.replace('/interactive-worksheets-generator', '/worksheets/multiplication-worksheets');
+        return originalPushState.apply(window.history, [state, '', newUrl]);
+      }
+      return originalPushState.apply(window.history, args);
+    };
+    
+    // Set initial URL params if not present
+    const params = new URLSearchParams(window.location.search);
+    let needsUpdate = false;
+    
+    if (!params.get('grade')) {
+      params.set('grade', 'g2');
+      needsUpdate = true;
+    }
+    if (!params.get('categories')) {
+      params.set('categories', 'math');
+      needsUpdate = true;
+    }
+    
+    if (needsUpdate) {
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      originalReplaceState.apply(window.history, [{}, '', newUrl]);
+    }
+    
+    return () => {
+      // Restore original methods on unmount
+      window.history.replaceState = originalReplaceState;
+      window.history.pushState = originalPushState;
+    };
+  }, []);
 
   return (
     <>
