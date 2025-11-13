@@ -21,9 +21,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const welcomeToastShownRef = React.useRef<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
+    let previousUserId: string | null = null;
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session }, error }) => {
@@ -33,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log('🔑 Initial session:', session ? 'authenticated' : 'none');
       setSession(session);
       setUser(session?.user ?? null);
+      previousUserId = session?.user?.id ?? null;
       setLoading(false);
       console.log('🔄 Auth context state change: INITIAL_SESSION', session ? 'authenticated' : 'none');
     }).catch((error) => {
@@ -46,6 +49,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       console.log('🔄 Auth context state change:', event, session?.user?.email || 'none');
 
+      const currentUserId = session?.user?.id ?? null;
+      const isNewSignIn = previousUserId === null && currentUserId !== null;
+      const isSameUser = previousUserId === currentUserId && currentUserId !== null;
+
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -53,13 +60,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (event === 'SIGNED_IN' && session?.user) {
         console.log('🔧 Creating/updating user profile for:', session.user.id);
 
-        // Show success notification
-        setTimeout(() => {
-          toast({
-            title: "Welcome back!",
-            description: "You've been successfully signed in.",
-          });
-        }, 500);
+        // Only show welcome toast for actual new sign-ins, not session restores
+        // Check if this is a new sign-in (transition from no user to user)
+        // and we haven't already shown the toast for this user session
+        if (isNewSignIn && welcomeToastShownRef.current !== session.user.id) {
+          // Show success notification
+          setTimeout(() => {
+            toast({
+              title: "Welcome back!",
+              description: "You've been successfully signed in.",
+            });
+            welcomeToastShownRef.current = session.user.id;
+          }, 500);
+        }
 
         // Create profile in background without redirecting
         try {
@@ -84,6 +97,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log('✅ User signed out event - clearing state');
         setUser(null);
         setSession(null);
+        previousUserId = null;
+        welcomeToastShownRef.current = null; // Reset welcome toast tracking
 
         // Show sign out notification
         toast({
@@ -94,6 +109,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Dispatch custom event for chat interface to show sign out message
         window.dispatchEvent(new CustomEvent('userSignedOut'));
       }
+
+      // Update previous user ID for next comparison
+      previousUserId = currentUserId;
     });
 
     return () => {
