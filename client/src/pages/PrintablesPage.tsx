@@ -1275,9 +1275,12 @@ export function PrintablesPage() {
           </section>
         )}
         {activeDocs.includes('number-tracing-1-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–10</h2>
-            <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
+          <WorksheetSectionWrapper
+            docId="number-tracing-1-10"
+            title="Trace Numbers 1–10"
+            emoji="🔢"
+            description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
+          >
             <div className="grid grid-cols-2 gap-4">
               {[1,2,3,4,5,6,7,8,9,10].map((n) => (
                 <svg key={n} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -1325,13 +1328,16 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('number-tracing-1-20') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Trace Numbers 1–20</h2>
-            <p className="text-slate-600 text-sm mb-3">Start‑point arrows included. Say each number while tracing; then color one object for each number.</p>
+          <WorksheetSectionWrapper
+            docId="number-tracing-1-20"
+            title="Trace Numbers 1–20"
+            emoji="🔢"
+            description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
+          >
             <div className="grid grid-cols-2 gap-4">
               {[...Array(20).keys()].map((i) => {
                 const n = i + 1;
@@ -1382,7 +1388,7 @@ export function PrintablesPage() {
                 );
               })}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('uppercase-lowercase-match') && (
@@ -1479,9 +1485,12 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('addition-subtraction-0-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Addition & Subtraction 0–10</h2>
-            <p className="text-slate-600 text-sm mb-3">Use the number line if needed. Write the answer in the box.</p>
+          <WorksheetSectionWrapper
+            docId="addition-subtraction-0-10"
+            title="Addition & Subtraction 0–10"
+            emoji="➕➖"
+            description="Use the number line if needed. Write the answer in the box."
+          >
             <div className="grid grid-cols-2 gap-4">
               {Array.from({ length: 12 }).map((_,i)=> (
                 <svg key={i} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -1495,7 +1504,7 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('ten-frames-1-10') && (
@@ -1637,15 +1646,12 @@ export function PrintablesPage() {
           }
           const pairs = genPairs(10);
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-emerald-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-lime-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">2‑Digit Addition (No Regrouping)
-                <span className="ml-2 print:hidden inline-block animate-bounce">➕</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="add-2digit-100"
+              title="2‑Digit Addition (No Regrouping)"
+              emoji="➕"
+              description="Add the two numbers. No regrouping needed."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a,b],i)=> (
@@ -1666,7 +1672,7 @@ export function PrintablesPage() {
                   </ul>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -1688,15 +1694,12 @@ export function PrintablesPage() {
           }
           const pairs = genPairs(10);
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-pink-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-fuchsia-200/40 animate-blob animation-delay-4000" />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">2‑Digit Subtraction (No Regrouping)
-                <span className="ml-2 print:hidden inline-block animate-bounce">➖</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="sub-2digit-100"
+              title="2‑Digit Subtraction (No Regrouping)"
+              emoji="➖"
+              description="Subtract the two numbers. No regrouping needed."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-fuchsia-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a,b],i)=> (
@@ -1717,20 +1720,17 @@ export function PrintablesPage() {
                   </ul>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
         {activeDocs.includes('word-problems-100') && (
-          <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <div className="absolute inset-0 -z-10 print:hidden">
-              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-yellow-200/40 animate-blob" />
-              <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-amber-200/40 animate-blob animation-delay-2000" />
-              <div className="absolute top-1/2 left-8 w-20 h-20 rounded-full bg-lime-200/40 animate-blob animation-delay-4000" />
-            </div>
-            <h2 className="text-lg font-bold text-slate-900">2nd‑Grade Word Problems (within 100)
-              <span className="ml-2 print:hidden inline-block animate-bounce">🧮</span>
-            </h2>
+          <WorksheetSectionWrapper
+            docId="word-problems-100"
+            title="2nd‑Grade Word Problems (within 100)"
+            emoji="🧮"
+            description="Read each problem. Write an equation and solve."
+          >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
               {[
@@ -1802,7 +1802,7 @@ export function PrintablesPage() {
                   <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -1810,15 +1810,12 @@ export function PrintablesPage() {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           const nums = Array.from({length:20}).map(()=> Math.floor(rng()*100));
           return (
-            <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <div className="absolute inset-0 -z-10 print:hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-violet-200/40 animate-blob" />
-                <div className="absolute -bottom-12 -left-8 w-28 h-28 rounded-full bg-rose-200/40 animate-blob animation-delay-2000" />
-                <div className="absolute top-1/2 right-8 w-20 h-20 rounded-full bg-sky-200/40 animate-blob animation-delay-4000" />
-              </div>
-              <h2 className="text-lg font-bold text-slate-900">Even or Odd? (to 100)
-                <span className="ml-2 print:hidden inline-block animate-bounce">🧲</span>
-              </h2>
+            <WorksheetSectionWrapper
+              docId="even-odd-100"
+              title="Even or Odd? (to 100)"
+              emoji="🧲"
+              description="Circle whether each number is even or odd."
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3 text-xl font-mono">
                 {nums.map((n,i)=> (
@@ -1836,7 +1833,7 @@ export function PrintablesPage() {
                   </ul>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
