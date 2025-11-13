@@ -112,7 +112,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                 animationSpeed={8}
               >
-                Free Printable Worksheets for Teachers & Parents
+                Free Multiplication & Math Worksheets for All Grades
               </GradientText>
             </h1>
             
