@@ -160,7 +160,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
                     <div className="pl-4">
                       <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
-                      <a href="/worksheets/multiplication-worksheets?grade=g2&categories=math" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
