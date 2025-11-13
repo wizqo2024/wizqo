@@ -8,31 +8,87 @@ const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounde
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 const DOWNLOAD_NOTE = 'Your browser will open the print dialog. Choose "Save as PDF" to download.';
 
-function ItemCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
+function WorksheetThumbnailCard({ title, description, skills, age, href, docId }: { title: string; description: string; skills?: string; age?: string; href: string; docId?: string }) {
   const level = docId ? PRINTABLE_DOC_META[docId]?.level : undefined;
+  const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1');
+  const finalHref = href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`;
+  const downloadHref = (href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`;
+  
   return (
-    <div className={CARD_CLASS}>
-      <div className="text-base font-semibold text-slate-900">{title}</div>
-      <p className="text-slate-600 text-sm mt-1">{description}</p>
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        </div>
+      </div>
+      
+      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
+      
       {(skills || age || level) && (
-        <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
+        <div className="flex flex-wrap gap-2 text-xs">
           {level ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700">Level: {level}</span> : null}
-          {skills ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Skills: {skills}</span> : null}
-          {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Age: {age}</span> : null}
+          {skills ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">Skills: {skills}</span> : null}
+          {age ? <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">Age: {age}</span> : null}
         </div>
       )}
-      <div className="mt-3 flex items-center gap-2">
-        <a href={href.includes('?') ? `${href}&from=printables` : `${href}?from=printables`} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
-        <a
-          href={(href.includes('?') ? `${href}&autoprint=1` : `${href}?autoprint=1`) + `&from=printables`}
-          className={BUTTON_CLASS}
-          aria-label={`Download ${title} as PDF`}
-          title={DOWNLOAD_NOTE}
-        >
-          Download PDF
-        </a>
+      
+      {/* Worksheet Thumbnail Preview */}
+      <div 
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+        onClick={() => window.open(finalHref, '_blank')}
+        style={{ 
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`Preview of ${title}`}
+          loading="lazy"
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
+            👁️ Click to view full worksheet
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </div>
-    </div>
+      
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <a
+            href={finalHref}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={`Open ${title} printable view`}
+          >
+            👁️ Preview
+          </a>
+          <a
+            href={downloadHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={`Download ${title} as PDF`}
+            title={DOWNLOAD_NOTE}
+          >
+            ⬇️ Download
+          </a>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -446,27 +502,27 @@ export function PrintablesLandingPage() {
               <BundleButton section="Coloring" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🎨 Animal Friends Coloring Pages"
               description="Meet friendly jungle and sea animals — from roaring lions to jumping dolphins. Ages 5–10; learn animal names while coloring."
               href="/print?doc=coloring-animals" docId="coloring-animals"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌸 Nature & Seasons Coloring Pack"
               description="Color blooming flowers, sunny skies, and winter wonderlands. Learn seasons, plants, and colors."
               href="/print?doc=coloring-nature" docId="coloring-nature"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🚀 Space Adventure Coloring Pages"
               description="Blast off into creativity — rockets, planets, and astronauts. Great for science week or STEM lessons."
               href="/print?doc=coloring-space" docId="coloring-space"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🚗 Vehicles & Transport Coloring Sheets"
               description="From race cars to airplanes, develop motor skills while exploring transportation."
               href="/print?doc=coloring-vehicles" docId="coloring-vehicles"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🔢 Alphabet & Number Coloring Pages"
               description="A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers."
               href="/print?doc=coloring-letters-numbers" docId="coloring-letters-numbers"
@@ -499,84 +555,84 @@ export function PrintablesLandingPage() {
               <BundleButton section="Worksheets" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="➕ Math Maze Adventure"
               description="Solve simple addition and subtraction problems to find your way through the maze! Kids answer to uncover the right path — a mix of math and logic fun."
               skills="problem-solving, basic math, critical thinking"
               age="6–10"
               href="/print?doc=math-maze" docId="math-maze"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="✏️ Spelling Challenge Worksheet"
               description="Circle correctly spelled words or fill in missing letters. Themes include animals, school items, and food."
               skills="spelling, vocabulary, reading comprehension"
               age="6–9"
               href="/print?doc=spelling" docId="spelling"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🔬 Science Fun Facts Match"
               description="Match each fun fact to its correct picture — planets, weather, and ocean creatures!"
               skills="science awareness, visual association, curiosity"
               age="8–12"
               href="/print?doc=science-match" docId="science-match"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🕵️‍♀️ Grammar Detective"
               description="Become a language detective! Find and correct small grammar mistakes in funny sentences."
               skills="grammar, reading, logic"
               age="8–12"
               href="/print?doc=grammar-detective" docId="grammar-detective"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🔢 Sudoku – 4×4 (Easy)"
               description="Beginner logic and number practice in a friendly 4×4 grid."
               skills="logic, number sense, focus"
               age="6–8"
               href="/print?doc=sudoku4" docId="sudoku4"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🧮 Sudoku – 6×6 (Medium)"
               description="A bit more challenge to build sustained attention and reasoning."
               skills="logic, number sense, perseverance"
               age="9–12"
               href="/print?doc=sudoku6" docId="sudoku6"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🔢 Number Tracing 1–10"
               description="Trace numbers 1–10 with start‑point arrows and space to color."
               skills="number sense, fine motor, counting"
               age="3–5"
               href="/print?doc=number-tracing-1-10" docId="number-tracing-1-10"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Aa–Zz Upper/Lower Match"
               description="Draw lines from uppercase to lowercase letters; simple A–Z practice."
               skills="letter recognition, pre‑reading"
               age="3–5"
               href="/print?doc=uppercase-lowercase-match" docId="uppercase-lowercase-match"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Beginning Sounds (A–Z)"
               description="Circle pictures that start with each letter; simple phonics warm‑ups."
               skills="phonemic awareness, vocabulary"
               age="4–6"
               href="/print?doc=beginning-sounds-az" docId="beginning-sounds-az"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Add/Subtract 0–10"
               description="No‑prep practice with number lines and picture cues."
               skills="addition, subtraction, number sense"
               age="5–7"
               href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Ten Frames 1–10"
               description="Color counters to build numbers; develop subitizing quickly."
               skills="counting, subitizing, number bonds"
               age="4–6"
               href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Shapes & Colors Sort"
               description="Cut, sort, and glue basic shapes by color; early math + fine motor."
               skills="sorting, shapes, colors, scissor skills"
@@ -605,9 +661,9 @@ export function PrintablesLandingPage() {
         <section id="Math-G1" className="scroll-mt-24">
           <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 1</h3>
           <div className={gridClass}>
-            <ItemCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
-            <ItemCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
-            <ItemCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href="/print?doc=number-tracing-1-20" docId="number-tracing-1-20" />
+            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Build numbers to 10 with counters" skills="number sense, subitizing" age="Grade 1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
+            <WorksheetThumbnailCard title="Addition within 10" description="Number lines + picture cues" skills="addition, number sense" age="Grade 1" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
+            <WorksheetThumbnailCard title="Number Tracing 1–20" description="Trace digits with start points" skills="fine motor, counting" age="Grade 1" href="/print?doc=number-tracing-1-20" docId="number-tracing-1-20" />
           </div>
           <div className="mt-3 print:hidden">
             <a href="/print?doc=pack&time=5&age=g1&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 1 Pack →</a>
@@ -617,9 +673,9 @@ export function PrintablesLandingPage() {
         <section id="Math-G2" className="scroll-mt-24">
           <h3 className="text-lg font-semibold text-slate-900 mb-2">Grade 2</h3>
           <div className={gridClass}>
-            <ItemCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
-            <ItemCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href="/print?doc=place-value-hto" docId="place-value-hto" />
-            <ItemCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
+            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose to 20" skills="number bonds, subitizing" age="Grade 2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
+            <WorksheetThumbnailCard title="Place Value (Tens/Ones)" description="Break 2‑digit numbers" skills="place value, comparing" age="Grade 2" href="/print?doc=place-value-hto" docId="place-value-hto" />
+            <WorksheetThumbnailCard title="Facts to 20" description="Add/sub within 20" skills="fact fluency" age="Grade 2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
           </div>
           <div className="mt-3 print:hidden">
             <a href="/print?doc=pack&time=5&age=g2&skill=math" className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 text-sm">Build Grade 2 Pack →</a>
@@ -631,9 +687,9 @@ export function PrintablesLandingPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Math — Numbers</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Number sense foundations — counting, comparing, and place value.</p>
           <div className={gridClass}>
-            <ItemCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
-            <ItemCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
-            <ItemCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href="/print?doc=place-value-hto" docId="place-value-hto" />
+            <WorksheetThumbnailCard title="Ten Frames 1–10" description="Quick warm‑ups to build numbers" skills="subitizing" age="K–1" href="/print?doc=ten-frames-1-10" docId="ten-frames-1-10" />
+            <WorksheetThumbnailCard title="Ten Frames 1–20" description="Compose/decompose numbers to 20" skills="number bonds" age="1–2" href="/print?doc=ten-frames-1-20" docId="ten-frames-1-20" />
+            <WorksheetThumbnailCard title="Place Value — Tens/Ones" description="Break 2‑digit numbers" skills="place value" age="2–3" href="/print?doc=place-value-hto" docId="place-value-hto" />
           </div>
         </section>
 
@@ -641,8 +697,8 @@ export function PrintablesLandingPage() {
           <h2 className="text-xl font-bold text-slate-900 mb-2">➕ Math — 4 Operations</h2>
           <p className="text-slate-700 text-sm mb-3 max-w-3xl">Practice addition and subtraction fluency with fun mini‑challenges.</p>
           <div className={gridClass}>
-            <ItemCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
-            <ItemCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href="/print?doc=math-maze" docId="math-maze" />
+            <WorksheetThumbnailCard title="Add/Sub within 10" description="Number lines and picture cues" skills="addition, subtraction" age="1–2" href="/print?doc=addition-subtraction-0-10" docId="addition-subtraction-0-10" />
+            <WorksheetThumbnailCard title="Math Maze" description="Solve to find the path" skills="fact fluency, focus" age="1–3" href="/print?doc=math-maze" docId="math-maze" />
           </div>
         </section>
 
@@ -654,42 +710,42 @@ export function PrintablesLandingPage() {
               <BundleButton section="Creative" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🖍️ Color-by-Number Pages"
               description="Color each section by number to reveal a hidden animal or scene. Includes Animals in Space and Under the Sea editions."
               skills="color recognition, number practice, creativity"
               age="5–9"
               href="/print?doc=color-by-number" docId="color-by-number"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📚 DIY Bookmark Templates"
               description="Design your own bookmarks with quotes and doodles — print-ready outlines: ‘Be Kind’, ‘Keep Reading’, ‘Dream Big’."
               skills="creativity, design, fine motor skills"
               age="6–12"
               href="/print?doc=bookmark-templates" docId="bookmark-templates"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="👾 Design Your Monster"
               description="Print, draw, and name your own funny monster! Great for imagination and drawing practice."
               skills="creativity, self-expression, art skills"
               age="6–10"
               href="/print?doc=design-monster" docId="design-monster"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="✏️ Draw the Missing Half"
               description="Half of each image is missing — complete it! A great symmetry and observation activity."
               skills="geometry, visual balance, focus"
               age="7–12"
               href="/print?doc=draw-half" docId="draw-half"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🖊️ Directed Drawing: Animals"
               description="Step‑by‑step drawing guides (cat, fish, rocket) with simple shapes."
               skills="observation, shape composition, fine motor"
               age="5–9"
               href="/print?doc=directed-drawing-animals" docId="directed-drawing-animals"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="✂️ Cut‑and‑Paste Crafts"
               description="Print, cut, and glue simple paper crafts — build motor control and creativity."
               skills="scissor skills, sequencing, creativity"
@@ -707,42 +763,42 @@ export function PrintablesLandingPage() {
               <BundleButton section="Brain" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🧩 Logic Grid Puzzle"
               description="Read clues, think critically, and solve who owns what, where, or when!"
               skills="logic, reading comprehension, problem-solving"
               age="9–12"
               href="/print?doc=logic-grid" docId="logic-grid"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🔍 Find the Hidden Object"
               description="Search and circle hidden items in a detailed scene — jungle, ocean, or city themes."
               skills="attention to detail, focus, patience"
               age="6–10"
               href="/print?doc=hidden-object" docId="hidden-object"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌀 Maze of Focus"
               description="Follow the path through distractions to reach your goal! Includes tips like ‘Take a deep breath’."
               skills="concentration, mindfulness, planning"
               age="6–9"
               href="/print?doc=maze-focus" docId="maze-focus"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="1–20 Dot‑to‑Dot"
               description="Connect the dots to reveal animals and objects; practice number order."
               skills="counting, attention, sequencing"
               age="4–7"
               href="/print?doc=dot-to-dot-1-20" docId="dot-to-dot-1-20"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Tangram Animals (Cutouts)"
               description="Cut and arrange pieces to form animal silhouettes — spatial reasoning, but fun."
               skills="spatial thinking, problem‑solving, scissors"
               age="6–10"
               href="/print?doc=tangram-animals" docId="tangram-animals"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="Spot the Difference (7)"
               description="Find 7 differences between two pictures — visual scanning exercise."
               skills="attention to detail, persistence"
@@ -760,42 +816,42 @@ export function PrintablesLandingPage() {
               <BundleButton section="Emotional" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="💌 Gratitude Jar Worksheet"
               description="Each day, write or draw one thing you’re thankful for and color your jar as it fills up!"
               skills="gratitude, mindfulness, journaling"
               age="7–12"
               href="/print?doc=gratitude-jar" docId="gratitude-jar"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌈 Mood Tracker Coloring Page"
               description="Track feelings for the week by coloring a section based on your mood."
               skills="emotional awareness, reflection, art expression"
               age="8–12"
               href="/print?doc=mood-tracker" docId="mood-tracker"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🕉️ Mindful Coloring Mandalas"
               description="Relax and focus while coloring calming mandala patterns."
               skills="focus, mindfulness, relaxation"
               age="9–13"
               href="/print?doc=mandalas" docId="mandalas"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🗓️ My Goals for the Week Planner"
               description="Write three goals, one thing to try, and one thing you’re proud of — printable motivation for kids."
               skills="planning, reflection, motivation"
               age="8–12"
               href="/print?doc=weekly-goals" docId="weekly-goals"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="😊 Feelings Check‑In Meter"
               description="Point to or color how you feel — quick daily emotional check‑in."
               skills="emotional vocabulary, self‑awareness"
               age="4–10"
               href="/print?doc=feelings-checkin" docId="feelings-checkin"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="⭐ Weekly Reward/Sticker Chart"
               description="Track small wins with stickers — build consistency with positive feedback."
               skills="habits, motivation, reflection"
@@ -813,28 +869,28 @@ export function PrintablesLandingPage() {
               <BundleButton section="Seasonal" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🎃 Halloween Puzzle Pack"
               description="Pumpkin maze, costume word search, and spooky coloring pages — all in one."
               skills="creative play, vocabulary, fine motor skills"
               age="6–10"
               href="/print?doc=halloween-pack" docId="halloween-pack"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="❄️ Winter Kindness Challenge"
               description="30 simple ways to spread kindness — color one each time you complete a task!"
               skills="empathy, kindness, social skills"
               age="6–12"
               href="/print?doc=winter-kindness" docId="winter-kindness"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌸 Spring Nature Scavenger Hunt"
               description="Go outside and check off everything you find — leaves, flowers, clouds, bugs, and more!"
               skills="observation, curiosity, environmental awareness"
               age="6–12"
               href="/print?doc=spring-scavenger" docId="spring-scavenger"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="☀️ Summer Adventure Pack"
               description="Word search, beach maze, and ocean animals coloring sheet — perfect for travel."
               skills="creativity, focus, vocabulary"
@@ -852,22 +908,22 @@ export function PrintablesLandingPage() {
               <BundleButton section="Challenge" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🧠 7-Day Brain Boost Pack"
               description="Daily puzzles, word games, and mini memory challenges to build focus and logic."
               href="/print?doc=brain-boost" docId="brain-boost"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🎨 Creative Kids Challenge"
               description="7 days of art prompts and doodle ideas to spark creativity and reduce screen time."
               href="/print?doc=creative-challenge" docId="creative-challenge"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌍 Around the World Word Search"
               description="Learn geography through words — explore landmarks, countries, and famous animals."
               href="/print?doc=ws-world" docId="ws-world"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🦁 Animal Adventure Pack"
               description="6 printables focused on wildlife fun — puzzles, coloring, and animal facts."
               href="/print?doc=animal-pack" docId="animal-pack"
@@ -883,28 +939,28 @@ export function PrintablesLandingPage() {
               <BundleButton section="One-pagers" />
             </div>
           <div className={gridClass}>
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🚀 Balloon Rocket (STEM)"
               description="Make a balloon rocket and learn how action and reaction push it forward. 10 minutes."
               skills="science, observation"
               age="7–10"
               href="/print?doc=stem-balloon-rocket" docId="stem-balloon-rocket"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🌈 Walking Water (STEM)"
               description="Watch colors climb and mix through paper towels. Learn capillary action. 15 minutes."
               skills="science, recording results"
               age="6–10"
               href="/print?doc=stem-walking-water" docId="stem-walking-water"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="🎨 Draw From 3 Shapes (Arts)"
               description="Create a creature starting from a circle, triangle, and rectangle. Finish with a 1‑line story."
               skills="creativity, composition"
               age="6–12"
               href="/print?doc=arts-3-shape-creature" docId="arts-3-shape-creature"
             />
-            <ItemCard
+            <WorksheetThumbnailCard
               title="📖 Mini Reading Passage + 3 Qs"
               description="Short passage with 3 questions — practice comprehension in 5 minutes."
               skills="reading comprehension, evidence finding"
@@ -922,10 +978,10 @@ export function PrintablesLandingPage() {
               <BundleButton section="Geography" />
             </div>
           <div className={gridClass}>
-            <ItemCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" docId="geo-continents-k2" />
-            <ItemCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" docId="geo-compass-rose" />
-            <ItemCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href="/print?doc=geo-landforms" docId="geo-landforms" />
-            <ItemCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href="/print?doc=geo-latlong" docId="geo-latlong" />
+            <WorksheetThumbnailCard title="🌍 Label the 7 Continents (K–2)" description="Write or trace continent names; beginner‑friendly world outline with hints." href="/print?doc=geo-continents-k2" docId="geo-continents-k2" />
+            <WorksheetThumbnailCard title="🧭 Compass Rose & Directions" description="N, E, S, W with NE/SE/SW/NW — color and label the compass." href="/print?doc=geo-compass-rose" docId="geo-compass-rose" />
+            <WorksheetThumbnailCard title="🏔️ Landforms vs Water Bodies" description="Match words to simple icons: mountain, valley, island, lake, river." href="/print?doc=geo-landforms" docId="geo-landforms" />
+            <WorksheetThumbnailCard title="🗺️ Latitude & Longitude Basics" description="Practice reading and plotting coordinates on a simple world grid." href="/print?doc=geo-latlong" docId="geo-latlong" />
           </div>
         </section>
 
