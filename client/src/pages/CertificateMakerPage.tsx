@@ -163,8 +163,18 @@ export default function CertificateMakerPage() {
         
         if (href) {
           const promise = new Promise<void>((resolve) => {
+            // If it's already a data URL, use it directly
+            if (href.startsWith('data:')) {
+              resolve();
+              return;
+            }
+            
             const imgElement = new Image();
-            imgElement.crossOrigin = 'anonymous';
+            // Don't set crossOrigin for data URLs or same-origin images
+            if (!href.startsWith('data:') && !href.startsWith(window.location.origin)) {
+              imgElement.crossOrigin = 'anonymous';
+            }
+            
             imgElement.onload = () => {
               try {
                 const tempCanvas = document.createElement('canvas');
@@ -172,6 +182,10 @@ export default function CertificateMakerPage() {
                 tempCanvas.height = imgElement.height || 50;
                 const tempCtx = tempCanvas.getContext('2d');
                 if (tempCtx) {
+                  // Set white background first
+                  tempCtx.fillStyle = '#ffffff';
+                  tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                  // Then draw the image
                   tempCtx.drawImage(imgElement, 0, 0);
                   const dataURL = tempCanvas.toDataURL('image/png');
                   img.setAttribute('href', dataURL);
@@ -180,14 +194,26 @@ export default function CertificateMakerPage() {
                 resolve();
               } catch (error) {
                 console.error('Error converting image to data URL:', error);
+                // If conversion fails, remove the image element
+                img.remove();
                 resolve(); // Continue even if one image fails
               }
             };
             imgElement.onerror = () => {
               console.error('Error loading image:', href);
+              // Remove the image if it fails to load
+              img.remove();
               resolve(); // Continue even if image fails to load
             };
-            imgElement.src = href;
+            
+            // Try to load the image
+            try {
+              imgElement.src = href;
+            } catch (error) {
+              console.error('Error setting image src:', error);
+              img.remove();
+              resolve();
+            }
           });
           imagePromises.push(promise);
         }
@@ -213,7 +239,7 @@ export default function CertificateMakerPage() {
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-          // Convert SVG to image - ensure proper namespace
+          // Convert SVG to image - ensure proper namespace and all images are data URLs
           const svgData = new XMLSerializer().serializeToString(svgClone);
           // Fix namespace issues
           const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
@@ -221,23 +247,18 @@ export default function CertificateMakerPage() {
           const url = URL.createObjectURL(svgBlob);
 
           const img = new Image();
+          // Don't set crossOrigin for blob URLs
           img.onload = () => {
             try {
               // Draw the image on canvas
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
               URL.revokeObjectURL(url);
 
-              // Convert canvas to blob and download
-              canvas.toBlob((blob) => {
-                if (!blob) {
-                  alert('Failed to create PNG file. Please try again.');
-                  console.error('Failed to create blob');
-                  setIsDownloadingPNG(false);
-                  return;
-                }
-                const downloadUrl = URL.createObjectURL(blob);
+              // Use toDataURL instead of toBlob to avoid tainted canvas issues
+              try {
+                const dataURL = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
-                link.href = downloadUrl;
+                link.href = dataURL;
                 const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
                 link.download = filename;
                 link.style.display = 'none';
@@ -245,10 +266,33 @@ export default function CertificateMakerPage() {
                 link.click();
                 setTimeout(() => {
                   document.body.removeChild(link);
-                  URL.revokeObjectURL(downloadUrl);
                   setIsDownloadingPNG(false);
                 }, 100);
-              }, 'image/png', 1.0);
+              } catch (dataURLError) {
+                // If toDataURL fails, try toBlob as fallback
+                console.warn('toDataURL failed, trying toBlob:', dataURLError);
+                canvas.toBlob((blob) => {
+                  if (!blob) {
+                    alert('Failed to create PNG file. Please try again.');
+                    console.error('Failed to create blob');
+                    setIsDownloadingPNG(false);
+                    return;
+                  }
+                  const downloadUrl = URL.createObjectURL(blob);
+                  const link = document.createElement('a');
+                  link.href = downloadUrl;
+                  const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
+                  link.download = filename;
+                  link.style.display = 'none';
+                  document.body.appendChild(link);
+                  link.click();
+                  setTimeout(() => {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(downloadUrl);
+                    setIsDownloadingPNG(false);
+                  }, 100);
+                }, 'image/png', 1.0);
+              }
             } catch (error) {
               console.error('Error creating PNG:', error);
               alert('Error creating PNG: ' + (error instanceof Error ? error.message : 'Unknown error'));
