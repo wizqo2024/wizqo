@@ -498,6 +498,48 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 View 3rd Grade Worksheets →
               </a>
             </div>
+
+            {/* Kindergarten Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 border border-purple-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">Kindergarten Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
+              </p>
+              <a 
+                href="/interactive-worksheets-generator?grade=preK&categories=math"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-all"
+              >
+                View Kindergarten Worksheets →
+              </a>
+            </div>
+
+            {/* 4th Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-3xl p-8 border border-teal-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">4th Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
+              </p>
+              <a 
+                href="/interactive-worksheets-generator?grade=35&categories=math"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
+              >
+                View 4th Grade Worksheets →
+              </a>
+            </div>
+
+            {/* 5th Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-3xl p-8 border border-indigo-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">5th Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.
+              </p>
+              <a 
+                href="/interactive-worksheets-generator?grade=35&categories=math"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all"
+              >
+                View 5th Grade Worksheets →
+              </a>
+            </div>
           </div>
           
           {/* Grade Levels Grid */}
