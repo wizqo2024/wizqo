@@ -4,21 +4,44 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Download, Printer, Sparkles } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
 type FontSizeMode = 'small' | 'medium' | 'large';
 type LineStyle = 'primary' | 'baseline';
 type PatternStyle = 'traceOnly' | 'traceAndWrite';
+type PrintOrientation = 'portrait' | 'landscape';
+type PaperSize = 'us-letter' | 'a4' | 'legal';
+type MarginSize = 'none' | 'small' | 'medium' | 'large';
+type BatchMode = 'single' | 'batch';
+type BatchLayout = 'one-per-page' | 'two-per-page' | 'four-per-page';
 
 const MAX_NAME_LENGTH = 18;
 
 export default function NameTracingGeneratorPage() {
+  const { toast } = useToast();
+  
+  // Single name mode
   const [childName, setChildName] = React.useState<string>('Ava');
+  
+  // Batch mode
+  const [batchMode, setBatchMode] = React.useState<BatchMode>('single');
+  const [multipleNames, setMultipleNames] = React.useState<string>('');
+  const [batchLayout, setBatchLayout] = React.useState<BatchLayout>('one-per-page');
+  
+  // Print layout settings
+  const [printOrientation, setPrintOrientation] = React.useState<PrintOrientation>('portrait');
+  const [paperSize, setPaperSize] = React.useState<PaperSize>('us-letter');
+  const [marginSize, setMarginSize] = React.useState<MarginSize>('small');
+  const [worksheetsPerPage, setWorksheetsPerPage] = React.useState<number>(1);
+  
+  // Style settings
   const [letterCase, setLetterCase] = React.useState<LetterCase>('title');
   const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
   const [fontSizeMode, setFontSizeMode] = React.useState<FontSizeMode>('large');
@@ -63,58 +86,406 @@ export default function NameTracingGeneratorPage() {
     [formattedName]
   );
 
+  // Helper function to format a name based on letter case
+  const formatName = React.useCallback((name: string, caseType: LetterCase) => {
+    const trimmed = name.trim();
+    if (!trimmed) return 'Your Name';
+    switch (caseType) {
+      case 'title':
+        return trimmed
+          .split(/\s+/)
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+          .join(' ');
+      case 'upper':
+        return trimmed.toUpperCase();
+      case 'lower':
+        return trimmed.toLowerCase();
+      default:
+        return trimmed;
+    }
+  }, []);
+
+  // Helper function to generate SVG for a given name
+  const generateSVGForName = React.useCallback((name: string): string => {
+    const formatted = formatName(name, letterCase);
+    const practicingRows = (() => {
+      const sequence = patternStyle === 'traceOnly'
+        ? ['trace']
+        : ['trace', 'trace', 'blank'];
+      const rows: Array<'trace' | 'blank'> = [];
+      for (let i = 0; rows.length < rowCount; i += 1) {
+        rows.push(sequence[i % sequence.length] as 'trace' | 'blank');
+      }
+      return rows;
+    })();
+
+    // Calculate font config for this name
+    const startX = margin + 40;
+    const endX = pageWidth - margin + 20;
+    const usableWidth = endX - startX;
+    const maxWidth = Math.max(140, usableWidth - 80);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
+    const isTraceRow = dominantRowType === 'trace';
+    const weight = baseFontConfig.fontWeight || 600;
+    if (ctx) {
+      ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
+    }
+    const measuredWidth = ctx ? ctx.measureText(formatted).width : formatted.length * baseFontSize * 0.6;
+    const charCount = Math.max(0, Array.from(formatted).length - 1);
+    const baseSpacing = baseFontConfig.letterSpacing || 0;
+    const totalWidth = measuredWidth + charCount * baseSpacing;
+    const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+    const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
+    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
+    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
+    let fittedSize = baseFontSize;
+    if (totalWidth > maxWidth && totalWidth > 0) {
+      const ratio = maxWidth / totalWidth;
+      fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
+    }
+    const scale = fittedSize / baseFontSize;
+    const fittedSpacing = baseSpacing * scale;
+    const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
+    const fittedDashArray = baseFontConfig.dashArray
+      ? `0 ${Math.max(12, Math.round(26 * scale))}`
+      : undefined;
+
+    const fittedFontConfig = {
+      ...baseFontConfig,
+      fontSize: fittedSize,
+      letterSpacing: fittedSpacing,
+      strokeWidth: fittedStrokeWidth,
+      dashArray: fittedDashArray,
+    };
+
+    const baselineOffset = lineStyle === 'primary' ? 96 : 88;
+    const rowGap = lineStyle === 'primary' ? 170 : 150;
+    const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
+    const rowsForSVG = practicingRows.slice(0, maxRows);
+
+    // Generate SVG content
+    let svgContent = `<rect x="0" y="0" width="${pageWidth}" height="${pageHeight}" fill="#ffffff" rx="36" />`;
+    svgContent += `<rect x="${margin - 24}" y="${margin - 24}" width="${pageWidth - (margin - 24) * 2}" height="${pageHeight - (margin - 24) * 2}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="28" />`;
+
+    rowsForSVG.forEach((rowType, index) => {
+      const baselineY = margin + 120 + index * rowGap;
+      const startX = margin + 40;
+      const endX = pageWidth - margin + 20;
+      const topLine = baselineY - baselineOffset;
+      const midLine = baselineY - baselineOffset / 2;
+      const showPrimary = lineStyle === 'primary';
+
+      if (showPrimary) {
+        svgContent += `<line x1="${startX}" y1="${topLine}" x2="${endX}" y2="${topLine}" stroke="#cbd5f5" stroke-width="3" stroke-dasharray="10 14" />`;
+        svgContent += `<line x1="${startX}" y1="${midLine}" x2="${endX}" y2="${midLine}" stroke="#dbeafe" stroke-width="2.5" stroke-dasharray="14 14" />`;
+      }
+      svgContent += `<line x1="${startX}" y1="${baselineY}" x2="${endX}" y2="${baselineY}" stroke="#94a3b8" stroke-width="4" />`;
+
+      if (rowType === 'blank') {
+        svgContent += `<line x1="${startX}" y1="${baselineY + 26}" x2="${endX}" y2="${baselineY + 26}" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="14 16" />`;
+      } else {
+        if (showGuideDots) {
+          svgContent += `<circle cx="${startX - 16}" cy="${baselineY - baselineOffset / 3}" r="8" fill="#34d399" />`;
+        }
+        if (fontStyle === 'dotted') {
+          svgContent += `<text x="${startX}" y="${baselineY - 8}" font-family="${fittedFontConfig.fontFamily}" font-size="${fittedFontConfig.fontSize}" font-weight="${fittedFontConfig.fontWeight}" fill="${fittedFontConfig.fill}" style="letter-spacing: ${fittedFontConfig.letterSpacing}px">${formatted}</text>`;
+        }
+        svgContent += `<text x="${startX}" y="${baselineY - 8}" font-family="${fittedFontConfig.fontFamily}" font-size="${fittedFontConfig.fontSize}" font-weight="${fittedFontConfig.fontWeight}" fill="${fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}" stroke="${fittedFontConfig.stroke || 'none'}" stroke-width="${fittedFontConfig.strokeWidth || 0}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${fittedFontConfig.dashArray || 'none'}" style="letter-spacing: ${fittedFontConfig.letterSpacing}px">${formatted}</text>`;
+      }
+    });
+
+    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">Trace slowly, say each letter aloud, and celebrate every line!</text>`;
+
+    return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
+  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, fontStyle, lineStyle, showGuideDots]);
+
   const handlePrint = React.useCallback(() => {
     try {
-      const container = document.getElementById('name-tracing-sheet');
-      if (!container) return;
-      const svg = container.querySelector('svg');
-      if (!svg) return;
+      if (batchMode === 'single') {
+        // Single name mode - use existing logic
+        const container = document.getElementById('name-tracing-sheet');
+        if (!container) {
+          toast({
+            title: 'Error',
+            description: 'Worksheet not found. Please refresh the page.',
+            variant: 'destructive',
+          });
+          return;
+        }
+        const svg = container.querySelector('svg');
+        if (!svg) {
+          toast({
+            title: 'Error',
+            description: 'SVG not found. Please refresh the page.',
+            variant: 'destructive',
+          });
+          return;
+        }
 
-      const html = `<!doctype html><html><head><meta charset="utf-8" />
+        // Get paper size in inches
+        const paperSizes = {
+          'us-letter': { width: 8.5, height: 11 },
+          'a4': { width: 8.27, height: 11.69 },
+          'legal': { width: 8.5, height: 14 },
+        };
+        const size = paperSizes[paperSize];
+        const width = printOrientation === 'landscape' ? size.height : size.width;
+        const height = printOrientation === 'landscape' ? size.width : size.height;
+
+        const html = `<!doctype html><html><head><meta charset="utf-8" />
 <title>Name Tracing Worksheet</title>
 <style>
-  @page { size: 8.5in 11in; margin: 0; }
-  html, body { margin: 0; padding: 0; width: 8.5in; height: 11in; background: #fff; }
-  #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; }
+  @page { size: ${width}in ${height}in; margin: 0; }
+  html, body { margin: 0; padding: 0; width: ${width}in; height: ${height}in; background: #fff; }
+  #frame { position: relative; width: ${width}in; height: ${height}in; overflow: hidden; }
   svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 </style>
 </head><body><div id="frame">${svg.outerHTML}</div></body></html>`;
 
-      const iframe = document.createElement('iframe');
-      iframe.style.position = 'fixed';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.style.border = '0';
-      document.body.appendChild(iframe);
-      const doc = iframe.contentDocument || iframe.contentWindow?.document;
-      if (!doc) return;
-      doc.open();
-      doc.write(html);
-      doc.close();
-      const finish = () => {
-        try {
-          iframe.contentWindow?.focus();
-          iframe.contentWindow?.print();
-        } catch (error) {
-          console.error('Print failed', error);
-        }
-        setTimeout(() => {
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        document.body.appendChild(iframe);
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!doc) return;
+        doc.open();
+        doc.write(html);
+        doc.close();
+        const finish = () => {
           try {
-            document.body.removeChild(iframe);
-          } catch {}
-        }, 600);
-      };
-      if (iframe.contentWindow?.document.readyState === 'complete') finish();
-      else iframe.onload = finish;
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            toast({
+              title: 'Print Ready',
+              description: 'Print dialog opened. Select your printer and settings.',
+            });
+          } catch (error) {
+            console.error('Print failed', error);
+            toast({
+              title: 'Print Failed',
+              description: 'Unable to open print dialog. Please try again.',
+              variant: 'destructive',
+            });
+          }
+          setTimeout(() => {
+            try {
+              document.body.removeChild(iframe);
+            } catch {}
+          }, 600);
+        };
+        if (iframe.contentWindow?.document.readyState === 'complete') finish();
+        else iframe.onload = finish;
+      } else {
+        // Batch mode
+        const names = multipleNames
+          .split('\n')
+          .map(n => n.trim())
+          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .slice(0, 50); // Limit to 50 names
+
+        if (names.length === 0) {
+          toast({
+            title: 'No Names',
+            description: 'Please enter at least one name in batch mode.',
+            variant: 'destructive',
+          });
+          return;
+        }
+
+        const paperSizes = {
+          'us-letter': { width: 8.5, height: 11 },
+          'a4': { width: 8.27, height: 11.69 },
+          'legal': { width: 8.5, height: 14 },
+        };
+        const size = paperSizes[paperSize];
+        const width = printOrientation === 'landscape' ? size.height : size.width;
+        const height = printOrientation === 'landscape' ? size.width : size.height;
+
+        let htmlContent = '';
+        if (batchLayout === 'one-per-page') {
+          // One name per page
+          names.forEach((name) => {
+            const svg = generateSVGForName(name);
+            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;"><div style="position: absolute; inset: 0; width: 100%; height: 100%;">${svg}</div></div>`;
+          });
+        } else if (batchLayout === 'two-per-page') {
+          // Two names per page
+          for (let i = 0; i < names.length; i += 2) {
+            const name1 = names[i];
+            const name2 = names[i + 1];
+            const svg1 = generateSVGForName(name1);
+            const svg2 = name2 ? generateSVGForName(name2) : '';
+            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50%;">${svg1}</div>
+              ${svg2 ? `<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50%;">${svg2}</div>` : ''}
+            </div>`;
+          }
+        } else {
+          // Four names per page
+          for (let i = 0; i < names.length; i += 4) {
+            const name1 = names[i];
+            const name2 = names[i + 1];
+            const name3 = names[i + 2];
+            const name4 = names[i + 3];
+            const svg1 = generateSVGForName(name1);
+            const svg2 = name2 ? generateSVGForName(name2) : '';
+            const svg3 = name3 ? generateSVGForName(name3) : '';
+            const svg4 = name4 ? generateSVGForName(name4) : '';
+            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;">${svg1}</div>
+              ${svg2 ? `<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%;">${svg2}</div>` : ''}
+              ${svg3 ? `<div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%;">${svg3}</div>` : ''}
+              ${svg4 ? `<div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;">${svg4}</div>` : ''}
+            </div>`;
+          }
+        }
+
+        const html = `<!doctype html><html><head><meta charset="utf-8" />
+<title>Name Tracing Worksheets - ${names.length} names</title>
+<style>
+  @page { size: ${width}in ${height}in; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body { width: ${width}in; }
+</style>
+</head><body>${htmlContent}</body></html>`;
+
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        document.body.appendChild(iframe);
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!doc) return;
+        doc.open();
+        doc.write(html);
+        doc.close();
+        const finish = () => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            toast({
+              title: 'Print Ready',
+              description: `Print dialog opened for ${names.length} name${names.length > 1 ? 's' : ''}.`,
+            });
+          } catch (error) {
+            console.error('Print failed', error);
+            toast({
+              title: 'Print Failed',
+              description: 'Unable to open print dialog. Please try again.',
+              variant: 'destructive',
+            });
+          }
+          setTimeout(() => {
+            try {
+              document.body.removeChild(iframe);
+            } catch {}
+          }, 600);
+        };
+        if (iframe.contentWindow?.document.readyState === 'complete') finish();
+        else iframe.onload = finish;
+      }
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
+      toast({
+        title: 'Error',
+        description: 'An error occurred while preparing the print. Please try again.',
+        variant: 'destructive',
+      });
     }
-  }, []);
+  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, generateSVGForName, toast]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
+      if (batchMode === 'batch') {
+        const names = multipleNames
+          .split('\n')
+          .map(n => n.trim())
+          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .slice(0, 50);
+
+        if (names.length === 0) {
+          toast({
+            title: 'No Names',
+            description: 'Please enter at least one name in batch mode.',
+            variant: 'destructive',
+          });
+          return;
+        }
+
+        toast({
+          title: 'Batch PNG Download',
+          description: `Generating ${names.length} PNG file${names.length > 1 ? 's' : ''}... This may take a moment.`,
+        });
+
+        // Download each name as a separate PNG
+        names.forEach((name, index) => {
+          setTimeout(() => {
+            try {
+              const svgString = generateSVGForName(name);
+              const parser = new DOMParser();
+              const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+              const svgElement = svgDoc.documentElement as SVGSVGElement;
+              
+              const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+              cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+              const data = new XMLSerializer().serializeToString(cloned);
+              const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
+              const url = URL.createObjectURL(blob);
+              const image = new Image();
+              image.onload = () => {
+                const scale = 2.5;
+                const canvas = document.createElement('canvas');
+                const viewBox = svgElement.viewBox.baseVal;
+                canvas.width = viewBox.width * scale;
+                canvas.height = viewBox.height * scale;
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                  ctx.fillStyle = '#ffffff';
+                  ctx.fillRect(0, 0, canvas.width, canvas.height);
+                  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                  const pngUrl = canvas.toDataURL('image/png');
+                  const link = document.createElement('a');
+                  link.href = pngUrl;
+                  const safeName = formatName(name, letterCase).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'name-tracing';
+                  link.download = `${safeName}.png`;
+                  link.click();
+                }
+                URL.revokeObjectURL(url);
+              };
+              image.onerror = () => {
+                URL.revokeObjectURL(url);
+              };
+              image.src = url;
+            } catch (error) {
+              console.error(`Error downloading PNG for ${name}:`, error);
+            }
+          }, index * 200); // Stagger downloads to avoid browser blocking
+        });
+
+        setTimeout(() => {
+          toast({
+            title: 'Download Complete',
+            description: `All ${names.length} PNG file${names.length > 1 ? 's' : ''} have been downloaded.`,
+          });
+        }, names.length * 200 + 500);
+        return;
+      }
+
+      // Single name mode
       const svgElement = svgRef.current;
-      if (!svgElement) return;
+      if (!svgElement) {
+        toast({
+          title: 'Error',
+          description: 'Worksheet not found. Please refresh the page.',
+          variant: 'destructive',
+        });
+        return;
+      }
       const cloned = svgElement.cloneNode(true) as SVGSVGElement;
       cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
       const data = new XMLSerializer().serializeToString(cloned);
@@ -137,17 +508,31 @@ export default function NameTracingGeneratorPage() {
           link.href = pngUrl;
           link.download = `${safeFileName}.png`;
           link.click();
+          toast({
+            title: 'Download Complete',
+            description: 'Your PNG file has been downloaded.',
+          });
         }
         URL.revokeObjectURL(url);
       };
       image.onerror = () => {
         URL.revokeObjectURL(url);
+        toast({
+          title: 'Download Failed',
+          description: 'Unable to generate PNG. Please try again.',
+          variant: 'destructive',
+        });
       };
       image.src = url;
     } catch (error) {
       console.error('Unable to download PNG', error);
+      toast({
+        title: 'Error',
+        description: 'An error occurred while downloading. Please try again.',
+        variant: 'destructive',
+      });
     }
-  }, [safeFileName]);
+  }, [batchMode, multipleNames, generateSVGForName, formatName, letterCase, toast]);
 
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
@@ -158,9 +543,38 @@ export default function NameTracingGeneratorPage() {
     setChildName(cleaned);
   };
 
-  const pageWidth = 850;
-  const pageHeight = 1100;
-  const margin = 80;
+  // Calculate page dimensions based on paper size and orientation
+  const pageDimensions = React.useMemo(() => {
+    let width = 850; // US Letter portrait default
+    let height = 1100;
+    
+    if (paperSize === 'a4') {
+      width = 794; // A4 width at 96 DPI
+      height = 1123; // A4 height at 96 DPI
+    } else if (paperSize === 'legal') {
+      width = 850;
+      height = 1400; // Legal height
+    }
+    
+    if (printOrientation === 'landscape') {
+      [width, height] = [height, width];
+    }
+    
+    return { width, height };
+  }, [paperSize, printOrientation]);
+  
+  const pageWidth = pageDimensions.width;
+  const pageHeight = pageDimensions.height;
+  
+  const margin = React.useMemo(() => {
+    switch (marginSize) {
+      case 'none': return 0;
+      case 'small': return 40;
+      case 'medium': return 60;
+      case 'large': return 80;
+      default: return 40;
+    }
+  }, [marginSize]);
   const baselineOffset = lineStyle === 'primary' ? 96 : 88;
   const rowGap = lineStyle === 'primary' ? 170 : 150;
   const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
@@ -285,21 +699,191 @@ export default function NameTracingGeneratorPage() {
               </div>
 
               <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 space-y-6">
-                <div>
-                  <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Enter your name
-                  </Label>
-                  <Input
-                    id="child-name"
-                    value={childName}
-                    onChange={(event) => handleNameInput(event.target.value)}
-                    placeholder="Type a name"
-                    className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
-                    maxLength={MAX_NAME_LENGTH}
-                  />
-                  <p className="mt-2 text-xs text-slate-500">
-                    Up to {MAX_NAME_LENGTH} characters. Letters, spaces, hyphens, and apostrophes are welcome.
-                  </p>
+                {/* Mode Selection */}
+                <div className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">Mode</p>
+                    <p className="text-xs text-slate-500">Single name or batch generation</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setBatchMode('single')}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
+                        batchMode === 'single'
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                      }`}
+                    >
+                      Single
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBatchMode('batch')}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
+                        batchMode === 'batch'
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                      }`}
+                    >
+                      Batch
+                    </button>
+                  </div>
+                </div>
+
+                {batchMode === 'single' ? (
+                  <div>
+                    <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Enter your name
+                    </Label>
+                    <Input
+                      id="child-name"
+                      value={childName}
+                      onChange={(event) => handleNameInput(event.target.value)}
+                      placeholder="Type a name"
+                      className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
+                      maxLength={MAX_NAME_LENGTH}
+                    />
+                    <p className="mt-2 text-xs text-slate-500">
+                      Up to {MAX_NAME_LENGTH} characters. Letters, spaces, hyphens, and apostrophes are welcome.
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <Label htmlFor="multiple-names" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Enter names (one per line)
+                    </Label>
+                    <Textarea
+                      id="multiple-names"
+                      value={multipleNames}
+                      onChange={(e) => setMultipleNames(e.target.value)}
+                      placeholder="Emma&#10;Liam&#10;Sophia&#10;Noah"
+                      className="mt-2 min-h-[120px] rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-sm font-mono"
+                    />
+                    <p className="mt-2 text-xs text-slate-500">
+                      Enter one name per line. Up to {MAX_NAME_LENGTH} characters per name. Maximum 50 names.
+                    </p>
+                    {multipleNames && (
+                      <p className="mt-1 text-xs text-purple-600 font-medium">
+                        {multipleNames.split('\n').filter(n => n.trim().length > 0).length} name{multipleNames.split('\n').filter(n => n.trim().length > 0).length !== 1 ? 's' : ''} entered
+                      </p>
+                    )}
+                    
+                    {batchMode === 'batch' && (
+                      <div className="mt-4 space-y-2">
+                        <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                          Layout (batch mode)
+                        </Label>
+                        <div className="grid grid-cols-3 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setBatchLayout('one-per-page')}
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
+                              batchLayout === 'one-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                          >
+                            1 per page
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setBatchLayout('two-per-page')}
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
+                              batchLayout === 'two-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                          >
+                            2 per page
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setBatchLayout('four-per-page')}
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
+                              batchLayout === 'four-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                          >
+                            4 per page
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Print Layout Settings */}
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-800 mb-3">Print Layout Settings</h3>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Orientation</Label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setPrintOrientation('portrait')}
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
+                              printOrientation === 'portrait'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-white text-slate-700 hover:bg-purple-50'
+                            }`}
+                          >
+                            Portrait
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPrintOrientation('landscape')}
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
+                              printOrientation === 'landscape'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-white text-slate-700 hover:bg-purple-50'
+                            }`}
+                          >
+                            Landscape
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Paper Size</Label>
+                        <div className="relative">
+                          <select
+                            value={paperSize}
+                            onChange={(e) => setPaperSize(e.target.value as PaperSize)}
+                            className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                          >
+                            <option value="us-letter">US Letter (8.5" × 11")</option>
+                            <option value="a4">A4 (8.27" × 11.69")</option>
+                            <option value="legal">Legal (8.5" × 14")</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Margins</Label>
+                        <div className="grid grid-cols-4 gap-2">
+                          {(['none', 'small', 'medium', 'large'] as MarginSize[]).map((size) => (
+                            <button
+                              key={size}
+                              type="button"
+                              onClick={() => setMarginSize(size)}
+                              className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${
+                                marginSize === size
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-white text-slate-700 hover:bg-purple-50'
+                              }`}
+                            >
+                              {size}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
@@ -499,7 +1083,9 @@ export default function NameTracingGeneratorPage() {
                   <div className="flex items-baseline justify-between">
                     <div>
                       <h2 className="text-lg font-semibold text-slate-900">Live preview</h2>
-                      <p className="text-xs text-slate-500">Everything you see prints beautifully on US Letter paper.</p>
+                      <p className="text-xs text-slate-500">
+                        Everything you see prints beautifully on {paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper ({printOrientation}).
+                      </p>
                     </div>
                     <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">Ready to trace</span>
                   </div>
