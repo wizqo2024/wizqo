@@ -14,7 +14,26 @@ export default function CertificateMakerPage() {
   const [reason, setReason] = React.useState<string>('For outstanding effort and kindness');
   const [date, setDate] = React.useState<string>('');
   const [issuer, setIssuer] = React.useState<string>('');
+  const [signatureImage, setSignatureImage] = React.useState<string | null>(null);
+  const [signatureMode, setSignatureMode] = React.useState<'text' | 'upload' | 'draw'>('text');
+  const [showSignatureDrawer, setShowSignatureDrawer] = React.useState<boolean>(false);
+  const signatureCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const [isDrawing, setIsDrawing] = React.useState<boolean>(false);
   const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals' | 'gold' | 'confetti'>('classic');
+
+  // Initialize canvas when signature drawer opens
+  React.useEffect(() => {
+    if (showSignatureDrawer && signatureCanvasRef.current) {
+      const ctx = signatureCanvasRef.current.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, signatureCanvasRef.current.width, signatureCanvasRef.current.height);
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+    }
+  }, [showSignatureDrawer]);
   const [fontStyle, setFontStyle] = React.useState<'print' | 'cursive' | 'serif' | 'comic' | 'handwritten'>('print');
   const [textColorOverride, setTextColorOverride] = React.useState<string>('');
   const [accentColorOverride, setAccentColorOverride] = React.useState<string>('');
@@ -1018,7 +1037,25 @@ export default function CertificateMakerPage() {
       <line x1="200" y1="620" x2="460" y2="620" stroke="#94a3b8" strokeWidth="2" />
       <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Date{formattedDate ? `: ${formattedDate}` : ''}</text>
       <line x1="660" y1="620" x2="920" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
+      {/* Signature area */}
+      {signatureImage ? (
+        <g>
+          <image
+            href={signatureImage}
+            x={660}
+            y={630}
+            width={260}
+            height={40}
+            preserveAspectRatio="xMidYMid meet"
+            opacity="0.9"
+          />
+          {issuer && (
+            <text x="790" y="680" textAnchor="middle" fontSize="16" fill={effective.text} fontFamily={effective.fontFamily}>{issuer}</text>
+          )}
+        </g>
+      ) : (
+        <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
+      )}
       {/* Official Seal/Stamp */}
       {sealGraphic}
     </svg>
@@ -1101,7 +1138,120 @@ export default function CertificateMakerPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="issuer" className="text-slate-700">Signature / issuer</Label>
-                        <Input id="issuer" value={issuer} onChange={e => setIssuer(e.target.value)} placeholder="Teacher / Parent" />
+                        <div className="space-y-3">
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              onClick={() => setSignatureMode('text')}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
+                                signatureMode === 'text'
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              }`}
+                            >
+                              Text
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setSignatureMode('upload')}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
+                                signatureMode === 'upload'
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              }`}
+                            >
+                              Upload
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSignatureMode('draw');
+                                setShowSignatureDrawer(true);
+                              }}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
+                                signatureMode === 'draw'
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              }`}
+                            >
+                              Draw
+                            </button>
+                          </div>
+                          
+                          {signatureMode === 'text' && (
+                            <Input id="issuer" value={issuer} onChange={e => setIssuer(e.target.value)} placeholder="Teacher / Parent" />
+                          )}
+                          
+                          {signatureMode === 'upload' && (
+                            <div className="space-y-2">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                      setSignatureImage(event.target?.result as string);
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                className="w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                              />
+                              {signatureImage && (
+                                <div className="relative">
+                                  <img src={signatureImage} alt="Signature preview" className="max-h-20 border border-slate-200 rounded" />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setSignatureImage(null);
+                                      const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+                                      if (input) input.value = '';
+                                    }}
+                                    className="absolute top-1 right-1 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
+                              )}
+                              <Input
+                                value={issuer}
+                                onChange={e => setIssuer(e.target.value)}
+                                placeholder="Name (optional)"
+                                className="mt-2"
+                              />
+                            </div>
+                          )}
+                          
+                          {signatureMode === 'draw' && (
+                            <div className="space-y-2">
+                              {signatureImage ? (
+                                <div className="relative">
+                                  <img src={signatureImage} alt="Drawn signature" className="max-h-20 border border-slate-200 rounded" />
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setSignatureImage(null);
+                                      setShowSignatureDrawer(true);
+                                    }}
+                                    className="absolute top-1 right-1 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                                  >
+                                    Clear
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="text-sm text-slate-500">Click "Draw" button above to open signature pad</div>
+                              )}
+                              <Input
+                                value={issuer}
+                                onChange={e => setIssuer(e.target.value)}
+                                placeholder="Name (optional)"
+                                className="mt-2"
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1433,6 +1583,114 @@ export default function CertificateMakerPage() {
         </div>
       </section>
       <Footer />
+      
+      {/* Signature Drawing Modal */}
+      {showSignatureDrawer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setShowSignatureDrawer(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-slate-900">Draw Your Signature</h3>
+              <button
+                onClick={() => setShowSignatureDrawer(false)}
+                className="text-slate-400 hover:text-slate-600"
+                aria-label="Close"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="border-2 border-slate-200 rounded-lg bg-white mb-4" style={{ touchAction: 'none' }}>
+              <canvas
+                ref={signatureCanvasRef}
+                width={600}
+                height={200}
+                className="w-full cursor-crosshair"
+                onMouseDown={(e) => {
+                  if (!signatureCanvasRef.current) return;
+                  const canvas = signatureCanvasRef.current;
+                  const rect = canvas.getBoundingClientRect();
+                  const ctx = canvas.getContext('2d');
+                  if (!ctx) return;
+                  ctx.strokeStyle = '#1e293b';
+                  ctx.lineWidth = 2;
+                  ctx.lineCap = 'round';
+                  ctx.lineJoin = 'round';
+                  ctx.beginPath();
+                  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+                  setIsDrawing(true);
+                }}
+                onMouseMove={(e) => {
+                  if (!isDrawing || !signatureCanvasRef.current) return;
+                  const canvas = signatureCanvasRef.current;
+                  const rect = canvas.getBoundingClientRect();
+                  const ctx = canvas.getContext('2d');
+                  if (!ctx) return;
+                  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+                  ctx.stroke();
+                }}
+                onMouseUp={() => setIsDrawing(false)}
+                onMouseLeave={() => setIsDrawing(false)}
+                onTouchStart={(e) => {
+                  e.preventDefault();
+                  if (!signatureCanvasRef.current) return;
+                  const canvas = signatureCanvasRef.current;
+                  const rect = canvas.getBoundingClientRect();
+                  const ctx = canvas.getContext('2d');
+                  if (!ctx) return;
+                  const touch = e.touches[0];
+                  ctx.strokeStyle = '#1e293b';
+                  ctx.lineWidth = 2;
+                  ctx.lineCap = 'round';
+                  ctx.lineJoin = 'round';
+                  ctx.beginPath();
+                  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                  setIsDrawing(true);
+                }}
+                onTouchMove={(e) => {
+                  e.preventDefault();
+                  if (!isDrawing || !signatureCanvasRef.current) return;
+                  const canvas = signatureCanvasRef.current;
+                  const rect = canvas.getBoundingClientRect();
+                  const ctx = canvas.getContext('2d');
+                  if (!ctx) return;
+                  const touch = e.touches[0];
+                  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+                  ctx.stroke();
+                }}
+                onTouchEnd={() => setIsDrawing(false)}
+              />
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  if (signatureCanvasRef.current) {
+                    const ctx = signatureCanvasRef.current.getContext('2d');
+                    if (ctx) {
+                      ctx.clearRect(0, 0, signatureCanvasRef.current.width, signatureCanvasRef.current.height);
+                    }
+                  }
+                }}
+                className="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 font-medium"
+              >
+                Clear
+              </button>
+              <button
+                onClick={() => {
+                  if (signatureCanvasRef.current) {
+                    const dataURL = signatureCanvasRef.current.toDataURL('image/png');
+                    setSignatureImage(dataURL);
+                    setShowSignatureDrawer(false);
+                  }
+                }}
+                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+              >
+                Save Signature
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
