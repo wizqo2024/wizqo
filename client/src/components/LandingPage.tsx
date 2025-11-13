@@ -123,11 +123,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <strong className="text-white">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
             </p>
             
-            {/* CTA Button */}
-            <div className="flex justify-center mb-12 sm:mb-16 px-4">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16 px-4">
               <a 
-                href="/interactive-worksheets-generator"
-                className="inline-flex items-center gap-2 justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0 w-full sm:w-auto max-w-xs sm:max-w-none"
+                href="/worksheets/multiplication-worksheets"
+                className="inline-flex items-center gap-2 justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 border-0"
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
                   <DotLottieReact
@@ -137,7 +137,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     className="w-full h-full"
                   />
                 </div>
-                Browse Free Worksheets
+                🔥 Multiplication Worksheets
+              </a>
+              <a 
+                href="/interactive-worksheets-generator"
+                className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
+              >
+                Browse All Worksheets
               </a>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
@@ -182,6 +188,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     </div>
                     <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">2nd Grade Math Worksheets</h3>
                     <p className="text-xs text-gray-600">Multiplication, division, word problems</p>
+                    <a 
+                      href="/worksheets/multiplication-worksheets"
+                      className="mt-2 inline-block text-xs text-purple-600 hover:text-purple-700 font-medium"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      🔥 Multiplication Worksheets →
+                    </a>
                   </div>
                 </a>
 
@@ -406,36 +419,54 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           
           {/* Grade Levels */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100">
+            <a 
+              href="/interactive-worksheets-generator?grade=preK&categories=math"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 hover:border-purple-200 hover:shadow-md transition-all block"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">👶</div>
               <h3 className="font-bold text-slate-900 mb-2">Kindergarten Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free printable kindergarten math worksheets with answer keys</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
+            </a>
+            <a 
+              href="/worksheets/1st-grade-math-worksheets"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 hover:border-blue-200 hover:shadow-md transition-all block"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">1️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">1st Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free 1st grade math worksheets PDF with answer keys</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
+            </a>
+            <a 
+              href="/worksheets/2nd-grade-math-worksheets"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 hover:border-green-200 hover:shadow-md transition-all block"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">2️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">2nd Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free multiplication worksheets for 2nd grade with answer keys</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100">
+            </a>
+            <a 
+              href="/interactive-worksheets-generator?grade=g2&categories=math"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100 hover:border-yellow-200 hover:shadow-md transition-all"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">3rd Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free 3rd grade math worksheets PDF with answer keys</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100">
+            </a>
+            <a 
+              href="/interactive-worksheets-generator?grade=35&categories=math"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100 hover:border-teal-200 hover:shadow-md transition-all block"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">4️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">4th Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free 4th grade math worksheets PDF with answer keys</p>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100">
+            </a>
+            <a 
+              href="/interactive-worksheets-generator?grade=35&categories=math"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 hover:border-indigo-200 hover:shadow-md transition-all block"
+            >
               <div className="text-4xl mb-4" aria-hidden="true">5️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">5th Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free 5th grade math worksheets PDF with answer keys</p>
-            </div>
+            </a>
           </div>
           
           {/* Multiplication Worksheets Highlight Section */}
@@ -448,7 +479,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs with answer keys - perfect for building confidence and math fluency.
               </p>
               <a 
-                href="/interactive-worksheets-generator" 
+                href="/worksheets/multiplication-worksheets" 
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
               >
                 Get Free Multiplication Worksheets →
