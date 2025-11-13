@@ -52,35 +52,51 @@ export default function NameTracingGeneratorPage() {
 
   const svgRef = React.useRef<SVGSVGElement | null>(null);
 
-  // Get the name to display in preview (first name in batch mode, or single name)
-  const previewName = React.useMemo(() => {
+  // Get names for preview (multiple in batch mode, single otherwise)
+  const previewNames = React.useMemo(() => {
     if (batchMode === 'batch') {
       const names = multipleNames
         .split('\n')
         .map(n => n.trim())
         .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH);
-      return names.length > 0 ? names[0] : 'Your Name';
+      if (names.length === 0) return ['Your Name'];
+      
+      // Return names based on layout
+      if (batchLayout === 'two-per-page') {
+        return names.slice(0, 2);
+      } else if (batchLayout === 'four-per-page') {
+        return names.slice(0, 4);
+      } else {
+        // one-per-page: show first name
+        return [names[0]];
+      }
     }
-    return childName.trim() || 'Your Name';
-  }, [batchMode, multipleNames, childName]);
+    return [childName.trim() || 'Your Name'];
+  }, [batchMode, multipleNames, childName, batchLayout]);
 
-  const formattedName = React.useMemo(() => {
-    const trimmed = previewName.trim();
-    if (!trimmed) return 'Your Name';
-    switch (letterCase) {
-      case 'title':
-        return trimmed
-          .split(/\s+/)
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-          .join(' ');
-      case 'upper':
-        return trimmed.toUpperCase();
-      case 'lower':
-        return trimmed.toLowerCase();
-      default:
-        return trimmed;
-    }
-  }, [previewName, letterCase]);
+  // Format names for display
+  const formattedNames = React.useMemo(() => {
+    return previewNames.map(name => {
+      const trimmed = name.trim();
+      if (!trimmed) return 'Your Name';
+      switch (letterCase) {
+        case 'title':
+          return trimmed
+            .split(/\s+/)
+            .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+            .join(' ');
+        case 'upper':
+          return trimmed.toUpperCase();
+        case 'lower':
+          return trimmed.toLowerCase();
+        default:
+          return trimmed;
+      }
+    });
+  }, [previewNames, letterCase]);
+
+  // For backward compatibility, keep formattedName as first name
+  const formattedName = formattedNames[0] || 'Your Name';
 
   const practicingRows = React.useMemo(() => {
     const sequence = patternStyle === 'traceOnly'
@@ -567,49 +583,54 @@ export default function NameTracingGeneratorPage() {
   const sizeMultiplier = fontSizeMode === 'large' ? 1 : fontSizeMode === 'medium' ? 0.85 : 0.7;
   const baseFontSize = (fontStyle === 'script' ? 100 : 110) * sizeMultiplier;
 
-  const fittedFontConfig = React.useMemo(() => {
-    const startX = margin + 40;
-    const endX = pageWidth - margin + 20;
-    const usableWidth = endX - startX;
-    const maxWidth = Math.max(140, usableWidth - 80);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const displayName = formattedName || '';
-    const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
-    const isTraceRow = dominantRowType === 'trace';
-    const weight = baseFontConfig.fontWeight || 600;
-    if (ctx) {
-      ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
-    }
-    const measuredWidth = ctx ? ctx.measureText(displayName).width : displayName.length * baseFontSize * 0.6;
-    const charCount = Math.max(0, Array.from(displayName).length - 1);
-    const baseSpacing = baseFontConfig.letterSpacing || 0;
-    const totalWidth = measuredWidth + charCount * baseSpacing;
-    const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
-    const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
-    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
-    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
-    let fittedSize = baseFontSize;
-    if (totalWidth > maxWidth && totalWidth > 0) {
-      const ratio = maxWidth / totalWidth;
-      fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
-    }
-    const scale = fittedSize / baseFontSize;
-    const fittedSpacing = baseSpacing * scale;
-    const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
-    const fittedDashArray = baseFontConfig.dashArray
-      ? `0 ${Math.max(12, Math.round(26 * scale))}`
-      : undefined;
+  // Calculate font config for each name in preview
+  const fittedFontConfigs = React.useMemo(() => {
+    return formattedNames.map(displayName => {
+      const startX = margin + 40;
+      const endX = pageWidth - margin + 20;
+      const usableWidth = endX - startX;
+      const maxWidth = Math.max(140, usableWidth - 80);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
+      const isTraceRow = dominantRowType === 'trace';
+      const weight = baseFontConfig.fontWeight || 600;
+      if (ctx) {
+        ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
+      }
+      const measuredWidth = ctx ? ctx.measureText(displayName).width : displayName.length * baseFontSize * 0.6;
+      const charCount = Math.max(0, Array.from(displayName).length - 1);
+      const baseSpacing = baseFontConfig.letterSpacing || 0;
+      const totalWidth = measuredWidth + charCount * baseSpacing;
+      const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+      const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
+      const baseMin = isTraceRow ? traceMinBase : blankMinBase;
+      const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
+      let fittedSize = baseFontSize;
+      if (totalWidth > maxWidth && totalWidth > 0) {
+        const ratio = maxWidth / totalWidth;
+        fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
+      }
+      const scale = fittedSize / baseFontSize;
+      const fittedSpacing = baseSpacing * scale;
+      const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
+      const fittedDashArray = baseFontConfig.dashArray
+        ? `0 ${Math.max(12, Math.round(26 * scale))}`
+        : undefined;
 
-    return {
-      ...baseFontConfig,
-      fontSize: fittedSize,
-      letterSpacing: fittedSpacing,
-      strokeWidth: fittedStrokeWidth,
-      dashArray: fittedDashArray,
-      dominantRowType,
-    } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
-  }, [baseFontConfig, baseFontSize, formattedName, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
+      return {
+        ...baseFontConfig,
+        fontSize: fittedSize,
+        letterSpacing: fittedSpacing,
+        strokeWidth: fittedStrokeWidth,
+        dashArray: fittedDashArray,
+        dominantRowType,
+      } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
+    });
+  }, [baseFontConfig, baseFontSize, formattedNames, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
+
+  // For backward compatibility
+  const fittedFontConfig = fittedFontConfigs[0] || baseFontConfig;
 
   // Helper function to generate SVG for a given name (defined here after all dependencies)
   const generateSVGForName = React.useCallback((name: string): string => {
@@ -1138,107 +1159,227 @@ export default function NameTracingGeneratorPage() {
                 <div className="bg-slate-100 p-4">
                   <div className="bg-white rounded-2xl shadow-inner border border-slate-200">
                     <div id="name-tracing-sheet" className="p-4">
-                      <svg
-                        ref={svgRef}
-                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                        role="img"
-                        aria-label="Name tracing worksheet preview"
-                        className="w-full h-auto"
-                      >
-                        <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
-                        <rect
-                          x={margin - 24}
-                          y={margin - 24}
-                          width={pageWidth - (margin - 24) * 2}
-                          height={pageHeight - (margin - 24) * 2}
-                          fill="#f8fafc"
-                          stroke="#e2e8f0"
-                          strokeWidth={2}
-                          rx={28}
-                        />
+                      {batchMode === 'batch' && batchLayout !== 'one-per-page' ? (
+                        // Show multiple names in batch mode
+                        <svg
+                          ref={svgRef}
+                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                          role="img"
+                          aria-label="Name tracing worksheets preview"
+                          className="w-full h-auto"
+                        >
+                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                          <rect
+                            x={margin - 24}
+                            y={margin - 24}
+                            width={pageWidth - (margin - 24) * 2}
+                            height={pageHeight - (margin - 24) * 2}
+                            fill="#f8fafc"
+                            stroke="#e2e8f0"
+                            strokeWidth={2}
+                            rx={28}
+                          />
+                          {formattedNames.map((name, nameIndex) => {
+                            const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
+                            // Calculate position based on layout
+                            let worksheetX = margin;
+                            let worksheetY = margin;
+                            let worksheetWidth = pageWidth - margin * 2;
+                            let worksheetHeight = pageHeight - margin * 2;
+                            
+                            if (batchLayout === 'two-per-page') {
+                              worksheetHeight = (pageHeight - margin * 2) / 2;
+                              worksheetY = margin + nameIndex * worksheetHeight;
+                            } else if (batchLayout === 'four-per-page') {
+                              worksheetWidth = (pageWidth - margin * 2) / 2;
+                              worksheetHeight = (pageHeight - margin * 2) / 2;
+                              worksheetX = margin + (nameIndex % 2) * worksheetWidth;
+                              worksheetY = margin + Math.floor(nameIndex / 2) * worksheetHeight;
+                            }
+                            
+                            // Adjust row calculations for smaller worksheets
+                            const adjustedRowGap = batchLayout === 'two-per-page' ? rowGap * 0.8 : batchLayout === 'four-per-page' ? rowGap * 0.6 : rowGap;
+                            const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
+                            const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
+                            
+                            return (
+                              <g key={`worksheet-${nameIndex}`} transform={`translate(${worksheetX - margin}, ${worksheetY - margin})`}>
+                                {adjustedRows.map((rowType, rowIndex) => {
+                                  const baselineY = 120 + rowIndex * adjustedRowGap;
+                                  const startX = 40;
+                                  const endX = worksheetWidth - 20;
+                                  const topLine = baselineY - baselineOffset;
+                                  const midLine = baselineY - baselineOffset / 2;
+                                  const showPrimary = lineStyle === 'primary';
+                                  
+                                  return (
+                                    <g key={`row-${nameIndex}-${rowIndex}`}>
+                                      {showPrimary && (
+                                        <>
+                                          <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
+                                          <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                        </>
+                                      )}
+                                      <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
+                                      
+                                      {rowType === 'blank' ? (
+                                        <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke="#e2e8f0" strokeWidth={2} strokeDasharray="14 16" />
+                                      ) : (
+                                        <>
+                                          {showGuideDots && (
+                                            <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                          )}
+                                          {fontStyle === 'dotted' && (
+                                            <text
+                                              x={startX}
+                                              y={baselineY - 8}
+                                              fontFamily={nameConfig.fontFamily}
+                                              fontSize={nameConfig.fontSize}
+                                              fontWeight={nameConfig.fontWeight}
+                                              fill={nameConfig.fill}
+                                              style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                            >
+                                              {name}
+                                            </text>
+                                          )}
+                                          <text
+                                            x={startX}
+                                            y={baselineY - 8}
+                                            fontFamily={nameConfig.fontFamily}
+                                            fontSize={nameConfig.fontSize}
+                                            fontWeight={nameConfig.fontWeight}
+                                            fill={fontStyle === 'dotted' ? 'none' : nameConfig.fill}
+                                            stroke={nameConfig.stroke}
+                                            strokeWidth={nameConfig.strokeWidth}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeDasharray={nameConfig.dashArray}
+                                            style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                          >
+                                            {name}
+                                          </text>
+                                        </>
+                                      )}
+                                    </g>
+                                  );
+                                })}
+                              </g>
+                            );
+                          })}
+                          <text
+                            x={margin}
+                            y={pageHeight - margin + 10}
+                            fontSize={18}
+                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                            fill="#94a3b8"
+                          >
+                            Trace slowly, say each letter aloud, and celebrate every line!
+                          </text>
+                        </svg>
+                      ) : (
+                        // Single name preview (single mode or one-per-page batch mode)
+                        <svg
+                          ref={svgRef}
+                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                          role="img"
+                          aria-label="Name tracing worksheet preview"
+                          className="w-full h-auto"
+                        >
+                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                          <rect
+                            x={margin - 24}
+                            y={margin - 24}
+                            width={pageWidth - (margin - 24) * 2}
+                            height={pageHeight - (margin - 24) * 2}
+                            fill="#f8fafc"
+                            stroke="#e2e8f0"
+                            strokeWidth={2}
+                            rx={28}
+                          />
 
-                        {rowsForPreview.map((rowType, index) => {
-                          const baselineY = margin + 120 + index * rowGap;
-                          const startX = margin + 40;
-                          const endX = pageWidth - margin + 20;
-                          const topLine = baselineY - baselineOffset;
-                          const midLine = baselineY - baselineOffset / 2;
-                          const showPrimary = lineStyle === 'primary';
-                          const accessibilityLabel = rowType === 'blank'
-                            ? 'Blank handwriting line'
-                            : 'Traceable handwriting line';
-                          return (
-                            <g key={`row-${index}`} aria-label={accessibilityLabel}>
-                              {showPrimary && (
-                                <>
-                                  <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
-                                  <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
-                                </>
-                              )}
-                              <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
+                          {rowsForPreview.map((rowType, index) => {
+                            const baselineY = margin + 120 + index * rowGap;
+                            const startX = margin + 40;
+                            const endX = pageWidth - margin + 20;
+                            const topLine = baselineY - baselineOffset;
+                            const midLine = baselineY - baselineOffset / 2;
+                            const showPrimary = lineStyle === 'primary';
+                            const accessibilityLabel = rowType === 'blank'
+                              ? 'Blank handwriting line'
+                              : 'Traceable handwriting line';
+                            return (
+                              <g key={`row-${index}`} aria-label={accessibilityLabel}>
+                                {showPrimary && (
+                                  <>
+                                    <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
+                                    <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                  </>
+                                )}
+                                <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
 
-                              {rowType === 'blank' ? (
-                                <>
-                                  <line
-                                    x1={startX}
-                                    y1={baselineY + 26}
-                                    x2={endX}
-                                    y2={baselineY + 26}
-                                    stroke="#e2e8f0"
-                                    strokeWidth={2}
-                                    strokeDasharray="14 16"
-                                  />
-                                </>
-                              ) : (
-                                <>
-                                  {showGuideDots && (
-                                    <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
-                                  )}
-                                  {fontStyle === 'dotted' && (
+                                {rowType === 'blank' ? (
+                                  <>
+                                    <line
+                                      x1={startX}
+                                      y1={baselineY + 26}
+                                      x2={endX}
+                                      y2={baselineY + 26}
+                                      stroke="#e2e8f0"
+                                      strokeWidth={2}
+                                      strokeDasharray="14 16"
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    {showGuideDots && (
+                                      <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                    )}
+                                    {fontStyle === 'dotted' && (
+                                      <text
+                                        x={startX}
+                                        y={baselineY - 8}
+                                        fontFamily={fittedFontConfig.fontFamily}
+                                        fontSize={fittedFontConfig.fontSize}
+                                        fontWeight={fittedFontConfig.fontWeight}
+                                        fill={fittedFontConfig.fill}
+                                        style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                      >
+                                        {formattedName}
+                                      </text>
+                                    )}
                                     <text
                                       x={startX}
                                       y={baselineY - 8}
                                       fontFamily={fittedFontConfig.fontFamily}
                                       fontSize={fittedFontConfig.fontSize}
                                       fontWeight={fittedFontConfig.fontWeight}
-                                      fill={fittedFontConfig.fill}
+                                      fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
+                                      stroke={fittedFontConfig.stroke}
+                                      strokeWidth={fittedFontConfig.strokeWidth}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeDasharray={fittedFontConfig.dashArray}
                                       style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                     >
                                       {formattedName}
                                     </text>
-                                  )}
-                                  <text
-                                    x={startX}
-                                    y={baselineY - 8}
-                                    fontFamily={fittedFontConfig.fontFamily}
-                                    fontSize={fittedFontConfig.fontSize}
-                                    fontWeight={fittedFontConfig.fontWeight}
-                                    fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
-                                    stroke={fittedFontConfig.stroke}
-                                    strokeWidth={fittedFontConfig.strokeWidth}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeDasharray={fittedFontConfig.dashArray}
-                                    style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
-                                  >
-                                    {formattedName}
-                                  </text>
-                                </>
-                              )}
-                            </g>
-                          );
-                        })}
+                                  </>
+                                )}
+                              </g>
+                            );
+                          })}
 
-                        <text
-                          x={margin}
-                          y={pageHeight - margin + 10}
-                          fontSize={18}
-                          fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                          fill="#94a3b8"
-                        >
-                          Trace slowly, say each letter aloud, and celebrate every line!
-                        </text>
-                      </svg>
+                          <text
+                            x={margin}
+                            y={pageHeight - margin + 10}
+                            fontSize={18}
+                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                            fill="#94a3b8"
+                          >
+                            Trace slowly, say each letter aloud, and celebrate every line!
+                          </text>
+                        </svg>
+                      )}
                     </div>
                   </div>
                 </div>
