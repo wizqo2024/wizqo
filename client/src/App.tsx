@@ -259,7 +259,7 @@ export default function App() {
                 <>
                   <SEOMetaTags 
                     title="Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade | Wizqo"
-                    description="Make learning fun with free PDF math and multiplication worksheets, including kindergarten math worksheets, for Kindergarten to 5th grade – boost confidence and enjoy every lesson!"
+                    description="Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!"
                     keywords="multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, 3rd grade math worksheets, kindergarten math worksheets, 4th grade math worksheets, 5th grade math worksheets, free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, free math worksheets PDF, printable math worksheets with answer keys, grade 1 math worksheets, grade 2 math worksheets, grade 3 math worksheets, grade 4 math worksheets, grade 5 math worksheets, kindergarten printable worksheets free, math practice worksheets, addition worksheets, division worksheets"
                     canonicalUrl="https://wizqo.com/"
                   />
