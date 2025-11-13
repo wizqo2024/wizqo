@@ -179,7 +179,80 @@
       <a href="/contact">Contact</a>
     </nav>
     
+    <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
+    <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">1st Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">2nd Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">3rd Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Kindergarten Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">5th Grade Math Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.
+        </p>
+      </section>
+    </main>
+    
+    <!-- React will render enhanced interactive content here -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <noscript>
+      <style>
+        #seo-fallback { display: block !important; }
+        #root { display: none; }
+      </style>
+    </noscript>
+    <script>
+      // Hide fallback content once React fully loads (for users with JS enabled)
+      // This ensures crawlers always see the content, but users see the enhanced React version
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const root = document.getElementById('root');
+          const fallback = document.getElementById('seo-fallback');
+          if (root && root.children.length > 0 && fallback) {
+            // Only hide if React has rendered content
+            fallback.style.display = 'none';
+          }
+        }, 100);
+      });
+    </script>
   </body>
 </html>

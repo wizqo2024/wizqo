@@ -78,7 +78,7 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
 function cloneForRoute(baseHtml, route) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
-  return setMeta(baseHtml, {
+  let html = setMeta(baseHtml, {
     title: route.title,
     description: route.description,
     canonical,
@@ -88,6 +88,17 @@ function cloneForRoute(baseHtml, route) {
     robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
     keywords: route.keywords
   });
+  
+  // Ensure visible H1/H2 content exists for homepage (already in base HTML, but verify)
+  if (route.path === '/') {
+    // The base HTML already has visible SEO content, so we just ensure it's present
+    // If the fallback content is missing, it means base HTML was modified incorrectly
+    if (!html.includes('id="seo-fallback"')) {
+      console.warn('Warning: SEO fallback content missing in base HTML for homepage');
+    }
+  }
+  
+  return html;
 }
 
 function routeOutPath(distRoot, routePath) {
