@@ -116,7 +116,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 {/* Dropdown: Printables under Kids */}
                 <div
                   ref={kidsMenuRef}
-                  className={`absolute left-0 top-full mt-2 ${showKidsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[480px] z-50 p-2`}
+                  className={`absolute left-0 top-full mt-2 ${showKidsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[680px] z-50 p-2`}
                   role="menu"
                   aria-label="Kids Hub menu"
                   onMouseEnter={() => { if (kidsMenuCloseTimer.current) { window.clearTimeout(kidsMenuCloseTimer.current); kidsMenuCloseTimer.current = null; }}}
@@ -124,10 +124,10 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                    <div className="grid gap-3 min-w-[280px] md:grid-cols-[1fr_1.8fr] md:max-w-[580px]">
+                    <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_1.8fr] md:max-w-[680px]">
                       <div>
-                        <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
-                      <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
+                      <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
@@ -136,7 +136,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
                         </div>
                       </a>
-                      <a href="/printables/name-tracing-generator" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/printables/name-tracing-generator" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -146,7 +146,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
                         </div>
                       </a>
-                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -159,8 +159,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </div>
 
                     <div className="pl-4">
-                      <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
-                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
+                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -169,7 +169,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">2nd-5th grade PDFs</div>
                         </div>
                       </a>
-                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -178,7 +178,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub</div>
                         </div>
                       </a>
-                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -187,7 +187,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Place value, add/sub</div>
                         </div>
                       </a>
-                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -199,8 +199,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     </div>
 
                       <div className="pl-4">
-                        <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
-                        <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
+                        <a href="/printables" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M6 9V2h12v7" />
                             <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
@@ -214,8 +214,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       </div>
 
                       <div className="pl-4">
-                        <div className="px-2 py-1.5 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
-                        <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
+                        <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="3" width="7" height="7" rx="1" />
                             <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -227,7 +227,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <div className="text-[10px] text-slate-600 truncate">Flip cards &amp; recall</div>
                           </div>
                         </a>
-                        <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="7" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -237,7 +237,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <div className="text-[10px] text-slate-600 truncate">Timed vocabulary</div>
                           </div>
                         </a>
-                        <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
                           </svg>
@@ -246,7 +246,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <div className="text-[10px] text-slate-600 truncate">Drag pieces to solve</div>
                           </div>
                         </a>
-                        <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
                             <path d="M6 8h12" />
@@ -258,7 +258,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <div className="text-[10px] text-slate-600 truncate">Race animals typing</div>
                           </div>
                         </a>
-                        <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 4h4v4H4z" />
                             <path d="M10 10h4v4h-4z" />
