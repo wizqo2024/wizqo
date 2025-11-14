@@ -75,16 +75,30 @@ export function BlogList({
                   <ul className="mt-1 space-y-1 text-sm">
                     {allPosts.slice(0, 6).map((p) => (
                       <li key={`toc-${p.id}`}>
-                        <button
-                          className="w-full text-left px-2 py-1 rounded hover:bg-slate-50 text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                          onClick={() => {
+                        <a
+                          href={`/blog/${p.id}`}
+                          className="block w-full text-left px-2 py-1 rounded hover:bg-slate-50 text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 no-underline"
+                          onClick={(e) => {
+                            // Allow right-click, middle-click, and Ctrl/Cmd+click to work naturally (open in new tab)
+                            if (e.button === 1 || e.button === 2 || e.ctrlKey || e.metaKey || e.shiftKey) {
+                              return; // Let browser handle it naturally
+                            }
+                            // For regular left-click, prevent default and use onClick handler
+                            e.preventDefault();
                             onPostSelect(p);
                             navigateTo(`/blog/${p.id}`);
+                          }}
+                          onMouseDown={(e) => {
+                            // Allow right-click and middle-click to work naturally
+                            if (e.button === 1 || e.button === 2) {
+                              e.preventDefault(); // Prevent our onClick from firing
+                              return;
+                            }
                           }}
                           aria-label={`Read: ${p.title}`}
                         >
                           {p.title}
-                        </button>
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -96,21 +110,31 @@ export function BlogList({
               {featurePost && (
                 <article 
                   className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 text-slate-900 cursor-pointer border border-slate-200 hover:border-purple-300 transition-all focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-offset-2"
-                  onClick={() => {
-                    onPostSelect(featurePost);
-                    navigateTo(`/blog/${featurePost.id}`);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      onPostSelect(featurePost);
-                      navigateTo(`/blog/${featurePost.id}`);
-                    }
-                  }}
-                  tabIndex={0}
                   role="article"
                   aria-labelledby={`feature-title-${featurePost.id}`}
                 >
+                  <a
+                    href={`/blog/${featurePost.id}`}
+                    onClick={(e) => {
+                      // Allow right-click, middle-click, and Ctrl/Cmd+click to work naturally (open in new tab)
+                      if (e.button === 1 || e.button === 2 || e.ctrlKey || e.metaKey || e.shiftKey) {
+                        return; // Let browser handle it naturally
+                      }
+                      // For regular left-click, prevent default and use onClick handler
+                      e.preventDefault();
+                      onPostSelect(featurePost);
+                      navigateTo(`/blog/${featurePost.id}`);
+                    }}
+                    onMouseDown={(e) => {
+                      // Allow right-click and middle-click to work naturally
+                      if (e.button === 1 || e.button === 2) {
+                        e.preventDefault(); // Prevent our onClick from firing
+                        return;
+                      }
+                    }}
+                    className="block no-underline text-inherit"
+                    aria-label={`Read featured article: ${featurePost.title}`}
+                  >
                   <span className="bg-purple-100 text-purple-700 text-sm px-3 py-1 rounded-full mb-4 inline-block">
                     Featured Article
                   </span>
@@ -169,6 +193,7 @@ export function BlogList({
                       <span className="text-sm ml-1">({getPostRating(featurePost)})</span>
                     </div>
                   </div>
+                  </a>
                 </article>
               )}
 
