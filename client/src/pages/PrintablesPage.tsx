@@ -7884,6 +7884,51 @@ export function PrintablesPage() {
           )
         })()}
 
+        {activeDocs.includes('equivalent-fractions-4th') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({ length: 8 }, () => {
+            const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)]
+            const num = nextInt(1, denom - 1)
+            // Generate equivalent fraction by multiplying numerator and denominator by same factor
+            const factor = nextInt(2, 4)
+            const equivNum = num * factor
+            const equivDenom = denom * factor
+            return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}`, num, denom, equivNum, equivDenom }
+          })
+          return (
+            <WorksheetSectionWrapper
+              docId="equivalent-fractions-4th"
+              title="Equivalent Fractions"
+              emoji="🍕"
+              description="Find an equivalent fraction for each given fraction. Use multiplication or division."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-3">
+                      <p className="text-xl font-bold text-slate-900 mb-2">{p.original}</p>
+                      <p className="text-sm text-slate-600 mb-1">Find an equivalent fraction:</p>
+                      <div className="text-lg font-mono text-slate-800">____ / ____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('equivalent-fractions-4th', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>{p.original} = {p.equivalent} (multiply by {p.equivNum / p.num})</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        })()}
+
         {/* Generic fallback for any answerable docId that doesn't have a specific section */}
         {(() => {
           const handledDocIds = new Set([
@@ -7907,7 +7952,7 @@ export function PrintablesPage() {
             'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
             'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
             'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
-            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole',
+            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
             'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
             'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
             'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns'
