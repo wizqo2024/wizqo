@@ -1354,11 +1354,23 @@ export function PrintablesPage() {
                   return '/interactive-worksheets-generator'
                 }
                 // If coming from grade pages, go back to the appropriate grade page
+                if (from === 'kindergarten') {
+                  return '/worksheets/kindergarten-math-worksheets'
+                }
                 if (from === '1st-grade') {
                   return '/worksheets/1st-grade-math-worksheets'
                 }
                 if (from === '2nd-grade') {
                   return '/worksheets/2nd-grade-math-worksheets'
+                }
+                if (from === '3rd-grade') {
+                  return '/worksheets/3rd-grade-math-worksheets'
+                }
+                if (from === '4th-grade') {
+                  return '/worksheets/4th-grade-math-worksheets'
+                }
+                if (from === '5th-grade') {
+                  return '/worksheets/5th-grade-math-worksheets'
                 }
                 if (from === 'reading-comprehension') {
                   return '/worksheets/reading-comprehension'
@@ -1395,11 +1407,23 @@ export function PrintablesPage() {
                 if (from === 'interactive') {
                   return 'Back to Interactive Worksheets Generator'
                 }
+                if (from === 'kindergarten') {
+                  return 'Back to Kindergarten Math Worksheets'
+                }
                 if (from === '1st-grade') {
                   return 'Back to 1st Grade Math Worksheets'
                 }
                 if (from === '2nd-grade') {
                   return 'Back to 2nd Grade Math Worksheets'
+                }
+                if (from === '3rd-grade') {
+                  return 'Back to 3rd Grade Math Worksheets'
+                }
+                if (from === '4th-grade') {
+                  return 'Back to 4th Grade Math Worksheets'
+                }
+                if (from === '5th-grade') {
+                  return 'Back to 5th Grade Math Worksheets'
                 }
                 if (from === 'reading-comprehension') {
                   return 'Back to Reading Comprehension Worksheets'
