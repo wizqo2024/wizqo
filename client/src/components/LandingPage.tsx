@@ -180,8 +180,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="text-center">
             {/* Trendy Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 backdrop-blur-sm border border-purple-200 text-purple-700 mb-8">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
               <span className="text-sm font-medium"><span aria-hidden="true">✨</span> Free • Printable • Answer Keys Included</span>
             </div>
             
@@ -196,10 +196,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </h1>
             
             {/* Subheading */}
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-700 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
               Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. 
               <br className="hidden lg:block" />
-              <strong className="text-white">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
+              <strong className="text-slate-900">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
             </p>
             
             {/* CTA Buttons */}
@@ -320,7 +320,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </nav>
             
             {/* Feature highlights */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-gray-200 px-4 mt-8">
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-slate-700 px-4 mt-8">
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white/60"></div>
