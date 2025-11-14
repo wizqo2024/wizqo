@@ -166,19 +166,22 @@ export default function WorksheetsSecondGradePage() {
           </div>
         </section>
 
-        {/* Category Filter */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <CategoryFilter
-            categories={SECOND_GRADE_CATEGORIES}
-            selectedCategories={selectedCategories}
-            onToggleCategory={toggleCategory}
-            onClearAll={clearCategories}
-            title="Filter by Category"
-          />
-        </section>
+        {/* Main content with sidebar layout */}
+        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Left sidebar - Category Filter */}
+          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <CategoryFilter
+                categories={SECOND_GRADE_CATEGORIES}
+                selectedCategories={selectedCategories}
+                onToggleCategory={toggleCategory}
+                onClearAll={clearCategories}
+                title="Filter by Category"
+              />
+            </div>
+          </aside>
 
-        {/* Worksheets grouped by section */}
-        <section>
+          {/* Right side - Worksheets grouped by section */}
           <div className="space-y-8">
             {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
               const sectionLabels: Record<string, string> = {

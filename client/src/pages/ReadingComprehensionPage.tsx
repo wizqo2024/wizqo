@@ -200,19 +200,24 @@ export default function ReadingComprehensionPage() {
           </div>
         </section>
 
-        {/* Category Filter */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <CategoryFilter
-            categories={READING_CATEGORIES}
-            selectedCategories={selectedCategories}
-            onToggleCategory={toggleCategory}
-            onClearAll={clearCategories}
-            title="Filter by Grade"
-          />
-        </section>
+        {/* Main content with sidebar layout */}
+        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Left sidebar - Category Filter */}
+          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <CategoryFilter
+                categories={READING_CATEGORIES}
+                selectedCategories={selectedCategories}
+                onToggleCategory={toggleCategory}
+                onClearAll={clearCategories}
+                title="Filter by Grade"
+              />
+            </div>
+          </aside>
 
-        {/* Worksheets grouped by grade */}
-        {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
+          {/* Right side - Worksheets grouped by grade */}
+          <div className="space-y-8">
+            {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
           const gradeLabels: Record<string, { title: string; description: string; id: string }> = {
             'Grade 1': {
               title: 'Grade 1 Reading Comprehension Worksheets (Free Printable PDF)',
@@ -266,18 +271,18 @@ export default function ReadingComprehensionPage() {
           )
         })}
         {filteredWorksheets.length === 0 && (
-          <section className="bg-white border border-slate-200 rounded-2xl p-5">
-            <div className="text-center py-12 text-slate-500">
-              <p className="text-lg">No worksheets match the selected categories.</p>
-              <button
-                onClick={clearCategories}
-                className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
-              >
-                Clear filters to show all worksheets
-              </button>
-            </div>
-          </section>
+          <div className="text-center py-12 text-slate-500">
+            <p className="text-lg">No worksheets match the selected categories.</p>
+            <button
+              onClick={clearCategories}
+              className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+            >
+              Clear filters to show all worksheets
+            </button>
+          </div>
         )}
+          </div>
+        </section>
 
         {/* Related links */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
