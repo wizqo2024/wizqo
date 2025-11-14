@@ -173,24 +173,21 @@
         min-height: 100vh;
         background-color: #f8fafc;
       }
-      /* Hide SEO fallback immediately to prevent flash */
-      #seo-fallback {
-        display: none !important;
-      }
+      /* SEO fallback is visible by default - only hide after React renders */
     </style>
     <script>
-      // Hide fallback content immediately - runs before page renders
-      (function() {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', function() {
-            const fallback = document.getElementById('seo-fallback');
-            if (fallback) fallback.style.display = 'none';
-          });
-        } else {
+      // Safe SEO fallback hiding - only hide after React fully loads and renders
+      // This ensures Googlebot can see the fallback content for SEO
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const root = document.getElementById('root');
           const fallback = document.getElementById('seo-fallback');
-          if (fallback) fallback.style.display = 'none';
-        }
-      })();
+          // Only hide fallback if React has rendered content (root has children)
+          if (root && root.children.length > 0 && fallback) {
+            fallback.style.display = 'none';
+          }
+        }, 150);
+      });
     </script>
   </head>
   <body>
@@ -209,7 +206,7 @@
     </nav>
     
     <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
-    <main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+    <main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
         Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade
       </h1>
