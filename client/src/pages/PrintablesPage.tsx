@@ -708,12 +708,8 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🔢 How Many? (1–15)'
     case 'count-color-1-10':
       return '🔢 Count & Color (1–10)'
-    case 'counting-objects-20':
-      return '🔢 Counting Objects to 20'
     case 'number-id-1-10':
       return '🔟 Number Identification 1–10'
-    case 'number-tracing-1-10':
-      return '🔟 Number Tracing 1–10'
     case 'number-matching-1-15':
       return '🔟 Number Matching 1–15'
     case 'number-order-1-20':
@@ -7800,7 +7796,10 @@ export function PrintablesPage() {
             'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20',
             'count-circle-1-10', 'count-match-1-20', 'how-many-1-15', 'count-color-1-10', 'number-id-1-10',
             'number-matching-1-15', 'number-order-1-20', 'find-number-1-10', 'shape-identification', 'ab-pattern',
-            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole'
+            'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole',
+            'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
+            'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x2',
+            'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns'
           ])
           const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
           if (unhandledDocIds.length === 0) return null
