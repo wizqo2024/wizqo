@@ -173,16 +173,25 @@
         min-height: 100vh;
         background-color: #f8fafc;
       }
-      /* SEO fallback is visible by default - only hide after React renders */
+      /* Hide SEO fallback visually for users (prevents flash) but keep in DOM for Googlebot */
+      /* Using off-screen positioning instead of display:none so crawlers can still access it */
+      #seo-fallback {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
     </style>
     <script>
-      // Safe SEO fallback hiding - only hide after React fully loads and renders
-      // This ensures Googlebot can see the fallback content for SEO
+      // Safe SEO fallback hiding - only hide completely after React fully loads and renders
+      // This ensures Googlebot can see the fallback content for SEO (it's in DOM, just off-screen)
+      // Users won't see flash because it's positioned off-screen, not hidden with display:none
       window.addEventListener('load', function() {
         setTimeout(function() {
           const root = document.getElementById('root');
           const fallback = document.getElementById('seo-fallback');
-          // Only hide fallback if React has rendered content (root has children)
+          // Only hide fallback completely if React has rendered content (root has children)
           if (root && root.children.length > 0 && fallback) {
             fallback.style.display = 'none';
           }
