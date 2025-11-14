@@ -1818,6 +1818,12 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {showAnswersForDoc('number-tracing-1-10', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <p className="text-sm">Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</p>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
@@ -1878,6 +1884,12 @@ export function PrintablesPage() {
                 );
               })}
             </div>
+            {showAnswersForDoc('number-tracing-1-20', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <p className="text-sm">Trace each number following the dashed lines. Start at the red dot and follow the arrow direction. Numbers 1-20 should be traced in order.</p>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
