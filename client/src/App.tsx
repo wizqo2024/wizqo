@@ -21,6 +21,7 @@ import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import WorksheetsKindergartenPage from './pages/WorksheetsKindergartenPage';
 import WorksheetsThirdGradePage from './pages/WorksheetsThirdGradePage';
+import WorksheetsFourthGradePage from './pages/WorksheetsFourthGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
 import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
@@ -512,6 +513,19 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/3rd-grade-math-worksheets"
                     />
                     <WorksheetsThirdGradePage />
+                  </>
+                );
+              }
+              if (routeSubKey === '4th-grade-math-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="4th Grade Math Worksheets – Free Printable PDF"
+                      description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building."
+                      keywords="4th grade math worksheets, fourth grade math worksheets, free 4th grade math worksheets PDF, printable math worksheets grade 4, multiplication worksheets 4th grade, division worksheets 4th grade, fractions worksheets 4th grade, decimals worksheets 4th grade, geometry worksheets 4th grade"
+                      canonicalUrl="https://wizqo.com/worksheets/4th-grade-math-worksheets"
+                    />
+                    <WorksheetsFourthGradePage />
                   </>
                 );
               }

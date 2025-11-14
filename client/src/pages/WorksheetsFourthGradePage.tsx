@@ -1,0 +1,291 @@
+import React, { useState, useMemo } from 'react'
+import { UnifiedNavigation } from '@/components/UnifiedNavigation'
+import { Footer } from '@/components/Footer'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { SEOMetaTags } from '@/components/SEOMetaTags'
+import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+
+const FOURTH_GRADE_CATEGORIES: Category[] = [
+  { id: 'multi-digit', label: 'Multi-Digit Operations', icon: '🔢' },
+  { id: 'fractions-decimals', label: 'Fractions & Decimals', icon: '🍕' },
+  { id: 'geometry', label: 'Geometry', icon: '📐' },
+  { id: 'measurement', label: 'Measurement', icon: '📏' },
+  { id: 'word-problems', label: 'Word Problems', icon: '🧮' },
+  { id: 'data-analysis', label: 'Data & Analysis', icon: '📊' },
+]
+
+interface WorksheetItem {
+  title: string
+  description: string
+  href: string
+  docId: string
+  categories: string[]
+  section?: string
+}
+
+export default function WorksheetsFourthGradePage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
+
+  // Define all worksheets with their categories - unique 4th Grade content
+  const allWorksheets: WorksheetItem[] = [
+    // Multi-Digit Operations
+    { title: '🔢 Multi-Digit Multiplication (2×1)', description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.', href: '/print?doc=mult-2x1-digit&from=4th-grade', docId: 'mult-2x1-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: '🔢 Multi-Digit Multiplication (2×2)', description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.', href: '/print?doc=mult-2x2-digit&from=4th-grade', docId: 'mult-2x2-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: '🔢 Long Division (1-Digit Divisor)', description: 'Divide multi-digit numbers by 1-digit divisors. Practice long division with remainders.', href: '/print?doc=long-division-1digit&from=4th-grade', docId: 'long-division-1digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: '🔢 Long Division (2-Digit Divisor)', description: 'Divide multi-digit numbers by 2-digit divisors. Advanced division practice.', href: '/print?doc=long-division-2digit&from=4th-grade', docId: 'long-division-2digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: '🔢 Area Model Multiplication', description: 'Use area models to visualize and solve multi-digit multiplication problems.', href: '/print?doc=area-model-mult&from=4th-grade', docId: 'area-model-mult', categories: ['multi-digit', 'geometry'], section: 'Multi-Digit Operations' },
+    { title: '🔢 Partial Products Multiplication', description: 'Break down multiplication into partial products. Understand the distributive property.', href: '/print?doc=partial-products&from=4th-grade', docId: 'partial-products', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    // Fractions & Decimals
+    { title: '🍕 Equivalent Fractions', description: 'Find equivalent fractions using multiplication and division. Understand fraction relationships.', href: '/print?doc=equivalent-fractions-4th&from=4th-grade', docId: 'equivalent-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Comparing Fractions', description: 'Compare fractions with different denominators. Use common denominators or cross-multiplication.', href: '/print?doc=comparing-fractions-4th&from=4th-grade', docId: 'comparing-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Adding & Subtracting Fractions', description: 'Add and subtract fractions with like and unlike denominators. Find common denominators.', href: '/print?doc=add-sub-fractions-4th&from=4th-grade', docId: 'add-sub-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Mixed Numbers & Improper Fractions', description: 'Convert between mixed numbers and improper fractions. Understand both forms.', href: '/print?doc=mixed-improper-fractions&from=4th-grade', docId: 'mixed-improper-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Decimals: Place Value', description: 'Understand decimal place value (tenths, hundredths). Read and write decimals.', href: '/print?doc=decimals-place-value&from=4th-grade', docId: 'decimals-place-value', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Comparing & Ordering Decimals', description: 'Compare decimals using >, <, or =. Order decimals from least to greatest.', href: '/print?doc=comparing-decimals&from=4th-grade', docId: 'comparing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Adding & Subtracting Decimals', description: 'Add and subtract decimals. Line up decimal points and regroup when needed.', href: '/print?doc=add-sub-decimals&from=4th-grade', docId: 'add-sub-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: '🍕 Fractions to Decimals', description: 'Convert fractions to decimals. Understand the relationship between fractions and decimals.', href: '/print?doc=fractions-to-decimals&from=4th-grade', docId: 'fractions-to-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    // Geometry
+    { title: '📐 Classifying Angles', description: 'Identify acute, right, obtuse, and straight angles. Measure angles with a protractor.', href: '/print?doc=classifying-angles&from=4th-grade', docId: 'classifying-angles', categories: ['geometry'], section: 'Geometry' },
+    { title: '📐 Area & Perimeter', description: 'Find area and perimeter of rectangles, squares, and composite shapes. Real-world applications.', href: '/print?doc=area-perimeter-4th&from=4th-grade', docId: 'area-perimeter-4th', categories: ['geometry'], section: 'Geometry' },
+    { title: '📐 Lines & Angles', description: 'Identify parallel, perpendicular, and intersecting lines. Understand angle relationships.', href: '/print?doc=lines-angles-4th&from=4th-grade', docId: 'lines-angles-4th', categories: ['geometry'], section: 'Geometry' },
+    { title: '📐 Classifying Triangles', description: 'Classify triangles by sides (equilateral, isosceles, scalene) and angles (acute, right, obtuse).', href: '/print?doc=classifying-triangles&from=4th-grade', docId: 'classifying-triangles', categories: ['geometry'], section: 'Geometry' },
+    { title: '📐 Classifying Quadrilaterals', description: 'Identify and classify quadrilaterals: squares, rectangles, parallelograms, trapezoids, rhombuses.', href: '/print?doc=classifying-quadrilaterals&from=4th-grade', docId: 'classifying-quadrilaterals', categories: ['geometry'], section: 'Geometry' },
+    { title: '📐 Symmetry & Transformations', description: 'Find lines of symmetry. Understand translations, rotations, and reflections.', href: '/print?doc=symmetry-transformations&from=4th-grade', docId: 'symmetry-transformations', categories: ['geometry'], section: 'Geometry' },
+    // Measurement
+    { title: '📏 Customary Units Conversion', description: 'Convert between inches, feet, yards, and miles. Practice measurement conversions.', href: '/print?doc=customary-conversion&from=4th-grade', docId: 'customary-conversion', categories: ['measurement'], section: 'Measurement' },
+    { title: '📏 Metric Units Conversion', description: 'Convert between millimeters, centimeters, meters, and kilometers. Learn metric system.', href: '/print?doc=metric-conversion&from=4th-grade', docId: 'metric-conversion', categories: ['measurement'], section: 'Measurement' },
+    { title: '📏 Elapsed Time', description: 'Calculate elapsed time. Solve problems involving hours, minutes, and seconds.', href: '/print?doc=elapsed-time-4th&from=4th-grade', docId: 'elapsed-time-4th', categories: ['measurement'], section: 'Measurement' },
+    { title: '📏 Liquid Measurement', description: 'Convert between cups, pints, quarts, and gallons. Understand capacity and volume.', href: '/print?doc=liquid-measurement-4th&from=4th-grade', docId: 'liquid-measurement-4th', categories: ['measurement'], section: 'Measurement' },
+    { title: '📏 Mass and Weight', description: 'Convert between ounces, pounds, grams, and kilograms. Understand mass vs. weight.', href: '/print?doc=mass-weight-4th&from=4th-grade', docId: 'mass-weight-4th', categories: ['measurement'], section: 'Measurement' },
+    // Word Problems
+    { title: '🧮 Multi-Step Word Problems', description: 'Solve complex word problems with 3 or more steps. Show all your work and thinking.', href: '/print?doc=multi-step-word-4th&from=4th-grade', docId: 'multi-step-word-4th', categories: ['word-problems'], section: 'Word Problems' },
+    { title: '🧮 Fraction Word Problems', description: 'Solve word problems involving fractions. Add, subtract, and compare fractions in context.', href: '/print?doc=fraction-word-problems&from=4th-grade', docId: 'fraction-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: '🧮 Decimal Word Problems', description: 'Solve word problems involving decimals. Money, measurement, and real-world applications.', href: '/print?doc=decimal-word-problems&from=4th-grade', docId: 'decimal-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: '🧮 Measurement Word Problems', description: 'Solve word problems involving length, weight, capacity, and time. Unit conversions included.', href: '/print?doc=measurement-word-problems&from=4th-grade', docId: 'measurement-word-problems', categories: ['word-problems', 'measurement'], section: 'Word Problems' },
+    { title: '🧮 Geometry Word Problems', description: 'Solve word problems involving area, perimeter, and angles. Real-world geometry applications.', href: '/print?doc=geometry-word-problems&from=4th-grade', docId: 'geometry-word-problems', categories: ['word-problems', 'geometry'], section: 'Word Problems' },
+    // Data & Analysis
+    { title: '📊 Line Plots', description: 'Create and interpret line plots. Understand data distribution and outliers.', href: '/print?doc=line-plots&from=4th-grade', docId: 'line-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: '📊 Bar Graphs & Pictographs', description: 'Read and create bar graphs and pictographs. Interpret data and draw conclusions.', href: '/print?doc=bar-graphs-pictographs&from=4th-grade', docId: 'bar-graphs-pictographs', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: '📊 Mean, Median, Mode', description: 'Calculate mean (average), median, and mode. Understand measures of central tendency.', href: '/print?doc=mean-median-mode&from=4th-grade', docId: 'mean-median-mode', categories: ['data-analysis'], section: 'Data & Analysis' },
+  ]
+
+  // Filter worksheets based on selected categories
+  const filteredWorksheets = useMemo(() => {
+    if (selectedCategories.size === 0) return allWorksheets
+    return allWorksheets.filter((ws) => 
+      ws.categories.some((cat) => selectedCategories.has(cat))
+    )
+  }, [selectedCategories])
+
+  // Group filtered worksheets by section
+  const groupedWorksheets = useMemo(() => {
+    const groups: Record<string, WorksheetItem[]> = {}
+    filteredWorksheets.forEach((ws) => {
+      const section = ws.section || 'Other'
+      if (!groups[section]) groups[section] = []
+      groups[section].push(ws)
+    })
+    return groups
+  }, [filteredWorksheets])
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <SEOMetaTags
+        title="4th Grade Math Worksheets – Free Printable PDF"
+        description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building."
+        keywords="4th grade math worksheets, fourth grade math worksheets, free 4th grade math worksheets PDF, printable math worksheets grade 4, multiplication worksheets 4th grade, division worksheets 4th grade, fractions worksheets 4th grade, decimals worksheets 4th grade, geometry worksheets 4th grade"
+        canonicalUrl="https://wizqo.com/worksheets/4th-grade-math-worksheets"
+      />
+      {(() => {
+        const canonical = "https://wizqo.com/worksheets/4th-grade-math-worksheets";
+        const breadcrumbId = `${canonical}#breadcrumbs`;
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "4th Grade Math Worksheets", item: canonical }
+          ]
+        } as const;
+        const webPageLd = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "4th Grade Math Worksheets – Free Printable PDF",
+          url: canonical,
+          description: "Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry.",
+          breadcrumb: { "@id": breadcrumbId }
+        } as const;
+        return (
+          <>
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
+          </>
+        );
+      })()}
+      <UnifiedNavigation />
+      <main>
+        <section className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-emerald-50">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+                ✨ Free 4th grade math worksheets • Advanced math free PDF
+              </span>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                Free 4th Grade Math Worksheets
+                <span className="block text-purple-600">Printable PDFs with answer keys for comprehensive practice.</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+                Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">What's Inside</h2>
+          <p className="text-slate-700 text-sm max-w-3xl">
+            Build 4th grade math mastery with focused practice: multi-digit multiplication and division, fractions and decimals, geometry (area, perimeter, angles), measurement conversions, multi-step word problems, and data analysis. Each worksheet is one page, easy to print, and designed for quick daily practice with answer keys included.
+          </p>
+          <div className="mt-4">
+            <div className="border border-slate-200 rounded-xl p-4 bg-white">
+              <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
+              <p className="text-slate-700 text-sm mb-3">Create a quick 4th grade math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 4th Grade</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+              </div>
+              <a href="/print?doc=pack&time=5&age=g4&skill=math&from=4th-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'4'});} catch{} }}>Build Pack →</a>
+            </div>
+          </div>
+        </section>
+
+        {/* Main content with sidebar layout */}
+        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Left sidebar - Category Filter */}
+          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <CategoryFilter
+                categories={FOURTH_GRADE_CATEGORIES}
+                selectedCategories={selectedCategories}
+                onToggleCategory={toggleCategory}
+                onClearAll={clearCategories}
+                title="Filter by Category"
+              />
+            </div>
+          </aside>
+
+          {/* Right side - Worksheets grouped by section */}
+          <div className="space-y-8">
+            {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
+              const sectionLabels: Record<string, string> = {
+                'Multi-Digit Operations': '🔢 Multi-Digit Operations',
+                'Fractions & Decimals': '🍕 Fractions & Decimals',
+                'Geometry': '📐 Geometry',
+                'Measurement': '📏 Measurement',
+                'Word Problems': '🧮 Word Problems',
+                'Data & Analysis': '📊 Data & Analysis',
+              }
+              const label = sectionLabels[section] || section
+              
+              return (
+                <div key={section}>
+                  <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {worksheets.map((ws) => (
+                      <WorksheetThumbnailCard
+                        key={ws.docId}
+                        title={ws.title}
+                        description={ws.description}
+                        href={ws.href}
+                        docId={ws.docId}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+            {filteredWorksheets.length === 0 && (
+              <div className="text-center py-12 text-slate-500">
+                <p className="text-lg">No worksheets match the selected categories.</p>
+                <button
+                  onClick={clearCategories}
+                  className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Clear filters to show all worksheets
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+            <AccordionItem value="q1">
+              <AccordionTrigger className="px-4">Are 4th grade math worksheets free to download?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes! All 4th grade math worksheets are completely free. Generate unlimited unique worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q2">
+              <AccordionTrigger className="px-4">What skills do 4th grade math worksheets cover?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Our 4th grade worksheets cover multi-digit multiplication and division, fractions and decimals, geometry (area, perimeter, angles, classifying shapes), measurement conversions, multi-step word problems, and data analysis (line plots, graphs, mean/median/mode).
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q3">
+              <AccordionTrigger className="px-4">Do 4th grade worksheets include answer keys?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes! Every 4th grade worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q4">
+              <AccordionTrigger className="px-4">Are these worksheets suitable for 3rd graders who are advanced?</AccordionTrigger>
+              <AccordionContent className="px-4 text-slate-700">
+                Yes! Advanced 3rd graders can use our 4th grade worksheets to challenge themselves. Start with simpler multi-digit operations and progress to more complex topics as skills develop.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </section>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
+const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
+const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
+
+function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  return (
+    <div className={CARD_CLASS}>
+      <h3 className="font-semibold text-slate-900 mb-2 text-base">{title}</h3>
+      <p className="text-sm text-slate-600 mb-4 leading-relaxed">{description}</p>
+      <a href={href} className={BUTTON_CLASS} target="_blank" rel="noopener noreferrer">
+        Open Worksheet →
+      </a>
+    </div>
+  )
+}
