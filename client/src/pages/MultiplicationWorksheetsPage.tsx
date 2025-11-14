@@ -251,6 +251,16 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
 }
 
 function BuildPackInline() {
+  const handleBuildPack = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Generate a new variant/timestamp for each click to create a new pack
+    const variant = Math.floor(Math.random() * 1000);
+    const timestamp = Date.now();
+    const url = `/print?doc=pack&time=5&age=25&skill=math&from=multiplication&variant=${variant}&timestamp=${timestamp}`;
+    e.preventDefault();
+    window.location.href = url;
+    try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{}
+  };
+  
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4">
       <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
@@ -260,7 +270,7 @@ function BuildPackInline() {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd-5th Grade</span>
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Multiplication</span>
       </div>
-      <a href="/print?doc=pack&time=5&age=g2&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{} }}>Build Pack →</a>
+      <a href="/print?doc=pack&time=5&age=25&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={handleBuildPack}>Build Pack →</a>
     </div>
   )
 }
