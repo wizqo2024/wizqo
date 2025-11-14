@@ -147,6 +147,17 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
 
       {/* Hero Section - Modern Design */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Hero Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://www.vecteezy.com/vector-art/15369807-messy-kids-playroom-interior-in-kindergarten" 
+            alt="Kids playroom interior in kindergarten" 
+            className="w-full h-full object-cover opacity-20"
+            style={{ objectPosition: 'center' }}
+          />
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-purple-900/70 to-slate-900/80"></div>
+        </div>
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
