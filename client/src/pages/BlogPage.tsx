@@ -26,11 +26,13 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const featurePost = useMemo(() => {
     if (!allPosts.length) return null;
-    // Do not feature coloring-pages or the HWT infographic per request
+    // Do not feature the most recent blog post, coloring-pages, or the HWT infographic per request
     const avoidIds = new Set(['handwriting-without-tears-infographic', 'free-kdg-worksheets-pdf', 'free-multiplication-worksheets-pdf']);
-    const candidate = allPosts.find(p => !(p.id || '').includes('printable-coloring-pages') && !avoidIds.has(p.id))
-      || allPosts.find(p => !avoidIds.has(p.id))
-      || allPosts[0];
+    // Skip the first post (most recent) and find a candidate from the rest
+    const postsToConsider = allPosts.slice(1); // Skip the most recent post
+    const candidate = postsToConsider.find(p => !(p.id || '').includes('printable-coloring-pages') && !avoidIds.has(p.id))
+      || postsToConsider.find(p => !avoidIds.has(p.id))
+      || (postsToConsider.length > 0 ? postsToConsider[0] : null);
     return candidate;
   }, [allPosts]);
 
