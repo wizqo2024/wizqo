@@ -9935,6 +9935,1231 @@ export function PrintablesPage() {
           );
         })()}
 
+        {/* Kindergarten Worksheets - Missing ones */}
+        {activeDocs.includes('color-shapes') && (() => {
+          const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
+          const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'purple'];
+          return (
+            <WorksheetSectionWrapper docId="color-shapes" title="Color the Shapes" emoji="🟩" description="Color all circles red, squares blue, triangles yellow.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {shapes.map((s, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{s}</div>
+                    <div className="text-center text-sm text-slate-600">Color: {colors[i % colors.length]}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('color-shapes', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {shapes.map((s, i) => (<li key={i}>{s}: Color {colors[i % colors.length]}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('shape-sorting') && (() => {
+          const shapes = ['circle', 'square', 'triangle', 'rectangle'];
+          return (
+            <WorksheetSectionWrapper docId="shape-sorting" title="Shape Sorting" emoji="🟩" description="Cut out shapes and sort them into groups.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {shapes.map((s, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{s}</div>
+                    <div className="text-center text-sm text-slate-600">Sort into: {s} group</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('shape-sorting', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {shapes.map((s, i) => (<li key={i}>{s}: Sort all {s}s together</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('color-recognition') && (() => {
+          const items = [
+            { item: 'apple', color: 'red' },
+            { item: 'sun', color: 'yellow' },
+            { item: 'sky', color: 'blue' },
+            { item: 'grass', color: 'green' },
+            { item: 'carrot', color: 'orange' },
+            { item: 'grape', color: 'purple' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="color-recognition" title="Color Recognition" emoji="🟩" description="Color each item with the correct color.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {items.map((i, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{i.item}</div>
+                    <div className="text-center text-sm text-slate-600">Color: {i.color}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('color-recognition', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.color}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('draw-shape') && (() => {
+          const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
+          return (
+            <WorksheetSectionWrapper docId="draw-shape" title="Draw the Shape" emoji="🟩" description="Look at the shape name. Draw the shape in the box.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {shapes.map((s, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{s}</div>
+                    <div className="border-2 border-dashed border-slate-400 rounded h-20 flex items-center justify-center text-slate-400 text-sm">Draw here</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('draw-shape', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {shapes.map((s, i) => (<li key={i}>{s}: Draw a {s}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('color-patterns') && (() => {
+          const patterns = [
+            { seq: ['red', 'blue', 'red', 'blue', '__'], next: 'red' },
+            { seq: ['yellow', 'green', 'yellow', 'green', '__'], next: 'yellow' },
+            { seq: ['blue', 'red', 'blue', 'red', '__'], next: 'blue' },
+            { seq: ['green', 'yellow', 'green', 'yellow', '__'], next: 'green' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="color-patterns" title="Color Patterns" emoji="🧩" description="Complete the color pattern. What comes next?">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {patterns.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-mono text-sm">{p.seq.join(', ')}</div>
+                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('color-patterns', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(', ')} → {p.next}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('shape-patterns') && (() => {
+          const patterns = [
+            { seq: ['circle', 'square', 'circle', 'square', '__'], next: 'circle' },
+            { seq: ['triangle', 'circle', 'triangle', 'circle', '__'], next: 'triangle' },
+            { seq: ['square', 'triangle', 'square', 'triangle', '__'], next: 'square' },
+            { seq: ['circle', 'triangle', 'circle', 'triangle', '__'], next: 'circle' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="shape-patterns" title="Shape Patterns" emoji="🧩" description="Continue the pattern. Draw the next shape.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {patterns.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-mono text-sm">{p.seq.join(', ')}</div>
+                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('shape-patterns', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(', ')} → {p.next}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('what-comes-next') && (() => {
+          const patterns = [
+            { seq: ['🔴', '🔵', '🔴', '🔵', '__'], next: '🔴' },
+            { seq: ['🟡', '🟢', '🟡', '🟢', '__'], next: '🟡' },
+            { seq: ['🔵', '🔴', '🔵', '🔴', '__'], next: '🔵' },
+            { seq: ['🟢', '🟡', '🟢', '🟡', '__'], next: '🟢' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="what-comes-next" title="What Comes Next?" emoji="🧩" description="Look at the pattern. Draw what comes next in each row.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {patterns.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 text-xl">{p.seq.join(' ')}</div>
+                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('what-comes-next', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(' ')} → {p.next}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('long-short') && (() => {
+          const items = [
+            { item: 'pencil', type: 'long' },
+            { item: 'eraser', type: 'short' },
+            { item: 'ruler', type: 'long' },
+            { item: 'paper clip', type: 'short' },
+            { item: 'crayon', type: 'long' },
+            { item: 'button', type: 'short' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="⚖️" description="Color the long object red. Color the short object blue.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {items.map((i, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{i.item}</div>
+                    <div className="text-center text-sm text-slate-600">{i.type === 'long' ? 'Color red' : 'Color blue'}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('long-short', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.type === 'long' ? 'red' : 'blue'}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('heavy-light') && (() => {
+          const items = [
+            { item: 'elephant', type: 'heavy' },
+            { item: 'feather', type: 'light' },
+            { item: 'car', type: 'heavy' },
+            { item: 'balloon', type: 'light' },
+            { item: 'rock', type: 'heavy' },
+            { item: 'leaf', type: 'light' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="heavy-light" title="Heavy and Light" emoji="⚖️" description="Circle the heavy object. Put an X on the light object.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {items.map((i, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{i.item}</div>
+                    <div className="text-center text-sm text-slate-600">{i.type === 'heavy' ? 'Circle' : 'Put X'}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('heavy-light', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.type}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('same-different') && (() => {
+          const sets = [
+            { items: ['🔴', '🔴', '🔵', '🔴'], different: 2 },
+            { items: ['🟡', '🟡', '🟡', '🟢'], different: 3 },
+            { items: ['🔵', '🔵', '🔴', '🔵'], different: 2 },
+            { items: ['🟢', '🟢', '🟢', '🟡'], different: 3 },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="same-different" title="Same and Different" emoji="⚖️" description="Find the object that is different. Circle it.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {sets.map((s, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 text-xl">{s.items.join(' ')}</div>
+                    <div className="text-center text-sm text-slate-600">Circle the different one</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('same-different', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {sets.map((s, i) => (<li key={i}>Position {s.different + 1} is different</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('line-tracing') && (() => {
+          return (
+            <WorksheetSectionWrapper docId="line-tracing" title="Line Tracing" emoji="✏️" description="Trace the lines from left to right.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {Array.from({length: 6}, (_, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="border-b-2 border-dashed border-slate-400 h-12 flex items-center justify-center text-slate-400 text-sm">Trace the line</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('line-tracing', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <p className="text-sm">Practice tracing lines from left to right</p>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('curve-tracing') && (() => {
+          return (
+            <WorksheetSectionWrapper docId="curve-tracing" title="Curve Tracing" emoji="✏️" description="Trace the curves and circles.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {Array.from({length: 6}, (_, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="border-2 border-dashed border-slate-400 rounded-full h-16 w-16 mx-auto flex items-center justify-center text-slate-400 text-xs">Trace curve</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('curve-tracing', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <p className="text-sm">Practice tracing curves and circles</p>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('zigzag-lines') && (() => {
+          return (
+            <WorksheetSectionWrapper docId="zigzag-lines" title="Zigzag Lines" emoji="✏️" description="Trace the zigzag lines.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {Array.from({length: 6}, (_, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="border-2 border-dashed border-slate-400 h-12 flex items-center justify-center text-slate-400 text-sm">Trace zigzag</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('zigzag-lines', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <p className="text-sm">Practice tracing zigzag lines</p>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('path-tracing') && (() => {
+          return (
+            <WorksheetSectionWrapper docId="path-tracing" title="Path Tracing" emoji="✏️" description="Follow the path from start to finish.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {Array.from({length: 6}, (_, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="border-2 border-dashed border-slate-400 rounded h-16 flex items-center justify-center text-slate-400 text-sm">Start → Finish</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('path-tracing', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <p className="text-sm">Trace the path from start to finish</p>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {/* 3rd Grade Worksheets - Missing ones */}
+        {activeDocs.includes('mult-arrays') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const rows = nextInt(2, 5); const cols = nextInt(2, 5);
+            return { rows, cols, product: rows * cols };
+          });
+          return (
+            <WorksheetSectionWrapper docId="mult-arrays" title="Multiplication Arrays" emoji="✖️" description="Draw arrays to solve multiplication problems.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{p.rows} × {p.cols} = ____</div>
+                    <div className="text-center text-sm text-slate-600">Draw array: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-arrays', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.rows} × {p.cols} = {p.product}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-word-problems') && (() => {
+          const problems = [
+            'Emma has 3 bags. Each bag has 4 apples. How many apples in all?',
+            'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?',
+            'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?',
+            'A classroom has 4 tables. Each table seats 5 students. How many students can sit?',
+            'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?',
+            'Tom reads 4 books. Each book has 7 chapters. How many chapters did he read?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="mult-word-problems" title="Multiplication Word Problems" emoji="✖️" description="Solve each multiplication word problem.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('mult-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>3 × 4 = 12 apples</li>
+                    <li>5 × 3 = 15 flowers</li>
+                    <li>2 × 6 = 12 stickers</li>
+                    <li>4 × 5 = 20 students</li>
+                    <li>3 × 8 = 24 cookies</li>
+                    <li>4 × 7 = 28 chapters</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-by-10-100') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const num = nextInt(2, 9);
+            const multiplier = [10, 100][nextInt(0, 1)];
+            return { num, multiplier, answer: num * multiplier };
+          });
+          return (
+            <WorksheetSectionWrapper docId="mult-by-10-100" title="Multiplying by 10, 100" emoji="✖️" description="Multiply each number by 10 or 100.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono">{p.num} × {p.multiplier} = ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-by-10-100', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.num} × {p.multiplier} = {p.answer}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mult-properties') && (() => {
+          const problems = [
+            { expr: '3 × 4 = 4 × ?', answer: 3, prop: 'Commutative' },
+            { expr: '(2 × 3) × 4 = 2 × (3 × ?)', answer: 4, prop: 'Associative' },
+            { expr: '5 × (2 + 3) = (5 × 2) + (5 × ?)', answer: 3, prop: 'Distributive' },
+            { expr: '6 × 7 = 7 × ?', answer: 6, prop: 'Commutative' },
+            { expr: '(4 × 5) × 2 = 4 × (5 × ?)', answer: 2, prop: 'Associative' },
+            { expr: '3 × (4 + 5) = (3 × 4) + (3 × ?)', answer: 5, prop: 'Distributive' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="mult-properties" title="Properties of Multiplication" emoji="✖️" description="Use properties to solve each problem.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-mono">{p.expr}</div>
+                    <div className="text-center text-sm text-slate-600">Property: {p.prop}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-properties', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.expr.replace('?', String(p.answer))} ({p.prop})</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('div-with-remainders') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const divisor = nextInt(2, 9);
+            const quotient = nextInt(5, 12);
+            const dividend = divisor * quotient + nextInt(0, divisor - 1);
+            return { dividend, divisor, quotient, remainder: dividend % divisor };
+          });
+          return (
+            <WorksheetSectionWrapper docId="div-with-remainders" title="Division with Remainders" emoji="➗" description="Divide and find the remainder.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-mono text-xl">{p.dividend} ÷ {p.divisor}</div>
+                    <div className="text-center text-sm text-slate-600">Answer: ____ R ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('div-with-remainders', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)} R {p.remainder}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('div-word-problems') && (() => {
+          const problems = [
+            'Emma has 24 stickers. She wants to share them equally among 4 friends. How many stickers does each friend get?',
+            'There are 30 cookies. If 5 children share them equally, how many cookies does each child get?',
+            'Jake has 18 pencils. He puts them into 3 boxes equally. How many pencils are in each box?',
+            'A teacher has 28 books. She wants to give 4 books to each student. How many students can get books?',
+            'There are 36 apples. If 6 people share them equally, how many apples does each person get?',
+            'Tom has 21 marbles. He wants to put them into 7 bags equally. How many marbles go in each bag?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="div-word-problems" title="Division Word Problems" emoji="➗" description="Solve each division word problem.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('div-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>24 ÷ 4 = 6 stickers</li>
+                    <li>30 ÷ 5 = 6 cookies</li>
+                    <li>18 ÷ 3 = 6 pencils</li>
+                    <li>28 ÷ 4 = 7 students</li>
+                    <li>36 ÷ 6 = 6 apples</li>
+                    <li>21 ÷ 7 = 3 marbles</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('div-by-10-100') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const num = nextInt(20, 90);
+            const divisor = [10, 100][nextInt(0, 1)];
+            return { num, divisor, answer: num / divisor };
+          });
+          return (
+            <WorksheetSectionWrapper docId="div-by-10-100" title="Dividing by 10, 100" emoji="➗" description="Divide each number by 10 or 100.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono">{p.num} ÷ {p.divisor} = ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('div-by-10-100', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.num} ÷ {p.divisor} = {p.answer}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('fact-families-mult-div') && (() => {
+          const families = [
+            { mult: [3, 4, 12], facts: ['3 × 4 = 12', '4 × 3 = 12', '12 ÷ 3 = 4', '12 ÷ 4 = 3'] },
+            { mult: [2, 6, 12], facts: ['2 × 6 = 12', '6 × 2 = 12', '12 ÷ 2 = 6', '12 ÷ 6 = 2'] },
+            { mult: [4, 5, 20], facts: ['4 × 5 = 20', '5 × 4 = 20', '20 ÷ 4 = 5', '20 ÷ 5 = 4'] },
+            { mult: [3, 6, 18], facts: ['3 × 6 = 18', '6 × 3 = 18', '18 ÷ 3 = 6', '18 ÷ 6 = 3'] },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="fact-families-mult-div" title="Fact Families (Mult/Div)" emoji="➗" description="Complete the multiplication and division fact families.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {families.map((f, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="mb-2 font-semibold">Fact Family: {f.mult.join(', ')}</div>
+                    <div className="space-y-1 text-sm">
+                      {f.facts.map((fact, idx) => (
+                        <div key={idx} className="border-b border-slate-200 pb-1">{fact}</div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('fact-families-mult-div', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {families.map((f, i) => (
+                      <li key={i}>{f.mult.join(', ')}: {f.facts.join(', ')}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('comparing-fractions') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const denom1 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num1 = nextInt(1, denom1 - 1);
+            const denom2 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num2 = nextInt(1, denom2 - 1);
+            const val1 = num1 / denom1;
+            const val2 = num2 / denom2;
+            return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="comparing-fractions" title="Comparing Fractions" emoji="🍕" description="Compare each pair of fractions using >, <, or =.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-bold">{p.frac1} ____ {p.frac2}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('comparing-fractions', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const symbol = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
+                      return <li key={i}>{p.frac1} {symbol} {p.frac2}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('equivalent-fractions') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num = nextInt(1, denom - 1);
+            const factor = nextInt(2, 4);
+            const equivNum = num * factor;
+            const equivDenom = denom * factor;
+            return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}` };
+          });
+          return (
+            <WorksheetSectionWrapper docId="equivalent-fractions" title="Equivalent Fractions" emoji="🍕" description="Find an equivalent fraction for each given fraction.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-bold mb-2">{p.original}</div>
+                    <div className="text-center text-sm text-slate-600">Equivalent: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('equivalent-fractions', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.original} = {p.equivalent}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('add-sub-fractions') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num1 = nextInt(1, denom - 1);
+            const num2 = nextInt(1, denom - 1);
+            const op = nextInt(0, 1) === 0 ? '+' : '-';
+            return { num1, num2, denom, op };
+          });
+          return (
+            <WorksheetSectionWrapper docId="add-sub-fractions" title="Adding & Subtracting Fractions" emoji="🍕" description="Add or subtract each pair of fractions with like denominators.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono">
+                      {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = ____
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('add-sub-fractions', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const result = p.op === '+' ? p.num1 + p.num2 : p.num1 - p.num2;
+                      return <li key={i}>{p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = {result}/{p.denom}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('fractions-number-line') && (() => {
+          const fractions = ['1/2', '1/4', '3/4', '1/3', '2/3', '1/5'];
+          return (
+            <WorksheetSectionWrapper docId="fractions-number-line" title="Fractions on a Number Line" emoji="🍕" description="Plot each fraction on the number line.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {fractions.map((f, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-bold text-xl">{f}</div>
+                    <div className="border-t-2 border-slate-400 mt-2 pt-2 text-center text-sm text-slate-600">0 —————— 1</div>
+                    <div className="text-center text-sm text-slate-600 mt-1">Plot: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('fractions-number-line', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {fractions.map((f, i) => {
+                      const [num, den] = f.split('/').map(Number);
+                      const pos = num / den;
+                      return <li key={i}>{f}: Plot at {pos} on number line</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('perimeter-shapes') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const length = nextInt(4, 10);
+            const width = nextInt(3, 8);
+            return { length, width, perimeter: 2 * (length + width) };
+          });
+          return (
+            <WorksheetSectionWrapper docId="perimeter-shapes" title="Perimeter of Shapes" emoji="📐" description="Find the perimeter of each rectangle.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">Length: {p.length}, Width: {p.width}</div>
+                    <div className="text-center text-sm text-slate-600">Perimeter: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('perimeter-shapes', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>Perimeter = {p.perimeter} units</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('area-rectangles') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const length = nextInt(4, 10);
+            const width = nextInt(3, 8);
+            return { length, width, area: length * width };
+          });
+          return (
+            <WorksheetSectionWrapper docId="area-rectangles" title="Area of Rectangles" emoji="📐" description="Find the area by multiplying length × width.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">Length: {p.length}, Width: {p.width}</div>
+                    <div className="text-center text-sm text-slate-600">Area: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('area-rectangles', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>Area = {p.area} sq units</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('identify-polygons') && (() => {
+          const polygons = [
+            { name: 'triangle', sides: 3 },
+            { name: 'quadrilateral', sides: 4 },
+            { name: 'pentagon', sides: 5 },
+            { name: 'hexagon', sides: 6 },
+            { name: 'octagon', sides: 8 },
+            { name: 'square', sides: 4 },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="identify-polygons" title="Identify Polygons" emoji="📐" description="Name each polygon by number of sides.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {polygons.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{p.name}</div>
+                    <div className="text-center text-sm text-slate-600">Sides: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('identify-polygons', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {polygons.map((p, i) => (<li key={i}>{p.name}: {p.sides} sides</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('lines-rays-angles') && (() => {
+          const items = [
+            { name: 'line', desc: 'Straight path that goes on forever in both directions' },
+            { name: 'line segment', desc: 'Part of a line with two endpoints' },
+            { name: 'ray', desc: 'Part of a line with one endpoint' },
+            { name: 'angle', desc: 'Formed by two rays sharing an endpoint' },
+            { name: 'right angle', desc: '90 degree angle' },
+            { name: 'acute angle', desc: 'Less than 90 degrees' },
+          ];
+          return (
+            <WorksheetSectionWrapper docId="lines-rays-angles" title="Lines, Rays, and Angles" emoji="📐" description="Identify lines, line segments, rays, and angles.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {items.map((i, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 text-sm">{i.desc}</div>
+                    <div className="text-center text-sm text-slate-600">Name: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('lines-rays-angles', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {items.map((i, idx) => (<li key={idx}>{i.desc} = {i.name}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('symmetry') && (() => {
+          const shapes = ['square', 'circle', 'rectangle', 'triangle', 'hexagon', 'star'];
+          return (
+            <WorksheetSectionWrapper docId="symmetry" title="Symmetry" emoji="📐" description="Find lines of symmetry. Draw the other half.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {shapes.map((s, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{s}</div>
+                    <div className="text-center text-sm text-slate-600">Lines of symmetry: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('symmetry', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {shapes.map((s, i) => {
+                      const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
+                      return <li key={i}>{s}: {lines} lines of symmetry</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('time-to-minute') && (() => {
+          const times = ['8:15', '2:30', '10:45', '5:20', '12:05', '3:55'];
+          return (
+            <WorksheetSectionWrapper docId="time-to-minute" title="Time to the Minute" emoji="🕒" description="Read and write time to the nearest minute.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {times.map((t, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono mb-2">{t}</div>
+                    <div className="text-center text-sm text-slate-600">Draw clock: ____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('time-to-minute', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {times.map((t, i) => (<li key={i}>{t}: Draw clock showing this time</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('customary-units') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const feet = nextInt(1, 10);
+            return { feet, inches: feet * 12 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="customary-units" title="Customary Units" emoji="📏" description="Convert between inches, feet, and yards.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">{p.feet} feet = ____ inches</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('customary-units', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.feet} feet = {p.inches} inches</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('metric-units') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const meters = nextInt(1, 10);
+            return { meters, centimeters: meters * 100 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="metric-units" title="Metric Units" emoji="📏" description="Convert between centimeters, meters, and kilometers.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">{p.meters} meters = ____ centimeters</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('metric-units', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.meters} meters = {p.centimeters} centimeters</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('liquid-measurement') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const quarts = nextInt(1, 5);
+            return { quarts, cups: quarts * 4 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="liquid-measurement" title="Liquid Measurement" emoji="📏" description="Compare cups, pints, quarts, and gallons.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">{p.quarts} quarts = ____ cups</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('liquid-measurement', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.quarts} quarts = {p.cups} cups</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mass-weight') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const pounds = nextInt(1, 5);
+            return { pounds, ounces: pounds * 16 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="mass-weight" title="Mass and Weight" emoji="📏" description="Compare ounces, pounds, grams, and kilograms.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center mb-2">{p.pounds} pounds = ____ ounces</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mass-weight', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.pounds} pounds = {p.ounces} ounces</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('multi-step-word-problems') && (() => {
+          const problems = [
+            'Emma has 24 stickers. She gives away 8 stickers. Then she buys 12 more. How many stickers does she have now?',
+            'A store has 45 apples. They sell 15 apples in the morning and 18 apples in the afternoon. How many apples are left?',
+            'Jake reads 3 books. Each book has 8 chapters. How many chapters did he read in all?',
+            'There are 5 boxes. Each box has 6 toys. If 8 toys are broken, how many toys are still good?',
+            'Sarah saves $5 each week for 4 weeks. Then she spends $12. How much money does she have left?',
+            'A classroom has 30 students. 12 students are boys. How many students are girls?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="multi-step-word-problems" title="Multi-Step Word Problems" emoji="🧮" description="Solve problems with 2 or 3 steps.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('multi-step-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>24 - 8 + 12 = 28 stickers</li>
+                    <li>45 - 15 - 18 = 12 apples</li>
+                    <li>3 × 8 = 24 chapters</li>
+                    <li>5 × 6 - 8 = 22 toys</li>
+                    <li>5 × 4 - 12 = $8</li>
+                    <li>30 - 12 = 18 girls</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('elapsed-time-word-problems') && (() => {
+          const problems = [
+            'Emma starts reading at 3:15 PM and finishes at 4:30 PM. How long did she read?',
+            'A movie starts at 7:00 PM and ends at 9:15 PM. How long is the movie?',
+            'Tom starts homework at 4:00 PM and finishes at 5:45 PM. How long did he work?',
+            'A class starts at 9:00 AM and ends at 10:30 AM. How long is the class?',
+            'Sarah starts cooking at 5:30 PM and finishes at 6:45 PM. How long did she cook?',
+            'Jake starts playing at 2:00 PM and stops at 3:30 PM. How long did he play?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="elapsed-time-word-problems" title="Elapsed Time Word Problems" emoji="🧮" description="Solve problems about time.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('elapsed-time-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>1 hour 15 minutes</li>
+                    <li>2 hours 15 minutes</li>
+                    <li>1 hour 45 minutes</li>
+                    <li>1 hour 30 minutes</li>
+                    <li>1 hour 15 minutes</li>
+                    <li>1 hour 30 minutes</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('money-word-problems') && (() => {
+          const problems = [
+            'Emma has $5.00. She buys a book for $2.50. How much money does she have left?',
+            'Jake has $10.00. He buys 3 toys for $2.00 each. How much money does he have left?',
+            'Sarah has $8.00. She buys a snack for $1.75. How much money does she have left?',
+            'Tom has $12.00. He buys 2 items for $4.50 each. How much money does he have left?',
+            'Lisa has $6.00. She buys a pen for $1.25. How much money does she have left?',
+            'A store sells apples for $0.50 each. Jake buys 6 apples. How much does he pay?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="money-word-problems" title="Money Word Problems" emoji="🧮" description="Solve problems involving dollars and cents.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('money-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>$5.00 - $2.50 = $2.50</li>
+                    <li>$10.00 - $6.00 = $4.00</li>
+                    <li>$8.00 - $1.75 = $6.25</li>
+                    <li>$12.00 - $9.00 = $3.00</li>
+                    <li>$6.00 - $1.25 = $4.75</li>
+                    <li>$0.50 × 6 = $3.00</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('perimeter-area-word-problems') && (() => {
+          const problems = [
+            'A rectangle has a length of 8 cm and width of 5 cm. What is the area and perimeter?',
+            'A square has sides of 6 inches. What is the area and perimeter?',
+            'A rectangle garden is 10 feet long and 7 feet wide. What is the area?',
+            'A rectangular room is 12 feet by 9 feet. How many square feet of carpet are needed?',
+            'A rectangle has a length of 9 cm and width of 4 cm. What is the perimeter?',
+            'A square playground has sides of 8 meters. What is the area?',
+          ];
+          return (
+            <WorksheetSectionWrapper docId="perimeter-area-word-problems" title="Perimeter & Area Word Problems" emoji="🧮" description="Find perimeter and area in real-world situations.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+                {problems.map((p, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {p}
+                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  </li>
+                ))}
+              </ol>
+              {showAnswersForDoc('perimeter-area-word-problems', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Area = 40 sq cm, Perimeter = 26 cm</li>
+                    <li>Area = 36 sq inches, Perimeter = 24 inches</li>
+                    <li>Area = 70 sq feet</li>
+                    <li>Area = 108 sq feet</li>
+                    <li>Perimeter = 26 cm</li>
+                    <li>Area = 64 sq meters</li>
+                  </ol>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {/* Generic fallback for any answerable docId that doesn't have a specific section */}
         {(() => {
           const handledDocIds = new Set([
@@ -9974,7 +11199,18 @@ export function PrintablesPage() {
             'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
             'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
             'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
-            'mean-median-mode-range', 'stem-leaf-plots', 'probability'
+            'mean-median-mode-range', 'stem-leaf-plots', 'probability',
+            // Kindergarten worksheets
+            'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'color-patterns',
+            'shape-patterns', 'what-comes-next', 'long-short', 'heavy-light', 'same-different',
+            'line-tracing', 'curve-tracing', 'zigzag-lines', 'path-tracing',
+            // 3rd Grade worksheets
+            'mult-arrays', 'mult-word-problems', 'mult-by-10-100', 'mult-properties',
+            'div-with-remainders', 'div-word-problems', 'div-by-10-100', 'fact-families-mult-div',
+            'comparing-fractions', 'equivalent-fractions', 'add-sub-fractions', 'fractions-number-line',
+            'perimeter-shapes', 'area-rectangles', 'identify-polygons', 'lines-rays-angles', 'symmetry',
+            'time-to-minute', 'customary-units', 'metric-units', 'liquid-measurement', 'mass-weight',
+            'multi-step-word-problems', 'elapsed-time-word-problems', 'money-word-problems', 'perimeter-area-word-problems'
           ])
           const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
           if (unhandledDocIds.length === 0) return null
