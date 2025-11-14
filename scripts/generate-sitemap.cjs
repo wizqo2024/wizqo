@@ -46,11 +46,30 @@ function collectMarkdownPosts() {
 }
 
 function collectInlinePosts() {
-  const file = path.join(ROOT, 'client', 'src', 'pages', 'BlogPage.tsx');
-  const src = readFileSafe(file) || '';
-  const ids = Array.from(src.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
+  // Try to read from basePosts.ts first (more reliable)
+  const basePostsFile = path.join(ROOT, 'client', 'src', 'pages', 'blog', 'basePosts.ts');
+  const basePostsSrc = readFileSafe(basePostsFile) || '';
+  const idsFromBase = Array.from(basePostsSrc.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
+  
+  // Also check BlogPage.tsx as fallback
+  const blogPageFile = path.join(ROOT, 'client', 'src', 'pages', 'BlogPage.tsx');
+  const blogPageSrc = readFileSafe(blogPageFile) || '';
+  const idsFromPage = Array.from(blogPageSrc.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
+  
+  // Combine and deduplicate
+  const allIds = [...idsFromBase, ...idsFromPage];
   const exclude = new Set(['test-markdown-post']);
-  return Array.from(new Set(ids)).filter(id => !exclude.has(id)).map(slug => ({ slug, date: '' }));
+  const uniqueIds = Array.from(new Set(allIds)).filter(id => !exclude.has(id));
+  
+  // Extract dates from basePosts.ts if available
+  const posts = [];
+  for (const id of uniqueIds) {
+    const dateMatch = basePostsSrc.match(new RegExp(`id:\\s*"${id}"[\\s\\S]*?date:\\s*"([^"]+)"`));
+    const date = dateMatch ? dateMatch[1] : '';
+    posts.push({ slug: id, date });
+  }
+  
+  return posts;
 }
 
 // Intentionally no printable doc collection for sitemap
@@ -83,24 +102,40 @@ function generate() {
     urls.push({ loc, lastmod, changefreq, priority });
   };
 
-  push(`${site}/`, today, 'weekly', '0.8');
+  // Homepage
+  push(`${site}/`, today, 'weekly', '1.0');
+  
+  // Main navigation pages
+  push(`${site}/generate`, today, 'monthly', '0.9');
+  push(`${site}/about`, today, 'monthly', '0.8');
+  push(`${site}/contact`, today, 'monthly', '0.6');
+  
+  // Kids hub and games
   push(`${site}/kids`, today, 'weekly', '0.8');
-  // Kids games subpages
   const kidsGames = ['memory', 'word-search', 'puzzle', 'typing', 'pattern'];
   for (const slug of kidsGames) {
     push(`${site}/kids/games/${slug}`, today, 'weekly', '0.6');
   }
+  
+  // Printables
   push(`${site}/printables`, today, 'weekly', '0.7');
+  push(`${site}/printables/name-tracing-generator`, today, 'weekly', '0.85');
   push(`${site}/printables/certificate-maker`, today, 'weekly', '0.7');
+  
+  // Interactive worksheets generator
   push(`${site}/interactive-worksheets-generator`, today, 'daily', '0.8');
-  // Intentionally excluding math hubs for now
-  push(`${site}/blog`, today, 'weekly', '0.7');
-  // Worksheets landing pages
+  
+  // Blog
+  push(`${site}/blog`, today, 'weekly', '0.8');
+  
+  // Worksheets pages
   push(`${site}/worksheets/1st-grade-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/2nd-grade-math-worksheets`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/multiplication-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
   push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
-  // Intentionally exclude /print?doc=... from sitemap (non-indexed)
+  
+  // Intentionally exclude /print?doc=..., /plan, /dashboard, /reset-password, /privacy, /terms, /cookies from sitemap (non-indexed)
 
   for (const p of posts) {
     const lastmod = iso(p.date);
