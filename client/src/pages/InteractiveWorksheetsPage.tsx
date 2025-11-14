@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
-import { trackWorksheetGenerated } from '@/utils/analytics'
+import { trackWorksheetGeneration, trackCategoryFilter, trackGradeSelection, trackWorksheetDownload } from '@/utils/analytics'
 import {
   Dialog,
   DialogContent,
@@ -725,7 +725,9 @@ export function InteractiveWorksheetsPage() {
           setPack(json.data)
           
           // Track worksheet generation (doesn't affect SEO)
-          trackWorksheetGenerated(currentFilters.grade, finalCategories)
+          // Track worksheet generation with enhanced analytics
+          const worksheetCount = response.worksheets?.length || 0
+          trackWorksheetGeneration(currentFilters.grade, finalCategories, worksheetCount)
         } else {
           throw new Error('Invalid response format from server')
         }
@@ -780,8 +782,10 @@ export function InteractiveWorksheetsPage() {
       let nextCategories: string[]
       if (exists) {
         nextCategories = prev.categories.filter((c) => c !== id)
+        trackCategoryFilter(id, 'deselect', 'interactive-worksheets-generator')
       } else {
         nextCategories = normalizeCategoryIds([...prev.categories, id])
+        trackCategoryFilter(id, 'select', 'interactive-worksheets-generator')
       }
       if (nextCategories.length === 0) nextCategories = [id]
       // Reset variant to 1 when categories change and generate new unique timestamp
@@ -813,6 +817,7 @@ export function InteractiveWorksheetsPage() {
 
   const setGrade = (grade: GradeBand) => {
     resetDuplicateTracking()
+    trackGradeSelection(grade, 'interactive-worksheets-generator')
     setFilters((prev) => {
       // Generate unique timestamp when grade changes for unique content
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
@@ -1036,8 +1041,13 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
+    // Track worksheet download
+    const worksheet = pack.items.find(item => item.docId === docId)
+    if (worksheet) {
+      trackWorksheetDownload(docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
+    }
     return url.toString()
-  }, [pack, customization])
+  }, [pack, customization, filters.grade])
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -1104,6 +1114,10 @@ export function InteractiveWorksheetsPage() {
                           href={getPrintUrl()}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => {
+                            // Track bulk download
+                            trackWorksheetDownload('bundle', `Interactive Worksheets Pack (${downloadSheetCount} sheets)`, 'interactive-worksheets-generator', filters.grade)
+                          }}
                           className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 hover:border-purple-400 hover:text-purple-700"
                         >
                           📦 Bulk Download free PDF ({downloadSheetCount} {downloadSheetCount === 1 ? 'sheet' : 'sheets'})

@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 
 const MULTIPLICATION_CATEGORIES: Category[] = [
   { id: 'facts', label: 'Multiplication Facts', icon: '✖️' },
@@ -30,10 +31,13 @@ export default function MultiplicationWorksheetsPage() {
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) => {
       const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
+      const isSelecting = !next.has(categoryId)
+      if (isSelecting) {
         next.add(categoryId)
+        trackCategoryFilter(categoryId, 'select', 'multiplication-worksheets')
+      } else {
+        next.delete(categoryId)
+        trackCategoryFilter(categoryId, 'deselect', 'multiplication-worksheets')
       }
       return next
     })
@@ -351,8 +355,9 @@ function BuildPackInline() {
     const timestamp = Date.now();
     const url = `/print?doc=pack&time=5&age=25&skill=math&from=multiplication&variant=${variant}&timestamp=${timestamp}`;
     e.preventDefault();
+    // Track pack generation
+    trackPackGeneration(5, '25', 'math', 5); // 5 minutes, age 25 (2nd-5th), math, ~5 worksheets
     window.location.href = url;
-    try { (window as any).gtag?.('event','build_pack_click',{grade:'multiplication'});} catch{}
   };
   
   return (
