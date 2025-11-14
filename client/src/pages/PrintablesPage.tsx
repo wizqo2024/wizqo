@@ -6571,6 +6571,43 @@ export function PrintablesPage() {
           );
         })()}
 
+        {activeDocs.includes('mult-3x2-digit') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<[number, number]> = Array.from({length: 6}).map(() => {
+            const a = nextInt(100, 999); const b = nextInt(10, 99); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-3x2-digit"
+              title="Multi-Digit Multiplication (3×2)"
+              emoji="✖️"
+              description="Multiply 3-digit numbers by 2-digit numbers using the standard algorithm."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                    <div className="font-mono text-lg leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mult-3x2-digit', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {activeDocs.includes('mult-area-model') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -7873,7 +7910,7 @@ export function PrintablesPage() {
             'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole',
             'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
             'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
-            'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns'
+            'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns'
           ])
           const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
           if (unhandledDocIds.length === 0) return null
