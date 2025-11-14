@@ -21,17 +21,20 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
   const kidsMenuRef = useRef<HTMLDivElement | null>(null);
   const kidsToggleRef = useRef<HTMLButtonElement | null>(null);
 
-  // Check if we're on a worksheets page (but not multiplication-worksheets)
+  // Check if we're on a worksheets page (but not specific worksheet pages)
   // This is checked on every render to be reactive to navigation
   const getIsWorksheetsPageActive = () => {
     const pathname = window.location.pathname;
-    // Don't show active state on multiplication-worksheets page
-    if (pathname.includes('/multiplication-worksheets')) {
+    // Only show active state on interactive-worksheets-generator
+    // Don't show active on specific worksheet pages
+    if (pathname === '/interactive-worksheets-generator') {
+      return true;
+    }
+    // Don't show active on any specific worksheet pages
+    if (pathname.startsWith('/worksheets/')) {
       return false;
     }
-    // Show active for interactive-worksheets-generator or other worksheets pages
-    return pathname === '/interactive-worksheets-generator' || 
-           (pathname.startsWith('/worksheets/') && !pathname.includes('/multiplication-worksheets'));
+    return false;
   };
 
   // Close Kids menu on outside click or ESC
@@ -94,13 +97,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               </a>
 
               <a href="/interactive-worksheets-generator" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${(() => {
-                // Don't show active on multiplication-worksheets page
-                if (window.location.pathname.includes('/multiplication-worksheets')) {
-                  return false;
-                }
-                // Show active for interactive-worksheets-generator or other worksheets pages
+                // Only show active on interactive-worksheets-generator, not on specific worksheet pages
                 return currentPage === 'interactive-worksheets-generator' || 
-                       (currentPage === 'worksheets' && !window.location.pathname.includes('/multiplication-worksheets')) ||
                        getIsWorksheetsPageActive();
               })() ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
