@@ -29,6 +29,19 @@ export const basePosts: BlogPost[] = [
     keywords: "multiplication worksheets, free printable multiplication worksheets pdf, times tables worksheets for practice, math multiplication activities printable, multiplication facts worksheets download, printable math worksheets for beginners, classroom multiplication resources"
   },
   {
+    id: "free-grade-2-math-worksheets-pdf",
+    title: "Free Grade 2 Math Worksheets (PDF) – Build Confidence & Make Learning Fun!",
+    excerpt: "Download free grade 2 math worksheets (PDF). Addition, subtraction, place value & word problems. Boost your child's confidence with fun, printable 2nd-grade worksheets.",
+    content: "<Grade2MathWorksheetsBlog />",
+    author: "Wizqo Team",
+    date: "2025-01-15T12:00:00Z",
+    readTime: "8-9 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child working on grade 2 math worksheets with colorful pencils",
+    keywords: "grade 2 math worksheets, free grade 2 math worksheets pdf, 2nd grade math worksheets, second grade math worksheets, printable grade 2 math worksheets, grade 2 math worksheets free, math worksheets for grade 2, addition worksheets grade 2, subtraction worksheets grade 2, place value worksheets grade 2, word problems grade 2"
+  },
+  {
     id: "easy-hobbies-that-make-you-smarter",
     title: "Easy Hobbies That Make You Smarter (Backed by Science)",
     excerpt: "Discover 10 simple, science-backed hobbies that boost memory, focus, creativity, and overall brain health—no fancy gear required.",
