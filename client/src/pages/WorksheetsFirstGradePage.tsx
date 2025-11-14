@@ -1,10 +1,102 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
+import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+
+const FIRST_GRADE_CATEGORIES: Category[] = [
+  { id: 'number-sense', label: 'Number Sense', icon: '🔢' },
+  { id: 'addition-subtraction', label: 'Addition & Subtraction', icon: '➕➖' },
+  { id: 'fluency', label: 'Fluency Boosters', icon: '⚡' },
+  { id: 'logic', label: 'Focus & Logic', icon: '🧩' },
+  { id: 'literacy', label: 'Early Literacy', icon: '📚' },
+  { id: 'early-math', label: 'Early Math Skills', icon: '🔢' },
+]
+
+interface WorksheetItem {
+  title: string
+  description: string
+  href: string
+  docId: string
+  categories: string[]
+  section?: string
+}
 
 export default function WorksheetsFirstGradePage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
+
+  // Define all worksheets with their categories
+  const allWorksheets: WorksheetItem[] = [
+    // Number Sense
+    { title: '🔟 Ten Frames 1–10', description: 'Color counters to build numbers 1–10; develop subitizing and number bonds.', href: '/print?doc=ten-frames-1-10&from=1st-grade', docId: 'ten-frames-1-10', categories: ['number-sense'], section: 'Number Sense' },
+    { title: '✏️ Number Tracing 1–20', description: 'Trace numbers 1–20 with start points and big writing space.', href: '/print?doc=number-tracing-1-20&from=1st-grade', docId: 'number-tracing-1-20', categories: ['number-sense'], section: 'Number Sense' },
+    { title: '🔢 Number Bonds to 10', description: 'Complete number bonds showing parts that make 10; build fact fluency.', href: '/print?doc=number-bonds-10&from=1st-grade', docId: 'number-bonds-10', categories: ['number-sense'], section: 'Number Sense' },
+    { title: '📊 Count & Write 1–30', description: 'Count objects and write the number; practice one-to-one correspondence.', href: '/print?doc=count-write-30&from=1st-grade', docId: 'count-write-30', categories: ['number-sense'], section: 'Number Sense' },
+    { title: '🔍 Missing Numbers 1–50', description: 'Fill in missing numbers on number lines; practice sequencing.', href: '/print?doc=missing-numbers-50&from=1st-grade', docId: 'missing-numbers-50', categories: ['number-sense'], section: 'Number Sense' },
+    // Addition & Subtraction
+    { title: '➕ Add/Sub within 10', description: 'No‑prep practice with number lines and picture cues.', href: '/print?doc=addition-subtraction-0-10&from=1st-grade', docId: 'addition-subtraction-0-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: '🧮 Math Maze (Within 18)', description: 'Solve simple equations to find a path from start to finish.', href: '/print?doc=math-maze&from=1st-grade', docId: 'math-maze', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: '➕ Picture Addition to 10', description: 'Count pictures and add them together; visual math practice.', href: '/print?doc=picture-addition-10&from=1st-grade', docId: 'picture-addition-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: '➖ Subtraction Stories', description: 'Solve subtraction problems using picture stories and number lines.', href: '/print?doc=subtraction-stories&from=1st-grade', docId: 'subtraction-stories', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: '⚖️ Balance Equations (to 10)', description: 'Find missing numbers to balance addition and subtraction equations.', href: '/print?doc=balance-equations-10&from=1st-grade', docId: 'balance-equations-10', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    // Fluency Boosters
+    { title: '🔢 Dot‑to‑Dot 1–20', description: 'Connect the dots to reveal a picture while you count to 20.', href: '/print?doc=dot-to-dot-1-20&from=1st-grade', docId: 'dot-to-dot-1-20', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: '🎨 Color‑by‑Number (1–4)', description: 'Follow the key to color simple scenes; practice number recognition.', href: '/print?doc=color-by-number&from=1st-grade', docId: 'color-by-number', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: '➡️ Skip Counting by 2s', description: 'Practice counting by 2s from 2 to 20; build pattern recognition.', href: '/print?doc=skip-count-2s&from=1st-grade', docId: 'skip-count-2s', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: '🔢 Number Line Addition', description: 'Use number lines to solve addition problems within 15.', href: '/print?doc=number-line-add&from=1st-grade', docId: 'number-line-add', categories: ['fluency', 'addition-subtraction'], section: 'Fluency Boosters' },
+    { title: '🎯 Doubles Facts Practice', description: 'Master doubles (1+1, 2+2, etc.) with fun visual activities.', href: '/print?doc=doubles-facts&from=1st-grade', docId: 'doubles-facts', categories: ['fluency'], section: 'Fluency Boosters' },
+    // Focus & Logic
+    { title: '👀 Spot‑the‑Difference (7)', description: 'Find differences to build attention and visual scanning.', href: '/print?doc=spot-difference&from=1st-grade', docId: 'spot-difference', categories: ['logic'], section: 'Focus & Logic' },
+    { title: '🟩 Shapes & Colors Sort', description: 'Cut, sort, and glue basic shapes by color; early math + fine motor.', href: '/print?doc=shapes-colors-sort&from=1st-grade', docId: 'shapes-colors-sort', categories: ['logic'], section: 'Focus & Logic' },
+    { title: '🧩 Pattern Completion', description: 'Complete AB, ABC, and AAB patterns using shapes and colors.', href: '/print?doc=pattern-complete&from=1st-grade', docId: 'pattern-complete', categories: ['logic'], section: 'Focus & Logic' },
+    { title: '🔍 Find the Missing Shape', description: 'Identify which shape comes next in a sequence; logic practice.', href: '/print?doc=missing-shape&from=1st-grade', docId: 'missing-shape', categories: ['logic'], section: 'Focus & Logic' },
+    { title: '📏 Size Comparison', description: 'Compare objects by size (big/small, long/short); measurement basics.', href: '/print?doc=size-comparison&from=1st-grade', docId: 'size-comparison', categories: ['logic'], section: 'Focus & Logic' },
+    // Early Literacy
+    { title: '🎵 Rhyming Words', description: 'Circle the word that rhymes with the picture. Say both words out loud.', href: '/print?doc=rhyming-words&from=1st-grade', docId: 'rhyming-words', categories: ['literacy'], section: 'Early Literacy' },
+    { title: '📚 CVC Words', description: 'Read each CVC word. Match it to the picture. Then write the word.', href: '/print?doc=cvc-words&from=1st-grade', docId: 'cvc-words', categories: ['literacy'], section: 'Early Literacy' },
+    { title: '👁️ Sight Words (Pre-Primer)', description: 'Read each sight word. Trace it, then write it three times.', href: '/print?doc=sight-words-pre-primer&from=1st-grade', docId: 'sight-words-pre-primer', categories: ['literacy'], section: 'Early Literacy' },
+    { title: '✏️ Letter Tracing A–Z', description: 'Trace each letter. Start at the dot. Say the letter name and sound.', href: '/print?doc=letter-tracing-az&from=1st-grade', docId: 'letter-tracing-az', categories: ['literacy'], section: 'Early Literacy' },
+    { title: '📝 Sentence Building', description: 'Put the words in order to make a sentence. Write the sentence on the line.', href: '/print?doc=sentence-building&from=1st-grade', docId: 'sentence-building', categories: ['literacy'], section: 'Early Literacy' },
+    // Early Math Skills
+    { title: '⚖️ More, Less, or Equal? (1–10)', description: 'Compare the two groups. Circle: more, less, or equal.', href: '/print?doc=more-less-equal-10&from=1st-grade', docId: 'more-less-equal-10', categories: ['early-math'], section: 'Early Math Skills' },
+    { title: '🔢 Count the Objects (1–20)', description: 'Count each group of objects. Write the number in the box.', href: '/print?doc=counting-objects-20&from=1st-grade', docId: 'counting-objects-20', categories: ['early-math'], section: 'Early Math Skills' },
+  ]
+
+  // Filter worksheets based on selected categories
+  const filteredWorksheets = useMemo(() => {
+    if (selectedCategories.size === 0) return allWorksheets
+    return allWorksheets.filter((ws) => 
+      ws.categories.some((cat) => selectedCategories.has(cat))
+    )
+  }, [selectedCategories])
+
+  // Group filtered worksheets by section
+  const groupedWorksheets = useMemo(() => {
+    const groups: Record<string, WorksheetItem[]> = {}
+    filteredWorksheets.forEach((ws) => {
+      const section = ws.section || 'Other'
+      if (!groups[section]) groups[section] = []
+      groups[section].push(ws)
+    })
+    return groups
+  }, [filteredWorksheets])
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -89,70 +181,59 @@ export default function WorksheetsFirstGradePage() {
           </div>
         </section>
 
+        {/* Category Filter */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <CategoryFilter
+            categories={FIRST_GRADE_CATEGORIES}
+            selectedCategories={selectedCategories}
+            onToggleCategory={toggleCategory}
+            onClearAll={clearCategories}
+            title="Filter by Category"
+          />
+        </section>
+
+        {/* Worksheets grouped by section */}
         <section>
           <div className="space-y-8">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Number Sense</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="🔟 Ten Frames 1–10" description="Color counters to build numbers 1–10; develop subitizing and number bonds." href="/print?doc=ten-frames-1-10&from=1st-grade" docId="ten-frames-1-10" />
-                <WorksheetThumbnailCard title="✏️ Number Tracing 1–20" description="Trace numbers 1–20 with start points and big writing space." href="/print?doc=number-tracing-1-20&from=1st-grade" docId="number-tracing-1-20" />
-                <WorksheetThumbnailCard title="🔢 Number Bonds to 10" description="Complete number bonds showing parts that make 10; build fact fluency." href="/print?doc=number-bonds-10&from=1st-grade" docId="number-bonds-10" />
-                <WorksheetThumbnailCard title="📊 Count & Write 1–30" description="Count objects and write the number; practice one-to-one correspondence." href="/print?doc=count-write-30&from=1st-grade" docId="count-write-30" />
-                <WorksheetThumbnailCard title="🔍 Missing Numbers 1–50" description="Fill in missing numbers on number lines; practice sequencing." href="/print?doc=missing-numbers-50&from=1st-grade" docId="missing-numbers-50" />
+            {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
+              const sectionLabels: Record<string, string> = {
+                'Number Sense': '🔢 Number Sense',
+                'Addition & Subtraction': '➕➖ Addition & Subtraction',
+                'Fluency Boosters': '⚡ Fluency Boosters',
+                'Focus & Logic': '🧩 Focus & Logic',
+                'Early Literacy': '📚 Early Literacy',
+                'Early Math Skills': '🔢 Early Math Skills',
+              }
+              const label = sectionLabels[section] || section
+              
+              return (
+                <div key={section}>
+                  <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {worksheets.map((ws) => (
+                      <WorksheetThumbnailCard
+                        key={ws.docId}
+                        title={ws.title}
+                        description={ws.description}
+                        href={ws.href}
+                        docId={ws.docId}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+            {filteredWorksheets.length === 0 && (
+              <div className="text-center py-12 text-slate-500">
+                <p className="text-lg">No worksheets match the selected categories.</p>
+                <button
+                  onClick={clearCategories}
+                  className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Clear filters to show all worksheets
+                </button>
               </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">➕➖ Addition & Subtraction</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="➕ Add/Sub within 10" description="No‑prep practice with number lines and picture cues." href="/print?doc=addition-subtraction-0-10&from=1st-grade" docId="addition-subtraction-0-10" />
-                <WorksheetThumbnailCard title="🧮 Math Maze (Within 18)" description="Solve simple equations to find a path from start to finish." href="/print?doc=math-maze&from=1st-grade" docId="math-maze" />
-                <WorksheetThumbnailCard title="➕ Picture Addition to 10" description="Count pictures and add them together; visual math practice." href="/print?doc=picture-addition-10&from=1st-grade" docId="picture-addition-10" />
-                <WorksheetThumbnailCard title="➖ Subtraction Stories" description="Solve subtraction problems using picture stories and number lines." href="/print?doc=subtraction-stories&from=1st-grade" docId="subtraction-stories" />
-                <WorksheetThumbnailCard title="⚖️ Balance Equations (to 10)" description="Find missing numbers to balance addition and subtraction equations." href="/print?doc=balance-equations-10&from=1st-grade" docId="balance-equations-10" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">⚡ Fluency Boosters</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="🔢 Dot‑to‑Dot 1–20" description="Connect the dots to reveal a picture while you count to 20." href="/print?doc=dot-to-dot-1-20&from=1st-grade" docId="dot-to-dot-1-20" />
-                <WorksheetThumbnailCard title="🎨 Color‑by‑Number (1–4)" description="Follow the key to color simple scenes; practice number recognition." href="/print?doc=color-by-number&from=1st-grade" docId="color-by-number" />
-                <WorksheetThumbnailCard title="➡️ Skip Counting by 2s" description="Practice counting by 2s from 2 to 20; build pattern recognition." href="/print?doc=skip-count-2s&from=1st-grade" docId="skip-count-2s" />
-                <WorksheetThumbnailCard title="🔢 Number Line Addition" description="Use number lines to solve addition problems within 15." href="/print?doc=number-line-add&from=1st-grade" docId="number-line-add" />
-                <WorksheetThumbnailCard title="🎯 Doubles Facts Practice" description="Master doubles (1+1, 2+2, etc.) with fun visual activities." href="/print?doc=doubles-facts&from=1st-grade" docId="doubles-facts" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🧩 Focus & Logic</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="👀 Spot‑the‑Difference (7)" description="Find differences to build attention and visual scanning." href="/print?doc=spot-difference&from=1st-grade" docId="spot-difference" />
-                <WorksheetThumbnailCard title="🟩 Shapes & Colors Sort" description="Cut, sort, and glue basic shapes by color; early math + fine motor." href="/print?doc=shapes-colors-sort&from=1st-grade" docId="shapes-colors-sort" />
-                <WorksheetThumbnailCard title="🧩 Pattern Completion" description="Complete AB, ABC, and AAB patterns using shapes and colors." href="/print?doc=pattern-complete&from=1st-grade" docId="pattern-complete" />
-                <WorksheetThumbnailCard title="🔍 Find the Missing Shape" description="Identify which shape comes next in a sequence; logic practice." href="/print?doc=missing-shape&from=1st-grade" docId="missing-shape" />
-                <WorksheetThumbnailCard title="📏 Size Comparison" description="Compare objects by size (big/small, long/short); measurement basics." href="/print?doc=size-comparison&from=1st-grade" docId="size-comparison" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">📚 Early Literacy</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="🎵 Rhyming Words" description="Circle the word that rhymes with the picture. Say both words out loud." href="/print?doc=rhyming-words&from=1st-grade" docId="rhyming-words" />
-                <WorksheetThumbnailCard title="📚 CVC Words" description="Read each CVC word. Match it to the picture. Then write the word." href="/print?doc=cvc-words&from=1st-grade" docId="cvc-words" />
-                <WorksheetThumbnailCard title="👁️ Sight Words (Pre-Primer)" description="Read each sight word. Trace it, then write it three times." href="/print?doc=sight-words-pre-primer&from=1st-grade" docId="sight-words-pre-primer" />
-                <WorksheetThumbnailCard title="✏️ Letter Tracing A–Z" description="Trace each letter. Start at the dot. Say the letter name and sound." href="/print?doc=letter-tracing-az&from=1st-grade" docId="letter-tracing-az" />
-                <WorksheetThumbnailCard title="📝 Sentence Building" description="Put the words in order to make a sentence. Write the sentence on the line." href="/print?doc=sentence-building&from=1st-grade" docId="sentence-building" />
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-2">🔢 Early Math Skills</h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                <WorksheetThumbnailCard title="⚖️ More, Less, or Equal? (1–10)" description="Compare the two groups. Circle: more, less, or equal." href="/print?doc=more-less-equal-10&from=1st-grade" docId="more-less-equal-10" />
-                <WorksheetThumbnailCard title="🔢 Count the Objects (1–20)" description="Count each group of objects. Write the number in the box." href="/print?doc=counting-objects-20&from=1st-grade" docId="counting-objects-20" />
-              </div>
-            </div>
+            )}
           </div>
         </section>
 
