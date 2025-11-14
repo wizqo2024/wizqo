@@ -7412,10 +7412,10 @@ export function PrintablesPage() {
 
         {activeDocs.includes('shape-identification') && (() => {
           const shapes = [
-            { name: 'Circle', emoji: '⭕', svg: <circle cx="50" cy="50" r="30" fill="none" stroke="#111827" strokeWidth="3" /> },
-            { name: 'Square', emoji: '⬜', svg: <rect x="20" y="20" width="60" height="60" fill="none" stroke="#111827" strokeWidth="3" /> },
-            { name: 'Triangle', emoji: '🔺', svg: <polygon points="50,20 20,80 80,80" fill="none" stroke="#111827" strokeWidth="3" /> },
-            { name: 'Rectangle', emoji: '▭', svg: <rect x="15" y="25" width="70" height="50" fill="none" stroke="#111827" strokeWidth="3" /> },
+            { name: 'Circle', emoji: '⭕', type: 'circle' },
+            { name: 'Square', emoji: '⬜', type: 'square' },
+            { name: 'Triangle', emoji: '🔺', type: 'triangle' },
+            { name: 'Rectangle', emoji: '▭', type: 'rectangle' },
           ]
           return (
             <WorksheetSectionWrapper
@@ -7430,7 +7430,10 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2">
                       <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
-                        {shape.svg}
+                        {shape.type === 'circle' && <circle cx="50" cy="50" r="30" fill="none" stroke="#111827" strokeWidth="3" />}
+                        {shape.type === 'square' && <rect x="20" y="20" width="60" height="60" fill="none" stroke="#111827" strokeWidth="3" />}
+                        {shape.type === 'triangle' && <polygon points="50,20 20,80 80,80" fill="none" stroke="#111827" strokeWidth="3" />}
+                        {shape.type === 'rectangle' && <rect x="15" y="25" width="70" height="50" fill="none" stroke="#111827" strokeWidth="3" />}
                       </svg>
                       <p className="text-lg font-semibold text-slate-800">{shape.name}</p>
                     </div>
