@@ -726,7 +726,7 @@ export function InteractiveWorksheetsPage() {
           
           // Track worksheet generation (doesn't affect SEO)
           // Track worksheet generation with enhanced analytics
-          const worksheetCount = response.worksheets?.length || 0
+          const worksheetCount = items.length || 0
           trackWorksheetGeneration(currentFilters.grade, finalCategories, worksheetCount)
         } else {
           throw new Error('Invalid response format from server')
