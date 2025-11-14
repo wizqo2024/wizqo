@@ -10046,10 +10046,12 @@ export function PrintablesPage() {
 
         {activeDocs.includes('color-patterns') && (() => {
           const patterns = [
-            { seq: ['red', 'blue', 'red', 'blue', '__'], next: 'red' },
-            { seq: ['yellow', 'green', 'yellow', 'green', '__'], next: 'yellow' },
-            { seq: ['blue', 'red', 'blue', 'red', '__'], next: 'blue' },
-            { seq: ['green', 'yellow', 'green', 'yellow', '__'], next: 'green' },
+            { colors: ['🔴', '🔵', '🔴', '🔵'], next: '🔴', name: 'red, blue' },
+            { colors: ['🟡', '🟢', '🟡', '🟢'], next: '🟡', name: 'yellow, green' },
+            { colors: ['🔵', '🔴', '🔵', '🔴'], next: '🔵', name: 'blue, red' },
+            { colors: ['🟢', '🟡', '🟢', '🟡'], next: '🟢', name: 'green, yellow' },
+            { colors: ['🟠', '🟣', '🟠', '🟣'], next: '🟠', name: 'orange, purple' },
+            { colors: ['🔴', '🟡', '🔴', '🟡'], next: '🔴', name: 'red, yellow' },
           ];
           return (
             <WorksheetSectionWrapper docId="color-patterns" title="Color Patterns" emoji="🧩" description="Complete the color pattern. What comes next?">
@@ -10057,8 +10059,13 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-mono text-sm">{p.seq.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                    <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
+                      {p.colors.map((c, idx) => (
+                        <span key={idx}>{c}</span>
+                      ))}
+                      <span className="text-2xl border-2 border-dashed border-slate-400 rounded px-2">?</span>
+                    </div>
+                    <div className="text-center text-sm text-slate-600">What comes next?</div>
                   </div>
                 ))}
               </div>
@@ -10066,7 +10073,14 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(', ')} → {p.next}</li>))}
+                    {patterns.map((p, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span>{p.colors.join(' ')}</span>
+                        <span>→</span>
+                        <span className="text-xl">{p.next}</span>
+                        <span className="text-xs text-slate-500">({p.name} pattern)</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
@@ -10076,10 +10090,12 @@ export function PrintablesPage() {
 
         {activeDocs.includes('shape-patterns') && (() => {
           const patterns = [
-            { seq: ['circle', 'square', 'circle', 'square', '__'], next: 'circle' },
-            { seq: ['triangle', 'circle', 'triangle', 'circle', '__'], next: 'triangle' },
-            { seq: ['square', 'triangle', 'square', 'triangle', '__'], next: 'square' },
-            { seq: ['circle', 'triangle', 'circle', 'triangle', '__'], next: 'circle' },
+            { shapes: ['⭕', '⬜', '⭕', '⬜'], next: '⭕', name: 'circle, square' },
+            { shapes: ['🔺', '⭕', '🔺', '⭕'], next: '🔺', name: 'triangle, circle' },
+            { shapes: ['⬜', '🔺', '⬜', '🔺'], next: '⬜', name: 'square, triangle' },
+            { shapes: ['⭕', '🔺', '⭕', '🔺'], next: '⭕', name: 'circle, triangle' },
+            { shapes: ['⬜', '⭕', '⬜', '⭕'], next: '⬜', name: 'square, circle' },
+            { shapes: ['🔺', '⬜', '🔺', '⬜'], next: '🔺', name: 'triangle, square' },
           ];
           return (
             <WorksheetSectionWrapper docId="shape-patterns" title="Shape Patterns" emoji="🧩" description="Continue the pattern. Draw the next shape.">
@@ -10087,8 +10103,13 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-mono text-sm">{p.seq.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                    <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
+                      {p.shapes.map((s, idx) => (
+                        <span key={idx}>{s}</span>
+                      ))}
+                      <span className="text-2xl border-2 border-dashed border-slate-400 rounded px-2">?</span>
+                    </div>
+                    <div className="text-center text-sm text-slate-600">What comes next?</div>
                   </div>
                 ))}
               </div>
@@ -10096,7 +10117,14 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(', ')} → {p.next}</li>))}
+                    {patterns.map((p, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span>{p.shapes.join(' ')}</span>
+                        <span>→</span>
+                        <span className="text-xl">{p.next}</span>
+                        <span className="text-xs text-slate-500">({p.name} pattern)</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
@@ -10106,10 +10134,12 @@ export function PrintablesPage() {
 
         {activeDocs.includes('what-comes-next') && (() => {
           const patterns = [
-            { seq: ['🔴', '🔵', '🔴', '🔵', '__'], next: '🔴' },
-            { seq: ['🟡', '🟢', '🟡', '🟢', '__'], next: '🟡' },
-            { seq: ['🔵', '🔴', '🔵', '🔴', '__'], next: '🔵' },
-            { seq: ['🟢', '🟡', '🟢', '🟡', '__'], next: '🟢' },
+            { items: ['🔴', '🔵', '🔴', '🔵'], next: '🔴', name: 'red, blue' },
+            { items: ['🟡', '🟢', '🟡', '🟢'], next: '🟡', name: 'yellow, green' },
+            { items: ['🔵', '🔴', '🔵', '🔴'], next: '🔵', name: 'blue, red' },
+            { items: ['🟢', '🟡', '🟢', '🟡'], next: '🟢', name: 'green, yellow' },
+            { items: ['⭐', '❤️', '⭐', '❤️'], next: '⭐', name: 'star, heart' },
+            { items: ['🍎', '🍌', '🍎', '🍌'], next: '🍎', name: 'apple, banana' },
           ];
           return (
             <WorksheetSectionWrapper docId="what-comes-next" title="What Comes Next?" emoji="🧩" description="Look at the pattern. Draw what comes next in each row.">
@@ -10117,8 +10147,13 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {patterns.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 text-xl">{p.seq.join(' ')}</div>
-                    <div className="text-center text-sm text-slate-600">Next: ____</div>
+                    <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
+                      {p.items.map((item, idx) => (
+                        <span key={idx}>{item}</span>
+                      ))}
+                      <span className="text-2xl border-2 border-dashed border-slate-400 rounded px-2">?</span>
+                    </div>
+                    <div className="text-center text-sm text-slate-600">What comes next?</div>
                   </div>
                 ))}
               </div>
@@ -10126,7 +10161,14 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(' ')} → {p.next}</li>))}
+                    {patterns.map((p, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span>{p.items.join(' ')}</span>
+                        <span>→</span>
+                        <span className="text-xl">{p.next}</span>
+                        <span className="text-xs text-slate-500">({p.name} pattern)</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
