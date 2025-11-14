@@ -89,13 +89,57 @@ function cloneForRoute(baseHtml, route) {
     keywords: route.keywords
   });
   
-  // Ensure visible H1/H2 content exists for homepage (already in base HTML, but verify)
-  if (route.path === '/') {
-    // The base HTML already has visible SEO content, so we just ensure it's present
-    // If the fallback content is missing, it means base HTML was modified incorrectly
+  // Update SEO fallback content for specific pages
+  if (route.path === '/worksheets/multiplication-worksheets') {
+    // Replace fallback content with multiplication-specific content
+    const multiplicationContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Free Multiplication Worksheets - Printable PDFs with Answer Keys
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, 4th grade, and 5th grade! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency.
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">2nd & 3rd Grade Multiplication Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Free printable multiplication worksheets for 2nd and 3rd grade students. Practice basic multiplication facts 1-5, multiplication arrays, skip counting, and simple word problems. Perfect for building foundational multiplication skills with answer keys included.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">3rd & 4th Grade Multiplication Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Advanced multiplication worksheets for 3rd and 4th grade. Master multiplication facts 6-12, larger arrays, multi-step word problems, and fact families. Download printable PDFs with answer keys for comprehensive practice.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">4th & 5th Grade Multiplication Worksheets</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Multi-digit multiplication worksheets for 4th and 5th grade students. Practice 2×1 and 2×2 digit multiplication, area models, and complex word problems. Perfect for mastering advanced multiplication skills with answer keys included.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Multiplication Fluency & Practice</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Build multiplication fluency with fact practice, mixed reviews, multiplication strategies, and pattern recognition. All worksheets include answer keys and are available as free printable PDFs.
+        </p>
+      </section>
+    </main>`;
+    
+    // Replace the seo-fallback content
+    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
+  } else if (route.path === '/') {
+    // Ensure visible H1/H2 content exists for homepage (already in base HTML, but verify)
     if (!html.includes('id="seo-fallback"')) {
       console.warn('Warning: SEO fallback content missing in base HTML for homepage');
     }
+  } else {
+    // For other pages, remove or minimize the fallback content to avoid duplicate content issues
+    // Keep it hidden but with minimal content
+    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, `<main id="seo-fallback" style="display: none;"><h1>${escapeHtml(route.title.replace(' | Wizqo', ''))}</h1><p>${escapeHtml(route.description)}</p></main>`);
   }
   
   return html;
