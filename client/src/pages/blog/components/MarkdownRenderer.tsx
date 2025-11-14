@@ -4,6 +4,7 @@ import GentleParentingFull from '@/components/blog/GentleParentingFull';
 import HWTInfographic from '@/components/blog/HWTInfographic';
 import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksheetsBlog';
 import CognitiveSkillsBlog from '@/components/blog/CognitiveSkillsBlog';
+import Grade2MathWorksheetsBlog from '@/components/blog/Grade2MathWorksheetsBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -229,6 +230,10 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     }
     if (post.id === 'what-are-cognitive-skills' && trimmed === '<CognitiveSkillsBlog />') {
       elements.push(<CognitiveSkillsBlog key={`cognitive-skills-blog-${i}`} />);
+      continue;
+    }
+    if (post.id === 'free-grade-2-math-worksheets-pdf' && trimmed === '<Grade2MathWorksheetsBlog />') {
+      elements.push(<Grade2MathWorksheetsBlog key={`grade2-math-blog-${i}`} />);
       continue;
     }
     
