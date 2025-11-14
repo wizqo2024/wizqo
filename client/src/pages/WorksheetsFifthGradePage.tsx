@@ -23,27 +23,8 @@ interface WorksheetItem {
   section?: string
 }
 
-export default function WorksheetsFifthGradePage() {
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
-
-  const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
-      const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
-        next.add(categoryId)
-      }
-      return next
-    })
-  }
-
-  const clearCategories = () => {
-    setSelectedCategories(new Set())
-  }
-
-  // Define all worksheets with their categories - unique 5th Grade content
-  const allWorksheets: WorksheetItem[] = [
+// Define all worksheets with their categories - unique 5th Grade content
+const FIFTH_GRADE_WORKSHEETS: WorksheetItem[] = [
     // Advanced Operations
     { title: '🔢 Multi-Digit Multiplication (3×2)', description: 'Multiply 3-digit numbers by 2-digit numbers. Master the standard algorithm.', href: '/print?doc=mult-3x2-digit&from=5th-grade', docId: 'mult-3x2-digit', categories: ['operations'], section: 'Advanced Operations' },
     { title: '🔢 Long Division (Multi-Digit)', description: 'Divide multi-digit numbers by 2 and 3-digit divisors. Advanced long division practice.', href: '/print?doc=long-division-multidigit&from=5th-grade', docId: 'long-division-multidigit', categories: ['operations'], section: 'Advanced Operations' },
@@ -82,12 +63,31 @@ export default function WorksheetsFifthGradePage() {
     { title: '📊 Mean, Median, Mode, Range', description: 'Calculate mean, median, mode, and range. Understand measures of central tendency and spread.', href: '/print?doc=mean-median-mode-range&from=5th-grade', docId: 'mean-median-mode-range', categories: ['data-analysis'], section: 'Data & Analysis' },
     { title: '📊 Stem-and-Leaf Plots', description: 'Create and interpret stem-and-leaf plots. Organize and analyze data.', href: '/print?doc=stem-leaf-plots&from=5th-grade', docId: 'stem-leaf-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
     { title: '📊 Probability', description: 'Understand probability. Calculate simple probabilities and use fractions to express likelihood.', href: '/print?doc=probability&from=5th-grade', docId: 'probability', categories: ['data-analysis'], section: 'Data & Analysis' },
-  ]
+]
+
+export default function WorksheetsFifthGradePage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    if (selectedCategories.size === 0) return FIFTH_GRADE_WORKSHEETS
+    return FIFTH_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories])

@@ -23,27 +23,8 @@ interface WorksheetItem {
   section?: string
 }
 
-export default function WorksheetsThirdGradePage() {
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
-
-  const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
-      const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
-        next.add(categoryId)
-      }
-      return next
-    })
-  }
-
-  const clearCategories = () => {
-    setSelectedCategories(new Set())
-  }
-
-  // Define all worksheets with their categories - unique 3rd Grade content
-  const allWorksheets: WorksheetItem[] = [
+// Define all worksheets with their categories - unique 3rd Grade content
+const THIRD_GRADE_WORKSHEETS: WorksheetItem[] = [
     // Multiplication
     { title: '✖️ Multiplication Facts 0–12', description: 'Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy with timed drills.', href: '/print?doc=mult-facts-0-12&from=3rd-grade', docId: 'mult-facts-0-12', categories: ['multiplication'], section: 'Multiplication' },
     { title: '✖️ Multiplication Arrays', description: 'Draw arrays to solve multiplication problems. Understand multiplication as repeated addition.', href: '/print?doc=mult-arrays&from=3rd-grade', docId: 'mult-arrays', categories: ['multiplication'], section: 'Multiplication' },
@@ -79,12 +60,31 @@ export default function WorksheetsThirdGradePage() {
     { title: '📏 Metric Units', description: 'Convert between centimeters, meters, and kilometers. Learn metric system.', href: '/print?doc=metric-units&from=3rd-grade', docId: 'metric-units', categories: ['measurement'], section: 'Measurement' },
     { title: '📏 Liquid Measurement', description: 'Compare cups, pints, quarts, and gallons. Understand capacity.', href: '/print?doc=liquid-measurement&from=3rd-grade', docId: 'liquid-measurement', categories: ['measurement'], section: 'Measurement' },
     { title: '📏 Mass and Weight', description: 'Compare ounces, pounds, grams, and kilograms. Understand mass vs. weight.', href: '/print?doc=mass-weight&from=3rd-grade', docId: 'mass-weight', categories: ['measurement'], section: 'Measurement' },
-  ]
+]
+
+export default function WorksheetsThirdGradePage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    if (selectedCategories.size === 0) return THIRD_GRADE_WORKSHEETS
+    return THIRD_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories])
