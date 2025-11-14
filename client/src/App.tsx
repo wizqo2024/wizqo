@@ -498,17 +498,6 @@ export default function App() {
                   <WorksheetsSecondGradePage />
                 </>
               );
-            case 'worksheets-1':
-              return (
-                <>
-                  <SEOMetaTags 
-                    title="1st Grade Math Worksheets – Free Printable PDF"
-                    description="Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
-                    canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
-                  />
-                  <WorksheetsFirstGradePage />
-                </>
-              );
             case 'dashboard':
               return (
                 <>
