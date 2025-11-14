@@ -22,6 +22,7 @@ import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import WorksheetsKindergartenPage from './pages/WorksheetsKindergartenPage';
 import WorksheetsThirdGradePage from './pages/WorksheetsThirdGradePage';
 import WorksheetsFourthGradePage from './pages/WorksheetsFourthGradePage';
+import WorksheetsFifthGradePage from './pages/WorksheetsFifthGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
 import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
@@ -526,6 +527,19 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/4th-grade-math-worksheets"
                     />
                     <WorksheetsFourthGradePage />
+                  </>
+                );
+              }
+              if (routeSubKey === '5th-grade-math-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="5th Grade Math Worksheets – Free Printable PDF"
+                      description="Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice."
+                      keywords="5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5, multiplication worksheets 5th grade, division worksheets 5th grade, fractions worksheets 5th grade, decimals worksheets 5th grade, algebra worksheets 5th grade, geometry worksheets 5th grade"
+                      canonicalUrl="https://wizqo.com/worksheets/5th-grade-math-worksheets"
+                    />
+                    <WorksheetsFifthGradePage />
                   </>
                 );
               }
