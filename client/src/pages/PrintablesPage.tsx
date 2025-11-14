@@ -194,6 +194,132 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
+  // Kindergarten worksheets
+  'count-circle-1-10',
+  'count-match-1-20',
+  'how-many-1-15',
+  'count-color-1-10',
+  'counting-objects-20',
+  'number-id-1-10',
+  'number-tracing-1-10',
+  'number-matching-1-15',
+  'number-order-1-20',
+  'find-number-1-10',
+  'shape-identification',
+  'color-shapes',
+  'shape-sorting',
+  'color-recognition',
+  'draw-shape',
+  'ab-pattern',
+  'color-patterns',
+  'shape-patterns',
+  'what-comes-next',
+  'big-small',
+  'more-less',
+  'long-short',
+  'heavy-light',
+  'same-different',
+  'line-tracing',
+  'curve-tracing',
+  'zigzag-lines',
+  'path-tracing',
+  // 3rd Grade worksheets
+  'mult-facts-0-12',
+  'mult-arrays',
+  'mult-word-problems',
+  'mult-by-10-100',
+  'mult-properties',
+  'div-facts-1-12',
+  'div-with-remainders',
+  'div-word-problems',
+  'fact-families-mult-div',
+  'div-by-10-100',
+  'fractions-whole',
+  'comparing-fractions',
+  'equivalent-fractions',
+  'fractions-number-line',
+  'add-sub-fractions',
+  'multi-step-word-problems',
+  'elapsed-time-word-problems',
+  'money-word-problems',
+  'perimeter-area-word-problems',
+  'identify-polygons',
+  'perimeter-shapes',
+  'area-rectangles',
+  'lines-rays-angles',
+  'symmetry',
+  'time-to-minute',
+  'customary-units',
+  'metric-units',
+  'liquid-measurement',
+  'mass-weight',
+  // 4th Grade worksheets
+  'mult-2x1-digit',
+  'mult-2x2-digit',
+  'long-division-1digit',
+  'long-division-2digit',
+  'area-model-mult',
+  'partial-products',
+  'equivalent-fractions-4th',
+  'comparing-fractions-4th',
+  'add-sub-fractions-4th',
+  'mixed-improper-fractions',
+  'decimals-place-value',
+  'comparing-decimals',
+  'add-sub-decimals',
+  'fractions-to-decimals',
+  'classifying-angles',
+  'area-perimeter-4th',
+  'lines-angles-4th',
+  'classifying-triangles',
+  'classifying-quadrilaterals',
+  'symmetry-transformations',
+  'customary-conversion',
+  'metric-conversion',
+  'elapsed-time-4th',
+  'liquid-measurement-4th',
+  'mass-weight-4th',
+  'multi-step-word-4th',
+  'fraction-word-problems',
+  'decimal-word-problems',
+  'measurement-word-problems',
+  'geometry-word-problems',
+  'line-plots',
+  'bar-graphs-pictographs',
+  'mean-median-mode',
+  // 5th Grade worksheets
+  'mult-3x2-digit',
+  'long-division-multidigit',
+  'order-of-operations',
+  'powers-of-10',
+  'rounding-decimals',
+  'estimating-sums-differences',
+  'add-sub-mixed-numbers',
+  'multiplying-fractions',
+  'dividing-fractions',
+  'multiplying-decimals',
+  'dividing-decimals',
+  'fractions-decimals-percents',
+  'comparing-ordering-fractions-decimals',
+  'evaluating-expressions',
+  'writing-expressions',
+  'solving-one-step-equations',
+  'patterns-rules',
+  'coordinate-graphing',
+  'volume-rectangular-prisms',
+  'area-triangles-parallelograms',
+  'classifying-shapes',
+  'nets-3d-shapes',
+  'transformations-5th',
+  'multi-step-word-5th',
+  'fraction-word-problems-5th',
+  'decimal-word-problems-5th',
+  'ratio-proportion-word-problems',
+  'percent-word-problems',
+  'line-graphs',
+  'mean-median-mode-range',
+  'stem-leaf-plots',
+  'probability',
 ]
 
 function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
@@ -573,6 +699,254 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🎯 Goal Setting & Growth'
     case 'interactive-sel-prek':
       return '😊 Feelings & Emotions Explorer'
+    // Kindergarten worksheets
+    case 'count-circle-1-10':
+      return '🔢 Count & Circle 1–10'
+    case 'count-match-1-20':
+      return '🔢 Count & Match 1–20'
+    case 'how-many-1-15':
+      return '🔢 How Many? (1–15)'
+    case 'count-color-1-10':
+      return '🔢 Count & Color (1–10)'
+    case 'counting-objects-20':
+      return '🔢 Counting Objects to 20'
+    case 'number-id-1-10':
+      return '🔟 Number Identification 1–10'
+    case 'number-tracing-1-10':
+      return '🔟 Number Tracing 1–10'
+    case 'number-matching-1-15':
+      return '🔟 Number Matching 1–15'
+    case 'number-order-1-20':
+      return '🔟 Number Order 1–20'
+    case 'find-number-1-10':
+      return '🔟 Find the Number (1–10)'
+    case 'shape-identification':
+      return '🟩 Shape Identification'
+    case 'color-shapes':
+      return '🟩 Color the Shapes'
+    case 'shape-sorting':
+      return '🟩 Shape Sorting'
+    case 'color-recognition':
+      return '🟩 Color Recognition'
+    case 'draw-shape':
+      return '🟩 Draw the Shape'
+    case 'ab-pattern':
+      return '🧩 AB Pattern Completion'
+    case 'color-patterns':
+      return '🧩 Color Patterns'
+    case 'shape-patterns':
+      return '🧩 Shape Patterns'
+    case 'what-comes-next':
+      return '🧩 What Comes Next?'
+    case 'big-small':
+      return '⚖️ Big and Small'
+    case 'more-less':
+      return '⚖️ More and Less'
+    case 'long-short':
+      return '⚖️ Long and Short'
+    case 'heavy-light':
+      return '⚖️ Heavy and Light'
+    case 'same-different':
+      return '⚖️ Same and Different'
+    case 'line-tracing':
+      return '✏️ Line Tracing'
+    case 'curve-tracing':
+      return '✏️ Curve Tracing'
+    case 'zigzag-lines':
+      return '✏️ Zigzag Lines'
+    case 'path-tracing':
+      return '✏️ Path Tracing'
+    // 3rd Grade worksheets
+    case 'mult-facts-0-12':
+      return '✖️ Multiplication Facts 0–12'
+    case 'mult-arrays':
+      return '✖️ Multiplication Arrays'
+    case 'mult-word-problems':
+      return '✖️ Multiplication Word Problems'
+    case 'mult-by-10-100':
+      return '✖️ Multiplying by 10, 100'
+    case 'mult-properties':
+      return '✖️ Properties of Multiplication'
+    case 'div-facts-1-12':
+      return '➗ Division Facts 1–12'
+    case 'div-with-remainders':
+      return '➗ Division with Remainders'
+    case 'div-word-problems':
+      return '➗ Division Word Problems'
+    case 'fact-families-mult-div':
+      return '➗ Fact Families (Mult/Div)'
+    case 'div-by-10-100':
+      return '➗ Dividing by 10, 100'
+    case 'fractions-whole':
+      return '🍕 Fractions: Parts of a Whole'
+    case 'comparing-fractions':
+      return '🍕 Comparing Fractions'
+    case 'equivalent-fractions':
+      return '🍕 Equivalent Fractions'
+    case 'fractions-number-line':
+      return '🍕 Fractions on a Number Line'
+    case 'add-sub-fractions':
+      return '🍕 Adding & Subtracting Fractions'
+    case 'multi-step-word-problems':
+      return '🧮 Multi-Step Word Problems'
+    case 'elapsed-time-word-problems':
+      return '🧮 Elapsed Time Word Problems'
+    case 'money-word-problems':
+      return '🧮 Money Word Problems'
+    case 'perimeter-area-word-problems':
+      return '🧮 Perimeter & Area Word Problems'
+    case 'identify-polygons':
+      return '📐 Identify Polygons'
+    case 'perimeter-shapes':
+      return '📐 Perimeter of Shapes'
+    case 'area-rectangles':
+      return '📐 Area of Rectangles'
+    case 'lines-rays-angles':
+      return '📐 Lines, Rays, and Angles'
+    case 'symmetry':
+      return '📐 Symmetry'
+    case 'time-to-minute':
+      return '📏 Time to the Minute'
+    case 'customary-units':
+      return '📏 Customary Units'
+    case 'metric-units':
+      return '📏 Metric Units'
+    case 'liquid-measurement':
+      return '📏 Liquid Measurement'
+    case 'mass-weight':
+      return '📏 Mass and Weight'
+    // 4th Grade worksheets
+    case 'mult-2x1-digit':
+      return '🔢 Multi-Digit Multiplication (2×1)'
+    case 'mult-2x2-digit':
+      return '🔢 Multi-Digit Multiplication (2×2)'
+    case 'long-division-1digit':
+      return '🔢 Long Division (1-Digit Divisor)'
+    case 'long-division-2digit':
+      return '🔢 Long Division (2-Digit Divisor)'
+    case 'area-model-mult':
+      return '🔢 Area Model Multiplication'
+    case 'partial-products':
+      return '🔢 Partial Products Multiplication'
+    case 'equivalent-fractions-4th':
+      return '🍕 Equivalent Fractions'
+    case 'comparing-fractions-4th':
+      return '🍕 Comparing Fractions'
+    case 'add-sub-fractions-4th':
+      return '🍕 Adding & Subtracting Fractions'
+    case 'mixed-improper-fractions':
+      return '🍕 Mixed Numbers & Improper Fractions'
+    case 'decimals-place-value':
+      return '🍕 Decimals: Place Value'
+    case 'comparing-decimals':
+      return '🍕 Comparing & Ordering Decimals'
+    case 'add-sub-decimals':
+      return '🍕 Adding & Subtracting Decimals'
+    case 'fractions-to-decimals':
+      return '🍕 Fractions to Decimals'
+    case 'classifying-angles':
+      return '📐 Classifying Angles'
+    case 'area-perimeter-4th':
+      return '📐 Area & Perimeter'
+    case 'lines-angles-4th':
+      return '📐 Lines & Angles'
+    case 'classifying-triangles':
+      return '📐 Classifying Triangles'
+    case 'classifying-quadrilaterals':
+      return '📐 Classifying Quadrilaterals'
+    case 'symmetry-transformations':
+      return '📐 Symmetry & Transformations'
+    case 'customary-conversion':
+      return '📏 Customary Units Conversion'
+    case 'metric-conversion':
+      return '📏 Metric Units Conversion'
+    case 'elapsed-time-4th':
+      return '📏 Elapsed Time'
+    case 'liquid-measurement-4th':
+      return '📏 Liquid Measurement'
+    case 'mass-weight-4th':
+      return '📏 Mass and Weight'
+    case 'multi-step-word-4th':
+      return '🧮 Multi-Step Word Problems'
+    case 'fraction-word-problems':
+      return '🧮 Fraction Word Problems'
+    case 'decimal-word-problems':
+      return '🧮 Decimal Word Problems'
+    case 'measurement-word-problems':
+      return '🧮 Measurement Word Problems'
+    case 'geometry-word-problems':
+      return '🧮 Geometry Word Problems'
+    case 'line-plots':
+      return '📊 Line Plots'
+    case 'bar-graphs-pictographs':
+      return '📊 Bar Graphs & Pictographs'
+    case 'mean-median-mode':
+      return '📊 Mean, Median, Mode'
+    // 5th Grade worksheets
+    case 'mult-3x2-digit':
+      return '🔢 Multi-Digit Multiplication (3×2)'
+    case 'long-division-multidigit':
+      return '🔢 Long Division (Multi-Digit)'
+    case 'order-of-operations':
+      return '🔢 Order of Operations'
+    case 'powers-of-10':
+      return '🔢 Powers of 10'
+    case 'rounding-decimals':
+      return '🔢 Rounding Decimals'
+    case 'estimating-sums-differences':
+      return '🔢 Estimating Sums & Differences'
+    case 'add-sub-mixed-numbers':
+      return '🍕 Adding & Subtracting Mixed Numbers'
+    case 'multiplying-fractions':
+      return '🍕 Multiplying Fractions'
+    case 'dividing-fractions':
+      return '🍕 Dividing Fractions'
+    case 'multiplying-decimals':
+      return '🍕 Multiplying Decimals'
+    case 'dividing-decimals':
+      return '🍕 Dividing Decimals'
+    case 'fractions-decimals-percents':
+      return '🍕 Fractions, Decimals, & Percents'
+    case 'comparing-ordering-fractions-decimals':
+      return '🍕 Comparing & Ordering Fractions/Decimals'
+    case 'evaluating-expressions':
+      return '📐 Evaluating Expressions'
+    case 'writing-expressions':
+      return '📐 Writing Expressions'
+    case 'solving-one-step-equations':
+      return '📐 Solving One-Step Equations'
+    case 'patterns-rules':
+      return '📐 Patterns & Rules'
+    case 'coordinate-graphing':
+      return '📐 Coordinate Graphing'
+    case 'volume-rectangular-prisms':
+      return '📐 Volume of Rectangular Prisms'
+    case 'area-triangles-parallelograms':
+      return '📐 Area of Triangles & Parallelograms'
+    case 'classifying-shapes':
+      return '📐 Classifying 2D & 3D Shapes'
+    case 'nets-3d-shapes':
+      return '📐 Nets of 3D Shapes'
+    case 'transformations-5th':
+      return '📐 Transformations'
+    case 'multi-step-word-5th':
+      return '🧮 Multi-Step Word Problems'
+    case 'fraction-word-problems-5th':
+      return '🧮 Fraction Word Problems'
+    case 'decimal-word-problems-5th':
+      return '🧮 Decimal Word Problems'
+    case 'ratio-proportion-word-problems':
+      return '🧮 Ratio & Proportion Word Problems'
+    case 'percent-word-problems':
+      return '🧮 Percent Word Problems'
+    case 'line-graphs':
+      return '📊 Line Graphs'
+    case 'mean-median-mode-range':
+      return '📊 Mean, Median, Mode, Range'
+    case 'stem-leaf-plots':
+      return '📊 Stem-and-Leaf Plots'
+    case 'probability':
+      return '📊 Probability'
     default:
       return 'Printable Fun Learning Activities'
   }
@@ -6710,6 +7084,67 @@ export function PrintablesPage() {
             </div>
           </section>
         )}
+
+        {/* Generic fallback for any answerable docId that doesn't have a specific section */}
+        {(() => {
+          const handledDocIds = new Set([
+            'ten-frames-1-20', 'number-tracing-1-20', 'stem-balloon-rocket', 'stem-walking-water', 'arts-3-shape-creature',
+            'number-tracing-1-10', 'uppercase-lowercase-match', 'beginning-sounds-az', 'addition-subtraction-0-10',
+            'ten-frames-1-10', 'shapes-colors-sort', 'dot-to-dot-1-20', 'tangram-animals', 'spot-difference', 'spotdiff',
+            'directed-drawing-animals', 'cut-and-paste-crafts', 'feelings-checkin', 'reward-chart',
+            'reading-mini-1', 'reading-g1-lost-hat', 'reading-g1-ants', 'reading-g1-bus-ride', 'reading-g1-pet-fish',
+            'reading-g2-paper-bridge', 'reading-g2-rainy-garden', 'reading-g2-library-card', 'reading-g2-lost-and-found',
+            'reading-g3-lighthouse', 'reading-g3-science-fair', 'reading-g3-community-garden', 'pack', 'math-maze',
+            'spelling', 'science-match', 'grammar-detective', 'sudoku4', 'sudoku6', 'place-value-hto',
+            'skip-count-5-10-120', 'add-2digit-100', 'sub-2digit-100', 'word-problems-100', 'compare-2digit',
+            'even-odd-100', 'time-5min', 'color-by-number', 'number-bonds-10', 'count-write-30', 'missing-numbers-50',
+            'picture-addition-10', 'subtraction-stories', 'balance-equations-10', 'skip-count-2s', 'number-line-add',
+            'doubles-facts', 'pattern-complete', 'missing-shape', 'size-comparison', 'expanded-form-200',
+            'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20',
+            'mental-math-20', 'number-line-200', 'doubles-near-doubles', 'money-coins-bills', 'measurement-length',
+            'bar-graphs-data', 'add-2digit-regrouping', 'sub-2digit-regrouping', 'fractions-halves-thirds-fourths',
+            'rhyming-words', 'cvc-words', 'sight-words-pre-primer', 'letter-tracing-az', 'more-less-equal-10',
+            'counting-objects-20', 'sentence-building', 'geo-continents-k2', 'geo-compass-rose', 'geo-landforms',
+            'geo-latlong', 'number-tracing-1-10', 'number-tracing-1-20'
+          ])
+          const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
+          if (unhandledDocIds.length === 0) return null
+          
+          return unhandledDocIds.map(docId => {
+            const title = resolveDocTitle(docId, { packTime, bundleCategory })
+            return (
+              <WorksheetSectionWrapper
+                key={docId}
+                docId={docId}
+                title={title}
+                emoji="📝"
+                description="Complete the worksheet. Check your answers using the answer key below."
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                <div className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div className="text-center text-slate-600 mb-4">
+                    <p className="text-lg font-semibold mb-2">{title}</p>
+                    <p className="text-sm">This worksheet is being generated. Content will be available soon.</p>
+                    <div className="mt-4 grid grid-cols-2 gap-4">
+                      {Array.from({ length: 6 }).map((_, i) => (
+                        <div key={i} className="border border-slate-200 rounded p-4">
+                          <div className="h-20 border-b-2 border-dashed border-slate-300" />
+                          <p className="text-xs text-slate-400 mt-2">Question {i + 1}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {showAnswersForDoc(docId, () => (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <p className="text-sm">Answers will be provided when the worksheet content is fully implemented.</p>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })
+        })()}
 
         <footer className="text-center text-slate-500 text-xs print:hidden">
           Tip: Use your browser menu → Print → Save as PDF.
