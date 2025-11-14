@@ -7929,6 +7929,264 @@ export function PrintablesPage() {
           )
         })()}
 
+        {/* 4th Grade Worksheets */}
+        {activeDocs.includes('long-division-1digit') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const divisor = nextInt(2, 9);
+            const quotient = nextInt(10, 99);
+            const dividend = divisor * quotient + nextInt(0, divisor - 1);
+            return { dividend, divisor, quotient, remainder: dividend % divisor };
+          });
+          return (
+            <WorksheetSectionWrapper docId="long-division-1digit" title="Long Division (1-Digit Divisor)" emoji="🔢" description="Divide each number. Show your work and write any remainder.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="font-mono text-xl text-right">
+                      <div>{p.divisor} ) {p.dividend}</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('long-division-1digit', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)}{p.remainder > 0 ? ` R${p.remainder}` : ''}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('long-division-2digit') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 4}, () => {
+            const divisor = nextInt(11, 25);
+            const quotient = nextInt(10, 50);
+            const dividend = divisor * quotient + nextInt(0, divisor - 1);
+            return { dividend, divisor, quotient, remainder: dividend % divisor };
+          });
+          return (
+            <WorksheetSectionWrapper docId="long-division-2digit" title="Long Division (2-Digit Divisor)" emoji="🔢" description="Divide each number. Show your work and write any remainder.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="font-mono text-lg text-right">
+                      <div>{p.divisor} ) {p.dividend}</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2">____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('long-division-2digit', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)}{p.remainder > 0 ? ` R${p.remainder}` : ''}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('area-model-mult') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 4}, () => {
+            const a = nextInt(12, 35); const b = nextInt(12, 35);
+            return { a, b, product: a * b };
+          });
+          return (
+            <WorksheetSectionWrapper docId="area-model-mult" title="Area Model Multiplication" emoji="📊" description="Use the area model to solve each multiplication problem.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="text-center mb-2 font-semibold">{p.a} × {p.b} = ____</div>
+                    <div className="border-2 border-slate-400 rounded" style={{width: '120px', height: '80px', margin: '0 auto'}}>
+                      <div className="grid grid-cols-2 h-full">
+                        <div className="border-r border-b border-slate-400"></div>
+                        <div className="border-b border-slate-400"></div>
+                        <div className="border-r border-slate-400"></div>
+                        <div></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('area-model-mult', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.a} × {p.b} = {p.product}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('partial-products') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 4}, () => {
+            const a = nextInt(12, 35); const b = nextInt(12, 35);
+            return { a, b, product: a * b };
+          });
+          return (
+            <WorksheetSectionWrapper docId="partial-products" title="Partial Products Multiplication" emoji="🔢" description="Break down each multiplication into partial products.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="space-y-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div className="font-mono text-xl mb-2">{p.a} × {p.b}</div>
+                    <div className="space-y-1 text-sm">
+                      <div>({Math.floor(p.a/10)*10} × {Math.floor(p.b/10)*10}) = ____</div>
+                      <div>({Math.floor(p.a/10)*10} × {p.b%10}) = ____</div>
+                      <div>({p.a%10} × {Math.floor(p.b/10)*10}) = ____</div>
+                      <div>({p.a%10} × {p.b%10}) = ____</div>
+                      <div className="border-t border-slate-400 mt-1 pt-1 font-semibold">Total: ____</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('partial-products', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (<li key={i}>{p.a} × {p.b} = {p.product}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('comparing-fractions-4th') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 8}, () => {
+            const denom1 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num1 = nextInt(1, denom1 - 1);
+            const denom2 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num2 = nextInt(1, denom2 - 1);
+            const val1 = num1 / denom1;
+            const val2 = num2 / denom2;
+            return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
+          });
+          return (
+            <WorksheetSectionWrapper docId="comparing-fractions-4th" title="Comparing Fractions" emoji="🍕" description="Compare each pair of fractions using >, <, or =.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-bold">
+                      {p.frac1} ____ {p.frac2}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('comparing-fractions-4th', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const symbol = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
+                      return <li key={i}>{p.frac1} {symbol} {p.frac2}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('add-sub-fractions-4th') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
+            const num1 = nextInt(1, denom - 1);
+            const num2 = nextInt(1, denom - 1);
+            const op = nextInt(0, 1) === 0 ? '+' : '-';
+            return { num1, num2, denom, op };
+          });
+          return (
+            <WorksheetSectionWrapper docId="add-sub-fractions-4th" title="Adding & Subtracting Fractions" emoji="🍕" description="Add or subtract each pair of fractions with like denominators.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono">
+                      {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = ____
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('add-sub-fractions-4th', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const result = p.op === '+' ? p.num1 + p.num2 : p.num1 - p.num2;
+                      return <li key={i}>{p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = {result}/{p.denom}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('mixed-improper-fractions') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const whole = nextInt(1, 3);
+            const num = nextInt(1, 3);
+            const denom = nextInt(2, 4);
+            const improper = whole * denom + num;
+            return { whole, num, denom, improper: `${improper}/${denom}`, mixed: `${whole} ${num}/${denom}` };
+          });
+          return (
+            <WorksheetSectionWrapper docId="mixed-improper-fractions" title="Mixed Numbers & Improper Fractions" emoji="🍕" description="Convert between mixed numbers and improper fractions.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-lg font-bold mb-2">{i % 2 === 0 ? p.mixed : p.improper}</div>
+                    <div className="text-center text-sm text-slate-600">Convert to: {i % 2 === 0 ? 'improper fraction' : 'mixed number'}</div>
+                    <div className="text-center text-xl font-mono mt-2">____</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('mixed-improper-fractions', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>{i % 2 === 0 ? `${p.mixed} = ${p.improper}` : `${p.improper} = ${p.mixed}`}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {/* Generic fallback for any answerable docId that doesn't have a specific section */}
         {(() => {
           const handledDocIds = new Set([
@@ -7955,7 +8213,20 @@ export function PrintablesPage() {
             'big-small', 'more-less', 'mult-facts-0-12', 'div-facts-1-12', 'fractions-whole', 'equivalent-fractions-4th',
             'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
             'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
-            'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns'
+            'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
+            'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
+            'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
+            'fractions-to-decimals', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
+            'classifying-quadrilaterals', 'symmetry-transformations', 'customary-conversion', 'metric-conversion', 'elapsed-time-4th',
+            'liquid-measurement-4th', 'mass-weight-4th', 'multi-step-word-4th', 'fraction-word-problems', 'decimal-word-problems',
+            'measurement-word-problems', 'geometry-word-problems', 'line-plots', 'bar-graphs-pictographs', 'mean-median-mode',
+            'long-division-multidigit', 'order-of-operations', 'powers-of-10', 'rounding-decimals', 'estimating-sums-differences',
+            'add-sub-mixed-numbers', 'multiplying-fractions', 'dividing-fractions', 'multiplying-decimals', 'dividing-decimals',
+            'fractions-decimals-percents', 'comparing-ordering-fractions-decimals', 'evaluating-expressions', 'writing-expressions',
+            'solving-one-step-equations', 'patterns-rules', 'coordinate-graphing', 'volume-rectangular-prisms', 'area-triangles-parallelograms',
+            'classifying-shapes', 'nets-3d-shapes', 'transformations-5th', 'multi-step-word-5th', 'fraction-word-problems-5th',
+            'decimal-word-problems-5th', 'ratio-proportion-word-problems', 'percent-word-problems', 'line-graphs',
+            'mean-median-mode-range', 'stem-leaf-plots', 'probability'
           ])
           const unhandledDocIds = activeDocs.filter(id => answerableDocs.has(id) && !handledDocIds.has(id) && !id.startsWith('interactive-'))
           if (unhandledDocIds.length === 0) return null
