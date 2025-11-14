@@ -96,9 +96,8 @@ export default function WorksheetsSecondGradePage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Grade 2 Math Worksheets – Free Printable PDF | 2nd Grade Math"
-        description="Free grade 2 math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
-        keywords="grade 2 math worksheets, 2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2, grade 2 math worksheets free, math worksheets for grade 2"
+        title="2nd Grade Math Worksheets – Free Printable PDF"
+        description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF."
         canonicalUrl="https://wizqo.com/worksheets/2nd-grade-math-worksheets"
       />
       {(() => {
@@ -153,7 +152,7 @@ export default function WorksheetsSecondGradePage() {
       </div>
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Grade 2 Math Worksheets (Free Printables)</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">2nd Grade Math Worksheets (Free Printables)</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">
             Free 2nd grade math worksheets—number sense, addition/subtraction to 100, ten‑frames, skip counting, and word‑problem warmups you can print and use at home or in class. Download as PDF.
