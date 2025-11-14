@@ -37,7 +37,7 @@ export const basePosts: BlogPost[] = [
     date: "2025-01-15T12:00:00Z",
     readTime: "8-9 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.pexels.com/photos/1001675/pexels-photo-1001675.jpeg",
+    imageUrl: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     imageAlt: "Child working on grade 2 math worksheets with colorful pencils",
     keywords: "grade 2 math worksheets, free grade 2 math worksheets pdf, 2nd grade math worksheets, second grade math worksheets, printable grade 2 math worksheets, grade 2 math worksheets free, math worksheets for grade 2, addition worksheets grade 2, subtraction worksheets grade 2, place value worksheets grade 2, word problems grade 2"
   },
