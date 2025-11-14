@@ -20,6 +20,7 @@ import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
 import WorksheetsKindergartenPage from './pages/WorksheetsKindergartenPage';
+import WorksheetsThirdGradePage from './pages/WorksheetsThirdGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
 import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
@@ -498,6 +499,19 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
                     />
                     <WorksheetsKindergartenPage />
+                  </>
+                );
+              }
+              if (routeSubKey === '3rd-grade-math-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="3rd Grade Math Worksheets – Free Printable PDF"
+                      description="Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills."
+                      keywords="3rd grade math worksheets, third grade math worksheets, free 3rd grade math worksheets PDF, printable math worksheets grade 3, multiplication worksheets 3rd grade, division worksheets 3rd grade, fractions worksheets 3rd grade, word problems 3rd grade, geometry worksheets 3rd grade"
+                      canonicalUrl="https://wizqo.com/worksheets/3rd-grade-math-worksheets"
+                    />
+                    <WorksheetsThirdGradePage />
                   </>
                 );
               }
