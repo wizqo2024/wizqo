@@ -1,10 +1,80 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { CategoryFilter, type Category } from '@/components/CategoryFilter';
+
+const READING_CATEGORIES: Category[] = [
+  { id: 'grade-1', label: 'Grade 1', icon: '📖' },
+  { id: 'grade-2', label: 'Grade 2', icon: '📖' },
+  { id: 'grade-3', label: 'Grade 3', icon: '📖' },
+]
+
+interface WorksheetItem {
+  title: string
+  description: string
+  href: string
+  docId: string
+  categories: string[]
+  grade?: string
+}
 
 export default function ReadingComprehensionPage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
+
+  // Define all worksheets with their categories
+  const allWorksheets: WorksheetItem[] = [
+    // Grade 1
+    { title: '📖 The Lost Hat (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-lost-hat&from=reading-comprehension', docId: 'reading-g1-lost-hat', categories: ['grade-1'], grade: 'Grade 1' },
+    { title: '📖 Lunch for the Ants (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-ants&from=reading-comprehension', docId: 'reading-g1-ants', categories: ['grade-1'], grade: 'Grade 1' },
+    { title: '📖 The Bus Ride (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-bus-ride&from=reading-comprehension', docId: 'reading-g1-bus-ride', categories: ['grade-1'], grade: 'Grade 1' },
+    { title: '📖 The Pet Fish (Grade 1)', description: 'Short passage + 4 questions — print‑ready PDF view.', href: '/print?doc=reading-g1-pet-fish&from=reading-comprehension', docId: 'reading-g1-pet-fish', categories: ['grade-1'], grade: 'Grade 1' },
+    // Grade 2
+    { title: '📖 The Paper Bridge (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-paper-bridge&from=reading-comprehension', docId: 'reading-g2-paper-bridge', categories: ['grade-2'], grade: 'Grade 2' },
+    { title: '📖 Rainy Day Garden (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-rainy-garden&from=reading-comprehension', docId: 'reading-g2-rainy-garden', categories: ['grade-2'], grade: 'Grade 2' },
+    { title: '📖 New Library Card (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-library-card&from=reading-comprehension', docId: 'reading-g2-library-card', categories: ['grade-2'], grade: 'Grade 2' },
+    { title: '📖 Lost and Found (Grade 2)', description: 'Short passage + questions — open to print‑ready PDF view.', href: '/print?doc=reading-g2-lost-and-found&from=reading-comprehension', docId: 'reading-g2-lost-and-found', categories: ['grade-2'], grade: 'Grade 2' },
+    // Grade 3
+    { title: '📖 The Lighthouse Keeper\'s Trick (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-lighthouse&from=reading-comprehension', docId: 'reading-g3-lighthouse', categories: ['grade-3'], grade: 'Grade 3' },
+    { title: '📖 The Science Fair Plan (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-science-fair&from=reading-comprehension', docId: 'reading-g3-science-fair', categories: ['grade-3'], grade: 'Grade 3' },
+    { title: '📖 The Community Garden (Grade 3)', description: 'Short passage + Q&A — open print‑ready PDF view.', href: '/print?doc=reading-g3-community-garden&from=reading-comprehension', docId: 'reading-g3-community-garden', categories: ['grade-3'], grade: 'Grade 3' },
+  ]
+
+  // Filter worksheets based on selected categories
+  const filteredWorksheets = useMemo(() => {
+    if (selectedCategories.size === 0) return allWorksheets
+    return allWorksheets.filter((ws) => 
+      ws.categories.some((cat) => selectedCategories.has(cat))
+    )
+  }, [selectedCategories])
+
+  // Group filtered worksheets by grade
+  const groupedWorksheets = useMemo(() => {
+    const groups: Record<string, WorksheetItem[]> = {}
+    filteredWorksheets.forEach((ws) => {
+      const grade = ws.grade || 'Other'
+      if (!groups[grade]) groups[grade] = []
+      groups[grade].push(ws)
+    })
+    return groups
+  }, [filteredWorksheets])
   const scrollTo = (id: string) => {
     try {
       const el = document.getElementById(id);
@@ -129,100 +199,85 @@ export default function ReadingComprehensionPage() {
             <BuildPackReadingInline />
           </div>
         </section>
-        {/* Grade 1 */}
-        <section id="grade-1" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 1 Reading Comprehension Worksheets (Free Printable PDF)</h2>
-          <p className="text-slate-700 text-sm mt-1">Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.</p>
-          {/* Quick printable links */}
-          <div className="mt-4 grid md:grid-cols-2 gap-4">
-            <WorksheetThumbnailCard
-              title="📖 The Lost Hat (Grade 1)"
-              description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-lost-hat&from=reading-comprehension"
-              docId="reading-g1-lost-hat"
-            />
-            <WorksheetThumbnailCard
-              title="📖 Lunch for the Ants (Grade 1)"
-              description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-ants&from=reading-comprehension"
-              docId="reading-g1-ants"
-            />
-            <WorksheetThumbnailCard
-              title="📖 The Bus Ride (Grade 1)"
-              description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-bus-ride&from=reading-comprehension"
-              docId="reading-g1-bus-ride"
-            />
-            <WorksheetThumbnailCard
-              title="📖 The Pet Fish (Grade 1)"
-              description="Short passage + 4 questions — print‑ready PDF view."
-              href="/print?doc=reading-g1-pet-fish&from=reading-comprehension"
-              docId="reading-g1-pet-fish"
-            />
-          </div>
-          {/* Inline passage previews removed; use printable views above */}
+
+        {/* Category Filter */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <CategoryFilter
+            categories={READING_CATEGORIES}
+            selectedCategories={selectedCategories}
+            onToggleCategory={toggleCategory}
+            onClearAll={clearCategories}
+            title="Filter by Grade"
+          />
         </section>
 
-        {/* Grade 2 */}
-        <section id="grade-2" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 2 Reading Comprehension Worksheets (with Answer Key, PDF)</h2>
-          <p className="text-slate-700 text-sm mt-1">One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.</p>
-          {/* Quick printable links */}
-          <div className="mt-4 grid md:grid-cols-2 gap-4">
-            <WorksheetThumbnailCard
-              title="📖 The Paper Bridge (Grade 2)"
-              description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-paper-bridge&from=reading-comprehension"
-              docId="reading-g2-paper-bridge"
-            />
-            <WorksheetThumbnailCard
-              title="📖 Rainy Day Garden (Grade 2)"
-              description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-rainy-garden&from=reading-comprehension"
-              docId="reading-g2-rainy-garden"
-            />
-            <WorksheetThumbnailCard
-              title="📖 New Library Card (Grade 2)"
-              description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-library-card&from=reading-comprehension"
-              docId="reading-g2-library-card"
-            />
-            <WorksheetThumbnailCard
-              title="📖 Lost and Found (Grade 2)"
-              description="Short passage + questions — open to print‑ready PDF view."
-              href="/print?doc=reading-g2-lost-and-found&from=reading-comprehension"
-              docId="reading-g2-lost-and-found"
-            />
-          </div>
-          {/* Inline passage previews removed; use printable views above */}
-        </section>
-
-        {/* Grade 3 */}
-        <section id="grade-3" className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Grade 3 Reading Comprehension — Short Passages with Questions and Answers (PDF)</h2>
-          <p className="text-slate-700 text-sm mt-1">Longer passages with main idea, supporting details, and a simple inference or conclusion. Free printable worksheets (PDF) with answer key — reading practice for 3rd grade.</p>
-          {/* Quick printable link */}
-          <div className="mt-4 grid md:grid-cols-2 gap-4">
-            <ItemCard
-              title="📖 The Lighthouse Keeper’s Trick (Grade 3)"
-              description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-lighthouse&from=reading-comprehension"
-            />
-            <WorksheetThumbnailCard
-              title="📖 The Science Fair Plan (Grade 3)"
-              docId="reading-g3-science-fair"
-              description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-science-fair&from=reading-comprehension"
-            />
-            <WorksheetThumbnailCard
-              title="📖 The Community Garden (Grade 3)"
-              docId="reading-g3-community-garden"
-              description="Short passage + Q&A — open print‑ready PDF view."
-              href="/print?doc=reading-g3-community-garden&from=reading-comprehension"
-            />
-          </div>
-          {/* Inline passage previews removed; use printable views above */}
-        </section>
+        {/* Worksheets grouped by grade */}
+        {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
+          const gradeLabels: Record<string, { title: string; description: string; id: string }> = {
+            'Grade 1': {
+              title: 'Grade 1 Reading Comprehension Worksheets (Free Printable PDF)',
+              description: 'Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.',
+              id: 'grade-1',
+            },
+            'Grade 2': {
+              title: 'Grade 2 Reading Comprehension Worksheets (with Answer Key, PDF)',
+              description: 'One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.',
+              id: 'grade-2',
+            },
+            'Grade 3': {
+              title: 'Grade 3 Reading Comprehension — Short Passages with Questions and Answers (PDF)',
+              description: 'Longer passages with main idea, supporting details, and a simple inference or conclusion. Free printable worksheets (PDF) with answer key — reading practice for 3rd grade.',
+              id: 'grade-3',
+            },
+          }
+          const gradeInfo = gradeLabels[grade] || { title: grade, description: '', id: grade.toLowerCase().replace(' ', '-') }
+          
+          return (
+            <section key={grade} id={gradeInfo.id} className="bg-white border border-slate-200 rounded-2xl p-5">
+              <h2 className="text-xl font-bold text-slate-900">{gradeInfo.title}</h2>
+              <p className="text-slate-700 text-sm mt-1">{gradeInfo.description}</p>
+              <div className="mt-4 grid md:grid-cols-2 gap-4">
+                {worksheets.map((ws) => {
+                  // Use WorksheetThumbnailCard for all items
+                  if (ws.docId) {
+                    return (
+                      <WorksheetThumbnailCard
+                        key={ws.docId}
+                        title={ws.title}
+                        description={ws.description}
+                        href={ws.href}
+                        docId={ws.docId}
+                      />
+                    )
+                  } else {
+                    // Fallback to ItemCard for items without docId
+                    return (
+                      <ItemCard
+                        key={ws.href}
+                        title={ws.title}
+                        description={ws.description}
+                        href={ws.href}
+                      />
+                    )
+                  }
+                })}
+              </div>
+            </section>
+          )
+        })}
+        {filteredWorksheets.length === 0 && (
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <div className="text-center py-12 text-slate-500">
+              <p className="text-lg">No worksheets match the selected categories.</p>
+              <button
+                onClick={clearCategories}
+                className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+              >
+                Clear filters to show all worksheets
+              </button>
+            </div>
+          </section>
+        )}
 
         {/* Related links */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
@@ -242,7 +297,7 @@ export default function ReadingComprehensionPage() {
             <AccordionItem value="q1">
               <AccordionTrigger className="px-4">How do I download the worksheets as PDF?</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Open a worksheet link to the print view, then use your browser’s Print → Save as PDF.
+                Open a worksheet link to the print view, then use your browser's Print → Save as PDF.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
