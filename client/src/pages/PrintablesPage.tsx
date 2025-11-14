@@ -687,6 +687,7 @@ export function PrintablesPage() {
     : v === 'k2' ? 'K–2'
     : v === 'g1' ? '1st Grade'
     : v === 'g2' ? '2nd Grade'
+    : v === '25' ? '2nd-5th Grade'
     : v === '35' ? '3–5'
     : v === '68' ? '6–8'
     : v
@@ -715,21 +716,21 @@ export function PrintablesPage() {
     if (theme === 'sight') {
       return age === 'k2'
         ? ['THE','AND','IS','YOU','ARE','IT','IN','TO','WE','GO']
-        : age === '35'
+        : age === '25' || age === '35'
           ? ['THIS','THAT','WHEN','YOUR','WHICH','WHERE','THEIR','COULD','WOULD','SHOULD']
           : ['BECAUSE','THROUGH','BEFORE','BETWEEN','AROUND','ANOTHER','ALREADY','THOUGHT','ENOUGH','FAMILY']
     }
     if (theme === 'space') {
       return age === 'k2'
         ? ['MOON','STAR','SKY','SUN','ROCK','DUST','SHIP','RING']
-        : age === '35'
+        : age === '25' || age === '35'
           ? ['MARS','COMET','ORBIT','ROVER','VENUS','SATURN','PLUTO','CRATER']
           : ['NEBULA','GALAXY','ROCKET','ASTRO','QUASAR','ECLIPSE','METEOR','COSMOS']
     }
     // animals
     return age === 'k2'
       ? ['CAT','DOG','OWL','PIG','ANT','FOX','BEE','COW','BAT','HEN']
-      : age === '35'
+      : age === '25' || age === '35'
         ? ['HORSE','TIGER','EAGLE','WHALE','MOUSE','OTTER','CAMEL','ZEBRA','GORILLA']
         : ['LLAMA','ORCA','PANDA','LYNX','HYENA','JAGUAR','RHINO','DOLPHIN','BUFFALO']
   }
@@ -2489,6 +2490,7 @@ export function PrintablesPage() {
           const timeInt = parseInt(packTime || '5', 10);
           const itemCount = timeInt <= 5 ? 3 : (timeInt <= 10 ? 4 : 5);
           const isK2 = packAge === 'k1' || packAge === 'k2' || packAge === 'g1' || packAge === 'g2';
+          const is25 = packAge === '25'; // 2nd-5th Grade
           const is35 = packAge === '35';
           const wsSize = 8;
           const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
@@ -2505,7 +2507,8 @@ export function PrintablesPage() {
               'M10 20h80v20H30v20h60v20H40v20h50',
               'M10 20h70v20H30v20h50v20H20v20h70'
             ], rng);
-          } else if (is35) {
+          } else if (is25 || is35) {
+            // 2nd-5th Grade or 3-5: use intermediate difficulty
             mazePath = pick([
               'M10 20h90v15H20v15h80v15H30v15h70v15H40v15h60',
               'M10 20h80v15H30v15h70v15H20v15h80v15H30v15h70'
@@ -2535,9 +2538,10 @@ export function PrintablesPage() {
           function buildMiniMathProblems(n: number) {
             const out: string[] = [];
             for (let i = 0; i < n; i++) {
-              const a = Math.floor(rng() * (isK2 ? 9 : 12)) + 1;
-              const b = Math.floor(rng() * (isK2 ? 9 : 12)) + 1;
-              const useAdd = isK2 ? true : rng() < 0.6;
+              const isSimple = isK2; // K-2 only
+              const a = Math.floor(rng() * (isSimple ? 9 : 12)) + 1;
+              const b = Math.floor(rng() * (isSimple ? 9 : 12)) + 1;
+              const useAdd = isSimple ? true : rng() < 0.6;
               if (useAdd) out.push(`${a} + ${b} = ____`);
               else out.push(`${Math.max(a,b)} - ${Math.min(a,b)} = ____`);
             }
@@ -2605,7 +2609,18 @@ export function PrintablesPage() {
                 qs: ['Where did Jae shop?','When were prices lower?','How did Jae save money?']
               }
             ];
-            const pool = age === 'g1' ? poolG1 : (age === 'g2' ? poolG2 : poolG3);
+            // For '25' (2nd-5th grade), use a mix of g2 and g3 passages
+            let pool;
+            if (age === 'g1') {
+              pool = poolG1;
+            } else if (age === 'g2') {
+              pool = poolG2;
+            } else if (age === '25') {
+              // Mix of 2nd and 3rd grade passages for 2nd-5th grade range
+              pool = [...poolG2, ...poolG3];
+            } else {
+              pool = poolG3;
+            }
             const pickIdx = Math.floor(rng() * pool.length);
             return pool[pickIdx];
           }
@@ -2640,7 +2655,7 @@ export function PrintablesPage() {
                 ['List choices.','Compare costs.','Choose the best value.']
               ]
             };
-            const pool = seqPools[packAge as 'g1'|'g2'|'35'] || seqPools.g1;
+            const pool = seqPools[packAge as 'g1'|'g2'|'25'|'35'] || (is25 ? seqPools.g2 : seqPools.g1);
             const choice = pool[Math.floor(rng()*pool.length)];
             items.push(
               <div key={`sequence-${variant}`} className="border border-slate-200 rounded-lg p-4">
@@ -2703,8 +2718,8 @@ export function PrintablesPage() {
             pushReadingComprehensionFull();
           } else {
             // Build a unique grid maze using a seeded DFS (recursive backtracker)
-            const mazeCols = isK2 ? 8 : (is35 ? 10 : 12);
-            const mazeRows = isK2 ? 8 : (is35 ? 10 : 12);
+            const mazeCols = isK2 ? 8 : ((is25 || is35) ? 10 : 12);
+            const mazeRows = isK2 ? 8 : ((is25 || is35) ? 10 : 12);
             const total = mazeCols * mazeRows;
             const cells = Array.from({ length: total }, () => ({ t: true, r: true, b: true, l: true })) as { t: boolean; r: boolean; b: boolean; l: boolean }[];
             const visited = new Array(total).fill(false) as boolean[];
@@ -2920,8 +2935,8 @@ export function PrintablesPage() {
               <div className="font-semibold text-xl mb-2">Ten Frames — Fill the Counters</div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {Array.from({length:2}).map((_,i)=>{
-                  // Grade-appropriate targets: up to 10 for K–2 pack, to 20 for Grade 2
-                  const raw = packAge === 'k2' ? (4 + Math.floor(rng()*7)) : (packAge === 'g2' ? (11 + Math.floor(rng()*10)) : (6 + Math.floor(rng()*14)));
+                  // Grade-appropriate targets: up to 10 for K–2 pack, to 20 for Grade 2, higher for 2-5
+                  const raw = packAge === 'k2' ? (4 + Math.floor(rng()*7)) : (packAge === 'g2' ? (11 + Math.floor(rng()*10)) : (packAge === '25' ? (11 + Math.floor(rng()*10)) : (6 + Math.floor(rng()*14))));
                   const target = Math.max(1, Math.min(raw, 20));
                   const frames = target > 10 ? 2 : 1;
                   const viewW = frames === 2 ? 440 : 220;
