@@ -23,27 +23,8 @@ interface WorksheetItem {
   section?: string
 }
 
-export default function WorksheetsKindergartenPage() {
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
-
-  const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
-      const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
-        next.add(categoryId)
-      }
-      return next
-    })
-  }
-
-  const clearCategories = () => {
-    setSelectedCategories(new Set())
-  }
-
-  // Define all worksheets with their categories - unique Kindergarten content
-  const allWorksheets: WorksheetItem[] = [
+// Define all worksheets with their categories - unique Kindergarten content
+const KINDERGARTEN_WORKSHEETS: WorksheetItem[] = [
     // Counting
     { title: '🔢 Count & Circle 1–10', description: 'Count the objects in each box. Circle the correct number. Perfect for one-to-one correspondence.', href: '/print?doc=count-circle-1-10&from=kindergarten', docId: 'count-circle-1-10', categories: ['counting'], section: 'Counting' },
     { title: '🔢 Count & Match 1–20', description: 'Count the objects and draw a line to match with the correct number. Build number sense.', href: '/print?doc=count-match-1-20&from=kindergarten', docId: 'count-match-1-20', categories: ['counting'], section: 'Counting' },
@@ -78,12 +59,31 @@ export default function WorksheetsKindergartenPage() {
     { title: '✏️ Curve Tracing', description: 'Trace the curves and circles. Build hand strength for writing.', href: '/print?doc=curve-tracing&from=kindergarten', docId: 'curve-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
     { title: '✏️ Zigzag Lines', description: 'Trace the zigzag lines. Practice different line patterns for writing readiness.', href: '/print?doc=zigzag-lines&from=kindergarten', docId: 'zigzag-lines', categories: ['pre-writing'], section: 'Pre-Writing' },
     { title: '✏️ Path Tracing', description: 'Follow the path from start to finish. Trace the line carefully. Motor skills practice.', href: '/print?doc=path-tracing&from=kindergarten', docId: 'path-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
-  ]
+]
+
+export default function WorksheetsKindergartenPage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    if (selectedCategories.size === 0) return KINDERGARTEN_WORKSHEETS
+    return KINDERGARTEN_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories])

@@ -23,27 +23,8 @@ interface WorksheetItem {
   section?: string
 }
 
-export default function WorksheetsFourthGradePage() {
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
-
-  const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
-      const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
-        next.add(categoryId)
-      }
-      return next
-    })
-  }
-
-  const clearCategories = () => {
-    setSelectedCategories(new Set())
-  }
-
-  // Define all worksheets with their categories - unique 4th Grade content
-  const allWorksheets: WorksheetItem[] = [
+// Define all worksheets with their categories - unique 4th Grade content
+const FOURTH_GRADE_WORKSHEETS: WorksheetItem[] = [
     // Multi-Digit Operations
     { title: '🔢 Multi-Digit Multiplication (2×1)', description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.', href: '/print?doc=mult-2x1-digit&from=4th-grade', docId: 'mult-2x1-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
     { title: '🔢 Multi-Digit Multiplication (2×2)', description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.', href: '/print?doc=mult-2x2-digit&from=4th-grade', docId: 'mult-2x2-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
@@ -83,12 +64,31 @@ export default function WorksheetsFourthGradePage() {
     { title: '📊 Line Plots', description: 'Create and interpret line plots. Understand data distribution and outliers.', href: '/print?doc=line-plots&from=4th-grade', docId: 'line-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
     { title: '📊 Bar Graphs & Pictographs', description: 'Read and create bar graphs and pictographs. Interpret data and draw conclusions.', href: '/print?doc=bar-graphs-pictographs&from=4th-grade', docId: 'bar-graphs-pictographs', categories: ['data-analysis'], section: 'Data & Analysis' },
     { title: '📊 Mean, Median, Mode', description: 'Calculate mean (average), median, and mode. Understand measures of central tendency.', href: '/print?doc=mean-median-mode&from=4th-grade', docId: 'mean-median-mode', categories: ['data-analysis'], section: 'Data & Analysis' },
-  ]
+]
+
+export default function WorksheetsFourthGradePage() {
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev)
+      if (next.has(categoryId)) {
+        next.delete(categoryId)
+      } else {
+        next.add(categoryId)
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
-    if (selectedCategories.size === 0) return allWorksheets
-    return allWorksheets.filter((ws) => 
+    if (selectedCategories.size === 0) return FOURTH_GRADE_WORKSHEETS
+    return FOURTH_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
   }, [selectedCategories])
