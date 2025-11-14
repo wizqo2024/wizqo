@@ -173,7 +173,25 @@
         min-height: 100vh;
         background-color: #f8fafc;
       }
+      /* Hide SEO fallback immediately to prevent flash */
+      #seo-fallback {
+        display: none !important;
+      }
     </style>
+    <script>
+      // Hide fallback content immediately - runs before page renders
+      (function() {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+            const fallback = document.getElementById('seo-fallback');
+            if (fallback) fallback.style.display = 'none';
+          });
+        } else {
+          const fallback = document.getElementById('seo-fallback');
+          if (fallback) fallback.style.display = 'none';
+        }
+      })();
+    </script>
   </head>
   <body>
     <nav class="seo-hidden-links" aria-hidden="true">
@@ -251,15 +269,5 @@
         #root { display: none; }
       </style>
     </noscript>
-    <script>
-      // Hide fallback content immediately for users with JS enabled
-      // This prevents flash of unstyled content while keeping it visible for crawlers
-      (function() {
-        const fallback = document.getElementById('seo-fallback');
-        if (fallback) {
-          fallback.style.display = 'none';
-        }
-      })();
-    </script>
   </body>
 </html>
