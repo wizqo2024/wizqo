@@ -110,20 +110,9 @@ export default function MultiplicationWorksheetsPage() {
             { "@type": "ListItem", position: 3, name: "Multiplication Worksheets", item: "https://wizqo.com/worksheets/multiplication-worksheets" }
           ]
         } as const;
-        const faqLd = {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: [
-            { "@type": "Question", name: "Are multiplication worksheets free to download?", acceptedAnswer: { "@type": "Answer", text: "Yes! All multiplication worksheets are completely free. Generate unlimited unique multiplication worksheets, download as PDFs, and print as many copies as you need. No sign-up required." } },
-            { "@type": "Question", name: "What grade levels are multiplication worksheets available for?", acceptedAnswer: { "@type": "Answer", text: "Our multiplication worksheets are perfect for 2nd grade, 3rd grade, 4th grade, and 5th grade students. Each worksheet is tailored to the appropriate grade level with multiplication facts, arrays, and word problems." } },
-            { "@type": "Question", name: "Do multiplication worksheets include answer keys?", acceptedAnswer: { "@type": "Answer", text: "Yes! Every multiplication worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents." } },
-            { "@type": "Question", name: "What multiplication skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Our multiplication worksheets cover multiplication facts, arrays, multiplication word problems, fact fluency, and visual multiplication models. Perfect for building confidence and mastering multiplication skills." } }
-          ]
-        } as const;
         return (
           <>
             <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
           </>
         );
       })()}
