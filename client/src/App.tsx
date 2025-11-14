@@ -19,6 +19,7 @@ import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
 import WorksheetsFirstGradePage from './pages/WorksheetsFirstGradePage';
+import WorksheetsKindergartenPage from './pages/WorksheetsKindergartenPage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
 import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
@@ -484,6 +485,19 @@ export default function App() {
                       canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
                     />
                     <ReadingComprehensionPage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'kindergarten-math-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Kindergarten Math Worksheets – Free Printable PDF"
+                      description="Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included."
+                      keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
+                      canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
+                    />
+                    <WorksheetsKindergartenPage />
                   </>
                 );
               }

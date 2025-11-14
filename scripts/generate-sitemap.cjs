@@ -129,6 +129,7 @@ function generate() {
   push(`${site}/blog`, today, 'weekly', '0.8');
   
   // Worksheets pages
+  push(`${site}/worksheets/kindergarten-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/1st-grade-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/2nd-grade-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/multiplication-worksheets`, today, 'weekly', '0.7');
