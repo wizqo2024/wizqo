@@ -9,10 +9,21 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onClick();
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Allow right-click, middle-click, and Ctrl/Cmd+click to work naturally (open in new tab)
+    if (e.button === 1 || e.button === 2 || e.ctrlKey || e.metaKey || e.shiftKey) {
+      return; // Let browser handle it naturally
+    }
+    // For regular left-click, prevent default and use onClick handler
+    e.preventDefault();
+    onClick();
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Allow right-click and middle-click to work naturally
+    if (e.button === 1 || e.button === 2) {
+      e.preventDefault(); // Prevent our onClick from firing
+      return;
     }
   };
 
@@ -21,10 +32,14 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
       role="article"
       aria-labelledby={`post-title-${post.id}`}
       className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border border-slate-200 hover:border-purple-300 focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-offset-2"
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
     >
+      <a
+        href={`/blog/${post.id}`}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
+        className="block no-underline text-inherit"
+        aria-label={`Read article: ${post.title}`}
+      >
       <img 
         src={getPostImage(post)} 
         alt={post.imageAlt || post.title} 
@@ -85,6 +100,7 @@ export function BlogPostCard({ post, onClick }: BlogPostCardProps) {
           <span>{post.readTime}</span>
         </span>
       </div>
+      </a>
     </article>
   );
 }
