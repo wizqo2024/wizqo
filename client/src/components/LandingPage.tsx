@@ -186,7 +186,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
             <nav aria-label="Popular worksheets" className="px-4 sm:px-0 mb-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 max-w-7xl mx-auto">
+                <a 
+                  href="/worksheets/kindergarten-math-worksheets" 
+                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <span className="text-3xl">👶</span>
+                    </div>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Kindergarten Math</h3>
+                    <p className="text-xs text-gray-600">Counting, shapes, patterns</p>
+                  </div>
+                </a>
                 <a 
                   href="/worksheets/1st-grade-math-worksheets" 
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
@@ -203,11 +215,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                         }
                       />
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">1st Grade Math Worksheets</h3>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">1st Grade Math</h3>
                     <p className="text-xs text-gray-600">Addition, subtraction, counting</p>
                   </div>
                 </a>
-
                 <a 
                   href="/worksheets/2nd-grade-math-worksheets" 
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
@@ -224,71 +235,44 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                         }
                       />
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">2nd Grade Math Worksheets</h3>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">2nd Grade Math</h3>
                     <p className="text-xs text-gray-600">Multiplication, division, word problems</p>
                   </div>
                 </a>
-
                 <a 
-                  href="/worksheets/handwriting-worksheet-maker" 
+                  href="/worksheets/3rd-grade-math-worksheets" 
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <AnimatedIcon
-                        animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
-                        className="w-full h-full"
-                        fallback={
-                          <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                          </svg>
-                        }
-                      />
+                    <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <span className="text-3xl">3️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Handwriting Worksheets</h3>
-                    <p className="text-xs text-gray-600">Letters, words, sentences</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">3rd Grade Math</h3>
+                    <p className="text-xs text-gray-600">Fractions, division, word problems</p>
                   </div>
                 </a>
-
                 <a 
-                  href="/worksheets/reading-comprehension" 
+                  href="/worksheets/4th-grade-math-worksheets" 
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <AnimatedIcon
-                        animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
-                        className="w-full h-full"
-                        fallback={
-                          <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                          </svg>
-                        }
-                      />
+                    <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <span className="text-3xl">4️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">Reading Comprehension</h3>
-                    <p className="text-xs text-gray-600">Stories, passages, questions</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">4th Grade Math</h3>
+                    <p className="text-xs text-gray-600">Decimals, geometry, measurement</p>
                   </div>
                 </a>
-
                 <a 
-                  href="/printables/certificate-maker" 
+                  href="/worksheets/5th-grade-math-worksheets" 
                   className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <AnimatedIcon
-                        animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
-                        className="w-full h-full"
-                        fallback={
-                          <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                          </svg>
-                        }
-                      />
+                    <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                      <span className="text-3xl">5️⃣</span>
                     </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition-colors">Certificate Maker</h3>
-                    <p className="text-xs text-gray-600">Editable name/date | Print PDF</p>
+                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">5th Grade Math</h3>
+                    <p className="text-xs text-gray-600">Algebra, advanced operations</p>
                   </div>
                 </a>
               </div>
@@ -478,20 +462,6 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </a>
             </div>
 
-            {/* 3rd Grade Math Worksheets H2 */}
-            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-8 border border-yellow-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">3rd Grade Math Worksheets</h2>
-              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
-              </p>
-              <a 
-                href="/interactive-worksheets-generator?grade=g2&categories=math"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-600 text-white font-bold rounded-xl hover:bg-yellow-700 transition-all"
-              >
-                View 3rd Grade Worksheets →
-              </a>
-            </div>
-
             {/* Kindergarten Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 border border-purple-100">
               <h2 className="text-3xl font-black text-slate-900 mb-4">Kindergarten Math Worksheets</h2>
@@ -499,10 +469,24 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
               </p>
               <a 
-                href="/interactive-worksheets-generator?grade=preK&categories=math"
+                href="/worksheets/kindergarten-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-all"
               >
                 View Kindergarten Worksheets →
+              </a>
+            </div>
+
+            {/* 3rd Grade Math Worksheets H2 */}
+            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-8 border border-yellow-100">
+              <h2 className="text-3xl font-black text-slate-900 mb-4">3rd Grade Math Worksheets</h2>
+              <p className="text-lg text-slate-700 mb-6 leading-relaxed">
+                Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+              </p>
+              <a 
+                href="/worksheets/3rd-grade-math-worksheets"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-600 text-white font-bold rounded-xl hover:bg-yellow-700 transition-all"
+              >
+                View 3rd Grade Worksheets →
               </a>
             </div>
 
@@ -513,7 +497,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
               </p>
               <a 
-                href="/interactive-worksheets-generator?grade=35&categories=math"
+                href="/worksheets/4th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
               >
                 View 4th Grade Worksheets →
@@ -527,7 +511,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.
               </p>
               <a 
-                href="/interactive-worksheets-generator?grade=35&categories=math"
+                href="/worksheets/5th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all"
               >
                 View 5th Grade Worksheets →
@@ -538,7 +522,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Grade Levels Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
             <a 
-              href="/interactive-worksheets-generator?grade=preK&categories=math"
+              href="/worksheets/kindergarten-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 hover:border-purple-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">👶</div>
@@ -562,15 +546,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-slate-600 text-sm">Free multiplication worksheets for 2nd grade with answer keys</p>
             </a>
             <a 
-              href="/interactive-worksheets-generator?grade=g2&categories=math"
-              className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100 hover:border-yellow-200 hover:shadow-md transition-all"
+              href="/worksheets/3rd-grade-math-worksheets"
+              className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100 hover:border-yellow-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">3️⃣</div>
               <h3 className="font-bold text-slate-900 mb-2">3rd Grade Math Worksheets</h3>
               <p className="text-slate-600 text-sm">Free 3rd grade math worksheets PDF with answer keys</p>
             </a>
             <a 
-              href="/interactive-worksheets-generator?grade=35&categories=math"
+              href="/worksheets/4th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50 border border-teal-100 hover:border-teal-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">4️⃣</div>
@@ -578,7 +562,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <p className="text-slate-600 text-sm">Free 4th grade math worksheets PDF with answer keys</p>
             </a>
             <a 
-              href="/interactive-worksheets-generator?grade=35&categories=math"
+              href="/worksheets/5th-grade-math-worksheets"
               className="text-center p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100 hover:border-indigo-200 hover:shadow-md transition-all block"
             >
               <div className="text-4xl mb-4" aria-hidden="true">5️⃣</div>
