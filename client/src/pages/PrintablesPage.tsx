@@ -8187,6 +8187,57 @@ export function PrintablesPage() {
           );
         })()}
 
+        {/* 5th Grade Worksheets */}
+        {activeDocs.includes('add-sub-mixed-numbers') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems = Array.from({length: 6}, () => {
+            const whole1 = nextInt(1, 3);
+            const num1 = nextInt(1, 3);
+            const denom1 = nextInt(2, 4);
+            const whole2 = nextInt(1, 3);
+            const num2 = nextInt(1, 3);
+            const denom2 = denom1; // Same denominator for simplicity
+            const op = nextInt(0, 1) === 0 ? '+' : '-';
+            return { whole1, num1, denom1, whole2, num2, denom2, op };
+          });
+          return (
+            <WorksheetSectionWrapper docId="add-sub-mixed-numbers" title="Adding & Subtracting Mixed Numbers" emoji="🍕" description="Add or subtract each pair of mixed numbers. Regroup when needed.">
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div className="text-center text-xl font-mono">
+                      {p.whole1} {p.num1}/{p.denom1} {p.op} {p.whole2} {p.num2}/{p.denom2} = ____
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('add-sub-mixed-numbers', () => {
+                const answers = problems.map(p => {
+                  const frac1 = p.whole1 * p.denom1 + p.num1;
+                  const frac2 = p.whole2 * p.denom2 + p.num2;
+                  const result = p.op === '+' ? frac1 + frac2 : frac1 - frac2;
+                  const whole = Math.floor(result / p.denom1);
+                  const num = result % p.denom1;
+                  return { whole, num, denom: p.denom1 };
+                });
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {problems.map((p, i) => {
+                        const a = answers[i];
+                        return <li key={i}>{p.whole1} {p.num1}/{p.denom1} {p.op} {p.whole2} {p.num2}/{p.denom2} = {a.whole} {a.num}/{a.denom}</li>;
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {/* Generic fallback for any answerable docId that doesn't have a specific section */}
         {(() => {
           const handledDocIds = new Set([
