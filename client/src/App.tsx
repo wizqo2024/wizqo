@@ -551,6 +551,7 @@ export default function App() {
                     title="Privacy Policy - Wizqo"
                     description="Learn how Wizqo protects your privacy and handles your data while providing free printable worksheets and personalized learning experiences."
                     canonicalUrl="https://wizqo.com/privacy"
+                    noIndex={true}
                   />
                   <PrivacyPage />
                 </>
@@ -562,6 +563,7 @@ export default function App() {
                     title="Terms of Service - Wizqo"
                     description="Read Wizqo's terms of service and understand the rules and guidelines for using our educational platform and worksheet generator."
                     canonicalUrl="https://wizqo.com/terms"
+                    noIndex={true}
                   />
                   <TermsPage />
                 </>
@@ -573,6 +575,7 @@ export default function App() {
                     title="Cookie Policy - How Wizqo Uses Cookies | Transparent Data Practice"
                     description="Understand how Wizqo uses cookies to enhance your learning experience. Comprehensive cookie policy covering types, purposes, and your control options."
                     canonicalUrl="https://wizqo.com/cookies"
+                    noIndex={true}
                   />
                   <CookiesPage />
                 </>
