@@ -109,9 +109,39 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
       },
       {
         "@type": "ListItem",
+        "position": 3,
+        "name": "Kindergarten Math Worksheets",
+        "item": "https://wizqo.com/worksheets/kindergarten-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "1st Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/1st-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
         "position": 5,
+        "name": "2nd Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/2nd-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
         "name": "3rd Grade Math Worksheets",
-        "item": "https://wizqo.com/interactive-worksheets-generator?grade=g2&categories=math"
+        "item": "https://wizqo.com/worksheets/3rd-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "name": "4th Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/4th-grade-math-worksheets"
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "name": "5th Grade Math Worksheets",
+        "item": "https://wizqo.com/worksheets/5th-grade-math-worksheets"
       }
     ]
   };
