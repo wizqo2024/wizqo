@@ -174,19 +174,23 @@ export default function MultiplicationWorksheetsPage() {
           </div>
         </section>
 
-        {/* Category Filter */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <CategoryFilter
-            categories={MULTIPLICATION_CATEGORIES}
-            selectedCategories={selectedCategories}
-            onToggleCategory={toggleCategory}
-            onClearAll={clearCategories}
-            title="Filter by Category"
-          />
-        </section>
+        {/* Main content with sidebar layout */}
+        <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Left sidebar - Category Filter */}
+          <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <CategoryFilter
+                categories={MULTIPLICATION_CATEGORIES}
+                selectedCategories={selectedCategories}
+                onToggleCategory={toggleCategory}
+                onClearAll={clearCategories}
+                title="Filter by Category"
+              />
+            </div>
+          </aside>
 
-        {/* Worksheets grouped by grade range */}
-        <section className="space-y-8">
+          {/* Right side - Worksheets grouped by grade range */}
+          <div className="space-y-8">
           {Object.entries(groupedWorksheets).map(([gradeRange, worksheets]) => {
             const gradeLabels: Record<string, string> = {
               '2nd-3rd': '🔢 2nd & 3rd Grade Multiplication',
@@ -224,6 +228,7 @@ export default function MultiplicationWorksheetsPage() {
               </button>
             </div>
           )}
+          </div>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
