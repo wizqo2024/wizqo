@@ -98,18 +98,6 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "1st Grade Math Worksheets",
-        "item": "https://wizqo.com/worksheets/1st-grade-math-worksheets"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "2nd Grade Math Worksheets",
-        "item": "https://wizqo.com/worksheets/2nd-grade-math-worksheets"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
         "name": "Kindergarten Math Worksheets",
         "item": "https://wizqo.com/worksheets/kindergarten-math-worksheets"
       },
