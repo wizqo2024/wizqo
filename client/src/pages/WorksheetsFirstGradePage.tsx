@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+import { trackCategoryFilter } from '@/utils/analytics'
 
 const FIRST_GRADE_CATEGORIES: Category[] = [
   { id: 'number-sense', label: 'Number Sense', icon: '🔢' },
@@ -29,10 +30,13 @@ export default function WorksheetsFirstGradePage() {
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) => {
       const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
+      const isSelecting = !next.has(categoryId)
+      if (isSelecting) {
         next.add(categoryId)
+        trackCategoryFilter(categoryId, 'select', '1st-grade-math-worksheets')
+      } else {
+        next.delete(categoryId)
+        trackCategoryFilter(categoryId, 'deselect', '1st-grade-math-worksheets')
       }
       return next
     })

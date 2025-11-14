@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { CategoryFilter, type Category } from '@/components/CategoryFilter';
+import { trackCategoryFilter } from '@/utils/analytics';
 
 const READING_CATEGORIES: Category[] = [
   { id: 'grade-1', label: 'Grade 1', icon: '📖' },
@@ -26,10 +27,13 @@ export default function ReadingComprehensionPage() {
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) => {
       const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
+      const isSelecting = !next.has(categoryId)
+      if (isSelecting) {
         next.add(categoryId)
+        trackCategoryFilter(categoryId, 'select', 'reading-comprehension')
+      } else {
+        next.delete(categoryId)
+        trackCategoryFilter(categoryId, 'deselect', 'reading-comprehension')
       }
       return next
     })

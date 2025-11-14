@@ -4,6 +4,15 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
+import { 
+  trackWorksheetDownload, 
+  trackWorksheetView, 
+  trackPrintDialog, 
+  trackAnswerKeyToggle,
+  trackTimeOnPage,
+  trackScrollDepth,
+  trackUserFlow
+} from '@/utils/analytics'
 
 const INTERACTIVE_DOC_IDS = INTERACTIVE_CATEGORIES.flatMap((category) => category.docs.map((doc) => doc.id))
 
@@ -1210,15 +1219,73 @@ export function PrintablesPage() {
       />
     )
   }
+  // Track worksheet view on mount
+  React.useEffect(() => {
+    if (doc && primaryDoc) {
+      const from = params.get('from') || 'unknown'
+      const grade = from.includes('grade') ? from.replace('-grade', '') : 
+                    from.includes('kindergarten') ? 'kindergarten' :
+                    from.includes('multiplication') ? 'multiplication' :
+                    from.includes('reading') ? 'reading' : undefined
+      trackWorksheetView(primaryDoc, docTitle, from, grade)
+    }
+  }, [doc, primaryDoc, docTitle])
+
+  // Track time on page
+  React.useEffect(() => {
+    const startTime = Date.now()
+    return () => {
+      const timeSpent = Math.floor((Date.now() - startTime) / 1000)
+      if (timeSpent > 3) { // Only track if user spent more than 3 seconds
+        trackTimeOnPage(`/print?doc=${doc}`, timeSpent)
+      }
+    }
+  }, [doc])
+
+  // Track scroll depth
+  React.useEffect(() => {
+    let maxScroll = 0
+    const handleScroll = () => {
+      const scrollPercent = Math.round(
+        ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100
+      )
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent
+        if (scrollPercent >= 25 && scrollPercent < 50 && maxScroll < 50) {
+          trackScrollDepth(`/print?doc=${doc}`, 25)
+        } else if (scrollPercent >= 50 && scrollPercent < 75 && maxScroll < 75) {
+          trackScrollDepth(`/print?doc=${doc}`, 50)
+        } else if (scrollPercent >= 75 && scrollPercent < 100 && maxScroll < 100) {
+          trackScrollDepth(`/print?doc=${doc}`, 75)
+        } else if (scrollPercent >= 100) {
+          trackScrollDepth(`/print?doc=${doc}`, 100)
+        }
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [doc])
+
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   React.useEffect(() => {
     try {
       if (!autoPrint) return
       // Defer a bit to let the view render fully
-      const t = setTimeout(() => { try { window.print() } catch {} }, 1200)
+      const t = setTimeout(() => { 
+        try { 
+          window.print()
+          // Track auto-print
+          if (doc && primaryDoc) {
+            const from = params.get('from') || 'unknown'
+            const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
+            trackPrintDialog(primaryDoc, from)
+            trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+          }
+        } catch {} 
+      }, 1200)
       return () => clearTimeout(t)
     } catch {}
-  }, [autoPrint])
+  }, [autoPrint, doc, primaryDoc, docTitle])
   return (
     <div className="min-h-screen bg-white">
       <style>{`
@@ -1462,7 +1529,11 @@ export function PrintablesPage() {
             {shouldShowAnswerToggle && (
               <div className="print:hidden">
                 <button
-                  onClick={() => setShowAnswers((v) => !v)}
+                  onClick={() => {
+                    const newValue = !showAnswers
+                    setShowAnswers(newValue)
+                    trackAnswerKeyToggle(primaryDoc, newValue ? 'show' : 'hide')
+                  }}
                   aria-pressed={showAnswers}
                   className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
                   title="Toggle answer key visibility"
@@ -1473,7 +1544,16 @@ export function PrintablesPage() {
             )}
             <div className="print:hidden">
               <button
-                onClick={() => window.print()}
+                onClick={() => {
+                  const from = params.get('from') || 'unknown'
+                  const grade = from.includes('grade') ? from.replace('-grade', '') : 
+                                from.includes('kindergarten') ? 'kindergarten' :
+                                from.includes('multiplication') ? 'multiplication' :
+                                from.includes('reading') ? 'reading' : undefined
+                  trackPrintDialog(primaryDoc, from)
+                  trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+                  window.print()
+                }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-1 bg-purple-600 hover:bg-purple-700 text-white border-purple-600"
                 title="Download as PDF"
                 aria-label="Download as PDF"

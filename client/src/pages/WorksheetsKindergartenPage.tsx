@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+import { trackCategoryFilter, trackThumbnailClick } from '@/utils/analytics'
 
 const KINDERGARTEN_CATEGORIES: Category[] = [
   { id: 'counting', label: 'Counting', icon: '🔢' },
@@ -67,10 +68,13 @@ export default function WorksheetsKindergartenPage() {
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) => {
       const next = new Set(prev)
-      if (next.has(categoryId)) {
-        next.delete(categoryId)
-      } else {
+      const isSelecting = !next.has(categoryId)
+      if (isSelecting) {
         next.add(categoryId)
+        trackCategoryFilter(categoryId, 'select', 'kindergarten-math-worksheets')
+      } else {
+        next.delete(categoryId)
+        trackCategoryFilter(categoryId, 'deselect', 'kindergarten-math-worksheets')
       }
       return next
     })
@@ -272,6 +276,10 @@ export default function WorksheetsKindergartenPage() {
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
+  const handleClick = () => {
+    trackThumbnailClick(docId, 'kindergarten-math-worksheets')
+  }
+  
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between gap-3">
@@ -285,7 +293,10 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
       {/* Worksheet Thumbnail Preview */}
       <div 
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
-        onClick={() => window.open(href, '_blank')}
+        onClick={() => {
+          handleClick()
+          window.open(href, '_blank')
+        }}
         style={{ 
           height: '140px',
           aspectRatio: '2.5/1',

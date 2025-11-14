@@ -31,7 +31,7 @@ import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
 import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { initAnalytics, trackPageView } from './utils/analytics';
+import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 // (duplicate import removed)
 
 
@@ -112,16 +112,38 @@ export default function App() {
     setRoute(path);
   }, []);
   
+  // Track previous route for user flow analysis
+  const prevRouteRef = React.useRef<string>('');
+  
+  useEffect(() => {
+    // Track page view and user flow on route change
+    const currentRoute = window.location.pathname + window.location.search;
+    if (currentRoute !== prevRouteRef.current) {
+      trackPageView(currentRoute);
+      if (prevRouteRef.current) {
+        trackUserFlow(prevRouteRef.current, currentRoute, 'navigation');
+      }
+      prevRouteRef.current = currentRoute;
+    }
+  }, [route]);
+  
   useEffect(() => {
     const onPopState = () => {
       setIsNavigating(true);
-      setRoute(window.location.pathname + window.location.search || '/');
+      const newRoute = window.location.pathname + window.location.search || '/';
+      setRoute(newRoute);
+      // Track back/forward navigation
+      if (prevRouteRef.current) {
+        trackUserFlow(prevRouteRef.current, newRoute, 'browser_back_forward');
+      }
+      prevRouteRef.current = newRoute;
       // Small delay to ensure smooth transition
       setTimeout(() => setIsNavigating(false), 50);
     };
     const onLocationChange = () => {
       setIsNavigating(true);
-      setRoute(window.location.pathname + window.location.search || '/');
+      const newRoute = window.location.pathname + window.location.search || '/';
+      setRoute(newRoute);
       setTimeout(() => setIsNavigating(false), 50);
     };
     
