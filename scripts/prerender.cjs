@@ -131,6 +131,47 @@ function cloneForRoute(baseHtml, route) {
     
     // Replace the seo-fallback content
     html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, multiplicationContent);
+  } else if (route.path === '/interactive-worksheets-generator') {
+    // Replace fallback content with interactive worksheets-specific content
+    const interactiveContent = `<main id="seo-fallback" style="display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+        Free Interactive Worksheets Generator | Create Printable PDF Worksheets Online
+      </h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+        Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!
+      </p>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Math Worksheet Generator</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Create free printable math worksheets for all grades (K-5). Generate addition, subtraction, multiplication, division, fractions, and more with answer keys included. Perfect for teachers, parents, and homeschoolers.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Reading Worksheet Generator</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Generate free reading comprehension worksheets with passages and questions. Create printable PDF worksheets for all grade levels with answer keys. Perfect for building reading skills and comprehension.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Science & SEL Worksheet Generator</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Create free science and social-emotional learning (SEL) worksheets. Generate printable PDF worksheets with answer keys for all grades. Perfect for comprehensive learning across subjects.
+        </p>
+      </section>
+      
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.75rem;">Grade-Specific Worksheets (K-5)</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">
+          Generate worksheets tailored to specific grade levels from kindergarten through 5th grade. All worksheets include answer keys and are available as free printable PDFs. Daily refresh with new problems ensures fresh content every time.
+        </p>
+      </section>
+    </main>`;
+    
+    // Replace the seo-fallback content
+    html = html.replace(/<main id="seo-fallback"[^>]*>[\s\S]*?<\/main>/, interactiveContent);
   } else if (route.path === '/') {
     // Ensure visible H1/H2 content exists for homepage (already in base HTML, but verify)
     if (!html.includes('id="seo-fallback"')) {
