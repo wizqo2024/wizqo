@@ -125,7 +125,7 @@ export default function WorksheetsSecondGradePage() {
           </>
         );
       })()}
-      <UnifiedNavigation currentPage="kids" />
+      <UnifiedNavigation />
       {/* Print-only Name/Date overlay for this page */}
       <style>{`
         @media print {
