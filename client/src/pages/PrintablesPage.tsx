@@ -11590,16 +11590,43 @@ export function PrintablesPage() {
 
         {/* Kindergarten Worksheets - Missing ones */}
         {activeDocs.includes('color-shapes') && (() => {
-          const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
-          const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'purple'];
+          const shapeData = [
+            { name: 'circle', color: 'red' },
+            { name: 'square', color: 'blue' },
+            { name: 'triangle', color: 'yellow' },
+            { name: 'rectangle', color: 'green' },
+            { name: 'oval', color: 'orange' },
+            { name: 'diamond', color: 'purple' },
+          ];
+          const renderShape = (shape: typeof shapeData[0], size: number = 80) => {
+            const svgMap: Record<string, JSX.Element> = {
+              circle: <circle cx={size/2} cy={size/2} r={size*0.375} fill="none" stroke="#475569" strokeWidth="4" />,
+              square: <rect x={size*0.125} y={size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke="#475569" strokeWidth="4" />,
+              triangle: <polygon points={`${size/2},${size*0.125} ${size*0.125},${size*0.875} ${size*0.875},${size*0.875}`} fill="none" stroke="#475569" strokeWidth="4" />,
+              rectangle: <rect x={size*0.1875} y={size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke="#475569" strokeWidth="4" />,
+              oval: <ellipse cx={size/2} cy={size/2} rx={size*0.375} ry={size*0.25} fill="none" stroke="#475569" strokeWidth="4" />,
+              diamond: <polygon points={`${size/2},${size*0.125} ${size*0.875},${size/2} ${size/2},${size*0.875} ${size*0.125},${size/2}`} fill="none" stroke="#475569" strokeWidth="4" />,
+            };
+            return svgMap[shape.name] || null;
+          };
           return (
-            <WorksheetSectionWrapper docId="color-shapes" title="Color the Shapes" emoji="🟩" description="Color all circles red, squares blue, triangles yellow.">
+            <WorksheetSectionWrapper docId="color-shapes" title="Color the Shapes" emoji="🟩" description="Color each shape with the correct color shown below.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Color: {colors[i % colors.length]}</div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
+              </div>
+              <div className="grid grid-cols-1 gap-6">
+                {shapeData.map((shape, i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-center mb-4">
+                      <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{shape.name}</div>
+                      <div className="text-base font-semibold text-slate-600">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
+                    </div>
+                    <div className="flex justify-center">
+                      <svg viewBox="0 0 80 80" className="w-64 h-64 print:w-80 print:h-80">
+                        {renderShape(shape, 80)}
+                      </svg>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -11607,7 +11634,7 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s}: Color {colors[i % colors.length]}</li>))}
+                    {shapeData.map((s, i) => (<li key={i}>{s.name}: Color {s.color}</li>))}
                   </ul>
                 </div>
               ))}
