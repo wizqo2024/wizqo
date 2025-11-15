@@ -6946,20 +6946,32 @@ export function PrintablesPage() {
               description="Read each word problem carefully. Write a multiplication equation and solve. Show your answer in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-3 text-sm text-slate-800">
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+              <strong>📝 Instructions:</strong> Read each problem. Write a multiplication equation (like 3 × 4 = __) and solve. Show your work.
+            </div>
+            <div className="space-y-4">
               {[
-                'Emma has 3 bags. Each bag has 4 apples. How many apples in all?',
-                'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?',
-                'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?',
-                'A classroom has 4 tables. Each table seats 5 students. How many students can sit?',
-                'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?',
-              ].map((q, i) => (
-                <li key={i}>
-                  {q}
-                  <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
-                </li>
+                { problem: 'Emma has 3 bags. Each bag has 4 apples. How many apples in all?', equation: '3 × 4 = __', answer: '12 apples' },
+                { problem: 'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?', equation: '5 × 3 = __', answer: '15 flowers' },
+                { problem: 'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?', equation: '2 × 6 = __', answer: '12 stickers' },
+                { problem: 'A classroom has 4 tables. Each table seats 5 students. How many students can sit?', equation: '4 × 5 = __', answer: '20 students' },
+                { problem: 'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?', equation: '3 × 8 = __', answer: '24 cookies' },
+              ].map((item, i) => (
+                <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white">
+                  <div className="text-base font-semibold text-slate-800 mb-2">
+                    {i + 1}. {item.problem}
+                  </div>
+                  <div className="mb-3">
+                    <div className="text-sm text-slate-600 mb-1">Equation:</div>
+                    <div className="text-lg font-mono text-slate-800">{item.equation}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-600 mb-1">Answer:</div>
+                    <div className="h-12 print:h-16 border-b-[3px] border-slate-600 w-full" />
+                  </div>
+                </div>
               ))}
-            </ol>
+            </div>
             {showAnswersForDoc('mult-word-problems-2-3', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
