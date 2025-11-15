@@ -185,6 +185,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'color-by-number',
   'cvc-words',
   'sentence-building',
+  'sight-words-pre-primer',
   // New 2nd Grade worksheets
   'expanded-form-200',
   'number-patterns-200',
@@ -9045,6 +9046,12 @@ export function PrintablesPage() {
             </div>
             {showAnswersForDoc('sight-words-pre-primer', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <ul className="list-disc list-inside space-y-0.5 mb-3">
+                  {['the', 'and', 'to', 'a', 'I', 'you', 'it', 'in', 'said', 'for', 'up', 'look'].map((word, idx) => (
+                    <li key={idx}>Write "{word}" three times</li>
+                  ))}
+                </ul>
                 <div className="font-semibold mb-1">Teaching tip</div>
                 <p className="text-sm">These are high-frequency words that children should recognize instantly. Practice reading them in context, not just in isolation.</p>
               </div>
