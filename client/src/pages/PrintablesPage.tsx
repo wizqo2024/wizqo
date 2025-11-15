@@ -11880,22 +11880,44 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('heavy-light') && (() => {
-          const items = [
-            { item: 'elephant', type: 'heavy' },
-            { item: 'feather', type: 'light' },
-            { item: 'car', type: 'heavy' },
-            { item: 'balloon', type: 'light' },
-            { item: 'rock', type: 'heavy' },
-            { item: 'leaf', type: 'light' },
+          const pairs = [
+            { heavy: { name: 'elephant', emoji: '🐘', size: 60 }, light: { name: 'feather', emoji: '🪶', size: 25 } },
+            { heavy: { name: 'car', emoji: '🚗', size: 55 }, light: { name: 'balloon', emoji: '🎈', size: 30 } },
+            { heavy: { name: 'rock', emoji: '🪨', size: 50 }, light: { name: 'leaf', emoji: '🍃', size: 28 } },
+            { heavy: { name: 'book', emoji: '📚', size: 52 }, light: { name: 'bubble', emoji: '🫧', size: 22 } },
+            { heavy: { name: 'hammer', emoji: '🔨', size: 48 }, light: { name: 'cotton', emoji: '☁️', size: 26 } },
+            { heavy: { name: 'backpack', emoji: '🎒', size: 54 }, light: { name: 'paper', emoji: '📄', size: 24 } },
           ];
           return (
             <WorksheetSectionWrapper docId="heavy-light" title="Heavy and Light" emoji="⚖️" description="Circle the heavy object. Put an X on the light object.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {items.map((i, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{i.item}</div>
-                    <div className="text-center text-sm text-slate-600">{i.type === 'heavy' ? 'Circle' : 'Put X'}</div>
+              <div className="grid grid-cols-1 gap-6">
+                {pairs.map((pair, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
+                    <div className="flex items-center justify-center gap-8 mb-4">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="relative">
+                          <div className="text-6xl mb-2">{pair.heavy.emoji}</div>
+                          <div className="absolute -top-1 -right-1 w-6 h-6 border-4 border-slate-600 rounded-full"></div>
+                        </div>
+                        <div className="text-center">
+                          <div className="font-semibold text-sm text-slate-800">{pair.heavy.name}</div>
+                          <div className="text-xs text-slate-600 mt-1">Circle (Heavy)</div>
+                        </div>
+                      </div>
+                      <div className="text-2xl text-slate-400">vs</div>
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="relative">
+                          <div className="text-6xl mb-2">{pair.light.emoji}</div>
+                          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-3xl text-slate-600 font-bold">✕</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="font-semibold text-sm text-slate-800">{pair.light.name}</div>
+                          <div className="text-xs text-slate-600 mt-1">Put X (Light)</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -11903,7 +11925,11 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.type}</li>))}
+                    {pairs.map((pair, idx) => (
+                      <li key={idx}>
+                        Pair {idx + 1}: {pair.heavy.name} (heavy - circle), {pair.light.name} (light - put X)
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
