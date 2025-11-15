@@ -7068,27 +7068,46 @@ export function PrintablesPage() {
             description="Read each problem carefully. Show your work and solve."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+              <strong>📝 Instructions:</strong> Read each problem carefully. These problems require multiple steps. Show all your work and write your final answer.
+            </div>
+            <div className="space-y-5">
               {[
-                'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?',
-                'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?',
-                'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?',
-                'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?',
-              ].map((q, i) => (
-                <li key={i}>
-                  {q}
-                  <div className="h-12 border-b border-slate-400 mt-2" />
-                </li>
+                { problem: 'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?', steps: ['Step 1: 4 × 6 = __', 'Step 2: __ × 5 = __'], answer: '120 toys' },
+                { problem: 'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?', steps: ['Step 1: 3 × 8 = __', 'Step 2: __ × 2 = __'], answer: '48 students' },
+                { problem: 'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?', steps: ['Step 1: 5 × 3 = __'], answer: '15 flowers' },
+                { problem: 'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?', steps: ['Step 1: 6 × 12 = __', 'Step 2: __ - 20 = __'], answer: '52 cookies left' },
+              ].map((item, i) => (
+                <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                  <div className="text-base font-semibold text-slate-800 mb-3">
+                    {i + 1}. {item.problem}
+                  </div>
+                  <div className="mb-3 space-y-2">
+                    {item.steps.map((step, stepIdx) => (
+                      <div key={stepIdx} className="text-sm text-slate-700">
+                        <div className="font-mono text-base">{step}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mb-2">
+                    <div className="text-sm text-slate-600 mb-1">Show your work:</div>
+                    <div className="min-h-16 print:min-h-20 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-600 mb-1">Final answer:</div>
+                    <div className="h-12 print:h-16 border-b-[3px] border-slate-600 w-full" />
+                  </div>
+                </div>
               ))}
-            </ol>
+            </div>
             {showAnswersForDoc('mult-multi-step-word', () => (
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>4 × 6 × 5 = 120 toys</li>
-                  <li>3 × 8 × 2 = 48 students</li>
-                  <li>5 × 3 = 15 flowers</li>
-                  <li>6 × 12 - 20 = 52 cookies left</li>
+                <ol className="list-decimal list-inside space-y-1">
+                  <li>Step 1: 4 × 6 = 24, Step 2: 24 × 5 = 120 toys</li>
+                  <li>Step 1: 3 × 8 = 24, Step 2: 24 × 2 = 48 students</li>
+                  <li>Step 1: 5 × 3 = 15 flowers</li>
+                  <li>Step 1: 6 × 12 = 72, Step 2: 72 - 20 = 52 cookies left</li>
                 </ol>
               </div>
             ))}
