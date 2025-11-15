@@ -6858,19 +6858,19 @@ export function PrintablesPage() {
             <div className="border border-slate-300 rounded p-4 bg-white">
               <p className="text-slate-700 text-sm mb-3 font-semibold">Favorite Colors</p>
               <svg viewBox="0 0 500 300" className="w-full h-auto">
-                <g fill="#3b82f6">
+                <g fill="#ef4444">
                   <rect x="50" y="200" width="60" height="80" />
                   <text x="80" y="295" fontSize="14" fill="#111827" textAnchor="middle">Red</text>
                 </g>
-                <g fill="#10b981">
+                <g fill="#3b82f6">
                   <rect x="130" y="150" width="60" height="130" />
                   <text x="160" y="295" fontSize="14" fill="#111827" textAnchor="middle">Blue</text>
                 </g>
-                <g fill="#f59e0b">
+                <g fill="#10b981">
                   <rect x="210" y="180" width="60" height="100" />
                   <text x="240" y="295" fontSize="14" fill="#111827" textAnchor="middle">Green</text>
                 </g>
-                <g fill="#ef4444">
+                <g fill="#eab308">
                   <rect x="290" y="120" width="60" height="160" />
                   <text x="320" y="295" fontSize="14" fill="#111827" textAnchor="middle">Yellow</text>
                 </g>
