@@ -136,6 +136,7 @@ function generate() {
   push(`${site}/worksheets/4th-grade-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/5th-grade-math-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/multiplication-worksheets`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/times-table-multiplication-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
   push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
   
