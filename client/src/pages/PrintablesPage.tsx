@@ -6435,7 +6435,9 @@ export function PrintablesPage() {
                 return (
                   <div key={num} className="border border-slate-300 rounded p-4 bg-white">
                     <p className="text-slate-700 text-lg mb-2 font-semibold">{num} = __ + __ + __</p>
-                    <p className="text-slate-600 text-sm">Hint: {hundreds}00 + {tens}0 + {ones}</p>
+                    {showAnswers && activeDocs.includes('expanded-form-200') && (
+                      <p className="text-slate-600 text-sm">Hint: {hundreds * 100} + {tens * 10} + {ones}</p>
+                    )}
                   </div>
                 )
               })}
