@@ -7073,29 +7073,38 @@ export function PrintablesPage() {
             </div>
             <div className="space-y-5">
               {[
-                { problem: 'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?', steps: ['Step 1: 4 × 6 = __', 'Step 2: __ × 5 = __'], answer: '120 toys' },
-                { problem: 'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?', steps: ['Step 1: 3 × 8 = __', 'Step 2: __ × 2 = __'], answer: '48 students' },
-                { problem: 'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?', steps: ['Step 1: 5 × 3 = __'], answer: '15 flowers' },
-                { problem: 'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?', steps: ['Step 1: 6 × 12 = __', 'Step 2: __ - 20 = __'], answer: '52 cookies left' },
+                { problem: 'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?', steps: [{ label: 'Step 1: 4 × 6 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 5, blank: true }], answer: '120 toys' },
+                { problem: 'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?', steps: [{ label: 'Step 1: 3 × 8 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 2, blank: true }], answer: '48 students' },
+                { problem: 'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?', steps: [{ label: 'Step 1: 5 × 3 =', blank: true }], answer: '15 flowers' },
+                { problem: 'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?', steps: [{ label: 'Step 1: 6 × 12 =', blank: true }, { label: 'Step 2:', prev: true, op: '-', num: 20, blank: true }], answer: '52 cookies left' },
               ].map((item, i) => (
                 <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                  <div className="text-base font-semibold text-slate-800 mb-3">
+                  <div className="text-base font-semibold text-slate-800 mb-4">
                     {i + 1}. {item.problem}
                   </div>
-                  <div className="mb-3 space-y-2">
+                  <div className="mb-4 space-y-3">
                     {item.steps.map((step, stepIdx) => (
-                      <div key={stepIdx} className="text-sm text-slate-700">
-                        <div className="font-mono text-base">{step}</div>
+                      <div key={stepIdx} className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">{step.label}</span>
+                        {step.prev && (
+                          <>
+                            <div className="w-16 h-8 border-b-[2px] border-slate-600" />
+                            <span className="text-base font-mono">{step.op}</span>
+                            <span className="text-base">{step.num}</span>
+                            <span className="text-base">=</span>
+                          </>
+                        )}
+                        <div className="w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600" />
                       </div>
                     ))}
                   </div>
-                  <div className="mb-2">
-                    <div className="text-sm text-slate-600 mb-1">Show your work:</div>
-                    <div className="min-h-16 print:min-h-20 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50" />
+                  <div className="mb-3">
+                    <div className="text-sm font-semibold text-slate-600 mb-2">Show your work (use the space below):</div>
+                    <div className="min-h-24 print:min-h-32 border-2 border-dashed border-slate-400 rounded p-3 bg-slate-50" />
                   </div>
                   <div>
-                    <div className="text-sm text-slate-600 mb-1">Final answer:</div>
-                    <div className="h-12 print:h-16 border-b-[3px] border-slate-600 w-full" />
+                    <div className="text-sm font-semibold text-slate-600 mb-2">Final answer:</div>
+                    <div className="h-16 print:h-20 border-b-[3px] border-slate-600 w-full" />
                   </div>
                 </div>
               ))}
