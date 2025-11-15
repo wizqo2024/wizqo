@@ -8989,7 +8989,11 @@ export function PrintablesPage() {
                   </div>
                   <div className="text-center">
                     <p className="text-slate-600 text-sm mb-1">Write the word:</p>
-                    <div className="h-10 border-b-[3px] border-slate-600 w-full" />
+                    <div className="h-10 border-b-[3px] border-slate-600 w-full flex items-center justify-center">
+                      {showAnswers && activeDocs.includes('cvc-words') ? (
+                        <span className="text-lg font-semibold text-emerald-700">{item.word}</span>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               ))}
