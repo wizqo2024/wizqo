@@ -11922,20 +11922,42 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('line-tracing') && (() => {
+          const lines = [
+            { x1: 10, y1: 40, x2: 90, y2: 40, label: 'Horizontal line' },
+            { x1: 10, y1: 20, x2: 90, y2: 60, label: 'Diagonal line' },
+            { x1: 10, y1: 60, x2: 90, y2: 20, label: 'Diagonal line' },
+            { x1: 10, y1: 30, x2: 90, y2: 30, label: 'Horizontal line' },
+            { x1: 10, y1: 50, x2: 90, y2: 50, label: 'Horizontal line' },
+            { x1: 10, y1: 10, x2: 90, y2: 70, label: 'Diagonal line' },
+          ];
           return (
             <WorksheetSectionWrapper docId="line-tracing" title="Line Tracing" emoji="✏️" description="Trace the lines from left to right.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {Array.from({length: 6}, (_, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="border-b-2 border-dashed border-slate-400 h-12 flex items-center justify-center text-slate-400 text-sm">Trace the line</div>
+              <div className="grid grid-cols-1 gap-6">
+                {lines.map((line, i) => (
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Line {i + 1}</div>
+                    <div className="relative">
+                      <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                        <line
+                          x1={line.x1}
+                          y1={line.y1}
+                          x2={line.x2}
+                          y2={line.y2}
+                          stroke="#475569"
+                          strokeWidth="4"
+                          strokeDasharray="6 6"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('line-tracing', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Practice tracing lines from left to right</p>
+                  <p className="text-sm">Trace the dashed lines from left to right. Follow the line carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
