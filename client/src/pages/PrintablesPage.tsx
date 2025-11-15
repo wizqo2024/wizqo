@@ -7369,28 +7369,50 @@ export function PrintablesPage() {
               description="Use the area model to solve each multiplication problem. Break numbers into tens and ones, then write the final answer in the blank."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Break each number into tens and ones. Multiply each part, then add all four products together to get the total.
+              </div>
+              <div className="space-y-6">
                 {problems.map(([a, b], i) => {
                   const aTens = Math.floor(a / 10); const aOnes = a % 10;
                   const bTens = Math.floor(b / 10); const bOnes = b % 10;
                   return (
-                    <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                      <div className="font-semibold mb-2 text-slate-800 text-center">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                      <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
-                        <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-700 font-medium">{aTens}0 × {bTens}0 = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                      <div className="text-lg font-semibold mb-4 text-slate-800 text-center">
+                        {a} × {b} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-4">
+                        <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
+                          <div className="text-sm text-slate-700 font-semibold mb-2">{aTens}0 × {bTens}0</div>
+                          <div className="text-base font-mono text-slate-800">
+                            = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                          </div>
                         </div>
-                        <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-700 font-medium">{aTens}0 × {bOnes} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
+                        <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
+                          <div className="text-sm text-slate-700 font-semibold mb-2">{aTens}0 × {bOnes}</div>
+                          <div className="text-base font-mono text-slate-800">
+                            = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                          </div>
                         </div>
-                        <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-700 font-medium">{aOnes} × {bTens}0 = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
+                        <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
+                          <div className="text-sm text-slate-700 font-semibold mb-2">{aOnes} × {bTens}0</div>
+                          <div className="text-base font-mono text-slate-800">
+                            = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                          </div>
                         </div>
-                        <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-700 font-medium">{aOnes} × {bOnes} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
+                        <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
+                          <div className="text-sm text-slate-700 font-semibold mb-2">{aOnes} × {bOnes}</div>
+                          <div className="text-base font-mono text-slate-800">
+                            = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                          </div>
                         </div>
                       </div>
-                      <div className="text-center mt-2 text-slate-800 font-semibold">Total: <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                      <div className="text-center mt-4">
+                        <div className="text-base font-semibold text-slate-800 mb-2">Add all four products:</div>
+                        <div className="text-lg font-mono text-slate-800">
+                          Total: <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
