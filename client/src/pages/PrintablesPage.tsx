@@ -8641,8 +8641,20 @@ export function PrintablesPage() {
             36: 'Purple', 49: 'Pink', 64: 'Brown', 81: 'Gray', 100: 'Cyan',
             121: 'Magenta', 144: 'Lime'
           };
+          // Generate all valid factor pairs (a, b) where 1 ≤ a,b ≤ 12 and a×b is in colorMap
+          const validPairs: Array<[number, number, number]> = [];
+          for (let a = 1; a <= 12; a++) {
+            for (let b = 1; b <= 12; b++) {
+              const product = a * b;
+              if (colorMap[product]) {
+                validPairs.push([a, b, product]);
+              }
+            }
+          }
+          // Select 15 random problems from valid pairs
           const facts: Array<[number, number, number]> = Array.from({length: 15}).map(() => {
-            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b, a * b];
+            const idx = nextInt(0, validPairs.length - 1);
+            return validPairs[idx];
           });
           return (
             <WorksheetSectionWrapper
@@ -8654,8 +8666,8 @@ export function PrintablesPage() {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded">
                 <div className="text-sm font-semibold text-purple-900 mb-3">🎨 Color Key: Solve each problem, then color the shape with the matching answer color!</div>
-                <div className="grid grid-cols-5 gap-3 text-xs">
-                  {Object.entries(colorMap).slice(0, 10).map(([num, color]) => (
+                <div className="grid grid-cols-4 gap-3 text-xs">
+                  {Object.entries(colorMap).map(([num, color]) => (
                     <div key={num} className="flex items-center gap-2">
                       <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" />
                       <div>
