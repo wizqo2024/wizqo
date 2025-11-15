@@ -2465,14 +2465,16 @@ export function PrintablesPage() {
               description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
-              <div className="mb-3 text-sm text-slate-700">
-                <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
-                  <span className="font-mono">58</span>
-                  <span className="font-mono">&gt;</span>
-                  <span className="font-mono">41</span>
-                  <span className="text-slate-500">(5 tens vs 4 tens → 58 is greater)</span>
+              {showAnswers && activeDocs.includes('compare-2digit') && (
+                <div className="mb-3 text-sm text-slate-700">
+                  <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
+                    <span className="font-mono">58</span>
+                    <span className="font-mono">&gt;</span>
+                    <span className="font-mono">41</span>
+                    <span className="text-slate-500">(5 tens vs 4 tens → 58 is greater)</span>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="grid grid-cols-2 gap-3 text-xl font-mono">
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
@@ -2484,8 +2486,17 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('compare-2digit', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key (sample logic)</div>
-                  <div className="text-sm">Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5 mb-2">
+                    {pairs.map(([a, b], i) => {
+                      const symbol = a > b ? '>' : a < b ? '<' : '=';
+                      return <li key={i}>{a} {symbol} {b}</li>;
+                    })}
+                  </ul>
+                  <div className="text-sm mt-2 pt-2 border-t border-emerald-300">
+                    <div className="font-semibold mb-1">Tip</div>
+                    <div>Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
