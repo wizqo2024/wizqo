@@ -6503,7 +6503,9 @@ export function PrintablesPage() {
                 return (
                   <div key={num} className="border border-slate-300 rounded p-4 bg-white">
                     <p className="text-slate-700 text-lg mb-2">{num} rounds to __</p>
-                    <p className="text-slate-600 text-sm">Hint: {num} is closer to {rounded}</p>
+                    {showAnswers && activeDocs.includes('rounding-nearest-10') && (
+                      <p className="text-slate-600 text-sm">Hint: {num} is closer to {rounded}</p>
+                    )}
                   </div>
                 )
               })}
