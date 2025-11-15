@@ -9078,10 +9078,10 @@ export function PrintablesPage() {
         {activeDocs.includes('number-matching-1-15') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen']
-          const problems = Array.from({ length: 6 }, () => {
-            const num = Math.floor(rng() * 15) + 1
-            return { num, word: numberWords[num - 1] }
-          })
+          const allNumbers = Array.from({ length: 15 }, (_, i) => i + 1)
+          const shuffledNumbers = [...allNumbers].sort(() => (rng() > 0.5 ? 1 : -1))
+          const selectedNumbers = shuffledNumbers.slice(0, 6)
+          const problems = selectedNumbers.map(num => ({ num, word: numberWords[num - 1] }))
           return (
             <WorksheetSectionWrapper
               docId="number-matching-1-15"
@@ -9090,15 +9090,25 @@ export function PrintablesPage() {
               description="Match the number word to the numeral. Connect with a line."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Draw a line to connect each number on the left to its matching word on the right.
+              </div>
+              <div className="grid grid-cols-1 gap-4">
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="flex items-center justify-between">
-                      <div className="text-3xl font-bold text-slate-900">{p.num}</div>
-                      <div className="text-lg text-slate-600">→</div>
-                      <div className="text-xl font-semibold text-slate-700 capitalize">{p.word}</div>
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-20 h-20 print:w-24 print:h-24 border-4 border-blue-500 rounded-lg flex items-center justify-center text-4xl print:text-5xl font-bold text-blue-700 bg-blue-50">
+                          {p.num}
+                        </div>
+                      </div>
+                      <div className="flex-1 border-t-2 border-dashed border-slate-400 mx-4" />
+                      <div className="flex-shrink-0">
+                        <div className="w-32 print:w-40 border-2 border-slate-300 rounded-lg p-3 bg-slate-50 min-h-16 print:min-h-20 flex items-center justify-center">
+                          <div className="text-xl print:text-2xl font-semibold text-slate-700 capitalize text-center">{p.word}</div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-2 h-1 border-b-2 border-dashed border-slate-300" />
                   </div>
                 ))}
               </div>
@@ -9162,7 +9172,7 @@ export function PrintablesPage() {
         {activeDocs.includes('find-number-1-10') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const targetNumber = Math.floor(rng() * 10) + 1
-          const grid = Array.from({ length: 50 }, () => Math.floor(rng() * 10) + 1)
+          const grid = Array.from({ length: 40 }, () => Math.floor(rng() * 10) + 1)
           return (
             <WorksheetSectionWrapper
               docId="find-number-1-10"
@@ -9171,15 +9181,18 @@ export function PrintablesPage() {
               description={`Look at the number ${targetNumber}. Find and circle all the matching numbers.`}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="text-center mb-4">
-                <div className="inline-block w-20 h-20 border-4 border-purple-500 rounded-lg flex items-center justify-center text-4xl font-bold text-purple-700 bg-purple-50 mb-2">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at the number below. Find and circle all the {targetNumber}s in the grid.
+              </div>
+              <div className="text-center mb-6">
+                <div className="inline-block w-32 h-32 print:w-40 print:h-40 border-4 border-purple-500 rounded-lg flex items-center justify-center text-6xl print:text-7xl font-bold text-purple-700 bg-purple-50 mb-3">
                   {targetNumber}
                 </div>
-                <p className="text-lg font-semibold text-slate-800">Find all the {targetNumber}s</p>
+                <p className="text-xl font-semibold text-slate-800">Find all the {targetNumber}s</p>
               </div>
-              <div className="grid grid-cols-10 gap-2">
+              <div className="grid grid-cols-5 gap-3 print:gap-4">
                 {grid.map((n, i) => (
-                  <div key={i} className={`w-10 h-10 border-2 rounded flex items-center justify-center text-lg font-bold ${n === targetNumber ? 'border-purple-500 bg-purple-50 text-purple-700' : 'border-slate-300 text-slate-600'}`}>
+                  <div key={i} className={`w-16 h-16 print:w-20 print:h-20 border-4 border-slate-400 rounded-lg flex items-center justify-center text-2xl print:text-3xl font-bold ${n === targetNumber ? 'border-purple-600 bg-purple-100 text-purple-800' : 'border-slate-300 bg-white text-slate-700'}`}>
                     {n}
                   </div>
                 ))}
