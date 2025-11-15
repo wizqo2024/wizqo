@@ -11642,21 +11642,30 @@ export function PrintablesPage() {
 
         {activeDocs.includes('color-recognition') && (() => {
           const items = [
-            { item: 'apple', color: 'red' },
-            { item: 'sun', color: 'yellow' },
-            { item: 'sky', color: 'blue' },
-            { item: 'grass', color: 'green' },
-            { item: 'carrot', color: 'orange' },
-            { item: 'grape', color: 'purple' },
+            { item: 'apple', color: 'red', emoji: '🍎', shape: 'circle' },
+            { item: 'sun', color: 'yellow', emoji: '☀️', shape: 'circle' },
+            { item: 'sky', color: 'blue', emoji: '☁️', shape: 'rectangle' },
+            { item: 'grass', color: 'green', emoji: '🌱', shape: 'rectangle' },
+            { item: 'carrot', color: 'orange', emoji: '🥕', shape: 'triangle' },
+            { item: 'grape', color: 'purple', emoji: '🍇', shape: 'circle' },
           ];
           return (
             <WorksheetSectionWrapper docId="color-recognition" title="Color Recognition" emoji="🟩" description="Color each item with the correct color.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each item and color it with the correct color shown below.
+              </div>
+              <div className="grid grid-cols-1 gap-6">
                 {items.map((i, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{i.item}</div>
-                    <div className="text-center text-sm text-slate-600">Color: {i.color}</div>
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-center mb-4">
+                      <div className="text-5xl mb-2">{i.emoji}</div>
+                      <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{i.item}</div>
+                      <div className="text-sm font-semibold text-slate-600">Color: <span className="text-slate-800">{i.color}</span></div>
+                    </div>
+                    <div className="border-2 border-dashed border-slate-400 rounded-lg bg-white min-h-48 print:min-h-64 flex items-center justify-center">
+                      <div className="text-6xl opacity-30">{i.emoji}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -11664,7 +11673,7 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.color}</li>))}
+                    {items.map((i, idx) => (<li key={idx}>{i.item}: Color {i.color}</li>))}
                   </ul>
                 </div>
               ))}
