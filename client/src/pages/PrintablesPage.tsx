@@ -6213,11 +6213,11 @@ export function PrintablesPage() {
                   <p className="text-slate-700 text-sm mb-2 font-semibold">{label}</p>
                   <div className="flex items-end gap-4 justify-center">
                     <div className="text-center">
-                      <div className={`w-${items[0]} h-${items[0]} bg-blue-400 rounded mb-2`} style={{ width: `${items[0]}px`, height: `${items[0]}px` }} />
+                      <div className="border-4 border-blue-500 rounded mb-2 bg-white" style={{ width: `${items[0]}px`, height: `${items[0]}px` }} />
                       <span className="text-xs">A</span>
                     </div>
                     <div className="text-center">
-                      <div className={`w-${items[1]} h-${items[1]} bg-green-400 rounded mb-2`} style={{ width: `${items[1]}px`, height: `${items[1]}px` }} />
+                      <div className="border-4 border-green-500 rounded mb-2 bg-white" style={{ width: `${items[1]}px`, height: `${items[1]}px` }} />
                       <span className="text-xs">B</span>
                     </div>
                   </div>
@@ -6592,11 +6592,11 @@ export function PrintablesPage() {
                   <p className="text-slate-700 text-sm mb-2">Which is longer?</p>
                   <div className="flex items-end gap-4">
                     <div>
-                      <div className="bg-blue-400 mb-2" style={{ width: `${a * 10}px`, height: '20px' }} />
+                      <div className="border-4 border-blue-500 mb-2 bg-white" style={{ width: `${a * 10}px`, height: '20px' }} />
                       <span className="text-xs">A: {a} {unit}</span>
                     </div>
                     <div>
-                      <div className="bg-green-400 mb-2" style={{ width: `${b * 10}px`, height: '20px' }} />
+                      <div className="border-4 border-green-500 mb-2 bg-white" style={{ width: `${b * 10}px`, height: '20px' }} />
                       <span className="text-xs">B: {b} {unit}</span>
                     </div>
                   </div>
@@ -8712,7 +8712,7 @@ export function PrintablesPage() {
                     <div className="text-center">
                       <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                         {Array.from({ length: pair.left }).map((_, i) => (
-                          <div key={i} className="w-6 h-6 rounded-full bg-blue-500" />
+                          <div key={i} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
                         ))}
                       </div>
                       <p className="text-xl font-bold text-slate-900">{pair.left}</p>
@@ -8721,7 +8721,7 @@ export function PrintablesPage() {
                     <div className="text-center">
                       <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                         {Array.from({ length: pair.right }).map((_, i) => (
-                          <div key={i} className="w-6 h-6 rounded-full bg-green-500" />
+                          <div key={i} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
                         ))}
                       </div>
                       <p className="text-xl font-bold text-slate-900">{pair.right}</p>
@@ -8938,7 +8938,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap">
                       {p.objects.map((_, j) => (
-                        <div key={j} className="w-6 h-6 rounded-full bg-green-500" />
+                        <div key={j} className="w-10 h-10 print:w-12 print:h-12 rounded-full border-4 border-slate-400 bg-white" />
                       ))}
                     </div>
                     <div className="flex gap-2 justify-center">
@@ -8984,7 +8984,7 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap justify-center">
                       {p.objects.map((_, j) => (
-                        <div key={j} className="w-7 h-7 rounded-full bg-yellow-500" />
+                        <div key={j} className="w-10 h-10 print:w-12 print:h-12 rounded-full border-4 border-slate-400 bg-white" />
                       ))}
                     </div>
                     <div className="text-center">
