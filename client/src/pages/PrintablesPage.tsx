@@ -184,6 +184,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'size-comparison',
   'color-by-number',
   'cvc-words',
+  'sentence-building',
   // New 2nd Grade worksheets
   'expanded-form-200',
   'number-patterns-200',
@@ -9252,7 +9253,11 @@ export function PrintablesPage() {
                   </div>
                   <div>
                     <p className="text-slate-600 text-sm mb-1">Write the sentence:</p>
-                    <div className="h-12 border-b-[3px] border-slate-600 w-full" />
+                    <div className="h-12 border-b-[3px] border-slate-600 w-full flex items-center">
+                      {showAnswers && activeDocs.includes('sentence-building') ? (
+                        <span className="text-base font-semibold text-emerald-700">{item.sentence}</span>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               ))}
