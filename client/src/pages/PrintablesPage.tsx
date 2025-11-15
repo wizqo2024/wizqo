@@ -11989,13 +11989,13 @@ export function PrintablesPage() {
                   <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Curve {i + 1}</div>
                     <div className="relative">
-                      <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                      <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
                         <path
                           d={curve.d}
                           fill="none"
                           stroke="#475569"
-                          strokeWidth="4"
-                          strokeDasharray="6 6"
+                          strokeWidth="5"
+                          strokeDasharray="8 8"
                           strokeLinecap="round"
                         />
                       </svg>
@@ -12006,15 +12006,15 @@ export function PrintablesPage() {
                   <div key={`circle-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Circle {i + 1}</div>
                     <div className="relative">
-                      <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                      <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
                         <circle
                           cx={circle.cx}
                           cy={circle.cy}
                           r={circle.r}
                           fill="none"
                           stroke="#475569"
-                          strokeWidth="4"
-                          strokeDasharray="6 6"
+                          strokeWidth="5"
+                          strokeDasharray="8 8"
                         />
                       </svg>
                     </div>
