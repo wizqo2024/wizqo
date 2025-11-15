@@ -3,7 +3,6 @@ Allow: /
 Disallow: /dashboard
 Disallow: /plan
 Disallow: /api/
-Disallow: /generate
 Disallow: /print
 
 # Contact for coordination
