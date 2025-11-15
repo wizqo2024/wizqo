@@ -11828,22 +11828,38 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('long-short') && (() => {
-          const items = [
-            { item: 'pencil', type: 'long' },
-            { item: 'eraser', type: 'short' },
-            { item: 'ruler', type: 'long' },
-            { item: 'paper clip', type: 'short' },
-            { item: 'crayon', type: 'long' },
-            { item: 'button', type: 'short' },
+          const pairs = [
+            { long: { name: 'pencil', length: 80 }, short: { name: 'eraser', length: 30 } },
+            { long: { name: 'ruler', length: 90 }, short: { name: 'paper clip', length: 25 } },
+            { long: { name: 'crayon', length: 75 }, short: { name: 'button', length: 20 } },
+            { long: { name: 'straw', length: 85 }, short: { name: 'coin', length: 15 } },
+            { long: { name: 'stick', length: 80 }, short: { name: 'bead', length: 18 } },
+            { long: { name: 'rope', length: 90 }, short: { name: 'key', length: 28 } },
           ];
           return (
-            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="⚖️" description="Color the long object red. Color the short object blue.">
+            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="📏" description="Color the long object red. Color the short object blue.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {items.map((i, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{i.item}</div>
-                    <div className="text-center text-sm text-slate-600">{i.type === 'long' ? 'Color red' : 'Color blue'}</div>
+              <div className="grid grid-cols-1 gap-6">
+                {pairs.map((pair, idx) => (
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
+                    <div className="flex items-center justify-center gap-8 mb-4">
+                      <div className="flex flex-col items-center gap-2">
+                        <svg viewBox="0 0 100 100" className="w-32 h-32 border-2 border-slate-300 rounded-lg bg-slate-50">
+                          <rect x="10" y="45" width={pair.long.length} height="10" fill="#ef4444" rx="5" />
+                          <text x="50" y="30" fontSize="10" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
+                          <text x="50" y="75" fontSize="9" fill="#ef4444" textAnchor="middle">Long - Color red</text>
+                        </svg>
+                      </div>
+                      <div className="text-2xl text-slate-400">vs</div>
+                      <div className="flex flex-col items-center gap-2">
+                        <svg viewBox="0 0 100 100" className="w-32 h-32 border-2 border-slate-300 rounded-lg bg-slate-50">
+                          <rect x="10" y="45" width={pair.short.length} height="10" fill="#3b82f6" rx="5" />
+                          <text x="50" y="30" fontSize="10" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
+                          <text x="50" y="75" fontSize="9" fill="#3b82f6" textAnchor="middle">Short - Color blue</text>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -11851,7 +11867,11 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {items.map((i, idx) => (<li key={idx}>{i.item}: {i.type === 'long' ? 'red' : 'blue'}</li>))}
+                    {pairs.map((pair, idx) => (
+                      <li key={idx}>
+                        Pair {idx + 1}: {pair.long.name} (long - red), {pair.short.name} (short - blue)
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
