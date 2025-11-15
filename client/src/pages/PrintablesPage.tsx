@@ -7562,33 +7562,108 @@ export function PrintablesPage() {
             description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition. Write your answer in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
-            <div className="space-y-4">
-              {[
-                { problem: '4 × 5', strategy: 'Skip count by 5s: ____' },
-                { problem: '3 × 6', strategy: 'Draw an array: ____ rows × ____ columns' },
-                { problem: '7 × 2', strategy: 'Repeated addition: ____ + ____ = ____' },
-                { problem: '5 × 8', strategy: 'Use doubles: 5 × 4 = ____, so 5 × 8 = ____' },
-                { problem: '6 × 9', strategy: 'Break apart: 6 × 10 = ____, so 6 × 9 = ____' },
-              ].map((item, idx) => (
-                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="font-semibold text-slate-800 mb-2">{item.problem} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                  <div className="text-slate-700">{item.strategy}</div>
-                  <div className="h-6 border-b border-slate-400 mt-2" />
-                </div>
-              ))}
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+              <strong>📝 Instructions:</strong> Use the strategy shown to solve each problem. Fill in all the blanks and write your final answer.
             </div>
-            {showAnswersForDoc('mult-strategies', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>4 × 5 = 20 (5, 10, 15, 20)</li>
-                  <li>3 × 6 = 18 (3 rows × 6 columns)</li>
-                  <li>7 × 2 = 14 (2 + 2 + 2 + 2 + 2 + 2 + 2)</li>
-                  <li>5 × 8 = 40 (5 × 4 = 20, so 5 × 8 = 40)</li>
-                  <li>6 × 9 = 54 (6 × 10 = 60, so 6 × 9 = 54)</li>
-                </ul>
-              </div>
-            ))}
+            <div className="space-y-5">
+              {(() => {
+                const problems = [
+                  { problem: '4 × 5', strategy: 'skip-count', strategyText: 'Skip count by 5s:', blanks: [1], answer: 20, answerDetail: '5, 10, 15, 20' },
+                  { problem: '3 × 6', strategy: 'array', strategyText: 'Draw an array:', blanks: [2], answer: 18, answerDetail: '3 rows × 6 columns' },
+                  { problem: '7 × 2', strategy: 'repeated', strategyText: 'Repeated addition:', blanks: [7], answer: 14, answerDetail: '2 + 2 + 2 + 2 + 2 + 2 + 2' },
+                  { problem: '5 × 8', strategy: 'doubles', strategyText: 'Use doubles:', blanks: [2], answer: 40, answerDetail: '5 × 4 = 20, so 5 × 8 = 40' },
+                  { problem: '6 × 9', strategy: 'break-apart', strategyText: 'Break apart:', blanks: [2], answer: 54, answerDetail: '6 × 10 = 60, so 6 × 9 = 54' },
+                ];
+                return problems.map((item, idx) => (
+                <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                  <div className="text-lg font-semibold text-slate-800 mb-3">
+                    {item.problem} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
+                  </div>
+                  <div className="mb-3">
+                    <div className="text-sm font-semibold text-slate-700 mb-2">{item.strategyText}</div>
+                    {item.strategy === 'skip-count' && (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm text-slate-600">Count:</span>
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <React.Fragment key={i}>
+                            <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                            {i < 3 && <span className="text-sm text-slate-400">,</span>}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
+                    {item.strategy === 'array' && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-slate-600">Array:</span>
+                        <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        <span className="text-sm">rows ×</span>
+                        <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        <span className="text-sm">columns</span>
+                      </div>
+                    )}
+                    {item.strategy === 'repeated' && (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-sm text-slate-600">Add:</span>
+                          {Array.from({ length: item.blanks[0] }).map((_, i) => (
+                            <React.Fragment key={i}>
+                              <span className="inline-block w-10 h-8 print:w-12 print:h-10 border-b-[2px] border-slate-600 align-middle" />
+                              {i < item.blanks[0] - 1 && <span className="text-sm font-semibold">+</span>}
+                            </React.Fragment>
+                          ))}
+                          <span className="text-sm font-semibold">=</span>
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        </div>
+                      </div>
+                    )}
+                    {item.strategy === 'doubles' && (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600">Step 1: 5 × 4 =</span>
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600">Step 2: so 5 × 8 =</span>
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        </div>
+                      </div>
+                    )}
+                    {item.strategy === 'break-apart' && (
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600">Step 1: 6 × 10 =</span>
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-slate-600">Step 2: so 6 × 9 =</span>
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                ));
+              })()}
+            </div>
+            {showAnswersForDoc('mult-strategies', () => {
+              const problems = [
+                { problem: '4 × 5', answer: 20, answerDetail: '5, 10, 15, 20' },
+                { problem: '3 × 6', answer: 18, answerDetail: '3 rows × 6 columns' },
+                { problem: '7 × 2', answer: 14, answerDetail: '2 + 2 + 2 + 2 + 2 + 2 + 2' },
+                { problem: '5 × 8', answer: 40, answerDetail: '5 × 4 = 20, so 5 × 8 = 40' },
+                { problem: '6 × 9', answer: 54, answerDetail: '6 × 10 = 60, so 6 × 9 = 54' },
+              ];
+              return (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-2">Answer key</div>
+                  <div className="space-y-2">
+                    {problems.map((p, i) => (
+                      <div key={i}>{p.problem} = {p.answer} ({p.answerDetail})</div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </WorksheetSectionWrapper>
         )}
 
