@@ -135,7 +135,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden relative">
+    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
       {/* JSON-LD Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
@@ -145,43 +145,20 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
       {/* Unified Navigation */}
       <UnifiedNavigation currentPage="home" />
 
-      {/* SVG Vector Artwork Background - Full Page */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' className="w-full h-full" preserveAspectRatio="xMidYMid slice">
-          <rect fill='#ffffff' width='1600' height='900'/>
-          <defs>
-            <linearGradient id='heroGradientA' x1='0' x2='0' y1='1' y2='0'>
-              <stop offset='0' stopColor='#0FF'/>
-              <stop offset='1' stopColor='#CF6'/>
-            </linearGradient>
-            <linearGradient id='heroGradientB' x1='0' x2='0' y1='0' y2='1'>
-              <stop offset='0' stopColor='#F00'/>
-              <stop offset='1' stopColor='#FC0'/>
-            </linearGradient>
-          </defs>
-          <g fill='#FFF' fillOpacity='0' strokeMiterlimit='10'>
-            <g stroke='url(#heroGradientA)' strokeWidth='2'>
-              <path transform='translate(0 0)' d='M1409 581 1450.35 511 1490 581z'/>
-              <circle strokeWidth='4' transform='rotate(0 800 450)' cx='500' cy='100' r='40'/>
-              <path transform='translate(0 0)' d='M400.86 735.5h-83.73c0-23.12 18.74-41.87 41.87-41.87S400.86 712.38 400.86 735.5z'/>
-            </g>
-            <g stroke='url(#heroGradientB)' strokeWidth='4'>
-              <path transform='translate(0 0)' d='M149.8 345.2 118.4 389.8 149.8 434.4 181.2 389.8z'/>
-              <rect strokeWidth='8' transform='rotate(0 1089 759)' x='1039' y='709' width='100' height='100'/>
-              <path transform='rotate(0 1400 132)' d='M1426.8 132.4 1405.7 168.8 1363.7 168.8 1342.7 132.4 1363.7 96 1405.7 96z'/>
-            </g>
-          </g>
-        </svg>
-      </div>
-
       {/* Hero Section - Modern Design */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-transparent z-10">
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
           <div className="text-center">
             {/* Trendy Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 backdrop-blur-sm border border-purple-200 text-purple-700 mb-8">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
+              <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
               <span className="text-sm font-medium"><span aria-hidden="true">✨</span> Free • Printable • Answer Keys Included</span>
             </div>
             
@@ -196,10 +173,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </h1>
             
             {/* Subheading */}
-            <p className="text-base sm:text-lg lg:text-xl text-slate-700 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
               Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. 
               <br className="hidden lg:block" />
-              <strong className="text-slate-900">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
+              <strong className="text-white">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
             </p>
             
             {/* CTA Buttons */}
@@ -320,7 +297,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </nav>
             
             {/* Feature highlights */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-slate-700 px-4 mt-8">
+            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-gray-200 px-4 mt-8">
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white/60"></div>
