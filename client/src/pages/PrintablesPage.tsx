@@ -9192,7 +9192,7 @@ export function PrintablesPage() {
               </div>
               <div className="grid grid-cols-5 gap-3 print:gap-4">
                 {grid.map((n, i) => (
-                  <div key={i} className={`w-16 h-16 print:w-20 print:h-20 border-4 border-slate-400 rounded-lg flex items-center justify-center text-2xl print:text-3xl font-bold ${n === targetNumber ? 'border-purple-600 bg-purple-100 text-purple-800' : 'border-slate-300 bg-white text-slate-700'}`}>
+                  <div key={i} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-300 rounded-lg flex items-center justify-center text-2xl print:text-3xl font-bold bg-white text-slate-700">
                     {n}
                   </div>
                 ))}
