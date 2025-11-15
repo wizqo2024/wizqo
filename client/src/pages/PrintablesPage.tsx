@@ -8359,7 +8359,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-3 gap-3 mb-4">
                 {Object.entries(colorMap).slice(0, 8).map(([num, color]) => (
                   <div key={num} className="flex items-center gap-2 text-sm">
-                    <div className="w-6 h-6 border-2 border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white" />
                     <span className="font-semibold">{num}</span>
                   </div>
                 ))}
@@ -8370,8 +8370,8 @@ export function PrintablesPage() {
                     <div className="font-mono text-xl leading-7 mb-2">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
-                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
-                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
+                      <span className="text-xs text-slate-500">Color</span>
                     </div>
                   </div>
                 ))}
@@ -8413,7 +8413,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
                 {Object.entries(colorMap).slice(0, 8).map(([num, color]) => (
                   <div key={num} className="flex items-center gap-1">
-                    <div className="w-4 h-4 border border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" />
                     <span className="font-semibold">{num}</span>
                   </div>
                 ))}
@@ -8424,8 +8424,8 @@ export function PrintablesPage() {
                     <div className="font-mono text-xl leading-7 mb-2">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
-                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
-                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
+                      <span className="text-xs text-slate-500">Color</span>
                     </div>
                   </div>
                 ))}
@@ -8467,7 +8467,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
                 {Object.entries(colorMap).slice(0, 10).map(([num, color]) => (
                   <div key={num} className="flex items-center gap-1">
-                    <div className="w-4 h-4 border border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" />
                     <span className="font-semibold">{num}</span>
                   </div>
                 ))}
@@ -8478,8 +8478,8 @@ export function PrintablesPage() {
                     <div className="font-mono text-xl leading-7 mb-2">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
-                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
-                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
+                      <span className="text-xs text-slate-500">Color</span>
                     </div>
                   </div>
                 ))}
