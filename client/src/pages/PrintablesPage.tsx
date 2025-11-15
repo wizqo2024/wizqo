@@ -145,13 +145,22 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'reading-g1-ants',
   'reading-g1-bus-ride',
   'reading-g1-pet-fish',
+  'reading-g1-red-balloon',
+  'reading-g1-big-box',
+  'reading-g1-garden-snail',
+  'reading-g1-birthday-cake',
   'reading-g2-paper-bridge',
   'reading-g2-rainy-garden',
   'reading-g2-library-card',
   'reading-g2-lost-and-found',
+  'reading-g2-bird-feeder',
+  'reading-g2-cookie-recipe',
+  'reading-g2-tree-house',
   'reading-g3-lighthouse',
   'reading-g3-science-fair',
   'reading-g3-community-garden',
+  'reading-g3-school-play',
+  'reading-g3-art-project',
   // 2nd grade math printables
   'place-value-hto',
   'skip-count-5-10-120',
@@ -220,6 +229,9 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'times-table-confidence-6-12',
   'times-table-fluency-1-12',
   'times-table-mixed-review',
+  'times-table-color-1-5',
+  'times-table-color-6-12',
+  'times-table-color-1-12',
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
@@ -417,6 +429,24 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '📖 Grade 3 — The Science Fair Plan (Reading)'
     case 'reading-g3-community-garden':
       return '📖 Grade 3 — The Community Garden (Reading)'
+    case 'reading-g1-red-balloon':
+      return '📖 Grade 1 — The Red Balloon (Reading)'
+    case 'reading-g1-big-box':
+      return '📖 Grade 1 — The Big Box (Reading)'
+    case 'reading-g1-garden-snail':
+      return '📖 Grade 1 — The Garden Snail (Reading)'
+    case 'reading-g1-birthday-cake':
+      return '📖 Grade 1 — The Birthday Cake (Reading)'
+    case 'reading-g2-bird-feeder':
+      return '📖 Grade 2 — The Bird Feeder (Reading)'
+    case 'reading-g2-cookie-recipe':
+      return '📖 Grade 2 — The Cookie Recipe (Reading)'
+    case 'reading-g2-tree-house':
+      return '📖 Grade 2 — The Tree House (Reading)'
+    case 'reading-g3-school-play':
+      return '📖 Grade 3 — The School Play (Reading)'
+    case 'reading-g3-art-project':
+      return '📖 Grade 3 — The Art Project (Reading)'
     case 'pack':
       return `Today’s ${packTime}-Minute Print Pack`
     case 'math-maze':
@@ -591,6 +621,12 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '⚡ Times Table Fluency Practice (1-12)'
     case 'times-table-mixed-review':
       return '⚡ Mixed Times Table Review'
+    case 'times-table-color-1-5':
+      return '🎨 Color-by-Number Times Table (1-5)'
+    case 'times-table-color-6-12':
+      return '🎨 Color-by-Number Times Table (6-12)'
+    case 'times-table-color-1-12':
+      return '🎨 Color-by-Number Times Table (1-12)'
     case 'bookmark-templates':
       return '📚 DIY Bookmark Templates'
     case 'design-monster':
@@ -3031,6 +3067,231 @@ export function PrintablesPage() {
                     <li>Paths, a tool shed, and a compost bin</li>
                     <li>Tomatoes and herbs</li>
                     <li>For books (sold bundles to raise money)</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g1-red-balloon') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Red Balloon (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Sam got a red balloon at the fair. He held the string tight. The wind blew and the balloon went up, up, up! Sam watched it fly away. His dad said, "We can get another one." Sam smiled and nodded.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Sam get the balloon?</li>
+                <li>What color was the balloon?</li>
+                <li>What happened when the wind blew?</li>
+                <li>What did Dad say?</li>
+              </ol>
+              {showAnswersForDoc('reading-g1-red-balloon', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>At the fair</li>
+                    <li>Red</li>
+                    <li>It flew away</li>
+                    <li>"We can get another one"</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g1-big-box') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Big Box (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Mia found a big box in the garage. She opened it and saw old toys. There was a doll, a car, and a ball. Mia asked Mom, "Can I play with these?" Mom said yes. Mia played all afternoon.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Mia find the box?</li>
+                <li>What was inside the box?</li>
+                <li>What three things did she see?</li>
+                <li>How long did Mia play?</li>
+              </ol>
+              {showAnswersForDoc('reading-g1-big-box', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>In the garage</li>
+                    <li>Old toys</li>
+                    <li>A doll, a car, and a ball</li>
+                    <li>All afternoon</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g1-garden-snail') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Garden Snail (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Noah saw a snail in the garden. It had a brown shell. The snail moved very slowly. Noah watched it crawl on a leaf. The snail left a shiny trail. Noah smiled and said, "Hello, little snail!"</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Where did Noah see the snail?</li>
+                <li>What color was the shell?</li>
+                <li>How did the snail move?</li>
+                <li>What did the snail leave behind?</li>
+              </ol>
+              {showAnswersForDoc('reading-g1-garden-snail', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>In the garden</li>
+                    <li>Brown</li>
+                    <li>Very slowly</li>
+                    <li>A shiny trail</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g1-birthday-cake') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Birthday Cake (Grade 1)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">It was Emma's birthday. Mom made a chocolate cake. There were five candles on top. Emma closed her eyes and made a wish. Then she blew out all the candles. Everyone clapped and sang "Happy Birthday!"</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Whose birthday was it?</li>
+                <li>What kind of cake did Mom make?</li>
+                <li>How many candles were on the cake?</li>
+                <li>What did everyone do after Emma blew out the candles?</li>
+              </ol>
+              {showAnswersForDoc('reading-g1-birthday-cake', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Emma's</li>
+                    <li>Chocolate cake</li>
+                    <li>Five</li>
+                    <li>Clapped and sang "Happy Birthday!"</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g2-bird-feeder') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Bird Feeder (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Carlos and his sister made a bird feeder from a milk carton. They cut a hole in the side and filled it with seeds. They hung it on a tree branch. The next morning, a blue jay came to eat. Carlos wrote in his journal, "Our feeder works!"</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What did they use to make the feeder?</li>
+                <li>What did they put inside?</li>
+                <li>Where did they hang it?</li>
+                <li>What bird came to visit?</li>
+              </ol>
+              {showAnswersForDoc('reading-g2-bird-feeder', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>A milk carton</li>
+                    <li>Seeds</li>
+                    <li>On a tree branch</li>
+                    <li>A blue jay</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g2-cookie-recipe') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Cookie Recipe (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Ava wanted to bake cookies with her grandma. They read the recipe together. They needed flour, sugar, eggs, and butter. Ava measured the flour carefully. Grandma said, "Good job!" The cookies came out golden and sweet.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Who did Ava bake with?</li>
+                <li>What did they read together?</li>
+                <li>What four things did they need?</li>
+                <li>How did the cookies turn out?</li>
+              </ol>
+              {showAnswersForDoc('reading-g2-cookie-recipe', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Her grandma</li>
+                    <li>The recipe</li>
+                    <li>Flour, sugar, eggs, and butter</li>
+                    <li>Golden and sweet</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g2-tree-house') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Tree House (Grade 2)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Jake's dad helped him build a tree house in the backyard. They used wood planks and strong nails. Jake climbed up the ladder first. He looked out the window and saw the whole yard. "This is my secret hideout!" he said.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>Who helped Jake build the tree house?</li>
+                <li>What did they use to build it?</li>
+                <li>What did Jake see from the window?</li>
+                <li>What did Jake call the tree house?</li>
+              </ol>
+              {showAnswersForDoc('reading-g2-tree-house', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>His dad</li>
+                    <li>Wood planks and strong nails</li>
+                    <li>The whole yard</li>
+                    <li>His secret hideout</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g3-school-play') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The School Play (Grade 3)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Our class practiced a play about explorers for three weeks. On the big day, the gym was full of parents. I forgot one line, but I kept going. After the show, my teacher said, "You handled that mistake like a pro." I learned that making mistakes is okay if you keep trying.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What was the play about?</li>
+                <li>How long did they practice?</li>
+                <li>What happened during the performance?</li>
+                <li>What lesson did the narrator learn?</li>
+              </ol>
+              {showAnswersForDoc('reading-g3-school-play', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Explorers</li>
+                    <li>Three weeks</li>
+                    <li>The narrator forgot one line but kept going</li>
+                    <li>Making mistakes is okay if you keep trying</li>
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+        {activeDocs.includes('reading-g3-art-project') && (
+          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+            <h2 className="text-lg font-bold text-slate-900">Passage — The Art Project (Grade 3)</h2>
+            <div className="bg-white border border-slate-300 rounded p-4">
+              <p className="text-slate-800 text-base">Ms. Chen asked us to create art using only recycled materials. I collected bottle caps, old magazines, and cardboard. At first, I wasn't sure what to make. Then I saw the bottle caps and thought of a mosaic. I glued them into a flower shape. Ms. Chen said my project showed creativity and care for the environment.</p>
+              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+                <li>What materials did the narrator use?</li>
+                <li>What did the narrator create?</li>
+                <li>What did Ms. Chen say about the project?</li>
+                <li>What two things did the project show?</li>
+              </ol>
+              {showAnswersForDoc('reading-g3-art-project', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Bottle caps, old magazines, and cardboard</li>
+                    <li>A flower-shaped mosaic</li>
+                    <li>It showed creativity and care for the environment</li>
+                    <li>Creativity and care for the environment</li>
                   </ol>
                 </div>
               ))}
@@ -8065,6 +8326,168 @@ export function PrintablesPage() {
           );
         })()}
 
+        {activeDocs.includes('times-table-color-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const colorMap: Record<number, string> = {
+            1: 'Red', 2: 'Blue', 3: 'Green', 4: 'Yellow', 5: 'Orange',
+            6: 'Purple', 8: 'Pink', 9: 'Brown', 10: 'Gray', 12: 'Cyan',
+            15: 'Magenta', 16: 'Lime', 20: 'Teal', 25: 'Coral'
+          };
+          const facts: Array<[number, number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b, a * b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-color-1-5"
+              title="Color-by-Number Times Table (1-5)"
+              emoji="🎨"
+              description="Solve multiplication problems and color the picture! Fun color-by-number worksheets that make times table practice engaging and visual."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
+                <strong>🎨 Color Key:</strong> Solve each problem, then color the shape with the matching answer color!
+              </div>
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                {Object.entries(colorMap).slice(0, 8).map(([num, color]) => (
+                  <div key={num} className="flex items-center gap-2 text-sm">
+                    <div className="w-6 h-6 border-2 border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <span className="font-semibold">{num}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b, answer], i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7 mb-2">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
+                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-color-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b, answer], i) => (<li key={i}>{a} × {b} = {answer} ({colorMap[answer] || 'Custom color'})</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-color-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const colorMap: Record<number, string> = {
+            36: 'Red', 42: 'Blue', 48: 'Green', 54: 'Yellow', 60: 'Orange',
+            66: 'Purple', 72: 'Pink', 81: 'Brown', 90: 'Gray', 100: 'Cyan',
+            108: 'Magenta', 120: 'Lime', 121: 'Teal', 144: 'Coral'
+          };
+          const facts: Array<[number, number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b, a * b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-color-6-12"
+              title="Color-by-Number Times Table (6-12)"
+              emoji="🎨"
+              description="Master times tables 6-12 with fun color-by-number activities. Engaging multiplication worksheets that combine math practice with creativity."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
+                <strong>🎨 Color Key:</strong> Solve each problem, then color the shape with the matching answer color!
+              </div>
+              <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
+                {Object.entries(colorMap).slice(0, 8).map(([num, color]) => (
+                  <div key={num} className="flex items-center gap-1">
+                    <div className="w-4 h-4 border border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <span className="font-semibold">{num}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b, answer], i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7 mb-2">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
+                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-color-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b, answer], i) => (<li key={i}>{a} × {b} = {answer} ({colorMap[answer] || 'Custom color'})</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-color-1-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const colorMap: Record<number, string> = {
+            1: 'Red', 4: 'Blue', 9: 'Green', 16: 'Yellow', 25: 'Orange',
+            36: 'Purple', 49: 'Pink', 64: 'Brown', 81: 'Gray', 100: 'Cyan',
+            121: 'Magenta', 144: 'Lime'
+          };
+          const facts: Array<[number, number, number]> = Array.from({length: 15}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b, a * b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-color-1-12"
+              title="Color-by-Number Times Table (1-12)"
+              emoji="🎨"
+              description="Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
+                <strong>🎨 Color Key:</strong> Solve each problem, then color the shape with the matching answer color!
+              </div>
+              <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
+                {Object.entries(colorMap).slice(0, 10).map(([num, color]) => (
+                  <div key={num} className="flex items-center gap-1">
+                    <div className="w-4 h-4 border border-slate-400 rounded" style={{backgroundColor: color.toLowerCase()}} />
+                    <span className="font-semibold">{num}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b, answer], i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7 mb-2">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                    <div className="w-16 h-16 mx-auto border-2 border-slate-400 rounded" style={{backgroundColor: colorMap[answer] ? colorMap[answer].toLowerCase() : 'white'}}>
+                      {!colorMap[answer] && <span className="text-xs text-slate-500">Color</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-color-1-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b, answer], i) => (<li key={i}>{a} × {b} = {answer} ({colorMap[answer] || 'Custom color'})</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
         {activeDocs.includes('rhyming-words') && (
           <WorksheetSectionWrapper
             docId="rhyming-words"
@@ -12458,6 +12881,7 @@ export function PrintablesPage() {
             'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
             'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
             'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
+            'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
             'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
             'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
             'fractions-to-decimals', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
