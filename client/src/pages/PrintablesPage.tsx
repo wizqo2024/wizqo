@@ -11675,13 +11675,13 @@ export function PrintablesPage() {
         {activeDocs.includes('draw-shape') && (() => {
           const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
           return (
-            <WorksheetSectionWrapper docId="draw-shape" title="Draw the Shape" emoji="🟩" description="Look at the shape name. Draw the shape in the box.">
+            <WorksheetSectionWrapper docId="draw-shape" title="Draw the Shape" emoji="🟩" description="Look at the shape name. Draw the shape in the box below.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-6">
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="border-2 border-dashed border-slate-400 rounded h-20 flex items-center justify-center text-slate-400 text-sm">Draw here</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-center mb-4 text-lg font-semibold text-slate-800 capitalize">{s}</div>
+                    <div className="border-2 border-dashed border-slate-400 rounded-lg bg-white min-h-64 print:min-h-80"></div>
                   </div>
                 ))}
               </div>
@@ -11689,7 +11689,11 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s}: Draw a {s}</li>))}
+                    {shapes.map((s, i) => (
+                      <li key={i}>
+                        {s}: Draw a {s === 'circle' ? 'round circle' : s === 'square' ? 'four equal sides' : s === 'triangle' ? 'three sides' : s === 'rectangle' ? 'four sides (longer than wide)' : s === 'oval' ? 'elongated circle' : 'four equal sides rotated 45°'}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
