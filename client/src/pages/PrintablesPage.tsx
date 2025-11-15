@@ -8547,11 +8547,14 @@ export function PrintablesPage() {
               <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
                 <strong>🎨 Color Key:</strong> Solve each problem, then color the shape with the matching answer color!
               </div>
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                {Object.entries(colorMap).slice(0, 8).map(([num, color]) => (
-                  <div key={num} className="flex items-center gap-2 text-sm">
-                    <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white" />
-                    <span className="font-semibold">{num}</span>
+              <div className="grid grid-cols-4 gap-3 mb-4 text-xs">
+                {Object.entries(colorMap).map(([num, color]) => (
+                  <div key={num} className="flex items-center gap-2">
+                    <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" />
+                    <div>
+                      <div className="font-semibold text-slate-800">{num}</div>
+                      <div className="text-xs text-slate-600">{color}</div>
+                    </div>
                   </div>
                 ))}
               </div>
