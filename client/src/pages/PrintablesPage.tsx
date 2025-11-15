@@ -12830,14 +12830,14 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="mult-arrays" title="Multiplication Arrays" emoji="✖️" description="Draw arrays to solve multiplication problems.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-6">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-3 font-semibold text-lg">{p.rows} × {p.cols} = ____</div>
                     <div className="mb-2">
                       <p className="text-center text-sm text-slate-600 mb-2">Draw array:</p>
                       <div className="flex justify-center">
-                        <svg viewBox="0 0 400 400" className="w-full max-w-xs h-48 print:h-56 border border-slate-200 rounded">
+                        <svg viewBox="0 0 600 600" className="w-full max-w-2xl h-80 print:h-96 border border-slate-200 rounded">
                           {showAnswers && activeDocs.includes('mult-arrays') ? (
                             // Show filled array
                             <g>
@@ -12856,7 +12856,7 @@ export function PrintablesPage() {
                                       height={cellSize}
                                       fill="#3b82f6"
                                       stroke="#1e40af"
-                                      strokeWidth="2"
+                                      strokeWidth="3"
                                     />
                                   );
                                 })
@@ -12867,8 +12867,8 @@ export function PrintablesPage() {
                             <g>
                               {Array.from({ length: p.rows }).map((_, row) =>
                                 Array.from({ length: p.cols }).map((_, col) => {
-                                  const cellSize = Math.min(350 / Math.max(p.rows, p.cols), 50);
-                                  const spacing = 10;
+                                  const cellSize = Math.min(550 / Math.max(p.rows, p.cols), 90);
+                                  const spacing = 15;
                                   const x = 25 + col * (cellSize + spacing);
                                   const y = 25 + row * (cellSize + spacing);
                                   return (
@@ -12880,8 +12880,8 @@ export function PrintablesPage() {
                                       height={cellSize}
                                       fill="none"
                                       stroke="#94a3b8"
-                                      strokeWidth="2"
-                                      strokeDasharray="4 4"
+                                      strokeWidth="3"
+                                      strokeDasharray="6 6"
                                     />
                                   );
                                 })
