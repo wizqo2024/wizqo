@@ -454,7 +454,7 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Printable Fun Learning Activities for Kids | Free Worksheets & Games"
+                    title="Free Printables Hub - Download Fun Learning Activities & Worksheets | Wizqo"
                     description="Download free printable fun learning activities for kids — word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home, school, or travel!"
                     canonicalUrl="https://wizqo.com/printables"
                   />
