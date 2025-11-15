@@ -200,6 +200,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   // Multiplication worksheets
   'mult-facts-1-5',
   'mult-arrays-2-5',
+  'mult-arrays',
   'skip-count-mult',
   'mult-word-problems-2-3',
   'mult-facts-6-12',
@@ -12832,8 +12833,52 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{p.rows} × {p.cols} = ____</div>
-                    <div className="text-center text-sm text-slate-600">Draw array: ____</div>
+                    <div className="text-center mb-3 font-semibold text-lg">{p.rows} × {p.cols} = ____</div>
+                    <div className="mb-2">
+                      <p className="text-center text-sm text-slate-600 mb-2">Draw array:</p>
+                      <div className="flex justify-center">
+                        <svg viewBox="0 0 200 200" className="w-32 h-32 border border-slate-200 rounded">
+                          {showAnswers && activeDocs.includes('mult-arrays') ? (
+                            // Show filled array
+                            <g>
+                              {Array.from({ length: p.rows }).map((_, row) =>
+                                Array.from({ length: p.cols }).map((_, col) => (
+                                  <rect
+                                    key={`${row}-${col}`}
+                                    x={10 + col * 20}
+                                    y={10 + row * 20}
+                                    width="18"
+                                    height="18"
+                                    fill="#3b82f6"
+                                    stroke="#1e40af"
+                                    strokeWidth="1"
+                                  />
+                                ))
+                              )}
+                            </g>
+                          ) : (
+                            // Show empty grid for students to draw
+                            <g>
+                              {Array.from({ length: p.rows }).map((_, row) =>
+                                Array.from({ length: p.cols }).map((_, col) => (
+                                  <rect
+                                    key={`${row}-${col}`}
+                                    x={10 + col * 20}
+                                    y={10 + row * 20}
+                                    width="18"
+                                    height="18"
+                                    fill="none"
+                                    stroke="#cbd5e1"
+                                    strokeWidth="1"
+                                    strokeDasharray="2 2"
+                                  />
+                                ))
+                              )}
+                            </g>
+                          )}
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -12841,7 +12886,11 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.rows} × {p.cols} = {p.product}</li>))}
+                    {problems.map((p, i) => (
+                      <li key={i}>
+                        {p.rows} × {p.cols} = {p.product} ({p.rows} rows × {p.cols} columns = {p.product} total)
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
