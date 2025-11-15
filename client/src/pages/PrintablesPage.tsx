@@ -2885,27 +2885,13 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-paper-bridge') && (
-          <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <div className="absolute inset-0 -z-10 print:hidden">
-              <div className="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-amber-200/40 animate-blob" />
-              <div className="absolute -bottom-12 -right-8 w-28 h-28 rounded-full bg-sky-200/40 animate-blob animation-delay-2000" />
-            </div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <svg className="h-5 w-5 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 7h18M3 12h18M3 17h18" />
-              </svg>
-              Passage — The Paper Bridge (Grade 2)
-            </h2>
+          <WorksheetSectionWrapper
+            docId="reading-g2-paper-bridge"
+            title="Passage — The Paper Bridge (Grade 2)"
+            emoji="📖"
+            description="Short passage with comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
-              {/* Small illustrative header */}
-              <div className="print:hidden mb-3">
-                <svg viewBox="0 0 500 80" className="w-full h-16">
-                  <rect x="80" y="50" width="340" height="8" fill="#94a3b8" />
-                  <rect x="100" y="30" width="80" height="20" fill="#22c55e" />
-                  <rect x="190" y="30" width="80" height="20" fill="#60a5fa" />
-                  <rect x="280" y="30" width="80" height="20" fill="#f59e0b" />
-                </svg>
-              </div>
               <p className="text-slate-800 text-base">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
                 <li>What was Lena building?</li>
@@ -2925,7 +2911,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-rainy-garden') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
