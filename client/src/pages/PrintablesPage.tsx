@@ -11837,26 +11837,29 @@ export function PrintablesPage() {
             { long: { name: 'rope', length: 90 }, short: { name: 'key', length: 28 } },
           ];
           return (
-            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="📏" description="Color the long object red. Color the short object blue.">
+            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="📏" description="Look at each pair. Color the long object red. Color the short object blue.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each pair of objects. The longer object should be colored red. The shorter object should be colored blue.
+              </div>
               <div className="grid grid-cols-1 gap-6">
                 {pairs.map((pair, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
-                    <div className="flex items-center justify-center gap-8 mb-4">
+                    <div className="flex items-center justify-center gap-8">
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-32 h-32 border-2 border-slate-300 rounded-lg bg-slate-50">
-                          <rect x="10" y="45" width={pair.long.length} height="10" fill="#ef4444" rx="5" />
-                          <text x="50" y="30" fontSize="10" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
-                          <text x="50" y="75" fontSize="9" fill="#ef4444" textAnchor="middle">Long - Color red</text>
+                        <svg viewBox="0 0 100 100" className="w-40 h-40 border-2 border-slate-300 rounded-lg bg-white print:w-48 print:h-48">
+                          <rect x="10" y="45" width={pair.long.length} height="10" fill="none" stroke="#475569" strokeWidth="3" rx="5" />
+                          <text x="50" y="30" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
+                          <text x="50" y="80" fontSize="10" fill="#ef4444" textAnchor="middle" fontWeight="bold">Color red</text>
                         </svg>
                       </div>
                       <div className="text-2xl text-slate-400">vs</div>
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-32 h-32 border-2 border-slate-300 rounded-lg bg-slate-50">
-                          <rect x="10" y="45" width={pair.short.length} height="10" fill="#3b82f6" rx="5" />
-                          <text x="50" y="30" fontSize="10" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
-                          <text x="50" y="75" fontSize="9" fill="#3b82f6" textAnchor="middle">Short - Color blue</text>
+                        <svg viewBox="0 0 100 100" className="w-40 h-40 border-2 border-slate-300 rounded-lg bg-white print:w-48 print:h-48">
+                          <rect x="10" y="45" width={pair.short.length} height="10" fill="none" stroke="#475569" strokeWidth="3" rx="5" />
+                          <text x="50" y="30" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
+                          <text x="50" y="80" fontSize="10" fill="#3b82f6" textAnchor="middle" fontWeight="bold">Color blue</text>
                         </svg>
                       </div>
                     </div>
@@ -11869,7 +11872,7 @@ export function PrintablesPage() {
                   <ul className="list-disc list-inside space-y-0.5">
                     {pairs.map((pair, idx) => (
                       <li key={idx}>
-                        Pair {idx + 1}: {pair.long.name} (long - red), {pair.short.name} (short - blue)
+                        Pair {idx + 1}: {pair.long.name} (long - color red), {pair.short.name} (short - color blue)
                       </li>
                     ))}
                   </ul>
