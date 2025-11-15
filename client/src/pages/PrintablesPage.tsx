@@ -7419,16 +7419,30 @@ export function PrintablesPage() {
               </div>
               {showAnswersForDoc('mult-area-model', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                  <div className="font-semibold mb-2">Answer key</div>
+                  <div className="space-y-3">
                     {problems.map(([a, b], i) => {
                       const aTens = Math.floor(a / 10); const aOnes = a % 10;
                       const bTens = Math.floor(b / 10); const bOnes = b % 10;
+                      const part1 = aTens * 10 * bTens * 10;
+                      const part2 = aTens * 10 * bOnes;
+                      const part3 = aOnes * bTens * 10;
+                      const part4 = aOnes * bOnes;
+                      const total = a * b;
                       return (
-                        <li key={i}>{a} × {b} = {a * b} (Area: {aTens * 10}×{bTens * 10} + {aTens * 10}×{bOnes} + {aOnes}×{bTens * 10} + {aOnes}×{bOnes})</li>
+                        <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                          <div className="font-semibold mb-1">{a} × {b} = {total}</div>
+                          <div className="text-xs space-y-0.5 ml-2">
+                            <div>{aTens * 10} × {bTens * 10} = {part1}</div>
+                            <div>{aTens * 10} × {bOnes} = {part2}</div>
+                            <div>{aOnes} × {bTens * 10} = {part3}</div>
+                            <div>{aOnes} × {bOnes} = {part4}</div>
+                            <div className="font-semibold mt-1">Total: {part1} + {part2} + {part3} + {part4} = {total}</div>
+                          </div>
+                        </div>
                       );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
