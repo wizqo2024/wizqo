@@ -7600,29 +7600,63 @@ export function PrintablesPage() {
             description="Identify and extend the multiplication patterns. What do you notice?"
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="space-y-4">
-              {[
-                { pattern: '2 × 1 = 2, 2 × 2 = 4, 2 × 3 = 6, 2 × 4 = ___, 2 × 5 = ___' },
-                { pattern: '5 × 2 = 10, 5 × 4 = 20, 5 × 6 = 30, 5 × 8 = ___, 5 × 10 = ___' },
-                { pattern: '3 × 3 = 9, 3 × 6 = 18, 3 × 9 = 27, 3 × 12 = ___, 3 × 15 = ___' },
-                { pattern: '10 × 1 = 10, 10 × 2 = 20, 10 × 3 = 30, 10 × 4 = ___, 10 × 5 = ___' },
-              ].map((item, idx) => (
-                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="text-slate-800 font-mono">{item.pattern}</div>
-                </div>
-              ))}
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+              <strong>📝 Instructions:</strong> Look at each pattern. Fill in the missing numbers and describe what pattern you notice.
             </div>
-            {showAnswersForDoc('mult-patterns', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>2 × 4 = 8, 2 × 5 = 10 (pattern: add 2 each time)</li>
-                  <li>5 × 8 = 40, 5 × 10 = 50 (pattern: even numbers, add 10)</li>
-                  <li>3 × 12 = 36, 3 × 15 = 45 (pattern: multiples of 3)</li>
-                  <li>10 × 4 = 40, 10 × 5 = 50 (pattern: add 10 each time)</li>
-                </ul>
-              </div>
-            ))}
+            <div className="space-y-5">
+              {(() => {
+                const patterns = [
+                  { items: [{ eq: '2 × 1', ans: 2 }, { eq: '2 × 2', ans: 4 }, { eq: '2 × 3', ans: 6 }, { eq: '2 × 4', ans: null }, { eq: '2 × 5', ans: null }], pattern: 'add 2 each time' },
+                  { items: [{ eq: '5 × 2', ans: 10 }, { eq: '5 × 4', ans: 20 }, { eq: '5 × 6', ans: 30 }, { eq: '5 × 8', ans: null }, { eq: '5 × 10', ans: null }], pattern: 'even numbers, add 10' },
+                  { items: [{ eq: '3 × 3', ans: 9 }, { eq: '3 × 6', ans: 18 }, { eq: '3 × 9', ans: 27 }, { eq: '3 × 12', ans: null }, { eq: '3 × 15', ans: null }], pattern: 'multiples of 3' },
+                  { items: [{ eq: '10 × 1', ans: 10 }, { eq: '10 × 2', ans: 20 }, { eq: '10 × 3', ans: 30 }, { eq: '10 × 4', ans: null }, { eq: '10 × 5', ans: null }], pattern: 'add 10 each time' },
+                ];
+                return patterns.map((item, idx) => (
+                <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    {item.items.map((part, i) => (
+                      <div key={i} className="flex items-center gap-1">
+                        <span className="text-base font-mono text-slate-800">{part.eq} =</span>
+                        {part.ans !== null ? (
+                          <span className="text-base font-mono font-semibold text-slate-900">{part.ans}</span>
+                        ) : (
+                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                        )}
+                        {i < item.items.length - 1 && <span className="text-slate-400 mx-1">,</span>}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3">
+                    <div className="text-sm font-semibold text-slate-600 mb-1">What pattern do you notice?</div>
+                    <div className="min-h-12 print:min-h-16 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50" />
+                  </div>
+                </div>
+                ));
+              })()}
+            </div>
+            {showAnswersForDoc('mult-patterns', () => {
+              const patterns = [
+                { missing: [{ eq: '2 × 4', ans: 8 }, { eq: '2 × 5', ans: 10 }], pattern: 'add 2 each time' },
+                { missing: [{ eq: '5 × 8', ans: 40 }, { eq: '5 × 10', ans: 50 }], pattern: 'even numbers, add 10' },
+                { missing: [{ eq: '3 × 12', ans: 36 }, { eq: '3 × 15', ans: 45 }], pattern: 'multiples of 3' },
+                { missing: [{ eq: '10 × 4', ans: 40 }, { eq: '10 × 5', ans: 50 }], pattern: 'add 10 each time' },
+              ];
+              return (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-2">Answer key</div>
+                  <div className="space-y-2">
+                    {patterns.map((p, i) => (
+                      <div key={i}>
+                        <div className="font-semibold">Pattern {i + 1}:</div>
+                        <div className="ml-2">
+                          {p.missing.map(item => `${item.eq} = ${item.ans}`).join(', ')} (pattern: {p.pattern})
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </WorksheetSectionWrapper>
         )}
 
