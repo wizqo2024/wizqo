@@ -35,7 +35,7 @@ function getWorksheetTheme(docId: string): {
     return {
       background: 'bg-gradient-to-br from-purple-50 via-indigo-50 to-pink-50',
       border: 'border-purple-300',
-      text: 'text-purple-800',
+      text: 'text-purple-900',
       cornerAccent: 'rgba(196, 181, 253, 0.3)',
       cornerAccent2: 'rgba(251, 207, 232, 0.2)',
     }
@@ -126,7 +126,7 @@ function WorksheetSectionWrapper({
           {emoji && <span className="text-4xl">{emoji}</span>}
           <span>{title}</span>
         </h2>
-        {description && <p className={`text-sm ${theme.text} opacity-70 mb-4`}>{description}</p>}
+        {description && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{description}</p>}
         {children}
       </div>
     </section>
@@ -2071,7 +2071,7 @@ export function PrintablesPage() {
             docId="addition-subtraction-0-10"
             title="Addition & Subtraction 0–10"
             emoji="➕➖"
-            description="Use the number line if needed. Write the answer in the box."
+            description="Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided."
           >
             <div className="grid grid-cols-2 gap-4">
               {Array.from({ length: 12 }).map((_,i)=> (
@@ -2119,7 +2119,7 @@ export function PrintablesPage() {
               docId="place-value-hto"
               title="Place Value – Tens and Ones (to 99)"
               emoji="🔢"
-              description="Write how many tens and ones. Then write the number in expanded form."
+              description="Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Visual legend */}
@@ -2183,7 +2183,7 @@ export function PrintablesPage() {
                   <div className="grid grid-cols-12 gap-1">
                     {seq5.map((n, i) => (
                       <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
-                        {isBlank5(i) ? <span className="inline-block w-14 border-b-2 border-slate-400" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                        {isBlank5(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
                       </div>
                     ))}
                   </div>
@@ -2193,7 +2193,7 @@ export function PrintablesPage() {
                   <div className="grid grid-cols-12 gap-1">
                     {seq10.map((n, i) => (
                       <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
-                        {isBlank10(i) ? <span className="inline-block w-14 border-b-2 border-slate-400" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                        {isBlank10(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
                       </div>
                     ))}
                   </div>
@@ -2241,7 +2241,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>+ {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -2289,7 +2289,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>− {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -2311,7 +2311,7 @@ export function PrintablesPage() {
             docId="word-problems-100"
             title="2nd‑Grade Word Problems (within 100)"
             emoji="🧮"
-            description="Read each problem. Write an equation and solve."
+            description="Read each word problem carefully. Write a number sentence (equation) and solve. Show your answer in the blank space."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
@@ -2324,7 +2324,7 @@ export function PrintablesPage() {
               ].map((q,i)=> (
                 <li key={i}>
                   {q}
-                  <div className="h-6 border-b border-slate-400 mt-1" />
+                  <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
                 </li>
               ))}
             </ol>
@@ -2354,7 +2354,7 @@ export function PrintablesPage() {
               docId="compare-2digit"
               title="Compare 2‑Digit Numbers"
               emoji="⚖️"
-              description="Write one symbol in each box: >, <, or =. Tip: Compare tens first. If tens are equal, compare ones."
+              description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
               <div className="mb-3 text-sm text-slate-700">
@@ -2369,7 +2369,7 @@ export function PrintablesPage() {
                 {pairs.map(([a,b],i)=> (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
                     <span>{a}</span>
-                    <span className="mx-2 inline-block w-12 border-b-2 border-slate-400" aria-label="comparison symbol box" />
+                    <span className="mx-2 inline-block w-16 h-10 border-b-[3px] border-slate-600 align-middle" aria-label="comparison symbol box" />
                     <span>{b}</span>
                   </div>
                 ))}
@@ -4086,14 +4086,14 @@ export function PrintablesPage() {
               </div>
               <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
                 <div className="font-semibold text-slate-800 mb-2">Set your timer</div>
-                <div className="h-6 border-b border-slate-400" />
+                <div className="h-10 border-b-3 border-slate-600" />
                 <div className="mt-3 font-semibold text-slate-800 mb-1">Reward</div>
-                <div className="h-6 border-b border-slate-400" />
+                <div className="h-10 border-b-3 border-slate-600" />
               </div>
               <div className="border border-slate-200 rounded-lg p-3 bg-white print:bg-transparent print:border-0">
                 <div className="font-semibold text-slate-800 mb-2">Notes</div>
-                <div className="h-6 border-b border-slate-300 mb-1" />
-                <div className="h-6 border-b border-slate-300 mb-1" />
+                <div className="h-10 border-b-3 border-slate-600 mb-2" />
+                <div className="h-10 border-b-3 border-slate-600 mb-2" />
                 <div className="h-6 border-b border-slate-300" />
               </div>
             </div>
@@ -4182,7 +4182,7 @@ export function PrintablesPage() {
             {['Goal 1','Goal 2','Goal 3','Try this','Proud of'].map((t,i)=> (
               <div key={i} className="mb-3">
                 <div className="text-sm font-semibold text-slate-800">{t}</div>
-                <div className="h-6 border-b border-slate-400" />
+                <div className="h-10 border-b-3 border-slate-600" />
               </div>
             ))}
           </section>
@@ -4399,12 +4399,12 @@ export function PrintablesPage() {
                 <div>
                   <div className="text-sm font-semibold text-slate-800 mb-1">What was tricky?</div>
                   <div className="h-6 border-b border-slate-400 mb-1" />
-                  <div className="h-6 border-b border-slate-400" />
+                  <div className="h-10 border-b-3 border-slate-600" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-slate-800 mb-1">What I nailed</div>
                   <div className="h-6 border-b border-slate-400 mb-1" />
-                  <div className="h-6 border-b border-slate-400" />
+                  <div className="h-10 border-b-3 border-slate-600" />
                 </div>
               </div>
             </div>
@@ -6082,7 +6082,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>+ {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6132,7 +6132,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>− {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6154,7 +6154,7 @@ export function PrintablesPage() {
             docId="fractions-halves-thirds-fourths"
             title="Fractions: Halves, Thirds, Fourths"
             emoji="🍕"
-            description="Color the fraction shown. Then write the fraction name."
+            description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-4">
@@ -6220,14 +6220,14 @@ export function PrintablesPage() {
               docId="mult-facts-1-5"
               title="Basic Multiplication Facts (1-5)"
               emoji="✖️"
-              description="Solve each multiplication problem. Practice facts from 1×1 to 5×5."
+              description="Write the correct answer in each blank. These problems help students memorize multiplication facts from 1–5."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
                     <div className="font-mono text-2xl leading-7 text-center">
-                      <div>{a} × {b} = ____</div>
+                      <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   </div>
                 ))}
@@ -6255,13 +6255,13 @@ export function PrintablesPage() {
               docId="mult-arrays-2-5"
               title="Multiplication Arrays (2-5)"
               emoji="📊"
-              description="Draw an array for each multiplication problem. Count the total."
+              description="Draw an array for each multiplication problem. Count the total number of objects and write the answer in the blank."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = ____</div>
+                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
@@ -6287,7 +6287,7 @@ export function PrintablesPage() {
             docId="skip-count-mult"
             title="Skip Counting for Multiplication"
             emoji="➡️"
-            description="Skip count to find the missing numbers. Then write the multiplication fact."
+              description="Skip count to find the missing numbers in each pattern. Then write the complete multiplication fact in the blank."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
             <div className="space-y-4">
@@ -6300,8 +6300,8 @@ export function PrintablesPage() {
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <div className="font-mono text-xl mb-2">
                     {item.pattern.map((n, i) => (
-                      <span key={i} className="inline-block w-12 text-center border-b-2 border-slate-400 mx-1">
-                        {typeof n === 'number' ? n : '__'}
+                      <span key={i} className="inline-block w-16 h-10 text-center border-b-[3px] border-slate-600 mx-1 align-middle">
+                        {typeof n === 'number' ? n : ''}
                       </span>
                     ))}
                   </div>
@@ -6328,7 +6328,7 @@ export function PrintablesPage() {
             docId="mult-word-problems-2-3"
             title="Multiplication Word Problems (2nd-3rd)"
             emoji="🧮"
-            description="Read each problem. Write a multiplication equation and solve."
+              description="Read each word problem carefully. Write a multiplication equation and solve. Show your answer in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-3 text-sm text-slate-800">
@@ -6341,7 +6341,7 @@ export function PrintablesPage() {
               ].map((q, i) => (
                 <li key={i}>
                   {q}
-                  <div className="h-8 border-b border-slate-400 mt-1" />
+                  <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
                 </li>
               ))}
             </ol>
@@ -6371,14 +6371,14 @@ export function PrintablesPage() {
               docId="mult-facts-6-12"
               title="Advanced Multiplication Facts (6-12)"
               emoji="✖️"
-              description="Solve each multiplication problem. Practice facts from 6×6 to 12×12."
+              description="Write the correct answer in each blank. These problems help students memorize multiplication facts from 6–12."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-3">
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
                     <div className="font-mono text-2xl leading-7 text-center">
-                      <div>{a} × {b} = ____</div>
+                      <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   </div>
                 ))}
@@ -6412,7 +6412,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {arrays.map(([rows, cols], i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = ____</div>
+                    <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
                         <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
@@ -6479,7 +6479,7 @@ export function PrintablesPage() {
               docId="mult-fact-families"
               title="Fact Families (Multiplication & Division)"
               emoji="⚖️"
-              description="Complete each fact family. Write all four related facts."
+              description="Complete each fact family. Write all four related facts (two multiplication and two division) in the blanks provided."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
               <div className="space-y-4">
@@ -6489,10 +6489,10 @@ export function PrintablesPage() {
                     <div key={i} className="border border-slate-300 rounded p-4 bg-white">
                       <div className="font-semibold mb-2 text-slate-800">Fact Family for {product}:</div>
                       <div className="grid grid-cols-2 gap-2 text-lg font-mono">
-                        <div>{a} × {b} = ____</div>
-                        <div>{b} × {a} = ____</div>
-                        <div>{product} ÷ {a} = ____</div>
-                        <div>{product} ÷ {b} = ____</div>
+                        <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                        <div>{b} × {a} = <span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
+                        <div>{product} ÷ {a} = <span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
+                        <div>{product} ÷ {b} = <span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
                       </div>
                     </div>
                   );
@@ -6535,7 +6535,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6572,7 +6572,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6609,7 +6609,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6646,7 +6646,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6683,7 +6683,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-lg leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -6711,7 +6711,7 @@ export function PrintablesPage() {
               docId="mult-area-model"
               title="Area Model Multiplication"
               emoji="📊"
-              description="Use the area model to solve each multiplication problem. Break numbers into tens and ones."
+              description="Use the area model to solve each multiplication problem. Break numbers into tens and ones, then write the final answer in the blank."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
               <div className="space-y-4">
@@ -6720,22 +6720,22 @@ export function PrintablesPage() {
                   const bTens = Math.floor(b / 10); const bOnes = b % 10;
                   return (
                     <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                      <div className="font-semibold mb-2 text-slate-800 text-center">{a} × {b} = ____</div>
+                      <div className="font-semibold mb-2 text-slate-800 text-center">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                       <div className="grid grid-cols-2 gap-2 max-w-md mx-auto">
                         <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-600">{aTens}0 × {bTens}0 = ____</div>
+                          <div className="text-xs text-slate-700 font-medium">{aTens}0 × {bTens}0 = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
                         </div>
                         <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-600">{aTens}0 × {bOnes} = ____</div>
+                          <div className="text-xs text-slate-700 font-medium">{aTens}0 × {bOnes} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
                         </div>
                         <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-600">{aOnes} × {bTens}0 = ____</div>
+                          <div className="text-xs text-slate-700 font-medium">{aOnes} × {bTens}0 = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
                         </div>
                         <div className="border-2 border-slate-400 rounded p-2 text-center">
-                          <div className="text-xs text-slate-600">{aOnes} × {bOnes} = ____</div>
+                          <div className="text-xs text-slate-700 font-medium">{aOnes} × {bOnes} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-0.5 align-middle" /></div>
                         </div>
                       </div>
-                      <div className="text-center mt-2 text-slate-700">Total: ____</div>
+                      <div className="text-center mt-2 text-slate-800 font-semibold">Total: <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   );
                 })}
@@ -6763,7 +6763,7 @@ export function PrintablesPage() {
             docId="mult-complex-word"
             title="Complex Word Problems"
             emoji="🧮"
-            description="Solve each multi-step problem. Show all your work."
+            description="Solve each multi-step word problem. Show all your work step by step and write your final answer in the blank space."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
@@ -6810,7 +6810,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-2">
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
-                    <div className="font-mono text-lg">{a} × {b} = ____</div>
+                    <div className="font-mono text-lg">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                   </div>
                 ))}
               </div>
@@ -6845,7 +6845,7 @@ export function PrintablesPage() {
               <div className="grid grid-cols-4 gap-2">
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
-                    <div className="font-mono text-lg">{a} × {b} = ____</div>
+                    <div className="font-mono text-lg">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                   </div>
                 ))}
               </div>
@@ -6868,7 +6868,7 @@ export function PrintablesPage() {
             docId="mult-strategies"
             title="Multiplication Strategies"
             emoji="🎯"
-            description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition."
+            description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition. Write your answer in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
             <div className="space-y-4">
@@ -6880,7 +6880,7 @@ export function PrintablesPage() {
                 { problem: '6 × 9', strategy: 'Break apart: 6 × 10 = ____, so 6 × 9 = ____' },
               ].map((item, idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="font-semibold text-slate-800 mb-2">{item.problem} = ____</div>
+                  <div className="font-semibold text-slate-800 mb-2">{item.problem} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                   <div className="text-slate-700">{item.strategy}</div>
                   <div className="h-6 border-b border-slate-400 mt-2" />
                 </div>
@@ -6996,7 +6996,7 @@ export function PrintablesPage() {
             docId="cvc-words"
             title="CVC Words (Consonant-Vowel-Consonant)"
             emoji="📚"
-            description="Read each CVC word. Match it to the picture. Then write the word."
+            description="Read each CVC (consonant-vowel-consonant) word. Match it to the correct picture. Then write the word in the blank space."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-4">
@@ -7022,7 +7022,7 @@ export function PrintablesPage() {
                   </div>
                   <div className="text-center">
                     <p className="text-slate-600 text-sm mb-1">Write the word:</p>
-                    <div className="h-8 border-b-2 border-slate-400 w-full" />
+                    <div className="h-10 border-b-[3px] border-slate-600 w-full" />
                   </div>
                 </div>
               ))}
@@ -7043,7 +7043,7 @@ export function PrintablesPage() {
             docId="sight-words-pre-primer"
             title="Sight Words (Dolch Pre-Primer)"
             emoji="👁️"
-            description="Read each sight word. Trace it, then write it three times."
+            description="Read each sight word. Trace it carefully, then write it three times in the blank lines provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-blue-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-4">
@@ -7057,7 +7057,7 @@ export function PrintablesPage() {
                     </div>
                     <div className="space-y-1">
                       {[1, 2, 3].map((i) => (
-                        <div key={i} className="h-8 border-b border-slate-300" />
+                        <div key={i} className="h-10 border-b-[3px] border-slate-600" />
                       ))}
                     </div>
                   </div>
@@ -7204,7 +7204,7 @@ export function PrintablesPage() {
             docId="counting-objects-20"
             title="Count the Objects (1–20)"
             emoji="🔢"
-            description="Count each group of objects. Write the number in the box."
+            description="Count each group of objects carefully. Write the total number in the blank space provided."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-4">
@@ -7247,7 +7247,7 @@ export function PrintablesPage() {
             docId="sentence-building"
             title="Sentence Building"
             emoji="📝"
-            description="Put the words in order to make a sentence. Write the sentence on the line."
+            description="Put the words in order to make a complete sentence. Write the sentence on the line provided below."
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="space-y-4">
@@ -7270,7 +7270,7 @@ export function PrintablesPage() {
                   </div>
                   <div>
                     <p className="text-slate-600 text-sm mb-1">Write the sentence:</p>
-                    <div className="h-10 border-b-2 border-slate-400 w-full" />
+                    <div className="h-12 border-b-[3px] border-slate-600 w-full" />
                   </div>
                 </div>
               ))}
@@ -7865,7 +7865,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{p.a}</div>
                       <div>× {p.b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
@@ -7906,7 +7906,7 @@ export function PrintablesPage() {
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{p.dividend}</div>
                       <div>÷ {p.b}</div>
-                      <div className="border-t border-slate-400 mt-1 pt-1">____</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
                   </div>
                 ))}
