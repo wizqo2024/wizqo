@@ -8992,11 +8992,7 @@ export function PrintablesPage() {
                   </div>
                   <div className="text-center">
                     <p className="text-slate-600 text-sm mb-1">Write the word:</p>
-                    <div className="h-10 border-b-[3px] border-slate-600 w-full flex items-center justify-center">
-                      {showAnswers && activeDocs.includes('cvc-words') ? (
-                        <span className="text-lg font-semibold text-emerald-700">{item.word}</span>
-                      ) : null}
-                    </div>
+                    <div className="h-10 border-b-[3px] border-slate-600 w-full" />
                   </div>
                 </div>
               ))}
@@ -9253,11 +9249,7 @@ export function PrintablesPage() {
                   </div>
                   <div>
                     <p className="text-slate-600 text-sm mb-1">Write the sentence:</p>
-                    <div className="h-12 border-b-[3px] border-slate-600 w-full flex items-center">
-                      {showAnswers && activeDocs.includes('sentence-building') ? (
-                        <span className="text-base font-semibold text-emerald-700">{item.sentence}</span>
-                      ) : null}
-                    </div>
+                    <div className="h-12 border-b-[3px] border-slate-600 w-full" />
                   </div>
                 </div>
               ))}
