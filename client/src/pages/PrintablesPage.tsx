@@ -9195,12 +9195,21 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('shape-identification') && (() => {
-          const shapes = [
-            { name: 'Circle', emoji: '⭕', type: 'circle' },
-            { name: 'Square', emoji: '⬜', type: 'square' },
-            { name: 'Triangle', emoji: '🔺', type: 'triangle' },
-            { name: 'Rectangle', emoji: '▭', type: 'rectangle' },
-          ]
+          const renderShape = (type: string, size: number = 60, x: number = 0, y: number = 0) => {
+            const svgMap: Record<string, JSX.Element> = {
+              circle: <circle cx={x + size/2} cy={y + size/2} r={size*0.375} fill="none" stroke="#475569" strokeWidth="3" />,
+              square: <rect x={x + size*0.125} y={y + size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke="#475569" strokeWidth="3" />,
+              triangle: <polygon points={`${x + size/2},${y + size*0.125} ${x + size*0.125},${y + size*0.875} ${x + size*0.875},${y + size*0.875}`} fill="none" stroke="#475569" strokeWidth="3" />,
+              rectangle: <rect x={x + size*0.1875} y={y + size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke="#475569" strokeWidth="3" />,
+            };
+            return svgMap[type] || null;
+          };
+          const tasks = [
+            { name: 'Circle', type: 'circle', instruction: 'Circle all the circles', shapes: ['circle', 'square', 'circle', 'triangle', 'rectangle', 'circle', 'square', 'triangle', 'circle', 'rectangle', 'square', 'triangle'] },
+            { name: 'Square', type: 'square', instruction: 'Circle all the squares', shapes: ['square', 'circle', 'triangle', 'square', 'rectangle', 'circle', 'square', 'triangle', 'rectangle', 'square', 'circle', 'triangle'] },
+            { name: 'Triangle', type: 'triangle', instruction: 'Circle all the triangles', shapes: ['triangle', 'circle', 'square', 'triangle', 'rectangle', 'circle', 'triangle', 'square', 'rectangle', 'circle', 'triangle', 'square'] },
+            { name: 'Rectangle', type: 'rectangle', instruction: 'Circle all the rectangles', shapes: ['rectangle', 'circle', 'square', 'triangle', 'rectangle', 'circle', 'square', 'rectangle', 'triangle', 'circle', 'rectangle', 'square'] },
+          ];
           return (
             <WorksheetSectionWrapper
               docId="shape-identification"
@@ -9209,21 +9218,29 @@ export function PrintablesPage() {
               description="Circle the circle, square, triangle, and rectangle. Learn basic shapes."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {shapes.map((shape, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">
-                      <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
-                        {shape.type === 'circle' && <circle cx="50" cy="50" r="30" fill="none" stroke="#111827" strokeWidth="3" />}
-                        {shape.type === 'square' && <rect x="20" y="20" width="60" height="60" fill="none" stroke="#111827" strokeWidth="3" />}
-                        {shape.type === 'triangle' && <polygon points="50,20 20,80 80,80" fill="none" stroke="#111827" strokeWidth="3" />}
-                        {shape.type === 'rectangle' && <rect x="15" y="25" width="70" height="50" fill="none" stroke="#111827" strokeWidth="3" />}
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each section below. Find and circle all the shapes that match the instruction.
+              </div>
+              <div className="grid grid-cols-1 gap-6">
+                {tasks.map((task, taskIdx) => (
+                  <div key={taskIdx} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-center mb-4">
+                      <div className="text-xl font-semibold text-slate-800 mb-2">{task.instruction}</div>
+                      <div className="text-sm text-slate-600 mb-3">Find the {task.name.toLowerCase()}s</div>
+                      <svg viewBox="0 0 60 60" className="w-16 h-16 mx-auto mb-2">
+                        {renderShape(task.type, 60, 0, 0)}
                       </svg>
-                      <p className="text-lg font-semibold text-slate-800">{shape.name}</p>
                     </div>
-                    <div className="text-center">
-                      <div className="inline-block w-8 h-8 border-2 border-slate-400 rounded-full" />
-                      <span className="ml-2 text-sm text-slate-600">Circle it</span>
+                    <div className="border-2 border-dashed border-slate-400 rounded-lg p-6 bg-slate-50">
+                      <div className="grid grid-cols-4 gap-4">
+                        {task.shapes.map((shapeType, i) => (
+                          <div key={i} className="flex justify-center items-center">
+                            <svg viewBox="0 0 60 60" className="w-20 h-20 print:w-24 print:h-24">
+                              {renderShape(shapeType, 60, 0, 0)}
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -9231,7 +9248,11 @@ export function PrintablesPage() {
               {showAnswersForDoc('shape-identification', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Circle all the shapes shown: {shapes.map(s => s.name).join(', ')}.</p>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {tasks.map((t, i) => (
+                      <li key={i}>{t.instruction}: Circle all {t.name.toLowerCase()}s in the grid</li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </WorksheetSectionWrapper>
