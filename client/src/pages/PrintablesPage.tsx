@@ -11985,20 +11985,44 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('path-tracing') && (() => {
+          const paths = [
+            { d: 'M 20 20 L 80 20 L 80 60 L 20 60 L 20 100 L 80 100', label: 'Straight path' },
+            { d: 'M 20 20 Q 50 20, 50 50 Q 50 80, 80 80', label: 'Curved path' },
+            { d: 'M 20 20 L 40 20 L 40 40 L 60 40 L 60 20 L 80 20 L 80 60 L 60 60 L 60 80 L 40 80 L 40 60 L 20 60 L 20 100', label: 'Zigzag path' },
+            { d: 'M 20 20 L 50 20 L 50 50 L 80 50 L 80 80 L 50 80 L 50 100', label: 'L-shaped path' },
+            { d: 'M 20 20 C 30 30, 50 30, 60 20 C 70 10, 80 20, 80 40 C 80 60, 60 70, 40 70 C 20 70, 20 90, 20 100', label: 'Wavy path' },
+            { d: 'M 20 20 L 30 30 L 20 40 L 30 50 L 20 60 L 30 70 L 20 80 L 30 90 L 20 100', label: 'Diagonal path' },
+          ];
           return (
-            <WorksheetSectionWrapper docId="path-tracing" title="Path Tracing" emoji="✏️" description="Follow the path from start to finish.">
+            <WorksheetSectionWrapper docId="path-tracing" title="Path Tracing" emoji="✏️" description="Follow the path from start to finish. Trace along the dashed line with your pencil.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
-                {Array.from({length: 6}, (_, i) => (
+                {paths.map((path, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="border-2 border-dashed border-slate-400 rounded h-16 flex items-center justify-center text-slate-400 text-sm">Start → Finish</div>
+                    <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Path {i + 1}</div>
+                    <div className="relative">
+                      <svg viewBox="0 0 100 120" className="w-full h-24 border border-slate-200 rounded bg-slate-50">
+                        <path
+                          d={path.d}
+                          fill="none"
+                          stroke="#94a3b8"
+                          strokeWidth="2"
+                          strokeDasharray="4 4"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="20" cy="20" r="3" fill="#22c55e" />
+                        <text x="20" y="15" fontSize="8" fill="#22c55e" fontWeight="bold">Start</text>
+                        <circle cx="80" cy="100" r="3" fill="#ef4444" />
+                        <text x="80" y="115" fontSize="8" fill="#ef4444" fontWeight="bold">Finish</text>
+                      </svg>
+                    </div>
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('path-tracing', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Trace the path from start to finish</p>
+                  <p className="text-sm">Trace the dashed path from the green Start point to the red Finish point. Follow the path carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
