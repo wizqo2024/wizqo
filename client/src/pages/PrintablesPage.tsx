@@ -12022,19 +12022,20 @@ export function PrintablesPage() {
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Path {i + 1}</div>
                     <div className="relative">
-                      <svg viewBox="0 0 100 120" className="w-full h-24 border border-slate-200 rounded bg-slate-50">
+                      <svg viewBox="0 0 100 120" className="w-full h-40 border border-slate-200 rounded bg-slate-50">
                         <path
                           d={path.d}
                           fill="none"
                           stroke="#94a3b8"
-                          strokeWidth="2"
-                          strokeDasharray="4 4"
+                          strokeWidth="3"
+                          strokeDasharray="5 5"
                           strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
-                        <circle cx="20" cy="20" r="3" fill="#22c55e" />
-                        <text x="20" y="15" fontSize="8" fill="#22c55e" fontWeight="bold">Start</text>
-                        <circle cx="80" cy="100" r="3" fill="#ef4444" />
-                        <text x="80" y="115" fontSize="8" fill="#ef4444" fontWeight="bold">Finish</text>
+                        <circle cx="20" cy="20" r="4" fill="#22c55e" />
+                        <text x="20" y="12" fontSize="10" fill="#22c55e" fontWeight="bold">Start</text>
+                        <circle cx="80" cy="100" r="4" fill="#ef4444" />
+                        <text x="80" y="118" fontSize="10" fill="#ef4444" fontWeight="bold">Finish</text>
                       </svg>
                     </div>
                   </div>
