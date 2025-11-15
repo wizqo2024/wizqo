@@ -1030,6 +1030,7 @@ export function PrintablesPage() {
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
+  const fromParam = params.get('from') || ''
   const seedParam = params.get('seed') || ''
   const timestampParam = params.get('timestamp') || ''
   const variantParam = params.get('variant') || '1'
@@ -3077,6 +3078,279 @@ export function PrintablesPage() {
               : 'Draw your favorite animal and write one fact.';
 
           const items: ReactNode[] = [];
+          
+          // Add page-specific worksheet content based on 'from' parameter
+          function pushPageSpecificWorksheet() {
+            if (!fromParam || !treatAsMath) return; // Only for math packs with from parameter
+            
+            const pageRng = makeRng(`${seedStr}|page-specific`);
+            function pageNextInt(min: number, max: number) { return Math.floor(pageRng() * (max - min + 1)) + min; }
+            
+            // Times Table page - include times-table worksheets
+            if (fromParam === 'times-table') {
+              const timesTableTypes = [
+                'times-table-horizontal-1-5',
+                'times-table-horizontal-6-12',
+                'times-table-horizontal-1-12',
+                'times-table-vertical-1-5',
+                'times-table-vertical-6-12',
+                'times-table-missing-1-5',
+                'times-table-missing-6-12',
+                'times-table-timed-1-5',
+                'times-table-timed-6-12',
+                'times-table-confidence-1-5',
+                'times-table-confidence-6-12',
+                'times-table-fluency-1-12',
+                'times-table-mixed-review'
+              ];
+              const selectedType = timesTableTypes[Math.floor(pageRng() * timesTableTypes.length)];
+              
+              // Generate worksheet content based on type
+              if (selectedType.startsWith('times-table-horizontal')) {
+                const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
+                const count = selectedType.includes('1-12') ? 12 : 10;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Times Table Practice — Horizontal Format</div>
+                    <div className="grid grid-cols-3 gap-2 text-base">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-2 text-center">
+                          <div className="font-mono">{a} × {b} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else if (selectedType.startsWith('times-table-vertical')) {
+                const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
+                const count = 8;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Times Table Practice — Vertical Format</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-2">
+                          <div className="font-mono text-lg text-right">
+                            <div>{a}</div>
+                            <div>× {b}</div>
+                            <div className="border-t-2 border-slate-600 mt-1 pt-1 h-8 flex items-center justify-end">
+                              <span className="inline-block w-16 h-6 border-b-2 border-slate-600" />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else if (selectedType.startsWith('times-table-missing')) {
+                const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
+                const count = 8;
+                const problems = Array.from({length: count}).map(() => {
+                  const type = pageNextInt(1, 3);
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  const answer = a * b;
+                  if (type === 1) return { a, b, showAnswer: false };
+                  if (type === 2) return { a, answer, showB: false };
+                  return { b, answer, showA: false };
+                });
+                items.push(
+                  <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Times Table Practice — Missing Numbers</div>
+                    <div className="grid grid-cols-2 gap-2 text-base">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border border-slate-300 rounded p-2 text-center">
+                          <div className="font-mono">
+                            {p.a !== undefined ? p.a : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} × 
+                            {p.b !== undefined ? p.b : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />} = 
+                            {p.answer !== undefined ? p.answer : <span className="inline-block w-10 h-5 border-b-2 border-slate-600 mx-1" />}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else if (selectedType.startsWith('times-table-timed')) {
+                const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
+                const count = 12;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Times Table Practice — Speed Test</div>
+                    <div className="mb-2 text-sm text-slate-600">⏱️ Complete in 2 minutes!</div>
+                    <div className="grid grid-cols-4 gap-1.5 text-sm">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-1.5 text-center">
+                          <div className="font-mono text-xs">{a} × {b} = <span className="inline-block w-8 h-4 border-b border-slate-600 mx-0.5" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else {
+                // Confidence or fluency - use horizontal format
+                const range = selectedType.includes('1-5') ? [1, 5] : selectedType.includes('6-12') ? [6, 12] : [1, 12];
+                const count = 10;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-tt" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Times Table Practice — Build Confidence</div>
+                    <div className="grid grid-cols-2 gap-2 text-base">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border-2 border-blue-200 rounded-lg p-2 bg-blue-50">
+                          <div className="font-mono text-lg text-center text-blue-700">
+                            {a} × {b} = <span className="inline-block w-14 h-6 border-b-2 border-blue-600 mx-1" />
+                          </div>
+                          <div className="text-xs text-slate-600 text-center mt-1">Hint: {a} groups of {b}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+            }
+            // Multiplication page - include multiplication worksheets
+            else if (fromParam === 'multiplication') {
+              const multTypes = [
+                'mult-facts-1-5',
+                'mult-facts-6-12',
+                'mult-arrays-2-5',
+                'mult-word-problems-2-3',
+                'mult-fact-families',
+                'mult-fact-fluency'
+              ];
+              const selectedType = multTypes[Math.floor(pageRng() * multTypes.length)];
+              
+              if (selectedType.startsWith('mult-facts')) {
+                const range = selectedType.includes('1-5') ? [1, 5] : [6, 12];
+                const count = 12;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(range[0], range[1]);
+                  const b = pageNextInt(range[0], range[1]);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-mult" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Multiplication Facts Practice</div>
+                    <div className="grid grid-cols-3 gap-2 text-base">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-2 text-center">
+                          <div className="font-mono">{a} × {b} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else if (selectedType.includes('arrays')) {
+                const count = 4;
+                const arrays: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const rows = pageNextInt(2, 5);
+                  const cols = pageNextInt(2, 5);
+                  return [rows, cols];
+                });
+                items.push(
+                  <div key="page-specific-mult" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Multiplication Arrays</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {arrays.map(([rows, cols], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-3">
+                          <div className="text-center mb-2 font-semibold">{rows} × {cols} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                          <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '120px', margin: '0 auto'}}>
+                            {Array.from({length: rows * cols}).map((_, idx) => (
+                              <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              } else if (selectedType.includes('word-problems')) {
+                const problems = [
+                  'Emma has 3 bags. Each bag has 4 apples. How many apples in all?',
+                  'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?',
+                  'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?'
+                ];
+                items.push(
+                  <div key="page-specific-mult" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Multiplication Word Problems</div>
+                    <ol className="list-decimal list-inside space-y-2 text-base text-slate-800">
+                      {problems.map((p, i) => (
+                        <li key={i}>{p} <span className="inline-block w-16 h-5 border-b-2 border-slate-600 ml-2" /></li>
+                      ))}
+                    </ol>
+                  </div>
+                );
+              } else {
+                // Fact families or fluency
+                const count = 6;
+                const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                  const a = pageNextInt(2, 6);
+                  const b = pageNextInt(2, 6);
+                  return [a, b];
+                });
+                items.push(
+                  <div key="page-specific-mult" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                    <div className="font-semibold text-xl mb-2">Multiplication Practice</div>
+                    <div className="grid grid-cols-3 gap-2 text-base">
+                      {facts.map(([a, b], i) => (
+                        <div key={i} className="border border-slate-300 rounded p-2 text-center">
+                          <div className="font-mono">{a} × {b} = <span className="inline-block w-12 h-5 border-b-2 border-slate-600 mx-1" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+            }
+            // Grade-specific pages - include grade-appropriate worksheets
+            else if (fromParam === '1st-grade' || fromParam === '2nd-grade' || fromParam === '3rd-grade' || 
+                     fromParam === '4th-grade' || fromParam === '5th-grade' || fromParam === 'kindergarten') {
+              const grade = fromParam.replace('-grade', '');
+              const count = 8;
+              const facts: Array<[number, number]> = Array.from({length: count}).map(() => {
+                let range: [number, number];
+                if (grade === 'kindergarten' || grade === '1st') range = [1, 5];
+                else if (grade === '2nd') range = [1, 10];
+                else if (grade === '3rd') range = [1, 12];
+                else range = [1, 12];
+                const a = pageNextInt(range[0], range[1]);
+                const b = pageNextInt(range[0], range[1]);
+                return [a, b];
+              });
+              items.push(
+                <div key="page-specific-grade" className="border border-slate-200 rounded-lg p-4 sm:col-span-2">
+                  <div className="font-semibold text-xl mb-2">{grade === 'kindergarten' ? 'Kindergarten' : grade.charAt(0).toUpperCase() + grade.slice(1)} Grade Math Practice</div>
+                  <div className="grid grid-cols-4 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border border-slate-300 rounded p-1.5 text-center">
+                        <div className="font-mono text-xs">{a} × {b} = <span className="inline-block w-8 h-4 border-b border-slate-600 mx-0.5" /></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+          }
+          
           // Helpers for extra activities
           function scrambleWordLocal(w: string) {
             const a = w.split('');
@@ -3241,6 +3515,9 @@ export function PrintablesPage() {
               </div>
             );
           }
+          // 0) Add page-specific worksheet if from parameter is set
+          pushPageSpecificWorksheet();
+          
           // 1) Word Search or Reading prompt
           if (!treatAsMath && packSkill !== 'creativity') {
             items.push(
