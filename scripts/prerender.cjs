@@ -75,7 +75,7 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
   return out;
 }
 
-function cloneForRoute(baseHtml, route) {
+function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
   const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
   let html = setMeta(baseHtml, {
@@ -88,6 +88,61 @@ function cloneForRoute(baseHtml, route) {
     robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
     keywords: route.keywords
   });
+  
+  // Add static HTML links for crawlers (orphaned pages fix)
+  if (route.path === '/blog') {
+    // Add links to all blog posts
+    const blogLinks = allPosts.map(p => 
+      `    <a href="${SITE}/blog/${p.id}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(p.title)}</a>`
+    ).join('\n');
+    const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+  <h2>All Blog Posts</h2>
+${blogLinks}
+</nav>`;
+    html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
+  } else if (route.path === '/kids') {
+    // Add links to all kids games
+    const kidsGames = allRoutes.filter(r => r.path.startsWith('/kids/games/'));
+    const gameLinks = kidsGames.map(r => 
+      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title.replace('Kids Hub – ', ''))}</a>`
+    ).join('\n');
+    const seoLinksSection = `<nav class="seo-hidden-links" aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+  <h2>Kids Games</h2>
+${gameLinks}
+</nav>`;
+    html = html.replace(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/, seoLinksSection);
+  } else if (route.path === '/' || route.path.startsWith('/worksheets/')) {
+    // Add links to worksheet pages on homepage and worksheet pages
+    const worksheetPages = allRoutes.filter(r => r.path.startsWith('/worksheets/'));
+    const worksheetLinks = worksheetPages.map(r => 
+      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
+    ).join('\n');
+    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
+    if (existingNav) {
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>Worksheet Pages</h2>\n${worksheetLinks}\n</nav>`);
+      html = html.replace(existingNav[0], updatedNav);
+    }
+  }
+  
+  // Add links to other important pages (generate, about, printables) on homepage
+  if (route.path === '/') {
+    const importantPages = allRoutes.filter(r => 
+      r.path === '/generate' || 
+      r.path === '/about' || 
+      r.path === '/printables' ||
+      r.path === '/printables/name-tracing-generator' ||
+      r.path === '/printables/certificate-maker' ||
+      r.path === '/interactive-worksheets-generator'
+    );
+    const importantLinks = importantPages.map(r => 
+      `    <a href="${SITE}${r.path}" style="display: block; padding: 0.5rem 0; color: #3b82f6; text-decoration: underline;">${escapeHtml(r.title)}</a>`
+    ).join('\n');
+    const existingNav = html.match(/<nav class="seo-hidden-links"[^>]*>[\s\S]*?<\/nav>/);
+    if (existingNav && importantLinks) {
+      const updatedNav = existingNav[0].replace('</nav>', `  <h2>Important Pages</h2>\n${importantLinks}\n</nav>`);
+      html = html.replace(existingNav[0], updatedNav);
+    }
+  }
   
   // Update SEO fallback content for specific pages
   if (route.path === '/worksheets/multiplication-worksheets') {
@@ -431,7 +486,7 @@ function main() {
 
   let count = 0;
   for (const r of routes) {
-    const html = cloneForRoute(baseHtml, r);
+    const html = cloneForRoute(baseHtml, r, posts, routes);
     const out = routeOutPath(DIST, r.path);
     write(out, html);
     count++;
