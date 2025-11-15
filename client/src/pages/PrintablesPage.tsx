@@ -8652,25 +8652,28 @@ export function PrintablesPage() {
               description="Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
-                <strong>🎨 Color Key:</strong> Solve each problem, then color the shape with the matching answer color!
-              </div>
-              <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
-                {Object.entries(colorMap).slice(0, 10).map(([num, color]) => (
-                  <div key={num} className="flex items-center gap-1">
-                    <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" />
-                    <span className="font-semibold">{num}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                {facts.map(([a, b, answer], i) => (
-                  <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
-                    <div className="font-mono text-xl leading-7 mb-2">
-                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded">
+                <div className="text-sm font-semibold text-purple-900 mb-3">🎨 Color Key: Solve each problem, then color the shape with the matching answer color!</div>
+                <div className="grid grid-cols-5 gap-3 text-xs">
+                  {Object.entries(colorMap).slice(0, 10).map(([num, color]) => (
+                    <div key={num} className="flex items-center gap-2">
+                      <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" />
+                      <div>
+                        <div className="font-semibold text-slate-800">{num}</div>
+                        <div className="text-xs text-slate-600">{color}</div>
+                      </div>
                     </div>
-                    <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
-                      <span className="text-xs text-slate-500">Color</span>
+                  ))}
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                {facts.map(([a, b, answer], i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white text-center">
+                    <div className="font-mono text-xl leading-7 mb-3">
+                      {a} × {b} = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                    <div className="w-28 h-28 print:w-32 print:h-32 mx-auto border-4 border-slate-400 rounded-lg bg-white flex items-center justify-center">
+                      <span className="text-xs text-slate-500 font-semibold">Color here</span>
                     </div>
                   </div>
                 ))}
