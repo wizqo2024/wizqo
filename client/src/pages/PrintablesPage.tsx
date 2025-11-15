@@ -2856,8 +2856,12 @@ export function PrintablesPage() {
           </section>
         )}
         {activeDocs.includes('reading-g1-pet-fish') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Pet Fish (Grade 1)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g1-pet-fish"
+            title="Passage — The Pet Fish (Grade 1)"
+            emoji="📖"
+            description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Tara had a tiny orange fish. She named it Dot. Every morning, she shook in two flakes of food. Dot swam in little circles. Tara drew a picture of Dot for her wall.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -2878,7 +2882,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-paper-bridge') && (
           <section className="relative overflow-hidden mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
@@ -3074,8 +3078,12 @@ export function PrintablesPage() {
           </section>
         )}
         {activeDocs.includes('reading-g1-red-balloon') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Red Balloon (Grade 1)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g1-red-balloon"
+            title="Passage — The Red Balloon (Grade 1)"
+            emoji="📖"
+            description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Sam got a red balloon at the fair. He held the string tight. The wind blew and the balloon went up, up, up! Sam watched it fly away. His dad said, "We can get another one." Sam smiled and nodded.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -3096,11 +3104,15 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-big-box') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Big Box (Grade 1)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g1-big-box"
+            title="Passage — The Big Box (Grade 1)"
+            emoji="📖"
+            description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Mia found a big box in the garage. She opened it and saw old toys. There was a doll, a car, and a ball. Mia asked Mom, "Can I play with these?" Mom said yes. Mia played all afternoon.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -3121,11 +3133,15 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-garden-snail') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Garden Snail (Grade 1)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g1-garden-snail"
+            title="Passage — The Garden Snail (Grade 1)"
+            emoji="📖"
+            description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Noah saw a snail in the garden. It had a brown shell. The snail moved very slowly. Noah watched it crawl on a leaf. The snail left a shiny trail. Noah smiled and said, "Hello, little snail!"</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -3146,11 +3162,15 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-birthday-cake') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Birthday Cake (Grade 1)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g1-birthday-cake"
+            title="Passage — The Birthday Cake (Grade 1)"
+            emoji="📖"
+            description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">It was Emma's birthday. Mom made a chocolate cake. There were five candles on top. Emma closed her eyes and made a wish. Then she blew out all the candles. Everyone clapped and sang "Happy Birthday!"</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -3171,7 +3191,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-bird-feeder') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
