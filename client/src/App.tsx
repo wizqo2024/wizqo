@@ -343,7 +343,7 @@ export default function App() {
               return (
                 <>
                   <SEOMetaTags 
-                    title="Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade | Wizqo"
+                    title="Free Math Worksheets for K-5 | Multiplication & More | Wizqo"
                     description="Free PDF math and multiplication worksheets for Kindergarten to 5th grade. Download kindergarten math worksheets instantly – boost confidence!"
                     keywords="multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, 3rd grade math worksheets, kindergarten math worksheets, 4th grade math worksheets, 5th grade math worksheets, free multiplication worksheets for 2nd grade, printable subtraction worksheets for kids, free math worksheets PDF, printable math worksheets with answer keys, grade 1 math worksheets, grade 2 math worksheets, grade 3 math worksheets, grade 4 math worksheets, grade 5 math worksheets, kindergarten printable worksheets free, math practice worksheets, addition worksheets, division worksheets"
                     canonicalUrl="https://wizqo.com/"
@@ -418,7 +418,7 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Interactive Worksheets Generator | Create Printable PDF Worksheets Online | Wizqo"
+                      title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
                       description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!"
                       keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
                       canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
@@ -479,7 +479,7 @@ export default function App() {
                 return (
                   <>
                     <SEOMetaTags 
-                      title="Free Time Table Multiplication Worksheets (PDF) — Build Confidence, Speed & Math Strength | Wizqo"
+                      title="Free Times Table Worksheets PDF | Math Practice | Wizqo"
                       description="Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5. Download and learn today!"
                       keywords="times table multiplication worksheets free pdf, printable times table worksheets for kids, 1–12 multiplication table worksheets pdf, free times table practice sheets grade 1–5, multiplication drill worksheets printable, easy times table worksheets for struggling learners, fun multiplication worksheets for kids pdf, basic multiplication worksheets for beginners, multiplication worksheets with answers pdf, confidence-building multiplication worksheets pdf, stress-free times table worksheets for kids, fun and simple worksheets to make multiplication easier, no-tears times table practice sheets, gentle step-by-step multiplication worksheets, worksheets for kids who struggle with multiplication, printable worksheets to help kids overcome math fear, engaging multiplication worksheets that make learning fun, horizontal multiplication worksheets pdf, vertical multiplication worksheets printable, missing number multiplication worksheets, timed multiplication test sheets printable, multiplication color-by-number worksheets, multiplication worksheets for slow learners pdf, blank times table worksheets to fill in, memorize times tables, multiplication fluency, math fact practice, repeated addition worksheets, math confidence building"
                       canonicalUrl="https://wizqo.com/worksheets/times-table-multiplication-worksheets"

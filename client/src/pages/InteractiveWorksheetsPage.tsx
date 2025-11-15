@@ -1052,7 +1052,7 @@ export function InteractiveWorksheetsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
-        title="Free Interactive Worksheets Generator | Create Printable PDF Worksheets Online | Wizqo"
+        title="Free Interactive Worksheets Generator | Create PDFs | Wizqo"
         description="Generate free interactive worksheets for math, reading, science, and SEL. Create printable PDF worksheets with answer keys for all grades (K-5). Daily refresh with new problems. No sign-up required!"
         keywords="interactive worksheets generator, free worksheet generator, printable worksheets generator, create worksheets online, math worksheet generator, reading worksheet generator, free worksheet maker, interactive math worksheets, printable PDF worksheets, worksheet generator with answer keys, grade-specific worksheets, K-5 worksheets"
         canonicalUrl="https://wizqo.com/interactive-worksheets-generator"
