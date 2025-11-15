@@ -235,6 +235,8 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
+  'more-less',
+  'more-less-equal-10',
   // Kindergarten worksheets
   'count-circle-1-10',
   'count-match-1-20',
@@ -11848,18 +11850,18 @@ export function PrintablesPage() {
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
                     <div className="flex items-center justify-center gap-8">
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-40 h-40 border-2 border-slate-300 rounded-lg bg-white print:w-48 print:h-48">
-                          <rect x="10" y="45" width={pair.long.length} height="10" fill="none" stroke="#475569" strokeWidth="3" rx="5" />
-                          <text x="50" y="30" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
-                          <text x="50" y="80" fontSize="10" fill="#ef4444" textAnchor="middle" fontWeight="bold">Color red</text>
+                        <svg viewBox="0 0 100 100" className="w-64 h-64 border-2 border-slate-300 rounded-lg bg-white print:w-80 print:h-80">
+                          <rect x="10" y="40" width={pair.long.length} height="20" fill="none" stroke="#475569" strokeWidth="4" rx="8" />
+                          <text x="50" y="25" fontSize="12" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.long.name}</text>
+                          <text x="50" y="85" fontSize="11" fill="#ef4444" textAnchor="middle" fontWeight="bold">Color red</text>
                         </svg>
                       </div>
                       <div className="text-2xl text-slate-400">vs</div>
                       <div className="flex flex-col items-center gap-2">
-                        <svg viewBox="0 0 100 100" className="w-40 h-40 border-2 border-slate-300 rounded-lg bg-white print:w-48 print:h-48">
-                          <rect x="10" y="45" width={pair.short.length} height="10" fill="none" stroke="#475569" strokeWidth="3" rx="5" />
-                          <text x="50" y="30" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
-                          <text x="50" y="80" fontSize="10" fill="#3b82f6" textAnchor="middle" fontWeight="bold">Color blue</text>
+                        <svg viewBox="0 0 100 100" className="w-64 h-64 border-2 border-slate-300 rounded-lg bg-white print:w-80 print:h-80">
+                          <rect x="10" y="40" width={pair.short.length} height="20" fill="none" stroke="#475569" strokeWidth="4" rx="8" />
+                          <text x="50" y="25" fontSize="12" fill="#475569" textAnchor="middle" fontWeight="bold">{pair.short.name}</text>
+                          <text x="50" y="85" fontSize="11" fill="#3b82f6" textAnchor="middle" fontWeight="bold">Color blue</text>
                         </svg>
                       </div>
                     </div>
