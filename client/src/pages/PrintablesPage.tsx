@@ -7226,13 +7226,14 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-1-5') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 12}).map(() => {
+          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 12}).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(1, 5);
             const b = nextInt(1, 5);
-            if (type === 1) return { a, b }; // missing answer
-            if (type === 2) return { a, answer: a * b }; // missing b
-            return { b, answer: a * b }; // missing a
+            const answer = a * b;
+            if (type === 1) return { a, b, missingType: 'answer' as const }; // missing answer
+            if (type === 2) return { a, answer, missingType: 'b' as const }; // missing b
+            return { b, answer, missingType: 'a' as const }; // missing a
           });
           return (
             <WorksheetSectionWrapper
@@ -7251,19 +7252,28 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('times-table-missing-1-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => {
-                      const a = p.a ?? (p.answer! / p.b!);
-                      const b = p.b ?? (p.answer! / p.a!);
-                      const ans = p.answer ?? (p.a! * p.b!);
-                      return <li key={i}>{a} × {b} = {ans}</li>;
-                    })}
-                  </ul>
-                </div>
-              ))}
+              {showAnswersForDoc('times-table-missing-1-5', () => {
+                const answers = problems.map((p) => {
+                  if (p.missingType === 'answer') {
+                    return { a: p.a!, b: p.b!, answer: p.a! * p.b! };
+                  } else if (p.missingType === 'b' && p.a !== undefined && p.answer !== undefined) {
+                    return { a: p.a, b: p.answer / p.a, answer: p.answer };
+                  } else if (p.missingType === 'a' && p.b !== undefined && p.answer !== undefined) {
+                    return { a: p.answer / p.b, b: p.b, answer: p.answer };
+                  }
+                  return { a: 1, b: 1, answer: 1 }; // fallback
+                });
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {answers.map((ans, i) => (
+                        <li key={i}>{ans.a} × {ans.b} = {ans.answer}</li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
@@ -7271,13 +7281,14 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 12}).map(() => {
+          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 12}).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(6, 12);
             const b = nextInt(6, 12);
-            if (type === 1) return { a, b }; // missing answer
-            if (type === 2) return { a, answer: a * b }; // missing b
-            return { b, answer: a * b }; // missing a
+            const answer = a * b;
+            if (type === 1) return { a, b, missingType: 'answer' as const }; // missing answer
+            if (type === 2) return { a, answer, missingType: 'b' as const }; // missing b
+            return { b, answer, missingType: 'a' as const }; // missing a
           });
           return (
             <WorksheetSectionWrapper
@@ -7296,19 +7307,28 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('times-table-missing-6-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => {
-                      const a = p.a ?? (p.answer! / p.b!);
-                      const b = p.b ?? (p.answer! / p.a!);
-                      const ans = p.answer ?? (p.a! * p.b!);
-                      return <li key={i}>{a} × {b} = {ans}</li>;
-                    })}
-                  </ul>
-                </div>
-              ))}
+              {showAnswersForDoc('times-table-missing-6-12', () => {
+                const answers = problems.map((p) => {
+                  if (p.missingType === 'answer') {
+                    return { a: p.a!, b: p.b!, answer: p.a! * p.b! };
+                  } else if (p.missingType === 'b' && p.a !== undefined && p.answer !== undefined) {
+                    return { a: p.a, b: p.answer / p.a, answer: p.answer };
+                  } else if (p.missingType === 'a' && p.b !== undefined && p.answer !== undefined) {
+                    return { a: p.answer / p.b, b: p.b, answer: p.answer };
+                  }
+                  return { a: 1, b: 1, answer: 1 }; // fallback
+                });
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {answers.map((ans, i) => (
+                        <li key={i}>{ans.a} × {ans.b} = {ans.answer}</li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
@@ -7316,13 +7336,14 @@ export function PrintablesPage() {
         {activeDocs.includes('times-table-missing-mixed') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 16}).map(() => {
+          const problems: Array<{a?: number, b?: number, answer?: number, missingType: 'answer' | 'a' | 'b'}> = Array.from({length: 16}).map(() => {
             const type = nextInt(1, 3);
             const a = nextInt(1, 12);
             const b = nextInt(1, 12);
-            if (type === 1) return { a, b }; // missing answer
-            if (type === 2) return { a, answer: a * b }; // missing b
-            return { b, answer: a * b }; // missing a
+            const answer = a * b;
+            if (type === 1) return { a, b, missingType: 'answer' as const }; // missing answer
+            if (type === 2) return { a, answer, missingType: 'b' as const }; // missing b
+            return { b, answer, missingType: 'a' as const }; // missing a
           });
           return (
             <WorksheetSectionWrapper
@@ -7341,19 +7362,28 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('times-table-missing-mixed', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => {
-                      const a = p.a ?? (p.answer! / p.b!);
-                      const b = p.b ?? (p.answer! / p.a!);
-                      const ans = p.answer ?? (p.a! * p.b!);
-                      return <li key={i}>{a} × {b} = {ans}</li>;
-                    })}
-                  </ul>
-                </div>
-              ))}
+              {showAnswersForDoc('times-table-missing-mixed', () => {
+                const answers = problems.map((p) => {
+                  if (p.missingType === 'answer') {
+                    return { a: p.a!, b: p.b!, answer: p.a! * p.b! };
+                  } else if (p.missingType === 'b' && p.a !== undefined && p.answer !== undefined) {
+                    return { a: p.a, b: p.answer / p.a, answer: p.answer };
+                  } else if (p.missingType === 'a' && p.b !== undefined && p.answer !== undefined) {
+                    return { a: p.answer / p.b, b: p.b, answer: p.answer };
+                  }
+                  return { a: 1, b: 1, answer: 1 }; // fallback
+                });
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {answers.map((ans, i) => (
+                        <li key={i}>{ans.a} × {ans.b} = {ans.answer}</li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
@@ -12140,6 +12170,13 @@ export function PrintablesPage() {
             'mult-facts-1-5', 'mult-arrays-2-5', 'skip-count-mult', 'mult-word-problems-2-3', 'mult-facts-6-12',
             'mult-arrays-models', 'mult-multi-step-word', 'mult-fact-families', 'mult-2x1', 'mult-2x1-digit', 'mult-2x2', 'mult-2x2-digit',
             'mult-3x2-digit', 'mult-area-model', 'mult-complex-word', 'mult-fact-fluency', 'mult-mixed-review', 'mult-strategies', 'mult-patterns',
+            // Times Table worksheets
+            'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
+            'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
+            'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
+            'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
+            'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
+            'times-table-confidence-1-5', 'times-table-confidence-6-12', 'times-table-fluency-1-12', 'times-table-mixed-review',
             'long-division-1digit', 'long-division-2digit', 'area-model-mult', 'partial-products', 'comparing-fractions-4th',
             'add-sub-fractions-4th', 'mixed-improper-fractions', 'decimals-place-value', 'comparing-decimals', 'add-sub-decimals',
             'fractions-to-decimals', 'classifying-angles', 'area-perimeter-4th', 'lines-angles-4th', 'classifying-triangles',
