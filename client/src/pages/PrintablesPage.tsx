@@ -7861,9 +7861,12 @@ export function PrintablesPage() {
               <div className="grid grid-cols-2 gap-4">
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div className="mb-1">{a}</div>
-                      <div className="mb-1">× {b}</div>
+                    <div className="font-mono text-2xl leading-7">
+                      <div className="text-right mb-1">{a}</div>
+                      <div className="flex items-center mb-1">
+                        <span className="mr-2">×</span>
+                        <span className="flex-1 text-right">{b}</span>
+                      </div>
                       <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
                         <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600" />
                       </div>
