@@ -200,6 +200,26 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mult-mixed-review',
   'mult-strategies',
   'mult-patterns',
+  // Times Table worksheets
+  'times-table-horizontal-1-5',
+  'times-table-horizontal-6-12',
+  'times-table-horizontal-1-12',
+  'times-table-vertical-1-5',
+  'times-table-vertical-6-12',
+  'times-table-vertical-1-12',
+  'times-table-missing-1-5',
+  'times-table-missing-6-12',
+  'times-table-missing-mixed',
+  'times-table-timed-1-5',
+  'times-table-timed-6-12',
+  'times-table-timed-1-12',
+  'times-table-blank-1-5',
+  'times-table-blank-6-12',
+  'times-table-blank-1-12',
+  'times-table-confidence-1-5',
+  'times-table-confidence-6-12',
+  'times-table-fluency-1-12',
+  'times-table-mixed-review',
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
@@ -532,6 +552,45 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '🎯 Multiplication Strategies'
     case 'mult-patterns':
       return '📈 Multiplication Patterns'
+    // Times Table worksheets
+    case 'times-table-horizontal-1-5':
+      return '➡️ Horizontal Times Table (1-5)'
+    case 'times-table-horizontal-6-12':
+      return '➡️ Horizontal Times Table (6-12)'
+    case 'times-table-horizontal-1-12':
+      return '➡️ Complete Horizontal Times Table (1-12)'
+    case 'times-table-vertical-1-5':
+      return '⬇️ Vertical Times Table (1-5)'
+    case 'times-table-vertical-6-12':
+      return '⬇️ Vertical Times Table (6-12)'
+    case 'times-table-vertical-1-12':
+      return '⬇️ Complete Vertical Times Table (1-12)'
+    case 'times-table-missing-1-5':
+      return '❓ Missing Number Times Table (1-5)'
+    case 'times-table-missing-6-12':
+      return '❓ Missing Number Times Table (6-12)'
+    case 'times-table-missing-mixed':
+      return '❓ Mixed Missing Number Challenge'
+    case 'times-table-timed-1-5':
+      return '⏱️ Timed Times Table Test (1-5)'
+    case 'times-table-timed-6-12':
+      return '⏱️ Timed Times Table Test (6-12)'
+    case 'times-table-timed-1-12':
+      return '⏱️ Complete Timed Test (1-12)'
+    case 'times-table-blank-1-5':
+      return '📋 Blank Times Table (1-5) - Fill In'
+    case 'times-table-blank-6-12':
+      return '📋 Blank Times Table (6-12) - Fill In'
+    case 'times-table-blank-1-12':
+      return '📋 Complete Blank Times Table (1-12)'
+    case 'times-table-confidence-1-5':
+      return '💪 Confidence-Building Times Table (1-5)'
+    case 'times-table-confidence-6-12':
+      return '💪 Confidence-Building Times Table (6-12)'
+    case 'times-table-fluency-1-12':
+      return '⚡ Times Table Fluency Practice (1-12)'
+    case 'times-table-mixed-review':
+      return '⚡ Mixed Times Table Review'
     case 'bookmark-templates':
       return '📚 DIY Bookmark Templates'
     case 'design-monster':
@@ -1441,6 +1500,9 @@ export function PrintablesPage() {
                 if (from === 'multiplication') {
                   return '/worksheets/multiplication-worksheets'
                 }
+                if (from === 'times-table') {
+                  return '/worksheets/times-table-multiplication-worksheets'
+                }
                 // Determine category anchor by doc or bundle selection
                 const cat = (() => {
                   if (doc === 'bundle') {
@@ -1493,6 +1555,9 @@ export function PrintablesPage() {
                 }
                 if (from === 'multiplication') {
                   return 'Back to Multiplication Worksheets'
+                }
+                if (from === 'times-table') {
+                  return 'Back to Times Table Multiplication Worksheets'
                 }
                 return 'Back printable page'
               } catch {
@@ -6934,6 +6999,760 @@ export function PrintablesPage() {
             ))}
           </WorksheetSectionWrapper>
         )}
+
+        {/* Times Table Worksheets */}
+        {activeDocs.includes('times-table-horizontal-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-horizontal-1-5"
+              title="Horizontal Times Table (1-5)"
+              emoji="➡️"
+              description="Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-horizontal-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-horizontal-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-horizontal-6-12"
+              title="Horizontal Times Table (6-12)"
+              emoji="➡️"
+              description="Master times tables 6-12 in horizontal format. Fun and simple worksheets to make multiplication easier for advancing learners."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-horizontal-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-horizontal-1-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-horizontal-1-12"
+              title="Complete Horizontal Times Table (1-12)"
+              emoji="➡️"
+              description="Comprehensive horizontal times table practice covering all facts 1-12. Perfect for building multiplication fluency and speed."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-horizontal-1-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-vertical-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-vertical-1-5"
+              title="Vertical Times Table (1-5)"
+              emoji="⬇️"
+              description="Practice times tables 1-5 in vertical format. Step-by-step multiplication worksheets designed for kids who struggle with multiplication."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
+                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-vertical-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-vertical-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 12}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-vertical-6-12"
+              title="Vertical Times Table (6-12)"
+              emoji="⬇️"
+              description="Master times tables 6-12 in vertical format. Engaging multiplication worksheets that make learning fun and build math confidence."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
+                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-vertical-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-vertical-1-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 16}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-vertical-1-12"
+              title="Complete Vertical Times Table (1-12)"
+              emoji="⬇️"
+              description="Comprehensive vertical times table practice covering all facts 1-12. Printable worksheets to help kids overcome math fear."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white">
+                    <div className="font-mono text-2xl leading-7 text-right">
+                      <div>{a}</div>
+                      <div>× {b}</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
+                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-vertical-1-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-missing-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 12}).map(() => {
+            const type = nextInt(1, 3);
+            const a = nextInt(1, 5);
+            const b = nextInt(1, 5);
+            if (type === 1) return { a, b }; // missing answer
+            if (type === 2) return { a, answer: a * b }; // missing b
+            return { b, answer: a * b }; // missing a
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-missing-1-5"
+              title="Missing Number Times Table (1-5)"
+              emoji="❓"
+              description="Fill in the missing numbers in times table problems. No-tears times table practice sheets that build understanding through pattern recognition."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} × {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-missing-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const a = p.a ?? (p.answer! / p.b!);
+                      const b = p.b ?? (p.answer! / p.a!);
+                      const ans = p.answer ?? (p.a! * p.b!);
+                      return <li key={i}>{a} × {b} = {ans}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-missing-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 12}).map(() => {
+            const type = nextInt(1, 3);
+            const a = nextInt(6, 12);
+            const b = nextInt(6, 12);
+            if (type === 1) return { a, b }; // missing answer
+            if (type === 2) return { a, answer: a * b }; // missing b
+            return { b, answer: a * b }; // missing a
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-missing-6-12"
+              title="Missing Number Times Table (6-12)"
+              emoji="❓"
+              description="Complete missing numbers in advanced times table problems. Gentle step-by-step multiplication worksheets for confident learning."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} × {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-missing-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const a = p.a ?? (p.answer! / p.b!);
+                      const b = p.b ?? (p.answer! / p.a!);
+                      const ans = p.answer ?? (p.a! * p.b!);
+                      return <li key={i}>{a} × {b} = {ans}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-missing-mixed') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const problems: Array<{a?: number, b?: number, answer?: number}> = Array.from({length: 16}).map(() => {
+            const type = nextInt(1, 3);
+            const a = nextInt(1, 12);
+            const b = nextInt(1, 12);
+            if (type === 1) return { a, b }; // missing answer
+            if (type === 2) return { a, answer: a * b }; // missing b
+            return { b, answer: a * b }; // missing a
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-missing-mixed"
+              title="Mixed Missing Number Challenge"
+              emoji="❓"
+              description="Mixed missing number problems across all times tables 1-12. Build multiplication fluency with engaging practice that makes learning fun."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-2 gap-3">
+                {problems.map((p, i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} × {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-missing-mixed', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => {
+                      const a = p.a ?? (p.answer! / p.b!);
+                      const b = p.b ?? (p.answer! / p.a!);
+                      const ans = p.answer ?? (p.a! * p.b!);
+                      return <li key={i}>{a} × {b} = {ans}</li>;
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-timed-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-timed-1-5"
+              title="Timed Times Table Test (1-5)"
+              emoji="⏱️"
+              description="Build speed and accuracy with timed multiplication tests for facts 1-5. Printable timed multiplication test sheets for confident practice."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-orange-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>⏱️ Time yourself!</strong> Try to complete all problems in 2 minutes. Write your start time: ______
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg leading-6">
+                      {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-timed-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-timed-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 20}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-timed-6-12"
+              title="Timed Times Table Test (6-12)"
+              emoji="⏱️"
+              description="Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>⏱️ Time yourself!</strong> Try to complete all problems in 3 minutes. Write your start time: ______
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg leading-6">
+                      {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-timed-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-timed-1-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 30}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-timed-1-12"
+              title="Complete Timed Test (1-12)"
+              emoji="⏱️"
+              description="Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>⏱️ Time yourself!</strong> Try to complete all problems in 5 minutes. Write your start time: ______
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg leading-6">
+                      {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-timed-1-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-blank-1-5') && (
+          <WorksheetSectionWrapper
+            docId="times-table-blank-1-5"
+            title="Blank Times Table (1-5) - Fill In"
+            emoji="📋"
+            description="Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (1-5)</div>
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="border border-slate-400 p-2 bg-slate-100">×</th>
+                      {[1, 2, 3, 4, 5].map(n => (
+                        <th key={n} className="border border-slate-400 p-2 bg-slate-100">{n}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5].map(row => (
+                      <tr key={row}>
+                        <td className="border border-slate-400 p-2 bg-slate-100 font-semibold">{row}</td>
+                        {[1, 2, 3, 4, 5].map(col => (
+                          <td key={col} className="border border-slate-400 p-2 text-center">
+                            <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600" />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {showAnswersForDoc('times-table-blank-1-5', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <div className="text-xs">Complete times table: 1×1=1, 1×2=2, 1×3=3, 1×4=4, 1×5=5, 2×1=2, 2×2=4, 2×3=6, 2×4=8, 2×5=10, 3×1=3, 3×2=6, 3×3=9, 3×4=12, 3×5=15, 4×1=4, 4×2=8, 4×3=12, 4×4=16, 4×5=20, 5×1=5, 5×2=10, 5×3=15, 5×4=20, 5×5=25</div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('times-table-blank-6-12') && (
+          <WorksheetSectionWrapper
+            docId="times-table-blank-6-12"
+            title="Blank Times Table (6-12) - Fill In"
+            emoji="📋"
+            description="Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (6-12)</div>
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr>
+                      <th className="border border-slate-400 p-2 bg-slate-100">×</th>
+                      {[6, 7, 8, 9, 10, 11, 12].map(n => (
+                        <th key={n} className="border border-slate-400 p-2 bg-slate-100">{n}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[6, 7, 8, 9, 10, 11, 12].map(row => (
+                      <tr key={row}>
+                        <td className="border border-slate-400 p-2 bg-slate-100 font-semibold">{row}</td>
+                        {[6, 7, 8, 9, 10, 11, 12].map(col => (
+                          <td key={col} className="border border-slate-400 p-2 text-center">
+                            <span className="inline-block w-10 h-5 border-b-[2px] border-slate-600" />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {showAnswersForDoc('times-table-blank-6-12', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <div className="text-xs">Complete times table for 6-12. For example: 6×6=36, 6×7=42, 6×8=48, 6×9=54, 6×10=60, 6×11=66, 6×12=72, and so on for all combinations.</div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('times-table-blank-1-12') && (
+          <WorksheetSectionWrapper
+            docId="times-table-blank-1-12"
+            title="Complete Blank Times Table (1-12)"
+            emoji="📋"
+            description="Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency."
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="space-y-4">
+              <div className="border border-slate-300 rounded p-4 bg-white">
+                <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Complete Times Table (1-12)</div>
+                <table className="w-full border-collapse text-xs">
+                  <thead>
+                    <tr>
+                      <th className="border border-slate-400 p-1 bg-slate-100">×</th>
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(n => (
+                        <th key={n} className="border border-slate-400 p-1 bg-slate-100">{n}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(row => (
+                      <tr key={row}>
+                        <td className="border border-slate-400 p-1 bg-slate-100 font-semibold">{row}</td>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(col => (
+                          <td key={col} className="border border-slate-400 p-1 text-center">
+                            <span className="inline-block w-8 h-4 border-b-[1px] border-slate-600" />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {showAnswersForDoc('times-table-blank-1-12', () => (
+              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                <div className="font-semibold mb-1">Answer key</div>
+                <div className="text-xs">Complete 12×12 times table. Each cell (row × column) = product. For example: 1×1=1, 1×2=2, ..., 12×12=144</div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
+        )}
+
+        {activeDocs.includes('times-table-confidence-1-5') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 10}).map(() => {
+            const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-confidence-1-5"
+              title="Confidence-Building Times Table (1-5)"
+              emoji="💪"
+              description="Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>💪 You've got this!</strong> Take your time. There's no rush. Each problem helps you get stronger!
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50">
+                    <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
+                    <div className="font-mono text-3xl leading-8 text-center text-blue-700">
+                      {a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-blue-600 mx-1 align-middle" />
+                    </div>
+                    <div className="mt-2 text-xs text-slate-600 text-center">Hint: Think {a} groups of {b}</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-confidence-1-5', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-confidence-6-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 10}).map(() => {
+            const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-confidence-6-12"
+              title="Confidence-Building Times Table (6-12)"
+              emoji="💪"
+              description="Gentle step-by-step multiplication worksheets for facts 6-12. No-tears times table practice sheets that build understanding and confidence."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>💪 You're doing great!</strong> These problems might look big, but you can solve them step by step!
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border-2 border-purple-200 rounded-lg p-4 bg-purple-50">
+                    <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
+                    <div className="font-mono text-3xl leading-8 text-center text-purple-700">
+                      {a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-purple-600 mx-1 align-middle" />
+                    </div>
+                    <div className="mt-2 text-xs text-slate-600 text-center">Hint: Break it into smaller parts if needed</div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-confidence-6-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-fluency-1-12') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 25}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-fluency-1-12"
+              title="Times Table Fluency Practice (1-12)"
+              emoji="⚡"
+              description="Build multiplication fluency with comprehensive practice covering all times tables 1-12. Repeated addition worksheets that make learning fun."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-3 gap-3">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                    <div className="font-mono text-xl leading-7">
+                      {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-fluency-1-12', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
+
+        {activeDocs.includes('times-table-mixed-review') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          const facts: Array<[number, number]> = Array.from({length: 30}).map(() => {
+            const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+          });
+          return (
+            <WorksheetSectionWrapper
+              docId="times-table-mixed-review"
+              title="Mixed Times Table Review"
+              emoji="⚡"
+              description="Mixed review of all times tables 1-12 for comprehensive practice. Math fact practice worksheets that build speed, accuracy, and confidence."
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              <div className="grid grid-cols-4 gap-2">
+                {facts.map(([a, b], i) => (
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                    <div className="font-mono text-lg leading-6">
+                      {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {showAnswersForDoc('times-table-mixed-review', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
+                  </ul>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('rhyming-words') && (
           <WorksheetSectionWrapper
