@@ -186,6 +186,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'cvc-words',
   'sentence-building',
   'sight-words-pre-primer',
+  'fractions-halves-thirds-fourths',
   // New 2nd Grade worksheets
   'expanded-form-200',
   'number-patterns-200',
@@ -7037,27 +7038,42 @@ export function PrintablesPage() {
               ].map((frac, idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <svg viewBox="0 0 200 200" className="w-full h-auto mb-2">
-                    <rect x="20" y="20" width="160" height="160" fill="none" stroke="#111827" strokeWidth="3" />
-                    {Array.from({ length: frac.parts }).map((_, i) => {
-                      const isFilled = i < frac.filled;
-                      const width = 160 / frac.parts;
-                      const x = 20 + i * width;
-                      return (
-                        <rect
-                          key={i}
-                          x={x}
-                          y={20}
-                          width={width}
-                          height={160}
-                          fill={isFilled ? '#3b82f6' : '#e5e7eb'}
-                          stroke="#111827"
-                          strokeWidth={i === 0 || i === frac.parts ? 0 : 2}
-                        />
-                      );
-                    })}
+                    {frac.parts === 2 ? (
+                      // Halves: vertical split
+                      <>
+                        <rect x="20" y="20" width="80" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="100" y="20" width="80" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                      </>
+                    ) : frac.parts === 3 ? (
+                      // Thirds: vertical split
+                      <>
+                        <rect x="20" y="20" width="53.33" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="73.33" y="20" width="53.33" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="126.66" y="20" width="53.34" height="160" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                      </>
+                    ) : (
+                      // Fourths: 2x2 grid
+                      <>
+                        <rect x="20" y="20" width="80" height="80" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="100" y="20" width="80" height="80" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="20" y="100" width="80" height="80" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                        <rect x="100" y="100" width="80" height="80" fill={frac.filled >= 4 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                      </>
+                    )}
                   </svg>
                   <p className="text-center text-slate-700 font-semibold">{frac.label}</p>
-                  <p className="text-center text-slate-600 text-sm mt-1">Write: "____"</p>
+                  <p className="text-center text-slate-600 text-sm mt-1">
+                    Write: "{showAnswers && activeDocs.includes('fractions-halves-thirds-fourths') ? (
+                      <span className="text-emerald-700 font-semibold">
+                        {frac.label === '1/2' ? 'one half' : 
+                         frac.label === '1/3' ? 'one third' : 
+                         frac.label === '2/3' ? 'two thirds' : 
+                         frac.label === '1/4' ? 'one fourth' : 
+                         frac.label === '2/4' ? 'two fourths' : 
+                         'three fourths'}
+                      </span>
+                    ) : '____'}"
+                  </p>
                 </div>
               ))}
             </div>
