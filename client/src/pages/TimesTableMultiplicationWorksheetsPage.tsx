@@ -81,6 +81,11 @@ export default function TimesTableMultiplicationWorksheetsPage() {
     // Fluency Practice Worksheets
     { title: '⚡ Times Table Fluency Practice (1-12)', description: 'Build multiplication fluency with comprehensive practice covering all times tables 1-12. Repeated addition worksheets that make learning fun.', href: '/print?doc=times-table-fluency-1-12&from=times-table', docId: 'times-table-fluency-1-12', categories: ['fluency'], gradeRange: 'All' },
     { title: '⚡ Mixed Times Table Review', description: 'Mixed review of all times tables 1-12 for comprehensive practice. Math fact practice worksheets that build speed, accuracy, and confidence.', href: '/print?doc=times-table-mixed-review&from=times-table', docId: 'times-table-mixed-review', categories: ['fluency'], gradeRange: 'All' },
+    
+    // Color-by-Number Worksheets
+    { title: '🎨 Color-by-Number Times Table (1-5)', description: 'Solve multiplication problems and color the picture! Fun color-by-number worksheets that make times table practice engaging and visual.', href: '/print?doc=times-table-color-1-5&from=times-table', docId: 'times-table-color-1-5', categories: ['fluency'], gradeRange: '1st-3rd' },
+    { title: '🎨 Color-by-Number Times Table (6-12)', description: 'Master times tables 6-12 with fun color-by-number activities. Engaging multiplication worksheets that combine math practice with creativity.', href: '/print?doc=times-table-color-6-12&from=times-table', docId: 'times-table-color-6-12', categories: ['fluency'], gradeRange: '3rd-5th' },
+    { title: '🎨 Color-by-Number Times Table (1-12)', description: 'Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding.', href: '/print?doc=times-table-color-1-12&from=times-table', docId: 'times-table-color-1-12', categories: ['fluency'], gradeRange: 'All' },
   ]
 
   // Filter worksheets based on selected categories
