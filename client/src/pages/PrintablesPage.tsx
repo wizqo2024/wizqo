@@ -3897,6 +3897,10 @@ export function PrintablesPage() {
               seed: nextSeed || effectiveSeed,
               variant: String(nextVariant ?? variant)
             })
+            // Preserve the 'from' parameter to maintain page-specific content
+            if (fromParam) {
+              sp.set('from', fromParam)
+            }
             return `/print?${sp.toString()}`
           }
 
