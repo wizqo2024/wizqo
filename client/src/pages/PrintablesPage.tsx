@@ -6190,42 +6190,85 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {activeDocs.includes('number-line-add') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Number Line Addition</h2>
-            <p className="text-slate-600 text-sm mb-3">Use the number line to solve each addition problem.</p>
-            <div className="space-y-4">
-              {[[3, 4], [5, 3], [2, 6], [4, 5]].map(([a, b], idx) => (
-                <svg key={idx} viewBox="0 0 600 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="none" stroke="#111827" strokeWidth="2">
-                    <line x1="50" y1="60" x2="550" y2="60" />
-                    {Array.from({ length: 16 }).map((_, i) => (
-                      <line key={i} x1={50 + i * 33.3} y1="60" x2={50 + i * 33.3} y2="50" />
-                    ))}
-                  </g>
-                  <text x="50" y="80" fontSize="20" fill="#111827">{a} + {b} = __</text>
-                  <circle cx={50 + a * 33.3} cy="60" r="8" fill="#3b82f6" />
-                  <path d={`M${50 + a * 33.3} 60 L${50 + (a + b) * 33.3} 60`} stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrowhead)" />
-                  <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                      <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
-                    </marker>
-                  </defs>
-                </svg>
-              ))}
-            </div>
-            {showAnswersForDoc('number-line-add', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  {[[3, 4], [5, 3], [2, 6], [4, 5]].map(([a, b], idx) => (
-                    <li key={idx}>{a} + {b} = {a + b}</li>
-                  ))}
-                </ul>
+        {activeDocs.includes('number-line-add') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          
+          // Generate 4 addition problems where sum is <= 15
+          const problems: Array<[number, number]> = [];
+          for (let i = 0; i < 4; i++) {
+            const a = nextInt(1, 8);
+            const b = nextInt(1, Math.min(9, 15 - a));
+            problems.push([a, b]);
+          }
+          
+          const maxNum = Math.max(...problems.map(([a, b]) => a + b), 15);
+          const lineLength = 500;
+          const startX = 50;
+          const endX = startX + lineLength;
+          const step = lineLength / maxNum;
+          
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">🔢 Number Line Addition</h2>
+              <p className="text-slate-600 text-sm mb-3">Use the number line to solve each addition problem.</p>
+              <div className="space-y-6">
+                {problems.map(([a, b], idx) => (
+                  <div key={idx} className="bg-white border border-slate-300 rounded p-4">
+                    <div className="mb-2 text-lg font-semibold text-slate-900">{a} + {b} = __</div>
+                    <svg viewBox="0 0 600 100" className="w-full h-auto">
+                      <defs>
+                        <marker id={`arrowhead-${idx}`} markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                          <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
+                        </marker>
+                      </defs>
+                      <g fill="none" stroke="#111827" strokeWidth="2">
+                        {/* Number line */}
+                        <line x1={startX} y1="50" x2={endX} y2="50" />
+                        {/* Tick marks and numbers */}
+                        {Array.from({ length: maxNum + 1 }).map((_, i) => {
+                          const x = startX + i * step;
+                          return (
+                            <g key={i}>
+                              <line x1={x} y1="45" x2={x} y2="55" />
+                              <text x={x} y="40" fontSize="14" fill="#111827" textAnchor="middle">{i}</text>
+                            </g>
+                          );
+                        })}
+                      </g>
+                      {/* Visual hints only shown when answers are visible */}
+                      {showAnswers && activeDocs.includes('number-line-add') && (
+                        <>
+                          {/* Starting point circle */}
+                          <circle cx={startX + a * step} cy="50" r="6" fill="#3b82f6" />
+                          {/* Arrow showing addition */}
+                          <path 
+                            d={`M${startX + a * step} 50 L${startX + (a + b) * step} 50`} 
+                            stroke="#3b82f6" 
+                            strokeWidth="3" 
+                            markerEnd={`url(#arrowhead-${idx})`}
+                          />
+                          {/* Label for the jump */}
+                          <text x={startX + (a + b/2) * step} y="35" fontSize="12" fill="#3b82f6" textAnchor="middle" fontWeight="bold">+{b}</text>
+                        </>
+                      )}
+                    </svg>
+                  </div>
+                ))}
               </div>
-            ))}
-          </section>
-        )}
+              {showAnswersForDoc('number-line-add', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(([a, b], idx) => (
+                      <li key={idx}>{a} + {b} = {a + b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          );
+        })()}
 
         {activeDocs.includes('doubles-facts') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
