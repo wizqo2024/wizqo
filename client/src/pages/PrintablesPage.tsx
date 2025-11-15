@@ -5977,46 +5977,120 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {activeDocs.includes('balance-equations-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">⚖️ Balance Equations (to 10)</h2>
-            <p className="text-slate-600 text-sm mb-3">Find the missing number to make both sides equal.</p>
-            <div className="space-y-4">
-              {[
-                { left: '3 + 2', right: '__ + 1', answer: 4 },
-                { left: '5 + __', right: '4 + 3', answer: 2 },
-                { left: '6 - 2', right: '__ - 1', answer: 5 },
-                { left: '8 - __', right: '10 - 3', answer: 5 }
-              ].map((eq, idx) => (
-                <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="none" stroke="#111827" strokeWidth="3">
-                    <path d="M100 80 L400 80" />
-                    <path d="M250 40 L250 80" />
-                    <circle cx="150" cy="60" r="20" />
-                    <circle cx="350" cy="60" r="20" />
-                  </g>
-                  <text x="150" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.left}</text>
-                  <text x="350" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.right}</text>
-                </svg>
-              ))}
-            </div>
-            {showAnswersForDoc('balance-equations-10', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  {[
-                    { left: '3 + 2', right: '__ + 1', answer: 4 },
-                    { left: '5 + __', right: '4 + 3', answer: 2 },
-                    { left: '6 - 2', right: '__ - 1', answer: 5 },
-                    { left: '8 - __', right: '10 - 3', answer: 5 }
-                  ].map((eq, idx) => (
-                    <li key={idx}>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</li>
-                  ))}
-                </ul>
+        {activeDocs.includes('balance-equations-10') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          
+          // Generate balanced equations
+          const equations: Array<{ left: string; right: string; answer: number }> = [];
+          const types = ['add-left', 'add-right', 'sub-left', 'sub-right'];
+          
+          for (let i = 0; i < 4; i++) {
+            const type = types[i % types.length];
+            let left: string, right: string, answer: number;
+            let attempts = 0;
+            
+            while (attempts < 50) {
+              attempts++;
+              
+              if (type === 'add-left') {
+                // Left side: a + b, Right side: __ + c (where a + b = __ + c)
+                const a = nextInt(1, 8);
+                const b = nextInt(1, 9 - a);
+                const leftSum = a + b;
+                const c = nextInt(1, Math.min(9, leftSum - 1));
+                answer = leftSum - c;
+                if (answer >= 1 && answer <= 10) {
+                  left = `${a} + ${b}`;
+                  right = `__ + ${c}`;
+                  break;
+                }
+              } else if (type === 'add-right') {
+                // Left side: a + __, Right side: b + c (where a + __ = b + c)
+                const b = nextInt(1, 8);
+                const c = nextInt(1, 9 - b);
+                const rightSum = b + c;
+                const a = nextInt(1, Math.min(8, rightSum - 1));
+                answer = rightSum - a;
+                if (answer >= 1 && answer <= 10) {
+                  left = `${a} + __`;
+                  right = `${b} + ${c}`;
+                  break;
+                }
+              } else if (type === 'sub-left') {
+                // Left side: a - b, Right side: __ - c (where a - b = __ - c, so __ = a - b + c)
+                const a = nextInt(3, 10);
+                const b = nextInt(1, a - 1);
+                const leftDiff = a - b;
+                const c = nextInt(1, Math.min(9, 10 - leftDiff));
+                answer = leftDiff + c;
+                if (answer >= 1 && answer <= 10) {
+                  left = `${a} - ${b}`;
+                  right = `__ - ${c}`;
+                  break;
+                }
+              } else { // sub-right
+                // Left side: a - __, Right side: b - c (where a - __ = b - c, so __ = a - (b - c))
+                const b = nextInt(3, 10);
+                const c = nextInt(1, b - 1);
+                const rightDiff = b - c;
+                const a = nextInt(Math.max(3, rightDiff + 1), 10);
+                answer = a - rightDiff;
+                if (answer >= 1 && answer <= 10) {
+                  left = `${a} - __`;
+                  right = `${b} - ${c}`;
+                  break;
+                }
+              }
+            }
+            
+            // Fallback if generation failed
+            if (attempts >= 50) {
+              if (type.startsWith('add')) {
+                left = '2 + 3';
+                right = '__ + 4';
+                answer = 1;
+              } else {
+                left = '5 - 2';
+                right = '__ - 1';
+                answer = 4;
+              }
+            }
+            
+            equations.push({ left, right, answer });
+          }
+          
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">⚖️ Balance Equations (to 10)</h2>
+              <p className="text-slate-600 text-sm mb-3">Find the missing number to make both sides equal.</p>
+              <div className="space-y-4">
+                {equations.map((eq, idx) => (
+                  <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g fill="none" stroke="#111827" strokeWidth="3">
+                      <path d="M100 80 L400 80" />
+                      <path d="M250 40 L250 80" />
+                      <circle cx="150" cy="60" r="20" />
+                      <circle cx="350" cy="60" r="20" />
+                    </g>
+                    <text x="150" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.left}</text>
+                    <text x="350" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.right}</text>
+                  </svg>
+                ))}
               </div>
-            ))}
-          </section>
-        )}
+              {showAnswersForDoc('balance-equations-10', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {equations.map((eq, idx) => (
+                      <li key={idx}>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          );
+        })()}
 
         {activeDocs.includes('skip-count-2s') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
