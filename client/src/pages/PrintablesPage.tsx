@@ -12837,42 +12837,54 @@ export function PrintablesPage() {
                     <div className="mb-2">
                       <p className="text-center text-sm text-slate-600 mb-2">Draw array:</p>
                       <div className="flex justify-center">
-                        <svg viewBox="0 0 200 200" className="w-32 h-32 border border-slate-200 rounded">
+                        <svg viewBox="0 0 400 400" className="w-full max-w-xs h-48 print:h-56 border border-slate-200 rounded">
                           {showAnswers && activeDocs.includes('mult-arrays') ? (
                             // Show filled array
                             <g>
                               {Array.from({ length: p.rows }).map((_, row) =>
-                                Array.from({ length: p.cols }).map((_, col) => (
-                                  <rect
-                                    key={`${row}-${col}`}
-                                    x={10 + col * 20}
-                                    y={10 + row * 20}
-                                    width="18"
-                                    height="18"
-                                    fill="#3b82f6"
-                                    stroke="#1e40af"
-                                    strokeWidth="1"
-                                  />
-                                ))
+                                Array.from({ length: p.cols }).map((_, col) => {
+                                  const cellSize = Math.min(350 / Math.max(p.rows, p.cols), 50);
+                                  const spacing = 10;
+                                  const x = 25 + col * (cellSize + spacing);
+                                  const y = 25 + row * (cellSize + spacing);
+                                  return (
+                                    <rect
+                                      key={`${row}-${col}`}
+                                      x={x}
+                                      y={y}
+                                      width={cellSize}
+                                      height={cellSize}
+                                      fill="#3b82f6"
+                                      stroke="#1e40af"
+                                      strokeWidth="2"
+                                    />
+                                  );
+                                })
                               )}
                             </g>
                           ) : (
                             // Show empty grid for students to draw
                             <g>
                               {Array.from({ length: p.rows }).map((_, row) =>
-                                Array.from({ length: p.cols }).map((_, col) => (
-                                  <rect
-                                    key={`${row}-${col}`}
-                                    x={10 + col * 20}
-                                    y={10 + row * 20}
-                                    width="18"
-                                    height="18"
-                                    fill="none"
-                                    stroke="#cbd5e1"
-                                    strokeWidth="1"
-                                    strokeDasharray="2 2"
-                                  />
-                                ))
+                                Array.from({ length: p.cols }).map((_, col) => {
+                                  const cellSize = Math.min(350 / Math.max(p.rows, p.cols), 50);
+                                  const spacing = 10;
+                                  const x = 25 + col * (cellSize + spacing);
+                                  const y = 25 + row * (cellSize + spacing);
+                                  return (
+                                    <rect
+                                      key={`${row}-${col}`}
+                                      x={x}
+                                      y={y}
+                                      width={cellSize}
+                                      height={cellSize}
+                                      fill="none"
+                                      stroke="#94a3b8"
+                                      strokeWidth="2"
+                                      strokeDasharray="4 4"
+                                    />
+                                  );
+                                })
                               )}
                             </g>
                           )}
