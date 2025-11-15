@@ -310,7 +310,7 @@ export default function HandwritingMakerPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Free Handwriting Practice Sheets for Kids (Generator)</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Handwriting Practice Sheets</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">Generate printable tracing worksheets with guidelines and dotted letters. Practice A–Z letters, simple words, or short sentences. Print and save as PDF.</p>
         </header>

@@ -218,7 +218,7 @@ export default function KidsPage() {
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <div className="inline-flex items-center px-3 py-1 mb-3 text-xs font-semibold uppercase tracking-wide rounded-full bg-white/15 border border-white/20 backdrop-blur">🎉 Kids Hub</div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Fun Learning Games & Activities for Kids</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Kids Hub</h1>
           <div className="h-1 w-20 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mb-4" />
           <p className="text-lg opacity-95 max-w-3xl">
             Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,

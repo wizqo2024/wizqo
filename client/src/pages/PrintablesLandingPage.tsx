@@ -280,7 +280,7 @@ export function PrintablesLandingPage() {
           <div className="absolute inset-0 bg-black/25 print:hidden" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Printable Fun Learning Activities</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Free Printables</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-white max-w-3xl">Welcome to our Printable Fun Learning Activities page — a creative space where kids can learn, play, and grow away from screens! All activities are free to download, easy to print, and perfect for home, school, or travel.</p>
           {/* Above-the-fold quick links to worksheets */}

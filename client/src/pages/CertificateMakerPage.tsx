@@ -1388,7 +1388,7 @@ export default function CertificateMakerPage() {
             Printables
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
-            Design a printable certificate they&apos;ll be proud to receive
+            Free Certificate Maker
           </h1>
           <p className="mx-auto max-w-3xl text-sm text-slate-600 lg:mx-0 lg:text-base">
             Personalize the name, award reason, colors, and badge. Preview updates instantly and print in one click?no design skills required.
