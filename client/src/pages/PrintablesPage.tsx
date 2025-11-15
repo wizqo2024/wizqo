@@ -11616,23 +11616,69 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('shape-sorting') && (() => {
-          const shapes = ['circle', 'square', 'triangle', 'rectangle'];
+          const shapes = [
+            { name: 'circle', color: '#3b82f6' },
+            { name: 'square', color: '#ef4444' },
+            { name: 'triangle', color: '#22c55e' },
+            { name: 'rectangle', color: '#f59e0b' },
+          ];
+          const renderShape = (shape: typeof shapes[0], size: number = 80) => {
+            const svgMap: Record<string, JSX.Element> = {
+              circle: <circle cx={size/2} cy={size/2} r={size*0.375} fill="none" stroke={shape.color} strokeWidth="3" />,
+              square: <rect x={size*0.125} y={size*0.125} width={size*0.75} height={size*0.75} fill="none" stroke={shape.color} strokeWidth="3" />,
+              triangle: <polygon points={`${size/2},${size*0.125} ${size*0.125},${size*0.875} ${size*0.875},${size*0.875}`} fill="none" stroke={shape.color} strokeWidth="3" />,
+              rectangle: <rect x={size*0.1875} y={size*0.25} width={size*0.625} height={size*0.5} fill="none" stroke={shape.color} strokeWidth="3" />,
+            };
+            return svgMap[shape.name] || null;
+          };
           return (
             <WorksheetSectionWrapper docId="shape-sorting" title="Shape Sorting" emoji="🟩" description="Cut out shapes and sort them into groups.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Sort into: {s} group</div>
-                  </div>
-                ))}
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at the shapes below. Cut them out (or circle them) and sort them into the correct groups.
+              </div>
+              <div className="mb-6">
+                <div className="text-lg font-semibold text-slate-800 mb-3">Shapes to Sort:</div>
+                <div className="grid grid-cols-4 gap-4">
+                  {shapes.map((shape, i) => (
+                    <div key={i} className="border-2 border-dashed border-slate-400 rounded-lg p-4 bg-white flex flex-col items-center justify-center">
+                      <svg viewBox="0 0 80 80" className="w-20 h-20 print:w-24 print:h-24">
+                        {renderShape(shape, 80)}
+                      </svg>
+                      <div className="text-xs text-slate-600 mt-2 text-center capitalize">{shape.name}</div>
+                    </div>
+                  ))}
+                  {shapes.map((shape, i) => (
+                    <div key={`dup-${i}`} className="border-2 border-dashed border-slate-400 rounded-lg p-4 bg-white flex flex-col items-center justify-center">
+                      <svg viewBox="0 0 80 80" className="w-20 h-20 print:w-24 print:h-24">
+                        {renderShape(shape, 80)}
+                      </svg>
+                      <div className="text-xs text-slate-600 mt-2 text-center capitalize">{shape.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-slate-800 mb-3">Sorting Boxes:</div>
+                <div className="grid grid-cols-2 gap-4">
+                  {shapes.map((shape, i) => (
+                    <div key={i} className="border-2 border-slate-400 rounded-lg p-6 bg-slate-50">
+                      <div className="text-center mb-3">
+                        <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{shape.name} Group</div>
+                        <svg viewBox="0 0 80 80" className="w-24 h-24 print:w-32 print:h-32 mx-auto">
+                          {renderShape(shape, 80)}
+                        </svg>
+                      </div>
+                      <div className="text-center text-sm text-slate-600">Sort all {shape.name}s here</div>
+                    </div>
+                  ))}
+                </div>
               </div>
               {showAnswersForDoc('shape-sorting', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s}: Sort all {s}s together</li>))}
+                    {shapes.map((s, i) => (<li key={i}>{s.name}: Sort all {s.name}s into the {s.name} group</li>))}
                   </ul>
                 </div>
               ))}
