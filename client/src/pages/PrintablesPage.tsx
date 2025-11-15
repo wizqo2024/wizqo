@@ -8982,7 +8982,9 @@ export function PrintablesPage() {
                     <div className="flex gap-2 justify-center">
                       {item.word.split('').map((letter, i) => (
                         <div key={i} className="w-10 h-12 border-2 border-slate-400 rounded flex items-center justify-center">
-                          <span className="text-xl font-semibold text-slate-700">{letter}</span>
+                          {showAnswers && activeDocs.includes('cvc-words') ? (
+                            <span className="text-xl font-semibold text-slate-700">{letter}</span>
+                          ) : null}
                         </div>
                       ))}
                     </div>
