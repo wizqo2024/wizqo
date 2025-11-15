@@ -11964,20 +11964,41 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('zigzag-lines') && (() => {
+          const zigzagPaths = [
+            'M 10 50 L 30 20 L 50 50 L 70 20 L 90 50',
+            'M 10 30 L 25 60 L 40 30 L 55 60 L 70 30 L 85 60',
+            'M 10 40 L 20 20 L 30 40 L 40 20 L 50 40 L 60 20 L 70 40 L 80 20 L 90 40',
+            'M 10 50 L 25 30 L 40 50 L 55 30 L 70 50 L 85 30',
+            'M 10 60 L 30 40 L 50 60 L 70 40 L 90 60',
+            'M 10 35 L 22 55 L 34 35 L 46 55 L 58 35 L 70 55 L 82 35',
+          ];
           return (
-            <WorksheetSectionWrapper docId="zigzag-lines" title="Zigzag Lines" emoji="✏️" description="Trace the zigzag lines.">
+            <WorksheetSectionWrapper docId="zigzag-lines" title="Zigzag Lines" emoji="✏️" description="Trace the zigzag lines from left to right.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
-                {Array.from({length: 6}, (_, i) => (
+                {zigzagPaths.map((path, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="border-2 border-dashed border-slate-400 h-12 flex items-center justify-center text-slate-400 text-sm">Trace zigzag</div>
+                    <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Zigzag {i + 1}</div>
+                    <div className="relative">
+                      <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-200 rounded bg-slate-50">
+                        <path
+                          d={path}
+                          fill="none"
+                          stroke="#94a3b8"
+                          strokeWidth="3"
+                          strokeDasharray="5 5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('zigzag-lines', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Practice tracing zigzag lines</p>
+                  <p className="text-sm">Trace the dashed zigzag lines from left to right. Follow the up and down pattern carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
