@@ -12017,25 +12017,25 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="path-tracing" title="Path Tracing" emoji="✏️" description="Follow the path from start to finish. Trace along the dashed line with your pencil.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-6">
                 {paths.map((path, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Path {i + 1}</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Path {i + 1}</div>
                     <div className="relative">
-                      <svg viewBox="0 0 100 120" className="w-full h-40 border border-slate-200 rounded bg-slate-50">
+                      <svg viewBox="0 0 100 120" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
                         <path
                           d={path.d}
                           fill="none"
-                          stroke="#94a3b8"
-                          strokeWidth="3"
-                          strokeDasharray="5 5"
+                          stroke="#475569"
+                          strokeWidth="4"
+                          strokeDasharray="6 6"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
-                        <circle cx="20" cy="20" r="4" fill="#22c55e" />
-                        <text x="20" y="12" fontSize="10" fill="#22c55e" fontWeight="bold">Start</text>
-                        <circle cx="80" cy="100" r="4" fill="#ef4444" />
-                        <text x="80" y="118" fontSize="10" fill="#ef4444" fontWeight="bold">Finish</text>
+                        <circle cx="20" cy="20" r="5" fill="#22c55e" />
+                        <text x="20" y="10" fontSize="12" fill="#22c55e" fontWeight="bold">Start</text>
+                        <circle cx="80" cy="100" r="5" fill="#ef4444" />
+                        <text x="80" y="118" fontSize="12" fill="#ef4444" fontWeight="bold">Finish</text>
                       </svg>
                     </div>
                   </div>
