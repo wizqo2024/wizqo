@@ -184,7 +184,7 @@ export default function ReadingComprehensionPage() {
                 ✨ Free reading comprehension worksheets • G1-G3 passages free PDF
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Free Printable Reading Comprehension Worksheets
+                Reading Comprehension Worksheets
                 <span className="block text-purple-600">Fun passages with questions and answer keys for grades 1–3.</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">

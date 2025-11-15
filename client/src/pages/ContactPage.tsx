@@ -84,7 +84,7 @@ export function ContactPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
-            Contact Wizqo – Questions, Feedback, or <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Hobby Ideas Welcome</span>
+            Contact Wizqo
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-6">
             Got a question or suggestion? Reach out to Wizqo's team — we typically respond within 24 hours. Let's improve your hobby journey together.
