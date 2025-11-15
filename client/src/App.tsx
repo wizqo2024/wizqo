@@ -30,6 +30,7 @@ import { SEOMetaTags } from './components/SEOMetaTags';
 import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
 import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
+import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplicationWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 // (duplicate import removed)
@@ -467,10 +468,23 @@ export default function App() {
                     <SEOMetaTags 
                       title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
                       description="Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs instantly with answer keys. Practice multiplication facts, arrays, and word problems - perfect for building confidence and math fluency. No sign-up required!"
-                      keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
+                      keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2rd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
                       canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
                     />
                     <MultiplicationWorksheetsPage />
+                  </>
+                );
+              }
+              if (routeSubKey === 'times-table-multiplication-worksheets') {
+                return (
+                  <>
+                    <SEOMetaTags 
+                      title="Free Time Table Multiplication Worksheets (PDF) — Build Confidence, Speed & Math Strength | Wizqo"
+                      description="Print free time table multiplication worksheets (PDF) that boost confidence, speed, and accuracy. Fun, no-stress practice sheets for grades 1–5. Download and learn today!"
+                      keywords="times table multiplication worksheets free pdf, printable times table worksheets for kids, 1–12 multiplication table worksheets pdf, free times table practice sheets grade 1–5, multiplication drill worksheets printable, easy times table worksheets for struggling learners, fun multiplication worksheets for kids pdf, basic multiplication worksheets for beginners, multiplication worksheets with answers pdf, confidence-building multiplication worksheets pdf, stress-free times table worksheets for kids, fun and simple worksheets to make multiplication easier, no-tears times table practice sheets, gentle step-by-step multiplication worksheets, worksheets for kids who struggle with multiplication, printable worksheets to help kids overcome math fear, engaging multiplication worksheets that make learning fun, horizontal multiplication worksheets pdf, vertical multiplication worksheets printable, missing number multiplication worksheets, timed multiplication test sheets printable, multiplication color-by-number worksheets, multiplication worksheets for slow learners pdf, blank times table worksheets to fill in, memorize times tables, multiplication fluency, math fact practice, repeated addition worksheets, math confidence building"
+                      canonicalUrl="https://wizqo.com/worksheets/times-table-multiplication-worksheets"
+                    />
+                    <TimesTableMultiplicationWorksheetsPage />
                   </>
                 );
               }
