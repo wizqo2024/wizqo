@@ -7855,14 +7855,17 @@ export function PrintablesPage() {
               description="Practice times tables 1-5 in vertical format. Step-by-step multiplication worksheets designed for kids who struggle with multiplication."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Solve each multiplication problem. Write your answer in the space below the line.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white">
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white">
                     <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>× {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-10 flex items-center justify-end">
-                        <span className="inline-block w-20 h-8 border-b-[3px] border-slate-600" />
+                      <div className="mb-1">{a}</div>
+                      <div className="mb-1">× {b}</div>
+                      <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
+                        <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600" />
                       </div>
                     </div>
                   </div>
