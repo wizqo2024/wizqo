@@ -182,6 +182,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'pattern-complete',
   'missing-shape',
   'size-comparison',
+  'color-by-number',
   // New 2nd Grade worksheets
   'expanded-form-200',
   'number-patterns-200',
@@ -4453,30 +4454,93 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {activeDocs.includes('color-by-number') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🖍️ Color‑by‑Number</h2>
-            <p className="text-slate-600 text-sm mb-3">Use the legend to color the grid. Reveal the hidden scene!</p>
-            <div className="flex items-start gap-6">
-              <div className="inline-grid grid-cols-16 gap-[2px] text-[10px] font-mono">
-                {Array.from({length: 16*16}).map((_,i)=> (
-                  <div key={i} className="w-5 h-5 border border-slate-300 rounded-[2px] flex items-center justify-center bg-white">
-                    {(i*7 + i%5)%4 + 1}
-                  </div>
-                ))}
+        {activeDocs.includes('color-by-number') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          const size = 16;
+          const colorMap: Record<number, string> = {
+            1: 'Yellow',
+            2: 'Blue',
+            3: 'Green',
+            4: 'Red'
+          };
+          const colorClasses: Record<number, string> = {
+            1: 'bg-yellow-300',
+            2: 'bg-blue-300',
+            3: 'bg-green-300',
+            4: 'bg-red-300'
+          };
+          
+          // Generate a pattern (star/smiley face design)
+          const grid: number[] = Array.from({length: size * size}, () => 1); // Default: Yellow background
+          const centerX = size / 2 - 0.5;
+          const centerY = size / 2 - 0.5;
+          
+          for (let y = 0; y < size; y++) {
+            for (let x = 0; x < size; x++) {
+              const idx = y * size + x;
+              const dx = x - centerX;
+              const dy = y - centerY;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              // Create a circular pattern with star-like features
+              if (dist < 2) {
+                grid[idx] = 4; // Red center
+              } else if (dist < 4) {
+                grid[idx] = 3; // Green inner ring
+              } else if (dist < 6) {
+                grid[idx] = 2; // Blue middle ring
+              } else if (dist < 7.5) {
+                grid[idx] = 3; // Green outer ring
+              }
+              
+              // Add star points (diagonal lines)
+              const angle = Math.atan2(dy, dx);
+              const starDist = dist;
+              if (starDist > 3 && starDist < 7) {
+                const starAngle = (angle * 4) % (Math.PI * 2);
+                if (Math.abs(starAngle) < 0.3 || Math.abs(starAngle - Math.PI) < 0.3) {
+                  grid[idx] = 4; // Red star points
+                }
+              }
+            }
+          }
+          
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">🖍️ Color‑by‑Number</h2>
+              <p className="text-slate-600 text-sm mb-3">Use the legend to color the grid. Reveal the hidden scene!</p>
+              <div className="flex items-start gap-6">
+                <div className="inline-grid grid-cols-16 gap-[2px] text-[10px] font-mono">
+                  {grid.map((num, i) => {
+                    const showColored = showAnswers && activeDocs.includes('color-by-number');
+                    return (
+                      <div 
+                        key={i} 
+                        className={`w-5 h-5 border border-slate-300 rounded-[2px] flex items-center justify-center ${showColored ? colorClasses[num] : 'bg-white'}`}
+                      >
+                        {!showColored ? num : ''}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="text-xs text-slate-700">
+                  <div className="font-semibold mb-1">Legend</div>
+                  <ul className="space-y-1">
+                    {Object.entries(colorMap).map(([num, color]) => (
+                      <li key={num}>{num} = {color}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div className="text-xs text-slate-700">
-                <div className="font-semibold mb-1">Legend</div>
-                <ul className="space-y-1">
-                  <li>1 = Yellow</li>
-                  <li>2 = Blue</li>
-                  <li>3 = Green</li>
-                  <li>4 = Red</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        )}
+              {showAnswersForDoc('color-by-number', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <p className="text-sm">The colored pattern above shows the completed picture. Color each square according to the legend to reveal the hidden design!</p>
+                </div>
+              ))}
+            </section>
+          );
+        })()}
 
         {activeDocs.includes('bookmark-templates') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
