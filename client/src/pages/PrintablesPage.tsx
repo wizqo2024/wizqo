@@ -6667,38 +6667,73 @@ export function PrintablesPage() {
           </section>
         )}
 
-        {activeDocs.includes('number-line-200') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📈 Number Line to 200</h2>
-            <p className="text-slate-600 text-sm mb-3">Use the number line to solve problems and locate numbers.</p>
-            <div className="space-y-4">
-              {[0, 50, 100, 150, 200].map((start) => (
-                <svg key={start} viewBox="0 0 600 100" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="none" stroke="#111827" strokeWidth="2">
-                    <line x1="50" y1="50" x2="550" y2="50" />
-                    {Array.from({ length: 6 }).map((_, i) => {
-                      const num = start + i * 10
-                      const x = 50 + i * 100
-                      return (
-                        <g key={i}>
-                          <line x1={x} y1="50" x2={x} y2="40" />
-                          <text x={x} y="30" fontSize="16" fill="#111827" textAnchor="middle">{num}</text>
-                        </g>
-                      )
-                    })}
-                  </g>
-                  <text x="300" y="80" fontSize="18" fill="#94a3b8" textAnchor="middle">Locate: __</text>
-                </svg>
-              ))}
-            </div>
-            {showAnswersForDoc('number-line-200', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <p className="text-sm">Number lines show intervals of 10. Students can locate any number within each range.</p>
+        {activeDocs.includes('number-line-200') && (() => {
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+          
+          // Generate numbers to locate for each number line
+          const ranges = [
+            { start: 0, end: 50, label: '0-50' },
+            { start: 50, end: 100, label: '50-100' },
+            { start: 100, end: 150, label: '100-150' },
+            { start: 150, end: 200, label: '150-200' }
+          ];
+          
+          const problems = ranges.map(({ start, end }) => {
+            // Generate a number within the range (not on the endpoints)
+            const target = nextInt(start + 5, end - 5);
+            return { start, end, target };
+          });
+          
+          return (
+            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+              <h2 className="text-lg font-bold text-slate-900">📈 Number Line to 200</h2>
+              <p className="text-slate-600 text-sm mb-3">Use the number line to solve problems and locate numbers.</p>
+              <div className="space-y-4">
+                {problems.map(({ start, target }, idx) => (
+                  <div key={idx} className="bg-white border border-slate-300 rounded p-3">
+                    <svg viewBox="0 0 600 100" className="w-full h-auto">
+                      <g fill="none" stroke="#111827" strokeWidth="2">
+                        <line x1="50" y1="50" x2="550" y2="50" />
+                        {Array.from({ length: 6 }).map((_, i) => {
+                          const num = start + i * 10
+                          const x = 50 + i * 100
+                          return (
+                            <g key={i}>
+                              <line x1={x} y1="50" x2={x} y2="40" />
+                              <text x={x} y="30" fontSize="16" fill="#111827" textAnchor="middle">{num}</text>
+                            </g>
+                          )
+                        })}
+                      </g>
+                      <text x="300" y="80" fontSize="18" fill="#111827" textAnchor="middle" fontWeight="semibold">Locate: {target}</text>
+                      {showAnswers && activeDocs.includes('number-line-200') && (() => {
+                        const position = (target - start) / 10;
+                        const x = 50 + position * 100;
+                        return (
+                          <g>
+                            <circle cx={x} cy="50" r="6" fill="#3b82f6" />
+                            <text x={x} y="70" fontSize="14" fill="#3b82f6" textAnchor="middle" fontWeight="bold">{target}</text>
+                          </g>
+                        );
+                      })()}
+                    </svg>
+                  </div>
+                ))}
               </div>
-            ))}
-          </section>
-        )}
+              {showAnswersForDoc('number-line-200', () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                  <div className="font-semibold mb-1">Answer key</div>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map(({ target, start, end }, idx) => (
+                      <li key={idx}>Locate {target}: Positioned between {start} and {end} on the number line</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          );
+        })()}
 
         {activeDocs.includes('doubles-near-doubles') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
