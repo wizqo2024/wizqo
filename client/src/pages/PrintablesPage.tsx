@@ -6858,24 +6858,40 @@ export function PrintablesPage() {
             <div className="border border-slate-300 rounded p-4 bg-white">
               <p className="text-slate-700 text-sm mb-3 font-semibold">Favorite Colors</p>
               <svg viewBox="0 0 500 300" className="w-full h-auto">
+                {/* Y-axis labels */}
+                {[0, 2, 4, 6, 8, 10, 12, 14, 16].map((num) => {
+                  const y = 280 - (num * 10);
+                  return (
+                    <g key={num}>
+                      <line x1="35" y1={y} x2="40" y2={y} stroke="#111827" strokeWidth="1" />
+                      <text x="32" y={y + 4} fontSize="12" fill="#111827" textAnchor="end">{num}</text>
+                    </g>
+                  );
+                })}
+                {/* Axes */}
+                <line x1="40" y1="280" x2="360" y2="280" stroke="#111827" strokeWidth="2" />
+                <line x1="40" y1="280" x2="40" y2="100" stroke="#111827" strokeWidth="2" />
+                {/* Bars with vote counts */}
                 <g fill="#ef4444">
                   <rect x="50" y="200" width="60" height="80" />
+                  <text x="80" y="195" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">8</text>
                   <text x="80" y="295" fontSize="14" fill="#111827" textAnchor="middle">Red</text>
                 </g>
                 <g fill="#3b82f6">
                   <rect x="130" y="150" width="60" height="130" />
+                  <text x="160" y="145" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">13</text>
                   <text x="160" y="295" fontSize="14" fill="#111827" textAnchor="middle">Blue</text>
                 </g>
                 <g fill="#10b981">
                   <rect x="210" y="180" width="60" height="100" />
+                  <text x="240" y="175" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">10</text>
                   <text x="240" y="295" fontSize="14" fill="#111827" textAnchor="middle">Green</text>
                 </g>
                 <g fill="#eab308">
                   <rect x="290" y="120" width="60" height="160" />
+                  <text x="320" y="115" fontSize="14" fill="#111827" textAnchor="middle" fontWeight="bold">16</text>
                   <text x="320" y="295" fontSize="14" fill="#111827" textAnchor="middle">Yellow</text>
                 </g>
-                <line x1="40" y1="280" x2="360" y2="280" stroke="#111827" strokeWidth="2" />
-                <line x1="40" y1="280" x2="40" y2="100" stroke="#111827" strokeWidth="2" />
               </svg>
               <div className="mt-3 space-y-1">
                 <p className="text-slate-700 text-sm">1. Which color is most popular? __</p>
@@ -6887,10 +6903,14 @@ export function PrintablesPage() {
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ul className="list-disc list-inside space-y-0.5">
-                  <li>1. Yellow is most popular (tallest bar)</li>
-                  <li>2. Red: approximately 8 votes</li>
-                  <li>3. Yellow has approximately 6 more votes than Green</li>
+                  <li>1. Yellow is most popular (16 votes - tallest bar)</li>
+                  <li>2. Red: 8 votes</li>
+                  <li>3. Yellow has 6 more votes than Green (16 - 10 = 6)</li>
                 </ul>
+                <div className="mt-2 pt-2 border-t border-emerald-300 text-xs">
+                  <div className="font-semibold mb-1">All vote counts:</div>
+                  <div>Red: 8, Blue: 13, Green: 10, Yellow: 16</div>
+                </div>
               </div>
             ))}
           </section>
