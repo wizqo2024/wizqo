@@ -183,6 +183,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'missing-shape',
   'size-comparison',
   'color-by-number',
+  'cvc-words',
   // New 2nd Grade worksheets
   'expanded-form-200',
   'number-patterns-200',
@@ -8997,7 +8998,16 @@ export function PrintablesPage() {
               <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                 <div className="font-semibold mb-1">Answer key</div>
                 <ul className="list-disc list-inside space-y-0.5">
-                  <li>cat, dog, sun, hat, pen, cup</li>
+                  {[
+                    { word: 'cat', emoji: '🐱' },
+                    { word: 'dog', emoji: '🐶' },
+                    { word: 'sun', emoji: '☀️' },
+                    { word: 'hat', emoji: '🎩' },
+                    { word: 'pen', emoji: '✏️' },
+                    { word: 'cup', emoji: '☕' },
+                  ].map((item, idx) => (
+                    <li key={idx}>{item.emoji} {item.word}</li>
+                  ))}
                 </ul>
               </div>
             ))}
