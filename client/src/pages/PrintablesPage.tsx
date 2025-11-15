@@ -9008,10 +9008,12 @@ export function PrintablesPage() {
 
         {activeDocs.includes('count-color-1-10') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          const emojis = ['⭐', '🍎', '🎈', '🐱', '🚗', '🌺', '🦋', '🍪', '🎨', '🐶']
           const problems = Array.from({ length: 6 }, () => {
             const count = Math.floor(rng() * 10) + 1
             const total = 10
-            return { count, total, objects: Array.from({ length: total }, (_, i) => i) }
+            const emoji = emojis[Math.floor(rng() * emojis.length)]
+            return { count, total, emoji, objects: Array.from({ length: total }, (_, i) => i) }
           })
           return (
             <WorksheetSectionWrapper
@@ -9021,13 +9023,21 @@ export function PrintablesPage() {
               description="Count the objects and color the correct number of items."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each row below. Count the objects and color the number of items shown in the instruction.
+              </div>
+              <div className="grid grid-cols-1 gap-6">
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 text-lg font-semibold text-slate-800">Color {p.count} items</div>
-                    <div className="flex gap-1 mb-3 flex-wrap justify-center">
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-center mb-4">
+                      <div className="text-2xl font-semibold text-slate-800 mb-2">Color {p.count} {p.emoji}</div>
+                      <div className="text-sm text-slate-600">Count and color exactly {p.count} items</div>
+                    </div>
+                    <div className="flex gap-3 flex-wrap justify-center">
                       {p.objects.map((_, j) => (
-                        <div key={j} className={`w-8 h-8 rounded-full border-2 ${j < p.count ? 'border-blue-500 bg-blue-100' : 'border-slate-300 bg-slate-50'}`} />
+                        <div key={j} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-400 rounded-lg flex items-center justify-center text-3xl print:text-4xl bg-white">
+                          {p.emoji}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -9036,7 +9046,11 @@ export function PrintablesPage() {
               {showAnswersForDoc('count-color-1-10', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Color the first {problems.map(p => p.count).join(', ')} items in each row respectively.</p>
+                  <ul className="list-disc list-inside space-y-0.5">
+                    {problems.map((p, i) => (
+                      <li key={i}>Row {i + 1}: Color {p.count} {p.emoji}</li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </WorksheetSectionWrapper>
