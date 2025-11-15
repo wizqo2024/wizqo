@@ -6139,9 +6139,9 @@ export function PrintablesPage() {
                         {shape === 'circle' && <div className="w-12 h-12 rounded-full border-2 border-slate-600" />}
                         {shape === 'square' && <div className="w-12 h-12 border-2 border-slate-600" />}
                         {shape === 'triangle' && <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 border-transparent border-b-slate-600" />}
-                        {shape === 'red' && <div className="w-12 h-12 bg-red-400 rounded" />}
-                        {shape === 'blue' && <div className="w-12 h-12 bg-blue-400 rounded" />}
-                        {shape === 'green' && <div className="w-12 h-12 bg-green-400 rounded" />}
+                        {shape === 'red' && <div className="w-12 h-12 border-4 border-red-500 rounded bg-white" />}
+                        {shape === 'blue' && <div className="w-12 h-12 border-4 border-blue-500 rounded bg-white" />}
+                        {shape === 'green' && <div className="w-12 h-12 border-4 border-green-500 rounded bg-white" />}
                       </div>
                     ))}
                     <div className="w-16 h-16 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
@@ -6175,10 +6175,10 @@ export function PrintablesPage() {
                   <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                     <div className="flex items-center gap-2 mb-2">
                       {shapes.map((shape, i) => (
-                        <div key={i} className="w-12 h-12 border-2 border-slate-600 rounded flex items-center justify-center">
-                          {shape === 'circle' && <div className="w-8 h-8 rounded-full border-2 border-slate-600" />}
-                          {shape === 'square' && <div className="w-8 h-8 border-2 border-slate-600" />}
-                          {shape === 'triangle' && <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent border-b-slate-600" />}
+                        <div key={i} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-600 rounded flex items-center justify-center">
+                          {shape === 'circle' && <div className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-600" />}
+                          {shape === 'square' && <div className="w-12 h-12 print:w-16 print:h-16 border-4 border-slate-600" />}
+                          {shape === 'triangle' && <div className="w-0 h-0 border-l-6 border-r-6 border-b-12 print:border-l-8 print:border-r-8 print:border-b-16 border-transparent border-b-slate-600" />}
                         </div>
                       ))}
                       <div className="w-12 h-12 border-2 border-dashed border-slate-400 rounded flex items-center justify-center">
@@ -8884,12 +8884,15 @@ export function PrintablesPage() {
               description="Count the objects in each box. Circle the correct number."
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Count the circles in each box. Then circle the number that matches the count.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-2 mb-3 flex-wrap">
                       {p.objects.map((_, j) => (
-                        <div key={j} className="w-8 h-8 rounded-full bg-blue-500" />
+                        <div key={j} className="w-12 h-12 print:w-16 print:h-16 rounded-full border-4 border-slate-400 bg-white" />
                       ))}
                     </div>
                     <div className="flex gap-2 justify-center">
@@ -9415,7 +9418,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                           {Array.from({ length: p.left }).map((_, j) => (
-                            <div key={j} className="w-6 h-6 rounded-full bg-blue-500" />
+                            <div key={j} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
                           ))}
                         </div>
                         <p className="text-xl font-bold text-slate-900">{p.left}</p>
@@ -9424,7 +9427,7 @@ export function PrintablesPage() {
                       <div className="text-center">
                         <div className="flex gap-1 flex-wrap justify-center mb-2" style={{ width: '80px' }}>
                           {Array.from({ length: p.right }).map((_, j) => (
-                            <div key={j} className="w-6 h-6 rounded-full bg-green-500" />
+                            <div key={j} className="w-8 h-8 print:w-10 print:h-10 rounded-full border-4 border-slate-400 bg-white" />
                           ))}
                         </div>
                         <p className="text-xl font-bold text-slate-900">{p.right}</p>
@@ -9562,10 +9565,10 @@ export function PrintablesPage() {
                       </div>
                       <div className="grid grid-cols-4 gap-1 mb-2">
                         {Array.from({ length: p.total }).map((_, j) => (
-                          <div key={j} className={`aspect-square border-2 ${j < toColor ? 'bg-blue-500 border-blue-600' : 'bg-slate-100 border-slate-300'}`} />
+                          <div key={j} className={`aspect-square border-4 ${j < toColor ? 'border-blue-500 bg-white' : 'border-slate-300 bg-white'}`} />
                         ))}
                       </div>
-                      <p className="text-xs text-center text-slate-600">Color {toColor} out of {p.total} parts</p>
+                      <p className="text-xs text-center text-slate-600">Color {toColor} out of {p.total} parts (the ones with blue border)</p>
                     </div>
                   )
                 })}
