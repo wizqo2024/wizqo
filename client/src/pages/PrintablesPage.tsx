@@ -11965,20 +11965,66 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('curve-tracing') && (() => {
+          const curves = [
+            { d: 'M 20 40 Q 50 20, 80 40', label: 'Curved line up' },
+            { d: 'M 20 40 Q 50 60, 80 40', label: 'Curved line down' },
+            { d: 'M 50 20 Q 20 40, 50 60 Q 80 40, 50 20', label: 'Wave pattern' },
+            { d: 'M 50 10 Q 10 40, 50 70 Q 90 40, 50 10', label: 'Large wave' },
+            { d: 'M 20 40 Q 50 30, 80 40 Q 50 50, 20 40', label: 'Smooth curve' },
+            { d: 'M 30 40 Q 50 20, 70 40 Q 50 60, 30 40', label: 'Double curve' },
+          ];
+          const circles = [
+            { cx: 50, cy: 40, r: 25 },
+            { cx: 50, cy: 40, r: 20 },
+            { cx: 50, cy: 40, r: 30 },
+            { cx: 50, cy: 40, r: 18 },
+            { cx: 50, cy: 40, r: 28 },
+            { cx: 50, cy: 40, r: 22 },
+          ];
           return (
             <WorksheetSectionWrapper docId="curve-tracing" title="Curve Tracing" emoji="✏️" description="Trace the curves and circles.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
-                {Array.from({length: 6}, (_, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="border-2 border-dashed border-slate-400 rounded-full h-16 w-16 mx-auto flex items-center justify-center text-slate-400 text-xs">Trace curve</div>
+              <div className="grid grid-cols-1 gap-6">
+                {curves.map((curve, i) => (
+                  <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Curve {i + 1}</div>
+                    <div className="relative">
+                      <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                        <path
+                          d={curve.d}
+                          fill="none"
+                          stroke="#475569"
+                          strokeWidth="4"
+                          strokeDasharray="6 6"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                ))}
+                {circles.map((circle, i) => (
+                  <div key={`circle-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
+                    <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Circle {i + 1}</div>
+                    <div className="relative">
+                      <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
+                        <circle
+                          cx={circle.cx}
+                          cy={circle.cy}
+                          r={circle.r}
+                          fill="none"
+                          stroke="#475569"
+                          strokeWidth="4"
+                          strokeDasharray="6 6"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('curve-tracing', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Practice tracing curves and circles</p>
+                  <p className="text-sm">Trace the dashed curves and circles. Follow the curved lines carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
