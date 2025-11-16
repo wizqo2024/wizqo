@@ -8138,40 +8138,107 @@ export function PrintablesPage() {
           );
         })()}
 
-        {activeDocs.includes('mult-complex-word') && (
-          <WorksheetSectionWrapper
-            docId="mult-complex-word"
-            title="Complex Word Problems"
-            emoji="🧮"
-            description="Solve each multi-step word problem. Show all your work step by step and write your final answer in the blank space."
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
-              {[
-                'A school has 8 classrooms. Each classroom has 25 students. If each student needs 3 pencils, how many pencils are needed in all?',
-                'A factory makes 12 boxes per hour. Each box contains 24 items. If they work for 5 hours, how many items are made?',
-                'A store sells 15 packs of markers. Each pack has 8 markers. If 20 markers are sold separately, how many markers are left?',
-                'A garden has 6 rows of vegetables. Each row has 18 plants. If 3 plants in each row are tomatoes, how many non-tomato plants are there?',
-              ].map((q, i) => (
-                <li key={i}>
-                  {q}
-                  <div className="h-12 border-b border-slate-400 mt-2" />
-                </li>
-              ))}
-            </ol>
-            {showAnswersForDoc('mult-complex-word', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>8 × 25 × 3 = 600 pencils</li>
-                  <li>12 × 24 × 5 = 1,440 items</li>
-                  <li>15 × 8 - 20 = 100 markers left</li>
-                  <li>6 × (18 - 3) = 90 non-tomato plants</li>
-                </ol>
+        {activeDocs.includes('mult-complex-word') && (() => {
+          const problems = [
+            'A school has 8 classrooms. Each classroom has 25 students. If each student needs 3 pencils, how many pencils are needed in all?',
+            'A factory makes 12 boxes per hour. Each box contains 24 items. If they work for 5 hours, how many items are made?',
+            'A store sells 15 packs of markers. Each pack has 8 markers. If 20 markers are sold separately, how many markers are left?',
+            'A garden has 6 rows of vegetables. Each row has 18 plants. If 3 plants in each row are tomatoes, how many non-tomato plants are there?',
+          ];
+          const answers = [
+            { problem: problems[0], steps: ['8 × 25 = 200 students', '200 × 3 = 600 pencils'], answer: 600, unit: 'pencils' },
+            { problem: problems[1], steps: ['12 × 24 = 288 items per hour', '288 × 5 = 1,440 items'], answer: 1440, unit: 'items' },
+            { problem: problems[2], steps: ['15 × 8 = 120 markers total', '120 - 20 = 100 markers left'], answer: 100, unit: 'markers' },
+            { problem: problems[3], steps: ['18 - 3 = 15 non-tomato per row', '6 × 15 = 90 non-tomato plants'], answer: 90, unit: 'non-tomato plants' },
+          ];
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-complex-word"
+              title="Complex Word Problems"
+              emoji="🧮"
+              description="Solve each multi-step word problem. Show all your work step by step and write your final answer in the blank space."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve multi-step word problems',
+                'Break down complex problems into smaller steps',
+                'Use multiplication and other operations together'
+              ]}
+              parentTeacherTips={[
+                'These problems require multiple steps - encourage students to solve one step at a time',
+                'Help students identify what operation to use first',
+                'Check that students show all their work',
+                'Extension: Create your own multi-step problems'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 4 trays. Each tray has 12 cookies. If each cookie costs 2 cents, how much do all cookies cost?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find total cookies: 4 × 12 = 48 cookies</div>
+                    <div><strong>Step 2:</strong> Find total cost: 48 × 2 = 96 cents</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 96 cents</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break complex problems into smaller steps!</div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((q, i) => (
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{q}</div>
+                    <div className="mb-2 text-xs text-slate-600">Show your work step by step:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white mb-2" />
+                    <div className="text-xs text-slate-600">Final answer: _________________________</div>
+                  </li>
+                ))}
+              </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Write your own multi-step word problem</div>
+                  <div>2. Solve it step by step</div>
+                  <div>3. Explain your thinking to someone</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can break problems into steps</div>
+                  <div>☐ I can solve multi-step problems</div>
+                  <div>☐ I can show all my work clearly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('mult-complex-word', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {answers.map((a, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold text-sm">{i + 1}. {a.problem}</div>
+                        <div className="text-xs text-emerald-800 mt-1 space-y-1">
+                          {a.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold mt-1">Answer: {a.answer} {a.unit}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('mult-fact-fluency') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
@@ -14661,11 +14728,42 @@ export function PrintablesPage() {
             return { rows, cols, product: rows * cols };
           });
           return (
-            <WorksheetSectionWrapper docId="mult-arrays" title="Multiplication Arrays" emoji="✖️" description="Draw arrays to solve multiplication problems.">
+            <WorksheetSectionWrapper 
+              docId="mult-arrays" 
+              title="Multiplication Arrays" 
+              emoji="✖️" 
+              description="Draw arrays to solve multiplication problems."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Use arrays to visualize multiplication',
+                'Understand that arrays show rows × columns = total',
+                'Draw arrays to solve multiplication problems'
+              ]}
+              parentTeacherTips={[
+                'Arrays help students see multiplication visually',
+                'Rows go across (horizontal), columns go down (vertical)',
+                'Encourage students to count the total squares',
+                'Extension: Create arrays for larger numbers'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw 3 rows (across)</div>
+                    <div><strong>Step 2:</strong> Draw 4 columns (down) in each row</div>
+                    <div><strong>Step 3:</strong> Count all the squares: 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 × 4 = 12</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Arrays show multiplication visually - rows × columns = total!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3 font-semibold text-lg">{p.rows} × {p.cols} = ____</div>
                     <div className="mb-2">
                       <p className="text-center text-sm text-slate-600 mb-2">Draw array:</p>
@@ -14727,16 +14825,41 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw an array for 5 × 6 on graph paper</div>
+                  <div>2. Create your own array problem</div>
+                  <div>3. Explain how arrays help you understand multiplication</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can draw arrays correctly</div>
+                  <div>☐ I understand rows × columns = total</div>
+                  <div>☐ I can use arrays to solve multiplication</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-arrays', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
                     {problems.map((p, i) => (
-                      <li key={i}>
-                        {p.rows} × {p.cols} = {p.product} ({p.rows} rows × {p.cols} columns = {p.product} total)
-                      </li>
+                      <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                        <div className="font-semibold text-sm">{i + 1}. {p.rows} × {p.cols} = {p.product}</div>
+                        <div className="text-xs text-emerald-800 mt-1">{p.rows} rows × {p.cols} columns = {p.product} total squares</div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15139,21 +15262,84 @@ export function PrintablesPage() {
             return { num, divisor, answer: num / divisor };
           });
           return (
-            <WorksheetSectionWrapper docId="div-by-10-100" title="Dividing by 10, 100" emoji="➗" description="Divide each number by 10 or 100.">
+            <WorksheetSectionWrapper 
+              docId="div-by-10-100" 
+              title="Dividing by 10, 100" 
+              emoji="➗" 
+              description="Divide each number by 10 or 100."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Divide numbers by 10 and 100',
+                'Understand place value when dividing by powers of 10',
+                'Use patterns to solve division problems quickly'
+              ]}
+              parentTeacherTips={[
+                'Dividing by 10 moves the decimal point one place left',
+                'Dividing by 100 moves the decimal point two places left',
+                'For whole numbers, removing zeros is a quick strategy',
+                'Extension: Try dividing by 1,000'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 50 ÷ 10 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1:</strong> Remove one zero: 50 ÷ 10 = 5</div>
+                    <div><strong>Method 2:</strong> Move decimal point: 50.0 → 5.0 = 5</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Dividing by 10 removes one zero or moves decimal one place left!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">{p.num} ÷ {p.divisor} = ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.num} ÷ {p.divisor} = ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Solve: 1,000 ÷ 10 = ? and 1,000 ÷ 100 = ?</div>
+                  <div>2. Create your own division by 10 or 100 problem</div>
+                  <div>3. Explain the pattern you notice</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can divide by 10 correctly</div>
+                  <div>☐ I can divide by 100 correctly</div>
+                  <div>☐ I understand the pattern</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('div-by-10-100', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.num} ÷ {p.divisor} = {p.answer}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {p.num} ÷ {p.divisor} = {p.answer}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! Remember: dividing by 10 removes one zero, dividing by 100 removes two zeros!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
