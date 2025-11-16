@@ -8225,7 +8225,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment */}
-              <div className="print:block hidden mt-6 p-4 border-2 border-slate-300 rounded">
+              <div className="print:block hidden print:page-break-before-always print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded">
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I can multiply numbers 1-5 easily</div>
