@@ -5,5 +5,11 @@ Allow: /
 User-agent: Slurp
 Allow: /
 
-User-agent: *
+# Explicitly allow Bing's crawlers
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
 Sitemap: https://wizqo.com/sitemap.xml
