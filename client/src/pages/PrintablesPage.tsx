@@ -15475,22 +15475,90 @@ export function PrintablesPage() {
             { type: 'intersecting', desc: 'Lines that share a point' },
           ];
           return (
-            <WorksheetSectionWrapper docId="lines-angles-4th" title="Lines & Angles" emoji="📐" description="Identify parallel, perpendicular, and intersecting lines.">
+            <WorksheetSectionWrapper 
+              docId="lines-angles-4th" 
+              title="Lines & Angles" 
+              emoji="📐" 
+              description="Identify parallel, perpendicular, and intersecting lines."
+              problemCount={lines.length}
+              learningObjectives={[
+                'Identify parallel lines',
+                'Identify perpendicular lines',
+                'Identify intersecting lines',
+                'Understand line relationships'
+              ]}
+              parentTeacherTips={[
+                'Parallel: lines that never meet, same distance apart',
+                'Perpendicular: lines that meet at 90° (right angle)',
+                'Intersecting: lines that cross at any angle',
+                'Look for key words: never meet, right angle, cross',
+                'Extension: Identify angles formed by intersecting lines'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Two lines that meet at 90°</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Key phrase: "meet at 90°"</div>
+                    <div><strong>Step 2:</strong> 90° means a right angle</div>
+                    <div><strong>Step 3:</strong> Lines that meet at right angles are perpendicular</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Perpendicular</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words: 90°, right angle, never meet, cross!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {lines.map((l, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 text-sm">{l.desc}</div>
-                    <div className="text-center text-sm text-slate-600">Type: ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 text-sm font-semibold">{l.desc}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw two parallel lines</div>
+                  <div>2. Draw two perpendicular lines</div>
+                  <div>3. Explain the difference between parallel and perpendicular lines</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify parallel lines</div>
+                  <div>☐ I can identify perpendicular lines</div>
+                  <div>☐ I can identify intersecting lines</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {lines.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('lines-angles-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {lines.map((l, i) => (<li key={i}>{l.desc} = {l.type}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {lines.map((l, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {l.desc}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Key phrase: "{l.desc}"</div>
+                          <div>Analysis: {l.type === 'parallel' ? 'Never meet = parallel' : l.type === 'perpendicular' ? 'Meet at 90° = perpendicular' : 'Cross = intersecting'}</div>
+                          <div className="font-semibold">Answer: {l.type}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15500,27 +15568,104 @@ export function PrintablesPage() {
         {activeDocs.includes('symmetry-transformations') && (() => {
           const shapes = ['square', 'circle', 'rectangle', 'triangle', 'hexagon', 'star'];
           return (
-            <WorksheetSectionWrapper docId="symmetry-transformations" title="Symmetry & Transformations" emoji="📐" description="Find lines of symmetry and identify transformations.">
+            <WorksheetSectionWrapper 
+              docId="symmetry-transformations" 
+              title="Symmetry & Transformations" 
+              emoji="📐" 
+              description="Find lines of symmetry and identify transformations."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify lines of symmetry in shapes',
+                'Count lines of symmetry',
+                'Understand symmetry concepts',
+                'Apply symmetry to different shapes'
+              ]}
+              parentTeacherTips={[
+                'Line of symmetry: fold shape in half and both sides match',
+                'Regular shapes have more lines of symmetry',
+                'Circle has infinite lines of symmetry',
+                'Count how many ways you can fold the shape',
+                'Extension: Find symmetry in real-world objects'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Square - Lines of symmetry</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw a square</div>
+                    <div><strong>Step 2:</strong> Find lines that divide it into matching halves</div>
+                    <div><strong>Step 3:</strong> Count: 2 diagonal lines + 2 lines through midpoints = 4 lines</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A line of symmetry divides a shape into two identical halves!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Lines of symmetry: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Lines of symmetry: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('symmetry-transformations', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => {
-                      const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
-                      return <li key={i}>{s}: {lines} lines of symmetry</li>;
-                    })}
-                  </ul>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a shape with exactly 2 lines of symmetry</div>
+                  <div>2. Find an object in your home with symmetry</div>
+                  <div>3. Explain why a circle has infinite lines of symmetry</div>
                 </div>
-              ))}
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify lines of symmetry</div>
+                  <div>☐ I can count lines of symmetry</div>
+                  <div>☐ I understand symmetry concepts</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {shapes.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('symmetry-transformations', () => {
+                const symmetryCounts: { [key: string]: string } = {
+                  square: '4 lines',
+                  circle: 'infinite',
+                  rectangle: '2 lines',
+                  triangle: '3 lines (if equilateral)',
+                  hexagon: '6 lines',
+                  star: '5 lines'
+                };
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                    <div className="space-y-3">
+                      {shapes.map((s, i) => {
+                        const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
+                        return (
+                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                            <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
+                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                              <div>Analysis: {s === 'circle' ? 'A circle has infinite lines of symmetry (any line through the center)' : `A ${s} has ${lines} lines of symmetry`}</div>
+                              <div className="font-semibold">Answer: {lines} lines of symmetry</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
