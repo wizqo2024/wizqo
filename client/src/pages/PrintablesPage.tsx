@@ -11123,12 +11123,50 @@ export function PrintablesPage() {
 
         {activeDocs.includes('classifying-shapes') && (() => {
           const shapes = ['triangle', 'square', 'rectangle', 'pentagon', 'hexagon', 'octagon'];
+          const renderPolygon = (name: string) => {
+            const sidesMap: { [key: string]: number } = {
+              triangle: 3,
+              square: 4,
+              rectangle: 4,
+              pentagon: 5,
+              hexagon: 6,
+              octagon: 8,
+            };
+            const sides = sidesMap[name] || 4;
+            const centerX = 50;
+            const centerY = 50;
+            const radius = 35;
+            const points: string[] = [];
+            
+            for (let i = 0; i < sides; i++) {
+              const angle = (Math.PI * 2 * i) / sides - Math.PI / 2;
+              const x = centerX + radius * Math.cos(angle);
+              const y = centerY + radius * Math.sin(angle);
+              points.push(`${x},${y}`);
+            }
+            
+            // Special handling for rectangle (make it look rectangular)
+            if (name === 'rectangle') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            }
+            
+            return (
+              <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="classifying-shapes" title="Classifying 2D & 3D Shapes" emoji="📐" description="Identify and classify each shape.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderPolygon(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
                     <div className="text-center text-sm text-slate-600">Sides: ____</div>
                   </div>
