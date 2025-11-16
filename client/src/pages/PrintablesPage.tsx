@@ -138,7 +138,7 @@ function LearningObjectives({ objectives }: { objectives: string[] }) {
 // Parent/Teacher tips component
 function ParentTeacherTips({ tips }: { tips: string[] }) {
   return (
-    <div className="print:block hidden mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
+    <div className="print:block hidden print:mt-0 mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
       <div className="font-semibold text-yellow-900 mb-2">💡 Tips for Parents/Teachers:</div>
       <ul className="space-y-1 text-yellow-800 list-disc list-inside">
         {tips.map((tip, i) => (
@@ -184,7 +184,12 @@ function WorksheetSectionWrapper({
         {description && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{description}</p>}
         {learningObjectives && <LearningObjectives objectives={learningObjectives} />}
         {children}
-        {parentTeacherTips && <ParentTeacherTips tips={parentTeacherTips} />}
+        {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
+        {parentTeacherTips && (
+          <div className="print:page-break-before-avoid">
+            <ParentTeacherTips tips={parentTeacherTips} />
+          </div>
+        )}
       </div>
     </section>
   )
@@ -8224,7 +8229,7 @@ export function PrintablesPage() {
                   <div>4. Time yourself: Can you complete all 15 problems in under 2 minutes?</div>
                 </div>
               </div>
-              {/* Self-Assessment */}
+              {/* Self-Assessment - Will appear on page 2 with Parent/Teacher Tips */}
               <div className="print:block hidden print:page-break-before-always print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded">
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
                 <div className="space-y-2 text-xs">
