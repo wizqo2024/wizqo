@@ -227,6 +227,19 @@ export default function WorksheetsSecondGradePage() {
           </div>
         </section>
 
+        {/* Related links */}
+        <section className="bg-white border border-slate-200 rounded-2xl p-5">
+          <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+          <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
+            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Printable</a></li>
+            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">Multiplication Worksheets – Free PDF</a></li>
+            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a></li>
+            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+          </ul>
+        </section>
+
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
