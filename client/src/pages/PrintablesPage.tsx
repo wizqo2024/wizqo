@@ -13953,26 +13953,90 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="classifying-shapes" title="Classifying 2D & 3D Shapes" emoji="📐" description="Identify and classify each shape.">
+            <WorksheetSectionWrapper 
+              docId="classifying-shapes" 
+              title="Classifying 2D & 3D Shapes" 
+              emoji="📐" 
+              description="Identify and classify each shape."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify 2D shapes by number of sides',
+                'Count sides of polygons',
+                'Classify shapes correctly'
+              ]}
+              parentTeacherTips={[
+                'Triangle = 3 sides, Square = 4 sides, Pentagon = 5 sides',
+                'Hexagon = 6 sides, Octagon = 8 sides',
+                'Count the sides carefully',
+                'Extension: Identify 3D shapes (cube, sphere, cylinder, etc.)'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Shape:</strong> Pentagon</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
+                    <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the sides to identify the shape!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Sides: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Sides: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Count the sides:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a shape with 7 sides (heptagon)</div>
+                  <div>2. Find examples of each shape in your environment</div>
+                  <div>3. Create your own shape classification chart</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify shapes by counting sides</div>
+                  <div>☐ I remember the names of polygons</div>
+                  <div>☐ I can classify shapes correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {shapes.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('classifying-shapes', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
                     {shapes.map((s, i) => {
                       const sides = { triangle: 3, square: 4, rectangle: 4, pentagon: 5, hexagon: 6, octagon: 8 }[s];
-                      return <li key={i}>{s}: {sides} sides</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Count the sides: {sides} sides</div>
+                            <div className="font-semibold">Answer: {sides} sides</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13987,21 +14051,89 @@ export function PrintablesPage() {
             return { feet, inches: feet * 12 };
           });
           return (
-            <WorksheetSectionWrapper docId="customary-conversion" title="Customary Units Conversion" emoji="📏" description="Convert between inches, feet, and yards.">
+            <WorksheetSectionWrapper 
+              docId="customary-conversion" 
+              title="Customary Units Conversion" 
+              emoji="📏" 
+              description="Convert between inches, feet, and yards."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between inches, feet, and yards',
+                'Understand customary measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 foot = 12 inches, 1 yard = 3 feet = 36 inches',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all customary units'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 feet = ____ inches</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
+                    <div><strong>Step 2:</strong> Multiply: 2 feet × 12 inches/foot = 24 inches</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 inches</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 foot = 12 inches, so multiply by 12!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 yard = 3 feet, 1 foot = 12 inches
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.feet} feet = ____ inches</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 3 yards = ____ feet = ____ inches</div>
+                  <div>2. How many inches are in 2.5 feet?</div>
+                  <div>3. Create your own customary conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between customary units</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('customary-conversion', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.feet} feet = {p.inches} inches</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 foot = 12 inches</div>
+                          <div>Step 2: {p.feet} feet × 12 inches/foot = {p.inches} inches</div>
+                          <div className="font-semibold">Answer: {p.inches} inches</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14748,30 +14880,96 @@ export function PrintablesPage() {
 
         {activeDocs.includes('patterns-rules') && (() => {
           const patterns = [
-            { seq: [2, 4, 6, 8, '__', 12], rule: 'Add 2' },
-            { seq: [5, 10, 15, 20, '__', 30], rule: 'Add 5' },
-            { seq: [1, 4, 9, 16, '__', 36], rule: 'Square numbers' },
-            { seq: [3, 6, 9, 12, '__', 18], rule: 'Add 3' },
-            { seq: [10, 20, 30, 40, '__', 60], rule: 'Add 10' },
-            { seq: [1, 3, 5, 7, '__', 11], rule: 'Add 2 (odd numbers)' },
+            { seq: [2, 4, 6, 8, '__', 12], rule: 'Add 2', missing: 10 },
+            { seq: [5, 10, 15, 20, '__', 30], rule: 'Add 5', missing: 25 },
+            { seq: [1, 4, 9, 16, '__', 36], rule: 'Square numbers', missing: 25 },
+            { seq: [3, 6, 9, 12, '__', 18], rule: 'Add 3', missing: 15 },
+            { seq: [10, 20, 30, 40, '__', 60], rule: 'Add 10', missing: 50 },
+            { seq: [1, 3, 5, 7, '__', 11], rule: 'Add 2 (odd numbers)', missing: 9 },
           ];
           return (
-            <WorksheetSectionWrapper docId="patterns-rules" title="Patterns & Rules" emoji="📐" description="Find the missing number and write the rule.">
+            <WorksheetSectionWrapper 
+              docId="patterns-rules" 
+              title="Patterns & Rules" 
+              emoji="📐" 
+              description="Find the missing number and write the rule."
+              problemCount={patterns.length}
+              learningObjectives={[
+                'Identify patterns in number sequences',
+                'Find missing numbers in patterns',
+                'Describe the rule for each pattern'
+              ]}
+              parentTeacherTips={[
+                'Look at the difference between consecutive numbers',
+                'Check if numbers are being added, multiplied, or squared',
+                'Test your rule by applying it to other numbers in the sequence',
+                'Extension: Create your own patterns'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Pattern:</strong> 3, 6, 9, 12, ___, 18</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the difference: 6 - 3 = 3, 9 - 6 = 3, 12 - 9 = 3</div>
+                    <div><strong>Step 2:</strong> The pattern is: Add 3 each time</div>
+                    <div><strong>Step 3:</strong> Missing number: 12 + 3 = 15</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Missing = 15, Rule = Add 3</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the difference between numbers to find the rule!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">{p.seq.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600">Rule: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Missing: ____ Rule: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the pattern: 2, 6, 18, 54, ___ (hint: multiply!)</div>
+                  <div>2. Create your own pattern and have someone solve it</div>
+                  <div>3. Explain how you found the rule</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify patterns</div>
+                  <div>☐ I can find missing numbers</div>
+                  <div>☐ I can describe the rule</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {patterns.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('patterns-rules', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {patterns.map((p, i) => (<li key={i}>{p.seq.join(', ')}: Rule = {p.rule}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {patterns.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.seq.join(', ')}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Missing number: {p.missing}</div>
+                          <div>Rule: {p.rule}</div>
+                          <div className="font-semibold">Answer: Missing = {p.missing}, Rule = {p.rule}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14811,23 +15009,91 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="coordinate-graphing" title="Coordinate Graphing" emoji="📐" description="Plot each point on the coordinate plane.">
+            <WorksheetSectionWrapper 
+              docId="coordinate-graphing" 
+              title="Coordinate Graphing" 
+              emoji="📐" 
+              description="Plot each point on the coordinate plane."
+              problemCount={points.length}
+              learningObjectives={[
+                'Plot points on a coordinate plane',
+                'Understand ordered pairs (x, y)',
+                'Use x-axis (horizontal) and y-axis (vertical) correctly'
+              ]}
+              parentTeacherTips={[
+                'Ordered pair (x, y): x = move right, y = move up',
+                'Start at origin (0, 0)',
+                'Move right for x, then up for y',
+                'Extension: Connect points to make shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Point:</strong> (3, 2)</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Start at origin (0, 0)</div>
+                    <div><strong>Step 2:</strong> Move right 3 units (x = 3)</div>
+                    <div><strong>Step 3:</strong> Move up 2 units (y = 2)</div>
+                    <div><strong>Step 4:</strong> Mark the point!</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point plotted at (3, 2)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: (x, y) = (right, up)!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {points.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderCoordinateGrid(p)}
                     <div className="text-center mb-2 font-mono">({p.x}, {p.y})</div>
-                    <div className="text-center text-sm text-slate-600">Plot on grid: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Plot on grid: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your steps:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Plot (0, 5) and (5, 0) - what's special about these?</div>
+                  <div>2. Connect points to make a shape</div>
+                  <div>3. Create your own coordinate graphing problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can plot points on a coordinate plane</div>
+                  <div>☐ I understand ordered pairs (x, y)</div>
+                  <div>☐ I can use x and y axes correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {points.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('coordinate-graphing', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {points.map((p, i) => (<li key={i}>({p.x}, {p.y}): Move right {p.x}, up {p.y}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {points.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. ({p.x}, {p.y})</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Start at (0, 0)</div>
+                          <div>Step 2: Move right {p.x} units</div>
+                          <div>Step 3: Move up {p.y} units</div>
+                          <div className="font-semibold">Answer: Point at ({p.x}, {p.y})</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15133,23 +15399,87 @@ export function PrintablesPage() {
             { item: 'Grapes', count: 10 },
           ];
           return (
-            <WorksheetSectionWrapper docId="bar-graphs-pictographs" title="Bar Graphs & Pictographs" emoji="📊" description="Create a bar graph from the data.">
+            <WorksheetSectionWrapper 
+              docId="bar-graphs-pictographs" 
+              title="Bar Graphs & Pictographs" 
+              emoji="📊" 
+              description="Create a bar graph from the data."
+              problemCount={1}
+              learningObjectives={[
+                'Create bar graphs from data',
+                'Understand how to represent data visually',
+                'Read and interpret bar graphs'
+              ]}
+              parentTeacherTips={[
+                'Bar graphs use bars to show quantities',
+                'Each bar represents one category',
+                'The height of the bar shows the value',
+                'Extension: Create pictographs (using pictures instead of bars)'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
-                <div className="border border-slate-300 rounded-lg p-4 bg-white">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Data:</strong> Red: 5, Blue: 3, Green: 7</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw a bar for each color</div>
+                    <div><strong>Step 2:</strong> Red bar = 5 units tall, Blue = 3 units, Green = 7 units</div>
+                    <div><strong>Step 3:</strong> Label each bar with its color</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Bar graph with 3 bars showing the values</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Each bar's height shows the value!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                   <div className="mb-2 font-semibold">Fruit Sales</div>
                   {data.map((d, i) => (
                     <div key={i} className="text-sm mb-1">{d.item}: {d.count}</div>
                   ))}
-                  <div className="text-sm text-slate-600 mt-2">Create bar graph: ____</div>
+                  <div className="text-sm text-slate-600 mt-2 mb-2">Create bar graph:</div>
+                  <div className="min-h-40 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                </div>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create a bar graph for: Dogs: 12, Cats: 8, Birds: 5</div>
+                  <div>2. Create a pictograph using pictures instead of bars</div>
+                  <div>3. Collect your own data and create a bar graph</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can create a bar graph</div>
+                  <div>☐ I can read data from a bar graph</div>
+                  <div>☐ I understand how bar graphs work</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / 1
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('bar-graphs-pictographs', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {data.map((d, i) => (<li key={i}>{d.item}: {d.count} units on bar graph</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Fruit Sales Bar Graph</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        {data.map((d, i) => (
+                          <div key={i}>{d.item}: Bar height = {d.count} units</div>
+                        ))}
+                        <div className="mt-2">The bar graph should show 4 bars with heights matching the counts above.</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15452,22 +15782,85 @@ export function PrintablesPage() {
         {activeDocs.includes('stem-leaf-plots') && (() => {
           const data = [12, 15, 18, 21, 23, 25, 28, 31, 34];
           return (
-            <WorksheetSectionWrapper docId="stem-leaf-plots" title="Stem-and-Leaf Plots" emoji="📊" description="Create a stem-and-leaf plot from the data.">
+            <WorksheetSectionWrapper 
+              docId="stem-leaf-plots" 
+              title="Stem-and-Leaf Plots" 
+              emoji="📊" 
+              description="Create a stem-and-leaf plot from the data."
+              problemCount={1}
+              learningObjectives={[
+                'Create stem-and-leaf plots from data',
+                'Understand how stem-and-leaf plots organize data',
+                'Read and interpret stem-and-leaf plots'
+              ]}
+              parentTeacherTips={[
+                'Stem = tens digit, Leaf = ones digit',
+                'Group numbers by their tens digit (stem)',
+                'List ones digits (leaves) next to each stem',
+                'Extension: Use stem-and-leaf plots to find median and range'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
-                <div className="border border-slate-300 rounded-lg p-4 bg-white">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Data:</strong> 23, 25, 27, 31, 34</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Stem 2 (20s): Leaves 3, 5, 7</div>
+                    <div><strong>Step 2:</strong> Stem 3 (30s): Leaves 1, 4</div>
+                    <div><strong>Step 3:</strong> Write: Stem 2 | 3 5 7, Stem 3 | 1 4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Stem-and-leaf plot organized by tens</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Stem = tens, Leaf = ones!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                   <div className="mb-2 font-semibold">Data: {data.join(', ')}</div>
-                  <div className="text-sm text-slate-600">Create stem-and-leaf plot: ____</div>
+                  <div className="text-sm text-slate-600 mb-2">Create stem-and-leaf plot:</div>
+                  <div className="mt-2 text-xs text-slate-600">Draw your stem-and-leaf plot here:</div>
+                  <div className="min-h-40 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                </div>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create a stem-and-leaf plot for: 15, 18, 22, 24, 27, 30</div>
+                  <div>2. Use your plot to find the median</div>
+                  <div>3. Explain how stem-and-leaf plots help organize data</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can create a stem-and-leaf plot</div>
+                  <div>☐ I understand stems and leaves</div>
+                  <div>☐ I can read data from the plot</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / 1
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('stem-leaf-plots', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    <li>Stem 1: 2, 5, 8</li>
-                    <li>Stem 2: 1, 3, 5, 8</li>
-                    <li>Stem 3: 1, 4</li>
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Data: {data.join(', ')}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Stem 1 | 2 5 8 (represents 12, 15, 18)</div>
+                        <div>Stem 2 | 1 3 5 8 (represents 21, 23, 25, 28)</div>
+                        <div>Stem 3 | 1 4 (represents 31, 34)</div>
+                        <div className="mt-2">The stem-and-leaf plot organizes the data by tens digit.</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15476,30 +15869,95 @@ export function PrintablesPage() {
 
         {activeDocs.includes('probability') && (() => {
           const scenarios = [
-            { event: 'Rolling a 6 on a die', prob: '1/6' },
-            { event: 'Flipping heads on a coin', prob: '1/2' },
-            { event: 'Picking a red marble from 4 red, 2 blue', prob: '4/6 = 2/3' },
-            { event: 'Rolling an even number on a die', prob: '3/6 = 1/2' },
-            { event: 'Picking a blue marble from 3 red, 5 blue', prob: '5/8' },
-            { event: 'Flipping tails on a coin', prob: '1/2' },
+            { event: 'Rolling a 6 on a die', prob: '1/6', explanation: '1 favorable outcome out of 6 total' },
+            { event: 'Flipping heads on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
+            { event: 'Picking a red marble from 4 red, 2 blue', prob: '4/6 = 2/3', explanation: '4 red out of 6 total marbles' },
+            { event: 'Rolling an even number on a die', prob: '3/6 = 1/2', explanation: '3 even numbers (2, 4, 6) out of 6 total' },
+            { event: 'Picking a blue marble from 3 red, 5 blue', prob: '5/8', explanation: '5 blue out of 8 total marbles' },
+            { event: 'Flipping tails on a coin', prob: '1/2', explanation: '1 favorable outcome out of 2 total' },
           ];
           return (
-            <WorksheetSectionWrapper docId="probability" title="Probability" emoji="📊" description="Find the probability of each event.">
+            <WorksheetSectionWrapper 
+              docId="probability" 
+              title="Probability" 
+              emoji="📊" 
+              description="Find the probability of each event."
+              problemCount={scenarios.length}
+              learningObjectives={[
+                'Calculate probability of events',
+                'Understand probability as favorable outcomes / total outcomes',
+                'Express probability as fractions'
+              ]}
+              parentTeacherTips={[
+                'Probability = favorable outcomes ÷ total outcomes',
+                'Write as a fraction (e.g., 1/6, 1/2)',
+                'Simplify fractions when possible',
+                'Extension: Calculate probability for compound events'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Event:</strong> Rolling a 3 on a die</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Favorable outcomes: 1 (only 3)</div>
+                    <div><strong>Step 2:</strong> Total outcomes: 6 (numbers 1-6)</div>
+                    <div><strong>Step 3:</strong> Probability = 1/6</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/6</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Probability = favorable ÷ total!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {scenarios.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2 text-sm">{s.event}</div>
-                    <div className="text-center text-sm text-slate-600">Probability: ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 text-sm font-semibold">{s.event}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Probability: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. What's the probability of rolling a number greater than 4 on a die?</div>
+                  <div>2. Create your own probability problem</div>
+                  <div>3. Explain why probability is always between 0 and 1</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can calculate probability</div>
+                  <div>☐ I understand favorable vs total outcomes</div>
+                  <div>☐ I can write probability as fractions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {scenarios.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('probability', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {scenarios.map((s, i) => (<li key={i}>{s.event} = {s.prob}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {scenarios.map((s, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {s.event}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>{s.explanation}</div>
+                          <div className="font-semibold">Answer: {s.prob}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17722,23 +18180,88 @@ export function PrintablesPage() {
             }
           };
           return (
-            <WorksheetSectionWrapper docId="lines-rays-angles" title="Lines, Rays, and Angles" emoji="📐" description="Identify lines, line segments, rays, and angles.">
+            <WorksheetSectionWrapper 
+              docId="lines-rays-angles" 
+              title="Lines, Rays, and Angles" 
+              emoji="📐" 
+              description="Identify lines, line segments, rays, and angles."
+              problemCount={items.length}
+              learningObjectives={[
+                'Identify lines, line segments, rays, and angles',
+                'Understand the differences between these geometric terms',
+                'Recognize geometric figures visually'
+              ]}
+              parentTeacherTips={[
+                'Line: Goes on forever in both directions',
+                'Line segment: Has two endpoints',
+                'Ray: Has one endpoint, goes on forever in one direction',
+                'Angle: Formed by two rays sharing an endpoint',
+                'Extension: Measure angles with a protractor'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Figure:</strong> A straight path with two endpoints</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Does it have endpoints? Yes, two endpoints</div>
+                    <div><strong>Step 2:</strong> Does it go on forever? No, it stops at endpoints</div>
+                    <div><strong>Step 3:</strong> This is a line segment</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Line segment</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count endpoints to identify the figure!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {items.map((i, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderGeometric(i.type)}
                     <div className="text-center mb-2 text-sm">{i.desc}</div>
-                    <div className="text-center text-sm text-slate-600">Name: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Name: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Explain:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a line, a ray, and a line segment</div>
+                  <div>2. Find examples of each in your environment</div>
+                  <div>3. Explain the difference between a ray and a line</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify lines and line segments</div>
+                  <div>☐ I can identify rays</div>
+                  <div>☐ I can identify angles</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {items.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('lines-rays-angles', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {items.map((i, idx) => (<li key={idx}>{i.desc} = {i.name}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    {items.map((i, idx) => (
+                      <div key={idx} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{idx + 1}. {i.desc}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div className="font-semibold">Answer: {i.name}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17805,26 +18328,92 @@ export function PrintablesPage() {
             }
           };
           return (
-            <WorksheetSectionWrapper docId="symmetry" title="Symmetry" emoji="📐" description="Find lines of symmetry. Draw the other half.">
+            <WorksheetSectionWrapper 
+              docId="symmetry" 
+              title="Symmetry" 
+              emoji="📐" 
+              description="Find lines of symmetry. Draw the other half."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify lines of symmetry in shapes',
+                'Understand that a line of symmetry divides a shape into mirror images',
+                'Count lines of symmetry correctly'
+              ]}
+              parentTeacherTips={[
+                'A line of symmetry divides a shape into two identical halves',
+                'Fold the shape along the line - both sides match',
+                'Some shapes have multiple lines of symmetry',
+                'Extension: Draw lines of symmetry on real objects'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Shape:</strong> Square</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw a line down the middle - both sides match</div>
+                    <div><strong>Step 2:</strong> Draw a line across the middle - both sides match</div>
+                    <div><strong>Step 3:</strong> Draw diagonal lines - both sides match</div>
+                    <div><strong>Step 4:</strong> Count all lines: 4 lines of symmetry</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4 lines of symmetry</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A line of symmetry makes both sides match!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Lines of symmetry: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Lines of symmetry: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Draw the lines:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find shapes in your environment with symmetry</div>
+                  <div>2. Draw your own shape and find its lines of symmetry</div>
+                  <div>3. Explain why a circle has infinite lines of symmetry</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify lines of symmetry</div>
+                  <div>☐ I understand what symmetry means</div>
+                  <div>☐ I can count lines of symmetry</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {shapes.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('symmetry', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
                     {shapes.map((s, i) => {
                       const lines = { square: 4, circle: 'infinite', rectangle: 2, triangle: 3, hexagon: 6, star: 5 }[s];
-                      return <li key={i}>{s}: {lines} lines of symmetry</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Draw lines that divide the shape into matching halves</div>
+                            <div className="font-semibold">Answer: {lines} lines of symmetry</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17862,23 +18451,92 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="time-to-minute" title="Time to the Minute" emoji="🕒" description="Read and write time to the nearest minute.">
+            <WorksheetSectionWrapper 
+              docId="time-to-minute" 
+              title="Time to the Minute" 
+              emoji="🕒" 
+              description="Read and write time to the nearest minute."
+              problemCount={times.length}
+              learningObjectives={[
+                'Read time on analog clocks to the minute',
+                'Understand hour and minute hands',
+                'Write time in digital format'
+              ]}
+              parentTeacherTips={[
+                'Hour hand points to the hour (or between hours)',
+                'Minute hand points to minutes (each number = 5 minutes)',
+                'Practice reading clocks regularly',
+                'Extension: Read time on different types of clocks'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Hour hand: between 3 and 4 (it's 3 o'clock)</div>
+                    <div><strong>Step 2:</strong> Minute hand: pointing at 5 (5 × 5 = 25 minutes)</div>
+                    <div><strong>Step 3:</strong> The time is 3:25</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3:25</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Hour hand = hour, minute hand = minutes!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {times.map((t, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderClock(t)}
                     <div className="text-center text-xl font-mono mb-2">{t}</div>
-                    <div className="text-center text-sm text-slate-600">Draw clock: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Draw clock hands: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your thinking:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. What time is it on your clock right now?</div>
+                  <div>2. Draw a clock showing 7:45</div>
+                  <div>3. Explain how to read time on an analog clock</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can read time on analog clocks</div>
+                  <div>☐ I understand hour and minute hands</div>
+                  <div>☐ I can write time correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {times.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('time-to-minute', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {times.map((t, i) => (<li key={i}>{t}: Draw clock showing this time</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    {times.map((t, i) => {
+                      const [hours, minutes] = t.split(':').map(Number);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {t}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Hour hand: {hours} o'clock</div>
+                            <div>Minute hand: {minutes} minutes (pointing at {minutes / 5})</div>
+                            <div className="font-semibold">Answer: Clock showing {t}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -18071,35 +18729,97 @@ export function PrintablesPage() {
 
         {activeDocs.includes('multi-step-word-problems') && (() => {
           const problems = [
-            'Emma has 24 stickers. She gives away 8 stickers. Then she buys 12 more. How many stickers does she have now?',
-            'A store has 45 apples. They sell 15 apples in the morning and 18 apples in the afternoon. How many apples are left?',
-            'Jake reads 3 books. Each book has 8 chapters. How many chapters did he read in all?',
-            'There are 5 boxes. Each box has 6 toys. If 8 toys are broken, how many toys are still good?',
-            'Sarah saves $5 each week for 4 weeks. Then she spends $12. How much money does she have left?',
-            'A classroom has 30 students. 12 students are boys. How many students are girls?',
+            { text: 'Emma has 24 stickers. She gives away 8 stickers. Then she buys 12 more. How many stickers does she have now?', steps: ['24 - 8 = 16', '16 + 12 = 28'], answer: '28 stickers' },
+            { text: 'A store has 45 apples. They sell 15 apples in the morning and 18 apples in the afternoon. How many apples are left?', steps: ['15 + 18 = 33', '45 - 33 = 12'], answer: '12 apples' },
+            { text: 'Jake reads 3 books. Each book has 8 chapters. How many chapters did he read in all?', steps: ['3 × 8 = 24'], answer: '24 chapters' },
+            { text: 'There are 5 boxes. Each box has 6 toys. If 8 toys are broken, how many toys are still good?', steps: ['5 × 6 = 30', '30 - 8 = 22'], answer: '22 toys' },
+            { text: 'Sarah saves $5 each week for 4 weeks. Then she spends $12. How much money does she have left?', steps: ['5 × 4 = 20', '20 - 12 = 8'], answer: '$8' },
+            { text: 'A classroom has 30 students. 12 students are boys. How many students are girls?', steps: ['30 - 12 = 18'], answer: '18 girls' },
           ];
           return (
-            <WorksheetSectionWrapper docId="multi-step-word-problems" title="Multi-Step Word Problems" emoji="🧮" description="Solve problems with 2 or 3 steps.">
+            <WorksheetSectionWrapper 
+              docId="multi-step-word-problems" 
+              title="Multi-Step Word Problems" 
+              emoji="🧮" 
+              description="Solve problems with 2 or 3 steps."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve multi-step word problems',
+                'Identify all steps needed to solve',
+                'Show work for each step clearly'
+              ]}
+              parentTeacherTips={[
+                'Read the problem carefully',
+                'Identify what information you have and what you need to find',
+                'Break the problem into steps',
+                'Solve each step one at a time',
+                'Check your answer by reading the problem again',
+                'Extension: Create your own multi-step problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 marbles. He gives 5 to his friend. Then he finds 8 more. How many does he have now?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
+                    <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p.text}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work (all steps):</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multi-step word problem</div>
+                  <div>2. Solve: A bakery makes 48 cookies. They sell 20 in the morning and 15 in the afternoon. How many are left?</div>
+                  <div>3. Explain why breaking problems into steps helps</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify all steps in a problem</div>
+                  <div>☐ I can solve each step correctly</div>
+                  <div>☐ I can show my work clearly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('multi-step-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>24 - 8 + 12 = 28 stickers</li>
-                    <li>45 - 15 - 18 = 12 apples</li>
-                    <li>3 × 8 = 24 chapters</li>
-                    <li>5 × 6 - 8 = 22 toys</li>
-                    <li>5 × 4 - 12 = $8</li>
-                    <li>30 - 12 = 18 girls</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.text}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.steps.map((step, j) => (
+                            <div key={j}>Step {j + 1}: {step}</div>
+                          ))}
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
