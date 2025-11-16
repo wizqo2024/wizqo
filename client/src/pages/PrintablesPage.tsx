@@ -3032,8 +3032,12 @@ export function PrintablesPage() {
           </section>
         )}
         {activeDocs.includes('reading-g3-lighthouse') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Passage — The Lighthouse Keeper’s Trick (Grade 3)</h2>
+          <WorksheetSectionWrapper
+            docId="reading-g3-lighthouse"
+            title="Passage — The Lighthouse Keeper's Trick (Grade 3)"
+            emoji="📖"
+            description="Short passage with Q&A. Read carefully and answer in full sentences."
+          >
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">A storm rolled over the coast, and waves pounded the rocks. Mira checked the lighthouse lamps—bright, steady, and safe. But the fog was thick, and a fishing boat drifted off course. Mira remembered a trick her father taught her. She covered one lamp for a few seconds, then uncovered it, making a slow flash. The boat turned toward the beam and away from the rocks. When the storm passed, Mira logged the event: “Used flash method to guide a boat. Lamps steady.”</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
