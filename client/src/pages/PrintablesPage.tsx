@@ -10858,14 +10858,26 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('rounding-decimals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.num} rounded to {p.place} = {p.rounded}</li>))}
-                  </ul>
-                </div>
-              ))}
+              {showAnswersForDoc('rounding-decimals', () => {
+                const formatRounded = (value: number, place: string) => {
+                  if (place === 'whole') {
+                    return value.toString();
+                  } else if (place === 'tenth') {
+                    if (value % 1 === 0) return value.toString();
+                    return value.toFixed(1);
+                  } else {
+                    return value.toFixed(2);
+                  }
+                };
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                      {problems.map((p, i) => (<li key={i}>{p.num} rounded to {p.place} = {formatRounded(p.rounded, p.place)}</li>))}
+                    </ul>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
