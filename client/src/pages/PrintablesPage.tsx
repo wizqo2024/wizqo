@@ -13477,15 +13477,72 @@ export function PrintablesPage() {
             return { num, place, rounded };
           });
           return (
-            <WorksheetSectionWrapper docId="rounding-decimals" title="Rounding Decimals" emoji="🔢" description="Round each decimal to the specified place value.">
+            <WorksheetSectionWrapper 
+              docId="rounding-decimals" 
+              title="Rounding Decimals" 
+              emoji="🔢" 
+              description="Round each decimal to the specified place value."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Round decimals to the nearest whole number',
+                'Round decimals to the nearest tenth',
+                'Round decimals to the nearest hundredth'
+              ]}
+              parentTeacherTips={[
+                'Look at the digit to the right of the place you are rounding to',
+                'If it is 5 or greater, round up; if it is 4 or less, round down',
+                'Drop all digits after the rounded place',
+                'Extension: Round to thousandths place'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Round 3.47 to the nearest tenth</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the hundredths place: 7</div>
+                    <div><strong>Step 2:</strong> 7 &gt; 5, so round up the tenths place</div>
+                    <div><strong>Step 3:</strong> 3.4 becomes 3.5</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the digit to the right - 5 or more rounds up!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.num}</div>
-                    <div className="text-center text-sm text-slate-600">Round to nearest {p.place}: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Round to nearest {p.place}: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Round 2.456 to the nearest tenth and hundredth</div>
+                  <div>2. Round 7.999 to the nearest whole number</div>
+                  <div>3. Explain the rounding rule in your own words</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can round decimals to whole numbers</div>
+                  <div>☐ I can round decimals to tenths</div>
+                  <div>☐ I can round decimals to hundredths</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
               </div>
               {showAnswersForDoc('rounding-decimals', () => {
                 const formatRounded = (value: number, place: string) => {
@@ -13499,11 +13556,34 @@ export function PrintablesPage() {
                   }
                 };
                 return (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      {problems.map((p, i) => (<li key={i}>{p.num} rounded to {p.place} = {formatRounded(p.rounded, p.place)}</li>))}
-                    </ul>
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                    <div className="space-y-3">
+                      {problems.map((p, i) => {
+                        const num = parseFloat(p.num);
+                        const rounded = formatRounded(p.rounded, p.place);
+                        let stepText = '';
+                        if (p.place === 'whole') {
+                          const decimalPart = num % 1;
+                          stepText = decimalPart >= 0.5 ? `Step 1: ${decimalPart.toFixed(2)} ≥ 0.5, round up` : `Step 1: ${decimalPart.toFixed(2)} < 0.5, round down`;
+                        } else if (p.place === 'tenth') {
+                          const hundredths = (num * 100) % 10;
+                          stepText = hundredths >= 5 ? `Step 1: Hundredths digit ${Math.floor(hundredths)} ≥ 5, round up` : `Step 1: Hundredths digit ${Math.floor(hundredths)} < 5, round down`;
+                        } else {
+                          const thousandths = (num * 1000) % 10;
+                          stepText = thousandths >= 5 ? `Step 1: Thousandths digit ${Math.floor(thousandths)} ≥ 5, round up` : `Step 1: Thousandths digit ${Math.floor(thousandths)} < 5, round down`;
+                        }
+                        return (
+                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                            <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num} rounded to {p.place}</div>
+                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                              <div>{stepText}</div>
+                              <div className="font-semibold">Answer: {rounded}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 );
               })}
@@ -17960,25 +18040,96 @@ export function PrintablesPage() {
             return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}` };
           });
           return (
-            <WorksheetSectionWrapper docId="equivalent-fractions" title="Equivalent Fractions" emoji="🍕" description="Find an equivalent fraction for each given fraction.">
+            <WorksheetSectionWrapper 
+              docId="equivalent-fractions" 
+              title="Equivalent Fractions" 
+              emoji="🍕" 
+              description="Find an equivalent fraction for each given fraction."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Identify equivalent fractions',
+                'Find equivalent fractions by multiplying or dividing',
+                'Understand that equivalent fractions represent the same value'
+              ]}
+              parentTeacherTips={[
+                'Equivalent fractions have the same value',
+                'Multiply or divide both numerator and denominator by the same number',
+                'Use visual models (pizza slices, fraction bars) to help',
+                'Extension: Simplify fractions to lowest terms'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Find an equivalent fraction for 1/2</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply numerator and denominator by the same number (e.g., 2)</div>
+                    <div><strong>Step 2:</strong> 1 × 2 = 2, 2 × 2 = 4</div>
+                    <div><strong>Step 3:</strong> 1/2 = 2/4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2/4 (or 3/6, 4/8, etc.)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply or divide both parts by the same number!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Remember:</strong> Equivalent fractions have the same value. Multiply or divide both numerator and denominator by the same number to find equivalent fractions.
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.original}</div>
-                    <div className="text-center text-sm text-slate-600">Equivalent: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Equivalent: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find three different equivalent fractions for 2/3</div>
+                  <div>2. Simplify 8/12 to its lowest terms</div>
+                  <div>3. Explain why 1/2 and 2/4 are equivalent</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find equivalent fractions</div>
+                  <div>☐ I understand what equivalent means</div>
+                  <div>☐ I can multiply or divide to find equivalents</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('equivalent-fractions', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.original} = {p.equivalent}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const [num, denom] = p.original.split('/').map(Number);
+                      const [equivNum, equivDenom] = p.equivalent.split('/').map(Number);
+                      const factor = equivNum / num;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.original}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Multiply numerator and denominator by {factor}</div>
+                            <div>Step 2: {num} × {factor} = {equivNum}, {denom} × {factor} = {equivDenom}</div>
+                            <div className="font-semibold">Answer: {p.equivalent}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
