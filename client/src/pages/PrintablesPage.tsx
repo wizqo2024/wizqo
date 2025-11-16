@@ -18908,14 +18908,31 @@ export function PrintablesPage() {
             { item: 'grape', color: 'purple', emoji: '🍇', shape: 'circle' },
           ];
           return (
-            <WorksheetSectionWrapper docId="color-recognition" title="Color Recognition" emoji="🟩" description="Color each item with the correct color.">
+            <WorksheetSectionWrapper 
+              docId="color-recognition" 
+              title="Color Recognition" 
+              emoji="🟩" 
+              description="Color each item with the correct color."
+              problemCount={items.length}
+              learningObjectives={[
+                'Recognize and name colors',
+                'Match colors to objects',
+                'Develop color vocabulary'
+              ]}
+              parentTeacherTips={[
+                'Help children name each color before coloring',
+                'Encourage them to say the color out loud',
+                'Use this activity to practice color recognition',
+                'Extension: Find objects around you that match each color'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each item and color it with the correct color shown below.
               </div>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {items.map((i, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4">
                       <div className="text-5xl mb-2">{i.emoji}</div>
                       <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{i.item}</div>
@@ -18927,11 +18944,32 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find objects around you that match these colors</div>
+                  <div>2. Draw your own picture and color it</div>
+                  <div>3. Name all the colors you see today</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can name the colors</div>
+                  <div>☐ I matched colors correctly</div>
+                  <div>☐ I colored carefully</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite color:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('color-recognition', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {items.map((i, idx) => (<li key={idx}>{i.item}: Color {i.color}</li>))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {items.map((i, idx) => (<li key={idx} className="text-emerald-800">{i.item}: Color {i.color}</li>))}
                   </ul>
                 </div>
               ))}
@@ -18942,22 +18980,60 @@ export function PrintablesPage() {
         {activeDocs.includes('draw-shape') && (() => {
           const shapes = ['circle', 'square', 'triangle', 'rectangle', 'oval', 'diamond'];
           return (
-            <WorksheetSectionWrapper docId="draw-shape" title="Draw the Shape" emoji="🟩" description="Look at the shape name. Draw the shape in the box below.">
+            <WorksheetSectionWrapper 
+              docId="draw-shape" 
+              title="Draw the Shape" 
+              emoji="🟩" 
+              description="Look at the shape name. Draw the shape in the box below."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify and name basic shapes',
+                'Draw shapes from memory',
+                'Develop fine motor skills'
+              ]}
+              parentTeacherTips={[
+                'Help children name each shape before drawing',
+                'Encourage them to try their best',
+                'Use this activity to practice shape recognition',
+                'Extension: Draw shapes in different sizes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4 text-lg font-semibold text-slate-800 capitalize">{s}</div>
                     <div className="border-2 border-dashed border-slate-400 rounded-lg bg-white min-h-64 print:min-h-80"></div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw shapes in different sizes</div>
+                  <div>2. Create a picture using all these shapes</div>
+                  <div>3. Find objects around you that match these shapes</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can name the shapes</div>
+                  <div>☐ I drew the shapes</div>
+                  <div>☐ I tried my best</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite shape to draw:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('draw-shape', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {shapes.map((s, i) => (
-                      <li key={i}>
+                      <li key={i} className="text-emerald-800">
                         {s}: Draw a {s === 'circle' ? 'round circle' : s === 'square' ? 'four equal sides' : s === 'triangle' ? 'three sides' : s === 'rectangle' ? 'four sides (longer than wide)' : s === 'oval' ? 'elongated circle' : 'four equal sides rotated 45°'}
                       </li>
                     ))}
@@ -19060,11 +19136,28 @@ export function PrintablesPage() {
             { shapes: ['🔺', '⬜', '🔺', '⬜'], next: '🔺', name: 'triangle, square' },
           ];
           return (
-            <WorksheetSectionWrapper docId="shape-patterns" title="Shape Patterns" emoji="🧩" description="Continue the pattern. Draw the next shape.">
+            <WorksheetSectionWrapper 
+              docId="shape-patterns" 
+              title="Shape Patterns" 
+              emoji="🧩" 
+              description="Continue the pattern. Draw the next shape."
+              problemCount={patterns.length}
+              learningObjectives={[
+                'Identify patterns in sequences',
+                'Predict what comes next in a pattern',
+                'Develop pattern recognition skills'
+              ]}
+              parentTeacherTips={[
+                'Help children identify the repeating pattern',
+                'Encourage them to say the pattern out loud',
+                'Use this activity to practice sequencing',
+                'Extension: Create your own shape patterns'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
                       {p.shapes.map((s, idx) => (
                         <span key={idx}>{s}</span>
@@ -19075,12 +19168,33 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own shape pattern</div>
+                  <div>2. Continue the pattern for 3 more shapes</div>
+                  <div>3. Make a pattern using objects around you</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can see the pattern</div>
+                  <div>☐ I can predict what comes next</div>
+                  <div>☐ I understand patterns</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite pattern:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('shape-patterns', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
-                      <li key={i} className="flex items-center gap-2">
+                      <li key={i} className="flex items-center gap-2 text-emerald-800">
                         <span>{p.shapes.join(' ')}</span>
                         <span>→</span>
                         <span className="text-xl">{p.next}</span>
@@ -19104,11 +19218,28 @@ export function PrintablesPage() {
             { items: ['🍎', '🍌', '🍎', '🍌'], next: '🍎', name: 'apple, banana' },
           ];
           return (
-            <WorksheetSectionWrapper docId="what-comes-next" title="What Comes Next?" emoji="🧩" description="Look at the pattern. Draw what comes next in each row.">
+            <WorksheetSectionWrapper 
+              docId="what-comes-next" 
+              title="What Comes Next?" 
+              emoji="🧩" 
+              description="Look at the pattern. Draw what comes next in each row."
+              problemCount={patterns.length}
+              learningObjectives={[
+                'Identify patterns in sequences',
+                'Predict what comes next in a pattern',
+                'Develop pattern recognition and sequencing skills'
+              ]}
+              parentTeacherTips={[
+                'Help children identify the repeating pattern',
+                'Encourage them to say the pattern out loud',
+                'Use this activity to practice sequencing',
+                'Extension: Create your own patterns'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
                       {p.items.map((item, idx) => (
                         <span key={idx}>{item}</span>
@@ -19119,12 +19250,33 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own pattern</div>
+                  <div>2. Continue the pattern for 3 more items</div>
+                  <div>3. Make a pattern using objects around you</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can see the pattern</div>
+                  <div>☐ I can predict what comes next</div>
+                  <div>☐ I understand patterns</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite pattern:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('what-comes-next', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
-                      <li key={i} className="flex items-center gap-2">
+                      <li key={i} className="flex items-center gap-2 text-emerald-800">
                         <span>{p.items.join(' ')}</span>
                         <span>→</span>
                         <span className="text-xl">{p.next}</span>
@@ -19241,11 +19393,28 @@ export function PrintablesPage() {
             { heavy: { name: 'backpack', emoji: '🎒', size: 54 }, light: { name: 'paper', emoji: '📄', size: 24 } },
           ];
           return (
-            <WorksheetSectionWrapper docId="heavy-light" title="Heavy and Light" emoji="⚖️" description="Circle the heavy object. Put an X on the light object.">
+            <WorksheetSectionWrapper 
+              docId="heavy-light" 
+              title="Heavy and Light" 
+              emoji="⚖️" 
+              description="Circle the heavy object. Put an X on the light object."
+              problemCount={pairs.length}
+              learningObjectives={[
+                'Compare weight of objects',
+                'Identify heavy and light objects',
+                'Develop measurement vocabulary'
+              ]}
+              parentTeacherTips={[
+                'Help children think about which object weighs more',
+                'Encourage them to use words like "heavier" and "lighter"',
+                'Use this activity to practice measurement concepts',
+                'Extension: Find heavy and light objects around you'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((pair, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
                     <div className="flex items-center justify-center gap-8 mb-4">
                       <div className="flex flex-col items-center gap-2">
@@ -19273,12 +19442,33 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find 3 heavy objects and 3 light objects around you</div>
+                  <div>2. Draw your own heavy and light objects</div>
+                  <div>3. Compare the weight of different objects</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can tell which is heavier</div>
+                  <div>☐ I can tell which is lighter</div>
+                  <div>☐ I understand heavy and light</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>Something heavy I found:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('heavy-light', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {pairs.map((pair, idx) => (
-                      <li key={idx}>
+                      <li key={idx} className="text-emerald-800">
                         Pair {idx + 1}: {pair.heavy.name} (heavy - circle), {pair.light.name} (light - put X)
                       </li>
                     ))}
@@ -19297,21 +19487,59 @@ export function PrintablesPage() {
             { items: ['🟢', '🟢', '🟢', '🟡'], different: 3 },
           ];
           return (
-            <WorksheetSectionWrapper docId="same-different" title="Same and Different" emoji="⚖️" description="Find the object that is different. Circle it.">
+            <WorksheetSectionWrapper 
+              docId="same-different" 
+              title="Same and Different" 
+              emoji="⚖️" 
+              description="Find the object that is different. Circle it."
+              problemCount={sets.length}
+              learningObjectives={[
+                'Identify similarities and differences',
+                'Compare objects to find the different one',
+                'Develop observation and classification skills'
+              ]}
+              parentTeacherTips={[
+                'Help children look carefully at each item',
+                'Encourage them to compare all items together',
+                'Use this activity to practice observation skills',
+                'Extension: Find same and different objects around you'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {sets.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 text-xl">{s.items.join(' ')}</div>
                     <div className="text-center text-sm text-slate-600">Circle the different one</div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find groups of objects where one is different</div>
+                  <div>2. Create your own same/different game</div>
+                  <div>3. Look for same and different things around you</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find the different one</div>
+                  <div>☐ I can see what's the same</div>
+                  <div>☐ I understand same and different</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>Something I found that's different:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('same-different', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {sets.map((s, i) => (<li key={i}>Position {s.different + 1} is different</li>))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {sets.map((s, i) => (<li key={i} className="text-emerald-800">Position {s.different + 1} is different</li>))}
                   </ul>
                 </div>
               ))}
@@ -19417,12 +19645,30 @@ export function PrintablesPage() {
             { cx: 50, cy: 40, r: 28 },
             { cx: 50, cy: 40, r: 22 },
           ];
+          const totalItems = curves.length + circles.length;
           return (
-            <WorksheetSectionWrapper docId="curve-tracing" title="Curve Tracing" emoji="✏️" description="Trace the curves and circles.">
+            <WorksheetSectionWrapper 
+              docId="curve-tracing" 
+              title="Curve Tracing" 
+              emoji="✏️" 
+              description="Trace the curves and circles."
+              problemCount={totalItems}
+              learningObjectives={[
+                'Develop fine motor skills',
+                'Practice tracing curved lines',
+                'Learn to follow circular and curved paths'
+              ]}
+              parentTeacherTips={[
+                'Encourage slow, careful tracing',
+                'Help children follow the curve smoothly',
+                'Praise effort and improvement',
+                'Extension: Draw your own curves to trace'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {curves.map((curve, i) => (
-                  <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={`curve-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Curve {i + 1}</div>
                     <div className="relative">
                       <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
@@ -19439,7 +19685,7 @@ export function PrintablesPage() {
                   </div>
                 ))}
                 {circles.map((circle, i) => (
-                  <div key={`circle-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={`circle-${i}`} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Circle {i + 1}</div>
                     <div className="relative">
                       <svg viewBox="0 0 100 80" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
@@ -19457,10 +19703,31 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own curves and circles to trace</div>
+                  <div>2. Try tracing with your eyes closed (with help!)</div>
+                  <div>3. Create a picture using only curves</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I traced the curves carefully</div>
+                  <div>☐ I traced the circles carefully</div>
+                  <div>☐ I followed the lines smoothly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My best curve:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('curve-tracing', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Trace the dashed curves and circles. Follow the curved lines carefully with your pencil.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800">Trace the dashed curves and circles. Follow the curved lines carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19477,11 +19744,28 @@ export function PrintablesPage() {
             'M 10 35 L 22 55 L 34 35 L 46 55 L 58 35 L 70 55 L 82 35',
           ];
           return (
-            <WorksheetSectionWrapper docId="zigzag-lines" title="Zigzag Lines" emoji="✏️" description="Trace the zigzag lines from left to right.">
+            <WorksheetSectionWrapper 
+              docId="zigzag-lines" 
+              title="Zigzag Lines" 
+              emoji="✏️" 
+              description="Trace the zigzag lines from left to right."
+              problemCount={zigzagPaths.length}
+              learningObjectives={[
+                'Develop fine motor skills',
+                'Practice tracing zigzag patterns',
+                'Learn to follow changing directions'
+              ]}
+              parentTeacherTips={[
+                'Encourage slow, careful tracing',
+                'Help children follow the up and down pattern',
+                'Praise effort and improvement',
+                'Extension: Draw your own zigzag lines to trace'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {zigzagPaths.map((path, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-xs text-slate-600 mb-2 text-center font-semibold">Zigzag {i + 1}</div>
                     <div className="relative">
                       <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-200 rounded bg-slate-50">
@@ -19499,10 +19783,31 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own zigzag lines to trace</div>
+                  <div>2. Try tracing with your eyes closed (with help!)</div>
+                  <div>3. Create a picture using zigzag lines</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I traced the zigzag lines carefully</div>
+                  <div>☐ I followed the up and down pattern</div>
+                  <div>☐ I held my pencil correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My best zigzag:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('zigzag-lines', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Trace the dashed zigzag lines from left to right. Follow the up and down pattern carefully with your pencil.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800">Trace the dashed zigzag lines from left to right. Follow the up and down pattern carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19519,11 +19824,28 @@ export function PrintablesPage() {
             { d: 'M 20 20 L 30 30 L 20 40 L 30 50 L 20 60 L 30 70 L 20 80 L 30 90 L 20 100', label: 'Diagonal path' },
           ];
           return (
-            <WorksheetSectionWrapper docId="path-tracing" title="Path Tracing" emoji="✏️" description="Follow the path from start to finish. Trace along the dashed line with your pencil.">
+            <WorksheetSectionWrapper 
+              docId="path-tracing" 
+              title="Path Tracing" 
+              emoji="✏️" 
+              description="Follow the path from start to finish. Trace along the dashed line with your pencil."
+              problemCount={paths.length}
+              learningObjectives={[
+                'Develop fine motor skills',
+                'Practice following paths from start to finish',
+                'Learn to trace complex paths'
+              ]}
+              parentTeacherTips={[
+                'Encourage slow, careful tracing',
+                'Help children follow from Start to Finish',
+                'Praise effort and improvement',
+                'Extension: Draw your own paths to trace'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {paths.map((path, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Path {i + 1}</div>
                     <div className="relative">
                       <svg viewBox="0 0 100 120" className="w-full h-64 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-80">
@@ -19545,10 +19867,31 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own paths to trace</div>
+                  <div>2. Try tracing with your eyes closed (with help!)</div>
+                  <div>3. Create a maze with paths</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I traced the paths carefully</div>
+                  <div>☐ I followed from Start to Finish</div>
+                  <div>☐ I held my pencil correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My best path:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('path-tracing', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Trace the dashed path from the green Start point to the red Finish point. Follow the path carefully with your pencil.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800">Trace the dashed path from the green Start point to the red Finish point. Follow the path carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
