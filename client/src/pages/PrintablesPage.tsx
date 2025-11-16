@@ -11748,14 +11748,68 @@ export function PrintablesPage() {
                   <div className="text-sm text-slate-600 mt-2">Create line graph: ____</div>
                 </div>
               </div>
-              {showAnswersForDoc('line-graphs', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {data.map((d, i) => (<li key={i}>{d.day}: Plot point at {d.temp}°F</li>))}
-                  </ul>
-                </div>
-              ))}
+              {showAnswersForDoc('line-graphs', () => {
+                const minTemp = Math.min(...data.map(d => d.temp));
+                const maxTemp = Math.max(...data.map(d => d.temp));
+                const tempRange = maxTemp - minTemp || 10;
+                const graphWidth = 400;
+                const graphHeight = 200;
+                const padding = 40;
+                const plotWidth = graphWidth - 2 * padding;
+                const plotHeight = graphHeight - 2 * padding;
+                const xStep = plotWidth / (data.length - 1);
+                const tempScale = plotHeight / tempRange;
+                
+                const points = data.map((d, i) => {
+                  const x = padding + i * xStep;
+                  const y = padding + (maxTemp - d.temp) * tempScale;
+                  return { x, y, day: d.day, temp: d.temp };
+                });
+                
+                const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+                
+                return (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900">
+                    <div className="font-semibold mb-2">Answer key</div>
+                    <div className="mb-2 text-sm">Line Graph:</div>
+                    <svg viewBox={`0 0 ${graphWidth} ${graphHeight}`} className="w-full max-w-md mx-auto mb-2 bg-white border border-slate-200 rounded">
+                      {/* Grid lines */}
+                      {Array.from({ length: 6 }, (_, i) => {
+                        const y = padding + (i * plotHeight) / 5;
+                        const temp = maxTemp - (i * tempRange) / 5;
+                        return (
+                          <g key={i}>
+                            <line x1={padding} y1={y} x2={graphWidth - padding} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2"/>
+                            <text x={padding - 10} y={y + 4} fontSize="10" fill="#64748b" textAnchor="end">{Math.round(temp)}</text>
+                          </g>
+                        );
+                      })}
+                      {/* Day labels */}
+                      {data.map((d, i) => {
+                        const x = padding + i * xStep;
+                        return (
+                          <text key={i} x={x} y={graphHeight - padding + 15} fontSize="10" fill="#64748b" textAnchor="middle">{d.day}</text>
+                        );
+                      })}
+                      {/* Axes */}
+                      <line x1={padding} y1={padding} x2={padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
+                      <line x1={padding} y1={graphHeight - padding} x2={graphWidth - padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
+                      {/* Line graph */}
+                      <path d={pathData} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                      {/* Data points */}
+                      {points.map((p, i) => (
+                        <g key={i}>
+                          <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2"/>
+                          <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{p.temp}°</text>
+                        </g>
+                      ))}
+                      {/* Y-axis label */}
+                      <text x={15} y={graphHeight / 2} fontSize="11" fill="#475569" textAnchor="middle" transform={`rotate(-90 15 ${graphHeight / 2})`}>Temperature (°F)</text>
+                    </svg>
+                    <div className="text-xs text-slate-600 mt-1">Connect the points in order to create the line graph</div>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
