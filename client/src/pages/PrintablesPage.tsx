@@ -8219,8 +8219,8 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-12 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
+              {/* Extension/Challenge Problems - Start of page 2 content */}
+              <div className="mt-6 print:mt-0 print:page-break-before-always p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
@@ -8229,8 +8229,8 @@ export function PrintablesPage() {
                   <div>4. Time yourself: Can you complete all 15 problems in under 2 minutes?</div>
                 </div>
               </div>
-              {/* Self-Assessment - Will appear on page 2 with Parent/Teacher Tips */}
-              <div className="print:block hidden print:page-break-before-always print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded">
+              {/* Self-Assessment - Will appear on page 2 with Challenge and Parent/Teacher Tips */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded">
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I can multiply numbers 1-5 easily</div>
