@@ -11009,15 +11009,38 @@ export function PrintablesPage() {
           const problems = Array.from({length: 6}, () => {
             const base = nextInt(4, 12);
             const height = nextInt(3, 10);
-            return { base, height, area: (base * height) / 2 };
+            const isTriangle = nextInt(0, 1) === 0;
+            return { base, height, isTriangle, area: isTriangle ? (base * height) / 2 : base * height };
           });
+          const renderShape = (base: number, height: number, isTriangle: boolean) => {
+            const scale = 5;
+            const shapeWidth = base * scale;
+            const shapeHeight = height * scale;
+            const viewBoxWidth = Math.max(shapeWidth, 60) + 20;
+            const viewBoxHeight = Math.max(shapeHeight, 60) + 20;
+            const x = (viewBoxWidth - shapeWidth) / 2;
+            const y = (viewBoxHeight - shapeHeight) / 2;
+            
+            return (
+              <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
+                {isTriangle ? (
+                  <polygon points={`${x + shapeWidth/2},${y} ${x},${y + shapeHeight} ${x + shapeWidth},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                ) : (
+                  <polygon points={`${x},${y} ${x + shapeWidth},${y} ${x + shapeWidth},${y + shapeHeight} ${x},${y + shapeHeight}`} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                )}
+                <text x={x + shapeWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{base}</text>
+                <text x={x - 8} y={y + shapeHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + shapeHeight / 2})`}>{height}</text>
+              </svg>
+            );
+          };
           return (
-            <WorksheetSectionWrapper docId="area-triangles-parallelograms" title="Area of Triangles & Parallelograms" emoji="📐" description="Find the area using the formula: Area = (base × height) ÷ 2 for triangles.">
+            <WorksheetSectionWrapper docId="area-triangles-parallelograms" title="Area of Triangles & Parallelograms" emoji="📐" description="Find the area. Triangles: Area = (base × height) ÷ 2. Parallelograms: Area = base × height.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Base: {p.base} units, Height: {p.height} units</div>
+                    {renderShape(p.base, p.height, p.isTriangle)}
+                    <div className="text-center mb-2 text-sm">{p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base: {p.base} units, Height: {p.height} units</div>
                     <div className="text-center text-sm text-slate-600">Area: ____</div>
                   </div>
                 ))}
@@ -11026,7 +11049,11 @@ export function PrintablesPage() {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>Area = {p.area} sq units</li>))}
+                    {problems.map((p, i) => (
+                      <li key={i}>
+                        {p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base {p.base} × Height {p.height} {p.isTriangle ? '÷ 2' : ''} = {p.area} sq units
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
@@ -11639,12 +11666,36 @@ export function PrintablesPage() {
             { x: 3, y: 4 },
             { x: 6, y: 2 },
           ];
+          const renderCoordinateGrid = (point: { x: number; y: number }) => {
+            const gridSize = 80;
+            const cellSize = gridSize / 7;
+            return (
+              <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2 border border-slate-200 rounded">
+                {/* Grid lines */}
+                {Array.from({ length: 8 }, (_, i) => (
+                  <g key={i}>
+                    <line x1={10 + i * cellSize} y1={10} x2={10 + i * cellSize} y2={90} stroke="#e2e8f0" strokeWidth="0.5"/>
+                    <line x1={10} y1={10 + i * cellSize} x2={90} y2={10 + i * cellSize} stroke="#e2e8f0" strokeWidth="0.5"/>
+                  </g>
+                ))}
+                {/* Axes */}
+                <line x1={10} y1={90} x2={90} y2={90} stroke="#475569" strokeWidth="1.5"/>
+                <line x1={10} y1={10} x2={10} y2={90} stroke="#475569" strokeWidth="1.5"/>
+                {/* Point */}
+                <circle cx={10 + point.x * cellSize} cy={90 - point.y * cellSize} r="2" fill="#3b82f6" stroke="white" strokeWidth="1"/>
+                {/* Labels */}
+                <text x={10 + point.x * cellSize} y={95} fontSize="6" fill="#64748b" textAnchor="middle">{point.x}</text>
+                <text x={5} y={90 - point.y * cellSize + 2} fontSize="6" fill="#64748b" textAnchor="middle">{point.y}</text>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="coordinate-graphing" title="Coordinate Graphing" emoji="📐" description="Plot each point on the coordinate plane.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {points.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderCoordinateGrid(p)}
                     <div className="text-center mb-2 font-mono">({p.x}, {p.y})</div>
                     <div className="text-center text-sm text-slate-600">Plot on grid: ____</div>
                   </div>
@@ -13648,19 +13699,74 @@ export function PrintablesPage() {
 
         {activeDocs.includes('lines-rays-angles') && (() => {
           const items = [
-            { name: 'line', desc: 'Straight path that goes on forever in both directions' },
-            { name: 'line segment', desc: 'Part of a line with two endpoints' },
-            { name: 'ray', desc: 'Part of a line with one endpoint' },
-            { name: 'angle', desc: 'Formed by two rays sharing an endpoint' },
-            { name: 'right angle', desc: '90 degree angle' },
-            { name: 'acute angle', desc: 'Less than 90 degrees' },
+            { name: 'line', desc: 'Straight path that goes on forever in both directions', type: 'line' },
+            { name: 'line segment', desc: 'Part of a line with two endpoints', type: 'segment' },
+            { name: 'ray', desc: 'Part of a line with one endpoint', type: 'ray' },
+            { name: 'angle', desc: 'Formed by two rays sharing an endpoint', type: 'angle' },
+            { name: 'right angle', desc: '90 degree angle', type: 'right' },
+            { name: 'acute angle', desc: 'Less than 90 degrees', type: 'acute' },
           ];
+          const renderGeometric = (type: string) => {
+            if (type === 'line') {
+              return (
+                <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
+                  <line x1="10" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="10" cy="10" r="1.5" fill="#3b82f6"/>
+                  <circle cx="90" cy="10" r="1.5" fill="#3b82f6"/>
+                </svg>
+              );
+            } else if (type === 'segment') {
+              return (
+                <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
+                  <line x1="20" y1="10" x2="80" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="20" cy="10" r="2" fill="#3b82f6"/>
+                  <circle cx="80" cy="10" r="2" fill="#3b82f6"/>
+                </svg>
+              );
+            } else if (type === 'ray') {
+              return (
+                <svg viewBox="0 0 100 20" className="w-24 h-6 mx-auto mb-2">
+                  <line x1="20" y1="10" x2="90" y2="10" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="20" cy="10" r="2" fill="#3b82f6"/>
+                  <path d="M 85 10 L 90 7 L 90 13 Z" fill="#3b82f6"/>
+                </svg>
+              );
+            } else if (type === 'angle') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <line x1="50" y1="50" x2="20" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <line x1="50" y1="50" x2="80" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="50" cy="50" r="2" fill="#3b82f6"/>
+                  <path d="M 50 50 L 30 30 A 20 20 0 0 1 70 30 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2"/>
+                </svg>
+              );
+            } else if (type === 'right') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <line x1="30" y1="50" x2="30" y2="20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="30" cy="50" r="2" fill="#3b82f6"/>
+                  <path d="M 30 50 L 30 40 A 10 10 0 0 1 40 50 Z" fill="#3b82f6" opacity="0.3"/>
+                </svg>
+              );
+            } else { // acute
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <line x1="30" y1="70" x2="50" y2="30" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <line x1="30" y1="70" x2="70" y2="70" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="30" cy="70" r="2" fill="#3b82f6"/>
+                  <path d="M 30 70 L 40 60 A 15 15 0 0 1 50 70 Z" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2,2"/>
+                </svg>
+              );
+            }
+          };
           return (
             <WorksheetSectionWrapper docId="lines-rays-angles" title="Lines, Rays, and Angles" emoji="📐" description="Identify lines, line segments, rays, and angles.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {items.map((i, idx) => (
                   <div key={idx} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderGeometric(i.type)}
                     <div className="text-center mb-2 text-sm">{i.desc}</div>
                     <div className="text-center text-sm text-slate-600">Name: ____</div>
                   </div>
@@ -13680,12 +13786,70 @@ export function PrintablesPage() {
 
         {activeDocs.includes('symmetry') && (() => {
           const shapes = ['square', 'circle', 'rectangle', 'triangle', 'hexagon', 'star'];
+          const renderShape = (shape: string) => {
+            const size = 60;
+            const centerX = 50;
+            const centerY = 50;
+            if (shape === 'square') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else if (shape === 'circle') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else if (shape === 'rectangle') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <rect x="20" y="30" width="60" height="40" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else if (shape === 'triangle') {
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <polygon points="50,20 20,80 80,80" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else if (shape === 'hexagon') {
+              const points: string[] = [];
+              for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI * 2 * i) / 6 - Math.PI / 2;
+                const x = centerX + 25 * Math.cos(angle);
+                const y = centerY + 25 * Math.sin(angle);
+                points.push(`${x},${y}`);
+              }
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else { // star
+              const points: string[] = [];
+              for (let i = 0; i < 10; i++) {
+                const angle = (Math.PI * 2 * i) / 10 - Math.PI / 2;
+                const radius = i % 2 === 0 ? 30 : 15;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                points.push(`${x},${y}`);
+              }
+              return (
+                <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                  <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            }
+          };
           return (
             <WorksheetSectionWrapper docId="symmetry" title="Symmetry" emoji="📐" description="Find lines of symmetry. Draw the other half.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {shapes.map((s, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderShape(s)}
                     <div className="text-center mb-2 font-semibold">{s}</div>
                     <div className="text-center text-sm text-slate-600">Lines of symmetry: ____</div>
                   </div>
@@ -13708,12 +13872,41 @@ export function PrintablesPage() {
 
         {activeDocs.includes('time-to-minute') && (() => {
           const times = ['8:15', '2:30', '10:45', '5:20', '12:05', '3:55'];
+          const renderClock = (time: string) => {
+            const [hours, minutes] = time.split(':').map(Number);
+            const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
+            const minuteAngle = (minutes * 6 - 90) * (Math.PI / 180);
+            const centerX = 50;
+            const centerY = 50;
+            const radius = 35;
+            return (
+              <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                <circle cx={centerX} cy={centerY} r={radius} fill="white" stroke="#3b82f6" strokeWidth="2"/>
+                {/* Hour markers */}
+                {Array.from({ length: 12 }, (_, i) => {
+                  const angle = (i * 30 - 90) * (Math.PI / 180);
+                  const x1 = centerX + (radius - 5) * Math.cos(angle);
+                  const y1 = centerY + (radius - 5) * Math.sin(angle);
+                  const x2 = centerX + radius * Math.cos(angle);
+                  const y2 = centerY + radius * Math.sin(angle);
+                  return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#475569" strokeWidth="1.5"/>;
+                })}
+                {/* Hour hand */}
+                <line x1={centerX} y1={centerY} x2={centerX + 15 * Math.cos(hourAngle)} y2={centerY + 15 * Math.sin(hourAngle)} stroke="#1e40af" strokeWidth="2.5" strokeLinecap="round"/>
+                {/* Minute hand */}
+                <line x1={centerX} y1={centerY} x2={centerX + 25 * Math.cos(minuteAngle)} y2={centerY + 25 * Math.sin(minuteAngle)} stroke="#1e40af" strokeWidth="2" strokeLinecap="round"/>
+                {/* Center dot */}
+                <circle cx={centerX} cy={centerY} r="2" fill="#1e40af"/>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="time-to-minute" title="Time to the Minute" emoji="🕒" description="Read and write time to the nearest minute.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {times.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderClock(t)}
                     <div className="text-center text-xl font-mono mb-2">{t}</div>
                     <div className="text-center text-sm text-slate-600">Draw clock: ____</div>
                   </div>
