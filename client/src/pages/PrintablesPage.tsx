@@ -12082,26 +12082,98 @@ export function PrintablesPage() {
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper docId="long-division-2digit" title="Long Division (2-Digit Divisor)" emoji="🔢" description="Divide each number. Show your work and write any remainder.">
+            <WorksheetSectionWrapper 
+              docId="long-division-2digit" 
+              title="Long Division (2-Digit Divisor)" 
+              emoji="🔢" 
+              description="Divide each number. Show your work and write any remainder."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Divide multi-digit numbers by 2-digit divisors',
+                'Use long division algorithm with larger divisors',
+                'Identify and write remainders',
+                'Estimate quotients before dividing'
+              ]}
+              parentTeacherTips={[
+                'Estimate the quotient first',
+                'Use Divide, Multiply, Subtract, Bring down (DMSB)',
+                'If the first digit(s) is less than divisor, use more digits',
+                'Check your answer by multiplying quotient × divisor + remainder',
+                'Extension: Practice with 3-digit divisors'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 12 ) 156</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Estimate: 12 × 10 = 120, 12 × 13 = 156</div>
+                    <div><strong>Step 2:</strong> Divide: 15 ÷ 12 = 1 (write 1 above)</div>
+                    <div><strong>Step 3:</strong> Multiply: 1 × 12 = 12, Subtract: 15 - 12 = 3</div>
+                    <div><strong>Step 4:</strong> Bring down 6, Divide: 36 ÷ 12 = 3</div>
+                    <div><strong>Step 5:</strong> Multiply: 3 × 12 = 36, Subtract: 36 - 36 = 0</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Estimate first, then use DMSB steps!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="font-mono text-lg text-right">
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
+                    <div className="font-mono text-lg text-right mb-2">
                       <div>{p.divisor} ) {p.dividend}</div>
-                      <div className="border-t border-slate-400 mt-2 pt-2">____</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12">____</div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own long division problem with 2-digit divisor</div>
+                  <div>2. Solve: 23 ) 529</div>
+                  <div>3. Explain how to estimate the quotient</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can divide using 2-digit divisors</div>
+                  <div>☐ I can estimate quotients</div>
+                  <div>☐ I can write remainders correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('long-division-2digit', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (
-                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)}{p.remainder > 0 ? ` R${p.remainder}` : ''}</li>
-                    ))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const quotient = Math.floor(p.dividend / p.divisor);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.dividend} ÷ {p.divisor}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Estimate quotient: {p.divisor} × {quotient} ≈ {p.dividend}</div>
+                            <div>Step 2: Divide {p.dividend} by {p.divisor}</div>
+                            <div>Step 3: Calculate: {p.dividend} ÷ {p.divisor} = {quotient}{p.remainder > 0 ? ` remainder ${p.remainder}` : ''}</div>
+                            <div className="font-semibold">Answer: {quotient}{p.remainder > 0 ? ` R${p.remainder}` : ''}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17621,27 +17693,126 @@ export function PrintablesPage() {
             'Sarah got 24 out of 30 questions correct. What percent did she get?',
           ];
           return (
-            <WorksheetSectionWrapper docId="percent-word-problems" title="Percent Word Problems" emoji="🧮" description="Solve each word problem involving percents, discounts, and percentages.">
+            <WorksheetSectionWrapper 
+              docId="percent-word-problems" 
+              title="Percent Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving percents, discounts, and percentages."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving percents',
+                'Calculate discounts and sale prices',
+                'Convert fractions to percents',
+                'Apply percent concepts in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Percent means "out of 100"',
+                'To find percent: (part ÷ whole) × 100',
+                'To find part: (percent ÷ 100) × whole',
+                'For discounts: original price - (percent × original price)',
+                'Extension: Create your own percent word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A toy costs $10. It is on sale for 20% off. What is the sale price?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find discount: 20% of $10 = 0.20 × $10 = $2</div>
+                    <div><strong>Step 2:</strong> Subtract discount: $10 - $2 = $8</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Find the discount amount first, then subtract from original price!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own percent word problem</div>
+                  <div>2. Solve: A jacket costs $50. It is on sale for 30% off. What is the sale price?</div>
+                  <div>3. Explain when you use percents in everyday life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve percent word problems</div>
+                  <div>☐ I can calculate discounts</div>
+                  <div>☐ I can convert fractions to percents</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('percent-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>$20 × 0.25 = $5 off, so $15</li>
-                    <li>18/20 = 90%</li>
-                    <li>80 × 0.30 = 24 items</li>
-                    <li>$200 × 0.15 = $30</li>
-                    <li>$25 × 0.20 = $5 off, so $20</li>
-                    <li>24/30 = 80%</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find discount: 25% of $20 = 0.25 × $20 = $5</div>
+                        <div>Step 2: Subtract: $20 - $5 = $15</div>
+                        <div className="font-semibold">Answer: $15</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Convert to percent: (18 ÷ 20) × 100</div>
+                        <div>Step 2: Calculate: 0.9 × 100 = 90</div>
+                        <div className="font-semibold">Answer: 90%</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find 30% of 80: 0.30 × 80</div>
+                        <div>Step 2: Calculate: 0.30 × 80 = 24</div>
+                        <div className="font-semibold">Answer: 24 items</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find 15% of $200: 0.15 × $200</div>
+                        <div>Step 2: Calculate: 0.15 × $200 = $30</div>
+                        <div className="font-semibold">Answer: $30</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find discount: 20% of $25 = 0.20 × $25 = $5</div>
+                        <div>Step 2: Subtract: $25 - $5 = $20</div>
+                        <div className="font-semibold">Answer: $20</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Convert to percent: (24 ÷ 30) × 100</div>
+                        <div>Step 2: Calculate: 0.8 × 100 = 80</div>
+                        <div className="font-semibold">Answer: 80%</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
