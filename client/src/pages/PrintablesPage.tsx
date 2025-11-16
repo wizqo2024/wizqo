@@ -7801,19 +7801,71 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-            {showAnswersForDoc('mult-multi-step-word', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-1">
-                  <li>Step 1: 4 × 6 = 24, Step 2: 24 × 5 = 120 toys</li>
-                  <li>Step 1: 3 × 8 = 24, Step 2: 24 × 2 = 48 students</li>
-                  <li>Step 1: 5 × 3 = 15 flowers</li>
-                  <li>Step 1: 6 × 12 = 72, Step 2: 72 - 20 = 52 cookies left</li>
-                </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multi-step multiplication word problem</div>
+                  <div>2. Can you solve a problem that requires 3 or more steps?</div>
+                  <div>3. Draw a picture or diagram to help solve one of the problems above</div>
+                </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify what needs to be solved first</div>
+                  <div>☐ I can break problems into steps</div>
+                  <div>☐ I can solve multi-step problems correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('mult-multi-step-word', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Problem 1:</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 4 × 6 = 24 boxes</div>
+                        <div>Step 2: 24 × 5 = 120 toys</div>
+                        <div className="font-semibold mt-1">Final Answer: 120 toys</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Problem 2:</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3 × 8 = 24 desks</div>
+                        <div>Step 2: 24 × 2 = 48 students</div>
+                        <div className="font-semibold mt-1">Final Answer: 48 students</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Problem 3:</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 5 × 3 = 15 flowers</div>
+                        <div className="font-semibold mt-1">Final Answer: 15 flowers</div>
+                      </div>
+                    </div>
+                    <div className="pb-3">
+                      <div className="font-semibold mb-2 text-sm">Problem 4:</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 6 × 12 = 72 cookies</div>
+                        <div>Step 2: 72 - 20 = 52 cookies left</div>
+                        <div className="font-semibold mt-1">Final Answer: 52 cookies left</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('mult-fact-families') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
