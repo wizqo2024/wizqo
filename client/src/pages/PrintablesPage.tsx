@@ -9305,26 +9305,84 @@ export function PrintablesPage() {
               title="Timed Times Table Test (6-12)"
               emoji="⏱️"
               description="Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Build speed and accuracy with advanced multiplication facts 6-12',
+                'Practice timed multiplication to build fluency',
+                'Track progress and improve time with challenging facts'
+              ]}
+              parentTeacherTips={[
+                'These facts are more challenging - allow 3 minutes initially',
+                'Use strategies: breaking down (8×7 = 8×5 + 8×2), patterns (9×n trick)',
+                'Focus on accuracy first, then work on speed',
+                'Extension: Try to complete in under 2.5 minutes!'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 8 × 7 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Quick method:</strong> 8 × 7 = 8 × (5 + 2) = 40 + 16 = 56</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break down larger facts into easier ones you know!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
                 <strong>⏱️ Time yourself!</strong> Try to complete all problems in 3 minutes. Write your start time: ______
               </div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-lg leading-6">
                       {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Try to complete all problems in under 2.5 minutes!</div>
+                  <div>2. Time yourself again tomorrow and see if you're faster</div>
+                  <div>3. Create your own timed test with advanced facts</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I completed all problems in 3 minutes</div>
+                  <div>☐ I need more practice to go faster</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes _____ seconds
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-timed-6-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-4 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job practicing advanced timed tests! Keep practicing daily to build speed and automaticity!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -9343,26 +9401,84 @@ export function PrintablesPage() {
               title="Complete Timed Test (1-12)"
               emoji="⏱️"
               description="Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Build speed and accuracy with all multiplication facts 1-12',
+                'Practice comprehensive timed multiplication to build fluency',
+                'Track progress and improve time across all facts'
+              ]}
+              parentTeacherTips={[
+                'This is comprehensive practice - allow 5 minutes initially',
+                'Use all strategies: doubles, patterns, breaking down, known facts',
+                'Focus on accuracy first, then work on speed',
+                'Extension: Try to complete in under 4 minutes!'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 9 × 8 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>9s Trick:</strong> 9 × 8 = (10 × 8) - 8 = 80 - 8 = 72</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use strategies you know to answer quickly in timed tests!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
                 <strong>⏱️ Time yourself!</strong> Try to complete all problems in 5 minutes. Write your start time: ______
               </div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-lg leading-6">
                       {a} × {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Try to complete all problems in under 4 minutes!</div>
+                  <div>2. Time yourself again tomorrow and see if you're faster</div>
+                  <div>3. Create your own comprehensive timed test</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I completed all problems in 5 minutes</div>
+                  <div>☐ I need more practice to go faster</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes _____ seconds
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-timed-1-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-4 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Excellent work on comprehensive timed tests! Keep practicing daily to master all times tables!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -9375,9 +9491,36 @@ export function PrintablesPage() {
             title="Blank Times Table (1-5) - Fill In"
             emoji="📋"
             description="Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence."
+            problemCount={25}
+            learningObjectives={[
+              'Fill in complete times table grid for facts 1-5',
+              'Practice all multiplication combinations',
+              'Build memorization through repetition'
+            ]}
+            parentTeacherTips={[
+              'This helps students see patterns in multiplication',
+              'Encourage students to fill in rows or columns systematically',
+              'Use skip counting to help: for row 3, count by 3s',
+              'Extension: Time yourself filling in the table'
+            ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-            <div className="space-y-4">
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - How to fill in the table:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>For row 2:</strong> Fill in 2×1, 2×2, 2×3, 2×4, 2×5</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div>2 × 1 = 2</div>
+                  <div>2 × 2 = 4</div>
+                  <div>2 × 3 = 6</div>
+                  <div>2 × 4 = 8</div>
+                  <div>2 × 5 = 10</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Count by 2s: 2, 4, 6, 8, 10!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <div className="border border-slate-300 rounded p-4 bg-white">
                 <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (1-5)</div>
                 <table className="w-full border-collapse">
@@ -9404,10 +9547,43 @@ export function PrintablesPage() {
                 </table>
               </div>
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Fill in the table from memory without looking at any notes</div>
+                <div>2. Time yourself: Can you fill it in under 3 minutes?</div>
+                <div>3. Circle all the perfect squares (1×1, 2×2, 3×3, 4×4, 5×5)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I filled in all 25 facts correctly</div>
+                <div>☐ I need more practice with some facts</div>
+                <div>☐ I can see patterns in the table</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 25
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>Time taken:</strong> _____ minutes
+              </div>
+            </div>
             {showAnswersForDoc('times-table-blank-1-5', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <div className="text-xs">Complete times table: 1×1=1, 1×2=2, 1×3=3, 1×4=4, 1×5=5, 2×1=2, 2×2=4, 2×3=6, 2×4=8, 2×5=10, 3×1=3, 3×2=6, 3×3=9, 3×4=12, 3×5=15, 4×1=4, 4×2=8, 4×3=12, 4×4=16, 4×5=20, 5×1=5, 5×2=10, 5×3=15, 5×4=20, 5×5=25</div>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-xs space-y-1">
+                  <div><strong>Row 1:</strong> 1, 2, 3, 4, 5</div>
+                  <div><strong>Row 2:</strong> 2, 4, 6, 8, 10</div>
+                  <div><strong>Row 3:</strong> 3, 6, 9, 12, 15</div>
+                  <div><strong>Row 4:</strong> 4, 8, 12, 16, 20</div>
+                  <div><strong>Row 5:</strong> 5, 10, 15, 20, 25</div>
+                </div>
+                <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                  <strong>💡 Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal (1×1, 2×2, etc.) shows perfect squares!
+                </div>
               </div>
             ))}
           </WorksheetSectionWrapper>
