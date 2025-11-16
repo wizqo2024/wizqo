@@ -13373,23 +13373,91 @@ export function PrintablesPage() {
             return { num, power, result: num * Math.pow(10, power) };
           });
           return (
-            <WorksheetSectionWrapper docId="powers-of-10" title="Powers of 10" emoji="🔢" description="Multiply or divide each number by a power of 10.">
+            <WorksheetSectionWrapper 
+              docId="powers-of-10" 
+              title="Powers of 10" 
+              emoji="🔢" 
+              description="Multiply or divide each number by a power of 10."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Multiply numbers by powers of 10',
+                'Understand that 10² = 100, 10³ = 1000, etc.',
+                'Move decimal points when multiplying by powers of 10'
+              ]}
+              parentTeacherTips={[
+                '10¹ = 10, 10² = 100, 10³ = 1000',
+                'Multiplying by 10 moves decimal point 1 place right',
+                'Multiplying by 100 moves decimal point 2 places right',
+                'Extension: Try dividing by powers of 10'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 5 × 10² = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> 10² = 10 × 10 = 100</div>
+                    <div><strong>Step 2:</strong> 5 × 100 = 500</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 500</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 10² means 10 × 10 = 100!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">
                       {p.num} × 10<sup>{p.power}</sup> = ____
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Solve: 7 × 10³ = ?</div>
+                  <div>2. What is 10⁴? (10 to the 4th power)</div>
+                  <div>3. Create your own power of 10 problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply by powers of 10</div>
+                  <div>☐ I understand what 10² and 10³ mean</div>
+                  <div>☐ I can calculate the answers correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('powers-of-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.num} × 10<sup>{p.power}</sup> = {p.result}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const powerValue = Math.pow(10, p.power);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num} × 10<sup>{p.power}</sup></div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: 10<sup>{p.power}</sup> = {powerValue}</div>
+                            <div>Step 2: {p.num} × {powerValue} = {p.result}</div>
+                            <div className="font-semibold">Answer: {p.result}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13948,21 +14016,90 @@ export function PrintablesPage() {
             return { meters, centimeters: meters * 100 };
           });
           return (
-            <WorksheetSectionWrapper docId="metric-conversion" title="Metric Units Conversion" emoji="📏" description="Convert between millimeters, centimeters, meters, and kilometers.">
+            <WorksheetSectionWrapper 
+              docId="metric-conversion" 
+              title="Metric Units Conversion" 
+              emoji="📏" 
+              description="Convert between millimeters, centimeters, meters, and kilometers."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between metric units (mm, cm, m, km)',
+                'Understand metric system relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 meter = 100 centimeters, 1 centimeter = 10 millimeters',
+                '1 kilometer = 1000 meters',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all metric units'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 meters = ____ centimeters</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
+                    <div><strong>Step 2:</strong> Multiply: 3 meters × 100 cm/meter = 300 centimeters</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 300 centimeters</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 meter = 100 cm, so multiply by 100!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 km = 1000 m, 1 m = 100 cm, 1 cm = 10 mm
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.meters} meters = ____ centimeters</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 2 kilometers = ____ meters</div>
+                  <div>2. How many millimeters are in 5 centimeters?</div>
+                  <div>3. Create your own metric conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between metric units</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('metric-conversion', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.meters} meters = {p.centimeters} centimeters</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 meter = 100 centimeters</div>
+                          <div>Step 2: {p.meters} meters × 100 cm/meter = {p.centimeters} centimeters</div>
+                          <div className="font-semibold">Answer: {p.centimeters} centimeters</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14631,26 +14768,92 @@ export function PrintablesPage() {
             return { frac, decimal };
           });
           return (
-            <WorksheetSectionWrapper docId="comparing-ordering-fractions-decimals" title="Comparing & Ordering Fractions/Decimals" emoji="🍕" description="Compare each fraction and decimal using >, <, or =.">
+            <WorksheetSectionWrapper 
+              docId="comparing-ordering-fractions-decimals" 
+              title="Comparing & Ordering Fractions/Decimals" 
+              emoji="🍕" 
+              description="Compare each fraction and decimal using &gt;, &lt;, or =."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Compare fractions and decimals',
+                'Convert fractions to decimals for comparison',
+                'Use &gt;, &lt;, and = symbols correctly'
+              ]}
+              parentTeacherTips={[
+                'Convert the fraction to a decimal first',
+                'Then compare the decimal values',
+                '&gt; means greater than, &lt; means less than, = means equal',
+                'Extension: Order multiple fractions and decimals'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 0.5</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Convert 1/2 to decimal: 1 ÷ 2 = 0.5</div>
+                    <div><strong>Step 2:</strong> Compare: 0.5 and 0.5</div>
+                    <div><strong>Step 3:</strong> They are equal!</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> =</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Convert fraction to decimal, then compare!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-bold">{p.frac} ____ {p.decimal}</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-bold mb-2">{p.frac} ____ {p.decimal}</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work (convert fraction first):</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Compare: 3/4 ____ 0.8</div>
+                  <div>2. Order from least to greatest: 0.3, 1/4, 0.5</div>
+                  <div>3. Create your own comparison problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert fractions to decimals</div>
+                  <div>☐ I can compare fractions and decimals</div>
+                  <div>☐ I can use &gt;, &lt;, and = correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('comparing-ordering-fractions-decimals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => {
                       const [num, den] = p.frac.split('/').map(Number);
                       const val = num / den;
-                      const symbol = val > parseFloat(p.decimal) ? '>' : val < parseFloat(p.decimal) ? '<' : '=';
-                      return <li key={i}>{p.frac} {symbol} {p.decimal}</li>;
+                      const symbol = val > parseFloat(p.decimal) ? '&gt;' : val < parseFloat(p.decimal) ? '&lt;' : '=';
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac} ____ {p.decimal}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Convert {p.frac} to decimal: {num} ÷ {den} = {val.toFixed(2)}</div>
+                            <div>Step 2: Compare {val.toFixed(2)} and {p.decimal}</div>
+                            <div className="font-semibold">Answer: {p.frac} {symbol} {p.decimal}</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14667,22 +14870,90 @@ export function PrintablesPage() {
             { frac: '1/3', decimal: '0.33', percent: '33%' },
           ];
           return (
-            <WorksheetSectionWrapper docId="fractions-decimals-percents" title="Fractions, Decimals, & Percents" emoji="🍕" description="Convert between fractions, decimals, and percents.">
+            <WorksheetSectionWrapper 
+              docId="fractions-decimals-percents" 
+              title="Fractions, Decimals, & Percents" 
+              emoji="🍕" 
+              description="Convert between fractions, decimals, and percents."
+              problemCount={conversions.length}
+              learningObjectives={[
+                'Convert fractions to decimals and percents',
+                'Understand that fractions, decimals, and percents represent the same value',
+                'Use division to convert fractions to decimals'
+              ]}
+              parentTeacherTips={[
+                'To convert fraction to decimal: divide numerator by denominator',
+                'To convert decimal to percent: multiply by 100 and add %',
+                'Common conversions: 1/2 = 0.5 = 50%, 1/4 = 0.25 = 25%',
+                'Extension: Convert more complex fractions'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Convert 1/2 to decimal and percent</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1 (Decimal):</strong> 1 ÷ 2 = 0.5</div>
+                    <div><strong>Step 2 (Percent):</strong> 0.5 × 100 = 50%</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Decimal: 0.5, Percent: 50%</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Divide for decimal, multiply by 100 for percent!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {conversions.map((c, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold">{c.frac}</div>
-                    <div className="text-center text-sm text-slate-600">Decimal: ____ Percent: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Decimal: ____ Percent: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert 2/5 to decimal and percent</div>
+                  <div>2. What fraction equals 0.6? What percent?</div>
+                  <div>3. Create your own conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert fractions to decimals</div>
+                  <div>☐ I can convert decimals to percents</div>
+                  <div>☐ I understand they all represent the same value</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {conversions.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fractions-decimals-percents', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {conversions.map((c, i) => (<li key={i}>{c.frac} = {c.decimal} = {c.percent}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {conversions.map((c, i) => {
+                      const [num, den] = c.frac.split('/').map(Number);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {c.frac}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1 (Decimal): {num} ÷ {den} = {c.decimal}</div>
+                            <div>Step 2 (Percent): {c.decimal} × 100 = {c.percent}</div>
+                            <div className="font-semibold">Answer: Decimal: {c.decimal}, Percent: {c.percent}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
