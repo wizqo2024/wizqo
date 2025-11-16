@@ -11975,26 +11975,97 @@ export function PrintablesPage() {
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper docId="long-division-1digit" title="Long Division (1-Digit Divisor)" emoji="🔢" description="Divide each number. Show your work and write any remainder.">
+            <WorksheetSectionWrapper 
+              docId="long-division-1digit" 
+              title="Long Division (1-Digit Divisor)" 
+              emoji="🔢" 
+              description="Divide each number. Show your work and write any remainder."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Divide multi-digit numbers by 1-digit divisors',
+                'Use long division algorithm',
+                'Identify and write remainders',
+                'Check division answers'
+              ]}
+              parentTeacherTips={[
+                'Divide, multiply, subtract, bring down (DMSB)',
+                'Start with the leftmost digit(s)',
+                'If remainder is 0, division is complete',
+                'If remainder is not 0, write R followed by remainder',
+                'Extension: Practice with larger dividends'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 4 ) 56</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Divide: 5 ÷ 4 = 1 (write 1 above)</div>
+                    <div><strong>Step 2:</strong> Multiply: 1 × 4 = 4 (write below 5)</div>
+                    <div><strong>Step 3:</strong> Subtract: 5 - 4 = 1 (bring down 6)</div>
+                    <div><strong>Step 4:</strong> Divide: 16 ÷ 4 = 4 (write 4 above)</div>
+                    <div><strong>Step 5:</strong> Multiply: 4 × 4 = 16, Subtract: 16 - 16 = 0</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 14</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Divide, Multiply, Subtract, Bring down (DMSB)!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
-                    <div className="font-mono text-xl text-right">
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
+                    <div className="font-mono text-xl text-right mb-2">
                       <div>{p.divisor} ) {p.dividend}</div>
-                      <div className="border-t border-slate-400 mt-2 pt-2">____</div>
+                      <div className="border-t border-slate-400 mt-2 pt-2 min-h-12">____</div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own long division problem</div>
+                  <div>2. Solve: 7 ) 847</div>
+                  <div>3. Explain the steps of long division</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can divide using long division</div>
+                  <div>☐ I can write remainders correctly</div>
+                  <div>☐ I can check my answers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('long-division-1digit', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (
-                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)}{p.remainder > 0 ? ` R${p.remainder}` : ''}</li>
-                    ))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const quotient = Math.floor(p.dividend / p.divisor);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.dividend} ÷ {p.divisor}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Divide {p.dividend} by {p.divisor}</div>
+                            <div>Step 2: Calculate: {p.dividend} ÷ {p.divisor} = {quotient}{p.remainder > 0 ? ` remainder ${p.remainder}` : ''}</div>
+                            <div className="font-semibold">Answer: {quotient}{p.remainder > 0 ? ` R${p.remainder}` : ''}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17408,27 +17479,132 @@ export function PrintablesPage() {
             'The ratio of cats to dogs is 2:1. If there are 8 cats, how many dogs are there?',
           ];
           return (
-            <WorksheetSectionWrapper docId="ratio-proportion-word-problems" title="Ratio & Proportion Word Problems" emoji="🧮" description="Solve each word problem involving ratios and proportions.">
+            <WorksheetSectionWrapper 
+              docId="ratio-proportion-word-problems" 
+              title="Ratio & Proportion Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving ratios and proportions."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving ratios',
+                'Use proportions to find missing values',
+                'Understand ratio relationships',
+                'Apply ratios and proportions in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Ratios compare two quantities',
+                'Set up proportions: a:b = c:d',
+                'Cross multiply to solve proportions',
+                'Check that answers make sense',
+                'Extension: Create your own ratio word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> The ratio of red to blue marbles is 2:3. If there are 8 red marbles, how many blue marbles are there?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Set up proportion: 2:3 = 8:?</div>
+                    <div><strong>Step 2:</strong> Cross multiply: 2 × ? = 3 × 8, so 2 × ? = 24</div>
+                    <div><strong>Step 3:</strong> Solve: ? = 24 ÷ 2 = 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 blue marbles</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Set up the proportion and cross multiply to solve!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own ratio word problem</div>
+                  <div>2. Solve: The ratio of students to teachers is 20:1. If there are 100 students, how many teachers?</div>
+                  <div>3. Explain when you use ratios in everyday life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve ratio word problems</div>
+                  <div>☐ I can set up and solve proportions</div>
+                  <div>☐ I understand ratio relationships</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('ratio-proportion-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>3:5 = 15:25, so 25 girls</li>
-                    <li>2:3 = 6:9, so 6 cups flour</li>
-                    <li>4:10 = 12:30, so 12 pages</li>
-                    <li>4:3 = 12:9, so 9 oranges</li>
-                    <li>60:1 = 180:3, so 180 miles</li>
-                    <li>2:1 = 8:4, so 4 dogs</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 3:5 = 15:?</div>
+                        <div>Step 2: Cross multiply: 3 × ? = 5 × 15, so 3 × ? = 75</div>
+                        <div>Step 3: Solve: ? = 75 ÷ 3 = 25</div>
+                        <div className="font-semibold">Answer: 25 girls</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 2:3 = ?:9</div>
+                        <div>Step 2: Cross multiply: 2 × 9 = 3 × ?, so 18 = 3 × ?</div>
+                        <div>Step 3: Solve: ? = 18 ÷ 3 = 6</div>
+                        <div className="font-semibold">Answer: 6 cups flour</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 4:10 = ?:30</div>
+                        <div>Step 2: Cross multiply: 4 × 30 = 10 × ?, so 120 = 10 × ?</div>
+                        <div>Step 3: Solve: ? = 120 ÷ 10 = 12</div>
+                        <div className="font-semibold">Answer: 12 pages</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 4:3 = 12:?</div>
+                        <div>Step 2: Cross multiply: 4 × ? = 3 × 12, so 4 × ? = 36</div>
+                        <div>Step 3: Solve: ? = 36 ÷ 4 = 9</div>
+                        <div className="font-semibold">Answer: 9 oranges</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 60:1 = ?:3</div>
+                        <div>Step 2: Cross multiply: 60 × 3 = 1 × ?, so 180 = ?</div>
+                        <div className="font-semibold">Answer: 180 miles</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Set up proportion: 2:1 = 8:?</div>
+                        <div>Step 2: Cross multiply: 2 × ? = 1 × 8, so 2 × ? = 8</div>
+                        <div>Step 3: Solve: ? = 8 ÷ 2 = 4</div>
+                        <div className="font-semibold">Answer: 4 dogs</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
