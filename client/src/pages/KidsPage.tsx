@@ -138,6 +138,21 @@ export default function KidsPage() {
             <a className={OUTLINE_BUTTON} href="/kids">Back to Kids Hub</a>
           </div>
           {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
+          
+          {/* Related links */}
+          <section className="mt-8 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href="/kids">Kids Hub – All Games</a></li>
+              <li><a className="hover:underline" href="/kids/games/memory">Memory Match Game</a></li>
+              <li><a className="hover:underline" href="/kids/games/word-search">Word Search Game</a></li>
+              <li><a className="hover:underline" href="/kids/games/puzzle">Puzzle Game</a></li>
+              <li><a className="hover:underline" href="/kids/games/typing">Typing Safari Game</a></li>
+              <li><a className="hover:underline" href="/kids/games/pattern">Pattern Builder Game</a></li>
+              <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets</a></li>
+            </ul>
+          </section>
         </div>
       </div>
     );
