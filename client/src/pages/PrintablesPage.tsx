@@ -12390,24 +12390,90 @@ export function PrintablesPage() {
             return { d1: parseFloat(d1), d2: parseFloat(d2) };
           });
           return (
-            <WorksheetSectionWrapper docId="comparing-decimals" title="Comparing & Ordering Decimals" emoji="🍕" description="Compare each pair using >, <, or =.">
+            <WorksheetSectionWrapper 
+              docId="comparing-decimals" 
+              title="Comparing & Ordering Decimals" 
+              emoji="🍕" 
+              description="Compare each pair using >, <, or =."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Compare decimal numbers using >, <, or =',
+                'Understand place value when comparing decimals',
+                'Order decimals from least to greatest'
+              ]}
+              parentTeacherTips={[
+                'Compare decimals place by place, starting with the whole number part',
+                'If whole numbers are equal, compare tenths, then hundredths',
+                'Line up decimal points to help visualize',
+                'Extension: Order three or more decimals'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3.5 ____ 3.2</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Compare whole numbers: 3 = 3 (equal)</div>
+                    <div><strong>Step 2:</strong> Compare tenths: 5 &gt; 2</div>
+                    <div><strong>Step 3:</strong> Since 5 &gt; 2, 3.5 &gt; 3.2</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3.5 &gt; 3.2</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare place by place, starting with whole numbers!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-bold">{p.d1} ____ {p.d2}</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-bold mb-2">{p.d1} ____ {p.d2}</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Order these decimals from least to greatest: 2.3, 2.1, 2.5</div>
+                  <div>2. Create your own decimal comparison problem</div>
+                  <div>3. Explain your strategy for comparing decimals</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can compare decimals correctly</div>
+                  <div>☐ I understand place value when comparing</div>
+                  <div>☐ I can order decimals from least to greatest</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('comparing-decimals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
                     {problems.map((p, i) => {
                       const symbol = p.d1 > p.d2 ? '>' : p.d1 < p.d2 ? '<' : '=';
-                      return <li key={i}>{p.d1} {symbol} {p.d2}</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                          <div className="font-semibold text-sm">{i + 1}. {p.d1} {symbol} {p.d2}</div>
+                          {p.d1 !== p.d2 && (
+                            <div className="text-xs text-emerald-800 mt-1">
+                              {p.d1 > p.d2 ? `${p.d1} is greater than ${p.d2}` : `${p.d1} is less than ${p.d2}`}
+                            </div>
+                          )}
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12424,26 +12490,92 @@ export function PrintablesPage() {
             return { d1: parseFloat(d1), d2: parseFloat(d2), op };
           });
           return (
-            <WorksheetSectionWrapper docId="add-sub-decimals" title="Adding & Subtracting Decimals" emoji="🍕" description="Add or subtract each pair of decimals. Line up decimal points.">
+            <WorksheetSectionWrapper 
+              docId="add-sub-decimals" 
+              title="Adding & Subtracting Decimals" 
+              emoji="🍕" 
+              description="Add or subtract each pair of decimals. Line up decimal points."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Add and subtract decimal numbers',
+                'Line up decimal points correctly',
+                'Regroup when necessary'
+              ]}
+              parentTeacherTips={[
+                'Always line up decimal points when adding or subtracting',
+                'Add zeros to make decimals have the same number of decimal places',
+                'Regroup just like with whole numbers',
+                'Extension: Try with more decimal places'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 4.5 + 2.3 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Line up decimal points:</div>
+                    <div className="font-mono pl-4">  4.5</div>
+                    <div className="font-mono pl-4">+ 2.3</div>
+                    <div className="font-mono pl-4">_____</div>
+                    <div><strong>Step 2:</strong> Add: 5 + 3 = 8 (tenths), 4 + 2 = 6 (ones)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6.8</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always line up the decimal points!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">
-                      {p.d1} {p.op} {p.d2} = ____
-                    </div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.d1} {p.op} {p.d2} = ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work (line up decimals):</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own decimal addition problem</div>
+                  <div>2. Create your own decimal subtraction problem</div>
+                  <div>3. Solve: 12.5 + 8.7 = ? and 15.3 - 6.9 = ?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can add decimals correctly</div>
+                  <div>☐ I can subtract decimals correctly</div>
+                  <div>☐ I remember to line up decimal points</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('add-sub-decimals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => {
                       const result = p.op === '+' ? (p.d1 + p.d2).toFixed(1) : (p.d1 - p.d2).toFixed(1);
-                      return <li key={i}>{p.d1} {p.op} {p.d2} = {result}</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.d1} {p.op} {p.d2}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Line up decimal points</div>
+                            <div>Step 2: {p.op === '+' ? 'Add' : 'Subtract'} place by place</div>
+                            <div className="font-semibold">Answer: {result}</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12459,22 +12591,89 @@ export function PrintablesPage() {
             return { num, denom, decimal: (num / denom).toFixed(2) };
           });
           return (
-            <WorksheetSectionWrapper docId="fractions-to-decimals" title="Fractions to Decimals" emoji="🍕" description="Convert each fraction to a decimal.">
+            <WorksheetSectionWrapper 
+              docId="fractions-to-decimals" 
+              title="Fractions to Decimals" 
+              emoji="🍕" 
+              description="Convert each fraction to a decimal."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert fractions to decimal numbers',
+                'Understand that fractions are division',
+                'Use division to convert fractions to decimals'
+              ]}
+              parentTeacherTips={[
+                'To convert a fraction to a decimal, divide the numerator by the denominator',
+                'Some fractions convert to terminating decimals (like 1/2 = 0.5)',
+                'Some fractions convert to repeating decimals (like 1/3 = 0.333...)',
+                'Extension: Convert decimals back to fractions'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3/4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Divide numerator by denominator: 3 ÷ 4</div>
+                    <div><strong>Step 2:</strong> 3 ÷ 4 = 0.75</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 0.75</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A fraction is just division! Divide the top number by the bottom number!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{p.num}/{p.denom}</div>
-                    <div className="text-center text-lg font-mono">= ____</div>
+                    <div className="text-center text-lg font-mono mb-2">= ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work (divide):</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert 1/8 to a decimal</div>
+                  <div>2. Convert 2/5 to a decimal</div>
+                  <div>3. Create your own fraction-to-decimal problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert fractions to decimals</div>
+                  <div>☐ I understand that fractions are division</div>
+                  <div>☐ I can divide to convert fractions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fractions-to-decimals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.num}/{p.denom} = {p.decimal}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num}/{p.denom}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Divide {p.num} ÷ {p.denom}</div>
+                          <div className="font-semibold">Answer: {p.decimal}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! Remember: to convert a fraction to a decimal, divide the numerator by the denominator!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
