@@ -13602,23 +13602,94 @@ export function PrintablesPage() {
             return { a, b, op, estimate };
           });
           return (
-            <WorksheetSectionWrapper docId="estimating-sums-differences" title="Estimating Sums & Differences" emoji="🔢" description="Estimate each sum or difference by rounding to the nearest ten.">
+            <WorksheetSectionWrapper 
+              docId="estimating-sums-differences" 
+              title="Estimating Sums & Differences" 
+              emoji="🔢" 
+              description="Estimate each sum or difference by rounding to the nearest ten."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Estimate sums by rounding to the nearest ten',
+                'Estimate differences by rounding to the nearest ten',
+                'Use estimation to check if answers are reasonable'
+              ]}
+              parentTeacherTips={[
+                'Round each number to the nearest ten',
+                'Then add or subtract the rounded numbers',
+                'Estimation helps check if exact answers are reasonable',
+                'Extension: Estimate by rounding to the nearest hundred'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Estimate 47 + 32</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Round 47 to nearest ten: 50</div>
+                    <div><strong>Step 2:</strong> Round 32 to nearest ten: 30</div>
+                    <div><strong>Step 3:</strong> Add: 50 + 30 = 80</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> ≈ 80</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Round to nearest ten, then add or subtract!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">
                       {p.a} {p.op} {p.b} ≈ ____
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your rounding:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Estimate 156 + 234 by rounding to the nearest hundred</div>
+                  <div>2. Estimate 487 - 192 by rounding to the nearest ten</div>
+                  <div>3. Explain why estimation is useful</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can estimate sums</div>
+                  <div>☐ I can estimate differences</div>
+                  <div>☐ I can round to the nearest ten</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('estimating-sums-differences', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.a} {p.op} {p.b} ≈ {p.estimate}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const roundedA = Math.round(p.a / 10) * 10;
+                      const roundedB = Math.round(p.b / 10) * 10;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.a} {p.op} {p.b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Round {p.a} to nearest ten: {roundedA}</div>
+                            <div>Step 2: Round {p.b} to nearest ten: {roundedB}</div>
+                            <div>Step 3: {roundedA} {p.op} {roundedB} = {p.estimate}</div>
+                            <div className="font-semibold">Answer: ≈ {p.estimate}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -16388,27 +16459,123 @@ export function PrintablesPage() {
             'A pie is cut into 8 equal pieces. 3 pieces are eaten. What fraction of the pie remains?',
           ];
           return (
-            <WorksheetSectionWrapper docId="fraction-word-problems" title="Fraction Word Problems" emoji="🧮" description="Solve each word problem involving fractions.">
+            <WorksheetSectionWrapper 
+              docId="fraction-word-problems" 
+              title="Fraction Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving fractions."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving fractions',
+                'Add and subtract fractions in real-world contexts',
+                'Multiply fractions by whole numbers',
+                'Understand fractions in everyday situations'
+              ]}
+              parentTeacherTips={[
+                'Help students identify what operation to use',
+                'Draw pictures or use visual models to help',
+                'Check that answers make sense in the context',
+                'Extension: Create your own fraction word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Sarah ate 1/2 of a pizza. Tom ate 1/4 of the same pizza. How much did they eat together?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find common denominator: 1/2 = 2/4</div>
+                    <div><strong>Step 2:</strong> Add: 2/4 + 1/4 = 3/4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/4 of the pizza</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Find common denominators when adding or subtracting fractions!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own fraction word problem</div>
+                  <div>2. Solve: A cake is cut into 12 pieces. 1/3 are eaten. How many pieces remain?</div>
+                  <div>3. Explain how fractions are used in real life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve fraction word problems</div>
+                  <div>☐ I can add and subtract fractions</div>
+                  <div>☐ I can multiply fractions by whole numbers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fraction-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>1/4 + 1/3 = 7/12</li>
-                    <li>3/4 - 1/2 = 1/4 cup</li>
-                    <li>24 × 1/3 = 8 students</li>
-                    <li>12 - 3 = 9 feet</li>
-                    <li>2/3 of $1 = $0.67</li>
-                    <li>8 - 3 = 5 pieces, so 5/8 remains</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find common denominator: 1/4 = 3/12, 1/3 = 4/12</div>
+                        <div>Step 2: Add: 3/12 + 4/12 = 7/12</div>
+                        <div className="font-semibold">Answer: 7/12 of the pizza</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find common denominator: 3/4 = 3/4, 1/2 = 2/4</div>
+                        <div>Step 2: Subtract: 3/4 - 2/4 = 1/4</div>
+                        <div className="font-semibold">Answer: 1/4 cup more</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: 24 × 1/3 = 24 ÷ 3 = 8</div>
+                        <div className="font-semibold">Answer: 8 students</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 1/4 of 12 = 12 ÷ 4 = 3 feet (cut off)</div>
+                        <div>Step 2: 12 - 3 = 9 feet</div>
+                        <div className="font-semibold">Answer: 9 feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 2/3 of $1.00 = $1.00 × 2/3 = $0.67</div>
+                        <div className="font-semibold">Answer: $0.67</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 8 - 3 = 5 pieces remain</div>
+                        <div>Step 2: 5 out of 8 = 5/8</div>
+                        <div className="font-semibold">Answer: 5/8 of the pie</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19222,21 +19389,89 @@ export function PrintablesPage() {
             return { feet, inches: feet * 12 };
           });
           return (
-            <WorksheetSectionWrapper docId="customary-units" title="Customary Units" emoji="📏" description="Convert between inches, feet, and yards.">
+            <WorksheetSectionWrapper 
+              docId="customary-units" 
+              title="Customary Units" 
+              emoji="📏" 
+              description="Convert between inches, feet, and yards."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between inches, feet, and yards',
+                'Understand customary measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 foot = 12 inches, 1 yard = 3 feet = 36 inches',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all customary units'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 feet = ____ inches</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 foot = 12 inches</div>
+                    <div><strong>Step 2:</strong> Multiply: 3 feet × 12 inches/foot = 36 inches</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 36 inches</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 foot = 12 inches, so multiply by 12!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 yard = 3 feet, 1 foot = 12 inches
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.feet} feet = ____ inches</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.feet} feet = ____ inches</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 2 yards = ____ feet = ____ inches</div>
+                  <div>2. How many inches are in 5.5 feet?</div>
+                  <div>3. Create your own customary conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between customary units</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('customary-units', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.feet} feet = {p.inches} inches</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.feet} feet = ____ inches</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 foot = 12 inches</div>
+                          <div>Step 2: {p.feet} feet × 12 inches/foot = {p.inches} inches</div>
+                          <div className="font-semibold">Answer: {p.inches} inches</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19768,27 +20003,122 @@ export function PrintablesPage() {
             'A square playground has sides of 8 meters. What is the area?',
           ];
           return (
-            <WorksheetSectionWrapper docId="perimeter-area-word-problems" title="Perimeter & Area Word Problems" emoji="🧮" description="Find perimeter and area in real-world situations.">
+            <WorksheetSectionWrapper 
+              docId="perimeter-area-word-problems" 
+              title="Perimeter & Area Word Problems" 
+              emoji="🧮" 
+              description="Find perimeter and area in real-world situations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving perimeter',
+                'Solve word problems involving area',
+                'Apply perimeter and area formulas in real-world contexts',
+                'Distinguish between perimeter and area'
+              ]}
+              parentTeacherTips={[
+                'Perimeter = distance around (add all sides)',
+                'Area = space inside (length × width)',
+                'Help students identify which one is needed',
+                'Draw pictures to visualize the problem',
+                'Extension: Find perimeter and area of composite shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle has length 6 cm and width 4 cm. Find the area and perimeter.</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1 (Area):</strong> Area = length × width = 6 × 4 = 24</div>
+                    <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 × (length + width) = 2 × (6 + 4) = 20</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 24 sq cm, Perimeter = 20 cm</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the area and perimeter of your desk or table</div>
+                  <div>2. A rectangle has area 48 sq cm. If length is 8 cm, what is the width?</div>
+                  <div>3. Create your own perimeter and area word problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find perimeter in word problems</div>
+                  <div>☐ I can find area in word problems</div>
+                  <div>☐ I understand the difference between perimeter and area</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('perimeter-area-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Area = 40 sq cm, Perimeter = 26 cm</li>
-                    <li>Area = 36 sq inches, Perimeter = 24 inches</li>
-                    <li>Area = 70 sq feet</li>
-                    <li>Area = 108 sq feet</li>
-                    <li>Perimeter = 26 cm</li>
-                    <li>Area = 64 sq meters</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 8 × 5 = 40 sq cm</div>
+                        <div>Perimeter: 2 × (8 + 5) = 26 cm</div>
+                        <div className="font-semibold">Answer: Area = 40 sq cm, Perimeter = 26 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 6 × 6 = 36 sq inches</div>
+                        <div>Perimeter: 4 × 6 = 24 inches</div>
+                        <div className="font-semibold">Answer: Area = 36 sq inches, Perimeter = 24 inches</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 10 × 7 = 70 sq feet</div>
+                        <div className="font-semibold">Answer: 70 sq feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 12 × 9 = 108 sq feet</div>
+                        <div className="font-semibold">Answer: 108 sq feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Perimeter: 2 × (9 + 4) = 26 cm</div>
+                        <div className="font-semibold">Answer: 26 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Area: 8 × 8 = 64 sq meters</div>
+                        <div className="font-semibold">Answer: 64 sq meters</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
