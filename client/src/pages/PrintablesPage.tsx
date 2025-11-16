@@ -7225,23 +7225,80 @@ export function PrintablesPage() {
               title="Basic Multiplication Facts (1-5)"
               emoji="✖️"
               description="Write the correct answer in each blank. These problems help students memorize multiplication facts from 1–5."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Memorize multiplication facts from 1×1 to 5×5',
+                'Build speed and accuracy with basic facts',
+                'Understand multiplication as repeated addition'
+              ]}
+              parentTeacherTips={[
+                'Start with easier facts (1s, 2s) and work up to 5s',
+                'Use skip counting to help: 3 × 4 means count by 3s four times',
+                'Practice daily for 5-10 minutes for best results',
+                'Extension: Time yourself and try to beat your record'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Think: 3 groups of 4</div>
+                    <div><strong>Step 2:</strong> Count: 4, 8, 12 (skip count by 4s three times)</div>
+                    <div><strong>Step 3:</strong> Or add: 4 + 4 + 4 = 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: You can use skip counting or repeated addition!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-center">
                       <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 5 × 5 = ? (the biggest fact in this worksheet!)</div>
+                  <div>3. Write all the facts that equal 12: ___ × ___ = 12</div>
+                  <div>4. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply numbers 1-5 easily</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes</div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> ______________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-facts-1-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {a} × {b} = <strong>{a * b}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -7260,26 +7317,80 @@ export function PrintablesPage() {
               title="Multiplication Arrays (2-5)"
               emoji="📊"
               description="Draw an array for each multiplication problem. Count the total number of objects and write the answer in the blank."
+              problemCount={arrays.length}
+              learningObjectives={[
+                'Use arrays to visualize multiplication',
+                'Count rows and columns to find the product',
+                'Understand multiplication as equal groups'
+              ]}
+              parentTeacherTips={[
+                'Arrays help students see multiplication visually',
+                'Count rows first, then columns, or count all objects',
+                'Encourage students to count the total number of boxes',
+                'Extension: Draw your own arrays for different problems'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw an array with 3 rows and 4 columns</div>
+                    <div><strong>Step 2:</strong> Count all the boxes: 3 rows × 4 columns = 12 boxes</div>
+                    <div><strong>Step 3:</strong> Or count: 4, 8, 12 (count by 4s three times)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The array shows 3 groups of 4, which equals 12!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
-                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
+                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own array for 4 × 5 on a separate piece of paper</div>
+                  <div>2. Can you find an array that shows 5 × 3? How many boxes does it have?</div>
+                  <div>3. Create a word problem that matches one of the arrays above</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can use arrays to solve multiplication</div>
+                  <div>☐ I can count rows and columns correctly</div>
+                  <div>☐ I understand how arrays show multiplication</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {arrays.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-arrays-2-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {arrays.map(([rows, cols], i) => (<li key={i}>{rows} × {cols} = {rows * cols}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {arrays.map(([rows, cols], i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {rows} × {cols} = <strong>{rows * cols}</strong> (count all {rows * cols} boxes in the array)
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -7327,54 +7438,107 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('mult-word-problems-2-3') && (
-          <WorksheetSectionWrapper
-            docId="mult-word-problems-2-3"
-            title="Multiplication Word Problems (2nd-3rd)"
-            emoji="🧮"
+        {activeDocs.includes('mult-word-problems-2-3') && (() => {
+          const problems = [
+            { problem: 'Emma has 3 bags. Each bag has 4 apples. How many apples in all?', equation: '3 × 4 = __', answer: '12 apples' },
+            { problem: 'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?', equation: '5 × 3 = __', answer: '15 flowers' },
+            { problem: 'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?', equation: '2 × 6 = __', answer: '12 stickers' },
+            { problem: 'A classroom has 4 tables. Each table seats 5 students. How many students can sit?', equation: '4 × 5 = __', answer: '20 students' },
+            { problem: 'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?', equation: '3 × 8 = __', answer: '24 cookies' },
+          ];
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-word-problems-2-3"
+              title="Multiplication Word Problems (2nd-3rd)"
+              emoji="🧮"
               description="Read each word problem carefully. Write a multiplication equation and solve. Show your answer in the blank space provided."
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-              <strong>📝 Instructions:</strong> Read each problem. Write a multiplication equation (like 3 × 4 = __) and solve. Show your work.
-            </div>
-            <div className="space-y-4">
-              {[
-                { problem: 'Emma has 3 bags. Each bag has 4 apples. How many apples in all?', equation: '3 × 4 = __', answer: '12 apples' },
-                { problem: 'There are 5 rows of flowers. Each row has 3 flowers. How many flowers total?', equation: '5 × 3 = __', answer: '15 flowers' },
-                { problem: 'Jake buys 2 packs of stickers. Each pack has 6 stickers. How many stickers does he have?', equation: '2 × 6 = __', answer: '12 stickers' },
-                { problem: 'A classroom has 4 tables. Each table seats 5 students. How many students can sit?', equation: '4 × 5 = __', answer: '20 students' },
-                { problem: 'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?', equation: '3 × 8 = __', answer: '24 cookies' },
-              ].map((item, i) => (
-                <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white">
-                  <div className="text-base font-semibold text-slate-800 mb-2">
-                    {i + 1}. {item.problem}
+              problemCount={problems.length}
+              learningObjectives={[
+                'Read and understand multiplication word problems',
+                'Write multiplication equations from word problems',
+                'Solve real-world problems using multiplication'
+              ]}
+              parentTeacherTips={[
+                'Help students identify key words: "each", "in all", "total"',
+                'Encourage students to draw pictures or use arrays if needed',
+                'Make sure students write the equation before solving',
+                'Extension: Create your own word problems'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Sarah has 2 boxes. Each box has 5 pencils. How many pencils in all?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the numbers: 2 boxes, 5 pencils in each</div>
+                    <div><strong>Step 2:</strong> Write the equation: 2 × 5 = ?</div>
+                    <div><strong>Step 3:</strong> Solve: 2 × 5 = 10</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 pencils</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: "Each" tells us to multiply! 2 groups of 5 = 10</div>
                   </div>
-                  <div className="mb-3">
-                    <div className="text-sm text-slate-600 mb-1">Equation:</div>
-                    <div className="text-lg font-mono text-slate-800">{item.equation}</div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Read each problem. Write a multiplication equation (like 3 × 4 = __) and solve. Show your work.
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((item, i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-base font-semibold text-slate-800 mb-2">
+                      {i + 1}. {item.problem}
+                    </div>
+                    <div className="mb-3">
+                      <div className="text-sm text-slate-600 mb-1">Equation:</div>
+                      <div className="text-lg font-mono text-slate-800">{item.equation}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-600 mb-1">Answer:</div>
+                      <div className="h-12 print:h-16 border-b-[3px] border-slate-600 w-full" />
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-sm text-slate-600 mb-1">Answer:</div>
-                    <div className="h-12 print:h-16 border-b-[3px] border-slate-600 w-full" />
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication word problem</div>
+                  <div>2. Draw a picture or array to solve one of the problems above</div>
+                  <div>3. Can you write a word problem using 6 × 7?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can read and understand word problems</div>
+                  <div>☐ I can write multiplication equations</div>
+                  <div>☐ I can solve word problems correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('mult-word-problems-2-3', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {problems.map((item, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {item.equation.replace('__', item.answer.split(' ')[0])} = <strong>{item.answer}</strong>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
-            </div>
-            {showAnswersForDoc('mult-word-problems-2-3', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>3 × 4 = 12 apples</li>
-                  <li>5 × 3 = 15 flowers</li>
-                  <li>2 × 6 = 12 stickers</li>
-                  <li>4 × 5 = 20 students</li>
-                  <li>3 × 8 = 24 cookies</li>
-                </ol>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('mult-facts-6-12') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
