@@ -186,7 +186,7 @@ function WorksheetSectionWrapper({
         {children}
         {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
         {parentTeacherTips && (
-          <div className="print:page-break-before-avoid">
+          <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
             <ParentTeacherTips tips={parentTeacherTips} />
           </div>
         )}
@@ -8210,7 +8210,7 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3 break-inside-avoid">
+              <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-xl leading-7">
@@ -8220,7 +8220,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems - Start of page 2 content */}
-              <div className="mt-6 print:mt-0 print:page-break-before-always p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
@@ -8230,7 +8230,7 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Self-Assessment - Will appear on page 2 with Challenge and Parent/Teacher Tips */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded">
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                 <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
                 <div className="space-y-2 text-xs">
                   <div>☐ I can multiply numbers 1-5 easily</div>
