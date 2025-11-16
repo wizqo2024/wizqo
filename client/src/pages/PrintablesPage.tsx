@@ -12741,19 +12741,78 @@ export function PrintablesPage() {
             return { whole1, num1, denom1, whole2, num2, denom2, op };
           });
           return (
-            <WorksheetSectionWrapper docId="add-sub-mixed-numbers" title="Adding & Subtracting Mixed Numbers" emoji="🍕" description="Add or subtract each pair of mixed numbers. Regroup when needed.">
+            <WorksheetSectionWrapper 
+              docId="add-sub-mixed-numbers" 
+              title="Adding & Subtracting Mixed Numbers" 
+              emoji="🍕" 
+              description="Add or subtract each pair of mixed numbers. Regroup when needed."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Add mixed numbers with like denominators',
+                'Subtract mixed numbers with like denominators',
+                'Regroup when fraction results are improper',
+                'Simplify final answers'
+              ]}
+              parentTeacherTips={[
+                'Add/subtract whole numbers first',
+                'Then add/subtract fractions',
+                'If fraction is improper, convert to mixed number',
+                'Add the new whole number to the original whole number',
+                'Extension: Practice with unlike denominators'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 1/3 + 1 2/3 = ____</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Add whole numbers: 2 + 1 = 3</div>
+                    <div><strong>Step 2:</strong> Add fractions: 1/3 + 2/3 = 3/3 = 1</div>
+                    <div><strong>Step 3:</strong> Add results: 3 + 1 = 4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Add whole numbers, then fractions. If fraction equals 1 or more, add it to the whole!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Steps:</strong> Add/subtract the whole numbers, then add/subtract the fractions. If the fraction result is improper, convert to a mixed number and add to the whole number.
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">
                       {p.whole1} {p.num1}/{p.denom1} {p.op} {p.whole2} {p.num2}/{p.denom2} = ____
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Solve: 3 2/5 + 2 3/5 = ____</div>
+                  <div>2. Solve: 4 1/4 - 2 3/4 = ____</div>
+                  <div>3. Create your own mixed number addition/subtraction problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can add mixed numbers</div>
+                  <div>☐ I can subtract mixed numbers</div>
+                  <div>☐ I can regroup when needed</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
               </div>
               {showAnswersForDoc('add-sub-mixed-numbers', () => {
                 const answers = problems.map(p => {
@@ -12765,14 +12824,26 @@ export function PrintablesPage() {
                   return { whole, num, denom: p.denom1 };
                 });
                 return (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                    <div className="space-y-3">
                       {problems.map((p, i) => {
                         const a = answers[i];
-                        return <li key={i}>{p.whole1} {p.num1}/{p.denom1} {p.op} {p.whole2} {p.num2}/{p.denom2} = {a.whole} {a.num}/{a.denom}</li>;
+                        const wholeResult = p.op === '+' ? p.whole1 + p.whole2 : p.whole1 - p.whole2;
+                        const fracResult = p.op === '+' ? p.num1 + p.num2 : p.num1 - p.num2;
+                        return (
+                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                            <div className="font-semibold mb-2 text-sm">{i + 1}. {p.whole1} {p.num1}/{p.denom1} {p.op} {p.whole2} {p.num2}/{p.denom2}</div>
+                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                              <div>Step 1: {p.op === '+' ? 'Add' : 'Subtract'} whole numbers: {p.whole1} {p.op} {p.whole2} = {wholeResult}</div>
+                              <div>Step 2: {p.op === '+' ? 'Add' : 'Subtract'} fractions: {p.num1}/{p.denom1} {p.op} {p.num2}/{p.denom2} = {fracResult}/{p.denom1}</div>
+                              <div>Step 3: Combine: {wholeResult} + {fracResult}/{p.denom1} = {a.whole} {a.num}/{a.denom}</div>
+                              <div className="font-semibold">Answer: {a.whole} {a.num}/{a.denom}</div>
+                            </div>
+                          </div>
+                        );
                       })}
-                    </ul>
+                    </div>
                   </div>
                 );
               })}
