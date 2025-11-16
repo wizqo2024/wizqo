@@ -10321,6 +10321,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="partial-products" title="Partial Products Multiplication" emoji="🔢" description="Break down each multiplication into partial products.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Break each number into tens and ones. Multiply each part (tens × tens, tens × ones, ones × tens, ones × ones). Add all four partial products to get the total.
+              </div>
               <div className="space-y-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-4 bg-white">
@@ -10457,6 +10460,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="mixed-improper-fractions" title="Mixed Numbers & Improper Fractions" emoji="🍕" description="Convert between mixed numbers and improper fractions.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 To Convert:</strong> Mixed to Improper: (whole × denominator) + numerator. Improper to Mixed: Divide numerator by denominator to get whole number, remainder becomes numerator.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -10497,6 +10503,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="add-sub-mixed-numbers" title="Adding & Subtracting Mixed Numbers" emoji="🍕" description="Add or subtract each pair of mixed numbers. Regroup when needed.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Steps:</strong> Add/subtract the whole numbers, then add/subtract the fractions. If the fraction result is improper, convert to a mixed number and add to the whole number.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -10543,6 +10552,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="decimals-place-value" title="Decimals: Place Value" emoji="🍕" description="Write the place value of each underlined digit.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Remember:</strong> The first digit after the decimal point is in the tenths place (1/10), and the second digit is in the hundredths place (1/100).
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -10706,6 +10718,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="dividing-fractions" title="Dividing Fractions" emoji="🍕" description="Divide each pair of fractions. Use keep, change, flip.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Steps:</strong> 1) Keep the first fraction, 2) Change ÷ to ×, 3) Flip the second fraction (swap numerator and denominator). Then multiply and simplify.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -10839,6 +10854,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="order-of-operations" title="Order of Operations" emoji="🔢" description="Solve each expression using PEMDAS (parentheses, exponents, multiplication, division, addition, subtraction).">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 PEMDAS Order:</strong> 1) Parentheses, 2) Exponents, 3) Multiplication & Division (left to right), 4) Addition & Subtraction (left to right)
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -11105,6 +11123,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="classifying-angles" title="Classifying Angles" emoji="📐" description="Classify each angle as acute, right, obtuse, or straight.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Angle Types:</strong> Acute (less than 90°), Right (exactly 90°), Obtuse (more than 90° but less than 180°), Straight (exactly 180°)
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {angles.map((a, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -13416,6 +13437,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="comparing-fractions" title="Comparing Fractions" emoji="🍕" description="Compare each pair of fractions using >, <, or =.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Tip:</strong> If denominators are the same, compare numerators. If different, find a common denominator or convert to decimals to compare.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -13452,6 +13476,9 @@ export function PrintablesPage() {
           return (
             <WorksheetSectionWrapper docId="equivalent-fractions" title="Equivalent Fractions" emoji="🍕" description="Find an equivalent fraction for each given fraction.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Remember:</strong> Equivalent fractions have the same value. Multiply or divide both numerator and denominator by the same number to find equivalent fractions.
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
