@@ -101,19 +101,73 @@ function getWorksheetTheme(docId: string): {
   }
 }
 
+// Professional header component for print worksheets
+function WorksheetHeader({ problemCount }: { problemCount?: number }) {
+  return (
+    <div className="print:block hidden print:mb-4 border-b-2 border-slate-300 pb-3 mb-4">
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
+          <div className="text-sm mb-2"><strong>Date:</strong> ___________  <strong>Grade:</strong> _____</div>
+          <div className="text-sm"><strong>Teacher/Parent:</strong> _________________</div>
+        </div>
+        {problemCount && (
+          <div className="text-right text-xs text-slate-600">
+            <div>Score: ___ / {problemCount}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// Learning objectives component
+function LearningObjectives({ objectives }: { objectives: string[] }) {
+  return (
+    <div className="print:block hidden mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded">
+      <div className="text-sm font-semibold text-slate-800 mb-2">📚 What You'll Practice:</div>
+      <ul className="text-xs text-slate-700 space-y-1 list-disc list-inside">
+        {objectives.map((obj, i) => (
+          <li key={i}>{obj}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// Parent/Teacher tips component
+function ParentTeacherTips({ tips }: { tips: string[] }) {
+  return (
+    <div className="print:block hidden mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded text-xs">
+      <div className="font-semibold text-yellow-900 mb-2">💡 Tips for Parents/Teachers:</div>
+      <ul className="space-y-1 text-yellow-800 list-disc list-inside">
+        {tips.map((tip, i) => (
+          <li key={i}>{tip}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 // Helper component to wrap worksheet sections with nice styling
 function WorksheetSectionWrapper({ 
   docId, 
   title, 
   emoji, 
   description, 
-  children 
+  children,
+  problemCount,
+  learningObjectives,
+  parentTeacherTips
 }: { 
   docId: string
   title: string
   emoji?: string
   description?: string
-  children: ReactNode 
+  children: ReactNode
+  problemCount?: number
+  learningObjectives?: string[]
+  parentTeacherTips?: string[]
 }) {
   const theme = getWorksheetTheme(docId)
   return (
@@ -122,12 +176,15 @@ function WorksheetSectionWrapper({
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
       <div className="relative z-10">
+        <WorksheetHeader problemCount={problemCount} />
         <h2 className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}>
           {emoji && <span className="text-4xl">{emoji}</span>}
           <span>{title}</span>
         </h2>
         {description && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{description}</p>}
+        {learningObjectives && <LearningObjectives objectives={learningObjectives} />}
         {children}
+        {parentTeacherTips && <ParentTeacherTips tips={parentTeacherTips} />}
       </div>
     </section>
   )
@@ -7509,8 +7566,33 @@ export function PrintablesPage() {
               title="Multi-Digit Multiplication (2×1)"
               emoji="✖️"
               description="Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Multiply 2-digit numbers by 1-digit numbers',
+                'Use regrouping when needed',
+                'Solve multiplication problems accurately'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to show their work step-by-step',
+                'Watch for common mistakes: forgetting to carry, misaligning numbers',
+                'If stuck, review the example together',
+                'Extension: Create your own problems using numbers 10-99'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 24 × 3 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply ones: 4 × 3 = 12</div>
+                    <div><strong>Step 2:</strong> Write 2 in ones place, carry 1 to tens</div>
+                    <div><strong>Step 3:</strong> Multiply tens: 2 × 3 = 6, add carried 1 = 7</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
+                  </div>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 {problems.map(([a, b], i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
@@ -7519,15 +7601,35 @@ export function PrintablesPage() {
                       <div>× {b}</div>
                       <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('mult-2x1', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map(([a, b], i) => {
+                      const ones = a % 10;
+                      const tens = Math.floor(a / 10);
+                      const onesProduct = ones * b;
+                      const tensProduct = tens * b;
+                      const carry = Math.floor(onesProduct / 10);
+                      const finalTens = tensProduct + carry;
+                      const finalOnes = onesProduct % 10;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {a} × {b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: {ones} × {b} = {onesProduct} (write {finalOnes}, carry {carry})</div>
+                            <div>Step 2: {tens} × {b} = {tensProduct}, add {carry} = {finalTens}</div>
+                            <div className="font-semibold">Answer: {a * b}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -10319,8 +10421,43 @@ export function PrintablesPage() {
             return { a, b, product: a * b };
           });
           return (
-            <WorksheetSectionWrapper docId="partial-products" title="Partial Products Multiplication" emoji="🔢" description="Break down each multiplication into partial products.">
+            <WorksheetSectionWrapper 
+              docId="partial-products" 
+              title="Partial Products Multiplication" 
+              emoji="🔢" 
+              description="Break down each multiplication into partial products."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Break numbers into tens and ones',
+                'Multiply each part separately',
+                'Add partial products to find the total'
+              ]}
+              parentTeacherTips={[
+                'This method helps students understand place value in multiplication',
+                'Encourage students to show all four partial products',
+                'Check that students add correctly at the end',
+                'Extension: Try with 3-digit numbers'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 24 × 13 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Break 24 into 20 and 4</div>
+                    <div><strong>Step 2:</strong> Break 13 into 10 and 3</div>
+                    <div><strong>Step 3:</strong> Multiply each part:</div>
+                    <div className="pl-4">• 20 × 10 = 200</div>
+                    <div className="pl-4">• 20 × 3 = 60</div>
+                    <div className="pl-4">• 4 × 10 = 40</div>
+                    <div className="pl-4">• 4 × 3 = 12</div>
+                    <div><strong>Step 4:</strong> Add: 200 + 60 + 40 + 12 = 312</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Break each number into tens and ones. Multiply each part (tens × tens, tens × ones, ones × tens, ones × ones). Add all four partial products to get the total.
               </div>
@@ -10335,13 +10472,15 @@ export function PrintablesPage() {
                       <div>({p.a%10} × {p.b%10}) = ____</div>
                       <div className="border-t border-slate-400 mt-1 pt-1 font-semibold">Total: ____</div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('partial-products', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <div className="space-y-3">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-4">
                     {problems.map((p, i) => {
                       const tensA = Math.floor(p.a/10)*10;
                       const onesA = p.a%10;
@@ -10352,14 +10491,17 @@ export function PrintablesPage() {
                       const part3 = onesA * tensB;
                       const part4 = onesA * onesB;
                       return (
-                        <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
-                          <div className="font-semibold mb-1">{p.a} × {p.b}</div>
-                          <div className="space-y-0.5 text-xs">
-                            <div>({tensA} × {tensB}) = {part1}</div>
-                            <div>({tensA} × {onesB}) = {part2}</div>
-                            <div>({onesA} × {tensB}) = {part3}</div>
-                            <div>({onesA} × {onesB}) = {part4}</div>
-                            <div className="font-semibold mt-1">Total: {p.product}</div>
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.a} × {p.b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Break {p.a} into {tensA} and {onesA}</div>
+                            <div>Step 2: Break {p.b} into {tensB} and {onesB}</div>
+                            <div>Step 3: Multiply each part:</div>
+                            <div className="pl-4">• {tensA} × {tensB} = {part1}</div>
+                            <div className="pl-4">• {tensA} × {onesB} = {part2}</div>
+                            <div className="pl-4">• {onesA} × {tensB} = {part3}</div>
+                            <div className="pl-4">• {onesA} × {onesB} = {part4}</div>
+                            <div className="font-semibold mt-1">Total: {part1} + {part2} + {part3} + {part4} = {p.product}</div>
                           </div>
                         </div>
                       );
@@ -13262,22 +13404,62 @@ export function PrintablesPage() {
             { expr: '3 × (4 + 5) = (3 × 4) + (3 × ?)', answer: 5, prop: 'Distributive' },
           ];
           return (
-            <WorksheetSectionWrapper docId="mult-properties" title="Properties of Multiplication" emoji="✖️" description="Use properties to solve each problem.">
+            <WorksheetSectionWrapper 
+              docId="mult-properties" 
+              title="Properties of Multiplication" 
+              emoji="✖️" 
+              description="Use properties to solve each problem."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand the Commutative Property (order doesn\'t matter)',
+                'Understand the Associative Property (grouping doesn\'t matter)',
+                'Understand the Distributive Property (multiply over addition)'
+              ]}
+              parentTeacherTips={[
+                'Commutative: 3 × 4 = 4 × 3 (order doesn\'t matter)',
+                'Associative: (2 × 3) × 4 = 2 × (3 × 4) (grouping doesn\'t matter)',
+                'Distributive: 5 × (2 + 3) = (5 × 2) + (5 × 3) (multiply over addition)',
+                'Extension: Create your own examples of each property'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = 4 × ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Property:</strong> Commutative (order doesn't matter)</div>
+                    <div><strong>Step 1:</strong> We know 3 × 4 = 12</div>
+                    <div><strong>Step 2:</strong> So 4 × ? = 12</div>
+                    <div><strong>Step 3:</strong> What times 4 equals 12? 3!</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
+                    <div className="text-xs text-blue-700 mt-1">Check: 3 × 4 = 12 and 4 × 3 = 12 ✓</div>
+                  </div>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2 font-mono">{p.expr}</div>
-                    <div className="text-center text-sm text-slate-600">Property: {p.prop}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Property: {p.prop}</div>
+                    <div className="text-center text-sm text-slate-600">Answer: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('mult-properties', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.expr.replace('?', String(p.answer))} ({p.prop})</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                        <div className="font-semibold text-sm">{i + 1}. {p.expr.replace('?', String(p.answer))}</div>
+                        <div className="text-xs text-emerald-700 mt-1">Property: {p.prop} - {p.prop === 'Commutative' ? 'Order doesn\'t matter' : p.prop === 'Associative' ? 'Grouping doesn\'t matter' : 'Multiply over addition'}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13294,24 +13476,69 @@ export function PrintablesPage() {
             return { dividend, divisor, quotient, remainder: dividend % divisor };
           });
           return (
-            <WorksheetSectionWrapper docId="div-with-remainders" title="Division with Remainders" emoji="➗" description="Divide and find the remainder.">
+            <WorksheetSectionWrapper 
+              docId="div-with-remainders" 
+              title="Division with Remainders" 
+              emoji="➗" 
+              description="Divide and find the remainder."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Divide numbers that don\'t divide evenly',
+                'Find and write remainders',
+                'Understand what remainders mean'
+              ]}
+              parentTeacherTips={[
+                'Remainders are what\'s left over after dividing',
+                'Show students how to check: (quotient × divisor) + remainder = dividend',
+                'Use manipulatives (counters, blocks) to visualize',
+                'Extension: Create word problems with remainders'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 17 ÷ 5 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> How many times does 5 go into 17? 5 × 3 = 15</div>
+                    <div><strong>Step 2:</strong> Subtract: 17 - 15 = 2</div>
+                    <div><strong>Step 3:</strong> Since 2 &lt; 5, we can't divide further</div>
+                    <div><strong>Step 4:</strong> 2 is the remainder</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 R 2</div>
+                    <div className="text-xs text-blue-700 mt-1">Check: (3 × 5) + 2 = 15 + 2 = 17 ✓</div>
+                  </div>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="text-center mb-2 font-mono text-xl">{p.dividend} ÷ {p.divisor}</div>
-                    <div className="text-center text-sm text-slate-600">Answer: ____ R ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Answer: ____ R ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
               {showAnswersForDoc('div-with-remainders', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (
-                      <li key={i}>{p.dividend} ÷ {p.divisor} = {Math.floor(p.dividend / p.divisor)} R {p.remainder}</li>
-                    ))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const quotient = Math.floor(p.dividend / p.divisor);
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.dividend} ÷ {p.divisor}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: {p.divisor} × {quotient} = {p.divisor * quotient}</div>
+                            <div>Step 2: {p.dividend} - {p.divisor * quotient} = {p.remainder}</div>
+                            <div className="font-semibold">Answer: {quotient} R {p.remainder}</div>
+                            <div className="text-emerald-700 mt-1">Check: ({quotient} × {p.divisor}) + {p.remainder} = {p.dividend} ✓</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13393,8 +13620,41 @@ export function PrintablesPage() {
             { a: 3, b: 6, product: 18 },
           ];
           return (
-            <WorksheetSectionWrapper docId="fact-families-mult-div" title="Fact Families (Mult/Div)" emoji="➗" description="Complete the multiplication and division fact families.">
+            <WorksheetSectionWrapper 
+              docId="fact-families-mult-div" 
+              title="Fact Families (Mult/Div)" 
+              emoji="➗" 
+              description="Complete the multiplication and division fact families."
+              problemCount={families.length}
+              learningObjectives={[
+                'Understand the relationship between multiplication and division',
+                'Complete all four facts in a fact family',
+                'Use fact families to solve problems'
+              ]}
+              parentTeacherTips={[
+                'Fact families show how multiplication and division are related',
+                'If 3 × 4 = 12, then 12 ÷ 3 = 4 and 12 ÷ 4 = 3',
+                'Encourage students to check their answers using the related facts',
+                'Extension: Create your own fact families'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Fact Family:</strong> 3, 4, 12</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Write the two multiplication facts:</div>
+                    <div className="pl-4">• 3 × 4 = 12</div>
+                    <div className="pl-4">• 4 × 3 = 12</div>
+                    <div><strong>Step 2:</strong> Write the two division facts:</div>
+                    <div className="pl-4">• 12 ÷ 3 = 4</div>
+                    <div className="pl-4">• 12 ÷ 4 = 3</div>
+                    <div className="font-semibold text-blue-900"><strong>All four facts:</strong> 3 × 4 = 12, 4 × 3 = 12, 12 ÷ 3 = 4, 12 ÷ 4 = 3</div>
+                  </div>
+                </div>
+              </div>
               <div className="space-y-4">
                 {families.map((f, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
@@ -13409,13 +13669,21 @@ export function PrintablesPage() {
                 ))}
               </div>
               {showAnswersForDoc('fact-families-mult-div', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (complete fact families)</div>
+                  <div className="space-y-3">
                     {families.map((f, i) => (
-                      <li key={i}>{f.a}, {f.b}, {f.product}: {f.a} × {f.b} = {f.product}, {f.b} × {f.a} = {f.product}, {f.product} ÷ {f.a} = {f.b}, {f.product} ÷ {f.b} = {f.a}</li>
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. Fact Family: {f.a}, {f.b}, {f.product}</div>
+                        <div className="text-xs text-emerald-800 space-y-1">
+                          <div>• {f.a} × {f.b} = {f.product}</div>
+                          <div>• {f.b} × {f.a} = {f.product}</div>
+                          <div>• {f.product} ÷ {f.a} = {f.b}</div>
+                          <div>• {f.product} ÷ {f.b} = {f.a}</div>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13435,8 +13703,41 @@ export function PrintablesPage() {
             return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
           });
           return (
-            <WorksheetSectionWrapper docId="comparing-fractions" title="Comparing Fractions" emoji="🍕" description="Compare each pair of fractions using >, <, or =.">
+            <WorksheetSectionWrapper 
+              docId="comparing-fractions" 
+              title="Comparing Fractions" 
+              emoji="🍕" 
+              description="Compare each pair of fractions using >, <, or =."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Compare fractions with same denominators',
+                'Compare fractions with different denominators',
+                'Use >, <, or = symbols correctly'
+              ]}
+              parentTeacherTips={[
+                'If denominators are the same, compare numerators',
+                'If denominators differ, find a common denominator or convert to decimals',
+                'Use visual models (pizza slices, number lines) to help',
+                'Extension: Order three or more fractions from least to greatest'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> Compare 2/3 and 3/4</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1 (Common Denominator):</strong></div>
+                    <div className="pl-4">2/3 = 8/12 and 3/4 = 9/12</div>
+                    <div className="pl-4">Since 8 &lt; 9, we have 8/12 &lt; 9/12</div>
+                    <div><strong>Method 2 (Decimals):</strong></div>
+                    <div className="pl-4">2/3 = 0.67 and 3/4 = 0.75</div>
+                    <div className="pl-4">Since 0.67 &lt; 0.75, we have 2/3 &lt; 3/4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2/3 &lt; 3/4</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Tip:</strong> If denominators are the same, compare numerators. If different, find a common denominator or convert to decimals to compare.
               </div>
@@ -13448,14 +13749,24 @@ export function PrintablesPage() {
                 ))}
               </div>
               {showAnswersForDoc('comparing-fractions', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => {
                       const symbol = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
-                      return <li key={i}>{p.frac1} {symbol} {p.frac2}</li>;
+                      const explanation = p.val1 > p.val2 
+                        ? `${p.frac1} is greater than ${p.frac2}`
+                        : p.val1 < p.val2 
+                        ? `${p.frac1} is less than ${p.frac2}`
+                        : `${p.frac1} equals ${p.frac2}`;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                          <div className="font-semibold text-sm">{i + 1}. {p.frac1} {symbol} {p.frac2}</div>
+                          <div className="text-xs text-emerald-700 mt-1">{explanation}</div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
