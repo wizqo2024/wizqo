@@ -8177,23 +8177,84 @@ export function PrintablesPage() {
               title="Horizontal Times Table (1-5)"
               emoji="➡️"
               description="Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Memorize multiplication facts for numbers 1-5',
+                'Practice multiplication in horizontal format',
+                'Build speed and accuracy with basic facts'
+              ]}
+              parentTeacherTips={[
+                'Start with easier facts (1s, 2s) and work up to 5s',
+                'Use skip counting to help: 3 × 4 means count by 3s four times',
+                'Practice daily for 5-10 minutes for best results',
+                'Extension: Time yourself and try to beat your record!'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-3 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1 (Skip Counting):</strong> Count by 3s four times: 3, 6, 9, 12</div>
+                    <div><strong>Method 2 (Repeated Addition):</strong> 3 + 3 + 3 + 3 = 12</div>
+                    <div><strong>Method 3 (Visual):</strong> 3 groups of 4 objects = 12 objects</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: You can also think of it as 4 × 3 = 12 (order doesn't matter!)</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3 break-inside-avoid">
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-xl leading-7">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 5 × 5 = ? (the biggest fact in this worksheet!)</div>
+                  <div>3. Write all the facts that equal 12: ___ × ___ = 12</div>
+                  <div>4. Time yourself: Can you complete all 15 problems in under 2 minutes?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden mt-6 p-4 border-2 border-slate-300 rounded">
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply numbers 1-5 easily</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-horizontal-1-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-3 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Practice saying these facts out loud daily. Try to answer faster each time!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
