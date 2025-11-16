@@ -18719,14 +18719,31 @@ export function PrintablesPage() {
             return svgMap[shape.name] || null;
           };
           return (
-            <WorksheetSectionWrapper docId="color-shapes" title="Color the Shapes" emoji="🟩" description="Color each shape with the correct color shown below.">
+            <WorksheetSectionWrapper 
+              docId="color-shapes" 
+              title="Color the Shapes" 
+              emoji="🟩" 
+              description="Color each shape with the correct color shown below."
+              problemCount={shapeData.length}
+              learningObjectives={[
+                'Identify and name basic shapes',
+                'Recognize and match colors',
+                'Develop fine motor skills through coloring'
+              ]}
+              parentTeacherTips={[
+                'Help children name each shape before coloring',
+                'Encourage staying within the lines',
+                'Use this activity to practice color recognition',
+                'Extension: Ask children to find objects in the room that match each shape'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each shape below. Color it with the color shown. Use crayons or colored pencils.
               </div>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapeData.map((shape, i) => (
-                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-center mb-4">
                       <div className="text-lg font-semibold text-slate-800 capitalize mb-2">{shape.name}</div>
                       <div className="text-base font-semibold text-slate-600">Color: <span className="text-slate-800 capitalize">{shape.color}</span></div>
@@ -18739,11 +18756,32 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own shape and color it</div>
+                  <div>2. Find objects around you that match these shapes</div>
+                  <div>3. Create a picture using only these shapes</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can name the shapes</div>
+                  <div>☐ I can match the colors</div>
+                  <div>☐ I colored carefully</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite shape:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('color-shapes', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {shapeData.map((s, i) => (<li key={i}>{s.name}: Color {s.color}</li>))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {shapeData.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Color {s.color}</li>))}
                   </ul>
                 </div>
               ))}
@@ -18768,12 +18806,29 @@ export function PrintablesPage() {
             return svgMap[shape.name] || null;
           };
           return (
-            <WorksheetSectionWrapper docId="shape-sorting" title="Shape Sorting" emoji="🟩" description="Cut out shapes and sort them into groups.">
+            <WorksheetSectionWrapper 
+              docId="shape-sorting" 
+              title="Shape Sorting" 
+              emoji="🟩" 
+              description="Cut out shapes and sort them into groups."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify and classify shapes',
+                'Sort objects by shape attributes',
+                'Develop categorization skills'
+              ]}
+              parentTeacherTips={[
+                'Help children name each shape before sorting',
+                'Encourage them to look for matching shapes',
+                'Use this activity to practice grouping and classification',
+                'Extension: Sort by other attributes (color, size)'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at the shapes below. Cut them out (or circle them) and sort them into the correct groups.
               </div>
-              <div className="mb-6">
+              <div className="mb-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <div className="text-lg font-semibold text-slate-800 mb-3">Shapes to Sort:</div>
                 <div className="grid grid-cols-4 gap-4">
                   {shapes.map((shape, i) => (
@@ -18794,7 +18849,7 @@ export function PrintablesPage() {
                   ))}
                 </div>
               </div>
-              <div>
+              <div className="break-inside-avoid">
                 <div className="text-lg font-semibold text-slate-800 mb-3">Sorting Boxes:</div>
                 <div className="grid grid-cols-2 gap-4">
                   {shapes.map((shape, i) => (
@@ -18810,11 +18865,32 @@ export function PrintablesPage() {
                   ))}
                 </div>
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Sort shapes by color instead</div>
+                  <div>2. Create your own sorting game with objects around you</div>
+                  <div>3. Sort shapes by size (big and small)</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can name the shapes</div>
+                  <div>☐ I sorted shapes correctly</div>
+                  <div>☐ I understand grouping</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite shape to sort:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('shape-sorting', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s.name}: Sort all {s.name}s into the {s.name} group</li>))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    {shapes.map((s, i) => (<li key={i} className="text-emerald-800">{s.name}: Sort all {s.name}s into the {s.name} group</li>))}
                   </ul>
                 </div>
               ))}
@@ -18902,11 +18978,28 @@ export function PrintablesPage() {
             { colors: ['🔴', '🟡', '🔴', '🟡'], next: '🔴', name: 'red, yellow' },
           ];
           return (
-            <WorksheetSectionWrapper docId="color-patterns" title="Color Patterns" emoji="🧩" description="Complete the color pattern. What comes next?">
+            <WorksheetSectionWrapper 
+              docId="color-patterns" 
+              title="Color Patterns" 
+              emoji="🧩" 
+              description="Complete the color pattern. What comes next?"
+              problemCount={patterns.length}
+              learningObjectives={[
+                'Identify patterns in sequences',
+                'Predict what comes next in a pattern',
+                'Develop pattern recognition skills'
+              ]}
+              parentTeacherTips={[
+                'Help children identify the repeating pattern',
+                'Encourage them to say the pattern out loud',
+                'Use this activity to practice sequencing',
+                'Extension: Create your own color patterns'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="flex items-center justify-center gap-2 mb-3 text-3xl">
                       {p.colors.map((c, idx) => (
                         <span key={idx}>{c}</span>
@@ -18917,12 +19010,33 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own color pattern</div>
+                  <div>2. Continue the pattern for 3 more items</div>
+                  <div>3. Make a pattern using objects around you</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can see the pattern</div>
+                  <div>☐ I can predict what comes next</div>
+                  <div>☐ I understand patterns</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My favorite pattern:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('color-patterns', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {patterns.map((p, i) => (
-                      <li key={i} className="flex items-center gap-2">
+                      <li key={i} className="flex items-center gap-2 text-emerald-800">
                         <span>{p.colors.join(' ')}</span>
                         <span>→</span>
                         <span className="text-xl">{p.next}</span>
@@ -19034,14 +19148,31 @@ export function PrintablesPage() {
             { long: { name: 'rope', length: 90 }, short: { name: 'key', length: 28 } },
           ];
           return (
-            <WorksheetSectionWrapper docId="long-short" title="Long and Short" emoji="📏" description="Look at each pair. Color the long object red. Color the short object blue.">
+            <WorksheetSectionWrapper 
+              docId="long-short" 
+              title="Long and Short" 
+              emoji="📏" 
+              description="Look at each pair. Color the long object red. Color the short object blue."
+              problemCount={pairs.length}
+              learningObjectives={[
+                'Compare lengths of objects',
+                'Identify long and short objects',
+                'Develop measurement vocabulary'
+              ]}
+              parentTeacherTips={[
+                'Help children compare the objects side by side',
+                'Encourage them to use words like "longer" and "shorter"',
+                'Use this activity to practice measurement concepts',
+                'Extension: Find long and short objects around you'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Instructions:</strong> Look at each pair of objects. The longer object should be colored red. The shorter object should be colored blue.
               </div>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map((pair, idx) => (
-                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={idx} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-4 text-center font-semibold">Pair {idx + 1}</div>
                     <div className="flex items-center justify-center gap-8">
                       <div className="flex flex-col items-center gap-2">
@@ -19063,12 +19194,33 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find 3 long objects and 3 short objects around you</div>
+                  <div>2. Draw your own long and short objects</div>
+                  <div>3. Compare the length of different objects</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can tell which is longer</div>
+                  <div>☐ I can tell which is shorter</div>
+                  <div>☐ I understand long and short</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>Something long I found:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('long-short', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
                     {pairs.map((pair, idx) => (
-                      <li key={idx}>
+                      <li key={idx} className="text-emerald-800">
                         Pair {idx + 1}: {pair.long.name} (long - color red), {pair.short.name} (short - color blue)
                       </li>
                     ))}
@@ -19177,11 +19329,28 @@ export function PrintablesPage() {
             { x1: 10, y1: 10, x2: 90, y2: 70, label: 'Diagonal line' },
           ];
           return (
-            <WorksheetSectionWrapper docId="line-tracing" title="Line Tracing" emoji="✏️" description="Trace the lines from left to right.">
+            <WorksheetSectionWrapper 
+              docId="line-tracing" 
+              title="Line Tracing" 
+              emoji="✏️" 
+              description="Trace the lines from left to right."
+              problemCount={lines.length}
+              learningObjectives={[
+                'Develop fine motor skills',
+                'Practice hand-eye coordination',
+                'Learn to follow lines from left to right'
+              ]}
+              parentTeacherTips={[
+                'Encourage slow, careful tracing',
+                'Help children hold the pencil correctly',
+                'Praise effort and improvement',
+                'Extension: Create your own lines to trace'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {lines.map((line, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-6 bg-white break-inside-avoid">
                     <div className="text-sm text-slate-700 mb-3 text-center font-semibold">Line {i + 1}</div>
                     <div className="relative">
                       <svg viewBox="0 0 100 80" className="w-full h-48 border-2 border-slate-300 rounded-lg bg-slate-50 print:h-64">
@@ -19200,10 +19369,31 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own lines to trace</div>
+                  <div>2. Try tracing with your eyes closed (with help!)</div>
+                  <div>3. Trace lines in different directions</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I traced the lines carefully</div>
+                  <div>☐ I followed the lines from left to right</div>
+                  <div>☐ I held my pencil correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My best line:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('line-tracing', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Trace the dashed lines from left to right. Follow the line carefully with your pencil.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800">Trace the dashed lines from left to right. Follow the line carefully with your pencil.</p>
                 </div>
               ))}
             </WorksheetSectionWrapper>
