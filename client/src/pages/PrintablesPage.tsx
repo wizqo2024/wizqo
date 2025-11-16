@@ -13705,22 +13705,88 @@ export function PrintablesPage() {
             return { length, width, area: length * width, perimeter: 2 * (length + width) };
           });
           return (
-            <WorksheetSectionWrapper docId="area-perimeter-4th" title="Area & Perimeter" emoji="📐" description="Find the area and perimeter of each rectangle.">
+            <WorksheetSectionWrapper 
+              docId="area-perimeter-4th" 
+              title="Area & Perimeter" 
+              emoji="📐" 
+              description="Find the area and perimeter of each rectangle."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate area of rectangles',
+                'Calculate perimeter of rectangles',
+                'Understand the difference between area and perimeter',
+                'Apply formulas in problem-solving'
+              ]}
+              parentTeacherTips={[
+                'Area = length × width (space inside)',
+                'Perimeter = 2 × (length + width) (distance around)',
+                'Help students visualize: area = squares inside, perimeter = fence around',
+                'Extension: Find area and perimeter of composite shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Length: 7 units, Width: 4 units</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1 (Area):</strong> Area = length × width = 7 × 4 = 28</div>
+                    <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 × (length + width) = 2 × (7 + 4) = 22</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq units, Perimeter = 22 units</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Length: {p.length} units, Width: {p.width} units</div>
-                    <div className="text-center text-sm text-slate-600">Area: ____ Perimeter: ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">Length: {p.length} units, Width: {p.width} units</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____ Perimeter: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the area and perimeter of a square with side length 9</div>
+                  <div>2. A rectangle has area 48. If length is 8, what is the width?</div>
+                  <div>3. Find the area and perimeter of your desk or table</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find the area of rectangles</div>
+                  <div>☐ I can find the perimeter of rectangles</div>
+                  <div>☐ I understand the difference between area and perimeter</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('area-perimeter-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>Area = {p.area} sq units, Perimeter = {p.perimeter} units</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Area: {p.length} × {p.width} = {p.area} sq units</div>
+                          <div>Perimeter: 2 × ({p.length} + {p.width}) = 2 × {p.length + p.width} = {p.perimeter} units</div>
+                          <div className="font-semibold">Answer: Area = {p.area} sq units, Perimeter = {p.perimeter} units</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14652,21 +14718,89 @@ export function PrintablesPage() {
             return { pounds, ounces: pounds * 16 };
           });
           return (
-            <WorksheetSectionWrapper docId="mass-weight-4th" title="Mass and Weight" emoji="📏" description="Convert between ounces, pounds, grams, and kilograms.">
+            <WorksheetSectionWrapper 
+              docId="mass-weight-4th" 
+              title="Mass and Weight" 
+              emoji="📏" 
+              description="Convert between ounces, pounds, grams, and kilograms."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between ounces and pounds',
+                'Understand mass and weight measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 pound = 16 ounces',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between grams and kilograms'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
+                    <div><strong>Step 2:</strong> Multiply: 2 pounds × 16 oz/pound = 32 ounces</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 pound = 16 oz, so multiply by 16!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 pound = 16 ounces
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.pounds} pounds = ____ ounces</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 3 pounds = ____ ounces</div>
+                  <div>2. How many ounces are in 1.5 pounds?</div>
+                  <div>3. Create your own mass/weight conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between ounces and pounds</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mass-weight-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.pounds} pounds = {p.ounces} ounces</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 pound = 16 ounces</div>
+                          <div>Step 2: {p.pounds} pounds × 16 oz/pound = {p.ounces} ounces</div>
+                          <div className="font-semibold">Answer: {p.ounces} ounces</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -16592,27 +16726,125 @@ export function PrintablesPage() {
             'Jake runs 3/4 of a mile each day for 5 days. How many miles does he run in total?',
           ];
           return (
-            <WorksheetSectionWrapper docId="fraction-word-problems-5th" title="Fraction Word Problems" emoji="🧮" description="Solve each word problem involving fraction operations.">
+            <WorksheetSectionWrapper 
+              docId="fraction-word-problems-5th" 
+              title="Fraction Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving fraction operations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve complex word problems involving fractions',
+                'Multiply fractions by whole numbers',
+                'Divide whole numbers by fractions',
+                'Apply fraction operations in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Help students identify what operation to use',
+                'Draw pictures or use visual models to help',
+                'For dividing by fractions, multiply by the reciprocal',
+                'Check that answers make sense in the context',
+                'Extension: Create your own complex fraction word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A recipe needs 1/2 cup of flour. Sarah wants to make 4 batches. How much flour does she need?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply: 1/2 × 4</div>
+                    <div><strong>Step 2:</strong> Calculate: 1/2 × 4 = 4/2 = 2</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2 cups</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply fraction by whole number: (numerator × whole) / denominator!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own complex fraction word problem</div>
+                  <div>2. Solve: A rope is 20 feet long. Cut it into pieces that are 2/3 feet each. How many pieces?</div>
+                  <div>3. Explain how fractions are used in cooking and measurements</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve complex fraction word problems</div>
+                  <div>☐ I can multiply fractions by whole numbers</div>
+                  <div>☐ I can divide whole numbers by fractions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fraction-word-problems-5th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>2/3 × 3 = 2 cups</li>
-                    <li>5/6 - 1/3 = 1/2 pizza</li>
-                    <li>12 ÷ 3/4 = 16 pieces</li>
-                    <li>24 - 6 - 3 = 15 cookies</li>
-                    <li>60 × 2/3 = 40 gallons</li>
-                    <li>3/4 × 5 = 3.75 miles</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 2/3 × 3 = (2 × 3) / 3 = 6/3 = 2</div>
+                        <div className="font-semibold">Answer: 2 cups</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Find common denominator: 5/6 - 1/3 = 5/6 - 2/6 = 3/6</div>
+                        <div>Step 2: Simplify: 3/6 = 1/2</div>
+                        <div className="font-semibold">Answer: 1/2 pizza</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 12 ÷ 3/4 = 12 × 4/3 = 48/3 = 16</div>
+                        <div className="font-semibold">Answer: 16 pieces</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 24 × 1/4 = 6 (to friends)</div>
+                        <div>Step 2: 24 - 6 = 18 (remaining)</div>
+                        <div>Step 3: 18 × 1/6 = 3 (eaten)</div>
+                        <div>Step 4: 18 - 3 = 15</div>
+                        <div className="font-semibold">Answer: 15 cookies</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 60 × 2/3 = (60 × 2) / 3 = 120/3 = 40</div>
+                        <div className="font-semibold">Answer: 40 gallons</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3/4 × 5 = (3 × 5) / 4 = 15/4</div>
+                        <div>Step 2: 15/4 = 3.75</div>
+                        <div className="font-semibold">Answer: 3.75 miles (or 15/4 miles)</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -16629,27 +16861,127 @@ export function PrintablesPage() {
             'Lisa has $20.00. She spends $8.75. How much money does she have left?',
           ];
           return (
-            <WorksheetSectionWrapper docId="decimal-word-problems" title="Decimal Word Problems" emoji="🧮" description="Solve each word problem involving decimals.">
+            <WorksheetSectionWrapper 
+              docId="decimal-word-problems" 
+              title="Decimal Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving decimals."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving decimal addition',
+                'Solve word problems involving decimal subtraction',
+                'Solve word problems involving decimal multiplication',
+                'Apply decimal operations in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Help students identify the operation needed',
+                'Remind students to align decimal points when adding/subtracting',
+                'For multiplication, count decimal places in the answer',
+                'Check that answers make sense in the context',
+                'Extension: Create your own decimal word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom buys a toy for $5.25 and a book for $3.50. How much does he spend in total?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Identify operation: addition</div>
+                    <div><strong>Step 2:</strong> Align decimals: $5.25 + $3.50</div>
+                    <div><strong>Step 3:</strong> Add: $5.25 + $3.50 = $8.75</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8.75</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always align decimal points when adding or subtracting!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own decimal word problem</div>
+                  <div>2. Solve: A recipe calls for 2.5 cups of flour. You need to make 3 batches. How much flour?</div>
+                  <div>3. Explain when you use decimals in everyday life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve decimal word problems</div>
+                  <div>☐ I can add and subtract decimals</div>
+                  <div>☐ I can multiply decimals</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('decimal-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>$12.50 + $3.75 = $16.25</li>
-                    <li>8.5 - 2.3 = 6.2 meters</li>
-                    <li>3.2 + 4.5 = 7.7 miles</li>
-                    <li>$1.25 × 3.5 = $4.38</li>
-                    <li>15.8 - 6.4 = 9.4 gallons</li>
-                    <li>$20.00 - $8.75 = $11.25</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Add: $12.50 + $3.75</div>
+                        <div>Step 2: Align decimals and add: $12.50 + $3.75 = $16.25</div>
+                        <div className="font-semibold">Answer: $16.25</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Subtract: 8.5 - 2.3</div>
+                        <div>Step 2: Align decimals and subtract: 8.5 - 2.3 = 6.2</div>
+                        <div className="font-semibold">Answer: 6.2 meters</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Add: 3.2 + 4.5</div>
+                        <div>Step 2: Align decimals and add: 3.2 + 4.5 = 7.7</div>
+                        <div className="font-semibold">Answer: 7.7 miles</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: $1.25 × 3.5</div>
+                        <div>Step 2: Multiply: 125 × 35 = 4375, then place decimal: 4.375</div>
+                        <div className="font-semibold">Answer: $4.38 (rounded to nearest cent)</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Subtract: 15.8 - 6.4</div>
+                        <div>Step 2: Align decimals and subtract: 15.8 - 6.4 = 9.4</div>
+                        <div className="font-semibold">Answer: 9.4 gallons</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Subtract: $20.00 - $8.75</div>
+                        <div>Step 2: Align decimals and subtract: $20.00 - $8.75 = $11.25</div>
+                        <div className="font-semibold">Answer: $11.25</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -16666,27 +16998,127 @@ export function PrintablesPage() {
             'A tank holds 25.5 gallons. It is 0.6 full. How many gallons are in the tank?',
           ];
           return (
-            <WorksheetSectionWrapper docId="decimal-word-problems-5th" title="Decimal Word Problems" emoji="🧮" description="Solve each word problem involving decimal operations.">
+            <WorksheetSectionWrapper 
+              docId="decimal-word-problems-5th" 
+              title="Decimal Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving decimal operations."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve complex word problems involving decimals',
+                'Multiply decimals by whole numbers',
+                'Divide decimals by whole numbers',
+                'Apply decimal operations in multi-step problems'
+              ]}
+              parentTeacherTips={[
+                'Help students identify the operation needed',
+                'For multi-step problems, solve one step at a time',
+                'Remind students to align decimal points when adding/subtracting',
+                'Check that answers make sense in the context',
+                'Extension: Create your own complex decimal word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A store sells pencils for $0.50 each. Sarah buys 8 pencils. How much does she pay?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Identify operation: multiplication</div>
+                    <div><strong>Step 2:</strong> Multiply: $0.50 × 8</div>
+                    <div><strong>Step 3:</strong> Calculate: 0.50 × 8 = 4.00</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> $4.00</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: When multiplying decimals, count decimal places in the answer!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own complex decimal word problem</div>
+                  <div>2. Solve: A car travels 45.6 miles per hour. How far does it travel in 2.5 hours?</div>
+                  <div>3. Explain when you use decimals in real-world situations</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve complex decimal word problems</div>
+                  <div>☐ I can multiply decimals by whole numbers</div>
+                  <div>☐ I can divide decimals by whole numbers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('decimal-word-problems-5th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>$15.99 × 4 = $63.96</li>
-                    <li>2.5 × 6 = 15 miles</li>
-                    <li>0.75 × 3 = 2.25 cups</li>
-                    <li>$50.00 - $23.45 - $12.30 = $14.25</li>
-                    <li>12.8 ÷ 4 = 3.2 meters</li>
-                    <li>25.5 × 0.6 = 15.3 gallons</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: $15.99 × 4</div>
+                        <div>Step 2: Calculate: 1599 × 4 = 6396, then place decimal: $63.96</div>
+                        <div className="font-semibold">Answer: $63.96</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: 2.5 × 6</div>
+                        <div>Step 2: Calculate: 25 × 6 = 150, then place decimal: 15.0</div>
+                        <div className="font-semibold">Answer: 15 miles</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: 0.75 × 3</div>
+                        <div>Step 2: Calculate: 75 × 3 = 225, then place decimal: 2.25</div>
+                        <div className="font-semibold">Answer: 2.25 cups</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Add expenses: $23.45 + $12.30 = $35.75</div>
+                        <div>Step 2: Subtract from total: $50.00 - $35.75 = $14.25</div>
+                        <div className="font-semibold">Answer: $14.25</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Divide: 12.8 ÷ 4</div>
+                        <div>Step 2: Calculate: 128 ÷ 4 = 32, then place decimal: 3.2</div>
+                        <div className="font-semibold">Answer: 3.2 meters</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Multiply: 25.5 × 0.6</div>
+                        <div>Step 2: Calculate: 255 × 6 = 1530, then place decimal: 15.30</div>
+                        <div className="font-semibold">Answer: 15.3 gallons</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19486,21 +19918,89 @@ export function PrintablesPage() {
             return { meters, centimeters: meters * 100 };
           });
           return (
-            <WorksheetSectionWrapper docId="metric-units" title="Metric Units" emoji="📏" description="Convert between centimeters, meters, and kilometers.">
+            <WorksheetSectionWrapper 
+              docId="metric-units" 
+              title="Metric Units" 
+              emoji="📏" 
+              description="Convert between centimeters, meters, and kilometers."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between centimeters, meters, and kilometers',
+                'Understand metric measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 meter = 100 centimeters, 1 kilometer = 1000 meters',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all metric units'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 meters = ____ centimeters</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 meter = 100 centimeters</div>
+                    <div><strong>Step 2:</strong> Multiply: 2 meters × 100 cm/meter = 200 centimeters</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 200 centimeters</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 meter = 100 cm, so multiply by 100!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 kilometer = 1000 meters, 1 meter = 100 centimeters
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.meters} meters = ____ centimeters</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.meters} meters = ____ centimeters</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 3 kilometers = ____ meters = ____ centimeters</div>
+                  <div>2. How many centimeters are in 2.5 meters?</div>
+                  <div>3. Create your own metric conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between metric units</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('metric-units', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.meters} meters = {p.centimeters} centimeters</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.meters} meters = ____ centimeters</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 meter = 100 centimeters</div>
+                          <div>Step 2: {p.meters} meters × 100 cm/meter = {p.centimeters} centimeters</div>
+                          <div className="font-semibold">Answer: {p.centimeters} centimeters</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19515,21 +20015,90 @@ export function PrintablesPage() {
             return { quarts, cups: quarts * 4 };
           });
           return (
-            <WorksheetSectionWrapper docId="liquid-measurement" title="Liquid Measurement" emoji="📏" description="Compare cups, pints, quarts, and gallons.">
+            <WorksheetSectionWrapper 
+              docId="liquid-measurement" 
+              title="Liquid Measurement" 
+              emoji="📏" 
+              description="Compare cups, pints, quarts, and gallons."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between cups, pints, quarts, and gallons',
+                'Understand liquid measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all liquid measurements'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 quarts = ____ cups</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 quart = 2 pints, 1 pint = 2 cups</div>
+                    <div><strong>Step 2:</strong> So 1 quart = 4 cups</div>
+                    <div><strong>Step 3:</strong> Multiply: 2 quarts × 4 cups/quart = 8 cups</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 8 cups</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 quart = 4 cups, so multiply by 4!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.quarts} quarts = ____ cups</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 1 gallon = ____ quarts = ____ cups</div>
+                  <div>2. How many cups are in 3 pints?</div>
+                  <div>3. Create your own liquid measurement conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between liquid measurements</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('liquid-measurement', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.quarts} quarts = {p.cups} cups</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 quart = 4 cups</div>
+                          <div>Step 2: {p.quarts} quarts × 4 cups/quart = {p.cups} cups</div>
+                          <div className="font-semibold">Answer: {p.cups} cups</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
