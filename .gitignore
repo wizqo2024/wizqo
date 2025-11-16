@@ -79,4 +79,5 @@ backup-working-*/
 
 # Archive files (base64 encoded backups)
 *_base64.txt
-docs/archives/
+docs/archives/core
+core.*
