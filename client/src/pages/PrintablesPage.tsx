@@ -12188,13 +12188,47 @@ export function PrintablesPage() {
             return { a, b, product: a * b };
           });
           return (
-            <WorksheetSectionWrapper docId="area-model-mult" title="Area Model Multiplication" emoji="📊" description="Use the area model to solve each multiplication problem.">
+            <WorksheetSectionWrapper 
+              docId="area-model-mult" 
+              title="Area Model Multiplication" 
+              emoji="📊" 
+              description="Use the area model to solve each multiplication problem."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Use area models to visualize multiplication',
+                'Break down multi-digit multiplication',
+                'Understand multiplication as area',
+                'Apply area model strategy to solve problems'
+              ]}
+              parentTeacherTips={[
+                'Area model breaks multiplication into smaller parts',
+                'Draw rectangles to represent the multiplication',
+                'Split numbers into tens and ones',
+                'Add all partial products to get final answer',
+                'Extension: Use area model for larger numbers'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 14 × 12 using area model</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw rectangle: 14 (width) × 12 (height)</div>
+                    <div><strong>Step 2:</strong> Split: 14 = 10 + 4, 12 = 10 + 2</div>
+                    <div><strong>Step 3:</strong> Calculate parts: 10×10=100, 10×2=20, 4×10=40, 4×2=8</div>
+                    <div><strong>Step 4:</strong> Add: 100 + 20 + 40 + 8 = 168</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 168</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break numbers into parts, multiply each part, then add!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{p.a} × {p.b} = ____</div>
-                    <div className="border-2 border-slate-400 rounded" style={{width: '120px', height: '80px', margin: '0 auto'}}>
+                    <div className="border-2 border-slate-400 rounded mb-2" style={{width: '120px', height: '80px', margin: '0 auto'}}>
                       <div className="grid grid-cols-2 h-full">
                         <div className="border-r border-b border-slate-400"></div>
                         <div className="border-b border-slate-400"></div>
@@ -12202,15 +12236,57 @@ export function PrintablesPage() {
                         <div></div>
                       </div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own area model multiplication problem</div>
+                  <div>2. Solve: 25 × 18 using area model</div>
+                  <div>3. Explain how area model helps you understand multiplication</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can use area models to multiply</div>
+                  <div>☐ I can break numbers into parts</div>
+                  <div>☐ I can add partial products</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('area-model-mult', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.a} × {p.b} = {p.product}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const aTens = Math.floor(p.a / 10) * 10;
+                      const aOnes = p.a % 10;
+                      const bTens = Math.floor(p.b / 10) * 10;
+                      const bOnes = p.b % 10;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.a} × {p.b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Split: {p.a} = {aTens} + {aOnes}, {p.b} = {bTens} + {bOnes}</div>
+                            <div>Step 2: Multiply parts: {aTens}×{bTens}={aTens * bTens}, {aTens}×{bOnes}={aTens * bOnes}, {aOnes}×{bTens}={aOnes * bTens}, {aOnes}×{bOnes}={aOnes * bOnes}</div>
+                            <div>Step 3: Add: {aTens * bTens} + {aTens * bOnes} + {aOnes * bTens} + {aOnes * bOnes} = {p.product}</div>
+                            <div className="font-semibold">Answer: {p.product}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12330,26 +12406,95 @@ export function PrintablesPage() {
             return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
           });
           return (
-            <WorksheetSectionWrapper docId="comparing-fractions-4th" title="Comparing Fractions" emoji="🍕" description="Compare each pair of fractions using >, <, or =.">
+            <WorksheetSectionWrapper 
+              docId="comparing-fractions-4th" 
+              title="Comparing Fractions" 
+              emoji="🍕" 
+              description="Compare each pair of fractions using >, <, or =."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Compare fractions with different denominators',
+                'Use common denominators to compare',
+                'Convert fractions to decimals to compare',
+                'Understand fraction relationships'
+              ]}
+              parentTeacherTips={[
+                'Find common denominator to compare',
+                'Or convert to decimals: divide numerator by denominator',
+                'Visual models can help: draw fraction bars',
+                'Larger denominator with same numerator = smaller fraction',
+                'Extension: Order three or more fractions'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 1/3</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find common denominator: 2 and 3 → 6</div>
+                    <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
+                    <div><strong>Step 3:</strong> Compare: 3/6 &gt; 2/6</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> &gt;</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Find common denominator, then compare numerators!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-bold">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-bold mb-2">
                       {p.frac1} ____ {p.frac2}
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Compare: 2/3 ____ 3/4</div>
+                  <div>2. Order from least to greatest: 1/4, 1/2, 1/3</div>
+                  <div>3. Explain how to compare fractions with different denominators</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can compare fractions with different denominators</div>
+                  <div>☐ I can find common denominators</div>
+                  <div>☐ I can convert fractions to decimals to compare</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('comparing-fractions-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => {
-                      const symbol = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
-                      return <li key={i}>{p.frac1} {symbol} {p.frac2}</li>;
+                      const symbol = p.val1 > p.val2 ? '&gt;' : p.val1 < p.val2 ? '&lt;' : '=';
+                      const symbolText = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac1} ____ {p.frac2}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Convert to decimals: {p.frac1} = {p.val1.toFixed(2)}, {p.frac2} = {p.val2.toFixed(2)}</div>
+                            <div>Step 2: Compare: {p.val1.toFixed(2)} {symbolText} {p.val2.toFixed(2)}</div>
+                            <div className="font-semibold">Answer: {symbolText}</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
