@@ -13276,7 +13276,14 @@ export function PrintablesPage() {
                     {fractions.map((f, i) => {
                       const [num, den] = f.split('/').map(Number);
                       const pos = num / den;
-                      return <li key={i}>{f}: Plot at {pos} on number line</li>;
+                      // Round to 2-3 decimal places for readability, but show exact for simple fractions
+                      let displayPos: string;
+                      if (pos === 0.5 || pos === 0.25 || pos === 0.75 || pos === 0.2) {
+                        displayPos = String(pos); // Show exact: 0.5, 0.25, 0.75, 0.2
+                      } else {
+                        displayPos = pos.toFixed(2); // Round repeating decimals: 0.33, 0.67
+                      }
+                      return <li key={i}>{f}: Plot at {displayPos} on number line</li>;
                     })}
                   </ul>
                 </div>
