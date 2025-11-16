@@ -8252,22 +8252,82 @@ export function PrintablesPage() {
               title="Multiplication Fact Fluency"
               emoji="⏱️"
               description="Solve as many facts as you can quickly. Practice all facts 1-12."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Build speed and accuracy with multiplication facts 1-12',
+                'Practice quick recall of multiplication facts',
+                'Achieve automaticity (knowing facts instantly)'
+              ]}
+              parentTeacherTips={[
+                'Fluency means speed AND accuracy - encourage both',
+                'Time students to track improvement',
+                'Use strategies: patterns, known facts, breaking down',
+                'Extension: Try to beat your time on the next attempt!'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-4 gap-2">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Building Fluency:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 6 × 7 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Quick recall:</strong> 6 × 7 = 42 (know it instantly!)</div>
+                    <div><strong>If you need to think:</strong> 6 × 7 = 7 × 6 = 42</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 42</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Practice until you can answer instantly without thinking!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>⏱️ Time yourself!</strong> Start the timer and see how fast you can complete all {facts.length} problems!
+              </div>
+              <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-lg">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
+                  <div>2. Try again tomorrow and see if you're faster</div>
+                  <div>3. Create your own fluency practice sheet</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can answer most facts quickly (fluency)</div>
+                  <div>☐ I need more practice to build speed</div>
+                  <div>☐ I can say the answers instantly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes _____ seconds
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-fact-fluency', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <div className="grid grid-cols-4 gap-2 text-xs">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
-                      <div key={i}>{a} × {b} = {a * b}</div>
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
                     ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
                   </div>
                 </div>
               ))}
@@ -8287,22 +8347,79 @@ export function PrintablesPage() {
               title="Mixed Multiplication Review"
               emoji="🔢"
               description="Mixed practice with all multiplication facts. Review everything you've learned."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Review all multiplication facts 1-12 in mixed order',
+                'Test mastery across all times tables',
+                'Build confidence with comprehensive practice'
+              ]}
+              parentTeacherTips={[
+                'Mixed review tests true mastery - students can\'t rely on patterns',
+                'Encourage students to use all strategies they know',
+                'This is great for assessment - see which facts need more practice',
+                'Extension: Time yourself and track improvement'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-4 gap-2">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Mixed Review:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 9 × 8 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1:</strong> 9 × 8 = 8 × 9 = 72</div>
+                    <div><strong>Method 2:</strong> 9 × 8 = (10 × 8) - (1 × 8) = 80 - 8 = 72</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: In mixed review, use whatever strategy works fastest for you!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-lg">{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
+                  <div>2. Circle the problems you found hardest</div>
+                  <div>3. Practice those facts more and try again</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve all facts in mixed order</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can answer quickly even when mixed up</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes _____ seconds
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-mixed-review', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <div className="grid grid-cols-4 gap-2 text-xs">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-4 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
-                      <div key={i}>{a} × {b} = {a * b}</div>
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
                     ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
                   </div>
                 </div>
               ))}
@@ -12175,25 +12292,89 @@ export function PrintablesPage() {
             return { value: `${whole}.${tenths}${hundredths}`, whole, tenths, hundredths };
           });
           return (
-            <WorksheetSectionWrapper docId="decimals-place-value" title="Decimals: Place Value" emoji="🍕" description="Write the place value of each underlined digit.">
+            <WorksheetSectionWrapper 
+              docId="decimals-place-value" 
+              title="Decimals: Place Value" 
+              emoji="🍕" 
+              description="Write the place value of each underlined digit."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Identify place values in decimal numbers',
+                'Understand tenths and hundredths places',
+                'Read and write decimal numbers correctly'
+              ]}
+              parentTeacherTips={[
+                'The first digit after the decimal is tenths (1/10)',
+                'The second digit after the decimal is hundredths (1/100)',
+                'Use a place value chart to help visualize',
+                'Extension: Try with thousandths place'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 24.35</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> The digit 3 is in the tenths place (first after decimal)</div>
+                    <div><strong>Step 2:</strong> The digit 5 is in the hundredths place (second after decimal)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tenths = 3, Hundredths = 5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count places after the decimal point: 1st = tenths, 2nd = hundredths!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Remember:</strong> The first digit after the decimal point is in the tenths place (1/10), and the second digit is in the hundredths place (1/100).
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-mono mb-2">{p.value}</div>
-                    <div className="text-center text-sm text-slate-600">Tenths: ____ Hundredths: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Tenths: ____ Hundredths: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Write a decimal number with 3 in the tenths place and 7 in the hundredths place</div>
+                  <div>2. Create your own decimal place value problem</div>
+                  <div>3. Explain what each place value means</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify tenths place</div>
+                  <div>☐ I can identify hundredths place</div>
+                  <div>☐ I understand decimal place values</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('decimals-place-value', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.value}: Tenths = {p.tenths}, Hundredths = {p.hundredths}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                        <div className="font-semibold text-sm">{i + 1}. {p.value}</div>
+                        <div className="text-xs text-emerald-800 mt-1">Tenths = {p.tenths}, Hundredths = {p.hundredths}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! Remember: the first digit after the decimal is tenths, the second is hundredths!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
