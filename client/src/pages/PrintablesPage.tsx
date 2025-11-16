@@ -7645,26 +7645,80 @@ export function PrintablesPage() {
               title="Multiplication Arrays & Models"
               emoji="📊"
               description="Draw an array for each problem. Use the array to solve."
+              problemCount={arrays.length}
+              learningObjectives={[
+                'Use arrays to visualize and solve multiplication',
+                'Count rows and columns to find products',
+                'Understand multiplication as equal groups arranged in arrays'
+              ]}
+              parentTeacherTips={[
+                'Arrays help students see the structure of multiplication',
+                'Encourage students to count rows × columns',
+                'Students can also count all boxes to verify their answer',
+                'Extension: Draw arrays for larger numbers'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 4 × 5 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the array: 4 rows and 5 columns</div>
+                    <div><strong>Step 2:</strong> Count rows × columns: 4 × 5 = 20</div>
+                    <div><strong>Step 3:</strong> Or count all boxes: 1, 2, 3... 20 boxes total</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Arrays show multiplication visually - rows × columns = total!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold text-slate-800">{rows} × {cols} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     <div className="grid gap-1" style={{gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto'}}>
                       {Array.from({length: rows * cols}).map((_, idx) => (
-                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100" />
+                        <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own array for 6 × 7 on a separate piece of paper</div>
+                  <div>2. Can you find an array that shows 8 × 4? How many boxes does it have?</div>
+                  <div>3. Create a word problem that matches one of the arrays above</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can use arrays to solve multiplication</div>
+                  <div>☐ I can count rows and columns correctly</div>
+                  <div>☐ I understand how arrays show multiplication</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {arrays.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-arrays-models', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {arrays.map(([rows, cols], i) => (<li key={i}>{rows} × {cols} = {rows * cols}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {arrays.map(([rows, cols], i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {rows} × {cols} = <strong>{rows * cols}</strong> (count all {rows * cols} boxes in the array)
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
