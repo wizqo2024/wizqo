@@ -11039,13 +11039,35 @@ export function PrintablesPage() {
             { sides: [6, 6, 8], type: 'isosceles' },
             { sides: [5, 7, 9], type: 'scalene' },
           ];
+          const renderTriangle = (type: string) => {
+            if (type === 'equilateral') {
+              return (
+                <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
+                  <polygon points="50,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else if (type === 'isosceles') {
+              return (
+                <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
+                  <polygon points="30,5 70,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            } else {
+              return (
+                <svg viewBox="0 0 100 87" className="w-24 h-24 mx-auto mb-2">
+                  <polygon points="20,5 80,5 95,82 5,82" fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                </svg>
+              );
+            }
+          };
           return (
             <WorksheetSectionWrapper docId="classifying-triangles" title="Classifying Triangles" emoji="📐" description="Classify each triangle by its sides.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {triangles.map((t, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Sides: {t.sides.join(', ')}</div>
+                    {renderTriangle(t.type)}
+                    <div className="text-center mb-2 text-sm">Sides: {t.sides.join(', ')}</div>
                     <div className="text-center text-sm text-slate-600">Type: ____</div>
                   </div>
                 ))}
@@ -13321,13 +13343,31 @@ export function PrintablesPage() {
             const width = nextInt(3, 8);
             return { length, width, perimeter: 2 * (length + width) };
           });
+          const renderRectangle = (length: number, width: number) => {
+            const scale = 8;
+            const rectWidth = length * scale;
+            const rectHeight = width * scale;
+            const viewBoxWidth = Math.max(rectWidth, 60) + 20;
+            const viewBoxHeight = Math.max(rectHeight, 60) + 20;
+            const x = (viewBoxWidth - rectWidth) / 2;
+            const y = (viewBoxHeight - rectHeight) / 2;
+            
+            return (
+              <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
+                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
+                <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="perimeter-shapes" title="Perimeter of Shapes" emoji="📐" description="Find the perimeter of each rectangle.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Length: {p.length}, Width: {p.width}</div>
+                    {renderRectangle(p.length, p.width)}
+                    <div className="text-center mb-2 text-sm">Length: {p.length}, Width: {p.width}</div>
                     <div className="text-center text-sm text-slate-600">Perimeter: ____</div>
                   </div>
                 ))}
@@ -13352,13 +13392,31 @@ export function PrintablesPage() {
             const width = nextInt(3, 8);
             return { length, width, area: length * width };
           });
+          const renderRectangle = (length: number, width: number) => {
+            const scale = 8;
+            const rectWidth = length * scale;
+            const rectHeight = width * scale;
+            const viewBoxWidth = Math.max(rectWidth, 60) + 20;
+            const viewBoxHeight = Math.max(rectHeight, 60) + 20;
+            const x = (viewBoxWidth - rectWidth) / 2;
+            const y = (viewBoxHeight - rectHeight) / 2;
+            
+            return (
+              <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
+                <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+                <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
+                <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="area-rectangles" title="Area of Rectangles" emoji="📐" description="Find the area by multiplying length × width.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Length: {p.length}, Width: {p.width}</div>
+                    {renderRectangle(p.length, p.width)}
+                    <div className="text-center mb-2 text-sm">Length: {p.length}, Width: {p.width}</div>
                     <div className="text-center text-sm text-slate-600">Area: ____</div>
                   </div>
                 ))}
@@ -13384,12 +13442,33 @@ export function PrintablesPage() {
             { name: 'octagon', sides: 8 },
             { name: 'square', sides: 4 },
           ];
+          const renderPolygon = (name: string, sides: number) => {
+            const size = 80;
+            const centerX = 50;
+            const centerY = 50;
+            const radius = 35;
+            const points: string[] = [];
+            
+            for (let i = 0; i < sides; i++) {
+              const angle = (Math.PI * 2 * i) / sides - Math.PI / 2;
+              const x = centerX + radius * Math.cos(angle);
+              const y = centerY + radius * Math.sin(angle);
+              points.push(`${x},${y}`);
+            }
+            
+            return (
+              <svg viewBox="0 0 100 100" className="w-20 h-20 mx-auto mb-2">
+                <polygon points={points.join(' ')} fill="none" stroke="#3b82f6" strokeWidth="2"/>
+              </svg>
+            );
+          };
           return (
             <WorksheetSectionWrapper docId="identify-polygons" title="Identify Polygons" emoji="📐" description="Name each polygon by number of sides.">
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-2 gap-4">
                 {polygons.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    {renderPolygon(p.name, p.sides)}
                     <div className="text-center mb-2 font-semibold">{p.name}</div>
                     <div className="text-center text-sm text-slate-600">Sides: ____</div>
                   </div>
