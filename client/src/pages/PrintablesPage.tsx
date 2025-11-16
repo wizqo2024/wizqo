@@ -12617,28 +12617,109 @@ export function PrintablesPage() {
             return { whole, num, denom, improper: `${improper}/${denom}`, mixed: `${whole} ${num}/${denom}` };
           });
           return (
-            <WorksheetSectionWrapper docId="mixed-improper-fractions" title="Mixed Numbers & Improper Fractions" emoji="🍕" description="Convert between mixed numbers and improper fractions.">
+            <WorksheetSectionWrapper 
+              docId="mixed-improper-fractions" 
+              title="Mixed Numbers & Improper Fractions" 
+              emoji="🍕" 
+              description="Convert between mixed numbers and improper fractions."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert mixed numbers to improper fractions',
+                'Convert improper fractions to mixed numbers',
+                'Understand the relationship between mixed and improper fractions',
+                'Apply conversion formulas correctly'
+              ]}
+              parentTeacherTips={[
+                'Mixed to Improper: (whole × denominator) + numerator',
+                'Improper to Mixed: Divide numerator by denominator',
+                'Whole number = quotient, remainder = new numerator',
+                'Practice both directions to master conversions',
+                'Extension: Convert larger mixed numbers and improper fractions'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 To Convert:</strong> Mixed to Improper: (whole × denominator) + numerator. Improper to Mixed: Divide numerator by denominator to get whole number, remainder becomes numerator.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Convert 2 1/3 to an improper fraction</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply whole by denominator: 2 × 3 = 6</div>
+                    <div><strong>Step 2:</strong> Add numerator: 6 + 1 = 7</div>
+                    <div><strong>Step 3:</strong> Keep denominator: 3</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7/3</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: (whole × denominator) + numerator = new numerator!</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> Mixed to Improper: (whole × denominator) + numerator. Improper to Mixed: Divide numerator by denominator to get whole number, remainder becomes numerator.
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-lg font-bold mb-2">{i % 2 === 0 ? p.mixed : p.improper}</div>
-                    <div className="text-center text-sm text-slate-600">Convert to: {i % 2 === 0 ? 'improper fraction' : 'mixed number'}</div>
-                    <div className="text-center text-xl font-mono mt-2">____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Convert to: {i % 2 === 0 ? 'improper fraction' : 'mixed number'}</div>
+                    <div className="text-center text-xl font-mono mb-2">____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 3 2/5 to improper fraction</div>
+                  <div>2. Convert: 11/4 to mixed number</div>
+                  <div>3. Create your own conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert mixed numbers to improper fractions</div>
+                  <div>☐ I can convert improper fractions to mixed numbers</div>
+                  <div>☐ I understand the conversion formulas</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mixed-improper-fractions', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (
-                      <li key={i}>{i % 2 === 0 ? `${p.mixed} = ${p.improper}` : `${p.improper} = ${p.mixed}`}</li>
-                    ))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const isMixedToImproper = i % 2 === 0;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. Convert {isMixedToImproper ? p.mixed : p.improper} to {isMixedToImproper ? 'improper fraction' : 'mixed number'}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            {isMixedToImproper ? (
+                              <>
+                                <div>Step 1: Multiply whole by denominator: {p.whole} × {p.denom} = {p.whole * p.denom}</div>
+                                <div>Step 2: Add numerator: {p.whole * p.denom} + {p.num} = {p.whole * p.denom + p.num}</div>
+                                <div>Step 3: Keep denominator: {p.denom}</div>
+                                <div className="font-semibold">Answer: {p.improper}</div>
+                              </>
+                            ) : (
+                              <>
+                                <div>Step 1: Divide numerator by denominator: {p.whole * p.denom + p.num} ÷ {p.denom} = {p.whole} remainder {p.num}</div>
+                                <div>Step 2: Whole number = {p.whole}, remainder = {p.num}</div>
+                                <div>Step 3: Keep denominator: {p.denom}</div>
+                                <div className="font-semibold">Answer: {p.mixed}</div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
