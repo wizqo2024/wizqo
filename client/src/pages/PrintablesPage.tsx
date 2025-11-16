@@ -13576,22 +13576,89 @@ export function PrintablesPage() {
             return { length, width, height, volume: length * width * height };
           });
           return (
-            <WorksheetSectionWrapper docId="volume-rectangular-prisms" title="Volume of Rectangular Prisms" emoji="📐" description="Find the volume using V = l × w × h.">
+            <WorksheetSectionWrapper 
+              docId="volume-rectangular-prisms" 
+              title="Volume of Rectangular Prisms" 
+              emoji="📐" 
+              description="Find the volume using V = l × w × h."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate volume of rectangular prisms',
+                'Use the formula V = length × width × height',
+                'Understand volume as cubic units'
+              ]}
+              parentTeacherTips={[
+                'Volume = length × width × height',
+                'Multiply all three dimensions together',
+                'Volume is measured in cubic units',
+                'Extension: Find volume of irregular shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> L: 4, W: 3, H: 2</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Use formula: V = l × w × h</div>
+                    <div><strong>Step 2:</strong> V = 4 × 3 × 2</div>
+                    <div><strong>Step 3:</strong> V = 12 × 2 = 24</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 cubic units</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply length × width × height!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">L: {p.length}, W: {p.width}, H: {p.height}</div>
-                    <div className="text-center text-sm text-slate-600">Volume: ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">L: {p.length}, W: {p.width}, H: {p.height}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Volume: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find volume: L: 5, W: 4, H: 6</div>
+                  <div>2. A box is 10 cm long, 8 cm wide, and 5 cm tall. What's its volume?</div>
+                  <div>3. Create your own volume problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can calculate volume</div>
+                  <div>☐ I remember the formula V = l × w × h</div>
+                  <div>☐ I understand cubic units</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('volume-rectangular-prisms', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>Volume = {p.volume} cubic units</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. L: {p.length}, W: {p.width}, H: {p.height}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: V = l × w × h</div>
+                          <div>Step 2: V = {p.length} × {p.width} × {p.height}</div>
+                          <div>Step 3: V = {p.length * p.width} × {p.height} = {p.volume}</div>
+                          <div className="font-semibold">Answer: {p.volume} cubic units</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13608,25 +13675,91 @@ export function PrintablesPage() {
             { measure: 180, type: 'straight' },
           ];
           return (
-            <WorksheetSectionWrapper docId="classifying-angles" title="Classifying Angles" emoji="📐" description="Classify each angle as acute, right, obtuse, or straight.">
+            <WorksheetSectionWrapper 
+              docId="classifying-angles" 
+              title="Classifying Angles" 
+              emoji="📐" 
+              description="Classify each angle as acute, right, obtuse, or straight."
+              problemCount={angles.length}
+              learningObjectives={[
+                'Classify angles by their measure',
+                'Understand acute, right, obtuse, and straight angles',
+                'Use angle measurements to classify'
+              ]}
+              parentTeacherTips={[
+                'Acute: less than 90°',
+                'Right: exactly 90°',
+                'Obtuse: more than 90° but less than 180°',
+                'Straight: exactly 180°',
+                'Extension: Measure and classify angles in real objects'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Classify 75°</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Check the measure: 75°</div>
+                    <div><strong>Step 2:</strong> Is it less than 90°? Yes!</div>
+                    <div><strong>Step 3:</strong> Angles less than 90° are acute</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Acute</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Less than 90° = acute, exactly 90° = right, more than 90° = obtuse!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>📝 Angle Types:</strong> Acute (less than 90°), Right (exactly 90°), Obtuse (more than 90° but less than 180°), Straight (exactly 180°)
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {angles.map((a, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center text-xl font-bold mb-2">{a.measure}°</div>
-                    <div className="text-center text-sm text-slate-600">Type: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Explain your thinking:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Classify: 135°</div>
+                  <div>2. Find examples of each angle type in your classroom</div>
+                  <div>3. Draw your own angle and classify it</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can classify acute angles</div>
+                  <div>☐ I can classify right angles</div>
+                  <div>☐ I can classify obtuse and straight angles</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {angles.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('classifying-angles', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {angles.map((a, i) => (<li key={i}>{a.measure}° = {a.type}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {angles.map((a, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {a.measure}°</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>{a.measure}° is {a.measure < 90 ? 'less than 90°' : a.measure === 90 ? 'exactly 90°' : a.measure < 180 ? 'more than 90° but less than 180°' : 'exactly 180°'}</div>
+                          <div className="font-semibold">Answer: {a.type}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13846,22 +13979,87 @@ export function PrintablesPage() {
             { start: '3:20', end: '4:50', elapsed: '1 hour 30 minutes' },
           ];
           return (
-            <WorksheetSectionWrapper docId="elapsed-time-4th" title="Elapsed Time" emoji="🕒" description="Calculate the elapsed time between start and end times.">
+            <WorksheetSectionWrapper 
+              docId="elapsed-time-4th" 
+              title="Elapsed Time" 
+              emoji="🕒" 
+              description="Calculate the elapsed time between start and end times."
+              problemCount={times.length}
+              learningObjectives={[
+                'Calculate elapsed time between two times',
+                'Understand hours and minutes',
+                'Use time on a number line or clock'
+              ]}
+              parentTeacherTips={[
+                'Count forward from start time to end time',
+                'Use a number line or clock to visualize',
+                'Remember: 60 minutes = 1 hour',
+                'Extension: Calculate elapsed time across days'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Start: 2:00, End: 3:30</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> From 2:00 to 3:00 = 1 hour</div>
+                    <div><strong>Step 2:</strong> From 3:00 to 3:30 = 30 minutes</div>
+                    <div><strong>Step 3:</strong> Total: 1 hour + 30 minutes = 1 hour 30 minutes</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 hour 30 minutes</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the hours first, then the minutes!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {times.map((t, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">Start: {t.start}, End: {t.end}</div>
-                    <div className="text-center text-sm text-slate-600">Elapsed: ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">Start: {t.start}, End: {t.end}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Elapsed: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Calculate: Start 7:45 AM, End 9:20 AM</div>
+                  <div>2. How long is your school day? Calculate from start to end</div>
+                  <div>3. Create your own elapsed time problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can calculate elapsed time</div>
+                  <div>☐ I understand hours and minutes</div>
+                  <div>☐ I can use a clock or number line</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {times.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('elapsed-time-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {times.map((t, i) => (<li key={i}>{t.start} to {t.end} = {t.elapsed}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {times.map((t, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. Start: {t.start}, End: {t.end}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Count from {t.start} to {t.end}</div>
+                          <div className="font-semibold">Answer: {t.elapsed}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13876,21 +14074,89 @@ export function PrintablesPage() {
             return { quarts, cups: quarts * 4 };
           });
           return (
-            <WorksheetSectionWrapper docId="liquid-measurement-4th" title="Liquid Measurement" emoji="📏" description="Convert between cups, pints, quarts, and gallons.">
+            <WorksheetSectionWrapper 
+              docId="liquid-measurement-4th" 
+              title="Liquid Measurement" 
+              emoji="📏" 
+              description="Convert between cups, pints, quarts, and gallons."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between cups, pints, quarts, and gallons',
+                'Understand liquid measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                'Remember: 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups',
+                'To convert larger to smaller, multiply',
+                'To convert smaller to larger, divide',
+                'Extension: Convert between all units'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 quarts = ____ cups</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 quart = 4 cups</div>
+                    <div><strong>Step 2:</strong> Multiply: 3 quarts × 4 cups/quart = 12 cups</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 cups</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 quart = 4 cups, so multiply by 4!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 gallon = 4 quarts, 1 quart = 2 pints, 1 pint = 2 cups
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.quarts} quarts = ____ cups</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.quarts} quarts = ____ cups</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 2 gallons = ____ cups</div>
+                  <div>2. How many pints are in 3 quarts?</div>
+                  <div>3. Create your own conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between liquid measurements</div>
+                  <div>☐ I remember the conversion facts</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('liquid-measurement-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.quarts} quarts = {p.cups} cups</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.quarts} quarts = ____ cups</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 quart = 4 cups</div>
+                          <div>Step 2: {p.quarts} quarts × 4 cups/quart = {p.cups} cups</div>
+                          <div className="font-semibold">Answer: {p.cups} cups</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
