@@ -14649,22 +14649,97 @@ export function PrintablesPage() {
             return { a, b, op, x };
           });
           return (
-            <WorksheetSectionWrapper docId="solving-one-step-equations" title="Solving One-Step Equations" emoji="📐" description="Solve for x in each equation.">
+            <WorksheetSectionWrapper 
+              docId="solving-one-step-equations" 
+              title="Solving One-Step Equations" 
+              emoji="📐" 
+              description="Solve for x in each equation."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve one-step equations',
+                'Use inverse operations to isolate the variable',
+                'Check solutions by substitution'
+              ]}
+              parentTeacherTips={[
+                'To solve x + a = b, subtract a from both sides',
+                'To solve x - a = b, add a to both sides',
+                'Always check your answer by substituting back',
+                'Extension: Try equations with multiplication and division'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> x + 5 = 12</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Subtract 5 from both sides: x + 5 - 5 = 12 - 5</div>
+                    <div><strong>Step 2:</strong> Simplify: x = 7</div>
+                    <div><strong>Step 3:</strong> Check: 7 + 5 = 12 ✓</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> x = 7</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Do the opposite operation to both sides!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-mono">x {p.op} {p.a} = {p.b}</div>
-                    <div className="text-center text-sm text-slate-600">x = ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">x = ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Solve: x - 8 = 15</div>
+                  <div>2. Create your own equation and solve it</div>
+                  <div>3. Explain why we do the same operation to both sides</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve one-step equations</div>
+                  <div>☐ I can use inverse operations</div>
+                  <div>☐ I can check my answers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('solving-one-step-equations', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>x {p.op} {p.a} = {p.b}, so x = {p.x}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. x {p.op} {p.a} = {p.b}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          {p.op === '+' ? (
+                            <>
+                              <div>Step 1: Subtract {p.a} from both sides: x + {p.a} - {p.a} = {p.b} - {p.a}</div>
+                              <div>Step 2: x = {p.x}</div>
+                            </>
+                          ) : (
+                            <>
+                              <div>Step 1: Add {p.a} to both sides: x - {p.a} + {p.a} = {p.b} + {p.a}</div>
+                              <div>Step 2: x = {p.x}</div>
+                            </>
+                          )}
+                          <div className="font-semibold">Answer: x = {p.x}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14962,22 +15037,88 @@ export function PrintablesPage() {
 
         {activeDocs.includes('line-plots') && (() => {
           const data = [3, 4, 4, 5, 5, 5, 6, 6, 7];
+          const mode = 5;
+          const range = 7 - 3;
           return (
-            <WorksheetSectionWrapper docId="line-plots" title="Line Plots" emoji="📊" description="Create a line plot from the data and answer questions.">
+            <WorksheetSectionWrapper 
+              docId="line-plots" 
+              title="Line Plots" 
+              emoji="📊" 
+              description="Create a line plot from the data and answer questions."
+              problemCount={1}
+              learningObjectives={[
+                'Create line plots from data',
+                'Find mode (most frequent value) from line plots',
+                'Calculate range (difference between max and min)'
+              ]}
+              parentTeacherTips={[
+                'Line plots show data on a number line with X marks',
+                'Mode is the number that appears most often',
+                'Range = largest value - smallest value',
+                'Extension: Create line plots from your own data'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
-                <div className="border border-slate-300 rounded-lg p-4 bg-white">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Data:</strong> 2, 3, 3, 4, 4, 4</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Create line plot with X marks above each number</div>
+                    <div><strong>Step 2 (Mode):</strong> Count X marks - 4 appears most (3 times)</div>
+                    <div><strong>Step 3 (Range):</strong> Largest = 4, Smallest = 2, Range = 4 - 2 = 2</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mode = 4, Range = 2</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Mode = most frequent, Range = max - min!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                   <div className="mb-2 font-semibold">Data: {data.join(', ')}</div>
-                  <div className="text-sm text-slate-600">Create line plot and find: Mode = ____, Range = ____</div>
+                  <div className="text-sm text-slate-600 mb-2">Create line plot and find: Mode = ____, Range = ____</div>
+                  <div className="mt-2 text-xs text-slate-600">Draw your line plot here:</div>
+                  <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                </div>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create a line plot for: 5, 6, 6, 7, 7, 7, 8</div>
+                  <div>2. Find mode and range for your own data</div>
+                  <div>3. Explain what a line plot shows</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can create a line plot</div>
+                  <div>☐ I can find the mode</div>
+                  <div>☐ I can calculate the range</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / 1
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('line-plots', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    <li>Mode = 5 (appears most often)</li>
-                    <li>Range = 4 (7 - 3)</li>
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">Data: {data.join(', ')}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Create line plot with X marks above each number</div>
+                        <div>Step 2 (Mode): Count X marks - 5 appears 3 times (most often)</div>
+                        <div>Step 3 (Range): Largest = 7, Smallest = 3, Range = 7 - 3 = 4</div>
+                        <div className="font-semibold">Answer: Mode = {mode}, Range = {range}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15209,22 +15350,99 @@ export function PrintablesPage() {
             { data: [3, 6, 6, 9, 12], mean: 7.2, median: 6, mode: 6, range: 9 },
           ];
           return (
-            <WorksheetSectionWrapper docId="mean-median-mode-range" title="Mean, Median, Mode, Range" emoji="📊" description="Calculate all four measures for each dataset.">
+            <WorksheetSectionWrapper 
+              docId="mean-median-mode-range" 
+              title="Mean, Median, Mode, Range" 
+              emoji="📊" 
+              description="Calculate all four measures for each dataset."
+              problemCount={datasets.length}
+              learningObjectives={[
+                'Calculate mean, median, mode, and range',
+                'Understand all four measures of central tendency and spread',
+                'Use appropriate calculations for each measure'
+              ]}
+              parentTeacherTips={[
+                'Mean: Add all numbers, divide by count',
+                'Median: Put numbers in order, find the middle',
+                'Mode: The number that appears most often',
+                'Range: Largest value - smallest value',
+                'Extension: Find all measures for your own data'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6, 8</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Mean:</strong> (2 + 4 + 4 + 6 + 8) ÷ 5 = 24 ÷ 5 = 4.8</div>
+                    <div><strong>Median:</strong> Ordered: 2, 4, 4, 6, 8. Middle = 4</div>
+                    <div><strong>Mode:</strong> 4 appears most often (twice)</div>
+                    <div><strong>Range:</strong> 8 - 2 = 6</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4.8, Median = 4, Mode = 4, Range = 6</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Mean = average, Median = middle, Mode = most frequent, Range = spread!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {datasets.map((d, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="mb-2 font-semibold">Data: {d.data.join(', ')}</div>
-                    <div className="text-sm text-slate-600">Mean: ____ Median: ____ Mode: ____ Range: ____</div>
+                    <div className="text-sm text-slate-600 mb-2">Mean: ____ Median: ____ Mode: ____ Range: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find all measures for: 7, 9, 9, 11, 13</div>
+                  <div>2. Collect your own data and find mean, median, mode, range</div>
+                  <div>3. Explain when mean and median might be different</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can calculate the mean</div>
+                  <div>☐ I can find the median</div>
+                  <div>☐ I can identify the mode</div>
+                  <div>☐ I can calculate the range</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {datasets.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mean-median-mode-range', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {datasets.map((d, i) => (<li key={i}>Mean = {d.mean}, Median = {d.median}, Mode = {d.mode}, Range = {d.range}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {datasets.map((d, i) => {
+                      const sum = d.data.reduce((a, b) => a + b, 0);
+                      const sorted = [...d.data].sort((a, b) => a - b);
+                      const mid = Math.floor(sorted.length / 2);
+                      const median = sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. Data: {d.data.join(', ')}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Mean: ({d.data.join(' + ')}) ÷ {d.data.length} = {sum} ÷ {d.data.length} = {d.mean}</div>
+                            <div>Median: Ordered: {sorted.join(', ')}. Middle = {median}</div>
+                            <div>Mode: {d.mode === 'none' ? 'No number appears more than once (no mode)' : `${d.mode} appears most often`}</div>
+                            <div>Range: {Math.max(...d.data)} - {Math.min(...d.data)} = {d.range}</div>
+                            <div className="font-semibold mt-1">Answer: Mean = {d.mean}, Median = {d.median}, Mode = {d.mode === 'none' ? 'none' : d.mode}, Range = {d.range}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17762,21 +17980,89 @@ export function PrintablesPage() {
             return { pounds, ounces: pounds * 16 };
           });
           return (
-            <WorksheetSectionWrapper docId="mass-weight" title="Mass and Weight" emoji="📏" description="Compare ounces, pounds, grams, and kilograms.">
+            <WorksheetSectionWrapper 
+              docId="mass-weight" 
+              title="Mass and Weight" 
+              emoji="📏" 
+              description="Compare ounces, pounds, grams, and kilograms."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Convert between ounces and pounds',
+                'Understand weight measurement relationships',
+                'Use multiplication and division for conversions'
+              ]}
+              parentTeacherTips={[
+                '1 pound = 16 ounces',
+                'To convert pounds to ounces, multiply by 16',
+                'To convert ounces to pounds, divide by 16',
+                'Extension: Convert between grams and kilograms'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2 pounds = ____ ounces</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Remember: 1 pound = 16 ounces</div>
+                    <div><strong>Step 2:</strong> Multiply: 2 pounds × 16 oz/pound = 32 ounces</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 32 ounces</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: 1 pound = 16 oz, so multiply by 16!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Conversion Chart:</strong> 1 pound = 16 ounces
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center mb-2">{p.pounds} pounds = ____ ounces</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center mb-2 font-semibold">{p.pounds} pounds = ____ ounces</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Convert: 48 ounces = ____ pounds</div>
+                  <div>2. How many ounces are in 3.5 pounds?</div>
+                  <div>3. Create your own weight conversion problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can convert between pounds and ounces</div>
+                  <div>☐ I remember the conversion fact</div>
+                  <div>☐ I can multiply and divide for conversions</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mass-weight', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.pounds} pounds = {p.ounces} ounces</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.pounds} pounds = ____ ounces</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: 1 pound = 16 ounces</div>
+                          <div>Step 2: {p.pounds} pounds × 16 oz/pound = {p.ounces} ounces</div>
+                          <div className="font-semibold">Answer: {p.ounces} ounces</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
