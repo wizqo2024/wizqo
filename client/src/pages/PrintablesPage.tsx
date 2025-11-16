@@ -8215,7 +8215,7 @@ export function PrintablesPage() {
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
-              <div className="mt-6 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
+              <div className="mt-6 print:mt-12 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border">
                 <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
                 <div className="space-y-2 text-sm text-purple-800">
                   <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
