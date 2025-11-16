@@ -14651,23 +14651,95 @@ export function PrintablesPage() {
             }
           };
           return (
-            <WorksheetSectionWrapper docId="classifying-triangles" title="Classifying Triangles" emoji="📐" description="Classify each triangle by its sides.">
+            <WorksheetSectionWrapper 
+              docId="classifying-triangles" 
+              title="Classifying Triangles" 
+              emoji="📐" 
+              description="Classify each triangle by its sides."
+              problemCount={triangles.length}
+              learningObjectives={[
+                'Classify triangles by side lengths',
+                'Identify equilateral, isosceles, and scalene triangles',
+                'Understand triangle properties',
+                'Apply classification rules correctly'
+              ]}
+              parentTeacherTips={[
+                'Equilateral: all 3 sides equal',
+                'Isosceles: exactly 2 sides equal',
+                'Scalene: no sides equal',
+                'Count the number of equal sides',
+                'Extension: Classify by angles (acute, right, obtuse)'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Triangle with sides: 4, 4, 5</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Count equal sides: 4 = 4 (two sides equal)</div>
+                    <div><strong>Step 2:</strong> Check: Is it all 3 equal? No. Is it 2 equal? Yes!</div>
+                    <div><strong>Step 3:</strong> Classification: Isosceles (exactly 2 sides equal)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Isosceles</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count how many sides are equal: 0 = scalene, 2 = isosceles, 3 = equilateral!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {triangles.map((t, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderTriangle(t.type)}
-                    <div className="text-center mb-2 text-sm">Sides: {t.sides.join(', ')}</div>
-                    <div className="text-center text-sm text-slate-600">Type: ____</div>
+                    <div className="text-center mb-2 text-sm font-semibold">Sides: {t.sides.join(', ')}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Type: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw an equilateral triangle with sides of 5 units each</div>
+                  <div>2. Classify: Triangle with sides 7, 7, 7</div>
+                  <div>3. Explain the difference between isosceles and scalene triangles</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can classify triangles by side lengths</div>
+                  <div>☐ I know the difference between equilateral, isosceles, and scalene</div>
+                  <div>☐ I can count equal sides correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {triangles.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('classifying-triangles', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {triangles.map((t, i) => (<li key={i}>{t.sides.join(', ')} = {t.type}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {triangles.map((t, i) => {
+                      const equalCount = t.sides[0] === t.sides[1] && t.sides[1] === t.sides[2] ? 3 : 
+                                        t.sides[0] === t.sides[1] || t.sides[1] === t.sides[2] || t.sides[0] === t.sides[2] ? 2 : 0;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. Sides: {t.sides.join(', ')}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Count equal sides: {equalCount === 3 ? 'All 3 sides equal' : equalCount === 2 ? '2 sides equal' : 'No sides equal'}</div>
+                            <div>Step 2: Classification: {equalCount === 3 ? 'Equilateral (all 3 equal)' : equalCount === 2 ? 'Isosceles (2 equal)' : 'Scalene (none equal)'}</div>
+                            <div className="font-semibold">Answer: {t.type}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -14677,22 +14749,100 @@ export function PrintablesPage() {
         {activeDocs.includes('classifying-quadrilaterals') && (() => {
           const shapes = ['square', 'rectangle', 'parallelogram', 'trapezoid', 'rhombus', 'quadrilateral'];
           return (
-            <WorksheetSectionWrapper docId="classifying-quadrilaterals" title="Classifying Quadrilaterals" emoji="📐" description="Identify each quadrilateral.">
+            <WorksheetSectionWrapper 
+              docId="classifying-quadrilaterals" 
+              title="Classifying Quadrilaterals" 
+              emoji="📐" 
+              description="Identify each quadrilateral."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Identify different types of quadrilaterals',
+                'Understand properties of quadrilaterals',
+                'Distinguish between square, rectangle, parallelogram, trapezoid, rhombus',
+                'Draw and label quadrilaterals correctly'
+              ]}
+              parentTeacherTips={[
+                'Square: 4 equal sides, 4 right angles',
+                'Rectangle: 4 right angles, opposite sides equal',
+                'Parallelogram: opposite sides parallel and equal',
+                'Trapezoid: exactly one pair of parallel sides',
+                'Rhombus: 4 equal sides, opposite angles equal',
+                'Extension: Create your own quadrilateral classification chart'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Square</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Properties: 4 sides, all equal length</div>
+                    <div><strong>Step 2:</strong> All angles are right angles (90°)</div>
+                    <div><strong>Step 3:</strong> Draw a square with equal sides</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> A square has 4 equal sides and 4 right angles</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Remember the key properties: sides, angles, and parallel lines!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Draw and label: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Draw and label: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a rectangle and label its properties</div>
+                  <div>2. Explain the difference between a square and a rhombus</div>
+                  <div>3. Create your own quadrilateral classification chart</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify different quadrilaterals</div>
+                  <div>☐ I know the properties of each quadrilateral</div>
+                  <div>☐ I can draw and label quadrilaterals</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {shapes.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('classifying-quadrilaterals', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s}: 4-sided polygon with specific properties</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with properties)</div>
+                  <div className="space-y-3">
+                    {shapes.map((s, i) => {
+                      const properties: { [key: string]: string } = {
+                        square: '4 equal sides, 4 right angles',
+                        rectangle: '4 right angles, opposite sides equal',
+                        parallelogram: 'Opposite sides parallel and equal',
+                        trapezoid: 'Exactly one pair of parallel sides',
+                        rhombus: '4 equal sides, opposite angles equal',
+                        quadrilateral: '4-sided polygon'
+                      };
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Properties: {properties[s] || '4-sided polygon'}</div>
+                            <div className="font-semibold">Answer: {s} - {properties[s] || '4-sided polygon'}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
