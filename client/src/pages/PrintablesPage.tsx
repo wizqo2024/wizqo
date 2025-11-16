@@ -17135,27 +17135,126 @@ export function PrintablesPage() {
             'A box is 2 feet long, 1.5 feet wide, and 1 foot tall. What is the volume?',
           ];
           return (
-            <WorksheetSectionWrapper docId="measurement-word-problems" title="Measurement Word Problems" emoji="🧮" description="Solve each word problem involving measurement and unit conversions.">
+            <WorksheetSectionWrapper 
+              docId="measurement-word-problems" 
+              title="Measurement Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving measurement and unit conversions."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving measurement',
+                'Convert between different units of measurement',
+                'Calculate area, volume, and other measurements',
+                'Apply measurement concepts in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Help students identify what measurement is needed',
+                'Remind students to convert units when necessary',
+                'For area: length × width, for volume: length × width × height',
+                'Check that answers make sense in the context',
+                'Extension: Create your own measurement word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle is 5 feet long and 3 feet wide. What is the area?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Identify: This is an area problem</div>
+                    <div><strong>Step 2:</strong> Formula: Area = length × width</div>
+                    <div><strong>Step 3:</strong> Calculate: 5 × 3 = 15</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15 square feet</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = length × width for rectangles!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own measurement word problem</div>
+                  <div>2. Solve: A garden is 10 feet by 8 feet. How many square feet is it? How many square yards?</div>
+                  <div>3. Explain when you use measurements in everyday life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve measurement word problems</div>
+                  <div>☐ I can convert between units</div>
+                  <div>☐ I can calculate area and volume</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('measurement-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>3 feet = 36 inches, yes (36 {'>'} 18)</li>
-                    <li>12 × 8 = 96 sq feet</li>
-                    <li>85 + 12 = 97 pounds</li>
-                    <li>2 ÷ 1/2 = 4 times</li>
-                    <li>240 ÷ 4 = 60 mph</li>
-                    <li>2 × 1.5 × 1 = 3 cubic feet</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Convert: 3 feet = 3 × 12 = 36 inches</div>
+                        <div>Step 2: Compare: 36 inches &gt; 18 inches</div>
+                        <div className="font-semibold">Answer: Yes, she has enough (36 inches &gt; 18 inches)</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Area = length × width</div>
+                        <div>Step 2: Calculate: 12 × 8 = 96</div>
+                        <div className="font-semibold">Answer: 96 square feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Add: 85 + 12</div>
+                        <div>Step 2: Calculate: 85 + 12 = 97</div>
+                        <div className="font-semibold">Answer: 97 pounds</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Divide: 2 ÷ 1/2 = 2 × 2 = 4</div>
+                        <div className="font-semibold">Answer: 4 times</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Divide: 240 ÷ 4</div>
+                        <div>Step 2: Calculate: 240 ÷ 4 = 60</div>
+                        <div className="font-semibold">Answer: 60 miles per hour</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Volume = length × width × height</div>
+                        <div>Step 2: Calculate: 2 × 1.5 × 1 = 3</div>
+                        <div className="font-semibold">Answer: 3 cubic feet</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17172,27 +17271,127 @@ export function PrintablesPage() {
             'A rectangular room is 12 feet by 9 feet. How many square feet of carpet are needed?',
           ];
           return (
-            <WorksheetSectionWrapper docId="geometry-word-problems" title="Geometry Word Problems" emoji="🧮" description="Solve each word problem involving area, perimeter, and geometry.">
+            <WorksheetSectionWrapper 
+              docId="geometry-word-problems" 
+              title="Geometry Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem involving area, perimeter, and geometry."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving area and perimeter',
+                'Calculate area of rectangles, squares, and triangles',
+                'Understand geometric relationships (diameter, radius)',
+                'Apply geometry formulas in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'Area of rectangle = length × width',
+                'Area of square = side × side',
+                'Area of triangle = (base × height) ÷ 2',
+                'Perimeter = sum of all sides',
+                'Diameter = 2 × radius',
+                'Extension: Create your own geometry word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle has a length of 7 cm and width of 4 cm. What is the area and perimeter?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1 (Area):</strong> Area = length × width = 7 × 4 = 28</div>
+                    <div><strong>Step 2 (Perimeter):</strong> Perimeter = 2 × (length + width) = 2 × (7 + 4) = 22</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq cm, Perimeter = 22 cm</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Area = inside space, Perimeter = distance around!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own geometry word problem</div>
+                  <div>2. Solve: A triangle has a base of 10 cm and height of 6 cm. What is the area?</div>
+                  <div>3. Explain when you use geometry in everyday life</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve geometry word problems</div>
+                  <div>☐ I can calculate area and perimeter</div>
+                  <div>☐ I understand geometric relationships</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('geometry-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Area = 60 sq cm, Perimeter = 32 cm</li>
-                    <li>Area = 64 sq inches, Perimeter = 32 inches</li>
-                    <li>Area = 30 sq cm</li>
-                    <li>Area = 150 sq feet</li>
-                    <li>Diameter = 8 cm</li>
-                    <li>Area = 108 sq feet</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1 (Area): Area = length × width = 10 × 6 = 60</div>
+                        <div>Step 2 (Perimeter): Perimeter = 2 × (length + width) = 2 × (10 + 6) = 32</div>
+                        <div className="font-semibold">Answer: Area = 60 sq cm, Perimeter = 32 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1 (Area): Area = side × side = 8 × 8 = 64</div>
+                        <div>Step 2 (Perimeter): Perimeter = 4 × side = 4 × 8 = 32</div>
+                        <div className="font-semibold">Answer: Area = 64 sq inches, Perimeter = 32 inches</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Area = (base × height) ÷ 2</div>
+                        <div>Step 2: Calculate: (12 × 5) ÷ 2 = 60 ÷ 2 = 30</div>
+                        <div className="font-semibold">Answer: Area = 30 sq cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Area = length × width</div>
+                        <div>Step 2: Calculate: 15 × 10 = 150</div>
+                        <div className="font-semibold">Answer: Area = 150 sq feet</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Diameter = 2 × radius</div>
+                        <div>Step 2: Calculate: 2 × 4 = 8</div>
+                        <div className="font-semibold">Answer: Diameter = 8 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: Area = length × width</div>
+                        <div>Step 2: Calculate: 12 × 9 = 108</div>
+                        <div className="font-semibold">Answer: Area = 108 sq feet</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
