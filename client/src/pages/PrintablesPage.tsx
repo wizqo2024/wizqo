@@ -2884,7 +2884,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-pet-fish') && (
           <WorksheetSectionWrapper
@@ -3029,7 +3029,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g3-lighthouse') && (
           <WorksheetSectionWrapper
@@ -3116,7 +3116,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-red-balloon') && (
           <WorksheetSectionWrapper
@@ -3377,7 +3377,7 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('pack') && (() => {
           // Build dynamic pack content by time/age/skill
