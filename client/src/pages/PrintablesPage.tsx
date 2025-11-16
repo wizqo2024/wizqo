@@ -7725,24 +7725,51 @@ export function PrintablesPage() {
           );
         })()}
 
-        {activeDocs.includes('mult-multi-step-word') && (
-          <WorksheetSectionWrapper
-            docId="mult-multi-step-word"
-            title="Multi-Step Word Problems"
-            emoji="🧮"
-            description="Read each problem carefully. Show your work and solve."
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-              <strong>📝 Instructions:</strong> Read each problem carefully. These problems require multiple steps. Show all your work and write your final answer.
-            </div>
-            <div className="space-y-5">
-              {[
-                { problem: 'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?', steps: [{ label: 'Step 1: 4 × 6 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 5, blank: true }], answer: '120 toys' },
-                { problem: 'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?', steps: [{ label: 'Step 1: 3 × 8 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 2, blank: true }], answer: '48 students' },
-                { problem: 'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?', steps: [{ label: 'Step 1: 5 × 3 =', blank: true }], answer: '15 flowers' },
-                { problem: 'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?', steps: [{ label: 'Step 1: 6 × 12 =', blank: true }, { label: 'Step 2:', prev: true, op: '-', num: 20, blank: true }], answer: '52 cookies left' },
-              ].map((item, i) => (
+        {activeDocs.includes('mult-multi-step-word') && (() => {
+          const problems = [
+            { problem: 'A store has 4 shelves. Each shelf holds 6 boxes. Each box has 5 toys. How many toys in all?', steps: [{ label: 'Step 1: 4 × 6 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 5, blank: true }], answer: '120 toys' },
+            { problem: 'There are 3 classrooms. Each classroom has 8 desks. Each desk seats 2 students. How many students can sit?', steps: [{ label: 'Step 1: 3 × 8 =', blank: true }, { label: 'Step 2:', prev: true, op: '×', num: 2, blank: true }], answer: '48 students' },
+            { problem: 'A garden has 5 rows of plants. Each row has 7 plants. If 3 plants in each row are flowers, how many flowers total?', steps: [{ label: 'Step 1: 5 × 3 =', blank: true }], answer: '15 flowers' },
+            { problem: 'A bakery makes 6 batches of cookies. Each batch has 12 cookies. They sell 20 cookies. How many cookies are left?', steps: [{ label: 'Step 1: 6 × 12 =', blank: true }, { label: 'Step 2:', prev: true, op: '-', num: 20, blank: true }], answer: '52 cookies left' },
+          ];
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-multi-step-word"
+              title="Multi-Step Word Problems"
+              emoji="🧮"
+              description="Read each problem carefully. Show your work and solve."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve multi-step word problems using multiplication',
+                'Break down complex problems into smaller steps',
+                'Show all work clearly and check answers'
+              ]}
+              parentTeacherTips={[
+                'Help students identify what needs to be solved first',
+                'Encourage students to show each step clearly',
+                'Check that students understand what the question is asking',
+                'Extension: Create your own multi-step problems'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> A bakery has 3 trays. Each tray has 4 rows of cookies. Each row has 6 cookies. How many cookies in all?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find cookies per tray: 4 rows × 6 cookies = 24 cookies per tray</div>
+                    <div><strong>Step 2:</strong> Find total cookies: 3 trays × 24 cookies = 72 cookies</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72 cookies</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Solve one step at a time! First find cookies per tray, then multiply by number of trays.</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Read each problem carefully. These problems require multiple steps. Show all your work and write your final answer.
+              </div>
+              <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((item, i) => (
                 <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
                   <div className="text-base font-semibold text-slate-800 mb-4">
                     {i + 1}. {item.problem}
