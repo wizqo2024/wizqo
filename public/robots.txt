@@ -16,4 +16,12 @@ Allow: /
 User-agent: msnbot
 Allow: /
 
+# Explicitly allow DuckDuckGo's crawler
+User-agent: DuckDuckBot
+Allow: /
+
+# Explicitly allow Yandex's crawler (Russian search engine)
+User-agent: YandexBot
+Allow: /
+
 Sitemap: https://wizqo.com/sitemap.xml
