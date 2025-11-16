@@ -9595,9 +9595,38 @@ export function PrintablesPage() {
             title="Blank Times Table (6-12) - Fill In"
             emoji="📋"
             description="Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step."
+            problemCount={49}
+            learningObjectives={[
+              'Fill in complete times table grid for facts 6-12',
+              'Practice all advanced multiplication combinations',
+              'Build memorization through repetition with larger numbers'
+            ]}
+            parentTeacherTips={[
+              'This helps students see patterns in advanced multiplication',
+              'Encourage students to use strategies: 9×n trick, breaking down (8×7)',
+              'Use skip counting to help: for row 8, count by 8s',
+              'Extension: Time yourself filling in the table'
+            ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-            <div className="space-y-4">
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - How to fill in the table:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>For row 8:</strong> Fill in 8×6, 8×7, 8×8, 8×9, 8×10, 8×11, 8×12</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div>8 × 6 = 48</div>
+                  <div>8 × 7 = 56</div>
+                  <div>8 × 8 = 64</div>
+                  <div>8 × 9 = 72</div>
+                  <div>8 × 10 = 80</div>
+                  <div>8 × 11 = 88</div>
+                  <div>8 × 12 = 96</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Count by 8s: 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <div className="border border-slate-300 rounded p-4 bg-white">
                 <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (6-12)</div>
                 <table className="w-full border-collapse text-sm">
@@ -9624,10 +9653,45 @@ export function PrintablesPage() {
                 </table>
               </div>
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Fill in the table from memory without looking at any notes</div>
+                <div>2. Time yourself: Can you fill it in under 5 minutes?</div>
+                <div>3. Circle all the perfect squares (6×6, 7×7, 8×8, 9×9, 10×10, 11×11, 12×12)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I filled in all 49 facts correctly</div>
+                <div>☐ I need more practice with some facts</div>
+                <div>☐ I can see patterns in the table</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 49
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>Time taken:</strong> _____ minutes
+              </div>
+            </div>
             {showAnswersForDoc('times-table-blank-6-12', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <div className="text-xs">Complete times table for 6-12. For example: 6×6=36, 6×7=42, 6×8=48, 6×9=54, 6×10=60, 6×11=66, 6×12=72, and so on for all combinations.</div>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-xs space-y-1">
+                  <div><strong>Row 6:</strong> 36, 42, 48, 54, 60, 66, 72</div>
+                  <div><strong>Row 7:</strong> 42, 49, 56, 63, 70, 77, 84</div>
+                  <div><strong>Row 8:</strong> 48, 56, 64, 72, 80, 88, 96</div>
+                  <div><strong>Row 9:</strong> 54, 63, 72, 81, 90, 99, 108</div>
+                  <div><strong>Row 10:</strong> 60, 70, 80, 90, 100, 110, 120</div>
+                  <div><strong>Row 11:</strong> 66, 77, 88, 99, 110, 121, 132</div>
+                  <div><strong>Row 12:</strong> 72, 84, 96, 108, 120, 132, 144</div>
+                </div>
+                <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                  <strong>💡 Study Tip:</strong> Notice the patterns! Each row counts by that number. The diagonal shows perfect squares!
+                </div>
               </div>
             ))}
           </WorksheetSectionWrapper>
@@ -9689,14 +9753,39 @@ export function PrintablesPage() {
               title="Confidence-Building Times Table (1-5)"
               emoji="💪"
               description="Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Build confidence with multiplication facts 1-5',
+                'Practice at a comfortable pace without time pressure',
+                'Develop positive attitude toward multiplication'
+              ]}
+              parentTeacherTips={[
+                'This worksheet is designed to be stress-free - no time limits',
+                'Encourage students to use visual aids or manipulatives if needed',
+                'Celebrate every correct answer to build confidence',
+                'Extension: Once confident, try timed practice'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Think:</strong> 3 groups of 4</div>
+                    <div><strong>Count:</strong> 4 + 4 + 4 = 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: You can draw 3 groups with 4 dots in each to help!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
                 <strong>💪 You've got this!</strong> Take your time. There's no rush. Each problem helps you get stronger!
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50">
+                  <div key={i} className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 break-inside-avoid">
                     <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
                     <div className="font-mono text-3xl leading-8 text-center text-blue-700">
                       {a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-blue-600 mx-1 align-middle" />
@@ -9705,12 +9794,43 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a picture to show one of the problems</div>
+                  <div>2. Create your own multiplication problem</div>
+                  <div>3. Explain to someone how you solved a problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I solved all problems correctly</div>
+                  <div>☐ I feel more confident with multiplication</div>
+                  <div>☐ I can explain how I solved the problems</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>How do you feel about multiplication now?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-confidence-1-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job! You're building confidence with multiplication. Keep practicing and you'll get even better!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
