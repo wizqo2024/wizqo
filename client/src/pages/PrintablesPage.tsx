@@ -7690,25 +7690,91 @@ export function PrintablesPage() {
               title="Multi-Digit Multiplication (2×2)"
               emoji="✖️"
               description="Multiply 2-digit numbers by 2-digit numbers using the standard algorithm."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Multiply 2-digit numbers by 2-digit numbers',
+                'Use the standard algorithm with regrouping',
+                'Show all steps of multiplication'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to show all partial products',
+                'Watch for common mistakes: forgetting to add carried numbers, misaligning',
+                'Use graph paper to help with alignment',
+                'Extension: Try 3-digit by 2-digit multiplication'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 24 × 13 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply by ones: 24 × 3 = 72 (write 2, carry 7)</div>
+                    <div><strong>Step 2:</strong> Multiply by tens: 24 × 10 = 240 (shift left one place)</div>
+                    <div><strong>Step 3:</strong> Add partial products: 72 + 240 = 312</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
                       <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own 2×2 multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 99 × 99 = ? (the biggest 2×2 problem!)</div>
+                  <div>3. Write a word problem using 2×2 multiplication</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply 2×2 numbers correctly</div>
+                  <div>☐ I need more practice with regrouping</div>
+                  <div>☐ I can show all my work clearly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-2x2', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map(([a, b], i) => {
+                      const onesB = b % 10;
+                      const tensB = Math.floor(b / 10);
+                      const partial1 = a * onesB;
+                      const partial2 = a * tensB;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {a} × {b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: {a} × {onesB} = {partial1}</div>
+                            <div>Step 2: {a} × {tensB}0 = {partial2}0</div>
+                            <div className="font-semibold">Answer: {a * b}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -8278,23 +8344,84 @@ export function PrintablesPage() {
               title="Horizontal Times Table (6-12)"
               emoji="➡️"
               description="Master times tables 6-12 in horizontal format. Fun and simple worksheets to make multiplication easier for advancing learners."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Memorize multiplication facts for numbers 6-12',
+                'Practice multiplication in horizontal format',
+                'Build speed and accuracy with advanced facts'
+              ]}
+              parentTeacherTips={[
+                'These facts are trickier - use strategies like doubling (6×7 = 2×3×7)',
+                'Break down larger facts: 8×9 = 8×10 - 8 = 80 - 8 = 72',
+                'Practice daily for 10-15 minutes for best results',
+                'Extension: Time yourself and try to beat your record!'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-3 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 7 × 8 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1 (Break it down):</strong> 7 × 8 = 7 × (4 + 4) = (7 × 4) + (7 × 4) = 28 + 28 = 56</div>
+                    <div><strong>Method 2 (Use known facts):</strong> 7 × 8 = 8 × 7 = 56</div>
+                    <div><strong>Method 3 (Skip counting):</strong> Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use facts you know (like 7×7=49) and add one more 7!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-xl leading-7">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 12 × 12 = ? (the biggest fact!)</div>
+                  <div>3. Write all the facts that equal 72: ___ × ___ = 72</div>
+                  <div>4. Time yourself: Can you complete all 15 problems in under 3 minutes?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply numbers 6-12 easily</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-horizontal-6-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-3 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Practice these facts daily. Use tricks like 9×8 = 9×10 - 9×2 = 90 - 18 = 72!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -8313,23 +8440,84 @@ export function PrintablesPage() {
               title="Complete Horizontal Times Table (1-12)"
               emoji="➡️"
               description="Comprehensive horizontal times table practice covering all facts 1-12. Perfect for building multiplication fluency and speed."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Master all multiplication facts 1-12',
+                'Build speed and accuracy with complete times tables',
+                'Practice multiplication in horizontal format'
+              ]}
+              parentTeacherTips={[
+                'This is comprehensive practice - celebrate progress!',
+                'Use strategies: doubles (6×6), near doubles (6×7), patterns (9×n)',
+                'Practice daily for 10-15 minutes for best results',
+                'Extension: Time yourself and track improvement over time'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-3 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 9 × 7 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Method 1 (9s trick):</strong> 9 × 7 = (10 × 7) - 7 = 70 - 7 = 63</div>
+                    <div><strong>Method 2 (Use known facts):</strong> 9 × 7 = 7 × 9 = 63</div>
+                    <div><strong>Method 3 (Skip counting):</strong> Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 63</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: For 9s, multiply by 10 and subtract the number!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-xl leading-7">
                       {a} × {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 12 × 12 = ? (the biggest fact!)</div>
+                  <div>3. Write all the facts that equal 36: ___ × ___ = 36</div>
+                  <div>4. Time yourself: Can you complete all 20 problems in under 4 minutes?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply all facts 1-12 easily</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-horizontal-1-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-3 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> You're mastering all times tables! Keep practicing daily to build speed and confidence!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -8348,14 +8536,42 @@ export function PrintablesPage() {
               title="Vertical Times Table (1-5)"
               emoji="⬇️"
               description="Practice times tables 1-5 in vertical format. Step-by-step multiplication worksheets designed for kids who struggle with multiplication."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Practice multiplication in vertical format',
+                'Memorize multiplication facts for numbers 1-5',
+                'Build confidence with vertical multiplication layout'
+              ]}
+              parentTeacherTips={[
+                'Vertical format helps with alignment and organization',
+                'Start with easier facts (1s, 2s) and work up to 5s',
+                'Use skip counting to help: 3 × 4 means count by 3s four times',
+                'Extension: Try horizontal format after mastering vertical'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Solve each multiplication problem. Write your answer in the space below the line.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base mb-2">
+                    <div className="text-right">4</div>
+                    <div className="flex items-center">
+                      <span className="mr-2">×</span>
+                      <span className="flex-1 text-right">3</span>
+                    </div>
+                    <div className="border-t-2 border-slate-600 mt-1 pt-1">12</div>
+                  </div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply: 4 × 3 = 12</div>
+                    <div><strong>Step 2:</strong> Write the answer below the line</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="font-mono text-2xl leading-7">
                       <div className="text-right mb-1">{a}</div>
                       <div className="flex items-center mb-1">
@@ -8369,12 +8585,43 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own vertical multiplication problem</div>
+                  <div>2. Solve: 5 × 5 = ? (the biggest fact in this worksheet!)</div>
+                  <div>3. Write all the facts that equal 12 in vertical format</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply numbers 1-5 in vertical format</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can align numbers correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('times-table-vertical-1-5', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                        {i + 1}. {a} × {b} = {a * b}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> Great job practicing vertical format! Keep practicing to build speed and accuracy!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -8477,16 +8724,65 @@ export function PrintablesPage() {
               title="Missing Number Times Table (1-5)"
               emoji="❓"
               description="Fill in the missing numbers in times table problems. No-tears times table practice sheets that build understanding through pattern recognition."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Find missing factors or products in multiplication',
+                'Understand the relationship between multiplication and division',
+                'Build pattern recognition skills'
+              ]}
+              parentTeacherTips={[
+                'If the answer is missing, multiply the two numbers',
+                'If a factor is missing, divide the answer by the known factor',
+                'Encourage students to think: "What times ___ equals ___?"',
+                'Extension: Create your own missing number problems'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × ___ = 12</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Ask: "What times 3 equals 12?"</div>
+                    <div><strong>Step 2:</strong> Think: 3 × 4 = 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 4</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use division! 12 ÷ 3 = 4</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
                     <div className="font-mono text-xl leading-7">
                       {p.a !== undefined ? p.a : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} × {p.b !== undefined ? p.b : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />} = {p.answer !== undefined ? p.answer : <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1" />}
                     </div>
                   </div>
                 ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own missing number problem</div>
+                  <div>2. Solve: ___ × 5 = 25</div>
+                  <div>3. Find all the ways to make 20: ___ × ___ = 20</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find missing numbers in multiplication</div>
+                  <div>☐ I understand the relationship between multiplication and division</div>
+                  <div>☐ I can solve all types of missing number problems</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
               </div>
               {showAnswersForDoc('times-table-missing-1-5', () => {
                 const answers = problems.map((p) => {
@@ -8500,13 +8796,29 @@ export function PrintablesPage() {
                   return { a: 1, b: 1, answer: 1 }; // fallback
                 });
                 return (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      {answers.map((ans, i) => (
-                        <li key={i}>{ans.a} × {ans.b} = {ans.answer}</li>
-                      ))}
-                    </ul>
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                    <div className="space-y-2 text-sm">
+                      {answers.map((ans, i) => {
+                        const p = problems[i];
+                        let explanation = '';
+                        if (p.missingType === 'answer') {
+                          explanation = `${ans.a} × ${ans.b} = ${ans.answer}`;
+                        } else if (p.missingType === 'b') {
+                          explanation = `${ans.a} × ${ans.b} = ${ans.answer} (${ans.answer} ÷ ${ans.a} = ${ans.b})`;
+                        } else {
+                          explanation = `${ans.a} × ${ans.b} = ${ans.answer} (${ans.answer} ÷ ${ans.b} = ${ans.a})`;
+                        }
+                        return (
+                          <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                            {i + 1}. {explanation}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                      <strong>💡 Study Tip:</strong> Missing number problems help you understand multiplication and division are related!
+                    </div>
                   </div>
                 );
               })}
@@ -13402,28 +13714,94 @@ export function PrintablesPage() {
             'Mom bakes 3 trays of cookies. Each tray has 8 cookies. How many cookies total?',
             'Tom reads 4 books. Each book has 7 chapters. How many chapters did he read?',
           ];
+          const answers = [
+            { problem: problems[0], equation: '3 × 4', answer: 12, unit: 'apples' },
+            { problem: problems[1], equation: '5 × 3', answer: 15, unit: 'flowers' },
+            { problem: problems[2], equation: '2 × 6', answer: 12, unit: 'stickers' },
+            { problem: problems[3], equation: '4 × 5', answer: 20, unit: 'students' },
+            { problem: problems[4], equation: '3 × 8', answer: 24, unit: 'cookies' },
+            { problem: problems[5], equation: '4 × 7', answer: 28, unit: 'chapters' },
+          ];
           return (
-            <WorksheetSectionWrapper docId="mult-word-problems" title="Multiplication Word Problems" emoji="✖️" description="Solve each multiplication word problem.">
+            <WorksheetSectionWrapper 
+              docId="mult-word-problems" 
+              title="Multiplication Word Problems" 
+              emoji="✖️" 
+              description="Solve each multiplication word problem."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Read and understand multiplication word problems',
+                'Identify what needs to be multiplied',
+                'Write equations and solve real-world problems'
+              ]}
+              parentTeacherTips={[
+                'Help students identify key words: "each", "in all", "total"',
+                'Encourage drawing pictures or using objects to visualize',
+                'Check that students write the equation before solving',
+                'Extension: Create your own word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Sarah has 2 boxes. Each box has 5 pencils. How many pencils in all?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Identify what to multiply: 2 boxes × 5 pencils per box</div>
+                    <div><strong>Step 2:</strong> Write the equation: 2 × 5 = ?</div>
+                    <div><strong>Step 3:</strong> Solve: 2 × 5 = 10</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 pencils</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mb-2 text-xs text-slate-600">Equation: ____ × ____ = ?</div>
+                    <div className="h-12 border-b border-slate-400" />
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Write your own multiplication word problem</div>
+                  <div>2. Draw a picture to show your problem</div>
+                  <div>3. Solve your problem and show your work</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can understand word problems</div>
+                  <div>☐ I can write equations from word problems</div>
+                  <div>☐ I can solve multiplication word problems</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>3 × 4 = 12 apples</li>
-                    <li>5 × 3 = 15 flowers</li>
-                    <li>2 × 6 = 12 stickers</li>
-                    <li>4 × 5 = 20 students</li>
-                    <li>3 × 8 = 24 cookies</li>
-                    <li>4 × 7 = 28 chapters</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
+                    {answers.map((a, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                        <div className="font-semibold text-sm">{i + 1}. {a.problem}</div>
+                        <div className="text-xs text-emerald-800 mt-1">Equation: {a.equation} = {a.answer}</div>
+                        <div className="text-xs text-emerald-700">Answer: {a.answer} {a.unit}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -13916,21 +14294,78 @@ export function PrintablesPage() {
         {activeDocs.includes('fractions-number-line') && (() => {
           const fractions = ['1/2', '1/4', '3/4', '1/3', '2/3', '1/5'];
           return (
-            <WorksheetSectionWrapper docId="fractions-number-line" title="Fractions on a Number Line" emoji="🍕" description="Plot each fraction on the number line.">
+            <WorksheetSectionWrapper 
+              docId="fractions-number-line" 
+              title="Fractions on a Number Line" 
+              emoji="🍕" 
+              description="Plot each fraction on the number line."
+              problemCount={fractions.length}
+              learningObjectives={[
+                'Understand fractions as numbers on a number line',
+                'Plot fractions between 0 and 1',
+                'Compare fractions by their position on the number line'
+              ]}
+              parentTeacherTips={[
+                'Help students divide the number line into equal parts',
+                'For 1/2, divide the line into 2 equal parts and mark the first',
+                'For 1/4, divide into 4 equal parts and mark the first',
+                'Extension: Plot fractions greater than 1 (like 5/4)'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Plot 1/2 on the number line</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw a number line from 0 to 1</div>
+                    <div><strong>Step 2:</strong> Divide it into 2 equal parts (halves)</div>
+                    <div><strong>Step 3:</strong> Mark the point at the first part</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1/2 is at 0.5 on the number line</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The denominator tells you how many equal parts to divide the line into!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {fractions.map((f, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-bold text-xl">{f}</div>
                     <div className="border-t-2 border-slate-400 mt-2 pt-2 text-center text-sm text-slate-600">0 —————— 1</div>
                     <div className="text-center text-sm text-slate-600 mt-1">Plot: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Plot 2/5 on a number line</div>
+                  <div>2. Which is greater: 1/3 or 1/4? Plot both to see!</div>
+                  <div>3. Create your own fraction and plot it on a number line</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can plot fractions on a number line</div>
+                  <div>☐ I understand how to divide the number line into equal parts</div>
+                  <div>☐ I can compare fractions using the number line</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {fractions.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fractions-number-line', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with positions)</div>
+                  <div className="space-y-2 text-sm">
                     {fractions.map((f, i) => {
                       const [num, den] = f.split('/').map(Number);
                       const pos = num / den;
@@ -13941,9 +14376,16 @@ export function PrintablesPage() {
                       } else {
                         displayPos = pos.toFixed(2); // Round repeating decimals: 0.33, 0.67
                       }
-                      return <li key={i}>{f}: Plot at {displayPos} on number line</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                          {i + 1}. {f}: Plot at {displayPos} on the number line (divide line into {den} equal parts, mark the {num}{num === 1 ? 'st' : num === 2 ? 'nd' : num === 3 ? 'rd' : 'th'})
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
+                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                    <strong>💡 Study Tip:</strong> The denominator tells you how many equal parts to divide the number line into. The numerator tells you which part to mark!
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
