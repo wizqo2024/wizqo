@@ -13112,10 +13112,10 @@ export function PrintablesPage() {
 
         {activeDocs.includes('fact-families-mult-div') && (() => {
           const families = [
-            { mult: [3, 4, 12], facts: ['3 × 4 = 12', '4 × 3 = 12', '12 ÷ 3 = 4', '12 ÷ 4 = 3'] },
-            { mult: [2, 6, 12], facts: ['2 × 6 = 12', '6 × 2 = 12', '12 ÷ 2 = 6', '12 ÷ 6 = 2'] },
-            { mult: [4, 5, 20], facts: ['4 × 5 = 20', '5 × 4 = 20', '20 ÷ 4 = 5', '20 ÷ 5 = 4'] },
-            { mult: [3, 6, 18], facts: ['3 × 6 = 18', '6 × 3 = 18', '18 ÷ 3 = 6', '18 ÷ 6 = 3'] },
+            { a: 3, b: 4, product: 12 },
+            { a: 2, b: 6, product: 12 },
+            { a: 4, b: 5, product: 20 },
+            { a: 3, b: 6, product: 18 },
           ];
           return (
             <WorksheetSectionWrapper docId="fact-families-mult-div" title="Fact Families (Mult/Div)" emoji="➗" description="Complete the multiplication and division fact families.">
@@ -13123,11 +13123,12 @@ export function PrintablesPage() {
               <div className="space-y-4">
                 {families.map((f, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="mb-2 font-semibold">Fact Family: {f.mult.join(', ')}</div>
+                    <div className="mb-2 font-semibold">Fact Family: {f.a}, {f.b}, {f.product}</div>
                     <div className="space-y-1 text-sm">
-                      {f.facts.map((fact, idx) => (
-                        <div key={idx} className="border-b border-slate-200 pb-1">{fact}</div>
-                      ))}
+                      <div className="border-b border-slate-200 pb-1">{f.a} × {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1">{f.b} × {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1">{f.product} ÷ {f.a} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
+                      <div className="border-b border-slate-200 pb-1">{f.product} ÷ {f.b} = <span className="inline-block w-12 border-b-2 border-slate-400"></span></div>
                     </div>
                   </div>
                 ))}
@@ -13137,7 +13138,7 @@ export function PrintablesPage() {
                   <div className="font-semibold mb-1">Answer key</div>
                   <ul className="list-disc list-inside space-y-0.5">
                     {families.map((f, i) => (
-                      <li key={i}>{f.mult.join(', ')}: {f.facts.join(', ')}</li>
+                      <li key={i}>{f.a}, {f.b}, {f.product}: {f.a} × {f.b} = {f.product}, {f.b} × {f.a} = {f.product}, {f.product} ÷ {f.a} = {f.b}, {f.product} ÷ {f.b} = {f.a}</li>
                     ))}
                   </ul>
                 </div>
