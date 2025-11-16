@@ -139,9 +139,9 @@ export default function KidsPage() {
           </div>
           {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
           
-          {/* Related links */}
+          {/* Explore More */}
           <section className="mt-8 bg-white border border-slate-200 rounded-2xl p-5">
-            <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+            <h2 className="text-xl font-bold text-slate-900">Explore More</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
               <li><a className="hover:underline" href="/kids">Kids Hub – All Games</a></li>
               <li><a className="hover:underline" href="/kids/games/memory">Memory Match Game</a></li>

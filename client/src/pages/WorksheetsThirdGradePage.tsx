@@ -238,9 +238,9 @@ export default function WorksheetsThirdGradePage() {
           </div>
         </section>
 
-        {/* Related links */}
+        {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Related links</h2>
+          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
             <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Free PDF</a></li>
             <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">4th Grade Math Worksheets – Printable</a></li>
