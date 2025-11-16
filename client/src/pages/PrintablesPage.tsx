@@ -15673,24 +15673,98 @@ export function PrintablesPage() {
         {activeDocs.includes('transformations-5th') && (() => {
           const transformations = ['translation', 'rotation', 'reflection', 'translation', 'rotation', 'reflection'];
           return (
-            <WorksheetSectionWrapper docId="transformations-5th" title="Transformations" emoji="📐" description="Identify translations, rotations, and reflections.">
+            <WorksheetSectionWrapper 
+              docId="transformations-5th" 
+              title="Transformations" 
+              emoji="📐" 
+              description="Identify translations, rotations, and reflections."
+              problemCount={transformations.length}
+              learningObjectives={[
+                'Identify translations (slides)',
+                'Identify rotations (turns)',
+                'Identify reflections (flips)',
+                'Understand geometric transformations'
+              ]}
+              parentTeacherTips={[
+                'Translation: slide a shape without turning or flipping',
+                'Rotation: turn a shape around a point',
+                'Reflection: flip a shape over a line (mirror image)',
+                'Use key words: slide, turn, flip',
+                'Extension: Combine transformations'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Translation</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Translation means to slide</div>
+                    <div><strong>Step 2:</strong> Draw a shape, then slide it to a new position</div>
+                    <div><strong>Step 3:</strong> The shape stays the same size and orientation</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Translation = slide (move without turning or flipping)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Translation = slide, Rotation = turn, Reflection = flip!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {transformations.map((t, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{t}</div>
-                    <div className="text-center text-sm text-slate-600">Draw example: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Draw example: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('transformations-5th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {transformations.map((t, i) => (<li key={i}>{t}: slide, turn, or flip</li>))}
-                  </ul>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a shape and show a translation</div>
+                  <div>2. Draw a shape and show a rotation</div>
+                  <div>3. Explain the difference between translation and rotation</div>
                 </div>
-              ))}
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify translations</div>
+                  <div>☐ I can identify rotations</div>
+                  <div>☐ I can identify reflections</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {transformations.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('transformations-5th', () => {
+                const descriptions: { [key: string]: string } = {
+                  translation: 'Slide a shape to a new position without turning or flipping',
+                  rotation: 'Turn a shape around a point',
+                  reflection: 'Flip a shape over a line (mirror image)'
+                };
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                    <div className="space-y-3">
+                      {transformations.map((t, i) => (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {t}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Description: {descriptions[t] || `${t}: slide, turn, or flip`}</div>
+                            <div className="font-semibold">Answer: {t} - {descriptions[t] || 'A geometric transformation'}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
@@ -15698,24 +15772,102 @@ export function PrintablesPage() {
         {activeDocs.includes('nets-3d-shapes') && (() => {
           const shapes = ['cube', 'rectangular prism', 'cylinder', 'cone', 'pyramid', 'sphere'];
           return (
-            <WorksheetSectionWrapper docId="nets-3d-shapes" title="Nets of 3D Shapes" emoji="📐" description="Identify which net forms each 3D shape.">
+            <WorksheetSectionWrapper 
+              docId="nets-3d-shapes" 
+              title="Nets of 3D Shapes" 
+              emoji="📐" 
+              description="Identify which net forms each 3D shape."
+              problemCount={shapes.length}
+              learningObjectives={[
+                'Understand what a net is',
+                'Identify nets of 3D shapes',
+                'Visualize 3D shapes from their nets',
+                'Draw nets of common 3D shapes'
+              ]}
+              parentTeacherTips={[
+                'A net is a flat pattern that folds into a 3D shape',
+                'Cube: 6 squares in a cross pattern',
+                'Rectangular prism: 6 rectangles',
+                'Cylinder: 2 circles + 1 rectangle',
+                'Practice folding paper to understand nets',
+                'Extension: Create your own 3D shape nets'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Cube - Draw its net</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> A cube has 6 square faces</div>
+                    <div><strong>Step 2:</strong> Draw 6 squares in a cross pattern</div>
+                    <div><strong>Step 3:</strong> Make sure all squares are connected so they can fold into a cube</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> A net of a cube is 6 squares arranged so they fold into a cube</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A net is like opening up a 3D shape and laying it flat!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {shapes.map((s, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-2 font-semibold">{s}</div>
-                    <div className="text-center text-sm text-slate-600">Draw net: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Draw net: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
-              {showAnswersForDoc('nets-3d-shapes', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {shapes.map((s, i) => (<li key={i}>{s}: flat pattern that folds into the shape</li>))}
-                  </ul>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a net for a cube and try to fold it</div>
+                  <div>2. Draw a net for a rectangular prism</div>
+                  <div>3. Explain why a sphere does not have a net</div>
                 </div>
-              ))}
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand what a net is</div>
+                  <div>☐ I can draw nets of 3D shapes</div>
+                  <div>☐ I can visualize 3D shapes from nets</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {shapes.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('nets-3d-shapes', () => {
+                const netDescriptions: { [key: string]: string } = {
+                  cube: '6 squares in a cross pattern',
+                  'rectangular prism': '6 rectangles (2 pairs of 3)',
+                  cylinder: '2 circles + 1 rectangle',
+                  cone: '1 circle + 1 sector (partial circle)',
+                  pyramid: '1 square + 4 triangles',
+                  sphere: 'No net (curved surface)'
+                };
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with descriptions)</div>
+                    <div className="space-y-3">
+                      {shapes.map((s, i) => (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {s}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Net description: {netDescriptions[s] || 'Flat pattern that folds into the 3D shape'}</div>
+                            <div className="font-semibold">Answer: {s} net - {netDescriptions[s] || 'A flat pattern that folds into the 3D shape'}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </WorksheetSectionWrapper>
           );
         })()}
