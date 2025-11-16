@@ -13607,27 +13607,88 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="area-triangles-parallelograms" title="Area of Triangles & Parallelograms" emoji="📐" description="Find the area. Triangles: Area = (base × height) ÷ 2. Parallelograms: Area = base × height.">
+            <WorksheetSectionWrapper 
+              docId="area-triangles-parallelograms" 
+              title="Area of Triangles & Parallelograms" 
+              emoji="📐" 
+              description="Find the area. Triangles: Area = (base × height) ÷ 2. Parallelograms: Area = base × height."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate area of triangles using (base × height) ÷ 2',
+                'Calculate area of parallelograms using base × height',
+                'Understand the relationship between triangles and parallelograms'
+              ]}
+              parentTeacherTips={[
+                'Triangle area = (base × height) ÷ 2',
+                'Parallelogram area = base × height',
+                'Height is perpendicular to the base',
+                'Extension: Find area of composite shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Triangle with base = 6, height = 4</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Formula: Area = (base × height) ÷ 2</div>
+                    <div><strong>Step 2:</strong> Calculate: (6 × 4) ÷ 2 = 24 ÷ 2 = 12</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12 square units</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Triangle area is half of a parallelogram with the same base and height!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderShape(p.base, p.height, p.isTriangle)}
-                    <div className="text-center mb-2 text-sm">{p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base: {p.base} units, Height: {p.height} units</div>
-                    <div className="text-center text-sm text-slate-600">Area: ____</div>
+                    <div className="text-center mb-2 text-sm font-semibold">{p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base: {p.base} units, Height: {p.height} units</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the area of a triangle with base 10 and height 8</div>
+                  <div>2. Find the area of a parallelogram with base 7 and height 5</div>
+                  <div>3. Explain why triangle area is half of parallelogram area</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find the area of triangles</div>
+                  <div>☐ I can find the area of parallelograms</div>
+                  <div>☐ I remember the formulas</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('area-triangles-parallelograms', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => (
-                      <li key={i}>
-                        {p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base {p.base} × Height {p.height} {p.isTriangle ? '÷ 2' : ''} = {p.area} sq units
-                      </li>
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.isTriangle ? 'Triangle' : 'Parallelogram'}: Base {p.base}, Height {p.height}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: {p.isTriangle ? 'Triangle formula: (base × height) ÷ 2' : 'Parallelogram formula: base × height'}</div>
+                          <div>Step 2: {p.isTriangle ? `(${p.base} × ${p.height}) ÷ 2 = ${p.base * p.height} ÷ 2 = ${p.area}` : `${p.base} × ${p.height} = ${p.area}`}</div>
+                          <div className="font-semibold">Answer: {p.area} square units</div>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15974,27 +16035,124 @@ export function PrintablesPage() {
             'A classroom has 30 students. 12 students are boys. How many students are girls?',
           ];
           return (
-            <WorksheetSectionWrapper docId="multi-step-word-4th" title="Multi-Step Word Problems" emoji="🧮" description="Solve each word problem. Show all your work.">
+            <WorksheetSectionWrapper 
+              docId="multi-step-word-4th" 
+              title="Multi-Step Word Problems" 
+              emoji="🧮" 
+              description="Solve each word problem. Show all your work."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve multi-step word problems',
+                'Identify all steps needed to solve',
+                'Show work for each step clearly'
+              ]}
+              parentTeacherTips={[
+                'Read the problem carefully',
+                'Identify what information you have and what you need to find',
+                'Break the problem into steps',
+                'Solve each step one at a time',
+                'Check your answer by reading the problem again',
+                'Extension: Create your own multi-step problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 marbles. He gives 5 to his friend. Then he finds 8 more. How many does he have now?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> After giving away: 15 - 5 = 10</div>
+                    <div><strong>Step 2:</strong> After finding more: 10 + 8 = 18</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 18 marbles</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work (all steps):</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multi-step word problem</div>
+                  <div>2. Solve: A bakery makes 48 cookies. They sell 20 in the morning and 15 in the afternoon. How many are left?</div>
+                  <div>3. Explain why breaking problems into steps helps</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify all steps in a problem</div>
+                  <div>☐ I can solve each step correctly</div>
+                  <div>☐ I can show my work clearly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('multi-step-word-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>24 - 8 + 12 = 28 stickers</li>
-                    <li>45 - 15 - 18 = 12 apples</li>
-                    <li>3 × 8 = 24 chapters</li>
-                    <li>5 × 6 - 8 = 22 toys</li>
-                    <li>5 × 4 - 12 = $8</li>
-                    <li>30 - 12 = 18 girls</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 24 - 8 = 16</div>
+                        <div>Step 2: 16 + 12 = 28</div>
+                        <div className="font-semibold">Answer: 28 stickers</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 15 + 18 = 33</div>
+                        <div>Step 2: 45 - 33 = 12</div>
+                        <div className="font-semibold">Answer: 12 apples</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3 × 8 = 24</div>
+                        <div className="font-semibold">Answer: 24 chapters</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 5 × 6 = 30</div>
+                        <div>Step 2: 30 - 8 = 22</div>
+                        <div className="font-semibold">Answer: 22 toys</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 5 × 4 = 20</div>
+                        <div>Step 2: 20 - 12 = 8</div>
+                        <div className="font-semibold">Answer: $8</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 30 - 12 = 18</div>
+                        <div className="font-semibold">Answer: 18 girls</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -17991,23 +18149,88 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="perimeter-shapes" title="Perimeter of Shapes" emoji="📐" description="Find the perimeter of each rectangle.">
+            <WorksheetSectionWrapper 
+              docId="perimeter-shapes" 
+              title="Perimeter of Shapes" 
+              emoji="📐" 
+              description="Find the perimeter of each rectangle."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate perimeter of rectangles',
+                'Understand that perimeter is the distance around a shape',
+                'Use the formula: Perimeter = 2 × (length + width)'
+              ]}
+              parentTeacherTips={[
+                'Perimeter = distance around the shape',
+                'For rectangles: P = 2 × (length + width)',
+                'Or: P = length + width + length + width',
+                'Extension: Find perimeter of irregular shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 5, width = 3</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Formula: Perimeter = 2 × (length + width)</div>
+                    <div><strong>Step 2:</strong> Calculate: 2 × (5 + 3) = 2 × 8 = 16</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Add all four sides, or use 2 × (length + width)!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
-                    <div className="text-center mb-2 text-sm">Length: {p.length}, Width: {p.width}</div>
-                    <div className="text-center text-sm text-slate-600">Perimeter: ____</div>
+                    <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Perimeter: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the perimeter of a square with side length 6</div>
+                  <div>2. A rectangle has perimeter 20. If length is 7, what is the width?</div>
+                  <div>3. Find the perimeter of your desk or table</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find the perimeter of rectangles</div>
+                  <div>☐ I understand what perimeter means</div>
+                  <div>☐ I can use the formula correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('perimeter-shapes', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>Perimeter = {p.perimeter} units</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Perimeter = 2 × (length + width)</div>
+                          <div>Step 2: 2 × ({p.length} + {p.width}) = 2 × {p.length + p.width} = {p.perimeter}</div>
+                          <div className="font-semibold">Answer: {p.perimeter} units</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -18040,23 +18263,88 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="area-rectangles" title="Area of Rectangles" emoji="📐" description="Find the area by multiplying length × width.">
+            <WorksheetSectionWrapper 
+              docId="area-rectangles" 
+              title="Area of Rectangles" 
+              emoji="📐" 
+              description="Find the area by multiplying length × width."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate area of rectangles',
+                'Understand that area is the space inside a shape',
+                'Use the formula: Area = length × width'
+              ]}
+              parentTeacherTips={[
+                'Area = space inside the shape',
+                'For rectangles: Area = length × width',
+                'Area is measured in square units',
+                'Extension: Find area of composite shapes'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 6, width = 4</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Formula: Area = length × width</div>
+                    <div><strong>Step 2:</strong> Calculate: 6 × 4 = 24</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 square units</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the squares inside, or multiply length × width!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderRectangle(p.length, p.width)}
-                    <div className="text-center mb-2 text-sm">Length: {p.length}, Width: {p.width}</div>
-                    <div className="text-center text-sm text-slate-600">Area: ____</div>
+                    <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Area: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find the area of a square with side length 8</div>
+                  <div>2. A rectangle has area 30. If length is 6, what is the width?</div>
+                  <div>3. Find the area of your desk or table</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can find the area of rectangles</div>
+                  <div>☐ I understand what area means</div>
+                  <div>☐ I can use the formula correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('area-rectangles', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>Area = {p.area} sq units</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Step 1: Area = length × width</div>
+                          <div>Step 2: {p.length} × {p.width} = {p.area}</div>
+                          <div className="font-semibold">Answer: {p.area} square units</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -18093,23 +18381,87 @@ export function PrintablesPage() {
             );
           };
           return (
-            <WorksheetSectionWrapper docId="identify-polygons" title="Identify Polygons" emoji="📐" description="Name each polygon by number of sides.">
+            <WorksheetSectionWrapper 
+              docId="identify-polygons" 
+              title="Identify Polygons" 
+              emoji="📐" 
+              description="Name each polygon by number of sides."
+              problemCount={polygons.length}
+              learningObjectives={[
+                'Identify polygons by number of sides',
+                'Count sides of polygons correctly',
+                'Learn polygon names (triangle, quadrilateral, pentagon, etc.)'
+              ]}
+              parentTeacherTips={[
+                'Triangle = 3 sides, Quadrilateral = 4 sides',
+                'Pentagon = 5 sides, Hexagon = 6 sides, Octagon = 8 sides',
+                'Count the sides carefully',
+                'Extension: Identify regular vs irregular polygons'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Shape:</strong> Pentagon</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the shape - count the sides</div>
+                    <div><strong>Step 2:</strong> A pentagon has 5 sides</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 sides</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count the sides to identify the polygon!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {polygons.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     {renderPolygon(p.name, p.sides)}
                     <div className="text-center mb-2 font-semibold">{p.name}</div>
-                    <div className="text-center text-sm text-slate-600">Sides: ____</div>
+                    <div className="text-center text-sm text-slate-600 mb-2">Sides: ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Count the sides:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a shape with 7 sides (heptagon)</div>
+                  <div>2. Find examples of each polygon in your environment</div>
+                  <div>3. Create your own polygon identification chart</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify polygons by counting sides</div>
+                  <div>☐ I remember the names of polygons</div>
+                  <div>☐ I can classify polygons correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {polygons.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('identify-polygons', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {polygons.map((p, i) => (<li key={i}>{p.name}: {p.sides} sides</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    {polygons.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.name}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Count the sides: {p.sides} sides</div>
+                          <div className="font-semibold">Answer: {p.sides} sides</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -18836,27 +19188,119 @@ export function PrintablesPage() {
             'Jake starts playing at 2:00 PM and stops at 3:30 PM. How long did he play?',
           ];
           return (
-            <WorksheetSectionWrapper docId="elapsed-time-word-problems" title="Elapsed Time Word Problems" emoji="🧮" description="Solve problems about time.">
+            <WorksheetSectionWrapper 
+              docId="elapsed-time-word-problems" 
+              title="Elapsed Time Word Problems" 
+              emoji="🧮" 
+              description="Solve problems about time."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Calculate elapsed time between two times',
+                'Solve word problems involving time',
+                'Express time in hours and minutes'
+              ]}
+              parentTeacherTips={[
+                'Find the difference between start and end times',
+                'Count hours first, then minutes',
+                'Use a number line or clock to help visualize',
+                'Extension: Calculate elapsed time across days'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Start: 2:00 PM, End: 3:30 PM</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Hours: 3:00 - 2:00 = 1 hour</div>
+                    <div><strong>Step 2:</strong> Minutes: 30 - 0 = 30 minutes</div>
+                    <div><strong>Step 3:</strong> Total: 1 hour 30 minutes</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 hour 30 minutes</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count hours first, then add the minutes!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. How long is your school day? Calculate from start to end</div>
+                  <div>2. If you start at 8:15 AM and finish at 11:45 AM, how long did you work?</div>
+                  <div>3. Create your own elapsed time problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can calculate elapsed time</div>
+                  <div>☐ I can solve time word problems</div>
+                  <div>☐ I can express time in hours and minutes</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('elapsed-time-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>1 hour 15 minutes</li>
-                    <li>2 hours 15 minutes</li>
-                    <li>1 hour 45 minutes</li>
-                    <li>1 hour 30 minutes</li>
-                    <li>1 hour 15 minutes</li>
-                    <li>1 hour 30 minutes</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 4:30 - 3:15 = 1 hour 15 minutes</div>
+                        <div className="font-semibold">Answer: 1 hour 15 minutes</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 9:15 - 7:00 = 2 hours 15 minutes</div>
+                        <div className="font-semibold">Answer: 2 hours 15 minutes</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 5:45 - 4:00 = 1 hour 45 minutes</div>
+                        <div className="font-semibold">Answer: 1 hour 45 minutes</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 10:30 - 9:00 = 1 hour 30 minutes</div>
+                        <div className="font-semibold">Answer: 1 hour 30 minutes</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 6:45 - 5:30 = 1 hour 15 minutes</div>
+                        <div className="font-semibold">Answer: 1 hour 15 minutes</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3:30 - 2:00 = 1 hour 30 minutes</div>
+                        <div className="font-semibold">Answer: 1 hour 30 minutes</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
