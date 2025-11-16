@@ -16796,15 +16796,74 @@ export function PrintablesPage() {
             { day: 'Fri', temp: 76 },
           ];
           return (
-            <WorksheetSectionWrapper docId="line-graphs" title="Line Graphs" emoji="📊" description="Create a line graph showing temperature over time.">
+            <WorksheetSectionWrapper 
+              docId="line-graphs" 
+              title="Line Graphs" 
+              emoji="📊" 
+              description="Create a line graph showing temperature over time."
+              problemCount={1}
+              learningObjectives={[
+                'Create line graphs from data',
+                'Plot points on a coordinate grid',
+                'Connect points with lines',
+                'Interpret line graphs'
+              ]}
+              parentTeacherTips={[
+                'Plot each data point on the graph',
+                'Connect points with a line',
+                'Label axes clearly (x-axis: days, y-axis: temperature)',
+                'Use consistent scales on axes',
+                'Extension: Create line graphs for other data'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
-                <div className="border border-slate-300 rounded-lg p-4 bg-white">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Create a line graph for: Mon: 65°F, Tue: 68°F, Wed: 70°F</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Draw axes: x-axis (days), y-axis (temperature)</div>
+                    <div><strong>Step 2:</strong> Plot points: (Mon, 65), (Tue, 68), (Wed, 70)</div>
+                    <div><strong>Step 3:</strong> Connect points with a line</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> A line graph showing temperature increasing over the days</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Plot each point, then connect them with a line!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                   <div className="mb-2 font-semibold">Daily Temperature</div>
                   {data.map((d, i) => (
                     <div key={i} className="text-sm mb-1">{d.day}: {d.temp}°F</div>
                   ))}
-                  <div className="text-sm text-slate-600 mt-2">Create line graph: ____</div>
+                  <div className="text-sm text-slate-600 mt-2 mb-2">Create line graph: ____</div>
+                  <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                  <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                </div>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create a line graph for your own data</div>
+                  <div>2. Predict: What might the temperature be on Saturday?</div>
+                  <div>3. Explain what the line graph shows about temperature changes</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can create line graphs</div>
+                  <div>☐ I can plot points correctly</div>
+                  <div>☐ I can connect points with lines</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / 1
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('line-graphs', () => {
@@ -16828,44 +16887,51 @@ export function PrintablesPage() {
                 const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
                 
                 return (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900">
-                    <div className="font-semibold mb-2">Answer key</div>
-                    <div className="mb-2 text-sm">Line Graph:</div>
-                    <svg viewBox={`0 0 ${graphWidth} ${graphHeight}`} className="w-full max-w-md mx-auto mb-2 bg-white border border-slate-200 rounded">
-                      {/* Grid lines */}
-                      {Array.from({ length: 6 }, (_, i) => {
-                        const y = padding + (i * plotHeight) / 5;
-                        const temp = maxTemp - (i * tempRange) / 5;
-                        return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with graph)</div>
+                    <div className="space-y-3">
+                      <div className="text-xs text-emerald-800 space-y-1">
+                        <div>Step 1: Set up axes - x-axis (days), y-axis (temperature)</div>
+                        <div>Step 2: Plot points: {data.map((d, i) => `(${d.day}, ${d.temp}°F)`).join(', ')}</div>
+                        <div>Step 3: Connect points with a line</div>
+                        <div className="font-semibold mb-2">Line Graph:</div>
+                      </div>
+                      <svg viewBox={`0 0 ${graphWidth} ${graphHeight}`} className="w-full max-w-md mx-auto mb-2 bg-white border border-slate-200 rounded">
+                        {/* Grid lines */}
+                        {Array.from({ length: 6 }, (_, i) => {
+                          const y = padding + (i * plotHeight) / 5;
+                          const temp = maxTemp - (i * tempRange) / 5;
+                          return (
+                            <g key={i}>
+                              <line x1={padding} y1={y} x2={graphWidth - padding} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2"/>
+                              <text x={padding - 10} y={y + 4} fontSize="10" fill="#64748b" textAnchor="end">{Math.round(temp)}</text>
+                            </g>
+                          );
+                        })}
+                        {/* Day labels */}
+                        {data.map((d, i) => {
+                          const x = padding + i * xStep;
+                          return (
+                            <text key={i} x={x} y={graphHeight - padding + 15} fontSize="10" fill="#64748b" textAnchor="middle">{d.day}</text>
+                          );
+                        })}
+                        {/* Axes */}
+                        <line x1={padding} y1={padding} x2={padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
+                        <line x1={padding} y1={graphHeight - padding} x2={graphWidth - padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
+                        {/* Line graph */}
+                        <path d={pathData} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                        {/* Data points */}
+                        {points.map((p, i) => (
                           <g key={i}>
-                            <line x1={padding} y1={y} x2={graphWidth - padding} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2"/>
-                            <text x={padding - 10} y={y + 4} fontSize="10" fill="#64748b" textAnchor="end">{Math.round(temp)}</text>
+                            <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2"/>
+                            <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{p.temp}°</text>
                           </g>
-                        );
-                      })}
-                      {/* Day labels */}
-                      {data.map((d, i) => {
-                        const x = padding + i * xStep;
-                        return (
-                          <text key={i} x={x} y={graphHeight - padding + 15} fontSize="10" fill="#64748b" textAnchor="middle">{d.day}</text>
-                        );
-                      })}
-                      {/* Axes */}
-                      <line x1={padding} y1={padding} x2={padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
-                      <line x1={padding} y1={graphHeight - padding} x2={graphWidth - padding} y2={graphHeight - padding} stroke="#475569" strokeWidth="2"/>
-                      {/* Line graph */}
-                      <path d={pathData} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                      {/* Data points */}
-                      {points.map((p, i) => (
-                        <g key={i}>
-                          <circle cx={p.x} cy={p.y} r="5" fill="#3b82f6" stroke="white" strokeWidth="2"/>
-                          <text x={p.x} y={p.y - 10} fontSize="9" fill="#1e40af" textAnchor="middle" fontWeight="bold">{p.temp}°</text>
-                        </g>
-                      ))}
-                      {/* Y-axis label */}
-                      <text x={15} y={graphHeight / 2} fontSize="11" fill="#475569" textAnchor="middle" transform={`rotate(-90 15 ${graphHeight / 2})`}>Temperature (°F)</text>
-                    </svg>
-                    <div className="text-xs text-slate-600 mt-1">Connect the points in order to create the line graph</div>
+                        ))}
+                        {/* Y-axis label */}
+                        <text x={15} y={graphHeight / 2} fontSize="11" fill="#475569" textAnchor="middle" transform={`rotate(-90 15 ${graphHeight / 2})`}>Temperature (°F)</text>
+                      </svg>
+                      <div className="text-xs text-slate-600 mt-1">Connect the points in order to create the line graph</div>
+                    </div>
                   </div>
                 );
               })}
@@ -19558,21 +19624,88 @@ export function PrintablesPage() {
             return { num, multiplier, answer: num * multiplier };
           });
           return (
-            <WorksheetSectionWrapper docId="mult-by-10-100" title="Multiplying by 10, 100" emoji="✖️" description="Multiply each number by 10 or 100.">
+            <WorksheetSectionWrapper 
+              docId="mult-by-10-100" 
+              title="Multiplying by 10, 100" 
+              emoji="✖️" 
+              description="Multiply each number by 10 or 100."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Multiply numbers by 10 and 100',
+                'Understand place value patterns when multiplying by powers of 10',
+                'Recognize that multiplying by 10 adds a zero, by 100 adds two zeros'
+              ]}
+              parentTeacherTips={[
+                'Multiplying by 10: add one zero (5 × 10 = 50)',
+                'Multiplying by 100: add two zeros (5 × 100 = 500)',
+                'Help students see the pattern: the number shifts left',
+                'Extension: Try multiplying by 1,000'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 7 × 10 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Start with 7</div>
+                    <div><strong>Step 2:</strong> Multiply by 10: add one zero</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 70</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiplying by 10 adds one zero! 7 × 100 = 700 (add two zeros)</div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Pattern:</strong> × 10 = add one zero, × 100 = add two zeros
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">{p.num} × {p.multiplier} = ____</div>
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">{p.num} × {p.multiplier} = ____</div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. What is 25 × 10? What is 25 × 100?</div>
+                  <div>2. If 6 × 10 = 60, what is 6 × 1,000?</div>
+                  <div>3. Create your own multiplication by 10 or 100 problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply by 10 correctly</div>
+                  <div>☐ I can multiply by 100 correctly</div>
+                  <div>☐ I understand the pattern</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-by-10-100', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.num} × {p.multiplier} = {p.answer}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => (
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num} × {p.multiplier}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>{p.num} × {p.multiplier} = {p.answer}</div>
+                          <div className="font-semibold">Answer: {p.answer}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
