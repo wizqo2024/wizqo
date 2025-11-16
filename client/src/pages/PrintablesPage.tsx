@@ -7552,23 +7552,81 @@ export function PrintablesPage() {
               title="Advanced Multiplication Facts (6-12)"
               emoji="✖️"
               description="Write the correct answer in each blank. These problems help students memorize multiplication facts from 6–12."
+              problemCount={facts.length}
+              learningObjectives={[
+                'Memorize multiplication facts from 6×6 to 12×12',
+                'Build speed and accuracy with advanced facts',
+                'Use strategies like breaking apart or using known facts'
+              ]}
+              parentTeacherTips={[
+                'These are harder facts - encourage using strategies',
+                'Break apart: 7 × 8 = (7 × 5) + (7 × 3) = 35 + 21 = 56',
+                'Use known facts: If you know 6 × 6 = 36, then 6 × 7 = 36 + 6 = 42',
+                'Extension: Time yourself and try to beat your record'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 7 × 8 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Strategy 1:</strong> Break apart: 7 × 8 = (7 × 5) + (7 × 3) = 35 + 21 = 56</div>
+                    <div><strong>Strategy 2:</strong> Use known fact: If 7 × 7 = 49, then 7 × 8 = 49 + 7 = 56</div>
+                    <div><strong>Strategy 3:</strong> Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that works best for you!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-center">
                       <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                     </div>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Solve: 12 × 12 = ? (the biggest fact!)</div>
+                  <div>2. Create your own multiplication problem using numbers 6-12</div>
+                  <div>3. Write all the facts that equal 72: ___ × ___ = 72</div>
+                  <div>4. Time yourself: Can you complete all {facts.length} problems in under 3 minutes?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply numbers 6-12 easily</div>
+                  <div>☐ I need more practice with some facts</div>
+                  <div>☐ I can use strategies to help me solve</div>
+                  <div>☐ I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>Time taken:</strong> _____ minutes</div>
+                <div className="mt-2 text-xs">
+                  <strong>Facts I want to practice more:</strong> ______________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-facts-6-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {facts.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {facts.map(([a, b], i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {a} × {b} = <strong>{a * b}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
