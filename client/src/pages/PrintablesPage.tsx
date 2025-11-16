@@ -104,7 +104,7 @@ function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets
 function WorksheetHeader({ problemCount }: { problemCount?: number }) {
   return (
-    <div className="print:block hidden print:mb-4 border-b-2 border-slate-300 pb-3 mb-4">
+    <div className="print:block hidden print:mb-4 pb-3 mb-4">
       <div className="flex justify-between items-start">
         <div className="flex-1">
           <div className="text-sm mb-2"><strong>Name:</strong> _________________________</div>
