@@ -7524,13 +7524,39 @@ export function PrintablesPage() {
               title="Fact Families (Multiplication & Division)"
               emoji="⚖️"
               description="Complete each fact family. Write all four related facts (two multiplication and two division) in the blanks provided."
+              problemCount={families.length}
+              learningObjectives={[
+                'Understand the relationship between multiplication and division',
+                'Identify all four facts in a fact family',
+                'Use fact families to solve related problems'
+              ]}
+              parentTeacherTips={[
+                'Fact families show how multiplication and division are related',
+                'If you know 3 × 4 = 12, you also know 4 × 3 = 12, 12 ÷ 3 = 4, and 12 ÷ 4 = 3',
+                'Practice with smaller numbers first, then move to larger ones',
+                'Extension: Create your own fact families'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              <div className="space-y-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Fact Family for 12:</strong></div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div>• 3 × 4 = 12 (multiplication)</div>
+                    <div>• 4 × 3 = 12 (multiplication - same numbers, different order)</div>
+                    <div>• 12 ÷ 3 = 4 (division - using the product)</div>
+                    <div>• 12 ÷ 4 = 3 (division - using the product)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: All four facts use the same three numbers: 3, 4, and 12!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {families.map(([a, b], i) => {
                   const product = a * b;
                   return (
-                    <div key={i} className="border border-slate-300 rounded p-4 bg-white">
+                    <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
                       <div className="font-semibold mb-2 text-slate-800">Fact Family for {product}:</div>
                       <div className="grid grid-cols-2 gap-2 text-lg font-mono">
                         <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
@@ -7542,17 +7568,50 @@ export function PrintablesPage() {
                   );
                 })}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own fact family using numbers 5, 7, and 35</div>
+                  <div>2. Write all four facts for the fact family: 6, 8, and 48</div>
+                  <div>3. Can you find a fact family where all three numbers are the same?</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand how multiplication and division are related</div>
+                  <div>☐ I can write all four facts in a fact family</div>
+                  <div>☐ I can use fact families to solve problems</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {families.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-fact-families', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
                     {families.map(([a, b], i) => {
                       const product = a * b;
                       return (
-                        <li key={i}>{a} × {b} = {product}, {b} × {a} = {product}, {product} ÷ {a} = {b}, {product} ÷ {b} = {a}</li>
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">Fact Family {i + 1} for {product}:</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>• {a} × {b} = {product}</div>
+                            <div>• {b} × {a} = {product}</div>
+                            <div>• {product} ÷ {a} = {b}</div>
+                            <div>• {product} ÷ {b} = {a}</div>
+                            <div className="text-xs text-emerald-700 mt-1">💡 All four facts use the numbers {a}, {b}, and {product}</div>
+                          </div>
+                        </div>
                       );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -7677,25 +7736,94 @@ export function PrintablesPage() {
               title="Multi-Digit Multiplication (2×1)"
               emoji="✖️"
               description="Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Multiply 2-digit numbers by 1-digit numbers',
+                'Use regrouping when needed',
+                'Solve multiplication problems accurately'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to show their work step-by-step',
+                'Watch for common mistakes: forgetting to carry, misaligning numbers',
+                'If stuck, review the example together',
+                'Extension: Create your own problems using numbers 10-99'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 24 × 3 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply ones: 4 × 3 = 12</div>
+                    <div><strong>Step 2:</strong> Write 2 in ones place, carry 1 to tens</div>
+                    <div><strong>Step 3:</strong> Multiply tens: 2 × 3 = 6, add carried 1 = 7</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], i) => (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>× {b}</div>
                       <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own 2×1 multiplication problem: ___ × ___ = ?</div>
+                  <div>2. Solve: 99 × 9 = ? (the biggest 2×1 problem!)</div>
+                  <div>3. Write a word problem using 2×1 multiplication</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can multiply 2-digit by 1-digit numbers</div>
+                  <div>☐ I can regroup correctly</div>
+                  <div>☐ I understand the process</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-2x1-digit', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map(([a, b], i) => (<li key={i}>{a} × {b} = {a * b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    {problems.map(([a, b], i) => {
+                      const ones = a % 10;
+                      const tens = Math.floor(a / 10);
+                      const onesProduct = ones * b;
+                      const tensProduct = tens * b;
+                      const carry = Math.floor(onesProduct / 10);
+                      const finalTens = tensProduct + carry;
+                      const finalOnes = onesProduct % 10;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {a} × {b}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: {ones} × {b} = {onesProduct} (write {finalOnes}, carry {carry})</div>
+                            <div>Step 2: {tens} × {b} = {tensProduct}, add {carry} = {finalTens}</div>
+                            <div className="font-semibold">Answer: {a * b}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -8625,73 +8753,125 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('mult-patterns') && (
-          <WorksheetSectionWrapper
-            docId="mult-patterns"
-            title="Multiplication Patterns"
-            emoji="📈"
-            description="Identify and extend the multiplication patterns. What do you notice?"
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-              <strong>📝 Instructions:</strong> Look at each pattern. Fill in the missing numbers and describe what pattern you notice.
-            </div>
-            <div className="space-y-5">
-              {(() => {
-                const patterns = [
-                  { items: [{ eq: '2 × 1', ans: 2 }, { eq: '2 × 2', ans: 4 }, { eq: '2 × 3', ans: 6 }, { eq: '2 × 4', ans: null }, { eq: '2 × 5', ans: null }], pattern: 'add 2 each time' },
-                  { items: [{ eq: '5 × 2', ans: 10 }, { eq: '5 × 4', ans: 20 }, { eq: '5 × 6', ans: 30 }, { eq: '5 × 8', ans: null }, { eq: '5 × 10', ans: null }], pattern: 'even numbers, add 10' },
-                  { items: [{ eq: '3 × 3', ans: 9 }, { eq: '3 × 6', ans: 18 }, { eq: '3 × 9', ans: 27 }, { eq: '3 × 12', ans: null }, { eq: '3 × 15', ans: null }], pattern: 'multiples of 3' },
-                  { items: [{ eq: '10 × 1', ans: 10 }, { eq: '10 × 2', ans: 20 }, { eq: '10 × 3', ans: 30 }, { eq: '10 × 4', ans: null }, { eq: '10 × 5', ans: null }], pattern: 'add 10 each time' },
-                ];
-                return patterns.map((item, idx) => (
-                <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    {item.items.map((part, i) => (
-                      <div key={i} className="flex items-center gap-1">
-                        <span className="text-base font-mono text-slate-800">{part.eq} =</span>
-                        {part.ans !== null ? (
-                          <span className="text-base font-mono font-semibold text-slate-900">{part.ans}</span>
-                        ) : (
-                          <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                        )}
-                        {i < item.items.length - 1 && <span className="text-slate-400 mx-1">,</span>}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-3">
-                    <div className="text-sm font-semibold text-slate-600 mb-1">What pattern do you notice?</div>
-                    <div className="min-h-12 print:min-h-16 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50" />
+        {activeDocs.includes('mult-patterns') && (() => {
+          const patterns = [
+            { items: [{ eq: '2 × 1', ans: 2 }, { eq: '2 × 2', ans: 4 }, { eq: '2 × 3', ans: 6 }, { eq: '2 × 4', ans: null }, { eq: '2 × 5', ans: null }], pattern: 'add 2 each time' },
+            { items: [{ eq: '5 × 2', ans: 10 }, { eq: '5 × 4', ans: 20 }, { eq: '5 × 6', ans: 30 }, { eq: '5 × 8', ans: null }, { eq: '5 × 10', ans: null }], pattern: 'even numbers, add 10' },
+            { items: [{ eq: '3 × 3', ans: 9 }, { eq: '3 × 6', ans: 18 }, { eq: '3 × 9', ans: 27 }, { eq: '3 × 12', ans: null }, { eq: '3 × 15', ans: null }], pattern: 'multiples of 3' },
+            { items: [{ eq: '10 × 1', ans: 10 }, { eq: '10 × 2', ans: 20 }, { eq: '10 × 3', ans: 30 }, { eq: '10 × 4', ans: null }, { eq: '10 × 5', ans: null }], pattern: 'add 10 each time' },
+          ];
+          return (
+            <WorksheetSectionWrapper
+              docId="mult-patterns"
+              title="Multiplication Patterns"
+              emoji="📈"
+              description="Identify and extend the multiplication patterns. What do you notice?"
+              problemCount={patterns.length}
+              learningObjectives={[
+                'Identify patterns in multiplication tables',
+                'Extend multiplication patterns',
+                'Recognize how numbers change in patterns'
+              ]}
+              parentTeacherTips={[
+                'Look for what stays the same and what changes',
+                'Patterns help students memorize multiplication facts',
+                'Encourage students to describe patterns in their own words',
+                'Extension: Create your own multiplication patterns'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Pattern:</strong> 4 × 1 = 4, 4 × 2 = 8, 4 × 3 = 12, 4 × 4 = ?, 4 × 5 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at what changes: the second number goes 1, 2, 3, 4, 5</div>
+                    <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
+                    <div><strong>Step 3:</strong> Continue the pattern: 4 × 4 = 16, 4 × 5 = 20</div>
+                    <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: When multiplying by the same number, the answers increase by that number!</div>
                   </div>
                 </div>
-                ));
-              })()}
-            </div>
-            {showAnswersForDoc('mult-patterns', () => {
-              const patterns = [
-                { missing: [{ eq: '2 × 4', ans: 8 }, { eq: '2 × 5', ans: 10 }], pattern: 'add 2 each time' },
-                { missing: [{ eq: '5 × 8', ans: 40 }, { eq: '5 × 10', ans: 50 }], pattern: 'even numbers, add 10' },
-                { missing: [{ eq: '3 × 12', ans: 36 }, { eq: '3 × 15', ans: 45 }], pattern: 'multiples of 3' },
-                { missing: [{ eq: '10 × 4', ans: 40 }, { eq: '10 × 5', ans: 50 }], pattern: 'add 10 each time' },
-              ];
-              return (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-2">Answer key</div>
-                  <div className="space-y-2">
-                    {patterns.map((p, i) => (
-                      <div key={i}>
-                        <div className="font-semibold">Pattern {i + 1}:</div>
-                        <div className="ml-2">
-                          {p.missing.map(item => `${item.eq} = ${item.ans}`).join(', ')} (pattern: {p.pattern})
+              </div>
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>📝 Instructions:</strong> Look at each pattern. Fill in the missing numbers and describe what pattern you notice.
+              </div>
+              <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {patterns.map((item, idx) => (
+                  <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white break-inside-avoid">
+                    <div className="flex flex-wrap items-center gap-3 mb-3">
+                      {item.items.map((part, i) => (
+                        <div key={i} className="flex items-center gap-1">
+                          <span className="text-base font-mono text-slate-800">{part.eq} =</span>
+                          {part.ans !== null ? (
+                            <span className="text-base font-mono font-semibold text-slate-900">{part.ans}</span>
+                          ) : (
+                            <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                          )}
+                          {i < item.items.length - 1 && <span className="text-slate-400 mx-1">,</span>}
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                    <div className="mt-3">
+                      <div className="text-sm font-semibold text-slate-600 mb-1">What pattern do you notice?</div>
+                      <div className="min-h-12 print:min-h-16 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50 print:bg-white" />
+                    </div>
                   </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own multiplication pattern starting with 6 × 1, 6 × 2, 6 × 3...</div>
+                  <div>2. What pattern do you see when multiplying by 9? (9 × 1, 9 × 2, 9 × 3...)</div>
+                  <div>3. Can you find a pattern where the answers decrease? (Hint: think about division)</div>
                 </div>
-              );
-            })}
-          </WorksheetSectionWrapper>
-        )}
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify patterns in multiplication</div>
+                  <div>☐ I can extend patterns to find missing numbers</div>
+                  <div>☐ I can describe patterns in my own words</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {patterns.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('mult-patterns', () => {
+                const answerPatterns = [
+                  { missing: [{ eq: '2 × 4', ans: 8 }, { eq: '2 × 5', ans: 10 }], pattern: 'add 2 each time' },
+                  { missing: [{ eq: '5 × 8', ans: 40 }, { eq: '5 × 10', ans: 50 }], pattern: 'even numbers, add 10' },
+                  { missing: [{ eq: '3 × 12', ans: 36 }, { eq: '3 × 15', ans: 45 }], pattern: 'multiples of 3' },
+                  { missing: [{ eq: '10 × 4', ans: 40 }, { eq: '10 × 5', ans: 50 }], pattern: 'add 10 each time' },
+                ];
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with pattern explanations)</div>
+                    <div className="space-y-3">
+                      {answerPatterns.map((p, i) => (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">Pattern {i + 1}:</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Missing answers: {p.missing.map(item => `${item.eq} = ${item.ans}`).join(', ')}</div>
+                            <div><strong>Pattern:</strong> {p.pattern}</div>
+                            <div className="text-xs text-emerald-700 mt-1">💡 Notice how the answers follow a consistent rule!</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {/* Times Table Worksheets */}
         {activeDocs.includes('times-table-horizontal-1-5') && (() => {
