@@ -10282,9 +10282,30 @@ export function PrintablesPage() {
               {showAnswersForDoc('partial-products', () => (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                   <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {problems.map((p, i) => (<li key={i}>{p.a} × {p.b} = {p.product}</li>))}
-                  </ul>
+                  <div className="space-y-3">
+                    {problems.map((p, i) => {
+                      const tensA = Math.floor(p.a/10)*10;
+                      const onesA = p.a%10;
+                      const tensB = Math.floor(p.b/10)*10;
+                      const onesB = p.b%10;
+                      const part1 = tensA * tensB;
+                      const part2 = tensA * onesB;
+                      const part3 = onesA * tensB;
+                      const part4 = onesA * onesB;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-2 last:border-b-0">
+                          <div className="font-semibold mb-1">{p.a} × {p.b}</div>
+                          <div className="space-y-0.5 text-xs">
+                            <div>({tensA} × {tensB}) = {part1}</div>
+                            <div>({tensA} × {onesB}) = {part2}</div>
+                            <div>({onesA} × {tensB}) = {part3}</div>
+                            <div>({onesA} × {onesB}) = {part4}</div>
+                            <div className="font-semibold mt-1">Total: {p.product}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
