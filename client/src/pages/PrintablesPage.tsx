@@ -16249,27 +16249,129 @@ export function PrintablesPage() {
             'There are 48 students. 1/3 are in the band and 1/4 are in the choir. How many students are in neither?',
           ];
           return (
-            <WorksheetSectionWrapper docId="multi-step-word-5th" title="Multi-Step Word Problems" emoji="🧮" description="Solve each complex word problem. Show all your work.">
+            <WorksheetSectionWrapper 
+              docId="multi-step-word-5th" 
+              title="Multi-Step Word Problems" 
+              emoji="🧮" 
+              description="Solve each complex word problem. Show all your work."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve complex multi-step word problems',
+                'Identify all steps needed to solve',
+                'Use multiple operations (addition, subtraction, multiplication, division)',
+                'Show work clearly for each step'
+              ]}
+              parentTeacherTips={[
+                'Read the problem carefully multiple times',
+                'Identify what information you have and what you need to find',
+                'Break the problem into smaller steps',
+                'Solve each step one at a time',
+                'Check your answer by reading the problem again',
+                'Extension: Create your own complex multi-step problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has $20. He buys 3 books for $4 each. Then he finds $5. How much does he have now?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Cost of books: 3 × $4 = $12</div>
+                    <div><strong>Step 2:</strong> After buying: $20 - $12 = $8</div>
+                    <div><strong>Step 3:</strong> After finding money: $8 + $5 = $13</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> $13</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Break it into steps and solve one at a time!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work (all steps):</div>
+                    <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own complex multi-step word problem</div>
+                  <div>2. Solve: A store has 200 items. They sell 45 on Monday, 38 on Tuesday, and receive 60 new items on Wednesday. How many items are left?</div>
+                  <div>3. Explain why breaking problems into steps helps</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify all steps in complex problems</div>
+                  <div>☐ I can solve each step correctly</div>
+                  <div>☐ I can use multiple operations</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('multi-step-word-5th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>120 - 35 - 42 + 50 = 93 items</li>
-                    <li>8 × (5 + 4) = $72</li>
-                    <li>Area = 96 sq cm, Perimeter = 40 cm</li>
-                    <li>3/4 - 1/4 = 1/2 pizza</li>
-                    <li>240 ÷ 4 = 60 miles per hour</li>
-                    <li>48 - 16 - 12 = 20 students</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 35 + 42 = 77 (sold)</div>
+                        <div>Step 2: 120 - 77 = 43 (after selling)</div>
+                        <div>Step 3: 43 + 50 = 93 (after receiving)</div>
+                        <div className="font-semibold">Answer: 93 items</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 5 + 4 = 9 (total hours)</div>
+                        <div>Step 2: 8 × 9 = 72</div>
+                        <div className="font-semibold">Answer: $72</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1 (Area): 12 × 8 = 96</div>
+                        <div>Step 2 (Perimeter): 2 × (12 + 8) = 40</div>
+                        <div className="font-semibold">Answer: Area = 96 sq cm, Perimeter = 40 cm</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3/4 - 1/4 = 2/4</div>
+                        <div>Step 2: Simplify: 2/4 = 1/2</div>
+                        <div className="font-semibold">Answer: 1/2 pizza</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 240 ÷ 4 = 60</div>
+                        <div className="font-semibold">Answer: 60 miles per hour</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 48 × 1/3 = 16 (band)</div>
+                        <div>Step 2: 48 × 1/4 = 12 (choir)</div>
+                        <div>Step 3: 48 - 16 - 12 = 20</div>
+                        <div className="font-semibold">Answer: 20 students</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -18147,26 +18249,92 @@ export function PrintablesPage() {
             return { num1, num2, denom, op };
           });
           return (
-            <WorksheetSectionWrapper docId="add-sub-fractions" title="Adding & Subtracting Fractions" emoji="🍕" description="Add or subtract each pair of fractions with like denominators.">
+            <WorksheetSectionWrapper 
+              docId="add-sub-fractions" 
+              title="Adding & Subtracting Fractions" 
+              emoji="🍕" 
+              description="Add or subtract each pair of fractions with like denominators."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Add fractions with like denominators',
+                'Subtract fractions with like denominators',
+                'Keep the denominator the same when adding or subtracting'
+              ]}
+              parentTeacherTips={[
+                'When denominators are the same, add or subtract the numerators',
+                'Keep the denominator the same',
+                'Simplify the answer if possible',
+                'Extension: Add and subtract fractions with different denominators'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 2/5 + 1/5 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Denominators are the same (5), so keep it</div>
+                    <div><strong>Step 2:</strong> Add the numerators: 2 + 1 = 3</div>
+                    <div><strong>Step 3:</strong> Write the answer: 3/5</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Same denominator? Just add or subtract the numerators!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    <div className="text-center text-xl font-mono">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-center text-xl font-mono mb-2">
                       {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = ____
                     </div>
+                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="min-h-12 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Add: 3/8 + 2/8 + 1/8</div>
+                  <div>2. Subtract: 7/10 - 3/10</div>
+                  <div>3. Create your own fraction addition problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can add fractions with like denominators</div>
+                  <div>☐ I can subtract fractions with like denominators</div>
+                  <div>☐ I remember to keep the denominator the same</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('add-sub-fractions', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => {
                       const result = p.op === '+' ? p.num1 + p.num2 : p.num1 - p.num2;
-                      return <li key={i}>{p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = {result}/{p.denom}</li>;
+                      return (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div>Step 1: Denominators are the same ({p.denom}), keep it</div>
+                            <div>Step 2: {p.op === '+' ? 'Add' : 'Subtract'} numerators: {p.num1} {p.op} {p.num2} = {result}</div>
+                            <div className="font-semibold">Answer: {result}/{p.denom}</div>
+                          </div>
+                        </div>
+                      );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -19468,27 +19636,122 @@ export function PrintablesPage() {
             'A store sells apples for $0.50 each. Jake buys 6 apples. How much does he pay?',
           ];
           return (
-            <WorksheetSectionWrapper docId="money-word-problems" title="Money Word Problems" emoji="🧮" description="Solve problems involving dollars and cents.">
+            <WorksheetSectionWrapper 
+              docId="money-word-problems" 
+              title="Money Word Problems" 
+              emoji="🧮" 
+              description="Solve problems involving dollars and cents."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Solve word problems involving money',
+                'Add and subtract dollars and cents',
+                'Multiply to find total costs',
+                'Understand real-world money situations'
+              ]}
+              parentTeacherTips={[
+                'Help students identify if they need to add, subtract, or multiply',
+                'Remind students to line up decimal points when adding/subtracting',
+                'Use real money or play money to help visualize',
+                'Extension: Create your own money word problems'
+              ]}
+            >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has $10.00. He buys a toy for $3.50. How much does he have left?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Start with: $10.00</div>
+                    <div><strong>Step 2:</strong> Subtract the cost: $10.00 - $3.50</div>
+                    <div><strong>Step 3:</strong> Calculate: $6.50</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> $6.50</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Line up the decimal points when subtracting!</div>
+                  </div>
+                </div>
+              </div>
+              <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
-                    {p}
-                    <div className="h-12 border-b border-slate-400 mt-2" />
+                  <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="mb-2">{p}</div>
+                    <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
+                    <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </li>
                 ))}
               </ol>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. You have $15.00. You buy 2 items for $4.25 each. How much do you have left?</div>
+                  <div>2. Create your own money word problem</div>
+                  <div>3. Explain how to add and subtract money with decimals</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve money word problems</div>
+                  <div>☐ I can add and subtract money</div>
+                  <div>☐ I can multiply to find total costs</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('money-word-problems', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>$5.00 - $2.50 = $2.50</li>
-                    <li>$10.00 - $6.00 = $4.00</li>
-                    <li>$8.00 - $1.75 = $6.25</li>
-                    <li>$12.00 - $9.00 = $3.00</li>
-                    <li>$6.00 - $1.25 = $4.75</li>
-                    <li>$0.50 × 6 = $3.00</li>
-                  </ol>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="space-y-3">
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: $5.00 - $2.50</div>
+                        <div className="font-semibold">Answer: $2.50</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 3 × $2.00 = $6.00 (cost)</div>
+                        <div>Step 2: $10.00 - $6.00</div>
+                        <div className="font-semibold">Answer: $4.00</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: $8.00 - $1.75</div>
+                        <div className="font-semibold">Answer: $6.25</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: 2 × $4.50 = $9.00 (cost)</div>
+                        <div>Step 2: $12.00 - $9.00</div>
+                        <div className="font-semibold">Answer: $3.00</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3">
+                      <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: $6.00 - $1.25</div>
+                        <div className="font-semibold">Answer: $4.75</div>
+                      </div>
+                    </div>
+                    <div className="border-b border-emerald-200 pb-3 last:border-b-0">
+                      <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
+                      <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                        <div>Step 1: $0.50 × 6</div>
+                        <div className="font-semibold">Answer: $3.00</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
