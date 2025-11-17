@@ -4784,27 +4784,81 @@ export function PrintablesPage() {
             title="Passage — The Big Box (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details and sequence of events',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss discovery and play with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Mia found a big box in the garage. She opened it and saw old toys. There was a doll, a car, and a ball. Mia asked Mom, "Can I play with these?" Mom said yes. Mia played all afternoon.</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Where did Mia find the box?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for where Mia found the box</div>
+                  <div><strong>Step 3:</strong> Find: "Mia found a big box in the garage"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mia found the box in the garage.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Mia found a big box in the garage. She opened it and saw old toys. There was a doll, a car, and a ball. Mia asked Mom, "Can I play with these?" Mom said yes. Mia played all afternoon.</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>Where did Mia find the box?</li>
                 <li>What was inside the box?</li>
                 <li>What three things did she see?</li>
                 <li>How long did Mia play?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-big-box', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>In the garage</li>
-                    <li>Old toys</li>
-                    <li>A doll, a car, and a ball</li>
-                    <li>All afternoon</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. What would you do if you found a box of old toys?</div>
+                <div>3. Draw a picture of Mia and the big box</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-big-box', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>In the garage</strong> (Mia found a big box in the garage)</li>
+                  <li><strong>Old toys</strong> (She opened it and saw old toys)</li>
+                  <li><strong>A doll, a car, and a ball</strong> (There was a doll, a car, and a ball)</li>
+                  <li><strong>All afternoon</strong> (Mia played all afternoon)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-garden-snail') && (
@@ -4813,26 +4867,81 @@ export function PrintablesPage() {
             title="Passage — The Garden Snail (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details and observations',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss nature and observation with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Noah saw a snail in the garden. It had a brown shell. The snail moved very slowly. Noah watched it crawl on a leaf. The snail left a shiny trail. Noah smiled and said, "Hello, little snail!"</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Where did Noah see the snail?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for where Noah saw the snail</div>
+                  <div><strong>Step 3:</strong> Find: "Noah saw a snail in the garden"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Noah saw the snail in the garden.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Noah saw a snail in the garden. It had a brown shell. The snail moved very slowly. Noah watched it crawl on a leaf. The snail left a shiny trail. Noah smiled and said, "Hello, little snail!"</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>Where did Noah see the snail?</li>
                 <li>What color was the shell?</li>
                 <li>How did the snail move?</li>
                 <li>What did the snail leave behind?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-garden-snail', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>In the garden</li>
-                    <li>Brown</li>
-                    <li>Very slowly</li>
-                    <li>A shiny trail</li>
-                  </ol>
-                </div>
-              ))}
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think the snail moved slowly?</div>
+                <div>3. Draw a picture of Noah and the snail</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-garden-snail', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>In the garden</strong> (Noah saw a snail in the garden)</li>
+                  <li><strong>Brown</strong> (It had a brown shell)</li>
+                  <li><strong>Very slowly</strong> (The snail moved very slowly)</li>
+                  <li><strong>A shiny trail</strong> (The snail left a shiny trail)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
             </div>
           </WorksheetSectionWrapper>
         )}
@@ -5204,27 +5313,81 @@ export function PrintablesPage() {
             title="Passage — The Art Project (Grade 3)"
             emoji="📖"
             description="Short passage with Q&A. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify problem-solving and creativity',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss recycling and creativity with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Ms. Chen asked us to create art using only recycled materials. I collected bottle caps, old magazines, and cardboard. At first, I wasn't sure what to make. Then I saw the bottle caps and thought of a mosaic. I glued them into a flower shape. Ms. Chen said my project showed creativity and care for the environment.</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What materials did the narrator use?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what materials were used</div>
+                  <div><strong>Step 3:</strong> Find: "I collected bottle caps, old magazines, and cardboard"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> The narrator used bottle caps, old magazines, and cardboard.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "materials") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Ms. Chen asked us to create art using only recycled materials. I collected bottle caps, old magazines, and cardboard. At first, I wasn't sure what to make. Then I saw the bottle caps and thought of a mosaic. I glued them into a flower shape. Ms. Chen said my project showed creativity and care for the environment.</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What materials did the narrator use?</li>
                 <li>What did the narrator create?</li>
                 <li>What did Ms. Chen say about the project?</li>
                 <li>What two things did the project show?</li>
               </ol>
-              {showAnswersForDoc('reading-g3-art-project', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Bottle caps, old magazines, and cardboard</li>
-                    <li>A flower-shaped mosaic</li>
-                    <li>It showed creativity and care for the environment</li>
-                    <li>Creativity and care for the environment</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think the narrator chose to make a flower?</div>
+                <div>3. Draw a picture of the art project</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g3-art-project', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>Bottle caps, old magazines, and cardboard</strong> (I collected bottle caps, old magazines, and cardboard)</li>
+                  <li><strong>A flower-shaped mosaic</strong> (I glued them into a flower shape)</li>
+                  <li><strong>It showed creativity and care for the environment</strong> (Ms. Chen said my project showed creativity and care for the environment)</li>
+                  <li><strong>Creativity and care for the environment</strong> (Ms. Chen said my project showed creativity and care for the environment)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('pack') && (() => {
