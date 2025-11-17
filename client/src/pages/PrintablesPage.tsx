@@ -9322,7 +9322,7 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
                 { coins: [10, 5, 1], label: '1 dime, 1 nickel, 1 penny' },
@@ -9345,23 +9345,48 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you make 50¢ using only quarters? How many do you need?</div>
+                <div>2. How many different ways can you make 25¢? (Hint: Try different combinations!)</div>
+                <div>3. If you have 3 quarters, 2 dimes, and 1 nickel, how much money do you have?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify different coins</div>
+                <div>☐ I can count coin values</div>
+                <div>☐ I counted all 4 groups correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('money-coins-bills', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
                     { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
                     { coins: [10, 5, 1], label: '1 dime, 1 nickel, 1 penny' },
                     { coins: [25, 10, 5], label: '1 quarter, 1 dime, 1 nickel' },
                     { coins: [10, 10, 5, 1, 1], label: '2 dimes, 1 nickel, 2 pennies' }
-                  ].map(({ coins }, idx) => {
+                  ].map(({ coins, label }, idx) => {
                     const total = coins.reduce((a, b) => a + b, 0)
-                    return <li key={idx}>Total: {total}¢</li>
+                    return <li key={idx}><strong>{label}: {total}¢</strong> (Add: {coins.join(' + ')} = {total})</li>
                   })}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Penny = 1¢, Nickel = 5¢, Dime = 10¢, Quarter = 25¢. Start with the largest coins first!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('measurement-length') && (
