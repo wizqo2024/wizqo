@@ -4515,18 +4515,43 @@ export function PrintablesPage() {
                 <li>Why did the trick help the boat?</li>
                 <li>What does Mira’s log note tell us about her work?</li>
               </ol>
-              {showAnswersForDoc('reading-g3-lighthouse', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>It drifted off course in thick fog</li>
-                    <li>A timed lamp flash</li>
-                    <li>It guided the boat toward the safe beam and away from rocks</li>
-                    <li>She keeps careful records and uses safe methods</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think Mira's father taught her this trick?</div>
+                <div>3. Draw a picture of Mira at the lighthouse</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g3-lighthouse', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>It drifted off course in thick fog</strong> (But the fog was thick, and a fishing boat drifted off course)</li>
+                  <li><strong>A timed lamp flash</strong> (She covered one lamp for a few seconds, then uncovered it, making a slow flash)</li>
+                  <li><strong>It guided the boat toward the safe beam and away from rocks</strong> (The boat turned toward the beam and away from the rocks)</li>
+                  <li><strong>She keeps careful records and uses safe methods</strong> (Mira logged the event: "Used flash method to guide a boat. Lamps steady.")</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g3-science-fair') && (
