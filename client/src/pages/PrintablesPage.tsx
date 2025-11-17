@@ -3971,7 +3971,36 @@ export function PrintablesPage() {
             title="Passage — The Lost Hat (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details (who, what, where, why)',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Have the child retell the story in their own words'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Where did Mia go?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for the answer to "Where did Mia go?"</div>
+                  <div><strong>Step 3:</strong> Find: "Mia ran to the park"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mia went to the park.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. “Thank you!”</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -4000,7 +4029,36 @@ export function PrintablesPage() {
             title="Passage — Lunch for the Ants (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details (what, how, why)',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss what the child learned about ants from the story'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What did Sam drop?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what Sam dropped</div>
+                  <div><strong>Step 3:</strong> Find: "Sam dropped a crumb"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sam dropped a crumb.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Sam dropped a crumb. Ants marched in a line. They carried the crumb together. Sam watched quietly. He did not step near them. Soon, the ants were gone. The floor was clean!</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -4029,7 +4087,36 @@ export function PrintablesPage() {
             title="Passage — The Bus Ride (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details (what, who, why)',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss bus safety and manners with your child'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What color were the seats?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for information about the seats</div>
+                  <div><strong>Step 3:</strong> Find: "The seats were soft and blue"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> The seats were blue.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "color" and "seats") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Eli held his mom’s hand on the bus. The seats were soft and blue. The driver rang a bell and the doors opened. “This is our stop,” Mom said. Eli smiled and waved to the driver.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
