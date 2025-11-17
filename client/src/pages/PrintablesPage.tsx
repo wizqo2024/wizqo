@@ -8602,10 +8602,42 @@ export function PrintablesPage() {
           }
           
           return (
-            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-lg font-bold text-slate-900">⚖️ Balance Equations (to 10)</h2>
-              <p className="text-slate-600 text-sm mb-3">Find the missing number to make both sides equal.</p>
-              <div className="space-y-4">
+            <WorksheetSectionWrapper
+              docId="balance-equations-10"
+              title="Balance Equations (to 10)"
+              emoji="⚖️"
+              description="Find the missing number to make both sides equal."
+              problemCount={equations.length}
+              learningObjectives={[
+                'Understand that both sides of an equation must be equal',
+                'Find missing numbers to balance equations',
+                'Use addition and subtraction to solve for unknowns',
+                'Build algebraic thinking skills'
+              ]}
+              parentTeacherTips={[
+                'An equation is like a balance scale - both sides must be equal',
+                'To find the missing number, solve one side first, then make the other side equal',
+                'For addition: if left side is 3+4=7, and right side is __+2, then __ must be 5 (because 5+2=7)',
+                'For subtraction: if left side is 8-3=5, and right side is __-1, then __ must be 6 (because 6-1=5)',
+                'Extension: Try balancing equations with larger numbers'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 = __ + 2</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Solve the left side: 3 + 4 = 7</div>
+                    <div><strong>Step 2:</strong> The right side must also equal 7: __ + 2 = 7</div>
+                    <div><strong>Step 3:</strong> Find the missing number: 7 - 2 = 5</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 (because 3 + 4 = 5 + 2, both equal 7)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Solve one side first, then make the other side equal to it!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {equations.map((eq, idx) => (
                   <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                     <g fill="none" stroke="#111827" strokeWidth="3">
@@ -8619,17 +8651,49 @@ export function PrintablesPage() {
                   </svg>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you solve: 10 + 5 = __ + 8? (Hint: Solve the left side first!)</div>
+                  <div>2. Try: 20 - 7 = __ - 3. What's the missing number?</div>
+                  <div>3. Create your own balanced equation and solve it</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand that both sides must be equal</div>
+                  <div>☐ I can find missing numbers to balance equations</div>
+                  <div>☐ I solved all {equations.length} equations correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {equations.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('balance-equations-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {equations.map((eq, idx) => (
-                      <li key={idx}>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</li>
-                    ))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                    {equations.map((eq, idx) => {
+                      const leftValue = eq.left.includes('+') 
+                        ? eq.left.split('+').map(x => parseInt(x.trim())).reduce((a, b) => a + b, 0)
+                        : eq.left.includes('__') 
+                          ? eq.answer
+                          : eq.left.split('-').map(x => parseInt(x.trim())).reduce((a, b) => a - b);
+                      return (
+                        <li key={idx}><strong>{eq.left.replace('__', eq.answer.toString())} = {eq.right.replace('__', eq.answer.toString())}</strong> (Both sides equal {leftValue})</li>
+                      );
+                    })}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Both sides of an equation must be equal. Solve one side first, then find the missing number to make the other side equal!</div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -9390,10 +9454,42 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('measurement-length') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📏 Measurement: Length</h2>
-            <p className="text-slate-600 text-sm mb-3">Compare lengths using inches and centimeters.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="measurement-length"
+            title="Measurement: Length"
+            emoji="📏"
+            description="Compare lengths using inches and centimeters."
+            problemCount={3}
+            learningObjectives={[
+              'Compare lengths visually and numerically',
+              'Understand measurement units (inches, centimeters)',
+              'Use comparison symbols (>, <, =)',
+              'Build measurement and comparison skills'
+            ]}
+            parentTeacherTips={[
+              'Look at the visual bars to see which is longer',
+              'Compare the numbers: the larger number means longer length',
+              'Inches and centimeters are different units - compare within the same unit',
+              'Help students use rulers or measuring tools for hands-on practice',
+              'Extension: Practice measuring objects around the house'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Which is longer? A: 5 inches or B: 8 inches</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the numbers: 5 and 8</div>
+                  <div><strong>Step 2:</strong> Compare: 8 is greater than 5 (8 &gt; 5)</div>
+                  <div><strong>Step 3:</strong> The longer one is B (8 inches)</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> B is longer</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: The larger number means the longer length. You can also look at the visual bars!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { a: 5, b: 8, unit: 'inches' },
                 { a: 12, b: 7, unit: 'cm' },
@@ -9415,23 +9511,80 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Measure 3 objects in your house. Which is longest? Which is shortest?</div>
+                <div>2. Can you find something that is exactly 6 inches long?</div>
+                <div>3. Try comparing: 20 cm vs 2 inches. (Hint: 1 inch ≈ 2.5 cm)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can compare lengths visually</div>
+                <div>☐ I can compare lengths using numbers</div>
+                <div>☐ I answered all 3 questions correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 3
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('measurement-length', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>5 inches vs 8 inches: B is longer (8 &gt; 5)</li>
-                  <li>12 cm vs 7 cm: A is longer (12 &gt; 7)</li>
-                  <li>10 inches vs 15 inches: B is longer (15 &gt; 10)</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>5 inches vs 8 inches: B is longer</strong> (8 &gt; 5, so B is longer)</li>
+                  <li><strong>12 cm vs 7 cm: A is longer</strong> (12 &gt; 7, so A is longer)</li>
+                  <li><strong>10 inches vs 15 inches: B is longer</strong> (15 &gt; 10, so B is longer)</li>
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: The larger number means the longer length. You can also look at the visual bars to see which one is longer!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('bar-graphs-data') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📊 Bar Graphs & Data</h2>
-            <p className="text-slate-600 text-sm mb-3">Read the bar graph and answer the questions.</p>
+          <WorksheetSectionWrapper
+            docId="bar-graphs-data"
+            title="Bar Graphs & Data"
+            emoji="📊"
+            description="Read the bar graph and answer the questions."
+            problemCount={3}
+            learningObjectives={[
+              'Read and interpret bar graphs',
+              'Answer questions about data in graphs',
+              'Compare values using bar heights',
+              'Build data analysis skills'
+            ]}
+            parentTeacherTips={[
+              'Look at the height of each bar to see the value',
+              'The taller the bar, the larger the value',
+              'Read the numbers on the side (y-axis) to find exact values',
+              'Compare bars by looking at their heights or reading the numbers',
+              'Extension: Create your own bar graph with data you collect'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Which color has the most votes?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at all the bars on the graph</div>
+                  <div><strong>Step 2:</strong> Find the tallest bar (or the one with the highest number)</div>
+                  <div><strong>Step 3:</strong> Read the label for that bar</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Yellow (it has 16 votes, which is the most)</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: The tallest bar means the most votes. Look at the numbers on the side to find exact values!</div>
+                </div>
+              </div>
+            </div>
             <div className="border border-slate-300 rounded p-4 bg-white">
               <p className="text-slate-700 text-sm mb-3 font-semibold">Favorite Colors</p>
               <svg viewBox="0 0 500 300" className="w-full h-auto">
