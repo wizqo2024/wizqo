@@ -4477,7 +4477,36 @@ export function PrintablesPage() {
             title="Passage — The Lighthouse Keeper's Trick (Grade 3)"
             emoji="📖"
             description="Short passage with Q&A. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify problem and solution',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss problem-solving and helping others with your child'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What problem did the boat have?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what problem the boat had</div>
+                  <div><strong>Step 3:</strong> Find: "a fishing boat drifted off course" and "the fog was thick"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> The boat drifted off course in thick fog.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">A storm rolled over the coast, and waves pounded the rocks. Mira checked the lighthouse lamps—bright, steady, and safe. But the fog was thick, and a fishing boat drifted off course. Mira remembered a trick her father taught her. She covered one lamp for a few seconds, then uncovered it, making a slow flash. The boat turned toward the beam and away from the rocks. When the storm passed, Mira logged the event: “Used flash method to guide a boat. Lamps steady.”</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
@@ -4506,7 +4535,36 @@ export function PrintablesPage() {
             title="Passage — The Science Fair Plan (Grade 3)"
             emoji="📖"
             description="Short passage with Q&A. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify scientific method steps',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss the scientific method and experiments with your child'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What problem did the team choose?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what problem the team chose</div>
+                  <div><strong>Step 3:</strong> Find: "We chose one: sticky labels that won't peel cleanly"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> The team chose sticky labels that won't peel cleanly.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "problem") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Our team listed problems we see at home. We chose one: sticky labels that won’t peel cleanly. We planned tests: different soaking times, natural oils, and gentle heat. We predicted that warm oil would loosen the glue fastest, and we wrote a careful procedure.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
