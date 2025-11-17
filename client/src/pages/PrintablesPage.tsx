@@ -4999,7 +4999,6 @@ export function PrintablesPage() {
                 <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
-            </div>
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-birthday-cake') && (
@@ -5332,7 +5331,6 @@ export function PrintablesPage() {
                 <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
               </div>
             ))}
-            </div>
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g3-school-play') && (
