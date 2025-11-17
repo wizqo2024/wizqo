@@ -8926,10 +8926,42 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('doubles-facts') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎯 Doubles Facts Practice</h2>
-            <p className="text-slate-600 text-sm mb-3">Practice doubles: 1+1, 2+2, 3+3, and so on.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="doubles-facts"
+            title="Doubles Facts Practice"
+            emoji="🎯"
+            description="Practice doubles: 1+1, 2+2, 3+3, and so on."
+            problemCount={8}
+            learningObjectives={[
+              'Memorize doubles facts (1+1 through 8+8)',
+              'Recognize that doubles are when you add a number to itself',
+              'Use visual representations to understand doubles',
+              'Build mental math fluency'
+            ]}
+            parentTeacherTips={[
+              'Doubles are when you add a number to itself (1+1, 2+2, 3+3)',
+              'Count the dots/circles to see the total',
+              'Help students see the pattern: doubles always make even numbers',
+              'Practice saying the doubles: "1+1=2, 2+2=4, 3+3=6..."',
+              'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 3 = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Count the circles: there are 3 circles in the first group</div>
+                  <div><strong>Step 2:</strong> Count the circles in the second group: there are also 3 circles</div>
+                  <div><strong>Step 3:</strong> Add them: 3 + 3 = 6</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 3 = 6</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Doubles are easy! Just add a number to itself. 3 + 3 = 6!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                 <svg key={n} viewBox="0 0 400 140" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="#111827">
@@ -8944,24 +8976,81 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve 9 + 9 and 10 + 10 without counting?</div>
+                <div>2. Try these doubles: 12 + 12 = ? and 15 + 15 = ?</div>
+                <div>3. Write all the doubles facts from 1+1 to 10+10</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can solve doubles facts</div>
+                <div>☐ I understand that doubles are adding a number to itself</div>
+                <div>☐ I solved all 8 doubles facts correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 8
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('doubles-facts', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                    <li key={n}>{n} + {n} = {n * 2}</li>
+                    <li key={n}><strong>{n} + {n} = {n * 2}</strong> (Count all the circles: there are {n * 2} circles total)</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Doubles are when you add a number to itself. Count all the circles to find the total!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('pattern-complete') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🧩 Pattern Completion</h2>
-            <p className="text-slate-600 text-sm mb-3">Complete each pattern. Draw or color the missing shapes.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="pattern-complete"
+            title="Pattern Completion"
+            emoji="🧩"
+            description="Complete each pattern. Draw or color the missing shapes."
+            problemCount={3}
+            learningObjectives={[
+              'Identify patterns (AB, ABC, AAB)',
+              'Continue patterns by finding what comes next',
+              'Recognize repeating sequences',
+              'Build pattern recognition and logical thinking skills'
+            ]}
+            parentTeacherTips={[
+              'Look for the repeating pattern (AB means circle-square-circle-square)',
+              'Identify the pattern type: AB (alternating), ABC (three-part), AAB (two same, one different)',
+              'Find what comes next by following the pattern',
+              'Help students see the repetition: "What comes after the last shape?"',
+              'Extension: Create your own patterns for others to complete'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Circle, Square, __</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Identify the pattern: AB (Circle, Square, Circle, Square...)</div>
+                  <div><strong>Step 2:</strong> See the repetition: Circle, Square, Circle, Square</div>
+                  <div><strong>Step 3:</strong> What comes next? After Square comes Circle!</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the repeating pattern. AB means it alternates between two things!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { pattern: ['circle', 'square', 'circle', 'square'], type: 'AB', next: 'circle' },
                 { pattern: ['red', 'blue', 'green', 'red', 'blue'], type: 'ABC', next: 'green' },
