@@ -15708,28 +15708,81 @@ export function PrintablesPage() {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const targetNumber = Math.floor(rng() * 10) + 1
           const numbers = Array.from({ length: 30 }, () => Math.floor(rng() * 10) + 1)
+          const targetCount = numbers.filter(n => n === targetNumber).length;
           return (
             <WorksheetSectionWrapper
               docId="number-id-1-10"
               title="Number Identification 1–10"
               emoji="🔟"
               description={`Find and circle all the number ${targetNumber}s.`}
+              problemCount={targetCount}
+              learningObjectives={[
+                'Identify and recognize numbers 1-10',
+                'Find specific numbers in a group',
+                'Develop visual discrimination skills',
+                'Build number recognition and attention to detail'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to look carefully at each number',
+                'Help students recognize the shape of the target number',
+                'Practice saying the number name as they find it',
+                'Extension: Try finding numbers in different fonts or sizes'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Find and circle all the 5s</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at each number carefully</div>
+                    <div><strong>Step 2:</strong> Find numbers that look like 5</div>
+                    <div><strong>Step 3:</strong> Circle each 5 you find</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the 5s</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each number and match it to the target number!</div>
+                  </div>
+                </div>
+              </div>
               <div className="text-center mb-4">
                 <p className="text-xl font-bold text-slate-900">Find and circle all the {targetNumber}s</p>
               </div>
-              <div className="grid grid-cols-10 gap-2">
+              <div className="grid grid-cols-10 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n, i) => (
                   <div key={i} className="w-12 h-12 border-2 border-slate-300 rounded-lg flex items-center justify-center text-2xl font-bold bg-white text-slate-700">
                     {n}
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you find numbers around your house? Look for numbers on clocks, calendars, or books</div>
+                  <div>2. Write your own number grid and have someone find a specific number</div>
+                  <div>3. Try finding numbers in different styles or fonts</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify numbers 1-10</div>
+                  <div>☐ I found all the {targetNumber}s</div>
+                  <div>☐ I circled {targetCount} {targetNumber}s correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {targetCount}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('number-id-1-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Circle all {targetNumber}s. Found: {numbers.filter(n => n === targetNumber).length} instances.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800 mb-2"><strong>Circle all {targetNumber}s.</strong> Found: {targetCount} instances.</p>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Look carefully at each number and match it to the target number {targetNumber}. Circle all instances you find!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15749,12 +15802,36 @@ export function PrintablesPage() {
               title="Number Matching 1–15"
               emoji="🔟"
               description="Match the number word to the numeral. Connect with a line."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Match numerals to number words (1-15)',
+                'Recognize number words in written form',
+                'Connect visual numbers to their word names',
+                'Build vocabulary and number recognition'
+              ]}
+              parentTeacherTips={[
+                'Help students read each number word aloud',
+                'Encourage students to say the number as they match',
+                'Practice number words: one, two, three, four, five...',
+                'Extension: Try matching numbers to 20 or higher'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Draw a line to connect each number on the left to its matching word on the right.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Match 5 to its word</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the number: 5</div>
+                    <div><strong>Step 2:</strong> Find the word that says "five"</div>
+                    <div><strong>Step 3:</strong> Draw a line connecting 5 to "five"</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 = five</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Read the number word aloud to help you match it!</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
                     <div className="flex items-center justify-between gap-4">
@@ -15773,14 +15850,39 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you write the number words for 16, 17, 18, 19, 20?</div>
+                  <div>2. Practice reading number words: twenty, thirty, forty...</div>
+                  <div>3. Create your own number matching game</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can match numerals to number words</div>
+                  <div>☐ I can read number words correctly</div>
+                  <div>☐ I matched all {problems.length} pairs correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('number-matching-1-15', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}>{p.num} = {p.word}</li>
+                      <li key={i}><strong>{p.num} = {p.word}</strong> (Draw a line connecting {p.num} to {p.word})</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Match each number to its word name. Read the words aloud to help you!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15798,8 +15900,36 @@ export function PrintablesPage() {
               title="Number Order 1–20"
               emoji="🔟"
               description="Cut and paste numbers in order from smallest to largest."
+              problemCount={sequence.length}
+              learningObjectives={[
+                'Order numbers from smallest to largest (1-20)',
+                'Understand number sequence and ordering',
+                'Develop number sense and comparison skills',
+                'Practice cutting and pasting skills'
+              ]}
+              parentTeacherTips={[
+                'Help students identify the smallest number first',
+                'Encourage students to count: 1, 2, 3, 4, 5... to find the order',
+                'Use a number line to visualize the order',
+                'Practice saying the numbers in order',
+                'Extension: Try ordering larger numbers or ordering backwards'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Order these numbers: 5, 2, 8, 3</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the smallest number: 2</div>
+                    <div><strong>Step 2:</strong> Find the next smallest: 3</div>
+                    <div><strong>Step 3:</strong> Continue: 5, then 8</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2, 3, 5, 8</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Start with the smallest number and work your way up!</div>
+                  </div>
+                </div>
+              </div>
               <div className="mb-4">
                 <p className="text-sm text-slate-600 mb-2">Numbers to order:</p>
                 <div className="flex gap-2 flex-wrap">
@@ -15810,7 +15940,7 @@ export function PrintablesPage() {
                   ))}
                 </div>
               </div>
-              <div className="mb-4">
+              <div className="mb-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <p className="text-sm text-slate-600 mb-2">Write in order:</p>
                 <div className="flex gap-2">
                   {sequence.map((_, i) => (
@@ -15820,10 +15950,35 @@ export function PrintablesPage() {
                   ))}
                 </div>
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you order these numbers backwards: 10, 7, 4, 1? (from largest to smallest)</div>
+                  <div>2. Try ordering: 15, 20, 5, 10, 1</div>
+                  <div>3. Create your own number ordering problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can order numbers from smallest to largest</div>
+                  <div>☐ I understand number sequence</div>
+                  <div>☐ I ordered all {sequence.length} numbers correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {sequence.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('number-order-1-20', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Order: {sequence.join(', ')}</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800 mb-2"><strong>Order (smallest to largest):</strong> {sequence.join(', ')}</p>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Start with the smallest number and work your way up. Use counting to help you: 1, 2, 3, 4, 5...</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
