@@ -2292,8 +2292,35 @@ export function PrintablesPage() {
               title="Place Value – Tens and Ones (to 99)"
               emoji="🔢"
               description="Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces."
+              problemCount={nums.length}
+              learningObjectives={[
+                'Understand place value: tens and ones',
+                'Break numbers into tens and ones',
+                'Write numbers in expanded form'
+              ]}
+              parentTeacherTips={[
+                'The tens place tells how many groups of 10',
+                'The ones place tells how many extra ones',
+                'Expanded form shows the value of each place',
+                'Example: 47 = 4 tens + 7 ones = 40 + 7',
+                'Extension: Try with 3-digit numbers (hundreds, tens, ones)'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Number:</strong> 47</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find tens: 47 has 4 tens (40)</div>
+                    <div><strong>Step 2:</strong> Find ones: 47 has 7 ones</div>
+                    <div><strong>Step 3:</strong> Expanded form: 40 + 7</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tens: 4, Ones: 7, Expanded: 40 + 7</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!</div>
+                  </div>
+                </div>
+              </div>
               {/* Visual legend */}
               <div className="print:hidden mb-3 flex items-center gap-4 text-sm">
                 <svg viewBox="0 0 160 40" className="h-10 w-auto">
@@ -2307,9 +2334,9 @@ export function PrintablesPage() {
                   <text x="130" y="24" fontSize="12" fill="#111827">Ones</text>
                 </svg>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> (
-                  <div key={i} className="border border-slate-300 rounded-lg p-3 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-3 bg-white break-inside-avoid">
                     <div className="text-slate-800 font-semibold mb-2">Number: {n}</div>
                     <div className="grid grid-cols-3 gap-2 text-sm">
                       <div className="border border-slate-300 rounded p-2">Tens: ______</div>
@@ -2319,17 +2346,43 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Write 56 in expanded form: ___ + ___</div>
+                  <div>2. What number has 8 tens and 3 ones? ___</div>
+                  <div>3. Can you write a 3-digit number in expanded form? (hundreds, tens, ones)</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand tens and ones</div>
+                  <div>☐ I can break numbers into tens and ones</div>
+                  <div>☐ I can write numbers in expanded form</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {nums.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('place-value-hto', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
                     {nums.map((n,i)=> {
                       const tens = Math.floor(n/10); const ones = n%10;
                       return (
-                        <li key={i}>{n}: Tens {tens}, Ones {ones}, Expanded {tens*10} + {ones}</li>
+                        <div key={i} className="text-sm text-emerald-800">
+                          {i + 1}. {n}: Tens <strong>{tens}</strong>, Ones <strong>{ones}</strong>, Expanded <strong>{tens*10} + {ones}</strong>
+                        </div>
                       )
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -2347,14 +2400,41 @@ export function PrintablesPage() {
               title="Skip Counting by 5s and 10s (to 120)"
               emoji="🔁"
               description="Fill in the missing numbers."
+              problemCount={seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
+              learningObjectives={[
+                'Skip count by 5s up to 120',
+                'Skip count by 10s up to 120',
+                'Identify patterns in skip counting',
+                'Build number sense and fluency'
+              ]}
+              parentTeacherTips={[
+                'Skip counting helps with multiplication and division',
+                'Practice counting aloud: 5, 10, 15, 20...',
+                'Use a number line or hundreds chart to visualize',
+                'Encourage students to notice the pattern: each number is 5 (or 10) more than the previous',
+                'Extension: Try skip counting backwards or by other numbers (2s, 3s, 4s)'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
-              <div className="space-y-6 text-sm">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
+                    <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Skip counting by 5s means adding 5 each time. Skip counting by 10s means adding 10 each time!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-6 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <div>
                   <div className="font-semibold text-slate-800 mb-2">Count by 5s to 120</div>
                   <div className="grid grid-cols-12 gap-1">
                     {seq5.map((n, i) => (
-                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
+                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
                         {isBlank5(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
                       </div>
                     ))}
@@ -2364,17 +2444,52 @@ export function PrintablesPage() {
                   <div className="font-semibold text-slate-800 mb-2">Count by 10s to 120</div>
                   <div className="grid grid-cols-12 gap-1">
                     {seq10.map((n, i) => (
-                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white">
+                      <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
                         {isBlank10(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Skip count backwards by 5s from 50: 50, ___, ___, ___, ___</div>
+                  <div>2. Skip count by 2s to 20: ___, ___, ___, ___, ___</div>
+                  <div>3. What comes after 75 when counting by 5s? ___</div>
+                  <div>4. Can you skip count by 3s? Try: 3, ___, ___, ___, ___</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can skip count by 5s</div>
+                  <div>☐ I can skip count by 10s</div>
+                  <div>☐ I notice the pattern in skip counting</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('skip-count-5-10-120', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <div className="text-sm">Filled numbers are the printed ones; blanks indicate where students should write. Series: by 5s to 120 and by 10s to 120.</div>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-3">
+                    <div className="text-sm text-emerald-800">
+                      <strong>Count by 5s to 120:</strong> The missing numbers are: {seq5.filter((_, i) => isBlank5(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
+                    </div>
+                    <div className="text-sm text-emerald-800">
+                      <strong>Count by 10s to 120:</strong> The missing numbers are: {seq10.filter((_, i) => isBlank10(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
+                    </div>
+                    <div className="text-xs text-emerald-700 mt-2">
+                      💡 Remember: Each number in the 5s sequence is 5 more than the previous. Each number in the 10s sequence is 10 more than the previous.
+                    </div>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -2877,49 +2992,224 @@ export function PrintablesPage() {
           );
         })()}
 
-        {activeDocs.includes('time-5min') && (
-          <WorksheetSectionWrapper
-            docId="time-5min"
-            title="Tell Time to 5 Minutes"
-            emoji="🕒"
-            description="Draw the clock hands to show each time."
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-2 gap-3">
-              {['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'].map((t,i)=> (
-                <svg key={i} viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
-                  {/* hour marks */}
-                  {Array.from({length:12}).map((_,k)=> { const a=(k/12)*Math.PI*2; const x1=100+Math.cos(a)*70; const y1=100+Math.sin(a)*70; const x2=100+Math.cos(a)*80; const y2=100+Math.sin(a)*80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
-                  <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
-                  {/* student draws hands */}
-                </svg>
-              ))}
-            </div>
-          </WorksheetSectionWrapper>
-        )}
+        {activeDocs.includes('time-5min') && (() => {
+          const times = ['3:25','9:40','12:05','6:30','1:55','10:10','7:45','2:20'];
+          return (
+            <WorksheetSectionWrapper
+              docId="time-5min"
+              title="Tell Time to 5 Minutes"
+              emoji="🕒"
+              description="Draw the clock hands to show each time."
+              problemCount={times.length}
+              learningObjectives={[
+                'Read time to the nearest 5 minutes',
+                'Draw hour and minute hands on analog clocks',
+                'Understand the relationship between hours and minutes',
+                'Practice telling time in real-world contexts'
+              ]}
+              parentTeacherTips={[
+                'The hour hand moves slowly between numbers',
+                'The minute hand moves quickly: each number is 5 minutes',
+                'When the minute hand is on 1, it\'s 5 minutes past',
+                'When the minute hand is on 6, it\'s 30 minutes (half past)',
+                'Practice with a real clock or clock manipulative',
+                'Extension: Try telling time to the exact minute'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Hour hand: Point between 3 and 4 (because it's 3:25, past 3:00)</div>
+                    <div><strong>Step 2:</strong> Minute hand: Point to 5 (5 × 5 = 25 minutes past the hour)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Hour hand between 3 and 4, minute hand on 5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The minute hand moves 5 minutes for each number on the clock. Count by 5s: 5, 10, 15, 20, 25, 30...</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {times.map((t,i)=> (
+                  <div key={i} className="break-inside-avoid">
+                    <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
+                      {/* hour marks */}
+                      {Array.from({length:12}).map((_,k)=> { const a=(k/12)*Math.PI*2; const x1=100+Math.cos(a)*70; const y1=100+Math.sin(a)*70; const x2=100+Math.cos(a)*80; const y2=100+Math.sin(a)*80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
+                      <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
+                      {/* student draws hands */}
+                    </svg>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw a clock showing 4:45. What is another way to say this time? (quarter to ___)</div>
+                  <div>2. Draw a clock showing 11:30. What is another way to say this time? (half past ___)</div>
+                  <div>3. If it's 2:15 now, what time will it be in 30 minutes? Draw it!</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can read time to 5 minutes</div>
+                  <div>☐ I can draw the hour hand correctly</div>
+                  <div>☐ I can draw the minute hand correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {times.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('time-5min', () => {
+                const parseTime = (timeStr: string) => {
+                  const [h, m] = timeStr.split(':').map(Number);
+                  return { hour: h, minute: m };
+                };
+                return (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                    <div className="space-y-3">
+                      {times.map((t, i) => {
+                        const { hour, minute } = parseTime(t);
+                        const hourAngle = ((hour % 12) * 30 + minute * 0.5 - 90) * Math.PI / 180;
+                        const minuteAngle = (minute * 6 - 90) * Math.PI / 180;
+                        return (
+                          <div key={i} className="text-sm text-emerald-800">
+                            <div className="font-semibold">{i + 1}. {t}:</div>
+                            <div className="pl-4">
+                              <div>Hour hand: Between {hour % 12} and {(hour % 12) + 1} (closer to {hour % 12} since it's {minute} minutes past)</div>
+                              <div>Minute hand: On {Math.floor(minute / 5)} (which is {minute} minutes past the hour)</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="text-xs text-emerald-700 mt-3">
+                      💡 Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
+                    </div>
+                  </div>
+                );
+              })}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
-        {activeDocs.includes('ten-frames-1-20') && (
-          <WorksheetSectionWrapper
-            docId="ten-frames-1-20"
-            title="Ten Frames 1–20"
-            emoji="🔟"
-            description="Color the circles to match each number. Say how many are filled and how many are empty."
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {Array.from({ length: 20 }).map((_,n)=> (
-                <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <text x="40" y="50" fontSize="36" fill="#111827">{n+1}</text>
-                  <g transform="translate(120,60)">
-                    {Array.from({ length: 10 }).map((__,i)=> (
-                      <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
-                    ))}
-                  </g>
-                </svg>
+        {activeDocs.includes('ten-frames-1-20') && (() => {
+          const numbers = Array.from({ length: 20 }, (_, n) => n + 1);
+          return (
+            <WorksheetSectionWrapper
+              docId="ten-frames-1-20"
+              title="Ten Frames 1–20"
+              emoji="🔟"
+              description="Color the circles to match each number. Say how many are filled and how many are empty."
+              problemCount={numbers.length}
+              learningObjectives={[
+                'Recognize numbers 1–20',
+                'Understand number quantity using ten frames',
+                'Count and represent numbers visually',
+                'Build number sense and subitizing skills'
+              ]}
+              parentTeacherTips={[
+                'Ten frames help children see numbers as groups of 10',
+                'Encourage counting aloud while coloring',
+                'Ask: "How many filled? How many empty?"',
+                'For numbers 11–20, use two ten frames (one full, one partial)',
+                'Extension: Practice addition and subtraction using ten frames'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Number:</strong> 7</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the number: 7</div>
+                    <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
+                    <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A ten frame has 10 spaces. For numbers 1–10, use one ten frame. For 11–20, you'll need two ten frames!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {numbers.map((n)=> (
+                  <div key={n} className="break-inside-avoid">
+                    <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <text x="40" y="50" fontSize="36" fill="#111827">{n}</text>
+                      <g transform="translate(120,60)">
+                        {Array.from({ length: 10 }).map((__,i)=> (
+                          <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                        ))}
+                      </g>
+                      {n > 10 && (
+                        <g transform="translate(120,120)">
+                          {Array.from({ length: 10 }).map((__,i)=> (
+                            <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                          ))}
+                        </g>
+                      )}
+                    </svg>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you show 15 using ten frames? Color it!</div>
+                  <div>2. How many ways can you make 10? (5+5, 6+4, 7+3...)</div>
+                  <div>3. Draw your own ten frame and show the number 12</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can recognize numbers 1–20</div>
+                  <div>☐ I can show numbers using ten frames</div>
+                  <div>☐ I can count filled and empty spaces</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {numbers.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('ten-frames-1-20', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    {numbers.map((n, i) => {
+                      const filled = n <= 10 ? n : 10;
+                      const empty = n <= 10 ? 10 - n : 0;
+                      const secondFilled = n > 10 ? n - 10 : 0;
+                      const secondEmpty = n > 10 ? 10 - (n - 10) : 0;
+                      return (
+                        <div key={i}>
+                          {i + 1}. <strong>{n}:</strong> {n <= 10 
+                            ? `${filled} filled, ${empty} empty (in one ten frame)`
+                            : `First ten frame: 10 filled. Second ten frame: ${secondFilled} filled, ${secondEmpty} empty`}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="text-xs text-emerald-700 mt-3">
+                    💡 Remember: For numbers 1–10, use one ten frame. For numbers 11–20, fill the first ten frame completely (10) and use the second ten frame for the remaining amount!
+                  </div>
+                </div>
               ))}
-            </div>
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('shapes-colors-sort') && (
           <WorksheetSectionWrapper
