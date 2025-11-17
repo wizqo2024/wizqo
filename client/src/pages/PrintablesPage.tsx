@@ -2364,20 +2364,84 @@ export function PrintablesPage() {
             title="Addition & Subtraction 0–10"
             emoji="➕➖"
             description="Use the number line if needed to solve each addition problem. Write the correct answer in the blank space provided."
+            problemCount={12}
+            learningObjectives={[
+              'Add numbers within 10',
+              'Subtract numbers within 10',
+              'Use a number line to solve problems',
+              'Build fact fluency for addition and subtraction'
+            ]}
+            parentTeacherTips={[
+              'Use the number line: start at the first number, then move right for addition, left for subtraction',
+              'Encourage counting on for addition (e.g., 5 + 3: start at 5, count 3 more)',
+              'For subtraction, count backwards (e.g., 8 - 3: start at 8, count back 3)',
+              'Practice makes perfect - try to solve without the number line as you get better',
+              'Extension: Try solving problems mentally without using the number line'
+            ]}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 5 + 3 = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find 5 on the number line</div>
+                  <div><strong>Step 2:</strong> Move 3 spaces to the right (for addition)</div>
+                  <div><strong>Step 3:</strong> You land on 8</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 + 3 = 8</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: For addition, move right on the number line. For subtraction, move left!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 12 }).map((_,i)=> (
-                <svg key={i} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="none" stroke="#94a3b8" strokeWidth="3">
-                    <path d="M60 120 H340" />
-                    {Array.from({ length: 11 }).map((__,k)=> (
-                      <line key={k} x1={60 + k*28} y1={120} x2={60 + k*28} y2={110} />
-                    ))}
-                  </g>
-                  <text x="60" y="60" fontSize="32" fill="#111827">__ {i%2===0?'+':'-'} __ = ____</text>
-                </svg>
+                <div key={i} className="break-inside-avoid">
+                  <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                      <path d="M60 120 H340" />
+                      {Array.from({ length: 11 }).map((__,k)=> (
+                        <line key={k} x1={60 + k*28} y1={120} x2={60 + k*28} y2={110} />
+                      ))}
+                    </g>
+                    <text x="60" y="60" fontSize="32" fill="#111827">__ {i%2===0?'+':'-'} __ = ____</text>
+                  </svg>
+                </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve 7 + 2 without using the number line? ___</div>
+                <div>2. What is 9 - 4? Try solving it mentally! ___</div>
+                <div>3. Create your own problem: ___ + ___ = ?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can add numbers within 10</div>
+                <div>☐ I can subtract numbers within 10</div>
+                <div>☐ I can use the number line to help me</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 12
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('addition-subtraction-0-10', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>Note: Problems are randomly generated. Use the number line to solve each problem.</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: For addition, move right on the number line. For subtraction, move left. Start at the first number!</div>
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
@@ -3600,16 +3664,81 @@ export function PrintablesPage() {
             title="Tangram Animals (Cutouts)"
             emoji="🧩"
             description="Cut the shapes and arrange to make animal silhouettes. Glue the final shape on a clean sheet."
+            problemCount={5}
+            learningObjectives={[
+              'Identify and name geometric shapes',
+              'Practice spatial reasoning and problem-solving',
+              'Develop fine motor skills (cutting and arranging)',
+              'Understand how shapes can be combined to create new shapes'
+            ]}
+            parentTeacherTips={[
+              'Supervise scissor use for safety',
+              'Encourage children to try different arrangements',
+              'Ask: "What animal does this look like?"',
+              'Extension: Create your own tangram animals or objects',
+              'Practice spatial thinking by rotating and flipping shapes'
+            ]}
           >
-            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-              <g fill="none" stroke="#111827" strokeWidth="3.5">
-                <polygon points="100,50 200,50 200,150 100,150" />
-                <polygon points="220,50 270,100 220,150 170,100" />
-                <polygon points="300,50 350,50 350,150 300,150" />
-                <polygon points="380,50 430,100 380,150 330,100" />
-                <polygon points="460,50 560,50 560,150 460,150" />
-              </g>
-            </svg>
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Task:</strong> Make a cat using tangram pieces</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Cut out all the tangram shapes carefully</div>
+                  <div><strong>Step 2:</strong> Try arranging the shapes to make a cat shape</div>
+                  <div><strong>Step 3:</strong> When you're happy with your animal, glue it on a clean sheet</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are many ways to arrange the shapes - be creative!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Try rotating and flipping the shapes to see different possibilities!</div>
+                </div>
+              </div>
+            </div>
+            <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+                <g fill="none" stroke="#111827" strokeWidth="3.5">
+                  <polygon points="100,50 200,50 200,150 100,150" />
+                  <polygon points="220,50 270,100 220,150 170,100" />
+                  <polygon points="300,50 350,50 350,150 300,150" />
+                  <polygon points="380,50 430,100 380,150 330,100" />
+                  <polygon points="460,50 560,50 560,150 460,150" />
+                </g>
+              </svg>
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you make a different animal using the same shapes?</div>
+                <div>2. Try making a house, a tree, or a person with the tangram pieces</div>
+                <div>3. Draw your tangram creation and label the shapes you used</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify the tangram shapes</div>
+                <div>☐ I can arrange shapes to make animals</div>
+                <div>☐ I can cut and glue carefully</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 5
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('tangram-animals', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>Tangram puzzles have many solutions! The goal is to use all 7 pieces to create different shapes.</div>
+                  <div className="mt-2">Common animals you can make: cat, rabbit, bird, fish, horse, and more!</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: There's no single "correct" answer - be creative and try different arrangements!</div>
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
