@@ -9115,10 +9115,42 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('missing-shape') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔍 Find the Missing Shape</h2>
-            <p className="text-slate-600 text-sm mb-3">Look at the pattern and draw the missing shape.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="missing-shape"
+            title="Find the Missing Shape"
+            emoji="🔍"
+            description="Look at the pattern and draw the missing shape."
+            problemCount={6}
+            learningObjectives={[
+              'Identify patterns in sequences of shapes',
+              'Find missing elements in patterns',
+              'Continue patterns by recognizing repetition',
+              'Build pattern recognition and logical thinking skills'
+            ]}
+            parentTeacherTips={[
+              'Look for the repeating pattern in the sequence',
+              'Identify what shape comes next by following the pattern',
+              'Help students see the repetition: "What shape comes after the last one?"',
+              'Encourage drawing the missing shape in the blank space',
+              'Extension: Create your own shape patterns for others to complete'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square, ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the pattern: Circle, Square, Triangle, Circle, Square...</div>
+                  <div><strong>Step 2:</strong> See the repetition: Circle, Square, Triangle repeats</div>
+                  <div><strong>Step 3:</strong> After Square comes Triangle (the pattern repeats)</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Triangle</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for the repeating pattern. After Circle, Square comes Triangle!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 6 }).map((_, idx) => {
                 const shapes = ['circle', 'square', 'triangle', 'circle', 'square']
                 return (
@@ -9139,20 +9171,77 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Create your own shape pattern with 4 different shapes. What comes next?</div>
+                <div>2. Try a color pattern: red, blue, yellow, red, blue, __. What color is missing?</div>
+                <div>3. Can you find patterns in your daily routine? (Example: breakfast, school, lunch, school, dinner...)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify patterns in shape sequences</div>
+                <div>☐ I can find the missing shape in a pattern</div>
+                <div>☐ I completed all 6 patterns correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('missing-shape', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <p className="text-sm">Pattern: circle, square, triangle, circle, square. Missing shape: triangle</p>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <p className="text-sm text-emerald-800 mb-2"><strong>Pattern:</strong> Circle, Square, Triangle, Circle, Square. <strong>Missing shape:</strong> Triangle</p>
+                <p className="text-xs text-emerald-700">The pattern repeats: Circle, Square, Triangle. After Circle, Square comes Triangle. Look for the repeating sequence to find what's missing!</p>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('size-comparison') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📏 Size Comparison</h2>
-            <p className="text-slate-600 text-sm mb-3">Compare the objects. Circle the bigger one or the smaller one.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="size-comparison"
+            title="Size Comparison"
+            emoji="📏"
+            description="Compare the objects. Circle the bigger one or the smaller one."
+            problemCount={4}
+            learningObjectives={[
+              'Compare sizes visually',
+              'Identify bigger and smaller objects',
+              'Use comparison vocabulary (bigger, smaller, longer, shorter)',
+              'Build visual discrimination and comparison skills'
+            ]}
+            parentTeacherTips={[
+              'Look at the visual size of each object',
+              'Bigger means larger in size, smaller means less in size',
+              'Longer means more length, shorter means less length',
+              'Help students point to each object and compare them side by side',
+              'Extension: Compare objects around the house (which toy is bigger?)'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Circle the bigger one</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at object A and object B</div>
+                  <div><strong>Step 2:</strong> Compare their sizes visually</div>
+                  <div><strong>Step 3:</strong> The bigger one takes up more space</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the one that is larger</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at which object takes up more space. The bigger one is larger!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { label: 'Circle the bigger', items: [30, 50], answer: 'B' },
                 { label: 'Circle the smaller', items: [40, 25], answer: 'B' },
