@@ -9660,10 +9660,42 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('missing-addends') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➖ Missing Addends</h2>
-            <p className="text-slate-600 text-sm mb-3">Find the missing number in each addition equation.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="missing-addends"
+            title="Missing Addends"
+            emoji="➖"
+            description="Find the missing number in each addition equation."
+            problemCount={6}
+            learningObjectives={[
+              'Find missing addends in addition equations',
+              'Use subtraction to find missing parts',
+              'Understand the relationship between addition and subtraction',
+              'Build algebraic thinking skills'
+            ]}
+            parentTeacherTips={[
+              'If you know one addend and the sum, subtract to find the missing addend',
+              'For 3 + __ = 8, think: "What number plus 3 equals 8?" or "8 - 3 = ?"',
+              'Use the inverse relationship: addition and subtraction are opposites',
+              'Check your answer by adding: if 3 + 5 = 8, then 5 is correct',
+              'Extension: Try missing addends with larger numbers'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 3 + __ = 8</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> We know one addend is 3 and the sum is 8</div>
+                  <div><strong>Step 2:</strong> To find the missing addend, subtract: 8 - 3 = 5</div>
+                  <div><strong>Step 3:</strong> Check: 3 + 5 = 8 ✓</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: To find a missing addend, subtract the known addend from the sum!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { a: 3, sum: 8 },
                 { a: 5, sum: 12 },
@@ -9677,10 +9709,34 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve: __ + 9 = 15? (Hint: Subtract 9 from 15!)</div>
+                <div>2. Try: 8 + __ = 20. What's the missing addend?</div>
+                <div>3. Create your own missing addend problem and solve it</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can find missing addends</div>
+                <div>☐ I understand that subtraction helps find missing addends</div>
+                <div>☐ I solved all 6 problems correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('missing-addends', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
                     { a: 3, sum: 8 },
                     { a: 5, sum: 12 },
@@ -9689,19 +9745,51 @@ export function PrintablesPage() {
                     { a: 7, sum: 14 },
                     { a: 2, sum: 9 }
                   ].map(({ a, sum }, idx) => (
-                    <li key={idx}>{a} + {sum - a} = {sum}</li>
+                    <li key={idx}><strong>{a} + {sum - a} = {sum}</strong> (To find the missing addend: {sum} - {a} = {sum - a})</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: To find a missing addend, subtract the known addend from the sum. Check by adding: known addend + missing addend = sum!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('fact-families-20') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">⚖️ Fact Families (to 20)</h2>
-            <p className="text-slate-600 text-sm mb-3">Complete each fact family with 4 related equations.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="fact-families-20"
+            title="Fact Families (to 20)"
+            emoji="⚖️"
+            description="Complete each fact family with 4 related equations."
+            problemCount={3}
+            learningObjectives={[
+              'Understand fact families (related addition and subtraction facts)',
+              'Write 4 related equations from 3 numbers',
+              'Recognize the relationship between addition and subtraction',
+              'Build number sense and fact fluency'
+            ]}
+            parentTeacherTips={[
+              'A fact family uses the same 3 numbers to make 4 equations',
+              'For numbers 5, 8, 13: 5+8=13, 8+5=13, 13-5=8, 13-8=5',
+              'Two addition facts and two subtraction facts',
+              'Help students see: "If 5+8=13, then 13-5=8 and 13-8=5"',
+              'Extension: Try fact families with larger numbers'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Fact Family:</strong> 5, 8, 13</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Write the two addition facts: 5 + 8 = 13 and 8 + 5 = 13</div>
+                  <div><strong>Step 2:</strong> Write the two subtraction facts: 13 - 5 = 8 and 13 - 8 = 5</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5+8=13, 8+5=13, 13-5=8, 13-8=5</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: A fact family uses the same 3 numbers. Two addition facts and two subtraction facts!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
                 <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
                   <p className="text-slate-700 text-sm mb-2 font-semibold">Fact Family: {a}, {b}, {sum}</p>
@@ -9714,24 +9802,80 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Create a fact family using the numbers 7, 9, and 16</div>
+                <div>2. Can you find all 4 equations for the fact family: 3, 11, 14?</div>
+                <div>3. Write your own fact family with 3 numbers and show all 4 equations</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understand what a fact family is</div>
+                <div>☐ I can write all 4 equations from 3 numbers</div>
+                <div>☐ I completed all 3 fact families correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 3
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('fact-families-20', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[5, 8, 13], [6, 7, 13], [4, 9, 13]].map(([a, b, sum], idx) => (
-                    <li key={idx}>Family {idx + 1}: {a}+{b}={sum}, {b}+{a}={sum}, {sum}-{a}={b}, {sum}-{b}={a}</li>
+                    <li key={idx}><strong>Family {idx + 1} ({a}, {b}, {sum}):</strong> {a}+{b}={sum}, {b}+{a}={sum}, {sum}-{a}={b}, {sum}-{b}={a}</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: A fact family uses the same 3 numbers to make 4 equations - two addition facts and two subtraction facts!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('mental-math-20') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Mental Math (Add/Sub to 20)</h2>
-            <p className="text-slate-600 text-sm mb-3">Solve these quickly in your head!</p>
-            <div className="grid grid-cols-3 gap-3">
+          <WorksheetSectionWrapper
+            docId="mental-math-20"
+            title="Mental Math (Add/Sub to 20)"
+            emoji="🔢"
+            description="Solve these quickly in your head!"
+            problemCount={12}
+            learningObjectives={[
+              'Solve addition and subtraction problems mentally',
+              'Build fact fluency and speed',
+              'Use mental math strategies (doubles, near doubles, making 10)',
+              'Improve number sense and quick thinking'
+            ]}
+            parentTeacherTips={[
+              'Encourage students to solve without paper - use mental strategies',
+              'For 7+5, think: "7+3=10, then 10+2=12" (making 10)',
+              'For 12-5, think: "What plus 5 equals 12?" or "12-2=10, then 10-3=7"',
+              'Use doubles: 6+7 is like 6+6+1=13',
+              'Practice daily for 5 minutes to build speed and confidence'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 7 + 5 = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Strategy 1 (Making 10):</strong> 7 + 3 = 10, then 10 + 2 = 12</div>
+                  <div><strong>Strategy 2 (Counting on):</strong> Start at 7, count up 5: 8, 9, 10, 11, 12</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that feels easiest for you!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 '7+5', '9+4', '8+6', '12-5', '15-7', '18-9',
                 '6+7', '5+8', '11-4', '14-6', '16-8', '20-9'
@@ -9741,10 +9885,34 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve 13+7 mentally? What strategy did you use?</div>
+                <div>2. Try: 19-6. How fast can you solve it?</div>
+                <div>3. Create 3 mental math problems and solve them in your head</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can solve problems mentally</div>
+                <div>☐ I used mental math strategies</div>
+                <div>☐ I solved all 12 problems correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 12
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('mental-math-20', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5 columns-2">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
                   {[
                     { prob: '7+5', ans: 12 },
                     { prob: '9+4', ans: 13 },
@@ -9759,12 +9927,13 @@ export function PrintablesPage() {
                     { prob: '16-8', ans: 8 },
                     { prob: '20-9', ans: 11 }
                   ].map(({ prob, ans }, idx) => (
-                    <li key={idx}>{prob} = {ans}</li>
+                    <li key={idx}><strong>{prob} = {ans}</strong></li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Practice mental math daily to build speed and confidence. Use strategies like making 10, doubles, or counting on!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('number-line-200') && (() => {
@@ -9786,10 +9955,42 @@ export function PrintablesPage() {
           });
           
           return (
-            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-lg font-bold text-slate-900">📈 Number Line to 200</h2>
-              <p className="text-slate-600 text-sm mb-3">Use the number line to solve problems and locate numbers.</p>
-              <div className="space-y-4">
+            <WorksheetSectionWrapper
+              docId="number-line-200"
+              title="Number Line to 200"
+              emoji="📈"
+              description="Use the number line to solve problems and locate numbers."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Locate numbers on a number line up to 200',
+                'Understand number relationships and ordering',
+                'Use number lines to visualize number positions',
+                'Build number sense with larger numbers'
+              ]}
+              parentTeacherTips={[
+                'Number lines help visualize where numbers are located',
+                'Find the number between the labeled tick marks',
+                'Count by 10s to find positions: 0, 10, 20, 30, 40, 50...',
+                'For 35, it\'s halfway between 30 and 40',
+                'Extension: Try locating numbers on number lines to 500 or 1000'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Locate 35 on a number line from 0 to 50</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find 30 and 40 on the number line (they are labeled)</div>
+                    <div><strong>Step 2:</strong> 35 is halfway between 30 and 40</div>
+                    <div><strong>Step 3:</strong> Mark 35 on the number line</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 35 is located between 30 and 40</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the labeled numbers to help you find positions!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(({ start, target }, idx) => (
                   <div key={idx} className="bg-white border border-slate-300 rounded p-3">
                     <svg viewBox="0 0 600 100" className="w-full h-auto">
@@ -9821,17 +10022,42 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you locate 125 on a number line from 100 to 200?</div>
+                  <div>2. Try: Where is 175 on a number line from 150 to 200?</div>
+                  <div>3. Create your own number line problem and solve it</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can locate numbers on a number line</div>
+                  <div>☐ I understand number relationships</div>
+                  <div>☐ I located all {problems.length} numbers correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('number-line-200', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map(({ target, start, end }, idx) => (
-                      <li key={idx}>Locate {target}: Positioned between {start} and {end} on the number line</li>
+                      <li key={idx}><strong>Locate {target}:</strong> Positioned between {start} and {end} on the number line (closer to {target < (start + end) / 2 ? start : end})</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Use the labeled numbers on the number line to help you find positions. Count by 10s to locate numbers!</div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -9850,10 +10076,10 @@ export function PrintablesPage() {
             ]}
             parentTeacherTips={[
               'Doubles are when you add a number to itself (6+6, 7+7)',
-              'Near doubles are one more than doubles (6+7 = 6+6+1)',
-              'If you know 6+6=12, then 6+7=13 (just add 1 more)',
-              'Practice with manipulatives: "If I have 6 blocks and 6 blocks, that's 12. If I have 6 and 7, that's 13!"',
-              'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
+                'Near doubles are one more than doubles (6+7 = 6+6+1)',
+                'If you know 6+6=12, then 6+7=13 (just add 1 more)',
+                'Practice with manipulatives: If I have 6 blocks and 6 blocks, that\'s 12. If I have 6 and 7, that\'s 13!',
+                'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
