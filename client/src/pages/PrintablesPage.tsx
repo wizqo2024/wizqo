@@ -6923,10 +6923,27 @@ export function PrintablesPage() {
           );
         })()}
         {activeDocs.includes('stem-balloon-rocket') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-2xl font-bold text-slate-900">🚀 Balloon Rocket (STEM)</h2>
-            <p className="text-slate-700 text-base mb-4">Time: 10 minutes • Ages: 7–10</p>
-            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
+          <WorksheetSectionWrapper
+            docId="stem-balloon-rocket"
+            title="Balloon Rocket (STEM)"
+            emoji="🚀"
+            description="Time: 10 minutes • Ages: 7–10. Build a balloon rocket and learn about action and reaction!"
+            problemCount={1}
+            learningObjectives={[
+              'Understand action and reaction forces',
+              'Build a working balloon rocket',
+              'Practice following step-by-step instructions'
+            ]}
+            parentTeacherTips={[
+              'Air pushes backward; the rocket moves forward (action/reaction)',
+              'Help with tying the string securely',
+              'Test different balloon sizes and angles',
+              'Extension: Add a small paper cargo to the rocket'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            <div className="mb-4 text-slate-700 text-base">Time: 10 minutes • Ages: 7–10</div>
+            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <div>
                 <div className="font-semibold text-slate-800 mb-2">Materials</div>
                 <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
@@ -6958,14 +6975,40 @@ export function PrintablesPage() {
                 Test balloon sizes, angles, or add a small paper “cargo”.
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('stem-balloon-rocket', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>What you learned:</strong> When air pushes backward out of the balloon, the rocket moves forward. This is Newton's third law: for every action, there is an equal and opposite reaction!</div>
+                  <div><strong>Success tip:</strong> Make sure the string is tight and the balloon opening faces backward. The tighter the string, the faster your rocket will go!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('stem-walking-water') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-2xl font-bold text-slate-900">🌈 Walking Water (STEM)</h2>
-            <p className="text-slate-700 text-base mb-4">Time: 15–20 minutes • Ages: 6–10</p>
-            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
+          <WorksheetSectionWrapper
+            docId="stem-walking-water"
+            title="Walking Water (STEM)"
+            emoji="🌈"
+            description="Time: 15–20 minutes • Ages: 6–10. Watch water walk through paper towels and mix colors!"
+            problemCount={1}
+            learningObjectives={[
+              'Understand capillary action',
+              'Observe color mixing',
+              'Practice following scientific steps'
+            ]}
+            parentTeacherTips={[
+              'Water climbs paper fibers (capillary action) and mixes colors',
+              'Be patient - it takes time for the water to walk',
+              'Try different towel brands or color combinations',
+              'Extension: Try longer gaps between cups'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            <div className="mb-4 text-slate-700 text-base">Time: 15–20 minutes • Ages: 6–10</div>
+            <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <div>
                 <div className="font-semibold text-slate-800 mb-2">Materials</div>
                 <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
@@ -6996,14 +7039,40 @@ export function PrintablesPage() {
                 Try different towel brands, longer gaps, or other color pairs.
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('stem-walking-water', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>What you learned:</strong> Water climbs up the paper towel through tiny spaces between the fibers. This is called capillary action! When the red and blue water meet in the middle cup, they mix to make purple.</div>
+                  <div><strong>Success tip:</strong> Make sure the paper towels are fully in the water and the middle cup. Be patient - it takes 10-20 minutes for the water to walk!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('arts-3-shape-creature') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-2xl font-bold text-slate-900">🎨 Draw From 3 Shapes (Arts)</h2>
-            <p className="text-slate-700 text-base mb-4">Time: 10–15 minutes • Ages: 6–12</p>
-            <div className="grid sm:grid-cols-2 gap-6">
+          <WorksheetSectionWrapper
+            docId="arts-3-shape-creature"
+            title="Draw From 3 Shapes (Arts)"
+            emoji="🎨"
+            description="Time: 10–15 minutes • Ages: 6–12. Use 3 simple shapes to create a creative creature!"
+            problemCount={1}
+            learningObjectives={[
+              'Use simple shapes to create art',
+              'Practice creative thinking',
+              'Combine shapes into a creature'
+            ]}
+            parentTeacherTips={[
+              'Play with shape language and composition',
+              'Encourage creativity - there are no wrong answers',
+              'Help with drawing if needed',
+              'Extension: Create a story about your creature'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="mb-4 text-slate-700 text-base">Time: 10–15 minutes • Ages: 6–12</div>
+            <div className="grid sm:grid-cols-2 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <div>
                 <div className="font-semibold text-slate-800 mb-2">Materials</div>
                 <ul className="list-disc list-inside text-base text-slate-700 space-y-1">
@@ -7032,9 +7101,18 @@ export function PrintablesPage() {
                 Mirror (symmetry) version, only curved lines, or only straight lines.
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('arts-3-shape-creature', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>What you learned:</strong> Simple shapes can be combined in creative ways to make unique creatures! There's no right or wrong way - use your imagination!</div>
+                  <div><strong>Success tip:</strong> Start with big shapes, then add details. Don't worry about making it perfect - have fun and be creative!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
-      {/* (Removed legacy one-pager duplicates) */}
+        {/* (Removed legacy one-pager duplicates) */}
         {activeDocs.includes('math-maze') && (
           <WorksheetSectionWrapper
             docId="math-maze"
