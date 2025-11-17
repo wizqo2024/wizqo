@@ -3748,11 +3748,84 @@ export function PrintablesPage() {
             title="Spot‑the‑Difference (7)"
             emoji="👀"
             description="Find 7 differences between the two pictures."
+            problemCount={7}
+            learningObjectives={[
+              'Develop visual discrimination skills',
+              'Practice attention to detail',
+              'Compare and contrast images',
+              'Build observation and concentration skills'
+            ]}
+            parentTeacherTips={[
+              'Look carefully at both pictures side by side',
+              'Check colors, shapes, sizes, and positions',
+              'Circle or mark each difference you find',
+              'Take your time - there are 7 differences to find',
+              'Extension: Create your own spot-the-difference pictures'
+            ]}
           >
-            <div className="grid grid-cols-2 gap-4">
-              <HiddenObjectsSceneSVGA />
-              <HiddenObjectsSceneSVGB />
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Task:</strong> Find 7 differences between the two pictures</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the first picture carefully</div>
+                  <div><strong>Step 2:</strong> Compare it to the second picture</div>
+                  <div><strong>Step 3:</strong> Look for differences in: colors, shapes, sizes, positions, missing/added items</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> There are 7 differences - keep looking until you find them all!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at one area at a time - the sky, the ground, the objects, etc. This helps you find all the differences!</div>
+                </div>
+              </div>
             </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="break-inside-avoid">
+                <HiddenObjectsSceneSVGA />
+              </div>
+              <div className="break-inside-avoid">
+                <HiddenObjectsSceneSVGB />
+              </div>
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you describe each difference you found in words?</div>
+                <div>2. Try to find all 7 differences in under 2 minutes!</div>
+                <div>3. Draw your own spot-the-difference picture for a friend to solve</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I found all 7 differences</div>
+                <div>☐ I can compare two pictures carefully</div>
+                <div>☐ I paid attention to details</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 7
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('spot-difference', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>There are 7 differences between the two pictures. Look carefully at:</div>
+                  <div className="pl-4">
+                    <div>• Colors of objects</div>
+                    <div>• Sizes of items</div>
+                    <div>• Positions of elements</div>
+                    <div>• Missing or added items</div>
+                    <div>• Shapes and patterns</div>
+                  </div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Compare the pictures section by section to find all the differences!</div>
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
