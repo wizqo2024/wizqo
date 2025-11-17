@@ -2187,7 +2187,7 @@ export function PrintablesPage() {
               'Latitude is horizontal (runs east-west), measures north-south',
               'Longitude is vertical (runs north-south), measures east-west',
               'Remember: Latitude = flat (like ladder rungs), Longitude = long (up and down)',
-                'Extension: Find your city\\'s coordinates'
+                'Extension: Find coordinates of your city'
             ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
