@@ -7501,10 +7501,40 @@ export function PrintablesPage() {
           }
           
           return (
-            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-lg font-bold text-slate-900">🖍️ Color‑by‑Number</h2>
-              <p className="text-slate-600 text-sm mb-3">Use the legend to color the grid. Reveal the hidden scene!</p>
-              <div className="flex items-start gap-6">
+            <WorksheetSectionWrapper
+              docId="color-by-number"
+              title="Color‑by‑Number"
+              emoji="🖍️"
+              description="Use the legend to color the grid. Reveal the hidden scene!"
+              problemCount={1}
+              learningObjectives={[
+                'Follow number-to-color instructions',
+                'Practice fine motor skills (coloring)',
+                'Complete a pattern to reveal a picture'
+              ]}
+              parentTeacherTips={[
+                'Match each number to its color in the legend',
+                'Color carefully within the lines',
+                'Take your time - there is no rush',
+                'Extension: Create your own color-by-number picture'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Color square with number 1</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the legend: 1 = Yellow</div>
+                    <div><strong>Step 2:</strong> Find all squares with number 1</div>
+                    <div><strong>Step 3:</strong> Color them yellow</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color all 1s yellow</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Match each number to its color in the legend, then color carefully!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <div className="inline-grid grid-cols-16 gap-[2px] text-[10px] font-mono">
                   {grid.map((num, i) => {
                     const showColored = showAnswers && activeDocs.includes('color-by-number');
@@ -7527,13 +7557,41 @@ export function PrintablesPage() {
                   </ul>
                 </div>
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own color-by-number picture</div>
+                  <div>2. Can you guess what the picture is before you finish?</div>
+                  <div>3. Try using different color combinations</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I followed the number-to-color instructions</div>
+                  <div>☐ I colored carefully within the lines</div>
+                  <div>☐ I revealed the hidden picture</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>What picture did you reveal?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('color-by-number', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">The colored pattern above shows the completed picture. Color each square according to the legend to reveal the hidden design!</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="text-sm text-emerald-800">
+                    <div className="mb-2">The colored pattern shows the completed picture. Color each square according to the legend:</div>
+                    <div>• <strong>1 = Yellow</strong> - Color all 1s yellow</div>
+                    <div>• <strong>2 = Blue</strong> - Color all 2s blue</div>
+                    <div>• <strong>3 = Green</strong> - Color all 3s green</div>
+                    <div>• <strong>4 = Red</strong> - Color all 4s red</div>
+                    <div className="text-xs text-emerald-700 mt-2">💡 When you finish, you'll reveal a beautiful star pattern!</div>
+                  </div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
@@ -7930,10 +7988,26 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('maze-focus') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🌀 Maze of Focus</h2>
-            <p className="text-slate-600 text-sm mb-3">Follow the steps from START to FINISH. Skip distractions!</p>
-            <div className="grid grid-cols-4 gap-2 text-sm">
+          <WorksheetSectionWrapper
+            docId="maze-focus"
+            title="Maze of Focus"
+            emoji="🌀"
+            description="Follow the steps from START to FINISH. Skip distractions!"
+            problemCount={1}
+            learningObjectives={[
+              'Practice focus and attention',
+              'Learn to skip distractions',
+              'Build self-regulation skills'
+            ]}
+            parentTeacherTips={[
+              'Help children identify distractions',
+              'Encourage taking breaks when needed',
+              'Celebrate small wins along the way',
+              'Extension: Create your own focus maze'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-4 gap-2 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {['START','Deep breath','Phone buzz (skip)','One step','Snack break','Water sip','Chit‑chat (skip)','Stretch','Refocus','Tiny goal','Timer 10 min','FINISH','⭐ Great job!'].map((t,i)=> (
                 <div key={i} className={`h-12 border rounded flex items-center justify-center ${/skip/i.test(t)?'bg-slate-50 text-slate-400':'bg-white'}`}>{t}</div>
               ))}
@@ -7960,11 +8034,37 @@ export function PrintablesPage() {
                 <div className="h-6 border-b border-slate-300" />
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('maze-focus', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Follow the path from START to FINISH, skipping the distractions (marked with "skip"). The path should be: START → Deep breath → One step → Water sip → Stretch → Refocus → Tiny goal → Timer 10 min → FINISH → ⭐ Great job!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('gratitude-jar') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <WorksheetSectionWrapper
+            docId="gratitude-jar"
+            title="Gratitude Jar"
+            emoji="💌"
+            description="Write or draw one thing you're thankful for in each circle."
+            problemCount={18}
+            learningObjectives={[
+              'Practice gratitude and mindfulness',
+              'Express thankfulness',
+              'Build positive thinking habits'
+            ]}
+            parentTeacherTips={[
+              'Help children think of things they are grateful for',
+              'Encourage both big and small things',
+              'Make this a daily or weekly practice',
+              'Extension: Share your gratitude with others'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <h2 className="text-lg font-bold text-slate-900">💌 Gratitude Jar</h2>
             <p className="text-slate-600 text-sm mb-3">Write or draw one thing you’re thankful for in each circle.</p>
             <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" className="w-full h-auto bg-white border border-slate-300">
@@ -7981,13 +8081,37 @@ export function PrintablesPage() {
                 return <circle key={i} cx={cx} cy={cy} r={18} stroke="#9ca3af" fill="none" vectorEffect="non-scaling-stroke" />
               })}
             </svg>
-          </section>
+            {showAnswersForDoc('gratitude-jar', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There's no right or wrong answer! Write or draw things you're grateful for in each circle. Examples: family, friends, pets, favorite foods, toys, activities, nature, etc. Be creative and think of both big and small things!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('mood-tracker') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🌈 Mood Tracker</h2>
-            <p className="text-slate-600 text-sm mb-3">Color each day based on your mood. Use your own color legend.</p>
+          <WorksheetSectionWrapper
+            docId="mood-tracker"
+            title="Mood Tracker"
+            emoji="🌈"
+            description="Color each day based on your mood. Use your own color legend."
+            problemCount={7}
+            learningObjectives={[
+              'Track and identify emotions',
+              'Practice self-awareness',
+              'Understand mood patterns'
+            ]}
+            parentTeacherTips={[
+              'Help children identify their moods',
+              'All moods are valid and important',
+              'Use this to start conversations about feelings',
+              'Extension: Look for patterns in your moods'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <table className="w-full border border-slate-300">
               <thead>
                 <tr className="bg-slate-50 text-sm">
@@ -8006,13 +8130,37 @@ export function PrintablesPage() {
                 ))}
               </tbody>
             </table>
-          </section>
+            {showAnswersForDoc('mood-tracker', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There's no right or wrong answer! Color each day based on how you felt. Create your own color legend (e.g., red = happy, blue = calm, yellow = excited). All moods are valid and important to track!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('mandalas') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🕉️ Mindful Coloring Mandalas</h2>
-            <p className="text-slate-600 text-sm mb-3">Color slowly. Start from the center and move outward.</p>
+          <WorksheetSectionWrapper
+            docId="mandalas"
+            title="Mindful Coloring Mandalas"
+            emoji="🕉️"
+            description="Color slowly. Start from the center and move outward."
+            problemCount={1}
+            learningObjectives={[
+              'Practice mindfulness and relaxation',
+              'Develop focus and attention',
+              'Express creativity through coloring'
+            ]}
+              parentTeacherTips={[
+                'Start from the center and work outward',
+                'Take your time - there is no rush',
+                'Use colors that make you feel calm',
+                'Extension: Create your own mandala design'
+              ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <svg viewBox="0 0 400 400" className="w-full h-auto bg-white border border-slate-300">
               <g fill="none" stroke="#111827" strokeWidth="2">
                 {Array.from({length:6}).map((_,i)=> (
@@ -8035,11 +8183,37 @@ export function PrintablesPage() {
                 })}
               </g>
             </svg>
-          </section>
+            {showAnswersForDoc('mandalas', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Start from the center and work outward. Use colors that make you feel calm and happy. Take your time and enjoy the process!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('weekly-goals') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <WorksheetSectionWrapper
+            docId="weekly-goals"
+            title="My Goals for the Week"
+            emoji="🗓️"
+            description="Write 3 goals, 1 thing to try, and 1 thing you're proud of."
+            problemCount={5}
+            learningObjectives={[
+              'Set achievable goals',
+              'Practice self-reflection',
+              'Build planning skills'
+            ]}
+            parentTeacherTips={[
+              'Help children set realistic, achievable goals',
+              'Celebrate what they are proud of',
+              'Encourage trying new things',
+              'Extension: Review goals at the end of the week'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <h2 className="text-lg font-bold text-slate-900">🗓️ My Goals for the Week</h2>
             <p className="text-slate-600 text-sm mb-3">Write 3 goals, 1 thing to try, and 1 thing you’re proud of.</p>
             {['Goal 1','Goal 2','Goal 3','Try this','Proud of'].map((t,i)=> (
@@ -8048,7 +8222,15 @@ export function PrintablesPage() {
                 <div className="h-10 border-b-3 border-slate-600" />
               </div>
             ))}
-          </section>
+            {showAnswersForDoc('weekly-goals', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There's no right or wrong answer! Write your own goals, something new to try, and something you're proud of. Examples: Goals - finish homework, help at home, read a book; Try - a new sport, cooking, art; Proud of - learning something new, helping a friend, etc.
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('halloween-pack') && (
