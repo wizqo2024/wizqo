@@ -7129,9 +7129,40 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('spelling') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">✏️ Spelling Challenge Worksheet</h2>
-            <p className="text-slate-600 text-sm mb-3">Circle the correctly spelled word in each group. Then write it neatly on the line.</p>
+          <WorksheetSectionWrapper
+            docId="spelling"
+            title="Spelling Challenge Worksheet"
+            emoji="✏️"
+            description="Circle the correctly spelled word in each group. Then write it neatly on the line."
+            problemCount={5}
+            learningObjectives={[
+              'Identify correctly spelled words',
+              'Recognize common spelling patterns',
+              'Practice spelling skills'
+            ]}
+            parentTeacherTips={[
+              'Look for common spelling patterns',
+              'Sound out each word carefully',
+              'Check for common mistakes (double letters, silent letters)',
+              'Extension: Practice spelling these words from memory'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Circle the correctly spelled word: elefant, elephant, elephent</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Sound out the word: el-e-phant</div>
+                  <div><strong>Step 2:</strong> Check each option: "elefant" (missing 'ph'), "elephant" (correct!), "elephent" (wrong 'ph' position)</div>
+                  <div><strong>Step 3:</strong> Circle "elephant"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> elephant</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for common spelling patterns like "ph" making the /f/ sound!</div>
+                </div>
+              </div>
+            </div>
+            <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
             {[
               ['elefant','elephant','elephent'],
               ['becaus','because','becuase'],
@@ -7144,26 +7175,82 @@ export function PrintablesPage() {
                 <div className="flex-1 border-b border-slate-300 ml-3" />
               </div>
             ))}
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Write each word 3 times to practice spelling</div>
+                <div>2. Use each word in a sentence</div>
+                <div>3. Can you find other words with similar spelling patterns?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify correctly spelled words</div>
+                <div>☐ I recognize common spelling patterns</div>
+                <div>☐ I can write words correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 5
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('spelling', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>1) elephant</li>
-                  <li>2) because</li>
-                  <li>3) school</li>
-                  <li>4) butterfly</li>
-                  <li>5) tomorrow</li>
-                </ol>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>1. <strong>elephant</strong> (not elefant or elephent)</div>
+                  <div>2. <strong>because</strong> (not becaus or becuase)</div>
+                  <div>3. <strong>school</strong> (not skool or scool)</div>
+                  <div>4. <strong>butterfly</strong> (not butterflie or buterfly)</div>
+                  <div>5. <strong>tomorrow</strong> (not tommorow or tommorrow)</div>
+                </div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('science-match') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔬 Science Fun Facts Match</h2>
-            <p className="text-slate-600 text-sm mb-3">Draw a line to match each fact with its pair.</p>
-            <div className="grid grid-cols-2 gap-6">
+          <WorksheetSectionWrapper
+            docId="science-match"
+            title="Science Fun Facts Match"
+            emoji="🔬"
+            description="Draw a line to match each fact with its pair."
+            problemCount={6}
+            learningObjectives={[
+              'Learn science facts',
+              'Match related concepts',
+              'Understand scientific relationships'
+            ]}
+            parentTeacherTips={[
+              'Read each fact carefully',
+              'Look for key words that connect facts',
+              'Help students understand the relationships',
+              'Extension: Research more about these science topics'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mars is known as the red planet"</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the fact: "Mars is known as the red planet"</div>
+                  <div><strong>Step 2:</strong> Look for key words: "red planet"</div>
+                  <div><strong>Step 3:</strong> Find the matching option: "A dusty red world" (E)</div>
+                  <div><strong>Step 4:</strong> Draw a line from 1 to E</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 1 → E</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words that connect the facts together!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <ol className="list-decimal list-inside space-y-1 text-sm">
                 <li>Mars is known as the red planet.</li>
                 <li>Whales are the largest mammals.</li>
@@ -7194,13 +7281,44 @@ export function PrintablesPage() {
                 </ol>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('grammar-detective') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🕵️‍♀️ Grammar Detective</h2>
-            <p className="text-slate-600 text-sm mb-3">Find and fix the mistake in each sentence. Rewrite it correctly on the line.</p>
+          <WorksheetSectionWrapper
+            docId="grammar-detective"
+            title="Grammar Detective"
+            emoji="🕵️‍♀️"
+            description="Find and fix the mistake in each sentence. Rewrite it correctly on the line."
+            problemCount={5}
+            learningObjectives={[
+              'Identify grammar mistakes',
+              'Fix sentence errors',
+              'Practice proper grammar usage'
+            ]}
+            parentTeacherTips={[
+              'Look for subject-verb agreement',
+              'Check capitalization and punctuation',
+              'Read each sentence carefully',
+              'Extension: Write your own sentences with mistakes to fix'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Find the mistake: "we goes to the park every saturday."</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Check subject-verb agreement: "we" (plural) needs "go" not "goes"</div>
+                  <div><strong>Step 2:</strong> Check capitalization: "we" should be "We", "saturday" should be "Saturday"</div>
+                  <div><strong>Step 3:</strong> Fix the sentence</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> We go to the park every Saturday.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Check subject-verb agreement, capitalization, and punctuation!</div>
+                </div>
+              </div>
+            </div>
+            <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
             {[
               'we goes to the park every saturday.',
               'The cats is sleeping under the table.',
@@ -7213,19 +7331,44 @@ export function PrintablesPage() {
                 <div className="border-b border-slate-300 mt-2" />
               </div>
             ))}
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Write your own sentences with mistakes for a friend to fix</div>
+                <div>2. Can you explain why each mistake was wrong?</div>
+                <div>3. Practice writing sentences with correct grammar</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify grammar mistakes</div>
+                <div>☐ I can fix sentence errors</div>
+                <div>☐ I understand proper grammar usage</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 5
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('grammar-detective', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>We go to the park every Saturday.</li>
-                  <li>The cats are sleeping under the table.</li>
-                  <li>I can run faster than my friend.</li>
-                  <li>There are two pencils on the desk.</li>
-                  <li>She doesn't like broccoli.</li>
-                </ol>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>1. <strong>We go</strong> to the park every <strong>Saturday</strong>. (subject-verb agreement, capitalization)</div>
+                  <div>2. The cats <strong>are</strong> sleeping under the table. (subject-verb agreement)</div>
+                  <div>3. <strong>I</strong> can run faster <strong>than</strong> my friend. (capitalization, than vs then)</div>
+                  <div>4. There <strong>are</strong> two pencils on the desk. (subject-verb agreement)</div>
+                  <div>5. She <strong>doesn't</strong> like broccoli. (contraction form)</div>
+                </div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('color-by-number') && (() => {
