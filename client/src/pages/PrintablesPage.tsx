@@ -4535,27 +4535,81 @@ export function PrintablesPage() {
             title="Passage — The Community Garden (Grade 3)"
             emoji="📖"
             description="Short passage with Q&A. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify sequence of events and community action',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss community projects and teamwork with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">The empty lot near our school looked messy in spring. Families asked the town for permission to plant. We drew a map with paths, a tool shed, and a compost bin. By fall, we harvested tomatoes and herbs, and we sold bundles to raise money for books.</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What did families ask the town for?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what families asked the town for</div>
+                  <div><strong>Step 3:</strong> Find: "Families asked the town for permission to plant"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Families asked the town for permission to plant a garden.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">The empty lot near our school looked messy in spring. Families asked the town for permission to plant. We drew a map with paths, a tool shed, and a compost bin. By fall, we harvested tomatoes and herbs, and we sold bundles to raise money for books.</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What did families ask the town for?</li>
                 <li>What three things were on the map?</li>
                 <li>What did they harvest?</li>
                 <li>How did they use the money they earned?</li>
               </ol>
-              {showAnswersForDoc('reading-g3-community-garden', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Permission to plant a garden</li>
-                    <li>Paths, a tool shed, and a compost bin</li>
-                    <li>Tomatoes and herbs</li>
-                    <li>For books (sold bundles to raise money)</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think they sold bundles to raise money?</div>
+                <div>3. Draw a picture of the community garden</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g3-community-garden', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>Permission to plant a garden</strong> (Families asked the town for permission to plant)</li>
+                  <li><strong>Paths, a tool shed, and a compost bin</strong> (We drew a map with paths, a tool shed, and a compost bin)</li>
+                  <li><strong>Tomatoes and herbs</strong> (By fall, we harvested tomatoes and herbs)</li>
+                  <li><strong>For books</strong> (We sold bundles to raise money for books)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-red-balloon') && (
@@ -4846,26 +4900,81 @@ export function PrintablesPage() {
             title="Passage — The Tree House (Grade 2)"
             emoji="📖"
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details and sequence of events',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss building projects and creativity with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Jake's dad helped him build a tree house in the backyard. They used wood planks and strong nails. Jake climbed up the ladder first. He looked out the window and saw the whole yard. "This is my secret hideout!" he said.</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Who helped Jake build the tree house?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for who helped Jake</div>
+                  <div><strong>Step 3:</strong> Find: "Jake's dad helped him build a tree house"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Jake's dad helped him build the tree house.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "who") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Jake's dad helped him build a tree house in the backyard. They used wood planks and strong nails. Jake climbed up the ladder first. He looked out the window and saw the whole yard. "This is my secret hideout!" he said.</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>Who helped Jake build the tree house?</li>
                 <li>What did they use to build it?</li>
                 <li>What did Jake see from the window?</li>
                 <li>What did Jake call the tree house?</li>
               </ol>
-              {showAnswersForDoc('reading-g2-tree-house', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>His dad</li>
-                    <li>Wood planks and strong nails</li>
-                    <li>The whole yard</li>
-                    <li>His secret hideout</li>
-                  </ol>
-                </div>
-              ))}
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think Jake called it his "secret hideout"?</div>
+                <div>3. Draw a picture of Jake's tree house</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g2-tree-house', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>His dad</strong> (Jake's dad helped him build a tree house)</li>
+                  <li><strong>Wood planks and strong nails</strong> (They used wood planks and strong nails)</li>
+                  <li><strong>The whole yard</strong> (He looked out the window and saw the whole yard)</li>
+                  <li><strong>His secret hideout</strong> ("This is my secret hideout!" he said)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
             </div>
           </WorksheetSectionWrapper>
         )}
