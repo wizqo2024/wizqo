@@ -8052,10 +8052,42 @@ export function PrintablesPage() {
 
         {/* New 1st Grade Worksheets */}
         {activeDocs.includes('number-bonds-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Number Bonds to 10</h2>
-            <p className="text-slate-600 text-sm mb-3">Complete each number bond. Write the missing part that makes 10.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="number-bonds-10"
+            title="Number Bonds to 10"
+            emoji="🔢"
+            description="Complete each number bond. Write the missing part that makes 10."
+            problemCount={8}
+            learningObjectives={[
+              'Understand number bonds (part-part-whole relationships)',
+              'Find missing parts to make 10',
+              'Build number sense and addition fluency',
+              'Recognize number pairs that sum to 10'
+            ]}
+            parentTeacherTips={[
+              'Number bonds show how numbers break apart and come together',
+              'If one part is 7, the other part is 3 (because 7 + 3 = 10)',
+              'Practice with manipulatives: "If I have 7 blocks, how many more do I need to make 10?"',
+              'Encourage students to use their fingers or draw dots to visualize',
+              'Extension: Try number bonds to 20 or other numbers'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Number Bond:</strong> 10 = 7 + ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> We know the whole is 10 and one part is 7</div>
+                  <div><strong>Step 2:</strong> To find the missing part, subtract: 10 - 7 = 3</div>
+                  <div><strong>Step 3:</strong> Check: 7 + 3 = 10 ✓</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 = 7 + 3</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: If you know one part, subtract it from the whole to find the other part!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[7, 3, 5, 8, 4, 6, 2, 9].map((n) => (
                 <svg key={n} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <circle cx="200" cy="60" r="35" fill="none" stroke="#111827" strokeWidth="3" />
@@ -8069,24 +8101,81 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you find all the number bonds to 10? (0+10, 1+9, 2+8, 3+7, 4+6, 5+5)</div>
+                <div>2. Try number bonds to 20: 20 = 12 + ?</div>
+                <div>3. Write your own number bond problem and solve it</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can find the missing part in number bonds</div>
+                <div>☐ I understand that parts add up to the whole</div>
+                <div>☐ I can solve all 8 number bonds</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 8
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('number-bonds-10', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[7, 3, 5, 8, 4, 6, 2, 9].map((n, i) => (
-                    <li key={i}>10 = {n} + {10 - n}</li>
+                    <li key={i}><strong>10 = {n} + {10 - n}</strong> (The missing part is {10 - n} because {n} + {10 - n} = 10)</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: To find the missing part, subtract the known part from the whole (10 - known part = missing part)!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('count-write-30') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📊 Count & Write 1–30</h2>
-            <p className="text-slate-600 text-sm mb-3">Count the objects and write the number in the box.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="count-write-30"
+            title="Count & Write 1–30"
+            emoji="📊"
+            description="Count the objects and write the number in the box."
+            problemCount={8}
+            learningObjectives={[
+              'Count objects accurately up to 30',
+              'Write numbers correctly',
+              'Match quantities to numerals',
+              'Build number recognition and counting skills'
+            ]}
+            parentTeacherTips={[
+              'Encourage counting one object at a time',
+              'Point to each object while counting',
+              'Check that the written number matches the count',
+              'For larger groups, count by 5s or 10s if helpful',
+              'Extension: Practice counting backwards or skip counting'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Task:</strong> Count the objects and write the number</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the objects carefully</div>
+                  <div><strong>Step 2:</strong> Count each object one by one: 1, 2, 3, 4, 5...</div>
+                  <div><strong>Step 3:</strong> Write the total number in the box</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Count all objects and write the correct number</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Point to each object as you count to make sure you don't miss any or count any twice!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[5, 8, 12, 15, 18, 20, 23, 25].map((count) => (
                 <svg key={count} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="#111827">
@@ -8102,24 +8191,81 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you count the objects by grouping them in 5s or 10s?</div>
+                <div>2. Draw your own group of objects (between 1-30) and count them</div>
+                <div>3. Practice writing numbers 1-30 in order</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can count objects accurately</div>
+                <div>☐ I can write numbers correctly</div>
+                <div>☐ I counted all 8 groups correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 8
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('count-write-30', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[5, 8, 12, 15, 18, 20, 23, 25].map((count, i) => (
-                    <li key={i}>Box {i + 1}: {count} objects</li>
+                    <li key={i}><strong>Box {i + 1}: {count} objects</strong> (Count each circle: there are {count} circles in this group)</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object carefully, one at a time. Double-check your count before writing the number!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('missing-numbers-50') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔍 Missing Numbers 1–50</h2>
-            <p className="text-slate-600 text-sm mb-3">Fill in the missing numbers on each number line.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="missing-numbers-50"
+            title="Missing Numbers 1–50"
+            emoji="🔍"
+            description="Fill in the missing numbers on each number line."
+            problemCount={5}
+            learningObjectives={[
+              'Identify missing numbers on a number line',
+              'Understand number sequence and order',
+              'Count forward and backward',
+              'Build number sense and pattern recognition'
+            ]}
+            parentTeacherTips={[
+              'Look at the numbers before and after the blank',
+              'Count forward or backward to find the missing number',
+              'Check that numbers are in order (increasing or decreasing)',
+              'Use a hundreds chart as a reference if needed',
+              'Extension: Try number lines with larger numbers or skip counting'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Number Line:</strong> 1, 2, ___, 4, 5</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the numbers before and after the blank: 2 and 4</div>
+                  <div><strong>Step 2:</strong> Count forward from 2: 2, 3, 4</div>
+                  <div><strong>Step 3:</strong> The missing number is 3</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Numbers on a number line go in order. Count forward or backward to find what's missing!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => (
                 <svg key={idx} viewBox="0 0 600 100" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="none" stroke="#111827" strokeWidth="3">
@@ -8142,18 +8288,43 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you fill in a number line from 1 to 50 with all numbers?</div>
+                <div>2. Try skip counting: 5, 10, ___, 20, 25. What's missing?</div>
+                <div>3. Create your own number line with missing numbers for a friend to solve</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify missing numbers on a number line</div>
+                <div>☐ I understand number order and sequence</div>
+                <div>☐ I filled in all the missing numbers correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 5
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('missing-numbers-50', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[1, 5], [10, 15], [20, 25], [30, 35], [40, 45]].map(([start, end], idx) => {
                     const missing = Array.from({ length: end - start + 1 }, (_, i) => start + i).filter(n => n % 5 !== 0 && n !== start && n !== end)
-                    return <li key={idx}>Line {idx + 1}: Missing numbers are {missing.join(', ')}</li>
+                    return <li key={idx}><strong>Line {idx + 1}:</strong> Missing numbers are {missing.join(', ')} (Count forward from {start} to {end})</li>
                   })}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Numbers on a number line go in order. Count forward or backward from the numbers you see to find what's missing!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('picture-addition-10') && (
@@ -9204,9 +9375,38 @@ export function PrintablesPage() {
             title="Fractions: Halves, Thirds, Fourths"
             emoji="🍕"
             description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
+            problemCount={6}
+            learningObjectives={[
+              'Understand fractions as parts of a whole',
+              'Identify halves, thirds, and fourths',
+              'Color fractions correctly',
+              'Write fraction names in words'
+            ]}
+            parentTeacherTips={[
+              'A fraction shows part of a whole',
+              'Halves = 2 equal parts, Thirds = 3 equal parts, Fourths = 4 equal parts',
+              'The top number (numerator) tells how many parts are colored',
+              'The bottom number (denominator) tells how many equal parts total',
+              'Extension: Try comparing fractions (which is bigger: 1/2 or 1/3?)'
+            ]}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
-            <div className="grid grid-cols-2 gap-4">
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the fraction: 1/2 means 1 out of 2 equal parts</div>
+                  <div><strong>Step 2:</strong> The shape is divided into 2 equal parts (halves)</div>
+                  <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
+                  <div><strong>Step 4:</strong> Write "one half" in the blank</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part, write "one half"</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: The bottom number tells you how many equal parts the whole is divided into. The top number tells you how many parts to color!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { label: '1/2', parts: 2, filled: 1 },
                 { label: '1/3', parts: 3, filled: 1 },
@@ -9256,17 +9456,42 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you draw your own shape and divide it into halves? Into thirds? Into fourths?</div>
+                <div>2. Which is bigger: 1/2 or 1/3? Why?</div>
+                <div>3. If you have 3/4 of a pizza, how much is left? (Hint: 4/4 - 3/4 = ?)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify halves, thirds, and fourths</div>
+                <div>☐ I can color the correct number of parts</div>
+                <div>☐ I can write fraction names in words</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('fractions-halves-thirds-fourths', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>1/2 = one half</li>
-                  <li>1/3 = one third</li>
-                  <li>2/3 = two thirds</li>
-                  <li>1/4 = one fourth (or one quarter)</li>
-                  <li>2/4 = two fourths (or one half)</li>
-                  <li>3/4 = three fourths (or three quarters)</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>1/2 = one half</strong> (Color 1 out of 2 equal parts)</li>
+                  <li><strong>1/3 = one third</strong> (Color 1 out of 3 equal parts)</li>
+                  <li><strong>2/3 = two thirds</strong> (Color 2 out of 3 equal parts)</li>
+                  <li><strong>1/4 = one fourth (or one quarter)</strong> (Color 1 out of 4 equal parts)</li>
+                  <li><strong>2/4 = two fourths (or one half)</strong> (Color 2 out of 4 equal parts - same as 1/2!)</li>
+                  <li><strong>3/4 = three fourths (or three quarters)</strong> (Color 3 out of 4 equal parts)</li>
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: The bottom number (denominator) tells you how many equal parts the whole is divided into. The top number (numerator) tells you how many parts to color!</div>
               </div>
             ))}
           </WorksheetSectionWrapper>
