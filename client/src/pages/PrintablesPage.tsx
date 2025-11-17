@@ -2172,10 +2172,40 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('geo-latlong') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🗺️ Latitude & Longitude Basics</h2>
-            <p className="text-slate-600 text-sm mb-3">Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W).</p>
-            <div className="border border-slate-300 rounded p-4 bg-white">
+          <WorksheetSectionWrapper
+            docId="geo-latlong"
+              title="Latitude & Longitude Basics"
+            emoji="🗺️"
+            description="Read grid lines and plot simple coordinates. Practice with a minimal world grid. Tip: Latitude is horizontal (N/S). Longitude is vertical (E/W)."
+            problemCount={2}
+            learningObjectives={[
+              'Understand latitude and longitude coordinates',
+              'Plot coordinates on a grid',
+              'Read coordinates from a map'
+            ]}
+            parentTeacherTips={[
+              'Latitude is horizontal (runs east-west), measures north-south',
+              'Longitude is vertical (runs north-south), measures east-west',
+              'Remember: Latitude = flat (like ladder rungs), Longitude = long (up and down)',
+              'Extension: Find your city's coordinates'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Plot point A at (15°N, 80°W)</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find 15°N on the left side (latitude is horizontal)</div>
+                  <div><strong>Step 2:</strong> Find 80°W on the bottom (longitude is vertical)</div>
+                  <div><strong>Step 3:</strong> Where they meet is point A</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Point A is at the intersection of 15°N and 80°W</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Latitude = flat (like ladder rungs), Longitude = long (up and down)!</div>
+                </div>
+              </div>
+            </div>
+            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="latlong-title">
                 <title id="latlong-title">Latitude and longitude grid</title>
                 <g fill="none" stroke="#94a3b8" strokeWidth="2">
@@ -2223,7 +2253,47 @@ export function PrintablesPage() {
                 Tip: Latitude (−90° to 90°) increases northward. Longitude (−180° to 180°) increases eastward. On this grid, we show from 120°W to 120°E.
               </div>
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Plot your own coordinates on the grid</div>
+                <div>2. Find the coordinates of your city or town</div>
+                <div>3. Can you explain the difference between latitude and longitude?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understand what latitude and longitude are</div>
+                <div>☐ I can plot coordinates on a grid</div>
+                <div>☐ I can read coordinates from a map</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 2
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('geo-latlong', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2">
+                  <div className="text-sm text-emerald-800">
+                    Point A: <strong>(15°N, 80°W)</strong> - Located in the northern and western hemisphere
+                  </div>
+                  <div className="text-sm text-emerald-800">
+                    Point B: <strong>(20°S, 40°E)</strong> - Located in the southern and eastern hemisphere
+                  </div>
+                  <div className="text-sm text-emerald-800 mt-2">
+                    Practice points: C (0°, 120°E) - on the equator, east of prime meridian; D (45°N, 60°W) - northern hemisphere, western hemisphere
+                  </div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('number-tracing-1-10') && (
           <WorksheetSectionWrapper
