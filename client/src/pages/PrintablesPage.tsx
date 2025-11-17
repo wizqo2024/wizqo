@@ -7538,10 +7538,26 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('bookmark-templates') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📚 DIY Bookmark Templates</h2>
-            <p className="text-slate-600 text-sm mb-3">Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!</p>
-            <div className="grid grid-cols-3 gap-4">
+          <WorksheetSectionWrapper
+            docId="bookmark-templates"
+            title="DIY Bookmark Templates"
+            emoji="📚"
+            description="Cut along the dotted lines. Decorate with doodles and colors. Add your name on the back!"
+            problemCount={3}
+            learningObjectives={[
+              'Practice cutting skills',
+              'Express creativity through art',
+              'Create a useful craft'
+            ]}
+            parentTeacherTips={[
+              'Use safety scissors',
+              'Help with cutting if needed',
+              'Encourage creativity in decoration',
+              'Extension: Create your own bookmark designs'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {['Be Kind','Keep Reading','Dream Big'].map((t,i)=> (
                 <div key={i} className="relative h-64 border border-slate-400 rounded bg-white">
                   <div className="absolute inset-0 border-2 border-dashed border-slate-300 m-2 rounded" />
@@ -7549,13 +7565,37 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+            {showAnswersForDoc('bookmark-templates', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Cut along the dotted lines to create your bookmarks. Decorate them however you like - there's no right or wrong way! Add your name on the back to make them personal.
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('design-monster') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">👾 Design Your Monster</h2>
-            <p className="text-slate-600 text-sm mb-3">Draw inside the box and give your monster a name. Check the features you used.</p>
+          <WorksheetSectionWrapper
+            docId="design-monster"
+            title="Design Your Monster"
+            emoji="👾"
+            description="Draw inside the box and give your monster a name. Check the features you used."
+            problemCount={1}
+            learningObjectives={[
+              'Practice creative drawing',
+              'Use imagination',
+              'Combine features creatively'
+            ]}
+            parentTeacherTips={[
+              'Encourage creativity - there are no wrong answers',
+              'Help with drawing if needed',
+              'Let children choose their own features',
+              'Extension: Write a story about your monster'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="h-64 border border-slate-400 rounded bg-white mb-3" />
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
@@ -7571,13 +7611,37 @@ export function PrintablesPage() {
                 <div className="border-b border-slate-400 h-6" />
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('design-monster', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There's no right or wrong monster! Use your imagination to create a unique creature. Check off the features you used and give it a fun name!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('draw-half') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">✏️ Draw the Missing Half</h2>
-            <p className="text-slate-600 text-sm mb-3">Copy the right side to complete each picture. Use the grid as a guide.</p>
+          <WorksheetSectionWrapper
+            docId="draw-half"
+            title="Draw the Missing Half"
+            emoji="✏️"
+            description="Copy the right side to complete each picture. Use the grid as a guide."
+            problemCount={4}
+            learningObjectives={[
+              'Practice symmetry and mirroring',
+              'Use grid as a guide',
+              'Practice drawing skills'
+            ]}
+            parentTeacherTips={[
+              'Use the grid lines to help match the other side',
+              'Look at the shapes and lines carefully',
+              'Help with drawing if needed',
+              'Extension: Draw your own symmetrical pictures'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               <svg viewBox="0 0 220 220" className="w-full h-auto bg-white border border-slate-300">
                 <defs>
@@ -7677,14 +7741,52 @@ export function PrintablesPage() {
                 ),
               ].map((fn, i) => fn(`dh-${i}`))}
             </div>
-          </section>
+            {showAnswersForDoc('draw-half', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Use the grid lines to help you mirror the left side on the right. Look carefully at the shapes, curves, and lines. The completed picture should be symmetrical!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('logic-grid') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🧩 Logic Grid Puzzle</h2>
-            <p className="text-slate-600 text-sm mb-3">Mark ✓ for matches and ✗ for no match. Use the clues to solve.</p>
-            <div className="overflow-x-auto">
+          <WorksheetSectionWrapper
+            docId="logic-grid"
+            title="Logic Grid Puzzle"
+            emoji="🧩"
+            description="Mark ✓ for matches and ✗ for no match. Use the clues to solve."
+            problemCount={1}
+            learningObjectives={[
+              'Practice logical reasoning',
+              'Use clues to solve puzzles',
+              'Practice problem-solving skills'
+            ]}
+            parentTeacherTips={[
+              'Read each clue carefully',
+              'Use the process of elimination',
+              'Mark what you know for sure first',
+              'Extension: Create your own logic grid puzzle'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Use clues to fill in the logic grid</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read all the clues carefully</div>
+                  <div><strong>Step 2:</strong> Mark what you know for sure (✓ for match, ✗ for no match)</div>
+                  <div><strong>Step 3:</strong> Use process of elimination to find remaining matches</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Fill in the grid based on the clues</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Start with clues that give you definite answers!</div>
+                </div>
+              </div>
+            </div>
+            <div className="overflow-x-auto break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <table className="border-collapse">
                 <thead>
                   <tr>
@@ -7714,30 +7816,117 @@ export function PrintablesPage() {
                 <li>Noah’s pet barks.</li>
               </ol>
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Create your own logic grid puzzle with 3 people and 3 pets</div>
+                <div>2. Can you solve it using only 2 clues?</div>
+                <div>3. Try a logic grid with 4 categories instead of 3</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can use clues to solve puzzles</div>
+                <div>☐ I can use logical reasoning</div>
+                <div>☐ I completed the logic grid</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('logic-grid', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer (unique)</div>
-                <ul className="list-disc list-inside">
-                  <li>Ava → Fish</li>
-                  <li>Noah → Dog</li>
-                  <li>Liam → Cat</li>
-                </ul>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>Solution:</strong></div>
+                  <div>• Liam → Cat (not dog, and fish swims so it's Ava's)</div>
+                  <div>• Ava → Fish (swims)</div>
+                  <div>• Noah → Dog (barks)</div>
+                </div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('hidden-object') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔍 Find the Hidden Object</h2>
-            <p className="text-slate-600 text-sm mb-3">Find and circle each item hidden in the scene below.</p>
-            <div className="mb-3">
+          <WorksheetSectionWrapper
+            docId="hidden-object"
+            title="Find the Hidden Object"
+            emoji="🔍"
+            description="Find and circle each item hidden in the scene below."
+            problemCount={5}
+            learningObjectives={[
+              'Practice observation skills',
+              'Develop attention to detail',
+              'Practice visual scanning'
+            ]}
+            parentTeacherTips={[
+              'Look carefully at the whole picture',
+              'Take your time - objects can be hidden in plain sight',
+              'Help children if they get stuck',
+              'Extension: Create your own hidden object scene'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Find the hidden objects in the scene</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the list of objects to find</div>
+                  <div><strong>Step 2:</strong> Look carefully at the whole picture</div>
+                  <div><strong>Step 3:</strong> Scan from top to bottom, left to right</div>
+                  <div><strong>Step 4:</strong> Circle each object when you find it</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Objects can be hidden in plain sight - look carefully!</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Take your time and look at every part of the picture!</div>
+                </div>
+              </div>
+            </div>
+            <div className="mb-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <HiddenObjectsSceneSVGA />
             </div>
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
               {['Key','Apple','Star','Leaf','Car','Book','Shell','Cloud','Ball','Hat'].map((x)=> (<li key={x}>☐ {x}</li>))}
             </ul>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you find all objects in under 2 minutes?</div>
+                <div>2. Create your own hidden object scene</div>
+                <div>3. Describe where each object is hidden</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I found all the hidden objects</div>
+                <div>☐ I practiced observation skills</div>
+                <div>☐ I developed attention to detail</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 10
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('hidden-object', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2">Find and circle these objects in the scene:</div>
+                  <div><strong>Key, Apple, Star, Leaf, Car, Book, Shell, Cloud, Ball, Hat</strong></div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Tip: Objects can be hidden in plain sight - look carefully at every part of the picture!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('maze-focus') && (
