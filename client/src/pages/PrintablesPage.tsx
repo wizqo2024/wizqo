@@ -9146,9 +9146,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('coloring-animals') && (
-          <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
-            <h2 className="text-lg font-bold text-slate-900">🦁 Animal Friends Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3">Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10.</p>
+          <WorksheetSectionWrapper
+            docId="coloring-animals"
+            title="Animal Friends Coloring Pages"
+            emoji="🦁"
+            description="Meet our friendly jungle and sea animals — lions, pandas, dolphins, and more. Ages 5–10."
+            problemCount={6}
+            learningObjectives={[
+              'Learn about different animals',
+              'Practice fine motor skills through coloring',
+              'Express creativity and imagination'
+            ]}
+            parentTeacherTips={[
+              'Help children identify the different animals',
+              'Encourage them to use their favorite colors',
+              'Talk about where each animal lives',
+              'Extension: Draw your own animal'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
             <div className="mb-3 print:hidden">
               <button
                 onClick={() => {
@@ -9234,13 +9250,37 @@ export function PrintablesPage() {
                 </svg>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('coloring-animals', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors to color the animals. Be creative and have fun!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-nature') && (
-          <section className="mb-10 border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ breakInside: 'auto' as any, pageBreakInside: 'auto' as any }}>
-            <h2 className="text-lg font-bold text-slate-900">🌼 Nature & Seasons Coloring Pack</h2>
-            <p className="text-slate-600 text-sm mb-3">Color flowers, trees, rainbows, and seasonal scenes (spring to winter).</p>
+          <WorksheetSectionWrapper
+            docId="coloring-nature"
+            title="Nature & Seasons Coloring Pack"
+            emoji="🌼"
+            description="Color flowers, trees, rainbows, and seasonal scenes (spring to winter)."
+            problemCount={6}
+            learningObjectives={[
+              'Learn about nature and seasons',
+              'Practice fine motor skills through coloring',
+              'Express creativity and appreciation for nature'
+            ]}
+            parentTeacherTips={[
+              'Help children identify the different nature elements',
+              'Encourage them to use colors that match the seasons',
+              'Talk about what happens in each season',
+              'Extension: Draw your own nature scene'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-blue-400 animate-gradient-x mb-2" />
             <div className="grid sm:grid-cols-2 gap-6 print:grid-cols-1">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Flower */}
@@ -9304,13 +9344,37 @@ export function PrintablesPage() {
                 </svg>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('coloring-nature', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors to color the nature scenes. Be creative and think about what colors match each season!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-space') && (
-          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900 print:hidden">🚀 Space Adventure Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3 print:hidden">Rockets, planets, and astronauts. Great for science week or STEM lessons.</p>
+          <WorksheetSectionWrapper
+            docId="coloring-space"
+            title="Space Adventure Coloring Pages"
+            emoji="🚀"
+            description="Rockets, planets, and astronauts. Great for science week or STEM lessons."
+            problemCount={3}
+            learningObjectives={[
+              'Learn about space and astronomy',
+              'Practice fine motor skills through coloring',
+              'Express creativity and interest in space'
+            ]}
+            parentTeacherTips={[
+              'Help children identify the different space elements',
+              'Encourage them to use their favorite colors',
+              'Talk about space, planets, and rockets',
+              'Extension: Draw your own space scene'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
             {/* Enlarge coloring pages: single column, generous spacing for easy coloring/printing */}
             <div className="grid grid-cols-1 gap-8 print:gap-0">
               <div className="border border-slate-300 rounded p-6 bg-white print:p-0 print:m-0 print:border-0 print:rounded-none">
@@ -9429,13 +9493,37 @@ export function PrintablesPage() {
                 </svg>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('coloring-space', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors to color the space scenes. Be creative and imagine what space looks like!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-vehicles') && (
-          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900 print:hidden">🚗 Vehicles & Transport Coloring Sheets</h2>
-            <p className="text-slate-600 text-sm mb-3 print:hidden">Cars, trucks, airplanes, and trains to keep little drivers busy and creative.</p>
+          <WorksheetSectionWrapper
+            docId="coloring-vehicles"
+            title="Vehicles & Transport Coloring Sheets"
+            emoji="🚗"
+            description="Cars, trucks, airplanes, and trains to keep little drivers busy and creative."
+            problemCount={4}
+            learningObjectives={[
+              'Learn about different vehicles and transportation',
+              'Practice fine motor skills through coloring',
+              'Express creativity and interest in vehicles'
+            ]}
+            parentTeacherTips={[
+              'Help children identify the different vehicles',
+              'Encourage them to use their favorite colors',
+              'Talk about how each vehicle is used',
+              'Extension: Draw your own vehicle'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-gray-400 animate-gradient-x mb-2" />
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Car */}
@@ -9500,7 +9588,15 @@ export function PrintablesPage() {
                 </svg>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('coloring-vehicles', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors to color the vehicles. Be creative and have fun!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-heroes') && (
