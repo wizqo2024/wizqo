@@ -16541,9 +16541,37 @@ export function PrintablesPage() {
               title="Multiplication Facts 0–12"
               emoji="✖️"
               description="Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Master multiplication facts from 0×0 to 12×12',
+                'Build speed and accuracy with multiplication facts',
+                'Memorize multiplication tables',
+                'Develop fact fluency for mental math'
+              ]}
+              parentTeacherTips={[
+                'Practice daily for 5-10 minutes for best results',
+                'Use strategies: doubles (6×6), skip counting, or arrays',
+                'Start with easier facts (0s, 1s, 2s, 5s, 10s) and work up',
+                'Use flashcards or games to make practice fun',
+                'Extension: Time yourself and try to beat your record'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 6 × 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Strategy 1 (Skip counting):</strong> Count by 4s: 4, 8, 12, 16, 20, 24 (6 times)</div>
+                    <div><strong>Strategy 2 (Arrays):</strong> 6 rows of 4 = 24</div>
+                    <div><strong>Strategy 3 (Doubles):</strong> 6 × 2 = 12, so 6 × 4 = 12 + 12 = 24</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Use the strategy that works best for you! Practice helps you memorize facts faster!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded p-3 bg-white">
                     <div className="font-mono text-2xl leading-7 text-right">
@@ -16554,14 +16582,42 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Time yourself: How fast can you solve all 20 problems?</div>
+                  <div>2. Try solving: 13 × 5 = ? and 11 × 12 = ?</div>
+                  <div>3. Create your own multiplication problems and solve them</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can solve multiplication facts quickly</div>
+                  <div>☐ I know my multiplication facts from 0-12</div>
+                  <div>☐ I solved all {problems.length} problems correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>My time:</strong> ___ minutes
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('mult-facts-0-12', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800 columns-2">
                     {problems.map((p, i) => (
-                      <li key={i}>{p.a} × {p.b} = {p.answer}</li>
+                      <li key={i}><strong>{p.a} × {p.b} = {p.answer}</strong></li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Practice makes perfect! Keep practicing your multiplication facts daily to build speed and accuracy!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
