@@ -2656,10 +2656,41 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('beginning-sounds-az') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Beginning Sounds (A–Z)</h2>
-            <p className="text-slate-600 text-sm mb-3">Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple).</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="beginning-sounds-az"
+            title="Beginning Sounds (A–Z)"
+            emoji="🔤"
+            description="Circle pictures that begin with each letter. Say the sound out loud (e.g., A as in apple)."
+            problemCount={26}
+            learningObjectives={[
+              'Identify beginning sounds of words',
+              'Match letters to their sounds',
+              'Recognize letter-sound relationships'
+            ]}
+            parentTeacherTips={[
+              'Say the sound, not the letter name (A says /a/ as in apple)',
+              'Help students listen for the first sound in each word',
+              'Encourage students to say the sound out loud',
+              'Extension: Find objects around you that start with each letter'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Circle the picture that begins with "A"</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Say the sound: /a/ (like in apple)</div>
+                  <div><strong>Step 2:</strong> Look at each picture: 🍎 apple, ✈️ airplane, 🦋 butterfly</div>
+                  <div><strong>Step 3:</strong> Which one starts with /a/? Apple and airplane both start with /a/!</div>
+                  <div><strong>Step 4:</strong> Circle the pictures that begin with /a/</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle 🍎 and ✈️</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Say the sound, not the letter name! A says /a/ as in apple!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {(() => {
                 const rows: Array<[string,string,string,string]> = [
                   ['A','🍎','✈️','🦋'],
@@ -2702,7 +2733,54 @@ export function PrintablesPage() {
                 ))
               })()}
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Find objects around you that start with each letter</div>
+                <div>2. Can you think of 3 words that start with each letter?</div>
+                <div>3. Practice saying the sound for each letter</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify beginning sounds</div>
+                <div>☐ I can match letters to their sounds</div>
+                <div>☐ I understand letter-sound relationships</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 26
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('beginning-sounds-az', () => {
+              const answers: Record<string, string[]> = {
+                'A': ['🍎', '✈️'], 'B': ['🐝', '🚲', '🍌'], 'C': ['🐱', '🚗', '☕'],
+                'D': ['🐶', '🦆', '🍩'], 'E': ['🥚', '🦅', '👂'], 'F': ['🐟', '🦊', '🏁'],
+                'G': ['🦒', '👓', '🦎'], 'H': ['🏠', '🐹', '🥅'], 'I': ['🍦', '🏝️', '🧊'],
+                'J': ['🤹', '🧃', '🕹️'], 'K': ['🔑', '🌋', '🪁'], 'L': ['🦁', '🍋', '🌿'],
+                'M': ['🐭', '🌙', '🍄'], 'N': ['🥜', '📓'], 'O': ['🐙', '🧅', '🍊'],
+                'P': ['🐼', '🥧', '🖊️'], 'Q': ['👸', '🧶', '🧭'], 'R': ['🐰', '🚀', '🌧️'],
+                'S': ['🐍', '⭐', '🌞'], 'T': ['🐯', '🌮', '🌳'], 'U': ['☂️', '🦄', '⛽'],
+                'V': ['🎻', '🚐'], 'W': ['🐳', '🍉', '🚶'], 'X': ['🪓', '📦', '🧪'],
+                'Y': ['🛶', '🪀', '🍠'], 'Z': ['🦓', '⚡', '👟']
+              };
+              return (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-1 text-sm text-emerald-800">
+                    {Object.entries(answers).map(([letter, emojis]) => (
+                      <div key={letter}>{letter}: Circle <strong>{emojis.join(', ')}</strong></div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('addition-subtraction-0-10') && (
