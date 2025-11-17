@@ -8896,9 +8896,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('ws-space') && (
-        <section className="mb-10 break-inside-avoid">
-          <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Space</h2>
-          <p className="text-slate-600 text-sm mb-3">Find 12 space words. Circle horizontally, vertically, or diagonally.</p>
+          <WorksheetSectionWrapper
+            docId="ws-space"
+            title="Word Search – Space"
+            emoji="🧠"
+            description="Find 12 space words. Circle horizontally, vertically, or diagonally."
+            problemCount={12}
+            learningObjectives={[
+              'Build space vocabulary',
+              'Practice pattern recognition',
+              'Develop attention to detail'
+            ]}
+            parentTeacherTips={[
+              'Help children read the space words',
+              'Look for words in all directions',
+              'Circle words as you find them',
+              'Extension: Create your own space word search'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
           <div className="grid grid-cols-12 gap-1 font-mono text-sm">
             {generateWordSearchGrid(12, ["STAR","MOON","SUN","COMET","ORBIT","SPACE","ALIEN","ROVER","MARS","VENUS","NEBULA","ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
               <React.Fragment key={r}>
@@ -8908,7 +8924,15 @@ export function PrintablesPage() {
               </React.Fragment>
             ))}
           </div>
-        </section>
+          {showAnswersForDoc('ws-space', () => (
+            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+              <div className="text-sm text-emerald-800">
+                Find all 12 space words: STAR, MOON, SUN, COMET, ORBIT, SPACE, ALIEN, ROVER, MARS, VENUS, NEBULA, ASTRO. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+              </div>
+            </div>
+          ))}
+          </WorksheetSectionWrapper>
         )}
 
         {(!doc || activeDocs.includes('sudoku4')) && (
@@ -9064,9 +9088,26 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('coloring-letters-numbers') && (
-          <section className="mb-10 print:mb-0 break-inside-avoid print:break-inside-auto border border-slate-200 rounded-xl p-4 print:border-0 print:p-0" style={{ pageBreakInside: 'auto' } as any}>
-            <h2 className="text-lg font-bold text-slate-900 print:hidden">🔢 Alphabet & Number Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3 print:hidden">A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers.</p>
+          <WorksheetSectionWrapper
+            docId="coloring-letters-numbers"
+            title="Alphabet & Number Coloring Pages"
+            emoji="🔢"
+            description="A–Z animals and 1–10 rockets — trace, color, and learn letters and numbers."
+            problemCount={36}
+            learningObjectives={[
+              'Learn letter recognition (A-Z)',
+              'Learn number recognition (1-10)',
+              'Practice fine motor skills through tracing and coloring',
+              'Build alphabet and number knowledge'
+            ]}
+            parentTeacherTips={[
+              'Help children trace the letters and numbers',
+              'Encourage them to say the letter or number as they color',
+              'Use different colors for each letter/number',
+              'Extension: Practice writing the letters and numbers'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 animate-gradient-x mb-2" />
             {/* A–Z Letters grid (large) */}
             <div className="mb-8 grid grid-cols-3 sm:grid-cols-4 gap-6 print:gap-4">
               {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((ch, i) => (
@@ -9093,7 +9134,15 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
-          </section>
+            {showAnswersForDoc('coloring-letters-numbers', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Trace and color all 26 letters (A-Z) and all 10 numbers (1-10). There is no right or wrong way to color! Use your favorite colors and practice saying each letter and number as you color it.
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-animals') && (
