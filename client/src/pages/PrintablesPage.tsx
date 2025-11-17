@@ -16421,9 +16421,37 @@ export function PrintablesPage() {
               title="More and Less"
               emoji="⚖️"
               description="Count each group. Circle the group that has more."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Compare quantities: more vs. less',
+                'Count objects accurately',
+                'Identify which group has more items',
+                'Develop number comparison and counting skills'
+              ]}
+              parentTeacherTips={[
+                'Help students count each group carefully',
+                'Use one-to-one correspondence when counting',
+                'Compare the numbers: which number is bigger?',
+                'Practice saying: "5 is more than 3" or "3 is less than 5"',
+                'Extension: Try comparing three groups or finding which has less'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Compare two groups: 5 circles vs. 3 circles</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Count the left group: 1, 2, 3, 4, 5 (5 circles)</div>
+                    <div><strong>Step 2:</strong> Count the right group: 1, 2, 3 (3 circles)</div>
+                    <div><strong>Step 3:</strong> Compare: 5 is more than 3, so circle the left group</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle the left group (5 is more than 3)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each group first, then compare the numbers!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex items-center justify-around mb-3">
@@ -16452,15 +16480,47 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find objects around you: Which group has more, your pencils or your erasers?</div>
+                  <div>2. Compare three groups: Which has the most? Which has the least?</div>
+                  <div>3. Create your own groups and compare them</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count objects accurately</div>
+                  <div>☐ I can compare quantities: more vs. less</div>
+                  <div>☐ I completed all {problems.length} comparisons correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('more-less', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => {
                       const answer = p.left > p.right ? 'Left' : p.right > p.left ? 'Right' : 'Equal'
-                      return <li key={i}>Row {i + 1}: {answer} ({p.left} vs {p.right})</li>
+                      const explanation = p.left > p.right 
+                        ? `${p.left} is more than ${p.right}` 
+                        : p.right > p.left 
+                        ? `${p.right} is more than ${p.left}` 
+                        : `${p.left} equals ${p.right} (both have the same)`
+                      return (
+                        <li key={i}><strong>Row {i + 1}:</strong> Circle {answer} group ({p.left} vs {p.right}) - {explanation}</li>
+                      )
                     })}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each group first, then compare the numbers. The group with the bigger number has more!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
