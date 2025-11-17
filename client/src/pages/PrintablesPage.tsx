@@ -16096,43 +16096,99 @@ export function PrintablesPage() {
               title="Shape Identification"
               emoji="🟩"
               description="Circle the circle, square, triangle, and rectangle. Learn basic shapes."
+              problemCount={tasks.length}
+              learningObjectives={[
+                'Identify and recognize basic shapes (circle, square, triangle, rectangle)',
+                'Distinguish between different shapes',
+                'Develop visual discrimination skills',
+                'Build shape recognition and vocabulary'
+              ]}
+              parentTeacherTips={[
+                'Help students name each shape: circle, square, triangle, rectangle',
+                'Point out the characteristics: circles are round, squares have 4 equal sides, triangles have 3 sides, rectangles have 4 sides (2 long, 2 short)',
+                'Encourage students to look carefully at each shape',
+                'Practice finding shapes in the environment: "Can you find a circle in the room?"',
+                'Extension: Try identifying more complex shapes or 3D shapes'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Look at each section below. Find and circle all the shapes that match the instruction.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Circle all the circles</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the example circle - it's round with no corners</div>
+                    <div><strong>Step 2:</strong> Look at each shape in the grid</div>
+                    <div><strong>Step 3:</strong> Circle all the shapes that are round like the example</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the round shapes</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each shape and match it to the example shape!</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-1 gap-6">
-                {tasks.map((task, taskIdx) => (
-                  <div key={taskIdx} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
-                    <div className="text-center mb-4">
-                      <div className="text-xl font-semibold text-slate-800 mb-2">{task.instruction}</div>
-                      <div className="text-sm text-slate-600 mb-3">Find the {task.name.toLowerCase()}s</div>
-                      <svg viewBox="0 0 60 60" className="w-16 h-16 mx-auto mb-2">
-                        {renderShape(task.type, 60, 0, 0)}
-                      </svg>
-                    </div>
-                    <div className="border-2 border-dashed border-slate-400 rounded-lg p-6 bg-slate-50">
-                      <div className="grid grid-cols-4 gap-4">
-                        {task.shapes.map((shapeType, i) => (
-                          <div key={i} className="flex justify-center items-center">
-                            <svg viewBox="0 0 60 60" className="w-20 h-20 print:w-24 print:h-24">
-                              {renderShape(shapeType, 60, 0, 0)}
-                            </svg>
-                          </div>
-                        ))}
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {tasks.map((task, taskIdx) => {
+                  const targetCount = task.shapes.filter(s => s === task.type).length;
+                  return (
+                    <div key={taskIdx} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
+                      <div className="text-center mb-4">
+                        <div className="text-xl font-semibold text-slate-800 mb-2">{task.instruction}</div>
+                        <div className="text-sm text-slate-600 mb-3">Find the {task.name.toLowerCase()}s</div>
+                        <svg viewBox="0 0 60 60" className="w-16 h-16 mx-auto mb-2">
+                          {renderShape(task.type, 60, 0, 0)}
+                        </svg>
+                      </div>
+                      <div className="border-2 border-dashed border-slate-400 rounded-lg p-6 bg-slate-50">
+                        <div className="grid grid-cols-4 gap-4">
+                          {task.shapes.map((shapeType, i) => (
+                            <div key={i} className="flex justify-center items-center">
+                              <svg viewBox="0 0 60 60" className="w-20 h-20 print:w-24 print:h-24">
+                                {renderShape(shapeType, 60, 0, 0)}
+                              </svg>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you find shapes around your house? Look for circles, squares, triangles, and rectangles</div>
+                  <div>2. Draw your own shape and have someone identify it</div>
+                  <div>3. Try identifying more shapes: oval, diamond, star, heart</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify circles, squares, triangles, and rectangles</div>
+                  <div>☐ I can distinguish between different shapes</div>
+                  <div>☐ I completed all {tasks.length} shape identification tasks</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {tasks.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
               </div>
               {showAnswersForDoc('shape-identification', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {tasks.map((t, i) => (
-                      <li key={i}>{t.instruction}: Circle all {t.name.toLowerCase()}s in the grid</li>
-                    ))}
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                    {tasks.map((t, i) => {
+                      const targetCount = t.shapes.filter(s => s === t.type).length;
+                      return (
+                        <li key={i}><strong>{t.instruction}:</strong> Circle all {t.name.toLowerCase()}s in the grid. There are {targetCount} {t.name.toLowerCase()}s to circle.</li>
+                      );
+                    })}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look carefully at each shape and match it to the example shape. Circles are round, squares have 4 equal sides, triangles have 3 sides, and rectangles have 4 sides (2 long, 2 short)!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
