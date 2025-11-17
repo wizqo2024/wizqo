@@ -4951,27 +4951,81 @@ export function PrintablesPage() {
             title="Passage — The Birthday Cake (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details and sequence of events',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss celebrations and special occasions with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">It was Emma's birthday. Mom made a chocolate cake. There were five candles on top. Emma closed her eyes and made a wish. Then she blew out all the candles. Everyone clapped and sang "Happy Birthday!"</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Whose birthday was it?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for whose birthday it was</div>
+                  <div><strong>Step 3:</strong> Find: "It was Emma's birthday"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> It was Emma's birthday.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "whose") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">It was Emma's birthday. Mom made a chocolate cake. There were five candles on top. Emma closed her eyes and made a wish. Then she blew out all the candles. Everyone clapped and sang "Happy Birthday!"</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>Whose birthday was it?</li>
                 <li>What kind of cake did Mom make?</li>
                 <li>How many candles were on the cake?</li>
                 <li>What did everyone do after Emma blew out the candles?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-birthday-cake', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Emma's</li>
-                    <li>Chocolate cake</li>
-                    <li>Five</li>
-                    <li>Clapped and sang "Happy Birthday!"</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. What do you think Emma wished for?</div>
+                <div>3. Draw a picture of Emma's birthday cake</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-birthday-cake', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>Emma's</strong> (It was Emma's birthday)</li>
+                  <li><strong>Chocolate cake</strong> (Mom made a chocolate cake)</li>
+                  <li><strong>Five</strong> (There were five candles on top)</li>
+                  <li><strong>Clapped and sang "Happy Birthday!"</strong> (Everyone clapped and sang "Happy Birthday!")</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-bird-feeder') && (
