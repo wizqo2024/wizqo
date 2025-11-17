@@ -8698,10 +8698,42 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('skip-count-2s') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➡️ Skip Counting by 2s</h2>
-            <p className="text-slate-600 text-sm mb-3">Count by 2s. Fill in the missing numbers.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="skip-count-2s"
+            title="Skip Counting by 2s"
+            emoji="➡️"
+            description="Count by 2s. Fill in the missing numbers."
+            problemCount={4}
+            learningObjectives={[
+              'Count by 2s (2, 4, 6, 8, 10...)',
+              'Identify missing numbers in skip counting sequences',
+              'Recognize patterns in counting',
+              'Build number sense and multiplication foundation'
+            ]}
+            parentTeacherTips={[
+              'Skip counting by 2s means counting every other number: 2, 4, 6, 8, 10...',
+              'Help students see the pattern: each number is 2 more than the previous',
+              'Use fingers, objects, or a number line to visualize',
+              'Practice counting aloud: "2, 4, 6, 8, 10..."',
+              'Extension: Try skip counting by 5s or 10s'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Sequence:</strong> 2, __, 6, __, 10</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> We're counting by 2s: 2, 4, 6, 8, 10...</div>
+                  <div><strong>Step 2:</strong> After 2 comes 4 (2 + 2 = 4)</div>
+                  <div><strong>Step 3:</strong> After 6 comes 8 (6 + 2 = 8)</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2, 4, 6, 8, 10</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 4 }).map((_, idx) => (
                 <svg key={idx} viewBox="0 0 500 100" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="#111827">
@@ -8722,13 +8754,38 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you skip count by 2s starting from 1? (1, 3, 5, 7, 9...)</div>
+                <div>2. Try skip counting by 5s: 5, 10, 15, 20, 25...</div>
+                <div>3. Count by 2s backwards from 20: 20, 18, 16, 14...</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can count by 2s</div>
+                <div>☐ I can fill in missing numbers in skip counting sequences</div>
+                <div>☐ I completed all 4 sequences correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('skip-count-2s', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <p className="text-sm">Complete sequence: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20</p>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <p className="text-sm text-emerald-800 mb-2"><strong>Complete sequence:</strong> 2, 4, 6, 8, 10, 12, 14, 16, 18, 20</p>
+                <p className="text-xs text-emerald-700">Each number is 2 more than the previous number. Skip counting by 2s means counting every other number!</p>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('number-line-add') && (() => {
@@ -8750,10 +8807,42 @@ export function PrintablesPage() {
           const step = lineLength / maxNum;
           
           return (
-            <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-              <h2 className="text-lg font-bold text-slate-900">🔢 Number Line Addition</h2>
-              <p className="text-slate-600 text-sm mb-3">Use the number line to solve each addition problem.</p>
-              <div className="space-y-6">
+            <WorksheetSectionWrapper
+              docId="number-line-add"
+              title="Number Line Addition"
+              emoji="🔢"
+              description="Use the number line to solve each addition problem."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Use a number line to solve addition problems',
+                'Count forward on a number line',
+                'Visualize addition as moving forward',
+                'Build number sense and addition skills'
+              ]}
+              parentTeacherTips={[
+                'Start at the first number on the number line',
+                'Count forward the second number of spaces',
+                'Where you land is the answer',
+                'For example: 3 + 4 means start at 3, count forward 4 spaces, land on 7',
+                'Extension: Try subtraction on a number line (count backward)'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Start at 3 on the number line</div>
+                    <div><strong>Step 2:</strong> Count forward 4 spaces: 3 → 4 → 5 → 6 → 7</div>
+                    <div><strong>Step 3:</strong> You land on 7</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 4 = 7</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map(([a, b], idx) => (
                   <div key={idx} className="bg-white border border-slate-300 rounded p-4">
                     <div className="mb-2 text-lg font-semibold text-slate-900">{a} + {b} = __</div>
@@ -8797,17 +8886,42 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you solve 8 + 7 using the number line? (Start at 8, count forward 7 spaces)</div>
+                  <div>2. Try subtraction on a number line: 10 - 3 = ? (Start at 10, count backward 3 spaces)</div>
+                  <div>3. Create your own addition problem and solve it using a number line</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can use a number line to solve addition</div>
+                  <div>☐ I can count forward on a number line</div>
+                  <div>☐ I solved all {problems.length} problems correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('number-line-add', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map(([a, b], idx) => (
-                      <li key={idx}>{a} + {b} = {a + b}</li>
+                      <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Start at {a} on the number line, count forward {b} spaces, land on {a + b})</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Start at the first number, count forward the second number of spaces. Where you land is your answer!</div>
                 </div>
               ))}
-            </section>
+            </WorksheetSectionWrapper>
           );
         })()}
 
