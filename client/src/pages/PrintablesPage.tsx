@@ -9199,10 +9199,41 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('doubles-near-doubles') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎯 Doubles & Near Doubles</h2>
-            <p className="text-slate-600 text-sm mb-3">Practice doubles and near doubles (doubles +1).</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="doubles-near-doubles"
+            title="Doubles & Near Doubles"
+            emoji="🎯"
+            description="Practice doubles and near doubles (doubles +1)."
+            problemCount={4}
+            learningObjectives={[
+              'Memorize doubles facts (e.g., 6+6, 7+7)',
+              'Use doubles to solve near doubles (e.g., 6+7 = 6+6+1)',
+              'Build mental math strategies',
+              'Recognize patterns in addition'
+            ]}
+            parentTeacherTips={[
+              'Doubles are when you add a number to itself (6+6, 7+7)',
+              'Near doubles are one more than doubles (6+7 = 6+6+1)',
+              'If you know 6+6=12, then 6+7=13 (just add 1 more)',
+              'Practice with manipulatives: "If I have 6 blocks and 6 blocks, that's 12. If I have 6 and 7, that's 13!"',
+              'Extension: Try doubles to 20 (10+10, 11+11, etc.)'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 6 + 7 = ? (Near Double)</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Think of the double: 6 + 6 = 12</div>
+                  <div><strong>Step 2:</strong> Since 7 is one more than 6, add 1: 12 + 1 = 13</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 6 + 7 = 13</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Near doubles are just doubles + 1! If you know 6+6=12, then 6+7=13!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { type: 'Double', a: 6 },
                 { type: 'Double', a: 7 },
@@ -9215,24 +9246,82 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve 9 + 10 using the near doubles strategy? (Hint: Think 9 + 9 first!)</div>
+                <div>2. Try these doubles: 8 + 8 = ? and 9 + 9 = ?</div>
+                <div>3. Write your own doubles and near doubles problems</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can solve doubles facts</div>
+                <div>☐ I can use doubles to solve near doubles</div>
+                <div>☐ I solved all 4 problems correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('doubles-near-doubles', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>6 + 6 = 12 (Double)</li>
-                  <li>7 + 7 = 14 (Double)</li>
-                  <li>6 + 7 = 13 (Near Double: 6+6+1)</li>
-                  <li>8 + 9 = 17 (Near Double: 8+8+1)</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>6 + 6 = 12</strong> (Double: same number added to itself)</li>
+                  <li><strong>7 + 7 = 14</strong> (Double: same number added to itself)</li>
+                  <li><strong>6 + 7 = 13</strong> (Near Double: 6+6=12, then add 1 more = 13)</li>
+                  <li><strong>8 + 9 = 17</strong> (Near Double: 8+8=16, then add 1 more = 17)</li>
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Doubles are when you add a number to itself. Near doubles are doubles + 1!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('money-coins-bills') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">💰 Money: Coins & Bills</h2>
-            <p className="text-slate-600 text-sm mb-3">Count the coins and write the total amount.</p>
+          <WorksheetSectionWrapper
+            docId="money-coins-bills"
+            title="Money: Coins & Bills"
+            emoji="💰"
+            description="Count the coins and write the total amount."
+            problemCount={4}
+            learningObjectives={[
+              'Identify and count coins (pennies, nickels, dimes, quarters)',
+              'Add coin values to find totals',
+              'Understand coin values: penny=1¢, nickel=5¢, dime=10¢, quarter=25¢',
+              'Build money counting skills'
+            ]}
+            parentTeacherTips={[
+              'Start with the largest coins first (quarters, then dimes, then nickels, then pennies)',
+              'Count by 25s for quarters, 10s for dimes, 5s for nickels, and 1s for pennies',
+              'Use real coins for hands-on practice if available',
+              'Help students recognize coin values: "A dime is worth 10 cents"',
+              'Extension: Practice making change or counting larger amounts'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-amber-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 1 dime, 1 nickel, 1 penny</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Count the dime: 10¢</div>
+                  <div><strong>Step 2:</strong> Count the nickel: 5¢</div>
+                  <div><strong>Step 3:</strong> Count the penny: 1¢</div>
+                  <div><strong>Step 4:</strong> Add them: 10 + 5 + 1 = 16¢</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16¢</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Start with the largest coins first! Dime (10¢) + Nickel (5¢) + Penny (1¢) = 16¢</div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               {[
                 { coins: [1, 1, 5, 5], label: '2 pennies, 2 nickels' },
