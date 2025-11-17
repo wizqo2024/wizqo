@@ -2586,42 +2586,104 @@ export function PrintablesPage() {
           );
         })()}
 
-        {activeDocs.includes('word-problems-100') && (
-          <WorksheetSectionWrapper
-            docId="word-problems-100"
-            title="2nd‑Grade Word Problems (within 100)"
-            emoji="🧮"
-            description="Read each word problem carefully. Write a number sentence (equation) and solve. Show your answer in the blank space."
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
-            <ol className="list-decimal list-inside space-y-2 text-sm text-slate-800">
-              {[
-                'Mia has 24 marbles. She gets 15 more. How many now?',
-                'A class has 32 books on one shelf and 17 on another. How many in all?',
-                'Liam had 45 stickers. He gave 20 to a friend. How many left?',
-                'A box has 38 pencils. 10 were used. How many remain?',
-                'Sara read 27 pages on Monday and 22 on Tuesday. How many pages total?'
-              ].map((q,i)=> (
-                <li key={i}>
-                  {q}
-                  <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
-                </li>
-              ))}
-            </ol>
-            {showAnswersForDoc('word-problems-100', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ol className="list-decimal list-inside space-y-0.5">
-                  <li>24 + 15 = 39</li>
-                  <li>32 + 17 = 49</li>
-                  <li>45 − 20 = 25</li>
-                  <li>38 − 10 = 28</li>
-                  <li>27 + 22 = 49</li>
-                </ol>
+        {activeDocs.includes('word-problems-100') && (() => {
+          const problems = [
+            { problem: 'Mia has 24 marbles. She gets 15 more. How many now?', equation: '24 + 15 = ?', answer: '39 marbles' },
+            { problem: 'A class has 32 books on one shelf and 17 on another. How many in all?', equation: '32 + 17 = ?', answer: '49 books' },
+            { problem: 'Liam had 45 stickers. He gave 20 to a friend. How many left?', equation: '45 - 20 = ?', answer: '25 stickers' },
+            { problem: 'A box has 38 pencils. 10 were used. How many remain?', equation: '38 - 10 = ?', answer: '28 pencils' },
+            { problem: 'Sara read 27 pages on Monday and 22 on Tuesday. How many pages total?', equation: '27 + 22 = ?', answer: '49 pages' }
+          ];
+          return (
+            <WorksheetSectionWrapper
+              docId="word-problems-100"
+              title="2nd‑Grade Word Problems (within 100)"
+              emoji="🧮"
+              description="Read each word problem carefully. Write a number sentence (equation) and solve. Show your answer in the blank space."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Read and understand word problems',
+                'Write number sentences (equations) from word problems',
+                'Solve addition and subtraction word problems within 100'
+              ]}
+              parentTeacherTips={[
+                'Help students identify key words: "more", "in all", "left", "remain", "total"',
+                'Encourage students to write the equation before solving',
+                'Check that students understand what the question is asking',
+                'Extension: Create your own word problems'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 apples. He buys 12 more. How many apples does he have now?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the numbers: 15 apples, 12 more</div>
+                    <div><strong>Step 2:</strong> Write the equation: 15 + 12 = ?</div>
+                    <div><strong>Step 3:</strong> Solve: 15 + 12 = 27</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 27 apples</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: "More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!</div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((item, i) => (
+                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div className="text-base font-semibold text-slate-800 mb-2">
+                      {i + 1}. {item.problem}
+                    </div>
+                    <div className="mb-2">
+                      <div className="text-sm text-slate-600 mb-1">Equation:</div>
+                      <div className="text-lg font-mono text-slate-800">{item.equation}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-600 mb-1">Answer:</div>
+                      <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own word problem using addition</div>
+                  <div>2. Create your own word problem using subtraction</div>
+                  <div>3. Draw a picture to help solve one of the problems above</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can read and understand word problems</div>
+                  <div>☐ I can write number sentences</div>
+                  <div>☐ I can solve word problems correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('word-problems-100', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {problems.map((item, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {item.equation.replace('?', item.answer.split(' ')[0])} = <strong>{item.answer}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('compare-2digit') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
