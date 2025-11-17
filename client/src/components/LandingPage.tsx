@@ -168,7 +168,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                 animationSpeed={8}
               >
-                Free PDF Math and Multiplication Worksheets for Kindergarten to 5th Grade
+                Free Math Worksheets for K-5 | Multiplication & More
               </GradientText>
             </h1>
             
