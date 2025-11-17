@@ -15518,9 +15518,37 @@ export function PrintablesPage() {
               title="How Many? (1–15)"
               emoji="🔢"
               description="Count how many objects you see. Write the number in the box."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Count objects accurately up to 15',
+                'Write numbers to represent quantities',
+                'Develop one-to-one correspondence',
+                'Build number recognition and writing skills'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to point to each object as they count',
+                'Use one-to-one correspondence: one object = one number',
+                'Help students recognize that the last number counted is the total',
+                'Practice writing numbers correctly',
+                'Extension: Try counting larger groups or counting backwards'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and write the number</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Point to each circle and count: 1, 2, 3, 4, 5, 6, 7</div>
+                    <div><strong>Step 2:</strong> The last number counted is 7, so there are 7 circles</div>
+                    <div><strong>Step 3:</strong> Write the number 7 in the box</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap justify-center">
@@ -15536,14 +15564,39 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Count objects around you: How many pencils? How many books?</div>
+                  <div>2. Draw your own group of objects and count them</div>
+                  <div>3. Try counting backwards from 15: 15, 14, 13, 12...</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count objects accurately up to 15</div>
+                  <div>☐ I can write numbers correctly</div>
+                  <div>☐ I wrote all {problems.length} numbers correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('how-many-1-15', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}>Box {i + 1}: {p.count}</li>
+                      <li key={i}><strong>Box {i + 1}:</strong> {p.count} (There are {p.count} circles in the box)</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then write that number in the box!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15565,12 +15618,37 @@ export function PrintablesPage() {
               title="Count & Color (1–10)"
               emoji="🔢"
               description="Count the objects and color the correct number of items."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Count objects accurately up to 10',
+                'Color the correct number of items',
+                'Develop one-to-one correspondence',
+                'Build number recognition and fine motor skills'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to count before coloring',
+                'Use one-to-one correspondence: count each object once',
+                'Help students understand they should color exactly the number shown',
+                'Practice counting aloud: 1, 2, 3, 4, 5...',
+                'Extension: Try counting larger groups or creating patterns with colors'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Look at each row below. Count the objects and color the number of items shown in the instruction.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Color 5 stars</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Count the stars: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 (there are 10 stars total)</div>
+                    <div><strong>Step 2:</strong> We need to color exactly 5 stars</div>
+                    <div><strong>Step 3:</strong> Color 5 stars (any 5 stars you choose)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 5 stars</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count all the objects first, then color exactly the number asked for!</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border-2 border-slate-300 rounded-lg p-6 bg-white">
                     <div className="text-center mb-4">
@@ -15587,14 +15665,39 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own group of objects and color a specific number</div>
+                  <div>2. Create a pattern: color every other object</div>
+                  <div>3. Count objects around you and color that many on paper</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count objects accurately</div>
+                  <div>☐ I colored the correct number of items</div>
+                  <div>☐ I completed all {problems.length} rows correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('count-color-1-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}>Row {i + 1}: Color {p.count} {p.emoji}</li>
+                      <li key={i}><strong>Row {i + 1}:</strong> Color {p.count} {p.emoji} (There are {p.total} {p.emoji} total, color exactly {p.count} of them)</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count all the objects first, then color exactly the number asked for. Make sure you color the right amount!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
