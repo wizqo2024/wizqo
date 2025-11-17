@@ -3942,9 +3942,41 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('reading-mini-1') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Mini Reading Passage + 3 Questions</h2>
-            <p className="text-slate-600 text-sm mb-3">Read the short passage, then answer the questions in full sentences.</p>
+          <WorksheetSectionWrapper
+            docId="reading-mini-1"
+            title="Mini Reading Passage + 3 Questions"
+            emoji="📖"
+            description="Read the short passage, then answer the questions in full sentences."
+            problemCount={3}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details (where, what)',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss plant growth and caring for living things with your child'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Where did Sara put the cup?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for where Sara put the cup</div>
+                  <div><strong>Step 3:</strong> Find: "Sara planted a tiny seed in a cup by the window"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Sara put the cup by the window.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">Sara planted a tiny seed in a cup by the window. Every day, she gave it a little water and turned the cup toward the sun. One morning, she saw a green sprout peek out of the soil. Sara smiled. “Hello, little plant,” she whispered.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
