@@ -8328,10 +8328,42 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('picture-addition-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➕ Picture Addition to 10</h2>
-            <p className="text-slate-600 text-sm mb-3">Count the pictures in each group and add them together.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="picture-addition-10"
+            title="Picture Addition to 10"
+            emoji="➕"
+            description="Count the pictures in each group and add them together."
+            problemCount={6}
+            learningObjectives={[
+              'Count objects in groups',
+              'Add numbers within 10 using visual representations',
+              'Understand addition as combining groups',
+              'Build number sense and counting skills'
+            ]}
+            parentTeacherTips={[
+              'Count each group of pictures separately first',
+              'Then add the two numbers together',
+              'Use fingers or draw dots to help if needed',
+              'Check your answer by counting all the pictures together',
+              'Extension: Try creating your own picture addition problems'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 3 circles + 4 circles = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Count the first group: 1, 2, 3 (3 circles)</div>
+                  <div><strong>Step 2:</strong> Count the second group: 1, 2, 3, 4 (4 circles)</div>
+                  <div><strong>Step 3:</strong> Add them together: 3 + 4 = 7</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
                 <svg key={idx} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <g fill="#111827">
@@ -8351,24 +8383,81 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you solve 6 + 4 without counting? (Hint: Use what you know about 10!)</div>
+                <div>2. Draw your own picture addition problem: ___ + ___ = ?</div>
+                <div>3. Try solving these: 7 + 2 = ? and 4 + 6 = ?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can count objects in groups</div>
+                <div>☐ I can add numbers within 10</div>
+                <div>☐ I solved all 6 problems correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('picture-addition-10', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
-                    <li key={idx}>{a} + {b} = {a + b}</li>
+                    <li key={idx}><strong>{a} + {b} = {a + b}</strong> (Count {a} circles in the first group, {b} circles in the second group, total = {a + b})</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each group separately, then add the numbers together. You can also count all the pictures to double-check!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('subtraction-stories') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➖ Subtraction Stories</h2>
-            <p className="text-slate-600 text-sm mb-3">Read the story and solve the subtraction problem.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="subtraction-stories"
+            title="Subtraction Stories"
+            emoji="➖"
+            description="Read the story and solve the subtraction problem."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand subtraction word problems',
+              'Solve subtraction problems within 10',
+              'Connect stories to subtraction equations',
+              'Build problem-solving skills'
+            ]}
+            parentTeacherTips={[
+              'Help students identify the starting number and what is taken away',
+              'Encourage drawing pictures to visualize the story',
+              'Key words: "eaten", "flew away", "picked", "shared" mean subtraction',
+              'Check answers by adding: if 8 - 3 = 5, then 5 + 3 should equal 8',
+              'Extension: Create your own subtraction stories'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Story:</strong> 8 apples, 3 eaten</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Start with 8 apples</div>
+                  <div><strong>Step 2:</strong> 3 apples were eaten (taken away)</div>
+                  <div><strong>Step 3:</strong> Subtract: 8 - 3 = 5</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 apples left</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { total: 8, take: 3, story: '8 apples, 3 eaten' },
                 { total: 7, take: 2, story: '7 birds, 2 flew away' },
@@ -8388,22 +8477,47 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you write your own subtraction story? (Example: "12 toys, 5 broken")</div>
+                <div>2. Try solving: 15 - 7 = ? (Hint: Think about what number plus 7 equals 15)</div>
+                <div>3. If you have 20 stickers and give away 8, how many are left?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can read and understand subtraction stories</div>
+                <div>☐ I can solve subtraction problems within 10</div>
+                <div>☐ I solved all 4 problems correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('subtraction-stories', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[
-                    { total: 8, take: 3 },
-                    { total: 7, take: 2 },
-                    { total: 9, take: 4 },
-                    { total: 10, take: 5 }
-                  ].map(({ total, take }, idx) => (
-                    <li key={idx}>{total} - {take} = {total - take}</li>
+                    { total: 8, take: 3, story: '8 apples, 3 eaten' },
+                    { total: 7, take: 2, story: '7 birds, 2 flew away' },
+                    { total: 9, take: 4, story: '9 flowers, 4 picked' },
+                    { total: 10, take: 5, story: '10 cookies, 5 shared' }
+                  ].map(({ total, take, story }, idx) => (
+                    <li key={idx}><strong>{total} - {take} = {total - take}</strong> ({story}: Start with {total}, take away {take}, {total - take} left)</li>
                   ))}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Subtraction means "take away". Start with the total number, subtract what was taken away, and you get what's left!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('balance-equations-10') && (() => {
