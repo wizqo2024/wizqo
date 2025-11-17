@@ -15989,16 +15989,42 @@ export function PrintablesPage() {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const targetNumber = Math.floor(rng() * 10) + 1
           const grid = Array.from({ length: 40 }, () => Math.floor(rng() * 10) + 1)
+          const targetCount = grid.filter(n => n === targetNumber).length;
           return (
             <WorksheetSectionWrapper
               docId="find-number-1-10"
               title="Find the Number (1–10)"
               emoji="🔟"
               description={`Look at the number ${targetNumber}. Find and circle all the matching numbers.`}
+              problemCount={targetCount}
+              learningObjectives={[
+                'Identify and recognize numbers 1-10',
+                'Find specific numbers in a grid',
+                'Develop visual discrimination and attention skills',
+                'Build number recognition and scanning abilities'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to look carefully at each number in the grid',
+                'Help students recognize the shape of the target number',
+                'Practice saying the number name as they find it',
+                'Use a systematic approach: look row by row or column by column',
+                'Extension: Try finding numbers in different fonts or create your own grid'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Look at the number below. Find and circle all the {targetNumber}s in the grid.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Find and circle all the 7s</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the target number: 7</div>
+                    <div><strong>Step 2:</strong> Scan the grid row by row, looking for numbers that match 7</div>
+                    <div><strong>Step 3:</strong> Circle each 7 you find</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle all the 7s</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Look carefully at each number and match it to the target number!</div>
+                  </div>
+                </div>
               </div>
               <div className="text-center mb-6">
                 <div className="inline-block w-32 h-32 print:w-40 print:h-40 border-4 border-purple-500 rounded-lg flex items-center justify-center text-6xl print:text-7xl font-bold text-purple-700 bg-purple-50 mb-3">
@@ -16006,17 +16032,42 @@ export function PrintablesPage() {
                 </div>
                 <p className="text-xl font-semibold text-slate-800">Find all the {targetNumber}s</p>
               </div>
-              <div className="grid grid-cols-5 gap-3 print:gap-4">
+              <div className="grid grid-cols-5 gap-3 print:gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {grid.map((n, i) => (
                   <div key={i} className="w-16 h-16 print:w-20 print:h-20 border-4 border-slate-300 rounded-lg flex items-center justify-center text-2xl print:text-3xl font-bold bg-white text-slate-700">
                     {n}
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you find numbers around your house? Look for numbers on clocks, calendars, or books</div>
+                  <div>2. Create your own number grid and have someone find a specific number</div>
+                  <div>3. Try finding two different numbers at the same time</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify numbers 1-10</div>
+                  <div>☐ I found all the {targetNumber}s in the grid</div>
+                  <div>☐ I circled {targetCount} {targetNumber}s correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {targetCount}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('find-number-1-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <p className="text-sm">Circle all {targetNumber}s. Found: {grid.filter(n => n === targetNumber).length} instances.</p>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <p className="text-sm text-emerald-800 mb-2"><strong>Circle all {targetNumber}s.</strong> Found: {targetCount} instances.</p>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Look carefully at each number in the grid and match it to the target number {targetNumber}. Circle all instances you find!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
