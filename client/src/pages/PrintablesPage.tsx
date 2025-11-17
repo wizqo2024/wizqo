@@ -8234,9 +8234,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('halloween-pack') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎃 Halloween Puzzle Pack</h2>
-            <p className="text-slate-600 text-sm mb-3">Mini pack: word list + costume ideas + tiny maze.</p>
+          <WorksheetSectionWrapper
+            docId="halloween-pack"
+            title="Halloween Puzzle Pack"
+            emoji="🎃"
+            description="Mini pack: word list + costume ideas + tiny maze."
+            problemCount={1}
+            learningObjectives={[
+              'Build vocabulary with Halloween words',
+              'Practice creative thinking with costume ideas',
+              'Develop problem-solving with maze navigation'
+            ]}
+            parentTeacherTips={[
+              'Help children sound out the Halloween words',
+              'Encourage creative costume ideas',
+              'Guide children through the maze if needed',
+              'Extension: Create your own Halloween word list'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-2 gap-6 text-sm">
               <div>
                 <div className="font-semibold mb-1">Spooky Word List</div>
@@ -8373,35 +8389,109 @@ export function PrintablesPage() {
                 );
               })()}
             </div>
-          </section>
+            {showAnswersForDoc('halloween-pack', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>Spooky Word List:</strong> ghost, pumpkin, witch, bat, candy, mask, moon, owl</div>
+                  <div className="mb-2"><strong>Costume Ideas:</strong> Be creative! Draw or write your costume ideas in the box.</div>
+                  <div><strong>Maze:</strong> Follow the path from START to FINISH. There is one correct path through the maze!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('winter-kindness') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">❄️ Winter Kindness Challenge</h2>
-            <p className="text-slate-600 text-sm mb-3">Color a square each time you complete a kind act.</p>
+          <WorksheetSectionWrapper
+            docId="winter-kindness"
+            title="Winter Kindness Challenge"
+            emoji="❄️"
+            description="Color a square each time you complete a kind act."
+            problemCount={25}
+            learningObjectives={[
+              'Practice kindness and empathy',
+              'Track acts of kindness',
+              'Build positive habits'
+            ]}
+            parentTeacherTips={[
+              'Help children identify kind acts they can do',
+              'Celebrate each act of kindness',
+              'Encourage daily practice',
+              'Extension: Share your kindness stories'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-5 gap-2">
               {Array.from({length:25}).map((_,i)=> (
                 <div key={i} className="h-10 border border-slate-300 rounded text-[10px] p-1">Act #{i+1}</div>
               ))}
             </div>
-          </section>
+            {showAnswersForDoc('winter-kindness', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong answer! Color a square each time you complete a kind act. Examples: helping someone, sharing, saying thank you, giving a compliment, helping with chores, etc. Keep track of your kindness acts!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('spring-scavenger') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🌸 Spring Nature Scavenger Hunt</h2>
-            <p className="text-slate-600 text-sm mb-3">Go outside and check off what you discover.</p>
+          <WorksheetSectionWrapper
+            docId="spring-scavenger"
+            title="Spring Nature Scavenger Hunt"
+            emoji="🌸"
+            description="Go outside and check off what you discover."
+            problemCount={10}
+            learningObjectives={[
+              'Observe nature and surroundings',
+              'Practice attention to detail',
+              'Learn about spring nature'
+            ]}
+            parentTeacherTips={[
+              'Go outside with children to explore',
+              'Help identify items if needed',
+              'Encourage careful observation',
+              'Extension: Take photos of what you find'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-green-400 animate-gradient-x mb-2" />
             <ul className="grid grid-cols-2 gap-2 text-sm text-slate-700">
               {['Leaf with spots','Pink flower','Three smooth stones','Ant trail','Bird feather','Cloud shaped like an animal','Two kinds of grass','Buzzing insect','Tiny pinecone','Something yellow'].map(x=> <li key={x}>☐ {x}</li>)}
             </ul>
-          </section>
+            {showAnswersForDoc('spring-scavenger', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Check off each item as you find it outside! Look carefully - some items might be small. Have fun exploring nature!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('summer-pack') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">☀️ Summer Adventure Pack</h2>
-            <p className="text-slate-600 text-sm mb-3">A quick set for travel days: word list + maze box + drawing prompt.</p>
+          <WorksheetSectionWrapper
+            docId="summer-pack"
+            title="Summer Adventure Pack"
+            emoji="☀️"
+            description="A quick set for travel days: word list + maze box + drawing prompt."
+            problemCount={1}
+            learningObjectives={[
+              'Build summer vocabulary',
+              'Practice problem-solving with mazes',
+              'Express creativity through drawing'
+            ]}
+            parentTeacherTips={[
+              'Help children read the summer words',
+              'Guide through the maze if needed',
+              'Encourage creative drawing',
+              'Extension: Create your own summer word list'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
             <div className="grid grid-cols-3 gap-4 text-sm">
               <ul className="list-disc list-inside space-y-1">
                 {['beach','shell','sand','wave','sun','boat','crab','icecream'].map(w=> <li key={w}>{w}</li>)}
@@ -8412,13 +8502,39 @@ export function PrintablesPage() {
                 <div className="h-24 border border-slate-300 rounded" />
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('summer-pack', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>Summer Words:</strong> beach, shell, sand, wave, sun, boat, crab, icecream</div>
+                  <div className="mb-2"><strong>Maze:</strong> Draw your path through the maze in the box.</div>
+                  <div><strong>Drawing:</strong> Be creative! Draw your best summer day in the box.</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('brain-boost') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🧠 7‑Day Brain Boost Pack</h2>
-            <p className="text-slate-600 text-sm mb-3">Do one mini‑challenge each day. Track your streak!</p>
+          <WorksheetSectionWrapper
+            docId="brain-boost"
+            title="7‑Day Brain Boost Pack"
+            emoji="🧠"
+            description="Do one mini‑challenge each day. Track your streak!"
+            problemCount={7}
+            learningObjectives={[
+              'Build daily learning habits',
+              'Practice various cognitive skills',
+              'Track progress and build streaks'
+            ]}
+            parentTeacherTips={[
+              'Help children complete one challenge per day',
+              'Celebrate completing the streak',
+              'Encourage reflection on what was tricky',
+              'Extension: Create your own daily challenges'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-1 text-sm">
               {['Memory pairs','Word jumble','Counting maze','Pattern copy','Quick sudoku','Riddle time','Spot the change'].map((t,i)=> <li key={i}>{t}</li>)}
             </ol>
@@ -8453,17 +8569,49 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('brain-boost', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Complete one challenge each day and check it off in the streak tracker. Challenges: Memory pairs, Word jumble, Counting maze, Pattern copy, Quick sudoku, Riddle time, Spot the change. Track your progress and reflect on what was tricky and what you nailed!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('creative-challenge') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎨 Creative Kids Challenge</h2>
-            <p className="text-slate-600 text-sm mb-3">7 days of quick art prompts. Spend 5–10 minutes each.</p>
+          <WorksheetSectionWrapper
+            docId="creative-challenge"
+            title="Creative Kids Challenge"
+            emoji="🎨"
+            description="7 days of quick art prompts. Spend 5–10 minutes each."
+            problemCount={7}
+            learningObjectives={[
+              'Express creativity through art',
+              'Practice daily creative habits',
+              'Develop artistic skills'
+            ]}
+            parentTeacherTips={[
+              'Encourage children to try each prompt',
+              'Focus on creativity, not perfection',
+              'Celebrate their unique creations',
+              'Extension: Create your own art prompts'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <ol className="list-decimal list-inside space-y-1 text-sm">
               {['Draw a robot pet','Design a flag','Invent a snack package','Doodle your name in 3 styles','Sketch a tiny house','Create a new animal','Make a comic in 3 panels'].map((t,i)=> <li key={i}>{t}</li>)}
             </ol>
-          </section>
+            {showAnswersForDoc('creative-challenge', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong answer! Complete each creative prompt with your own unique ideas. Spend 5-10 minutes on each one. Be creative and have fun!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('ws-world') && (
