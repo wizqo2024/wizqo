@@ -2697,8 +2697,33 @@ export function PrintablesPage() {
               title="Compare 2‑Digit Numbers"
               emoji="⚖️"
               description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
+              problemCount={pairs.length}
+              learningObjectives={[
+                'Compare 2-digit numbers using >, <, and =',
+                'Compare tens first, then ones if needed',
+                'Understand place value when comparing numbers'
+              ]}
+              parentTeacherTips={[
+                'Compare the tens place first - that's usually enough!',
+                'If tens are equal, then compare the ones place',
+                'Use > for greater than, < for less than, = for equal',
+                'Extension: Compare 3-digit numbers'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Compare 58 and 41</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
+                    <div><strong>Step 2:</strong> 5 > 4, so 58 > 41</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 > 41</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare tens first! If tens are different, you're done. If tens are equal, compare ones!</div>
+                  </div>
+                </div>
+              </div>
               {showAnswers && activeDocs.includes('compare-2digit') && (
                 <div className="mb-3 text-sm text-slate-700">
                   <div className="inline-flex items-center gap-3 border border-slate-200 rounded-lg px-3 py-2 bg-white">
@@ -2709,27 +2734,56 @@ export function PrintablesPage() {
                   </div>
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-3 text-xl font-mono">
+              <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
                     <span>{a}</span>
                     <span className="mx-2 inline-block w-16 h-10 border-b-[3px] border-slate-600 align-middle" aria-label="comparison symbol box" />
                     <span>{b}</span>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Compare: 67 ___ 76 (which symbol goes in the blank?)</div>
+                  <div>2. Find two numbers where the tens are equal but ones are different</div>
+                  <div>3. Create your own comparison problem</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can compare 2-digit numbers correctly</div>
+                  <div>☐ I know to compare tens first</div>
+                  <div>☐ I can use >, <, and = symbols correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {pairs.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('compare-2digit', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5 mb-2">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-2">
                     {pairs.map(([a, b], i) => {
                       const symbol = a > b ? '>' : a < b ? '<' : '=';
-                      return <li key={i}>{a} {symbol} {b}</li>;
+                      const aTens = Math.floor(a / 10);
+                      const bTens = Math.floor(b / 10);
+                      const explanation = aTens !== bTens 
+                        ? `${aTens} tens ${symbol === '>' ? '>' : '<'} ${bTens} tens`
+                        : `${a} and ${b} have the same tens, so compare ones: ${a % 10} ${symbol} ${b % 10}`;
+                      return (
+                        <div key={i} className="text-sm text-emerald-800">
+                          {i + 1}. {a} <strong>{symbol}</strong> {b} ({explanation})
+                        </div>
+                      );
                     })}
-                  </ul>
-                  <div className="text-sm mt-2 pt-2 border-t border-emerald-300">
-                    <div className="font-semibold mb-1">Tip</div>
-                    <div>Compare tens first; if equal, compare ones. Example: 58 &gt; 41 because 5 tens &gt; 4 tens.</div>
                   </div>
                 </div>
               ))}
