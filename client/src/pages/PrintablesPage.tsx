@@ -1889,10 +1889,40 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('geo-compass-rose') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🧭 Compass Rose & Directions</h2>
-            <p className="text-slate-600 text-sm mb-3">Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions.</p>
-            <div className="border border-slate-300 rounded p-4 bg-white">
+          <WorksheetSectionWrapper
+            docId="geo-compass-rose"
+              title="Compass Rose & Directions"
+            emoji="🧭"
+            description="Color the compass and label cardinal (N, E, S, W) and intercardinal (NE, SE, SW, NW) directions."
+            problemCount={8}
+            learningObjectives={[
+              'Identify cardinal directions (N, E, S, W)',
+              'Identify intercardinal directions (NE, SE, SW, NW)',
+              'Understand how to use a compass rose'
+            ]}
+            parentTeacherTips={[
+              'Cardinal directions: North, East, South, West',
+              'Intercardinal directions: Northeast, Southeast, Southwest, Northwest',
+              'Help students remember: Never Eat Soggy Waffles (N, E, S, W)',
+              'Extension: Practice using directions to navigate'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Label the direction at the top of the compass</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the top of the compass rose</div>
+                  <div><strong>Step 2:</strong> The top direction is always North (N)</div>
+                  <div><strong>Step 3:</strong> Write "N" at the top</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> N (North)</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Remember "Never Eat Soggy Waffles" for N, E, S, W!</div>
+                </div>
+              </div>
+            </div>
+            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <svg viewBox="0 0 600 600" className="w-full h-auto" role="img" aria-labelledby="compass-title">
                 <title id="compass-title">Compass rose</title>
                 <g fill="none" stroke="#111827" strokeWidth="4">
@@ -1914,7 +1944,55 @@ export function PrintablesPage() {
                 </g>
               </svg>
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Draw your own compass rose</div>
+                <div>2. Use the compass to give directions from your house to school</div>
+                <div>3. Can you name all 8 directions in order?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify all 4 cardinal directions</div>
+                <div>☐ I can identify all 4 intercardinal directions</div>
+                <div>☐ I understand how to use a compass rose</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 8
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('geo-compass-rose', () => {
+              const directions = [
+                { position: 'Top', dir: 'N (North)' },
+                { position: 'Right', dir: 'E (East)' },
+                { position: 'Bottom', dir: 'S (South)' },
+                { position: 'Left', dir: 'W (West)' },
+                { position: 'Top-Right', dir: 'NE (Northeast)' },
+                { position: 'Bottom-Right', dir: 'SE (Southeast)' },
+                { position: 'Bottom-Left', dir: 'SW (Southwest)' },
+                { position: 'Top-Left', dir: 'NW (Northwest)' }
+              ];
+              return (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {directions.map((d, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {d.position}: <strong>{d.dir}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('geo-landforms') && (
