@@ -1756,10 +1756,27 @@ export function PrintablesPage() {
           />
         )}
         {activeDocs.includes('geo-continents-k2') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <WorksheetSectionWrapper
+            docId="geo-continents-k2"
+            title="Label the 7 Continents (K–2)"
+            emoji="🌍"
+            description="Beginner‑friendly world outline. Write each continent's name on the lines below. Optional: color each continent a different color."
+            problemCount={7}
+            learningObjectives={[
+              'Identify and name the 7 continents',
+              'Understand world geography basics',
+              'Match continent names to their locations on a map'
+            ]}
+            parentTeacherTips={[
+              'The 7 continents are: North America, South America, Europe, Africa, Asia, Australia, and Antarctica',
+              'Help students use the numbered markers to match continents',
+              'Encourage students to color each continent a different color',
+              'Extension: Learn about countries in each continent'
+            ]}
+          >
             <h2 className="text-lg font-bold text-slate-900">🌍 Label the 7 Continents (K–2)</h2>
             <p className="text-slate-600 text-sm mb-3">Beginner‑friendly world outline. Write each continent’s name on the lines below. Optional: color each continent a different color.</p>
-            <div className="border border-slate-300 rounded p-4 bg-white">
+            <div className="border border-slate-300 rounded p-4 bg-white break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <svg viewBox="0 0 800 500" className="w-full h-auto" role="img" aria-labelledby="continents-title">
                 <title id="continents-title">World map outline with 7 continents</title>
                 <g fill="none" stroke="#111827" strokeWidth="4">
@@ -1807,7 +1824,7 @@ export function PrintablesPage() {
               </svg>
             </div>
             {/* Word bank + write lines */}
-            <div className="mt-3 grid md:grid-cols-2 gap-3">
+            <div className="mt-3 grid md:grid-cols-2 gap-3 break-inside-avoid">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
                 <div className="text-slate-900 font-semibold mb-1">Word Bank</div>
                 <ul className="text-slate-700 text-sm grid grid-cols-2 gap-x-4 gap-y-1">
@@ -1829,7 +1846,46 @@ export function PrintablesPage() {
                 </ol>
               </div>
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Color each continent a different color</div>
+                <div>2. Can you name one country in each continent?</div>
+                <div>3. Which continent do you live on?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can name all 7 continents</div>
+                <div>☐ I can match continents to their locations</div>
+                <div>☐ I understand world geography basics</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 7
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('geo-continents-k2', () => {
+              const continents = ['North America', 'South America', 'Europe', 'Africa', 'Asia', 'Australia', 'Antarctica'];
+              return (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {continents.map((name, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. <strong>{name}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('geo-compass-rose') && (
