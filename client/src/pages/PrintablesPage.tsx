@@ -9623,27 +9623,52 @@ export function PrintablesPage() {
                   <text x="320" y="295" fontSize="14" fill="#111827" textAnchor="middle">Yellow</text>
                 </g>
               </svg>
-              <div className="mt-3 space-y-1">
+              <div className="mt-3 space-y-1 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 <p className="text-slate-700 text-sm">1. Which color is most popular? __</p>
                 <p className="text-slate-700 text-sm">2. How many chose Red? __</p>
                 <p className="text-slate-700 text-sm">3. How many more chose Yellow than Green? __</p>
               </div>
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you create a bar graph showing your favorite fruits? (Draw it on paper!)</div>
+                <div>2. If 5 more people voted for Blue, how many votes would Blue have?</div>
+                <div>3. What is the total number of votes for all colors combined?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can read bar graphs</div>
+                <div>☐ I can answer questions about the data</div>
+                <div>☐ I answered all 3 questions correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 3
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('bar-graphs-data', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>1. Yellow is most popular (16 votes - tallest bar)</li>
-                  <li>2. Red: 8 votes</li>
-                  <li>3. Yellow has 6 more votes than Green (16 - 10 = 6)</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>1. Yellow is most popular</strong> (16 votes - it has the tallest bar)</li>
+                  <li><strong>2. Red: 8 votes</strong> (Look at the Red bar and read the number on the side)</li>
+                  <li><strong>3. Yellow has 6 more votes than Green</strong> (Yellow: 16, Green: 10, so 16 - 10 = 6)</li>
                 </ul>
-                <div className="mt-2 pt-2 border-t border-emerald-300 text-xs">
+                <div className="mt-3 pt-3 border-t border-emerald-300 text-xs">
                   <div className="font-semibold mb-1">All vote counts:</div>
                   <div>Red: 8, Blue: 13, Green: 10, Yellow: 16</div>
                 </div>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: The tallest bar has the most votes. Read the numbers on the side (y-axis) to find exact values!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {/* NEW CRITICAL WORKSHEETS - Fresh and Unique, No Duplicates */}
