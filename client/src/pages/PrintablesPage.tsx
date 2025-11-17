@@ -2545,10 +2545,41 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('uppercase-lowercase-match') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Aa–Zz Upper/Lower Letter Match</h2>
-            <p className="text-slate-600 text-sm mb-3">Draw lines from uppercase to lowercase. Say the sound for each match.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="uppercase-lowercase-match"
+            title="Aa–Zz Upper/Lower Letter Match"
+            emoji="🔤"
+            description="Draw lines from uppercase to lowercase. Say the sound for each match."
+            problemCount={26}
+            learningObjectives={[
+              'Match uppercase and lowercase letters',
+              'Recognize letter pairs',
+              'Practice letter sounds'
+            ]}
+            parentTeacherTips={[
+              'Uppercase letters are big (A, B, C), lowercase are small (a, b, c)',
+              'Say the letter sound as you match',
+              'Help students see that uppercase and lowercase are the same letter',
+              'Extension: Practice writing both uppercase and lowercase'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Match uppercase "A" to lowercase "a"</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find uppercase "A" (big letter)</div>
+                  <div><strong>Step 2:</strong> Find lowercase "a" (small letter)</div>
+                  <div><strong>Step 3:</strong> Draw a line connecting them</div>
+                  <div><strong>Step 4:</strong> Say "A" sound as you match</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> A matches a</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Uppercase and lowercase are the same letter, just different sizes!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m']].map(([U,l]) => (
                 <svg key={U} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
                   <circle cx="48" cy="40" r="4" fill="#ef4444" />
@@ -2584,7 +2615,44 @@ export function PrintablesPage() {
                 </svg>
               ))}
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Write your own uppercase and lowercase letter pairs</div>
+                <div>2. Can you name all 26 letters in order?</div>
+                <div>3. Practice writing both uppercase and lowercase letters</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can match uppercase and lowercase letters</div>
+                <div>☐ I recognize letter pairs</div>
+                <div>☐ I can say letter sounds</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 26
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('uppercase-lowercase-match', () => {
+              const letters = [['A','a'],['B','b'],['C','c'],['D','d'],['E','e'],['F','f'],['G','g'],['H','h'],['I','i'],['J','j'],['K','k'],['L','l'],['M','m'],['N','n'],['O','o'],['P','p'],['Q','q'],['R','r'],['S','s'],['T','t'],['U','u'],['V','v'],['W','w'],['X','x'],['Y','y'],['Z','z']];
+              return (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-1 text-sm text-emerald-800">
+                    {letters.map(([U, l], i) => (
+                      <div key={i}>{U} → <strong>{l}</strong></div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('beginning-sounds-az') && (
