@@ -4009,18 +4009,43 @@ export function PrintablesPage() {
                 <li>Who found the hat?</li>
                 <li>Why did the hat fly off?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-lost-hat', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>The park</li>
-                    <li>Red</li>
-                    <li>A dog</li>
-                    <li>The wind was strong</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. What do you think happened after Mia said "Thank you"?</div>
+                <div>3. Draw a picture of what happened in the story</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-lost-hat', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>The park</strong> (Mia ran to the park)</li>
+                  <li><strong>Red</strong> (Her red hat flew off)</li>
+                  <li><strong>A dog</strong> (A dog found the hat by the bench)</li>
+                  <li><strong>The wind was strong</strong> (The wind was strong, so the hat flew off)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-ants') && (
@@ -4059,9 +4084,9 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Sam dropped a crumb. Ants marched in a line. They carried the crumb together. Sam watched quietly. He did not step near them. Soon, the ants were gone. The floor was clean!</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Sam dropped a crumb. Ants marched in a line. They carried the crumb together. Sam watched quietly. He did not step near them. Soon, the ants were gone. The floor was clean!</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What did Sam drop?</li>
                 <li>How did the ants move?</li>
                 <li>What did Sam do while he watched?</li>
@@ -4125,18 +4150,43 @@ export function PrintablesPage() {
                 <li>What sound did the driver make?</li>
                 <li>Why did the doors open?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-bus-ride', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>Blue</li>
-                    <li>His mom</li>
-                    <li>A bell</li>
-                    <li>It was their stop</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think Eli waved to the driver?</div>
+                <div>3. Draw a picture of Eli and his mom on the bus</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-bus-ride', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>Blue</strong> (The seats were soft and blue)</li>
+                  <li><strong>His mom</strong> (Eli held his mom's hand)</li>
+                  <li><strong>A bell</strong> (The driver rang a bell)</li>
+                  <li><strong>It was their stop</strong> ("This is our stop," Mom said)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g1-pet-fish') && (
