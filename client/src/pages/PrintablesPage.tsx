@@ -3080,7 +3080,7 @@ export function PrintablesPage() {
                 'Understand place value when comparing numbers'
               ]}
               parentTeacherTips={[
-                'Compare the tens place first - that's usually enough!',
+                'Compare the tens place first - that\'s usually enough!',
                 'If tens are equal, then compare the ones place',
                 'Use > for greater than, < for less than, = for equal',
                 'Extension: Compare 3-digit numbers'
@@ -3094,8 +3094,8 @@ export function PrintablesPage() {
                   <div className="font-semibold text-base"><strong>Problem:</strong> Compare 58 and 41</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                     <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
-                    <div><strong>Step 2:</strong> 5 > 4, so 58 > 41</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 > 41</div>
+                    <div><strong>Step 2:</strong> 5 &gt; 4, so 58 &gt; 41</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 &gt; 41</div>
                     <div className="text-xs text-blue-700 mt-1">💡 Tip: Compare tens first! If tens are different, you're done. If tens are equal, compare ones!</div>
                   </div>
                 </div>
@@ -3134,7 +3134,7 @@ export function PrintablesPage() {
                 <div className="space-y-2 text-xs">
                   <div>☐ I can compare 2-digit numbers correctly</div>
                   <div>☐ I know to compare tens first</div>
-                  <div>☐ I can use >, <, and = symbols correctly</div>
+                    <div>☐ I can use &gt;, &lt;, and = symbols correctly</div>
                 </div>
                 <div className="mt-3 text-xs">
                   <strong>My score:</strong> ___ / {pairs.length}
