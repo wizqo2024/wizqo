@@ -9076,17 +9076,42 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you create your own AB pattern? (Example: star, heart, star, heart...)</div>
+                <div>2. Try an AABB pattern: circle, circle, square, square, circle, circle, __, __</div>
+                <div>3. What comes next in this pattern: 2, 4, 6, 8, __? (Hint: It's a number pattern!)</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify patterns (AB, ABC, AAB)</div>
+                <div>☐ I can find what comes next in a pattern</div>
+                <div>☐ I completed all 3 patterns correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 3
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('pattern-complete', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>AB Pattern: Next shape is circle</li>
-                  <li>ABC Pattern: Next color is green</li>
-                  <li>AAB Pattern: Next shape is triangle</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>AB Pattern: Next shape is circle</strong> (The pattern alternates: circle, square, circle, square, so next is circle)</li>
+                  <li><strong>ABC Pattern: Next color is green</strong> (The pattern repeats: red, blue, green, red, blue, so next is green)</li>
+                  <li><strong>AAB Pattern: Next shape is triangle</strong> (The pattern is: triangle, triangle, circle, triangle, triangle, so next is triangle)</li>
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look for the repeating pattern. AB alternates, ABC repeats in threes, AAB has two of one thing then one of another!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('missing-shape') && (
