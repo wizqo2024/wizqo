@@ -9263,18 +9263,43 @@ export function PrintablesPage() {
                 </div>
               ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Find 3 objects in your house. Which is biggest? Which is smallest?</div>
+                <div>2. Compare the length of 2 pencils. Which is longer?</div>
+                <div>3. Can you find something that is exactly the same size as your hand?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can compare sizes visually</div>
+                <div>☐ I can identify bigger and smaller objects</div>
+                <div>☐ I answered all 4 questions correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('size-comparison', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
-                  <li>Circle the bigger: B (50px &gt; 30px)</li>
-                  <li>Circle the smaller: B (25px &lt; 40px)</li>
-                  <li>Circle the longer: A (60px &gt; 35px)</li>
-                  <li>Circle the shorter: A (45px &lt; 70px)</li>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>Circle the bigger: B</strong> (B is 50px, A is 30px, so B is bigger)</li>
+                  <li><strong>Circle the smaller: B</strong> (B is 25px, A is 40px, so B is smaller)</li>
+                  <li><strong>Circle the longer: A</strong> (A is 60px, B is 35px, so A is longer)</li>
+                  <li><strong>Circle the shorter: A</strong> (A is 45px, B is 70px, so A is shorter)</li>
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look at the visual size of each object. The bigger one takes up more space, the smaller one takes up less space!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {/* New 2nd Grade Worksheets */}
