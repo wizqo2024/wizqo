@@ -9304,10 +9304,43 @@ export function PrintablesPage() {
 
         {/* New 2nd Grade Worksheets */}
         {activeDocs.includes('expanded-form-200') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Expanded Form to 200</h2>
-            <p className="text-slate-600 text-sm mb-3">Write each number in expanded form (100+20+5).</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="expanded-form-200"
+            title="Expanded Form to 200"
+            emoji="🔢"
+            description="Write each number in expanded form (100+20+5)."
+            problemCount={6}
+            learningObjectives={[
+              'Understand place value (hundreds, tens, ones)',
+              'Write numbers in expanded form',
+              'Break down numbers into their place value parts',
+              'Build number sense and place value understanding'
+            ]}
+            parentTeacherTips={[
+              'Expanded form shows the value of each digit',
+              'For 125: 1 is in the hundreds place (100), 2 is in the tens place (20), 5 is in the ones place (5)',
+              'So 125 = 100 + 20 + 5',
+              'Help students identify each digit and its place value',
+              'Extension: Try writing numbers in word form or standard form'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 125 = __ + __ + __</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at each digit: 1, 2, 5</div>
+                  <div><strong>Step 2:</strong> The 1 is in the hundreds place: 1 × 100 = 100</div>
+                  <div><strong>Step 3:</strong> The 2 is in the tens place: 2 × 10 = 20</div>
+                  <div><strong>Step 4:</strong> The 5 is in the ones place: 5 × 1 = 5</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 125 = 100 + 20 + 5</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Each digit has a place value. Hundreds place × 100, tens place × 10, ones place × 1!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[125, 143, 167, 189, 152, 176].map((num) => {
                 const hundreds = Math.floor(num / 100)
                 const tens = Math.floor((num % 100) / 10)
@@ -9322,27 +9355,84 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you write 234 in expanded form? (Hint: 200 + ? + ?)</div>
+                <div>2. Try writing 199 in expanded form</div>
+                <div>3. If 100 + 50 + 7 = ?, what is the number?</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understand place value (hundreds, tens, ones)</div>
+                <div>☐ I can write numbers in expanded form</div>
+                <div>☐ I wrote all 6 numbers correctly in expanded form</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('expanded-form-200', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[125, 143, 167, 189, 152, 176].map((num) => {
                     const hundreds = Math.floor(num / 100)
                     const tens = Math.floor((num % 100) / 10)
                     const ones = num % 10
-                    return <li key={num}>{num} = {hundreds * 100} + {tens * 10} + {ones}</li>
+                    return <li key={num}><strong>{num} = {hundreds * 100} + {tens * 10} + {ones}</strong> ({hundreds} hundreds = {hundreds * 100}, {tens} tens = {tens * 10}, {ones} ones = {ones})</li>
                   })}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Expanded form shows the value of each digit. Hundreds place × 100, tens place × 10, ones place × 1!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('number-patterns-200') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">📊 Number Patterns to 200</h2>
-            <p className="text-slate-600 text-sm mb-3">Find the pattern and fill in the missing numbers.</p>
-            <div className="space-y-4">
+          <WorksheetSectionWrapper
+            docId="number-patterns-200"
+            title="Number Patterns to 200"
+            emoji="📊"
+            description="Find the pattern and fill in the missing numbers."
+            problemCount={3}
+            learningObjectives={[
+              'Identify number patterns (skip counting)',
+              'Continue patterns by finding the rule',
+              'Fill in missing numbers in sequences',
+              'Build pattern recognition and number sense'
+            ]}
+            parentTeacherTips={[
+              'Look for the rule: is it adding 5, 10, or another number?',
+              'Check the difference between consecutive numbers',
+              'For +10 pattern: each number is 10 more than the previous',
+              'Help students see: "What number comes after 30? 30 + 10 = 40"',
+              'Extension: Try patterns with larger numbers or different rules'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Pattern:</strong> 10, 20, 30, __, 50</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find the rule: 20 - 10 = 10, 30 - 20 = 10 (adding 10 each time)</div>
+                  <div><strong>Step 2:</strong> The pattern is +10</div>
+                  <div><strong>Step 3:</strong> After 30 comes 30 + 10 = 40</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Find the difference between numbers to discover the pattern rule!</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 { pattern: [10, 20, 30, '__', 50, '__', 70], rule: '+10', answers: [40, 60] },
                 { pattern: [5, 10, 15, '__', 25, '__', 35], rule: '+5', answers: [20, 30] },
