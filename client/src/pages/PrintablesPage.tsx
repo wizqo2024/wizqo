@@ -1996,10 +1996,40 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('geo-landforms') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🏔️ Landforms vs Water Bodies</h2>
-            <p className="text-slate-600 text-sm mb-3">Draw a line from each word to its matching picture. (A–E)</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="geo-landforms"
+            title="Landforms vs Water Bodies"
+            emoji="🏔️"
+            description="Draw a line from each word to its matching picture. (A–E)"
+            problemCount={5}
+            learningObjectives={[
+              'Identify different landforms',
+              'Identify different water bodies',
+              'Match words to pictures'
+            ]}
+            parentTeacherTips={[
+              'Landforms are parts of the land: mountain, valley, island',
+              'Water bodies hold or carry water: lake, river',
+              'Help students look at the shapes in the pictures',
+              'Extension: Find examples of these in your area'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Match "Mountain" to the correct picture</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the word "Mountain"</div>
+                  <div><strong>Step 2:</strong> Find the picture that shows tall peaks pointing up</div>
+                  <div><strong>Step 3:</strong> Draw a line from "Mountain" to that picture</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mountain matches the picture with tall peaks</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look at the shape - mountains have peaks, valleys have a V shape!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
                 {
                   label: 'Mountain',
@@ -2093,7 +2123,52 @@ export function PrintablesPage() {
                 Tip: Landforms are parts of the land (mountain, valley, island). Water bodies hold or carry water (lake, river).
               </div>
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Draw your own landform or water body</div>
+                <div>2. Can you find examples of these near your home?</div>
+                <div>3. Create a story using 3 of these landforms/water bodies</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify landforms</div>
+                <div>☐ I can identify water bodies</div>
+                <div>☐ I can match words to pictures</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 5
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('geo-landforms', () => {
+              const matches = [
+                { word: 'Mountain', letter: 'A' },
+                { word: 'Valley', letter: 'B' },
+                { word: 'Island', letter: 'C' },
+                { word: 'Lake', letter: 'D' },
+                { word: 'River', letter: 'E' }
+              ];
+              return (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {matches.map((m, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {m.word} → <strong>{m.letter}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('geo-latlong') && (
