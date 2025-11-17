@@ -4195,27 +4195,81 @@ export function PrintablesPage() {
             title="Passage — The Pet Fish (Grade 1)"
             emoji="📖"
             description="Short passage with 4 comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify key details (what, who, how many)',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss pet care and responsibility with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Tara had a tiny orange fish. She named it Dot. Every morning, she shook in two flakes of food. Dot swam in little circles. Tara drew a picture of Dot for her wall.</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What pet did Tara have?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what pet Tara had</div>
+                  <div><strong>Step 3:</strong> Find: "Tara had a tiny orange fish"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tara had a tiny orange fish.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what pet") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Tara had a tiny orange fish. She named it Dot. Every morning, she shook in two flakes of food. Dot swam in little circles. Tara drew a picture of Dot for her wall.</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What pet did Tara have?</li>
                 <li>What was its name?</li>
                 <li>How many flakes did she feed it?</li>
                 <li>What did Tara put on her wall?</li>
               </ol>
-              {showAnswersForDoc('reading-g1-pet-fish', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>A tiny orange fish</li>
-                    <li>Dot</li>
-                    <li>Two flakes</li>
-                    <li>A picture of Dot</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. Why do you think Tara named her fish Dot?</div>
+                <div>3. Draw a picture of Tara's fish</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g1-pet-fish', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>A tiny orange fish</strong> (Tara had a tiny orange fish)</li>
+                  <li><strong>Dot</strong> (She named it Dot)</li>
+                  <li><strong>Two flakes</strong> (Every morning, she shook in two flakes of food)</li>
+                  <li><strong>A picture of Dot</strong> (Tara drew a picture of Dot for her wall)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-paper-bridge') && (
@@ -4224,27 +4278,81 @@ export function PrintablesPage() {
             title="Passage — The Paper Bridge (Grade 2)"
             emoji="📖"
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify cause and effect relationships',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss problem-solving and persistence with your child'
+            ]}
           >
-            <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
-              <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> What was Lena building?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for what Lena was building</div>
+                  <div><strong>Step 3:</strong> Find: "Lena wanted a tiny bridge for her toy river"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Lena was building a tiny paper bridge.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "what") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white border border-slate-300 rounded p-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <p className="text-slate-800 text-base leading-relaxed">Lena wanted a tiny bridge for her toy river. She folded strips of paper and taped them together. The first bridge bent and fell. She added more layers, tested again, and smiled. The paper bridge held three toy cars!</p>
+              <ol className="list-decimal list-inside mt-4 text-slate-800 text-base space-y-2">
                 <li>What was Lena building?</li>
                 <li>Why did the first bridge fail?</li>
                 <li>What change helped it work?</li>
                 <li>How many cars did it hold?</li>
               </ol>
-              {showAnswersForDoc('reading-g2-paper-bridge', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
-                    <li>A tiny paper bridge</li>
-                    <li>It bent and fell (too weak)</li>
-                    <li>More layers</li>
-                    <li>Three cars</li>
-                  </ol>
-                </div>
-              ))}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you retell the story in your own words?</div>
+                <div>2. What lesson can we learn from Lena's story?</div>
+                <div>3. Draw a picture of Lena's paper bridge</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I understood the story</div>
+                <div>☐ I answered all 4 questions</div>
+                <div>☐ I used full sentences in my answers</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 4
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('reading-g2-paper-bridge', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                  <li><strong>A tiny paper bridge</strong> (Lena wanted a tiny bridge for her toy river)</li>
+                  <li><strong>It bent and fell (too weak)</strong> (The first bridge bent and fell)</li>
+                  <li><strong>More layers</strong> (She added more layers, tested again, and smiled)</li>
+                  <li><strong>Three cars</strong> (The paper bridge held three toy cars!)</li>
+                </ol>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Always look back at the passage to find the answers. The information is in the text!</div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
         {activeDocs.includes('reading-g2-rainy-garden') && (
