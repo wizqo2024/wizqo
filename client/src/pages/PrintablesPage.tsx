@@ -12498,19 +12498,45 @@ export function PrintablesPage() {
               title="Fractions: Parts of a Whole"
               emoji="🍕"
               description="Color the fraction shown. Understand fractions as parts of a whole."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand fractions as parts of a whole',
+                'Identify the numerator and denominator',
+                'Color the correct number of parts to show a fraction'
+              ]}
+              parentTeacherTips={[
+                'The denominator tells how many equal parts the whole is divided into',
+                'The numerator tells how many parts we are looking at',
+                'Encourage students to count the parts carefully',
+                'Extension: Create your own fractions with different shapes'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> The denominator (2) means the whole is divided into 2 equal parts</div>
+                    <div><strong>Step 2:</strong> The numerator (1) means we color 1 part</div>
+                    <div><strong>Step 3:</strong> Color 1 out of 2 parts to show 1/2</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 1 part (half of the whole)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The bottom number (denominator) tells you how many parts, the top number (numerator) tells you how many to color!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => {
                   const toColor = Math.floor((p.numerator / p.denominator) * p.total)
                   return (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                       <div className="text-center mb-2">
                         <p className="text-lg font-bold text-slate-900">{p.numerator}/{p.denominator}</p>
                       </div>
                       <div className="grid grid-cols-4 gap-1 mb-2">
                         {Array.from({ length: p.total }).map((_, j) => (
-                          <div key={j} className={`aspect-square border-4 ${j < toColor ? 'border-blue-500 bg-white' : 'border-slate-300 bg-white'}`} />
+                          <div key={j} className={`aspect-square border-4 ${j < toColor ? 'border-blue-500 bg-white print:border-blue-500' : 'border-slate-300 bg-white'}`} />
                         ))}
                       </div>
                       <p className="text-xs text-center text-slate-600">Color {toColor} out of {p.total} parts (the ones with blue border)</p>
@@ -12518,15 +12544,43 @@ export function PrintablesPage() {
                   )
                 })}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Draw your own shape and divide it into 4 equal parts. Color 3/4</div>
+                  <div>2. Can you find objects around you that show fractions? (like half an apple)</div>
+                  <div>3. Create a fraction that equals 1 whole (like 4/4 or 8/8)</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand what the numerator and denominator mean</div>
+                  <div>☐ I can color the correct number of parts</div>
+                  <div>☐ I understand fractions as parts of a whole</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('fractions-whole', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
                     {problems.map((p, i) => {
                       const toColor = Math.floor((p.numerator / p.denominator) * p.total)
-                      return <li key={i}>{p.numerator}/{p.denominator}: Color {toColor} parts</li>
+                      return (
+                        <div key={i} className="text-sm text-emerald-800">
+                          {i + 1}. {p.numerator}/{p.denominator}: Color <strong>{toColor}</strong> out of {p.total} parts
+                        </div>
+                      )
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
