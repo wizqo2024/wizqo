@@ -4419,7 +4419,36 @@ export function PrintablesPage() {
             title="Passage — Lost and Found (Grade 2)"
             emoji="📖"
             description="Short passage with comprehension questions. Read carefully and answer in full sentences."
+            problemCount={4}
+            learningObjectives={[
+              'Read and understand a short story',
+              'Answer comprehension questions about the text',
+              'Identify sequence of events',
+              'Practice reading fluency and comprehension'
+            ]}
+            parentTeacherTips={[
+              'Read the passage aloud first, then have the child read it',
+              'Ask questions to check understanding before answering',
+              'Encourage full sentence answers',
+              'Help identify key words in the questions that match the passage',
+              'Extension: Discuss kindness and helping others with your child'
+            ]}
           >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Question:</strong> Where did Ben find the glove?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Read the passage carefully</div>
+                  <div><strong>Step 2:</strong> Look for where Ben found the glove</div>
+                  <div><strong>Step 3:</strong> Find: "Ben noticed a glove under the slide"</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Ben found the glove under the slide.</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Look for key words in the question (like "where") and find them in the passage!</div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">At recess, Ben noticed a glove under the slide. He brought it to the office and wrote “blue glove” in the lost‑and‑found log. After lunch, a classmate came looking for a glove and smiled when she saw it.</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
