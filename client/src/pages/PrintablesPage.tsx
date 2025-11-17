@@ -9489,10 +9489,42 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('rounding-nearest-10') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔍 Rounding to Nearest 10</h2>
-            <p className="text-slate-600 text-sm mb-3">Round each number to the nearest 10.</p>
-            <div className="grid grid-cols-2 gap-4">
+          <WorksheetSectionWrapper
+            docId="rounding-nearest-10"
+            title="Rounding to Nearest 10"
+            emoji="🔍"
+            description="Round each number to the nearest 10."
+            problemCount={8}
+            learningObjectives={[
+              'Round numbers to the nearest 10',
+              'Understand which 10 a number is closer to',
+              'Use rounding rules (5 or more rounds up)',
+              'Build number sense and estimation skills'
+            ]}
+            parentTeacherTips={[
+              'Look at the ones digit to decide',
+              'If ones digit is 0-4, round down to the lower 10',
+              'If ones digit is 5-9, round up to the higher 10',
+              'For example: 23 has ones digit 3 (less than 5), so round down to 20',
+              'Extension: Try rounding to the nearest 100'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Round 37 to the nearest 10</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the ones digit: 7</div>
+                  <div><strong>Step 2:</strong> Is 7 less than 5? No, it's 5 or more</div>
+                  <div><strong>Step 3:</strong> Round up: 37 rounds up to 40</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 40</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: If the ones digit is 5 or more, round up. If it's less than 5, round down!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
                 const rounded = Math.round(num / 10) * 10
                 return (
@@ -9505,24 +9537,82 @@ export function PrintablesPage() {
                 )
               })}
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you round 125 to the nearest 10? (Hint: Look at the ones digit!)</div>
+                <div>2. Try rounding to the nearest 100: 234 rounds to ? (Hint: Look at the tens digit!)</div>
+                <div>3. Round these numbers: 47, 52, 68, 75</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can round numbers to the nearest 10</div>
+                <div>☐ I understand the rounding rule (5 or more rounds up)</div>
+                <div>☐ I rounded all 8 numbers correctly</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 8
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
             {showAnswersForDoc('rounding-nearest-10', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <ul className="list-disc list-inside space-y-0.5">
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                   {[23, 37, 45, 58, 64, 76, 82, 91].map((num) => {
                     const rounded = Math.round(num / 10) * 10
-                    return <li key={num}>{num} rounds to {rounded}</li>
+                    const onesDigit = num % 10
+                    const reason = onesDigit < 5 ? `ones digit ${onesDigit} < 5, round down` : `ones digit ${onesDigit} ≥ 5, round up`
+                    return <li key={num}><strong>{num} rounds to {rounded}</strong> ({reason})</li>
                   })}
                 </ul>
+                <div className="text-xs text-emerald-700 mt-3">💡 Remember: Look at the ones digit. If it's 0-4, round down. If it's 5-9, round up!</div>
               </div>
             ))}
-          </section>
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('add-three-numbers') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➕ Adding 3 Numbers</h2>
-            <p className="text-slate-600 text-sm mb-3">Add three numbers together.</p>
+          <WorksheetSectionWrapper
+            docId="add-three-numbers"
+            title="Adding 3 Numbers"
+            emoji="➕"
+            description="Add three numbers together."
+            problemCount={6}
+            learningObjectives={[
+              'Add three numbers together',
+              'Use addition strategies (add two first, then add the third)',
+              'Build mental math skills',
+              'Practice multi-step addition'
+            ]}
+            parentTeacherTips={[
+              'Add two numbers first, then add the third',
+              'Look for numbers that make 10 (like 3+7, 4+6)',
+              'For 3+4+2, you can do (3+4)+2 = 7+2 = 9',
+              'Or find pairs: (3+2)+4 = 5+4 = 9',
+              'Extension: Try adding 4 or 5 numbers together'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 + 2 = ?</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Add the first two numbers: 3 + 4 = 7</div>
+                  <div><strong>Step 2:</strong> Add the third number: 7 + 2 = 9</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 4 + 2 = 9</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Add two numbers first, then add the third. You can add them in any order!</div>
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               {[[3, 4, 2], [5, 2, 3], [4, 3, 3], [6, 2, 1], [2, 5, 3], [4, 4, 2]].map((nums, idx) => (
                 <svg key={idx} viewBox="0 0 400 120" className="w-full h-auto bg-white border border-slate-300 rounded">
