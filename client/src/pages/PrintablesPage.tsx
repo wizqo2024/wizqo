@@ -3217,8 +3217,37 @@ export function PrintablesPage() {
             title="Shapes & Colors Sort (Cut & Glue)"
             emoji="🟩"
             description="Cut out the shapes, then sort into the right color boxes. Practice scissor skills safely."
+            problemCount={6}
+            learningObjectives={[
+              'Identify and name basic shapes (circle, rectangle, triangle)',
+              'Recognize and match colors (blue, red, green)',
+              'Practice fine motor skills (cutting and gluing)',
+              'Sort objects by color attribute'
+            ]}
+            parentTeacherTips={[
+              'Supervise scissor use for safety',
+              'Encourage naming shapes and colors while sorting',
+              'Ask: "What shape is this? What color?"',
+              'Extension: Sort by shape instead of color, or by both attributes',
+              'Practice cutting on the lines for fine motor development'
+            ]}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Shape:</strong> Blue circle</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Look at the shape: It's a circle</div>
+                  <div><strong>Step 2:</strong> Look at the color: It's blue</div>
+                  <div><strong>Step 3:</strong> Find the BLUE box and glue it there</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Glue the blue circle in the BLUE box</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: First identify the shape, then the color, then find the matching color box!</div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               <svg viewBox="0 0 400 300" className="w-full h-auto bg-white border border-slate-300 rounded">
                 <g fill="none" stroke="#111827" strokeWidth="3.5">
                   <rect x="40" y="40" width="120" height="80" />
@@ -3240,26 +3269,133 @@ export function PrintablesPage() {
                 </g>
               </svg>
             </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you sort the shapes by shape instead of color? (all circles together, all rectangles together...)</div>
+                <div>2. Draw your own shapes and color them. Then sort them!</div>
+                <div>3. Count how many shapes are in each color box</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can identify shapes (circle, rectangle, triangle)</div>
+                <div>☐ I can identify colors (blue, red, green)</div>
+                <div>☐ I can sort shapes by color</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 6
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('shapes-colors-sort', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div><strong>Blue box:</strong> Blue circle, blue rectangle, blue triangle</div>
+                  <div><strong>Red box:</strong> Red circle, red rectangle, red triangle</div>
+                  <div><strong>Green box:</strong> Green circle, green rectangle, green triangle</div>
+                </div>
+                <div className="text-xs text-emerald-700 mt-3">
+                  💡 Remember: Sort by color - all blue shapes go in the BLUE box, all red shapes go in the RED box, and all green shapes go in the GREEN box!
+                </div>
+              </div>
+            ))}
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('dot-to-dot-1-20') && (
-          <WorksheetSectionWrapper
-            docId="dot-to-dot-1-20"
-            title="1–20 Dot‑to‑Dot"
-            emoji="🔢"
-            description="Connect the dots in order to reveal the picture."
-          >
-            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-              {Array.from({ length: 20 }).map((_,i)=> (
-                <g key={i}>
-                  <circle cx={60 + i*35} cy={200 + (i%2===0? -30:30)} r="4" fill="#111827" />
-                  <text x={60 + i*35 + 6} y={200 + (i%2===0? -30:30) - 6} fontSize="12">{i+1}</text>
-                </g>
+        {activeDocs.includes('dot-to-dot-1-20') && (() => {
+          const dotCount = 20;
+          return (
+            <WorksheetSectionWrapper
+              docId="dot-to-dot-1-20"
+              title="1–20 Dot‑to‑Dot"
+              emoji="🔢"
+              description="Connect the dots in order to reveal the picture."
+              problemCount={dotCount}
+              learningObjectives={[
+                'Count numbers 1–20 in order',
+                'Follow sequential order',
+                'Practice fine motor skills (drawing lines)',
+                'Recognize number patterns'
+              ]}
+              parentTeacherTips={[
+                'Encourage counting aloud while connecting dots',
+                'Start at 1 and go in order: 1, 2, 3, 4...',
+                'Help identify the picture as it emerges',
+                'Extension: Try connecting backwards (20, 19, 18...)',
+                'Practice number recognition and sequencing'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Instructions:</strong> Connect the dots from 1 to 20</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find dot number 1</div>
+                    <div><strong>Step 2:</strong> Draw a line from 1 to 2</div>
+                    <div><strong>Step 3:</strong> Continue: 2 to 3, 3 to 4, and so on...</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Connect all dots in order: 1→2→3→4→...→20</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always start at 1 and count forward. The picture will appear as you connect the dots!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
+                  {Array.from({ length: dotCount }).map((_,i)=> (
+                    <g key={i}>
+                      <circle cx={60 + i*35} cy={200 + (i%2===0? -30:30)} r="4" fill="#111827" />
+                      <text x={60 + i*35 + 6} y={200 + (i%2===0? -30:30) - 6} fontSize="12">{i+1}</text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you connect the dots backwards? (20, 19, 18...)</div>
+                  <div>2. Color the picture after connecting all the dots</div>
+                  <div>3. What picture did you make? Draw it again on your own!</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count from 1 to 20</div>
+                  <div>☐ I connected all the dots in order</div>
+                  <div>☐ I can see the picture that was made</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {dotCount}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('dot-to-dot-1-20', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    <div>Connect the dots in this order: <strong>1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20</strong></div>
+                    <div className="mt-2">The completed picture should show a wavy or zigzag pattern connecting all 20 dots in numerical order.</div>
+                  </div>
+                  <div className="text-xs text-emerald-700 mt-3">
+                    💡 Remember: Always start at dot 1 and connect in order. Count aloud as you go: 1, 2, 3, 4...
+                  </div>
+                </div>
               ))}
-            </svg>
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('tangram-animals') && (
           <WorksheetSectionWrapper
