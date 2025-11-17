@@ -2022,75 +2022,41 @@ export function PrintablesPage() {
             title="Trace Numbers 1–10"
             emoji="🔢"
             description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
+            problemCount={10}
+            learningObjectives={[
+              'Recognize and write numbers 1–10',
+              'Practice fine motor skills (tracing)',
+              'Follow directional arrows',
+              'Build number recognition and formation'
+            ]}
+            parentTeacherTips={[
+              'Start at the red dot and follow the arrow',
+              'Say the number name while tracing',
+              'Encourage proper pencil grip',
+              'Color one object for each number after tracing',
+              'Extension: Practice writing numbers without tracing lines'
+            ]}
           >
-            <div className="grid grid-cols-2 gap-4">
-              {[1,2,3,4,5,6,7,8,9,10].map((n) => (
-                <svg key={n} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="none" stroke="#94a3b8" strokeWidth="3">
-                    <path strokeDasharray="6 6" d={`M40 160 H360`} />
-                  </g>
-                  <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
-                    {n===1 && <path d="M120 150 L120 60" />}
-                    {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
-                    {n===3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
-                    {n===4 && (
-                      <g>
-                        <path d="M160 60 L100 110 H170" />
-                        <path d="M160 60 V150" />
-                      </g>
-                    )}
-                    {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
-                    {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
-                    {n===7 && <path d="M90 70 H170 L110 150" />}
-                    {n===8 && (
-                      <g>
-                        <circle cx="120" cy="95" r="26" fill="none" />
-                        <circle cx="120" cy="135" r="26" fill="none" />
-                      </g>
-                    )}
-                    {n===9 && (
-                      <g>
-                        <circle cx="135" cy="100" r="28" fill="none" />
-                        <path d="M162 120 Q150 150, 120 150" />
-                      </g>
-                    )}
-                    {n===10 && (
-                      <g>
-                        <path d="M90 150 L90 80" />
-                        <circle cx="140" cy="115" r="30" fill="none" />
-                      </g>
-                    )}
-                  </g>
-                  <circle cx="48" cy="54" r="4" fill="#ef4444" />
-                  <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                  <circle cx="80" cy="70" r="6" fill="#ef4444" />
-                  <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
-                </svg>
-              ))}
-            </div>
-            {showAnswersForDoc('number-tracing-1-10', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <p className="text-sm">Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</p>
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Number:</strong> 3</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find the red dot (start point)</div>
+                  <div><strong>Step 2:</strong> Follow the arrow direction</div>
+                  <div><strong>Step 3:</strong> Trace along the dashed line</div>
+                  <div><strong>Step 4:</strong> Say "three" while tracing</div>
+                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Trace the number 3 following the dashed line, starting at the red dot</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!</div>
+                </div>
               </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
-
-        {activeDocs.includes('number-tracing-1-20') && (
-          <WorksheetSectionWrapper
-            docId="number-tracing-1-20"
-            title="Trace Numbers 1–20"
-            emoji="🔢"
-            description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {[...Array(20).keys()].map((i) => {
-                const n = i + 1;
-                return (
-                  <svg key={n} viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+            </div>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              {[1,2,3,4,5,6,7,8,9,10].map((n) => (
+                <div key={n} className="break-inside-avoid">
+                  <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
                     <g fill="none" stroke="#94a3b8" strokeWidth="3">
                       <path strokeDasharray="6 6" d={`M40 160 H360`} />
                     </g>
@@ -2126,24 +2092,178 @@ export function PrintablesPage() {
                         </g>
                       )}
                     </g>
-                      <circle cx="48" cy="54" r="4" fill="#ef4444" />
-                      <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                      <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
-                      <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <circle cx="48" cy="54" r="4" fill="#ef4444" />
+                    <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
                     <circle cx="80" cy="70" r="6" fill="#ef4444" />
                     <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
                   </svg>
-                );
-              })}
+                </div>
+              ))}
             </div>
-            {showAnswersForDoc('number-tracing-1-20', () => (
-              <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                <div className="font-semibold mb-1">Answer key</div>
-                <p className="text-sm">Trace each number following the dashed lines. Start at the red dot and follow the arrow direction. Numbers 1-20 should be traced in order.</p>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Try writing the numbers 1–10 without tracing lines</div>
+                <div>2. Count objects around you: How many can you find of each number?</div>
+                <div>3. Draw your own numbers and trace them!</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can recognize numbers 1–10</div>
+                <div>☐ I can trace numbers following the lines</div>
+                <div>☐ I can say the number names</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My score:</strong> ___ / 10
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('number-tracing-1-10', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div>Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</div>
+                  <div className="mt-2">Numbers to trace: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</strong></div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!</div>
+                </div>
               </div>
             ))}
           </WorksheetSectionWrapper>
         )}
+
+        {activeDocs.includes('number-tracing-1-20') && (() => {
+          const numbers = Array.from({ length: 20 }, (_, i) => i + 1);
+          return (
+            <WorksheetSectionWrapper
+              docId="number-tracing-1-20"
+              title="Trace Numbers 1–20"
+              emoji="🔢"
+              description="Start‑point arrows included. Say each number while tracing; then color one object for each number."
+              problemCount={20}
+              learningObjectives={[
+                'Recognize and write numbers 1–20',
+                'Practice fine motor skills (tracing)',
+                'Follow directional arrows',
+                'Build number recognition and formation'
+              ]}
+              parentTeacherTips={[
+                'Start at the red dot and follow the arrow',
+                'Say the number name while tracing',
+                'Encourage proper pencil grip',
+                'Color one object for each number after tracing',
+                'Extension: Practice writing numbers without tracing lines'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Number:</strong> 15</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the red dot (start point)</div>
+                    <div><strong>Step 2:</strong> Follow the arrow direction</div>
+                    <div><strong>Step 3:</strong> Trace along the dashed line</div>
+                    <div><strong>Step 4:</strong> Say "fifteen" while tracing</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Trace the number 15 following the dashed line, starting at the red dot</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Always start at the red dot and follow the arrow. Say the number name as you trace!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {numbers.map((n) => (
+                  <div key={n} className="break-inside-avoid">
+                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <g fill="none" stroke="#94a3b8" strokeWidth="3">
+                        <path strokeDasharray="6 6" d={`M40 160 H360`} />
+                      </g>
+                      <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round">
+                        {n===1 && <path d="M120 150 L120 60" />}
+                        {n===2 && <path d="M90 90 Q120 60, 150 90 Q180 120, 90 150 H180" />}
+                        {n===3 && <path d="M105 85 C135 65,170 85,150 100 C170 115,135 135,105 115" />}
+                        {n===4 && (
+                          <g>
+                            <path d="M160 60 L100 110 H170" />
+                            <path d="M160 60 V150" />
+                          </g>
+                        )}
+                        {n===5 && <path d="M170 70 H100 V110 Q130 90, 160 110 Q170 140, 120 150" />}
+                        {n===6 && <path d="M160 80 Q100 80, 110 120 Q140 160, 170 130 Q150 110, 120 120" />}
+                        {n===7 && <path d="M90 70 H170 L110 150" />}
+                        {n===8 && (
+                          <g>
+                            <circle cx="120" cy="95" r="26" fill="none" />
+                            <circle cx="120" cy="135" r="26" fill="none" />
+                          </g>
+                        )}
+                        {n===9 && (
+                          <g>
+                            <circle cx="135" cy="100" r="28" fill="none" />
+                            <path d="M162 120 Q150 150, 120 150" />
+                          </g>
+                        )}
+                        {n===10 && (
+                          <g>
+                            <path d="M90 150 L90 80" />
+                            <circle cx="140" cy="115" r="30" fill="none" />
+                          </g>
+                        )}
+                      </g>
+                      <circle cx="48" cy="54" r="4" fill="#ef4444" />
+                      <line x1="48" y1="54" x2="70" y2="54" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="70" y1="54" x2="64" y2="49" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                      <line x1="70" y1="54" x2="64" y2="59" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" />
+                      <circle cx="80" cy="70" r="6" fill="#ef4444" />
+                      <text x="300" y="60" fontSize="28" fill="#111827">{n}</text>
+                    </svg>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Try writing the numbers 1–20 without tracing lines</div>
+                  <div>2. Count objects around you: How many can you find of each number?</div>
+                  <div>3. Draw your own numbers and trace them!</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can recognize numbers 1–20</div>
+                  <div>☐ I can trace numbers following the lines</div>
+                  <div>☐ I can say the number names</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / 20
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('number-tracing-1-20', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    <div>Trace each number following the dashed lines. Start at the red dot and follow the arrow direction.</div>
+                    <div className="mt-2">Numbers to trace: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20</strong></div>
+                    <div className="text-xs text-emerald-700 mt-2">💡 Remember: Always start at the red dot, follow the arrow, and say the number name as you trace!</div>
+                  </div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('uppercase-lowercase-match') && (
           <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
@@ -2261,27 +2381,104 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('ten-frames-1-10') && (
-          <WorksheetSectionWrapper
-            docId="ten-frames-1-10"
-            title="Ten Frames 1–10"
-            emoji="🔟"
-            description="Color the circles to match each number. Say how many are filled and how many are empty."
-          >
-            <div className="grid grid-cols-2 gap-4">
-              {Array.from({ length: 10 }).map((_,n)=> (
-                <svg key={n} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <text x="40" y="50" fontSize="36" fill="#111827">{n+1}</text>
-                  <g transform="translate(120,60)">
-                    {Array.from({ length: 10 }).map((__,i)=> (
-                      <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
-                    ))}
-                  </g>
-                </svg>
+        {activeDocs.includes('ten-frames-1-10') && (() => {
+          const numbers = Array.from({ length: 10 }, (_, n) => n + 1);
+          return (
+            <WorksheetSectionWrapper
+              docId="ten-frames-1-10"
+              title="Ten Frames 1–10"
+              emoji="🔟"
+              description="Color the circles to match each number. Say how many are filled and how many are empty."
+              problemCount={numbers.length}
+              learningObjectives={[
+                'Recognize numbers 1–10',
+                'Understand number quantity using ten frames',
+                'Count and represent numbers visually',
+                'Build number sense and subitizing skills'
+              ]}
+              parentTeacherTips={[
+                'Ten frames help children see numbers as groups of 10',
+                'Encourage counting aloud while coloring',
+                'Ask: "How many filled? How many empty?"',
+                'For number 10, all spaces should be filled',
+                'Extension: Practice addition and subtraction using ten frames'
+              ]}
+            >
+              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Number:</strong> 7</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the number: 7</div>
+                    <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
+                    <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A ten frame has 10 spaces. Count how many you need to fill, then count how many are left empty!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {numbers.map((n)=> (
+                  <div key={n} className="break-inside-avoid">
+                    <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <text x="40" y="50" fontSize="36" fill="#111827">{n}</text>
+                      <g transform="translate(120,60)">
+                        {Array.from({ length: 10 }).map((__,i)=> (
+                          <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
+                        ))}
+                      </g>
+                    </svg>
+                  </div>
+                ))}
+              </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 More Fun (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Can you show 10 using the ten frame? Color it!</div>
+                  <div>2. How many ways can you make 10? (5+5, 6+4, 7+3...)</div>
+                  <div>3. Draw your own ten frame and show the number 8</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can recognize numbers 1–10</div>
+                  <div>☐ I can show numbers using ten frames</div>
+                  <div>☐ I can count filled and empty spaces</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {numbers.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
+              {showAnswersForDoc('ten-frames-1-10', () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2 text-sm text-emerald-800">
+                    {numbers.map((n, i) => {
+                      const filled = n;
+                      const empty = 10 - n;
+                      return (
+                        <div key={i}>
+                          {i + 1}. <strong>{n}:</strong> {filled} filled, {empty} empty
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="text-xs text-emerald-700 mt-3">
+                    💡 Remember: A ten frame has 10 spaces total. For each number, fill that many spaces and count how many are left empty!
+                  </div>
+                </div>
               ))}
-            </div>
-          </WorksheetSectionWrapper>
-        )}
+            </WorksheetSectionWrapper>
+          );
+        })()}
 
         {activeDocs.includes('place-value-hto') && (() => {
           const nums = [12, 27, 45, 63, 84, 99, 30, 51];
