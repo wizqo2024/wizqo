@@ -2405,11 +2405,37 @@ export function PrintablesPage() {
               title="2‑Digit Addition (No Regrouping)"
               emoji="➕"
               description="Add the two numbers. No regrouping needed."
+              problemCount={pairs.length}
+              learningObjectives={[
+                'Add 2-digit numbers without regrouping',
+                'Align numbers correctly by place value',
+                'Add ones first, then tens'
+              ]}
+              parentTeacherTips={[
+                'No regrouping means the ones add up to less than 10',
+                'Add the ones column first, then the tens column',
+                'Make sure numbers are aligned correctly',
+                'Extension: Try problems that require regrouping'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 23 + 45 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Add ones: 3 + 5 = 8</div>
+                    <div><strong>Step 2:</strong> Add tens: 20 + 40 = 60</div>
+                    <div><strong>Step 3:</strong> Combine: 60 + 8 = 68</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 68</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Add ones first, then tens! No regrouping needed here.</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>+ {b}</div>
@@ -2418,12 +2444,40 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own 2-digit addition problem: ___ + ___ = ?</div>
+                  <div>2. Solve: 45 + 32 = ?</div>
+                  <div>3. Write a word problem using 2-digit addition</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can add 2-digit numbers without regrouping</div>
+                  <div>☐ I can align numbers correctly</div>
+                  <div>☐ I understand place value when adding</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {pairs.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('add-2digit-100', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {pairs.map(([a,b],i)=> (<li key={i}>{a} + {b} = {a+b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {pairs.map(([a,b],i)=> (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {a} + {b} = <strong>{a+b}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -2453,11 +2507,37 @@ export function PrintablesPage() {
               title="2‑Digit Subtraction (No Regrouping)"
               emoji="➖"
               description="Subtract the two numbers. No regrouping needed."
+              problemCount={pairs.length}
+              learningObjectives={[
+                'Subtract 2-digit numbers without regrouping',
+                'Align numbers correctly by place value',
+                'Subtract ones first, then tens'
+              ]}
+              parentTeacherTips={[
+                'No regrouping means the top number in ones is larger than the bottom',
+                'Subtract the ones column first, then the tens column',
+                'Make sure numbers are aligned correctly',
+                'Extension: Try problems that require regrouping'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-fuchsia-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-mono text-base"><strong>Problem:</strong> 58 − 23 = ?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Subtract ones: 8 − 3 = 5</div>
+                    <div><strong>Step 2:</strong> Subtract tens: 50 − 20 = 30</div>
+                    <div><strong>Step 3:</strong> Combine: 30 + 5 = 35</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 35</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Subtract ones first, then tens! No regrouping needed here.</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                     <div className="font-mono text-2xl leading-7 text-right">
                       <div>{a}</div>
                       <div>− {b}</div>
@@ -2466,12 +2546,40 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Create your own 2-digit subtraction problem: ___ − ___ = ?</div>
+                  <div>2. Solve: 67 − 24 = ?</div>
+                  <div>3. Write a word problem using 2-digit subtraction</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can subtract 2-digit numbers without regrouping</div>
+                  <div>☐ I can align numbers correctly</div>
+                  <div>☐ I understand place value when subtracting</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {pairs.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('sub-2digit-100', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {pairs.map(([a,b],i)=> (<li key={i}>{a} − {b} = {a-b}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {pairs.map(([a,b],i)=> (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {a} − {b} = <strong>{a-b}</strong>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -12597,7 +12705,7 @@ export function PrintablesPage() {
             const factor = nextInt(2, 4)
             const equivNum = num * factor
             const equivDenom = denom * factor
-            return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}`, num, denom, equivNum, equivDenom }
+            return { original: `${num}/${denom}`, equivalent: `${equivNum}/${equivDenom}`, num, denom, equivNum, equivDenom, factor }
           })
           return (
             <WorksheetSectionWrapper
@@ -12605,11 +12713,37 @@ export function PrintablesPage() {
               title="Equivalent Fractions"
               emoji="🍕"
               description="Find an equivalent fraction for each given fraction. Use multiplication or division."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Understand that equivalent fractions represent the same value',
+                'Find equivalent fractions by multiplying or dividing',
+                'Recognize that multiplying numerator and denominator by the same number gives an equivalent fraction'
+              ]}
+              parentTeacherTips={[
+                'Equivalent fractions have the same value but different numbers',
+                'Multiply both numerator and denominator by the same number to find equivalents',
+                'You can also divide both by the same number to simplify',
+                'Extension: Find multiple equivalent fractions for the same fraction'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Find an equivalent fraction for 1/2</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Multiply numerator and denominator by the same number (let's use 2)</div>
+                    <div><strong>Step 2:</strong> 1 × 2 = 2, 2 × 2 = 4</div>
+                    <div><strong>Step 3:</strong> 1/2 = 2/4</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2/4 (or 3/6, 4/8, etc.)</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Multiply both top and bottom by the same number! 1/2 = 2/4 = 3/6 = 4/8 - they're all the same!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
+                  <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
                     <div className="text-center mb-3">
                       <p className="text-xl font-bold text-slate-900 mb-2">{p.original}</p>
                       <p className="text-sm text-slate-600 mb-1">Find an equivalent fraction:</p>
@@ -12618,14 +12752,46 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Find three different equivalent fractions for 1/3</div>
+                  <div>2. Can you find an equivalent fraction for 2/5 by multiplying by 3?</div>
+                  <div>3. Which is larger: 3/4 or 5/8? (Hint: find equivalent fractions with the same denominator)</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I understand what equivalent fractions are</div>
+                  <div>☐ I can find equivalent fractions by multiplying</div>
+                  <div>☐ I can find equivalent fractions by dividing</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('equivalent-fractions-4th', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with explanations)</div>
+                  <div className="space-y-3">
                     {problems.map((p, i) => (
-                      <li key={i}>{p.original} = {p.equivalent} (multiply by {p.equivNum / p.num})</li>
+                      <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                        <div className="font-semibold mb-2 text-sm">{i + 1}. {p.original}</div>
+                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                          <div>Multiply numerator and denominator by {p.factor}:</div>
+                          <div>{p.num} × {p.factor} = {p.equivNum}, {p.denom} × {p.factor} = {p.equivDenom}</div>
+                          <div className="font-semibold">Answer: {p.equivalent}</div>
+                          <div className="text-xs text-emerald-700 mt-1">💡 {p.original} = {p.equivalent} (they represent the same value!)</div>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
