@@ -2800,22 +2800,77 @@ export function PrintablesPage() {
               title="Even or Odd? (to 100)"
               emoji="🧲"
               description="Circle whether each number is even or odd."
+              problemCount={nums.length}
+              learningObjectives={[
+                'Identify even and odd numbers',
+                'Understand that even numbers end in 0, 2, 4, 6, 8',
+                'Understand that odd numbers end in 1, 3, 5, 7, 9'
+              ]}
+              parentTeacherTips={[
+                'Even numbers can be divided by 2 with no remainder',
+                'Look at the ones digit: 0, 2, 4, 6, 8 = even; 1, 3, 5, 7, 9 = odd',
+                'Even numbers: 2, 4, 6, 8, 10, 12...',
+                'Odd numbers: 1, 3, 5, 7, 9, 11, 13...',
+                'Extension: Find patterns in even and odd numbers'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-3 text-xl font-mono">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Is 24 even or odd?</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the ones digit: 4</div>
+                    <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
+                    <div><strong>Step 3:</strong> Or divide: 24 ÷ 2 = 12 (no remainder)</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Just look at the last digit! Even numbers end in 0, 2, 4, 6, or 8!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between">
+                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
                     <span>{n}</span>
                     <span className="mx-2">Even ☐  Odd ☐</span>
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. List 5 even numbers between 50 and 100</div>
+                  <div>2. List 5 odd numbers between 50 and 100</div>
+                  <div>3. What happens when you add two even numbers? (Try it!)</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can identify even numbers</div>
+                  <div>☐ I can identify odd numbers</div>
+                  <div>☐ I know the pattern (look at ones digit)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {nums.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('even-odd-100', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
-                    {nums.map((n,i)=> (<li key={i}>{n}: {n%2===0 ? 'Even' : 'Odd'}</li>))}
-                  </ul>
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="space-y-2">
+                    {nums.map((n, i) => (
+                      <div key={i} className="text-sm text-emerald-800">
+                        {i + 1}. {n} is <strong>{n%2===0 ? 'Even' : 'Odd'}</strong> (ones digit is {n % 10})
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
