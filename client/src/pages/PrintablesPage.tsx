@@ -8615,9 +8615,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('ws-world') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🌍 Around the World Word Search</h2>
-            <p className="text-slate-600 text-sm mb-3">Find all the world words hidden in the grid. Use the clue list to track your progress.</p>
+          <WorksheetSectionWrapper
+            docId="ws-world"
+            title="Around the World Word Search"
+            emoji="🌍"
+            description="Find all the world words hidden in the grid. Use the clue list to track your progress."
+            problemCount={11}
+            learningObjectives={[
+              'Build geography vocabulary',
+              'Practice pattern recognition',
+              'Develop attention to detail'
+            ]}
+            parentTeacherTips={[
+              'Help children read the clue words',
+              'Look for words horizontally, vertically, and diagonally',
+              'Check off words as you find them',
+              'Extension: Create your own word search'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-green-400 animate-gradient-x mb-2" />
             {(() => {
               const words = ['PARIS','NILE','AFRICA','ASIA','ALPS','TOKYO','ITALY','NORTH','SOUTH','RIO','BERLIN']
               return (
@@ -8642,13 +8658,37 @@ export function PrintablesPage() {
                 </div>
               )
             })()}
-          </section>
+            {showAnswersForDoc('ws-world', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Find all 11 words in the grid: PARIS, NILE, AFRICA, ASIA, ALPS, TOKYO, ITALY, NORTH, SOUTH, RIO, BERLIN. Words can be found horizontally, vertically, or diagonally. Check off each word as you find it!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('animal-pack') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🦁 Animal Adventure Pack</h2>
-            <p className="text-slate-600 text-sm mb-3">Mix of animal‑themed puzzles to print and enjoy.</p>
+          <WorksheetSectionWrapper
+            docId="animal-pack"
+            title="Animal Adventure Pack"
+            emoji="🦁"
+            description="Mix of animal‑themed puzzles to print and enjoy."
+            problemCount={1}
+            learningObjectives={[
+              'Learn about different animals',
+              'Practice problem-solving with mazes',
+              'Build vocabulary with animal words'
+            ]}
+            parentTeacherTips={[
+              'Help children identify the animals',
+              'Guide through the maze if needed',
+              'Encourage reading the animal words',
+              'Extension: Create your own animal puzzle'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-yellow-400 animate-gradient-x mb-2" />
             <div className="grid md:grid-cols-2 gap-4">
               {/* Mini maze */}
               <div>
@@ -8802,13 +8842,39 @@ export function PrintablesPage() {
               <div className="mt-2 text-sm font-semibold text-slate-800">Creature name</div>
               <div className="h-6 border-b border-slate-400" />
             </div>
-          </section>
+            {showAnswersForDoc('animal-pack', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  <div className="mb-2"><strong>Maze:</strong> Follow the path from START to DEN. There is one correct path!</div>
+                  <div className="mb-2"><strong>Animal Words:</strong> lion, zebra, panda, eagle, whale, koala</div>
+                  <div><strong>Creature Drawing:</strong> Be creative! Combine two animals and draw your own creature!</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {(!doc || activeDocs.includes('ws-animals')) && (
-        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-          <h2 className="text-lg font-bold text-slate-900">🧠 Word Search – Animals</h2>
-          <p className="text-slate-600 text-sm mb-3">Find 12 animal names. Circle horizontally, vertically, or diagonally.</p>
+          <WorksheetSectionWrapper
+            docId="ws-animals"
+            title="Word Search – Animals"
+            emoji="🧠"
+            description="Find 12 animal names. Circle horizontally, vertically, or diagonally."
+            problemCount={12}
+            learningObjectives={[
+              'Build animal vocabulary',
+              'Practice pattern recognition',
+              'Develop attention to detail'
+            ]}
+            parentTeacherTips={[
+              'Help children read the animal names',
+              'Look for words in all directions',
+              'Circle words as you find them',
+              'Extension: Create your own animal word search'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-pink-400 animate-gradient-x mb-2" />
           <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
             {generateWordSearchGrid(12, ["DOG","CAT","LION","BEAR","WOLF","SEAL","FROG","EAGLE","MOUSE","HORSE","ZEBRA","SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
               <React.Fragment key={r}>
@@ -8818,7 +8884,15 @@ export function PrintablesPage() {
               </React.Fragment>
             ))}
           </div>
-        </section>
+          {showAnswersForDoc('ws-animals', () => (
+            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+              <div className="text-sm text-emerald-800">
+                Find all 12 animal words: DOG, CAT, LION, BEAR, WOLF, SEAL, FROG, EAGLE, MOUSE, HORSE, ZEBRA, SNAKE. Words can be found horizontally, vertically, or diagonally. Circle each word as you find it!
+              </div>
+            </div>
+          ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('ws-space') && (
@@ -8838,9 +8912,25 @@ export function PrintablesPage() {
         )}
 
         {(!doc || activeDocs.includes('sudoku4')) && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 4×4 (Easy)</h2>
-            <p className="text-slate-600 text-sm mb-3">Fill numbers 1–4 so each row/column contains all numbers with no repeats.</p>
+          <WorksheetSectionWrapper
+            docId="sudoku4"
+            title="Sudoku – 4×4 (Easy)"
+            emoji="🔢"
+            description="Fill numbers 1–4 so each row/column contains all numbers with no repeats."
+            problemCount={1}
+            learningObjectives={[
+              'Practice logical reasoning',
+              'Learn sudoku rules and strategies',
+              'Develop problem-solving skills'
+            ]}
+            parentTeacherTips={[
+              'Start with rows or columns that have more numbers',
+              'Look for missing numbers in each 2×2 box',
+              'Use elimination to find the correct number',
+              'Extension: Try a 6×6 sudoku puzzle'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="inline-grid grid-cols-4 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
               {/* visual subgrid lines */}
               <div className="pointer-events-none absolute inset-3 grid grid-cols-2 grid-rows-2">
@@ -8868,13 +8958,37 @@ export function PrintablesPage() {
                 <li>Use elimination: if 1 and 2 exist in a row, place 3 or 4.</li>
               </ul>
             </div>
-          </section>
+            {showAnswersForDoc('sudoku4', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  The completed sudoku grid shows the solution. Each row, column, and 2×2 box contains the numbers 1-4 exactly once. Use the clues provided to solve step by step!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('sudoku6') && (
-        <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-          <h2 className="text-lg font-bold text-slate-900">🔢 Sudoku – 6×6 (Medium)</h2>
-          <p className="text-slate-600 text-sm mb-3">Fill numbers 1–6 so each row/column contains all numbers with no repeats.</p>
+          <WorksheetSectionWrapper
+            docId="sudoku6"
+            title="Sudoku – 6×6 (Medium)"
+            emoji="🔢"
+            description="Fill numbers 1–6 so each row/column contains all numbers with no repeats."
+            problemCount={1}
+            learningObjectives={[
+              'Practice advanced logical reasoning',
+              'Learn sudoku strategies for larger grids',
+              'Develop systematic problem-solving skills'
+            ]}
+            parentTeacherTips={[
+              'Check each 3×2 box for missing numbers',
+              'Scan for singles in rows and columns',
+              'Use pencil marks mentally to eliminate options',
+              'Extension: Try a 9×9 sudoku puzzle'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
           <div className="inline-grid grid-cols-6 gap-0 bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 relative">
             {/* visual subgrid lines (3×2 boxes) */}
             <div className="pointer-events-none absolute inset-3 grid grid-cols-3 grid-rows-2">
@@ -8904,17 +9018,49 @@ export function PrintablesPage() {
               <li>Use pencil marks lightly (mentally) to eliminate options.</li>
             </ul>
           </div>
-        </section>
+          {showAnswersForDoc('sudoku6', () => (
+            <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+              <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+              <div className="text-sm text-emerald-800">
+                The completed sudoku grid shows the solution. Each row, column, and 3×2 box contains the numbers 1-6 exactly once. Use the clues provided to solve step by step!
+              </div>
+            </div>
+          ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🎨 Coloring Page – Cute Animal</h2>
-            <p className="text-slate-600 text-sm mb-3">Print and color the outline below.</p>
+          <WorksheetSectionWrapper
+            docId="coloring"
+            title="Coloring Page – Cute Animal"
+            emoji="🎨"
+            description="Print and color the outline below."
+            problemCount={1}
+            learningObjectives={[
+              'Practice fine motor skills',
+              'Express creativity through coloring',
+              'Develop color recognition'
+            ]}
+            parentTeacherTips={[
+              'Encourage children to color within the lines',
+              'Let them choose their own colors',
+              'Take time and enjoy the process',
+              'Extension: Create your own coloring page'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <div className="border border-slate-300 rounded p-4 bg-white print:border-0 print:p-0">
               <ColoringSVG />
             </div>
-          </section>
+            {showAnswersForDoc('coloring', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors and be creative. Take your time and enjoy coloring the cute animal!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('coloring-letters-numbers') && (
@@ -9309,9 +9455,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('coloring-heroes') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">🦸 Superheroes & Everyday Heroes Coloring Pages</h2>
-            <p className="text-slate-600 text-sm mb-3">Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers).</p>
+          <WorksheetSectionWrapper
+            docId="coloring-heroes"
+            title="Superheroes & Everyday Heroes Coloring Pages"
+            emoji="🦸"
+            description="Celebrate courage and kindness — superheroes and community helpers (doctors, firefighters, teachers)."
+            problemCount={2}
+            learningObjectives={[
+              'Learn about community helpers and heroes',
+              'Practice fine motor skills through coloring',
+              'Express creativity and appreciation'
+            ]}
+            parentTeacherTips={[
+              'Talk about the different types of heroes',
+              'Encourage children to use their favorite colors',
+              'Discuss how heroes help our community',
+              'Extension: Draw your own hero'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-blue-400 animate-gradient-x mb-2" />
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="border border-slate-300 rounded p-4 bg-white">
                 {/* Shield */}
@@ -9367,7 +9529,15 @@ export function PrintablesPage() {
                 </svg>
               </div>
             </div>
-          </section>
+            {showAnswersForDoc('coloring-heroes', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There is no right or wrong way to color! Use your favorite colors to color the superhero and hero symbols. Be creative and celebrate courage and kindness!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {/* New 1st Grade Worksheets */}
