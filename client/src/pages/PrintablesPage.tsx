@@ -4255,9 +4255,25 @@ export function PrintablesPage() {
         )}
 
         {activeDocs.includes('directed-drawing-animals') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Directed Drawing: Animals</h2>
-            <p className="text-slate-600 text-sm mb-3">Follow each step to draw a fish silhouette using simple shapes. No face features (eyes, nose, mouth, ears).</p>
+          <WorksheetSectionWrapper
+            docId="directed-drawing-animals"
+            title="Directed Drawing: Animals"
+            emoji="🎨"
+            description="Follow each step to draw a fish silhouette using simple shapes. No face features (eyes, nose, mouth, ears)."
+            problemCount={6}
+            learningObjectives={[
+              'Follow step-by-step drawing instructions',
+              'Use simple shapes to create drawings',
+              'Practice fine motor skills'
+            ]}
+            parentTeacherTips={[
+              'Follow the steps in order',
+              'Use simple shapes like circles and triangles',
+              'Take your time with each step',
+              'Extension: Create your own step-by-step drawing'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Full-page, 6-step grid (2x3) with thick strokes for easy tracing */}
             <svg viewBox="0 0 900 1200" className="w-full h-auto bg-white border border-slate-300 rounded">
               <g fill="none" stroke="#111827" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -4300,11 +4316,36 @@ export function PrintablesPage() {
                 <path d="M610 960 C 650 980, 690 980, 730 960" />
               </g>
             </svg>
-          </section>
+            {showAnswersForDoc('directed-drawing-animals', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Follow the 6 steps in order: 1) Draw body ellipse, 2) Add tail, 3) Add dorsal fin, 4) Add ventral fin, 5) Add side fin, 6) Add gentle stripes. Your fish should look like the final step!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('cut-and-paste-crafts') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
+          <WorksheetSectionWrapper
+            docId="cut-and-paste-crafts"
+            title="Cut‑and‑Paste Paper Crafts"
+            emoji="😊"
+            description="Point to or color how you feel today."
+            problemCount={1}
+            learningObjectives={[
+              'Identify and express feelings',
+              'Understand emotional states',
+              'Practice self-awareness'
+            ]}
+            parentTeacherTips={[
+              'Help children identify their feelings',
+              'All feelings are valid',
+              'Use this as a conversation starter',
+              'Extension: Talk about what makes you feel each way'
+            ]}
+          >
             <h2 className="text-lg font-bold text-slate-900">Cut‑and‑Paste Paper Crafts</h2>
             <p className="text-slate-600 text-sm mb-3">Cut the parts and glue them in place. Color when finished.</p>
             <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
@@ -4317,13 +4358,37 @@ export function PrintablesPage() {
                 <rect x="550" y="70" width="30" height="60" />
               </g>
             </svg>
-          </section>
+            {showAnswersForDoc('cut-and-paste-crafts', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Cut out the shapes and glue them together to create your craft. Be creative with colors!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('feelings-checkin') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Feelings Check‑In Meter</h2>
-            <p className="text-slate-600 text-sm mb-3">Point to or color how you feel today.</p>
+          <WorksheetSectionWrapper
+            docId="feelings-checkin"
+            title="Feelings Check‑In Meter"
+            emoji="😊"
+            description="Point to or color how you feel today."
+            problemCount={1}
+            learningObjectives={[
+              'Identify and express feelings',
+              'Understand emotional states',
+              'Practice self-awareness'
+            ]}
+            parentTeacherTips={[
+              'Help children identify their feelings',
+              'All feelings are valid',
+              'Use this as a conversation starter',
+              'Extension: Talk about what makes you feel each way'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
               <defs>
                 <linearGradient id="mood" x1="0" y1="0" x2="1" y2="0">
@@ -4338,13 +4403,37 @@ export function PrintablesPage() {
               <text x="380" y="190" fontSize="16">Okay</text>
               <text x="680" y="190" fontSize="16">Upset</text>
             </svg>
-          </section>
+            {showAnswersForDoc('feelings-checkin', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  There's no right or wrong answer! Point to or color where you feel on the meter. All feelings are valid and important to express.
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('reward-chart') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">Weekly Reward / Sticker Chart</h2>
-            <p className="text-slate-600 text-sm mb-3">Add a sticker or color a star each time you complete a task.</p>
+          <WorksheetSectionWrapper
+            docId="reward-chart"
+            title="Weekly Reward / Sticker Chart"
+            emoji="⭐"
+            description="Add a sticker or color a star each time you complete a task."
+            problemCount={1}
+            learningObjectives={[
+              'Track daily accomplishments',
+              'Build positive habits',
+              'Practice goal-setting'
+            ]}
+            parentTeacherTips={[
+              'Use stickers or colors to mark completion',
+              'Celebrate achievements together',
+              'Set small, achievable goals',
+              'Extension: Create your own reward system'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
             <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
               <g fill="none" stroke="#111827" strokeWidth="3.5">
                 <rect x="100" y="80" width="600" height="220" />
@@ -4363,7 +4452,15 @@ export function PrintablesPage() {
               <text x="620" y="70" fontSize="16">Sat</text>
               <text x="690" y="70" fontSize="16">Sun</text>
             </svg>
-          </section>
+            {showAnswersForDoc('reward-chart', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="text-sm text-emerald-800">
+                  Add a sticker or color a star in each box when you complete a task. Track your progress throughout the week!
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('reading-mini-1') && (
