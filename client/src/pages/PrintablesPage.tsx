@@ -15320,12 +15320,37 @@ export function PrintablesPage() {
               title="Count & Circle 1–10"
               emoji="🔢"
               description="Count the objects in each box. Circle the correct number."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Count objects accurately up to 10',
+                'Match quantities to numerals',
+                'Develop one-to-one correspondence',
+                'Build number recognition skills'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to point to each object as they count',
+                'Use one-to-one correspondence: one object = one number',
+                'Help students recognize that the last number counted is the total',
+                'Practice counting aloud: 1, 2, 3, 4, 5...',
+                'Extension: Try counting larger groups or counting backwards'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>📝 Instructions:</strong> Count the circles in each box. Then circle the number that matches the count.
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and circle the correct number</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Point to each circle and count: 1, 2, 3, 4, 5</div>
+                    <div><strong>Step 2:</strong> The last number counted is 5, so there are 5 circles</div>
+                    <div><strong>Step 3:</strong> Circle the number 5</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle 5</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-2 mb-3 flex-wrap">
@@ -15343,14 +15368,39 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Count objects around you: How many pencils? How many books?</div>
+                  <div>2. Draw your own group of objects and count them</div>
+                  <div>3. Try counting backwards from 10: 10, 9, 8, 7...</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count objects accurately</div>
+                  <div>☐ I can match quantities to numbers</div>
+                  <div>☐ I circled all {problems.length} correct numbers</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('count-circle-1-10', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}>Box {i + 1}: Circle {p.count}</li>
+                      <li key={i}><strong>Box {i + 1}:</strong> Circle {p.count} (There are {p.count} circles in the box)</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
@@ -15369,9 +15419,37 @@ export function PrintablesPage() {
               title="Count & Match 1–20"
               emoji="🔢"
               description="Count the objects and draw a line to match with the correct number."
+              problemCount={problems.length}
+              learningObjectives={[
+                'Count objects accurately up to 20',
+                'Match quantities to numerals',
+                'Develop one-to-one correspondence',
+                'Build number recognition skills for larger numbers'
+              ]}
+              parentTeacherTips={[
+                'Encourage students to point to each object as they count',
+                'Use one-to-one correspondence: one object = one number',
+                'Help students recognize that the last number counted is the total',
+                'Practice counting aloud: 1, 2, 3, 4, 5... up to 20',
+                'Extension: Try counting larger groups or counting by 2s or 5s'
+              ]}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              <div className="grid grid-cols-2 gap-4">
+              {/* Worked Example */}
+              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="space-y-2 text-sm">
+                  <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and match to the correct number</div>
+                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                    <div><strong>Step 1:</strong> Point to each circle and count: 1, 2, 3, 4, 5, 6, 7, 8</div>
+                    <div><strong>Step 2:</strong> The last number counted is 8, so there are 8 circles</div>
+                    <div><strong>Step 3:</strong> Draw a line from the circles to the number 8</div>
+                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Match to 8</div>
+                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
                   <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white">
                     <div className="flex gap-1 mb-3 flex-wrap">
@@ -15389,14 +15467,39 @@ export function PrintablesPage() {
                   </div>
                 ))}
               </div>
+              {/* Extension/Challenge Problems */}
+              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                  <div>1. Count objects around you: How many toys? How many books?</div>
+                  <div>2. Draw your own group of objects and count them</div>
+                  <div>3. Try counting by 2s: 2, 4, 6, 8, 10...</div>
+                </div>
+              </div>
+              {/* Self-Assessment */}
+              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="space-y-2 text-xs">
+                  <div>☐ I can count objects accurately up to 20</div>
+                  <div>☐ I can match quantities to numbers</div>
+                  <div>☐ I matched all {problems.length} groups correctly</div>
+                </div>
+                <div className="mt-3 text-xs">
+                  <strong>My score:</strong> ___ / {problems.length}
+                </div>
+                <div className="mt-2 text-xs">
+                  <strong>What was hardest?</strong> _________________________
+                </div>
+              </div>
               {showAnswersForDoc('count-match-1-20', () => (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                  <div className="font-semibold mb-1">Answer key</div>
-                  <ul className="list-disc list-inside space-y-0.5">
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}>Row {i + 1}: Match to {p.count}</li>
+                      <li key={i}><strong>Row {i + 1}:</strong> Match to {p.count} (There are {p.count} circles in the group)</li>
                     ))}
                   </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then draw a line to match that number!</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
