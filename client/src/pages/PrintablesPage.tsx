@@ -6514,9 +6514,42 @@ export function PrintablesPage() {
         )}
       {/* (Removed legacy one-pager duplicates) */}
         {activeDocs.includes('math-maze') && (
-          <section className="mb-10 break-inside-avoid border border-slate-200 rounded-xl p-4 print:border-0 print:p-0">
-            <h2 className="text-lg font-bold text-slate-900">➕ Math Maze Adventure</h2>
-            <p className="text-slate-600 text-sm mb-3">Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!</p>
+          <WorksheetSectionWrapper
+            docId="math-maze"
+            title="Math Maze Adventure"
+            emoji="➕"
+            description="Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!"
+            problemCount={1}
+            learningObjectives={[
+              'Solve addition and subtraction equations',
+              'Navigate through a maze using math skills',
+              'Apply problem-solving strategies',
+              'Practice mental math and number recognition'
+            ]}
+            parentTeacherTips={[
+              'Choose a target number for each row before starting',
+              'Only move onto tiles where the equation equals the row target',
+              'Work backwards: start from F and find valid paths',
+              'Encourage students to check their math as they go',
+              'Extension: Create your own math maze with different equations'
+            ]}
+          >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+              <div className="space-y-2 text-sm">
+                <div className="font-semibold text-base"><strong>Problem:</strong> Find a path from S to F</div>
+                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                  <div><strong>Step 1:</strong> Choose target numbers for each row (e.g., Row 1 = 6, Row 2 = 8, Row 3 = 10)</div>
+                  <div><strong>Step 2:</strong> Find tiles in Row 1 that equal 6: 4+2=6, 8-2=6, etc.</div>
+                  <div><strong>Step 3:</strong> Move to Row 2 and find tiles that equal 8: 6+2=8, 9-1=8, etc.</div>
+                  <div><strong>Step 4:</strong> Continue to Row 3 and find tiles that equal 10: 7+3=10, 12-2=10, etc.</div>
+                  <div><strong>Step 5:</strong> Draw your path from S to F following valid tiles</div>
+                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Check each equation before moving onto that tile!</div>
+                </div>
+              </div>
+            </div>
             <div className="flex items-start gap-4">
               <div className="inline-grid grid-cols-7 gap-[2px] text-sm font-mono">
                 {mathMazeCells.map((t,i)=> (
@@ -6530,20 +6563,47 @@ export function PrintablesPage() {
                   <li>Step only on equations that equal that row’s target.</li>
                   <li>Draw your path from S to F without diagonal moves.</li>
                 </ol>
-                {showAnswersForDoc('math-maze', () => (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2 text-emerald-900">
-                    <div className="font-semibold mb-1">Example target plan</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      <li>Row 1 target: 6 → valid tiles: 4+2, 8-2…</li>
-                      <li>Row 2 target: 8 → valid tiles: 6+2, 9-1…</li>
-                      <li>Row 3 target: 10 → valid tiles: 7+3, 12-2…</li>
-                    </ul>
-                    <div className="text-xs mt-1">Tip: Any path obeying row targets is correct; teacher can pick targets.</div>
-                  </div>
-                ))}
               </div>
             </div>
-          </section>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+              <div className="space-y-2 text-sm text-purple-800">
+                <div>1. Can you find a different path using different target numbers?</div>
+                <div>2. Try using only addition equations (no subtraction)</div>
+                <div>3. Create your own math maze with 3 rows and 5 columns</div>
+              </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+              <div className="space-y-2 text-xs">
+                <div>☐ I can solve addition and subtraction equations</div>
+                <div>☐ I found a valid path from S to F</div>
+                <div>☐ I checked my math as I went</div>
+              </div>
+              <div className="mt-3 text-xs">
+                <strong>My target numbers:</strong> Row 1: ___, Row 2: ___, Row 3: ___
+              </div>
+              <div className="mt-2 text-xs">
+                <strong>What was hardest?</strong> _________________________
+              </div>
+            </div>
+            {showAnswersForDoc('math-maze', () => (
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                <div className="space-y-2 text-sm text-emerald-800">
+                  <div><strong>Example target plan:</strong></div>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Row 1 target: 6 → valid tiles: 4+2, 8-2, 3+3, etc.</li>
+                    <li>Row 2 target: 8 → valid tiles: 6+2, 9-1, 5+3, etc.</li>
+                    <li>Row 3 target: 10 → valid tiles: 7+3, 12-2, 5+5, etc.</li>
+                  </ul>
+                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Any path that follows the row targets is correct! Choose your own target numbers and find a valid path from S to F.</div>
+                </div>
+              </div>
+            ))}
+          </WorksheetSectionWrapper>
         )}
 
         {activeDocs.includes('spelling') && (
