@@ -1272,6 +1272,29 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 
 export function PrintablesPage() {
   const { t } = useTranslation()
+  
+  // Helper function to get translations with fallback
+  const getTrans = (key: string, fallback: string) => {
+    try {
+      const result = t(key)
+      // If result is the key itself, translation is missing - use fallback
+      if (typeof result === 'string' && result === key) {
+        return fallback
+      }
+      // If result starts with 'worksheets.', it's likely a missing translation key - use fallback
+      if (typeof result === 'string' && result.startsWith('worksheets.')) {
+        return fallback
+      }
+      // If result is empty or falsy, use fallback
+      if (!result || (typeof result === 'string' && result.trim() === '')) {
+        return fallback
+      }
+      return result
+    } catch (error) {
+      return fallback
+    }
+  }
+  
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
   const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
