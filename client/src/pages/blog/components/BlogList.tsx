@@ -78,7 +78,7 @@ export function BlogList({
             <aside className="hidden md:block md:col-span-3 print:hidden" aria-label={t('pages.blog.popularPosts')}>
               <div className="sticky top-24 bg-white border border-slate-200 rounded-2xl p-4">
                 <div className="text-xs font-semibold text-slate-500 tracking-wide mb-2">{t('pages.blog.popularPosts')}</div>
-                <nav aria-label="Popular blog posts">
+                <nav aria-label={t('pages.blog.popularBlogPosts')}>
                   <ul className="mt-1 space-y-1 text-sm">
                     {allPosts.slice(0, 6).map((p) => (
                       <li key={`toc-${p.id}`}>

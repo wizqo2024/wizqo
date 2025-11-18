@@ -15,6 +15,7 @@ export const es = {
     answer: 'Respuesta:',
     tip: 'Consejo:',
     remember: 'Recuerda:',
+    clear: 'Limpiar',
   },
   home: {
     hero: {
@@ -1233,6 +1234,18 @@ export const es = {
         failedDesc: 'Por favor intenta más tarde o contacta soporte.',
       },
       backToTop: 'Volver arriba',
+      backToBlog: 'Volver al Blog',
+      share: 'Compartir',
+      shared: 'Compartido',
+      linkCopied: 'Enlace copiado',
+      shareFailed: 'Error al compartir',
+      shareFailedDesc: 'Por favor, inténtalo de nuevo o copia el enlace.',
+      thanksForSharing: '¡Gracias por compartir!',
+      blogLinkCopied: 'Enlace del blog copiado al portapapeles.',
+      popularBlogPosts: 'Publicaciones populares del blog',
+      category: 'Categoría',
+      published: 'Publicado',
+      readingTime: 'Tiempo de lectura',
       filters: {
         all: 'Todos',
         recent: 'Recientes',

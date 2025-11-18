@@ -3,6 +3,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/context/TranslationContext';
 import { BlogPost } from '../types';
 import { getPostImage, getPostRating } from '../utils';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
@@ -29,6 +30,7 @@ export function BlogPostView({
   showBackToTop,
 }: BlogPostViewProps) {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const coverUrl = getPostImage(post) || GENERIC_BLOG_IMAGE;
   const usedImageUrls = new Set<string>([coverUrl]);
   const pickFallback = (primaryUrl?: string) => {
@@ -49,15 +51,15 @@ export function BlogPostView({
       const text = post.excerpt || title;
       if (navigator.share) {
         await navigator.share({ title, text, url });
-        toast({ title: "Shared", description: "Thanks for sharing!" });
+        toast({ title: t('pages.blog.shared'), description: t('pages.blog.thanksForSharing') });
       } else if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(url);
-        toast({ title: "Link copied", description: "Blog link copied to clipboard." });
+        toast({ title: t('pages.blog.linkCopied'), description: t('pages.blog.blogLinkCopied') });
       } else {
         window.open(url, '_blank');
       }
     } catch (e) {
-      toast({ title: "Share failed", description: "Please try again or copy the link.", variant: "destructive" });
+      toast({ title: t('pages.blog.shareFailed'), description: t('pages.blog.shareFailedDesc'), variant: "destructive" });
     }
   };
 
@@ -108,17 +110,17 @@ export function BlogPostView({
           <button
             onClick={onBack}
             className="flex items-center text-purple-600 hover:text-purple-700 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded"
-            aria-label="Back to blog"
+            aria-label={t('pages.blog.backToBlog')}
           >
-            ← Back to Blog
+            ← {t('pages.blog.backToBlog')}
           </button>
           <div className="flex items-center gap-4">
             <button
               onClick={handleShare}
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              aria-label="Share this article"
+              aria-label={t('pages.blog.share')}
             >
-              Share
+              {t('pages.blog.share')}
             </button>
           </div>
         </div>
@@ -135,16 +137,16 @@ export function BlogPostView({
           <article className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl md:col-span-12">
             <div className="mb-8">
               <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
-                <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium" aria-label={`Category: ${post.category}`}>
+                <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium" aria-label={`${t('pages.blog.category')}: ${post.category}`}>
                   {post.category}
                 </span>
-                <span className="flex items-center gap-1" aria-label={`Published: ${post.date}`}>
+                <span className="flex items-center gap-1" aria-label={`${t('pages.blog.published')}: ${post.date}`}>
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                   </svg>
                   {post.date}
                 </span>
-                <span className="flex items-center gap-1" aria-label={`Reading time: ${post.readTime}`}>
+                <span className="flex items-center gap-1" aria-label={`${t('pages.blog.readingTime')}: ${post.readTime}`}>
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>

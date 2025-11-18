@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from '@/context/TranslationContext'
 
 export interface Category {
   id: string
@@ -21,6 +22,7 @@ export function CategoryFilter({
   onClearAll,
   title = 'Filter by Category',
 }: CategoryFilterProps) {
+  const { t } = useTranslation()
   const hasSelections = selectedCategories.size > 0
 
   return (
@@ -33,7 +35,7 @@ export function CategoryFilter({
             onClick={onClearAll}
             className="text-xs font-semibold text-purple-600 hover:text-purple-700"
           >
-            Clear
+            {t('common.clear')}
           </button>
         )}
       </div>

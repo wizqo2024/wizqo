@@ -16,6 +16,7 @@ export const ar = {
     answer: 'الإجابة:',
     tip: 'نصيحة:',
     remember: 'تذكر:',
+    clear: 'مسح',
   },
   home: {
     hero: {
@@ -1234,6 +1235,18 @@ export const ar = {
         failedDesc: 'يرجى المحاولة لاحقاً أو الاتصال بالدعم.',
       },
       backToTop: 'العودة إلى الأعلى',
+      backToBlog: 'العودة إلى المدونة',
+      share: 'مشاركة',
+      shared: 'تم المشاركة',
+      linkCopied: 'تم نسخ الرابط',
+      shareFailed: 'فشلت المشاركة',
+      shareFailedDesc: 'يرجى المحاولة مرة أخرى أو نسخ الرابط.',
+      thanksForSharing: 'شكراً للمشاركة!',
+      blogLinkCopied: 'تم نسخ رابط المدونة إلى الحافظة.',
+      popularBlogPosts: 'منشورات المدونة الشائعة',
+      category: 'الفئة',
+      published: 'نُشر',
+      readingTime: 'وقت القراءة',
       filters: {
         all: 'الكل',
         recent: 'حديث',

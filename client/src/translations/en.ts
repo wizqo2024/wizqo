@@ -12,6 +12,7 @@ export const en = {
     answer: 'Answer:',
     tip: 'Tip:',
     remember: 'Remember:',
+    clear: 'Clear',
   },
   home: {
     hero: {
@@ -1230,6 +1231,18 @@ export const en = {
         failedDesc: 'Please try again later or contact support.',
       },
       backToTop: 'Back to top',
+      backToBlog: 'Back to Blog',
+      share: 'Share',
+      shared: 'Shared',
+      linkCopied: 'Link copied',
+      shareFailed: 'Share failed',
+      shareFailedDesc: 'Please try again or copy the link.',
+      thanksForSharing: 'Thanks for sharing!',
+      blogLinkCopied: 'Blog link copied to clipboard.',
+      popularBlogPosts: 'Popular blog posts',
+      category: 'Category',
+      published: 'Published',
+      readingTime: 'Reading time',
       filters: {
         all: 'All',
         recent: 'Recent',
