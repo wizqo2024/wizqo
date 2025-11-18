@@ -18,9 +18,20 @@ export function getTranslation(language: Language, key: string): string | any {
     const keys = key.split('.')
     let value: any = translations[language]
     
+    if (!value) {
+      console.warn(`Translation object not found for language: ${language}`)
+      // Fallback to English
+      value = translations.en
+      if (!value) {
+        return key
+      }
+    }
+    
     // Navigate through nested keys
     for (const k of keys) {
-      if (value === null || value === undefined) break
+      if (value === null || value === undefined) {
+        break
+      }
       value = value[k]
     }
     
@@ -30,7 +41,7 @@ export function getTranslation(language: Language, key: string): string | any {
       if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
         return value
       }
-      // Return strings (including empty strings, but check length > 0 for non-empty requirement)
+      // Return strings (including empty strings)
       if (typeof value === 'string') {
         return value
       }
@@ -39,27 +50,30 @@ export function getTranslation(language: Language, key: string): string | any {
     // Fallback to English if translation missing
     if (language !== 'en') {
       let fallbackValue: any = translations.en
-      for (const k of keys) {
-        if (fallbackValue === null || fallbackValue === undefined) break
-        fallbackValue = fallbackValue[k]
-      }
-      if (fallbackValue !== null && fallbackValue !== undefined) {
-        // Return arrays and objects as-is
-        if (Array.isArray(fallbackValue) || (typeof fallbackValue === 'object' && typeof fallbackValue !== 'string')) {
-          return fallbackValue
+      if (fallbackValue) {
+        for (const k of keys) {
+          if (fallbackValue === null || fallbackValue === undefined) break
+          fallbackValue = fallbackValue[k]
         }
-        // Return strings
-        if (typeof fallbackValue === 'string' && fallbackValue.length > 0) {
-          return fallbackValue
+        if (fallbackValue !== null && fallbackValue !== undefined) {
+          // Return arrays and objects as-is
+          if (Array.isArray(fallbackValue) || (typeof fallbackValue === 'object' && typeof fallbackValue !== 'string')) {
+            return fallbackValue
+          }
+          // Return strings
+          if (typeof fallbackValue === 'string') {
+            return fallbackValue
+          }
         }
       }
     }
     
     // Final fallback: return the key itself (so it's visible if translation missing)
+    console.warn(`Translation missing for key: ${key} in language: ${language}`)
     return key
   } catch (error) {
     // If anything goes wrong, just return the key
-    console.warn('Translation error for key:', key, error)
+    console.warn('Translation error for key:', key, 'language:', language, error)
     return key
   }
 }
