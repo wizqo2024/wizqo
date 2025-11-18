@@ -271,13 +271,22 @@ function WorksheetSectionWrapper({
   
   // Try to get translated title/description if available
   // Use language in dependency to force re-render when language changes
+  // Only try to translate if the title/description looks like a translation key (starts with 'worksheets.')
   const translatedTitle = React.useMemo(() => {
+    // If title is already a translated string (doesn't start with 'worksheets.'), use it as-is
+    if (title && !title.startsWith('worksheets.')) {
+      return title
+    }
     const translated = t(`worksheets.${docId}.title`)
     return translated !== `worksheets.${docId}.title` ? translated : title
   }, [t, docId, title, language])
   
   const translatedDescription = React.useMemo(() => {
     if (!description) return description
+    // If description is already a translated string (doesn't start with 'worksheets.'), use it as-is
+    if (description && !description.startsWith('worksheets.')) {
+      return description
+    }
     const translated = t(`worksheets.${docId}.description`)
     return translated !== `worksheets.${docId}.description` ? translated : description
   }, [t, docId, description, language])
@@ -4992,7 +5001,16 @@ export function PrintablesPage() {
           const docId = 'reading-g1-lost-hat'
           const getTrans = (key: string, fallback: string) => {
             const result = t(key)
-            return result && result !== key ? result : fallback
+            // If result is the key itself, translation is missing - use fallback
+            if (typeof result === 'string' && result === key) {
+              return fallback
+            }
+            // If result is null, undefined, or empty string, use fallback
+            if (!result || (typeof result === 'string' && result.trim() === '')) {
+              return fallback
+            }
+            // Otherwise use the translation
+            return result
           }
           return (
             <WorksheetSectionWrapper
