@@ -5000,17 +5000,26 @@ export function PrintablesPage() {
         {activeDocs.includes('reading-g1-lost-hat') && (() => {
           const docId = 'reading-g1-lost-hat'
           const getTrans = (key: string, fallback: string) => {
-            const result = t(key)
-            // If result is the key itself, translation is missing - use fallback
-            if (typeof result === 'string' && result === key) {
+            try {
+              const result = t(key)
+              // If result is the key itself, translation is missing - use fallback
+              if (typeof result === 'string' && result === key) {
+                return fallback
+              }
+              // If result starts with 'worksheets.', it's likely a missing translation key - use fallback
+              if (typeof result === 'string' && result.startsWith('worksheets.')) {
+                return fallback
+              }
+              // If result is null, undefined, or empty string, use fallback
+              if (!result || (typeof result === 'string' && result.trim() === '')) {
+                return fallback
+              }
+              // Otherwise use the translation
+              return result
+            } catch (error) {
+              // If anything goes wrong, use fallback
               return fallback
             }
-            // If result is null, undefined, or empty string, use fallback
-            if (!result || (typeof result === 'string' && result.trim() === '')) {
-              return fallback
-            }
-            // Otherwise use the translation
-            return result
           }
           return (
             <WorksheetSectionWrapper
