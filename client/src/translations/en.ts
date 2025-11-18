@@ -107,6 +107,72 @@ export const en = {
     exponents: {
       instructions: 'Simplify each exponential expression.',
     },
+    'reading-g1-lost-hat': {
+      title: 'Passage — The Lost Hat (Grade 1)',
+      description: 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.',
+      learningObjectives: [
+        'Read and understand a short story',
+        'Answer comprehension questions about the text',
+        'Identify key details (who, what, where, why)',
+        'Practice reading fluency and comprehension',
+      ],
+      parentTeacherTips: [
+        'Read the passage aloud first, then have the child read it',
+        'Ask questions to check understanding before answering',
+        'Encourage full sentence answers',
+        'Help identify key words in the questions that match the passage',
+        'Extension: Have the child retell the story in their own words',
+      ],
+      example: {
+        title: '📚 Example - Let\'s solve this together:',
+        question: 'Question:',
+        questionText: 'Where did Mia go?',
+        step1: 'Step 1:',
+        step1Text: 'Read the passage carefully',
+        step2: 'Step 2:',
+        step2Text: 'Look for the answer to "Where did Mia go?"',
+        step3: 'Step 3:',
+        step3Text: 'Find: "Mia ran to the park"',
+        answer: 'Answer:',
+        answerText: 'Mia went to the park.',
+        tip: '💡 Tip: Look for key words in the question (like "where") and find them in the passage!',
+      },
+      passage: 'Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. "Thank you!"',
+      questions: [
+        'Where did Mia go?',
+        'What color was the hat?',
+        'Who found the hat?',
+        'Why did the hat fly off?',
+      ],
+      challenge: {
+        title: '🌟 Challenge Yourself (Optional):',
+        items: [
+          'Can you retell the story in your own words?',
+          'What do you think happened after Mia said "Thank you"?',
+          'Draw a picture of what happened in the story',
+        ],
+      },
+      selfAssessment: {
+        title: '📊 How did you do?',
+        items: [
+          'I understood the story',
+          'I answered all 4 questions',
+          'I used full sentences in my answers',
+        ],
+        score: 'My score:',
+        hardest: 'What was hardest?',
+      },
+      answerKey: {
+        title: '✅ Answer Key',
+        answers: [
+          'The park (Mia ran to the park)',
+          'Red (Her red hat flew off)',
+          'A dog (A dog found the hat by the bench)',
+          'The wind was strong (The wind was strong, so the hat flew off)',
+        ],
+        note: '💡 Remember: Always look back at the passage to find the answers. The information is in the text!',
+      },
+    },
   },
   difficulty: {
     beginner: 'Beginner',

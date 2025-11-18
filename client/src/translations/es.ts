@@ -110,6 +110,72 @@ export const es = {
     exponents: {
       instructions: 'Simplifica cada expresión exponencial.',
     },
+    'reading-g1-lost-hat': {
+      title: 'Pasaje — El Sombrero Perdido (Grado 1)',
+      description: 'Pasaje corto con 4 preguntas de comprensión. Lee con cuidado y responde en oraciones completas.',
+      learningObjectives: [
+        'Leer y entender una historia corta',
+        'Responder preguntas de comprensión sobre el texto',
+        'Identificar detalles clave (quién, qué, dónde, por qué)',
+        'Practicar fluidez y comprensión lectora',
+      ],
+      parentTeacherTips: [
+        'Lee el pasaje en voz alta primero, luego haz que el niño lo lea',
+        'Haz preguntas para verificar la comprensión antes de responder',
+        'Anima a responder en oraciones completas',
+        'Ayuda a identificar palabras clave en las preguntas que coincidan con el pasaje',
+        'Extensión: Pide al niño que vuelva a contar la historia con sus propias palabras',
+      ],
+      example: {
+        title: '📚 Ejemplo - Resolvamos esto juntos:',
+        question: 'Pregunta:',
+        questionText: '¿A dónde fue Mia?',
+        step1: 'Paso 1:',
+        step1Text: 'Lee el pasaje con cuidado',
+        step2: 'Paso 2:',
+        step2Text: 'Busca la respuesta a "¿A dónde fue Mia?"',
+        step3: 'Paso 3:',
+        step3Text: 'Encuentra: "Mia corrió al parque"',
+        answer: 'Respuesta:',
+        answerText: 'Mia fue al parque.',
+        tip: '💡 Consejo: ¡Busca palabras clave en la pregunta (como "dónde") y encuéntralas en el pasaje!',
+      },
+      passage: 'Mia corrió al parque. El viento era fuerte. ¡Su sombrero rojo se voló! Buscó debajo del tobogán y detrás de un árbol. Un perro encontró el sombrero junto al banco. Mia se rió y saludó con la mano. "¡Gracias!"',
+      questions: [
+        '¿A dónde fue Mia?',
+        '¿De qué color era el sombrero?',
+        '¿Quién encontró el sombrero?',
+        '¿Por qué se voló el sombrero?',
+      ],
+      challenge: {
+        title: '🌟 Desafíate (Opcional):',
+        items: [
+          '¿Puedes volver a contar la historia con tus propias palabras?',
+          '¿Qué crees que pasó después de que Mia dijo "¡Gracias"?',
+          'Dibuja una imagen de lo que pasó en la historia',
+        ],
+      },
+      selfAssessment: {
+        title: '📊 ¿Cómo te fue?',
+        items: [
+          'Entendí la historia',
+          'Respondí las 4 preguntas',
+          'Usé oraciones completas en mis respuestas',
+        ],
+        score: 'Mi puntuación:',
+        hardest: '¿Qué fue lo más difícil?',
+      },
+      answerKey: {
+        title: '✅ Clave de Respuestas',
+        answers: [
+          'El parque (Mia corrió al parque)',
+          'Rojo (Su sombrero rojo se voló)',
+          'Un perro (Un perro encontró el sombrero junto al banco)',
+          'El viento era fuerte (El viento era fuerte, por eso el sombrero se voló)',
+        ],
+        note: '💡 Recuerda: ¡Siempre vuelve a leer el pasaje para encontrar las respuestas. La información está en el texto!',
+      },
+    },
   },
   difficulty: {
     beginner: 'Principiante',
