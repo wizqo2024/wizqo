@@ -24,13 +24,20 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
   // Save language preference
   const setLanguage = React.useCallback((lang: Language) => {
-    setLanguageState(lang)
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('wizqo-language', lang)
-      // Update HTML dir attribute for RTL
-      document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr'
-      document.documentElement.lang = lang
-    }
+    console.log('setLanguage called with:', lang)
+    setLanguageState((prevLang) => {
+      console.log('Previous language:', prevLang, 'New language:', lang)
+      if (prevLang !== lang) {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('wizqo-language', lang)
+          // Update HTML dir attribute for RTL
+          document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr'
+          document.documentElement.lang = lang
+        }
+        return lang
+      }
+      return prevLang
+    })
   }, [])
 
   // Update HTML attributes when language changes
@@ -45,13 +52,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     return getTranslation(language, key)
   }, [language])
 
-  const value: TranslationContextType = {
+  // Use useMemo to ensure value object reference changes when language changes
+  const value: TranslationContextType = React.useMemo(() => ({
     language,
     setLanguage,
     t,
     isRTL: isRTL(language),
     availableLanguages: getAvailableLanguages(),
-  }
+  }), [language, setLanguage, t])
 
   return (
     <TranslationContext.Provider value={value}>

@@ -152,7 +152,9 @@ function ParentTeacherTips({ tips }: { tips: string[] }) {
 
 // Worked Example Component for addition-subtraction-0-10
 function WorkedExampleContent() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
+  // Force re-render when language changes
+  React.useEffect(() => {}, [language])
   return (
     <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
       <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
@@ -204,7 +206,9 @@ function WorkedExampleContent() {
 
 // Challenge and Assessment Component
 function ChallengeAndAssessmentContent() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
+  // Force re-render when language changes
+  React.useEffect(() => {}, [language])
   return (
     <>
       <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>

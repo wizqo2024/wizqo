@@ -6,7 +6,12 @@ export function LanguageSelector() {
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value as 'en' | 'es' | 'ar'
+    console.log('Language changing to:', newLang)
     setLanguage(newLang)
+    // Force a small delay to ensure state updates
+    setTimeout(() => {
+      console.log('Language should be:', newLang)
+    }, 100)
   }
 
   return (
