@@ -5,15 +5,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
+import { useTranslation } from '@/context/TranslationContext'
 
-const FIRST_GRADE_CATEGORIES: Category[] = [
-  { id: 'number-sense', label: 'Number Sense', icon: '🔢' },
-  { id: 'addition-subtraction', label: 'Addition & Subtraction', icon: '➕➖' },
-  { id: 'fluency', label: 'Fluency Boosters', icon: '⚡' },
-  { id: 'logic', label: 'Focus & Logic', icon: '🧩' },
-  { id: 'literacy', label: 'Early Literacy', icon: '📚' },
-  { id: 'early-math', label: 'Early Math Skills', icon: '🔢' },
-]
+// Categories will be defined inside component to use translation
 
 interface WorksheetItem {
   title: string
@@ -25,6 +19,21 @@ interface WorksheetItem {
 }
 
 export default function WorksheetsFirstGradePage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
+  const FIRST_GRADE_CATEGORIES: Category[] = [
+    { id: 'number-sense', label: t('pages.firstGrade.categories.numberSense'), icon: '🔢' },
+    { id: 'addition-subtraction', label: t('pages.firstGrade.categories.additionSubtraction'), icon: '➕➖' },
+    { id: 'fluency', label: t('pages.firstGrade.categories.fluency'), icon: '⚡' },
+    { id: 'logic', label: t('pages.firstGrade.categories.logic'), icon: '🧩' },
+    { id: 'literacy', label: t('pages.firstGrade.categories.literacy'), icon: '📚' },
+    { id: 'early-math', label: t('pages.firstGrade.categories.earlyMath'), icon: '🔢' },
+  ];
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -102,10 +111,10 @@ export default function WorksheetsFirstGradePage() {
     return groups
   }, [filteredWorksheets])
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="1st Grade Math Worksheets – Free Printable PDF"
-        description="Free 1st grade math worksheets covering number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes. Print or save as PDF."
+        title={t('pages.firstGrade.seoTitle')}
+        description={t('pages.firstGrade.seoDescription')}
         canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
       />
       {(() => {
@@ -126,7 +135,7 @@ export default function WorksheetsFirstGradePage() {
           "@type": "FAQPage",
           mainEntity: [
             { "@type": "Question", name: "Are these worksheets printable as PDF?", acceptedAnswer: { "@type": "Answer", text: "Yes. Open any worksheet and use your browser’s Print → Save as PDF to download." } },
-            { "@type": "Question", name: "Can I use these in the classroom?", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
+            { "@type": "Question", name: "{t('pages.firstGrade.faq1Question')}", acceptedAnswer: { "@type": "Answer", text: "Yes—free for personal and classroom use." } },
             { "@type": "Question", name: "What skills are covered?", acceptedAnswer: { "@type": "Answer", text: "Number sense, addition/subtraction within 10, ten‑frames, skip counting, shapes, and simple logic warm‑ups." } }
           ]
         } as const;
@@ -150,38 +159,38 @@ export default function WorksheetsFirstGradePage() {
       `}</style>
       <div className="hidden print:block print-name-date" aria-hidden>
         <div>
-          <span className="label">Name</span>
+          <span className="label">{t('pages.handwriting.name')}</span>
           <span className="line" />
         </div>
         <div>
-          <span className="label">Date</span>
+          <span className="label">{t('pages.handwriting.date')}</span>
           <span className="line" />
         </div>
       </div>
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
         <header className="mb-2">
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">1st Grade Math Worksheets</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.firstGrade.title')}</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">
-            Free 1st grade math worksheets—number sense, addition/subtraction within 10, ten‑frames, skip counting, and shapes you can print and use at home or in class. Download as PDF.
+            {t('pages.firstGrade.description')}
           </p>
         </header>
 
         <section>
           <div className="text-slate-800 font-semibold mb-1">What’s Inside</div>
           <p className="text-slate-700 text-sm max-w-3xl">
-            Build Grade 1 fluency: ten‑frames, number tracing, number bonds to 10, addition/subtraction within 10, skip counting by 2s/5s, and simple shape/logic warm‑ups. One page each—no prep.
+            {t('pages.firstGrade.whatsInsideDesc')}
           </p>
           {/* Grade 1 Pack CTA (moved from header) */}
           <div className="mt-4 border border-slate-200 rounded-xl p-4 bg-white">
-            <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
-            <p className="text-slate-700 text-sm mb-3">Create a quick Grade 1 math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+            <div className="text-slate-900 font-semibold mb-1">{t('pages.firstGrade.buildPack')}</div>
+            <p className="text-slate-700 text-sm mb-3">{t('pages.firstGrade.buildPackDesc')}</p>
             <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
-              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 1st Grade</span>
-              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackTime')}</span>
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackAge')}</span>
+              <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackFocus')}</span>
             </div>
-            <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>Build Pack →</a>
+            <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'1'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
           </div>
         </section>
 
@@ -195,7 +204,7 @@ export default function WorksheetsFirstGradePage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Category"
+                title={t('pages.firstGrade.filterByCategory')}
               />
             </div>
           </aside>
@@ -204,12 +213,12 @@ export default function WorksheetsFirstGradePage() {
           <div className="space-y-8">
             {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
               const sectionLabels: Record<string, string> = {
-                'Number Sense': '🔢 Number Sense',
-                'Addition & Subtraction': '➕➖ Addition & Subtraction',
-                'Fluency Boosters': '⚡ Fluency Boosters',
-                'Focus & Logic': '🧩 Focus & Logic',
-                'Early Literacy': '📚 Early Literacy',
-                'Early Math Skills': '🔢 Early Math Skills',
+                'Number Sense': `🔢 ${t('pages.firstGrade.sections.numberSense')}`,
+                'Addition & Subtraction': `➕➖ ${t('pages.firstGrade.sections.additionSubtraction')}`,
+                'Fluency Boosters': `⚡ ${t('pages.firstGrade.sections.fluencyBoosters')}`,
+                'Focus & Logic': `🧩 ${t('pages.firstGrade.sections.focusLogic')}`,
+                'Early Literacy': `📚 ${t('pages.firstGrade.sections.earlyLiteracy')}`,
+                'Early Math Skills': `🔢 ${t('pages.firstGrade.sections.earlyMathSkills')}`,
               }
               const label = sectionLabels[section] || section
               
@@ -232,12 +241,12 @@ export default function WorksheetsFirstGradePage() {
             })}
             {filteredWorksheets.length === 0 && (
               <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">No worksheets match the selected categories.</p>
+                <p className="text-lg">{t('pages.firstGrade.noWorksheets')}</p>
                 <button
                   onClick={clearCategories}
                   className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
                 >
-                  Clear filters to show all worksheets
+                  {t('pages.firstGrade.clearFilters')}
                 </button>
               </div>
             )}
@@ -246,22 +255,22 @@ export default function WorksheetsFirstGradePage() {
 
         {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t('pages.firstGrade.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/kindergarten-math-worksheets">Kindergarten Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">Handwriting Worksheet Maker</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a></li>
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+            <li><a className="hover:underline" href="/worksheets/kindergarten-math-worksheets">{t('pages.firstGrade.exploreLinks.kindergarten')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.firstGrade.exploreLinks.secondGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.firstGrade.exploreLinks.thirdGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.firstGrade.exploreLinks.handwriting')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.firstGrade.exploreLinks.readingComprehension')}</a></li>
+            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
           </ul>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.firstGrade.faqs')}</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Can I use these in the classroom?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.firstGrade.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
                 Yes, they’re free for personal and classroom use.
               </AccordionContent>
@@ -269,7 +278,7 @@ export default function WorksheetsFirstGradePage() {
             <AccordionItem value="q2">
               <AccordionTrigger className="px-4">What skills are covered?</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Number sense, addition/subtraction within 10, counting to 120, shapes, and early logic.
+                {t('pages.firstGrade.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
@@ -290,19 +299,21 @@ const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
 function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+  const { t } = useTranslation();
   return (
     <div className={CARD_CLASS}>
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
+        <a href={href} className={OUTLINE_BUTTON} aria-label={`${t('pages.firstGrade.openPrintable')} ${title}`}>{t('pages.firstGrade.openPrintable')}</a>
+        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`${t('pages.firstGrade.downloadPDF')} ${title}`}>{t('pages.firstGrade.downloadPDF')}</a>
       </div>
     </div>
   )
 }
 
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
   return (
@@ -335,7 +346,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             height: '400%',
             pointerEvents: 'none',
           }}
-          title={`Preview of ${title}`}
+          title={`${t('pages.firstGrade.previewOf')} ${title}`}
           loading="lazy"
         />
         {/* Gradient fade at bottom */}
@@ -343,7 +354,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.firstGrade.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -356,7 +367,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             href={href}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
+            {t('pages.firstGrade.preview')}
           </a>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
@@ -364,7 +375,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            ⬇️ Download
+            {t('pages.firstGrade.download')}
           </a>
         </div>
       </div>
