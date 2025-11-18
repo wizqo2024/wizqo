@@ -5,15 +5,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
+import { useTranslation } from '@/context/TranslationContext'
 
-const THIRD_GRADE_CATEGORIES: Category[] = [
-  { id: 'multiplication', label: 'Multiplication', icon: '✖️' },
-  { id: 'division', label: 'Division', icon: '➗' },
-  { id: 'fractions', label: 'Fractions', icon: '🍕' },
-  { id: 'word-problems', label: 'Word Problems', icon: '🧮' },
-  { id: 'geometry', label: 'Geometry', icon: '📐' },
-  { id: 'measurement', label: 'Measurement', icon: '📏' },
-]
+// Categories will be defined inside component to use translation
 
 interface WorksheetItem {
   title: string
@@ -64,6 +58,21 @@ const THIRD_GRADE_WORKSHEETS: WorksheetItem[] = [
 ]
 
 export default function WorksheetsThirdGradePage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
+  const THIRD_GRADE_CATEGORIES: Category[] = [
+    { id: 'multiplication', label: t('pages.thirdGrade.categories.multiplication'), icon: '✖️' },
+    { id: 'division', label: t('pages.thirdGrade.categories.division'), icon: '➗' },
+    { id: 'fractions', label: t('pages.thirdGrade.categories.fractions'), icon: '🍕' },
+    { id: 'word-problems', label: t('pages.thirdGrade.categories.wordProblems'), icon: '🧮' },
+    { id: 'geometry', label: t('pages.thirdGrade.categories.geometry'), icon: '📐' },
+    { id: 'measurement', label: t('pages.thirdGrade.categories.measurement'), icon: '📏' },
+  ];
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -105,11 +114,11 @@ export default function WorksheetsThirdGradePage() {
   }, [filteredWorksheets])
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="3rd Grade Math Worksheets – Free Printable PDF"
-        description="Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills."
-        keywords="3rd grade math worksheets, third grade math worksheets, free 3rd grade math worksheets PDF, printable math worksheets grade 3, multiplication worksheets 3rd grade, division worksheets 3rd grade, fractions worksheets 3rd grade, word problems 3rd grade, geometry worksheets 3rd grade"
+        title={t('pages.thirdGrade.seoTitle')}
+        description={t('pages.thirdGrade.seoDescription')}
+        keywords={t('pages.thirdGrade.seoKeywords')}
         canonicalUrl="https://wizqo.com/worksheets/3rd-grade-math-worksheets"
       />
       {(() => {
@@ -146,14 +155,14 @@ export default function WorksheetsThirdGradePage() {
           <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
             <div className="space-y-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
-                ✨ Free 3rd grade math worksheets • Advanced math free PDF
+                {t('pages.thirdGrade.badge')}
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Free 3rd Grade Math Worksheets
-                <span className="block text-purple-600">Printable PDFs with answer keys for comprehensive practice.</span>
+                {t('pages.thirdGrade.title')}
+                <span className="block text-purple-600">{t('pages.thirdGrade.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+                {t('pages.thirdGrade.description')}
               </p>
             </div>
           </div>
@@ -161,20 +170,20 @@ export default function WorksheetsThirdGradePage() {
         
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">What's Inside</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.thirdGrade.whatsInside')}</h2>
           <p className="text-slate-700 text-sm max-w-3xl">
-            Build 3rd grade math mastery with focused practice: multiplication facts 0–12, division with remainders, fractions, multi-step word problems, geometry (perimeter & area), and measurement. Each worksheet is one page, easy to print, and designed for quick daily practice with answer keys included.
+            {t('pages.thirdGrade.whatsInsideDesc')}
           </p>
           <div className="mt-4">
             <div className="border border-slate-200 rounded-xl p-4 bg-white">
-              <div className="text-slate-900 font-semibold mb-1">🧰 Build a 5‑Minute Print Pack</div>
-              <p className="text-slate-700 text-sm mb-3">Create a quick 3rd grade math set — perfect for warm‑ups, brain breaks, or homework helpers.</p>
+              <div className="text-slate-900 font-semibold mb-1">{t('pages.thirdGrade.buildPack')}</div>
+              <p className="text-slate-700 text-sm mb-3">{t('pages.thirdGrade.buildPackDesc')}</p>
               <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Time: 5 min</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 3rd Grade</span>
-                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Math</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.thirdGrade.buildPackTime')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.thirdGrade.buildPackAge')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.thirdGrade.buildPackFocus')}</span>
               </div>
-              <a href="/print?doc=pack&time=5&age=g3&skill=math&from=3rd-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'3'});} catch{} }}>Build Pack →</a>
+              <a href="/print?doc=pack&time=5&age=g3&skill=math&from=3rd-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e)=>{ try { (window as any).gtag?.('event','build_pack_click',{grade:'3'});} catch{} }}>{t('pages.printables.buildPackButton')}</a>
             </div>
           </div>
         </section>
@@ -189,7 +198,7 @@ export default function WorksheetsThirdGradePage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Category"
+                title={t('pages.thirdGrade.filterByCategory')}
               />
             </div>
           </aside>
@@ -198,12 +207,12 @@ export default function WorksheetsThirdGradePage() {
           <div className="space-y-8">
             {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
               const sectionLabels: Record<string, string> = {
-                'Multiplication': '✖️ Multiplication',
-                'Division': '➗ Division',
-                'Fractions': '🍕 Fractions',
-                'Word Problems': '🧮 Word Problems',
-                'Geometry': '📐 Geometry',
-                'Measurement': '📏 Measurement',
+                'Multiplication': `✖️ ${t('pages.thirdGrade.sections.multiplication')}`,
+                'Division': `➗ ${t('pages.thirdGrade.sections.division')}`,
+                'Fractions': `🍕 ${t('pages.thirdGrade.sections.fractions')}`,
+                'Word Problems': `🧮 ${t('pages.thirdGrade.sections.wordProblems')}`,
+                'Geometry': `📐 ${t('pages.thirdGrade.sections.geometry')}`,
+                'Measurement': `📏 ${t('pages.thirdGrade.sections.measurement')}`,
               }
               const label = sectionLabels[section] || section
               
@@ -226,12 +235,12 @@ export default function WorksheetsThirdGradePage() {
             })}
             {filteredWorksheets.length === 0 && (
               <div className="text-center py-12 text-slate-500">
-                <p className="text-lg">No worksheets match the selected categories.</p>
+                <p className="text-lg">{t('pages.thirdGrade.noWorksheets')}</p>
                 <button
                   onClick={clearCategories}
                   className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
                 >
-                  Clear filters to show all worksheets
+                  {t('pages.thirdGrade.clearFilters')}
                 </button>
               </div>
             )}
@@ -240,42 +249,42 @@ export default function WorksheetsThirdGradePage() {
 
         {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t('pages.thirdGrade.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">4th Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">Multiplication Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets</a></li>
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.thirdGrade.exploreLinks.secondGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">{t('pages.thirdGrade.exploreLinks.fourthGrade')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.thirdGrade.exploreLinks.multiplication')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.thirdGrade.exploreLinks.timesTable')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.thirdGrade.exploreLinks.readingComprehension')}</a></li>
+            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
           </ul>
         </section>
 
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.thirdGrade.faqs')}</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">Are 3rd grade math worksheets free to download?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.thirdGrade.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! All 3rd grade math worksheets are completely free. Generate unlimited unique worksheets, download as PDFs, and print as many copies as you need. No sign-up required.
+                {t('pages.thirdGrade.faq1Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What skills do 3rd grade math worksheets cover?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.thirdGrade.faq2Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Our 3rd grade worksheets cover multiplication facts 0–12, division with remainders, fractions (parts of a whole, comparing, equivalent), multi-step word problems, geometry (perimeter, area, polygons), and measurement (time, length, capacity, mass).
+                {t('pages.thirdGrade.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">Do 3rd grade worksheets include answer keys?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.thirdGrade.faq3Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! Every 3rd grade worksheet automatically includes a complete answer key, making grading quick and easy for teachers and parents.
+                {t('pages.thirdGrade.faq3Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">Are these worksheets suitable for 2nd graders who are advanced?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.thirdGrade.faq4Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes! Advanced 2nd graders can use our 3rd grade worksheets to challenge themselves. Start with simpler multiplication and division worksheets and progress to more complex topics as skills develop.
+                {t('pages.thirdGrade.faq4Answer')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -288,6 +297,7 @@ export default function WorksheetsThirdGradePage() {
 }
 
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
   return (
@@ -320,7 +330,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             height: '400%',
             pointerEvents: 'none',
           }}
-          title={`Preview of ${title}`}
+          title={`${t('pages.thirdGrade.previewOf')} ${title}`}
           loading="lazy"
         />
         {/* Gradient fade at bottom */}
@@ -328,7 +338,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.thirdGrade.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -341,7 +351,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             href={href}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
+            {t('pages.thirdGrade.preview')}
           </a>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
@@ -349,7 +359,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            ⬇️ Download
+            {t('pages.thirdGrade.download')}
           </a>
         </div>
       </div>
