@@ -2867,9 +2867,7 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('addition-subtraction-0-10') && (() => {
-          const { t } = useTranslation()
-          return (
+        {activeDocs.includes('addition-subtraction-0-10') && (
           <WorksheetSectionWrapper
             docId="addition-subtraction-0-10"
             title="Addition & Subtraction 0–10"
@@ -2892,6 +2890,9 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
+            {(() => {
+              const { t } = useTranslation()
+              return (
             <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
               <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
                 <span className="text-2xl">📚</span>
@@ -2937,6 +2938,8 @@ export function PrintablesPage() {
                 </div>
               </div>
             </div>
+              )
+            })()}
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 12 }).map((_,i)=> {
                 const isAdd = i%2===0;
@@ -3003,6 +3006,10 @@ export function PrintablesPage() {
               })}
             </div>
             {/* Extension/Challenge Problems */}
+            {(() => {
+              const { t } = useTranslation()
+              return (
+            <>
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
               <div className="space-y-2 text-sm text-purple-800">
@@ -3035,9 +3042,11 @@ export function PrintablesPage() {
                 </div>
               </div>
             ))}
+            </>
+              )
+            })()}
           </WorksheetSectionWrapper>
-          )
-        })()}
+        )}
 
         {activeDocs.includes('ten-frames-1-10') && (() => {
           const numbers = Array.from({ length: 10 }, (_, n) => n + 1);

@@ -63,7 +63,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 export function useTranslation() {
   const context = useContext(TranslationContext)
   if (context === undefined) {
-    throw new Error('useTranslation must be used within a TranslationProvider')
+    // Fallback to English if provider not available (for SSR or edge cases)
+    return {
+      language: 'en' as Language,
+      setLanguage: () => {},
+      t: (key: string) => key,
+      isRTL: false,
+      availableLanguages: getAvailableLanguages(),
+    }
   }
   return context
 }
