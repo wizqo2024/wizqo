@@ -18,6 +18,23 @@ export const es = {
     remember: 'Recuerda:',
     clear: 'Limpiar',
   },
+  worksheets: {
+    countObjectsAndWriteNumber: 'Cuenta los objetos y escribe el número.',
+    countThe: 'Cuenta los {{object}}',
+    numberLabel: 'Número',
+    wordLabel: 'Palabra',
+    answerLabel: 'Respuesta',
+    fillInTensFrame: 'Completa el marco de diez y resuelve el problema.',
+    countObjectsDrawTenFrames: 'Cuenta los objetos, dibújalos en marcos de diez, luego escribe el número y la palabra del número.',
+    answerKeyAndNotes: 'Clave de respuestas y notas del maestro',
+    countingTeachingNote: 'Nota para enseñar: Los estudiantes deben contar cada objeto uno por uno. Anima a señalar o tocar cada objeto mientras cuentan para desarrollar la correspondencia uno a uno.',
+    traceNumberAndDraw: 'Traza cada número, escríbelo, luego dibuja esa cantidad de objetos.',
+  },
+  difficulty: {
+    beginner: 'Principiante',
+    intermediate: 'Intermedio',
+    advanced: 'Avanzado',
+  },
   home: {
     hero: {
       badge: 'Gratis • Imprimible • Claves de Respuestas Incluidas',

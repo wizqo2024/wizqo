@@ -18,6 +18,23 @@ export const ar = {
     remember: 'تذكر:',
     clear: 'مسح',
   },
+  worksheets: {
+    countObjectsAndWriteNumber: 'عد الكائنات واكتب الرقم.',
+    countThe: 'عد {{object}}',
+    numberLabel: 'الرقم',
+    wordLabel: 'الكلمة',
+    answerLabel: 'الإجابة',
+    fillInTensFrame: 'املأ إطار العشرة وحل المشكلة.',
+    countObjectsDrawTenFrames: 'عد الكائنات، ارسمها في إطارات العشرة، ثم اكتب الرقم وكلمة الرقم.',
+    answerKeyAndNotes: 'مفتاح الإجابات وملاحظات المعلم',
+    countingTeachingNote: 'ملاحظة تعليمية: يجب على الطلاب عد كل كائن واحداً تلو الآخر. شجع على الإشارة أو لمس كل كائن أثناء العد لتطوير المراسلة واحد لواحد.',
+    traceNumberAndDraw: 'تتبع كل رقم، اكتبه، ثم ارسم هذا العدد من الكائنات.',
+  },
+  difficulty: {
+    beginner: 'مبتدئ',
+    intermediate: 'متوسط',
+    advanced: 'متقدم',
+  },
   home: {
     hero: {
       badge: 'مجاني • قابل للطباعة • مفاتيح الإجابات متضمنة',
