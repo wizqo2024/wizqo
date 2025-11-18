@@ -486,33 +486,6 @@ function WorksheetPreviewCard({
   )
 }
 
-const FAQ_ITEMS = [
-  {
-    question: 'Are these interactive worksheets really free?',
-    answer:
-      'Yes. Every interactive worksheet pack on Wizqo is 100% free to generate and download as a PDF. No account or credit card required.',
-  },
-  {
-    question: 'How do I get a fresh set every day?',
-    answer:
-      'The generator uses a daily seed so each calendar day unlocks a unique combination. Click “Regenerate” for additional variants if you need more than one set.',
-  },
-  {
-    question: 'Can I choose the grade level and subjects?',
-    answer:
-      'Absolutely. Use the filter sidebar to pick a grade band plus up to ten in-demand categories like Math, Reading, Science, SEL, and Early Learning.',
-  },
-  {
-    question: 'Do the printable PDFs include answer keys?',
-    answer:
-      'Yes. Every interactive worksheet bundle includes a printable answer appendix so you can check work quickly or send home with families.',
-  },
-  {
-    question: 'May I use these interactive worksheets in my classroom?',
-    answer:
-      'Teachers, tutors, homeschoolers, and therapists can freely use and print these resources for students. We just ask that you keep the Wizqo footer credit intact.',
-  },
-]
 
 const FAQ_SCRIPT_ID = 'interactive-worksheets-faq-schema'
 
