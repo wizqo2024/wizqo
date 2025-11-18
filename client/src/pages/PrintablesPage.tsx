@@ -1017,7 +1017,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '😊 Feelings & Emotions Explorer'
     // Kindergarten worksheets
     case 'count-circle-1-10':
-      return '🔢 Count & Circle 1–10'
+      return getTrans('worksheets.count-circle-1-10.title', '🔢 Count & Circle 1–10')
     case 'count-match-1-20':
       return '🔢 Count & Match 1–20'
     case 'how-many-1-15':
@@ -17793,6 +17793,7 @@ export function PrintablesPage() {
 
         {/* Kindergarten Worksheets */}
         {activeDocs.includes('count-circle-1-10') && (() => {
+          const docId = 'count-circle-1-10'
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
           const problems = Array.from({ length: 8 }, () => {
             const count = Math.floor(rng() * 10) + 1
@@ -17800,37 +17801,43 @@ export function PrintablesPage() {
           })
           return (
             <WorksheetSectionWrapper
-              docId="count-circle-1-10"
-              title="Count & Circle 1–10"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Count & Circle 1–10')}
               emoji="🔢"
-              description="Count the objects in each box. Circle the correct number."
+              description={getTrans(`worksheets.${docId}.description`, 'Count the objects in each box. Circle the correct number.')}
               problemCount={problems.length}
-              learningObjectives={[
-                'Count objects accurately up to 10',
-                'Match quantities to numerals',
-                'Develop one-to-one correspondence',
-                'Build number recognition skills'
-              ]}
-              parentTeacherTips={[
-                'Encourage students to point to each object as they count',
-                'Use one-to-one correspondence: one object = one number',
-                'Help students recognize that the last number counted is the total',
-                'Practice counting aloud: 1, 2, 3, 4, 5...',
-                'Extension: Try counting larger groups or counting backwards'
-              ]}
+              learningObjectives={(() => {
+                const objectives = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
+                  'Count objects accurately up to 10',
+                  'Match quantities to numerals',
+                  'Develop one-to-one correspondence',
+                  'Build number recognition skills'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tips) && tips.length > 0 ? tips : [
+                  'Encourage students to point to each object as they count',
+                  'Use one-to-one correspondence: one object = one number',
+                  'Help students recognize that the last number counted is the total',
+                  'Practice counting aloud: 1, 2, 3, 4, 5...',
+                  'Extension: Try counting larger groups or counting backwards'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Count the circles and circle the correct number</div>
+                  <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, 'Count the circles and circle the correct number')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Point to each circle and count: 1, 2, 3, 4, 5</div>
-                    <div><strong>Step 2:</strong> The last number counted is 5, so there are 5 circles</div>
-                    <div><strong>Step 3:</strong> Circle the number 5</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle 5</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each object once, and the last number you say is the total!</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Point to each circle and count: 1, 2, 3, 4, 5')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'The last number counted is 5, so there are 5 circles')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Circle the number 5')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Circle 5')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Count each object once, and the last number you say is the total!')}</div>
                   </div>
                 </div>
               </div>
@@ -17854,37 +17861,54 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Count objects around you: How many pencils? How many books?</div>
-                  <div>2. Draw your own group of objects and count them</div>
-                  <div>3. Try counting backwards from 10: 10, 9, 8, 7...</div>
+                  {(() => {
+                    const challengeItems = t(`worksheets.${docId}.challenge.items`)
+                    const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
+                      'Count objects around you: How many pencils? How many books?',
+                      'Draw your own group of objects and count them',
+                      'Try counting backwards from 10: 10, 9, 8, 7...'
+                    ]
+                    return items.map((item, idx) => (
+                      <div key={idx}>{idx + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can count objects accurately</div>
-                  <div>☐ I can match quantities to numbers</div>
-                  <div>☐ I circled all {problems.length} correct numbers</div>
+                  {(() => {
+                    const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
+                    const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
+                      'I can count objects accurately',
+                      'I can match quantities to numbers',
+                      `I circled all ${problems.length} correct numbers`
+                    ]
+                    return items.map((item, idx) => {
+                      const itemText = typeof item === 'string' ? item.replace('{count}', String(problems.length)) : item
+                      return <div key={idx}>☐ {itemText}</div>
+                    })
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {problems.length}
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('count-circle-1-10', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                     {problems.map((p, i) => (
-                      <li key={i}><strong>Box {i + 1}:</strong> Circle {p.count} (There are {p.count} circles in the box)</li>
+                      <li key={i}><strong>{getTrans(`worksheets.${docId}.answerKey.boxLabel`, 'Box')} {i + 1}:</strong> {getTrans(`worksheets.${docId}.answerKey.circleLabel`, 'Circle')} {p.count} ({getTrans(`worksheets.${docId}.answerKey.thereAre`, 'There are')} {p.count} {getTrans(`worksheets.${docId}.answerKey.circlesInBox`, 'circles in the box')})</li>
                     ))}
                   </ul>
-                  <div className="text-xs text-emerald-700 mt-3">💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!</div>
+                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!')}</div>
                 </div>
               ))}
             </WorksheetSectionWrapper>
