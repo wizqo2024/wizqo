@@ -823,6 +823,140 @@ export const es = {
       clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
       openPrintable: 'Abrir vista imprimible →',
       downloadPDF: 'Descargar PDF',
+      worksheets: {
+        mult2x1Digit: {
+          title: '🔢 Multiplicación de Múltiples Dígitos (2×1)',
+          description: 'Multiplica números de 2 dígitos por números de 1 dígito con reagrupación. Práctica paso a paso para el dominio.',
+        },
+        mult2x2Digit: {
+          title: '🔢 Multiplicación de Múltiples Dígitos (2×2)',
+          description: 'Multiplica números de 2 dígitos por números de 2 dígitos usando algoritmo estándar y modelos de área.',
+        },
+        longDivision1Digit: {
+          title: '🔢 División Larga (Divisor de 1 Dígito)',
+          description: 'Divide números de múltiples dígitos por divisores de 1 dígito. Practica división larga con residuos.',
+        },
+        longDivision2Digit: {
+          title: '🔢 División Larga (Divisor de 2 Dígitos)',
+          description: 'Divide números de múltiples dígitos por divisores de 2 dígitos. Práctica avanzada de división.',
+        },
+        areaModelMultiplication: {
+          title: '🔢 Multiplicación con Modelo de Área',
+          description: 'Usa modelos de área para visualizar y resolver problemas de multiplicación de múltiples dígitos.',
+        },
+        partialProductsMultiplication: {
+          title: '🔢 Multiplicación de Productos Parciales',
+          description: 'Descompón la multiplicación en productos parciales. Entiende la propiedad distributiva.',
+        },
+        equivalentFractions4th: {
+          title: '🍕 Fracciones Equivalentes',
+          description: 'Encuentra fracciones equivalentes usando multiplicación y división. Entiende las relaciones de fracciones.',
+        },
+        comparingFractions4th: {
+          title: '🍕 Comparar Fracciones',
+          description: 'Compara fracciones con diferentes denominadores. Usa denominadores comunes o multiplicación cruzada.',
+        },
+        addingSubtractingFractions4th: {
+          title: '🍕 Sumar y Restar Fracciones',
+          description: 'Suma y resta fracciones con denominadores iguales y diferentes. Encuentra denominadores comunes.',
+        },
+        mixedNumbersImproperFractions: {
+          title: '🍕 Números Mixtos y Fracciones Impropias',
+          description: 'Convierte entre números mixtos y fracciones impropias. Entiende ambas formas.',
+        },
+        decimalsPlaceValue: {
+          title: '🍕 Decimales: Valor Posicional',
+          description: 'Entiende el valor posicional decimal (décimas, centésimas). Lee y escribe decimales.',
+        },
+        comparingOrderingDecimals: {
+          title: '🍕 Comparar y Ordenar Decimales',
+          description: 'Compara decimales usando >, <, o =. Ordena decimales de menor a mayor.',
+        },
+        addingSubtractingDecimals: {
+          title: '🍕 Sumar y Restar Decimales',
+          description: 'Suma y resta decimales. Alinea puntos decimales y reagrupa cuando sea necesario.',
+        },
+        fractionsToDecimals: {
+          title: '🍕 Fracciones a Decimales',
+          description: 'Convierte fracciones a decimales. Entiende la relación entre fracciones y decimales.',
+        },
+        classifyingAngles: {
+          title: '📐 Clasificar Ángulos',
+          description: 'Identifica ángulos agudos, rectos, obtusos y llanos. Mide ángulos con un transportador.',
+        },
+        areaPerimeter4th: {
+          title: '📐 Área y Perímetro',
+          description: 'Encuentra área y perímetro de rectángulos, cuadrados y formas compuestas. Aplicaciones del mundo real.',
+        },
+        linesAngles4th: {
+          title: '📐 Líneas y Ángulos',
+          description: 'Identifica líneas paralelas, perpendiculares e intersectantes. Entiende las relaciones de ángulos.',
+        },
+        classifyingTriangles: {
+          title: '📐 Clasificar Triángulos',
+          description: 'Clasifica triángulos por lados (equilátero, isósceles, escaleno) y ángulos (agudo, recto, obtuso).',
+        },
+        classifyingQuadrilaterals: {
+          title: '📐 Clasificar Cuadriláteros',
+          description: 'Identifica y clasifica cuadriláteros: cuadrados, rectángulos, paralelogramos, trapecios, rombos.',
+        },
+        symmetryTransformations: {
+          title: '📐 Simetría y Transformaciones',
+          description: 'Encuentra líneas de simetría. Entiende traslaciones, rotaciones y reflexiones.',
+        },
+        customaryUnitsConversion: {
+          title: '📏 Conversión de Unidades Consuetudinarias',
+          description: 'Convierte entre pulgadas, pies, yardas y millas. Practica conversiones de medición.',
+        },
+        metricUnitsConversion: {
+          title: '📏 Conversión de Unidades Métricas',
+          description: 'Convierte entre milímetros, centímetros, metros y kilómetros. Aprende el sistema métrico.',
+        },
+        elapsedTime4th: {
+          title: '📏 Tiempo Transcurrido',
+          description: 'Calcula el tiempo transcurrido. Resuelve problemas que involucran horas, minutos y segundos.',
+        },
+        liquidMeasurement4th: {
+          title: '📏 Medición de Líquidos',
+          description: 'Convierte entre tazas, pintas, cuartos y galones. Entiende capacidad y volumen.',
+        },
+        massWeight4th: {
+          title: '📏 Masa y Peso',
+          description: 'Convierte entre onzas, libras, gramos y kilogramos. Entiende masa vs. peso.',
+        },
+        multiStepWord4th: {
+          title: '🧮 Problemas de Palabras de Múltiples Pasos',
+          description: 'Resuelve problemas de palabras complejos con 3 o más pasos. Muestra todo tu trabajo y razonamiento.',
+        },
+        fractionWordProblems: {
+          title: '🧮 Problemas de Palabras de Fracciones',
+          description: 'Resuelve problemas de palabras que involucran fracciones. Suma, resta y compara fracciones en contexto.',
+        },
+        decimalWordProblems: {
+          title: '🧮 Problemas de Palabras de Decimales',
+          description: 'Resuelve problemas de palabras que involucran decimales. Dinero, medición y aplicaciones del mundo real.',
+        },
+        measurementWordProblems: {
+          title: '🧮 Problemas de Palabras de Medición',
+          description: 'Resuelve problemas de palabras que involucran longitud, peso, capacidad y tiempo. Conversiones de unidades incluidas.',
+        },
+        geometryWordProblems: {
+          title: '🧮 Problemas de Palabras de Geometría',
+          description: 'Resuelve problemas de palabras que involucran área, perímetro y ángulos. Aplicaciones de geometría del mundo real.',
+        },
+        linePlots: {
+          title: '📊 Gráficos de Líneas',
+          description: 'Crea e interpreta gráficos de líneas. Entiende la distribución de datos y valores atípicos.',
+        },
+        barGraphsPictographs: {
+          title: '📊 Gráficos de Barras y Pictogramas',
+          description: 'Lee y crea gráficos de barras y pictogramas. Interpreta datos y saca conclusiones.',
+        },
+        meanMedianMode: {
+          title: '📊 Media, Mediana, Moda',
+          description: 'Calcula media (promedio), mediana y moda. Entiende las medidas de tendencia central.',
+        },
+      },
     },
     fifthGrade: {
       seoTitle: 'Hojas de Trabajo de Matemáticas de 5to Grado – PDF Gratis Imprimible',

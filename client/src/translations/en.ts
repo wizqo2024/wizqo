@@ -820,6 +820,140 @@ export const en = {
       clickToView: '👁️ Click to view full worksheet',
       openPrintable: 'Open printable view →',
       downloadPDF: 'Download PDF',
+      worksheets: {
+        mult2x1Digit: {
+          title: '🔢 Multi-Digit Multiplication (2×1)',
+          description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.',
+        },
+        mult2x2Digit: {
+          title: '🔢 Multi-Digit Multiplication (2×2)',
+          description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.',
+        },
+        longDivision1Digit: {
+          title: '🔢 Long Division (1-Digit Divisor)',
+          description: 'Divide multi-digit numbers by 1-digit divisors. Practice long division with remainders.',
+        },
+        longDivision2Digit: {
+          title: '🔢 Long Division (2-Digit Divisor)',
+          description: 'Divide multi-digit numbers by 2-digit divisors. Advanced division practice.',
+        },
+        areaModelMultiplication: {
+          title: '🔢 Area Model Multiplication',
+          description: 'Use area models to visualize and solve multi-digit multiplication problems.',
+        },
+        partialProductsMultiplication: {
+          title: '🔢 Partial Products Multiplication',
+          description: 'Break down multiplication into partial products. Understand the distributive property.',
+        },
+        equivalentFractions4th: {
+          title: '🍕 Equivalent Fractions',
+          description: 'Find equivalent fractions using multiplication and division. Understand fraction relationships.',
+        },
+        comparingFractions4th: {
+          title: '🍕 Comparing Fractions',
+          description: 'Compare fractions with different denominators. Use common denominators or cross-multiplication.',
+        },
+        addingSubtractingFractions4th: {
+          title: '🍕 Adding & Subtracting Fractions',
+          description: 'Add and subtract fractions with like and unlike denominators. Find common denominators.',
+        },
+        mixedNumbersImproperFractions: {
+          title: '🍕 Mixed Numbers & Improper Fractions',
+          description: 'Convert between mixed numbers and improper fractions. Understand both forms.',
+        },
+        decimalsPlaceValue: {
+          title: '🍕 Decimals: Place Value',
+          description: 'Understand decimal place value (tenths, hundredths). Read and write decimals.',
+        },
+        comparingOrderingDecimals: {
+          title: '🍕 Comparing & Ordering Decimals',
+          description: 'Compare decimals using >, <, or =. Order decimals from least to greatest.',
+        },
+        addingSubtractingDecimals: {
+          title: '🍕 Adding & Subtracting Decimals',
+          description: 'Add and subtract decimals. Line up decimal points and regroup when needed.',
+        },
+        fractionsToDecimals: {
+          title: '🍕 Fractions to Decimals',
+          description: 'Convert fractions to decimals. Understand the relationship between fractions and decimals.',
+        },
+        classifyingAngles: {
+          title: '📐 Classifying Angles',
+          description: 'Identify acute, right, obtuse, and straight angles. Measure angles with a protractor.',
+        },
+        areaPerimeter4th: {
+          title: '📐 Area & Perimeter',
+          description: 'Find area and perimeter of rectangles, squares, and composite shapes. Real-world applications.',
+        },
+        linesAngles4th: {
+          title: '📐 Lines & Angles',
+          description: 'Identify parallel, perpendicular, and intersecting lines. Understand angle relationships.',
+        },
+        classifyingTriangles: {
+          title: '📐 Classifying Triangles',
+          description: 'Classify triangles by sides (equilateral, isosceles, scalene) and angles (acute, right, obtuse).',
+        },
+        classifyingQuadrilaterals: {
+          title: '📐 Classifying Quadrilaterals',
+          description: 'Identify and classify quadrilaterals: squares, rectangles, parallelograms, trapezoids, rhombuses.',
+        },
+        symmetryTransformations: {
+          title: '📐 Symmetry & Transformations',
+          description: 'Find lines of symmetry. Understand translations, rotations, and reflections.',
+        },
+        customaryUnitsConversion: {
+          title: '📏 Customary Units Conversion',
+          description: 'Convert between inches, feet, yards, and miles. Practice measurement conversions.',
+        },
+        metricUnitsConversion: {
+          title: '📏 Metric Units Conversion',
+          description: 'Convert between millimeters, centimeters, meters, and kilometers. Learn metric system.',
+        },
+        elapsedTime4th: {
+          title: '📏 Elapsed Time',
+          description: 'Calculate elapsed time. Solve problems involving hours, minutes, and seconds.',
+        },
+        liquidMeasurement4th: {
+          title: '📏 Liquid Measurement',
+          description: 'Convert between cups, pints, quarts, and gallons. Understand capacity and volume.',
+        },
+        massWeight4th: {
+          title: '📏 Mass and Weight',
+          description: 'Convert between ounces, pounds, grams, and kilograms. Understand mass vs. weight.',
+        },
+        multiStepWord4th: {
+          title: '🧮 Multi-Step Word Problems',
+          description: 'Solve complex word problems with 3 or more steps. Show all your work and thinking.',
+        },
+        fractionWordProblems: {
+          title: '🧮 Fraction Word Problems',
+          description: 'Solve word problems involving fractions. Add, subtract, and compare fractions in context.',
+        },
+        decimalWordProblems: {
+          title: '🧮 Decimal Word Problems',
+          description: 'Solve word problems involving decimals. Money, measurement, and real-world applications.',
+        },
+        measurementWordProblems: {
+          title: '🧮 Measurement Word Problems',
+          description: 'Solve word problems involving length, weight, capacity, and time. Unit conversions included.',
+        },
+        geometryWordProblems: {
+          title: '🧮 Geometry Word Problems',
+          description: 'Solve word problems involving area, perimeter, and angles. Real-world geometry applications.',
+        },
+        linePlots: {
+          title: '📊 Line Plots',
+          description: 'Create and interpret line plots. Understand data distribution and outliers.',
+        },
+        barGraphsPictographs: {
+          title: '📊 Bar Graphs & Pictographs',
+          description: 'Read and create bar graphs and pictographs. Interpret data and draw conclusions.',
+        },
+        meanMedianMode: {
+          title: '📊 Mean, Median, Mode',
+          description: 'Calculate mean (average), median, and mode. Understand measures of central tendency.',
+        },
+      },
     },
     fifthGrade: {
       seoTitle: '5th Grade Math Worksheets – Free Printable PDF',

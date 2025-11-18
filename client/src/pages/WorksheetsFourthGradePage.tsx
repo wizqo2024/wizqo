@@ -18,48 +18,7 @@ interface WorksheetItem {
   section?: string
 }
 
-// Define all worksheets with their categories - unique 4th Grade content
-const FOURTH_GRADE_WORKSHEETS: WorksheetItem[] = [
-    // Multi-Digit Operations
-    { title: '🔢 Multi-Digit Multiplication (2×1)', description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.', href: '/print?doc=mult-2x1-digit&from=4th-grade', docId: 'mult-2x1-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
-    { title: '🔢 Multi-Digit Multiplication (2×2)', description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.', href: '/print?doc=mult-2x2-digit&from=4th-grade', docId: 'mult-2x2-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
-    { title: '🔢 Long Division (1-Digit Divisor)', description: 'Divide multi-digit numbers by 1-digit divisors. Practice long division with remainders.', href: '/print?doc=long-division-1digit&from=4th-grade', docId: 'long-division-1digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
-    { title: '🔢 Long Division (2-Digit Divisor)', description: 'Divide multi-digit numbers by 2-digit divisors. Advanced division practice.', href: '/print?doc=long-division-2digit&from=4th-grade', docId: 'long-division-2digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
-    { title: '🔢 Area Model Multiplication', description: 'Use area models to visualize and solve multi-digit multiplication problems.', href: '/print?doc=area-model-mult&from=4th-grade', docId: 'area-model-mult', categories: ['multi-digit', 'geometry'], section: 'Multi-Digit Operations' },
-    { title: '🔢 Partial Products Multiplication', description: 'Break down multiplication into partial products. Understand the distributive property.', href: '/print?doc=partial-products&from=4th-grade', docId: 'partial-products', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
-    // Fractions & Decimals
-    { title: '🍕 Equivalent Fractions', description: 'Find equivalent fractions using multiplication and division. Understand fraction relationships.', href: '/print?doc=equivalent-fractions-4th&from=4th-grade', docId: 'equivalent-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Comparing Fractions', description: 'Compare fractions with different denominators. Use common denominators or cross-multiplication.', href: '/print?doc=comparing-fractions-4th&from=4th-grade', docId: 'comparing-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Adding & Subtracting Fractions', description: 'Add and subtract fractions with like and unlike denominators. Find common denominators.', href: '/print?doc=add-sub-fractions-4th&from=4th-grade', docId: 'add-sub-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Mixed Numbers & Improper Fractions', description: 'Convert between mixed numbers and improper fractions. Understand both forms.', href: '/print?doc=mixed-improper-fractions&from=4th-grade', docId: 'mixed-improper-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Decimals: Place Value', description: 'Understand decimal place value (tenths, hundredths). Read and write decimals.', href: '/print?doc=decimals-place-value&from=4th-grade', docId: 'decimals-place-value', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Comparing & Ordering Decimals', description: 'Compare decimals using >, <, or =. Order decimals from least to greatest.', href: '/print?doc=comparing-decimals&from=4th-grade', docId: 'comparing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Adding & Subtracting Decimals', description: 'Add and subtract decimals. Line up decimal points and regroup when needed.', href: '/print?doc=add-sub-decimals&from=4th-grade', docId: 'add-sub-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Fractions to Decimals', description: 'Convert fractions to decimals. Understand the relationship between fractions and decimals.', href: '/print?doc=fractions-to-decimals&from=4th-grade', docId: 'fractions-to-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    // Geometry
-    { title: '📐 Classifying Angles', description: 'Identify acute, right, obtuse, and straight angles. Measure angles with a protractor.', href: '/print?doc=classifying-angles&from=4th-grade', docId: 'classifying-angles', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Area & Perimeter', description: 'Find area and perimeter of rectangles, squares, and composite shapes. Real-world applications.', href: '/print?doc=area-perimeter-4th&from=4th-grade', docId: 'area-perimeter-4th', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Lines & Angles', description: 'Identify parallel, perpendicular, and intersecting lines. Understand angle relationships.', href: '/print?doc=lines-angles-4th&from=4th-grade', docId: 'lines-angles-4th', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Classifying Triangles', description: 'Classify triangles by sides (equilateral, isosceles, scalene) and angles (acute, right, obtuse).', href: '/print?doc=classifying-triangles&from=4th-grade', docId: 'classifying-triangles', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Classifying Quadrilaterals', description: 'Identify and classify quadrilaterals: squares, rectangles, parallelograms, trapezoids, rhombuses.', href: '/print?doc=classifying-quadrilaterals&from=4th-grade', docId: 'classifying-quadrilaterals', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Symmetry & Transformations', description: 'Find lines of symmetry. Understand translations, rotations, and reflections.', href: '/print?doc=symmetry-transformations&from=4th-grade', docId: 'symmetry-transformations', categories: ['geometry'], section: 'Geometry' },
-    // Measurement
-    { title: '📏 Customary Units Conversion', description: 'Convert between inches, feet, yards, and miles. Practice measurement conversions.', href: '/print?doc=customary-conversion&from=4th-grade', docId: 'customary-conversion', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Metric Units Conversion', description: 'Convert between millimeters, centimeters, meters, and kilometers. Learn metric system.', href: '/print?doc=metric-conversion&from=4th-grade', docId: 'metric-conversion', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Elapsed Time', description: 'Calculate elapsed time. Solve problems involving hours, minutes, and seconds.', href: '/print?doc=elapsed-time-4th&from=4th-grade', docId: 'elapsed-time-4th', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Liquid Measurement', description: 'Convert between cups, pints, quarts, and gallons. Understand capacity and volume.', href: '/print?doc=liquid-measurement-4th&from=4th-grade', docId: 'liquid-measurement-4th', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Mass and Weight', description: 'Convert between ounces, pounds, grams, and kilograms. Understand mass vs. weight.', href: '/print?doc=mass-weight-4th&from=4th-grade', docId: 'mass-weight-4th', categories: ['measurement'], section: 'Measurement' },
-    // Word Problems
-    { title: '🧮 Multi-Step Word Problems', description: 'Solve complex word problems with 3 or more steps. Show all your work and thinking.', href: '/print?doc=multi-step-word-4th&from=4th-grade', docId: 'multi-step-word-4th', categories: ['word-problems'], section: 'Word Problems' },
-    { title: '🧮 Fraction Word Problems', description: 'Solve word problems involving fractions. Add, subtract, and compare fractions in context.', href: '/print?doc=fraction-word-problems&from=4th-grade', docId: 'fraction-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
-    { title: '🧮 Decimal Word Problems', description: 'Solve word problems involving decimals. Money, measurement, and real-world applications.', href: '/print?doc=decimal-word-problems&from=4th-grade', docId: 'decimal-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
-    { title: '🧮 Measurement Word Problems', description: 'Solve word problems involving length, weight, capacity, and time. Unit conversions included.', href: '/print?doc=measurement-word-problems&from=4th-grade', docId: 'measurement-word-problems', categories: ['word-problems', 'measurement'], section: 'Word Problems' },
-    { title: '🧮 Geometry Word Problems', description: 'Solve word problems involving area, perimeter, and angles. Real-world geometry applications.', href: '/print?doc=geometry-word-problems&from=4th-grade', docId: 'geometry-word-problems', categories: ['word-problems', 'geometry'], section: 'Word Problems' },
-    // Data & Analysis
-    { title: '📊 Line Plots', description: 'Create and interpret line plots. Understand data distribution and outliers.', href: '/print?doc=line-plots&from=4th-grade', docId: 'line-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
-    { title: '📊 Bar Graphs & Pictographs', description: 'Read and create bar graphs and pictographs. Interpret data and draw conclusions.', href: '/print?doc=bar-graphs-pictographs&from=4th-grade', docId: 'bar-graphs-pictographs', categories: ['data-analysis'], section: 'Data & Analysis' },
-    { title: '📊 Mean, Median, Mode', description: 'Calculate mean (average), median, and mode. Understand measures of central tendency.', href: '/print?doc=mean-median-mode&from=4th-grade', docId: 'mean-median-mode', categories: ['data-analysis'], section: 'Data & Analysis' },
-]
+// Worksheets will be defined inside component to use translation
 
 export default function WorksheetsFourthGradePage() {
   const { t, isRTL } = useTranslation();
@@ -98,13 +57,56 @@ export default function WorksheetsFourthGradePage() {
     setSelectedCategories(new Set())
   }
 
+  // Define all worksheets with their categories - using translation keys
+  const FOURTH_GRADE_WORKSHEETS: WorksheetItem[] = useMemo(() => [
+    // Multi-Digit Operations
+    { title: t('pages.fourthGrade.worksheets.mult2x1Digit.title'), description: t('pages.fourthGrade.worksheets.mult2x1Digit.description'), href: '/print?doc=mult-2x1-digit&from=4th-grade', docId: 'mult-2x1-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: t('pages.fourthGrade.worksheets.mult2x2Digit.title'), description: t('pages.fourthGrade.worksheets.mult2x2Digit.description'), href: '/print?doc=mult-2x2-digit&from=4th-grade', docId: 'mult-2x2-digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: t('pages.fourthGrade.worksheets.longDivision1Digit.title'), description: t('pages.fourthGrade.worksheets.longDivision1Digit.description'), href: '/print?doc=long-division-1digit&from=4th-grade', docId: 'long-division-1digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: t('pages.fourthGrade.worksheets.longDivision2Digit.title'), description: t('pages.fourthGrade.worksheets.longDivision2Digit.description'), href: '/print?doc=long-division-2digit&from=4th-grade', docId: 'long-division-2digit', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    { title: t('pages.fourthGrade.worksheets.areaModelMultiplication.title'), description: t('pages.fourthGrade.worksheets.areaModelMultiplication.description'), href: '/print?doc=area-model-mult&from=4th-grade', docId: 'area-model-mult', categories: ['multi-digit', 'geometry'], section: 'Multi-Digit Operations' },
+    { title: t('pages.fourthGrade.worksheets.partialProductsMultiplication.title'), description: t('pages.fourthGrade.worksheets.partialProductsMultiplication.description'), href: '/print?doc=partial-products&from=4th-grade', docId: 'partial-products', categories: ['multi-digit'], section: 'Multi-Digit Operations' },
+    // Fractions & Decimals
+    { title: t('pages.fourthGrade.worksheets.equivalentFractions4th.title'), description: t('pages.fourthGrade.worksheets.equivalentFractions4th.description'), href: '/print?doc=equivalent-fractions-4th&from=4th-grade', docId: 'equivalent-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.comparingFractions4th.title'), description: t('pages.fourthGrade.worksheets.comparingFractions4th.description'), href: '/print?doc=comparing-fractions-4th&from=4th-grade', docId: 'comparing-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.addingSubtractingFractions4th.title'), description: t('pages.fourthGrade.worksheets.addingSubtractingFractions4th.description'), href: '/print?doc=add-sub-fractions-4th&from=4th-grade', docId: 'add-sub-fractions-4th', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.mixedNumbersImproperFractions.title'), description: t('pages.fourthGrade.worksheets.mixedNumbersImproperFractions.description'), href: '/print?doc=mixed-improper-fractions&from=4th-grade', docId: 'mixed-improper-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.decimalsPlaceValue.title'), description: t('pages.fourthGrade.worksheets.decimalsPlaceValue.description'), href: '/print?doc=decimals-place-value&from=4th-grade', docId: 'decimals-place-value', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.comparingOrderingDecimals.title'), description: t('pages.fourthGrade.worksheets.comparingOrderingDecimals.description'), href: '/print?doc=comparing-decimals&from=4th-grade', docId: 'comparing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.addingSubtractingDecimals.title'), description: t('pages.fourthGrade.worksheets.addingSubtractingDecimals.description'), href: '/print?doc=add-sub-decimals&from=4th-grade', docId: 'add-sub-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fourthGrade.worksheets.fractionsToDecimals.title'), description: t('pages.fourthGrade.worksheets.fractionsToDecimals.description'), href: '/print?doc=fractions-to-decimals&from=4th-grade', docId: 'fractions-to-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    // Geometry
+    { title: t('pages.fourthGrade.worksheets.classifyingAngles.title'), description: t('pages.fourthGrade.worksheets.classifyingAngles.description'), href: '/print?doc=classifying-angles&from=4th-grade', docId: 'classifying-angles', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fourthGrade.worksheets.areaPerimeter4th.title'), description: t('pages.fourthGrade.worksheets.areaPerimeter4th.description'), href: '/print?doc=area-perimeter-4th&from=4th-grade', docId: 'area-perimeter-4th', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fourthGrade.worksheets.linesAngles4th.title'), description: t('pages.fourthGrade.worksheets.linesAngles4th.description'), href: '/print?doc=lines-angles-4th&from=4th-grade', docId: 'lines-angles-4th', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fourthGrade.worksheets.classifyingTriangles.title'), description: t('pages.fourthGrade.worksheets.classifyingTriangles.description'), href: '/print?doc=classifying-triangles&from=4th-grade', docId: 'classifying-triangles', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fourthGrade.worksheets.classifyingQuadrilaterals.title'), description: t('pages.fourthGrade.worksheets.classifyingQuadrilaterals.description'), href: '/print?doc=classifying-quadrilaterals&from=4th-grade', docId: 'classifying-quadrilaterals', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fourthGrade.worksheets.symmetryTransformations.title'), description: t('pages.fourthGrade.worksheets.symmetryTransformations.description'), href: '/print?doc=symmetry-transformations&from=4th-grade', docId: 'symmetry-transformations', categories: ['geometry'], section: 'Geometry' },
+    // Measurement
+    { title: t('pages.fourthGrade.worksheets.customaryUnitsConversion.title'), description: t('pages.fourthGrade.worksheets.customaryUnitsConversion.description'), href: '/print?doc=customary-conversion&from=4th-grade', docId: 'customary-conversion', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.fourthGrade.worksheets.metricUnitsConversion.title'), description: t('pages.fourthGrade.worksheets.metricUnitsConversion.description'), href: '/print?doc=metric-conversion&from=4th-grade', docId: 'metric-conversion', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.fourthGrade.worksheets.elapsedTime4th.title'), description: t('pages.fourthGrade.worksheets.elapsedTime4th.description'), href: '/print?doc=elapsed-time-4th&from=4th-grade', docId: 'elapsed-time-4th', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.fourthGrade.worksheets.liquidMeasurement4th.title'), description: t('pages.fourthGrade.worksheets.liquidMeasurement4th.description'), href: '/print?doc=liquid-measurement-4th&from=4th-grade', docId: 'liquid-measurement-4th', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.fourthGrade.worksheets.massWeight4th.title'), description: t('pages.fourthGrade.worksheets.massWeight4th.description'), href: '/print?doc=mass-weight-4th&from=4th-grade', docId: 'mass-weight-4th', categories: ['measurement'], section: 'Measurement' },
+    // Word Problems
+    { title: t('pages.fourthGrade.worksheets.multiStepWord4th.title'), description: t('pages.fourthGrade.worksheets.multiStepWord4th.description'), href: '/print?doc=multi-step-word-4th&from=4th-grade', docId: 'multi-step-word-4th', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.fourthGrade.worksheets.fractionWordProblems.title'), description: t('pages.fourthGrade.worksheets.fractionWordProblems.description'), href: '/print?doc=fraction-word-problems&from=4th-grade', docId: 'fraction-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fourthGrade.worksheets.decimalWordProblems.title'), description: t('pages.fourthGrade.worksheets.decimalWordProblems.description'), href: '/print?doc=decimal-word-problems&from=4th-grade', docId: 'decimal-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fourthGrade.worksheets.measurementWordProblems.title'), description: t('pages.fourthGrade.worksheets.measurementWordProblems.description'), href: '/print?doc=measurement-word-problems&from=4th-grade', docId: 'measurement-word-problems', categories: ['word-problems', 'measurement'], section: 'Word Problems' },
+    { title: t('pages.fourthGrade.worksheets.geometryWordProblems.title'), description: t('pages.fourthGrade.worksheets.geometryWordProblems.description'), href: '/print?doc=geometry-word-problems&from=4th-grade', docId: 'geometry-word-problems', categories: ['word-problems', 'geometry'], section: 'Word Problems' },
+    // Data & Analysis
+    { title: t('pages.fourthGrade.worksheets.linePlots.title'), description: t('pages.fourthGrade.worksheets.linePlots.description'), href: '/print?doc=line-plots&from=4th-grade', docId: 'line-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fourthGrade.worksheets.barGraphsPictographs.title'), description: t('pages.fourthGrade.worksheets.barGraphsPictographs.description'), href: '/print?doc=bar-graphs-pictographs&from=4th-grade', docId: 'bar-graphs-pictographs', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fourthGrade.worksheets.meanMedianMode.title'), description: t('pages.fourthGrade.worksheets.meanMedianMode.description'), href: '/print?doc=mean-median-mode&from=4th-grade', docId: 'mean-median-mode', categories: ['data-analysis'], section: 'Data & Analysis' },
+  ], [t])
+
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return FOURTH_GRADE_WORKSHEETS
     return FOURTH_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, FOURTH_GRADE_WORKSHEETS])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {
