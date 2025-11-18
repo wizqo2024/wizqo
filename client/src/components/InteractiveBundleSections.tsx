@@ -1925,9 +1925,11 @@ const renderers: Record<string, Renderer> = {
           {t('worksheets.countObjectsDrawTenFrames')}
         </p>
         <div className="space-y-3 text-sm text-slate-700">
-          {rows.map((row, idx) => (
-            <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
-              <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${row.count} ${row.objects}`)}</p>
+          {rows.map((row, idx) => {
+            const objectName = t(`worksheets.objectNames.${row.objects}`) || row.objects
+            return (
+              <div key={idx} className="rounded border border-emerald-200 bg-emerald-50 p-3">
+                <p className="font-semibold text-emerald-800">{t('worksheets.countThe').replace('{{object}}', `${row.count} ${objectName}`)}</p>
               <div className="mt-2 grid grid-cols-10 gap-1">
                 {Array.from({ length: 10 }).map((_, boxIdx) => (
                   <div
@@ -1937,8 +1939,9 @@ const renderers: Record<string, Renderer> = {
                 ))}
               </div>
               <p className="mt-2 text-xs text-emerald-700">{t('worksheets.numberLabel')}: ______ • {t('worksheets.wordLabel')}: __________________</p>
-            </div>
-          ))}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -3463,11 +3466,12 @@ const renderers: Record<string, Renderer> = {
         <div className="grid gap-4 md:grid-cols-2">
           {problems.map((prob, idx) => {
             const emoji = objectEmojis[prob.objects[0]] || '⭐'
+            const objectName = t(`worksheets.objectNames.${prob.objects[0]}`) || prob.objects[0]
             return (
               <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-base font-bold text-purple-800 mb-3 flex items-center gap-2">
                   <span className="text-2xl">{emoji}</span>
-                  <span>{t('worksheets.countThe').replace('{{object}}', prob.objects[0])}</span>
+                  <span>{t('worksheets.countThe').replace('{{object}}', objectName)}</span>
                 </p>
                 <div className="flex flex-wrap gap-3 mb-4 bg-white/80 rounded-lg p-4 border-2 border-purple-200">
                   {Array.from({ length: prob.number }).map((_, i) => (
@@ -6009,12 +6013,15 @@ const answerRenderers: Record<string, AnswerRenderer> = {
     return (
       <div className="space-y-2">
         <ol className="list-decimal list-inside space-y-2 text-sm">
-          {problems.map((prob, idx) => (
-            <li key={idx} className="mb-3">
-              <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', prob.objects[0])}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
-              <p className="text-xs text-slate-600 mt-1 ml-4">{t('worksheets.countingTeachingNote')}</p>
-            </li>
-          ))}
+          {problems.map((prob, idx) => {
+            const objectName = t(`worksheets.objectNames.${prob.objects[0]}`) || prob.objects[0]
+            return (
+              <li key={idx} className="mb-3">
+                <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', objectName)}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+                <p className="text-xs text-slate-600 mt-1 ml-4">{t('worksheets.countingTeachingNote')}</p>
+              </li>
+            )
+          })}
         </ol>
       </div>
     )
