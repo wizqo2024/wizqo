@@ -5,12 +5,9 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { CategoryFilter, type Category } from '@/components/CategoryFilter';
 import { trackCategoryFilter } from '@/utils/analytics';
+import { useTranslation } from '@/context/TranslationContext';
 
-const READING_CATEGORIES: Category[] = [
-  { id: 'grade-1', label: 'Grade 1', icon: '📖' },
-  { id: 'grade-2', label: 'Grade 2', icon: '📖' },
-  { id: 'grade-3', label: 'Grade 3', icon: '📖' },
-]
+// READING_CATEGORIES will be created inside component to use translations
 
 interface WorksheetItem {
   title: string
@@ -22,6 +19,18 @@ interface WorksheetItem {
 }
 
 export default function ReadingComprehensionPage() {
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+  
+  const READING_CATEGORIES: Category[] = [
+    { id: 'grade-1', label: t('pages.readingComprehension.grade1'), icon: '📖' },
+    { id: 'grade-2', label: t('pages.readingComprehension.grade2'), icon: '📖' },
+    { id: 'grade-3', label: t('pages.readingComprehension.grade3'), icon: '📖' },
+  ];
+  
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
@@ -96,10 +105,10 @@ export default function ReadingComprehensionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
-        description="Download free printable reading comprehension worksheets for kids. Fun and engaging passages with questions, answers, and PDFs for grades 1–3."
+        title={t('pages.readingComprehension.seoTitle')}
+        description={t('pages.readingComprehension.seoDescription')}
         canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
       />
       <UnifiedNavigation currentPage="printables" />
@@ -115,11 +124,11 @@ export default function ReadingComprehensionPage() {
       `}</style>
       <div className="hidden print:block print-name-date" aria-hidden>
         <div>
-          <span className="label">Name</span>
+          <span className="label">{t('pages.handwriting.name')}</span>
           <span className="line" />
         </div>
         <div>
-          <span className="label">Date</span>
+          <span className="label">{t('pages.handwriting.date')}</span>
           <span className="line" />
         </div>
       </div>
@@ -181,32 +190,30 @@ export default function ReadingComprehensionPage() {
           <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
             <div className="space-y-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
-                ✨ Free reading comprehension worksheets • G1-G3 passages free PDF
+                {t('pages.readingComprehension.badge')}
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                Reading Comprehension Worksheets
-                <span className="block text-purple-600">Fun passages with questions and answer keys for grades 1–3.</span>
+                {t('pages.readingComprehension.title')}
+                <span className="block text-purple-600">{t('pages.readingComprehension.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                Fun and engaging passages with questions, answers, and print‑ready PDFs. Ideal for Grades 1–3 and at‑home practice.
+                {t('pages.readingComprehension.description')}
               </p>
               <div className="flex flex-wrap gap-2 text-sm">
-                <button onClick={() => scrollTo('grade-1')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 1</button>
-                <button onClick={() => scrollTo('grade-2')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 2</button>
-                <button onClick={() => scrollTo('grade-3')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">Grade 3</button>
+                <button onClick={() => scrollTo('grade-1')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">{t('pages.readingComprehension.grade1')}</button>
+                <button onClick={() => scrollTo('grade-2')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">{t('pages.readingComprehension.grade2')}</button>
+                <button onClick={() => scrollTo('grade-3')} className="px-3 py-1.5 rounded-full border border-purple-200 bg-white text-purple-700 hover:bg-purple-50 font-medium">{t('pages.readingComprehension.grade3')}</button>
               </div>
             </div>
           </div>
         </section>
         
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
-        {/* What's Inside + Pack Builder */}
+        {/* {t('pages.readingComprehension.whatsInside')} + Pack Builder */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900">What’s Inside</h2>
           <p className="text-slate-700 text-sm mt-1 max-w-3xl">
-            Free printable reading comprehension worksheets (PDF) with answer keys — short reading
-            passages with questions and answers for Grades 1–3. Topics include main idea, details,
-            sequencing, and vocabulary in context. Open the print view to save as PDF.
+            {t('pages.readingComprehension.whatsInsideDesc')}
           </p>
           <div className="mt-4">
             <BuildPackReadingInline />
@@ -223,7 +230,7 @@ export default function ReadingComprehensionPage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Grade"
+                title={t('pages.readingComprehension.filterByGrade')}
               />
             </div>
           </aside>
@@ -233,18 +240,18 @@ export default function ReadingComprehensionPage() {
             {Object.entries(groupedWorksheets).map(([grade, worksheets]) => {
           const gradeLabels: Record<string, { title: string; description: string; id: string }> = {
             'Grade 1': {
-              title: 'Grade 1 Reading Comprehension Worksheets (Free Printable PDF)',
-              description: 'Short, decodable passages with picture‑supported questions and an answer key. Focus: who/what/where, sequence, and one inference. Great for early readers and ESL.',
+              title: t('pages.readingComprehension.grade1Title'),
+              description: t('pages.readingComprehension.grade1Desc'),
               id: 'grade-1',
             },
             'Grade 2': {
-              title: 'Grade 2 Reading Comprehension Worksheets (with Answer Key, PDF)',
-              description: 'One‑paragraph passages with who/what/why, sequence, and vocabulary in context. Printable worksheets with answer key included — ideal for homework, centers, and small groups.',
+              title: t('pages.readingComprehension.grade2Title'),
+              description: t('pages.readingComprehension.grade2Desc'),
               id: 'grade-2',
             },
             'Grade 3': {
-              title: 'Grade 3 Reading Comprehension — Short Passages with Questions and Answers (PDF)',
-              description: 'Longer passages with main idea, supporting details, and a simple inference or conclusion. Free printable worksheets (PDF) with answer key — reading practice for 3rd grade.',
+              title: t('pages.readingComprehension.grade3Title'),
+              description: t('pages.readingComprehension.grade3Desc'),
               id: 'grade-3',
             },
           }
@@ -285,12 +292,12 @@ export default function ReadingComprehensionPage() {
         })}
         {filteredWorksheets.length === 0 && (
           <div className="text-center py-12 text-slate-500">
-            <p className="text-lg">No worksheets match the selected categories.</p>
+            <p className="text-lg">{t('pages.readingComprehension.noWorksheets')}</p>
             <button
               onClick={clearCategories}
               className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
             >
-              Clear filters to show all worksheets
+              {t('pages.readingComprehension.clearFilters')}
             </button>
           </div>
         )}
@@ -299,35 +306,35 @@ export default function ReadingComprehensionPage() {
 
         {/* Explore More Worksheets */}
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
+          <h2 className="text-xl font-bold text-slate-900">{t('pages.readingComprehension.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
-            <li><a className="hover:underline" href="/kids">Kids Hub – Games</a></li>
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets</a></li>
+            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+            <li><a className="hover:underline" href="/kids">{t('kids.title')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.first.title')}</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.second.title')}</a></li>
           </ul>
         </section>
 
         {/* FAQs (match accordion UI used elsewhere) */}
         <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">FAQs</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.readingComprehension.faqs')}</h2>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">How do I download the worksheets as PDF?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq1Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Open a worksheet link to the print view, then use your browser's Print → Save as PDF.
+                {t('pages.readingComprehension.faq1Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">Can I use these in class?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq2Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Yes—free for personal and classroom use.
+                {t('pages.readingComprehension.faq2Answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">What skills do these build?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.readingComprehension.faq3Question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Finding details, main idea, sequence, vocabulary in context, and light inference.
+                {t('pages.readingComprehension.faq3Answer')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -344,19 +351,21 @@ const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
 function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+  const { t } = useTranslation();
   return (
     <div className={CARD_CLASS}>
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>Open printable view →</a>
-        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>Download PDF</a>
+        <a href={href} className={OUTLINE_BUTTON} aria-label={`Open ${title} printable view`}>{t('pages.readingComprehension.openPrintable')}</a>
+        <a href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')} className={BUTTON_CLASS} aria-label={`Download ${title} as PDF`}>{t('pages.readingComprehension.downloadPDF')}</a>
       </div>
     </div>
   );
 }
 
 function WorksheetThumbnailCard({ title, description, href, docId }: { title: string; description: string; href: string; docId: string }) {
+  const { t } = useTranslation();
   const previewUrl = href + (href.includes('?') ? '&preview=1' : '?preview=1')
   
   return (
@@ -397,7 +406,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-            👁️ Click to view full worksheet
+            {t('pages.printables.clickToView')}
           </div>
         </div>
         {/* Corner fold effect */}
@@ -410,7 +419,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             href={href}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
+            {t('pages.printables.preview')}
           </a>
           <a
             href={href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')}
@@ -418,7 +427,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
             rel="noopener noreferrer"
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            ⬇️ Download
+            {t('pages.printables.download')}
           </a>
         </div>
       </div>
@@ -427,26 +436,27 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
 }
 
 function BuildPackReadingInline() {
+  const { t } = useTranslation();
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-4 print:hidden">
-      <div className="text-base font-semibold text-slate-900 mb-1">🧰 Build a 5‑Minute Print Pack</div>
-      <p className="text-slate-700 text-sm mb-3 max-w-3xl">Create a quick reading comprehension set — short passages with questions and answer keys.</p>
+      <div className="text-base font-semibold text-slate-900 mb-1">{t('pages.readingComprehension.buildPack')}</div>
+      <p className="text-slate-700 text-sm mb-3 max-w-3xl">{t('pages.readingComprehension.buildPackDesc')}</p>
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-        <label className="text-sm text-slate-600">Time
+        <label className="text-sm text-slate-600">{t('pages.printables.time')}
           <select id="rcp-time" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="5">
             <option value="5">5 min</option>
             <option value="10">10 min</option>
             <option value="15">15 min</option>
           </select>
         </label>
-        <label className="text-sm text-slate-600">Grade
+        <label className="text-sm text-slate-600">{t('pages.readingComprehension.grade')}
           <select id="rcp-grade" className="ml-2 px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" defaultValue="g1">
-            <option value="g1">Grade 1</option>
-            <option value="g2">Grade 2</option>
-            <option value="35">Grade 3</option>
+            <option value="g1">{t('pages.readingComprehension.grade1')}</option>
+            <option value="g2">{t('pages.readingComprehension.grade2')}</option>
+            <option value="35">{t('pages.readingComprehension.grade3')}</option>
           </select>
         </label>
-        <div className="text-sm text-slate-600">Focus <span className="font-medium ml-2">Reading</span></div>
+        <div className="text-sm text-slate-600">{t('pages.printables.focus')} <span className="font-medium ml-2">{t('pages.readingComprehension.reading')}</span></div>
         <button
           onClick={() => {
             try {
@@ -460,7 +470,7 @@ function BuildPackReadingInline() {
           }}
           className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
         >
-          Build Pack →
+          {t('pages.printables.buildPackButton')}
         </button>
       </div>
     </div>
