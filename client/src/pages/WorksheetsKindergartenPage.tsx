@@ -35,12 +35,25 @@ export default function WorksheetsKindergartenPage() {
     // Ensure re-render on language change
   }, [t]);
   
+  // Helper to convert hyphenated IDs to camelCase for translation keys
+  const hyphenToCamelCase = (str: string): string => {
+    return str.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
+  }
+
   // Build translated categories
   const KINDERGARTEN_CATEGORIES: Category[] = useMemo(() => 
-    KINDERGARTEN_CATEGORIES_IDS.map(cat => ({
-      ...cat,
-      label: t(`pages.grades.kindergarten.categories.${cat.id}`) as string
-    }))
+    KINDERGARTEN_CATEGORIES_IDS.map(cat => {
+      const translationKey = hyphenToCamelCase(cat.id)
+      const translatedLabel = t(`pages.grades.kindergarten.categories.${translationKey}`) as string
+      // Fallback to a readable label if translation is missing
+      const label = translatedLabel && translatedLabel !== `pages.grades.kindergarten.categories.${translationKey}` 
+        ? translatedLabel 
+        : cat.id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+      return {
+        ...cat,
+        label
+      }
+    })
   , [t]);
   
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
@@ -233,7 +246,11 @@ export default function WorksheetsKindergartenPage() {
                 'Pre-Writing': '✏️',
               }
               const icon = iconMap[section] || ''
-              const label = `${icon} ${t(`pages.grades.kindergarten.categories.${sectionKey}`)}`
+              const translatedSection = t(`pages.grades.kindergarten.categories.${sectionKey}`) as string
+              const sectionLabel = translatedSection && translatedSection !== `pages.grades.kindergarten.categories.${sectionKey}` 
+                ? translatedSection 
+                : section
+              const label = `${icon} ${sectionLabel}`
               
               return (
                 <div key={section}>
