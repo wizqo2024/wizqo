@@ -647,6 +647,124 @@ export const es = {
       clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
       openPrintable: 'Abrir vista imprimible →',
       downloadPDF: 'Descargar PDF',
+      worksheets: {
+        multFacts0_12: {
+          title: '✖️ Datos de Multiplicación 0–12',
+          description: 'Practica todos los datos de multiplicación de 0×0 a 12×12. Desarrolla velocidad y precisión con ejercicios cronometrados.',
+        },
+        multArrays: {
+          title: '✖️ Matrices de Multiplicación',
+          description: 'Dibuja matrices para resolver problemas de multiplicación. Entiende la multiplicación como suma repetida.',
+        },
+        multWordProblems: {
+          title: '✖️ Problemas de Palabras de Multiplicación',
+          description: 'Resuelve problemas de multiplicación del mundo real. Lee cuidadosamente y muestra tu trabajo.',
+        },
+        multiplyingBy10_100: {
+          title: '✖️ Multiplicar por 10, 100',
+          description: 'Aprende el patrón: multiplica por 10, 100. Domina la multiplicación de valor posicional.',
+        },
+        propertiesOfMultiplication: {
+          title: '✖️ Propiedades de la Multiplicación',
+          description: 'Practica las propiedades conmutativa, asociativa y distributiva. Entiende las relaciones numéricas.',
+        },
+        divFacts1_12: {
+          title: '➗ Datos de División 1–12',
+          description: 'Domina los datos de división de 1÷1 a 144÷12. Desarrolla fluidez en división.',
+        },
+        divWithRemainders: {
+          title: '➗ División con Residuos',
+          description: 'Divide y encuentra el residuo. Practica los conceptos básicos de división larga.',
+        },
+        divWordProblems: {
+          title: '➗ Problemas de Palabras de División',
+          description: 'Resuelve problemas de división en contextos del mundo real. Muestra tu razonamiento.',
+        },
+        factFamiliesMultDiv: {
+          title: '➗ Familias de Hechos (Mult/Div)',
+          description: 'Completa familias de hechos de multiplicación y división. Entiende las operaciones inversas.',
+        },
+        dividingBy10_100: {
+          title: '➗ Dividir por 10, 100',
+          description: 'Aprende el patrón: divide por 10, 100. Domina la división de valor posicional.',
+        },
+        fractionsPartsOfWhole: {
+          title: '🍕 Fracciones: Partes de un Todo',
+          description: 'Colorea la fracción mostrada. Entiende las fracciones como partes de un todo.',
+        },
+        comparingFractions: {
+          title: '🍕 Comparar Fracciones',
+          description: 'Compara fracciones usando >, <, o =. Usa modelos visuales para ayudar.',
+        },
+        equivalentFractions: {
+          title: '🍕 Fracciones Equivalentes',
+          description: 'Encuentra fracciones equivalentes. Entiende que 1/2 = 2/4 = 4/8.',
+        },
+        fractionsOnNumberLine: {
+          title: '🍕 Fracciones en una Línea Numérica',
+          description: 'Grafica fracciones en una línea numérica. Entiende la ubicación de fracciones.',
+        },
+        addingSubtractingFractions: {
+          title: '🍕 Sumar y Restar Fracciones',
+          description: 'Suma y resta fracciones con denominadores iguales. Práctica visual incluida.',
+        },
+        multiStepWordProblems: {
+          title: '🧮 Problemas de Palabras de Múltiples Pasos',
+          description: 'Resuelve problemas con 2 o 3 pasos. Lee cuidadosamente y muestra todo tu trabajo.',
+        },
+        elapsedTimeWordProblems: {
+          title: '🧮 Problemas de Palabras de Tiempo Transcurrido',
+          description: 'Resuelve problemas sobre tiempo. ¿Cuánto tiempo tomó algo?',
+        },
+        moneyWordProblems: {
+          title: '🧮 Problemas de Palabras de Dinero',
+          description: 'Resuelve problemas que involucran dólares y centavos. Practica hacer cambio.',
+        },
+        perimeterAreaWordProblems: {
+          title: '🧮 Problemas de Palabras de Perímetro y Área',
+          description: 'Encuentra perímetro y área en situaciones del mundo real. Muestra tus cálculos.',
+        },
+        identifyPolygons: {
+          title: '📐 Identificar Polígonos',
+          description: 'Nombra polígonos por número de lados. Triángulo, cuadrilátero, pentágono, hexágono, etc.',
+        },
+        perimeterOfShapes: {
+          title: '📐 Perímetro de Formas',
+          description: 'Encuentra el perímetro de rectángulos, cuadrados y otros polígonos. Suma todos los lados.',
+        },
+        areaOfRectangles: {
+          title: '📐 Área de Rectángulos',
+          description: 'Encuentra el área contando cuadrados o multiplicando longitud × ancho.',
+        },
+        linesRaysAngles: {
+          title: '📐 Líneas, Rayos y Ángulos',
+          description: 'Identifica líneas, segmentos de línea, rayos y ángulos. Aprende vocabulario de geometría.',
+        },
+        symmetry: {
+          title: '📐 Simetría',
+          description: 'Encuentra líneas de simetría. Dibuja la otra mitad de formas simétricas.',
+        },
+        timeToMinute: {
+          title: '📏 Hora al Minuto',
+          description: 'Lee y escribe la hora al minuto más cercano. Practica tiempo transcurrido.',
+        },
+        customaryUnits: {
+          title: '📏 Unidades Consuetudinarias',
+          description: 'Convierte entre pulgadas, pies y yardas. Practica conversiones de medición.',
+        },
+        metricUnits: {
+          title: '📏 Unidades Métricas',
+          description: 'Convierte entre centímetros, metros y kilómetros. Aprende el sistema métrico.',
+        },
+        liquidMeasurement: {
+          title: '📏 Medición de Líquidos',
+          description: 'Compara tazas, pintas, cuartos y galones. Entiende la capacidad.',
+        },
+        massAndWeight: {
+          title: '📏 Masa y Peso',
+          description: 'Compara onzas, libras, gramos y kilogramos. Entiende masa vs. peso.',
+        },
+      },
     },
     fourthGrade: {
       seoTitle: 'Hojas de Trabajo de Matemáticas de 4to Grado – PDF Gratis Imprimible',

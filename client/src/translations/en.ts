@@ -644,6 +644,124 @@ export const en = {
       clickToView: '👁️ Click to view full worksheet',
       openPrintable: 'Open printable view →',
       downloadPDF: 'Download PDF',
+      worksheets: {
+        multFacts0_12: {
+          title: '✖️ Multiplication Facts 0–12',
+          description: 'Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy with timed drills.',
+        },
+        multArrays: {
+          title: '✖️ Multiplication Arrays',
+          description: 'Draw arrays to solve multiplication problems. Understand multiplication as repeated addition.',
+        },
+        multWordProblems: {
+          title: '✖️ Multiplication Word Problems',
+          description: 'Solve real-world multiplication problems. Read carefully and show your work.',
+        },
+        multiplyingBy10_100: {
+          title: '✖️ Multiplying by 10, 100',
+          description: 'Learn the pattern: multiply by 10, 100. Master place value multiplication.',
+        },
+        propertiesOfMultiplication: {
+          title: '✖️ Properties of Multiplication',
+          description: 'Practice commutative, associative, and distributive properties. Understand number relationships.',
+        },
+        divFacts1_12: {
+          title: '➗ Division Facts 1–12',
+          description: 'Master division facts from 1÷1 to 144÷12. Build division fluency.',
+        },
+        divWithRemainders: {
+          title: '➗ Division with Remainders',
+          description: 'Divide and find the remainder. Practice long division basics.',
+        },
+        divWordProblems: {
+          title: '➗ Division Word Problems',
+          description: 'Solve division problems in real-world contexts. Show your thinking.',
+        },
+        factFamiliesMultDiv: {
+          title: '➗ Fact Families (Mult/Div)',
+          description: 'Complete multiplication and division fact families. Understand inverse operations.',
+        },
+        dividingBy10_100: {
+          title: '➗ Dividing by 10, 100',
+          description: 'Learn the pattern: divide by 10, 100. Master place value division.',
+        },
+        fractionsPartsOfWhole: {
+          title: '🍕 Fractions: Parts of a Whole',
+          description: 'Color the fraction shown. Understand fractions as parts of a whole.',
+        },
+        comparingFractions: {
+          title: '🍕 Comparing Fractions',
+          description: 'Compare fractions using >, <, or =. Use visual models to help.',
+        },
+        equivalentFractions: {
+          title: '🍕 Equivalent Fractions',
+          description: 'Find equivalent fractions. Understand that 1/2 = 2/4 = 4/8.',
+        },
+        fractionsOnNumberLine: {
+          title: '🍕 Fractions on a Number Line',
+          description: 'Plot fractions on a number line. Understand fraction placement.',
+        },
+        addingSubtractingFractions: {
+          title: '🍕 Adding & Subtracting Fractions',
+          description: 'Add and subtract fractions with like denominators. Visual practice included.',
+        },
+        multiStepWordProblems: {
+          title: '🧮 Multi-Step Word Problems',
+          description: 'Solve problems with 2 or 3 steps. Read carefully and show all your work.',
+        },
+        elapsedTimeWordProblems: {
+          title: '🧮 Elapsed Time Word Problems',
+          description: 'Solve problems about time. How long did something take?',
+        },
+        moneyWordProblems: {
+          title: '🧮 Money Word Problems',
+          description: 'Solve problems involving dollars and cents. Practice making change.',
+        },
+        perimeterAreaWordProblems: {
+          title: '🧮 Perimeter & Area Word Problems',
+          description: 'Find perimeter and area in real-world situations. Show your calculations.',
+        },
+        identifyPolygons: {
+          title: '📐 Identify Polygons',
+          description: 'Name polygons by number of sides. Triangle, quadrilateral, pentagon, hexagon, etc.',
+        },
+        perimeterOfShapes: {
+          title: '📐 Perimeter of Shapes',
+          description: 'Find the perimeter of rectangles, squares, and other polygons. Add all sides.',
+        },
+        areaOfRectangles: {
+          title: '📐 Area of Rectangles',
+          description: 'Find the area by counting squares or multiplying length × width.',
+        },
+        linesRaysAngles: {
+          title: '📐 Lines, Rays, and Angles',
+          description: 'Identify lines, line segments, rays, and angles. Learn geometry vocabulary.',
+        },
+        symmetry: {
+          title: '📐 Symmetry',
+          description: 'Find lines of symmetry. Draw the other half of symmetrical shapes.',
+        },
+        timeToMinute: {
+          title: '📏 Time to the Minute',
+          description: 'Read and write time to the nearest minute. Practice elapsed time.',
+        },
+        customaryUnits: {
+          title: '📏 Customary Units',
+          description: 'Convert between inches, feet, and yards. Practice measurement conversions.',
+        },
+        metricUnits: {
+          title: '📏 Metric Units',
+          description: 'Convert between centimeters, meters, and kilometers. Learn metric system.',
+        },
+        liquidMeasurement: {
+          title: '📏 Liquid Measurement',
+          description: 'Compare cups, pints, quarts, and gallons. Understand capacity.',
+        },
+        massAndWeight: {
+          title: '📏 Mass and Weight',
+          description: 'Compare ounces, pounds, grams, and kilograms. Understand mass vs. weight.',
+        },
+      },
     },
     fourthGrade: {
       seoTitle: '4th Grade Math Worksheets – Free Printable PDF',

@@ -18,44 +18,7 @@ interface WorksheetItem {
   section?: string
 }
 
-// Define all worksheets with their categories - unique 3rd Grade content
-const THIRD_GRADE_WORKSHEETS: WorksheetItem[] = [
-    // Multiplication
-    { title: '✖️ Multiplication Facts 0–12', description: 'Practice all multiplication facts from 0×0 to 12×12. Build speed and accuracy with timed drills.', href: '/print?doc=mult-facts-0-12&from=3rd-grade', docId: 'mult-facts-0-12', categories: ['multiplication'], section: 'Multiplication' },
-    { title: '✖️ Multiplication Arrays', description: 'Draw arrays to solve multiplication problems. Understand multiplication as repeated addition.', href: '/print?doc=mult-arrays&from=3rd-grade', docId: 'mult-arrays', categories: ['multiplication'], section: 'Multiplication' },
-    { title: '✖️ Multiplication Word Problems', description: 'Solve real-world multiplication problems. Read carefully and show your work.', href: '/print?doc=mult-word-problems&from=3rd-grade', docId: 'mult-word-problems', categories: ['multiplication', 'word-problems'], section: 'Multiplication' },
-    { title: '✖️ Multiplying by 10, 100', description: 'Learn the pattern: multiply by 10, 100. Master place value multiplication.', href: '/print?doc=mult-by-10-100&from=3rd-grade', docId: 'mult-by-10-100', categories: ['multiplication'], section: 'Multiplication' },
-    { title: '✖️ Properties of Multiplication', description: 'Practice commutative, associative, and distributive properties. Understand number relationships.', href: '/print?doc=mult-properties&from=3rd-grade', docId: 'mult-properties', categories: ['multiplication'], section: 'Multiplication' },
-    // Division
-    { title: '➗ Division Facts 1–12', description: 'Master division facts from 1÷1 to 144÷12. Build division fluency.', href: '/print?doc=div-facts-1-12&from=3rd-grade', docId: 'div-facts-1-12', categories: ['division'], section: 'Division' },
-    { title: '➗ Division with Remainders', description: 'Divide and find the remainder. Practice long division basics.', href: '/print?doc=div-with-remainders&from=3rd-grade', docId: 'div-with-remainders', categories: ['division'], section: 'Division' },
-    { title: '➗ Division Word Problems', description: 'Solve division problems in real-world contexts. Show your thinking.', href: '/print?doc=div-word-problems&from=3rd-grade', docId: 'div-word-problems', categories: ['division', 'word-problems'], section: 'Division' },
-    { title: '➗ Fact Families (Mult/Div)', description: 'Complete multiplication and division fact families. Understand inverse operations.', href: '/print?doc=fact-families-mult-div&from=3rd-grade', docId: 'fact-families-mult-div', categories: ['division', 'multiplication'], section: 'Division' },
-    { title: '➗ Dividing by 10, 100', description: 'Learn the pattern: divide by 10, 100. Master place value division.', href: '/print?doc=div-by-10-100&from=3rd-grade', docId: 'div-by-10-100', categories: ['division'], section: 'Division' },
-    // Fractions
-    { title: '🍕 Fractions: Parts of a Whole', description: 'Color the fraction shown. Understand fractions as parts of a whole.', href: '/print?doc=fractions-whole&from=3rd-grade', docId: 'fractions-whole', categories: ['fractions'], section: 'Fractions' },
-    { title: '🍕 Comparing Fractions', description: 'Compare fractions using >, <, or =. Use visual models to help.', href: '/print?doc=comparing-fractions&from=3rd-grade', docId: 'comparing-fractions', categories: ['fractions'], section: 'Fractions' },
-    { title: '🍕 Equivalent Fractions', description: 'Find equivalent fractions. Understand that 1/2 = 2/4 = 4/8.', href: '/print?doc=equivalent-fractions&from=3rd-grade', docId: 'equivalent-fractions', categories: ['fractions'], section: 'Fractions' },
-    { title: '🍕 Fractions on a Number Line', description: 'Plot fractions on a number line. Understand fraction placement.', href: '/print?doc=fractions-number-line&from=3rd-grade', docId: 'fractions-number-line', categories: ['fractions'], section: 'Fractions' },
-    { title: '🍕 Adding & Subtracting Fractions', description: 'Add and subtract fractions with like denominators. Visual practice included.', href: '/print?doc=add-sub-fractions&from=3rd-grade', docId: 'add-sub-fractions', categories: ['fractions'], section: 'Fractions' },
-    // Word Problems
-    { title: '🧮 Multi-Step Word Problems', description: 'Solve problems with 2 or 3 steps. Read carefully and show all your work.', href: '/print?doc=multi-step-word-problems&from=3rd-grade', docId: 'multi-step-word-problems', categories: ['word-problems'], section: 'Word Problems' },
-    { title: '🧮 Elapsed Time Word Problems', description: 'Solve problems about time. How long did something take?', href: '/print?doc=elapsed-time-word-problems&from=3rd-grade', docId: 'elapsed-time-word-problems', categories: ['word-problems', 'measurement'], section: 'Word Problems' },
-    { title: '🧮 Money Word Problems', description: 'Solve problems involving dollars and cents. Practice making change.', href: '/print?doc=money-word-problems&from=3rd-grade', docId: 'money-word-problems', categories: ['word-problems'], section: 'Word Problems' },
-    { title: '🧮 Perimeter & Area Word Problems', description: 'Find perimeter and area in real-world situations. Show your calculations.', href: '/print?doc=perimeter-area-word-problems&from=3rd-grade', docId: 'perimeter-area-word-problems', categories: ['word-problems', 'geometry'], section: 'Word Problems' },
-    // Geometry
-    { title: '📐 Identify Polygons', description: 'Name polygons by number of sides. Triangle, quadrilateral, pentagon, hexagon, etc.', href: '/print?doc=identify-polygons&from=3rd-grade', docId: 'identify-polygons', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Perimeter of Shapes', description: 'Find the perimeter of rectangles, squares, and other polygons. Add all sides.', href: '/print?doc=perimeter-shapes&from=3rd-grade', docId: 'perimeter-shapes', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Area of Rectangles', description: 'Find the area by counting squares or multiplying length × width.', href: '/print?doc=area-rectangles&from=3rd-grade', docId: 'area-rectangles', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Lines, Rays, and Angles', description: 'Identify lines, line segments, rays, and angles. Learn geometry vocabulary.', href: '/print?doc=lines-rays-angles&from=3rd-grade', docId: 'lines-rays-angles', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Symmetry', description: 'Find lines of symmetry. Draw the other half of symmetrical shapes.', href: '/print?doc=symmetry&from=3rd-grade', docId: 'symmetry', categories: ['geometry'], section: 'Geometry' },
-    // Measurement
-    { title: '📏 Time to the Minute', description: 'Read and write time to the nearest minute. Practice elapsed time.', href: '/print?doc=time-to-minute&from=3rd-grade', docId: 'time-to-minute', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Customary Units', description: 'Convert between inches, feet, and yards. Practice measurement conversions.', href: '/print?doc=customary-units&from=3rd-grade', docId: 'customary-units', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Metric Units', description: 'Convert between centimeters, meters, and kilometers. Learn metric system.', href: '/print?doc=metric-units&from=3rd-grade', docId: 'metric-units', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Liquid Measurement', description: 'Compare cups, pints, quarts, and gallons. Understand capacity.', href: '/print?doc=liquid-measurement&from=3rd-grade', docId: 'liquid-measurement', categories: ['measurement'], section: 'Measurement' },
-    { title: '📏 Mass and Weight', description: 'Compare ounces, pounds, grams, and kilograms. Understand mass vs. weight.', href: '/print?doc=mass-weight&from=3rd-grade', docId: 'mass-weight', categories: ['measurement'], section: 'Measurement' },
-]
+// Worksheets will be defined inside component to use translation
 
 export default function WorksheetsThirdGradePage() {
   const { t, isRTL } = useTranslation();
@@ -94,13 +57,52 @@ export default function WorksheetsThirdGradePage() {
     setSelectedCategories(new Set())
   }
 
+  // Define all worksheets with their categories - using translation keys
+  const THIRD_GRADE_WORKSHEETS: WorksheetItem[] = useMemo(() => [
+    // Multiplication
+    { title: t('pages.thirdGrade.worksheets.multFacts0_12.title'), description: t('pages.thirdGrade.worksheets.multFacts0_12.description'), href: '/print?doc=mult-facts-0-12&from=3rd-grade', docId: 'mult-facts-0-12', categories: ['multiplication'], section: 'Multiplication' },
+    { title: t('pages.thirdGrade.worksheets.multArrays.title'), description: t('pages.thirdGrade.worksheets.multArrays.description'), href: '/print?doc=mult-arrays&from=3rd-grade', docId: 'mult-arrays', categories: ['multiplication'], section: 'Multiplication' },
+    { title: t('pages.thirdGrade.worksheets.multWordProblems.title'), description: t('pages.thirdGrade.worksheets.multWordProblems.description'), href: '/print?doc=mult-word-problems&from=3rd-grade', docId: 'mult-word-problems', categories: ['multiplication', 'word-problems'], section: 'Multiplication' },
+    { title: t('pages.thirdGrade.worksheets.multiplyingBy10_100.title'), description: t('pages.thirdGrade.worksheets.multiplyingBy10_100.description'), href: '/print?doc=mult-by-10-100&from=3rd-grade', docId: 'mult-by-10-100', categories: ['multiplication'], section: 'Multiplication' },
+    { title: t('pages.thirdGrade.worksheets.propertiesOfMultiplication.title'), description: t('pages.thirdGrade.worksheets.propertiesOfMultiplication.description'), href: '/print?doc=mult-properties&from=3rd-grade', docId: 'mult-properties', categories: ['multiplication'], section: 'Multiplication' },
+    // Division
+    { title: t('pages.thirdGrade.worksheets.divFacts1_12.title'), description: t('pages.thirdGrade.worksheets.divFacts1_12.description'), href: '/print?doc=div-facts-1-12&from=3rd-grade', docId: 'div-facts-1-12', categories: ['division'], section: 'Division' },
+    { title: t('pages.thirdGrade.worksheets.divWithRemainders.title'), description: t('pages.thirdGrade.worksheets.divWithRemainders.description'), href: '/print?doc=div-with-remainders&from=3rd-grade', docId: 'div-with-remainders', categories: ['division'], section: 'Division' },
+    { title: t('pages.thirdGrade.worksheets.divWordProblems.title'), description: t('pages.thirdGrade.worksheets.divWordProblems.description'), href: '/print?doc=div-word-problems&from=3rd-grade', docId: 'div-word-problems', categories: ['division', 'word-problems'], section: 'Division' },
+    { title: t('pages.thirdGrade.worksheets.factFamiliesMultDiv.title'), description: t('pages.thirdGrade.worksheets.factFamiliesMultDiv.description'), href: '/print?doc=fact-families-mult-div&from=3rd-grade', docId: 'fact-families-mult-div', categories: ['division', 'multiplication'], section: 'Division' },
+    { title: t('pages.thirdGrade.worksheets.dividingBy10_100.title'), description: t('pages.thirdGrade.worksheets.dividingBy10_100.description'), href: '/print?doc=div-by-10-100&from=3rd-grade', docId: 'div-by-10-100', categories: ['division'], section: 'Division' },
+    // Fractions
+    { title: t('pages.thirdGrade.worksheets.fractionsPartsOfWhole.title'), description: t('pages.thirdGrade.worksheets.fractionsPartsOfWhole.description'), href: '/print?doc=fractions-whole&from=3rd-grade', docId: 'fractions-whole', categories: ['fractions'], section: 'Fractions' },
+    { title: t('pages.thirdGrade.worksheets.comparingFractions.title'), description: t('pages.thirdGrade.worksheets.comparingFractions.description'), href: '/print?doc=comparing-fractions&from=3rd-grade', docId: 'comparing-fractions', categories: ['fractions'], section: 'Fractions' },
+    { title: t('pages.thirdGrade.worksheets.equivalentFractions.title'), description: t('pages.thirdGrade.worksheets.equivalentFractions.description'), href: '/print?doc=equivalent-fractions&from=3rd-grade', docId: 'equivalent-fractions', categories: ['fractions'], section: 'Fractions' },
+    { title: t('pages.thirdGrade.worksheets.fractionsOnNumberLine.title'), description: t('pages.thirdGrade.worksheets.fractionsOnNumberLine.description'), href: '/print?doc=fractions-number-line&from=3rd-grade', docId: 'fractions-number-line', categories: ['fractions'], section: 'Fractions' },
+    { title: t('pages.thirdGrade.worksheets.addingSubtractingFractions.title'), description: t('pages.thirdGrade.worksheets.addingSubtractingFractions.description'), href: '/print?doc=add-sub-fractions&from=3rd-grade', docId: 'add-sub-fractions', categories: ['fractions'], section: 'Fractions' },
+    // Word Problems
+    { title: t('pages.thirdGrade.worksheets.multiStepWordProblems.title'), description: t('pages.thirdGrade.worksheets.multiStepWordProblems.description'), href: '/print?doc=multi-step-word-problems&from=3rd-grade', docId: 'multi-step-word-problems', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.thirdGrade.worksheets.elapsedTimeWordProblems.title'), description: t('pages.thirdGrade.worksheets.elapsedTimeWordProblems.description'), href: '/print?doc=elapsed-time-word-problems&from=3rd-grade', docId: 'elapsed-time-word-problems', categories: ['word-problems', 'measurement'], section: 'Word Problems' },
+    { title: t('pages.thirdGrade.worksheets.moneyWordProblems.title'), description: t('pages.thirdGrade.worksheets.moneyWordProblems.description'), href: '/print?doc=money-word-problems&from=3rd-grade', docId: 'money-word-problems', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.thirdGrade.worksheets.perimeterAreaWordProblems.title'), description: t('pages.thirdGrade.worksheets.perimeterAreaWordProblems.description'), href: '/print?doc=perimeter-area-word-problems&from=3rd-grade', docId: 'perimeter-area-word-problems', categories: ['word-problems', 'geometry'], section: 'Word Problems' },
+    // Geometry
+    { title: t('pages.thirdGrade.worksheets.identifyPolygons.title'), description: t('pages.thirdGrade.worksheets.identifyPolygons.description'), href: '/print?doc=identify-polygons&from=3rd-grade', docId: 'identify-polygons', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.thirdGrade.worksheets.perimeterOfShapes.title'), description: t('pages.thirdGrade.worksheets.perimeterOfShapes.description'), href: '/print?doc=perimeter-shapes&from=3rd-grade', docId: 'perimeter-shapes', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.thirdGrade.worksheets.areaOfRectangles.title'), description: t('pages.thirdGrade.worksheets.areaOfRectangles.description'), href: '/print?doc=area-rectangles&from=3rd-grade', docId: 'area-rectangles', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.thirdGrade.worksheets.linesRaysAngles.title'), description: t('pages.thirdGrade.worksheets.linesRaysAngles.description'), href: '/print?doc=lines-rays-angles&from=3rd-grade', docId: 'lines-rays-angles', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.thirdGrade.worksheets.symmetry.title'), description: t('pages.thirdGrade.worksheets.symmetry.description'), href: '/print?doc=symmetry&from=3rd-grade', docId: 'symmetry', categories: ['geometry'], section: 'Geometry' },
+    // Measurement
+    { title: t('pages.thirdGrade.worksheets.timeToMinute.title'), description: t('pages.thirdGrade.worksheets.timeToMinute.description'), href: '/print?doc=time-to-minute&from=3rd-grade', docId: 'time-to-minute', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.thirdGrade.worksheets.customaryUnits.title'), description: t('pages.thirdGrade.worksheets.customaryUnits.description'), href: '/print?doc=customary-units&from=3rd-grade', docId: 'customary-units', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.thirdGrade.worksheets.metricUnits.title'), description: t('pages.thirdGrade.worksheets.metricUnits.description'), href: '/print?doc=metric-units&from=3rd-grade', docId: 'metric-units', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.thirdGrade.worksheets.liquidMeasurement.title'), description: t('pages.thirdGrade.worksheets.liquidMeasurement.description'), href: '/print?doc=liquid-measurement&from=3rd-grade', docId: 'liquid-measurement', categories: ['measurement'], section: 'Measurement' },
+    { title: t('pages.thirdGrade.worksheets.massAndWeight.title'), description: t('pages.thirdGrade.worksheets.massAndWeight.description'), href: '/print?doc=mass-weight&from=3rd-grade', docId: 'mass-weight', categories: ['measurement'], section: 'Measurement' },
+  ], [t])
+
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return THIRD_GRADE_WORKSHEETS
     return THIRD_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, THIRD_GRADE_WORKSHEETS])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {
