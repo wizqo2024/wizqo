@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, Clock, Play, Trash2, Share2, Trophy, ExternalLink, X, BookOpen } from "lucide-react";
 import { format } from "date-fns";
 import { UnifiedNavigation } from './UnifiedNavigation';
+import { useTranslation } from '@/context/TranslationContext';
 
 // Mocking hobbyPlanService for demonstration purposes
 const hobbyPlanService = {
@@ -35,6 +36,7 @@ interface HobbyPlan {
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const { t, isRTL } = useTranslation();
   const [hobbyPlans, setHobbyPlans] = useState<HobbyPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingPlan, setDeletingPlan] = useState<string | null>(null);
@@ -42,18 +44,16 @@ export default function Dashboard() {
   const [shareData, setShareData] = useState<any>(null);
   const [showCopyToast, setShowCopyToast] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('Loading your learning dashboard...');
+  
+  React.useEffect(() => {
+    setLoadingMessage(t('pages.dashboard.loadingDashboard'));
+  }, [t]);
 
   // Social sharing function with all platforms
   const openShareModal = (plan: HobbyPlan) => {
-    const shareText = `🎉 I just completed my 7-day ${plan.hobby.toUpperCase()} learning journey! 
-
-✅ Mastered ${plan.hobby} fundamentals in just 7 days
-📚 Completed all ${plan.totalDays} daily lessons  
-🚀 Ready for the next challenge!
-
-#7DayChallenge #Learning #${plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1)} #PersonalGrowth #Wizqo
-
-Learn any hobby in 7 days at https://wizqo.com`;
+    const hobbyUpper = plan.hobby.toUpperCase();
+    const hobbyCapitalized = plan.hobby.charAt(0).toUpperCase() + plan.hobby.slice(1);
+    const shareText = `${t('pages.dashboard.shareText1')} ${hobbyUpper} ${t('pages.dashboard.shareText2')}\n\n${t('pages.dashboard.shareText3')} ${plan.hobby} ${t('pages.dashboard.shareText4')}\n${t('pages.dashboard.shareText5')} ${plan.totalDays} ${t('pages.dashboard.shareText6')}\n${t('pages.dashboard.shareText7')}\n\n#7DayChallenge #Learning #${hobbyCapitalized} #PersonalGrowth #Wizqo\n\n${t('pages.dashboard.shareText8')} https://wizqo.com`;
 
     const shareUrl = `https://wizqo.com`;
     const imageUrl = getHobbyImage(plan.hobby);
@@ -61,7 +61,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
     const platforms = {
       twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wizqo.com')}&quote=${encodeURIComponent(shareText)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://wizqo.com')}&title=${encodeURIComponent('🎉 Completed 7-Day ' + plan.hobby.toUpperCase() + ' Challenge!')}&summary=${encodeURIComponent(shareText)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://wizqo.com')}&title=${encodeURIComponent(t('pages.dashboard.shareLinkedInTitle') + ' ' + plan.hobby.toUpperCase() + ' ' + t('pages.dashboard.shareLinkedInTitle2'))}&summary=${encodeURIComponent(shareText)}`,
       instagram: shareText,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText)}`
     };
@@ -78,7 +78,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const loadUserPlans = async () => {
     try {
-      setLoadingMessage('Fetching your learning plans...');
+      setLoadingMessage(t('pages.dashboard.fetchingPlans'));
       console.log('📋 Loading user plans for:', user?.id);
 
       // Check for loading flag but with timeout to prevent permanent blocking
@@ -107,7 +107,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
       try {
         // Load saved plans from Supabase with aggressive cache busting
-        setLoadingMessage('Loading saved plans...');
+        setLoadingMessage(t('pages.dashboard.loadingPlans'));
         const timestamp = Date.now();
         const plansResponse = await fetch(`/api/hobby-plans?user_id=${user?.id}&_t=${timestamp}&_bustCache=true`, {
           cache: 'no-cache',
@@ -153,7 +153,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
         }
 
         // Load progress data
-        setLoadingMessage('Loading progress data...');
+        setLoadingMessage(t('pages.dashboard.loadingProgress'));
         const progressResponse = await fetch(`/api/user-progress/${user?.id}`);
         let progressData: any[] = [];
 
@@ -213,7 +213,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
     } catch (error) {
       console.error('Error loading user plans:', error);
-      setLoadingMessage('Error loading plans. Please refresh.');
+      setLoadingMessage(t('pages.dashboard.errorLoading'));
       // Clear loading flags on error too
       sessionStorage.removeItem('dashboardLoading');
       sessionStorage.removeItem('dashboardLoadingTime');
@@ -224,19 +224,19 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const getCategoryForHobby = (hobby: string): string => {
     const categories: Record<string, string> = {
-      drawing: 'Arts & Creativity',
-      painting: 'Arts & Creativity',
-      photography: 'Arts & Creativity',
-      cooking: 'Culinary',
-      baking: 'Culinary',
-      guitar: 'Music',
-      piano: 'Music',
-      yoga: 'Fitness & Wellness',
-      dance: 'Fitness & Wellness',
-      coding: 'Technology',
-      programming: 'Technology'
+      drawing: t('pages.dashboard.categories.artsCreativity'),
+      painting: t('pages.dashboard.categories.artsCreativity'),
+      photography: t('pages.dashboard.categories.artsCreativity'),
+      cooking: t('pages.dashboard.categories.culinary'),
+      baking: t('pages.dashboard.categories.culinary'),
+      guitar: t('pages.dashboard.categories.music'),
+      piano: t('pages.dashboard.categories.music'),
+      yoga: t('pages.dashboard.categories.fitnessWellness'),
+      dance: t('pages.dashboard.categories.fitnessWellness'),
+      coding: t('pages.dashboard.categories.technology'),
+      programming: t('pages.dashboard.categories.technology')
     };
-    return categories[hobby.toLowerCase()] || 'General';
+    return categories[hobby.toLowerCase()] || t('pages.dashboard.categories.general');
   };
 
   // Clear caches but preserve current plan/session data used by the learning page
@@ -290,11 +290,11 @@ Learn any hobby in 7 days at https://wizqo.com`;
     const extractedHobby = hobby || planToDelete?.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1];
 
     if (!extractedHobby) {
-      alert('Cannot determine hobby type for this plan');
+      alert(t('pages.dashboard.cannotDetermineHobby'));
       return;
     }
 
-    if (!confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {
+    if (!confirm(t('pages.dashboard.confirmDelete'))) {
       return;
     }
 
@@ -325,7 +325,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
       console.error('❌ Error in deletion:', error);
 
       // Even on error, keep the plan removed from UI to prevent confusion
-      alert(`Failed to delete plan: ${error.message || 'Unknown error'}. The plan has been removed from view. Please refresh if issues persist.`);
+      alert(t('pages.dashboard.deleteError') + ': ' + (error.message || t('pages.dashboard.unknownError')) + '. ' + t('pages.dashboard.deleteErrorNote'));
 
       // Clear caches but preserve current plan-related data even on error
       clearCachesPreservingPlan();
@@ -466,29 +466,29 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   const getStatusText = (status: string): string => {
     switch (status) {
-      case 'completed': return 'Completed';
-      case 'in_progress': return 'In Progress';
-      case 'paused': return 'Paused';
-      default: return 'Unknown';
+      case 'completed': return t('pages.dashboard.status.completed');
+      case 'in_progress': return t('pages.dashboard.status.inProgress');
+      case 'paused': return t('pages.dashboard.status.paused');
+      default: return t('pages.dashboard.status.unknown');
     }
   };
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
         <UnifiedNavigation currentPage="dashboard" />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center max-w-md mx-auto">
             <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-white text-2xl">📚</span>
             </div>
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Welcome to Your Dashboard</h2>
-            <p className="text-gray-600 mb-6">Sign in to view your hobby learning progress and continue your 7-day journeys.</p>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">{t('pages.dashboard.welcomeTitle')}</h2>
+            <p className="text-gray-600 mb-6">{t('pages.dashboard.welcomeMessage')}</p>
             <Button 
               onClick={() => window.location.href = '/login'}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             >
-              Sign In to Continue
+              {t('pages.dashboard.signInToContinue')}
             </Button>
           </div>
         </div>
@@ -498,7 +498,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
         <UnifiedNavigation currentPage="dashboard" />
         <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl">
           {/* Loading Header */}
@@ -594,7 +594,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
         })}
       </script>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-gray-900" dir={isRTL ? 'rtl' : 'ltr'}>
         <UnifiedNavigation currentPage="dashboard" />
 
         <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl" role="main">
@@ -602,10 +602,10 @@ Learn any hobby in 7 days at https://wizqo.com`;
           <header className="mb-6 sm:mb-8">
             <div className="text-center sm:text-left">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 sm:mb-3">
-                My Learning Dashboard
+                {t('pages.dashboard.title')}
               </h1>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-2xl mx-auto sm:mx-0">
-                Track your progress across all your hobby learning journeys. Complete 7-day challenges and celebrate your achievements.
+                {t('pages.dashboard.description')}
               </p>
             </div>
           </header>
@@ -622,7 +622,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                       {hobbyPlans.filter(p => p.status === 'in_progress').length}
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Active Plans</p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">{t('pages.dashboard.activePlans')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -638,7 +638,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                       {hobbyPlans.filter(p => p.status === 'completed').length}
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Completed</p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">{t('pages.dashboard.completed')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -654,7 +654,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                       {hobbyPlans.reduce((acc, plan) => acc + plan.currentDay, 0)}
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Days Learned</p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">{t('pages.dashboard.daysLearned')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -670,7 +670,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                       {Math.round(hobbyPlans.reduce((acc, plan) => acc + plan.progress, 0) / hobbyPlans.length) || 0}%
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">Avg Progress</p>
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">{t('pages.dashboard.avgProgress')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -695,7 +695,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       {hobbyPlans.length}/5
                     </p>
                     <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-medium">
-                      {hobbyPlans.length >= 5 ? 'Plan Limit' : 'Plans Created'}
+                      {hobbyPlans.length >= 5 ? t('pages.dashboard.planLimit') : t('pages.dashboard.plansCreated')}
                     </p>
                   </div>
                 </div>
@@ -717,14 +717,14 @@ Learn any hobby in 7 days at https://wizqo.com`;
               return (
                 <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <h3 className="text-lg font-semibold text-yellow-800 mb-2">
-                    Duplicate Plans Detected
+                    {t('pages.dashboard.duplicatePlansTitle')}
                   </h3>
                   <p className="text-yellow-700 mb-3">
-                    You have duplicate plans: {duplicates.map(([hobby, count]) => `${count} ${hobby} plans`).join(', ')}
+                    {t('pages.dashboard.duplicatePlansMessage')}: {duplicates.map(([hobby, count]) => `${count} ${hobby} ${t('pages.dashboard.plans')}`).join(', ')}
                   </p>
                   <Button
                     onClick={async () => {
-                      if (confirm('This will delete all duplicate plans, keeping only the most recent one for each hobby. Continue?')) {
+                      if (confirm(t('pages.dashboard.confirmCleanup'))) {
                         for (const [hobby, count] of duplicates) {
                           const plansForHobby = hobbyPlans.filter(p => 
                             (p.hobby || p.title?.match(/(?:Learn|Master)\s+(\w+)\s+in/i)?.[1]) === hobby
@@ -745,7 +745,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     variant="outline"
                     className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
                   >
-                    Clean Up Duplicates
+                    {t('pages.dashboard.cleanUpDuplicates')}
                   </Button>
                 </div>
               );
@@ -759,13 +759,13 @@ Learn any hobby in 7 days at https://wizqo.com`;
               <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-3xl">🎯</span>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">No Learning Plans Yet</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">Start your first 7-day hobby learning journey today! Choose from photography, cooking, guitar, yoga, and many more.</p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t('pages.dashboard.noPlansTitle')}</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">{t('pages.dashboard.noPlansMessage')}</p>
               <Button 
                 onClick={() => window.location.href = '/generate'} 
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold"
               >
-                Create Your First Plan
+                {t('pages.dashboard.createFirstPlan')}
               </Button>
             </div>
           ) : (
@@ -797,13 +797,13 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4">
                       <span className="font-medium">{plan.category}</span>
                       <span className="mx-2">•</span>
-                      <span>{plan.totalDays} days</span>
+                      <span>{plan.totalDays} {plan.totalDays === 1 ? t('pages.dashboard.day') : t('pages.dashboard.days')}</span>
                     </div>
 
                     {/* Progress */}
                     <div className="mb-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">Progress</span>
+                        <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">{t('pages.dashboard.progress')}</span>
                         <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400">{plan.progress}%</span>
                       </div>
                       <Progress value={plan.progress} className="h-2 bg-gray-200 dark:bg-gray-700" />
@@ -813,7 +813,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                     <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-6">
                       <div className="flex items-center">
                         <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                        <span>Started {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
+                        <span>{t('pages.dashboard.started')} {format(new Date(plan.startDate), 'MMM d, yyyy')}</span>
                       </div>
                       <Button
                         variant="ghost"
@@ -835,17 +835,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
                             <div className="flex items-center justify-center space-x-2 mb-3">
                               <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
                               <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">
-                                Challenge Completed! 🎉
+                                {t('pages.dashboard.challengeCompleted')}
                               </span>
                             </div>
                             <Button
                               size="sm"
                               className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-sm py-2 px-4 flex items-center justify-center min-h-[44px] font-medium mobile-button"
                               onClick={() => openShareModal(plan)}
-                              aria-label={`Share ${plan.title} achievement`}
+                              aria-label={t('pages.dashboard.shareAchievementAria') + ' ' + plan.title}
                             >
                               <Share2 className="h-4 w-4 mr-2 flex-shrink-0" />
-                              Share Achievement
+                              {t('pages.dashboard.shareAchievement')}
                             </Button>
                           </div>
                         </div>
@@ -892,9 +892,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       }}
                       className="w-full text-sm sm:text-base py-2 sm:py-3 mobile-button" 
                       variant={plan.status === 'completed' ? 'outline' : 'default'}
-                      aria-label={plan.status === 'completed' ? `View ${plan.title}` : `Continue learning ${plan.title}`}
+                      aria-label={plan.status === 'completed' ? t('pages.dashboard.viewPlanAria') + ' ' + plan.title : t('pages.dashboard.continueLearningAria') + ' ' + plan.title}
                     >
-                      {plan.status === 'completed' ? 'View Plan' : 'Continue Learning'}
+                      {plan.status === 'completed' ? t('pages.dashboard.viewPlan') : t('pages.dashboard.continueLearning')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -910,7 +910,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                   <div className="flex items-center space-x-2">
                     <Trophy className="h-6 w-6 text-yellow-500" />
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      Share Your Achievement
+                      {t('pages.dashboard.shareYourAchievement')}
                     </h3>
                   </div>
                   <Button
@@ -933,17 +933,17 @@ Learn any hobby in 7 days at https://wizqo.com`;
                       loading="lazy"
                     />
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                      {shareData.plan.hobby} Challenge Complete! 🎉
+                      {shareData.plan.hobby} {t('pages.dashboard.shareModalTitle')}
                     </h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      7 days • {shareData.plan.totalDays} lessons completed
+                      {t('pages.dashboard.shareModalSubtitle1')} {shareData.plan.totalDays} {t('pages.dashboard.shareModalSubtitle2')}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                    Share on social media:
+                    {t('pages.dashboard.shareOnSocial')}
                   </h4>
 
                   {/* Social Media Buttons */}
@@ -959,8 +959,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         <Share2 className="h-4 w-4" />
                       </div>
                       <div className="text-left">
-                        <div className="font-medium">Twitter</div>
-                        <div className="text-xs opacity-90">Share with your followers</div>
+                        <div className="font-medium">{t('pages.dashboard.social.twitter')}</div>
+                        <div className="text-xs opacity-90">{t('pages.dashboard.social.twitterDesc')}</div>
                       </div>
                     </div>
                   </Button>
@@ -977,8 +977,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         <ExternalLink className="h-4 w-4" />
                       </div>
                       <div className="text-left">
-                        <div className="font-medium">Facebook</div>
-                        <div className="text-xs opacity-90">Post to your timeline</div>
+                        <div className="font-medium">{t('pages.dashboard.social.facebook')}</div>
+                        <div className="text-xs opacity-90">{t('pages.dashboard.social.facebookDesc')}</div>
                       </div>
                     </div>
                   </Button>
@@ -995,8 +995,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         <Share2 className="h-4 w-4" />
                       </div>
                       <div className="text-left">
-                        <div className="font-medium">WhatsApp</div>
-                        <div className="text-xs opacity-90">Send to friends</div>
+                        <div className="font-medium">{t('pages.dashboard.social.whatsapp')}</div>
+                        <div className="text-xs opacity-90">{t('pages.dashboard.social.whatsappDesc')}</div>
                       </div>
                     </div>
                   </Button>
@@ -1013,8 +1013,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         <ExternalLink className="h-4 w-4" />
                       </div>
                       <div className="text-left">
-                        <div className="font-medium">LinkedIn</div>
-                        <div className="text-xs opacity-90">Share with your network</div>
+                        <div className="font-medium">{t('pages.dashboard.social.linkedin')}</div>
+                        <div className="text-xs opacity-90">{t('pages.dashboard.social.linkedinDesc')}</div>
                       </div>
                     </div>
                   </Button>
@@ -1034,8 +1034,8 @@ Learn any hobby in 7 days at https://wizqo.com`;
                         <Share2 className="h-4 w-4" />
                       </div>
                       <div className="text-left">
-                        <div className="font-medium">Instagram</div>
-                        <div className="text-xs opacity-90">Copy for your story</div>
+                        <div className="font-medium">{t('pages.dashboard.social.instagram')}</div>
+                        <div className="text-xs opacity-90">{t('pages.dashboard.social.instagramDesc')}</div>
                       </div>
                     </div>
                   </Button>
@@ -1046,7 +1046,7 @@ Learn any hobby in 7 days at https://wizqo.com`;
                   className="w-full mt-4 h-10 mobile-button"
                   onClick={() => setShowShareModal(false)}
                 >
-                  Cancel
+                  {t('pages.dashboard.cancel')}
                 </Button>
               </div>
             </div>
@@ -1059,9 +1059,9 @@ Learn any hobby in 7 days at https://wizqo.com`;
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="font-medium">Copied to clipboard!</span>
+                <span className="font-medium">{t('pages.dashboard.copiedToClipboard')}</span>
               </div>
-              <div className="text-xs mt-1 opacity-90">Open Instagram and paste it in your story</div>
+              <div className="text-xs mt-1 opacity-90">{t('pages.dashboard.instagramPaste')}</div>
             </div>
           )}
         </main>
