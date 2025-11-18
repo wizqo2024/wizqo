@@ -1358,13 +1358,13 @@ export function InteractiveWorksheetsPage() {
                 <p className="text-sm text-slate-100">
                   “I used the free interactive worksheets generator for my grade 3 math block—each group got a different PDF with quick answer keys. No repeats all week!”
                 </p>
-                <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">Mia • 3rd Grade Teacher</footer>
+                <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">{t('pages.interactive.testimonials.mia.author')}</footer>
               </blockquote>
               <blockquote className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left">
                 <p className="text-sm text-slate-100">
                   “The SEL and reading comprehension sets are gold. I love that the generator is totally free and prints with answers.”
                 </p>
-                <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">Jordan • Literacy Coach</footer>
+                <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">{t('pages.interactive.testimonials.jordan.author')}</footer>
               </blockquote>
             </div>
           </div>
