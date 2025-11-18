@@ -123,11 +123,11 @@ export default function KidsPage() {
   if (sub1 === 'games') {
     // Map slug -> human-readable game title for accurate SEO titles/snippets
     const gameNameMap: Record<string, string> = {
-      'memory': 'Memory Match',
-      'word-search': 'Word Search',
-      'puzzle': 'Puzzle Game',
-      'typing': 'Typing Safari',
-      'pattern': 'Pattern Builder'
+      'memory': t('pages.kids.games.memoryCard.title'),
+      'word-search': t('pages.kids.games.wordSearchCard.title'),
+      'puzzle': t('pages.kids.games.puzzleCard.title'),
+      'typing': t('pages.kids.games.typingCard.title'),
+      'pattern': t('pages.kids.games.patternCard.title')
     };
     const gameSlug = (sub2 || 'memory').toLowerCase();
     const gameTitle = gameNameMap[gameSlug] || 'Memory Match';
@@ -239,8 +239,8 @@ export default function KidsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/20" />
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-          <div className="inline-flex items-center px-3 py-1 mb-3 text-xs font-semibold uppercase tracking-wide rounded-full bg-white/15 border border-white/20 backdrop-blur">🎉 Kids Hub</div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">Kids Hub</h1>
+          <div className="inline-flex items-center px-3 py-1 mb-3 text-xs font-semibold uppercase tracking-wide rounded-full bg-white/15 border border-white/20 backdrop-blur">🎉 {t('pages.kids.title')}</div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-300 bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">{t('pages.kids.title')}</h1>
           <div className="h-1 w-20 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mb-4" />
           <p className="text-lg opacity-95 max-w-3xl">
             Learning doesn’t have to be boring! Our Kids Hub is full of <strong>fun learning games for kids</strong>, creative printables,
@@ -261,37 +261,37 @@ export default function KidsPage() {
         <div className="absolute top-[22rem] left-10 z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🎨</div>
-            <p className="text-white text-sm mt-1">Coloring</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.coloring')}</p>
           </div>
         </div>
         <div className="absolute top-[18rem] right-16 z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🧩</div>
-            <p className="text-white text-sm mt-1">Puzzles</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.puzzles')}</p>
           </div>
         </div>
         <div className="absolute bottom-[26rem] left-1/4 z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🚀</div>
-            <p className="text-white text-sm mt-1">Space</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.space')}</p>
           </div>
         </div>
         <div className="absolute bottom-[30rem] right-1/4 z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-3 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🐾</div>
-            <p className="text-white text-sm mt-1">Animals</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.animals')}</p>
           </div>
         </div>
         <div className="absolute top-[26rem] right-[45%] z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-3 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">📚</div>
-            <p className="text-white text-sm mt-1">Study</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.study')}</p>
           </div>
         </div>
         <div className="absolute top-[20rem] right-[30%] z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300 shadow-lg">
             <div className="text-2xl">🎮</div>
-            <p className="text-white text-sm mt-1">Games</p>
+            <p className="text-white text-sm mt-1">{t('pages.kids.floatingCards.games')}</p>
           </div>
         </div>
       </div>

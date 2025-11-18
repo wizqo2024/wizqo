@@ -5,6 +5,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
 import { trackWorksheetGeneration, trackCategoryFilter, trackGradeSelection, trackWorksheetDownload } from '@/utils/analytics'
+import { useTranslation } from '@/context/TranslationContext'
 import {
   Dialog,
   DialogContent,
@@ -354,6 +355,7 @@ function WorksheetPreviewCard({
   onDownload,
   pack,
   filters,
+  t,
 }: { 
   item: InteractiveWorksheetItem
   onToggleFavorite: (item: InteractiveWorksheetItem) => void
@@ -362,6 +364,7 @@ function WorksheetPreviewCard({
   onDownload: (docId: string) => string
   pack: InteractiveWorksheetPack | null
   filters: FiltersState
+  t: (key: string) => string
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -381,8 +384,8 @@ function WorksheetPreviewCard({
                 ? 'text-yellow-500 hover:text-yellow-600' 
                 : 'text-slate-400 hover:text-yellow-500'
             }`}
-            aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            aria-label={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
+            title={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
           >
             <svg className="w-5 h-5" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -431,7 +434,7 @@ function WorksheetPreviewCard({
           {/* Overlay on hover */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
             <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-auto">
-              👁️ Click to preview full worksheet
+              👁️ {t('pages.interactive.clickToPreview')}
             </div>
           </div>
           {/* Corner fold effect */}
@@ -439,7 +442,7 @@ function WorksheetPreviewCard({
         </div>
       ) : (
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 flex items-center justify-center" style={{ height: '140px' }}>
-          <p className="text-xs text-slate-400">Preview will appear after generation</p>
+          <p className="text-xs text-slate-400">{t('pages.interactive.previewAfterGeneration')}</p>
         </div>
       )}
       
@@ -458,7 +461,7 @@ function WorksheetPreviewCard({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
           <span>{item.gradeLabel}</span>
-          <span>Answer key included</span>
+          <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
           {pack?.printUrl && (
@@ -468,14 +471,14 @@ function WorksheetPreviewCard({
               rel="noopener noreferrer"
               className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             >
-              ⬇️ Download
+              ⬇️ {t('pages.interactive.download')}
             </a>
           )}
           <button
             onClick={() => onPreview(item)}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
           >
-            👁️ Preview
+            👁️ {t('pages.interactive.preview')}
           </button>
         </div>
       </div>
@@ -595,6 +598,7 @@ function useFaqSchema() {
 }
 
 export function InteractiveWorksheetsPage() {
+  const { t, isRTL } = useTranslation()
   const [filters, setFilters] = React.useState<FiltersState>(() => parseInitialFilters())
   const [pack, setPack] = React.useState<InteractiveWorksheetPack | null>(null)
   const [loading, setLoading] = React.useState(false)
@@ -836,9 +840,9 @@ export function InteractiveWorksheetsPage() {
     if (typeof window === 'undefined') return
     
     const url = window.location.href
-    const title = 'Free Interactive Worksheets Generator'
-    const text = 'Unlimited unique printable PDFs with answer keys!'
-    const description = 'Free Interactive Worksheets Generator - Unlimited unique printable PDFs with answer keys!'
+    const title = t('pages.interactive.shareTitle')
+    const text = t('pages.interactive.shareText')
+    const description = t('pages.interactive.shareDescription')
 
     switch (platform) {
       case 'facebook':
@@ -1189,14 +1193,14 @@ export function InteractiveWorksheetsPage() {
                 </div>
               </div>
               <div className="rounded-3xl border border-purple-200 bg-white/70 p-6 shadow-xl shadow-purple-100 backdrop-blur">
-                <h2 className="text-lg font-semibold text-slate-900 mb-4">Filters at a glance</h2>
+                <h2 className="text-lg font-semibold text-slate-900 mb-4">{t('pages.interactive.filtersAtAGlance')}</h2>
                 <dl className="space-y-3 text-sm text-slate-600">
                   <div className="flex items-center justify-between">
-                    <dt>Grade band</dt>
+                    <dt>{t('pages.interactive.gradeSelected')}</dt>
                     <dd className="font-medium text-slate-900">{INTERACTIVE_GRADE_OPTIONS.find((g) => g.id === filters.grade)?.label || 'K–1'}</dd>
                   </div>
                   <div>
-                    <dt className="mb-2">Categories selected</dt>
+                    <dt className="mb-2">{t('pages.interactive.categoriesSelected')}</dt>
                     <dd className="flex flex-wrap gap-2">
                       {filters.categories.map((id) => {
                         const cat = INTERACTIVE_CATEGORIES.find((c) => c.id === id)
@@ -1211,7 +1215,7 @@ export function InteractiveWorksheetsPage() {
                   </div>
                 </dl>
                 <p className="mt-4 rounded-xl bg-purple-50 px-3 py-2 text-xs text-purple-700">
-                  💡 Tip: Click "Generate new unique pack" as many times as you want! Each click creates a completely unique set based on your grade and category filters. Perfect for multiple groups, daily practice, or unlimited variety!
+                  💡 {t('pages.interactive.tip')}
                 </p>
               </div>
             </div>
@@ -1221,7 +1225,7 @@ export function InteractiveWorksheetsPage() {
         <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:px-8">
           <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">1. Pick a grade band</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">1. {t('pages.interactive.pickGradeBand')}</h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {INTERACTIVE_GRADE_OPTIONS.map((opt) => (
                   <GradeToggle
@@ -1236,18 +1240,18 @@ export function InteractiveWorksheetsPage() {
 
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">2. Choose categories</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">2. {t('pages.interactive.chooseCategories')}</h3>
                 {hasCustomCategories && (
                   <button
                     type="button"
                     onClick={resetCategories}
                     className="text-xs font-semibold text-purple-600 hover:text-purple-700"
                   >
-                    Clear
+                    {t('pages.interactive.clear')}
                   </button>
                 )}
               </div>
-              <p className="text-xs text-slate-500">Select as many as you like—each pack pulls one unique worksheet per category.</p>
+              <p className="text-xs text-slate-500">{t('pages.interactive.selectAsMany')}</p>
               <div className="grid gap-2">
                 {INTERACTIVE_CATEGORIES.map((cat) => (
                   <CategoryToggle
@@ -1276,7 +1280,7 @@ export function InteractiveWorksheetsPage() {
                 <div className="relative w-full max-w-md">
                   <input
                     type="text"
-                    placeholder="🔍 Search worksheets..."
+                    placeholder={`🔍 ${t('pages.interactive.searchPlaceholder')}`}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full rounded-full border border-slate-300 bg-white px-4 py-2 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200 shadow-sm"
@@ -1293,7 +1297,7 @@ export function InteractiveWorksheetsPage() {
                     <button
                       onClick={() => setSearchQuery('')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                      aria-label="Clear search"
+                      aria-label={t('pages.interactive.clearSearch')}
                     >
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1312,7 +1316,7 @@ export function InteractiveWorksheetsPage() {
 
             {!error && !loading && pack && pack.items.length === 0 && (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
-                No worksheets match those filters yet. Try selecting additional categories.
+                {t('pages.interactive.noWorksheetsMatchFilters')}
               </div>
             )}
 
@@ -1320,7 +1324,7 @@ export function InteractiveWorksheetsPage() {
               <>
                 {filteredItems.length === 0 ? (
                   <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
-                    No worksheets match your search query "{searchQuery}". Try a different search term.
+                    {t('pages.interactive.noResults')} "{searchQuery}". {t('pages.interactive.noResultsTryDifferent')}
                   </div>
                 ) : (
                   <>
@@ -1335,6 +1339,7 @@ export function InteractiveWorksheetsPage() {
                           onDownload={getSingleWorksheetPrintUrl}
                           pack={pack}
                           filters={filters}
+                          t={t}
                         />
                       ))}
                     </div>

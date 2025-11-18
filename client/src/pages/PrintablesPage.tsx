@@ -1762,7 +1762,7 @@ export function PrintablesPage() {
               }
             })()}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-            aria-label="Back printable page"
+            aria-label={t('pages.printables.backPrintablePage')}
           >
             <span>←</span>
             <span>{(() => {
@@ -1770,38 +1770,38 @@ export function PrintablesPage() {
                 const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
                 const from = u.searchParams.get('from')
                 if (from === 'interactive') {
-                  return 'Back to Interactive Worksheets Generator'
+                  return t('pages.printables.backToInteractive')
                 }
                 if (from === 'kindergarten') {
-                  return 'Back to Kindergarten Math Worksheets'
+                  return t('pages.printables.backToKindergarten')
                 }
                 if (from === '1st-grade') {
-                  return 'Back to 1st Grade Math Worksheets'
+                  return t('pages.printables.backToFirstGrade')
                 }
                 if (from === '2nd-grade') {
-                  return 'Back to 2nd Grade Math Worksheets'
+                  return t('pages.printables.backToSecondGrade')
                 }
                 if (from === '3rd-grade') {
-                  return 'Back to 3rd Grade Math Worksheets'
+                  return t('pages.printables.backToThirdGrade')
                 }
                 if (from === '4th-grade') {
-                  return 'Back to 4th Grade Math Worksheets'
+                  return t('pages.printables.backToFourthGrade')
                 }
                 if (from === '5th-grade') {
-                  return 'Back to 5th Grade Math Worksheets'
+                  return t('pages.printables.backToFifthGrade')
                 }
                 if (from === 'reading-comprehension') {
-                  return 'Back to Reading Comprehension Worksheets'
+                  return t('pages.printables.backToReadingComprehension')
                 }
                 if (from === 'multiplication') {
-                  return 'Back to Multiplication Worksheets'
+                  return t('pages.printables.backToMultiplication')
                 }
                 if (from === 'times-table') {
-                  return 'Back to Times Table Multiplication Worksheets'
+                  return t('pages.printables.backToTimesTable')
                 }
-                return 'Back printable page'
+                return t('pages.printables.backPrintablePage')
               } catch {
-                return 'Back printable page'
+                return t('pages.printables.backPrintablePage')
               }
             })()}</span>
           </a>
@@ -1824,11 +1824,11 @@ export function PrintablesPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="hidden print:hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-sm"
-              title="Pin this printable"
-              aria-label="Pin this printable on Pinterest"
+              title={t('pages.printables.pinThisPrintable')}
+              aria-label={t('pages.printables.pinThisPrintableAria')}
             >
               <span>📌</span>
-              <span>Pin this</span>
+              <span>{t('pages.printables.pinThis')}</span>
             </a>
             
             {shouldShowAnswerToggle && (
@@ -1841,9 +1841,9 @@ export function PrintablesPage() {
                   }}
                   aria-pressed={showAnswers}
                   className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
-                  title="Toggle answer key visibility"
+                  title={t('pages.printables.toggleAnswerKey')}
                 >
-                  {showAnswers ? 'Hide answers' : 'Show answers'}
+                  {showAnswers ? t('pages.printables.hideAnswers') : t('pages.printables.showAnswers')}
                 </button>
               </div>
             )}
@@ -9617,8 +9617,8 @@ export function PrintablesPage() {
                   } catch {}
                 }}
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-                aria-label="Download as PDF"
-                title="Download as PDF (uses your browser's Save as PDF)"
+                aria-label={t('pages.printables.downloadAsPDFAria')}
+                title={t('pages.printables.downloadAsPDFTitle')}
               >
                 <span>⬇️</span>
                 <span>{t('pages.printables.downloadPDF')}</span>
