@@ -1352,17 +1352,17 @@ export function InteractiveWorksheetsPage() {
 
         <section className="bg-slate-900 py-16 text-slate-100">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-semibold">Teachers are loving Wizqo’s interactive worksheets</h2>
+            <h2 className="text-3xl font-semibold">{t('pages.interactive.testimonials.title')}</h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               <blockquote className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left">
                 <p className="text-sm text-slate-100">
-                  “I used the free interactive worksheets generator for my grade 3 math block—each group got a different PDF with quick answer keys. No repeats all week!”
+                  {t('pages.interactive.testimonials.mia.quote')}
                 </p>
                 <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">{t('pages.interactive.testimonials.mia.author')}</footer>
               </blockquote>
               <blockquote className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left">
                 <p className="text-sm text-slate-100">
-                  “The SEL and reading comprehension sets are gold. I love that the generator is totally free and prints with answers.”
+                  {t('pages.interactive.testimonials.jordan.quote')}
                 </p>
                 <footer className="mt-3 text-xs uppercase tracking-wide text-purple-200">{t('pages.interactive.testimonials.jordan.author')}</footer>
               </blockquote>
