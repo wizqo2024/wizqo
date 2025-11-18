@@ -26,43 +26,7 @@ interface WorksheetItem {
   section?: string
 }
 
-// Define all worksheets with their categories - unique Kindergarten content
-const KINDERGARTEN_WORKSHEETS: WorksheetItem[] = [
-    // Counting
-    { title: '🔢 Count & Circle 1–10', description: 'Count the objects in each box. Circle the correct number. Perfect for one-to-one correspondence.', href: '/print?doc=count-circle-1-10&from=kindergarten', docId: 'count-circle-1-10', categories: ['counting'], section: 'Counting' },
-    { title: '🔢 Count & Match 1–20', description: 'Count the objects and draw a line to match with the correct number. Build number sense.', href: '/print?doc=count-match-1-20&from=kindergarten', docId: 'count-match-1-20', categories: ['counting'], section: 'Counting' },
-    { title: '🔢 How Many? (1–15)', description: 'Count how many objects you see. Write the number in the box. Visual counting practice.', href: '/print?doc=how-many-1-15&from=kindergarten', docId: 'how-many-1-15', categories: ['counting'], section: 'Counting' },
-    { title: '🔢 Count & Color (1–10)', description: 'Count the objects and color the correct number of items. Fun hands-on practice.', href: '/print?doc=count-color-1-10&from=kindergarten', docId: 'count-color-1-10', categories: ['counting'], section: 'Counting' },
-    { title: '🔢 Counting Objects to 20', description: 'Count groups of objects up to 20. Circle the number that tells how many.', href: '/print?doc=counting-objects-20&from=kindergarten', docId: 'counting-objects-20', categories: ['counting'], section: 'Counting' },
-    // Number Recognition
-    { title: '🔟 Number Identification 1–10', description: 'Find and circle all the number 3s, 5s, etc. Build number recognition skills.', href: '/print?doc=number-id-1-10&from=kindergarten', docId: 'number-id-1-10', categories: ['number-recognition'], section: 'Number Recognition' },
-    { title: '🔟 Number Tracing 1–10', description: 'Trace each number with your finger or pencil. Follow the arrows. Big writing space.', href: '/print?doc=number-tracing-1-10&from=kindergarten', docId: 'number-tracing-1-10', categories: ['number-recognition', 'pre-writing'], section: 'Number Recognition' },
-    { title: '🔟 Number Matching 1–15', description: 'Match the number word to the numeral. Connect with a line. Word recognition practice.', href: '/print?doc=number-matching-1-15&from=kindergarten', docId: 'number-matching-1-15', categories: ['number-recognition'], section: 'Number Recognition' },
-    { title: '🔟 Number Order 1–20', description: 'Cut and paste numbers in order from 1 to 20. Sequencing practice.', href: '/print?doc=number-order-1-20&from=kindergarten', docId: 'number-order-1-20', categories: ['number-recognition'], section: 'Number Recognition' },
-    { title: '🔟 Find the Number (1–10)', description: 'Look at the number. Find and circle all the matching numbers on the page.', href: '/print?doc=find-number-1-10&from=kindergarten', docId: 'find-number-1-10', categories: ['number-recognition'], section: 'Number Recognition' },
-    // Shapes & Colors
-    { title: '🟩 Shape Identification', description: 'Circle the circle, square, triangle, and rectangle. Learn basic shapes.', href: '/print?doc=shape-identification&from=kindergarten', docId: 'shape-identification', categories: ['shapes-colors'], section: 'Shapes & Colors' },
-    { title: '🟩 Color the Shapes', description: 'Color all circles red, squares blue, triangles yellow. Shape and color practice.', href: '/print?doc=color-shapes&from=kindergarten', docId: 'color-shapes', categories: ['shapes-colors'], section: 'Shapes & Colors' },
-    { title: '🟩 Shape Sorting', description: 'Cut out shapes and sort them into groups. Glue each shape in the correct box.', href: '/print?doc=shape-sorting&from=kindergarten', docId: 'shape-sorting', categories: ['shapes-colors'], section: 'Shapes & Colors' },
-    { title: '🟩 Color Recognition', description: 'Color the apple red, the sun yellow, the sky blue. Learn color names.', href: '/print?doc=color-recognition&from=kindergarten', docId: 'color-recognition', categories: ['shapes-colors'], section: 'Shapes & Colors' },
-    { title: '🟩 Draw the Shape', description: 'Look at the shape name. Draw the shape in the box. Practice drawing skills.', href: '/print?doc=draw-shape&from=kindergarten', docId: 'draw-shape', categories: ['shapes-colors', 'pre-writing'], section: 'Shapes & Colors' },
-    // Patterns
-    { title: '🧩 AB Pattern Completion', description: 'Look at the pattern. What comes next? Circle or draw the next item. AB patterns.', href: '/print?doc=ab-pattern&from=kindergarten', docId: 'ab-pattern', categories: ['patterns'], section: 'Patterns' },
-    { title: '🧩 Color Patterns', description: 'Complete the color pattern. Red, blue, red, blue... What comes next?', href: '/print?doc=color-patterns&from=kindergarten', docId: 'color-patterns', categories: ['patterns'], section: 'Patterns' },
-    { title: '🧩 Shape Patterns', description: 'Circle, square, circle, square... Continue the pattern. Draw the next shape.', href: '/print?doc=shape-patterns&from=kindergarten', docId: 'shape-patterns', categories: ['patterns'], section: 'Patterns' },
-    { title: '🧩 What Comes Next?', description: 'Look at the pattern. Draw what comes next in each row. Pattern recognition.', href: '/print?doc=what-comes-next&from=kindergarten', docId: 'what-comes-next', categories: ['patterns'], section: 'Patterns' },
-    // Comparison
-    { title: '⚖️ Big and Small', description: 'Circle the big object. Put an X on the small object. Size comparison practice.', href: '/print?doc=big-small&from=kindergarten', docId: 'big-small', categories: ['comparison'], section: 'Comparison' },
-    { title: '⚖️ More and Less', description: 'Count each group. Circle the group that has more. Compare quantities.', href: '/print?doc=more-less&from=kindergarten', docId: 'more-less', categories: ['comparison', 'counting'], section: 'Comparison' },
-    { title: '⚖️ Long and Short', description: 'Color the long object red. Color the short object blue. Length comparison.', href: '/print?doc=long-short&from=kindergarten', docId: 'long-short', categories: ['comparison'], section: 'Comparison' },
-    { title: '⚖️ Heavy and Light', description: 'Circle the heavy object. Put an X on the light object. Weight comparison.', href: '/print?doc=heavy-light&from=kindergarten', docId: 'heavy-light', categories: ['comparison'], section: 'Comparison' },
-    { title: '⚖️ Same and Different', description: 'Find the object that is different. Circle it. Visual discrimination practice.', href: '/print?doc=same-different&from=kindergarten', docId: 'same-different', categories: ['comparison'], section: 'Comparison' },
-    // Pre-Writing
-    { title: '✏️ Line Tracing', description: 'Trace the lines from left to right. Practice pencil control and fine motor skills.', href: '/print?doc=line-tracing&from=kindergarten', docId: 'line-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
-    { title: '✏️ Curve Tracing', description: 'Trace the curves and circles. Build hand strength for writing.', href: '/print?doc=curve-tracing&from=kindergarten', docId: 'curve-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
-    { title: '✏️ Zigzag Lines', description: 'Trace the zigzag lines. Practice different line patterns for writing readiness.', href: '/print?doc=zigzag-lines&from=kindergarten', docId: 'zigzag-lines', categories: ['pre-writing'], section: 'Pre-Writing' },
-    { title: '✏️ Path Tracing', description: 'Follow the path from start to finish. Trace the line carefully. Motor skills practice.', href: '/print?doc=path-tracing&from=kindergarten', docId: 'path-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
-]
+// Worksheets will be defined inside component to use translation
 
 export default function WorksheetsKindergartenPage() {
   const { t, isRTL } = useTranslation();
@@ -100,13 +64,51 @@ export default function WorksheetsKindergartenPage() {
     setSelectedCategories(new Set())
   }
 
+  // Define all worksheets with their categories - using translation keys
+  const KINDERGARTEN_WORKSHEETS: WorksheetItem[] = useMemo(() => [
+    // Counting
+    { title: t('pages.grades.kindergarten.worksheets.countCircle1_10.title'), description: t('pages.grades.kindergarten.worksheets.countCircle1_10.description'), href: '/print?doc=count-circle-1-10&from=kindergarten', docId: 'count-circle-1-10', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.countMatch1_20.title'), description: t('pages.grades.kindergarten.worksheets.countMatch1_20.description'), href: '/print?doc=count-match-1-20&from=kindergarten', docId: 'count-match-1-20', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.howMany1_15.title'), description: t('pages.grades.kindergarten.worksheets.howMany1_15.description'), href: '/print?doc=how-many-1-15&from=kindergarten', docId: 'how-many-1-15', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.countColor1_10.title'), description: t('pages.grades.kindergarten.worksheets.countColor1_10.description'), href: '/print?doc=count-color-1-10&from=kindergarten', docId: 'count-color-1-10', categories: ['counting'], section: 'Counting' },
+    { title: t('pages.grades.kindergarten.worksheets.countingObjects20.title'), description: t('pages.grades.kindergarten.worksheets.countingObjects20.description'), href: '/print?doc=counting-objects-20&from=kindergarten', docId: 'counting-objects-20', categories: ['counting'], section: 'Counting' },
+    // Number Recognition
+    { title: t('pages.grades.kindergarten.worksheets.numberId1_10.title'), description: t('pages.grades.kindergarten.worksheets.numberId1_10.description'), href: '/print?doc=number-id-1-10&from=kindergarten', docId: 'number-id-1-10', categories: ['number-recognition'], section: 'Number Recognition' },
+    { title: t('pages.grades.kindergarten.worksheets.numberTracing1_10.title'), description: t('pages.grades.kindergarten.worksheets.numberTracing1_10.description'), href: '/print?doc=number-tracing-1-10&from=kindergarten', docId: 'number-tracing-1-10', categories: ['number-recognition', 'pre-writing'], section: 'Number Recognition' },
+    { title: t('pages.grades.kindergarten.worksheets.numberMatching1_15.title'), description: t('pages.grades.kindergarten.worksheets.numberMatching1_15.description'), href: '/print?doc=number-matching-1-15&from=kindergarten', docId: 'number-matching-1-15', categories: ['number-recognition'], section: 'Number Recognition' },
+    { title: t('pages.grades.kindergarten.worksheets.numberOrder1_20.title'), description: t('pages.grades.kindergarten.worksheets.numberOrder1_20.description'), href: '/print?doc=number-order-1-20&from=kindergarten', docId: 'number-order-1-20', categories: ['number-recognition'], section: 'Number Recognition' },
+    { title: t('pages.grades.kindergarten.worksheets.findNumber1_10.title'), description: t('pages.grades.kindergarten.worksheets.findNumber1_10.description'), href: '/print?doc=find-number-1-10&from=kindergarten', docId: 'find-number-1-10', categories: ['number-recognition'], section: 'Number Recognition' },
+    // Shapes & Colors
+    { title: t('pages.grades.kindergarten.worksheets.shapeIdentification.title'), description: t('pages.grades.kindergarten.worksheets.shapeIdentification.description'), href: '/print?doc=shape-identification&from=kindergarten', docId: 'shape-identification', categories: ['shapes-colors'], section: 'Shapes & Colors' },
+    { title: t('pages.grades.kindergarten.worksheets.colorShapes.title'), description: t('pages.grades.kindergarten.worksheets.colorShapes.description'), href: '/print?doc=color-shapes&from=kindergarten', docId: 'color-shapes', categories: ['shapes-colors'], section: 'Shapes & Colors' },
+    { title: t('pages.grades.kindergarten.worksheets.shapeSorting.title'), description: t('pages.grades.kindergarten.worksheets.shapeSorting.description'), href: '/print?doc=shape-sorting&from=kindergarten', docId: 'shape-sorting', categories: ['shapes-colors'], section: 'Shapes & Colors' },
+    { title: t('pages.grades.kindergarten.worksheets.colorRecognition.title'), description: t('pages.grades.kindergarten.worksheets.colorRecognition.description'), href: '/print?doc=color-recognition&from=kindergarten', docId: 'color-recognition', categories: ['shapes-colors'], section: 'Shapes & Colors' },
+    { title: t('pages.grades.kindergarten.worksheets.drawShape.title'), description: t('pages.grades.kindergarten.worksheets.drawShape.description'), href: '/print?doc=draw-shape&from=kindergarten', docId: 'draw-shape', categories: ['shapes-colors', 'pre-writing'], section: 'Shapes & Colors' },
+    // Patterns
+    { title: t('pages.grades.kindergarten.worksheets.abPattern.title'), description: t('pages.grades.kindergarten.worksheets.abPattern.description'), href: '/print?doc=ab-pattern&from=kindergarten', docId: 'ab-pattern', categories: ['patterns'], section: 'Patterns' },
+    { title: t('pages.grades.kindergarten.worksheets.colorPatterns.title'), description: t('pages.grades.kindergarten.worksheets.colorPatterns.description'), href: '/print?doc=color-patterns&from=kindergarten', docId: 'color-patterns', categories: ['patterns'], section: 'Patterns' },
+    { title: t('pages.grades.kindergarten.worksheets.shapePatterns.title'), description: t('pages.grades.kindergarten.worksheets.shapePatterns.description'), href: '/print?doc=shape-patterns&from=kindergarten', docId: 'shape-patterns', categories: ['patterns'], section: 'Patterns' },
+    { title: t('pages.grades.kindergarten.worksheets.whatComesNext.title'), description: t('pages.grades.kindergarten.worksheets.whatComesNext.description'), href: '/print?doc=what-comes-next&from=kindergarten', docId: 'what-comes-next', categories: ['patterns'], section: 'Patterns' },
+    // Comparison
+    { title: t('pages.grades.kindergarten.worksheets.bigSmall.title'), description: t('pages.grades.kindergarten.worksheets.bigSmall.description'), href: '/print?doc=big-small&from=kindergarten', docId: 'big-small', categories: ['comparison'], section: 'Comparison' },
+    { title: t('pages.grades.kindergarten.worksheets.moreLess.title'), description: t('pages.grades.kindergarten.worksheets.moreLess.description'), href: '/print?doc=more-less&from=kindergarten', docId: 'more-less', categories: ['comparison', 'counting'], section: 'Comparison' },
+    { title: t('pages.grades.kindergarten.worksheets.longShort.title'), description: t('pages.grades.kindergarten.worksheets.longShort.description'), href: '/print?doc=long-short&from=kindergarten', docId: 'long-short', categories: ['comparison'], section: 'Comparison' },
+    { title: t('pages.grades.kindergarten.worksheets.heavyLight.title'), description: t('pages.grades.kindergarten.worksheets.heavyLight.description'), href: '/print?doc=heavy-light&from=kindergarten', docId: 'heavy-light', categories: ['comparison'], section: 'Comparison' },
+    { title: t('pages.grades.kindergarten.worksheets.sameDifferent.title'), description: t('pages.grades.kindergarten.worksheets.sameDifferent.description'), href: '/print?doc=same-different&from=kindergarten', docId: 'same-different', categories: ['comparison'], section: 'Comparison' },
+    // Pre-Writing
+    { title: t('pages.grades.kindergarten.worksheets.lineTracing.title'), description: t('pages.grades.kindergarten.worksheets.lineTracing.description'), href: '/print?doc=line-tracing&from=kindergarten', docId: 'line-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
+    { title: t('pages.grades.kindergarten.worksheets.curveTracing.title'), description: t('pages.grades.kindergarten.worksheets.curveTracing.description'), href: '/print?doc=curve-tracing&from=kindergarten', docId: 'curve-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
+    { title: t('pages.grades.kindergarten.worksheets.zigzagLines.title'), description: t('pages.grades.kindergarten.worksheets.zigzagLines.description'), href: '/print?doc=zigzag-lines&from=kindergarten', docId: 'zigzag-lines', categories: ['pre-writing'], section: 'Pre-Writing' },
+    { title: t('pages.grades.kindergarten.worksheets.pathTracing.title'), description: t('pages.grades.kindergarten.worksheets.pathTracing.description'), href: '/print?doc=path-tracing&from=kindergarten', docId: 'path-tracing', categories: ['pre-writing'], section: 'Pre-Writing' },
+  ], [t])
+
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return KINDERGARTEN_WORKSHEETS
     return KINDERGARTEN_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, KINDERGARTEN_WORKSHEETS])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {

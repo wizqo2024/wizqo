@@ -1800,6 +1800,120 @@ export const es = {
         downloadButton: '⬇️ Descargar',
         previewOf: 'Vista previa de',
         clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
+        worksheets: {
+          countCircle1_10: {
+            title: '🔢 Contar y Encerrar 1–10',
+            description: 'Cuenta los objetos en cada caja. Encierra el número correcto. Perfecto para correspondencia uno a uno.',
+          },
+          countMatch1_20: {
+            title: '🔢 Contar y Emparejar 1–20',
+            description: 'Cuenta los objetos y dibuja una línea para emparejar con el número correcto. Desarrolla sentido numérico.',
+          },
+          howMany1_15: {
+            title: '🔢 ¿Cuántos? (1–15)',
+            description: 'Cuenta cuántos objetos ves. Escribe el número en la caja. Práctica de conteo visual.',
+          },
+          countColor1_10: {
+            title: '🔢 Contar y Colorear (1–10)',
+            description: 'Cuenta los objetos y colorea el número correcto de elementos. Práctica práctica divertida.',
+          },
+          countingObjects20: {
+            title: '🔢 Contar Objetos hasta 20',
+            description: 'Cuenta grupos de objetos hasta 20. Encierra el número que indica cuántos hay.',
+          },
+          numberId1_10: {
+            title: '🔟 Identificación de Números 1–10',
+            description: 'Encuentra y encierra todos los números 3, 5, etc. Desarrolla habilidades de reconocimiento de números.',
+          },
+          numberTracing1_10: {
+            title: '🔟 Trazar Números 1–10',
+            description: 'Traza cada número con tu dedo o lápiz. Sigue las flechas. Espacio grande para escribir.',
+          },
+          numberMatching1_15: {
+            title: '🔟 Emparejar Números 1–15',
+            description: 'Empareja la palabra del número con el numeral. Conecta con una línea. Práctica de reconocimiento de palabras.',
+          },
+          numberOrder1_20: {
+            title: '🔟 Orden de Números 1–20',
+            description: 'Recorta y pega números en orden del 1 al 20. Práctica de secuenciación.',
+          },
+          findNumber1_10: {
+            title: '🔟 Encuentra el Número (1–10)',
+            description: 'Mira el número. Encuentra y encierra todos los números coincidentes en la página.',
+          },
+          shapeIdentification: {
+            title: '🟩 Identificación de Formas',
+            description: 'Encierra el círculo, cuadrado, triángulo y rectángulo. Aprende formas básicas.',
+          },
+          colorShapes: {
+            title: '🟩 Colorear las Formas',
+            description: 'Colorea todos los círculos de rojo, los cuadrados de azul, los triángulos de amarillo. Práctica de formas y colores.',
+          },
+          shapeSorting: {
+            title: '🟩 Clasificar Formas',
+            description: 'Recorta formas y clasifícalas en grupos. Pega cada forma en la caja correcta.',
+          },
+          colorRecognition: {
+            title: '🟩 Reconocimiento de Colores',
+            description: 'Colorea la manzana de rojo, el sol de amarillo, el cielo de azul. Aprende nombres de colores.',
+          },
+          drawShape: {
+            title: '🟩 Dibujar la Forma',
+            description: 'Mira el nombre de la forma. Dibuja la forma en la caja. Practica habilidades de dibujo.',
+          },
+          abPattern: {
+            title: '🧩 Completar Patrón AB',
+            description: 'Mira el patrón. ¿Qué viene después? Encierra o dibuja el siguiente elemento. Patrones AB.',
+          },
+          colorPatterns: {
+            title: '🧩 Patrones de Colores',
+            description: 'Completa el patrón de colores. Rojo, azul, rojo, azul... ¿Qué viene después?',
+          },
+          shapePatterns: {
+            title: '🧩 Patrones de Formas',
+            description: 'Círculo, cuadrado, círculo, cuadrado... Continúa el patrón. Dibuja la siguiente forma.',
+          },
+          whatComesNext: {
+            title: '🧩 ¿Qué Viene Después?',
+            description: 'Mira el patrón. Dibuja lo que viene después en cada fila. Reconocimiento de patrones.',
+          },
+          bigSmall: {
+            title: '⚖️ Grande y Pequeño',
+            description: 'Encierra el objeto grande. Pon una X en el objeto pequeño. Práctica de comparación de tamaño.',
+          },
+          moreLess: {
+            title: '⚖️ Más y Menos',
+            description: 'Cuenta cada grupo. Encierra el grupo que tiene más. Compara cantidades.',
+          },
+          longShort: {
+            title: '⚖️ Largo y Corto',
+            description: 'Colorea el objeto largo de rojo. Colorea el objeto corto de azul. Comparación de longitud.',
+          },
+          heavyLight: {
+            title: '⚖️ Pesado y Liviano',
+            description: 'Encierra el objeto pesado. Pon una X en el objeto liviano. Comparación de peso.',
+          },
+          sameDifferent: {
+            title: '⚖️ Igual y Diferente',
+            description: 'Encuentra el objeto que es diferente. Enciérralo. Práctica de discriminación visual.',
+          },
+          lineTracing: {
+            title: '✏️ Trazar Líneas',
+            description: 'Traza las líneas de izquierda a derecha. Practica control del lápiz y habilidades motoras finas.',
+          },
+          curveTracing: {
+            title: '✏️ Trazar Curvas',
+            description: 'Traza las curvas y círculos. Desarrolla fuerza de la mano para escribir.',
+          },
+          zigzagLines: {
+            title: '✏️ Líneas en Zigzag',
+            description: 'Traza las líneas en zigzag. Practica diferentes patrones de líneas para preparación de escritura.',
+          },
+          pathTracing: {
+            title: '✏️ Trazar Caminos',
+            description: 'Sigue el camino de inicio a fin. Traza la línea cuidadosamente. Práctica de habilidades motoras.',
+          },
+        },
       },
       first: {
         title: 'Hojas de Trabajo de Matemáticas de 1er Grado',

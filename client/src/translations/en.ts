@@ -1797,6 +1797,120 @@ export const en = {
         downloadButton: '⬇️ Download',
         previewOf: 'Preview of',
         clickToView: '👁️ Click to view full worksheet',
+        worksheets: {
+          countCircle1_10: {
+            title: '🔢 Count & Circle 1–10',
+            description: 'Count the objects in each box. Circle the correct number. Perfect for one-to-one correspondence.',
+          },
+          countMatch1_20: {
+            title: '🔢 Count & Match 1–20',
+            description: 'Count the objects and draw a line to match with the correct number. Build number sense.',
+          },
+          howMany1_15: {
+            title: '🔢 How Many? (1–15)',
+            description: 'Count how many objects you see. Write the number in the box. Visual counting practice.',
+          },
+          countColor1_10: {
+            title: '🔢 Count & Color (1–10)',
+            description: 'Count the objects and color the correct number of items. Fun hands-on practice.',
+          },
+          countingObjects20: {
+            title: '🔢 Counting Objects to 20',
+            description: 'Count groups of objects up to 20. Circle the number that tells how many.',
+          },
+          numberId1_10: {
+            title: '🔟 Number Identification 1–10',
+            description: 'Find and circle all the number 3s, 5s, etc. Build number recognition skills.',
+          },
+          numberTracing1_10: {
+            title: '🔟 Number Tracing 1–10',
+            description: 'Trace each number with your finger or pencil. Follow the arrows. Big writing space.',
+          },
+          numberMatching1_15: {
+            title: '🔟 Number Matching 1–15',
+            description: 'Match the number word to the numeral. Connect with a line. Word recognition practice.',
+          },
+          numberOrder1_20: {
+            title: '🔟 Number Order 1–20',
+            description: 'Cut and paste numbers in order from 1 to 20. Sequencing practice.',
+          },
+          findNumber1_10: {
+            title: '🔟 Find the Number (1–10)',
+            description: 'Look at the number. Find and circle all the matching numbers on the page.',
+          },
+          shapeIdentification: {
+            title: '🟩 Shape Identification',
+            description: 'Circle the circle, square, triangle, and rectangle. Learn basic shapes.',
+          },
+          colorShapes: {
+            title: '🟩 Color the Shapes',
+            description: 'Color all circles red, squares blue, triangles yellow. Shape and color practice.',
+          },
+          shapeSorting: {
+            title: '🟩 Shape Sorting',
+            description: 'Cut out shapes and sort them into groups. Glue each shape in the correct box.',
+          },
+          colorRecognition: {
+            title: '🟩 Color Recognition',
+            description: 'Color the apple red, the sun yellow, the sky blue. Learn color names.',
+          },
+          drawShape: {
+            title: '🟩 Draw the Shape',
+            description: 'Look at the shape name. Draw the shape in the box. Practice drawing skills.',
+          },
+          abPattern: {
+            title: '🧩 AB Pattern Completion',
+            description: 'Look at the pattern. What comes next? Circle or draw the next item. AB patterns.',
+          },
+          colorPatterns: {
+            title: '🧩 Color Patterns',
+            description: 'Complete the color pattern. Red, blue, red, blue... What comes next?',
+          },
+          shapePatterns: {
+            title: '🧩 Shape Patterns',
+            description: 'Circle, square, circle, square... Continue the pattern. Draw the next shape.',
+          },
+          whatComesNext: {
+            title: '🧩 What Comes Next?',
+            description: 'Look at the pattern. Draw what comes next in each row. Pattern recognition.',
+          },
+          bigSmall: {
+            title: '⚖️ Big and Small',
+            description: 'Circle the big object. Put an X on the small object. Size comparison practice.',
+          },
+          moreLess: {
+            title: '⚖️ More and Less',
+            description: 'Count each group. Circle the group that has more. Compare quantities.',
+          },
+          longShort: {
+            title: '⚖️ Long and Short',
+            description: 'Color the long object red. Color the short object blue. Length comparison.',
+          },
+          heavyLight: {
+            title: '⚖️ Heavy and Light',
+            description: 'Circle the heavy object. Put an X on the light object. Weight comparison.',
+          },
+          sameDifferent: {
+            title: '⚖️ Same and Different',
+            description: 'Find the object that is different. Circle it. Visual discrimination practice.',
+          },
+          lineTracing: {
+            title: '✏️ Line Tracing',
+            description: 'Trace the lines from left to right. Practice pencil control and fine motor skills.',
+          },
+          curveTracing: {
+            title: '✏️ Curve Tracing',
+            description: 'Trace the curves and circles. Build hand strength for writing.',
+          },
+          zigzagLines: {
+            title: '✏️ Zigzag Lines',
+            description: 'Trace the zigzag lines. Practice different line patterns for writing readiness.',
+          },
+          pathTracing: {
+            title: '✏️ Path Tracing',
+            description: 'Follow the path from start to finish. Trace the line carefully. Motor skills practice.',
+          },
+        },
       },
       first: {
         title: '1st Grade Math Worksheets',
