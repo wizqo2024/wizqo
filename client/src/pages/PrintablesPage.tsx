@@ -150,6 +150,98 @@ function ParentTeacherTips({ tips }: { tips: string[] }) {
   )
 }
 
+// Worked Example Component for addition-subtraction-0-10
+function WorkedExampleContent() {
+  const { t } = useTranslation()
+  return (
+    <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
+      <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+        <span className="text-2xl">📚</span>
+        <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
+      </div>
+      <div className="space-y-3 text-sm">
+        <div className="font-semibold text-base text-blue-900 math-problem"><strong>{t('common.problem')}</strong> 5 + 3 = ?</div>
+        {/* Visual example with objects */}
+        <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
+          <svg viewBox="0 0 500 120" className="w-full h-auto">
+            {/* 5 blue circles */}
+            {Array.from({ length: 5 }).map((_, j) => (
+              <g key={j}>
+                <circle cx={40 + j * 50} cy="40" r="18" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
+                <circle cx={40 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
+                <text x={40 + j * 50} y="45" fontSize="14" fill="#1e40af" textAnchor="middle" fontWeight="bold">{j + 1}</text>
+              </g>
+            ))}
+            {/* Plus sign */}
+            <text x="290" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">+</text>
+            {/* 3 green circles */}
+            {Array.from({ length: 3 }).map((_, j) => (
+              <g key={j}>
+                <circle cx={330 + j * 50} cy="40" r="18" fill="#10b981" stroke="#059669" strokeWidth="2" />
+                <circle cx={330 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
+                <text x={330 + j * 50} y="45" fontSize="14" fill="#059669" textAnchor="middle" fontWeight="bold">{j + 1}</text>
+              </g>
+            ))}
+            {/* Equals */}
+            <text x="480" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">=</text>
+          </svg>
+          <div className="text-center mt-2 text-blue-900 font-semibold">Count all the circles: 5 + 3 = 8</div>
+        </div>
+        <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+          <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step1')}</strong></div>
+          <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step2')}</strong></div>
+          <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step3')}</strong></div>
+          <div className="font-semibold text-blue-900 mt-2"><strong>{t('common.answer')}</strong> 5 + 3 = <span className="text-2xl">8</span></div>
+          <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
+            <span>💡</span>
+            <span>{t('worksheets.addition-subtraction-0-10.workedExample.tip')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Challenge and Assessment Component
+function ChallengeAndAssessmentContent() {
+  const { t } = useTranslation()
+  return (
+    <>
+      <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+        <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
+        <div className="space-y-2 text-sm text-purple-800">
+          <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
+          <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
+          <div>3. {t('worksheets.addition-subtraction-0-10.challenge.problem3')}</div>
+        </div>
+      </div>
+      <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+        <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
+        <div className="space-y-2 text-xs">
+          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
+          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
+          <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
+        </div>
+        <div className="mt-3 text-xs">
+          <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
+        </div>
+        <div className="mt-2 text-xs">
+          <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.hardest')}</strong> _________________________
+        </div>
+      </div>
+      {showAnswersForDoc('addition-subtraction-0-10', () => (
+        <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always answer-key">
+          <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
+          <div className="space-y-2 text-sm text-emerald-800">
+            <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
+            <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
 // Helper component to wrap worksheet sections with nice styling
 function WorksheetSectionWrapper({ 
   docId, 
@@ -2904,56 +2996,7 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            {(() => {
-              const { t } = useTranslation()
-              return (
-            <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
-              <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                <span className="text-2xl">📚</span>
-                <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
-              </div>
-              <div className="space-y-3 text-sm">
-                <div className="font-semibold text-base text-blue-900 math-problem"><strong>{t('common.problem')}</strong> 5 + 3 = ?</div>
-                {/* Visual example with objects */}
-                <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
-                  <svg viewBox="0 0 500 120" className="w-full h-auto">
-                    {/* 5 blue circles */}
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <g key={j}>
-                        <circle cx={40 + j * 50} cy="40" r="18" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
-                        <circle cx={40 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
-                        <text x={40 + j * 50} y="45" fontSize="14" fill="#1e40af" textAnchor="middle" fontWeight="bold">{j + 1}</text>
-                      </g>
-                    ))}
-                    {/* Plus sign */}
-                    <text x="290" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">+</text>
-                    {/* 3 green circles */}
-                    {Array.from({ length: 3 }).map((_, j) => (
-                      <g key={j}>
-                        <circle cx={330 + j * 50} cy="40" r="18" fill="#10b981" stroke="#059669" strokeWidth="2" />
-                        <circle cx={330 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
-                        <text x={330 + j * 50} y="45" fontSize="14" fill="#059669" textAnchor="middle" fontWeight="bold">{j + 1}</text>
-                      </g>
-                    ))}
-                    {/* Equals */}
-                    <text x="480" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">=</text>
-                  </svg>
-                  <div className="text-center mt-2 text-blue-900 font-semibold">Count all the circles: 5 + 3 = 8</div>
-                </div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step1')}</strong></div>
-                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step2')}</strong></div>
-                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step3')}</strong></div>
-                  <div className="font-semibold text-blue-900 mt-2"><strong>{t('common.answer')}</strong> 5 + 3 = <span className="text-2xl">8</span></div>
-                  <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
-                    <span>💡</span>
-                    <span>{t('worksheets.addition-subtraction-0-10.workedExample.tip')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-              )
-            })()}
+            <WorkedExampleContent />
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 12 }).map((_,i)=> {
                 const isAdd = i%2===0;
@@ -3020,45 +3063,7 @@ export function PrintablesPage() {
               })}
             </div>
             {/* Extension/Challenge Problems */}
-            {(() => {
-              const { t } = useTranslation()
-              return (
-            <>
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
-              <div className="space-y-2 text-sm text-purple-800">
-                <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
-                <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
-                <div>3. {t('worksheets.addition-subtraction-0-10.challenge.problem3')}</div>
-              </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
-              <div className="space-y-2 text-xs">
-                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
-                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
-                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
-              </div>
-              <div className="mt-3 text-xs">
-                <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
-              </div>
-              <div className="mt-2 text-xs">
-                <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.hardest')}</strong> _________________________
-              </div>
-            </div>
-            {showAnswersForDoc('addition-subtraction-0-10', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always answer-key">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
-                <div className="space-y-2 text-sm text-emerald-800">
-                  <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
-                  <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
-                </div>
-              </div>
-            ))}
-            </>
-              )
-            })()}
+            <ChallengeAndAssessmentContent />
           </WorksheetSectionWrapper>
         )}
 

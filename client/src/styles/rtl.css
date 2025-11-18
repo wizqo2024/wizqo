@@ -1,91 +1,70 @@
 /* RTL (Right-to-Left) Support for Arabic and other RTL languages */
 
-/* RTL Layout Base */
-[dir="rtl"] {
+/* RTL Layout Base - Only apply to body/html, not all elements */
+html[dir="rtl"],
+html[dir="rtl"] body {
   direction: rtl;
-  text-align: right;
 }
 
+/* RTL Text Alignment - Only for text content, not layout elements */
 [dir="rtl"] .worksheet-section {
   direction: rtl;
 }
 
-/* RTL Text Alignment */
-[dir="rtl"] h1,
-[dir="rtl"] h2,
-[dir="rtl"] h3,
-[dir="rtl"] p,
-[dir="rtl"] div {
+[dir="rtl"] .worksheet-section h1,
+[dir="rtl"] .worksheet-section h2,
+[dir="rtl"] .worksheet-section h3,
+[dir="rtl"] .worksheet-section p,
+[dir="rtl"] .worksheet-section .text-left {
   text-align: right;
 }
 
-/* RTL Flex Containers */
-[dir="rtl"] .flex {
+/* RTL Flex Containers - Only reverse when needed */
+[dir="rtl"] .worksheet-section .flex.items-center:not(.math-problem):not(.visual-container) {
   flex-direction: row-reverse;
 }
 
-[dir="rtl"] .flex-row {
-  flex-direction: row-reverse;
-}
-
-/* RTL Grid */
+/* RTL Grid - Keep normal direction for grids */
 [dir="rtl"] .grid {
-  direction: rtl;
+  direction: ltr; /* Keep grids LTR for consistency */
 }
 
-/* RTL Borders and Padding */
-[dir="rtl"] .border-l-2 {
+/* RTL Borders and Padding - Only for worksheet sections */
+[dir="rtl"] .worksheet-section .border-l-2 {
   border-left: none;
   border-right: 2px solid;
 }
 
-[dir="rtl"] .pl-4,
-[dir="rtl"] .pl-2,
-[dir="rtl"] .pl-1 {
+[dir="rtl"] .worksheet-section .pl-4,
+[dir="rtl"] .worksheet-section .pl-2,
+[dir="rtl"] .worksheet-section .pl-1 {
   padding-left: 0;
   padding-right: 1rem;
 }
 
-[dir="rtl"] .pr-4,
-[dir="rtl"] .pr-2 {
+[dir="rtl"] .worksheet-section .pr-4,
+[dir="rtl"] .worksheet-section .pr-2 {
   padding-right: 0;
   padding-left: 1rem;
 }
 
-[dir="rtl"] .ml-2,
-[dir="rtl"] .ml-4 {
-  margin-left: 0;
-  margin-right: 0.5rem;
-}
-
-[dir="rtl"] .mr-2,
-[dir="rtl"] .mr-4 {
-  margin-right: 0;
-  margin-left: 0.5rem;
-}
-
-/* RTL Lists */
-[dir="rtl"] ul,
-[dir="rtl"] ol {
+/* RTL Lists - Only for worksheet sections */
+[dir="rtl"] .worksheet-section ul,
+[dir="rtl"] .worksheet-section ol {
   padding-right: 1.5rem;
   padding-left: 0;
   text-align: right;
 }
 
-[dir="rtl"] .list-disc {
+[dir="rtl"] .worksheet-section .list-disc {
   padding-right: 1.5rem;
   padding-left: 0;
 }
 
-/* RTL Buttons */
-[dir="rtl"] button {
-  text-align: right;
-}
-
-/* RTL Inputs */
-[dir="rtl"] input[type="text"],
-[dir="rtl"] input[type="number"],
-[dir="rtl"] textarea {
+/* RTL Inputs - Only for worksheet sections */
+[dir="rtl"] .worksheet-section input[type="text"],
+[dir="rtl"] .worksheet-section input[type="number"],
+[dir="rtl"] .worksheet-section textarea {
   direction: rtl;
   text-align: right;
 }
