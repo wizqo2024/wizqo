@@ -1017,7 +1017,13 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return '😊 Feelings & Emotions Explorer'
     // Kindergarten worksheets
     case 'count-circle-1-10':
-      return getTrans('worksheets.count-circle-1-10.title', '🔢 Count & Circle 1–10')
+      if (t) {
+        const translated = t('worksheets.count-circle-1-10.title')
+        if (translated && translated !== 'worksheets.count-circle-1-10.title' && !translated.startsWith('worksheets.')) {
+          return translated
+        }
+      }
+      return '🔢 Count & Circle 1–10'
     case 'count-match-1-20':
       return '🔢 Count & Match 1–20'
     case 'how-many-1-15':
