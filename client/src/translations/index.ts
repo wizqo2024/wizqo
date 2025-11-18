@@ -41,8 +41,10 @@ export function getTranslation(language: Language, key: string): string | any {
       if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
         return value
       }
-      // Return strings (including empty strings)
+      // Return strings (including empty strings) - but check if it's actually a translation
       if (typeof value === 'string') {
+        // If the value is the same as the key, it might be a missing translation
+        // But we still return it since it's a valid string
         return value
       }
     }
@@ -69,11 +71,16 @@ export function getTranslation(language: Language, key: string): string | any {
     }
     
     // Final fallback: return the key itself (so it's visible if translation missing)
-    console.warn(`Translation missing for key: ${key} in language: ${language}`)
+    // Only warn in development to avoid console spam
+    if (typeof window !== 'undefined' && (window as any).__DEV__) {
+      console.warn(`Translation missing for key: ${key} in language: ${language}`)
+    }
     return key
   } catch (error) {
     // If anything goes wrong, just return the key
-    console.warn('Translation error for key:', key, 'language:', language, error)
+    if (typeof window !== 'undefined' && (window as any).__DEV__) {
+      console.warn('Translation error for key:', key, 'language:', language, error)
+    }
     return key
   }
 }
