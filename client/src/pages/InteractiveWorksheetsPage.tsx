@@ -516,6 +516,31 @@ const FAQ_ITEMS = [
 
 const FAQ_SCRIPT_ID = 'interactive-worksheets-faq-schema'
 
+function getFAQItems(t: (key: string) => string) {
+  return [
+    {
+      question: t('pages.interactive.faq.q1.question'),
+      answer: t('pages.interactive.faq.q1.answer'),
+    },
+    {
+      question: t('pages.interactive.faq.q2.question'),
+      answer: t('pages.interactive.faq.q2.answer'),
+    },
+    {
+      question: t('pages.interactive.faq.q3.question'),
+      answer: t('pages.interactive.faq.q3.answer'),
+    },
+    {
+      question: t('pages.interactive.faq.q4.question'),
+      answer: t('pages.interactive.faq.q4.answer'),
+    },
+    {
+      question: t('pages.interactive.faq.q5.question'),
+      answer: t('pages.interactive.faq.q5.answer'),
+    },
+  ]
+}
+
 function useFaqSchema(t: (key: string) => string) {
   React.useEffect(() => {
     const faqItems = getFAQItems(t)
