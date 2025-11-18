@@ -58,6 +58,17 @@ export const es = {
       goalStatement: 'Declaración de objetivo',
       steps: 'Pasos que tomaré',
     },
+    tensFrame: {
+      additionInstruction: 'Hay {{filled}} llenos. Llena {{missing}} más para hacer {{total}}.',
+      subtractionInstruction: 'Comienza con {{total}}. Quita {{missing}}.',
+    },
+    multiplication: {
+      instructions: '¡Resuelve cada problema de multiplicación. Dibuja una matriz para ayudarte!',
+      drawArray: 'Dibuja una matriz: {{rows}} filas × {{cols}} columnas',
+      visualExample: 'Ejemplo visual:',
+      drawHere: '¡Dibuja tu matriz aquí!',
+      arraySummary: '... ({{rows}} filas × {{cols}} columnas = {{total}} total)',
+    },
   },
   difficulty: {
     beginner: 'Principiante',

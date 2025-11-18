@@ -3499,10 +3499,18 @@ const renderers: Record<string, Renderer> = {
           {problems.map((prob, idx) => {
             const total = prob.filled + prob.missing
             const showFilled = prob.operation === '+' ? prob.filled : total
+            const instruction = prob.operation === '+' 
+              ? t('worksheets.tensFrame.additionInstruction')
+                  .replace('{{filled}}', String(prob.filled))
+                  .replace('{{missing}}', String(prob.missing))
+                  .replace('{{total}}', String(total))
+              : t('worksheets.tensFrame.subtractionInstruction')
+                  .replace('{{total}}', String(total))
+                  .replace('{{missing}}', String(prob.missing))
             return (
               <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
                 <p className="text-sm font-semibold text-purple-700 mb-2">
-                  {prob.operation === '+' ? `There are ${prob.filled} filled. Fill ${prob.missing} more to make ${total}.` : `Start with ${total}. Take away ${prob.missing}.`}
+                  {instruction}
                 </p>
                 <div className="grid grid-cols-5 gap-1 mb-3 w-32">
                   {Array.from({ length: 10 }).map((_, i) => (
@@ -3517,11 +3525,12 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-multiplication': ({ seed, doc, variant }) => {
+  'interactive-math-multiplication': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathMultiplication(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-base font-semibold text-purple-800">Solve each multiplication problem. Draw an array to help you!</p>
+        <p className="text-base font-semibold text-purple-800">{t('worksheets.multiplication.instructions')}</p>
         <div className="space-y-4">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-indigo-100 to-pink-100 p-5 shadow-md hover:shadow-lg transition-shadow">
@@ -3529,11 +3538,15 @@ const renderers: Record<string, Renderer> = {
                 <span className="text-3xl">✖️</span>
                 <p className="text-lg font-bold text-purple-900">{prob.factor1} × {prob.factor2} = <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
               </div>
-              <p className="text-sm font-semibold text-purple-700 mb-3">Draw an array: {prob.arrayRows} rows × {prob.arrayCols} columns</p>
+              <p className="text-sm font-semibold text-purple-700 mb-3">
+                {t('worksheets.multiplication.drawArray')
+                  .replace('{{rows}}', String(prob.arrayRows))
+                  .replace('{{cols}}', String(prob.arrayCols))}
+              </p>
               <div className="mb-3 p-4 bg-white/90 rounded-xl border-2 border-purple-200 shadow-inner">
                 <p className="text-sm text-purple-800 mb-2 font-bold flex items-center gap-2">
                   <span>📊</span>
-                  <span>Visual example:</span>
+                  <span>{t('worksheets.multiplication.visualExample')}</span>
                 </p>
                 <div className="grid gap-2 p-2 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg" style={{ gridTemplateColumns: `repeat(${Math.min(prob.arrayCols, 8)}, 1fr)`, maxWidth: '280px' }}>
                   {Array.from({ length: Math.min(prob.arrayRows * prob.arrayCols, 24) }).map((_, i) => (
@@ -3543,11 +3556,16 @@ const renderers: Record<string, Renderer> = {
                   ))}
                 </div>
                 {prob.arrayRows * prob.arrayCols > 24 && (
-                  <p className="text-xs text-purple-700 mt-2 font-semibold">... ({prob.arrayRows} rows × {prob.arrayCols} columns = {prob.answer} total)</p>
+                  <p className="text-xs text-purple-700 mt-2 font-semibold">
+                    {t('worksheets.multiplication.arraySummary')
+                      .replace('{{rows}}', String(prob.arrayRows))
+                      .replace('{{cols}}', String(prob.arrayCols))
+                      .replace('{{total}}', String(prob.answer))}
+                  </p>
                 )}
               </div>
               <div className="h-24 border-2 border-dashed border-purple-300 rounded-xl bg-white/80 flex items-center justify-center">
-                <p className="text-purple-600 text-sm font-semibold">Draw your array here!</p>
+                <p className="text-purple-600 text-sm font-semibold">{t('worksheets.multiplication.drawHere')}</p>
               </div>
             </div>
           ))}

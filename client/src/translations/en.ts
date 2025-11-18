@@ -55,6 +55,17 @@ export const en = {
       goalStatement: 'Goal statement',
       steps: 'Steps I will take',
     },
+    tensFrame: {
+      additionInstruction: 'There are {{filled}} filled. Fill {{missing}} more to make {{total}}.',
+      subtractionInstruction: 'Start with {{total}}. Take away {{missing}}.',
+    },
+    multiplication: {
+      instructions: 'Solve each multiplication problem. Draw an array to help you!',
+      drawArray: 'Draw an array: {{rows}} rows × {{cols}} columns',
+      visualExample: 'Visual example:',
+      drawHere: 'Draw your array here!',
+      arraySummary: '... ({{rows}} rows × {{cols}} columns = {{total}} total)',
+    },
   },
   difficulty: {
     beginner: 'Beginner',

@@ -58,6 +58,17 @@ export const ar = {
       goalStatement: 'بيان الهدف',
       steps: 'الخطوات التي سأتخذها',
     },
+    tensFrame: {
+      additionInstruction: 'هناك {{filled}} ممتلئة. املأ {{missing}} أخرى لتصبح {{total}}.',
+      subtractionInstruction: 'ابدأ بـ {{total}}. اطرح {{missing}}.',
+    },
+    multiplication: {
+      instructions: 'حل كل مسألة ضرب. ارسم مصفوفة لمساعدتك!',
+      drawArray: 'ارسم مصفوفة: {{rows}} صفوف × {{cols}} أعمدة',
+      visualExample: 'مثال مرئي:',
+      drawHere: 'ارسم مصفوفتك هنا!',
+      arraySummary: '... ({{rows}} صفوف × {{cols}} أعمدة = {{total}} إجمالي)',
+    },
   },
   difficulty: {
     beginner: 'مبتدئ',
