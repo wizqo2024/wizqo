@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { addLocaleToPath, removeLocaleFromPath, type Locale } from '@/utils/locale'
 import { ChevronDown } from 'lucide-react'
+import { FlagIcon } from './FlagIcon'
 
 export function LanguageSelector() {
   const { language, setLanguage, availableLanguages } = useTranslation()
@@ -60,7 +61,7 @@ export function LanguageSelector() {
         aria-label="Select language"
         aria-expanded={isOpen}
       >
-        <span className="text-lg">{currentLanguage.flag}</span>
+        <FlagIcon code={currentLanguage.code as 'en' | 'es' | 'ar'} className="w-5 h-4" />
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       
@@ -74,7 +75,7 @@ export function LanguageSelector() {
                 language === lang.code ? 'bg-purple-50 text-purple-600' : 'text-slate-700'
               }`}
             >
-              <span className="text-lg">{lang.flag}</span>
+              <FlagIcon code={lang.code as 'en' | 'es' | 'ar'} className="w-5 h-4 flex-shrink-0" />
               <span>{lang.name}</span>
             </button>
           ))}
