@@ -6591,22 +6591,45 @@ function InteractiveWorksheetSection({
     // Always use getTranslation directly first - it's the most reliable
     try {
       const directResult = getTranslation(language, key)
-      // If we got a valid string (not the key itself), return it
-      if (typeof directResult === 'string' && directResult !== key) {
+      // Check if we got a valid translation (not the key itself, and not a key-like string)
+      if (typeof directResult === 'string' && directResult !== key && !directResult.startsWith('worksheets.') && !directResult.startsWith('categories.')) {
         return directResult
       }
-      // If directResult is the key, it means translation is missing - try context as fallback
-      const result = tFromContext(key)
-      if (typeof result === 'string' && result !== key) {
-        return result
+      // If directResult is the key or starts with 'worksheets.'/'categories.', try context as fallback
+      const contextResult = tFromContext(key)
+      if (typeof contextResult === 'string' && contextResult !== key && !contextResult.startsWith('worksheets.') && !contextResult.startsWith('categories.')) {
+        return contextResult
+      }
+      // If both return the key or a key-like string, try English as final fallback
+      if (language !== 'en') {
+        const englishResult = getTranslation('en', key)
+        if (typeof englishResult === 'string' && englishResult !== key && !englishResult.startsWith('worksheets.') && !englishResult.startsWith('categories.')) {
+          return englishResult
+        }
       }
       // Final fallback: return the key (will be visible in UI for debugging)
+      // Only log in development to avoid console spam
+      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+        console.warn(`Translation missing for key: ${key} in language: ${language}`, { directResult, contextResult })
+      }
       return key
     } catch (error) {
       console.warn('Translation error in renderer:', key, language, error)
       // Try context as last resort
       const result = tFromContext(key)
-      return typeof result === 'string' ? result : key
+      if (typeof result === 'string' && result !== key && !result.startsWith('worksheets.') && !result.startsWith('categories.')) {
+        return result
+      }
+      // Try English fallback
+      if (language !== 'en') {
+        try {
+          const englishResult = getTranslation('en', key)
+          if (typeof englishResult === 'string' && englishResult !== key && !englishResult.startsWith('worksheets.') && !englishResult.startsWith('categories.')) {
+            return englishResult
+          }
+        } catch {}
+      }
+      return key
     }
   }, [language, tFromContext])
 
@@ -6667,13 +6690,14 @@ function InteractiveWorksheetSection({
 }
 
 export default function InteractiveBundleSections({ docIds, seed, variant, showAnswers, teacherName, className, studentNames }: Props) {
+  const { language } = useTranslation()
   if (docIds.length === 0) return null
 
   return (
     <>
       {docIds.map((docId) => (
         <InteractiveWorksheetSection
-          key={docId}
+          key={`${docId}-${language}-${variant}`}
           docId={docId}
           seed={seed}
           variant={variant}
