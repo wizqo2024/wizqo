@@ -10094,31 +10094,81 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Number Bond:</strong> 10 = 7 + ?</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> We know the whole is 10 and one part is 7</div>
-                  <div><strong>Step 2:</strong> To find the missing part, subtract: 10 - 7 = 3</div>
-                  <div><strong>Step 3:</strong> Check: 7 + 3 = 10 ✓</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 10 = 7 + 3</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: If you know one part, subtract it from the whole to find the other part!</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-indigo-900"><strong>Number Bond:</strong> <span className="text-2xl text-indigo-700">10 = 7 + ?</span></div>
+                {/* Visual example with objects */}
+                <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+                  <div className="flex items-center justify-center gap-4 mb-3">
+                    <div className="text-center">
+                      <div className="text-lg font-semibold text-indigo-700 mb-2">Part 1: 7</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
+                        {Array.from({ length: 7 }).map((_, i) => (
+                          <span key={i} className="text-2xl">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-3xl text-indigo-700 font-bold">+</div>
+                    <div className="text-center">
+                      <div className="text-lg font-semibold text-indigo-700 mb-2">Part 2: ?</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <span key={i} className="text-2xl">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-3xl text-indigo-700 font-bold">=</div>
+                    <div className="text-center">
+                      <div className="text-lg font-semibold text-indigo-700 mb-2">Whole: 10</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
+                        {Array.from({ length: 10 }).map((_, i) => (
+                          <span key={i} className="text-2xl">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
+                  <div><strong>Step 1:</strong> We know the whole is <span className="text-indigo-700 font-bold">10</span> and one part is <span className="text-indigo-700 font-bold">7</span></div>
+                  <div><strong>Step 2:</strong> To find the missing part, subtract: <span className="text-indigo-700 font-bold text-lg">10 - 7 = 3</span></div>
+                  <div><strong>Step 3:</strong> Check: <span className="text-indigo-700 font-bold">7 + 3 = 10</span> ✓</div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">10 = 7 + 3</span></div>
+                  <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: If you know one part, subtract it from the whole to find the other part!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[7, 3, 5, 8, 4, 6, 2, 9].map((n) => (
-                <svg key={n} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <circle cx="200" cy="60" r="35" fill="none" stroke="#111827" strokeWidth="3" />
-                  <text x="200" y="70" fontSize="32" fill="#111827" textAnchor="middle">10</text>
-                  <circle cx="120" cy="130" r="25" fill="none" stroke="#111827" strokeWidth="2.5" />
-                  <text x="120" y="140" fontSize="24" fill="#111827" textAnchor="middle">{n}</text>
-                  <circle cx="280" cy="130" r="25" fill="none" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="4 4" />
-                  <text x="280" y="140" fontSize="24" fill="#94a3b8" textAnchor="middle">__</text>
-                  <line x1="175" y1="85" x2="135" y2="105" stroke="#111827" strokeWidth="2" />
-                  <line x1="225" y1="85" x2="265" y2="105" stroke="#111827" strokeWidth="2" />
-                </svg>
+                <div key={n} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
+                  <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    {/* Whole circle */}
+                    <circle cx="200" cy="60" r="40" fill="#fef3c7" stroke="#6366f1" strokeWidth="3" />
+                    <text x="200" y="70" fontSize="36" fill="#6366f1" fontWeight="bold" textAnchor="middle">10</text>
+                    {/* Part 1 circle */}
+                    <circle cx="120" cy="140" r="30" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2.5" />
+                    <text x="120" y="150" fontSize="28" fill="#3b82f6" fontWeight="bold" textAnchor="middle">{n}</text>
+                    {/* Part 2 circle (missing) */}
+                    <circle cx="280" cy="140" r="30" fill="white" stroke="#94a3b8" strokeWidth="2.5" strokeDasharray="4 4" />
+                    <text x="280" y="150" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
+                    {/* Connecting lines */}
+                    <line x1="170" y1="90" x2="140" y2="110" stroke="#6366f1" strokeWidth="2.5" />
+                    <line x1="230" y1="90" x2="260" y2="110" stroke="#6366f1" strokeWidth="2.5" />
+                    {/* Visual objects below */}
+                    <g>
+                      {Array.from({ length: n }).map((_, i) => (
+                        <text key={i} x={100 + i * 15} y="185" fontSize="16">{i < 5 ? '🍎' : ''}</text>
+                      ))}
+                      {n > 5 && <text x={175} y="185" fontSize="12" fill="#3b82f6">+{n-5}</text>}
+                    </g>
+                  </svg>
+                </div>
               ))}
             </div>
             {/* Extension/Challenge Problems */}
@@ -10540,36 +10590,93 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-pink-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Story:</strong> 8 apples, 3 eaten</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Start with 8 apples</div>
-                  <div><strong>Step 2:</strong> 3 apples were eaten (taken away)</div>
-                  <div><strong>Step 3:</strong> Subtract: 8 - 3 = 5</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 apples left</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-rose-900"><strong>Story:</strong> <span className="text-lg">8 apples, 3 eaten</span></div>
+                {/* Visual example */}
+                <div className="bg-white p-4 rounded-lg border-2 border-rose-300">
+                  <div className="flex items-center justify-center gap-4 mb-3">
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-rose-700 mb-2">Start: 8 apples</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                          <span key={i} className="text-2xl">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-2xl text-rose-700 font-bold">−</div>
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-red-600 mb-2">Eaten: 3</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[150px]">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <span key={i} className="text-2xl opacity-50">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-2xl text-rose-700 font-bold">=</div>
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-rose-700 mb-2">Left: 5</div>
+                      <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span key={i} className="text-2xl">🍎</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="pl-4 border-l-2 border-rose-300 space-y-1">
+                  <div><strong>Step 1:</strong> Start with <span className="text-rose-700 font-bold">8 apples</span></div>
+                  <div><strong>Step 2:</strong> <span className="text-red-600 font-bold">3 apples</span> were eaten (taken away)</div>
+                  <div><strong>Step 3:</strong> Subtract: <span className="text-rose-700 font-bold text-lg">8 - 3 = 5</span></div>
+                  <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">5 apples left</span></div>
+                  <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Subtraction means "take away". Start with the total, then subtract what was taken away!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[
-                { total: 8, take: 3, story: '8 apples, 3 eaten' },
-                { total: 7, take: 2, story: '7 birds, 2 flew away' },
-                { total: 9, take: 4, story: '9 flowers, 4 picked' },
-                { total: 10, take: 5, story: '10 cookies, 5 shared' }
-              ].map(({ total, take, story }, idx) => (
-                <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
-                  <p className="text-slate-700 text-sm mb-2">{story}</p>
-                  <svg viewBox="0 0 500 120" className="w-full h-auto">
-                    <g fill="#111827">
-                      {Array.from({ length: total }).map((_, i) => (
-                        <circle key={i} cx={50 + i * 40} cy="60" r="12" fill={i < take ? '#ef4444' : '#111827'} opacity={i < take ? 0.3 : 1} />
-                      ))}
-                    </g>
-                    <text x="250" y="70" fontSize="28" fill="#111827" textAnchor="middle">{total} - {take} = __</text>
-                  </svg>
+                { total: 8, take: 3, story: '8 apples, 3 eaten', emoji: '🍎' },
+                { total: 7, take: 2, story: '7 birds, 2 flew away', emoji: '🐦' },
+                { total: 9, take: 4, story: '9 flowers, 4 picked', emoji: '🌺' },
+                { total: 10, take: 5, story: '10 cookies, 5 shared', emoji: '🍪' }
+              ].map(({ total, take, story, emoji }, idx) => (
+                <div key={idx} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-pink-50">
+                  <p className="text-rose-900 text-base font-semibold mb-3">{idx + 1}. {story}</p>
+                  <div className="bg-white p-3 rounded-lg border-2 border-rose-300 mb-3">
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="text-center">
+                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px] mb-1">
+                          {Array.from({ length: total }).map((_, i) => (
+                            <span key={i} className={`text-2xl ${i < take ? 'opacity-30' : ''}`}>{emoji}</span>
+                          ))}
+                        </div>
+                        <div className="text-xs text-rose-700 font-semibold">{total} total</div>
+                      </div>
+                      <div className="text-2xl text-rose-700 font-bold">−</div>
+                      <div className="text-center">
+                        <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
+                          {Array.from({ length: take }).map((_, i) => (
+                            <span key={i} className="text-2xl opacity-50">{emoji}</span>
+                          ))}
+                        </div>
+                        <div className="text-xs text-red-600 font-semibold">{take} taken</div>
+                      </div>
+                      <div className="text-2xl text-rose-700 font-bold">=</div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-rose-700">?</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-lg font-mono text-rose-900 text-center bg-white px-4 py-2 rounded border border-rose-300">
+                    {total} − {take} = <span className="inline-block w-16 border-b-2 border-rose-600" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -11046,32 +11153,76 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 3 = ?</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Count the circles: there are 3 circles in the first group</div>
-                  <div><strong>Step 2:</strong> Count the circles in the second group: there are also 3 circles</div>
-                  <div><strong>Step 3:</strong> Add them: 3 + 3 = 6</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 3 = 6</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Doubles are easy! Just add a number to itself. 3 + 3 = 6!</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-orange-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-orange-900"><strong>Problem:</strong> <span className="text-2xl text-orange-700">3 + 3 = ?</span></div>
+                {/* Visual example */}
+                <div className="bg-white p-4 rounded-lg border-2 border-orange-300">
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <span key={i} className="text-4xl">⭐</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-orange-700">3 stars</div>
+                    </div>
+                    <div className="text-4xl text-orange-700 font-bold">+</div>
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <span key={i} className="text-4xl">⭐</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-orange-700">3 stars</div>
+                    </div>
+                    <div className="text-4xl text-orange-700 font-bold">=</div>
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <span key={i} className="text-4xl">⭐</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-orange-700">6 stars</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="pl-4 border-l-2 border-orange-300 space-y-1">
+                  <div><strong>Step 1:</strong> Count the first group: <span className="text-orange-700 font-bold">3</span></div>
+                  <div><strong>Step 2:</strong> Count the second group: <span className="text-orange-700 font-bold">3</span> (same number!)</div>
+                  <div><strong>Step 3:</strong> Add them: <span className="text-orange-700 font-bold text-lg">3 + 3 = 6</span></div>
+                  <div className="font-semibold text-orange-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-orange-700">3 + 3 = 6</span></div>
+                  <div className="text-xs text-orange-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Doubles are easy! Just add a number to itself. 3 + 3 = 6!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <svg key={n} viewBox="0 0 400 140" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="#111827">
-                    {Array.from({ length: n * 2 }).map((_, i) => {
-                      const cols = Math.ceil(Math.sqrt(n * 2))
-                      const row = Math.floor(i / cols)
-                      const col = i % cols
-                      return <circle key={i} cx={60 + col * 25} cy={40 + row * 25} r="8" />
-                    })}
-                  </g>
-                  <text x="200" y="100" fontSize="28" fill="#111827" textAnchor="middle">{n} + {n} = __</text>
-                </svg>
+                <div key={n} className="bg-gradient-to-br from-orange-50 to-red-50 p-3 rounded-lg border-2 border-orange-200">
+                  <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g>
+                      {Array.from({ length: n * 2 }).map((_, i) => {
+                        const cols = Math.ceil(Math.sqrt(n * 2))
+                        const row = Math.floor(i / cols)
+                        const col = i % cols
+                        return (
+                          <g key={i} transform={`translate(${60 + col * 25}, ${40 + row * 25})`}>
+                            <circle cx="0" cy="0" r="10" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
+                            <text x="0" y="4" fontSize="14" textAnchor="middle">⭐</text>
+                          </g>
+                        )
+                      })}
+                    </g>
+                    <text x="200" y="140" fontSize="28" fill="#f59e0b" textAnchor="middle" fontWeight="bold">{n} + {n} = <tspan fill="#94a3b8">___</tspan></text>
+                  </svg>
+                </div>
               ))}
             </div>
             {/* Extension/Challenge Problems */}
