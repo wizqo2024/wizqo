@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Download, Printer, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/context/TranslationContext';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -26,6 +27,7 @@ const MAX_NAME_LENGTH = 18;
 
 export default function NameTracingGeneratorPage() {
   const { toast } = useToast();
+  const { t, isRTL } = useTranslation();
   
   // Single name mode
   const [childName, setChildName] = React.useState<string>('Ava');
@@ -70,7 +72,7 @@ export default function NameTracingGeneratorPage() {
         console.log('batchLayout:', batchLayout);
       }
       
-      if (names.length === 0) return ['Your Name'];
+      if (names.length === 0) return [t('pages.nameTracing.yourName')];
       
       // For preview, show all names (up to 4) regardless of print layout
       // The print layout only affects the actual print/download, not the preview
@@ -92,14 +94,14 @@ export default function NameTracingGeneratorPage() {
       
       return result;
     }
-    return [childName.trim() || 'Your Name'];
-  }, [batchMode, multipleNames, childName, batchLayout]);
+    return [childName.trim() || t('pages.nameTracing.yourName')];
+  }, [batchMode, multipleNames, childName, batchLayout, t]);
 
   // Format names for display
   const formattedNames = React.useMemo(() => {
     const formatted = previewNames.map((name, index) => {
       const trimmed = name.trim();
-      if (!trimmed) return 'Your Name';
+      if (!trimmed) return t('pages.nameTracing.yourName');
       let result: string;
       switch (letterCase) {
         case 'title':
@@ -125,10 +127,10 @@ export default function NameTracingGeneratorPage() {
       console.log('formattedNames:', formatted);
     }
     return formatted;
-  }, [previewNames, letterCase]);
+  }, [previewNames, letterCase, t]);
 
   // For backward compatibility, keep formattedName as first name
-  const formattedName = formattedNames[0] || 'Your Name';
+  const formattedName = formattedNames[0] || t('pages.nameTracing.yourName');
 
   const practicingRows = React.useMemo(() => {
     const sequence = patternStyle === 'traceOnly'
@@ -149,7 +151,7 @@ export default function NameTracingGeneratorPage() {
   // Helper function to format a name based on letter case
   const formatName = React.useCallback((name: string, caseType: LetterCase) => {
     const trimmed = name.trim();
-    if (!trimmed) return 'Your Name';
+    if (!trimmed) return t('pages.nameTracing.yourName');
     switch (caseType) {
       case 'title':
         return trimmed
@@ -163,7 +165,7 @@ export default function NameTracingGeneratorPage() {
       default:
         return trimmed;
     }
-  }, []);
+  }, [t]);
 
   // Use a ref to store the generateSVGForName function so it can be accessed by callbacks defined earlier
   const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
@@ -175,8 +177,8 @@ export default function NameTracingGeneratorPage() {
         const container = document.getElementById('name-tracing-sheet');
         if (!container) {
           toast({
-            title: 'Error',
-            description: 'Worksheet not found. Please refresh the page.',
+            title: t('pages.nameTracing.error'),
+            description: t('pages.nameTracing.worksheetNotFound'),
             variant: 'destructive',
           });
           return;
@@ -227,14 +229,14 @@ export default function NameTracingGeneratorPage() {
             iframe.contentWindow?.focus();
             iframe.contentWindow?.print();
             toast({
-              title: 'Print Ready',
-              description: 'Print dialog opened. Select your printer and settings.',
+              title: t('pages.nameTracing.printReady'),
+              description: t('pages.nameTracing.printReadyDesc'),
             });
           } catch (error) {
             console.error('Print failed', error);
             toast({
-              title: 'Print Failed',
-              description: 'Unable to open print dialog. Please try again.',
+              title: t('pages.nameTracing.printFailed'),
+              description: t('pages.nameTracing.printFailedDesc'),
               variant: 'destructive',
             });
           }
@@ -256,8 +258,8 @@ export default function NameTracingGeneratorPage() {
 
         if (names.length === 0) {
           toast({
-            title: 'No Names',
-            description: 'Please enter at least one name in batch mode.',
+            title: t('pages.nameTracing.noNames'),
+            description: t('pages.nameTracing.noNamesDesc'),
             variant: 'destructive',
           });
           return;
@@ -266,8 +268,8 @@ export default function NameTracingGeneratorPage() {
         const generateFn = generateSVGForNameRef.current;
         if (!generateFn) {
           toast({
-            title: 'Error',
-            description: 'SVG generator not ready. Please refresh the page.',
+            title: t('pages.nameTracing.error'),
+            description: t('pages.nameTracing.svgNotReady'),
             variant: 'destructive',
           });
           return;
@@ -346,14 +348,14 @@ export default function NameTracingGeneratorPage() {
             iframe.contentWindow?.focus();
             iframe.contentWindow?.print();
             toast({
-              title: 'Print Ready',
-              description: `Print dialog opened for ${names.length} name${names.length > 1 ? 's' : ''}.`,
+              title: t('pages.nameTracing.printReady'),
+              description: t('pages.nameTracing.printReadyBatch').replace('{{count}}', String(names.length)).replace('{{nameCount}}', names.length === 1 ? '' : 's'),
             });
           } catch (error) {
             console.error('Print failed', error);
             toast({
-              title: 'Print Failed',
-              description: 'Unable to open print dialog. Please try again.',
+              title: t('pages.nameTracing.printFailed'),
+              description: t('pages.nameTracing.printFailedDesc'),
               variant: 'destructive',
             });
           }
@@ -368,13 +370,13 @@ export default function NameTracingGeneratorPage() {
       }
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
-      toast({
-        title: 'Error',
-        description: 'An error occurred while preparing the print. Please try again.',
-        variant: 'destructive',
-      });
+        toast({
+          title: t('pages.nameTracing.error'),
+          description: t('pages.nameTracing.printError'),
+          variant: 'destructive',
+        });
     }
-  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast]);
+  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast, t]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
@@ -387,23 +389,23 @@ export default function NameTracingGeneratorPage() {
 
         if (names.length === 0) {
           toast({
-            title: 'No Names',
-            description: 'Please enter at least one name in batch mode.',
+            title: t('pages.nameTracing.noNames'),
+            description: t('pages.nameTracing.noNamesDesc'),
             variant: 'destructive',
           });
           return;
         }
 
         toast({
-          title: 'Batch PNG Download',
-          description: `Generating ${names.length} PNG file${names.length > 1 ? 's' : ''}... This may take a moment.`,
+          title: t('pages.nameTracing.batchPNGDownload'),
+          description: t('pages.nameTracing.batchPNGDownloadDesc').replace('{{count}}', String(names.length)).replace('{{fileCount}}', names.length === 1 ? '' : 's'),
         });
 
         const generateFn = generateSVGForNameRef.current;
         if (!generateFn) {
           toast({
-            title: 'Error',
-            description: 'SVG generator not ready. Please refresh the page.',
+            title: t('pages.nameTracing.error'),
+            description: t('pages.nameTracing.svgNotReady'),
             variant: 'destructive',
           });
           return;
@@ -456,8 +458,8 @@ export default function NameTracingGeneratorPage() {
 
         setTimeout(() => {
           toast({
-            title: 'Download Complete',
-            description: `All ${names.length} PNG file${names.length > 1 ? 's' : ''} have been downloaded.`,
+            title: t('pages.nameTracing.downloadComplete'),
+            description: t('pages.nameTracing.downloadCompleteBatch').replace('{{count}}', String(names.length)).replace('{{fileCount}}', names.length === 1 ? '' : 's'),
           });
         }, names.length * 200 + 500);
         return;
@@ -496,8 +498,8 @@ export default function NameTracingGeneratorPage() {
           link.download = `${safeFileName}.png`;
           link.click();
           toast({
-            title: 'Download Complete',
-            description: 'Your PNG file has been downloaded.',
+            title: t('pages.nameTracing.downloadComplete'),
+            description: t('pages.nameTracing.downloadCompleteDesc'),
           });
         }
         URL.revokeObjectURL(url);
@@ -505,8 +507,8 @@ export default function NameTracingGeneratorPage() {
       image.onerror = () => {
         URL.revokeObjectURL(url);
         toast({
-          title: 'Download Failed',
-          description: 'Unable to generate PNG. Please try again.',
+          title: t('pages.nameTracing.downloadFailed'),
+          description: t('pages.nameTracing.downloadFailedDesc'),
           variant: 'destructive',
         });
       };
@@ -514,12 +516,12 @@ export default function NameTracingGeneratorPage() {
     } catch (error) {
       console.error('Unable to download PNG', error);
       toast({
-        title: 'Error',
-        description: 'An error occurred while downloading. Please try again.',
+        title: t('pages.nameTracing.error'),
+        description: t('pages.nameTracing.downloadError'),
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast]);
+  }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast, t]);
 
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
@@ -755,10 +757,10 @@ export default function NameTracingGeneratorPage() {
       }
     });
 
-    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">Trace slowly, say each letter aloud, and celebrate every line!</text>`;
+    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">${t('pages.nameTracing.traceSlowly')}</text>`;
 
     return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
-  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, fontStyle, lineStyle, showGuideDots]);
+  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, fontStyle, lineStyle, showGuideDots, t]);
 
   // Store the function in ref so it can be accessed by callbacks
   React.useEffect(() => {
@@ -766,10 +768,10 @@ export default function NameTracingGeneratorPage() {
   }, [generateSVGForName]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Create Personalized Name Tracing Worksheets | Free Printable Name Practice for Kids"
-        description="Make learning fun with free printable name tracing worksheets! Type your child's name, choose lines or dotted fonts, and print a personalized handwriting sheet they'll love practicing every day."
+        title={t('pages.nameTracing.seoTitle')}
+        description={t('pages.nameTracing.seoDescription')}
         canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
       />
 
@@ -781,13 +783,13 @@ export default function NameTracingGeneratorPage() {
             <div className="space-y-6">
               <div className="bg-white/90 backdrop-blur border border-slate-200 rounded-3xl shadow-sm p-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold uppercase tracking-wide">
-                  <Sparkles className="w-3.5 h-3.5" /> Make it personal
+                  <Sparkles className="w-3.5 h-3.5" /> {t('pages.nameTracing.makeItPersonal')}
                 </div>
                 <h1 className="text-3xl font-extrabold text-slate-900 mt-4 leading-tight">
-                  Create Personalized Name Tracing Worksheets
+                  {t('pages.nameTracing.title')}
                 </h1>
                 <p className="mt-3 text-slate-600 text-sm leading-relaxed">
-                  Type a name, pick your favorite tracing style, and print a practice sheet that feels like it was made just for your child. Perfect for preschool, kindergarten, and first-grade handwriting warm-ups.
+                  {t('pages.nameTracing.subtitle')}
                 </p>
               </div>
 
@@ -795,8 +797,8 @@ export default function NameTracingGeneratorPage() {
                 {/* Mode Selection */}
                 <div className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">Mode</p>
-                    <p className="text-xs text-slate-500">Single name or batch generation</p>
+                    <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.mode')}</p>
+                    <p className="text-xs text-slate-500">{t('pages.nameTracing.modeDesc')}</p>
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -808,7 +810,7 @@ export default function NameTracingGeneratorPage() {
                           : 'bg-white text-slate-700 hover:bg-purple-100'
                       }`}
                     >
-                      Single
+                      {t('pages.nameTracing.single')}
                     </button>
                     <button
                       type="button"
@@ -819,7 +821,7 @@ export default function NameTracingGeneratorPage() {
                           : 'bg-white text-slate-700 hover:bg-purple-100'
                       }`}
                     >
-                      Batch
+                      {t('pages.nameTracing.batch')}
                     </button>
                   </div>
                 </div>
@@ -827,45 +829,48 @@ export default function NameTracingGeneratorPage() {
                 {batchMode === 'single' ? (
                   <div>
                     <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Enter your name
+                      {t('pages.nameTracing.enterYourName')}
                     </Label>
                     <Input
                       id="child-name"
                       value={childName}
                       onChange={(event) => handleNameInput(event.target.value)}
-                      placeholder="Type a name"
+                      placeholder={t('pages.nameTracing.typeAName')}
                       className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
                       maxLength={MAX_NAME_LENGTH}
                     />
                     <p className="mt-2 text-xs text-slate-500">
-                      Up to {MAX_NAME_LENGTH} characters. Letters, spaces, hyphens, and apostrophes are welcome.
+                      {t('pages.nameTracing.nameInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
                     </p>
                   </div>
                 ) : (
                   <div>
                     <Label htmlFor="multiple-names" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Enter names (one per line)
+                      {t('pages.nameTracing.enterNamesOnePerLine')}
                     </Label>
                     <Textarea
                       id="multiple-names"
                       value={multipleNames}
                       onChange={(e) => setMultipleNames(e.target.value)}
-                      placeholder="Emma&#10;Liam&#10;Sophia&#10;Noah"
+                      placeholder={t('pages.nameTracing.namesPlaceholder')}
                       className="mt-2 min-h-[120px] rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-sm font-mono"
                     />
                     <p className="mt-2 text-xs text-slate-500">
-                      Enter one name per line. Up to {MAX_NAME_LENGTH} characters per name. Maximum 50 names.
+                      {t('pages.nameTracing.batchInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
                     </p>
                     {multipleNames && (
                       <p className="mt-1 text-xs text-purple-600 font-medium">
-                        {multipleNames.split('\n').filter(n => n.trim().length > 0).length} name{multipleNames.split('\n').filter(n => n.trim().length > 0).length !== 1 ? 's' : ''} entered
+                        {(() => {
+                          const count = multipleNames.split('\n').filter(n => n.trim().length > 0).length;
+                          return `${count} ${count === 1 ? t('pages.nameTracing.nameEntered') : t('pages.nameTracing.namesEntered')}`;
+                        })()}
                       </p>
                     )}
                     
                     {batchMode === 'batch' && (
                       <div className="mt-4 space-y-2">
                         <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                          Layout (batch mode)
+                          {t('pages.nameTracing.layoutBatchMode')}
                         </Label>
                         <div className="grid grid-cols-3 gap-2">
                           <button
@@ -877,7 +882,7 @@ export default function NameTracingGeneratorPage() {
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                           >
-                            1 per page
+                            {t('pages.nameTracing.onePerPage')}
                           </button>
                           <button
                             type="button"
@@ -888,7 +893,7 @@ export default function NameTracingGeneratorPage() {
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                           >
-                            2 per page
+                            {t('pages.nameTracing.twoPerPage')}
                           </button>
                           <button
                             type="button"
@@ -899,7 +904,7 @@ export default function NameTracingGeneratorPage() {
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                             }`}
                           >
-                            4 per page
+                            {t('pages.nameTracing.fourPerPage')}
                           </button>
                         </div>
                       </div>
@@ -910,11 +915,11 @@ export default function NameTracingGeneratorPage() {
                 {/* Print Layout Settings */}
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4">
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-3">Print Layout Settings</h3>
+                    <h3 className="text-sm font-semibold text-slate-800 mb-3">{t('pages.nameTracing.printLayoutSettings')}</h3>
                     
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Orientation</Label>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.orientation')}</Label>
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             type="button"
@@ -925,7 +930,7 @@ export default function NameTracingGeneratorPage() {
                                 : 'bg-white text-slate-700 hover:bg-purple-50'
                             }`}
                           >
-                            Portrait
+                            {t('pages.nameTracing.portrait')}
                           </button>
                           <button
                             type="button"
@@ -936,28 +941,28 @@ export default function NameTracingGeneratorPage() {
                                 : 'bg-white text-slate-700 hover:bg-purple-50'
                             }`}
                           >
-                            Landscape
+                            {t('pages.nameTracing.landscape')}
                           </button>
                         </div>
                       </div>
 
                       <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Paper Size</Label>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.paperSize')}</Label>
                         <div className="relative">
                           <select
                             value={paperSize}
                             onChange={(e) => setPaperSize(e.target.value as PaperSize)}
                             className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
                           >
-                            <option value="us-letter">US Letter (8.5" × 11")</option>
-                            <option value="a4">A4 (8.27" × 11.69")</option>
-                            <option value="legal">Legal (8.5" × 14")</option>
+                            <option value="us-letter">{t('pages.nameTracing.paperSizes.usLetter')}</option>
+                            <option value="a4">{t('pages.nameTracing.paperSizes.a4')}</option>
+                            <option value="legal">{t('pages.nameTracing.paperSizes.legal')}</option>
                           </select>
                         </div>
                       </div>
 
                       <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">Margins</Label>
+                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.margins')}</Label>
                         <div className="grid grid-cols-4 gap-2">
                           {(['none', 'small', 'medium', 'large'] as MarginSize[]).map((size) => (
                             <button
@@ -970,7 +975,7 @@ export default function NameTracingGeneratorPage() {
                                   : 'bg-white text-slate-700 hover:bg-purple-50'
                               }`}
                             >
-                              {size}
+                              {t(`pages.nameTracing.marginSizes.${size}`)}
                             </button>
                           ))}
                         </div>
@@ -982,7 +987,7 @@ export default function NameTracingGeneratorPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Letter Case
+                      {t('pages.nameTracing.letterCase')}
                     </Label>
                   </div>
                   <ToggleGroup
@@ -991,17 +996,17 @@ export default function NameTracingGeneratorPage() {
                     onValueChange={(value) => value && setLetterCase(value as LetterCase)}
                     className="grid grid-cols-2 gap-2"
                   >
-                    <ToggleGroupItem value="title" aria-label="Title case" className="rounded-xl">
-                      Title Case
+                    <ToggleGroupItem value="title" aria-label={t('pages.nameTracing.titleCase')} className="rounded-xl">
+                      {t('pages.nameTracing.titleCase')}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="upper" aria-label="Uppercase" className="rounded-xl">
-                      UPPERCASE
+                    <ToggleGroupItem value="upper" aria-label={t('pages.nameTracing.uppercase')} className="rounded-xl">
+                      {t('pages.nameTracing.uppercase')}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="lower" aria-label="Lowercase" className="rounded-xl">
-                      lowercase
+                    <ToggleGroupItem value="lower" aria-label={t('pages.nameTracing.lowercase')} className="rounded-xl">
+                      {t('pages.nameTracing.lowercase')}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="original" aria-label="Original" className="rounded-xl">
-                      Keep As Typed
+                    <ToggleGroupItem value="original" aria-label={t('pages.nameTracing.keepAsTyped')} className="rounded-xl">
+                      {t('pages.nameTracing.keepAsTyped')}
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -1009,7 +1014,7 @@ export default function NameTracingGeneratorPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Tracing Style
+                      {t('pages.nameTracing.tracingStyle')}
                     </Label>
                   </div>
                   <ToggleGroup
@@ -1019,16 +1024,16 @@ export default function NameTracingGeneratorPage() {
                     className="grid grid-cols-2 gap-2"
                   >
                     <ToggleGroupItem value="dotted" className="rounded-xl">
-                      Dotted Lines
+                      {t('pages.nameTracing.dottedLines')}
                     </ToggleGroupItem>
                     <ToggleGroupItem value="classic" className="rounded-xl">
-                      Solid Trace
+                      {t('pages.nameTracing.solidTrace')}
                     </ToggleGroupItem>
                     <ToggleGroupItem value="bubble" className="rounded-xl">
-                      Bubble Letters
+                      {t('pages.nameTracing.bubbleLetters')}
                     </ToggleGroupItem>
                     <ToggleGroupItem value="script" className="rounded-xl">
-                      Cursive Flow
+                      {t('pages.nameTracing.cursiveFlow')}
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -1036,7 +1041,7 @@ export default function NameTracingGeneratorPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      Font Size
+                      {t('pages.nameTracing.fontSize')}
                     </Label>
                   </div>
                   <ToggleGroup
@@ -1045,14 +1050,14 @@ export default function NameTracingGeneratorPage() {
                     onValueChange={(value) => value && setFontSizeMode(value as FontSizeMode)}
                     className="grid grid-cols-3 gap-2"
                   >
-                    <ToggleGroupItem value="small" className="rounded-xl" aria-label="Small font size">
-                      Small
+                    <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.small')}>
+                      {t('pages.nameTracing.small')}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="medium" className="rounded-xl" aria-label="Medium font size">
-                      Medium
+                    <ToggleGroupItem value="medium" className="rounded-xl" aria-label={t('pages.nameTracing.medium')}>
+                      {t('pages.nameTracing.medium')}
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="large" className="rounded-xl" aria-label="Large font size">
-                      Large
+                    <ToggleGroupItem value="large" className="rounded-xl" aria-label={t('pages.nameTracing.large')}>
+                      {t('pages.nameTracing.large')}
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
@@ -1061,8 +1066,8 @@ export default function NameTracingGeneratorPage() {
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-semibold text-slate-800">Guideline Lines</h3>
-                        <p className="text-xs text-slate-500">Choose handwriting lines</p>
+                        <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.guidelineLines')}</h3>
+                        <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseHandwritingLines')}</p>
                       </div>
                     </div>
                     <div className="mt-3 space-y-2">
@@ -1071,14 +1076,14 @@ export default function NameTracingGeneratorPage() {
                         onClick={() => setLineStyle('primary')}
                         className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'primary' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
                       >
-                        Primary lines (top, middle, baseline)
+                        {t('pages.nameTracing.primaryLines')}
                       </button>
                       <button
                         type="button"
                         onClick={() => setLineStyle('baseline')}
                         className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'baseline' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
                       >
-                        Single baseline only
+                        {t('pages.nameTracing.singleBaselineOnly')}
                       </button>
                     </div>
                   </div>
@@ -1086,8 +1091,8 @@ export default function NameTracingGeneratorPage() {
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-sm font-semibold text-slate-800">Practice Pattern</h3>
-                        <p className="text-xs text-slate-500">Mix tracing with blank lines</p>
+                        <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.practicePattern')}</h3>
+                        <p className="text-xs text-slate-500">{t('pages.nameTracing.mixTracingWithBlankLines')}</p>
                       </div>
                     </div>
                     <div className="mt-3 space-y-2">
@@ -1096,14 +1101,14 @@ export default function NameTracingGeneratorPage() {
                         onClick={() => setPatternStyle('traceAndWrite')}
                         className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceAndWrite' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
                       >
-                        Trace + write it yourself (best for practice)
+                        {t('pages.nameTracing.traceAndWrite')}
                       </button>
                       <button
                         type="button"
                         onClick={() => setPatternStyle('traceOnly')}
                         className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceOnly' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
                       >
-                        Tracing only (repeat the name on every line)
+                        {t('pages.nameTracing.tracingOnly')}
                       </button>
                     </div>
                   </div>
@@ -1111,21 +1116,21 @@ export default function NameTracingGeneratorPage() {
 
                 <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-4 py-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">Friendly start dot</p>
-                    <p className="text-xs text-slate-500">Show a colorful dot so kids know where to begin</p>
+                    <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.friendlyStartDot')}</p>
+                    <p className="text-xs text-slate-500">{t('pages.nameTracing.friendlyStartDotDesc')}</p>
                   </div>
                   <Switch
                     checked={showGuideDots}
                     onCheckedChange={setShowGuideDots}
-                    aria-label="Toggle start dot"
+                    aria-label={t('pages.nameTracing.toggleStartDot')}
                   />
                 </div>
 
                 <div className="bg-white border border-slate-200 rounded-2xl p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-800">Number of practice lines</h3>
-                      <p className="text-xs text-slate-500">Choose between 3 and 6 rows</p>
+                      <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.numberOfPracticeLines')}</h3>
+                      <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseBetweenRows')}</p>
                     </div>
                   </div>
                   <div className="mt-3 flex items-center gap-3">
@@ -1134,7 +1139,7 @@ export default function NameTracingGeneratorPage() {
                         key={count}
                         type="button"
                         onClick={() => setRowCount(count)}
-                        aria-label={`${count} practice rows`}
+                        aria-label={`${count} ${t('pages.nameTracing.practiceRows')}`}
                         className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold transition ${rowCount === count ? 'border-purple-500 bg-purple-50 text-purple-600 shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-purple-200 hover:text-purple-600'}`}
                       >
                         {count}
@@ -1148,24 +1153,24 @@ export default function NameTracingGeneratorPage() {
                     onClick={handlePrint}
                     className="rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600"
                   >
-                    <Printer className="w-4 h-4 mr-2" /> Print worksheet
+                    <Printer className="w-4 h-4 mr-2" /> {t('pages.nameTracing.printWorksheet')}
                   </Button>
                   <Button
                     variant="outline"
                     onClick={handleDownloadPNG}
                     className="rounded-2xl h-11"
                   >
-                    <Download className="w-4 h-4 mr-2" /> Download PNG
+                    <Download className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPNG')}
                   </Button>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 border border-purple-100 rounded-3xl p-6">
-                <h2 className="text-lg font-bold text-slate-900 mb-3">Make handwriting practice feel magical</h2>
+                <h2 className="text-lg font-bold text-slate-900 mb-3">{t('pages.nameTracing.makeItMagical')}</h2>
                 <ul className="space-y-2 text-sm text-slate-600">
-                  <li><span className="font-semibold text-slate-800">❤️ Personalized connection:</span> Create my child's name tracing printable in seconds.</li>
-                  <li><span className="font-semibold text-slate-800">🌈 Encouraging practice:</span> Make handwriting fun with custom name tracing sheets they look forward to.</li>
-                  <li><span className="font-semibold text-slate-800">📚 Teacher-approved:</span> Perfect for classroom centers, homework packets, and homeschool warm-ups.</li>
+                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.personalizedConnection')}</span> {t('pages.nameTracing.personalizedConnectionDesc')}</li>
+                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.encouragingPractice')}</span> {t('pages.nameTracing.encouragingPracticeDesc')}</li>
+                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.teacherApproved')}</span> {t('pages.nameTracing.teacherApprovedDesc')}</li>
                 </ul>
               </div>
             </div>
@@ -1175,16 +1180,26 @@ export default function NameTracingGeneratorPage() {
                 <div className="px-6 py-4 border-b border-slate-100">
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <h2 className="text-lg font-semibold text-slate-900">Live preview</h2>
+                      <h2 className="text-lg font-semibold text-slate-900">{t('pages.nameTracing.livePreview')}</h2>
                       <p className="text-xs text-slate-500">
                         {batchMode === 'batch' 
-                          ? `Showing preview of ${formattedNames.length} name${formattedNames.length > 1 ? 's' : ''} (${batchLayout === 'two-per-page' ? '2 per page' : batchLayout === 'four-per-page' ? '4 per page' : '1 per page'}). Everything prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
-                          : `Everything you see prints beautifully on ${paperSize === 'a4' ? 'A4' : paperSize === 'legal' ? 'Legal' : 'US Letter'} paper (${printOrientation}).`
+                          ? (() => {
+                              const count = formattedNames.length;
+                              const layout = batchLayout === 'two-per-page' ? t('pages.nameTracing.twoPerPage') : batchLayout === 'four-per-page' ? t('pages.nameTracing.fourPerPage') : t('pages.nameTracing.onePerPage');
+                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                              return t('pages.nameTracing.previewBatch').replace('{{count}}', String(count)).replace('{{nameCount}}', count === 1 ? '' : 's').replace('{{layout}}', layout).replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                            })()
+                          : (() => {
+                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                              return t('pages.nameTracing.previewSingle').replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                            })()
                         }
                       </p>
                     </div>
                     <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">
-                      {batchMode === 'batch' ? 'Batch mode' : 'Ready to trace'}
+                      {batchMode === 'batch' ? t('pages.nameTracing.batchMode') : t('pages.nameTracing.readyToTrace')}
                     </span>
                   </div>
                 </div>
@@ -1197,7 +1212,7 @@ export default function NameTracingGeneratorPage() {
                           ref={svgRef}
                           viewBox={`0 0 ${pageWidth} ${pageHeight}`}
                           role="img"
-                          aria-label="Name tracing worksheets preview"
+                          aria-label={t('pages.nameTracing.nameTracingWorksheetsPreview')}
                           className="w-full h-auto"
                         >
                           <defs>
@@ -1355,7 +1370,7 @@ export default function NameTracingGeneratorPage() {
                             fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
                             fill="#94a3b8"
                           >
-                            Trace slowly, say each letter aloud, and celebrate every line!
+                            {t('pages.nameTracing.traceSlowly')}
                           </text>
                         </svg>
                       ) : (
@@ -1364,7 +1379,7 @@ export default function NameTracingGeneratorPage() {
                           ref={svgRef}
                           viewBox={`0 0 ${pageWidth} ${pageHeight}`}
                           role="img"
-                          aria-label="Name tracing worksheet preview"
+                          aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
                           className="w-full h-auto"
                         >
                           <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
@@ -1387,8 +1402,8 @@ export default function NameTracingGeneratorPage() {
                             const midLine = baselineY - baselineOffset / 2;
                             const showPrimary = lineStyle === 'primary';
                             const accessibilityLabel = rowType === 'blank'
-                              ? 'Blank handwriting line'
-                              : 'Traceable handwriting line';
+                              ? t('pages.nameTracing.blankHandwritingLine')
+                              : t('pages.nameTracing.traceableHandwritingLine');
                             return (
                               <g key={`row-${index}`} aria-label={accessibilityLabel}>
                                 {showPrimary && (
@@ -1458,7 +1473,7 @@ export default function NameTracingGeneratorPage() {
                             fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
                             fill="#94a3b8"
                           >
-                            Trace slowly, say each letter aloud, and celebrate every line!
+                            {t('pages.nameTracing.traceSlowly')}
                           </text>
                         </svg>
                       )}
