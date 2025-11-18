@@ -6,7 +6,7 @@ import { ChevronDown } from 'lucide-react'
 import { FlagIcon } from './FlagIcon'
 
 export function LanguageSelector() {
-  const { language, setLanguage, availableLanguages } = useTranslation()
+  const { language, setLanguage, availableLanguages, isRTL } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const currentLanguage = availableLanguages.find(lang => lang.code === language) || availableLanguages[0]
@@ -54,7 +54,7 @@ export function LanguageSelector() {
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative inline-block" ref={dropdownRef} dir="ltr">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-slate-600 hover:text-slate-800 hover:bg-slate-100 transition-colors"
@@ -66,7 +66,7 @@ export function LanguageSelector() {
       </button>
       
       {isOpen && (
-        <div className="absolute right-0 mt-2 bg-white border border-slate-200 rounded-md shadow-lg z-50 min-w-[140px]">
+        <div className={`absolute ${isRTL ? 'left-0' : 'right-0'} mt-2 bg-white border border-slate-200 rounded-md shadow-lg z-50 min-w-[140px]`}>
           {availableLanguages.map((lang) => (
             <button
               key={lang.code}
@@ -74,6 +74,7 @@ export function LanguageSelector() {
               className={`w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-slate-50 transition-colors ${
                 language === lang.code ? 'bg-purple-50 text-purple-600' : 'text-slate-700'
               }`}
+              dir="ltr"
             >
               <FlagIcon code={lang.code as 'en' | 'es' | 'ar'} className="w-6 h-4 flex-shrink-0" />
               <span>{lang.name}</span>
