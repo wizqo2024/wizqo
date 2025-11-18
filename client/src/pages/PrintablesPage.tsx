@@ -170,26 +170,39 @@ function WorksheetSectionWrapper({
   learningObjectives?: string[]
   parentTeacherTips?: string[]
 }) {
-  const { t, isRTL } = useTranslation()
+  const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
   
   // Try to get translated title/description if available
-  const translatedTitle = t(`worksheets.${docId}.title`) !== `worksheets.${docId}.title` 
-    ? t(`worksheets.${docId}.title`) 
-    : title
-  const translatedDescription = description && t(`worksheets.${docId}.description`) !== `worksheets.${docId}.description`
-    ? t(`worksheets.${docId}.description`)
-    : description
-  const translatedObjectives = learningObjectives?.map((obj, idx) => {
-    const key = `worksheets.${docId}.learningObjectives.${idx}`
-    const translated = t(key)
-    return translated !== key ? translated : obj
-  })
-  const translatedTips = parentTeacherTips?.map((tip, idx) => {
-    const key = `worksheets.${docId}.parentTeacherTips.${idx}`
-    const translated = t(key)
-    return translated !== key ? translated : tip
-  })
+  // Use language in dependency to force re-render when language changes
+  const translatedTitle = React.useMemo(() => {
+    const translated = t(`worksheets.${docId}.title`)
+    return translated !== `worksheets.${docId}.title` ? translated : title
+  }, [t, docId, title, language])
+  
+  const translatedDescription = React.useMemo(() => {
+    if (!description) return description
+    const translated = t(`worksheets.${docId}.description`)
+    return translated !== `worksheets.${docId}.description` ? translated : description
+  }, [t, docId, description, language])
+  
+  const translatedObjectives = React.useMemo(() => {
+    if (!learningObjectives) return undefined
+    return learningObjectives.map((obj, idx) => {
+      const key = `worksheets.${docId}.learningObjectives.${idx}`
+      const translated = t(key)
+      return translated !== key ? translated : obj
+    })
+  }, [t, docId, learningObjectives, language])
+  
+  const translatedTips = React.useMemo(() => {
+    if (!parentTeacherTips) return undefined
+    return parentTeacherTips.map((tip, idx) => {
+      const key = `worksheets.${docId}.parentTeacherTips.${idx}`
+      const translated = t(key)
+      return translated !== key ? translated : tip
+    })
+  }, [t, docId, parentTeacherTips, language])
   
   return (
     <section 
