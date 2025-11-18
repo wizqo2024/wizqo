@@ -582,35 +582,31 @@ export default function KidsPage() {
         {/* FAQs – Making Learning Fun for Kids */}
         <section id="faqs">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">🧠 FAQs – Making Learning Fun for Kids</h2>
+            <h2 className="text-2xl font-bold text-slate-900">{t('pages.kids.faq.title')}</h2>
           </div>
           <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
             <AccordionItem value="q1">
-              <AccordionTrigger className="px-4">How can I make learning fun for my child?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.kids.faq.q1.question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Turn lessons into games, use printable puzzles, and encourage creativity through art or short challenges. Mix brief study
-                sessions with <strong>fun learning games for kids</strong> that build focus and confidence.
+                {t('pages.kids.faq.q1.answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger className="px-4">What are the best fun learning games for kids online?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.kids.faq.q2.question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Memory Match improves focus and Word Search builds vocabulary. These quick, browser‑based games help kids learn new words,
-                improve memory, and enjoy learning at their own pace.
+                {t('pages.kids.faq.q2.answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger className="px-4">What printable activities help kids learn better?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.kids.faq.q3.question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Printable puzzles like Sudoku, Word Search, and Spot‑the‑Difference improve problem‑solving and attention to detail.
-                Coloring pages support creativity and relaxation — perfect for learning and play.
+                {t('pages.kids.faq.q3.answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q4">
-              <AccordionTrigger className="px-4">What fun skills can kids learn in a week?</AccordionTrigger>
+              <AccordionTrigger className="px-4">{t('pages.kids.faq.q4.question')}</AccordionTrigger>
               <AccordionContent className="px-4 text-slate-700">
-                Kids can build creative skills in just seven days with simple step‑by‑step plans like Origami Basics or Drawing Animals.
-                These short challenges teach patience, focus, and creativity while keeping learning exciting.
+                {t('pages.kids.faq.q4.answer')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="q5">
