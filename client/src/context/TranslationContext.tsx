@@ -23,7 +23,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   })
 
   // Save language preference
-  const setLanguage = (lang: Language) => {
+  const setLanguage = React.useCallback((lang: Language) => {
     setLanguageState(lang)
     if (typeof window !== 'undefined') {
       localStorage.setItem('wizqo-language', lang)
@@ -31,7 +31,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr'
       document.documentElement.lang = lang
     }
-  }
+  }, [])
 
   // Update HTML attributes when language changes
   useEffect(() => {
@@ -41,9 +41,9 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  const t = (key: string): string => {
+  const t = React.useCallback((key: string): string => {
     return getTranslation(language, key)
-  }
+  }, [language])
 
   const value: TranslationContextType = {
     language,
