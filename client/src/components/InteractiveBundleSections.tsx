@@ -3456,7 +3456,7 @@ const renderers: Record<string, Renderer> = {
     }
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">{ctx.t('worksheets.countObjectsAndWriteNumber')}</p>
+        <p className="text-sm text-slate-600">{t('worksheets.countObjectsAndWriteNumber')}</p>
         <div className="grid gap-4 md:grid-cols-2">
           {problems.map((prob, idx) => {
             const emoji = objectEmojis[prob.objects[0]] || '⭐'
@@ -3464,7 +3464,7 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border-2 border-purple-300 bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 p-5 shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-base font-bold text-purple-800 mb-3 flex items-center gap-2">
                   <span className="text-2xl">{emoji}</span>
-                  <span>{ctx.t('worksheets.countThe').replace('{{object}}', prob.objects[0])}</span>
+                  <span>{t('worksheets.countThe').replace('{{object}}', prob.objects[0])}</span>
                 </p>
                 <div className="flex flex-wrap gap-3 mb-4 bg-white/80 rounded-lg p-4 border-2 border-purple-200">
                   {Array.from({ length: prob.number }).map((_, i) => (
@@ -3472,7 +3472,7 @@ const renderers: Record<string, Renderer> = {
                   ))}
                 </div>
                 <div className="bg-white rounded-lg border-2 border-purple-300 p-3">
-                  <p className="text-base font-bold text-purple-800">{ctx.t('worksheets.numberLabel')}: <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
+                  <p className="text-base font-bold text-purple-800">{t('worksheets.numberLabel')}: <span className="border-b-2 border-purple-400 border-dashed inline-block min-w-[60px]">________</span></p>
                 </div>
               </div>
             )
@@ -6005,8 +6005,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
         <ol className="list-decimal list-inside space-y-2 text-sm">
           {problems.map((prob, idx) => (
             <li key={idx} className="mb-3">
-              <span className="font-semibold">{ctx.t('worksheets.countThe').replace('{{object}}', prob.objects[0])}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
-              <p className="text-xs text-slate-600 mt-1 ml-4">{ctx.t('worksheets.countingTeachingNote')}</p>
+              <span className="font-semibold">{t('worksheets.countThe').replace('{{object}}', prob.objects[0])}:</span> <span className="text-emerald-700 font-bold">{prob.number}</span>
+              <p className="text-xs text-slate-600 mt-1 ml-4">{t('worksheets.countingTeachingNote')}</p>
             </li>
           ))}
         </ol>
