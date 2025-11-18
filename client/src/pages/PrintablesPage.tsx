@@ -5014,12 +5014,11 @@ export function PrintablesPage() {
               </div>
             </div>
             <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. “Thank you!”</p>
+              <p className="text-slate-800 text-base">{t('worksheets.reading-g1-lost-hat.passage')}</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
-                <li>Where did Mia go?</li>
-                <li>What color was the hat?</li>
-                <li>Who found the hat?</li>
-                <li>Why did the hat fly off?</li>
+                {(t('worksheets.reading-g1-lost-hat.questions') as string[]).map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
               </ol>
             </div>
             {/* Extension/Challenge Problems */}
