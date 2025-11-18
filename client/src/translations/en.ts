@@ -1561,6 +1561,40 @@ export const en = {
       shareOnTwitter: 'Share on Twitter',
       shareOnPinterest: 'Share on Pinterest',
       copyLink: 'Copy link or share',
+      todaysWorksheets: 'Today\'s interactive worksheets',
+      generating: 'Generating…',
+      worksheetsReady: '{{count}} worksheets ready',
+      browseMoreWorksheets: 'Browse More Free Worksheets by Grade & Subject',
+      browseLinks: {
+        firstGradeMath: {
+          title: '1st Grade Math Worksheets',
+          description: 'Free printable math worksheets covering number sense, addition/subtraction, ten-frames, and shapes.',
+        },
+        secondGradeMath: {
+          title: '2nd Grade Math Worksheets',
+          description: 'Place value, addition/subtraction within 100, skip counting, and more grade 2 math practice.',
+        },
+        handwriting: {
+          title: 'Handwriting Worksheet Maker',
+          description: 'Create custom handwriting practice sheets with tracing letters, words, and sentences.',
+        },
+        readingComprehension: {
+          title: 'Reading Comprehension Worksheets',
+          description: 'Free printable reading comprehension worksheets with passages and questions for grades 1-3.',
+        },
+        nameTracing: {
+          title: 'Name Tracing Generator',
+          description: 'Generate personalized name tracing worksheets with dotted letters and friendly guidelines.',
+        },
+        printablesHub: {
+          title: 'Free Printables Hub',
+          description: 'Word searches, Sudoku, coloring pages, spot-the-difference games, and more printable activities.',
+        },
+        allWorksheets: {
+          title: 'All Free Worksheets',
+          description: 'Browse our complete collection of free printable worksheets for all grades K-5 and subjects.',
+        },
+      },
       faq: {
         q1: {
           question: 'Are these interactive worksheets really free?',
@@ -2847,6 +2881,26 @@ export const en = {
     handwritingWorksheetMaker: 'Handwriting Worksheet Maker',
     nameTracingGenerator: 'Name Tracing Generator',
     wordSearchGame: 'Word Search Game',
+  },
+  grades: {
+    preK: 'Preschool',
+    k1: 'K–1',
+    g2: '2nd–3rd',
+    '35': '4th–5th',
+    '68': '6th–8th',
+  },
+  categories: {
+    math: 'Math',
+    reading: 'Reading',
+    writing: 'Writing',
+    science: 'Science',
+    socialStudies: 'Social Studies',
+    grammar: 'Grammar & Vocabulary',
+    art: 'Art & Coloring',
+    earlyLearning: 'Early Learning',
+    criticalThinking: 'Critical Thinking',
+    socialEmotional: 'Social Emotional',
+  },
   },
   footer: {
     description: 'Create unlimited free printable worksheets with AI-powered personalized learning tools for teachers and parents.',

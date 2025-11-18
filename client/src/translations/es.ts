@@ -1564,6 +1564,40 @@ export const es = {
       shareOnTwitter: 'Compartir en Twitter',
       shareOnPinterest: 'Compartir en Pinterest',
       copyLink: 'Copiar enlace o compartir',
+      todaysWorksheets: 'Hojas de trabajo interactivas de hoy',
+      generating: 'Generando…',
+      worksheetsReady: '{{count}} hojas de trabajo listas',
+      browseMoreWorksheets: 'Explora Más Hojas de Trabajo Gratis por Grado y Materia',
+      browseLinks: {
+        firstGradeMath: {
+          title: 'Hojas de Trabajo de Matemáticas de 1er Grado',
+          description: 'Hojas de trabajo de matemáticas imprimibles gratis que cubren sentido numérico, suma/resta, marcos de diez y formas.',
+        },
+        secondGradeMath: {
+          title: 'Hojas de Trabajo de Matemáticas de 2do Grado',
+          description: 'Valor posicional, suma/resta dentro de 100, conteo salteado y más práctica de matemáticas de grado 2.',
+        },
+        handwriting: {
+          title: 'Creador de Hojas de Trabajo de Escritura',
+          description: 'Crea hojas de práctica de escritura personalizadas con letras, palabras y oraciones para trazar.',
+        },
+        readingComprehension: {
+          title: 'Hojas de Trabajo de Comprensión Lectora',
+          description: 'Hojas de trabajo de comprensión lectora imprimibles gratis con pasajes y preguntas para grados 1-3.',
+        },
+        nameTracing: {
+          title: 'Generador de Trazado de Nombres',
+          description: 'Genera hojas de trabajo de trazado de nombres personalizadas con letras punteadas y guías amigables.',
+        },
+        printablesHub: {
+          title: 'Centro de Imprimibles Gratis',
+          description: 'Sopas de letras, Sudoku, páginas para colorear, juegos de encontrar diferencias y más actividades imprimibles.',
+        },
+        allWorksheets: {
+          title: 'Todas las Hojas de Trabajo Gratis',
+          description: 'Explora nuestra colección completa de hojas de trabajo imprimibles gratis para todos los grados K-5 y materias.',
+        },
+      },
       faq: {
         q1: {
           question: '¿Son realmente gratuitas estas hojas de trabajo interactivas?',
@@ -2850,6 +2884,25 @@ export const es = {
     handwritingWorksheetMaker: 'Creador de Hojas de Trabajo de Caligrafía',
     nameTracingGenerator: 'Generador de Trazado de Nombres',
     wordSearchGame: 'Juego de Búsqueda de Palabras',
+  },
+  grades: {
+    preK: 'Preescolar',
+    k1: 'K–1',
+    g2: '2do–3ro',
+    '35': '4to–5to',
+    '68': '6to–8vo',
+  },
+  categories: {
+    math: 'Matemáticas',
+    reading: 'Lectura',
+    writing: 'Escritura',
+    science: 'Ciencias',
+    socialStudies: 'Estudios Sociales',
+    grammar: 'Gramática y Vocabulario',
+    art: 'Arte y Colorear',
+    earlyLearning: 'Aprendizaje Temprano',
+    criticalThinking: 'Pensamiento Crítico',
+    socialEmotional: 'Social Emocional',
   },
   footer: {
     description: 'Crea hojas de trabajo imprimibles gratuitas ilimitadas con herramientas de aprendizaje personalizadas impulsadas por IA para maestros y padres.',

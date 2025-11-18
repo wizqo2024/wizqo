@@ -1196,7 +1196,7 @@ export function InteractiveWorksheetsPage() {
                 <dl className="space-y-3 text-sm text-slate-600">
                   <div className="flex items-center justify-between">
                     <dt>{t('pages.interactive.gradeSelected')}</dt>
-                    <dd className="font-medium text-slate-900">{INTERACTIVE_GRADE_OPTIONS.find((g) => g.id === filters.grade)?.label || 'K–1'}</dd>
+                    <dd className="font-medium text-slate-900">{t(`grades.${INTERACTIVE_GRADE_OPTIONS.find((g) => g.id === filters.grade)?.id || 'k1'}`)}</dd>
                   </div>
                   <div>
                     <dt className="mb-2">{t('pages.interactive.categoriesSelected')}</dt>
@@ -1206,7 +1206,7 @@ export function InteractiveWorksheetsPage() {
                         return (
                           <span key={id} className="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2 py-0.5 text-xs text-purple-700">
                             {cat?.icon}
-                            {cat?.label || id}
+                            {cat ? t(`categories.${cat.id}`) : id}
                           </span>
                         )
                       })}
@@ -1229,7 +1229,7 @@ export function InteractiveWorksheetsPage() {
                 {INTERACTIVE_GRADE_OPTIONS.map((opt) => (
                   <GradeToggle
                     key={opt.id}
-                    label={opt.label}
+                    label={t(`grades.${opt.id}`)}
                     active={filters.grade === opt.id}
                     onSelect={() => setGrade(opt.id as GradeBand)}
                   />
@@ -1256,7 +1256,7 @@ export function InteractiveWorksheetsPage() {
                   <CategoryToggle
                     key={cat.id}
                     icon={cat.icon}
-                    label={cat.label}
+                    label={t(`categories.${cat.id}`)}
                     active={selectedCategorySet.has(cat.id)}
                     onToggle={() => toggleCategory(cat.id)}
                   />
@@ -1267,7 +1267,7 @@ export function InteractiveWorksheetsPage() {
 
           <section className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-xl font-semibold text-slate-900">Today’s interactive worksheets</h2>
+              <h2 className="text-xl font-semibold text-slate-900">{t('pages.interactive.todaysWorksheets')}</h2>
               <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
                 {loading ? 'Generating…' : `${searchQuery ? filteredItems.length : pack?.items.length || 0}${searchQuery && pack ? ` of ${pack.items.length}` : ''} worksheets ready`}
               </span>
@@ -1386,69 +1386,69 @@ export function InteractiveWorksheetsPage() {
 
         <section className="bg-slate-50 py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Browse More Free Worksheets by Grade & Subject</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 mb-6">{t('pages.interactive.browseMoreWorksheets')}</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <a
                 href="/worksheets/1st-grade-math-worksheets"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">1st Grade Math Worksheets</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.firstGradeMath.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Free printable math worksheets covering number sense, addition/subtraction, ten-frames, and shapes.
+                  {t('pages.interactive.browseLinks.firstGradeMath.description')}
                 </p>
               </a>
               <a
                 href="/worksheets/2nd-grade-math-worksheets"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">2nd Grade Math Worksheets</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.secondGradeMath.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Place value, addition/subtraction within 100, skip counting, and more grade 2 math practice.
+                  {t('pages.interactive.browseLinks.secondGradeMath.description')}
                 </p>
               </a>
               <a
                 href="/worksheets/handwriting-worksheet-maker"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Handwriting Worksheet Maker</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.handwriting.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Create custom handwriting practice sheets with tracing letters, words, and sentences.
+                  {t('pages.interactive.browseLinks.handwriting.description')}
                 </p>
               </a>
               <a
                 href="/worksheets/reading-comprehension"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Reading Comprehension Worksheets</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.readingComprehension.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Free printable reading comprehension worksheets with passages and questions for grades 1-3.
+                  {t('pages.interactive.browseLinks.readingComprehension.description')}
                 </p>
               </a>
               <a
                 href="/printables/name-tracing-generator"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Name Tracing Generator</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.nameTracing.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Generate personalized name tracing worksheets with dotted letters and friendly guidelines.
+                  {t('pages.interactive.browseLinks.nameTracing.description')}
                 </p>
               </a>
               <a
                 href="/printables"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Free Printables Hub</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.printablesHub.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Word searches, Sudoku, coloring pages, spot-the-difference games, and more printable activities.
+                  {t('pages.interactive.browseLinks.printablesHub.description')}
                 </p>
               </a>
               <a
                 href="/"
                 className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all"
               >
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">All Free Worksheets</h3>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{t('pages.interactive.browseLinks.allWorksheets.title')}</h3>
                 <p className="text-sm text-slate-600">
-                  Browse our complete collection of free printable worksheets for all grades K-5 and subjects.
+                  {t('pages.interactive.browseLinks.allWorksheets.description')}
                 </p>
               </a>
             </div>
