@@ -66,6 +66,24 @@ export const en = {
       drawHere: 'Draw your array here!',
       arraySummary: '... ({{rows}} rows × {{cols}} columns = {{total}} total)',
     },
+    division: {
+      instructions: 'Solve each division problem. Show your work.',
+      remainder: 'Remainder:',
+      visualGrouping: 'Visual grouping:',
+      groupInto: 'Group into {{divisor}}s: {{quotient}} groups{{remainder}}',
+      leftOver: ' + {{remainder}} left over',
+      total: 'total',
+    },
+    placeValue: {
+      instructions: 'Identify the digit in each place value.',
+    },
+    time: {
+      instructions: 'Read each clock and write the time.',
+      showTime: 'Show {{time}} on the clock.',
+    },
+    rounding: {
+      instructions: 'Round each number to the nearest {{place}}.',
+    },
   },
   difficulty: {
     beginner: 'Beginner',

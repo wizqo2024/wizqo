@@ -69,6 +69,24 @@ export const es = {
       drawHere: '¡Dibuja tu matriz aquí!',
       arraySummary: '... ({{rows}} filas × {{cols}} columnas = {{total}} total)',
     },
+    division: {
+      instructions: 'Resuelve cada problema de división. Muestra tu trabajo.',
+      remainder: 'Resto:',
+      visualGrouping: 'Agrupación visual:',
+      groupInto: 'Agrupa en {{divisor}}s: {{quotient}} grupos{{remainder}}',
+      leftOver: ' + {{remainder}} sobrantes',
+      total: 'total',
+    },
+    placeValue: {
+      instructions: 'Identifica el dígito en cada valor posicional.',
+    },
+    time: {
+      instructions: 'Lee cada reloj y escribe la hora.',
+      showTime: 'Muestra {{time}} en el reloj.',
+    },
+    rounding: {
+      instructions: 'Redondea cada número al {{place}} más cercano.',
+    },
   },
   difficulty: {
     beginner: 'Principiante',

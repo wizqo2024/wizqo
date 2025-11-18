@@ -69,6 +69,24 @@ export const ar = {
       drawHere: 'ارسم مصفوفتك هنا!',
       arraySummary: '... ({{rows}} صفوف × {{cols}} أعمدة = {{total}} إجمالي)',
     },
+    division: {
+      instructions: 'حل كل مسألة قسمة. أظهر عملك.',
+      remainder: 'الباقي:',
+      visualGrouping: 'التجميع المرئي:',
+      groupInto: 'جمّع في {{divisor}}s: {{quotient}} مجموعات{{remainder}}',
+      leftOver: ' + {{remainder}} متبقية',
+      total: 'إجمالي',
+    },
+    placeValue: {
+      instructions: 'حدد الرقم في كل قيمة منزلية.',
+    },
+    time: {
+      instructions: 'اقرأ كل ساعة واكتب الوقت.',
+      showTime: 'أظهر {{time}} على الساعة.',
+    },
+    rounding: {
+      instructions: 'قرب كل رقم إلى أقرب {{place}}.',
+    },
   },
   difficulty: {
     beginner: 'مبتدئ',

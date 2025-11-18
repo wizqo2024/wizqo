@@ -3573,25 +3573,35 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-division': ({ seed, doc, variant }) => {
+  'interactive-math-division': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathDivision(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Solve each division problem. Show your work.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.division.instructions')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
               <p className="text-sm font-semibold text-purple-800 mb-2">{prob.dividend} ÷ {prob.divisor} = ________</p>
-              {prob.remainder > 0 && <p className="text-xs text-slate-600">Remainder: ________</p>}
+              {prob.remainder > 0 && <p className="text-xs text-slate-600">{t('worksheets.division.remainder')} ________</p>}
               <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                <p className="text-xs text-purple-700 mb-1 font-semibold">Visual grouping:</p>
+                <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.division.visualGrouping')}</p>
                 <div className="flex flex-wrap gap-1">
                   {Array.from({ length: Math.min(prob.dividend, 20) }).map((_, i) => (
                     <div key={i} className={`w-6 h-6 rounded border ${i < prob.quotient * prob.divisor ? 'bg-purple-300 border-purple-400' : 'bg-purple-100 border-purple-200'}`}></div>
                   ))}
-                  {prob.dividend > 20 && <span className="text-xs text-purple-600 ml-1">... ({prob.dividend} total)</span>}
+                  {prob.dividend > 20 && (
+                    <span className="text-xs text-purple-600 ml-1">
+                      ... ({prob.dividend} {t('worksheets.division.total')})
+                    </span>
+                  )}
                 </div>
-                <p className="text-xs text-purple-600 mt-1">Group into {prob.divisor}s: {prob.quotient} groups{prob.remainder > 0 ? ` + ${prob.remainder} left over` : ''}</p>
+                <p className="text-xs text-purple-600 mt-1">
+                  {t('worksheets.division.groupInto')
+                    .replace('{{divisor}}', String(prob.divisor))
+                    .replace('{{quotient}}', String(prob.quotient))
+                    .replace('{{remainder}}', prob.remainder > 0 ? t('worksheets.division.leftOver').replace('{{remainder}}', String(prob.remainder)) : '')}
+                </p>
               </div>
               <div className="mt-2 h-16 border border-dashed border-purple-300 rounded bg-purple-50"></div>
             </div>
@@ -3600,11 +3610,12 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-place-value': ({ seed, doc, variant }) => {
+  'interactive-math-place-value': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathPlaceValue(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Identify the digit in each place value.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.placeValue.instructions')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => {
             const numStr = String(prob.number)
@@ -3637,7 +3648,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-time': ({ seed, doc, variant }) => {
+  'interactive-math-time': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathTime(seed, doc.id, variant)
     return (
       <div className="space-y-4">
@@ -3695,7 +3707,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-rounding': ({ seed, doc, variant }) => {
+  'interactive-math-rounding': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathRounding(seed, doc.id, variant)
     return (
       <div className="space-y-4">
