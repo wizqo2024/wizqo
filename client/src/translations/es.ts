@@ -331,6 +331,100 @@ export const es = {
       clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
       openPrintable: 'Abrir vista imprimible →',
       downloadPDF: 'Descargar PDF',
+      worksheets: {
+        placeValue99: {
+          title: '🔟 Valor Posicional (Decenas/Unidades) hasta 99',
+          description: 'Descompón números en decenas y unidades; compara y construye números.',
+        },
+        skipCounting120: {
+          title: '➡️ Conteo de Saltos por 5s/10s hasta 120',
+          description: 'Cuenta usando tablas numéricas y caminos de puntos para llegar a 120.',
+        },
+        expandedForm200: {
+          title: '🔢 Forma Expandida hasta 200',
+          description: 'Escribe números en forma expandida (100+20+5); entiende el valor posicional.',
+        },
+        numberPatterns200: {
+          title: '📊 Patrones Numéricos hasta 200',
+          description: 'Identifica y extiende patrones numéricos; desarrolla sentido numérico.',
+        },
+        roundingNearest10: {
+          title: '🔍 Redondeo al 10 Más Cercano',
+          description: 'Redondea números de 2 dígitos al 10 más cercano; habilidades de estimación.',
+        },
+        add2DigitNoRegrouping: {
+          title: '➕ Suma de 2 Dígitos (Sin Reagrupación)',
+          description: 'Practica sumar dos números de 2 dígitos dentro de 100 (sin llevar).',
+        },
+        add2DigitWithRegrouping: {
+          title: '➕ Suma de 2 Dígitos (CON Reagrupación)',
+          description: 'Suma los dos números. Necesitarás reagrupar (llevar) cuando las unidades sumen 10 o más.',
+        },
+        sub2DigitNoRegrouping: {
+          title: '➖ Resta de 2 Dígitos (Sin Reagrupación)',
+          description: 'Resta dentro de 100 usando líneas numéricas y modelos de base diez.',
+        },
+        sub2DigitWithRegrouping: {
+          title: '➖ Resta de 2 Dígitos (CON Reagrupación)',
+          description: 'Resta los dos números. Necesitarás reagrupar (pedir prestado) cuando el dígito de las unidades sea menor.',
+        },
+        adding3Numbers: {
+          title: '➕ Sumar 3 Números',
+          description: 'Suma tres números de un dígito o dos dígitos; práctica de cálculo mental.',
+        },
+        missingAddends: {
+          title: '➖ Sumandos Faltantes',
+          description: 'Encuentra el número faltante en ecuaciones de suma; operaciones inversas.',
+        },
+        factFamilies20: {
+          title: '⚖️ Familias de Hechos (hasta 20)',
+          description: 'Completa familias de hechos mostrando relaciones de suma y resta.',
+        },
+        compare2DigitNumbers: {
+          title: '📊 Comparar Números de 2 Dígitos',
+          description: 'Usa >, <, = para comparar números; explica usando decenas y unidades.',
+        },
+        wordProblems100: {
+          title: '🧮 Problemas de Palabras de 2do Grado',
+          description: 'Problemas de palabras mixtos de suma/resta dentro de 100 (sin reagrupación).',
+        },
+        mentalMath20: {
+          title: '🔢 Cálculo Mental (Suma/Resta hasta 20)',
+          description: 'Recuerdo rápido de datos de suma y resta; desarrolla velocidad.',
+        },
+        numberLine200: {
+          title: '📈 Línea Numérica hasta 200',
+          description: 'Usa líneas numéricas para resolver problemas y ubicar números hasta 200.',
+        },
+        doublesNearDoubles: {
+          title: '🎯 Dobles y Casi Dobles',
+          description: 'Domina los datos de dobles y estrategias de casi dobles (dobles +1).',
+        },
+        evenOddSorting100: {
+          title: '🔢 Clasificación Par/Impar (hasta 100)',
+          description: 'Clasifica números en pares e impares; explica patrones que notes.',
+        },
+        timeTo5Minutes: {
+          title: '🕒 Hora a los 5 Minutos',
+          description: 'Lee horas al minuto más cercano de 5; dibuja las manecillas para que coincidan.',
+        },
+        moneyCoinsBills: {
+          title: '💰 Dinero: Monedas y Billetes',
+          description: 'Cuenta monedas (centavos, níqueles, diez centavos, cuartos) y haz cambio.',
+        },
+        measurementLength: {
+          title: '📏 Medición: Longitud',
+          description: 'Compara longitudes usando pulgadas y centímetros; práctica de medición.',
+        },
+        barGraphsData: {
+          title: '📊 Gráficos de Barras y Datos',
+          description: 'Lee y crea gráficos de barras simples; interpreta datos.',
+        },
+        fractionsHalvesThirdsFourths: {
+          title: '🍕 Fracciones: Mitades, Tercios, Cuartos',
+          description: 'Colorea la fracción mostrada. Luego escribe el nombre de la fracción.',
+        },
+      },
     },
     secondGrade: {
       seoTitle: 'Hojas de Trabajo de Matemáticas de 2do Grado – PDF Gratis Imprimible',

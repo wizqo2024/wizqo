@@ -53,36 +53,36 @@ export default function WorksheetsSecondGradePage() {
     setSelectedCategories(new Set())
   }
 
-  // Define all worksheets with their categories
-  const allWorksheets: WorksheetItem[] = [
+  // Define all worksheets with their categories - using translation keys
+  const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Number Sense
-    { title: '🔟 Place Value (Tens/Ones) to 99', description: 'Break numbers into tens and ones; compare and build numbers.', href: '/print?doc=place-value-hto&from=2nd-grade', docId: 'place-value-hto', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '➡️ Skip Counting by 5s/10s to 120', description: 'Count on using number charts and dot‑paths to reach 120.', href: '/print?doc=skip-count-5-10-120&from=2nd-grade', docId: 'skip-count-5-10-120', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '🔢 Expanded Form to 200', description: 'Write numbers in expanded form (100+20+5); understand place value.', href: '/print?doc=expanded-form-200&from=2nd-grade', docId: 'expanded-form-200', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '📊 Number Patterns to 200', description: 'Identify and extend number patterns; build number sense.', href: '/print?doc=number-patterns-200&from=2nd-grade', docId: 'number-patterns-200', categories: ['number-sense'], section: 'Number Sense' },
-    { title: '🔍 Rounding to Nearest 10', description: 'Round 2-digit numbers to the nearest 10; estimation skills.', href: '/print?doc=rounding-nearest-10&from=2nd-grade', docId: 'rounding-nearest-10', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.secondGrade.worksheets.placeValue99.title'), description: t('pages.secondGrade.worksheets.placeValue99.description'), href: '/print?doc=place-value-hto&from=2nd-grade', docId: 'place-value-hto', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.secondGrade.worksheets.skipCounting120.title'), description: t('pages.secondGrade.worksheets.skipCounting120.description'), href: '/print?doc=skip-count-5-10-120&from=2nd-grade', docId: 'skip-count-5-10-120', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.secondGrade.worksheets.expandedForm200.title'), description: t('pages.secondGrade.worksheets.expandedForm200.description'), href: '/print?doc=expanded-form-200&from=2nd-grade', docId: 'expanded-form-200', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.secondGrade.worksheets.numberPatterns200.title'), description: t('pages.secondGrade.worksheets.numberPatterns200.description'), href: '/print?doc=number-patterns-200&from=2nd-grade', docId: 'number-patterns-200', categories: ['number-sense'], section: 'Number Sense' },
+    { title: t('pages.secondGrade.worksheets.roundingNearest10.title'), description: t('pages.secondGrade.worksheets.roundingNearest10.description'), href: '/print?doc=rounding-nearest-10&from=2nd-grade', docId: 'rounding-nearest-10', categories: ['number-sense'], section: 'Number Sense' },
     // Addition & Subtraction
-    { title: '➕ 2‑Digit Addition (No Regrouping)', description: 'Practice adding two 2‑digit numbers within 100 (no carry).', href: '/print?doc=add-2digit-100&from=2nd-grade', docId: 'add-2digit-100', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➕ 2‑Digit Addition (WITH Regrouping)', description: 'Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more.', href: '/print?doc=add-2digit-regrouping&from=2nd-grade', docId: 'add-2digit-regrouping', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➖ 2‑Digit Subtraction (No Regrouping)', description: 'Subtract within 100 using number lines and base‑ten models.', href: '/print?doc=sub-2digit-100&from=2nd-grade', docId: 'sub-2digit-100', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➖ 2‑Digit Subtraction (WITH Regrouping)', description: 'Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller.', href: '/print?doc=sub-2digit-regrouping&from=2nd-grade', docId: 'sub-2digit-regrouping', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➕ Adding 3 Numbers', description: 'Add three single-digit or two-digit numbers; mental math practice.', href: '/print?doc=add-three-numbers&from=2nd-grade', docId: 'add-three-numbers', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '➖ Missing Addends', description: 'Find the missing number in addition equations; inverse operations.', href: '/print?doc=missing-addends&from=2nd-grade', docId: 'missing-addends', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
-    { title: '⚖️ Fact Families (to 20)', description: 'Complete fact families showing addition and subtraction relationships.', href: '/print?doc=fact-families-20&from=2nd-grade', docId: 'fact-families-20', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.add2DigitNoRegrouping.title'), description: t('pages.secondGrade.worksheets.add2DigitNoRegrouping.description'), href: '/print?doc=add-2digit-100&from=2nd-grade', docId: 'add-2digit-100', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.add2DigitWithRegrouping.title'), description: t('pages.secondGrade.worksheets.add2DigitWithRegrouping.description'), href: '/print?doc=add-2digit-regrouping&from=2nd-grade', docId: 'add-2digit-regrouping', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.sub2DigitNoRegrouping.title'), description: t('pages.secondGrade.worksheets.sub2DigitNoRegrouping.description'), href: '/print?doc=sub-2digit-100&from=2nd-grade', docId: 'sub-2digit-100', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.sub2DigitWithRegrouping.title'), description: t('pages.secondGrade.worksheets.sub2DigitWithRegrouping.description'), href: '/print?doc=sub-2digit-regrouping&from=2nd-grade', docId: 'sub-2digit-regrouping', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.adding3Numbers.title'), description: t('pages.secondGrade.worksheets.adding3Numbers.description'), href: '/print?doc=add-three-numbers&from=2nd-grade', docId: 'add-three-numbers', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.missingAddends.title'), description: t('pages.secondGrade.worksheets.missingAddends.description'), href: '/print?doc=missing-addends&from=2nd-grade', docId: 'missing-addends', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
+    { title: t('pages.secondGrade.worksheets.factFamilies20.title'), description: t('pages.secondGrade.worksheets.factFamilies20.description'), href: '/print?doc=fact-families-20&from=2nd-grade', docId: 'fact-families-20', categories: ['addition-subtraction'], section: 'Addition & Subtraction' },
     // Fluency Boosters
-    { title: '📊 Compare 2‑Digit Numbers', description: 'Use >, <, = to compare numbers; explain using tens and ones.', href: '/print?doc=compare-2digit&from=2nd-grade', docId: 'compare-2digit', categories: ['fluency', 'number-sense'], section: 'Fluency Boosters' },
-    { title: '🧮 2nd‑Grade Word Problems', description: 'Mixed add/sub word problems within 100 (no regrouping).', href: '/print?doc=word-problems-100&from=2nd-grade', docId: 'word-problems-100', categories: ['fluency', 'addition-subtraction'], section: 'Fluency Boosters' },
-    { title: '🔢 Mental Math (Add/Sub to 20)', description: 'Quick recall of addition and subtraction facts; build speed.', href: '/print?doc=mental-math-20&from=2nd-grade', docId: 'mental-math-20', categories: ['fluency'], section: 'Fluency Boosters' },
-    { title: '📈 Number Line to 200', description: 'Use number lines to solve problems and locate numbers up to 200.', href: '/print?doc=number-line-200&from=2nd-grade', docId: 'number-line-200', categories: ['fluency'], section: 'Fluency Boosters' },
-    { title: '🎯 Doubles & Near Doubles', description: 'Master doubles facts and near doubles (doubles +1) strategies.', href: '/print?doc=doubles-near-doubles&from=2nd-grade', docId: 'doubles-near-doubles', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.secondGrade.worksheets.compare2DigitNumbers.title'), description: t('pages.secondGrade.worksheets.compare2DigitNumbers.description'), href: '/print?doc=compare-2digit&from=2nd-grade', docId: 'compare-2digit', categories: ['fluency', 'number-sense'], section: 'Fluency Boosters' },
+    { title: t('pages.secondGrade.worksheets.wordProblems100.title'), description: t('pages.secondGrade.worksheets.wordProblems100.description'), href: '/print?doc=word-problems-100&from=2nd-grade', docId: 'word-problems-100', categories: ['fluency', 'addition-subtraction'], section: 'Fluency Boosters' },
+    { title: t('pages.secondGrade.worksheets.mentalMath20.title'), description: t('pages.secondGrade.worksheets.mentalMath20.description'), href: '/print?doc=mental-math-20&from=2nd-grade', docId: 'mental-math-20', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.secondGrade.worksheets.numberLine200.title'), description: t('pages.secondGrade.worksheets.numberLine200.description'), href: '/print?doc=number-line-200&from=2nd-grade', docId: 'number-line-200', categories: ['fluency'], section: 'Fluency Boosters' },
+    { title: t('pages.secondGrade.worksheets.doublesNearDoubles.title'), description: t('pages.secondGrade.worksheets.doublesNearDoubles.description'), href: '/print?doc=doubles-near-doubles&from=2nd-grade', docId: 'doubles-near-doubles', categories: ['fluency'], section: 'Fluency Boosters' },
     // Focus & Logic
-    { title: '🔢 Even/Odd Sorting (to 100)', description: 'Sort numbers into even and odd; explain patterns you notice.', href: '/print?doc=even-odd-100&from=2nd-grade', docId: 'even-odd-100', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '🕒 Time to 5 Minutes', description: 'Read times to the nearest 5 minutes; draw hands to match.', href: '/print?doc=time-5min&from=2nd-grade', docId: 'time-5min', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '💰 Money: Coins & Bills', description: 'Count coins (pennies, nickels, dimes, quarters) and make change.', href: '/print?doc=money-coins-bills&from=2nd-grade', docId: 'money-coins-bills', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '📏 Measurement: Length', description: 'Compare lengths using inches and centimeters; measurement practice.', href: '/print?doc=measurement-length&from=2nd-grade', docId: 'measurement-length', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '📊 Bar Graphs & Data', description: 'Read and create simple bar graphs; interpret data.', href: '/print?doc=bar-graphs-data&from=2nd-grade', docId: 'bar-graphs-data', categories: ['logic'], section: 'Focus & Logic' },
-    { title: '🍕 Fractions: Halves, Thirds, Fourths', description: 'Color the fraction shown. Then write the fraction name.', href: '/print?doc=fractions-halves-thirds-fourths&from=2nd-grade', docId: 'fractions-halves-thirds-fourths', categories: ['logic'], section: 'Focus & Logic' },
-  ]
+    { title: t('pages.secondGrade.worksheets.evenOddSorting100.title'), description: t('pages.secondGrade.worksheets.evenOddSorting100.description'), href: '/print?doc=even-odd-100&from=2nd-grade', docId: 'even-odd-100', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.secondGrade.worksheets.timeTo5Minutes.title'), description: t('pages.secondGrade.worksheets.timeTo5Minutes.description'), href: '/print?doc=time-5min&from=2nd-grade', docId: 'time-5min', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.secondGrade.worksheets.moneyCoinsBills.title'), description: t('pages.secondGrade.worksheets.moneyCoinsBills.description'), href: '/print?doc=money-coins-bills&from=2nd-grade', docId: 'money-coins-bills', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.secondGrade.worksheets.measurementLength.title'), description: t('pages.secondGrade.worksheets.measurementLength.description'), href: '/print?doc=measurement-length&from=2nd-grade', docId: 'measurement-length', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.secondGrade.worksheets.barGraphsData.title'), description: t('pages.secondGrade.worksheets.barGraphsData.description'), href: '/print?doc=bar-graphs-data&from=2nd-grade', docId: 'bar-graphs-data', categories: ['logic'], section: 'Focus & Logic' },
+    { title: t('pages.secondGrade.worksheets.fractionsHalvesThirdsFourths.title'), description: t('pages.secondGrade.worksheets.fractionsHalvesThirdsFourths.description'), href: '/print?doc=fractions-halves-thirds-fourths&from=2nd-grade', docId: 'fractions-halves-thirds-fourths', categories: ['logic'], section: 'Focus & Logic' },
+  ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
@@ -90,7 +90,7 @@ export default function WorksheetsSecondGradePage() {
     return allWorksheets.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {

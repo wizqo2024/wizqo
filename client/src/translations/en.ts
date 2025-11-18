@@ -492,6 +492,100 @@ export const en = {
       clickToView: '👁️ Click to view full worksheet',
       openPrintable: 'Open printable view →',
       downloadPDF: 'Download PDF',
+      worksheets: {
+        placeValue99: {
+          title: '🔟 Place Value (Tens/Ones) to 99',
+          description: 'Break numbers into tens and ones; compare and build numbers.',
+        },
+        skipCounting120: {
+          title: '➡️ Skip Counting by 5s/10s to 120',
+          description: 'Count on using number charts and dot‑paths to reach 120.',
+        },
+        expandedForm200: {
+          title: '🔢 Expanded Form to 200',
+          description: 'Write numbers in expanded form (100+20+5); understand place value.',
+        },
+        numberPatterns200: {
+          title: '📊 Number Patterns to 200',
+          description: 'Identify and extend number patterns; build number sense.',
+        },
+        roundingNearest10: {
+          title: '🔍 Rounding to Nearest 10',
+          description: 'Round 2-digit numbers to the nearest 10; estimation skills.',
+        },
+        add2DigitNoRegrouping: {
+          title: '➕ 2‑Digit Addition (No Regrouping)',
+          description: 'Practice adding two 2‑digit numbers within 100 (no carry).',
+        },
+        add2DigitWithRegrouping: {
+          title: '➕ 2‑Digit Addition (WITH Regrouping)',
+          description: 'Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more.',
+        },
+        sub2DigitNoRegrouping: {
+          title: '➖ 2‑Digit Subtraction (No Regrouping)',
+          description: 'Subtract within 100 using number lines and base‑ten models.',
+        },
+        sub2DigitWithRegrouping: {
+          title: '➖ 2‑Digit Subtraction (WITH Regrouping)',
+          description: 'Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller.',
+        },
+        adding3Numbers: {
+          title: '➕ Adding 3 Numbers',
+          description: 'Add three single-digit or two-digit numbers; mental math practice.',
+        },
+        missingAddends: {
+          title: '➖ Missing Addends',
+          description: 'Find the missing number in addition equations; inverse operations.',
+        },
+        factFamilies20: {
+          title: '⚖️ Fact Families (to 20)',
+          description: 'Complete fact families showing addition and subtraction relationships.',
+        },
+        compare2DigitNumbers: {
+          title: '📊 Compare 2‑Digit Numbers',
+          description: 'Use >, <, = to compare numbers; explain using tens and ones.',
+        },
+        wordProblems100: {
+          title: '🧮 2nd‑Grade Word Problems',
+          description: 'Mixed add/sub word problems within 100 (no regrouping).',
+        },
+        mentalMath20: {
+          title: '🔢 Mental Math (Add/Sub to 20)',
+          description: 'Quick recall of addition and subtraction facts; build speed.',
+        },
+        numberLine200: {
+          title: '📈 Number Line to 200',
+          description: 'Use number lines to solve problems and locate numbers up to 200.',
+        },
+        doublesNearDoubles: {
+          title: '🎯 Doubles & Near Doubles',
+          description: 'Master doubles facts and near doubles (doubles +1) strategies.',
+        },
+        evenOddSorting100: {
+          title: '🔢 Even/Odd Sorting (to 100)',
+          description: 'Sort numbers into even and odd; explain patterns you notice.',
+        },
+        timeTo5Minutes: {
+          title: '🕒 Time to 5 Minutes',
+          description: 'Read times to the nearest 5 minutes; draw hands to match.',
+        },
+        moneyCoinsBills: {
+          title: '💰 Money: Coins & Bills',
+          description: 'Count coins (pennies, nickels, dimes, quarters) and make change.',
+        },
+        measurementLength: {
+          title: '📏 Measurement: Length',
+          description: 'Compare lengths using inches and centimeters; measurement practice.',
+        },
+        barGraphsData: {
+          title: '📊 Bar Graphs & Data',
+          description: 'Read and create simple bar graphs; interpret data.',
+        },
+        fractionsHalvesThirdsFourths: {
+          title: '🍕 Fractions: Halves, Thirds, Fourths',
+          description: 'Color the fraction shown. Then write the fraction name.',
+        },
+      },
     },
     thirdGrade: {
       seoTitle: '3rd Grade Math Worksheets – Free Printable PDF',
