@@ -566,11 +566,11 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'probability',
 ]
 
-function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string }): string {
-  const { packTime, bundleCategory } = context
+function resolveDocTitle(docId: string, context: { packTime: string; bundleCategory?: string; t?: (key: string) => string }): string {
+  const { packTime, bundleCategory, t } = context
   switch (docId) {
     case 'bundle':
-      return bundleCategory ? `${bundleCategory} Printable Bundle` : 'Printable Bundle'
+      return bundleCategory ? `${bundleCategory} ${t ? t('pages.printables.printableBundle') : 'Printable Bundle'}` : (t ? t('pages.printables.printableBundle') : 'Printable Bundle')
     case 'ten-frames-1-20':
       return '🔟 Ten Frames 1–20'
     case 'number-tracing-1-20':
@@ -1251,7 +1251,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'probability':
       return '📊 Probability'
     default:
-      return 'Printable Fun Learning Activities'
+      return t ? t('pages.printables.printableFunLearning') : 'Printable Fun Learning Activities'
   }
 }
 
@@ -1314,7 +1314,7 @@ export function PrintablesPage() {
         }
       }
     }
-    return resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined })
+    return resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined, t })
   }, [doc, packTime, bundleCategoryParam, activeDocs])
   const pinHref = React.useMemo(() => {
     try {
@@ -1346,7 +1346,7 @@ export function PrintablesPage() {
     if (!showAnswers) return null
     const content = factory()
     if (doc === 'bundle') {
-      const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined })
+      const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
       let summaryContent = content
       if (React.isValidElement(content)) {
         const existing = content.props.className || ''
@@ -7349,8 +7349,8 @@ export function PrintablesPage() {
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-3xl font-bold text-slate-900">{docTitle}</h2>
-                  <div className="text-slate-700 text-xl">Time: {packTime} min • Age: {friendlyAge(packAge)} • Focus: {displayFocus}</div>
-                  <div className="text-slate-700 text-sm">Seed: {effectiveSeed} • Variant: {variant}</div>
+                  <div className="text-slate-700 text-xl">{t('pages.printables.time')}: {packTime} min • {t('pages.printables.age')}: {friendlyAge(packAge)} • {t('pages.printables.focus')}: {displayFocus}</div>
+                  <div className="text-slate-700 text-sm">{t('pages.printables.seed')}: {effectiveSeed} • {t('pages.printables.variant')}: {variant}</div>
                 </div>
                 <div className="print:hidden flex items-center gap-2">
                   <a href={todayUrl} className="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm">Today’s Pack</a>
@@ -9621,7 +9621,7 @@ export function PrintablesPage() {
                 title="Download as PDF (uses your browser's Save as PDF)"
               >
                 <span>⬇️</span>
-                <span>Download PDF</span>
+                <span>{t('pages.printables.downloadPDF')}</span>
               </button>
             </div>
             <div className="grid sm:grid-cols-2 gap-6">
@@ -30117,7 +30117,7 @@ export function PrintablesPage() {
           if (unhandledDocIds.length === 0) return null
           
           return unhandledDocIds.map(docId => {
-            const title = resolveDocTitle(docId, { packTime, bundleCategory })
+            const title = resolveDocTitle(docId, { packTime, bundleCategory, t })
             return (
               <WorksheetSectionWrapper
                 key={docId}
