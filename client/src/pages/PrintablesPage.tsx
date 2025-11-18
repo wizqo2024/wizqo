@@ -15226,6 +15226,18 @@ export function PrintablesPage() {
 
         {/* Times Table Worksheets */}
         {activeDocs.includes('times-table-horizontal-1-5') && (() => {
+          const docId = 'times-table-horizontal-1-5'
+          const getTrans = (key: string, fallback: string) => {
+            try {
+              const result = t(key)
+              if (typeof result === 'string' && result === key) return fallback
+              if (typeof result === 'string' && result.startsWith('worksheets.')) return fallback
+              if (!result || (typeof result === 'string' && result.trim() === '')) return fallback
+              return result
+            } catch (error) {
+              return fallback
+            }
+          }
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const facts: Array<[number, number]> = Array.from({length: 15}).map(() => {
@@ -15233,35 +15245,43 @@ export function PrintablesPage() {
           });
           return (
             <WorksheetSectionWrapper
-              docId="times-table-horizontal-1-5"
-              title="Horizontal Times Table (1-5)"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Horizontal Times Table (1-5)')}
               emoji="➡️"
-              description="Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice."
+              description={getTrans(`worksheets.${docId}.description`, 'Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice.')}
               problemCount={facts.length}
-              learningObjectives={[
-                'Memorize multiplication facts for numbers 1-5',
-                'Practice multiplication in horizontal format',
-                'Build speed and accuracy with basic facts'
-              ]}
-              parentTeacherTips={[
-                'Start with easier facts (1s, 2s) and work up to 5s',
-                'Use skip counting to help: 3 × 4 means count by 3s four times',
-                'Practice daily for 5-10 minutes for best results',
-                'Extension: Time yourself and try to beat your record!'
-              ]}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Memorize multiplication facts for numbers 1-5',
+                  'Practice multiplication in horizontal format',
+                  'Build speed and accuracy with basic facts'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'Start with easier facts (1s, 2s) and work up to 5s',
+                  'Use skip counting to help: 3 × 4 means count by 3s four times',
+                  'Practice daily for 5-10 minutes for best results',
+                  'Extension: Time yourself and try to beat your record!'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 3 × 4 = ?</div>
+                  <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '3 × 4 = ?')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Method 1 (Skip Counting):</strong> Count by 3s four times: 3, 6, 9, 12</div>
-                    <div><strong>Method 2 (Repeated Addition):</strong> 3 + 3 + 3 + 3 = 12</div>
-                    <div><strong>Method 3 (Visual):</strong> 3 groups of 4 objects = 12 objects</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: You can also think of it as 4 × 3 = 12 (order doesn't matter!)</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.method1`, 'Method 1 (Skip Counting):')}</strong> {getTrans(`worksheets.${docId}.example.method1Text`, 'Count by 3s four times: 3, 6, 9, 12')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.method2`, 'Method 2 (Repeated Addition):')}</strong> {getTrans(`worksheets.${docId}.example.method2Text`, '3 + 3 + 3 + 3 = 12')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.method3`, 'Method 3 (Visual):')}</strong> {getTrans(`worksheets.${docId}.example.method3Text`, '3 groups of 4 objects = 12 objects')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '12')}</div>
+                    <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: You can also think of it as 4 × 3 = 12 (order doesn\'t matter!)')}</div>
                   </div>
                 </div>
               </div>
@@ -15276,35 +15296,51 @@ export function PrintablesPage() {
               </div>
               {/* Extension/Challenge Problems - Start of page 2 content */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own multiplication problem: ___ × ___ = ?</div>
-                  <div>2. Solve: 5 × 5 = ? (the biggest fact in this worksheet!)</div>
-                  <div>3. Write all the facts that equal 12: ___ × ___ = 12</div>
-                  <div>4. Time yourself: Can you complete all 15 problems in under 2 minutes?</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.challenge.items`)
+                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                      'Create your own multiplication problem: ___ × ___ = ?',
+                      'Solve: 5 × 5 = ? (the biggest fact in this worksheet!)',
+                      'Write all the facts that equal 12: ___ × ___ = 12',
+                      `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`
+                    ]
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>{i + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment - Will appear on page 2 with Challenge and Parent/Teacher Tips */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can multiply numbers 1-5 easily</div>
-                  <div>☐ I need more practice with some facts</div>
-                  <div>☐ I can say the answers quickly (fluency)</div>
+                  {(() => {
+                    const items = t(`worksheets.${docId}.selfAssessment.items`)
+                    const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                      'I can multiply numbers 1-5 easily',
+                      'I need more practice with some facts',
+                      'I can say the answers quickly (fluency)'
+                    ]
+                    return itemsArray.map((item, i) => (
+                      <div key={i}>☐ {item}</div>
+                    ))
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {facts.length}
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {facts.length}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>Time taken:</strong> _____ minutes
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.timeTaken`, 'Time taken:')}</strong> _____ {getTrans(`worksheets.${docId}.selfAssessment.minutes`, 'minutes')}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>Facts I want to practice more:</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.factsToPractice`, 'Facts I want to practice more:')}</strong> _________________________
                 </div>
               </div>
-              {showAnswersForDoc('times-table-horizontal-1-5', () => (
+              {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
                   <div className="grid grid-cols-3 gap-2 text-sm">
                     {facts.map(([a, b], i) => (
                       <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
@@ -15313,7 +15349,7 @@ export function PrintablesPage() {
                     ))}
                   </div>
                   <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>💡 Study Tip:</strong> Practice saying these facts out loud daily. Try to answer faster each time!
+                    <strong>{getTrans(`worksheets.${docId}.answerKey.studyTip`, '💡 Study Tip:')}</strong> {getTrans(`worksheets.${docId}.answerKey.studyTipText`, 'Practice saying these facts out loud daily. Try to answer faster each time!')}
                   </div>
                 </div>
               ))}
