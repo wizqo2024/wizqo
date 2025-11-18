@@ -51,29 +51,29 @@ export default function MultiplicationWorksheetsPage() {
     setSelectedCategories(new Set())
   }
 
-  // Define all worksheets with their categories
-  const allWorksheets: WorksheetItem[] = [
+  // Define all worksheets with their categories - using translation keys
+  const allWorksheets: WorksheetItem[] = useMemo(() => [
     // 2nd & 3rd Grade
-    { title: '✖️ Basic Multiplication Facts (1-5)', description: 'Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences. Perfect for building foundational multiplication skills.', href: '/print?doc=mult-facts-1-5&from=multiplication', docId: 'mult-facts-1-5', categories: ['facts'], gradeRange: '2nd-3rd' },
-    { title: '📊 Multiplication Arrays (2-5)', description: 'Draw arrays to solve multiplication problems; understand multiplication as repeated addition with visual models.', href: '/print?doc=mult-arrays-2-5&from=multiplication', docId: 'mult-arrays-2-5', categories: ['arrays'], gradeRange: '2nd-3rd' },
-    { title: '➡️ Skip Counting for Multiplication', description: 'Practice skip counting by 2s, 3s, 5s, and 10s to build multiplication foundation and pattern recognition.', href: '/print?doc=skip-count-mult&from=multiplication', docId: 'skip-count-mult', categories: ['skip-counting'], gradeRange: '2nd-3rd' },
-    { title: '🧮 Multiplication Word Problems (2nd-3rd)', description: 'Solve simple multiplication word problems with pictures and number sentences for 2nd and 3rd graders.', href: '/print?doc=mult-word-problems-2-3&from=multiplication', docId: 'mult-word-problems-2-3', categories: ['word-problems'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.basicFacts1_5.title'), description: t('pages.multiplication.worksheets.basicFacts1_5.description'), href: '/print?doc=mult-facts-1-5&from=multiplication', docId: 'mult-facts-1-5', categories: ['facts'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.arrays2_5.title'), description: t('pages.multiplication.worksheets.arrays2_5.description'), href: '/print?doc=mult-arrays-2-5&from=multiplication', docId: 'mult-arrays-2-5', categories: ['arrays'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.skipCounting.title'), description: t('pages.multiplication.worksheets.skipCounting.description'), href: '/print?doc=skip-count-mult&from=multiplication', docId: 'skip-count-mult', categories: ['skip-counting'], gradeRange: '2nd-3rd' },
+    { title: t('pages.multiplication.worksheets.wordProblems2_3.title'), description: t('pages.multiplication.worksheets.wordProblems2_3.description'), href: '/print?doc=mult-word-problems-2-3&from=multiplication', docId: 'mult-word-problems-2-3', categories: ['word-problems'], gradeRange: '2nd-3rd' },
     // 3rd & 4th Grade
-    { title: '✖️ Advanced Multiplication Facts (6-12)', description: 'Master multiplication facts 6×6 through 12×12 with timed practice and fact fluency drills.', href: '/print?doc=mult-facts-6-12&from=multiplication', docId: 'mult-facts-6-12', categories: ['facts'], gradeRange: '3rd-4th' },
-    { title: '📊 Multiplication Arrays & Models', description: 'Create and solve multiplication problems using larger arrays and visual models for deeper understanding.', href: '/print?doc=mult-arrays-models&from=multiplication', docId: 'mult-arrays-models', categories: ['arrays'], gradeRange: '3rd-4th' },
-    { title: '🧮 Multi-Step Word Problems', description: 'Solve multi-step multiplication word problems with real-world scenarios for 3rd and 4th graders.', href: '/print?doc=mult-multi-step-word&from=multiplication', docId: 'mult-multi-step-word', categories: ['word-problems'], gradeRange: '3rd-4th' },
-    { title: '⚖️ Fact Families (Multiplication & Division)', description: 'Complete multiplication and division fact families to understand inverse operations and number relationships.', href: '/print?doc=mult-fact-families&from=multiplication', docId: 'mult-fact-families', categories: ['fact-families'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.advancedFacts6_12.title'), description: t('pages.multiplication.worksheets.advancedFacts6_12.description'), href: '/print?doc=mult-facts-6-12&from=multiplication', docId: 'mult-facts-6-12', categories: ['facts'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.arraysModels.title'), description: t('pages.multiplication.worksheets.arraysModels.description'), href: '/print?doc=mult-arrays-models&from=multiplication', docId: 'mult-arrays-models', categories: ['arrays'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.multiStepWord.title'), description: t('pages.multiplication.worksheets.multiStepWord.description'), href: '/print?doc=mult-multi-step-word&from=multiplication', docId: 'mult-multi-step-word', categories: ['word-problems'], gradeRange: '3rd-4th' },
+    { title: t('pages.multiplication.worksheets.factFamilies.title'), description: t('pages.multiplication.worksheets.factFamilies.description'), href: '/print?doc=mult-fact-families&from=multiplication', docId: 'mult-fact-families', categories: ['fact-families'], gradeRange: '3rd-4th' },
     // 4th & 5th Grade
-    { title: '✖️ Multi-Digit Multiplication (2×1)', description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.', href: '/print?doc=mult-2x1&from=multiplication', docId: 'mult-2x1', categories: ['multi-digit'], gradeRange: '4th-5th' },
-    { title: '✖️ Multi-Digit Multiplication (2×2)', description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.', href: '/print?doc=mult-2x2&from=multiplication', docId: 'mult-2x2', categories: ['multi-digit'], gradeRange: '4th-5th' },
-    { title: '📊 Area Model Multiplication', description: 'Use area models to visualize and solve multi-digit multiplication problems with visual understanding.', href: '/print?doc=mult-area-model&from=multiplication', docId: 'mult-area-model', categories: ['arrays', 'multi-digit'], gradeRange: '4th-5th' },
-    { title: '🧮 Complex Word Problems', description: 'Solve complex multiplication word problems with multiple steps and real-world contexts for 4th and 5th graders.', href: '/print?doc=mult-complex-word&from=multiplication', docId: 'mult-complex-word', categories: ['word-problems'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.multiDigit2x1.title'), description: t('pages.multiplication.worksheets.multiDigit2x1.description'), href: '/print?doc=mult-2x1&from=multiplication', docId: 'mult-2x1', categories: ['multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.multiDigit2x2.title'), description: t('pages.multiplication.worksheets.multiDigit2x2.description'), href: '/print?doc=mult-2x2&from=multiplication', docId: 'mult-2x2', categories: ['multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.areaModel.title'), description: t('pages.multiplication.worksheets.areaModel.description'), href: '/print?doc=mult-area-model&from=multiplication', docId: 'mult-area-model', categories: ['arrays', 'multi-digit'], gradeRange: '4th-5th' },
+    { title: t('pages.multiplication.worksheets.complexWord.title'), description: t('pages.multiplication.worksheets.complexWord.description'), href: '/print?doc=mult-complex-word&from=multiplication', docId: 'mult-complex-word', categories: ['word-problems'], gradeRange: '4th-5th' },
     // Fluency & Practice
-    { title: '⏱️ Multiplication Fact Fluency', description: 'Build speed and accuracy with multiplication fact practice covering all facts 1-12 for complete mastery.', href: '/print?doc=mult-fact-fluency&from=multiplication', docId: 'mult-fact-fluency', categories: ['facts', 'fluency'], gradeRange: 'All' },
-    { title: '🔢 Mixed Multiplication Review', description: 'Mixed practice with all multiplication facts for comprehensive review and retention.', href: '/print?doc=mult-mixed-review&from=multiplication', docId: 'mult-mixed-review', categories: ['fluency'], gradeRange: 'All' },
-    { title: '🎯 Multiplication Strategies', description: 'Learn and practice different multiplication strategies (skip counting, arrays, repeated addition, distributive property).', href: '/print?doc=mult-strategies&from=multiplication', docId: 'mult-strategies', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
-    { title: '📈 Multiplication Patterns', description: 'Identify and extend multiplication patterns and number sequences to build algebraic thinking.', href: '/print?doc=mult-patterns&from=multiplication', docId: 'mult-patterns', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
-  ]
+    { title: t('pages.multiplication.worksheets.factFluency.title'), description: t('pages.multiplication.worksheets.factFluency.description'), href: '/print?doc=mult-fact-fluency&from=multiplication', docId: 'mult-fact-fluency', categories: ['facts', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.mixedReview.title'), description: t('pages.multiplication.worksheets.mixedReview.description'), href: '/print?doc=mult-mixed-review&from=multiplication', docId: 'mult-mixed-review', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.strategies.title'), description: t('pages.multiplication.worksheets.strategies.description'), href: '/print?doc=mult-strategies&from=multiplication', docId: 'mult-strategies', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
+    { title: t('pages.multiplication.worksheets.patterns.title'), description: t('pages.multiplication.worksheets.patterns.description'), href: '/print?doc=mult-patterns&from=multiplication', docId: 'mult-patterns', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
+  ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
@@ -81,7 +81,7 @@ export default function MultiplicationWorksheetsPage() {
     return allWorksheets.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by grade range
   const groupedWorksheets = useMemo(() => {

@@ -57,45 +57,45 @@ export default function TimesTableMultiplicationWorksheetsPage() {
   }
 
   // Define all times table worksheets with their categories
-  const allWorksheets: WorksheetItem[] = [
+  const allWorksheets: WorksheetItem[] = useMemo(() => [
     // Horizontal Format Worksheets
-    { title: '➡️ Horizontal Times Table (1-5)', description: 'Practice times tables 1-5 in horizontal format. Build confidence with simple, stress-free multiplication practice sheets perfect for beginners.', href: '/print?doc=times-table-horizontal-1-5&from=times-table', docId: 'times-table-horizontal-1-5', categories: ['horizontal', 'confidence'], gradeRange: '1st-2nd' },
-    { title: '➡️ Horizontal Times Table (6-12)', description: 'Master times tables 6-12 in horizontal format. Fun and simple worksheets to make multiplication easier for advancing learners.', href: '/print?doc=times-table-horizontal-6-12&from=times-table', docId: 'times-table-horizontal-6-12', categories: ['horizontal', 'fluency'], gradeRange: '3rd-4th' },
-    { title: '➡️ Complete Horizontal Times Table (1-12)', description: 'Comprehensive horizontal times table practice covering all facts 1-12. Perfect for building multiplication fluency and speed.', href: '/print?doc=times-table-horizontal-1-12&from=times-table', docId: 'times-table-horizontal-1-12', categories: ['horizontal', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.horizontal1_5.title'), description: t('pages.timesTable.worksheets.horizontal1_5.description'), href: '/print?doc=times-table-horizontal-1-5&from=times-table', docId: 'times-table-horizontal-1-5', categories: ['horizontal', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.horizontal6_12.title'), description: t('pages.timesTable.worksheets.horizontal6_12.description'), href: '/print?doc=times-table-horizontal-6-12&from=times-table', docId: 'times-table-horizontal-6-12', categories: ['horizontal', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.horizontal1_12.title'), description: t('pages.timesTable.worksheets.horizontal1_12.description'), href: '/print?doc=times-table-horizontal-1-12&from=times-table', docId: 'times-table-horizontal-1-12', categories: ['horizontal', 'fluency'], gradeRange: 'All' },
     
     // Vertical Format Worksheets
-    { title: '⬇️ Vertical Times Table (1-5)', description: 'Practice times tables 1-5 in vertical format. Step-by-step multiplication worksheets designed for kids who struggle with multiplication.', href: '/print?doc=times-table-vertical-1-5&from=times-table', docId: 'times-table-vertical-1-5', categories: ['vertical', 'confidence'], gradeRange: '1st-2nd' },
-    { title: '⬇️ Vertical Times Table (6-12)', description: 'Master times tables 6-12 in vertical format. Engaging multiplication worksheets that make learning fun and build math confidence.', href: '/print?doc=times-table-vertical-6-12&from=times-table', docId: 'times-table-vertical-6-12', categories: ['vertical', 'fluency'], gradeRange: '3rd-4th' },
-    { title: '⬇️ Complete Vertical Times Table (1-12)', description: 'Comprehensive vertical times table practice covering all facts 1-12. Printable worksheets to help kids overcome math fear.', href: '/print?doc=times-table-vertical-1-12&from=times-table', docId: 'times-table-vertical-1-12', categories: ['vertical', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.vertical1_5.title'), description: t('pages.timesTable.worksheets.vertical1_5.description'), href: '/print?doc=times-table-vertical-1-5&from=times-table', docId: 'times-table-vertical-1-5', categories: ['vertical', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.vertical6_12.title'), description: t('pages.timesTable.worksheets.vertical6_12.description'), href: '/print?doc=times-table-vertical-6-12&from=times-table', docId: 'times-table-vertical-6-12', categories: ['vertical', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.vertical1_12.title'), description: t('pages.timesTable.worksheets.vertical1_12.description'), href: '/print?doc=times-table-vertical-1-12&from=times-table', docId: 'times-table-vertical-1-12', categories: ['vertical', 'fluency'], gradeRange: 'All' },
     
     // Missing Number Worksheets
-    { title: '❓ Missing Number Times Table (1-5)', description: 'Fill in the missing numbers in times table problems. No-tears times table practice sheets that build understanding through pattern recognition.', href: '/print?doc=times-table-missing-1-5&from=times-table', docId: 'times-table-missing-1-5', categories: ['missing-number', 'confidence'], gradeRange: '1st-2nd' },
-    { title: '❓ Missing Number Times Table (6-12)', description: 'Complete missing numbers in advanced times table problems. Gentle step-by-step multiplication worksheets for confident learning.', href: '/print?doc=times-table-missing-6-12&from=times-table', docId: 'times-table-missing-6-12', categories: ['missing-number', 'fluency'], gradeRange: '3rd-4th' },
-    { title: '❓ Mixed Missing Number Challenge', description: 'Mixed missing number problems across all times tables 1-12. Build multiplication fluency with engaging practice that makes learning fun.', href: '/print?doc=times-table-missing-mixed&from=times-table', docId: 'times-table-missing-mixed', categories: ['missing-number', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.missing1_5.title'), description: t('pages.timesTable.worksheets.missing1_5.description'), href: '/print?doc=times-table-missing-1-5&from=times-table', docId: 'times-table-missing-1-5', categories: ['missing-number', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.missing6_12.title'), description: t('pages.timesTable.worksheets.missing6_12.description'), href: '/print?doc=times-table-missing-6-12&from=times-table', docId: 'times-table-missing-6-12', categories: ['missing-number', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.missingMixed.title'), description: t('pages.timesTable.worksheets.missingMixed.description'), href: '/print?doc=times-table-missing-mixed&from=times-table', docId: 'times-table-missing-mixed', categories: ['missing-number', 'fluency'], gradeRange: 'All' },
     
     // Timed Test Worksheets
-    { title: '⏱️ Timed Times Table Test (1-5)', description: 'Build speed and accuracy with timed multiplication tests for facts 1-5. Printable timed multiplication test sheets for confident practice.', href: '/print?doc=times-table-timed-1-5&from=times-table', docId: 'times-table-timed-1-5', categories: ['timed', 'fluency'], gradeRange: '2nd-3rd' },
-    { title: '⏱️ Timed Times Table Test (6-12)', description: 'Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice.', href: '/print?doc=times-table-timed-6-12&from=times-table', docId: 'times-table-timed-6-12', categories: ['timed', 'fluency'], gradeRange: '3rd-5th' },
-    { title: '⏱️ Complete Timed Test (1-12)', description: 'Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables.', href: '/print?doc=times-table-timed-1-12&from=times-table', docId: 'times-table-timed-1-12', categories: ['timed', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.timed1_5.title'), description: t('pages.timesTable.worksheets.timed1_5.description'), href: '/print?doc=times-table-timed-1-5&from=times-table', docId: 'times-table-timed-1-5', categories: ['timed', 'fluency'], gradeRange: '2nd-3rd' },
+    { title: t('pages.timesTable.worksheets.timed6_12.title'), description: t('pages.timesTable.worksheets.timed6_12.description'), href: '/print?doc=times-table-timed-6-12&from=times-table', docId: 'times-table-timed-6-12', categories: ['timed', 'fluency'], gradeRange: '3rd-5th' },
+    { title: t('pages.timesTable.worksheets.timed1_12.title'), description: t('pages.timesTable.worksheets.timed1_12.description'), href: '/print?doc=times-table-timed-1-12&from=times-table', docId: 'times-table-timed-1-12', categories: ['timed', 'fluency'], gradeRange: 'All' },
     
     // Blank Times Table Worksheets
-    { title: '📋 Blank Times Table (1-5) - Fill In', description: 'Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence.', href: '/print?doc=times-table-blank-1-5&from=times-table', docId: 'times-table-blank-1-5', categories: ['blank', 'confidence'], gradeRange: '1st-2nd' },
-    { title: '📋 Blank Times Table (6-12) - Fill In', description: 'Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step.', href: '/print?doc=times-table-blank-6-12&from=times-table', docId: 'times-table-blank-6-12', categories: ['blank', 'fluency'], gradeRange: '3rd-4th' },
-    { title: '📋 Complete Blank Times Table (1-12)', description: 'Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency.', href: '/print?doc=times-table-blank-1-12&from=times-table', docId: 'times-table-blank-1-12', categories: ['blank', 'fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.blank1_5.title'), description: t('pages.timesTable.worksheets.blank1_5.description'), href: '/print?doc=times-table-blank-1-5&from=times-table', docId: 'times-table-blank-1-5', categories: ['blank', 'confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.blank6_12.title'), description: t('pages.timesTable.worksheets.blank6_12.description'), href: '/print?doc=times-table-blank-6-12&from=times-table', docId: 'times-table-blank-6-12', categories: ['blank', 'fluency'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.blank1_12.title'), description: t('pages.timesTable.worksheets.blank1_12.description'), href: '/print?doc=times-table-blank-1-12&from=times-table', docId: 'times-table-blank-1-12', categories: ['blank', 'fluency'], gradeRange: 'All' },
     
     // Confidence Building Worksheets
-    { title: '💪 Confidence-Building Times Table (1-5)', description: 'Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners.', href: '/print?doc=times-table-confidence-1-5&from=times-table', docId: 'times-table-confidence-1-5', categories: ['confidence'], gradeRange: '1st-2nd' },
-    { title: '💪 Confidence-Building Times Table (6-12)', description: 'Gentle step-by-step multiplication worksheets for facts 6-12. No-tears times table practice sheets that build understanding and confidence.', href: '/print?doc=times-table-confidence-6-12&from=times-table', docId: 'times-table-confidence-6-12', categories: ['confidence'], gradeRange: '3rd-4th' },
+    { title: t('pages.timesTable.worksheets.confidence1_5.title'), description: t('pages.timesTable.worksheets.confidence1_5.description'), href: '/print?doc=times-table-confidence-1-5&from=times-table', docId: 'times-table-confidence-1-5', categories: ['confidence'], gradeRange: '1st-2nd' },
+    { title: t('pages.timesTable.worksheets.confidence6_12.title'), description: t('pages.timesTable.worksheets.confidence6_12.description'), href: '/print?doc=times-table-confidence-6-12&from=times-table', docId: 'times-table-confidence-6-12', categories: ['confidence'], gradeRange: '3rd-4th' },
     
     // Fluency Practice Worksheets
-    { title: '⚡ Times Table Fluency Practice (1-12)', description: 'Build multiplication fluency with comprehensive practice covering all times tables 1-12. Repeated addition worksheets that make learning fun.', href: '/print?doc=times-table-fluency-1-12&from=times-table', docId: 'times-table-fluency-1-12', categories: ['fluency'], gradeRange: 'All' },
-    { title: '⚡ Mixed Times Table Review', description: 'Mixed review of all times tables 1-12 for comprehensive practice. Math fact practice worksheets that build speed, accuracy, and confidence.', href: '/print?doc=times-table-mixed-review&from=times-table', docId: 'times-table-mixed-review', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.fluency1_12.title'), description: t('pages.timesTable.worksheets.fluency1_12.description'), href: '/print?doc=times-table-fluency-1-12&from=times-table', docId: 'times-table-fluency-1-12', categories: ['fluency'], gradeRange: 'All' },
+    { title: t('pages.timesTable.worksheets.mixedReview.title'), description: t('pages.timesTable.worksheets.mixedReview.description'), href: '/print?doc=times-table-mixed-review&from=times-table', docId: 'times-table-mixed-review', categories: ['fluency'], gradeRange: 'All' },
     
     // Color-by-Number Worksheets
-    { title: '🎨 Color-by-Number Times Table (1-5)', description: 'Solve multiplication problems and color the picture! Fun color-by-number worksheets that make times table practice engaging and visual.', href: '/print?doc=times-table-color-1-5&from=times-table', docId: 'times-table-color-1-5', categories: ['fluency'], gradeRange: '1st-3rd' },
-    { title: '🎨 Color-by-Number Times Table (6-12)', description: 'Master times tables 6-12 with fun color-by-number activities. Engaging multiplication worksheets that combine math practice with creativity.', href: '/print?doc=times-table-color-6-12&from=times-table', docId: 'times-table-color-6-12', categories: ['fluency'], gradeRange: '3rd-5th' },
-    { title: '🎨 Color-by-Number Times Table (1-12)', description: 'Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding.', href: '/print?doc=times-table-color-1-12&from=times-table', docId: 'times-table-color-1-12', categories: ['fluency'], gradeRange: 'All' },
-  ]
+    { title: t('pages.timesTable.worksheets.color1_5.title'), description: t('pages.timesTable.worksheets.color1_5.description'), href: '/print?doc=times-table-color-1-5&from=times-table', docId: 'times-table-color-1-5', categories: ['fluency'], gradeRange: '1st-3rd' },
+    { title: t('pages.timesTable.worksheets.color6_12.title'), description: t('pages.timesTable.worksheets.color6_12.description'), href: '/print?doc=times-table-color-6-12&from=times-table', docId: 'times-table-color-6-12', categories: ['fluency'], gradeRange: '3rd-5th' },
+    { title: t('pages.timesTable.worksheets.color1_12.title'), description: t('pages.timesTable.worksheets.color1_12.description'), href: '/print?doc=times-table-color-1-12&from=times-table', docId: 'times-table-color-1-12', categories: ['fluency'], gradeRange: 'All' },
+  ], [t])
 
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
@@ -103,7 +103,7 @@ export default function TimesTableMultiplicationWorksheetsPage() {
     return allWorksheets.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by grade range
   const groupedWorksheets = useMemo(() => {

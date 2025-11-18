@@ -275,6 +275,72 @@ export const en = {
         skipCounting: 'Skip Counting',
         factFamilies: 'Fact Families',
       },
+      worksheets: {
+        basicFacts1_5: {
+          title: '✖️ Basic Multiplication Facts (1-5)',
+          description: 'Practice multiplication facts 1×1 through 5×5 with visual arrays and number sentences. Perfect for building foundational multiplication skills.',
+        },
+        arrays2_5: {
+          title: '📊 Multiplication Arrays (2-5)',
+          description: 'Draw arrays to solve multiplication problems; understand multiplication as repeated addition with visual models.',
+        },
+        skipCounting: {
+          title: '➡️ Skip Counting for Multiplication',
+          description: 'Practice skip counting by 2s, 3s, 5s, and 10s to build multiplication foundation and pattern recognition.',
+        },
+        wordProblems2_3: {
+          title: '🧮 Multiplication Word Problems (2nd-3rd)',
+          description: 'Solve simple multiplication word problems with pictures and number sentences for 2nd and 3rd graders.',
+        },
+        advancedFacts6_12: {
+          title: '✖️ Advanced Multiplication Facts (6-12)',
+          description: 'Master multiplication facts 6×6 through 12×12 with timed practice and fact fluency drills.',
+        },
+        arraysModels: {
+          title: '📊 Multiplication Arrays & Models',
+          description: 'Create and solve multiplication problems using larger arrays and visual models for deeper understanding.',
+        },
+        multiStepWord: {
+          title: '🧮 Multi-Step Word Problems',
+          description: 'Solve multi-step multiplication word problems with real-world scenarios for 3rd and 4th graders.',
+        },
+        factFamilies: {
+          title: '⚖️ Fact Families (Multiplication & Division)',
+          description: 'Complete multiplication and division fact families to understand inverse operations and number relationships.',
+        },
+        multiDigit2x1: {
+          title: '✖️ Multi-Digit Multiplication (2×1)',
+          description: 'Multiply 2-digit numbers by 1-digit numbers with regrouping. Step-by-step practice for mastery.',
+        },
+        multiDigit2x2: {
+          title: '✖️ Multi-Digit Multiplication (2×2)',
+          description: 'Multiply 2-digit numbers by 2-digit numbers using standard algorithm and area models.',
+        },
+        areaModel: {
+          title: '📊 Area Model Multiplication',
+          description: 'Use area models to visualize and solve multi-digit multiplication problems with visual understanding.',
+        },
+        complexWord: {
+          title: '🧮 Complex Word Problems',
+          description: 'Solve complex multiplication word problems with multiple steps and real-world contexts for 4th and 5th graders.',
+        },
+        factFluency: {
+          title: '⏱️ Multiplication Fact Fluency',
+          description: 'Build speed and accuracy with multiplication fact practice covering all facts 1-12 for complete mastery.',
+        },
+        mixedReview: {
+          title: '🔢 Mixed Multiplication Review',
+          description: 'Mixed practice with all multiplication facts for comprehensive review and retention.',
+        },
+        strategies: {
+          title: '🎯 Multiplication Strategies',
+          description: 'Learn and practice different multiplication strategies (skip counting, arrays, repeated addition, distributive property).',
+        },
+        patterns: {
+          title: '📈 Multiplication Patterns',
+          description: 'Identify and extend multiplication patterns and number sequences to build algebraic thinking.',
+        },
+      },
     },
     firstGrade: {
       seoTitle: '1st Grade Math Worksheets – Free Printable PDF',
@@ -1468,6 +1534,96 @@ export const en = {
       answerKeyIncluded: 'Answer key included',
       buildPack: '🧰 Build a 5‑Minute Times Table Print Pack',
       buildPackDesc: 'Create a quick times table practice set — perfect for building confidence, warm‑ups, brain breaks, or homework helpers.',
+      worksheets: {
+        horizontal1_5: {
+          title: '➡️ Horizontal Times Table (1-5)',
+          description: 'Practice times tables 1-5 in horizontal format. Build confidence with simple, stress-free multiplication practice sheets perfect for beginners.',
+        },
+        horizontal6_12: {
+          title: '➡️ Horizontal Times Table (6-12)',
+          description: 'Master times tables 6-12 in horizontal format. Fun and simple worksheets to make multiplication easier for advancing learners.',
+        },
+        horizontal1_12: {
+          title: '➡️ Complete Horizontal Times Table (1-12)',
+          description: 'Comprehensive horizontal times table practice covering all facts 1-12. Perfect for building multiplication fluency and speed.',
+        },
+        vertical1_5: {
+          title: '⬇️ Vertical Times Table (1-5)',
+          description: 'Practice times tables 1-5 in vertical format. Step-by-step multiplication worksheets designed for kids who struggle with multiplication.',
+        },
+        vertical6_12: {
+          title: '⬇️ Vertical Times Table (6-12)',
+          description: 'Master times tables 6-12 in vertical format. Engaging multiplication worksheets that make learning fun and build math confidence.',
+        },
+        vertical1_12: {
+          title: '⬇️ Complete Vertical Times Table (1-12)',
+          description: 'Comprehensive vertical times table practice covering all facts 1-12. Printable worksheets to help kids overcome math fear.',
+        },
+        missing1_5: {
+          title: '❓ Missing Number Times Table (1-5)',
+          description: 'Fill in the missing numbers in times table problems. No-tears times table practice sheets that build understanding through pattern recognition.',
+        },
+        missing6_12: {
+          title: '❓ Missing Number Times Table (6-12)',
+          description: 'Complete missing numbers in advanced times table problems. Gentle step-by-step multiplication worksheets for confident learning.',
+        },
+        missingMixed: {
+          title: '❓ Mixed Missing Number Challenge',
+          description: 'Mixed missing number problems across all times tables 1-12. Build multiplication fluency with engaging practice that makes learning fun.',
+        },
+        timed1_5: {
+          title: '⏱️ Timed Times Table Test (1-5)',
+          description: 'Build speed and accuracy with timed multiplication tests for facts 1-5. Printable timed multiplication test sheets for confident practice.',
+        },
+        timed6_12: {
+          title: '⏱️ Timed Times Table Test (6-12)',
+          description: 'Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice.',
+        },
+        timed1_12: {
+          title: '⏱️ Complete Timed Test (1-12)',
+          description: 'Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables.',
+        },
+        blank1_5: {
+          title: '📋 Blank Times Table (1-5) - Fill In',
+          description: 'Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence.',
+        },
+        blank6_12: {
+          title: '📋 Blank Times Table (6-12) - Fill In',
+          description: 'Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step.',
+        },
+        blank1_12: {
+          title: '📋 Complete Blank Times Table (1-12)',
+          description: 'Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency.',
+        },
+        confidence1_5: {
+          title: '💪 Confidence-Building Times Table (1-5)',
+          description: 'Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners.',
+        },
+        confidence6_12: {
+          title: '💪 Confidence-Building Times Table (6-12)',
+          description: 'Gentle step-by-step multiplication worksheets for facts 6-12. No-tears times table practice sheets that build understanding and confidence.',
+        },
+        fluency1_12: {
+          title: '⚡ Times Table Fluency Practice (1-12)',
+          description: 'Build multiplication fluency with comprehensive practice covering all times tables 1-12. Repeated addition worksheets that make learning fun.',
+        },
+        mixedReview: {
+          title: '⚡ Mixed Times Table Review',
+          description: 'Mixed review of all times tables 1-12 for comprehensive practice. Math fact practice worksheets that build speed, accuracy, and confidence.',
+        },
+        color1_5: {
+          title: '🎨 Color-by-Number Times Table (1-5)',
+          description: 'Solve multiplication problems and color the picture! Fun color-by-number worksheets that make times table practice engaging and visual.',
+        },
+        color6_12: {
+          title: '🎨 Color-by-Number Times Table (6-12)',
+          description: 'Master times tables 6-12 with fun color-by-number activities. Engaging multiplication worksheets that combine math practice with creativity.',
+        },
+        color1_12: {
+          title: '🎨 Color-by-Number Times Table (1-12)',
+          description: 'Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding.',
+        },
+      },
       buildPackTime: 'Time: 5 min',
       buildPackAge: 'Age/Grade: 1st-5th Grade',
       buildPackFocus: 'Focus: Times Tables',

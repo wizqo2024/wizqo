@@ -278,6 +278,72 @@ export const es = {
         skipCounting: 'Conteo de Saltos',
         factFamilies: 'Familias de Datos',
       },
+      worksheets: {
+        basicFacts1_5: {
+          title: '✖️ Datos Básicos de Multiplicación (1-5)',
+          description: 'Practica datos de multiplicación de 1×1 a 5×5 con matrices visuales y oraciones numéricas. Perfecto para construir habilidades fundamentales de multiplicación.',
+        },
+        arrays2_5: {
+          title: '📊 Matrices de Multiplicación (2-5)',
+          description: 'Dibuja matrices para resolver problemas de multiplicación; entiende la multiplicación como suma repetida con modelos visuales.',
+        },
+        skipCounting: {
+          title: '➡️ Conteo de Saltos para Multiplicación',
+          description: 'Practica conteo de saltos por 2s, 3s, 5s y 10s para construir la base de multiplicación y reconocimiento de patrones.',
+        },
+        wordProblems2_3: {
+          title: '🧮 Problemas de Palabras de Multiplicación (2do-3er)',
+          description: 'Resuelve problemas simples de multiplicación con imágenes y oraciones numéricas para estudiantes de 2do y 3er grado.',
+        },
+        advancedFacts6_12: {
+          title: '✖️ Datos Avanzados de Multiplicación (6-12)',
+          description: 'Domina datos de multiplicación de 6×6 a 12×12 con práctica cronometrada y ejercicios de fluidez de datos.',
+        },
+        arraysModels: {
+          title: '📊 Matrices y Modelos de Multiplicación',
+          description: 'Crea y resuelve problemas de multiplicación usando matrices más grandes y modelos visuales para una comprensión más profunda.',
+        },
+        multiStepWord: {
+          title: '🧮 Problemas de Palabras de Múltiples Pasos',
+          description: 'Resuelve problemas de multiplicación de múltiples pasos con escenarios del mundo real para estudiantes de 3er y 4to grado.',
+        },
+        factFamilies: {
+          title: '⚖️ Familias de Hechos (Multiplicación y División)',
+          description: 'Completa familias de hechos de multiplicación y división para entender operaciones inversas y relaciones numéricas.',
+        },
+        multiDigit2x1: {
+          title: '✖️ Multiplicación de Múltiples Dígitos (2×1)',
+          description: 'Multiplica números de 2 dígitos por números de 1 dígito con reagrupación. Práctica paso a paso para el dominio.',
+        },
+        multiDigit2x2: {
+          title: '✖️ Multiplicación de Múltiples Dígitos (2×2)',
+          description: 'Multiplica números de 2 dígitos por números de 2 dígitos usando algoritmo estándar y modelos de área.',
+        },
+        areaModel: {
+          title: '📊 Multiplicación con Modelo de Área',
+          description: 'Usa modelos de área para visualizar y resolver problemas de multiplicación de múltiples dígitos con comprensión visual.',
+        },
+        complexWord: {
+          title: '🧮 Problemas de Palabras Complejos',
+          description: 'Resuelve problemas complejos de multiplicación con múltiples pasos y contextos del mundo real para estudiantes de 4to y 5to grado.',
+        },
+        factFluency: {
+          title: '⏱️ Fluidez de Datos de Multiplicación',
+          description: 'Desarrolla velocidad y precisión con práctica de datos de multiplicación cubriendo todos los datos 1-12 para dominio completo.',
+        },
+        mixedReview: {
+          title: '🔢 Revisión Mixta de Multiplicación',
+          description: 'Práctica mixta con todos los datos de multiplicación para revisión integral y retención.',
+        },
+        strategies: {
+          title: '🎯 Estrategias de Multiplicación',
+          description: 'Aprende y practica diferentes estrategias de multiplicación (conteo de saltos, matrices, suma repetida, propiedad distributiva).',
+        },
+        patterns: {
+          title: '📈 Patrones de Multiplicación',
+          description: 'Identifica y extiende patrones de multiplicación y secuencias numéricas para construir pensamiento algebraico.',
+        },
+      },
     },
     firstGrade: {
       seoTitle: 'Hojas de Trabajo de Matemáticas de 1er Grado – PDF Gratis Imprimible',
@@ -1471,6 +1537,96 @@ export const es = {
       answerKeyIncluded: 'Clave de respuestas incluida',
       buildPack: '🧰 Crear un Paquete de Impresión de Tabla de Multiplicar de 5 Minutos',
       buildPackDesc: 'Crea un conjunto rápido de práctica de tabla de multiplicar — perfecto para desarrollar confianza, calentamientos, descansos mentales o ayudantes de tareas.',
+      worksheets: {
+        horizontal1_5: {
+          title: '➡️ Tabla de Multiplicar Horizontal (1-5)',
+          description: 'Practica tablas de multiplicar 1-5 en formato horizontal. Desarrolla confianza con hojas de práctica de multiplicación simples y sin estrés perfectas para principiantes.',
+        },
+        horizontal6_12: {
+          title: '➡️ Tabla de Multiplicar Horizontal (6-12)',
+          description: 'Domina tablas de multiplicar 6-12 en formato horizontal. Hojas de trabajo divertidas y simples para hacer la multiplicación más fácil para estudiantes avanzados.',
+        },
+        horizontal1_12: {
+          title: '➡️ Tabla de Multiplicar Horizontal Completa (1-12)',
+          description: 'Práctica completa de tabla de multiplicar horizontal cubriendo todos los datos 1-12. Perfecto para desarrollar fluidez y velocidad en multiplicación.',
+        },
+        vertical1_5: {
+          title: '⬇️ Tabla de Multiplicar Vertical (1-5)',
+          description: 'Practica tablas de multiplicar 1-5 en formato vertical. Hojas de trabajo de multiplicación paso a paso diseñadas para niños que tienen dificultades con la multiplicación.',
+        },
+        vertical6_12: {
+          title: '⬇️ Tabla de Multiplicar Vertical (6-12)',
+          description: 'Domina tablas de multiplicar 6-12 en formato vertical. Hojas de trabajo de multiplicación atractivas que hacen el aprendizaje divertido y desarrollan confianza matemática.',
+        },
+        vertical1_12: {
+          title: '⬇️ Tabla de Multiplicar Vertical Completa (1-12)',
+          description: 'Práctica completa de tabla de multiplicar vertical cubriendo todos los datos 1-12. Hojas de trabajo imprimibles para ayudar a los niños a superar el miedo a las matemáticas.',
+        },
+        missing1_5: {
+          title: '❓ Tabla de Multiplicar con Números Faltantes (1-5)',
+          description: 'Completa los números faltantes en problemas de tabla de multiplicar. Hojas de práctica de tabla de multiplicar sin lágrimas que desarrollan comprensión a través del reconocimiento de patrones.',
+        },
+        missing6_12: {
+          title: '❓ Tabla de Multiplicar con Números Faltantes (6-12)',
+          description: 'Completa números faltantes en problemas avanzados de tabla de multiplicar. Hojas de trabajo de multiplicación paso a paso suaves para aprendizaje confiado.',
+        },
+        missingMixed: {
+          title: '❓ Desafío de Números Faltantes Mixtos',
+          description: 'Problemas de números faltantes mixtos en todas las tablas de multiplicar 1-12. Desarrolla fluidez en multiplicación con práctica atractiva que hace el aprendizaje divertido.',
+        },
+        timed1_5: {
+          title: '⏱️ Prueba Cronometrada de Tabla de Multiplicar (1-5)',
+          description: 'Desarrolla velocidad y precisión con pruebas cronometradas de multiplicación para datos 1-5. Hojas de prueba cronometrada de multiplicación imprimibles para práctica confiada.',
+        },
+        timed6_12: {
+          title: '⏱️ Prueba Cronometrada de Tabla de Multiplicar (6-12)',
+          description: 'Domina la velocidad con pruebas cronometradas de multiplicación para datos 6-12. Hojas de trabajo de multiplicación divertidas que desarrollan confianza y práctica de datos matemáticos.',
+        },
+        timed1_12: {
+          title: '⏱️ Prueba Cronometrada Completa (1-12)',
+          description: 'Prueba cronometrada completa de multiplicación cubriendo todos los datos 1-12. Perfecto para desarrollar fluidez en multiplicación y memorizar tablas de multiplicar.',
+        },
+        blank1_5: {
+          title: '📋 Tabla de Multiplicar en Blanco (1-5) - Completar',
+          description: 'Hojas de trabajo de tabla de multiplicar en blanco para completar para datos 1-5. Perfecto para práctica de memorización y desarrollo de confianza en multiplicación.',
+        },
+        blank6_12: {
+          title: '📋 Tabla de Multiplicar en Blanco (6-12) - Completar',
+          description: 'Hojas de trabajo de tabla de multiplicar en blanco para completar para datos 6-12. Hojas de trabajo para niños que tienen dificultades con la multiplicación - desarrolla confianza paso a paso.',
+        },
+        blank1_12: {
+          title: '📋 Tabla de Multiplicar en Blanco Completa (1-12)',
+          description: 'Cuadrícula completa de tabla de multiplicar en blanco para todos los datos 1-12. Hojas de trabajo imprimibles para ayudar a los niños a superar el miedo a las matemáticas y desarrollar fluidez en multiplicación.',
+        },
+        confidence1_5: {
+          title: '💪 Tabla de Multiplicar para Desarrollar Confianza (1-5)',
+          description: 'Hojas de trabajo de tabla de multiplicar sin estrés diseñadas para desarrollar confianza. Hojas de trabajo divertidas y simples para hacer la multiplicación más fácil para estudiantes con dificultades.',
+        },
+        confidence6_12: {
+          title: '💪 Tabla de Multiplicar para Desarrollar Confianza (6-12)',
+          description: 'Hojas de trabajo de multiplicación paso a paso suaves para datos 6-12. Hojas de práctica de tabla de multiplicar sin lágrimas que desarrollan comprensión y confianza.',
+        },
+        fluency1_12: {
+          title: '⚡ Práctica de Fluidez de Tabla de Multiplicar (1-12)',
+          description: 'Desarrolla fluidez en multiplicación con práctica integral cubriendo todas las tablas de multiplicar 1-12. Hojas de trabajo de suma repetida que hacen el aprendizaje divertido.',
+        },
+        mixedReview: {
+          title: '⚡ Revisión Mixta de Tabla de Multiplicar',
+          description: 'Revisión mixta de todas las tablas de multiplicar 1-12 para práctica integral. Hojas de trabajo de práctica de datos matemáticos que desarrollan velocidad, precisión y confianza.',
+        },
+        color1_5: {
+          title: '🎨 Tabla de Multiplicar Colorear por Número (1-5)',
+          description: '¡Resuelve problemas de multiplicación y colorea la imagen! Hojas de trabajo divertidas de colorear por número que hacen la práctica de tabla de multiplicar atractiva y visual.',
+        },
+        color6_12: {
+          title: '🎨 Tabla de Multiplicar Colorear por Número (6-12)',
+          description: 'Domina tablas de multiplicar 6-12 con actividades divertidas de colorear por número. Hojas de trabajo de multiplicación atractivas que combinan práctica matemática con creatividad.',
+        },
+        color1_12: {
+          title: '🎨 Tabla de Multiplicar Colorear por Número (1-12)',
+          description: 'Completa la imagen de colorear por número usando todas las tablas de multiplicar 1-12. Hojas de trabajo de multiplicación de colorear por número que hacen el aprendizaje divertido y gratificante.',
+        },
+      },
       buildPackTime: 'Tiempo: 5 min',
       buildPackAge: 'Edad/Grado: 1er-5to Grado',
       buildPackFocus: 'Enfoque: Tablas de Multiplicar',
