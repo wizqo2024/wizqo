@@ -3316,8 +3316,8 @@ export function PrintablesPage() {
                 </div>
               </div>
               {/* Visual legend */}
-              <div className="mb-3 flex items-center gap-4 text-sm bg-violet-50 p-3 rounded-lg border border-violet-200">
-                <svg viewBox="0 0 200 50" className="h-12 w-auto">
+              <div className="mb-4 flex items-center gap-4 text-sm bg-violet-50 p-3 rounded-lg border border-violet-200 print:mb-3">
+                <svg viewBox="0 0 200 50" className="h-12 w-auto flex-shrink-0">
                   {/* Tens rod */}
                   <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
                   <text x="35" y="28" fontSize="12" fill="#16a34a" fontWeight="bold">= 1 Ten (10)</text>
@@ -3328,15 +3328,15 @@ export function PrintablesPage() {
                   <text x="180" y="28" fontSize="12" fill="#2563eb" fontWeight="bold">= 1 One</text>
                 </svg>
               </div>
-              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n,i)=> {
                   const tens = Math.floor(n/10);
                   const ones = n%10;
                   return (
-                    <div key={i} className="border-2 border-violet-200 rounded-lg p-3 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
-                      <div className="text-violet-900 font-semibold mb-2 text-lg">Number: <span className="text-2xl">{n}</span></div>
+                    <div key={i} className="border-2 border-violet-200 rounded-lg p-4 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid print:p-3">
+                      <div className="text-violet-900 font-semibold mb-3 text-lg print:mb-2">Number: <span className="text-2xl">{n}</span></div>
                       {/* Visual base-10 blocks */}
-                      <div className="mb-3 bg-white p-2 rounded border border-violet-300">
+                      <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2">
                         <svg viewBox="0 0 300 80" className="w-full h-auto">
                           {/* Tens rods */}
                           {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
@@ -3349,18 +3349,18 @@ export function PrintablesPage() {
                           ))}
                         </svg>
                       </div>
-                      <div className="grid grid-cols-3 gap-2 text-sm">
-                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
-                          <div className="text-xs text-violet-600 mb-1">Tens:</div>
-                          <div className="text-violet-900 font-mono">______</div>
+                      <div className="grid grid-cols-3 gap-3 text-sm print:gap-2">
+                        <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Tens:</div>
+                          <div className="text-violet-900 font-mono text-base">______</div>
                         </div>
-                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
-                          <div className="text-xs text-violet-600 mb-1">Ones:</div>
-                          <div className="text-violet-900 font-mono">______</div>
+                        <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Ones:</div>
+                          <div className="text-violet-900 font-mono text-base">______</div>
                         </div>
-                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
-                          <div className="text-xs text-violet-600 mb-1">Expanded:</div>
-                          <div className="text-violet-900 font-mono text-xs">___ + ___</div>
+                        <div className="border-2 border-violet-300 rounded p-2.5 bg-white print:p-2">
+                          <div className="text-xs text-violet-600 mb-1.5 print:mb-1">Expanded:</div>
+                          <div className="text-violet-900 font-mono text-xs leading-tight">___ + ___</div>
                         </div>
                       </div>
                     </div>
