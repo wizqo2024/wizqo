@@ -375,7 +375,7 @@ function BuildPackInline() {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd-5th Grade</span>
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Multiplication</span>
       </div>
-      <a href="/print?doc=pack&time=5&age=25&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={handleBuildPack}>Build Pack →</a>
+      <a href="/print?doc=pack&time=5&age=25&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={handleBuildPack}>{t('pages.printables.buildPackButton')}</a>
     </div>
   )
 }
