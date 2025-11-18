@@ -46,17 +46,67 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           document.documentElement.dir = isRTL(urlLocale) ? 'rtl' : 'ltr'
           document.documentElement.lang = urlLocale
         }
+      } else if (!urlLocale) {
+        // If no locale in URL, check localStorage and update if different
+        const saved = localStorage.getItem('wizqo-language') as Language
+        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+          setLanguageState(saved)
+          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+          document.documentElement.lang = saved
+        }
       }
     }
     
-    // Sync on mount
+    // Sync on mount - always check localStorage when no URL locale
     syncLanguageFromURL()
+    
+    // Also check on location change (for navigation without page reload)
+    const checkLanguage = () => {
+      const urlLocale = getLocaleFromURL()
+      if (!urlLocale) {
+        const saved = localStorage.getItem('wizqo-language') as Language
+        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+          setLanguageState(saved)
+          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+          document.documentElement.lang = saved
+        }
+      }
+    }
     
     // Sync on popstate (browser back/forward)
     window.addEventListener('popstate', syncLanguageFromURL)
     
+    // Check on hashchange (for SPA navigation)
+    window.addEventListener('hashchange', checkLanguage)
+    
+    // Also listen for storage events (when language is changed in another tab/window)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'wizqo-language' && e.newValue && ['en', 'es', 'ar'].includes(e.newValue)) {
+        setLanguageState(e.newValue as Language)
+        document.documentElement.dir = isRTL(e.newValue as Language) ? 'rtl' : 'ltr'
+        document.documentElement.lang = e.newValue
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
+    
+    // Listen for custom event when language is changed (for same-window updates)
+    const handleLanguageChange = () => {
+      if (!getLocaleFromURL()) {
+        const saved = localStorage.getItem('wizqo-language') as Language
+        if (saved && ['en', 'es', 'ar'].includes(saved) && saved !== language) {
+          setLanguageState(saved)
+          document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
+          document.documentElement.lang = saved
+        }
+      }
+    }
+    window.addEventListener('languagechange', handleLanguageChange as EventListener)
+    
     return () => {
       window.removeEventListener('popstate', syncLanguageFromURL)
+      window.removeEventListener('hashchange', checkLanguage)
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('languagechange', handleLanguageChange as EventListener)
     }
   }, [language])
 
@@ -71,6 +121,8 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
           // Update HTML dir attribute for RTL
           document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr'
           document.documentElement.lang = lang
+          // Dispatch custom event to notify other components
+          window.dispatchEvent(new CustomEvent('languagechange', { detail: { language: lang } }))
         }
         return lang
       }
