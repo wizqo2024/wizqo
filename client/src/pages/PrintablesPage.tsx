@@ -10829,32 +10829,81 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 = __ + 2</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Solve the left side: 3 + 4 = 7</div>
-                    <div><strong>Step 2:</strong> The right side must also equal 7: __ + 2 = 7</div>
-                    <div><strong>Step 3:</strong> Find the missing number: 7 - 2 = 5</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 (because 3 + 4 = 5 + 2, both equal 7)</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Solve one side first, then make the other side equal to it!</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-semibold text-base text-teal-900"><strong>Problem:</strong> <span className="text-2xl text-teal-700">3 + 4 = __ + 2</span></div>
+                  {/* Visual balance scale */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-teal-300">
+                    <svg viewBox="0 0 500 180" className="w-full h-auto">
+                      {/* Balance scale */}
+                      <g fill="none" stroke="#14b8a6" strokeWidth="3">
+                        <path d="M100 100 L400 100" />
+                        <path d="M250 40 L250 100" />
+                        <circle cx="150" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
+                        <circle cx="350" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
+                      </g>
+                      {/* Left side: 3 + 4 = 7 */}
+                      <g>
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <circle key={i} cx={130 + i * 15} cy="80" r="8" fill="#22c55e" />
+                        ))}
+                        <text x="150" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">3</text>
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <circle key={i} cx={180 + i * 15} cy="80" r="8" fill="#3b82f6" />
+                        ))}
+                        <text x="240" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">+4</text>
+                        <text x="150" y="110" fontSize="16" fill="#14b8a6" textAnchor="middle" fontWeight="bold">= 7</text>
+                      </g>
+                      {/* Right side: __ + 2 */}
+                      <g>
+                        <circle cx="350" cy="80" r="20" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
+                        <text x="350" y="75" fontSize="14" fill="#94a3b8" textAnchor="middle" fontWeight="bold">?</text>
+                        {Array.from({ length: 2 }).map((_, i) => (
+                          <circle key={i} cx={380 + i * 15} cy="80" r="8" fill="#f59e0b" />
+                        ))}
+                        <text x="410" y="75" fontSize="12" fill="#14b8a6" textAnchor="middle" fontWeight="bold">+2</text>
+                        <text x="350" y="110" fontSize="16" fill="#14b8a6" textAnchor="middle" fontWeight="bold">= 7</text>
+                      </g>
+                      <text x="250" y="150" fontSize="18" fill="#14b8a6" textAnchor="middle" fontWeight="bold">Both sides must be equal! Missing number is 5</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-teal-300 space-y-1">
+                    <div><strong>Step 1:</strong> Solve the left side: <span className="text-teal-700 font-bold">3 + 4 = 7</span></div>
+                    <div><strong>Step 2:</strong> The right side must also equal <span className="text-teal-700 font-bold">7</span>: <span className="text-teal-700 font-bold">__ + 2 = 7</span></div>
+                    <div><strong>Step 3:</strong> Find the missing number: <span className="text-teal-700 font-bold text-lg">7 - 2 = 5</span></div>
+                    <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-teal-700">5</span> (because 3 + 4 = 5 + 2, both equal 7)</div>
+                    <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: Solve one side first, then make the other side equal to it!</span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {equations.map((eq, idx) => (
-                  <svg key={idx} viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <g fill="none" stroke="#111827" strokeWidth="3">
-                      <path d="M100 80 L400 80" />
-                      <path d="M250 40 L250 80" />
-                      <circle cx="150" cy="60" r="20" />
-                      <circle cx="350" cy="60" r="20" />
-                    </g>
-                    <text x="150" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.left}</text>
-                    <text x="350" y="70" fontSize="24" fill="#111827" textAnchor="middle">{eq.right}</text>
-                  </svg>
-                ))}
+                {equations.map((eq, idx) => {
+                  const leftParts = eq.left.split(/[+\-]/).map(x => x.trim());
+                  const rightParts = eq.right.split(/[+\-]/).map(x => x.trim());
+                  const isAdd = eq.left.includes('+');
+                  return (
+                    <div key={idx} className="bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
+                      <svg viewBox="0 0 500 150" className="w-full h-auto bg-white border border-slate-300 rounded">
+                        <g fill="none" stroke="#14b8a6" strokeWidth="3">
+                          <path d="M80 100 L420 100" />
+                          <path d="M250 30 L250 100" />
+                          <circle cx="150" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
+                          <circle cx="350" cy="80" r="25" fill="#f0fdfa" stroke="#14b8a6" strokeWidth="2" />
+                        </g>
+                        <text x="150" y="75" fontSize="20" fill="#14b8a6" textAnchor="middle" fontWeight="bold">{eq.left}</text>
+                        <text x="350" y="75" fontSize="20" fill="#14b8a6" textAnchor="middle" fontWeight="bold">{eq.right}</text>
+                        <text x="250" y="130" fontSize="14" fill="#64748b" textAnchor="middle">Find the missing number to balance the scale</text>
+                      </svg>
+                    </div>
+                  );
+                })}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -10925,38 +10974,73 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Sequence:</strong> 2, __, 6, __, 10</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> We're counting by 2s: 2, 4, 6, 8, 10...</div>
-                  <div><strong>Step 2:</strong> After 2 comes 4 (2 + 2 = 4)</div>
-                  <div><strong>Step 3:</strong> After 6 comes 8 (6 + 2 = 8)</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 2, 4, 6, 8, 10</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-pink-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-pink-900"><strong>Sequence:</strong> <span className="text-2xl text-pink-700">2, __, 6, __, 10</span></div>
+                {/* Visual example with pairs */}
+                <div className="bg-white p-4 rounded-lg border-2 border-pink-300">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    {[2, 4, 6, 8, 10].map((num, i) => (
+                      <div key={i} className="text-center">
+                        <div className="flex gap-1 mb-1">
+                          {Array.from({ length: num }).map((_, j) => (
+                            <span key={j} className="text-xl">⭐</span>
+                          ))}
+                        </div>
+                        <div className={`text-sm font-semibold ${i % 2 === 0 ? 'text-pink-700' : 'text-pink-400'}`}>
+                          {i % 2 === 0 ? num : '?'}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-center text-pink-700 font-semibold">Count by pairs: 2, 4, 6, 8, 10</div>
+                </div>
+                <div className="pl-4 border-l-2 border-pink-300 space-y-1">
+                  <div><strong>Step 1:</strong> We're counting by <span className="text-pink-700 font-bold">2s</span>: 2, 4, 6, 8, 10...</div>
+                  <div><strong>Step 2:</strong> After 2 comes <span className="text-pink-700 font-bold">4</span> (2 + 2 = 4)</div>
+                  <div><strong>Step 3:</strong> After 6 comes <span className="text-pink-700 font-bold">8</span> (6 + 2 = 8)</div>
+                  <div className="font-semibold text-pink-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-pink-700">2, 4, 6, 8, 10</span></div>
+                  <div className="text-xs text-pink-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Skip counting by 2s means adding 2 each time. Each number is 2 more than the one before!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
               {Array.from({ length: 4 }).map((_, idx) => (
-                <svg key={idx} viewBox="0 0 500 100" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="#111827">
-                    {[2, 4, 6, 8, 10, 12, 14, 16, 18, 20].map((num, i) => {
-                      const x = 40 + i * 42
-                      return (
-                        <g key={i}>
-                          <circle cx={x} cy="50" r="15" fill="none" stroke="#111827" strokeWidth="2" />
-                          {i % 2 === idx % 2 ? (
-                            <text x={x} y="58" fontSize="18" fill="#111827" textAnchor="middle">{num}</text>
-                          ) : (
-                            <text x={x} y="58" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
-                          )}
-                        </g>
-                      )
-                    })}
-                  </g>
-                </svg>
+                <div key={idx} className="bg-gradient-to-br from-pink-50 to-rose-50 p-3 rounded-lg border-2 border-pink-200">
+                  <svg viewBox="0 0 500 120" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g>
+                      {[2, 4, 6, 8, 10, 12, 14, 16, 18, 20].map((num, i) => {
+                        const x = 40 + i * 42
+                        return (
+                          <g key={i}>
+                            <circle cx={x} cy="50" r="18" fill={i % 2 === idx % 2 ? "#fef3c7" : "white"} stroke={i % 2 === idx % 2 ? "#f59e0b" : "#94a3b8"} strokeWidth="2.5" />
+                            {i % 2 === idx % 2 ? (
+                              <text x={x} y="58" fontSize="18" fill="#f59e0b" textAnchor="middle" fontWeight="bold">{num}</text>
+                            ) : (
+                              <text x={x} y="58" fontSize="18" fill="#94a3b8" textAnchor="middle">__</text>
+                            )}
+                            {/* Visual pairs below */}
+                            {i % 2 === idx % 2 && (
+                              <g>
+                                {Array.from({ length: Math.min(num, 4) }).map((_, j) => (
+                                  <text key={j} x={x - 8 + j * 4} y="85" fontSize="12">⭐</text>
+                                ))}
+                                {num > 4 && <text x={x} y="95" fontSize="10" fill="#f59e0b">{num}</text>}
+                              </g>
+                            )}
+                          </g>
+                        )
+                      })}
+                    </g>
+                  </svg>
+                </div>
               ))}
             </div>
             {/* Extension/Challenge Problems */}
@@ -11034,16 +11118,53 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> 3 + 4 = ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Start at 3 on the number line</div>
-                    <div><strong>Step 2:</strong> Count forward 4 spaces: 3 → 4 → 5 → 6 → 7</div>
-                    <div><strong>Step 3:</strong> You land on 7</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3 + 4 = 7</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-cyan-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-semibold text-base text-cyan-900"><strong>Problem:</strong> <span className="text-2xl text-cyan-700">3 + 4 = ?</span></div>
+                  {/* Visual number line example */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-cyan-300">
+                    <svg viewBox="0 0 600 120" className="w-full h-auto">
+                      <defs>
+                        <marker id="arrowhead-example" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                          <polygon points="0 0, 10 3, 0 6" fill="#06b6d4" />
+                        </marker>
+                      </defs>
+                      <g fill="none" stroke="#06b6d4" strokeWidth="2.5">
+                        <line x1="50" y1="60" x2="550" y2="60" />
+                        {Array.from({ length: 11 }).map((_, i) => {
+                          const x = 50 + i * 50;
+                          return (
+                            <g key={i}>
+                              <line x1={x} y1="55" x2={x} y2="65" />
+                              <text x={x} y="50" fontSize="16" fill={i === 3 || i === 7 ? "#06b6d4" : "#64748b"} textAnchor="middle" fontWeight={i === 3 || i === 7 ? "bold" : "normal"}>{i}</text>
+                            </g>
+                          );
+                        })}
+                      </g>
+                      {/* Starting point */}
+                      <circle cx="200" cy="60" r="8" fill="#06b6d4" />
+                      <text x="200" y="80" fontSize="14" fill="#06b6d4" textAnchor="middle" fontWeight="bold">Start: 3</text>
+                      {/* Arrow showing addition */}
+                      <path d="M200 60 L400 60" stroke="#06b6d4" strokeWidth="4" markerEnd="url(#arrowhead-example)" />
+                      <text x="300" y="45" fontSize="14" fill="#06b6d4" textAnchor="middle" fontWeight="bold">+4</text>
+                      {/* Ending point */}
+                      <circle cx="400" cy="60" r="8" fill="#10b981" />
+                      <text x="400" y="80" fontSize="14" fill="#10b981" textAnchor="middle" fontWeight="bold">Answer: 7</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-cyan-300 space-y-1">
+                    <div><strong>Step 1:</strong> Start at <span className="text-cyan-700 font-bold">3</span> on the number line</div>
+                    <div><strong>Step 2:</strong> Count forward <span className="text-cyan-700 font-bold">4 spaces</span>: 3 → 4 → 5 → 6 → 7</div>
+                    <div><strong>Step 3:</strong> You land on <span className="text-cyan-700 font-bold text-lg">7</span></div>
+                    <div className="font-semibold text-cyan-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-cyan-700">3 + 4 = 7</span></div>
+                    <div className="text-xs text-cyan-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: Start at the first number, then count forward the second number of spaces. Where you land is your answer!</span>
+                    </div>
                   </div>
                 </div>
               </div>
