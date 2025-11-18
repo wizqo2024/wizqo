@@ -13,6 +13,176 @@ export const en = {
     tip: 'Tip:',
     remember: 'Remember:',
   },
+  home: {
+    hero: {
+      badge: 'Free • Printable • Answer Keys Included',
+      headline: 'Free Math Worksheets for K-5 | Multiplication & More',
+      subheading: 'Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. No sign-up required — start generating worksheets for kindergarten through 5th grade right away!',
+      ctaMultiplication: 'Multiplication Worksheets',
+      ctaBrowse: 'Browse All Worksheets',
+    },
+    features: {
+      lovedBy: 'Loved by parents & teachers',
+      printableAwards: 'Printable awards & handwriting sheets',
+      allGrades: 'Worksheets for all grades K-5',
+    },
+    kidsHub: {
+      title: 'Kids Hub – Fun Learning Games & Printables',
+      description: 'Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.',
+      features: 'Memory Match • Word Search • Puzzle • Typing Safari',
+      printables: 'Printables: word search, sudoku, coloring • Interactive Worksheets Generator',
+      visitKidsHub: 'Visit Kids Hub →',
+      interactiveWorksheets: 'Interactive Worksheets →',
+    },
+    trust: {
+      lovedBy: {
+        title: 'Loved by families & teachers',
+        description: 'Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.',
+      },
+      printableLibrary: {
+        title: 'Printable library ready to go',
+        description: 'Grab certificates, handwriting sheets, and activity packs without any setup.',
+      },
+      aiGenerator: {
+        title: 'AI worksheet generator',
+        description: 'Create unlimited custom worksheets instantly with our AI-powered generator. Perfect for any grade or subject.',
+      },
+      freshActivities: {
+        title: 'Fresh activities weekly',
+        description: 'New printables, games, and challenges pushed live so you always have something fun to try.',
+      },
+    },
+    grades: {
+      title: 'Free Math Worksheets for Every Grade: Multiplication, Addition, Subtraction & More',
+      subtitle: 'Help your child excel in math with our free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for building confidence and mastering essential math skills - no sign-up required!',
+      kindergarten: {
+        title: 'Kindergarten Math Worksheets',
+        description: 'Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.',
+        cta: 'View Kindergarten Worksheets →',
+      },
+      firstGrade: {
+        title: '1st Grade Math Worksheets',
+        description: 'Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.',
+        cta: 'View 1st Grade Worksheets →',
+      },
+      secondGrade: {
+        title: '2nd Grade Math Worksheets',
+        description: 'Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.',
+        cta: 'View 2nd Grade Worksheets →',
+      },
+      thirdGrade: {
+        title: '3rd Grade Math Worksheets',
+        description: 'Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.',
+        cta: 'View 3rd Grade Worksheets →',
+      },
+      fourthGrade: {
+        title: '4th Grade Math Worksheets',
+        description: 'Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.',
+        cta: 'View 4th Grade Worksheets →',
+      },
+      fifthGrade: {
+        title: '5th Grade Math Worksheets',
+        description: 'Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.',
+        cta: 'View 5th Grade Worksheets →',
+      },
+      multiplicationHighlight: {
+        title: 'Free Multiplication Worksheets - Most Popular!',
+        description: 'Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs with answer keys - perfect for building confidence and math fluency.',
+        cta: 'Get Free Multiplication Worksheets →',
+      },
+    },
+    whyChoose: {
+      title: 'Why Teachers & Parents Choose Wizqo Worksheets',
+      subtitle: 'Get high-quality, free printable worksheets with answer keys for every grade level. Perfect for classroom use, homework, or homeschooling.',
+      printablePDFs: {
+        title: 'Printable PDFs',
+        description: 'Download worksheets instantly as PDFs. Print as many copies as you need for your classroom or home.',
+      },
+      answerKeys: {
+        title: 'Answer Keys Included',
+        description: 'Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.',
+      },
+      allGrades: {
+        title: 'All Grades K-5',
+        description: 'Find worksheets for kindergarten, 1st grade, 2nd grade, 3rd grade, and more. Covering math, reading, writing, and science.',
+      },
+      generateUnlimited: {
+        title: 'Generate Unlimited',
+        description: 'Use our worksheet generator to create unlimited unique worksheets. Perfect for daily practice and homework.',
+      },
+      free: {
+        title: '100% Free',
+        description: 'All worksheets are completely free. No sign-up required, no credit card needed. Start downloading right away.',
+      },
+      trustedByTeachers: {
+        title: 'Trusted by Teachers',
+        description: 'Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.',
+      },
+      aiGenerator: {
+        title: 'Smart AI Worksheet Generator',
+        description: 'Our AI creates worksheets perfectly matched to your grade level and subject. Each worksheet is unique and includes answer keys.',
+      },
+    },
+    howItWorks: {
+      title: 'How to Generate Free Worksheets - 3 Simple Steps',
+      subtitle: 'Create unlimited printable worksheets with answer keys in seconds',
+      step1: {
+        title: 'Choose Grade & Subject',
+        description: 'Select your grade level (Kindergarten through 5th grade) and choose from math, reading, writing, science, and more.',
+        time: 'Takes 10 seconds',
+      },
+      step2: {
+        title: 'Generate Worksheets',
+        description: 'Our AI instantly creates unique worksheets tailored to your selected grade and subject. Each worksheet includes answer keys.',
+        poweredBy: 'Powered by AI',
+      },
+      step3: {
+        title: 'Download & Print',
+        description: 'Download your worksheets as PDFs instantly. Print as many copies as you need for your classroom or home. Answer keys included!',
+        ready: 'Ready in seconds',
+      },
+    },
+    testimonials: {
+      title: 'Real Stories from Teachers & Parents',
+      subtitle: 'See how Wizqo worksheets are helping educators and families every day',
+    },
+    faq: {
+      title: 'Frequently Asked Questions About Free Worksheets',
+      subtitle: 'Everything you need to know about our free printable worksheets',
+      free: {
+        question: 'Are the worksheets free to download?',
+        answer: 'Yes! All worksheets are completely free. Generate unlimited worksheets, download as PDFs, and print as many copies as you need. No sign-up required for basic access.',
+      },
+      subjects: {
+        question: 'What subjects and grades are available?',
+        answer: 'We offer worksheets for Math, Reading, Writing, Science, and more. Worksheets are available for Kindergarten, 1st grade, 2nd grade, 3rd grade, and up to 5th grade. All worksheets include answer keys.',
+      },
+      answerKeys: {
+        question: 'Do worksheets include answer keys?',
+        answer: 'Yes! Every worksheet automatically includes a printable answer key appendix, making grading quick and easy for teachers and parents.',
+      },
+      classroom: {
+        question: 'Can I use these worksheets in my classroom?',
+        answer: 'Absolutely! All worksheets are free for personal and classroom use. Print as many copies as you need for your students. Perfect for homework, classwork, or extra practice.',
+      },
+      generate: {
+        question: 'How do I generate custom worksheets?',
+        answer: 'Use our Interactive Worksheets Generator to create unlimited unique worksheets. Select your grade level and subjects, then generate and download PDFs instantly with answer keys included.',
+      },
+    },
+    cta: {
+      badges: {
+        free: 'Free worksheets for all grades',
+        answerKeys: 'Answer keys included',
+        printable: 'Printable PDF downloads',
+      },
+      title: 'Start Using Free',
+      titleHighlight: 'Printable Worksheets Today',
+      description: 'Join thousands of teachers and parents who use Wizqo worksheets every day. All worksheets are completely free - no sign-up required, no credit card needed.',
+      button: 'Browse Free Worksheets',
+      features: 'No sign-up required • 100% free forever • Answer keys included',
+    },
+  },
   worksheets: {
     'addition-subtraction-0-10': {
       title: 'Addition & Subtraction 0–10',

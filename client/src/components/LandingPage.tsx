@@ -5,12 +5,16 @@ import { Footer } from './Footer';
 import GradientText from './GradientText';
 import AnimatedIcon from './AnimatedIcon';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { useTranslation } from '@/context/TranslationContext';
 
 interface LandingPageProps {
   onNavigateToGenerate: () => void;
 }
 
 export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
+  const { t, language, isRTL } = useTranslation()
+  // Force re-render when language changes
+  React.useEffect(() => {}, [language])
   // JSON-LD Structured Data for Organization
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -135,7 +139,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 overflow-x-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* JSON-LD Structured Data */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
@@ -159,7 +163,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             {/* Trendy Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> Free • Printable • Answer Keys Included</span>
+              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> {t('home.hero.badge')}</span>
             </div>
             
             {/* Main Headline */}
@@ -168,15 +172,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                 animationSpeed={8}
               >
-                Free Math Worksheets for K-5 | Multiplication & More
+                {t('home.hero.headline')}
               </GradientText>
             </h1>
             
             {/* Subheading */}
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
-              Create unlimited free printable worksheets for math, reading, writing, science, and more. Download PDFs instantly with answer keys included. Perfect for teachers, parents, and homeschoolers. 
-              <br className="hidden lg:block" />
-              <strong className="text-white">No sign-up required</strong> — start generating worksheets for kindergarten through 5th grade right away!
+              {t('home.hero.subheading')}
             </p>
             
             {/* CTA Buttons */}
@@ -193,13 +195,13 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                     className="w-full h-full"
                   />
                 </div>
-                🔥 Multiplication Worksheets
+                🔥 {t('home.hero.ctaMultiplication')}
               </a>
               <a 
                 href="/interactive-worksheets-generator"
                 className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
               >
-                Browse All Worksheets
+                {t('home.hero.ctaBrowse')}
               </a>
             </div>
             {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
@@ -304,19 +306,19 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white/60"></div>
                   <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-red-400 rounded-full border-2 border-white/60"></div>
                 </div>
-                <span className="text-sm font-medium whitespace-nowrap">Loved by parents & teachers</span>
+                <span className="text-sm font-medium whitespace-nowrap">{t('home.features.lovedBy')}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                 </svg>
-                <span className="whitespace-nowrap">Printable awards & handwriting sheets</span>
+                <span className="whitespace-nowrap">{t('home.features.printableAwards')}</span>
               </div>
               <div className="flex items-center gap-3 text-sm font-medium">
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                <span className="whitespace-nowrap">Worksheets for all grades K-5</span>
+                <span className="whitespace-nowrap">{t('home.features.allGrades')}</span>
               </div>
             </div>
           </div>
@@ -354,17 +356,17 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8 items-center rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-pink-50 p-6">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">Kids Hub – Fun Learning Games & Printables</h2>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">{t('home.kidsHub.title')}</h2>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Play quick, kid‑friendly games that build focus, vocabulary, and logic — plus printable puzzles you can download and use at home.
+                {t('home.kidsHub.description')}
               </p>
               <ul className="text-slate-700 text-sm space-y-1 mb-5 list-disc list-inside">
-                <li><span aria-hidden="true">🃏</span> Memory Match • <span aria-hidden="true">🔤</span> Word Search • <span aria-hidden="true">🧩</span> Puzzle • <span aria-hidden="true">⌨️</span> Typing Safari</li>
-                <li><span aria-hidden="true">🖨️</span> Printables: word search, sudoku, coloring • <span aria-hidden="true">📚</span> Interactive Worksheets Generator</li>
+                <li><span aria-hidden="true">🃏</span> {t('home.kidsHub.features')}</li>
+                <li><span aria-hidden="true">🖨️</span> {t('home.kidsHub.printables')}</li>
               </ul>
               <div className="flex flex-wrap gap-3">
-                <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">Visit Kids Hub →</a>
-                <a href="/interactive-worksheets-generator" className="inline-flex items-center px-4 py-2 rounded-lg border border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100"><span aria-hidden="true">📚</span> Interactive Worksheets →</a>
+                <a href="/kids" className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700">{t('home.kidsHub.visitKidsHub')}</a>
+                <a href="/interactive-worksheets-generator" className="inline-flex items-center px-4 py-2 rounded-lg border border-purple-300 bg-purple-50 text-purple-700 hover:bg-purple-100"><span aria-hidden="true">📚</span> {t('home.kidsHub.interactiveWorksheets')}</a>
               </div>
             </div>
             <div className="relative h-72 sm:h-80 rounded-2xl overflow-hidden">
@@ -416,23 +418,23 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🌟</div>
-              <h3 className="text-lg font-semibold text-slate-900">Loved by families & teachers</h3>
-              <p className="mt-2 text-sm text-slate-600">Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.</p>
+              <h3 className="text-lg font-semibold text-slate-900">{t('home.trust.lovedBy.title')}</h3>
+              <p className="mt-2 text-sm text-slate-600">{t('home.trust.lovedBy.description')}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🖨️</div>
-              <h3 className="text-lg font-semibold text-slate-900">Printable library ready to go</h3>
-              <p className="mt-2 text-sm text-slate-600">Grab certificates, handwriting sheets, and activity packs without any setup.</p>
+              <h3 className="text-lg font-semibold text-slate-900">{t('home.trust.printableLibrary.title')}</h3>
+              <p className="mt-2 text-sm text-slate-600">{t('home.trust.printableLibrary.description')}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🤖</div>
-              <h3 className="text-lg font-semibold text-slate-900">AI worksheet generator</h3>
-              <p className="mt-2 text-sm text-slate-600">Create unlimited custom worksheets instantly with our AI-powered generator. Perfect for any grade or subject.</p>
+              <h3 className="text-lg font-semibold text-slate-900">{t('home.trust.aiGenerator.title')}</h3>
+              <p className="mt-2 text-sm text-slate-600">{t('home.trust.aiGenerator.description')}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center shadow-sm">
               <div className="text-3xl mb-3" aria-hidden="true">🎯</div>
-              <h3 className="text-lg font-semibold text-slate-900">Fresh activities weekly</h3>
-              <p className="mt-2 text-sm text-slate-600">New printables, games, and challenges pushed live so you always have something fun to try.</p>
+              <h3 className="text-lg font-semibold text-slate-900">{t('home.trust.freshActivities.title')}</h3>
+              <p className="mt-2 text-sm text-slate-600">{t('home.trust.freshActivities.description')}</p>
             </div>
           </div>
         </div>
@@ -443,10 +445,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Free Math Worksheets for Every Grade: Multiplication, Addition, Subtraction & More
+              {t('home.grades.title')}
             </h2>
             <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              Help your child excel in math with our free multiplication worksheets, 2nd grade math worksheets, 1st grade math worksheets, kindergarten math worksheets, and more! Download printable PDFs instantly with answer keys. Perfect for building confidence and mastering essential math skills - no sign-up required!
+              {t('home.grades.subtitle')}
             </p>
           </div>
           
@@ -454,85 +456,85 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="space-y-16 mb-16">
             {/* 1st Grade Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">1st Grade Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.firstGrade.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free printable 1st grade math worksheets covering addition, subtraction, number sense, ten frames, and skip counting. Perfect for building foundational math skills with answer keys included. Download PDF worksheets instantly for classroom or home use.
+                {t('home.grades.firstGrade.description')}
               </p>
               <a 
                 href="/worksheets/1st-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all"
               >
-                View 1st Grade Worksheets →
+                {t('home.grades.firstGrade.cta')}
               </a>
             </div>
 
             {/* 2nd Grade Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">2nd Grade Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.secondGrade.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free 2nd grade math worksheets featuring multiplication, division, place value, and word problems. Download printable PDFs with answer keys for instant practice. Perfect for mastering multiplication tables and building math confidence.
+                {t('home.grades.secondGrade.description')}
               </p>
               <a 
                 href="/worksheets/2nd-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all"
               >
-                View 2nd Grade Worksheets →
+                {t('home.grades.secondGrade.cta')}
               </a>
             </div>
 
             {/* Kindergarten Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 border border-purple-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">Kindergarten Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.kindergarten.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free printable kindergarten math worksheets for early learners. Download PDF worksheets covering counting, number recognition, basic shapes, and simple addition. Perfect for building math foundations with answer keys included.
+                {t('home.grades.kindergarten.description')}
               </p>
               <a 
                 href="/worksheets/kindergarten-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 transition-all"
               >
-                View Kindergarten Worksheets →
+                {t('home.grades.kindergarten.cta')}
               </a>
             </div>
 
             {/* 3rd Grade Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl p-8 border border-yellow-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">3rd Grade Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.thirdGrade.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free 3rd grade math worksheets covering advanced multiplication, fractions, division, and multi-step word problems. Printable PDF worksheets with answer keys for comprehensive math practice. Perfect for building problem-solving skills.
+                {t('home.grades.thirdGrade.description')}
               </p>
               <a 
                 href="/worksheets/3rd-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-600 text-white font-bold rounded-xl hover:bg-yellow-700 transition-all"
               >
-                View 3rd Grade Worksheets →
+                {t('home.grades.thirdGrade.cta')}
               </a>
             </div>
 
             {/* 4th Grade Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-3xl p-8 border border-teal-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">4th Grade Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.fourthGrade.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for comprehensive math practice and skill building.
+                {t('home.grades.fourthGrade.description')}
               </p>
               <a 
                 href="/worksheets/4th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all"
               >
-                View 4th Grade Worksheets →
+                {t('home.grades.fourthGrade.cta')}
               </a>
             </div>
 
             {/* 5th Grade Math Worksheets H2 */}
             <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-3xl p-8 border border-indigo-100">
-              <h2 className="text-3xl font-black text-slate-900 mb-4">5th Grade Math Worksheets</h2>
+              <h2 className="text-3xl font-black text-slate-900 mb-4">{t('home.grades.fifthGrade.title')}</h2>
               <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.
+                {t('home.grades.fifthGrade.description')}
               </p>
               <a 
                 href="/worksheets/5th-grade-math-worksheets"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all"
               >
-                View 5th Grade Worksheets →
+                {t('home.grades.fifthGrade.cta')}
               </a>
             </div>
           </div>
@@ -593,16 +595,16 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 rounded-3xl p-8 mb-12 border-2 border-purple-200">
             <div className="text-center">
               <h3 className="text-2xl lg:text-3xl font-black text-slate-900 mb-4">
-                Free Multiplication Worksheets - Most Popular! 🔥
+                {t('home.grades.multiplicationHighlight.title')} 🔥
               </h3>
               <p className="text-lg text-slate-700 mb-6 max-w-3xl mx-auto">
-                Help your child master multiplication with our free multiplication worksheets for 2nd grade, 3rd grade, and beyond! Download printable PDFs with answer keys - perfect for building confidence and math fluency.
+                {t('home.grades.multiplicationHighlight.description')}
               </p>
               <a 
                 href="/worksheets/multiplication-worksheets" 
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
               >
-                Get Free Multiplication Worksheets →
+                {t('home.grades.multiplicationHighlight.cta')}
               </a>
             </div>
           </div>
@@ -634,10 +636,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Why Teachers & Parents Choose Wizqo Worksheets
+              {t('home.whyChoose.title')}
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Get high-quality, free printable worksheets with answer keys for every grade level. Perfect for classroom use, homework, or homeschooling.
+              {t('home.whyChoose.subtitle')}
             </p>
           </div>
           
@@ -645,33 +647,33 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4" aria-hidden="true">🖨️</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Printable PDFs</h3>
-              <p className="text-slate-600 leading-relaxed">Download worksheets instantly as PDFs. Print as many copies as you need for your classroom or home.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.printablePDFs.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.printablePDFs.description')}</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4" aria-hidden="true">✅</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Answer Keys Included</h3>
-              <p className="text-slate-600 leading-relaxed">Every worksheet comes with a complete answer key, making grading quick and easy for teachers and parents.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.answerKeys.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.answerKeys.description')}</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4">🎨</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">All Grades K-5</h3>
-              <p className="text-slate-600 leading-relaxed">Find worksheets for kindergarten, 1st grade, 2nd grade, 3rd grade, and more. Covering math, reading, writing, and science.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.allGrades.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.allGrades.description')}</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4" aria-hidden="true">🚀</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Generate Unlimited</h3>
-              <p className="text-slate-600 leading-relaxed">Use our worksheet generator to create unlimited unique worksheets. Perfect for daily practice and homework.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.generateUnlimited.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.generateUnlimited.description')}</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4" aria-hidden="true">💯</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">100% Free</h3>
-              <p className="text-slate-600 leading-relaxed">All worksheets are completely free. No sign-up required, no credit card needed. Start downloading right away.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.free.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.free.description')}</p>
             </div>
             <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="text-3xl mb-4" aria-hidden="true">👥</div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Trusted by Teachers</h3>
-              <p className="text-slate-600 leading-relaxed">Used by thousands of teachers and parents worldwide. High-quality worksheets that align with educational standards.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.trustedByTeachers.title')}</h3>
+              <p className="text-slate-600 leading-relaxed">{t('home.whyChoose.trustedByTeachers.description')}</p>
             </div>
           </div>
           
@@ -684,9 +686,9 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
                   <span className="text-2xl" aria-hidden="true">🧠</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Smart AI Worksheet Generator</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.whyChoose.aiGenerator.title')}</h3>
                 <p className="text-slate-700 text-base leading-relaxed mb-6">
-                  Our AI creates worksheets perfectly matched to your grade level and subject. Each worksheet is unique and includes answer keys.
+                  {t('home.whyChoose.aiGenerator.description')}
                 </p>
                 <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4">
                   <div className="flex items-center space-x-3 mb-2">
@@ -773,10 +775,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              How to Generate Free Worksheets - 3 Simple Steps
+              {t('home.howItWorks.title')}
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Create unlimited printable worksheets with answer keys in seconds
+              {t('home.howItWorks.subtitle')}
             </p>
           </div>
           
@@ -806,15 +808,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Choose Grade & Subject</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step1.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Select your grade level (Kindergarten through 5th grade) and choose from math, reading, writing, science, and more.
+                {t('home.howItWorks.step1.description')}
               </p>
               <div className="flex items-center text-purple-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Takes 10 seconds
+                {t('home.howItWorks.step1.time')}
               </div>
             </div>
 
@@ -844,15 +846,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Generate Worksheets</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step2.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Our AI instantly creates unique worksheets tailored to your selected grade and subject. Each worksheet includes answer keys.
+                {t('home.howItWorks.step2.description')}
               </p>
               <div className="flex items-center text-blue-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
-                Powered by AI
+                {t('home.howItWorks.step2.poweredBy')}
               </div>
             </div>
 
@@ -880,15 +882,15 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Download & Print</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.howItWorks.step3.title')}</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
-                Download your worksheets as PDFs instantly. Print as many copies as you need for your classroom or home. Answer keys included!
+                {t('home.howItWorks.step3.description')}
               </p>
               <div className="flex items-center text-green-600 text-sm font-medium">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Ready in seconds
+                {t('home.howItWorks.step3.ready')}
               </div>
             </div>
           </div>
@@ -900,10 +902,10 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Real Stories from Teachers & Parents
+              {t('home.testimonials.title')}
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              See how Wizqo worksheets are helping educators and families every day
+              {t('home.testimonials.subtitle')}
             </p>
           </div>
           
@@ -945,42 +947,42 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6">
-              Frequently Asked Questions About Free Worksheets
+              {t('home.faq.title')}
             </h2>
             <p className="text-lg text-slate-600">
-              Everything you need to know about our free printable worksheets
+              {t('home.faq.subtitle')}
             </p>
           </div>
           
           <div className="space-y-8">
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Are the worksheets free to download?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.free.question')}</h3>
               <p className="text-slate-600 leading-relaxed">
-                Yes! All worksheets are completely free. Generate unlimited worksheets, download as PDFs, and print as many copies as you need. No sign-up required for basic access.
+                {t('home.faq.free.answer')}
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">What subjects and grades are available?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.subjects.question')}</h3>
               <p className="text-slate-600 leading-relaxed">
-                We offer worksheets for Math, Reading, Writing, Science, and more. Worksheets are available for Kindergarten, 1st grade, 2nd grade, 3rd grade, and up to 5th grade. All worksheets include answer keys.
+                {t('home.faq.subjects.answer')}
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Do worksheets include answer keys?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.answerKeys.question')}</h3>
               <p className="text-slate-600 leading-relaxed">
-                Yes! Every worksheet automatically includes a printable answer key appendix, making grading quick and easy for teachers and parents.
+                {t('home.faq.answerKeys.answer')}
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">Can I use these worksheets in my classroom?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.classroom.question')}</h3>
               <p className="text-slate-600 leading-relaxed">
-                Absolutely! All worksheets are free for personal and classroom use. Print as many copies as you need for your students. Perfect for homework, classwork, or extra practice.
+                {t('home.faq.classroom.answer')}
               </p>
             </div>
             <div className="bg-slate-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">How do I generate custom worksheets?</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('home.faq.generate.question')}</h3>
               <p className="text-slate-600 leading-relaxed">
-                Use our Interactive Worksheets Generator to create unlimited unique worksheets. Select your grade level and subjects, then generate and download PDFs instantly with answer keys included.
+                {t('home.faq.generate.answer')}
               </p>
             </div>
           </div>
@@ -1002,28 +1004,26 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           {/* Floating badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">📚</span> Free worksheets for all grades
+              <span aria-hidden="true">📚</span> {t('home.cta.badges.free')}
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">✅</span> Answer keys included
+              <span aria-hidden="true">✅</span> {t('home.cta.badges.answerKeys')}
             </div>
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-white text-sm">
-              <span aria-hidden="true">🖨️</span> Printable PDF downloads
+              <span aria-hidden="true">🖨️</span> {t('home.cta.badges.printable')}
             </div>
           </div>
           
           <h2 className="text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
-            Start Using Free
+            {t('home.cta.title')}
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 animate-gradient-x">
-              Printable Worksheets Today
+              {t('home.cta.titleHighlight')}
             </span>
           </h2>
           
           <p className="text-lg lg:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Join thousands of teachers and parents who use Wizqo worksheets every day.
-            <br className="hidden lg:block" />
-            All worksheets are <strong className="text-white">completely free</strong> - no sign-up required, no credit card needed.
+            {t('home.cta.description')}
           </p>
           
           {/* CTA Buttons */}
@@ -1032,11 +1032,11 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               href="/interactive-worksheets-generator"
               className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-12 py-6 text-lg font-black rounded-3xl hover:from-yellow-300 hover:to-orange-400 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/25 border-0"
             >
-              <span aria-hidden="true">📚</span> Browse Free Worksheets
+              <span aria-hidden="true">📚</span> {t('home.cta.button')}
             </a>
             <div className="text-center">
               <p className="text-gray-300 text-sm">
-                <span aria-hidden="true">✓</span> No sign-up required • <span aria-hidden="true">✓</span> 100% free forever • <span aria-hidden="true">✓</span> Answer keys included
+                {t('home.cta.features')}
               </p>
             </div>
           </div>
