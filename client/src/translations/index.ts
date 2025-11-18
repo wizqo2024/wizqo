@@ -30,8 +30,8 @@ export function getTranslation(language: Language, key: string): string | any {
       if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
         return value
       }
-      // Return strings
-      if (typeof value === 'string' && value.length > 0) {
+      // Return strings (including empty strings, but check length > 0 for non-empty requirement)
+      if (typeof value === 'string') {
         return value
       }
     }
