@@ -2565,17 +2565,45 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Match uppercase "A" to lowercase "a"</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Find uppercase "A" (big letter)</div>
-                  <div><strong>Step 2:</strong> Find lowercase "a" (small letter)</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Match uppercase "A" to lowercase "a"</div>
+                {/* Visual example */}
+                <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+                  <svg viewBox="0 0 400 140" className="w-full h-auto">
+                    {/* Uppercase A */}
+                    <circle cx="60" cy="50" r="4" fill="#ef4444" />
+                    <line x1="60" y1="50" x2="100" y2="50" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="100" y1="50" x2="95" y2="45" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="100" y1="50" x2="95" y2="55" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <text x="80" y="80" fontSize="64" fill="#6366f1" fontWeight="bold">A</text>
+                    <circle cx="100" cy="100" r="6" fill="#94a3b8" />
+                    {/* Connecting line */}
+                    <path d="M 100 100 Q 200 60 300 100" stroke="#6366f1" strokeWidth="3" strokeDasharray="5 5" fill="none" />
+                    {/* Lowercase a */}
+                    <circle cx="340" cy="50" r="4" fill="#ef4444" />
+                    <line x1="340" y1="50" x2="300" y2="50" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="300" y1="50" x2="305" y2="45" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="300" y1="50" x2="305" y2="55" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
+                    <text x="320" y="80" fontSize="64" fill="#8b5cf6" fontWeight="bold">a</text>
+                    <circle cx="300" cy="100" r="6" fill="#94a3b8" />
+                    <text x="200" y="120" fontSize="16" fill="#6366f1" textAnchor="middle" fontWeight="bold">They match! 🎉</text>
+                  </svg>
+                </div>
+                <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
+                  <div><strong>Step 1:</strong> Find uppercase <span className="text-indigo-700 font-bold text-lg">"A"</span> (big letter)</div>
+                  <div><strong>Step 2:</strong> Find lowercase <span className="text-purple-700 font-bold text-lg">"a"</span> (small letter)</div>
                   <div><strong>Step 3:</strong> Draw a line connecting them</div>
-                  <div><strong>Step 4:</strong> Say "A" sound as you match</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> A matches a</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Uppercase and lowercase are the same letter, just different sizes!</div>
+                  <div><strong>Step 4:</strong> Say <span className="text-indigo-700 font-bold">"A"</span> sound as you match</div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-indigo-700">A</span> matches <span className="text-purple-700">a</span></div>
+                  <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Uppercase and lowercase are the same letter, just different sizes!</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2676,17 +2704,50 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> Circle the picture that begins with "A"</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Say the sound: /a/ (like in apple)</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> Circle the picture that begins with <span className="text-3xl text-indigo-700">"A"</span></div>
+                {/* Visual example with pictures */}
+                <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+                  <div className="flex items-center justify-center gap-6">
+                    <div className="text-center">
+                      <div className="text-6xl mb-2">🍎</div>
+                      <div className="text-xs font-semibold text-indigo-700">apple</div>
+                      <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
+                        <span className="text-2xl">✓</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-6xl mb-2">✈️</div>
+                      <div className="text-xs font-semibold text-indigo-700">airplane</div>
+                      <div className="mt-2 w-16 h-16 rounded-full border-4 border-green-500 mx-auto flex items-center justify-center">
+                        <span className="text-2xl">✓</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-6xl mb-2">🦋</div>
+                      <div className="text-xs font-semibold text-slate-500">butterfly</div>
+                      <div className="mt-2 w-16 h-16 rounded-full border-4 border-slate-300 mx-auto flex items-center justify-center">
+                        <span className="text-xl text-slate-400">✗</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center mt-3 text-indigo-900 font-semibold">Both 🍎 and ✈️ start with /a/ sound!</div>
+                </div>
+                <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
+                  <div><strong>Step 1:</strong> Say the sound: <span className="text-indigo-700 font-bold">/a/</span> (like in apple)</div>
                   <div><strong>Step 2:</strong> Look at each picture: 🍎 apple, ✈️ airplane, 🦋 butterfly</div>
-                  <div><strong>Step 3:</strong> Which one starts with /a/? Apple and airplane both start with /a/!</div>
+                  <div><strong>Step 3:</strong> Which one starts with /a/? <span className="text-green-600 font-bold">Apple and airplane both start with /a/!</span></div>
                   <div><strong>Step 4:</strong> Circle the pictures that begin with /a/</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Circle 🍎 and ✈️</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Say the sound, not the letter name! A says /a/ as in apple!</div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Circle <span className="text-2xl">🍎</span> and <span className="text-2xl">✈️</span></div>
+                  <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Say the sound, not the letter name! A says /a/ as in apple!</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2806,33 +2867,115 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> 5 + 3 = ?</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-blue-900"><strong>Problem:</strong> 5 + 3 = ?</div>
+                {/* Visual example with objects */}
+                <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
+                  <svg viewBox="0 0 500 120" className="w-full h-auto">
+                    {/* 5 blue circles */}
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <g key={j}>
+                        <circle cx={40 + j * 50} cy="40" r="18" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
+                        <circle cx={40 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
+                        <text x={40 + j * 50} y="45" fontSize="14" fill="#1e40af" textAnchor="middle" fontWeight="bold">{j + 1}</text>
+                      </g>
+                    ))}
+                    {/* Plus sign */}
+                    <text x="290" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">+</text>
+                    {/* 3 green circles */}
+                    {Array.from({ length: 3 }).map((_, j) => (
+                      <g key={j}>
+                        <circle cx={330 + j * 50} cy="40" r="18" fill="#10b981" stroke="#059669" strokeWidth="2" />
+                        <circle cx={330 + j * 50 - 4} cy="36" r="3" fill="#ffffff" />
+                        <text x={330 + j * 50} y="45" fontSize="14" fill="#059669" textAnchor="middle" fontWeight="bold">{j + 1}</text>
+                      </g>
+                    ))}
+                    {/* Equals */}
+                    <text x="480" y="50" fontSize="32" fill="#1e40af" fontWeight="bold">=</text>
+                  </svg>
+                  <div className="text-center mt-2 text-blue-900 font-semibold">Count all the circles: 5 + 3 = 8</div>
+                </div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Find 5 on the number line</div>
-                  <div><strong>Step 2:</strong> Move 3 spaces to the right (for addition)</div>
-                  <div><strong>Step 3:</strong> You land on 8</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 5 + 3 = 8</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: For addition, move right on the number line. For subtraction, move left!</div>
+                  <div><strong>Step 1:</strong> Count the blue circles: <span className="text-blue-600 font-bold">5</span></div>
+                  <div><strong>Step 2:</strong> Count the green circles: <span className="text-green-600 font-bold">3</span></div>
+                  <div><strong>Step 3:</strong> Count them all together: <span className="text-blue-900 font-bold">8</span></div>
+                  <div className="font-semibold text-blue-900 mt-2"><strong>Answer:</strong> 5 + 3 = <span className="text-2xl">8</span></div>
+                  <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: You can also use the number line below - start at 5, move 3 steps right!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {Array.from({ length: 12 }).map((_,i)=> (
-                <div key={i} className="break-inside-avoid">
-                  <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                    <g fill="none" stroke="#94a3b8" strokeWidth="3">
-                      <path d="M60 120 H340" />
-                      {Array.from({ length: 11 }).map((__,k)=> (
-                        <line key={k} x1={60 + k*28} y1={120} x2={60 + k*28} y2={110} />
-                      ))}
-                    </g>
-                    <text x="60" y="60" fontSize="32" fill="#111827">__ {i%2===0?'+':'-'} __ = ____</text>
-                  </svg>
-                </div>
-              ))}
+              {Array.from({ length: 12 }).map((_,i)=> {
+                const isAdd = i%2===0;
+                const num1 = 2 + (i%4);
+                const num2 = 1 + (i%3);
+                const answer = isAdd ? num1 + num2 : num1 - num2;
+                return (
+                  <div key={i} className="break-inside-avoid bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-lg border-2 border-blue-200">
+                    <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      {/* Visual objects for counting */}
+                      <g>
+                        {/* First group of objects */}
+                        {Array.from({ length: num1 }).map((_, j) => {
+                          const col = j % 3;
+                          const row = Math.floor(j / 3);
+                          const x = 40 + col * 35;
+                          const y = 30 + row * 35;
+                          return (
+                            <g key={j}>
+                              <circle cx={x} cy={y} r="12" fill="#3b82f6" stroke="#1e40af" strokeWidth="2" />
+                              <circle cx={x-3} cy={y-3} r="2" fill="#ffffff" />
+                            </g>
+                          );
+                        })}
+                        {/* Plus or minus sign */}
+                        <text x={isAdd ? "140" : "140"} y="50" fontSize="36" fill="#1e40af" fontWeight="bold">
+                          {isAdd ? '+' : '−'}
+                        </text>
+                        {/* Second group of objects */}
+                        {Array.from({ length: num2 }).map((_, j) => {
+                          const col = j % 3;
+                          const row = Math.floor(j / 3);
+                          const x = 180 + col * 35;
+                          const y = 30 + row * 35;
+                          return (
+                            <g key={j}>
+                              <circle cx={x} cy={y} r="12" fill={isAdd ? "#10b981" : "#ef4444"} stroke={isAdd ? "#059669" : "#dc2626"} strokeWidth="2" />
+                              <circle cx={x-3} cy={y-3} r="2" fill="#ffffff" />
+                            </g>
+                          );
+                        })}
+                        {/* Equals sign */}
+                        <text x="280" y="50" fontSize="36" fill="#1e40af" fontWeight="bold">=</text>
+                        {/* Answer box */}
+                        <rect x="310" y="20" width="60" height="50" rx="4" fill="white" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 4" />
+                        <text x="340" y="50" fontSize="24" fill="#64748b" textAnchor="middle">?</text>
+                      </g>
+                      {/* Number line below */}
+                      <g fill="none" stroke="#94a3b8" strokeWidth="2" opacity="0.6">
+                        <path d="M40 140 H360" />
+                        {Array.from({ length: 11 }).map((__,k)=> (
+                          <line key={k} x1={40 + k*32} y1={140} x2={40 + k*32} y2={130} />
+                        ))}
+                        {Array.from({ length: 11 }).map((__,k)=> (
+                          <text key={k} x={40 + k*32} y="155" fontSize="12" fill="#64748b" textAnchor="middle">{k}</text>
+                        ))}
+                      </g>
+                    </svg>
+                    <div className="mt-2 text-xs text-center text-slate-600">
+                      {num1} {isAdd ? '+' : '−'} {num2} = <span className="font-bold text-blue-700">___</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -2895,29 +3038,66 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Number:</strong> 7</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Look at the number: 7</div>
-                    <div><strong>Step 2:</strong> Color 7 circles in the ten frame</div>
-                    <div><strong>Step 3:</strong> Count: 7 filled, 3 empty</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: A ten frame has 10 spaces. Count how many you need to fill, then count how many are left empty!</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-teal-50 to-cyan-50 border-2 border-teal-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-semibold text-base text-teal-900"><strong>Number:</strong> <span className="text-4xl text-teal-700 ml-2">7</span></div>
+                  {/* Visual ten frame example */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-teal-300">
+                    <svg viewBox="0 0 300 140" className="w-full h-auto">
+                      <rect x="20" y="20" width="260" height="100" rx="8" fill="white" stroke="#14b8a6" strokeWidth="3" />
+                      {/* 5 circles in top row - all filled */}
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <g key={j}>
+                          <circle cx={50 + j * 40} cy="50" r="18" fill="#14b8a6" stroke="#0d9488" strokeWidth="2.5" />
+                          <circle cx={50 + j * 40 - 4} cy="46" r="3" fill="#ffffff" />
+                        </g>
+                      ))}
+                      {/* 5 circles in bottom row - first 2 filled */}
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <g key={j}>
+                          <circle cx={50 + j * 40} cy="90" r="18" fill={j < 2 ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
+                          {j < 2 && <circle cx={50 + j * 40 - 4} cy="86" r="3" fill="#ffffff" />}
+                        </g>
+                      ))}
+                      <text x="150" y="125" fontSize="18" fill="#0d9488" textAnchor="middle" fontWeight="bold">7 filled circles, 3 empty circles</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-teal-300 space-y-1">
+                    <div><strong>Step 1:</strong> Look at the number: <span className="text-teal-700 font-bold text-lg">7</span></div>
+                    <div><strong>Step 2:</strong> Color <span className="text-teal-700 font-bold">7 circles</span> in the ten frame</div>
+                    <div><strong>Step 3:</strong> Count: <span className="text-teal-700 font-bold">7 filled</span>, <span className="text-slate-500">3 empty</span></div>
+                    <div className="font-semibold text-teal-900 mt-2"><strong>Answer:</strong> Color 7 circles. Say "7 filled, 3 empty"</div>
+                    <div className="text-xs text-teal-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: A ten frame has 10 spaces. Count how many you need to fill, then count how many are left empty!</span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {numbers.map((n)=> (
-                  <div key={n} className="break-inside-avoid">
-                    <svg viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <text x="40" y="50" fontSize="36" fill="#111827">{n}</text>
-                      <g transform="translate(120,60)">
-                        {Array.from({ length: 10 }).map((__,i)=> (
-                          <rect key={i} x={(i%5)*40} y={Math.floor(i/5)*40} width="36" height="36" fill="none" stroke="#111827" />
-                        ))}
+                  <div key={n} className="break-inside-avoid bg-gradient-to-br from-teal-50 to-cyan-50 p-3 rounded-lg border-2 border-teal-200">
+                    <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
+                      <text x="40" y="50" fontSize="48" fill="#0d9488" fontWeight="bold">{n}</text>
+                      <g transform="translate(120,30)">
+                        <rect x="0" y="0" width="200" height="100" rx="6" fill="white" stroke="#14b8a6" strokeWidth="3" />
+                        {Array.from({ length: 10 }).map((__,i)=> {
+                          const col = i % 5;
+                          const row = Math.floor(i / 5);
+                          const x = 20 + col * 36;
+                          const y = 20 + row * 36;
+                          return (
+                            <circle key={i} cx={x} cy={y} r="15" fill={i < n ? "#14b8a6" : "white"} stroke="#0d9488" strokeWidth="2.5" />
+                          );
+                        })}
                       </g>
+                      <text x="200" y="150" fontSize="14" fill="#64748b" textAnchor="middle">
+                        Color <tspan fill="#0d9488" fontWeight="bold">{n}</tspan> circles
+                      </text>
                     </svg>
                   </div>
                 ))}
@@ -3221,26 +3401,66 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-sky-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 23 + 45 = ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Add ones: 3 + 5 = 8</div>
-                    <div><strong>Step 2:</strong> Add tens: 20 + 40 = 60</div>
-                    <div><strong>Step 3:</strong> Combine: 60 + 8 = 68</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 68</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Add ones first, then tens! No regrouping needed here.</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-emerald-50 to-sky-50 border-2 border-emerald-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-emerald-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-mono text-lg text-emerald-900"><strong>Problem:</strong> <span className="text-2xl">23 + 45 = ?</span></div>
+                  {/* Visual representation */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-emerald-300">
+                    <svg viewBox="0 0 500 180" className="w-full h-auto">
+                      {/* 23 - 2 tens and 3 ones */}
+                      <text x="20" y="30" fontSize="16" fill="#059669" fontWeight="bold">23 =</text>
+                      {/* 2 tens blocks */}
+                      {Array.from({ length: 2 }).map((_, j) => (
+                        <rect key={j} x={60 + j * 50} y="10" width="40" height="60" rx="4" fill="#10b981" stroke="#059669" strokeWidth="2" />
+                      ))}
+                      {/* 3 ones */}
+                      {Array.from({ length: 3 }).map((_, j) => (
+                        <rect key={j} x={170 + j * 30} y="50" width="20" height="20" rx="2" fill="#34d399" stroke="#059669" strokeWidth="1.5" />
+                      ))}
+                      {/* Plus sign */}
+                      <text x="260" y="50" fontSize="32" fill="#059669" fontWeight="bold">+</text>
+                      {/* 45 - 4 tens and 5 ones */}
+                      <text x="20" y="110" fontSize="16" fill="#0ea5e9" fontWeight="bold">45 =</text>
+                      {/* 4 tens blocks */}
+                      {Array.from({ length: 4 }).map((_, j) => (
+                        <rect key={j} x={60 + j * 50} y="90" width="40" height="60" rx="4" fill="#38bdf8" stroke="#0ea5e9" strokeWidth="2" />
+                      ))}
+                      {/* 5 ones */}
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <rect key={j} x={270 + j * 30} y="130" width="20" height="20" rx="2" fill="#7dd3fc" stroke="#0ea5e9" strokeWidth="1.5" />
+                      ))}
+                      {/* Equals and answer */}
+                      <text x="420" y="50" fontSize="32" fill="#059669" fontWeight="bold">=</text>
+                      <text x="420" y="110" fontSize="32" fill="#059669" fontWeight="bold">68</text>
+                      {/* Total: 6 tens and 8 ones */}
+                      <text x="20" y="170" fontSize="14" fill="#059669" fontWeight="bold">Total: 6 tens + 8 ones = 68</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-emerald-300 space-y-1">
+                    <div><strong>Step 1:</strong> Add ones: <span className="text-emerald-700 font-bold">3 + 5 = 8</span></div>
+                    <div><strong>Step 2:</strong> Add tens: <span className="text-emerald-700 font-bold">20 + 40 = 60</span></div>
+                    <div><strong>Step 3:</strong> Combine: <span className="text-emerald-700 font-bold">60 + 8 = 68</span></div>
+                    <div className="font-semibold text-emerald-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-emerald-700">68</span></div>
+                    <div className="text-xs text-emerald-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: Add ones first, then tens! No regrouping needed here.</span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>+ {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
+                  <div key={i} className="border-2 border-emerald-200 rounded-lg p-3 bg-gradient-to-br from-emerald-50 to-sky-50 w-full break-inside-avoid">
+                    <div className="font-mono text-2xl leading-7 text-right mb-2">
+                      <div className="text-emerald-700">{a}</div>
+                      <div className="text-sky-700">+ {b}</div>
+                      <div className="border-t-[3px] border-emerald-600 mt-2 pt-2 h-12 flex items-center justify-end">
+                        <span className="inline-block w-20 h-10 border-b-[3px] border-emerald-600" />
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -3323,26 +3543,69 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-fuchsia-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 58 − 23 = ?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Subtract ones: 8 − 3 = 5</div>
-                    <div><strong>Step 2:</strong> Subtract tens: 50 − 20 = 30</div>
-                    <div><strong>Step 3:</strong> Combine: 30 + 5 = 35</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 35</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: Subtract ones first, then tens! No regrouping needed here.</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-mono text-lg text-rose-900"><strong>Problem:</strong> <span className="text-2xl">58 − 23 = ?</span></div>
+                  {/* Visual representation */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-rose-300">
+                    <svg viewBox="0 0 500 180" className="w-full h-auto">
+                      {/* 58 - 5 tens and 8 ones */}
+                      <text x="20" y="30" fontSize="16" fill="#e11d48" fontWeight="bold">58 =</text>
+                      {/* 5 tens blocks */}
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <rect key={j} x={60 + j * 50} y="10" width="40" height="60" rx="4" fill="#fb7185" stroke="#e11d48" strokeWidth="2" />
+                      ))}
+                      {/* 8 ones */}
+                      {Array.from({ length: 8 }).map((_, j) => (
+                        <rect key={j} x={320 + j * 30} y="50" width="20" height="20" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
+                      ))}
+                      {/* Minus sign */}
+                      <text x="20" y="110" fontSize="16" fill="#a21caf" fontWeight="bold">− 23 =</text>
+                      {/* Cross out 2 tens and 3 ones */}
+                      {Array.from({ length: 2 }).map((_, j) => (
+                        <g key={j}>
+                          <rect x={60 + j * 50} y="90" width="40" height="60" rx="4" fill="#fda4af" stroke="#a21caf" strokeWidth="2" opacity="0.5" />
+                          <line x1={60 + j * 50} y1="90" x2={100 + j * 50} y2="150" stroke="#dc2626" strokeWidth="3" />
+                        </g>
+                      ))}
+                      {Array.from({ length: 3 }).map((_, j) => (
+                        <g key={j}>
+                          <rect x={170 + j * 30} y="130" width="20" height="20" rx="2" fill="#fda4af" stroke="#a21caf" strokeWidth="1.5" opacity="0.5" />
+                          <line x1={170 + j * 30} y1="130" x2={190 + j * 30} y2="150" stroke="#dc2626" strokeWidth="2" />
+                        </g>
+                      ))}
+                      {/* Equals and answer */}
+                      <text x="280" y="110" fontSize="32" fill="#e11d48" fontWeight="bold">=</text>
+                      <text x="320" y="110" fontSize="32" fill="#e11d48" fontWeight="bold">35</text>
+                      {/* Remaining: 3 tens and 5 ones */}
+                      <text x="20" y="170" fontSize="14" fill="#e11d48" fontWeight="bold">Remaining: 3 tens + 5 ones = 35</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-rose-300 space-y-1">
+                    <div><strong>Step 1:</strong> Subtract ones: <span className="text-rose-700 font-bold">8 − 3 = 5</span></div>
+                    <div><strong>Step 2:</strong> Subtract tens: <span className="text-rose-700 font-bold">50 − 20 = 30</span></div>
+                    <div><strong>Step 3:</strong> Combine: <span className="text-rose-700 font-bold">30 + 5 = 35</span></div>
+                    <div className="font-semibold text-rose-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-rose-700">35</span></div>
+                    <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: Subtract ones first, then tens! No regrouping needed here.</span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                    <div className="font-mono text-2xl leading-7 text-right">
-                      <div>{a}</div>
-                      <div>− {b}</div>
-                      <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
+                  <div key={i} className="border-2 border-rose-200 rounded-lg p-3 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid">
+                    <div className="font-mono text-2xl leading-7 text-right mb-2">
+                      <div className="text-rose-700">{a}</div>
+                      <div className="text-fuchsia-700">− {b}</div>
+                      <div className="border-t-[3px] border-rose-600 mt-2 pt-2 h-12 flex items-center justify-end">
+                        <span className="inline-block w-20 h-10 border-b-[3px] border-rose-600" />
+                      </div>
                     </div>
                   </div>
                 ))}
