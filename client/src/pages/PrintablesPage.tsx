@@ -4988,43 +4988,67 @@ export function PrintablesPage() {
             ))}
           </WorksheetSectionWrapper>
         )}
-        {activeDocs.includes('reading-g1-lost-hat') && (
-          <WorksheetSectionWrapper
-            docId="reading-g1-lost-hat"
-            title={t('worksheets.reading-g1-lost-hat.title')}
-            emoji="📖"
-            description={t('worksheets.reading-g1-lost-hat.description')}
-            problemCount={4}
-            learningObjectives={(() => {
-              const obj = t('worksheets.reading-g1-lost-hat.learningObjectives')
-              return Array.isArray(obj) ? obj : []
-            })()}
-            parentTeacherTips={(() => {
-              const tips = t('worksheets.reading-g1-lost-hat.parentTeacherTips')
-              return Array.isArray(tips) ? tips : []
-            })()}
-          >
+        {activeDocs.includes('reading-g1-lost-hat') && (() => {
+          const docId = 'reading-g1-lost-hat'
+          const getTrans = (key: string, fallback: string) => {
+            const result = t(key)
+            return result && result !== key ? result : fallback
+          }
+          return (
+            <WorksheetSectionWrapper
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Passage — The Lost Hat (Grade 1)')}
+              emoji="📖"
+              description={getTrans(`worksheets.${docId}.description`, 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.')}
+              problemCount={4}
+              learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj
+                return [
+                  'Read and understand a short story',
+                  'Answer comprehension questions about the text',
+                  'Identify key details (who, what, where, why)',
+                  'Practice reading fluency and comprehension'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips
+                return [
+                  'Read the passage aloud first, then have the child read it',
+                  'Ask questions to check understanding before answering',
+                  'Encourage full sentence answers',
+                  'Help identify key words in the questions that match the passage',
+                  'Extension: Have the child retell the story in their own words'
+                ]
+              })()}
+            >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">{t('worksheets.reading-g1-lost-hat.example.title')}</div>
+              <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
               <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>{t('worksheets.reading-g1-lost-hat.example.question')}</strong> {t('worksheets.reading-g1-lost-hat.example.questionText')}</div>
+                <div className="font-semibold text-base"><strong>{getTrans(`worksheets.${docId}.example.question`, 'Question:')}</strong> {getTrans(`worksheets.${docId}.example.questionText`, 'Where did Mia go?')}</div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>{t('worksheets.reading-g1-lost-hat.example.step1')}</strong> {t('worksheets.reading-g1-lost-hat.example.step1Text')}</div>
-                  <div><strong>{t('worksheets.reading-g1-lost-hat.example.step2')}</strong> {t('worksheets.reading-g1-lost-hat.example.step2Text')}</div>
-                  <div><strong>{t('worksheets.reading-g1-lost-hat.example.step3')}</strong> {t('worksheets.reading-g1-lost-hat.example.step3Text')}</div>
-                  <div className="font-semibold text-blue-900"><strong>{t('worksheets.reading-g1-lost-hat.example.answer')}</strong> {t('worksheets.reading-g1-lost-hat.example.answerText')}</div>
-                  <div className="text-xs text-blue-700 mt-1">{t('worksheets.reading-g1-lost-hat.example.tip')}</div>
+                  <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Read the passage carefully')}</div>
+                  <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Look for the answer to "Where did Mia go?"')}</div>
+                  <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Find: "Mia ran to the park"')}</div>
+                  <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, 'Mia went to the park.')}</div>
+                  <div className="text-xs text-blue-700 mt-1">{getTrans(`worksheets.${docId}.example.tip`, '💡 Tip: Look for key words in the question (like "where") and find them in the passage!')}</div>
                 </div>
               </div>
             </div>
             <div className="bg-white border border-slate-300 rounded p-4">
-              <p className="text-slate-800 text-base">{t('worksheets.reading-g1-lost-hat.passage')}</p>
+              <p className="text-slate-800 text-base">{getTrans(`worksheets.${docId}.passage`, 'Mia ran to the park. The wind was strong. Her red hat flew off! She looked under the slide and behind a tree. A dog found the hat by the bench. Mia laughed and waved. "Thank you!"')}</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
                 {(() => {
-                  const questions = t('worksheets.reading-g1-lost-hat.questions')
-                  const qArray = Array.isArray(questions) ? questions : []
+                  const questions = t(`worksheets.${docId}.questions`)
+                  const qArray = Array.isArray(questions) && questions.length > 0 ? questions : [
+                    'Where did Mia go?',
+                    'What color was the hat?',
+                    'Who found the hat?',
+                    'Why did the hat fly off?'
+                  ]
                   return qArray.map((q, i) => (
                     <li key={i}>{q}</li>
                   ))
@@ -5033,11 +5057,15 @@ export function PrintablesPage() {
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">{t('worksheets.reading-g1-lost-hat.challenge.title')}</div>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
               <div className="space-y-2 text-sm text-purple-800">
                 {(() => {
-                  const items = t('worksheets.reading-g1-lost-hat.challenge.items')
-                  const itemsArray = Array.isArray(items) ? items : []
+                  const items = t(`worksheets.${docId}.challenge.items`)
+                  const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                    'Can you retell the story in your own words?',
+                    'What do you think happened after Mia said "Thank you"?',
+                    'Draw a picture of what happened in the story'
+                  ]
                   return itemsArray.map((item, i) => (
                     <div key={i}>{i + 1}. {item}</div>
                   ))
@@ -5046,45 +5074,55 @@ export function PrintablesPage() {
             </div>
             {/* Self-Assessment */}
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">{t('worksheets.reading-g1-lost-hat.selfAssessment.title')}</div>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
               <div className="space-y-2 text-xs">
                 {(() => {
-                  const items = t('worksheets.reading-g1-lost-hat.selfAssessment.items')
-                  const itemsArray = Array.isArray(items) ? items : []
+                  const items = t(`worksheets.${docId}.selfAssessment.items`)
+                  const itemsArray = Array.isArray(items) && items.length > 0 ? items : [
+                    'I understood the story',
+                    'I answered all 4 questions',
+                    'I used full sentences in my answers'
+                  ]
                   return itemsArray.map((item, i) => (
                     <div key={i}>☐ {item}</div>
                   ))
                 })()}
               </div>
               <div className="mt-3 text-xs">
-                <strong>{t('worksheets.reading-g1-lost-hat.selfAssessment.score')}</strong> ___ / 4
+                <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / 4
               </div>
               <div className="mt-2 text-xs">
-                <strong>{t('worksheets.reading-g1-lost-hat.selfAssessment.hardest')}</strong> _________________________
+                <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
               </div>
             </div>
-            {showAnswersForDoc('reading-g1-lost-hat', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{t('worksheets.reading-g1-lost-hat.answerKey.title')}</div>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
-                  {(() => {
-                    const answers = t('worksheets.reading-g1-lost-hat.answerKey.answers')
-                    const answersArray = Array.isArray(answers) ? answers : []
-                    return answersArray.map((answer, i) => {
-                      const parts = String(answer).split(' (')
-                      const main = parts[0]
-                      const explanation = parts[1]?.replace(')', '')
-                      return (
-                        <li key={i}><strong>{main}</strong>{explanation ? ` (${explanation})` : ''}</li>
-                      )
-                    })
-                  })()}
-                </ol>
-                <div className="text-xs text-emerald-700 mt-3">{t('worksheets.reading-g1-lost-hat.answerKey.note')}</div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+              {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key')}</div>
+                  <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
+                    {(() => {
+                      const answers = t(`worksheets.${docId}.answerKey.answers`)
+                      const answersArray = Array.isArray(answers) && answers.length > 0 ? answers : [
+                        'The park (Mia ran to the park)',
+                        'Red (Her red hat flew off)',
+                        'A dog (A dog found the hat by the bench)',
+                        'The wind was strong (The wind was strong, so the hat flew off)'
+                      ]
+                      return answersArray.map((answer, i) => {
+                        const parts = String(answer).split(' (')
+                        const main = parts[0]
+                        const explanation = parts[1]?.replace(')', '')
+                        return (
+                          <li key={i}><strong>{main}</strong>{explanation ? ` (${explanation})` : ''}</li>
+                        )
+                      })
+                    })()}
+                  </ol>
+                  <div className="text-xs text-emerald-700 mt-3">{getTrans(`worksheets.${docId}.answerKey.note`, '💡 Remember: Always look back at the passage to find the answers. The information is in the text!')}</div>
+                </div>
+              ))}
+            </WorksheetSectionWrapper>
+          )
+        })()}
         {activeDocs.includes('reading-g1-ants') && (
           <WorksheetSectionWrapper
             docId="reading-g1-ants"
