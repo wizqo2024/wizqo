@@ -3607,9 +3607,9 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border-2 border-emerald-200 rounded-lg p-3 bg-gradient-to-br from-emerald-50 to-sky-50 w-full break-inside-avoid">
+                  <div key={i} className="border-2 border-emerald-200 rounded-lg p-4 bg-gradient-to-br from-emerald-50 to-sky-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-emerald-700">{a}</div>
                       <div className="text-sky-700">+ {b}</div>
@@ -3752,9 +3752,9 @@ export function PrintablesPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {pairs.map(([a,b],i)=> (
-                  <div key={i} className="border-2 border-rose-200 rounded-lg p-3 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid">
+                  <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
                     <div className="font-mono text-2xl leading-7 text-right mb-2">
                       <div className="text-rose-700">{a}</div>
                       <div className="text-fuchsia-700">− {b}</div>
