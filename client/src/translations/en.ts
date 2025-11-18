@@ -3359,4 +3359,16 @@ export const en = {
     allRightsReserved: 'All rights reserved.',
     madeWithLove: 'Made with ❤️ for lifelong learners',
   },
+  categories: {
+    math: 'Math',
+    reading: 'Reading',
+    writing: 'Writing',
+    science: 'Science',
+    geography: 'Geography',
+    grammar: 'Grammar & Vocabulary',
+    art: 'Art & Coloring',
+    'early-learning': 'Early Learning',
+    logic: 'Logic & Critical Thinking',
+    sel: 'Social Emotional Learning',
+  },
 }

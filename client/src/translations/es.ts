@@ -3362,4 +3362,16 @@ export const es = {
     allRightsReserved: 'Todos los derechos reservados.',
     madeWithLove: 'Hecho con ❤️ para estudiantes de por vida',
   },
+  categories: {
+    math: 'Matemáticas',
+    reading: 'Lectura',
+    writing: 'Escritura',
+    science: 'Ciencias',
+    geography: 'Geografía',
+    grammar: 'Gramática y Vocabulario',
+    art: 'Arte y Colorear',
+    'early-learning': 'Aprendizaje Temprano',
+    logic: 'Lógica y Pensamiento Crítico',
+    sel: 'Aprendizaje Socioemocional',
+  },
 }

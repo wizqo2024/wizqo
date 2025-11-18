@@ -3362,4 +3362,16 @@ export const ar = {
     allRightsReserved: 'جميع الحقوق محفوظة.',
     madeWithLove: 'صنع بـ ❤️ لمتعلمي مدى الحياة',
   },
+  categories: {
+    math: 'الرياضيات',
+    reading: 'القراءة',
+    writing: 'الكتابة',
+    science: 'العلوم',
+    geography: 'الجغرافيا',
+    grammar: 'القواعد والمفردات',
+    art: 'الفن والتلوين',
+    'early-learning': 'التعلم المبكر',
+    logic: 'المنطق والتفكير النقدي',
+    sel: 'التعلم الاجتماعي العاطفي',
+  },
 }
