@@ -40,6 +40,12 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       const urlLocale = getLocaleFromURL()
       if (urlLocale && ['en', 'es', 'ar'].includes(urlLocale) && urlLocale !== language) {
         setLanguageState(urlLocale as Language)
+        // Also save to localStorage so it persists when navigating to routes without locale prefix (like /print)
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('wizqo-language', urlLocale)
+          document.documentElement.dir = isRTL(urlLocale) ? 'rtl' : 'ltr'
+          document.documentElement.lang = urlLocale
+        }
       }
     }
     
