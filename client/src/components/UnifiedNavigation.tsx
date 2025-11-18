@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from './AuthModal';
 import { WizqoLogo } from './WizqoLogo';
 import { LanguageSelector } from './LanguageSelector';
+import { useTranslation } from '@/context/TranslationContext';
 import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
 
 interface UnifiedNavigationProps {
@@ -14,6 +15,7 @@ interface UnifiedNavigationProps {
 
 export function UnifiedNavigation({ showBackButton = false, onBackClick, currentPage }: UnifiedNavigationProps) {
   const { user, signOut } = useAuth();
+  const { t, isRTL } = useTranslation();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -70,7 +72,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
   };
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Left side - Logo and main nav */}
@@ -87,14 +89,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                 </svg>
-                <span className="font-medium">Home</span>
+                <span className="font-medium">{t('navigation.home')}</span>
               </a>
 
               <a href="/blog" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                 </svg>
-                <span className="font-medium">Blog</span>
+                <span className="font-medium">{t('navigation.blog')}</span>
               </a>
 
               <a href="/interactive-worksheets-generator" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${(() => {
@@ -105,21 +107,21 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
-                <span className="font-medium">Worksheets</span>
+                <span className="font-medium">{t('navigation.worksheets')}</span>
               </a>
 
               <a href="/generate" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
-                <span className="font-medium">Learn</span>
+                <span className="font-medium">{t('navigation.learn')}</span>
               </a>
 
               <div className="relative">
                 <div className="flex items-center">
                   <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
                     <Puzzle className="w-4 h-4" />
-                    <span className="font-medium">Kids Hub</span>
+                    <span className="font-medium">{t('navigation.kidsHub')}</span>
                   </a>
                     <button
                       type="button"
@@ -147,14 +149,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
                     <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
                       <div>
-                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.createSomethingMagical')}</div>
                       <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Certificate Maker</div>
-                          <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.certificateMaker')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.certificateMakerDesc')}</div>
                         </div>
                       </a>
                       <a href="/printables/name-tracing-generator" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -163,8 +165,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Name Tracing</div>
-                          <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.nameTracing')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.nameTracingDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -173,21 +175,21 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Handwriting Maker</div>
-                          <div className="text-[10px] text-slate-600 truncate">Letters, words, sentences</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.handwritingMaker')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.handwritingMakerDesc')}</div>
                         </div>
                       </a>
                     </div>
 
                     <div className="pl-4">
-                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.freeWorksheetPDFs')}</div>
                       <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Multiplication Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.multiplicationWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.multiplicationWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/times-table-multiplication-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -195,8 +197,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Times Table Multiplication Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.timesTableMultiplicationWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.timesTableMultiplicationWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -204,8 +206,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">Kindergarten Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.kindergartenMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.kindergartenMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -213,8 +215,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">1st Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.firstGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.firstGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -222,8 +224,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">2nd Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.secondGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.secondGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -231,8 +233,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">3rd Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.thirdGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.thirdGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -240,8 +242,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">4th Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.fourthGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fourthGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -249,8 +251,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-slate-800">5th Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.fifthGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fifthGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href="/worksheets/reading-comprehension" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -258,14 +260,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div>
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Reading Comprehension Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.readingComprehensionWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.readingComprehensionWorksheetsDesc')}</div>
                         </div>
                       </a>
                     </div>
 
                       <div className="pl-4">
-                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Worksheets &amp; Quick Packs</div>
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.worksheetsQuickPacks')}</div>
                         <a href="/printables" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M6 9V2h12v7" />
@@ -273,14 +275,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <rect x="6" y="14" width="12" height="8" rx="1" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Printables</div>
-                            <div className="text-[10px] text-slate-600 truncate">Puzzles, coloring, packs</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.printables')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.printablesDesc')}</div>
                           </div>
                         </a>
                       </div>
 
                       <div className="pl-4">
-                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
+                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.kidsGames')}</div>
                         <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                           <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -289,8 +291,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <rect x="14" y="14" width="7" height="7" rx="1" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Memory Match</div>
-                            <div className="text-[10px] text-slate-600 truncate">Flip cards &amp; recall</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.memoryMatch')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.memoryMatchDesc')}</div>
                           </div>
                         </a>
                         <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -299,8 +301,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Word Search</div>
-                            <div className="text-[10px] text-slate-600 truncate">Timed vocabulary</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.wordSearch')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.wordSearchDesc')}</div>
                           </div>
                         </a>
                         <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -308,8 +310,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Puzzle Builder</div>
-                            <div className="text-[10px] text-slate-600 truncate">Drag pieces to solve</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.puzzleBuilder')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.puzzleBuilderDesc')}</div>
                           </div>
                         </a>
                         <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -320,8 +322,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <path d="M6 16h8" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Typing Safari</div>
-                            <div className="text-[10px] text-slate-600 truncate">Race animals typing</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.typingSafari')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.typingSafariDesc')}</div>
                           </div>
                         </a>
                         <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
@@ -333,8 +335,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                             <path d="M16 16h4v4h-4z" />
                           </svg>
                           <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">Pattern Builder</div>
-                            <div className="text-[10px] text-slate-600 truncate">Color sequences</div>
+                            <div className="text-xs font-semibold text-slate-800">{t('navigation.patternBuilder')}</div>
+                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.patternBuilderDesc')}</div>
                           </div>
                         </a>
                       </div>
@@ -379,14 +381,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                         onClick={() => setShowUserMenu(false)}
                       >
                         <LayoutDashboard className="w-4 h-4 mr-2" />
-                        Dashboard
+                        {t('navigation.dashboard')}
                       </a>
                       <button
                         onClick={handleSignOut}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
+                        {t('navigation.signOut')}
                       </button>
                     </div>
                   </div>
@@ -399,7 +401,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 className="flex items-center space-x-2 text-slate-600 hover:text-slate-800"
               >
                 <User className="w-4 h-4" />
-                <span>Sign In</span>
+                <span>{t('navigation.signIn')}</span>
               </Button>
             )}
             <LanguageSelector />
@@ -421,7 +423,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
               </svg>
-              <span className="font-medium">Home</span>
+              <span className="font-medium">{t('navigation.home')}</span>
             </button>
             
             <button 
@@ -434,7 +436,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
               </svg>
-              <span className="font-medium">Blog</span>
+              <span className="font-medium">{t('navigation.blog')}</span>
             </button>
 
             <button 
@@ -447,7 +449,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              <span className="font-medium">Worksheets</span>
+              <span className="font-medium">{t('navigation.worksheets')}</span>
             </button>
 
             <button 
@@ -460,7 +462,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
-              <span className="font-medium">Learn</span>
+              <span className="font-medium">{t('navigation.learn')}</span>
             </button>
 
             <button 
@@ -471,7 +473,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
               <Puzzle className="w-4 h-4" />
-              <span className="font-medium">Kids Hub</span>
+              <span className="font-medium">{t('navigation.kidsHub')}</span>
             </button>
 
             <button 
@@ -487,12 +489,12 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
                   <rect x="6" y="14" width="12" height="8" rx="1" />
                 </svg>
-                <span className="font-medium">Printables</span>
+                <span className="font-medium">{t('navigation.printables')}</span>
               </span>
             </button>
 
               <div className="pt-2 border-t border-slate-200 mt-2">
-                <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Create Something Magical</div>
+                <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.createSomethingMagical')}</div>
                 <button 
                   onClick={() => {
                     window.location.href = '/worksheets/handwriting-worksheet-maker';
@@ -500,7 +502,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   }} 
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
-                  <span className="pl-8">Handwriting Worksheet Maker</span>
+                  <span className="pl-8">{t('navigation.handwritingWorksheetMaker')}</span>
                 </button>
 
                 <button 
@@ -510,12 +512,12 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   }} 
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
-                  <span className="pl-8">Name Tracing Generator</span>
+                  <span className="pl-8">{t('navigation.nameTracingGenerator')}</span>
                 </button>
               </div>
 
             <div className="pt-2 border-t border-slate-200 mt-2">
-              <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Free Worksheet PDFs</div>
+              <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.freeWorksheetPDFs')}</div>
               <button 
                 onClick={() => {
                   window.location.href = '/worksheets/multiplication-worksheets';
@@ -523,7 +525,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">Multiplication Worksheets</span>
+                <span className="pl-8">{t('navigation.multiplicationWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -532,7 +534,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">Times Table Multiplication Worksheets</span>
+                <span className="pl-8">{t('navigation.timesTableMultiplicationWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -541,7 +543,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">Kindergarten Math Worksheets</span>
+                <span className="pl-8">{t('navigation.kindergartenMathWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -550,7 +552,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">1st Grade Math Worksheets</span>
+                <span className="pl-8">{t('navigation.firstGradeMathWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -559,7 +561,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">2nd Grade Math Worksheets</span>
+                <span className="pl-8">{t('navigation.secondGradeMathWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -568,7 +570,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">3rd Grade Math Worksheets</span>
+                <span className="pl-8">{t('navigation.thirdGradeMathWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -577,7 +579,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">4th Grade Math Worksheets</span>
+                <span className="pl-8">{t('navigation.fourthGradeMathWorksheets')}</span>
               </button>
               <button 
                 onClick={() => {
@@ -586,7 +588,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }} 
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">5th Grade Math Worksheets</span>
+                <span className="pl-8">{t('navigation.fifthGradeMathWorksheets')}</span>
               </button>
               <button
                 onClick={() => {
@@ -595,18 +597,18 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 }}
                 className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               >
-                <span className="pl-8">Reading Comprehension Worksheets</span>
+                <span className="pl-8">{t('navigation.readingComprehensionWorksheets')}</span>
               </button>
             </div>
 
             <div className="pt-2 border-t border-slate-200 mt-2">
-              <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Kids Games</div>
+              <div className="px-3 pb-1 text-[11px] uppercase tracking-wide text-slate-500 font-semibold">{t('navigation.kidsGames')}</div>
               {[
-                { href: '/kids/games/memory', label: 'Memory Match' },
-                { href: '/kids/games/word-search', label: 'Word Search Game' },
-                { href: '/kids/games/puzzle', label: 'Puzzle Builder' },
-                { href: '/kids/games/typing', label: 'Typing Safari' },
-                { href: '/kids/games/pattern', label: 'Pattern Builder' },
+                { href: '/kids/games/memory', label: t('navigation.memoryMatch') },
+                { href: '/kids/games/word-search', label: t('navigation.wordSearchGame') },
+                { href: '/kids/games/puzzle', label: t('navigation.puzzleBuilder') },
+                { href: '/kids/games/typing', label: t('navigation.typingSafari') },
+                { href: '/kids/games/pattern', label: t('navigation.patternBuilder') },
               ].map(({ href, label }) => (
                 <button
                   key={href}
@@ -632,7 +634,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <LayoutDashboard className="w-4 h-4" />
-                  <span className="font-medium">Dashboard</span>
+                  <span className="font-medium">{t('navigation.dashboard')}</span>
                 </button>
                 <button 
                   onClick={() => {
@@ -642,7 +644,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span className="font-medium">Sign Out</span>
+                  <span className="font-medium">{t('navigation.signOut')}</span>
                 </button>
               </div>
             ) : (
@@ -655,7 +657,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <User className="w-4 h-4" />
-                  <span className="font-medium">Sign In</span>
+                  <span className="font-medium">{t('navigation.signIn')}</span>
                 </button>
               </div>
             )}
