@@ -4995,8 +4995,14 @@ export function PrintablesPage() {
             emoji="📖"
             description={t('worksheets.reading-g1-lost-hat.description')}
             problemCount={4}
-            learningObjectives={t('worksheets.reading-g1-lost-hat.learningObjectives') as string[]}
-            parentTeacherTips={t('worksheets.reading-g1-lost-hat.parentTeacherTips') as string[]}
+            learningObjectives={(() => {
+              const obj = t('worksheets.reading-g1-lost-hat.learningObjectives')
+              return Array.isArray(obj) ? obj : []
+            })()}
+            parentTeacherTips={(() => {
+              const tips = t('worksheets.reading-g1-lost-hat.parentTeacherTips')
+              return Array.isArray(tips) ? tips : []
+            })()}
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
@@ -5016,27 +5022,39 @@ export function PrintablesPage() {
             <div className="bg-white border border-slate-300 rounded p-4">
               <p className="text-slate-800 text-base">{t('worksheets.reading-g1-lost-hat.passage')}</p>
               <ol className="list-decimal list-inside mt-3 text-slate-800 text-base space-y-1">
-                {(t('worksheets.reading-g1-lost-hat.questions') as string[]).map((q, i) => (
-                  <li key={i}>{q}</li>
-                ))}
+                {(() => {
+                  const questions = t('worksheets.reading-g1-lost-hat.questions')
+                  const qArray = Array.isArray(questions) ? questions : []
+                  return qArray.map((q, i) => (
+                    <li key={i}>{q}</li>
+                  ))
+                })()}
               </ol>
             </div>
             {/* Extension/Challenge Problems */}
             <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-purple-900 mb-3 text-sm">{t('worksheets.reading-g1-lost-hat.challenge.title')}</div>
               <div className="space-y-2 text-sm text-purple-800">
-                {(t('worksheets.reading-g1-lost-hat.challenge.items') as string[]).map((item, i) => (
-                  <div key={i}>{i + 1}. {item}</div>
-                ))}
+                {(() => {
+                  const items = t('worksheets.reading-g1-lost-hat.challenge.items')
+                  const itemsArray = Array.isArray(items) ? items : []
+                  return itemsArray.map((item, i) => (
+                    <div key={i}>{i + 1}. {item}</div>
+                  ))
+                })()}
               </div>
             </div>
             {/* Self-Assessment */}
             <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
               <div className="font-semibold text-slate-800 mb-3 text-sm">{t('worksheets.reading-g1-lost-hat.selfAssessment.title')}</div>
               <div className="space-y-2 text-xs">
-                {(t('worksheets.reading-g1-lost-hat.selfAssessment.items') as string[]).map((item, i) => (
-                  <div key={i}>☐ {item}</div>
-                ))}
+                {(() => {
+                  const items = t('worksheets.reading-g1-lost-hat.selfAssessment.items')
+                  const itemsArray = Array.isArray(items) ? items : []
+                  return itemsArray.map((item, i) => (
+                    <div key={i}>☐ {item}</div>
+                  ))
+                })()}
               </div>
               <div className="mt-3 text-xs">
                 <strong>{t('worksheets.reading-g1-lost-hat.selfAssessment.score')}</strong> ___ / 4
@@ -5049,14 +5067,18 @@ export function PrintablesPage() {
               <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
                 <div className="font-bold text-emerald-900 mb-3 text-base">{t('worksheets.reading-g1-lost-hat.answerKey.title')}</div>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
-                  {(t('worksheets.reading-g1-lost-hat.answerKey.answers') as string[]).map((answer, i) => {
-                    const parts = answer.split(' (')
-                    const main = parts[0]
-                    const explanation = parts[1]?.replace(')', '')
-                    return (
-                      <li key={i}><strong>{main}</strong>{explanation ? ` (${explanation})` : ''}</li>
-                    )
-                  })}
+                  {(() => {
+                    const answers = t('worksheets.reading-g1-lost-hat.answerKey.answers')
+                    const answersArray = Array.isArray(answers) ? answers : []
+                    return answersArray.map((answer, i) => {
+                      const parts = String(answer).split(' (')
+                      const main = parts[0]
+                      const explanation = parts[1]?.replace(')', '')
+                      return (
+                        <li key={i}><strong>{main}</strong>{explanation ? ` (${explanation})` : ''}</li>
+                      )
+                    })
+                  })()}
                 </ol>
                 <div className="text-xs text-emerald-700 mt-3">{t('worksheets.reading-g1-lost-hat.answerKey.note')}</div>
               </div>
