@@ -95,6 +95,7 @@ function WorksheetThumbnailCard({ title, description, skills, age, href, docId }
 }
 
 function BundleButton({ section, className }: { section: string; className?: string }) {
+  const { t } = useTranslation();
   const docs = PRINTABLE_BUNDLE_SECTIONS[section];
   if (!docs || docs.length === 0) return null;
   const params = new URLSearchParams({

@@ -355,6 +355,7 @@ function WorksheetThumbnailCard({ title, description, href, docId }: { title: st
 }
 
 function BuildPackInline() {
+  const { t } = useTranslation();
   const handleBuildPack = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Generate a new variant/timestamp for each click to create a new pack
     const variant = Math.floor(Math.random() * 1000);
