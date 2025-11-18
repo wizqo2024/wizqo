@@ -76,13 +76,36 @@ export const en = {
     },
     placeValue: {
       instructions: 'Identify the digit in each place value.',
+      placeValueChart: 'Place value chart:',
+      whatDigit: 'What digit is in the {{place}} place?',
+      expandedForm: 'Expanded form:',
+      ones: 'ones',
+      tens: 'tens',
+      hundreds: 'hundreds',
+      thousands: 'thousands',
     },
     time: {
       instructions: 'Read each clock and write the time.',
       showTime: 'Show {{time}} on the clock.',
+      timeLabel: 'Time:',
     },
     rounding: {
       instructions: 'Round each number to the nearest {{place}}.',
+      roundedTo: 'rounded to the nearest',
+    },
+    graphing: {
+      instructions: 'Create a bar graph from the data below.',
+      data: 'Data:',
+      drawHere: 'Draw your bar graph here',
+    },
+    decimals: {
+      instructions: 'Solve each decimal operation.',
+    },
+    integers: {
+      instructions: 'Solve each integer operation.',
+    },
+    exponents: {
+      instructions: 'Simplify each exponential expression.',
     },
   },
   difficulty: {

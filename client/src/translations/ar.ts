@@ -79,13 +79,36 @@ export const ar = {
     },
     placeValue: {
       instructions: 'حدد الرقم في كل قيمة منزلية.',
+      placeValueChart: 'جدول القيمة المنزلية:',
+      whatDigit: 'ما الرقم الموجود في منزلة {{place}}؟',
+      expandedForm: 'الصيغة الموسعة:',
+      ones: 'الآحاد',
+      tens: 'العشرات',
+      hundreds: 'المئات',
+      thousands: 'الآلاف',
     },
     time: {
       instructions: 'اقرأ كل ساعة واكتب الوقت.',
       showTime: 'أظهر {{time}} على الساعة.',
+      timeLabel: 'الوقت:',
     },
     rounding: {
       instructions: 'قرب كل رقم إلى أقرب {{place}}.',
+      roundedTo: 'مقرب إلى أقرب',
+    },
+    graphing: {
+      instructions: 'أنشئ مخططاً شريطياً من البيانات أدناه.',
+      data: 'البيانات:',
+      drawHere: 'ارسم مخططك الشريطي هنا',
+    },
+    decimals: {
+      instructions: 'حل كل عملية عشرية.',
+    },
+    integers: {
+      instructions: 'حل كل عملية أعداد صحيحة.',
+    },
+    exponents: {
+      instructions: 'بسّط كل تعبير أسي.',
     },
   },
   difficulty: {

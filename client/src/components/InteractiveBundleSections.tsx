@@ -3625,10 +3625,11 @@ const renderers: Record<string, Renderer> = {
               <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
                 <p className="text-lg font-bold text-purple-800 mb-2">{prob.number}</p>
                 <div className="mb-2 p-2 bg-purple-50 rounded border border-purple-200">
-                  <p className="text-xs text-purple-700 mb-1 font-semibold">Place value chart:</p>
+                  <p className="text-xs text-purple-700 mb-1 font-semibold">{t('worksheets.placeValue.placeValueChart')}</p>
                   <div className="flex gap-1 justify-start items-end">
                     {numStr.split('').reverse().map((digit, i) => {
-                      const placeName = placeOrder[i] || ''
+                      const placeKey = placeOrder[i] || ''
+                      const placeName = placeKey ? t(`worksheets.placeValue.${placeKey}`) : ''
                       const isHighlighted = i === placeIndex
                       return (
                         <div key={i} className={`text-center ${isHighlighted ? 'bg-purple-300 border-2 border-purple-600' : 'bg-white border border-purple-200'} rounded p-1 min-w-[50px]`}>
@@ -3639,8 +3640,8 @@ const renderers: Record<string, Renderer> = {
                     })}
                   </div>
                 </div>
-                <p className="text-sm text-purple-700">What digit is in the {prob.place} place? ________</p>
-                <p className="text-xs text-slate-600 mt-1">Expanded form: ________</p>
+                <p className="text-sm text-purple-700">{t('worksheets.placeValue.whatDigit').replace('{{place}}', t(`worksheets.placeValue.${prob.place}`) || prob.place)} ________</p>
+                <p className="text-xs text-slate-600 mt-1">{t('worksheets.placeValue.expandedForm')} ________</p>
               </div>
             )
           })}
@@ -3653,7 +3654,7 @@ const renderers: Record<string, Renderer> = {
     const problems = buildMathTime(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Read the clock and solve the time problems.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.time.instructions')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => {
             const hourAngle = (prob.hours % 12) * 30 + prob.minutes * 0.5
@@ -3676,9 +3677,9 @@ const renderers: Record<string, Renderer> = {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-purple-800 mb-1">Time: {prob.hours}:{String(prob.minutes).padStart(2, '0')}</p>
+                    <p className="text-sm font-semibold text-purple-800 mb-1">{t('worksheets.time.timeLabel')} {prob.hours}:{String(prob.minutes).padStart(2, '0')}</p>
                     <p className="text-sm text-slate-700 mb-2">{prob.question}</p>
-                    <p className="text-sm text-purple-700">Answer: ________</p>
+                    <p className="text-sm text-purple-700">{t('worksheets.answerLabel')}: ________</p>
                   </div>
                 </div>
               </div>
@@ -3688,13 +3689,14 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-graphing': ({ seed, doc, variant }) => {
+  'interactive-math-graphing': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const data = buildMathGraphing(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Create a bar graph from the data below.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.graphing.instructions')}</p>
         <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 mb-4">
-          <p className="text-sm font-semibold text-purple-700 mb-2">Data:</p>
+          <p className="text-sm font-semibold text-purple-700 mb-2">{t('worksheets.graphing.data')}</p>
           <div className="space-y-1 text-sm">
             {data.categories.map((cat, idx) => (
               <p key={idx} className="text-purple-800">{cat}: {data.values[idx]}</p>
@@ -3702,7 +3704,7 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="h-48 border border-purple-300 rounded bg-white">
-          <p className="p-2 text-xs text-slate-500">Draw your bar graph here</p>
+          <p className="p-2 text-xs text-slate-500">{t('worksheets.graphing.drawHere')}</p>
         </div>
       </div>
     )
@@ -3712,22 +3714,23 @@ const renderers: Record<string, Renderer> = {
     const problems = buildMathRounding(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Round each number to the nearest {problems[0]?.roundTo}.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.rounding.instructions').replace('{{place}}', problems[0]?.roundTo || 'ten')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
-              <p className="text-sm font-semibold text-purple-800">{prob.number} rounded to the nearest {prob.roundTo} = ________</p>
+              <p className="text-sm font-semibold text-purple-800">{prob.number} {t('worksheets.rounding.roundedTo')} {prob.roundTo} = ________</p>
             </div>
           ))}
         </div>
       </div>
     )
   },
-  'interactive-math-decimals': ({ seed, doc, variant }) => {
+  'interactive-math-decimals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathDecimals(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Solve each decimal operation.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.decimals.instructions')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
@@ -3739,11 +3742,12 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-integers': ({ seed, doc, variant }) => {
+  'interactive-math-integers': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathIntegers(seed, doc.id, variant)
     return (
       <div className="space-y-4">
-        <p className="text-sm text-slate-600">Solve each integer operation.</p>
+        <p className="text-sm text-slate-600">{t('worksheets.integers.instructions')}</p>
         <div className="space-y-3">
           {problems.map((prob, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-white p-4">
@@ -3757,7 +3761,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-exponents': ({ seed, doc, variant }) => {
+  'interactive-math-exponents': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathExponents(seed, doc.id, variant)
     return (
       <div className="space-y-4">

@@ -79,13 +79,36 @@ export const es = {
     },
     placeValue: {
       instructions: 'Identifica el dígito en cada valor posicional.',
+      placeValueChart: 'Tabla de valores posicionales:',
+      whatDigit: '¿Qué dígito está en el lugar {{place}}?',
+      expandedForm: 'Forma expandida:',
+      ones: 'unidades',
+      tens: 'decenas',
+      hundreds: 'centenas',
+      thousands: 'millares',
     },
     time: {
       instructions: 'Lee cada reloj y escribe la hora.',
       showTime: 'Muestra {{time}} en el reloj.',
+      timeLabel: 'Hora:',
     },
     rounding: {
       instructions: 'Redondea cada número al {{place}} más cercano.',
+      roundedTo: 'redondeado al más cercano',
+    },
+    graphing: {
+      instructions: 'Crea un gráfico de barras con los datos a continuación.',
+      data: 'Datos:',
+      drawHere: 'Dibuja tu gráfico de barras aquí',
+    },
+    decimals: {
+      instructions: 'Resuelve cada operación decimal.',
+    },
+    integers: {
+      instructions: 'Resuelve cada operación de enteros.',
+    },
+    exponents: {
+      instructions: 'Simplifica cada expresión exponencial.',
     },
   },
   difficulty: {
