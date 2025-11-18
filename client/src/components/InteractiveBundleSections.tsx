@@ -6,6 +6,7 @@ import {
   type InteractiveCategory,
 } from '@shared/interactive/interactiveWorksheets'
 import { useTranslation } from '@/context/TranslationContext'
+import { getTranslation } from '@/translations'
 
 type Props = {
   docIds: string[]
@@ -6548,16 +6549,9 @@ function InteractiveWorksheetSection({
     const result = tFromContext(key)
     // If we got the key back, it means translation failed - try direct lookup
     if (result === key && typeof result === 'string') {
-      try {
-        // Dynamic import to avoid circular dependencies
-        const { getTranslation } = require('@/translations')
-        const directResult = getTranslation(language, key)
-        if (typeof directResult === 'string' && directResult !== key) {
-          return directResult
-        }
-      } catch (e) {
-        // If import fails, just return the key
-        console.warn('Translation lookup failed for key:', key, e)
+      const directResult = getTranslation(language, key)
+      if (typeof directResult === 'string' && directResult !== key) {
+        return directResult
       }
     }
     return typeof result === 'string' ? result : key
