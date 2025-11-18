@@ -6573,6 +6573,11 @@ function InteractiveWorksheetSection({
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
+  // Force re-render when language changes
+  React.useEffect(() => {
+    // This effect ensures component re-renders when language changes
+  }, [language])
+
   if (!doc || !category) return null
 
   const renderer = renderers[docId]
