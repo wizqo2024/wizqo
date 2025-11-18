@@ -18,47 +18,7 @@ interface WorksheetItem {
   section?: string
 }
 
-// Define all worksheets with their categories - unique 5th Grade content
-const FIFTH_GRADE_WORKSHEETS: WorksheetItem[] = [
-    // Advanced Operations
-    { title: '🔢 Multi-Digit Multiplication (3×2)', description: 'Multiply 3-digit numbers by 2-digit numbers. Master the standard algorithm.', href: '/print?doc=mult-3x2-digit&from=5th-grade', docId: 'mult-3x2-digit', categories: ['operations'], section: 'Advanced Operations' },
-    { title: '🔢 Long Division (Multi-Digit)', description: 'Divide multi-digit numbers by 2 and 3-digit divisors. Advanced long division practice.', href: '/print?doc=long-division-multidigit&from=5th-grade', docId: 'long-division-multidigit', categories: ['operations'], section: 'Advanced Operations' },
-    { title: '🔢 Order of Operations', description: 'Solve expressions using PEMDAS (parentheses, exponents, multiplication, division, addition, subtraction).', href: '/print?doc=order-of-operations&from=5th-grade', docId: 'order-of-operations', categories: ['operations'], section: 'Advanced Operations' },
-    { title: '🔢 Powers of 10', description: 'Multiply and divide by powers of 10. Understand place value relationships.', href: '/print?doc=powers-of-10&from=5th-grade', docId: 'powers-of-10', categories: ['operations'], section: 'Advanced Operations' },
-    { title: '🔢 Rounding Decimals', description: 'Round decimals to the nearest whole number, tenth, or hundredth. Master decimal place value.', href: '/print?doc=rounding-decimals&from=5th-grade', docId: 'rounding-decimals', categories: ['operations', 'fractions-decimals'], section: 'Advanced Operations' },
-    { title: '🔢 Estimating Sums & Differences', description: 'Estimate sums and differences of whole numbers and decimals. Build number sense.', href: '/print?doc=estimating-sums-differences&from=5th-grade', docId: 'estimating-sums-differences', categories: ['operations'], section: 'Advanced Operations' },
-    // Fractions & Decimals
-    { title: '🍕 Adding & Subtracting Mixed Numbers', description: 'Add and subtract mixed numbers with like and unlike denominators. Regroup when needed.', href: '/print?doc=add-sub-mixed-numbers&from=5th-grade', docId: 'add-sub-mixed-numbers', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Multiplying Fractions', description: 'Multiply fractions by fractions and whole numbers. Simplify your answers.', href: '/print?doc=multiplying-fractions&from=5th-grade', docId: 'multiplying-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Dividing Fractions', description: 'Divide fractions by fractions and whole numbers. Use the "keep, change, flip" method.', href: '/print?doc=dividing-fractions&from=5th-grade', docId: 'dividing-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Multiplying Decimals', description: 'Multiply decimals by whole numbers and decimals. Count decimal places in your answer.', href: '/print?doc=multiplying-decimals&from=5th-grade', docId: 'multiplying-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Dividing Decimals', description: 'Divide decimals by whole numbers and decimals. Move decimal points correctly.', href: '/print?doc=dividing-decimals&from=5th-grade', docId: 'dividing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Fractions, Decimals, & Percents', description: 'Convert between fractions, decimals, and percents. Understand all three forms.', href: '/print?doc=fractions-decimals-percents&from=5th-grade', docId: 'fractions-decimals-percents', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    { title: '🍕 Comparing & Ordering Fractions/Decimals', description: 'Compare and order fractions and decimals. Use common denominators or convert to decimals.', href: '/print?doc=comparing-ordering-fractions-decimals&from=5th-grade', docId: 'comparing-ordering-fractions-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
-    // Algebra Basics
-    { title: '📐 Evaluating Expressions', description: 'Substitute values for variables and evaluate expressions. Practice order of operations.', href: '/print?doc=evaluating-expressions&from=5th-grade', docId: 'evaluating-expressions', categories: ['algebra'], section: 'Algebra Basics' },
-    { title: '📐 Writing Expressions', description: 'Write algebraic expressions from word phrases. Understand variables and operations.', href: '/print?doc=writing-expressions&from=5th-grade', docId: 'writing-expressions', categories: ['algebra'], section: 'Algebra Basics' },
-    { title: '📐 Solving One-Step Equations', description: 'Solve equations with addition, subtraction, multiplication, or division. Find the value of x.', href: '/print?doc=solving-one-step-equations&from=5th-grade', docId: 'solving-one-step-equations', categories: ['algebra'], section: 'Algebra Basics' },
-    { title: '📐 Patterns & Rules', description: 'Identify patterns and write rules. Extend number patterns and sequences.', href: '/print?doc=patterns-rules&from=5th-grade', docId: 'patterns-rules', categories: ['algebra'], section: 'Algebra Basics' },
-    { title: '📐 Coordinate Graphing', description: 'Plot points on a coordinate plane. Understand x and y coordinates.', href: '/print?doc=coordinate-graphing&from=5th-grade', docId: 'coordinate-graphing', categories: ['algebra', 'geometry'], section: 'Algebra Basics' },
-    // Geometry
-    { title: '📐 Volume of Rectangular Prisms', description: 'Find volume using the formula V = l × w × h. Count unit cubes.', href: '/print?doc=volume-rectangular-prisms&from=5th-grade', docId: 'volume-rectangular-prisms', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Area of Triangles & Parallelograms', description: 'Find area using formulas. Understand base and height relationships.', href: '/print?doc=area-triangles-parallelograms&from=5th-grade', docId: 'area-triangles-parallelograms', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Classifying 2D & 3D Shapes', description: 'Identify and classify polygons and polyhedra. Understand shape properties.', href: '/print?doc=classifying-shapes&from=5th-grade', docId: 'classifying-shapes', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Nets of 3D Shapes', description: 'Identify nets that form 3D shapes. Visualize spatial relationships.', href: '/print?doc=nets-3d-shapes&from=5th-grade', docId: 'nets-3d-shapes', categories: ['geometry'], section: 'Geometry' },
-    { title: '📐 Transformations', description: 'Understand translations, rotations, and reflections. Apply transformations to shapes.', href: '/print?doc=transformations-5th&from=5th-grade', docId: 'transformations-5th', categories: ['geometry'], section: 'Geometry' },
-    // Word Problems
-    { title: '🧮 Multi-Step Word Problems', description: 'Solve complex word problems with 4 or more steps. Show all your work and reasoning.', href: '/print?doc=multi-step-word-5th&from=5th-grade', docId: 'multi-step-word-5th', categories: ['word-problems'], section: 'Word Problems' },
-    { title: '🧮 Fraction Word Problems', description: 'Solve word problems involving adding, subtracting, multiplying, and dividing fractions.', href: '/print?doc=fraction-word-problems-5th&from=5th-grade', docId: 'fraction-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
-    { title: '🧮 Decimal Word Problems', description: 'Solve word problems involving decimal operations. Money, measurement, and real-world applications.', href: '/print?doc=decimal-word-problems-5th&from=5th-grade', docId: 'decimal-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
-    { title: '🧮 Ratio & Proportion Word Problems', description: 'Solve problems involving ratios and proportions. Understand relationships between quantities.', href: '/print?doc=ratio-proportion-word-problems&from=5th-grade', docId: 'ratio-proportion-word-problems', categories: ['word-problems'], section: 'Word Problems' },
-    { title: '🧮 Percent Word Problems', description: 'Solve problems involving percents. Find percentages, discounts, and tax.', href: '/print?doc=percent-word-problems&from=5th-grade', docId: 'percent-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
-    // Data & Analysis
-    { title: '📊 Line Graphs', description: 'Create and interpret line graphs. Understand trends and changes over time.', href: '/print?doc=line-graphs&from=5th-grade', docId: 'line-graphs', categories: ['data-analysis'], section: 'Data & Analysis' },
-    { title: '📊 Mean, Median, Mode, Range', description: 'Calculate mean, median, mode, and range. Understand measures of central tendency and spread.', href: '/print?doc=mean-median-mode-range&from=5th-grade', docId: 'mean-median-mode-range', categories: ['data-analysis'], section: 'Data & Analysis' },
-    { title: '📊 Stem-and-Leaf Plots', description: 'Create and interpret stem-and-leaf plots. Organize and analyze data.', href: '/print?doc=stem-leaf-plots&from=5th-grade', docId: 'stem-leaf-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
-    { title: '📊 Probability', description: 'Understand probability. Calculate simple probabilities and use fractions to express likelihood.', href: '/print?doc=probability&from=5th-grade', docId: 'probability', categories: ['data-analysis'], section: 'Data & Analysis' },
-]
+// Worksheets will be defined inside component to use translation
 
 export default function WorksheetsFifthGradePage() {
   const { t, isRTL } = useTranslation();
@@ -97,13 +57,55 @@ export default function WorksheetsFifthGradePage() {
     setSelectedCategories(new Set())
   }
 
+  // Define all worksheets with their categories - using translation keys
+  const FIFTH_GRADE_WORKSHEETS: WorksheetItem[] = useMemo(() => [
+    // Advanced Operations
+    { title: t('pages.fifthGrade.worksheets.mult3x2Digit.title'), description: t('pages.fifthGrade.worksheets.mult3x2Digit.description'), href: '/print?doc=mult-3x2-digit&from=5th-grade', docId: 'mult-3x2-digit', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.longDivisionMultidigit.title'), description: t('pages.fifthGrade.worksheets.longDivisionMultidigit.description'), href: '/print?doc=long-division-multidigit&from=5th-grade', docId: 'long-division-multidigit', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.orderOfOperations.title'), description: t('pages.fifthGrade.worksheets.orderOfOperations.description'), href: '/print?doc=order-of-operations&from=5th-grade', docId: 'order-of-operations', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.powersOf10.title'), description: t('pages.fifthGrade.worksheets.powersOf10.description'), href: '/print?doc=powers-of-10&from=5th-grade', docId: 'powers-of-10', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.roundingDecimals.title'), description: t('pages.fifthGrade.worksheets.roundingDecimals.description'), href: '/print?doc=rounding-decimals&from=5th-grade', docId: 'rounding-decimals', categories: ['operations', 'fractions-decimals'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.estimatingSumsDifferences.title'), description: t('pages.fifthGrade.worksheets.estimatingSumsDifferences.description'), href: '/print?doc=estimating-sums-differences&from=5th-grade', docId: 'estimating-sums-differences', categories: ['operations'], section: 'Advanced Operations' },
+    // Fractions & Decimals
+    { title: t('pages.fifthGrade.worksheets.addingSubtractingMixedNumbers.title'), description: t('pages.fifthGrade.worksheets.addingSubtractingMixedNumbers.description'), href: '/print?doc=add-sub-mixed-numbers&from=5th-grade', docId: 'add-sub-mixed-numbers', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.multiplyingFractions.title'), description: t('pages.fifthGrade.worksheets.multiplyingFractions.description'), href: '/print?doc=multiplying-fractions&from=5th-grade', docId: 'multiplying-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.dividingFractions.title'), description: t('pages.fifthGrade.worksheets.dividingFractions.description'), href: '/print?doc=dividing-fractions&from=5th-grade', docId: 'dividing-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.multiplyingDecimals.title'), description: t('pages.fifthGrade.worksheets.multiplyingDecimals.description'), href: '/print?doc=multiplying-decimals&from=5th-grade', docId: 'multiplying-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.dividingDecimals.title'), description: t('pages.fifthGrade.worksheets.dividingDecimals.description'), href: '/print?doc=dividing-decimals&from=5th-grade', docId: 'dividing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.fractionsDecimalsPercents.title'), description: t('pages.fifthGrade.worksheets.fractionsDecimalsPercents.description'), href: '/print?doc=fractions-decimals-percents&from=5th-grade', docId: 'fractions-decimals-percents', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.comparingOrderingFractionsDecimals.title'), description: t('pages.fifthGrade.worksheets.comparingOrderingFractionsDecimals.description'), href: '/print?doc=comparing-ordering-fractions-decimals&from=5th-grade', docId: 'comparing-ordering-fractions-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    // Algebra Basics
+    { title: t('pages.fifthGrade.worksheets.evaluatingExpressions.title'), description: t('pages.fifthGrade.worksheets.evaluatingExpressions.description'), href: '/print?doc=evaluating-expressions&from=5th-grade', docId: 'evaluating-expressions', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.writingExpressions.title'), description: t('pages.fifthGrade.worksheets.writingExpressions.description'), href: '/print?doc=writing-expressions&from=5th-grade', docId: 'writing-expressions', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.solvingOneStepEquations.title'), description: t('pages.fifthGrade.worksheets.solvingOneStepEquations.description'), href: '/print?doc=solving-one-step-equations&from=5th-grade', docId: 'solving-one-step-equations', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.patternsRules.title'), description: t('pages.fifthGrade.worksheets.patternsRules.description'), href: '/print?doc=patterns-rules&from=5th-grade', docId: 'patterns-rules', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.coordinateGraphing.title'), description: t('pages.fifthGrade.worksheets.coordinateGraphing.description'), href: '/print?doc=coordinate-graphing&from=5th-grade', docId: 'coordinate-graphing', categories: ['algebra', 'geometry'], section: 'Algebra Basics' },
+    // Geometry
+    { title: t('pages.fifthGrade.worksheets.volumeRectangularPrisms.title'), description: t('pages.fifthGrade.worksheets.volumeRectangularPrisms.description'), href: '/print?doc=volume-rectangular-prisms&from=5th-grade', docId: 'volume-rectangular-prisms', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.areaTrianglesParallelograms.title'), description: t('pages.fifthGrade.worksheets.areaTrianglesParallelograms.description'), href: '/print?doc=area-triangles-parallelograms&from=5th-grade', docId: 'area-triangles-parallelograms', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.classifyingShapes.title'), description: t('pages.fifthGrade.worksheets.classifyingShapes.description'), href: '/print?doc=classifying-shapes&from=5th-grade', docId: 'classifying-shapes', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.nets3dShapes.title'), description: t('pages.fifthGrade.worksheets.nets3dShapes.description'), href: '/print?doc=nets-3d-shapes&from=5th-grade', docId: 'nets-3d-shapes', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.transformations5th.title'), description: t('pages.fifthGrade.worksheets.transformations5th.description'), href: '/print?doc=transformations-5th&from=5th-grade', docId: 'transformations-5th', categories: ['geometry'], section: 'Geometry' },
+    // Word Problems
+    { title: t('pages.fifthGrade.worksheets.multiStepWord5th.title'), description: t('pages.fifthGrade.worksheets.multiStepWord5th.description'), href: '/print?doc=multi-step-word-5th&from=5th-grade', docId: 'multi-step-word-5th', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.fractionWordProblems5th.title'), description: t('pages.fifthGrade.worksheets.fractionWordProblems5th.description'), href: '/print?doc=fraction-word-problems-5th&from=5th-grade', docId: 'fraction-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.decimalWordProblems5th.title'), description: t('pages.fifthGrade.worksheets.decimalWordProblems5th.description'), href: '/print?doc=decimal-word-problems-5th&from=5th-grade', docId: 'decimal-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.ratioProportionWordProblems.title'), description: t('pages.fifthGrade.worksheets.ratioProportionWordProblems.description'), href: '/print?doc=ratio-proportion-word-problems&from=5th-grade', docId: 'ratio-proportion-word-problems', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.percentWordProblems.title'), description: t('pages.fifthGrade.worksheets.percentWordProblems.description'), href: '/print?doc=percent-word-problems&from=5th-grade', docId: 'percent-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    // Data & Analysis
+    { title: t('pages.fifthGrade.worksheets.lineGraphs.title'), description: t('pages.fifthGrade.worksheets.lineGraphs.description'), href: '/print?doc=line-graphs&from=5th-grade', docId: 'line-graphs', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.meanMedianModeRange.title'), description: t('pages.fifthGrade.worksheets.meanMedianModeRange.description'), href: '/print?doc=mean-median-mode-range&from=5th-grade', docId: 'mean-median-mode-range', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.stemLeafPlots.title'), description: t('pages.fifthGrade.worksheets.stemLeafPlots.description'), href: '/print?doc=stem-leaf-plots&from=5th-grade', docId: 'stem-leaf-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.probability.title'), description: t('pages.fifthGrade.worksheets.probability.description'), href: '/print?doc=probability&from=5th-grade', docId: 'probability', categories: ['data-analysis'], section: 'Data & Analysis' },
+  ], [t])
+
   // Filter worksheets based on selected categories
   const filteredWorksheets = useMemo(() => {
     if (selectedCategories.size === 0) return FIFTH_GRADE_WORKSHEETS
     return FIFTH_GRADE_WORKSHEETS.filter((ws) => 
       ws.categories.some((cat) => selectedCategories.has(cat))
     )
-  }, [selectedCategories])
+  }, [selectedCategories, FIFTH_GRADE_WORKSHEETS])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {

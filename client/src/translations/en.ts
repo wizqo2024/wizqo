@@ -1010,6 +1010,136 @@ export const en = {
       downloadButton: '⬇️ Download',
       previewOf: 'Preview of',
       clickToView: '👁️ Click to view full worksheet',
+      worksheets: {
+        mult3x2Digit: {
+          title: '🔢 Multi-Digit Multiplication (3×2)',
+          description: 'Multiply 3-digit numbers by 2-digit numbers. Master the standard algorithm.',
+        },
+        longDivisionMultidigit: {
+          title: '🔢 Long Division (Multi-Digit)',
+          description: 'Divide multi-digit numbers by 2 and 3-digit divisors. Advanced long division practice.',
+        },
+        orderOfOperations: {
+          title: '🔢 Order of Operations',
+          description: 'Solve expressions using PEMDAS (parentheses, exponents, multiplication, division, addition, subtraction).',
+        },
+        powersOf10: {
+          title: '🔢 Powers of 10',
+          description: 'Multiply and divide by powers of 10. Understand place value relationships.',
+        },
+        roundingDecimals: {
+          title: '🔢 Rounding Decimals',
+          description: 'Round decimals to the nearest whole number, tenth, or hundredth. Master decimal place value.',
+        },
+        estimatingSumsDifferences: {
+          title: '🔢 Estimating Sums & Differences',
+          description: 'Estimate sums and differences of whole numbers and decimals. Build number sense.',
+        },
+        addingSubtractingMixedNumbers: {
+          title: '🍕 Adding & Subtracting Mixed Numbers',
+          description: 'Add and subtract mixed numbers with like and unlike denominators. Regroup when needed.',
+        },
+        multiplyingFractions: {
+          title: '🍕 Multiplying Fractions',
+          description: 'Multiply fractions by fractions and whole numbers. Simplify your answers.',
+        },
+        dividingFractions: {
+          title: '🍕 Dividing Fractions',
+          description: 'Divide fractions by fractions and whole numbers. Use the "keep, change, flip" method.',
+        },
+        multiplyingDecimals: {
+          title: '🍕 Multiplying Decimals',
+          description: 'Multiply decimals by whole numbers and decimals. Count decimal places in your answer.',
+        },
+        dividingDecimals: {
+          title: '🍕 Dividing Decimals',
+          description: 'Divide decimals by whole numbers and decimals. Move decimal points correctly.',
+        },
+        fractionsDecimalsPercents: {
+          title: '🍕 Fractions, Decimals, & Percents',
+          description: 'Convert between fractions, decimals, and percents. Understand all three forms.',
+        },
+        comparingOrderingFractionsDecimals: {
+          title: '🍕 Comparing & Ordering Fractions/Decimals',
+          description: 'Compare and order fractions and decimals. Use common denominators or convert to decimals.',
+        },
+        evaluatingExpressions: {
+          title: '📐 Evaluating Expressions',
+          description: 'Substitute values for variables and evaluate expressions. Practice order of operations.',
+        },
+        writingExpressions: {
+          title: '📐 Writing Expressions',
+          description: 'Write algebraic expressions from word phrases. Understand variables and operations.',
+        },
+        solvingOneStepEquations: {
+          title: '📐 Solving One-Step Equations',
+          description: 'Solve equations with addition, subtraction, multiplication, or division. Find the value of x.',
+        },
+        patternsRules: {
+          title: '📐 Patterns & Rules',
+          description: 'Identify patterns and write rules. Extend number patterns and sequences.',
+        },
+        coordinateGraphing: {
+          title: '📐 Coordinate Graphing',
+          description: 'Plot points on a coordinate plane. Understand x and y coordinates.',
+        },
+        volumeRectangularPrisms: {
+          title: '📐 Volume of Rectangular Prisms',
+          description: 'Find volume using the formula V = l × w × h. Count unit cubes.',
+        },
+        areaTrianglesParallelograms: {
+          title: '📐 Area of Triangles & Parallelograms',
+          description: 'Find area using formulas. Understand base and height relationships.',
+        },
+        classifyingShapes: {
+          title: '📐 Classifying 2D & 3D Shapes',
+          description: 'Identify and classify polygons and polyhedra. Understand shape properties.',
+        },
+        nets3dShapes: {
+          title: '📐 Nets of 3D Shapes',
+          description: 'Identify nets that form 3D shapes. Visualize spatial relationships.',
+        },
+        transformations5th: {
+          title: '📐 Transformations',
+          description: 'Understand translations, rotations, and reflections. Apply transformations to shapes.',
+        },
+        multiStepWord5th: {
+          title: '🧮 Multi-Step Word Problems',
+          description: 'Solve complex word problems with 4 or more steps. Show all your work and reasoning.',
+        },
+        fractionWordProblems5th: {
+          title: '🧮 Fraction Word Problems',
+          description: 'Solve word problems involving adding, subtracting, multiplying, and dividing fractions.',
+        },
+        decimalWordProblems5th: {
+          title: '🧮 Decimal Word Problems',
+          description: 'Solve word problems involving decimal operations. Money, measurement, and real-world applications.',
+        },
+        ratioProportionWordProblems: {
+          title: '🧮 Ratio & Proportion Word Problems',
+          description: 'Solve problems involving ratios and proportions. Understand relationships between quantities.',
+        },
+        percentWordProblems: {
+          title: '🧮 Percent Word Problems',
+          description: 'Solve problems involving percents. Find percentages, discounts, and tax.',
+        },
+        lineGraphs: {
+          title: '📊 Line Graphs',
+          description: 'Create and interpret line graphs. Understand trends and changes over time.',
+        },
+        meanMedianModeRange: {
+          title: '📊 Mean, Median, Mode, Range',
+          description: 'Calculate mean, median, mode, and range. Understand measures of central tendency and spread.',
+        },
+        stemLeafPlots: {
+          title: '📊 Stem-and-Leaf Plots',
+          description: 'Create and interpret stem-and-leaf plots. Organize and analyze data.',
+        },
+        probability: {
+          title: '📊 Probability',
+          description: 'Understand probability. Calculate simple probabilities and use fractions to express likelihood.',
+        },
+      },
     },
     interactive: {
       title: 'Interactive Worksheets Generator',

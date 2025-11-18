@@ -1013,6 +1013,136 @@ export const es = {
       downloadButton: '⬇️ Descargar',
       previewOf: 'Vista previa de',
       clickToView: '👁️ Haz clic para ver la hoja de trabajo completa',
+      worksheets: {
+        mult3x2Digit: {
+          title: '🔢 Multiplicación de Múltiples Dígitos (3×2)',
+          description: 'Multiplica números de 3 dígitos por números de 2 dígitos. Domina el algoritmo estándar.',
+        },
+        longDivisionMultidigit: {
+          title: '🔢 División Larga (Múltiples Dígitos)',
+          description: 'Divide números de múltiples dígitos por divisores de 2 y 3 dígitos. Práctica avanzada de división larga.',
+        },
+        orderOfOperations: {
+          title: '🔢 Orden de Operaciones',
+          description: 'Resuelve expresiones usando PEMDAS (paréntesis, exponentes, multiplicación, división, suma, resta).',
+        },
+        powersOf10: {
+          title: '🔢 Potencias de 10',
+          description: 'Multiplica y divide por potencias de 10. Entiende las relaciones de valor posicional.',
+        },
+        roundingDecimals: {
+          title: '🔢 Redondear Decimales',
+          description: 'Redondea decimales al número entero, décima o centésima más cercana. Domina el valor posicional decimal.',
+        },
+        estimatingSumsDifferences: {
+          title: '🔢 Estimar Sumas y Diferencias',
+          description: 'Estima sumas y diferencias de números enteros y decimales. Desarrolla sentido numérico.',
+        },
+        addingSubtractingMixedNumbers: {
+          title: '🍕 Sumar y Restar Números Mixtos',
+          description: 'Suma y resta números mixtos con denominadores iguales y diferentes. Reagrupa cuando sea necesario.',
+        },
+        multiplyingFractions: {
+          title: '🍕 Multiplicar Fracciones',
+          description: 'Multiplica fracciones por fracciones y números enteros. Simplifica tus respuestas.',
+        },
+        dividingFractions: {
+          title: '🍕 Dividir Fracciones',
+          description: 'Divide fracciones por fracciones y números enteros. Usa el método "mantener, cambiar, voltear".',
+        },
+        multiplyingDecimals: {
+          title: '🍕 Multiplicar Decimales',
+          description: 'Multiplica decimales por números enteros y decimales. Cuenta lugares decimales en tu respuesta.',
+        },
+        dividingDecimals: {
+          title: '🍕 Dividir Decimales',
+          description: 'Divide decimales por números enteros y decimales. Mueve puntos decimales correctamente.',
+        },
+        fractionsDecimalsPercents: {
+          title: '🍕 Fracciones, Decimales y Porcentajes',
+          description: 'Convierte entre fracciones, decimales y porcentajes. Entiende las tres formas.',
+        },
+        comparingOrderingFractionsDecimals: {
+          title: '🍕 Comparar y Ordenar Fracciones/Decimales',
+          description: 'Compara y ordena fracciones y decimales. Usa denominadores comunes o convierte a decimales.',
+        },
+        evaluatingExpressions: {
+          title: '📐 Evaluar Expresiones',
+          description: 'Sustituye valores por variables y evalúa expresiones. Practica el orden de operaciones.',
+        },
+        writingExpressions: {
+          title: '📐 Escribir Expresiones',
+          description: 'Escribe expresiones algebraicas a partir de frases. Entiende variables y operaciones.',
+        },
+        solvingOneStepEquations: {
+          title: '📐 Resolver Ecuaciones de Un Paso',
+          description: 'Resuelve ecuaciones con suma, resta, multiplicación o división. Encuentra el valor de x.',
+        },
+        patternsRules: {
+          title: '📐 Patrones y Reglas',
+          description: 'Identifica patrones y escribe reglas. Extiende patrones numéricos y secuencias.',
+        },
+        coordinateGraphing: {
+          title: '📐 Gráficos de Coordenadas',
+          description: 'Grafica puntos en un plano de coordenadas. Entiende las coordenadas x e y.',
+        },
+        volumeRectangularPrisms: {
+          title: '📐 Volumen de Prismas Rectangulares',
+          description: 'Encuentra el volumen usando la fórmula V = l × w × h. Cuenta cubos unitarios.',
+        },
+        areaTrianglesParallelograms: {
+          title: '📐 Área de Triángulos y Paralelogramos',
+          description: 'Encuentra el área usando fórmulas. Entiende las relaciones de base y altura.',
+        },
+        classifyingShapes: {
+          title: '📐 Clasificar Formas 2D y 3D',
+          description: 'Identifica y clasifica polígonos y poliedros. Entiende las propiedades de las formas.',
+        },
+        nets3dShapes: {
+          title: '📐 Redes de Formas 3D',
+          description: 'Identifica redes que forman formas 3D. Visualiza relaciones espaciales.',
+        },
+        transformations5th: {
+          title: '📐 Transformaciones',
+          description: 'Entiende traslaciones, rotaciones y reflexiones. Aplica transformaciones a formas.',
+        },
+        multiStepWord5th: {
+          title: '🧮 Problemas de Palabras de Múltiples Pasos',
+          description: 'Resuelve problemas de palabras complejos con 4 o más pasos. Muestra todo tu trabajo y razonamiento.',
+        },
+        fractionWordProblems5th: {
+          title: '🧮 Problemas de Palabras de Fracciones',
+          description: 'Resuelve problemas de palabras que involucran sumar, restar, multiplicar y dividir fracciones.',
+        },
+        decimalWordProblems5th: {
+          title: '🧮 Problemas de Palabras de Decimales',
+          description: 'Resuelve problemas de palabras que involucran operaciones decimales. Dinero, medición y aplicaciones del mundo real.',
+        },
+        ratioProportionWordProblems: {
+          title: '🧮 Problemas de Palabras de Razón y Proporción',
+          description: 'Resuelve problemas que involucran razones y proporciones. Entiende las relaciones entre cantidades.',
+        },
+        percentWordProblems: {
+          title: '🧮 Problemas de Palabras de Porcentajes',
+          description: 'Resuelve problemas que involucran porcentajes. Encuentra porcentajes, descuentos e impuestos.',
+        },
+        lineGraphs: {
+          title: '📊 Gráficos de Líneas',
+          description: 'Crea e interpreta gráficos de líneas. Entiende tendencias y cambios a lo largo del tiempo.',
+        },
+        meanMedianModeRange: {
+          title: '📊 Media, Mediana, Moda, Rango',
+          description: 'Calcula media, mediana, moda y rango. Entiende las medidas de tendencia central y dispersión.',
+        },
+        stemLeafPlots: {
+          title: '📊 Diagramas de Tallo y Hoja',
+          description: 'Crea e interpreta diagramas de tallo y hoja. Organiza y analiza datos.',
+        },
+        probability: {
+          title: '📊 Probabilidad',
+          description: 'Entiende la probabilidad. Calcula probabilidades simples y usa fracciones para expresar probabilidad.',
+        },
+      },
     },
     interactive: {
       title: 'Generador de Hojas de Trabajo Interactivas',
