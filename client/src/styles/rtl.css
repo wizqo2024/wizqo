@@ -1,0 +1,190 @@
+/* RTL (Right-to-Left) Support for Arabic and other RTL languages */
+
+/* RTL Layout Base */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .worksheet-section {
+  direction: rtl;
+}
+
+/* RTL Text Alignment */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] p,
+[dir="rtl"] div {
+  text-align: right;
+}
+
+/* RTL Flex Containers */
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* RTL Grid */
+[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+/* RTL Borders and Padding */
+[dir="rtl"] .border-l-2 {
+  border-left: none;
+  border-right: 2px solid;
+}
+
+[dir="rtl"] .pl-4,
+[dir="rtl"] .pl-2,
+[dir="rtl"] .pl-1 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .pr-4,
+[dir="rtl"] .pr-2 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .ml-2,
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .mr-2,
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/* RTL Lists */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+  text-align: right;
+}
+
+[dir="rtl"] .list-disc {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* RTL Buttons */
+[dir="rtl"] button {
+  text-align: right;
+}
+
+/* RTL Inputs */
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="number"],
+[dir="rtl"] textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Math Problems Stay LTR (Universal) */
+[dir="rtl"] .math-problem,
+[dir="rtl"] .math-expression,
+[dir="rtl"] .number-line {
+  direction: ltr !important;
+  text-align: center;
+}
+
+/* Visual Examples Stay Centered */
+[dir="rtl"] .visual-example,
+[dir="rtl"] .visual-demo {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Worked Example Boxes */
+[dir="rtl"] .worked-example {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .worked-example .math-problem {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Challenge Section */
+[dir="rtl"] .challenge-section {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Self-Assessment */
+[dir="rtl"] .self-assessment {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Answer Key */
+[dir="rtl"] .answer-key {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Learning Objectives */
+[dir="rtl"] .learning-objectives {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Parent/Teacher Tips */
+[dir="rtl"] .parent-teacher-tips {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Navigation (if needed) */
+[dir="rtl"] nav {
+  direction: rtl;
+}
+
+[dir="rtl"] .nav-menu {
+  flex-direction: row-reverse;
+}
+
+/* Keep SVG and Visual Elements Centered */
+[dir="rtl"] svg {
+  direction: ltr;
+}
+
+[dir="rtl"] .visual-container {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Gap Adjustments */
+[dir="rtl"] .gap-2,
+[dir="rtl"] .gap-4 {
+  /* Gaps work the same in RTL */
+}
+
+/* RTL Text with Icons */
+[dir="rtl"] .flex.items-center {
+  flex-direction: row-reverse;
+}
+
+/* Arabic Font Support */
+[dir="rtl"],
+[lang="ar"] {
+  font-family: 'Noto Sans Arabic', 'Cairo', 'Tajawal', 'Arial Unicode MS', sans-serif;
+}
+
+/* Ensure numbers stay LTR in RTL context */
+[dir="rtl"] .number,
+[dir="rtl"] .math-number {
+  direction: ltr;
+  display: inline-block;
+}

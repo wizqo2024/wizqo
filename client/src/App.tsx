@@ -33,6 +33,7 @@ import MultiplicationWorksheetsPage from './pages/MultiplicationWorksheetsPage';
 import TimesTableMultiplicationWorksheetsPage from './pages/TimesTableMultiplicationWorksheetsPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
+import { TranslationProvider } from './context/TranslationContext';
 // (duplicate import removed)
 
 
@@ -331,8 +332,9 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <ErrorBoundary>
-        <div className={`min-h-screen bg-slate-50 relative transition-opacity duration-200 ${isNavigating ? 'opacity-95' : 'opacity-100'}`}>
+      <TranslationProvider>
+        <ErrorBoundary>
+          <div className={`min-h-screen bg-slate-50 relative transition-opacity duration-200 ${isNavigating ? 'opacity-95' : 'opacity-100'}`}>
           {/* Loading overlay during navigation */}
           {isNavigating && (
             <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[9999] pointer-events-none transition-opacity duration-200" />
@@ -688,8 +690,9 @@ export default function App() {
           }
           })()}
           <Toaster />
-        </div>
-      </ErrorBoundary>
+          </div>
+        </ErrorBoundary>
+      </TranslationProvider>
     </AuthProvider>
   );
 }

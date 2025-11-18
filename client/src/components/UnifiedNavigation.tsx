@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from './AuthModal';
 import { WizqoLogo } from './WizqoLogo';
+import { LanguageSelector } from './LanguageSelector';
 import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
 
 interface UnifiedNavigationProps {
@@ -401,6 +402,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span>Sign In</span>
               </Button>
             )}
+            <LanguageSelector />
           </div>
         </div>
       </div>

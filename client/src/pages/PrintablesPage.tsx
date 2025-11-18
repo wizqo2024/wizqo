@@ -169,9 +169,32 @@ function WorksheetSectionWrapper({
   learningObjectives?: string[]
   parentTeacherTips?: string[]
 }) {
+  const { t, isRTL } = useTranslation()
   const theme = getWorksheetTheme(docId)
+  
+  // Try to get translated title/description if available
+  const translatedTitle = t(`worksheets.${docId}.title`) !== `worksheets.${docId}.title` 
+    ? t(`worksheets.${docId}.title`) 
+    : title
+  const translatedDescription = description && t(`worksheets.${docId}.description`) !== `worksheets.${docId}.description`
+    ? t(`worksheets.${docId}.description`)
+    : description
+  const translatedObjectives = learningObjectives?.map((obj, idx) => {
+    const key = `worksheets.${docId}.learningObjectives.${idx}`
+    const translated = t(key)
+    return translated !== key ? translated : obj
+  })
+  const translatedTips = parentTeacherTips?.map((tip, idx) => {
+    const key = `worksheets.${docId}.parentTeacherTips.${idx}`
+    const translated = t(key)
+    return translated !== key ? translated : tip
+  })
+  
   return (
-    <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden`}>
+    <section 
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden worksheet-section`}
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
@@ -179,15 +202,15 @@ function WorksheetSectionWrapper({
         <WorksheetHeader problemCount={problemCount} />
         <h2 className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}>
           {emoji && <span className="text-4xl">{emoji}</span>}
-          <span>{title}</span>
+          <span>{translatedTitle}</span>
         </h2>
-        {description && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{description}</p>}
-        {learningObjectives && <LearningObjectives objectives={learningObjectives} />}
+        {translatedDescription && <p className={`text-sm ${theme.text} opacity-90 font-medium mb-4`}>{translatedDescription}</p>}
+        {translatedObjectives && <LearningObjectives objectives={translatedObjectives} />}
         {children}
         {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
-        {parentTeacherTips && (
+        {translatedTips && (
           <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-            <ParentTeacherTips tips={parentTeacherTips} />
+            <ParentTeacherTips tips={translatedTips} />
           </div>
         )}
       </div>
@@ -2844,7 +2867,9 @@ export function PrintablesPage() {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('addition-subtraction-0-10') && (
+        {activeDocs.includes('addition-subtraction-0-10') && (() => {
+          const { t } = useTranslation()
+          return (
           <WorksheetSectionWrapper
             docId="addition-subtraction-0-10"
             title="Addition & Subtraction 0–10"
@@ -2867,13 +2892,13 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+            <div className="mb-6 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg print:border print:bg-white worked-example">
               <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
                 <span className="text-2xl">📚</span>
-                <span>Example - Let's solve this together:</span>
+                <span>{t('worksheets.addition-subtraction-0-10.workedExample.title')}</span>
               </div>
               <div className="space-y-3 text-sm">
-                <div className="font-semibold text-base text-blue-900"><strong>Problem:</strong> 5 + 3 = ?</div>
+                <div className="font-semibold text-base text-blue-900 math-problem"><strong>{t('common.problem')}</strong> 5 + 3 = ?</div>
                 {/* Visual example with objects */}
                 <div className="bg-white p-4 rounded-lg border-2 border-blue-300">
                   <svg viewBox="0 0 500 120" className="w-full h-auto">
@@ -2901,13 +2926,13 @@ export function PrintablesPage() {
                   <div className="text-center mt-2 text-blue-900 font-semibold">Count all the circles: 5 + 3 = 8</div>
                 </div>
                 <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Count the blue circles: <span className="text-blue-600 font-bold">5</span></div>
-                  <div><strong>Step 2:</strong> Count the green circles: <span className="text-green-600 font-bold">3</span></div>
-                  <div><strong>Step 3:</strong> Count them all together: <span className="text-blue-900 font-bold">8</span></div>
-                  <div className="font-semibold text-blue-900 mt-2"><strong>Answer:</strong> 5 + 3 = <span className="text-2xl">8</span></div>
+                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step1')}</strong></div>
+                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step2')}</strong></div>
+                  <div><strong>{t('worksheets.addition-subtraction-0-10.workedExample.step3')}</strong></div>
+                  <div className="font-semibold text-blue-900 mt-2"><strong>{t('common.answer')}</strong> 5 + 3 = <span className="text-2xl">8</span></div>
                   <div className="text-xs text-blue-700 mt-2 flex items-center gap-1">
                     <span>💡</span>
-                    <span>Tip: You can also use the number line below - start at 5, move 3 steps right!</span>
+                    <span>{t('worksheets.addition-subtraction-0-10.workedExample.tip')}</span>
                   </div>
                 </div>
               </div>
@@ -2978,40 +3003,41 @@ export function PrintablesPage() {
               })}
             </div>
             {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border challenge-section" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 {t('worksheets.addition-subtraction-0-10.challenge.title')}</div>
               <div className="space-y-2 text-sm text-purple-800">
-                <div>1. Can you solve 7 + 2 without using the number line? ___</div>
-                <div>2. What is 9 - 4? Try solving it mentally! ___</div>
-                <div>3. Create your own problem: ___ + ___ = ?</div>
+                <div>1. {t('worksheets.addition-subtraction-0-10.challenge.problem1')}</div>
+                <div>2. {t('worksheets.addition-subtraction-0-10.challenge.problem2')}</div>
+                <div>3. {t('worksheets.addition-subtraction-0-10.challenge.problem3')}</div>
               </div>
             </div>
             {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded self-assessment" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+              <div className="font-semibold text-slate-800 mb-3 text-sm">📊 {t('worksheets.addition-subtraction-0-10.selfAssessment.title')}</div>
               <div className="space-y-2 text-xs">
-                <div>☐ I can add numbers within 10</div>
-                <div>☐ I can subtract numbers within 10</div>
-                <div>☐ I can use the number line to help me</div>
+                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question1')}</div>
+                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question2')}</div>
+                <div>☐ {t('worksheets.addition-subtraction-0-10.selfAssessment.question3')}</div>
               </div>
               <div className="mt-3 text-xs">
-                <strong>My score:</strong> ___ / 12
+                <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.score')}</strong> ___ / 12
               </div>
               <div className="mt-2 text-xs">
-                <strong>What was hardest?</strong> _________________________
+                <strong>{t('worksheets.addition-subtraction-0-10.selfAssessment.hardest')}</strong> _________________________
               </div>
             </div>
             {showAnswersForDoc('addition-subtraction-0-10', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key</div>
+              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always answer-key">
+                <div className="font-bold text-emerald-900 mb-3 text-base">✅ {t('worksheets.addition-subtraction-0-10.answerKey.title')}</div>
                 <div className="space-y-2 text-sm text-emerald-800">
-                  <div>Note: Problems are randomly generated. Use the number line to solve each problem.</div>
-                  <div className="text-xs text-emerald-700 mt-2">💡 Remember: For addition, move right on the number line. For subtraction, move left. Start at the first number!</div>
+                  <div>{t('worksheets.addition-subtraction-0-10.answerKey.note')}</div>
+                  <div className="text-xs text-emerald-700 mt-2">💡 {t('worksheets.addition-subtraction-0-10.answerKey.tip')}</div>
                 </div>
               </div>
             ))}
           </WorksheetSectionWrapper>
-        )}
+          )
+        })()}
 
         {activeDocs.includes('ten-frames-1-10') && (() => {
           const numbers = Array.from({ length: 10 }, (_, n) => n + 1);
