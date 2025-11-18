@@ -181,7 +181,7 @@ export default function MultiplicationWorksheetsPage() {
                 selectedCategories={selectedCategories}
                 onToggleCategory={toggleCategory}
                 onClearAll={clearCategories}
-                title="Filter by Category"
+                title={t('pages.multiplication.filterByCategory')}
               />
             </div>
           </aside>
@@ -190,10 +190,10 @@ export default function MultiplicationWorksheetsPage() {
           <div className="space-y-8">
           {Object.entries(groupedWorksheets).map(([gradeRange, worksheets]) => {
             const gradeLabels: Record<string, string> = {
-              '2nd-3rd': '🔢 2nd & 3rd Grade Multiplication',
-              '3rd-4th': '⚡ 3rd & 4th Grade Multiplication',
-              '4th-5th': '🚀 4th & 5th Grade Multiplication',
-              'All': '🎯 Multiplication Fluency & Practice',
+              '2nd-3rd': `🔢 ${t('pages.multiplication.gradeLabels.secondThird')}`,
+              '3rd-4th': `⚡ ${t('pages.multiplication.gradeLabels.thirdFourth')}`,
+              '4th-5th': `🚀 ${t('pages.multiplication.gradeLabels.fourthFifth')}`,
+              'All': `🎯 ${t('pages.multiplication.gradeLabels.all')}`,
             }
             const label = gradeLabels[gradeRange] || `Grade ${gradeRange}`
             
@@ -216,12 +216,12 @@ export default function MultiplicationWorksheetsPage() {
           })}
           {filteredWorksheets.length === 0 && (
             <div className="text-center py-12 text-slate-500">
-              <p className="text-lg">No worksheets match the selected categories.</p>
+              <p className="text-lg">{t('pages.multiplication.noResults')}</p>
               <button
                 onClick={clearCategories}
                 className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
               >
-                Clear filters to show all worksheets
+                {t('pages.multiplication.clearFilters')}
               </button>
             </div>
           )}

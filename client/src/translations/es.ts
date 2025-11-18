@@ -353,6 +353,15 @@ export const es = {
     multiplication: {
       title: 'Hojas de Trabajo de Multiplicación Gratis',
       subtitle: 'Descarga hojas de trabajo de multiplicación imprimibles con claves de respuestas. ¡Perfecto para 2do grado, 3er grado y más!',
+      filterByCategory: 'Filtrar por Categoría',
+      noResults: 'No hay hojas de trabajo que coincidan con las categorías seleccionadas.',
+      clearFilters: 'Limpiar filtros para mostrar todas las hojas de trabajo',
+      gradeLabels: {
+        secondThird: 'Multiplicación de 2do y 3er Grado',
+        thirdFourth: 'Multiplicación de 3er y 4to Grado',
+        fourthFifth: 'Multiplicación de 4to y 5to Grado',
+        all: 'Fluidez y Práctica de Multiplicación',
+      },
       categories: {
         facts: 'Datos de Multiplicación',
         arrays: 'Matrices y Modelos',

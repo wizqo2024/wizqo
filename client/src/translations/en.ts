@@ -350,6 +350,15 @@ export const en = {
     multiplication: {
       title: 'Free Multiplication Worksheets',
       subtitle: 'Download printable multiplication worksheets with answer keys. Perfect for 2nd grade, 3rd grade, and beyond!',
+      filterByCategory: 'Filter by Category',
+      noResults: 'No worksheets match the selected categories.',
+      clearFilters: 'Clear filters to show all worksheets',
+      gradeLabels: {
+        secondThird: '2nd & 3rd Grade Multiplication',
+        thirdFourth: '3rd & 4th Grade Multiplication',
+        fourthFifth: '4th & 5th Grade Multiplication',
+        all: 'Multiplication Fluency & Practice',
+      },
       categories: {
         facts: 'Multiplication Facts',
         arrays: 'Arrays & Models',
