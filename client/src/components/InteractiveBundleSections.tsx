@@ -6532,7 +6532,7 @@ function InteractiveWorksheetSection({
   className?: string
   studentNames?: string[]
 }) {
-  const { t } = useTranslation()
+  const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
@@ -6542,6 +6542,26 @@ function InteractiveWorksheetSection({
   const answerRenderer = answerRenderers[docId]
   const theme = getCategoryTheme(category.id)
   const cornerColors = getCornerAccentColor(category.id)
+
+  // Ensure t function works correctly - use getTranslation directly as fallback
+  const t = React.useCallback((key: string): string => {
+    const result = tFromContext(key)
+    // If we got the key back, it means translation failed - try direct lookup
+    if (result === key && typeof result === 'string') {
+      try {
+        // Dynamic import to avoid circular dependencies
+        const { getTranslation } = require('@/translations')
+        const directResult = getTranslation(language, key)
+        if (typeof directResult === 'string' && directResult !== key) {
+          return directResult
+        }
+      } catch (e) {
+        // If import fails, just return the key
+        console.warn('Translation lookup failed for key:', key, e)
+      }
+    }
+    return typeof result === 'string' ? result : key
+  }, [tFromContext, language])
 
   if (!renderer) {
     return (
