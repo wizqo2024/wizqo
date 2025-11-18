@@ -3442,7 +3442,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-math-counting': (ctx) => {
-    const { seed, doc, variant } = ctx
+    const { seed, doc, variant, t } = ctx
     const problems = buildMathCounting(seed, doc.id, variant)
     const objectEmojis: Record<string, string> = {
       'stars': '⭐',
@@ -6519,6 +6519,7 @@ function InteractiveWorksheetSection({
   className?: string
   studentNames?: string[]
 }) {
+  const { t } = useTranslation()
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
