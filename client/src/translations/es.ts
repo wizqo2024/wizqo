@@ -1382,6 +1382,70 @@ export const es = {
         score: 'Mi puntuación:',
         hardest: '¿Qué fue lo más difícil?'
       }
+    },
+    privacy: {
+      seoTitle: 'Política de Privacidad – Wizqo',
+      seoDescription: 'Aprende cómo Wizqo recopila, usa y protege tu información personal. Nuestra política de privacidad explica tus derechos y nuestro compromiso con la seguridad de los datos.',
+      title: 'Privacidad',
+      policy: 'Política',
+      lastUpdated: 'Última actualización',
+      section1: {
+        title: '1. Quiénes Somos',
+        content: 'Wizqo es una plataforma impulsada por IA que ofrece planes de aprendizaje de hobbies personalizados de 7 días. Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos tus datos mientras usas nuestros servicios.',
+      },
+      section2: {
+        title: '2. Información que Recopilamos',
+        intro: 'Recopilamos los siguientes tipos de datos:',
+        item1: 'Información Personal: nombre, dirección de correo electrónico, preferencias de hobbies',
+        item2: 'Datos de Uso: páginas visitadas, duración de sesión, comportamiento de clics',
+        item3: 'Datos Técnicos: tipo de navegador, información del dispositivo, dirección IP',
+        item4: 'Cookies y tecnologías similares para personalización y análisis',
+      },
+      section3: {
+        title: '3. Cómo Usamos Tu Información',
+        intro: 'Usamos tu información para:',
+        item1: 'Personalizar tu experiencia de aprendizaje de hobbies de 7 días',
+        item2: 'Mejorar el rendimiento de la plataforma y la experiencia del usuario',
+        item3: 'Comunicar actualizaciones, consejos o nuevas funciones (solo si te registras)',
+        item4: 'Monitorear tendencias de uso y solucionar problemas',
+      },
+      section4: {
+        title: '4. Compartir Tu Información',
+        content: 'No vendemos tus datos. Podemos compartir información limitada con terceros de confianza (por ejemplo, análisis, alojamiento) solo para apoyar la prestación de servicios. Todos los socios están contractualmente obligados a estándares de protección de datos.',
+      },
+      section5: {
+        title: '5. Transferencias Internacionales',
+        content: 'Si tus datos se transfieren fuera de tu país, nos aseguramos de que existan salvaguardas apropiadas como Cláusulas Contractuales Estándar o medidas equivalentes.',
+      },
+      section6: {
+        title: '6. Retención de Datos',
+        content: 'Conservamos datos personales el tiempo necesario para cumplir con nuestros servicios y obligaciones legales. Puedes solicitar la eliminación en cualquier momento.',
+      },
+      section7: {
+        title: '7. Seguridad',
+        content: 'Implementamos cifrado SSL, alojamiento de servidor seguro y control de acceso para proteger tu información. Ningún sistema es 100% seguro, por lo que recomendamos contraseñas seguras y uso cauteloso.',
+      },
+      section8: {
+        title: '8. Tus Derechos',
+        intro: 'Puedes:',
+        item1: 'Acceder, actualizar o eliminar tus datos',
+        item2: 'Retirar el consentimiento en cualquier momento',
+        item3: 'Solicitar portabilidad de datos',
+        item4: 'Optar por no recibir comunicaciones de marketing',
+        contact: 'Para ejercer estos derechos, contáctanos en',
+      },
+      section9: {
+        title: '9. Privacidad de los Niños',
+        content: 'Wizqo no está destinado a niños menores de 13 años. Si nos enteramos de que hemos recopilado datos de un menor, los eliminaremos de inmediato.',
+      },
+      section10: {
+        title: '10. Actualizaciones de la Política',
+        content: 'Podemos actualizar esta Política de Privacidad periódicamente. Los cambios materiales se publicarán aquí y, si corresponde, se enviarán por correo electrónico.',
+      },
+      section11: {
+        title: '11. Contáctanos',
+        content: 'Si tienes alguna pregunta o solicitud sobre tus datos o esta política, por favor contáctanos en',
+      },
     }
   }
 }

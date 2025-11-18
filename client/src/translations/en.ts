@@ -1379,6 +1379,70 @@ export const en = {
         score: 'My score:',
         hardest: 'What was hardest?'
       }
+    },
+    privacy: {
+      seoTitle: 'Privacy Policy – Wizqo',
+      seoDescription: 'Learn how Wizqo collects, uses, and protects your personal information. Our privacy policy explains your rights and our commitment to data security.',
+      title: 'Privacy',
+      policy: 'Policy',
+      lastUpdated: 'Last updated',
+      section1: {
+        title: '1. Who We Are',
+        content: 'Wizqo is an AI-powered platform that delivers personalized 7-day hobby learning plans. This Privacy Policy explains how we collect, use, and safeguard your data while using our services.',
+      },
+      section2: {
+        title: '2. Information We Collect',
+        intro: 'We collect the following types of data:',
+        item1: 'Personal Information: name, email address, hobby preferences',
+        item2: 'Usage Data: pages visited, session duration, click behavior',
+        item3: 'Technical Data: browser type, device info, IP address',
+        item4: 'Cookies and similar technologies for personalization and analytics',
+      },
+      section3: {
+        title: '3. How We Use Your Information',
+        intro: 'We use your information to:',
+        item1: 'Personalize your 7-day hobby learning experience',
+        item2: 'Improve platform performance and user experience',
+        item3: 'Communicate updates, tips, or new features (only if you opt in)',
+        item4: 'Monitor usage trends and troubleshoot issues',
+      },
+      section4: {
+        title: '4. Sharing Your Information',
+        content: 'We do not sell your data. We may share limited information with trusted third parties (e.g., analytics, hosting) only to support service delivery. All partners are contractually bound to data protection standards.',
+      },
+      section5: {
+        title: '5. International Transfers',
+        content: 'If your data is transferred outside your country, we ensure appropriate safeguards are in place such as Standard Contractual Clauses or equivalent measures.',
+      },
+      section6: {
+        title: '6. Data Retention',
+        content: 'We retain personal data as long as necessary to fulfill our services and legal obligations. You may request deletion at any time.',
+      },
+      section7: {
+        title: '7. Security',
+        content: 'We implement SSL encryption, secure server hosting, and access control to protect your information. No system is 100% secure, so we encourage strong passwords and cautious use.',
+      },
+      section8: {
+        title: '8. Your Rights',
+        intro: 'You may:',
+        item1: 'Access, update, or delete your data',
+        item2: 'Withdraw consent at any time',
+        item3: 'Request data portability',
+        item4: 'Opt out of marketing communications',
+        contact: 'To exercise these rights, contact us at',
+      },
+      section9: {
+        title: '9. Children\'s Privacy',
+        content: 'Wizqo is not intended for children under 13. If we learn we\'ve collected data from a minor, we will delete it promptly.',
+      },
+      section10: {
+        title: '10. Policy Updates',
+        content: 'We may update this Privacy Policy periodically. Material changes will be posted here and, if applicable, emailed to you.',
+      },
+      section11: {
+        title: '11. Contact Us',
+        content: 'If you have any questions or requests about your data or this policy, please contact us at',
+      },
     }
   }
 }
