@@ -29,13 +29,11 @@ export default function CertificateMakerPage() {
   
   // Initialize default values after translation context is ready
   React.useEffect(() => {
-    if (!awardTitle) {
+    if (!awardTitle && !reason) {
       setAwardTitle(t('pages.certificate.defaultAwardTitle'));
-    }
-    if (!reason) {
       setReason(t('pages.certificate.defaultReason'));
     }
-  }, [t, awardTitle, reason]);
+  }, [t]);
   const [date, setDate] = React.useState<string>(getTodayDate());
   const [issuer, setIssuer] = React.useState<string>('');
   const [signatureImage, setSignatureImage] = React.useState<string | null>(null);
