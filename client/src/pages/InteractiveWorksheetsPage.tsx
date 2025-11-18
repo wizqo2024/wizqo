@@ -1269,7 +1269,7 @@ export function InteractiveWorksheetsPage() {
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-xl font-semibold text-slate-900">{t('pages.interactive.todaysWorksheets')}</h2>
               <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-600">
-                {loading ? 'Generating…' : `${searchQuery ? filteredItems.length : pack?.items.length || 0}${searchQuery && pack ? ` of ${pack.items.length}` : ''} worksheets ready`}
+                {loading ? t('pages.interactive.generating') : t('pages.interactive.worksheetsReady').replace('{{count}}', String(searchQuery ? filteredItems.length : pack?.items.length || 0))}
               </span>
             </div>
             

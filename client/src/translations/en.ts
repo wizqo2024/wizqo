@@ -2901,7 +2901,6 @@ export const en = {
     criticalThinking: 'Critical Thinking',
     socialEmotional: 'Social Emotional',
   },
-  },
   footer: {
     description: 'Create unlimited free printable worksheets with AI-powered personalized learning tools for teachers and parents.',
     company: 'Company',
