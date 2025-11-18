@@ -8,9 +8,15 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/context/TranslationContext';
 
 export default function CertificateMakerPage() {
   const { toast } = useToast();
+  const { t, isRTL } = useTranslation();
+  
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
   
   // Initialize date with today's date
   const getTodayDate = () => {
@@ -22,8 +28,8 @@ export default function CertificateMakerPage() {
   };
 
   const [recipient, setRecipient] = React.useState<string>('');
-  const [awardTitle, setAwardTitle] = React.useState<string>('Certificate of Achievement');
-  const [reason, setReason] = React.useState<string>('For outstanding effort and kindness');
+  const [awardTitle, setAwardTitle] = React.useState<string>(t('pages.certificate.defaultAwardTitle'));
+  const [reason, setReason] = React.useState<string>(t('pages.certificate.defaultReason'));
   const [date, setDate] = React.useState<string>(getTodayDate());
   const [issuer, setIssuer] = React.useState<string>('');
   const [signatureImage, setSignatureImage] = React.useState<string | null>(null);
@@ -142,8 +148,8 @@ export default function CertificateMakerPage() {
       const sheet = document.getElementById('certificate-sheet');
       if (!sheet) {
         toast({
-          title: 'Error',
-          description: 'Certificate not found. Please refresh the page and try again.',
+          title: t('pages.certificate.error'),
+          description: t('pages.certificate.certificateNotFound'),
           variant: 'destructive',
         });
         console.error('Certificate sheet not found');
@@ -152,8 +158,8 @@ export default function CertificateMakerPage() {
       const svg = sheet.querySelector('svg');
       if (!svg) {
         toast({
-          title: 'Error',
-          description: 'SVG not found. Please refresh the page and try again.',
+          title: t('pages.certificate.error'),
+          description: t('pages.certificate.svgNotFound'),
           variant: 'destructive',
         });
         console.error('SVG not found');
@@ -264,8 +270,8 @@ export default function CertificateMakerPage() {
           const ctx = canvas.getContext('2d');
           if (!ctx) {
             toast({
-              title: 'Error',
-              description: 'Could not create canvas. Please try a different browser.',
+              title: t('pages.certificate.error'),
+              description: t('pages.certificate.cannotCreateCanvas'),
               variant: 'destructive',
             });
             console.error('Could not get canvas context');
@@ -310,8 +316,8 @@ export default function CertificateMakerPage() {
                     document.body.removeChild(link);
                     setIsDownloadingPNG(false);
                     toast({
-                      title: 'Download Complete',
-                      description: 'Your certificate has been downloaded successfully.',
+                      title: t('pages.certificate.downloadComplete'),
+                      description: t('pages.certificate.downloadCompleteDesc'),
                     });
                   }, 100);
                   downloadSuccess = true;
@@ -326,8 +332,8 @@ export default function CertificateMakerPage() {
                   canvas.toBlob((blob) => {
                     if (!blob) {
                       toast({
-                        title: 'Export Failed',
-                        description: 'Failed to create PNG file. The canvas may be tainted. Please try using Print/Save as PDF instead.',
+                        title: t('pages.certificate.exportFailed'),
+                        description: t('pages.certificate.exportFailedDesc'),
                         variant: 'destructive',
                       });
                       console.error('Failed to create blob');
@@ -355,8 +361,8 @@ export default function CertificateMakerPage() {
                 } catch (toBlobError) {
                   console.error('toBlob also failed:', toBlobError);
                   toast({
-                    title: 'Export Failed',
-                    description: 'Failed to export PNG due to security restrictions. Please use Print/Save as PDF instead, or try removing any uploaded signature images.',
+                    title: t('pages.certificate.exportFailed'),
+                    description: t('pages.certificate.exportFailedSecurity'),
                     variant: 'destructive',
                   });
                   setIsDownloadingPNG(false);
@@ -365,8 +371,8 @@ export default function CertificateMakerPage() {
             } catch (error) {
               console.error('Error creating PNG:', error);
               toast({
-                title: 'Error',
-                description: `Error creating PNG: ${error instanceof Error ? error.message : 'Unknown error'}. Please try Print/Save as PDF instead.`,
+                title: t('pages.certificate.error'),
+                description: `${t('pages.certificate.errorCreatingPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}. ${t('pages.certificate.tryPrintPDF')}`,
                 variant: 'destructive',
               });
               setIsDownloadingPNG(false);
@@ -375,8 +381,8 @@ export default function CertificateMakerPage() {
           img.onerror = (error) => {
             console.error('Error loading SVG image:', error);
             toast({
-              title: 'Error',
-              description: 'Failed to load SVG. Please try again.',
+              title: t('pages.certificate.error'),
+              description: t('pages.certificate.failedToLoadSVG'),
               variant: 'destructive',
             });
             setIsDownloadingPNG(false);
@@ -385,8 +391,8 @@ export default function CertificateMakerPage() {
         } catch (error) {
           console.error('Error in PNG conversion:', error);
           toast({
-            title: 'Error',
-            description: `Error converting to PNG: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            title: t('pages.certificate.error'),
+            description: `${t('pages.certificate.errorConvertingPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}`,
             variant: 'destructive',
           });
           setIsDownloadingPNG(false);
@@ -394,19 +400,19 @@ export default function CertificateMakerPage() {
       }).catch((error) => {
         console.error('Error processing images:', error);
         toast({
-          title: 'Error',
-          description: `Error processing images: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          title: t('pages.certificate.error'),
+          description: `${t('pages.certificate.errorProcessingImages')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}`,
           variant: 'destructive',
         });
         setIsDownloadingPNG(false);
       });
     } catch (error) {
       console.error('Download PNG error:', error);
-      toast({
-        title: 'Error',
-        description: `Failed to download PNG: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again or use Print/Save as PDF instead.`,
-        variant: 'destructive',
-      });
+        toast({
+          title: t('pages.certificate.error'),
+          description: `${t('pages.certificate.failedToDownloadPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}. ${t('pages.certificate.tryAgainOrPrintPDF')}`,
+          variant: 'destructive',
+        });
       setIsDownloadingPNG(false);
     }
   }
@@ -1304,25 +1310,25 @@ export default function CertificateMakerPage() {
       {/* Title */}
       <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
-        {awardTitle || 'Certificate of Achievement'}
+        {awardTitle || t('pages.certificate.defaultAwardTitle')}
       </text>
       {/* Recipient */}
       <text x="560" y="300" textAnchor="middle" fontSize="36" fill={effective.text} fontFamily={effective.fontFamily}>
-        Awarded to
+        {t('pages.certificate.awardedTo')}
       </text>
       <text x="560" y="360" textAnchor="middle" fontSize="56" fontWeight="700" fill={effective.accent} fontFamily={effective.fontFamily}
         style={{ letterSpacing: '1px' }}>
-        {recipient || 'Your Name Here'}
+        {recipient || t('pages.certificate.yourNameHere')}
       </text>
       {/* Reason */}
       <foreignObject x="160" y="420" width="800" height="120">
         <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: 'center', color: effective.text, fontSize: 24, whiteSpace: 'pre-line', fontFamily: effective.fontFamily as any }}>
-          {reason || 'For outstanding effort and kindness'}
+          {reason || t('pages.certificate.defaultReason')}
         </div>
       </foreignObject>
       {/* Footer lines */}
       <line x1="200" y1="620" x2="460" y2="620" stroke="#94a3b8" strokeWidth="2" />
-      <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Date{formattedDate ? `: ${formattedDate}` : ''}</text>
+      <text x="330" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>{t('pages.handwriting.date')}{formattedDate ? `: ${formattedDate}` : ''}</text>
       {/* Signature area - signature image above the line, name text below the line */}
       {signatureImage ? (
         <g>
@@ -1342,7 +1348,7 @@ export default function CertificateMakerPage() {
       {signatureImage && issuer ? (
         <text x="790" y="650" textAnchor="middle" fontSize="16" fill={effective.text} fontFamily={effective.fontFamily}>{issuer}</text>
       ) : !signatureImage && issuer ? (
-        <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>Signature{issuer ? `: ${issuer}` : ''}</text>
+        <text x="790" y="650" textAnchor="middle" fontSize="18" fill={effective.text} fontFamily={effective.fontFamily}>{t('pages.certificate.signature')}{issuer ? `: ${issuer}` : ''}</text>
       ) : null}
       {/* Official Seal/Stamp */}
       {sealGraphic}
@@ -1350,7 +1356,7 @@ export default function CertificateMakerPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-amber-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <UnifiedNavigation currentPage="kids" />
       {/* JSON-LD Structured Data */}
       {(() => {
@@ -1385,13 +1391,13 @@ export default function CertificateMakerPage() {
       <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-28 space-y-10">
         <header className="space-y-4 text-center lg:text-left">
           <Badge variant="secondary" className="mx-auto w-fit rounded-full border border-indigo-100 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 lg:mx-0">
-            Printables
+            {t('pages.printables.title')}
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
-            Free Certificate Maker
+            {t('pages.certificate.title')}
           </h1>
           <p className="mx-auto max-w-3xl text-sm text-slate-600 lg:mx-0 lg:text-base">
-            Personalize the name, award reason, colors, and badge. Preview updates instantly and print in one click?no design skills required.
+            {t('pages.certificate.subtitle')}
           </p>
         </header>
 
@@ -1402,30 +1408,30 @@ export default function CertificateMakerPage() {
               <div className="flex flex-col gap-4 px-6 pb-6 pt-7 sm:px-8 lg:flex-1 lg:overflow-y-auto">
                 <section className="space-y-4">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">General details</p>
-                    <h2 className="text-lg font-semibold text-slate-900">Personalize the award</h2>
-                    <p className="text-sm text-slate-500">Tell us who the certificate is for and why they&apos;re being celebrated.</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">{t('pages.certificate.generalDetails')}</p>
+                    <h2 className="text-lg font-semibold text-slate-900">{t('pages.certificate.personalizeAward')}</h2>
+                    <p className="text-sm text-slate-500">{t('pages.certificate.personalizeAwardDesc')}</p>
                   </div>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="recipient" className="text-slate-700">Recipient name</Label>
-                      <Input id="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} placeholder="Student name" />
+                      <Label htmlFor="recipient" className="text-slate-700">{t('pages.certificate.recipientName')}</Label>
+                      <Input id="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} placeholder={t('pages.certificate.recipientPlaceholder')} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="awardTitle" className="text-slate-700">Award title</Label>
-                      <Input id="awardTitle" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} placeholder="Certificate of Achievement" />
+                      <Label htmlFor="awardTitle" className="text-slate-700">{t('pages.certificate.awardTitle')}</Label>
+                      <Input id="awardTitle" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} placeholder={t('pages.certificate.awardTitlePlaceholder')} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="reason" className="text-slate-700">Reason / message</Label>
-                      <Textarea id="reason" value={reason} onChange={e => setReason(e.target.value)} placeholder="For outstanding effort and kindness" className="min-h-[120px]" />
+                      <Label htmlFor="reason" className="text-slate-700">{t('pages.certificate.reason')}</Label>
+                      <Textarea id="reason" value={reason} onChange={e => setReason(e.target.value)} placeholder={t('pages.certificate.reasonPlaceholder')} className="min-h-[120px]" />
                     </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="date" className="text-slate-700">Date</Label>
+                        <Label htmlFor="date" className="text-slate-700">{t('pages.handwriting.date')}</Label>
                         <Input id="date" type="date" value={date} onChange={e => setDate(e.target.value)} />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="issuer" className="text-slate-700">Signature / issuer</Label>
+                        <Label htmlFor="issuer" className="text-slate-700">{t('pages.certificate.signatureIssuer')}</Label>
                         <div className="space-y-3">
                           <div className="flex gap-2">
                             <button
@@ -1437,7 +1443,7 @@ export default function CertificateMakerPage() {
                                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                             >
-                              Text
+                              {t('pages.certificate.text')}
                             </button>
                             <button
                               type="button"
@@ -1448,7 +1454,7 @@ export default function CertificateMakerPage() {
                                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                             >
-                              Upload
+                              {t('pages.certificate.upload')}
                             </button>
                             <button
                               type="button"
@@ -1462,7 +1468,7 @@ export default function CertificateMakerPage() {
                                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                             >
-                              Draw
+                              {t('pages.certificate.draw')}
                             </button>
                           </div>
                           
@@ -1476,10 +1482,10 @@ export default function CertificateMakerPage() {
                                     setIssuer(e.target.value);
                                   }
                                 }} 
-                                placeholder="Teacher / Parent"
+                                placeholder={t('pages.certificate.issuerPlaceholder')}
                                 maxLength={30}
                               />
-                              <p className="text-xs text-slate-500">{issuer.length}/30 characters</p>
+                              <p className="text-xs text-slate-500">{issuer.length}/30 {t('pages.certificate.characters')}</p>
                             </div>
                           )}
                           
@@ -1495,8 +1501,8 @@ export default function CertificateMakerPage() {
                                     const maxSize = 5 * 1024 * 1024; // 5MB in bytes
                                     if (file.size > maxSize) {
                                       toast({
-                                        title: 'File Too Large',
-                                        description: 'Please select an image smaller than 5MB.',
+                                        title: t('pages.certificate.fileTooLarge'),
+                                        description: t('pages.certificate.fileTooLargeDesc'),
                                         variant: 'destructive',
                                       });
                                       // Reset the input
@@ -1507,8 +1513,8 @@ export default function CertificateMakerPage() {
                                     // Validate file type
                                     if (!file.type.startsWith('image/')) {
                                       toast({
-                                        title: 'Invalid File Type',
-                                        description: 'Please select a valid image file.',
+                                        title: t('pages.certificate.invalidFileType'),
+                                        description: t('pages.certificate.invalidFileTypeDesc'),
                                         variant: 'destructive',
                                       });
                                       e.target.value = '';
@@ -1519,14 +1525,14 @@ export default function CertificateMakerPage() {
                                     reader.onload = (event) => {
                                       setSignatureImage(event.target?.result as string);
                                       toast({
-                                        title: 'Signature Uploaded',
-                                        description: 'Your signature image has been uploaded successfully.',
+                                        title: t('pages.certificate.signatureUploaded'),
+                                        description: t('pages.certificate.signatureUploadedDesc'),
                                       });
                                     };
                                     reader.onerror = () => {
                                       toast({
-                                        title: 'Upload Failed',
-                                        description: 'Failed to read the image file. Please try again.',
+                                        title: t('pages.certificate.uploadFailed'),
+                                        description: t('pages.certificate.uploadFailedDesc'),
                                         variant: 'destructive',
                                       });
                                     };
@@ -1547,7 +1553,7 @@ export default function CertificateMakerPage() {
                                     }}
                                     className="absolute top-1 right-1 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
                                   >
-                                    Remove
+                                    {t('pages.certificate.remove')}
                                   </button>
                                 </div>
                               )}
@@ -1580,11 +1586,11 @@ export default function CertificateMakerPage() {
                                     }}
                                     className="absolute top-1 right-1 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
                                   >
-                                    Clear
+                                    {t('pages.certificate.clear')}
                                   </button>
                                 </div>
                               ) : (
-                                <div className="text-sm text-slate-500">Click "Draw" button above to open signature pad</div>
+                                <div className="text-sm text-slate-500">{t('pages.certificate.clickDrawToOpen')}</div>
                               )}
                               <div className="mt-2 space-y-1">
                                 <Input
@@ -1594,10 +1600,10 @@ export default function CertificateMakerPage() {
                                       setIssuer(e.target.value);
                                     }
                                   }}
-                                  placeholder="Name (optional)"
+                                  placeholder={t('pages.certificate.nameOptional')}
                                   maxLength={30}
                                 />
-                                <p className="text-xs text-slate-500">{issuer.length}/30 characters</p>
+                                <p className="text-xs text-slate-500">{issuer.length}/30 {t('pages.certificate.characters')}</p>
                               </div>
                             </div>
                           )}
@@ -1609,19 +1615,19 @@ export default function CertificateMakerPage() {
 
                 <section className="space-y-4">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Style &amp; layout</p>
-                    <h2 className="text-lg font-semibold text-slate-900">Pick the look</h2>
-                    <p className="text-sm text-slate-500">Experiment with themes, layouts, badges, and background accents.</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">{t('pages.certificate.styleLayout')}</p>
+                    <h2 className="text-lg font-semibold text-slate-900">{t('pages.certificate.pickTheLook')}</h2>
+                    <p className="text-sm text-slate-500">{t('pages.certificate.pickTheLookDesc')}</p>
                   </div>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label className="text-slate-700">Quick Start Templates</Label>
+                      <Label className="text-slate-700">{t('pages.certificate.quickStartTemplates')}</Label>
                       <div className="grid grid-cols-2 gap-2">
                         <button
                           type="button"
                           onClick={() => {
-                            setAwardTitle('Student of the Month');
-                            setReason('For exceptional academic achievement and positive attitude');
+                            setAwardTitle(t('pages.certificate.templates.studentOfMonth.title'));
+                            setReason(t('pages.certificate.templates.studentOfMonth.reason'));
                             setTheme('gold');
                             setTemplateStyle('academic');
                             setBadgeIcon('gold-seal');
@@ -1630,19 +1636,19 @@ export default function CertificateMakerPage() {
                             setFontStyle('serif');
                             setBgStyle('none');
                             toast({
-                              title: 'Template Applied',
-                              description: 'Student of the Month template has been applied.',
+                              title: t('pages.certificate.templateApplied'),
+                              description: t('pages.certificate.templates.studentOfMonth.applied'),
                             });
                           }}
                           className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
                         >
-                          Student of the Month
+                          {t('pages.certificate.templates.studentOfMonth.title')}
                         </button>
                         <button
                           type="button"
                           onClick={() => {
-                            setAwardTitle('Perfect Attendance');
-                            setReason('For attending every day this school year');
+                            setAwardTitle(t('pages.certificate.templates.perfectAttendance.title'));
+                            setReason(t('pages.certificate.templates.perfectAttendance.reason'));
                             setTheme('classic');
                             setTemplateStyle('simple');
                             setBadgeIcon('blue-ribbon');
@@ -1650,19 +1656,19 @@ export default function CertificateMakerPage() {
                             setFontStyle('print');
                             setBgStyle('none');
                             toast({
-                              title: 'Template Applied',
-                              description: 'Perfect Attendance template has been applied.',
+                              title: t('pages.certificate.templateApplied'),
+                              description: t('pages.certificate.templates.perfectAttendance.applied'),
                             });
                           }}
                           className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
                         >
-                          Perfect Attendance
+                          {t('pages.certificate.templates.perfectAttendance.title')}
                         </button>
                         <button
                           type="button"
                           onClick={() => {
-                            setAwardTitle('Certificate of Excellence');
-                            setReason('For outstanding effort and dedication');
+                            setAwardTitle(t('pages.certificate.templates.excellence.title'));
+                            setReason(t('pages.certificate.templates.excellence.reason'));
                             setTheme('rainbow');
                             setTemplateStyle('ribbon');
                             setBadgeIcon('starburst');
@@ -1670,19 +1676,19 @@ export default function CertificateMakerPage() {
                             setFontStyle('cursive');
                             setBgStyle('sparkle');
                             toast({
-                              title: 'Template Applied',
-                              description: 'Certificate of Excellence template has been applied.',
+                              title: t('pages.certificate.templateApplied'),
+                              description: t('pages.certificate.templates.excellence.applied'),
                             });
                           }}
                           className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
                         >
-                          Excellence Award
+                          {t('pages.certificate.templates.excellence.title')}
                         </button>
                         <button
                           type="button"
                           onClick={() => {
-                            setAwardTitle('Reading Achievement');
-                            setReason('For completing the reading challenge');
+                            setAwardTitle(t('pages.certificate.templates.readingAchievement.title'));
+                            setReason(t('pages.certificate.templates.readingAchievement.reason'));
                             setTheme('animals');
                             setTemplateStyle('medal');
                             setBadgeIcon('green-laurel');
@@ -1690,18 +1696,18 @@ export default function CertificateMakerPage() {
                             setFontStyle('comic');
                             setBgStyle('wavy');
                             toast({
-                              title: 'Template Applied',
-                              description: 'Reading Achievement template has been applied.',
+                              title: t('pages.certificate.templateApplied'),
+                              description: t('pages.certificate.templates.readingAchievement.applied'),
                             });
                           }}
                           className="px-3 py-2 text-xs font-medium rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
                         >
-                          Reading Achievement
+                          {t('pages.certificate.templates.readingAchievement.title')}
                         </button>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="theme" className="text-slate-700">Theme</Label>
+                      <Label htmlFor="theme" className="text-slate-700">{t('pages.certificate.theme')}</Label>
                       <div className="relative">
                         <select
                           id="theme"
@@ -1709,12 +1715,12 @@ export default function CertificateMakerPage() {
                           onChange={e => setTheme(e.target.value as typeof theme)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="classic">Classic</option>
-                          <option value="rainbow">Rainbow</option>
-                          <option value="space">Space</option>
-                          <option value="animals">Animals</option>
-                          <option value="gold">Gold (formal)</option>
-                          <option value="confetti">Confetti (colorful)</option>
+                          <option value="classic">{t('pages.certificate.themes.classic')}</option>
+                          <option value="rainbow">{t('pages.certificate.themes.rainbow')}</option>
+                          <option value="space">{t('pages.certificate.themes.space')}</option>
+                          <option value="animals">{t('pages.certificate.themes.animals')}</option>
+                          <option value="gold">{t('pages.certificate.themes.gold')}</option>
+                          <option value="confetti">{t('pages.certificate.themes.confetti')}</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1724,7 +1730,7 @@ export default function CertificateMakerPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="templateStyle" className="text-slate-700">Template</Label>
+                      <Label htmlFor="templateStyle" className="text-slate-700">{t('pages.certificate.template')}</Label>
                       <div className="relative">
                         <select
                           id="templateStyle"
@@ -1732,11 +1738,11 @@ export default function CertificateMakerPage() {
                           onChange={e => setTemplateStyle(e.target.value as typeof templateStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="simple">Simple border</option>
-                          <option value="ribbon">Corner ribbons</option>
-                          <option value="medal">Medal badge (top-left)</option>
-                          <option value="trophy">Trophy badge (top-left)</option>
-                          <option value="academic">Academic border (gold)</option>
+                          <option value="simple">{t('pages.certificate.templates.simple')}</option>
+                          <option value="ribbon">{t('pages.certificate.templates.ribbon')}</option>
+                          <option value="medal">{t('pages.certificate.templates.medal')}</option>
+                          <option value="trophy">{t('pages.certificate.templates.trophy')}</option>
+                          <option value="academic">{t('pages.certificate.templates.academic')}</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1746,7 +1752,7 @@ export default function CertificateMakerPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="badgeIcon" className="text-slate-700">Badges</Label>
+                      <Label htmlFor="badgeIcon" className="text-slate-700">{t('pages.certificate.badges')}</Label>
                       <div className="relative">
                         <select
                           id="badgeIcon"
@@ -1754,14 +1760,14 @@ export default function CertificateMakerPage() {
                           onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="none">None (no badge)</option>
-                          <option value="gold-seal">Gold seal (classic)</option>
-                          <option value="silver-seal">Silver seal (modern)</option>
-                          <option value="blue-ribbon">Blue ribbon</option>
-                          <option value="green-laurel">Emerald laurel</option>
-                          <option value="red-medal">Crimson medal</option>
-                          <option value="starburst">Sunrise starburst</option>
-                          <option value="shield">Royal shield</option>
+                          <option value="none">{t('pages.certificate.badgeOptions.none')}</option>
+                          <option value="gold-seal">{t('pages.certificate.badgeOptions.goldSeal')}</option>
+                          <option value="silver-seal">{t('pages.certificate.badgeOptions.silverSeal')}</option>
+                          <option value="blue-ribbon">{t('pages.certificate.badgeOptions.blueRibbon')}</option>
+                          <option value="green-laurel">{t('pages.certificate.badgeOptions.greenLaurel')}</option>
+                          <option value="red-medal">{t('pages.certificate.badgeOptions.redMedal')}</option>
+                          <option value="starburst">{t('pages.certificate.badgeOptions.starburst')}</option>
+                          <option value="shield">{t('pages.certificate.badgeOptions.shield')}</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1772,14 +1778,14 @@ export default function CertificateMakerPage() {
                     </div>
                     <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3">
                       <div>
-                        <Label htmlFor="showSeal" className="text-slate-700 font-semibold">Official seal/stamp</Label>
-                        <p className="text-xs text-slate-500">Add an official seal or stamp to the certificate</p>
+                        <Label htmlFor="showSeal" className="text-slate-700 font-semibold">{t('pages.certificate.officialSeal')}</Label>
+                        <p className="text-xs text-slate-500">{t('pages.certificate.officialSealDesc')}</p>
                       </div>
-                      <Switch checked={showSeal} onCheckedChange={setShowSeal} aria-label="Toggle official seal" />
+                      <Switch checked={showSeal} onCheckedChange={setShowSeal} aria-label={t('pages.certificate.toggleOfficialSeal')} />
                     </div>
                     {showSeal && (
                       <div className="space-y-2">
-                        <Label htmlFor="sealStyle" className="text-slate-700">Seal style</Label>
+                        <Label htmlFor="sealStyle" className="text-slate-700">{t('pages.certificate.sealStyle')}</Label>
                         <div className="relative">
                           <select
                             id="sealStyle"
@@ -1787,12 +1793,12 @@ export default function CertificateMakerPage() {
                             onChange={e => setSealStyle(e.target.value as typeof sealStyle)}
                             className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                           >
-                            <option value="classic-official">Classic Official Seal</option>
-                            <option value="notary">Notary Public Seal</option>
-                            <option value="academic">Academic Excellence Seal</option>
-                            <option value="government">Government Official Seal</option>
-                            <option value="corporate">Corporate Seal</option>
-                            <option value="medallion">Medallion Award Seal</option>
+                            <option value="classic-official">{t('pages.certificate.sealStyles.classicOfficial')}</option>
+                            <option value="notary">{t('pages.certificate.sealStyles.notary')}</option>
+                            <option value="academic">{t('pages.certificate.sealStyles.academic')}</option>
+                            <option value="government">{t('pages.certificate.sealStyles.government')}</option>
+                            <option value="corporate">{t('pages.certificate.sealStyles.corporate')}</option>
+                            <option value="medallion">{t('pages.certificate.sealStyles.medallion')}</option>
                           </select>
                           <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1803,7 +1809,7 @@ export default function CertificateMakerPage() {
                       </div>
                     )}
                     <div className="space-y-2">
-                      <Label htmlFor="bgStyle" className="text-slate-700">Background style</Label>
+                      <Label htmlFor="bgStyle" className="text-slate-700">{t('pages.certificate.backgroundStyle')}</Label>
                       <div className="relative">
                         <select
                           id="bgStyle"
@@ -1811,12 +1817,12 @@ export default function CertificateMakerPage() {
                           onChange={e => setBgStyle(e.target.value as typeof bgStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="none">None</option>
-                          <option value="wavy">Wavy bands</option>
-                          <option value="bands">Diagonal bands</option>
-                          <option value="rosette">Center rosette</option>
-                          <option value="sparkle">Sparkle shimmer</option>
-                          <option value="sunburst">Sunburst rays</option>
+                          <option value="none">{t('pages.certificate.bgStyles.none')}</option>
+                          <option value="wavy">{t('pages.certificate.bgStyles.wavy')}</option>
+                          <option value="bands">{t('pages.certificate.bgStyles.bands')}</option>
+                          <option value="rosette">{t('pages.certificate.bgStyles.rosette')}</option>
+                          <option value="sparkle">{t('pages.certificate.bgStyles.sparkle')}</option>
+                          <option value="sunburst">{t('pages.certificate.bgStyles.sunburst')}</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1826,7 +1832,7 @@ export default function CertificateMakerPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="fontStyle" className="text-slate-700">Font style</Label>
+                      <Label htmlFor="fontStyle" className="text-slate-700">{t('pages.certificate.fontStyle')}</Label>
                       <div className="relative">
                         <select
                           id="fontStyle"
@@ -1834,11 +1840,11 @@ export default function CertificateMakerPage() {
                           onChange={e => setFontStyle(e.target.value as typeof fontStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
-                          <option value="print">Print (Sans)</option>
-                          <option value="cursive">Cursive (Script)</option>
-                          <option value="serif">Serif (Formal)</option>
-                          <option value="comic">Comic (Playful)</option>
-                          <option value="handwritten">Handwritten</option>
+                          <option value="print">{t('pages.certificate.fontStyles.print')}</option>
+                          <option value="cursive">{t('pages.certificate.fontStyles.cursive')}</option>
+                          <option value="serif">{t('pages.certificate.fontStyles.serif')}</option>
+                          <option value="comic">{t('pages.certificate.fontStyles.comic')}</option>
+                          <option value="handwritten">{t('pages.certificate.fontStyles.handwritten')}</option>
                         </select>
                         <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400" aria-hidden="true">
                           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
@@ -1852,21 +1858,21 @@ export default function CertificateMakerPage() {
 
                 <section className="flex flex-1 flex-col gap-4 pb-2">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Colors &amp; print</p>
-                    <h2 className="text-lg font-semibold text-slate-900">Make it print-ready</h2>
-                    <p className="text-sm text-slate-500">Fine-tune colors and export settings so everything looks crisp on paper.</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">{t('pages.certificate.colorsPrint')}</p>
+                    <h2 className="text-lg font-semibold text-slate-900">{t('pages.certificate.makePrintReady')}</h2>
+                    <p className="text-sm text-slate-500">{t('pages.certificate.makePrintReadyDesc')}</p>
                   </div>
                   <div className="flex flex-1 flex-col gap-4">
                     <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3">
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">Ink-friendly colors</p>
-                        <p className="text-xs text-slate-500">Reduce heavy fills for economical home printing.</p>
+                        <p className="text-sm font-semibold text-slate-800">{t('pages.certificate.inkFriendly')}</p>
+                        <p className="text-xs text-slate-500">{t('pages.certificate.inkFriendlyDesc')}</p>
                       </div>
-                      <Switch checked={inkFriendly} onCheckedChange={setInkFriendly} aria-label="Toggle ink-friendly colors" />
+                      <Switch checked={inkFriendly} onCheckedChange={setInkFriendly} aria-label={t('pages.certificate.toggleInkFriendly')} />
                     </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="textColor" className="text-slate-700">Text color</Label>
+                        <Label htmlFor="textColor" className="text-slate-700">{t('pages.certificate.textColor')}</Label>
                         <input
                           id="textColor"
                           type="color"
@@ -1876,7 +1882,7 @@ export default function CertificateMakerPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="accentColor" className="text-slate-700">Name color</Label>
+                        <Label htmlFor="accentColor" className="text-slate-700">{t('pages.certificate.nameColor')}</Label>
                         <input
                           id="accentColor"
                           type="color"
@@ -1894,7 +1900,7 @@ export default function CertificateMakerPage() {
                         onClick={() => { setTextColorOverride(''); setAccentColorOverride(''); }}
                         className="rounded-full border-slate-300 bg-white/80 text-slate-600 hover:bg-slate-100"
                       >
-                        Reset colors to theme
+                        {t('pages.certificate.resetColors')}
                       </Button>
                     </div>
                     <div className="mt-auto pt-2 space-y-2">
@@ -1930,7 +1936,7 @@ export default function CertificateMakerPage() {
                             </svg>
                           )}
                         </span>
-                        <span>{isDownloadingPNG ? 'Generating PNG...' : 'Download PNG'}</span>
+                        <span>{isDownloadingPNG ? t('pages.certificate.generatingPNG') : t('pages.certificate.downloadPNG')}</span>
                       </Button>
                       <Button
                         onClick={printPreview}
@@ -1953,7 +1959,7 @@ export default function CertificateMakerPage() {
                             <path d="M17 13h.01" />
                           </svg>
                         </span>
-                        <span>Print / Save as PDF</span>
+                        <span>{t('pages.certificate.printSavePDF')}</span>
                       </Button>
                     </div>
                   </div>
@@ -1966,12 +1972,12 @@ export default function CertificateMakerPage() {
             <div className="relative flex flex-col gap-6 rounded-3xl border border-white/70 bg-white/90 p-6 shadow-xl backdrop-blur-sm lg:h-[calc(100vh-8rem)] lg:min-h-[680px] lg:overflow-hidden">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
                 <div className="space-y-1">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">Live preview</p>
-                  <h2 className="text-2xl font-semibold text-slate-900">Watch your certificate update in real time</h2>
-                  <p className="text-sm text-slate-500">Sized perfectly for US letter paper (landscape).</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">{t('pages.certificate.livePreview')}</p>
+                  <h2 className="text-2xl font-semibold text-slate-900">{t('pages.certificate.watchUpdate')}</h2>
+                  <p className="text-sm text-slate-500">{t('pages.certificate.sizedForPaper')}</p>
                 </div>
                 <div className="w-full rounded-full border border-white/80 bg-white/70 px-4 py-2 text-center text-xs font-semibold text-slate-500 shadow-sm lg:w-auto">
-                  Print-ready landscape layout
+                  {t('pages.certificate.printReadyLayout')}
                 </div>
               </div>
               <div className="relative flex-1 min-h-[480px] lg:min-h-[520px]">
@@ -1995,10 +2001,10 @@ export default function CertificateMakerPage() {
             className="group flex flex-col gap-2 rounded-2xl border border-indigo-100/60 bg-indigo-50/60 p-4 text-sm text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-500 text-xs font-bold text-white shadow-sm">PR</span>
-            <span className="text-sm font-semibold uppercase tracking-[0.25em]">More Printables</span>
-            <span className="text-sm text-indigo-700/80">Discover themed worksheets, writing practice, and print-ready games.</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">{t('pages.certificate.exploreMore.printables')}</span>
+            <span className="text-sm text-indigo-700/80">{t('pages.certificate.exploreMore.printablesDesc')}</span>
             <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
-              Explore
+              {t('pages.certificate.exploreMore.explore')}
               <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 1h8v8" />
                 <path d="M11 1L1 11" />
@@ -2010,10 +2016,10 @@ export default function CertificateMakerPage() {
             className="group flex flex-col gap-2 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-sm">HW</span>
-            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Handwriting Builder</span>
-            <span className="text-sm text-emerald-700/80">Generate cursive or print practice sheets instantly.</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">{t('pages.certificate.exploreMore.handwriting')}</span>
+            <span className="text-sm text-emerald-700/80">{t('pages.certificate.exploreMore.handwritingDesc')}</span>
             <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
-              Start Writing
+              {t('pages.certificate.exploreMore.startWriting')}
               <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 1h8v8" />
                 <path d="M11 1L1 11" />
@@ -2025,10 +2031,10 @@ export default function CertificateMakerPage() {
             className="group flex flex-col gap-2 rounded-2xl border border-rose-100/60 bg-rose-50/60 p-4 text-sm text-rose-700 transition hover:border-rose-300 hover:bg-rose-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-rose-500 text-xs font-bold text-white shadow-sm">NT</span>
-            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Name Tracing</span>
-            <span className="text-sm text-rose-700/80">Create my child's name tracing printable with dotted or bubble letters.</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">{t('pages.certificate.exploreMore.nameTracing')}</span>
+            <span className="text-sm text-rose-700/80">{t('pages.certificate.exploreMore.nameTracingDesc')}</span>
             <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-rose-600">
-              Try It Now
+              {t('pages.certificate.exploreMore.tryItNow')}
               <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 1h8v8" />
                 <path d="M11 1L1 11" />
@@ -2040,10 +2046,10 @@ export default function CertificateMakerPage() {
             className="group flex flex-col gap-2 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white shadow-sm">WS</span>
-            <span className="text-sm font-semibold uppercase tracking-[0.25em]">Grade-Level Worksheets</span>
-            <span className="text-sm text-amber-700/80">Math, reading, and comprehension sets curated by grade.</span>
+            <span className="text-sm font-semibold uppercase tracking-[0.25em]">{t('pages.certificate.exploreMore.worksheets')}</span>
+            <span className="text-sm text-amber-700/80">{t('pages.certificate.exploreMore.worksheetsDesc')}</span>
             <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-amber-600">
-              View Sets
+              {t('pages.certificate.exploreMore.viewSets')}
               <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 1h8v8" />
                 <path d="M11 1L1 11" />
@@ -2059,11 +2065,11 @@ export default function CertificateMakerPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setShowSignatureDrawer(false)}>
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold text-slate-900">Draw Your Signature</h3>
+              <h3 className="text-xl font-semibold text-slate-900">{t('pages.certificate.drawSignature')}</h3>
               <button
                 onClick={() => setShowSignatureDrawer(false)}
                 className="text-slate-400 hover:text-slate-600"
-                aria-label="Close"
+                aria-label={t('pages.certificate.close')}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -2143,7 +2149,7 @@ export default function CertificateMakerPage() {
                 }}
                 className="flex-1 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 font-medium"
               >
-                Clear
+                {t('pages.certificate.clear')}
               </button>
               <button
                 onClick={() => {
@@ -2152,14 +2158,14 @@ export default function CertificateMakerPage() {
                     setSignatureImage(dataURL);
                     setShowSignatureDrawer(false);
                     toast({
-                      title: 'Signature Saved',
-                      description: 'Your drawn signature has been saved successfully.',
+                      title: t('pages.certificate.signatureSaved'),
+                      description: t('pages.certificate.signatureSavedDesc'),
                     });
                   }
                 }}
                 className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
               >
-                Save Signature
+                {t('pages.certificate.saveSignature')}
               </button>
             </div>
           </div>
