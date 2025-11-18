@@ -1525,6 +1525,42 @@ export const en = {
       seoTitle: 'Free Interactive Worksheets Generator | Create PDFs | Wizqo',
       noStudentsAdded: 'No students added yet. Click "Add Student" to add names.',
       faqTitle: 'Interactive worksheets FAQs',
+      hero: {
+        badge: 'Free interactive worksheets • New every day',
+        subtitle: 'Create printable PDFs with answer keys for every grade.',
+        description: 'Choose a grade band, mix and match in-demand categories, and get a fresh set of interactive worksheets with answer keys. Math, reading, SEL, science, and more—ready to print or share in seconds.',
+        browseText: 'Browse our free printable worksheets by grade: 1st Grade Math, 2nd Grade Math, Reading Comprehension, or explore Kids Hub for games and activities.',
+      },
+      buttons: {
+        generateNewPack: 'Generate new unique pack',
+        customize: 'Customize',
+        favorites: 'Favorites ({{count}})',
+        bulkDownload: 'Bulk Download free PDF ({{count}} {{sheets}})',
+        sheet: 'sheet',
+        sheets: 'sheets',
+        share: 'Share',
+      },
+      features: {
+        freeWithAnswerKeys: 'Free interactive worksheets with printable answer keys',
+        unlimitedGenerations: 'Unlimited unique generations—click again for a completely new set',
+        highDemandCategories: '10 high-demand categories across math, literacy, SEL, STEM',
+        oneClickDownload: 'One-click PDF download or shareable link for families',
+      },
+      testimonials: {
+        title: 'Teachers are loving Wizqo\'s interactive worksheets',
+        mia: {
+          quote: 'I used the free interactive worksheets generator for my grade 3 math block—each group got a different PDF with quick answer keys. No repeats all week!',
+          author: 'Mia • 3rd Grade Teacher',
+        },
+        jordan: {
+          quote: 'The SEL and reading comprehension sets are gold. I love that the generator is totally free and prints with answers.',
+          author: 'Jordan • Literacy Coach',
+        },
+      },
+      shareOnFacebook: 'Share on Facebook',
+      shareOnTwitter: 'Share on Twitter',
+      shareOnPinterest: 'Share on Pinterest',
+      copyLink: 'Copy link or share',
       faq: {
         q1: {
           question: 'Are these interactive worksheets really free?',

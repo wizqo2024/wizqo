@@ -1528,6 +1528,42 @@ export const es = {
       seoTitle: 'Generador de Hojas de Trabajo Interactivas Gratis | Crear PDFs | Wizqo',
       noStudentsAdded: 'No se han agregado estudiantes todavía. Haz clic en "Agregar Estudiante" para agregar nombres.',
       faqTitle: 'Preguntas frecuentes sobre hojas de trabajo interactivas',
+      hero: {
+        badge: 'Hojas de trabajo interactivas gratis • Nuevas cada día',
+        subtitle: 'Crea PDFs imprimibles con claves de respuestas para cada grado.',
+        description: 'Elige una banda de grado, combina categorías populares y obtén un conjunto nuevo de hojas de trabajo interactivas con claves de respuestas. Matemáticas, lectura, SEL, ciencias y más—listas para imprimir o compartir en segundos.',
+        browseText: 'Explora nuestras hojas de trabajo imprimibles gratis por grado: Matemáticas de 1er Grado, Matemáticas de 2do Grado, Comprensión Lectora, o explora el Centro para Niños para juegos y actividades.',
+      },
+      buttons: {
+        generateNewPack: 'Generar nuevo paquete único',
+        customize: 'Personalizar',
+        favorites: 'Favoritos ({{count}})',
+        bulkDownload: 'Descarga masiva PDF gratis ({{count}} {{sheets}})',
+        sheet: 'hoja',
+        sheets: 'hojas',
+        share: 'Compartir',
+      },
+      features: {
+        freeWithAnswerKeys: 'Hojas de trabajo interactivas gratis con claves de respuestas imprimibles',
+        unlimitedGenerations: 'Generaciones únicas ilimitadas—haz clic de nuevo para un conjunto completamente nuevo',
+        highDemandCategories: '10 categorías populares en matemáticas, alfabetización, SEL, STEM',
+        oneClickDownload: 'Descarga PDF con un clic o enlace compartible para familias',
+      },
+      testimonials: {
+        title: 'Los maestros adoran las hojas de trabajo interactivas de Wizqo',
+        mia: {
+          quote: 'Usé el generador gratuito de hojas de trabajo interactivas para mi bloque de matemáticas de 3er grado—cada grupo obtuvo un PDF diferente con claves de respuestas rápidas. ¡Sin repeticiones toda la semana!',
+          author: 'Mia • Maestra de 3er Grado',
+        },
+        jordan: {
+          quote: 'Los conjuntos de SEL y comprensión lectora son oro. Me encanta que el generador sea totalmente gratuito e imprima con respuestas.',
+          author: 'Jordan • Coach de Alfabetización',
+        },
+      },
+      shareOnFacebook: 'Compartir en Facebook',
+      shareOnTwitter: 'Compartir en Twitter',
+      shareOnPinterest: 'Compartir en Pinterest',
+      copyLink: 'Copiar enlace o compartir',
       faq: {
         q1: {
           question: '¿Son realmente gratuitas estas hojas de trabajo interactivas?',
