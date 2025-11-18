@@ -3288,19 +3288,19 @@ export function PrintablesPage() {
                 <div className="space-y-3 text-sm">
                   <div className="font-semibold text-base text-violet-900"><strong>Number:</strong> <span className="text-3xl text-violet-700 ml-2">47</span></div>
                   {/* Visual base-10 blocks */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-violet-300">
-                    <svg viewBox="0 0 500 120" className="w-full h-auto">
+                  <div className="bg-white p-4 rounded-lg border-2 border-violet-300 overflow-hidden">
+                    <svg viewBox="0 0 550 130" className="w-full h-auto max-h-32" preserveAspectRatio="xMidYMid meet">
                       {/* 4 tens rods */}
                       {Array.from({ length: 4 }).map((_, j) => (
-                        <rect key={j} x={20 + j * 50} y="20" width="40" height="60" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
+                        <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
                       ))}
-                      <text x="240" y="55" fontSize="16" fill="#16a34a" fontWeight="bold">4 tens = 40</text>
+                      <text x="250" y="50" fontSize="15" fill="#16a34a" fontWeight="bold">4 tens = 40</text>
                       {/* 7 ones cubes */}
                       {Array.from({ length: 7 }).map((_, j) => (
-                        <rect key={j} x={280 + j * 30} y="50" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
+                        <rect key={j} x={15 + j * 35} y="85" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
                       ))}
-                      <text x="280" y="100" fontSize="16" fill="#2563eb" fontWeight="bold">7 ones = 7</text>
-                      <text x="250" y="110" fontSize="18" fill="#7c3aed" fontWeight="bold" textAnchor="middle">47 = 40 + 7</text>
+                      <text x="15" y="120" fontSize="15" fill="#2563eb" fontWeight="bold">7 ones = 7</text>
+                      <text x="275" y="120" fontSize="16" fill="#7c3aed" fontWeight="bold" textAnchor="middle">47 = 40 + 7</text>
                     </svg>
                   </div>
                   <div className="pl-4 border-l-2 border-violet-300 space-y-1">
@@ -3336,16 +3336,16 @@ export function PrintablesPage() {
                     <div key={i} className="border-2 border-violet-200 rounded-lg p-4 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid print:p-3">
                       <div className="text-violet-900 font-semibold mb-3 text-lg print:mb-2">Number: <span className="text-2xl">{n}</span></div>
                       {/* Visual base-10 blocks */}
-                      <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2">
-                        <svg viewBox="0 0 300 80" className="w-full h-auto">
+                      <div className="mb-4 bg-white p-3 rounded border border-violet-300 print:mb-3 print:p-2 overflow-hidden">
+                        <svg viewBox="0 0 280 90" className="w-full h-auto max-h-20" preserveAspectRatio="xMidYMid meet">
                           {/* Tens rods */}
                           {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
-                            <rect key={j} x={10 + j * 35} y="10" width="30" height="50" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                            <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
                           ))}
-                          {tens > 5 && <text x={190} y="35" fontSize="12" fill="#16a34a">+{tens-5} more</text>}
+                          {tens > 5 && <text x={200} y="35" fontSize="11" fill="#16a34a">+{tens-5} more</text>}
                           {/* Ones cubes */}
                           {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
-                            <rect key={j} x={10 + j * 25} y="70" width="18" height="18" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                            <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
                           ))}
                         </svg>
                       </div>
@@ -3564,35 +3564,35 @@ export function PrintablesPage() {
                 <div className="space-y-3 text-sm">
                   <div className="font-mono text-lg text-emerald-900"><strong>Problem:</strong> <span className="text-2xl">23 + 45 = ?</span></div>
                   {/* Visual representation */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-emerald-300">
-                    <svg viewBox="0 0 500 180" className="w-full h-auto">
+                  <div className="bg-white p-4 rounded-lg border-2 border-emerald-300 overflow-hidden">
+                    <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
                       {/* 23 - 2 tens and 3 ones */}
-                      <text x="20" y="30" fontSize="16" fill="#059669" fontWeight="bold">23 =</text>
+                      <text x="10" y="25" fontSize="14" fill="#059669" fontWeight="bold">23 =</text>
                       {/* 2 tens blocks */}
                       {Array.from({ length: 2 }).map((_, j) => (
-                        <rect key={j} x={60 + j * 50} y="10" width="40" height="60" rx="4" fill="#10b981" stroke="#059669" strokeWidth="2" />
+                        <rect key={j} x={50 + j * 55} y="5" width="45" height="65" rx="4" fill="#10b981" stroke="#059669" strokeWidth="2" />
                       ))}
                       {/* 3 ones */}
                       {Array.from({ length: 3 }).map((_, j) => (
-                        <rect key={j} x={170 + j * 30} y="50" width="20" height="20" rx="2" fill="#34d399" stroke="#059669" strokeWidth="1.5" />
+                        <rect key={j} x={165 + j * 35} y="45" width="25" height="25" rx="2" fill="#34d399" stroke="#059669" strokeWidth="1.5" />
                       ))}
                       {/* Plus sign */}
-                      <text x="260" y="50" fontSize="32" fill="#059669" fontWeight="bold">+</text>
+                      <text x="280" y="45" fontSize="28" fill="#059669" fontWeight="bold">+</text>
                       {/* 45 - 4 tens and 5 ones */}
-                      <text x="20" y="110" fontSize="16" fill="#0ea5e9" fontWeight="bold">45 =</text>
+                      <text x="10" y="105" fontSize="14" fill="#0ea5e9" fontWeight="bold">45 =</text>
                       {/* 4 tens blocks */}
                       {Array.from({ length: 4 }).map((_, j) => (
-                        <rect key={j} x={60 + j * 50} y="90" width="40" height="60" rx="4" fill="#38bdf8" stroke="#0ea5e9" strokeWidth="2" />
+                        <rect key={j} x={50 + j * 55} y="85" width="45" height="65" rx="4" fill="#38bdf8" stroke="#0ea5e9" strokeWidth="2" />
                       ))}
                       {/* 5 ones */}
                       {Array.from({ length: 5 }).map((_, j) => (
-                        <rect key={j} x={270 + j * 30} y="130" width="20" height="20" rx="2" fill="#7dd3fc" stroke="#0ea5e9" strokeWidth="1.5" />
+                        <rect key={j} x={280 + j * 35} y="125" width="25" height="25" rx="2" fill="#7dd3fc" stroke="#0ea5e9" strokeWidth="1.5" />
                       ))}
                       {/* Equals and answer */}
-                      <text x="420" y="50" fontSize="32" fill="#059669" fontWeight="bold">=</text>
-                      <text x="420" y="110" fontSize="32" fill="#059669" fontWeight="bold">68</text>
+                      <text x="470" y="45" fontSize="28" fill="#059669" fontWeight="bold">=</text>
+                      <text x="470" y="105" fontSize="28" fill="#059669" fontWeight="bold">68</text>
                       {/* Total: 6 tens and 8 ones */}
-                      <text x="20" y="170" fontSize="14" fill="#059669" fontWeight="bold">Total: 6 tens + 8 ones = 68</text>
+                      <text x="10" y="185" fontSize="12" fill="#059669" fontWeight="bold">Total: 6 tens + 8 ones = 68</text>
                     </svg>
                   </div>
                   <div className="pl-4 border-l-2 border-emerald-300 space-y-1">
@@ -3706,38 +3706,38 @@ export function PrintablesPage() {
                 <div className="space-y-3 text-sm">
                   <div className="font-mono text-lg text-rose-900"><strong>Problem:</strong> <span className="text-2xl">58 − 23 = ?</span></div>
                   {/* Visual representation */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-rose-300">
-                    <svg viewBox="0 0 500 180" className="w-full h-auto">
+                  <div className="bg-white p-4 rounded-lg border-2 border-rose-300 overflow-hidden">
+                    <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
                       {/* 58 - 5 tens and 8 ones */}
-                      <text x="20" y="30" fontSize="16" fill="#e11d48" fontWeight="bold">58 =</text>
+                      <text x="10" y="25" fontSize="14" fill="#e11d48" fontWeight="bold">58 =</text>
                       {/* 5 tens blocks */}
                       {Array.from({ length: 5 }).map((_, j) => (
-                        <rect key={j} x={60 + j * 50} y="10" width="40" height="60" rx="4" fill="#fb7185" stroke="#e11d48" strokeWidth="2" />
+                        <rect key={j} x={50 + j * 55} y="5" width="45" height="65" rx="4" fill="#fb7185" stroke="#e11d48" strokeWidth="2" />
                       ))}
                       {/* 8 ones */}
                       {Array.from({ length: 8 }).map((_, j) => (
-                        <rect key={j} x={320 + j * 30} y="50" width="20" height="20" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
+                        <rect key={j} x={335 + j * 35} y="45" width="25" height="25" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
                       ))}
-                      {/* Minus sign */}
-                      <text x="20" y="110" fontSize="16" fill="#a21caf" fontWeight="bold">− 23 =</text>
+                      {/* Minus sign and subtract 23 */}
+                      <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">− 23 =</text>
                       {/* Cross out 2 tens and 3 ones */}
                       {Array.from({ length: 2 }).map((_, j) => (
                         <g key={j}>
-                          <rect x={60 + j * 50} y="90" width="40" height="60" rx="4" fill="#fda4af" stroke="#a21caf" strokeWidth="2" opacity="0.5" />
-                          <line x1={60 + j * 50} y1="90" x2={100 + j * 50} y2="150" stroke="#dc2626" strokeWidth="3" />
+                          <rect x={50 + j * 55} y="85" width="45" height="65" rx="4" fill="#fda4af" stroke="#a21caf" strokeWidth="2" opacity="0.5" />
+                          <line x1={50 + j * 55} y1="85" x2={95 + j * 55} y2="150" stroke="#dc2626" strokeWidth="3" />
                         </g>
                       ))}
                       {Array.from({ length: 3 }).map((_, j) => (
                         <g key={j}>
-                          <rect x={170 + j * 30} y="130" width="20" height="20" rx="2" fill="#fda4af" stroke="#a21caf" strokeWidth="1.5" opacity="0.5" />
-                          <line x1={170 + j * 30} y1="130" x2={190 + j * 30} y2="150" stroke="#dc2626" strokeWidth="2" />
+                          <rect x={165 + j * 35} y="125" width="25" height="25" rx="2" fill="#fda4af" stroke="#a21caf" strokeWidth="1.5" opacity="0.5" />
+                          <line x1={165 + j * 35} y1="125" x2={190 + j * 35} y2="150" stroke="#dc2626" strokeWidth="2" />
                         </g>
                       ))}
                       {/* Equals and answer */}
-                      <text x="280" y="110" fontSize="32" fill="#e11d48" fontWeight="bold">=</text>
-                      <text x="320" y="110" fontSize="32" fill="#e11d48" fontWeight="bold">35</text>
+                      <text x="280" y="105" fontSize="28" fill="#e11d48" fontWeight="bold">=</text>
+                      <text x="320" y="105" fontSize="28" fill="#e11d48" fontWeight="bold">35</text>
                       {/* Remaining: 3 tens and 5 ones */}
-                      <text x="20" y="170" fontSize="14" fill="#e11d48" fontWeight="bold">Remaining: 3 tens + 5 ones = 35</text>
+                      <text x="10" y="185" fontSize="12" fill="#e11d48" fontWeight="bold">Remaining: 3 tens + 5 ones = 35</text>
                     </svg>
                   </div>
                   <div className="pl-4 border-l-2 border-rose-300 space-y-1">
