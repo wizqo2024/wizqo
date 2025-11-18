@@ -6573,9 +6573,10 @@ function InteractiveWorksheetSection({
   const doc = getDocMeta(docId)
   const category = doc ? categoryByDocId.get(docId) : undefined
 
-  // Force re-render when language changes
+  // Force re-render when language changes by using language in state
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
   React.useEffect(() => {
-    // This effect ensures component re-renders when language changes
+    forceUpdate()
   }, [language])
 
   if (!doc || !category) return null
@@ -6587,7 +6588,8 @@ function InteractiveWorksheetSection({
 
   // Ensure t function works correctly - always use getTranslation directly to bypass context issues
   // This ensures translations work even if context has issues
-  const t = React.useCallback((key: string): string => {
+  // Don't use useCallback - recreate function on every render to ensure latest language is used
+  const t = (key: string): string => {
     // Always use getTranslation directly first - it's the most reliable
     try {
       const directResult = getTranslation(language, key)
@@ -6608,13 +6610,18 @@ function InteractiveWorksheetSection({
         }
       }
       // Final fallback: return the key (will be visible in UI for debugging)
-      // Only log in development to avoid console spam
-      if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-        console.warn(`Translation missing for key: ${key} in language: ${language}`, { directResult, contextResult })
+      // Log in production too for debugging this issue
+      if (typeof window !== 'undefined') {
+        console.warn(`[InteractiveBundleSections] Translation missing: key=${key}, language=${language}`, { 
+          directResult, 
+          contextResult,
+          languageValue: language,
+          keyPath: key
+        })
       }
       return key
     } catch (error) {
-      console.warn('Translation error in renderer:', key, language, error)
+      console.warn('[InteractiveBundleSections] Translation error:', key, language, error)
       // Try context as last resort
       const result = tFromContext(key)
       if (typeof result === 'string' && result !== key && !result.startsWith('worksheets.') && !result.startsWith('categories.')) {
@@ -6631,7 +6638,7 @@ function InteractiveWorksheetSection({
       }
       return key
     }
-  }, [language, tFromContext])
+  }
 
   if (!renderer) {
     return (
