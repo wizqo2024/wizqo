@@ -1262,6 +1262,7 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
 ])
 
 export function PrintablesPage() {
+  const { t } = useTranslation()
   const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
   const doc = params.get('doc') || ''
   const autoPrint = (params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true'
@@ -1315,7 +1316,7 @@ export function PrintablesPage() {
       }
     }
     return resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined, t })
-  }, [doc, packTime, bundleCategoryParam, activeDocs])
+  }, [doc, packTime, bundleCategoryParam, activeDocs, t])
   const pinHref = React.useMemo(() => {
     try {
       const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
