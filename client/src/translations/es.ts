@@ -29,6 +29,24 @@ export const es = {
     answerKeyAndNotes: 'Clave de respuestas y notas del maestro',
     countingTeachingNote: 'Nota para enseñar: Los estudiantes deben contar cada objeto uno por uno. Anima a señalar o tocar cada objeto mientras cuentan para desarrollar la correspondencia uno a uno.',
     traceNumberAndDraw: 'Traza cada número, escríbelo, luego dibuja esa cantidad de objetos.',
+    mathRace: {
+      instructions: 'Configura un temporizador de 60 segundos. Resuelve tantos hechos como puedas, luego encierra en un círculo tu récord personal.',
+    },
+    mathPuzzle: {
+      instructions: 'Completa los números faltantes para completar cada ecuación. Muestra una estrategia diferente (recta numérica, dibujar, marco de diez) para al menos dos rompecabezas.',
+      answerLabel: 'Rompecabezas {{number}} respuesta',
+    },
+    reflection: {
+      title: 'Reflexión',
+      mathRaceQuestions: '¿Cuántos hechos resolviste? ______ • ¿Qué estrategia te ayudó más? ____________________',
+      generalQuestions: '¿Qué te ayudó a completar tus tareas? ¿Qué harías diferente la próxima vez?',
+      mandalaQuestion: 'Reflexión: ¿Cómo te hizo sentir crear este mandala?',
+    },
+    goalSetting: {
+      goalArea: 'Área de objetivo',
+      goalStatement: 'Declaración de objetivo',
+      steps: 'Pasos que tomaré',
+    },
   },
   difficulty: {
     beginner: 'Principiante',

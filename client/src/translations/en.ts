@@ -26,6 +26,24 @@ export const en = {
     answerKeyAndNotes: 'Answer key & teacher notes',
     countingTeachingNote: 'Teaching note: Students should count each object one by one. Encourage pointing or touching each object while counting to develop one-to-one correspondence.',
     traceNumberAndDraw: 'Trace each number, write it, then draw that many objects.',
+    mathRace: {
+      instructions: 'Set a 60-second timer. Solve as many facts as you can, then circle your personal record.',
+    },
+    mathPuzzle: {
+      instructions: 'Fill in the missing numbers to complete each equation. Show a different strategy (number line, draw, tens frame) for at least two puzzles.',
+      answerLabel: 'Puzzle {{number}} answer',
+    },
+    reflection: {
+      title: 'Reflection',
+      mathRaceQuestions: 'How many facts did you solve? ______ • Which strategy helped you most? ____________________',
+      generalQuestions: 'What helped you complete your tasks? What would you do differently next time?',
+      mandalaQuestion: 'Reflection: How did creating this mandala make you feel?',
+    },
+    goalSetting: {
+      goalArea: 'Goal area',
+      goalStatement: 'Goal statement',
+      steps: 'Steps I will take',
+    },
   },
   difficulty: {
     beginner: 'Beginner',

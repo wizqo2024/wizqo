@@ -745,12 +745,13 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-math-race': ({ doc, category, seed, variant }) => {
+  'interactive-math-race': (ctx) => {
+    const { doc, category, seed, variant, t } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Set a 60-second timer. Solve as many facts as you can, then circle your personal record.
+          {t('worksheets.mathRace.instructions')}
         </p>
         <div className="grid grid-cols-3 gap-3">
           {problems.map((prob, idx) => (
@@ -760,18 +761,19 @@ const renderers: Record<string, Renderer> = {
           ))}
         </div>
           <div className="rounded-lg border border-purple-200 bg-purple-50 px-4 py-3 text-sm text-purple-800">
-            <p className="font-semibold">Reflection</p>
-            <p>How many facts did you solve? ______ • Which strategy helped you most? ____________________</p>
+            <p className="font-semibold">{t('worksheets.reflection.title')}</p>
+            <p>{t('worksheets.reflection.mathRaceQuestions')}</p>
           </div>
       </div>
     )
   },
-  'interactive-math-puzzle': ({ doc, seed, variant }) => {
+  'interactive-math-puzzle': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Fill in the missing numbers to complete each equation. Show a different strategy (number line, draw, tens frame) for at least two puzzles.
+          {t('worksheets.mathPuzzle.instructions')}
         </p>
         <div className="grid grid-cols-2 gap-4">
           {puzzles.map((puzzle, idx) => (
@@ -2755,8 +2757,8 @@ const renderers: Record<string, Renderer> = {
           </div>
         </div>
         <div className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 text-xs text-indigo-700">
-          <p className="font-semibold mb-1">Reflection:</p>
-          <p>What helped you complete your tasks? What would you do differently next time?</p>
+          <p className="font-semibold mb-1">{t('worksheets.reflection.title')}:</p>
+          <p>{t('worksheets.reflection.generalQuestions')}</p>
           <div className="mt-2 h-16 border border-dashed border-indigo-300 bg-white rounded"></div>
         </div>
       </div>
@@ -3021,10 +3023,10 @@ const renderers: Record<string, Renderer> = {
         <div className="space-y-3">
           {focuses.map((focus, idx) => (
             <div key={idx} className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-              <p className="font-semibold text-emerald-900">Goal area: {focus}</p>
-              <p>Goal statement: __________________________________________</p>
-              <p>Steps I will take: ________________________________________</p>
-              <p>Reflection: ______________________________________________</p>
+              <p className="font-semibold text-emerald-900">{t('worksheets.goalSetting.goalArea')}: {focus}</p>
+              <p>{t('worksheets.goalSetting.goalStatement')}: __________________________________________</p>
+              <p>{t('worksheets.goalSetting.steps')}: ________________________________________</p>
+              <p>{t('worksheets.reflection.title')}: ______________________________________________</p>
             </div>
           ))}
         </div>
@@ -4822,7 +4824,8 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-art-mandala': ({ seed, doc, variant }) => {
+  'interactive-art-mandala': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const patterns = pickMany(rng, ['circles', 'petals', 'geometric', 'spiral'], 1)
     return (
@@ -4848,7 +4851,7 @@ const renderers: Record<string, Renderer> = {
               <li>• Spiral patterns</li>
               <li>• Lines and curves</li>
             </ul>
-            <p className="mt-4 text-xs text-pink-600">Reflection: How did creating this mandala make you feel?</p>
+            <p className="mt-4 text-xs text-pink-600">{t('worksheets.reflection.mandalaQuestion')}</p>
             <div className="mt-2 h-16 rounded border border-dashed border-pink-300 bg-white"></div>
           </div>
         </div>
@@ -5148,7 +5151,8 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </ol>
     )
   },
-  'interactive-math-race': ({ doc, seed, variant }) => {
+  'interactive-math-race': (ctx) => {
+    const { doc, seed, variant } = ctx
     const problems = buildMathRace(seed, doc.id, variant)
     return (
       <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
@@ -5160,13 +5164,14 @@ const answerRenderers: Record<string, AnswerRenderer> = {
       </div>
     )
   },
-  'interactive-math-puzzle': ({ doc, seed, variant }) => {
+  'interactive-math-puzzle': (ctx) => {
+    const { doc, seed, variant, t } = ctx
     const puzzles = buildMathPuzzle(seed, doc.id, variant)
     return (
       <ol className="list-decimal list-inside space-y-2">
         {puzzles.map((puzzle, idx) => (
           <li key={idx}>
-            <span className="font-semibold">Puzzle {idx + 1} answer:</span> {puzzle.answer}
+            <span className="font-semibold">{t('worksheets.mathPuzzle.answerLabel').replace('{{number}}', String(idx + 1))}:</span> {puzzle.answer}
           </li>
         ))}
       </ol>
