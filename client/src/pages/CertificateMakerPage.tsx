@@ -14,10 +14,6 @@ export default function CertificateMakerPage() {
   const { toast } = useToast();
   const { t, isRTL } = useTranslation();
   
-  React.useEffect(() => {
-    // Ensure re-render on language change
-  }, [t]);
-  
   // Initialize date with today's date
   const getTodayDate = () => {
     const today = new Date();
@@ -28,8 +24,18 @@ export default function CertificateMakerPage() {
   };
 
   const [recipient, setRecipient] = React.useState<string>('');
-  const [awardTitle, setAwardTitle] = React.useState<string>(t('pages.certificate.defaultAwardTitle'));
-  const [reason, setReason] = React.useState<string>(t('pages.certificate.defaultReason'));
+  const [awardTitle, setAwardTitle] = React.useState<string>('');
+  const [reason, setReason] = React.useState<string>('');
+  
+  // Initialize default values after translation context is ready
+  React.useEffect(() => {
+    if (!awardTitle) {
+      setAwardTitle(t('pages.certificate.defaultAwardTitle'));
+    }
+    if (!reason) {
+      setReason(t('pages.certificate.defaultReason'));
+    }
+  }, [t, awardTitle, reason]);
   const [date, setDate] = React.useState<string>(getTodayDate());
   const [issuer, setIssuer] = React.useState<string>('');
   const [signatureImage, setSignatureImage] = React.useState<string | null>(null);
