@@ -779,6 +779,12 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
     case 'mult-fact-families':
       return '⚖️ Fact Families (Multiplication & Division)'
     case 'mult-2x1':
+      if (t) {
+        const translated = t('worksheets.mult-2x1.title')
+        if (translated && translated !== 'worksheets.mult-2x1.title' && !translated.startsWith('worksheets.')) {
+          return translated
+        }
+      }
       return '✖️ Multi-Digit Multiplication (2×1)'
     case 'mult-2x2':
       return '✖️ Multi-Digit Multiplication (2×2)'
@@ -14002,6 +14008,7 @@ export function PrintablesPage() {
         })()}
 
         {activeDocs.includes('mult-2x1') && (() => {
+          const docId = 'mult-2x1'
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
           function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
           const problems: Array<[number, number]> = Array.from({length: 8}).map(() => {
@@ -14009,34 +14016,40 @@ export function PrintablesPage() {
           });
           return (
             <WorksheetSectionWrapper
-              docId="mult-2x1"
-              title="Multi-Digit Multiplication (2×1)"
+              docId={docId}
+              title={getTrans(`worksheets.${docId}.title`, 'Multi-Digit Multiplication (2×1)')}
               emoji="✖️"
-              description="Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed."
+              description={getTrans(`worksheets.${docId}.description`, 'Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed.')}
               problemCount={problems.length}
-              learningObjectives={[
-                'Multiply 2-digit numbers by 1-digit numbers',
-                'Use regrouping when needed',
-                'Solve multiplication problems accurately'
-              ]}
-              parentTeacherTips={[
-                'Encourage students to show their work step-by-step',
-                'Watch for common mistakes: forgetting to carry, misaligning numbers',
-                'If stuck, review the example together',
-                'Extension: Create your own problems using numbers 10-99'
-              ]}
+              learningObjectives={(() => {
+                const objectives = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
+                  'Multiply 2-digit numbers by 1-digit numbers',
+                  'Use regrouping when needed',
+                  'Solve multiplication problems accurately'
+                ]
+              })()}
+              parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tips) && tips.length > 0 ? tips : [
+                  'Encourage students to show their work step-by-step',
+                  'Watch for common mistakes: forgetting to carry, misaligning numbers',
+                  'If stuck, review the example together',
+                  'Extension: Create your own problems using numbers 10-99'
+                ]
+              })()}
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
               <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.example.title`, '📚 Example - Let\'s solve this together:')}</div>
                 <div className="space-y-2 text-sm">
-                  <div className="font-mono text-base"><strong>Problem:</strong> 24 × 3 = ?</div>
+                  <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong> {getTrans(`worksheets.${docId}.example.problemText`, '24 × 3 = ?')}</div>
                   <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Multiply ones: 4 × 3 = 12</div>
-                    <div><strong>Step 2:</strong> Write 2 in ones place, carry 1 to tens</div>
-                    <div><strong>Step 3:</strong> Multiply tens: 2 × 3 = 6, add carried 1 = 7</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong> {getTrans(`worksheets.${docId}.example.step1Text`, 'Multiply ones: 4 × 3 = 12')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Write 2 in ones place, carry 1 to tens')}</div>
+                    <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong> {getTrans(`worksheets.${docId}.example.step3Text`, 'Multiply tens: 2 × 3 = 6, add carried 1 = 7')}</div>
+                    <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '72')}</div>
                   </div>
                 </div>
               </div>
@@ -14048,38 +14061,54 @@ export function PrintablesPage() {
                       <div>× {b}</div>
                       <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
                     </div>
-                    <div className="mt-2 text-xs text-slate-600">Show your work:</div>
+                    <div className="mt-2 text-xs text-slate-600">{getTrans(`worksheets.${docId}.showWork`, 'Show your work:')}</div>
                     <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
                   </div>
                 ))}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">🌟 Challenge Yourself (Optional):</div>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{getTrans(`worksheets.${docId}.challenge.title`, '🌟 Challenge Yourself (Optional):')}</div>
                 <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own 2×1 multiplication problem: ___ × ___ = ?</div>
-                  <div>2. Solve: 99 × 9 = ? (the biggest 2×1 problem!)</div>
-                  <div>3. Write a word problem using 2×1 multiplication</div>
+                  {(() => {
+                    const challengeItems = t(`worksheets.${docId}.challenge.items`)
+                    const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
+                      'Create your own 2×1 multiplication problem: ___ × ___ = ?',
+                      'Solve: 99 × 9 = ? (the biggest 2×1 problem!)',
+                      'Write a word problem using 2×1 multiplication'
+                    ]
+                    return items.map((item, idx) => (
+                      <div key={idx}>{idx + 1}. {item}</div>
+                    ))
+                  })()}
                 </div>
               </div>
               {/* Self-Assessment */}
               <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">📊 How did you do?</div>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{getTrans(`worksheets.${docId}.selfAssessment.title`, '📊 How did you do?')}</div>
                 <div className="space-y-2 text-xs">
-                  <div>☐ I can multiply 2-digit by 1-digit numbers</div>
-                  <div>☐ I can regroup correctly</div>
-                  <div>☐ I understand the process</div>
+                  {(() => {
+                    const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
+                    const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
+                      'I can multiply 2-digit by 1-digit numbers',
+                      'I can regroup correctly',
+                      'I understand the process'
+                    ]
+                    return items.map((item, idx) => (
+                      <div key={idx}>☐ {item}</div>
+                    ))
+                  })()}
                 </div>
                 <div className="mt-3 text-xs">
-                  <strong>My score:</strong> ___ / {problems.length}
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
                 </div>
                 <div className="mt-2 text-xs">
-                  <strong>What was hardest?</strong> _________________________
+                  <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
                 </div>
               </div>
               {showAnswersForDoc('mult-2x1', () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">✅ Answer Key (with steps)</div>
+                  <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(`worksheets.${docId}.answerKey.title`, '✅ Answer Key (with steps)')}</div>
                   <div className="space-y-3">
                     {problems.map(([a, b], i) => {
                       const ones = a % 10;
@@ -14093,9 +14122,9 @@ export function PrintablesPage() {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. {a} × {b}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>Step 1: {ones} × {b} = {onesProduct} (write {finalOnes}, carry {carry})</div>
-                            <div>Step 2: {tens} × {b} = {tensProduct}, add {carry} = {finalTens}</div>
-                            <div className="font-semibold">Answer: {a * b}</div>
+                            <div>{getTrans(`worksheets.${docId}.answerKey.step1`, 'Step 1:')} {ones} × {b} = {onesProduct} ({getTrans(`worksheets.${docId}.answerKey.write`, 'write')} {finalOnes}, {getTrans(`worksheets.${docId}.answerKey.carry`, 'carry')} {carry})</div>
+                            <div>{getTrans(`worksheets.${docId}.answerKey.step2`, 'Step 2:')} {tens} × {b} = {tensProduct}, {getTrans(`worksheets.${docId}.answerKey.add`, 'add')} {carry} = {finalTens}</div>
+                            <div className="font-semibold">{getTrans(`worksheets.${docId}.answerKey.answer`, 'Answer:')} {a * b}</div>
                           </div>
                         </div>
                       );
