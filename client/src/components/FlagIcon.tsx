@@ -6,10 +6,10 @@ interface FlagIconProps {
   className?: string
 }
 
-export function FlagIcon({ code, className = 'w-5 h-4' }: FlagIconProps) {
+export function FlagIcon({ code, className = 'w-6 h-4' }: FlagIconProps) {
   const flags = {
     en: (
-      <svg viewBox="0 0 60 30" className={className} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 60 30" className={className} xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
         {/* US Flag - Red and white stripes */}
         <rect width="60" height="30" fill="#B22234"/>
         <rect y="0" width="60" height="4.29" fill="#FFFFFF"/>
@@ -21,7 +21,7 @@ export function FlagIcon({ code, className = 'w-5 h-4' }: FlagIconProps) {
       </svg>
     ),
     es: (
-      <svg viewBox="0 0 60 40" className={className} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 60 40" className={className} xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
         {/* Spain Flag - Red, yellow, red */}
         <rect width="60" height="13.33" fill="#AA151B"/>
         <rect y="13.33" width="60" height="13.33" fill="#F1BF00"/>
@@ -29,7 +29,7 @@ export function FlagIcon({ code, className = 'w-5 h-4' }: FlagIconProps) {
       </svg>
     ),
     ar: (
-      <svg viewBox="0 0 60 40" className={className} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 60 40" className={className} xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
         {/* Saudi Arabia Flag - Green with white Arabic text and sword */}
         <rect width="60" height="40" fill="#006C35"/>
         {/* Simplified white text area */}

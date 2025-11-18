@@ -61,7 +61,7 @@ export function LanguageSelector() {
         aria-label="Select language"
         aria-expanded={isOpen}
       >
-        <FlagIcon code={currentLanguage.code as 'en' | 'es' | 'ar'} className="w-5 h-4" />
+        <FlagIcon code={currentLanguage.code as 'en' | 'es' | 'ar'} className="w-6 h-4 flex-shrink-0" />
         <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       
@@ -75,7 +75,7 @@ export function LanguageSelector() {
                 language === lang.code ? 'bg-purple-50 text-purple-600' : 'text-slate-700'
               }`}
             >
-              <FlagIcon code={lang.code as 'en' | 'es' | 'ar'} className="w-5 h-4 flex-shrink-0" />
+              <FlagIcon code={lang.code as 'en' | 'es' | 'ar'} className="w-6 h-4 flex-shrink-0" />
               <span>{lang.name}</span>
             </button>
           ))}
