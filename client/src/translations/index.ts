@@ -13,26 +13,40 @@ export const translations = {
 
 // Helper function to get translation with fallback
 export function getTranslation(language: Language, key: string): string {
-  const keys = key.split('.')
-  let value: any = translations[language]
-  
-  // Navigate through nested keys
-  for (const k of keys) {
-    value = value?.[k]
-    if (value === undefined) break
-  }
-  
-  // Fallback to English if translation missing
-  if (value === undefined && language !== 'en') {
-    let fallbackValue: any = translations.en
+  try {
+    const keys = key.split('.')
+    let value: any = translations[language]
+    
+    // Navigate through nested keys
     for (const k of keys) {
-      fallbackValue = fallbackValue?.[k]
-      if (fallbackValue === undefined) break
+      if (value === null || value === undefined) break
+      value = value[k]
     }
-    return fallbackValue || key
+    
+    // If we got a valid string, return it
+    if (typeof value === 'string' && value.length > 0) {
+      return value
+    }
+    
+    // Fallback to English if translation missing
+    if (language !== 'en') {
+      let fallbackValue: any = translations.en
+      for (const k of keys) {
+        if (fallbackValue === null || fallbackValue === undefined) break
+        fallbackValue = fallbackValue[k]
+      }
+      if (typeof fallbackValue === 'string' && fallbackValue.length > 0) {
+        return fallbackValue
+      }
+    }
+    
+    // Final fallback: return the key itself (so it's visible if translation missing)
+    return key
+  } catch (error) {
+    // If anything goes wrong, just return the key
+    console.warn('Translation error for key:', key, error)
+    return key
   }
-  
-  return value || key
 }
 
 // Check if language is RTL
