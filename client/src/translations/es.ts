@@ -43,6 +43,7 @@ export const es = {
       mandalaQuestion: 'Reflexión: ¿Cómo te hizo sentir crear este mandala?',
     },
     goalSetting: {
+      instructions: 'Establece un objetivo semanal en las áreas a continuación. Planifica pasos pequeños y reflexiona al final de la semana.',
       goalArea: 'Área de objetivo',
       goalStatement: 'Declaración de objetivo',
       steps: 'Pasos que tomaré',

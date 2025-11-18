@@ -40,6 +40,7 @@ export const en = {
       mandalaQuestion: 'Reflection: How did creating this mandala make you feel?',
     },
     goalSetting: {
+      instructions: 'Set a weekly goal in the areas below. Plan small steps and reflect at the end of the week.',
       goalArea: 'Goal area',
       goalStatement: 'Goal statement',
       steps: 'Steps I will take',

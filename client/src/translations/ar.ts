@@ -43,6 +43,7 @@ export const ar = {
       mandalaQuestion: 'التفكير: كيف جعلك إنشاء هذا الماندالا تشعر؟',
     },
     goalSetting: {
+      instructions: 'حدد هدفاً أسبوعياً في المناطق أدناه. خطط خطوات صغيرة وفكر في نهاية الأسبوع.',
       goalArea: 'منطقة الهدف',
       goalStatement: 'بيان الهدف',
       steps: 'الخطوات التي سأتخذها',

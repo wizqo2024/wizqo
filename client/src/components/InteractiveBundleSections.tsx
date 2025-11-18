@@ -3012,13 +3012,14 @@ const renderers: Record<string, Renderer> = {
       </div>
     )
   },
-  'interactive-sel-goals': ({ seed, doc, variant }) => {
+  'interactive-sel-goals': (ctx) => {
+    const { seed, doc, variant, t } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const focuses = pickMany(rng, ['collaboration', 'growth mindset', 'healthy habits', 'kindness', 'study skills', 'creative risk-taking'], 3)
     return (
       <div className="space-y-3">
         <p className="text-sm text-slate-600">
-          Set a weekly goal in the areas below. Plan small steps and reflect at the end of the week.
+          {t('worksheets.goalSetting.instructions')}
         </p>
         <div className="space-y-3">
           {focuses.map((focus, idx) => (
