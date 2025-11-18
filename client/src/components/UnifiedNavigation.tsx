@@ -359,7 +359,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           </div>
 
           {/* Right side - Account */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4" dir="ltr">
             {user ? (
               <div className="relative">
                 <Button
