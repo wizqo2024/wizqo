@@ -3174,43 +3174,92 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Number:</strong> 47</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find tens: 47 has 4 tens (40)</div>
-                    <div><strong>Step 2:</strong> Find ones: 47 has 7 ones</div>
-                    <div><strong>Step 3:</strong> Expanded form: 40 + 7</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Tens: 4, Ones: 7, Expanded: 40 + 7</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-violet-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-semibold text-base text-violet-900"><strong>Number:</strong> <span className="text-3xl text-violet-700 ml-2">47</span></div>
+                  {/* Visual base-10 blocks */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-violet-300">
+                    <svg viewBox="0 0 500 120" className="w-full h-auto">
+                      {/* 4 tens rods */}
+                      {Array.from({ length: 4 }).map((_, j) => (
+                        <rect key={j} x={20 + j * 50} y="20" width="40" height="60" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
+                      ))}
+                      <text x="240" y="55" fontSize="16" fill="#16a34a" fontWeight="bold">4 tens = 40</text>
+                      {/* 7 ones cubes */}
+                      {Array.from({ length: 7 }).map((_, j) => (
+                        <rect key={j} x={280 + j * 30} y="50" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
+                      ))}
+                      <text x="280" y="100" fontSize="16" fill="#2563eb" fontWeight="bold">7 ones = 7</text>
+                      <text x="250" y="110" fontSize="18" fill="#7c3aed" fontWeight="bold" textAnchor="middle">47 = 40 + 7</text>
+                    </svg>
+                  </div>
+                  <div className="pl-4 border-l-2 border-violet-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find tens: <span className="text-violet-700 font-bold">47 has 4 tens (40)</span></div>
+                    <div><strong>Step 2:</strong> Find ones: <span className="text-violet-700 font-bold">47 has 7 ones</span></div>
+                    <div><strong>Step 3:</strong> Expanded form: <span className="text-violet-700 font-bold text-lg">40 + 7</span></div>
+                    <div className="font-semibold text-violet-900 mt-2"><strong>Answer:</strong> Tens: <span className="text-violet-700">4</span>, Ones: <span className="text-violet-700">7</span>, Expanded: <span className="text-violet-700">40 + 7</span></div>
+                    <div className="text-xs text-violet-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!</span>
+                    </div>
                   </div>
                 </div>
               </div>
               {/* Visual legend */}
-              <div className="print:hidden mb-3 flex items-center gap-4 text-sm">
-                <svg viewBox="0 0 160 40" className="h-10 w-auto">
+              <div className="mb-3 flex items-center gap-4 text-sm bg-violet-50 p-3 rounded-lg border border-violet-200">
+                <svg viewBox="0 0 200 50" className="h-12 w-auto">
                   {/* Tens rod */}
-                  <rect x="10" y="6" width="12" height="28" fill={isColor ? '#22c55e' : 'none'} stroke="#111827" strokeWidth="2" />
-                  <text x="30" y="24" fontSize="12" fill="#111827">Tens rod</text>
+                  <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                  <text x="35" y="28" fontSize="12" fill="#16a34a" fontWeight="bold">= 1 Ten (10)</text>
                   {/* Ones cubes */}
                   {Array.from({length:3}).map((_,i)=> (
-                    <rect key={i} x={86 + i*14} y={12} width="10" height="10" fill={isColor ? '#60a5fa' : 'none'} stroke="#111827" strokeWidth="2" />
+                    <rect key={i} x={120 + i*18} y="20" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
                   ))}
-                  <text x="130" y="24" fontSize="12" fill="#111827">Ones</text>
+                  <text x="180" y="28" fontSize="12" fill="#2563eb" fontWeight="bold">= 1 One</text>
                 </svg>
               </div>
               <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {nums.map((n,i)=> (
-                  <div key={i} className="border border-slate-300 rounded-lg p-3 bg-white break-inside-avoid">
-                    <div className="text-slate-800 font-semibold mb-2">Number: {n}</div>
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      <div className="border border-slate-300 rounded p-2">Tens: ______</div>
-                      <div className="border border-slate-300 rounded p-2">Ones: ______</div>
-                      <div className="border border-slate-300 rounded p-2">Expanded: ______ + ______</div>
+                {nums.map((n,i)=> {
+                  const tens = Math.floor(n/10);
+                  const ones = n%10;
+                  return (
+                    <div key={i} className="border-2 border-violet-200 rounded-lg p-3 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
+                      <div className="text-violet-900 font-semibold mb-2 text-lg">Number: <span className="text-2xl">{n}</span></div>
+                      {/* Visual base-10 blocks */}
+                      <div className="mb-3 bg-white p-2 rounded border border-violet-300">
+                        <svg viewBox="0 0 300 80" className="w-full h-auto">
+                          {/* Tens rods */}
+                          {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
+                            <rect key={j} x={10 + j * 35} y="10" width="30" height="50" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                          ))}
+                          {tens > 5 && <text x={190} y="35" fontSize="12" fill="#16a34a">+{tens-5} more</text>}
+                          {/* Ones cubes */}
+                          {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
+                            <rect key={j} x={10 + j * 25} y="70" width="18" height="18" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                          ))}
+                        </svg>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 text-sm">
+                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
+                          <div className="text-xs text-violet-600 mb-1">Tens:</div>
+                          <div className="text-violet-900 font-mono">______</div>
+                        </div>
+                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
+                          <div className="text-xs text-violet-600 mb-1">Ones:</div>
+                          <div className="text-violet-900 font-mono">______</div>
+                        </div>
+                        <div className="border-2 border-violet-300 rounded p-2 bg-white">
+                          <div className="text-xs text-violet-600 mb-1">Expanded:</div>
+                          <div className="text-violet-900 font-mono text-xs">___ + ___</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -3679,35 +3728,108 @@ export function PrintablesPage() {
             >
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
               {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong> Tom has 15 apples. He buys 12 more. How many apples does he have now?</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Find the numbers: 15 apples, 12 more</div>
-                    <div><strong>Step 2:</strong> Write the equation: 15 + 12 = ?</div>
-                    <div><strong>Step 3:</strong> Solve: 15 + 12 = 27</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 27 apples</div>
-                    <div className="text-xs text-blue-700 mt-1">💡 Tip: "More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!</div>
+              <div className="mb-6 p-4 bg-gradient-to-br from-amber-50 to-lime-50 border-2 border-amber-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-amber-900 mb-3 text-sm flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  <span>Example - Let's solve this together:</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="font-semibold text-base text-amber-900"><strong>Problem:</strong> Tom has 15 apples. He buys 12 more. How many apples does he have now?</div>
+                  {/* Visual illustration */}
+                  <div className="bg-white p-4 rounded-lg border-2 border-amber-300">
+                    <div className="flex items-center justify-center gap-4 mb-3">
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">Tom has:</div>
+                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
+                          {Array.from({ length: 15 }).map((_, i) => (
+                            <span key={i} className="text-2xl">🍎</span>
+                          ))}
+                        </div>
+                        <div className="text-sm font-semibold text-amber-700 mt-1">15 apples</div>
+                      </div>
+                      <div className="text-3xl text-amber-700 font-bold">+</div>
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">Buys:</div>
+                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
+                          {Array.from({ length: 12 }).map((_, i) => (
+                            <span key={i} className="text-2xl">🍎</span>
+                          ))}
+                        </div>
+                        <div className="text-sm font-semibold text-amber-700 mt-1">12 more</div>
+                      </div>
+                      <div className="text-3xl text-amber-700 font-bold">=</div>
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">Total:</div>
+                        <div className="text-4xl font-bold text-amber-700">27</div>
+                        <div className="text-sm font-semibold text-amber-700 mt-1">apples</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pl-4 border-l-2 border-amber-300 space-y-1">
+                    <div><strong>Step 1:</strong> Find the numbers: <span className="text-amber-700 font-bold">15 apples, 12 more</span></div>
+                    <div><strong>Step 2:</strong> Write the equation: <span className="text-amber-700 font-bold text-lg">15 + 12 = ?</span></div>
+                    <div><strong>Step 3:</strong> Solve: <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
+                    <div className="font-semibold text-amber-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
+                    <div className="text-xs text-amber-700 mt-2 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Tip: "More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!</span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {problems.map((item, i) => (
-                  <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="text-base font-semibold text-slate-800 mb-2">
-                      {i + 1}. {item.problem}
+                {problems.map((item, i) => {
+                  const isAdd = item.equation.includes('+');
+                  const nums = item.equation.match(/\d+/g) || [];
+                  const num1 = parseInt(nums[0] || '0');
+                  const num2 = parseInt(nums[1] || '0');
+                  const emoji = item.problem.includes('marbles') ? '🔴' : 
+                               item.problem.includes('books') ? '📚' :
+                               item.problem.includes('stickers') ? '⭐' :
+                               item.problem.includes('pencils') ? '✏️' : '📄';
+                  return (
+                    <div key={i} className="border-2 border-amber-200 rounded-lg p-4 bg-gradient-to-br from-amber-50 to-lime-50 break-inside-avoid">
+                      <div className="text-base font-semibold text-amber-900 mb-3 flex items-start gap-2">
+                        <span className="text-xl">{i + 1}.</span>
+                        <span>{item.problem}</span>
+                      </div>
+                      {/* Visual illustration */}
+                      <div className="bg-white p-3 rounded-lg border-2 border-amber-300 mb-3">
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="text-center">
+                            <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
+                              {Array.from({ length: Math.min(num1, 20) }).map((_, j) => (
+                                <span key={j} className="text-xl">{emoji}</span>
+                              ))}
+                            </div>
+                            <div className="text-xs font-semibold text-amber-700">{num1}</div>
+                          </div>
+                          <div className="text-2xl text-amber-700 font-bold">{isAdd ? '+' : '−'}</div>
+                          <div className="text-center">
+                            <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
+                              {Array.from({ length: Math.min(num2, 20) }).map((_, j) => (
+                                <span key={j} className="text-xl">{emoji}</span>
+                              ))}
+                            </div>
+                            <div className="text-xs font-semibold text-amber-700">{num2}</div>
+                          </div>
+                          <div className="text-2xl text-amber-700 font-bold">=</div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-amber-700">?</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mb-2">
+                        <div className="text-sm text-amber-700 mb-1 font-semibold">Equation:</div>
+                        <div className="text-lg font-mono text-amber-900 bg-white px-3 py-1 rounded border border-amber-300">{item.equation}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-amber-700 mb-1 font-semibold">Answer:</div>
+                        <div className="h-10 border-b-[3px] border-amber-600 mt-2 bg-white rounded px-2" />
+                      </div>
                     </div>
-                    <div className="mb-2">
-                      <div className="text-sm text-slate-600 mb-1">Equation:</div>
-                      <div className="text-lg font-mono text-slate-800">{item.equation}</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-slate-600 mb-1">Answer:</div>
-                      <div className="h-10 border-b-[3px] border-slate-600 mt-2" />
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               {/* Extension/Challenge Problems */}
               <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
@@ -10060,33 +10182,61 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Task:</strong> Count the objects and write the number</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+            <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-indigo-900"><strong>Task:</strong> Count the objects and write the number</div>
+                {/* Visual example */}
+                <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+                  <div className="flex items-center justify-center gap-6 mb-3">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i} className="text-5xl">⭐</span>
+                    ))}
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-indigo-700 mb-2">Count: 1, 2, 3, 4, 5</div>
+                    <div className="inline-block border-2 border-indigo-500 rounded-lg px-4 py-2">
+                      <span className="text-3xl font-bold text-indigo-700">5</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
                   <div><strong>Step 1:</strong> Look at the objects carefully</div>
-                  <div><strong>Step 2:</strong> Count each object one by one: 1, 2, 3, 4, 5...</div>
-                  <div><strong>Step 3:</strong> Write the total number in the box</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> Count all objects and write the correct number</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Point to each object as you count to make sure you don't miss any or count any twice!</div>
+                  <div><strong>Step 2:</strong> Count each object one by one: <span className="text-indigo-700 font-bold">1, 2, 3, 4, 5...</span></div>
+                  <div><strong>Step 3:</strong> Write the total number in the box: <span className="text-indigo-700 font-bold text-lg">5</span></div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> Count all objects and write the correct number</div>
+                  <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Point to each object as you count to make sure you don't miss any or count any twice!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[5, 8, 12, 15, 18, 20, 23, 25].map((count) => (
-                <svg key={count} viewBox="0 0 400 160" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="#111827">
-                    {Array.from({ length: count }).map((_, i) => {
-                      const cols = Math.ceil(Math.sqrt(count))
-                      const row = Math.floor(i / cols)
-                      const col = i % cols
-                      return <circle key={i} cx={80 + col * 25} cy={60 + row * 25} r="8" />
-                    })}
-                  </g>
-                  <rect x="280" y="40" width="80" height="50" fill="none" stroke="#111827" strokeWidth="2.5" />
-                  <text x="320" y="75" fontSize="28" fill="#94a3b8" textAnchor="middle">__</text>
-                </svg>
+              {[[5, '⭐'], [8, '🌟'], [12, '🎈'], [15, '🎉'], [18, '🍎'], [20, '🍊'], [23, '🐶'], [25, '🐱']].map(([count, emoji]) => (
+                <div key={count} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
+                  <svg viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    <g>
+                      {Array.from({ length: count }).map((_, i) => {
+                        const cols = Math.ceil(Math.sqrt(count))
+                        const row = Math.floor(i / cols)
+                        const col = i % cols
+                        return (
+                          <g key={i} transform={`translate(${60 + col * 25}, ${40 + row * 25})`}>
+                            <circle cx="0" cy="0" r="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
+                            <text x="0" y="4" fontSize="16" textAnchor="middle">{emoji}</text>
+                          </g>
+                        )
+                      })}
+                    </g>
+                    <rect x="280" y="60" width="80" height="50" fill="white" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="4 4" />
+                    <text x="320" y="95" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
+                    <text x="200" y="150" fontSize="14" fill="#6366f1" textAnchor="middle" fontWeight="bold">Count and write: ___</text>
+                  </svg>
+                </div>
               ))}
             </div>
             {/* Extension/Challenge Problems */}
@@ -10248,37 +10398,85 @@ export function PrintablesPage() {
           >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-              <div className="font-semibold text-blue-900 mb-3 text-sm">📚 Example - Let's solve this together:</div>
-              <div className="space-y-2 text-sm">
-                <div className="font-semibold text-base"><strong>Problem:</strong> 3 circles + 4 circles = ?</div>
-                <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                  <div><strong>Step 1:</strong> Count the first group: 1, 2, 3 (3 circles)</div>
-                  <div><strong>Step 2:</strong> Count the second group: 1, 2, 3, 4 (4 circles)</div>
-                  <div><strong>Step 3:</strong> Add them together: 3 + 4 = 7</div>
-                  <div className="font-semibold text-blue-900"><strong>Answer:</strong> 7</div>
-                  <div className="text-xs text-blue-700 mt-1">💡 Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</div>
+            <div className="mb-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white">
+              <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                <span className="text-2xl">📚</span>
+                <span>Example - Let's solve this together:</span>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="font-semibold text-base text-indigo-900"><strong>Problem:</strong> <span className="text-2xl">3 apples + 4 apples = ?</span></div>
+                {/* Visual example with colorful apples */}
+                <div className="bg-white p-4 rounded-lg border-2 border-indigo-300">
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <span key={i} className="text-4xl">🍎</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-indigo-700">3 apples</div>
+                    </div>
+                    <div className="text-4xl text-indigo-700 font-bold">+</div>
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <span key={i} className="text-4xl">🍎</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-indigo-700">4 apples</div>
+                    </div>
+                    <div className="text-4xl text-indigo-700 font-bold">=</div>
+                    <div className="text-center">
+                      <div className="flex gap-2 mb-2">
+                        {Array.from({ length: 7 }).map((_, i) => (
+                          <span key={i} className="text-4xl">🍎</span>
+                        ))}
+                      </div>
+                      <div className="text-sm font-semibold text-indigo-700">7 apples</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="pl-4 border-l-2 border-indigo-300 space-y-1">
+                  <div><strong>Step 1:</strong> Count the first group: <span className="text-indigo-700 font-bold">1, 2, 3</span> (3 apples)</div>
+                  <div><strong>Step 2:</strong> Count the second group: <span className="text-indigo-700 font-bold">1, 2, 3, 4</span> (4 apples)</div>
+                  <div><strong>Step 3:</strong> Add them together: <span className="text-indigo-700 font-bold text-lg">3 + 4 = 7</span></div>
+                  <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> <span className="text-2xl text-indigo-700">7</span></div>
+                  <div className="text-xs text-indigo-700 mt-2 flex items-center gap-1">
+                    <span>💡</span>
+                    <span>Tip: Count each group first, then add the numbers together. You can also count all the pictures to check your answer!</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-              {[[3, 4], [2, 5], [4, 3], [1, 6], [5, 2], [3, 5]].map(([a, b], idx) => (
-                <svg key={idx} viewBox="0 0 400 180" className="w-full h-auto bg-white border border-slate-300 rounded">
-                  <g fill="#111827">
-                    {Array.from({ length: a }).map((_, i) => (
-                      <circle key={i} cx={60 + i * 30} cy="60" r="10" />
-                    ))}
-                  </g>
-                  <text x="200" y="70" fontSize="32" fill="#111827" textAnchor="middle">+</text>
-                  <g fill="#111827">
-                    {Array.from({ length: b }).map((_, i) => (
-                      <circle key={i} cx={240 + i * 30} cy="60" r="10" />
-                    ))}
-                  </g>
-                  <line x1="50" y1="120" x2="350" y2="120" stroke="#111827" strokeWidth="2" />
-                  <rect x="160" y="130" width="80" height="40" fill="none" stroke="#111827" strokeWidth="2.5" />
-                  <text x="200" y="160" fontSize="28" fill="#94a3b8" textAnchor="middle">__</text>
-                </svg>
+              {[[3, 4, '🍎', '🍊'], [2, 5, '⭐', '🌟'], [4, 3, '🐶', '🐱'], [1, 6, '🚗', '🚙'], [5, 2, '🎈', '🎉'], [3, 5, '🌺', '🌻']].map(([a, b, emoji1, emoji2], idx) => (
+                <div key={idx} className="bg-gradient-to-br from-indigo-50 to-purple-50 p-3 rounded-lg border-2 border-indigo-200">
+                  <svg viewBox="0 0 400 200" className="w-full h-auto bg-white border border-slate-300 rounded">
+                    {/* First group */}
+                    <g>
+                      {Array.from({ length: a }).map((_, i) => (
+                        <g key={i} transform={`translate(${60 + i * 35}, 50)`}>
+                          <circle cx="0" cy="0" r="18" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
+                          <text x="0" y="5" fontSize="24" textAnchor="middle">{emoji1}</text>
+                        </g>
+                      ))}
+                    </g>
+                    <text x="200" y="70" fontSize="36" fill="#6366f1" fontWeight="bold" textAnchor="middle">+</text>
+                    {/* Second group */}
+                    <g>
+                      {Array.from({ length: b }).map((_, i) => (
+                        <g key={i} transform={`translate(${240 + i * 35}, 50)`}>
+                          <circle cx="0" cy="0" r="18" fill="#dbeafe" stroke="#3b82f6" strokeWidth="2" />
+                          <text x="0" y="5" fontSize="24" textAnchor="middle">{emoji2}</text>
+                        </g>
+                      ))}
+                    </g>
+                    <line x1="50" y1="120" x2="350" y2="120" stroke="#6366f1" strokeWidth="3" />
+                    <rect x="160" y="130" width="80" height="40" fill="white" stroke="#6366f1" strokeWidth="2.5" strokeDasharray="4 4" />
+                    <text x="200" y="158" fontSize="28" fill="#94a3b8" textAnchor="middle">?</text>
+                    <text x="200" y="180" fontSize="14" fill="#6366f1" textAnchor="middle" fontWeight="bold">{a} + {b} = ___</text>
+                  </svg>
+                </div>
               ))}
             </div>
             {/* Extension/Challenge Problems */}
